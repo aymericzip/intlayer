@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: 2026 年，next-intl 已经过时了吗？
 description: next-intl 已成为 Next.js App Router 的主流国际化方案。然而，其运行时打包体积开销以及繁琐的手动命名空间拆分依然是不可忽视的短板。
 keywords:
@@ -66,7 +66,7 @@ author: aymericzip
 - `amannn/next-intl`：**187 次 commit**（主要针对 Next.js 更新进行补丁维护）。
 - `aymericzip/intlayer`：**4,343 次 commit**（在编译器、IDE 扩展、MCP Server 及自主 AI 翻译引擎上高频迭代）。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 成熟的库通常让人感到放心，但 i18n 技术范式已经发生转变：构建期借助编译器剔除无用文本，CI 阶段自动调用大模型批量翻译，开发者通过 Language Server (LSP) 与 AI Agent 协助编写。纯运行时的设计难以直接消化这些优势。
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 因为 `messages` 在顶层被整体传入客户端 Provider，浏览器在加载任何单页时都必须下载整个词典。哪怕用户仅访问 `/login`，也会连带下载常见问题、使用指南和后台仪表盘等全部翻译。
 
 虽然可以通过划分多个 JSON 命名空间来规避，但手工配置和维护映射关系既费时又极易出错。
+
+下图估算了一个理论应用的内容体积：1 到 10 个页面，翻译成 1 到 10 种语言，每页约 30 KB 文本。按 locale 动态加载内容可消除语言维度，按组件或路由划分内容可消除页面维度，只有两者结合才能让体积保持平稳。
+
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer 采用静态分析解决该问题：[Intlayer 编译器](https://intlayer.org/zh/doc/compiler)精准提取各个路由实际调用的翻译字段，使跨页面泄漏率直降为 **0.0%**。
 

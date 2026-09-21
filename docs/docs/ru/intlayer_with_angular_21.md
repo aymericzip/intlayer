@@ -419,7 +419,7 @@ Intlayer использует расширение модулей (Module Augmen
 
 ![Автодополнение](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Убедитесь, что ваша конфигурация TypeScript включает автосгенерированные типы.
 

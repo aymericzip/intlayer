@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "React Router v7 i18n - Полное руководство по переводу вашего приложения"
 description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения React Router v7. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
@@ -43,7 +43,7 @@ author: aymericzip
 
 Это руководство демонстрирует, как интегрировать **Intlayer** для бесшовной интернационализации в проектах на React Router v7 с маршрутизацией, учитывающей локаль, поддержкой TypeScript и современными практиками разработки.
 
-Это руководство сосредоточено на фронтенд-маршрутизации. Для маршрутизации fs-routes обратитесь к руководству [Intlayer с React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_react_router_v7_fs_routes.md).
+Оно охватывает как **маршрутизацию на основе конфигурации** (`routes.ts`), так и **маршрутизацию на основе файловой системы** (`@react-router/fs-routes`).
 
 ## Table of Contents
 
@@ -888,7 +888,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Компилятор Babel'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Обновите ваш `vite.config.ts`, чтобы включить плагин `intlayerCompiler`:
 
@@ -903,6 +909,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Соберите приложение, чтобы преобразовать ваши компоненты и извлечь контент
 
 ```bash packageManager="npm"
 npm run build # Или npm run dev
@@ -1036,7 +1047,7 @@ React Router v7 не поставляется со слоем сообщений
 </Question>
 <Question title="Как добавить сегмент локали в мои маршруты?">
 
-Объявите сегмент `:locale` в дереве маршрутов и позвольте Intlayer разрешить его. `validatePrefix` сообщает, является ли сегмент объявленной локалью, поэтому неизвестный префикс возвращает 404 вместо рендеринга дублирующей страницы, а `getLocalizedUrl` переписывает любой путь на целевой язык. Если вы используете маршруты на основе файловой системы, следуйте [варианту с маршрутами на основе файловой системы](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_react_router_v7_fs_routes.md) этого руководства.
+Объявите сегмент `:locale` в дереве маршрутов и позвольте Intlayer разрешить его. `validatePrefix` сообщает, является ли сегмент объявленной локалью, поэтому неизвестный префикс возвращает 404 вместо рендеринга дублирующей страницы, а `getLocalizedUrl` переписывает любой путь на целевой язык. Если вы используете маршруты на основе файловой системы, добавьте динамический сегмент `($locale)` в начало имён файлов маршрутов.
 
 </Question>
 <Question title="Должен ли я помещать локаль в URL?">
@@ -1072,6 +1083,13 @@ React Router v7 не поставляется со слоем сообщений
 <Question title="Как переводчики могут редактировать контент, не касаясь кода?">
 
 Через размещённый самостоятельно [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md), которая выносит контент вовне, чтобы он мог меняться без развёртывания.
+
+</Question>
+<Question title="Каковы затраты ресурсов на визуальный редактор? Не является ли он избыточным, если он мне не нужен?">
+
+[Визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) имеет **нулевую стоимость** для вашего приложения, если он не настроен. Дополнительная логика загружается только в том случае, если она явно включена и необходима.
+
+Даже если он включен, влияние крайне незначительно (+5 кБ, загружается динамически только при активации), поскольку основная логика обрабатывается серверным редактором на [app.intlayer.org](https://app.intlayer.org) или через пакет `intlayer-editor`. Если вам нужно простое решение для перевода без визуального редактирования, Intlayer не создает никаких накладных расходов для вашего приложения.
 
 </Question>
 <Question title="Является ли Intlayer бесплатным и с открытым исходным кодом?">

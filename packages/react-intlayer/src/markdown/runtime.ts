@@ -39,13 +39,10 @@ export const reactRuntime: MarkdownRuntime = {
     props: Record<string, any> | null,
     ...children: any[]
   ): ReactNode => {
-    let key: string | null = null;
-    const finalProps: any = props || {};
-
-    if (props && props.key != null) {
-      key = String(props.key);
-      finalProps.key = undefined;
-    }
+    // `key` must not survive as an own property: React warns when a props
+    // object that owns `key` is later spread into JSX by a custom renderer.
+    const { key: rawKey, ...finalProps } = (props ?? {}) as Record<string, any>;
+    const key: string | null = rawKey != null ? String(rawKey) : null;
 
     const childCount = children.length;
     if (childCount === 1) {

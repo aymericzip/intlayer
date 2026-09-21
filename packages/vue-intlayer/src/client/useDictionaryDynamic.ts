@@ -8,6 +8,7 @@ import {
 } from '@intlayer/core/dictionaryManipulator';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
+  DeclaredLocales,
   DictionaryKeys,
   DictionarySelectorForKey,
   LocalesValues,

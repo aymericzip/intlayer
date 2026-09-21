@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Liệu next-intl Đã Lỗi Thời Vào Năm 2026?
 description: next-intl đã trở thành lựa chọn phổ biến cho Next.js App Router. Nhưng nó vẫn mang gánh nặng bundle lúc runtime và yêu cầu quản lý namespace thủ công.
 keywords:
@@ -66,7 +66,7 @@ Tổng kết một năm qua:
 - `amannn/next-intl`: **187 commit** (chủ yếu là cập nhật phụ thuộc và vá lỗi nhỏ).
 - `aymericzip/intlayer`: **4.343 commit** (phát triển tích cực trên trình biên dịch, tiện ích mở rộng IDE, máy chủ MCP và công cụ dịch thuật AI).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Một thư viện đã ổn định mang lại cảm giác an tâm. Tuy nhiên, tiêu chuẩn công cụ i18n đã thay đổi: trình biên dịch loại bỏ văn bản không dùng khi build, LLM dịch tự động trong CI, và lập trình viên được hỗ trợ bởi Language Server (LSP) cùng AI agent. Kiến trúc phụ thuộc hoàn toàn vào runtime khó có thể tận dụng những bước tiến này.
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 Bởi vì `messages` được đưa vào client provider ở cấp cao nhất, trình duyệt buộc phải tải toàn bộ từ điển cho mỗi lần truy cập trang. Một người chỉ xem trang `/login` cũng phải tải luôn cả phần trợ giúp, điều khoản và bảng điều khiển.
 
 Có thể giảm bớt điều này bằng cách chia nhỏ file JSON thành các namespace. Tuy nhiên, việc tự quản lý ánh xạ này tốn nhiều công sức và rất dễ bỏ sót.
+
+Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
+
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer giải quyết vấn đề bằng phân tích tĩnh: [trình biên dịch Intlayer](https://intlayer.org/vi/doc/compiler) chỉ đóng gói những nội dung thực sự được gọi trên route đó, đưa tỷ lệ rò rỉ giữa các trang về mức **0.0%**.
 

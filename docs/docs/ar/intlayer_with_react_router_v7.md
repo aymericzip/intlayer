@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-06-23
+updatedAt: 2026-09-20
 title: "تدويل React Router v7 - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق React Router v7 متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
@@ -43,7 +43,7 @@ author: aymericzip
 
 يوضح هذا الدليل كيفية دمج **Intlayer** لتحقيق التدويل السلس في مشاريع React Router v7 مع توجيه يدعم اللغة المحلية، ودعم TypeScript، وممارسات تطوير حديثة.
 
-يركز هذا الدليل على التوجيه من جانب العميل (frontend routing). لمعلومات حول توجيه fs-routes، يرجى الرجوع إلى دليل [Intlayer مع React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_router_v7_fs_routes.md).
+يغطي هذا الدليل كلاً من **التوجيه المعتمد على الإعدادات** (`routes.ts`) و**التوجيه المعتمد على نظام الملفات** (`@react-router/fs-routes`).
 
 ## Table of Contents
 
@@ -888,7 +888,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='مترجم Babel'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 قم بتحديث `vite.config.ts` لتضمين مكون `intlayerCompiler` الإضافي:
 
@@ -903,6 +909,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+قم ببناء تطبيقك لتحويل مكوناتك واستخراج المحتوى
 
 ```bash packageManager="npm"
 npm run build # أو npm run dev
@@ -1072,6 +1083,13 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 <Question title="كيف يمكن للمترجمين تحرير المحتوى دون لمس الكود؟">
 
 من خلال [المحرر المرئي (visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، الذي يسمح لأي شخص بتحرير النصوص مباشرة على التطبيق قيد التشغيل، أو عبر [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، الذي يفصل المحتوى ليتم تحديثه دون الحاجة لإعادة نشر الكود.
+
+</Question>
+<Question title="ما هي تكلفة المحرر المرئي؟ هل هو مبالغ فيه إذا لم أكن بحاجة إليه؟">
+
+[المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) ذو **تكلفة معدومة** على تطبيقك إذا لم يتم إعداده. لا يتم تحميل المنطق الإضافي إلا إذا تم تمكينه صراحة وعند الحاجة فقط.
+
+حتى في حال تمكينه، فإن التأثير خفيف للغاية (+5 كيلوبايت، يتم تحميلها ديناميكيًا فقط عند التنشيط) لأن الجزء الأكبر من المنطق تتم معالجته بواسطة محرر الخادم على [app.intlayer.org](https://app.intlayer.org) أو عبر حزمة `intlayer-editor`. إذا كنت بحاجة فقط إلى حل ترجمة بسيط دون تحرير مرئي، فإن Intlayer لا يضيف أي عبء على تطبيقك.
 
 </Question>
 <Question title="هل Intlayer مجاني ومفتوح المصدر؟">

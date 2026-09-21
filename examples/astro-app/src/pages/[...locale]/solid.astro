@@ -1,12 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { SolidIsland } from "../../components/solid/SolidIsland";
-import { getIntlayer, getLocaleFromPath, getPrefix, localeMap, getLocalizedUrl, Locales, type LocalesValues } from "intlayer";
+import { getPrefix, localeMap, getLocalizedUrl } from "intlayer";
+import { useIntlayer, useLocale } from "astro-intlayer";
 
 export const getStaticPaths = () => localeMap(({locale} )=> ( { params: { locale: getPrefix(locale).localePrefix } }))
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { backHome, metadata } = getIntlayer("framework-page", locale);
+const { locale } = useLocale();
+const { backHome, metadata } = useIntlayer("framework-page");
 ---
 
 <Layout

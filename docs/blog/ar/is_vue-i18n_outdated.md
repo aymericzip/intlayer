@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: هل أصبحت مكتبة vue-i18n قديمة في عام 2026؟
 description: ظلت vue-i18n المعيار الأساسي لـ Vue وNuxt لعقد كامل. لكن في اختباراتنا الميدانية، تبين أنها أثقل بيئة تشغيل للتدويل على الويب. نوضح الأسباب هنا.
 keywords:
@@ -64,7 +64,7 @@ author: aymericzip
 - `intlify/vue-i18n`: **259 تعديلاً** (صيانة دورية لـ Vue 3 وNuxt).
 - `aymericzip/intlayer`: **4,343 تعديلاً** (تطوير مستمر لتحسينات المترجم وخادم LSP وأدوات الوكلاء الأذكياء).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 المكتبة العريقة تمنح شعوراً بالاستقرار. لكن تطوير الواجهات الحديثة بات يستند إلى تحويلات شجرة الإعراب (AST) أثناء البناء، والتخلص من الشيفرات الخاملة، والترجمة بالذكاء الاصطناعي. ومن الصعب على البنى المحصورة في وقت التشغيل استيعاب هذه الآليات.
 
@@ -115,6 +115,12 @@ style="border:none;"
 **ضخامة المكونات المعزولة:**
 
 بلغ متوسط حجم المكونات ذات النطاق المحلي نحو 196 كيلوبايت في `vue-i18n` نتيجة تكرار القواميس، مقابل **6.5 كيلوبايت** في Intlayer.
+
+**كيف يتزايد التسرب:**
+
+يقدّر الرسم البياني أدناه حجم المحتوى لتطبيق نظري يتكوّن من 1 إلى 10 صفحات مترجمة إلى 1 إلى 10 لغات، بنحو 30 كيلوبايت من النص لكل صفحة. التحميل الديناميكي للمحتوى حسب اللغة يزيل محور اللغات، وحصر المحتوى ضمن المكوّن أو المسار يزيل محور الصفحات، ولا يبقى الحجم ثابتًا إلا بالجمع بينهما.
+
+![تسرب المحتوى النظري حسب البنية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ## لماذا تعد vue-i18n ثقيلة؟
 

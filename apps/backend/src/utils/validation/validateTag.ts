@@ -1,5 +1,5 @@
 import { getOrganizationById } from '@services/organization.service';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 import type { Tag } from '@/types/tag.types';
 
 export type TagFields = (keyof Tag)[];
@@ -22,25 +22,29 @@ const tagZodSchema = z.object({
     .string({
       message: 'Key must be a string.',
     })
-    .min(
-      KEY_MIN_LENGTH,
-      `Key must be at least ${KEY_MIN_LENGTH} characters long.`
-    )
-    .max(
-      KEY_MAX_LENGTH,
-      `Key must be at most ${KEY_MAX_LENGTH} characters long.`
+    .check(
+      z.minLength(
+        KEY_MIN_LENGTH,
+        `Key must be at least ${KEY_MIN_LENGTH} characters long.`
+      ),
+      z.maxLength(
+        KEY_MAX_LENGTH,
+        `Key must be at most ${KEY_MAX_LENGTH} characters long.`
+      )
     ),
   name: z
     .string({
       message: 'Name must be a string.',
     })
-    .min(
-      NAME_MIN_LENGTH,
-      `Name must be at least ${NAME_MIN_LENGTH} characters long.`
-    )
-    .max(
-      NAME_MAX_LENGTH,
-      `Name must be at most ${NAME_MAX_LENGTH} characters long.`
+    .check(
+      z.minLength(
+        NAME_MIN_LENGTH,
+        `Name must be at least ${NAME_MIN_LENGTH} characters long.`
+      ),
+      z.maxLength(
+        NAME_MAX_LENGTH,
+        `Name must be at most ${NAME_MAX_LENGTH} characters long.`
+      )
     ),
   organizationId: z.string({
     message: 'Organization id must be a string',
@@ -64,12 +68,12 @@ export const validateTag = async (
     {} as Record<string, true>
   );
 
-  const schema = tagZodSchema.pick(mask as any);
+  const schema = z.pick(tagZodSchema, mask as any);
   const parsed = schema.safeParse(tag);
 
   const errors: ValidationErrors = parsed.success
     ? {}
-    : (parsed.error.flatten().fieldErrors as ValidationErrors);
+    : (z.flattenError(parsed.error).fieldErrors as ValidationErrors);
 
   if (
     fieldsToCheck.includes('organizationId') &&

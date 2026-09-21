@@ -179,7 +179,6 @@ Chúng tôi đã xây dựng Intlayer với tính linh hoạt cao, cung cấp kh
 - **[Intlayer với Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack+solid.md)**
 - **[Intlayer với Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md)**
 - **[Intlayer với React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_react_router_v7.md)**
-- **[Intlayer với React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_react_router_v7_fs_routes.md)**
 - **[Intlayer với React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_create_react_app.md)**
 - **[Intlayer với React Native và Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_react_native+expo.md)**
 - **[Intlayer với Lynx và React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_lynx+react.md)**
@@ -190,7 +189,6 @@ Chúng tôi đã xây dựng Intlayer với tính linh hoạt cao, cung cấp kh
 - **[Intlayer với Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_solid.md)**
 - **[Intlayer với Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_preact.md)**
 - **[Intlayer với Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_lit.md)**
-- **[Intlayer với Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_vanilla.md)**
 - **[Intlayer với Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md)**
 - **[Intlayer với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md)**
 - **[Intlayer với Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+svelte.md)**

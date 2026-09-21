@@ -278,7 +278,7 @@ export default config;
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 确保在 tsconfig.json 文件中包含自动生成的类型（默认为 ./types/intlayer.d.ts）。
 

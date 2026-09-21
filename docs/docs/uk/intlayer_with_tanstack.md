@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-08-25
+updatedAt: 2026-09-20
 title: "TanStack Start i18n - Повний посібник з перекладу вашого застосунку"
 description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку TanStack Start. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
 keywords:
@@ -1068,7 +1068,13 @@ bun x intlayer extract
  </Tab>
  <Tab value="Компілятор Babel">
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Оновіть свій `vite.config.ts`, щоб включити плагін `intlayerCompiler`:
 
@@ -1083,6 +1089,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Зберіть застосунок, щоб перетворити ваші компоненти та витягти вміст
 
 ```bash packageManager="npm"
 npm run build # Або npm run dev
@@ -1152,10 +1163,6 @@ export default defineConfig({
 import { createFileRoute } from "@tanstack/react-router";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
-
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
@@ -1165,7 +1172,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             { path: "/", changefreq: "daily", priority: 1.0 },
             { path: "/about", changefreq: "monthly", priority: 0.8 },
           ],
-          { siteUrl: SITE_URL }
+          { siteUrl: "https://example.com" }
         );
 
         return new Response(sitemap, {
@@ -1324,6 +1331,13 @@ TanStack Start не має власного шару i18n:
 <Question title="Як перекладачі можуть редагувати вміст без втручання в код?">
 
 Через [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), який дозволяє будь-кому редагувати тексти безпосередньо у працюючому додатку, або через [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), яка відокремлює вміст і дозволяє оновлювати його без повторного розгортання коду.
+
+</Question>
+<Question title="Яка вартість візуального редактора? Чи не є він надлишковим, якщо він мені не потрібен?">
+
+[Візуальний редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) має **нульову вартість** для вашого застосунку, якщо він не налаштований. Додаткова логіка завантажується лише тоді, коли вона явно увімкнена та необхідна.
+
+Навіть якщо він увімкнений, вплив є надзвичайно малим (+5 кБ, завантажується динамічно лише під час активації), оскільки основна логіка обробляється серверним редактором на [app.intlayer.org](https://app.intlayer.org) або через пакет `intlayer-editor`. Якщо вам потрібне просте рішення для перекладу без візуального редагування, Intlayer не створює жодних накладних витрат для вашого застосунку.
 
 </Question>
 <Question title="Чи є Intlayer безкоштовним та відкритим кодом?">

@@ -5,7 +5,7 @@ import { listMissingTranslationsWithConfig } from './listMissingTranslations';
 // Mocks
 // ---------------------------------------------------------------------------
 
-vi.mock('@intlayer/unmerged-dictionaries-entry', () => ({
+vi.mock('@intlayer/dictionaries-entry/unmerged', () => ({
   getUnmergedDictionaries: vi.fn(),
 }));
 
@@ -25,7 +25,7 @@ vi.mock('@intlayer/core/plugins', async (importOriginal) => {
 // ---------------------------------------------------------------------------
 
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 
 const mockUnmerged = getUnmergedDictionaries as ReturnType<typeof vi.fn>;
 const mockMerged = getDictionaries as ReturnType<typeof vi.fn>;

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: ¿Está next-intl obsoleto en 2026?
 description: next-intl se convirtió en la elección predominante para Next.js App Router. Sin embargo, aún acarrea sobrecarga de bundle en runtime y la carga de gestionar namespaces manualmente.
 keywords:
@@ -66,7 +66,7 @@ Historial de los últimos 12 meses:
 - `amannn/next-intl`: **187 commits** (actualizaciones de dependencias y pequeñas correcciones).
 - `aymericzip/intlayer`: **4.343 commits** (desarrollo continuado en compiladores, extensiones de IDE, servidores MCP y motores de traducción).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Una librería específica puede ser estable. No obstante, las prácticas de i18n han progresado: los compiladores descartan textos no referenciados al construir el paquete, los LLM traducen en los pipelines de CI y los editores se coordinan con Language Servers (LSP) y agentes inteligentes. Un modelo centrado en el cliente encuentra dificultades para asumir estas mejoras.
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 Al suministrar `messages` en el provider raíz, el navegador descarga la totalidad del catálogo en cada página. Un usuario en `/login` termina descargando secciones de ayuda, guías y paneles internos.
 
 Esto puede solventarse fraccionando archivos JSON y cargándolos según la ruta. Sin embargo, configurar y mantener esas listas a mano es una tarea tediosa y fuente recurrente de errores.
+
+El gráfico siguiente estima el peso del contenido para una aplicación teórica de 1 a 10 páginas traducida a entre 1 y 10 idiomas, con unos 30 KB de texto por página. Cargar el contenido dinámicamente por locale elimina el eje de idiomas, acotar el contenido por componente o por ruta elimina el eje de páginas, y solo la combinación de ambos mantiene el peso estable.
+
+![Fuga de contenido teórica según la arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer soluciona esto con análisis estático: el [compilador de Intlayer](https://intlayer.org/es/doc/compiler) incluye únicamente los textos referenciados en cada ruta, reduciendo la fuga entre páginas al **0.0%**.
 

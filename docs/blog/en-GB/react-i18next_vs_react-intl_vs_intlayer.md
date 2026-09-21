@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: Integrate react-i18next with next-intl and Intlayer for the internationalisation (i18n) of a React app
 keywords:
@@ -106,6 +106,10 @@ We evaluate:
 
 **Why it matters:** Smaller bundles and fewer unused strings improve startup and navigation performance.
 
+The graph below estimates the payload for a theoretical app of 1 to 10 pages in 1 to 10 locales, with about 30 KB of text per page. Lazy loading per locale removes the locale axis, scoping content per component removes the page axis, and only the combination stays flat.
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 ### 6) DX, tooling & maintenance
 
 - **react-intl / react-i18next**: Broad community ecosystem; for editorial workflows you usually adopt external localisation platforms.
@@ -129,7 +133,7 @@ Using `intlayer`, you can declare your content in the format of your favourite i
 
 GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
 ## Conclusion
 

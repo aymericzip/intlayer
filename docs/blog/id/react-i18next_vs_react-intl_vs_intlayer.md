@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: Integrasikan react-i18next dengan next-intl dan Intlayer untuk internasionalisasi (i18n) aplikasi React
 keywords:
@@ -106,6 +106,10 @@ Kami mengevaluasi:
 
 **Mengapa ini penting:** Bundel yang lebih kecil dan string yang tidak terpakai lebih sedikit meningkatkan performa saat startup dan navigasi.
 
+Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
+
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 ### 6) DX, tooling & maintenance
 
 - **react-intl / react-i18next**: Ekosistem komunitas yang luas; untuk alur kerja editorial Anda biasanya mengadopsi platform lokalisasi eksternal.
@@ -129,7 +133,7 @@ Dengan menggunakan `intlayer`, Anda dapat mendeklarasikan konten Anda dalam form
 
 Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komunitas, dan relevansi jangka panjang. Meskipun bukan ukuran langsung dari kualitas teknis, bintang mencerminkan berapa banyak pengembang yang menganggap proyek tersebut berguna, mengikuti perkembangannya, dan kemungkinan akan mengadopsinya. Untuk memperkirakan nilai sebuah proyek, bintang membantu membandingkan daya tarik di antara alternatif dan memberikan wawasan tentang pertumbuhan ekosistem.
 
-[![Grafik Sejarah Bintang](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+[![Grafik Sejarah Bintang](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
 ## Kesimpulan
 

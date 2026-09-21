@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: ¿Está i18next obsoleto en 2026?
 description: i18next impulsa millones de sitios web, pero su arquitectura en tiempo de ejecución de 2011 muestra su antigüedad. Un vistazo al peso del bundle, los límites del tree-shaking y la falta de innovación.
 keywords:
@@ -70,7 +70,7 @@ Actividad en los últimos doce meses:
 | `i18next` core  | 2.626              | **259**          | Parches menores                           |
 | Intlayer        | 7.156              | **4.343**        | Compilador, herramientas IDE y motor IA   |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Una librería pequeña puede ser madura y confiable. Pero las herramientas de internacionalización continúan avanzando: los empaquetadores modernos eliminan contenido sin referenciar durante el build, los LLM automatizan traducciones en CI y los editores dependen de servidores de lenguaje (LSP) y agentes IA. La arquitectura puramente en runtime de i18next frena su capacidad de integración.
 
@@ -124,6 +124,10 @@ En Next.js, `next-i18next` añade **76.7 KB gzipped** frente al proyecto base, u
 **Fuga de traducciones:**
 
 Por defecto, casi el **90% del texto traducido** enviado a una ruta pertenece a otras pantallas. La gestión manual mediante namespaces resulta compleja y propensa a fallos.
+
+El gráfico siguiente estima el peso del contenido para una aplicación teórica de 1 a 10 páginas traducida a entre 1 y 10 idiomas, con unos 30 KB de texto por página. Cargar el contenido dinámicamente por locale elimina el eje de idiomas, acotar el contenido por componente o por ruta elimina el eje de páginas, y solo la combinación de ambos mantiene el peso estable.
+
+![Fuga de contenido teórica según la arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Tiempo de hidratación:**
 

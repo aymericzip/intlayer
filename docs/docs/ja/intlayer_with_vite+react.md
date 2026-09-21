@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Vite + React i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Vite + Reactアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -840,7 +840,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 `vite.config.ts` を更新して `intlayerCompiler` プラグインを含めます:
 
@@ -855,6 +861,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+アプリケーションをビルドしてコンポーネントを変換し、コンテンツを抽出します。
 
 ```bash packageManager="npm"
 npm run build # または npm run dev
@@ -912,7 +923,9 @@ const pathList = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+const sitemapXml = generateSitemap(pathList, {
+  siteUrl: "https://example.com",
+});
 fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
 
 const getAllMultilingualUrls = (urls) =>
@@ -925,7 +938,7 @@ const robotsTxt = [
   "Allow: /",
   ...disallowedPaths.map((path) => `Disallow: ${path}`),
   "",
-  `Sitemap: ${SITE_URL}/sitemap.xml`,
+  `Sitemap: https://example.com/sitemap.xml`,
 ].join("\n");
 
 fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
@@ -958,7 +971,7 @@ Intlayerはモジュール拡張（module augmentation）を使用してTypeScri
 
 ![オートコンプリート](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![翻訳エラー](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![翻訳エラー](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScriptの設定に、自動生成された型が含まれていることを確認してください。
 
@@ -1080,6 +1093,13 @@ Intlayer はロケール解決を処理し、ルーティングをルーター�
 <Question title="翻訳者がコードに触れずにコンテンツを編集するにはどうすればよいですか？">
 
 [ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)（自己ホスト型）を通じて、誰でも実行中のアプリ上でテキストをその場で編集できます。または、デプロイメントなしで変更する必要があるコンテンツの場合は [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を使用します。
+
+</Question>
+<Question title="ビジュアルエディターのコストはどれくらいですか？不要な場合はオーバースペックですか？">
+
+Intlayerの[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)は、セットアップされていない場合はアプリケーションへの**コストはゼロ**です。追加のロジックは、明示的に有効化され、必要な場合にのみ読み込まれます。
+
+有効にした場合でも、ロジックの大半は[app.intlayer.org](https://app.intlayer.org)のサーバーエディターまたは`intlayer-editor`パッケージによって処理されるため、負荷は極めて軽量です（有効化時に動的に読み込まれる+5 kBのみ）。ビジュアル編集を必要とせず、シンプルな翻訳ソリューションのみが必要な場合、Intlayerがアプリにオーバーヘッドを追加することはありません。
 
 </Question>
 <Question title="Intlayer は無料でオープンソースですか？">

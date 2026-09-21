@@ -179,7 +179,6 @@ Intlayer пропонує безліч функцій, адаптованих д
 - **[Intlayer з Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack+solid.md)**
 - **[Intlayer з Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)**
 - **[Intlayer з React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_react_router_v7.md)**
-- **[Intlayer з React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_react_router_v7_fs_routes.md)**
 - **[Intlayer з React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_create_react_app.md)**
 - **[Intlayer з React Native та Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_react_native+expo.md)**
 - **[Intlayer з Lynx та React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_lynx+react.md)**
@@ -190,7 +189,6 @@ Intlayer пропонує безліч функцій, адаптованих д
 - **[Intlayer з Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_astro_solid.md)**
 - **[Intlayer з Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_astro_preact.md)**
 - **[Intlayer з Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_astro_lit.md)**
-- **[Intlayer з Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_astro_vanilla.md)**
 - **[Intlayer з Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+vue.md)**
 - **[Intlayer з Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nuxt.md)**
 - **[Intlayer з Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+svelte.md)**

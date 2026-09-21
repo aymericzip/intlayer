@@ -282,7 +282,9 @@ const pathList = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+const sitemapXml = generateSitemap(pathList, {
+  siteUrl: "https://example.com",
+});
 fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
 
 const getAllMultilingualUrls = (urls) =>
@@ -295,7 +297,7 @@ const robotsTxt = [
   "Allow: /",
   ...disallowedPaths.map((path) => `Disallow: ${path}`),
   "",
-  `Sitemap: ${SITE_URL}/sitemap.xml`,
+  `Sitemap: https://example.com/sitemap.xml`,
 ].join("\n");
 
 fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);

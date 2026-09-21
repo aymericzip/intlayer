@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "TanStack Start i18n - Guía completa para traducir tu aplicación"
 description: "Sin más i18next. La guía 2026 para crear una aplicación TanStack Start multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
@@ -1069,7 +1069,13 @@ bun x intlayer extract
  </Tab>
  <Tab value="Compilador Babel">
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Actualiza tu archivo `vite.config.ts` para incluir el plugin `intlayerCompiler` :
 
@@ -1084,6 +1090,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Compila tu aplicación para transformar tus componentes y extraer el contenido
 
 ```bash packageManager="npm"
 npm run build # O npm run dev
@@ -1153,10 +1164,6 @@ Luego, crea una ruta `src/routes/sitemap[.]xml.ts` que use la función `generate
 import { createFileRoute } from "@tanstack/react-router";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
-
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
@@ -1166,7 +1173,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             { path: "/", changefreq: "daily", priority: 1.0 },
             { path: "/about", changefreq: "monthly", priority: 0.8 },
           ],
-          { siteUrl: SITE_URL }
+          { siteUrl: "https://example.com" }
         );
 
         return new Response(sitemap, {
@@ -1326,6 +1333,13 @@ Sí. Las declaraciones de contenido admiten [formas plurales](https://github.com
 <Question title="¿Cómo pueden los traductores editar el contenido sin tocar el código?">
 
 A través del [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md), que se ejecuta en tu propia infraestructura y permite que cualquiera edite texto en su sitio en el sitio en ejecución, o del [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md), que externaliza el contenido para que pueda cambiar sin un despliegue.
+
+</Question>
+<Question title="¿Cuál es el costo del editor visual? ¿Es excesivo si no lo necesito?">
+
+El [editor visual de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) tiene un **costo cero** en su aplicación si no está configurado. La lógica adicional solo se carga si se habilita explícitamente y es necesaria.
+
+Si está habilitado, el impacto es extremadamente ligero (+5 KB, cargado dinámicamente solo cuando se activa) porque la mayor parte de la lógica es manejada por el editor del servidor en [app.intlayer.org](https://app.intlayer.org) o a través del paquete `intlayer-editor`. Si solo necesita una solución de traducción simple sin edición visual, Intlayer no agrega ninguna sobrecarga a su aplicación.
 
 </Question>
 <Question title="¿Es Intlayer gratuito y de código abierto?">

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-06-23
+updatedAt: 2026-09-20
 title: "تدويل Vite + Svelte - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Vite + Svelte متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
@@ -596,41 +596,47 @@ bun x intlayer extract
  </Tab>
  <Tab value='مترجم Babel'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
-```bash packageManager="bun"
-bun add @intlayer/babel --dev
-```
+ </Tab>
+ <Tab value='intlayer < 9'>
 
-```js fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  getExtractPluginOptions,
-} = require("@intlayer/babel");
+قم بتحديث `vite.config.ts` الخاص بك لتضمين ملحق `intlayerCompiler`:
 
-module.exports = {
-  presets: ["next/babel"],
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
   plugins: [
-    // استخراج المحتوى من المكونات إلى القواميس
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    intlayer(),
+    intlayerCompiler(), // Adds the compiler plugin
   ],
-};
+});
 ```
+
+ </Tab>
+ </Tabs>
+
+قم ببناء تطبيقك لتحويل مكوناتك واستخراج المحتوى
 
 ```bash packageManager="npm"
 npm run build # أو npm run dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm run build # Or pnpm run dev
+pnpm run build # أو pnpm run dev
 ```
 
 ```bash packageManager="yarn"
-yarn build # Or yarn dev
+yarn build # أو yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
+bun run build # أو bun run dev
 ```
 
  </Tab>
@@ -673,7 +679,9 @@ const pathList = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+const sitemapXml = generateSitemap(pathList, {
+  siteUrl: "https://example.com",
+});
 fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
 
 const getAllMultilingualUrls = (urls) =>
@@ -686,7 +694,7 @@ const robotsTxt = [
   "Allow: /",
   ...disallowedPaths.map((path) => `Disallow: ${path}`),
   "",
-  `Sitemap: ${SITE_URL}/sitemap.xml`,
+  `Sitemap: https://example.com/sitemap.xml`,
 ].join("\n");
 
 fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);

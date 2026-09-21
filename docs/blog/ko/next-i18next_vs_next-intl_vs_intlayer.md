@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - 완전한 번역 가이드: next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: 번들 크기, SEO, 성능 및 유지보수성을 위한 최고의 솔루션. 2026년에 Next.js 웹사이트를 다국어로 만드세요, LLM 번역, Agent Skills & MCP.
 keywords:
@@ -22,7 +22,7 @@ author: aymericzip
 
 <TOC/>
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Next.js를 위한 세 가지 i18n 옵션인 next-i18next, next-intl, Intlayer의 유사점과 차이점을 살펴보겠습니다.
 
@@ -134,6 +134,10 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
 
   > 내가 `/fr/about` 페이지에 있다면, `/en/about` 페이지의 콘텐츠를 로드하고 싶지 않습니다.
 
+아래 그래프는 1~~10개의 페이지를 1~~10개 언어로 번역한 이론상의 앱(페이지당 약 30KB의 텍스트)의 콘텐츠 용량을 추정한 것입니다. 로케일별 동적 로딩은 언어 축을 없애고, 컴포넌트나 라우트 단위로 콘텐츠를 스코프하면 페이지 축이 없어지며, 두 가지를 결합했을 때만 용량이 일정하게 유지됩니다.
+
+![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 다시 말하지만, 세 가지 솔루션 모두 이러한 문제를 인지하고 있으며 이러한 최적화를 관리할 수 있도록 합니다. 세 솔루션 간의 차이는 DX(개발자 경험)에 있습니다.
 
 `next-intl`과 `next-i18next`는 중앙 집중식 접근 방식을 사용하여 번역을 관리하며, 로케일별 및 하위 파일별로 JSON을 분할할 수 있습니다. `next-i18next`에서는 JSON 파일을 '네임스페이스(namespaces)'라고 부르고, `next-intl`은 메시지를 선언할 수 있게 합니다. `intlayer`에서는 JSON 파일을 '사전(dictionaries)'이라고 부릅니다.
@@ -156,9 +160,9 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
 
 다음은 vite + react 애플리케이션에서 `intlayer`를 사용한 번들 크기 최적화의 영향 예시입니다:
 
-| 최적화된 번들                                                                                      | 최적화되지 않은 번들                                                                                                      |
-| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| ![최적화된 번들](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![최적화되지 않은 번들](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| 최적화된 번들                                                                                       | 최적화되지 않은 번들                                                                                                       |
+| --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| ![최적화된 번들](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![최적화되지 않은 번들](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript 및 안전성
 
@@ -1296,7 +1300,7 @@ middleware의 설정은 `intlayer.config.ts` 파일에 중앙화되어 있습니
 
 GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰도, 그리고 장기적인 관련성을 강력하게 나타내는 지표입니다. 기술적 품질의 직접적인 척도는 아니지만, 얼마나 많은 개발자가 해당 프로젝트를 유용하다고 생각하고, 진행 상황을 팔로우하며, 채택할 가능성이 있는지를 반영합니다. 프로젝트의 가치를 평가할 때, 스타는 대안들 간의 관심도를 비교하고 생태계 성장에 대한 통찰을 제공하는 데 도움이 됩니다.
 
-[![스타 히스토리 차트](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![스타 히스토리 차트](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ## 결론
 

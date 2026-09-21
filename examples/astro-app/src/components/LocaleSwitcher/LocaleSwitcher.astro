@@ -1,20 +1,17 @@
 ---
 import {
-  getIntlayer,
   getHTMLTextDir,
   getLocaleName,
   getLocalizedUrl,
-  getLocaleFromPath,
   getPathWithoutLocale,
-  locales,
-  type LocalesValues,
 } from 'intlayer';
+import { useIntlayer, useLocale } from 'astro-intlayer';
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { locale, availableLocales } = useLocale();
 const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
-const { localeSwitcherLabel } = getIntlayer('locale-switcher', locale);
+const { localeSwitcherLabel } = useIntlayer('locale-switcher');
 
-const localesDetails = locales.map((localeItem) => ({
+const localesDetails = availableLocales.map((localeItem) => ({
   locale: localeItem,
   ownLocaleName: getLocaleName(localeItem),
   currentLocaleName: getLocaleName(localeItem, locale),
@@ -23,7 +20,7 @@ const localesDetails = locales.map((localeItem) => ({
 }));
 ---
 
-<div class="ls-root" aria-label={localeSwitcherLabel.value}>
+<div class="ls-root" aria-label={localeSwitcherLabel}>
   <details class="ls-details">
     <summary class="ls-trigger">
       <span>{getLocaleName(locale)}</span>
@@ -205,7 +202,7 @@ const localesDetails = locales.map((localeItem) => ({
 </style>
 
 <script>
-  import { useLocale } from "vanilla-intlayer";
+  import { useLocale } from "astro-intlayer";
   import { getLocalizedUrl, type LocalesValues } from "intlayer";
 
   // Update the locale cookie when a language is selected

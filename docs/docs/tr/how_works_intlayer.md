@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-19
 title: Intlayer Nasıl Çalışır
 description: Intlayer'ın dahili olarak nasıl çalıştığını öğrenin. Intlayer'ı güçlü kılan mimari ve bileşenleri anlayın.
 keywords:
@@ -131,49 +131,105 @@ Intlayer, çeviri sürecinde belirli bir rolü olan birkaç paketten oluşur. İ
 
 `intlayer` paketi, içerik dosyalarında içeriği bildirmek için uygulamalarda kullanılır.
 
-### react-intlayer
+### Frontend Framework'leri
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 `react-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve React uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 `next-intlayer` paketi, `react-intlayer` üzerine bir katman olarak kullanılır ve Intlayer sözlüklerini Next.js uygulamalarında kullanılabilir hale getirir. Çeviri ara yazılımı, yönlendirme veya `next.config.js` dosyası konfigürasyonu gibi Intlayer'ı bir Next.js ortamında çalışacak şekilde yapmak için gerekli özellikleri entegre eder.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 `vue-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Vue uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 `nuxt-intlayer` paketi, Intlayer sözlüklerini Nuxt uygulamalarında kullanılabilir hale getirmek için bir Nuxt modülü olarak kullanılır. Çeviri ara yazılımı, yönlendirme veya `nuxt.config.js` dosyası konfigürasyonu gibi Intlayer'ı bir Nuxt ortamında çalışacak şekilde yapmak için gerekli özellikleri entegre eder.
 
-### svelte-intlayer
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 `svelte-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Svelte uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### solid-intlayer (WIP)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 `solid-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Solid.js uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 `preact-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Preact uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### angular-intlayer (WIP)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 `angular-intlayer` paketi, Intlayer sözlüklerini yorumlamak ve Angular uygulamalarında kullanılabilir hale getirmek için kullanılır.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
 
-`express-intlayer` paketi, bir Express.js arka ucunda Intlayer kullanmak için kullanılır.
+`astro-intlayer` paketi, Intlayer'ı Astro uygulamalarına entegre etmek için gerekli araçları sağlar. Locale tabanlı yönlendirme ve sözlük yönetimini yapılandırır.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+`remix-intlayer` paketi, Intlayer'ı Remix uygulamalarına entegre etmek için gerekli araçları sağlar. Locale tabanlı yönlendirme, sunucu tarafı bağlamı ve sözlük yönetimini yapılandırır.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
 
 `react-native-intlayer` paketi, Intlayer'ı Metro paketleyici ile çalışacak şekilde entegre eden eklentiler sağlar.
 
-### lynx-intlayer
+  </Tab>
+  <Tab label="Lit" value="lit">
 
-`lynx-intlayer` paketi, Intlayer'ı Lynx paketleyici ile çalışacak şekilde entegre eden araçlar sağlar.
+`lit-intlayer` paketi, Lit uygulamalarında Intlayer sözlüklerini yorumlamak ve kullanmak için araçlar ve bileşenler sağlar.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+`vanilla-intlayer` paketi, Intlayer'ı vanilla JavaScript, HTML veya PHP uygulamalarına entegre etmek için araçlar sağlar.
+
+  </Tab>
+</Tabs>
+
+### Backend Framework'leri
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
+
+`express-intlayer` paketi, bir Express.js arka ucunda Intlayer kullanmak için kullanılır.
+
+  </Tab>
+  <Tab label="Fastify" value="fastify">
+
+`fastify-intlayer` paketi, Fastify uygulamaları için uluslararasılaştırmayı (internationalization / i18n) yönetmek üzere bir plugin sağlar. Kullanıcının locale'ini algılar ve request nesnesini dekorlar.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+`hono-intlayer` paketi, uluslararasılaştırmayı yönetmek için Hono uygulamaları için bir ara yazılım (middleware) sağlar. Kullanıcının yerel ayarını algılar ve bağlam nesnesini doldurur.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+`elysia-intlayer` paketi, Elysia uygulamaları için uluslararasılaştırmayı (internationalization / i18n) yönetmek üzere bir plugin sağlar. Kullanıcının locale'ini algılar ve route context'ine bir `intlayer` nesnesi enjekte eder.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+`adonis-intlayer` paketi, AdonisJS uygulamalarının uluslararasılaştırmayı yönetmesi için bir middleware sağlar. Kullanıcının yerel ayarını algılar ve çeviri fonksiyonları sağlar.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 
@@ -182,6 +238,10 @@ Intlayer, çeviri sürecinde belirli bir rolü olan birkaç paketten oluşur. İ
 ### react-scripts-intlayer
 
 Create React App tabanlı uygulama ile Intlayer'ı entegre etmek için `react-scripts-intlayer` komutlarını ve eklentileri içerir. Bu eklentiler [craco](https://craco.js.org/) tabanlıdır ve [Webpack](https://webpack.js.org/) paketleyici için ek konfigürasyon içerir.
+
+### eslint-plugin-intlayer
+
+`eslint-plugin-intlayer` paketi, çevrilmemiş dizeleri yakalamak, sözlük tanımlarını doğrulamak ve i18n en iyi uygulamalarını zorunlu kılmak için ESLint ve oxlint kuralları sağlar.
 
 ### intlayer-editor
 
@@ -216,9 +276,21 @@ Sunucu, Express tabanlıdır ve görsel düzenleyici isteklerini almak ve içeri
 
 `@intlayer/mcp` paketi, Intlayer ekosistemi için uyarlanmış AI destekli IDE yardımı sağlayan bir MCP (Model Context Protocol) sunucusu sağlar. Dokümantasyonu otomatik olarak yükler ve Intlayer CLI ile entegre olur.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/lsp
 
-`@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` ve `@intlayer/dynamic-dictionaries-entry` paketleri, Intlayer sözlüklerinin giriş yolunu döndürür. Tarayıcıdan dosya sistemini aramak imkansız olduğu için, Webpack veya Rollup gibi paketleyicileri kullanarak sözlüklerin giriş yolunu almak mümkün değildir. Bu paketler, Vite, Webpack ve Turbopack gibi çeşitli paketleyicilerde paketleme optimizasyonuna izin vermek için takma adlandırılmak üzere tasarlanmıştır.
+`@intlayer/lsp` paketi, Intlayer için özel olarak tasarlanmış bir Language Server Protocol (LSP) sunucusu sağlar. Tanıma Git, Tüm Referansları Bul, üzerine gelindiğinde önizleme, sözlük anahtarlarını otomatik tamamlama ve tanılama uyarıları gibi IDE özelliklerini getirir.
+
+### @intlayer/ai
+
+`@intlayer/ai` paketi, Intlayer uygulamaları için otomatik çeviri ve yapay zeka destekli içerik üretimini etkinleştiren SDK yetenekleri sağlar.
+
+### @intlayer/analytics
+
+`@intlayer/analytics` paketi, içerik gösterim metriklerini, sayfa/yerel ayar ve düğüm düzeyinde analizleri toplamak ve içerik A/B testlerini desteklemek için araçlar sağlar.
+
+### @intlayer/dictionaries-entry
+
+`@intlayer/dictionaries-entry` paketi, Intlayer sözlüklerinin giriş yolunu döndürür: kökünden birleştirilmiş sözlükleri ve `/unmerged`, `/remote`, `/dynamic` ve `/fetch` alt yollarından birleştirilmemiş, uzak, dinamik ve fetch sözlüklerini. Tarayıcıdan dosya sistemini aramak imkansız olduğu için, Webpack veya Rollup gibi paketleyicileri kullanarak sözlüklerin giriş yolunu almak mümkün değildir. Paket ve alt yolları, Vite, Webpack ve Turbopack gibi çeşitli paketleyicilerde paketleme optimizasyonuna izin vermek için takma adlandırılmak üzere tasarlanmıştır.
 
 ### @intlayer/engine
 

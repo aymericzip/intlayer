@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Czy next-intl jest przestarzały w 2026 roku?
 description: next-intl stał się domyślnym wyborem dla Next.js App Router. Mimo to nadal obciąża bundle narzutem w runtime i wymaga ręcznego dzielenia na namespace'y.
 keywords:
@@ -66,7 +66,7 @@ Podsumowanie minionego roku:
 - `amannn/next-intl`: **187 commitów** (głównie aktualizacje zależności i drobne poprawki).
 - `aymericzip/intlayer`: **4 343 commity** (ciągłe prace nad kompilatorem, rozszerzeniami IDE, serwerami MCP i narzędziami tłumaczeniowymi).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Stabilna biblioteka bywa wystarczająca. Jednak standardy i18n uległy zmianie: kompilatory eliminują nieodwoływane tłumaczenia na etapie budowania, LLM-y wspierają translację w CI, a programiści korzystają z serwerów językowych (LSP) i asystentów AI. Biblioteka skupiona wyłącznie na czasie wykonywania nie czerpie z tych korzyści.
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 Ponieważ `messages` trafia do dostawcy klienta na samym szczycie drzewa, przeglądarka pobiera całą bazę słownikową przy każdym wejściu. Użytkownik wchodzący na `/login` pobiera również treści pomocy, cennika czy panelu użytkownika.
 
 Można temu zapobiegać, wydzielając namespace'y i ładując je warunkowo. Utrzymywanie tej konfiguracji ręcznie bywa jednak czasochłonne i ryzykowne.
+
+Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 1 do 10 stron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę. Dynamiczne ładowanie treści per locale usuwa oś języków, ograniczenie treści do komponentu lub trasy usuwa oś stron, a tylko połączenie obu utrzymuje rozmiar na stałym poziomie.
+
+![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer rozwiązuje ten problem analizą statyczną: [kompilator Intlayer](https://intlayer.org/pl/doc/compiler) przygotowuje dla każdej trasy wyłącznie te teksty, które faktycznie się na niej znajdują, redukując wyciek do **0.0%**.
 

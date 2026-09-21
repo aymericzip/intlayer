@@ -64,6 +64,12 @@ describe('formatProxyEnabledMessage', () => {
     );
   });
 
+  it('names the build when a build pass suppresses the stored locale', () => {
+    expect(plain(formatProxyEnabledMessage(true, 'build'))).toBe(
+      'Intlayer proxy enabled - storage redirection disabled for build purpose'
+    );
+  });
+
   it('reports a plain enabled state otherwise', () => {
     expect(plain(formatProxyEnabledMessage(false))).toBe(
       'Intlayer proxy enabled'

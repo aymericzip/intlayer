@@ -116,7 +116,6 @@ export type RuleScopeValue =
  */
 export const ATTRIBUTE_TO_NODE_PROP_MAP: Record<string, string> = [
   'allowFullScreen',
-  'allowTransparency',
   'autoComplete',
   'autoFocus',
   'autoPlay',

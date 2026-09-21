@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Устарел ли vue-i18n в 2026 году?
 description: vue-i18n был стандартом для Vue и Nuxt целое десятилетие. Однако в наших бенчмарках он оказался самым тяжелым runtime i18n в вебе. Разбираем причины.
 keywords:
@@ -64,7 +64,7 @@ author: aymericzip
 - `intlify/vue-i18n`: **259 коммитов** (плановые исправления для Vue 3 и Nuxt).
 - `aymericzip/intlayer`: **4 343 коммита** (развитие компилятора, LSP-утилит и интеграций с ИИ-агентами).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Зрелая библиотека гарантирует стабильность. Но современные фронтенды используют AST-преобразования при сборке, удаление мертвого кода и автоматический перевод нейросетями. Системе, работающей исключительно во время выполнения, сложно использовать эти новшества.
 
@@ -115,6 +115,12 @@ Runtime `vue-i18n` весит **24.3 КБ gzipped**, что сопоставим
 **Вес изолированных компонентов:**
 
 Компоненты с локальными областями видимости занимали в среднем 196 КБ в `vue-i18n` из-за дублирования каталогов против **6.5 КБ** в Intlayer.
+
+**Как растёт утечка:**
+
+График ниже оценивает объём контента для теоретического приложения, в котором от 1 до 10 страниц и от 1 до 10 языков, примерно по 30 КБ текста на страницу. Динамическая загрузка по локали убирает ось языков, ограничение контента компонентом или маршрутом убирает ось страниц, и только их сочетание сохраняет объём стабильным.
+
+![Теоретическая утечка контента по архитектуре](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ## Почему vue-i18n тяжелый?
 

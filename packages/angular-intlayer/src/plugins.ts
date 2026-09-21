@@ -1,3 +1,4 @@
+import { signal, untracked } from '@angular/core';
 import { editor, internationalization } from '@intlayer/config/built';
 import {
   conditionPlugin,
@@ -29,18 +30,30 @@ import { reportExposure } from './analytics/exposureSink';
 import { ContentSelectorWrapperComponent } from './editor/ContentSelector.component';
 import { renderIntlayerNode } from './renderIntlayerNode';
 
-let _markdownInstall: {
-  htmlRuntime: any;
-  useMarkdown: () => { renderMarkdown: (s: string, components?: any) => any };
-} | null = null;
+type MarkdownRendererModule = Pick<
+  typeof import('./markdown/installIntlayerMarkdown'),
+  'htmlRuntime' | 'useMarkdown'
+>;
+
+/**
+ * Code-split markdown renderer, held in a signal.
+ *
+ * The chunk loads asynchronously, so the first dictionary evaluation may run
+ * before it lands. `getPlugins` reads this signal inside the `computed` of
+ * `useIntlayer`/`useDictionary`, which makes that computed depend on it: nodes
+ * stringify to their raw source until the module resolves, then the signal
+ * flip re-evaluates the dictionary and every binding re-renders with compiled
+ * HTML. This is the Angular counterpart of the `Suspense` boundary the React
+ * and Solid packages wrap their markdown renderer in.
+ */
+const markdownRendererModule = signal<MarkdownRendererModule | null>(null);
+
 if (
   process.env.INTLAYER_NODE_TYPE_MARKDOWN !== 'false' ||
   process.env.INTLAYER_NODE_TYPE_HTML !== 'false'
 ) {
   void import('./markdown/installIntlayerMarkdown')
-    .then((m) => {
-      _markdownInstall = m as any;
-    })
+    .then((module) => markdownRendererModule.set(module))
     .catch(() => {});
 }
 
@@ -71,6 +84,27 @@ const createRuntimeWithOverides = (baseRuntime: any, overrides: any) => ({
     return baseRuntime.createElement(tag, props, ...children);
   },
 });
+
+/**
+ * Compiles a markdown/HTML source to an HTML string with the code-split
+ * runtime, or returns the raw source while the renderer chunk is still
+ * loading. Runs at stringify time, so a node kept outside any reactive
+ * context still picks the renderer up once it has landed.
+ */
+const compileToHtml = (
+  source: string,
+  components?: Record<string, unknown>
+): string => {
+  const rendererModule = untracked(markdownRendererModule);
+
+  if (!rendererModule) return source;
+
+  const runtime = components
+    ? createRuntimeWithOverides(rendererModule.htmlRuntime, components)
+    : rendererModule.htmlRuntime;
+
+  return compile(source, { runtime }) as string;
+};
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN
@@ -168,6 +202,11 @@ export const markdownStringPlugin: Plugins =
             keyPath: [],
           });
 
+          const renderMarkdown = (components?: any) =>
+            untracked(markdownRendererModule)
+              ?.useMarkdown()
+              .renderMarkdown(node, components) ?? node;
+
           const render = (components?: any) =>
             renderIntlayerNode({
               ...rest,
@@ -175,13 +214,7 @@ export const markdownStringPlugin: Plugins =
               children:
                 process.env.INTLAYER_EDITOR_ENABLED === 'false' ||
                 !editor.enabled
-                  ? () => {
-                      const { renderMarkdown } =
-                        _markdownInstall?.useMarkdown() ?? {
-                          renderMarkdown: () => node,
-                        };
-                      return renderMarkdown(node, components);
-                    }
+                  ? () => renderMarkdown(components)
                   : () => ({
                       component: ContentSelectorWrapperComponent,
                       props: {
@@ -189,13 +222,7 @@ export const markdownStringPlugin: Plugins =
                         keyPath: rest.keyPath,
                         ...components,
                       },
-                      children: () => {
-                        const { renderMarkdown } =
-                          _markdownInstall?.useMarkdown() ?? {
-                            renderMarkdown: () => node,
-                          };
-                        return renderMarkdown(node, components);
-                      },
+                      children: () => renderMarkdown(components),
                     }),
               additionalProps: {
                 metadata: metadataNodes,
@@ -212,26 +239,8 @@ export const markdownStringPlugin: Plugins =
                   return metadataNodes;
                 }
 
-                if (prop === 'toString') {
-                  return () => {
-                    const htmlRuntime = _markdownInstall?.htmlRuntime;
-                    if (!htmlRuntime || !compile) return node;
-                    const runtime = components
-                      ? createRuntimeWithOverides(htmlRuntime, components)
-                      : htmlRuntime;
-                    return compile(node, { runtime }) as string;
-                  };
-                }
-
-                if (prop === Symbol.toPrimitive) {
-                  return () => {
-                    const htmlRuntime = _markdownInstall?.htmlRuntime;
-                    if (!htmlRuntime || !compile) return node;
-                    const runtime = components
-                      ? createRuntimeWithOverides(htmlRuntime, components)
-                      : htmlRuntime;
-                    return compile(node, { runtime }) as string;
-                  };
+                if (prop === 'toString' || prop === Symbol.toPrimitive) {
+                  return () => compileToHtml(node, components);
                 }
 
                 if (prop === 'use') {
@@ -359,41 +368,14 @@ export const htmlPlugin: Plugins =
                   return html;
                 }
 
-                if (prop === 'toString') {
+                if (prop === 'toString' || prop === Symbol.toPrimitive) {
                   return () => {
-                    if (
-                      !components ||
-                      (typeof components === 'object' &&
-                        Object.keys(components).length === 0)
-                    ) {
+                    // Without component overrides the source is already HTML.
+                    if (!components || Object.keys(components).length === 0) {
                       return String(html);
                     }
-                    const htmlRuntime = _markdownInstall?.htmlRuntime;
-                    if (!htmlRuntime || !compile) return String(html);
-                    const runtime = createRuntimeWithOverides(
-                      htmlRuntime,
-                      components
-                    );
-                    return compile(html, { runtime }) as string;
-                  };
-                }
 
-                if (prop === Symbol.toPrimitive) {
-                  return () => {
-                    if (
-                      !components ||
-                      (typeof components === 'object' &&
-                        Object.keys(components).length === 0)
-                    ) {
-                      return String(html);
-                    }
-                    const htmlRuntime = _markdownInstall?.htmlRuntime;
-                    if (!htmlRuntime || !compile) return String(html);
-                    const runtime = createRuntimeWithOverides(
-                      htmlRuntime,
-                      components
-                    );
-                    return compile(html, { runtime }) as string;
+                    return compileToHtml(String(html), components);
                   };
                 }
 
@@ -518,7 +500,14 @@ export const getPlugins = (
   fallback: boolean = true
 ): Plugins[] => {
   const currentLocale = locale ?? internationalization.defaultLocale;
-  const cacheKey = `${currentLocale}_${fallback}`;
+  // Tracked read: called inside the dictionary `computed` of the hooks, so the
+  // computed re-evaluates once the renderer chunk lands. The core interpreter
+  // memoizes transformed content per plugin-array identity, and the transform
+  // itself is lazy (property getters resolved from the template), so handing
+  // out a fresh array is what discards the proxies built while pending and
+  // gives every binding a new value to re-render.
+  const isRendererLoaded = markdownRendererModule() !== null;
+  const cacheKey = `${currentLocale}_${fallback}_${isRendererLoaded}`;
 
   if (pluginsCache.has(cacheKey)) {
     return pluginsCache.get(cacheKey)!;

@@ -9,9 +9,9 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import { prepareIntlayer } from '@intlayer/engine/cli';
 import { formatPath } from '@intlayer/engine/utils';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 type ListContentDeclarationOptions = {
   configOptions?: GetConfigurationOptions;

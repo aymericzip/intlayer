@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-08-29
+updatedAt: 2026-09-20
 title: "Solid Start i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) SolidStart app. Server-rendered locale routing, hreflang, sitemap, and AI-assisted translation."
 keywords:
@@ -749,15 +749,13 @@ SolidStart turns a file exporting an HTTP method into an API route, and strips t
 import type { APIEvent } from "@solidjs/start/server";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 export const GET = (_event: APIEvent) => {
   const sitemap = generateSitemap(
     [
       { path: "/", changefreq: "daily", priority: 1.0 },
       { path: "/about", changefreq: "monthly", priority: 0.8 },
     ],
-    { siteUrl: SITE_URL }
+    { siteUrl: "https://example.com" }
   );
 
   return new Response(sitemap, {
@@ -791,8 +789,6 @@ You can build a `robots.txt` the same way with `getMultilingualUrls`, so that `D
 ```typescript fileName="src/routes/robots.txt.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 const disallowedPaths = ["/admin", "/private"].flatMap((path) =>
   Object.values(getMultilingualUrls(path))
 );
@@ -804,7 +800,7 @@ export const GET = () =>
       "Allow: /",
       ...disallowedPaths.map((path) => `Disallow: ${path}`),
       "",
-      `Sitemap: ${SITE_URL}/sitemap.xml`,
+      `Sitemap: https://example.com/sitemap.xml`,
     ].join("\n"),
     { headers: { "Content-Type": "text/plain" } }
   );
@@ -923,7 +919,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
 
@@ -942,6 +944,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Build your application to transform your components and extract the content
 
 ```bash packageManager="npm"
 npm run build # Or npm run dev

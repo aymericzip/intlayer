@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-16
 title: "प्रति-कम्पोनेंट बनाम केंद्रीकृत i18n: Intlayer के साथ एक नया दृष्टिकोण"
 description: React में internationalization रणनीतियों का गहन विश्लेषण, centralized, per-key और per-component approaches की तुलना, तथा Intlayer का परिचय।
 keywords:
@@ -63,6 +63,7 @@ extension Localization on String {
 - सामग्री पुनःप्राप्ति को प्रति-कुंजी या प्रति-कॉम्पोनेंट के स्तर पर फाइन-ग्रेन करें।
 
   </Column>
+
 </Columns>
 
 > इस ब्लॉग में, मैं compiler-based समाधानों पर ध्यान नहीं दूँगा, जिन्हें मैंने पहले यहाँ कवर किया है: [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md).
@@ -79,6 +80,10 @@ extension Localization on String {
 
 बेशक, लाइब्रेरी के लेखक इन सीमाओं से अवगत हैं और वर्कअराउंड प्रदान करते हैं।
 इनमें से कुछ: namespaces में विभाजन, डायनामिक रूप से JSON फाइलें लोड करना (`await import()`), या बिल्ड टाइम पर कंटेंट को purge करना।
+
+नीचे दिया गया ग्राफ़ एक सैद्धांतिक ऐप के कंटेंट पेलोड का अनुमान देता है, जिसमें 1 से 10 पेज हैं और जिसे 1 से 10 भाषाओं में अनुवादित किया गया है, प्रति पेज लगभग 30 KB टेक्स्ट के साथ। locale के अनुसार कंटेंट को डायनामिक रूप से लोड करने से भाषा वाली धुरी हट जाती है, कंटेंट को कंपोनेंट या रूट तक सीमित करने से पेज वाली धुरी हट जाती है, और केवल दोनों के संयोजन से ही पेलोड स्थिर रहता है।
+
+![आर्किटेक्चर के अनुसार सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 साथ ही, आपको यह जानना चाहिए कि जब आप अपना कंटेंट डायनामिक रूप से लोड करते हैं, तो आप अपने सर्वर पर अतिरिक्त अनुरोध जोड़ देते हैं। हर अतिरिक्त `useState` या hook का मतलब एक अतिरिक्त सर्वर अनुरोध होता है।
 
@@ -112,9 +117,9 @@ Let me tell you why it can be problematic for your app:
 
 पहला उदाहरण प्रति-लोकल lazy-loaded अनुवाद शामिल नहीं करता है और namespace splitting नहीं है। दूसरा content purging + dynamic loading के साथ अनुवाद दिखाता है।
 
-| ऑप्टिमाइज़्ड बंडल                                                                                                                | अनऑप्टिमाइज़्ड बंडल                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| ![अनुकूलित नहीं किया गया बंडल](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![अनुकूलित बंडल](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| ऑप्टिमाइज़्ड बंडल                                                                                                                 | अनऑप्टिमाइज़्ड बंडल                                                                                 |
+| --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| ![अनुकूलित नहीं किया गया बंडल](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![अनुकूलित बंडल](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 Namespaces के कारण, हम इस संरचना से नीचे दी गई संरचना में आ गए:
 

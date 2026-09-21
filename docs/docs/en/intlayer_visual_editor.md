@@ -288,6 +288,13 @@ The editor displays your application in an iframe, so your Content Security Poli
 It is designed for development and staging, where a rebuild after an edit is acceptable. For editing content on a live site without a deployment, use the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) and its remote dictionaries instead.
 
 </Question>
+<Question title="What is the cost of the visual editor? Is it overkill if I don't need it?">
+
+The Intlayer visual editor has **zero cost** on your application if it is not set up. The extra logic is only loaded if explicitly enabled and needed.
+
+If enabled, the cost is extremely light (+5 KB, dynamically loaded only when activated) because the main logic is handled by the server editor on [app.intlayer.org](https://app.intlayer.org) or via the `intlayer-editor` package. If you only need a simple translation setup without visual editing, Intlayer adds no overhead to your app.
+
+</Question>
 <Question title="Is the visual editor free?">
 
 Yes. The visual editor is part of the open source project, under the Apache 2.0 license, commercial use included. Only the hosted [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) is a paid service, and it can also be [self hosted](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md).

@@ -256,7 +256,7 @@ Ve výchozím nastavení bude `hono-intlayer` interpretovat hlavičku `Accept-La
 
 ![Doplňování (Autocompletion)](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Chyba překladu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Chyba překladu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Ujistěte se, že automaticky generované typy (ve výchozím nastavení v ./types/intlayer.d.ts) jsou zahrnuty ve vašem souboru tsconfig.json.
 

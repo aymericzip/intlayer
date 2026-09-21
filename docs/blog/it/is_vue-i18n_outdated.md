@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: vue-i18n è obsoleto nel 2026?
 description: vue-i18n è stato lo standard per Vue e Nuxt per oltre un decennio. Tuttavia, nei nostri benchmark si è dimostrato il runtime i18n più pesante del web. Scopri i dettagli.
 keywords:
@@ -64,7 +64,7 @@ Attività negli ultimi 12 mesi:
 - `intlify/vue-i18n`: **259 commit** (manutenzione ordinaria per Vue 3 e Nuxt).
 - `aymericzip/intlayer`: **4.343 commit** (ottimizzazioni di compilazione, integrazioni LSP e supporto ad agenti IA).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Una libreria matura assicura affidabilità. Tuttavia le architetture odierne impiegano trasformazioni AST al build, eliminazione di codice morto e automazione con IA. Un'impostazione incentrata unicamente sul runtime fa fatica ad adottare questi paradigmi.
 
@@ -115,6 +115,12 @@ Per impostazione predefinita, il **90% dei testi caricati** su una route apparti
 **Peso dei componenti isolati:**
 
 I componenti con ambiti di localizzazione hanno raggiunto una media di 196 KB sotto `vue-i18n` a causa della replicazione dei cataloghi, contro i **6.5 KB** ottenuti con Intlayer.
+
+**Come scala il leakage:**
+
+Il grafico seguente stima il peso del contenuto per un'app teorica da 1 a 10 pagine tradotta in 1 a 10 lingue, con circa 30 KB di testo per pagina. Caricare il contenuto dinamicamente per locale elimina l'asse delle lingue, delimitare il contenuto per componente o per route elimina l'asse delle pagine, e solo la combinazione dei due mantiene il peso stabile.
+
+![Leakage di contenuto teorico per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ## Perché vue-i18n è pesante?
 

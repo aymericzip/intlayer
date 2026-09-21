@@ -2,6 +2,7 @@ import { Badge } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { CopyButton } from '@intlayer/design-system/copy-button';
+import { useWebMCPTools } from '@intlayer/design-system/hooks';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { Input } from '@intlayer/design-system/input';
 import { Tag } from '@intlayer/design-system/tag';
@@ -44,6 +45,7 @@ import {
   convertMessage,
   evaluateMessagePreview,
   extractVariableNames,
+  parseTestVariables,
 } from '../MessageConverterPage/converterUtils';
 import { SNIPPETS_BY_DIALECT } from './snippets';
 import { TEMPLATE_CATEGORIES, TEMPLATES_BY_DIALECT } from './templates';
@@ -53,6 +55,7 @@ import type {
   QuickSnippet,
   TemplateCategory,
 } from './types';
+import { useFormatterWebMCPTools } from './useFormatterWebMCPTools';
 import { validateMessageSyntax } from './validation';
 
 const CATEGORY_ICONS: Record<TemplateCategory, FC<{ className?: string }>> = {
@@ -226,6 +229,30 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
     }
   };
 
+  // Lets a browser agent drive the editor the way a user would
+  const applyAgentMessage = (
+    message: string,
+    variables: Record<string, string>,
+    locale?: LocalesValues
+  ) => {
+    setSelectedTemplateId('');
+    updateMessage(message);
+    setTestVariables(variables);
+    if (locale) {
+      setTestLocale(locale);
+    }
+  };
+
+  useWebMCPTools(
+    useFormatterWebMCPTools({
+      dialect,
+      messageContent,
+      testVariables,
+      testLocale,
+      applyMessage: applyAgentMessage,
+    })
+  );
+
   // Auto-discover variables in messageContent
   useEffect(() => {
     const discovered = extractVariableNames(messageContent);
@@ -262,18 +289,9 @@ export const FormatterEditor: FC<{ dialect: FormatterDialect }> = ({
   const evaluatedPreview = useMemo(() => {
     if (!messageContent.trim()) return '';
 
-    const parsedValues: Record<string, unknown> = {};
-    for (const [key, val] of Object.entries(testVariables)) {
-      if (/^-?\d+(\.\d+)?$/.test(val)) {
-        parsedValues[key] = Number(val);
-      } else {
-        parsedValues[key] = val;
-      }
-    }
-
     return evaluateMessagePreview(
       messageContent,
-      parsedValues,
+      parseTestVariables(testVariables),
       testLocale,
       dialect
     );

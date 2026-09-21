@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: क्या 2026 में next-intl पुराना हो चुका है?
 description: next-intl, Next.js App Router का डिफ़ॉल्ट समाधान बन चुका है। लेकिन यह अभी भी रनटाइम बंडल ओवरहेड और मैन्युअल नेमस्पेस प्रबंधन का बोझ उठाता है।
 keywords:
@@ -66,7 +66,7 @@ Crowdin का आधिकारिक पार्टनर होने क�
 - `amannn/next-intl`: **187 कमिट्स** (मुख्यतः फ्रेमवर्क अपडेट्स और छोटे सुधार)।
 - `aymericzip/intlayer`: **4,343 कमिट्स** (कंपाइलर, आईडीई एक्सटेंशन, एमसीपी सर्वर और एआई ट्रांसलेशन इंजन पर निरंतर विकास)।
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 एक स्थापित लाइब्रेरी सुरक्षा का अनुभव कराती है। लेकिन आधुनिक i18n की दुनिया बदल चुकी है: कंपाइलर्स अप्रयुक्त टेक्स्ट को बिल्ड के समय हटाते हैं, एलएलएम सीआई पाइपलाइन में अनुवाद करते हैं, और डेवलपर्स लैंग्वेज सर्वर (LSP) और एआई एजेंट्स की मदद लेते हैं। रनटाइम-केंद्रित लाइब्रेरी इन सुविधाओं को आसानी से आत्मसात नहीं कर पाती।
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 क्योंकि `messages` को सबसे ऊपर क्लाइंट प्रोवाइडर को सौंप दिया जाता है, ब्राउज़र हर पेज पर पूरे एप्लिकेशन की शब्दकोश सूची डाउनलोड करता है। `/login` पर आने वाला यूज़र एफएक्यू, गाइड्स और डैशबोर्ड का डेटा भी लोड करता है।
 
 JSON फाइलों को नेमस्पेस में बांटकर इसे कम किया जा सकता है, लेकिन हर रूट के लिए इस मैपिंग को मैन्युअल रूप से संभालना मुश्किल और जोखिम भरा होता है।
+
+नीचे दिया गया ग्राफ़ एक सैद्धांतिक ऐप के कंटेंट पेलोड का अनुमान देता है, जिसमें 1 से 10 पेज हैं और जिसे 1 से 10 भाषाओं में अनुवादित किया गया है, प्रति पेज लगभग 30 KB टेक्स्ट के साथ। locale के अनुसार कंटेंट को डायनामिक रूप से लोड करने से भाषा वाली धुरी हट जाती है, कंटेंट को कंपोनेंट या रूट तक सीमित करने से पेज वाली धुरी हट जाती है, और केवल दोनों के संयोजन से ही पेलोड स्थिर रहता है।
+
+![आर्किटेक्चर के अनुसार सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer इसे स्टैटिक एनालिसिस से हल करता है: [Intlayer कंपाइलर](https://intlayer.org/hi/doc/compiler) केवल उन्हीं टेक्स्ट्स को बंडल करता है जो उस विशेष रूट पर इस्तेमाल होते हैं, जिससे लीकेज **0.0%** हो जाता है।
 

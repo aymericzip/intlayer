@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - Guía completa para traducir next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su Next.js sitio web en 2026, traducción LLM, Agent Skills & MCP.
 keywords:
@@ -22,7 +22,7 @@ author: aymericzip
 
 <TOC/>
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Veamos las similitudes y diferencias entre tres opciones de i18n para Next.js: next-i18next, next-intl e Intlayer.
 
@@ -134,6 +134,10 @@ Dos problemas importantes:
 
   > Si estoy en la página `/fr/about`, no quiero cargar el contenido de la página `/en/about`
 
+El gráfico siguiente estima el peso del contenido para una aplicación teórica de 1 a 10 páginas traducida a entre 1 y 10 idiomas, con unos 30 KB de texto por página. Cargar el contenido dinámicamente por locale elimina el eje de idiomas, acotar el contenido por componente o por ruta elimina el eje de páginas, y solo la combinación de ambos mantiene el peso estable.
+
+![Fuga de contenido teórica según la arquitectura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 De nuevo, las tres soluciones son conscientes de estos problemas y permiten gestionar estas optimizaciones. La diferencia entre las tres soluciones es la experiencia del desarrollador (DX).
 
 `next-intl` y `next-i18next` utilizan un enfoque centralizado para gestionar las traducciones, permitiendo dividir el JSON por localización y por subarchivos. En `next-i18next`, llamamos a los archivos JSON 'namespaces'; `next-intl` permite declarar mensajes. En `intlayer`, llamamos a los archivos JSON 'diccionarios'.
@@ -156,9 +160,9 @@ En el caso de `next-intl` y `next-i18next`, la biblioteca requiere cargar el JSO
 
 Aquí un ejemplo del impacto de la optimización del tamaño del paquete usando `intlayer` en una aplicación vite + react:
 
-| Paquete optimizado                                                                                      | Paquete no optimizado                                                                                                      |
-| ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| ![paquete optimizado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![paquete no optimizado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Paquete optimizado                                                                                       | Paquete no optimizado                                                                                                       |
+| -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| ![paquete optimizado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![paquete no optimizado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript y seguridad
 
@@ -1389,7 +1393,7 @@ Si prefieres una configuración mínima y aceptas algo de cableado manual, next-
 
 Las estrellas de GitHub son un indicador fuerte de la popularidad de un proyecto, la confianza de la comunidad y la relevancia a largo plazo. Aunque no son una medida directa de la calidad técnica, reflejan cuántos desarrolladores encuentran útil el proyecto, siguen su progreso y probablemente lo adopten. Para estimar el valor de un proyecto, las estrellas ayudan a comparar la tracción entre alternativas y proporcionan información sobre el crecimiento del ecosistema.
 
-[![Gráfico de Historial de Estrellas](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Gráfico de Historial de Estrellas](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ## Conclusión
 

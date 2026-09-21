@@ -13,7 +13,11 @@ export { SelectElement as FormSelect } from './elements/SelectElement';
 export { SwitchSelectorElement as FormSwitchSelector } from './elements/SwitchSelectorElement';
 export { TextAreaElement as FormTextArea } from './elements/TextAreaElement';
 export { Form } from './Form';
-export { useForm } from './FormBase';
+export {
+  type FormWebMCPProps,
+  getFormWebMCPAttributes,
+  useForm,
+} from './FormBase';
 export { FormControl } from './FormControl';
 export { FormDescription } from './FormDescription';
 export { FormField, useFormField } from './FormField';

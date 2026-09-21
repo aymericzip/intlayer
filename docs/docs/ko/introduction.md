@@ -179,7 +179,6 @@ Intlayer는 현대 웹 개발의 요구를 충족하도록 설계된 다양한 �
 - **[Intlayer와 Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack+solid.md)**
 - **[Intlayer와 Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)**
 - **[Intlayer와 React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_router_v7.md)**
-- **[Intlayer와 React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_router_v7_fs_routes.md)**
 - **[Intlayer와 React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_create_react_app.md)**
 - **[Intlayer와 React Native 및 Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_native+expo.md)**
 - **[Intlayer와 Lynx 및 React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_lynx+react.md)**
@@ -190,7 +189,6 @@ Intlayer는 현대 웹 개발의 요구를 충족하도록 설계된 다양한 �
 - **[Intlayer와 Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_solid.md)**
 - **[Intlayer와 Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_preact.md)**
 - **[Intlayer와 Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_lit.md)**
-- **[Intlayer와 Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_vanilla.md)**
 - **[Intlayer와 Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vue.md)**
 - **[Intlayer와 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)**
 - **[Intlayer와 Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+svelte.md)**

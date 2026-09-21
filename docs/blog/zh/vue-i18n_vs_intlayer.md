@@ -236,7 +236,7 @@ const { greeting } = useIntlayer("component-example");
 
 GitHub stars 是项目受欢迎程度、社区信任度和长期相关性的强有力指标。虽然不是技术质量的直接衡量标准，但它们反映了有多少开发者认为该项目有用、关注其进展，以及可能会采用它。对于估计项目的价值，stars 有助于在各种方案之间进行性能对比，并提供生态系统增长的见解。
 
-[![Star History Chart](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## 结论
 

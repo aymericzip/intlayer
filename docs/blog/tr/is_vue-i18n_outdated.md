@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: vue-i18n 2026'da Güncelliğini Yitirdi mi?
 description: vue-i18n on yıl boyunca Vue ve Nuxt uygulamalarının standardı oldu. Fakat benchmarklarımızda web üzerindeki en ağır i18n çalışma zamanı çıktı. İşte nedenleri.
 keywords:
@@ -64,7 +64,7 @@ Son on iki ay:
 - `intlify/vue-i18n`: **259 commit** (Vue 3 ve Nuxt için periyodik bakım).
 - `aymericzip/intlayer`: **4.343 commit** (derleyici optimizasyonları, LSP araçları ve yapay zeka entegrasyonları).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Köklü bir kütüphane istikrar sağlar. Fakat günümüz web mimarisi derleme anında AST dönüşümleri, ölü kod temizliği ve yapay zeka destekli yerelleştirme kullanır. Yalnızca çalışma zamanında çalışan bir sistemin bu yenilikleri benimsemesi zordur.
 
@@ -115,6 +115,12 @@ Varsayılan ayarlarda bir rotaya gönderilen **çevirilerin %90'ı** diğer sayf
 **Tekil bileşen boyutu:**
 
 Yerel kapsamda derlenen bileşenler, sözlüklerin tekrar etmesi sebebiyle `vue-i18n` ile ortalama 196 KB tutarken, Intlayer'da bu değer **6.5 KB** olmuştur.
+
+**Sızıntı nasıl ölçeklenir:**
+
+Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın içerik yükünü tahmin eder. İçeriği locale bazında dinamik yüklemek dil eksenini ortadan kaldırır, içeriği bileşen veya rota bazında sınırlamak sayfa eksenini ortadan kaldırır ve yalnızca ikisinin birleşimi yükü sabit tutar.
+
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ## vue-i18n Neden Ağır?
 

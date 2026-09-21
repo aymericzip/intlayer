@@ -151,6 +151,7 @@ export {
   getHTMLTextDir,
   getLocale,
   getLocaleFromPath,
+  getLocaleFromRequest,
   getLocaleLang,
   getLocaleName,
   getLocalizedPath,

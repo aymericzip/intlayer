@@ -179,7 +179,6 @@ Intlayer'ı esnekliği göz önünde bulundurarak geliştirdik; popüler çerçe
 - **[Tanstack Start + Solid ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack+solid.md)**
 - **[Vite + React ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md)**
 - **[React Router v7 ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_react_router_v7.md)**
-- **[React Router v7 (fs-routes) ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_react_router_v7_fs_routes.md)**
 - **[React CRA ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_create_react_app.md)**
 - **[React Native ve Expo ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_react_native+expo.md)**
 - **[Lynx ve React ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_lynx+react.md)**
@@ -190,7 +189,6 @@ Intlayer'ı esnekliği göz önünde bulundurarak geliştirdik; popüler çerçe
 - **[Astro + Solid ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_solid.md)**
 - **[Astro + Preact ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_preact.md)**
 - **[Astro + Lit ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_lit.md)**
-- **[Astro + Vanilla JS ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_vanilla.md)**
 - **[Vite + Vue ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+vue.md)**
 - **[Nuxt ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md)**
 - **[Vite + Svelte ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+svelte.md)**

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: next-intl 2026'da Güncelliğini Yitirdi mi?
 description: next-intl, Next.js App Router için varsayılan çözüm haline geldi. Ancak arka planda çalışma zamanı paket şişkinliği ve manuel ad alanı yükü taşımayı sürdürüyor.
 keywords:
@@ -66,7 +66,7 @@ Geçtiğimiz 12 ayın özeti:
 - `amannn/next-intl`: **187 commit** (çoğunlukla sürüm geçişleri ve küçük yamalar).
 - `aymericzip/intlayer`: **4.343 commit** (derleyiciler, IDE eklentileri, MCP sunucuları ve çeviri araçları üzerinde kesintisiz geliştirme).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Kararlı bir kütüphane güven verir. Fakat i18n dünyası evrildi: derleyiciler çağrılmayan çevirileri build aşamasında atıyor, LLM'ler CI süreçlerinde otomatik çeviri sağlıyor ve editörler özel LSP ile yapay zeka asistanlarından yararlanıyor. Sadece runtime'a bağlı bir kütüphanenin bu dönüşüme uyum sağlaması zordur.
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 `messages` kök düzeyinde istemci sağlayıcısına teslim edildiğinde, tarayıcı her sayfada tüm kelime havuzunu edinir. `/login` sayfasına giren bir ziyaretçi yardım, rehber ve gösterge paneli içeriklerini de birlikte indirir.
 
 Bunu önlemek için JSON dosyalarını ad alanlarına ayırmak mümkündür. Ancak bu eşleştirmeleri elle yönetmek zahmetlidir ve gözden kaçan eksikliklere yol açar.
+
+Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın içerik yükünü tahmin eder. İçeriği locale bazında dinamik yüklemek dil eksenini ortadan kaldırır, içeriği bileşen veya rota bazında sınırlamak sayfa eksenini ortadan kaldırır ve yalnızca ikisinin birleşimi yükü sabit tutar.
+
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer bunu statik analiz ile çözer: [Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler) sadece o rotada çağrılan metinleri paketler, rotalar arası sızıntıyı **%0.0'a** indirir.
 

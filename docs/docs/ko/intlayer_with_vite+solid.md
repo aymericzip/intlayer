@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Vite + Solid i18n - 앱을 번역하는 완전 가이드"
 description: "i18next는 이제 그만. 2026년 다국어 (i18n) Vite + Solid 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
@@ -573,24 +573,32 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-> v9 이후로, `intlayerCompiler`는 `intlayer` 플러그인에 포함되어 있습니다. 따라서 수동으로 추가할 필요가 없습니다.
+ <Tabs>
+ <Tab value='intlayer >= 9'>
 
-그런 다음 컴포넌트에서 사용할 수 있습니다:
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
-```tsx
-import { useIntlayer } from "solid-intlayer";
+ </Tab>
+ <Tab value='intlayer < 9'>
 
-const MyComponent = () => {
-  const content = useIntlayer("my-content");
+`intlayerCompiler` 플러그인을 포함하도록 `vite.config.ts`를 업데이트합니다:
 
-  return (
-    <div>
-      {/* MarkdownProvider를 통해 HTML로 렌더링 */}
-      {content.markdownContent}
-    </div>
-  );
-};
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Adds the compiler plugin
+  ],
+});
 ```
+
+ </Tab>
+ </Tabs>
+
+애플리케이션을 빌드하여 컴포넌트를 변환하고 콘텐츠를 추출합니다.
 
 ```bash packageManager="npm"
 npm run build # 또는 npm run dev
@@ -648,7 +656,9 @@ const pathList = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+const sitemapXml = generateSitemap(pathList, {
+  siteUrl: "https://example.com",
+});
 fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
 
 const getAllMultilingualUrls = (urls) =>
@@ -661,7 +671,7 @@ const robotsTxt = [
   "Allow: /",
   ...disallowedPaths.map((path) => `Disallow: ${path}`),
   "",
-  `Sitemap: ${SITE_URL}/sitemap.xml`,
+  `Sitemap: https://example.com/sitemap.xml`,
 ].join("\n");
 
 fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
@@ -810,6 +820,13 @@ Vite 특화된 장점은 번역이 런타임에 JSON으로 가져오는 대신 �
 <Question title="번역가가 코드를 건드리지 않고 콘텐츠를 수정할 수 있나요?">
 
 자체 인프라에서 실행되어 실행 중인 앱에서 직접 텍스트를 수정할 수 있는 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 배포 없이 변경할 수 있도록 콘텐츠를 외부화하는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 통해 가능합니다.
+
+</Question>
+<Question title="비주얼 에디터의 비용은 얼마인가요? 필요하지 않은 경우 과도한가요?">
+
+Intlayer [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)는 설정되지 않은 경우 애플리케이션에 **비용이 전혀 들지 않습니다**. 추가 로직은 명시적으로 활성화되고 필요할 때만 로드됩니다.
+
+활성화하더라도 대부분의 로직은 [app.intlayer.org](https://app.intlayer.org)의 서버 에디터나 `intlayer-editor` 패키지를 통해 처리되므로 영향은 극히 미미합니다(활성화 시 동적으로 로드되는 +5 kB에 불과함). 비주얼 편집 없이 간단한 번역 솔루션만 필요한 경우 Intlayer는 앱에 어떠한 오버헤드도 추가하지 않습니다.
 
 </Question>
 <Question title="Intlayer는 무료이며 오픈 소스인가요?">

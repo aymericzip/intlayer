@@ -21,7 +21,7 @@ import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
 import { Shield } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 import { CurrentProviderInfo } from './CurrentProviderInfo';
 import { OIDCConfigForm } from './OIDCConfigForm';
 import { SAMLConfigForm } from './SAMLConfigForm';
@@ -48,98 +48,102 @@ const useSSOConfigSchema = () => {
       z.object({
         enabled: z.literal(true),
         providerType: z.enum(['saml', 'oidc']),
-        domain: z.string().min(1, content.domainIsRequired.value),
-        samlConfig: z
-          .object({
-            issuer: z.string().optional(),
-            entryPoint: z.string().optional(),
-            cert: z.string().optional(),
+        domain: z
+          .string()
+          .check(z.minLength(1, content.domainIsRequired.value)),
+        samlConfig: z.optional(
+          z.object({
+            issuer: z.optional(z.string()),
+            entryPoint: z.optional(z.string()),
+            cert: z.optional(z.string()),
           })
-          .optional(),
-        oidcConfig: z
-          .object({
-            issuer: z.string().optional(),
-            clientId: z.string().optional(),
-            clientSecret: z.string().optional(),
+        ),
+        oidcConfig: z.optional(
+          z.object({
+            issuer: z.optional(z.string()),
+            clientId: z.optional(z.string()),
+            clientSecret: z.optional(z.string()),
           })
-          .optional(),
+        ),
       }),
       // State: SSO is Disabled (Fields are not required)
       z.object({
         enabled: z.literal(false),
-        providerType: z.enum(['saml', 'oidc']).optional(),
-        domain: z.string().optional(),
-        samlConfig: z.any().optional(),
-        oidcConfig: z.any().optional(),
+        providerType: z.optional(z.enum(['saml', 'oidc'])),
+        domain: z.optional(z.string()),
+        samlConfig: z.optional(z.any()),
+        oidcConfig: z.optional(z.any()),
       }),
     ])
-    .superRefine((data, ctx) => {
-      if (data.enabled) {
-        if (data.providerType === 'oidc') {
-          if (!data.oidcConfig?.issuer) {
-            ctx.addIssue({
-              code: 'custom',
-              message: content.issuerIsRequired.value,
-              path: ['oidcConfig', 'issuer'],
-            });
-          } else if (!/^https?:\/\//.test(data.oidcConfig.issuer)) {
-            ctx.addIssue({
-              code: 'custom',
-              message: content.invalidUrl.value,
-              path: ['oidcConfig', 'issuer'],
-            });
+    .check(
+      z.superRefine((data, ctx) => {
+        if (data.enabled) {
+          if (data.providerType === 'oidc') {
+            if (!data.oidcConfig?.issuer) {
+              ctx.addIssue({
+                code: 'custom',
+                message: content.issuerIsRequired.value,
+                path: ['oidcConfig', 'issuer'],
+              });
+            } else if (!/^https?:\/\//.test(data.oidcConfig.issuer)) {
+              ctx.addIssue({
+                code: 'custom',
+                message: content.invalidUrl.value,
+                path: ['oidcConfig', 'issuer'],
+              });
+            }
+
+            if (!data.oidcConfig?.clientId) {
+              ctx.addIssue({
+                code: 'custom',
+                message: content.clientIdIsRequired.value,
+                path: ['oidcConfig', 'clientId'],
+              });
+            }
+
+            if (!data.oidcConfig?.clientSecret) {
+              ctx.addIssue({
+                code: 'custom',
+                message: content.clientSecretIsRequired.value,
+                path: ['oidcConfig', 'clientSecret'],
+              });
+            }
           }
 
-          if (!data.oidcConfig?.clientId) {
-            ctx.addIssue({
-              code: 'custom',
-              message: content.clientIdIsRequired.value,
-              path: ['oidcConfig', 'clientId'],
-            });
-          }
+          if (data.providerType === 'saml') {
+            if (!data.samlConfig?.issuer) {
+              ctx.addIssue({
+                code: 'custom',
+                message: content.issuerIsRequired.value,
+                path: ['samlConfig', 'issuer'],
+              });
+            }
 
-          if (!data.oidcConfig?.clientSecret) {
-            ctx.addIssue({
-              code: 'custom',
-              message: content.clientSecretIsRequired.value,
-              path: ['oidcConfig', 'clientSecret'],
-            });
+            if (!data.samlConfig?.entryPoint) {
+              ctx.addIssue({
+                code: 'custom',
+                message: content.entryPointIsRequired.value,
+                path: ['samlConfig', 'entryPoint'],
+              });
+            } else if (!/^https?:\/\//.test(data.samlConfig.entryPoint)) {
+              ctx.addIssue({
+                code: 'custom',
+                message: content.invalidUrl.value,
+                path: ['samlConfig', 'entryPoint'],
+              });
+            }
+
+            if (!data.samlConfig?.cert) {
+              ctx.addIssue({
+                code: 'custom',
+                message: content.certificateIsRequired.value,
+                path: ['samlConfig', 'cert'],
+              });
+            }
           }
         }
-
-        if (data.providerType === 'saml') {
-          if (!data.samlConfig?.issuer) {
-            ctx.addIssue({
-              code: 'custom',
-              message: content.issuerIsRequired.value,
-              path: ['samlConfig', 'issuer'],
-            });
-          }
-
-          if (!data.samlConfig?.entryPoint) {
-            ctx.addIssue({
-              code: 'custom',
-              message: content.entryPointIsRequired.value,
-              path: ['samlConfig', 'entryPoint'],
-            });
-          } else if (!/^https?:\/\//.test(data.samlConfig.entryPoint)) {
-            ctx.addIssue({
-              code: 'custom',
-              message: content.invalidUrl.value,
-              path: ['samlConfig', 'entryPoint'],
-            });
-          }
-
-          if (!data.samlConfig?.cert) {
-            ctx.addIssue({
-              code: 'custom',
-              message: content.certificateIsRequired.value,
-              path: ['samlConfig', 'cert'],
-            });
-          }
-        }
-      }
-    });
+      })
+    );
 };
 
 type SSOFormData = z.infer<ReturnType<typeof useSSOConfigSchema>>;

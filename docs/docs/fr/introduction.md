@@ -177,7 +177,6 @@ Nous avons conçu Intlayer avec la flexibilité à l'esprit, offrant une intégr
 - **[Intlayer avec Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_tanstack+solid.md)**
 - **[Intlayer avec Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+react.md)**
 - **[Intlayer avec React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_react_router_v7.md)**
-- **[Intlayer avec React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_react_router_v7_fs_routes.md)**
 - **[Intlayer avec React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_create_react_app.md)**
 - **[Intlayer avec React Native et Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_react_native+expo.md)**
 - **[Intlayer avec Lynx et React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_lynx+react.md)**
@@ -188,7 +187,6 @@ Nous avons conçu Intlayer avec la flexibilité à l'esprit, offrant une intégr
 - **[Intlayer avec Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_astro_solid.md)**
 - **[Intlayer avec Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_astro_preact.md)**
 - **[Intlayer avec Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_astro_lit.md)**
-- **[Intlayer avec Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_astro_vanilla.md)**
 - **[Intlayer avec Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+vue.md)**
 - **[Intlayer avec Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nuxt.md)**
 - **[Intlayer avec Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+svelte.md)**

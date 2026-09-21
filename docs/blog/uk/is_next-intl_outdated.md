@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Чи застарів next-intl у 2026 році?
 description: next-intl став популярним рішенням для Next.js App Router. Проте він все ще створює оверхед у бандлі під час виконання та вимагає ручного керування неймспейсами.
 keywords:
@@ -66,7 +66,7 @@ author: aymericzip
 - `amannn/next-intl`: **187 комітів** (оновлення залежностей і локальні правки).
 - `aymericzip/intlayer`: **4 343 коміти** (активний розвиток компілятора, розширень для IDE, серверів MCP і механізмів перекладу).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Стабільна бібліотека має свої переваги. Проте підходи до i18n суттєво оновилися: компілятори вилучають невикористані рядки під час збірки, LLM автоматизують локалізацію в CI, а середовища розробки використовують сервери мов (LSP) та розумних помічників. Архітектура, прив'язана до runtime, з труднощами переймає ці можливості.
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 Оскільки `messages` передається клієнтському провайдеру нагорі дерева, браузер завантажує весь словник на кожній сторінці. Відвідувач `/login` завантажує також тексти довідки, юридичні сторінки та інтерфейс кабінету.
 
 Цю проблему можна зменшити, розділивши JSON на неймспейси. Однак підтримувати ці зв'язки вручну складно та небезпечно через ризик пропустити ключі.
+
+Графік нижче оцінює обсяг контенту для теоретичного застосунку, в якому від 1 до 10 сторінок і від 1 до 10 мов, приблизно по 30 КБ тексту на сторінку. Динамічне завантаження за локаллю прибирає вісь мов, обмеження контенту компонентом або маршрутом прибирає вісь сторінок, і лише їх поєднання зберігає обсяг стабільним.
+
+![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer вирішує це статичним аналізом: [компілятор Intlayer](https://intlayer.org/uk/doc/compiler) включає тільки ті тексти, які реально використовуються на поточному маршруті, зводячи витік до **0.0%**.
 

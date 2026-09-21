@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "React Router v7 i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) React Router v7 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -43,7 +43,7 @@ author: aymericzip
 
 本指南演示了如何在 React Router v7 项目中集成 **Intlayer**，实现无缝国际化，支持基于区域的路由、TypeScript 支持以及现代开发实践。
 
-本指南重点关注前端路由。对于 fs-routes 路由，请参考 [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react_router_v7_fs_routes.md) 指南。
+本指南同时涵盖**基于配置的路由**（`routes.ts`）和**基于文件系统的路由**（`@react-router/fs-routes`）。
 
 ## 目录
 
@@ -900,7 +900,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel 编译器'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > 自 v9 起，`intlayerCompiler` 已包含在 `intlayer` 插件中。因此你不需要手动添加它。
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 更新你的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
 
@@ -915,6 +921,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+构建你的应用程序来转换你的组件并提取内容
 
 ```bash packageManager="npm"
 npm run build # 或 npm run dev
@@ -1048,7 +1059,7 @@ React Router v7 本身不包含消息管理层，因此需要将其与 i18n 库�
 </Question>
 <Question title="如何在路由中添加语言环境段 (locale segment)？">
 
-在您的路由树中声明一个 `:locale` 段，并让 Intlayer 解析它。`validatePrefix` 告诉您该段是否属于已声明的语言环境，从而让未知的前缀返回 404 而不是渲染重复页面，并且 `getLocalizedUrl` 可将任何路径重写为目标语言。如果您使用文件系统路由，请参阅本指南的 [文件系统路由版本](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react_router_v7_fs_routes.md)。
+在您的路由树中声明一个 `:locale` 段，并让 Intlayer 解析它。`validatePrefix` 告诉您该段是否属于已声明的语言环境，从而让未知的前缀返回 404 而不是渲染重复页面，并且 `getLocalizedUrl` 可将任何路径重写为目标语言。如果您使用文件系统路由，请在路由文件名前加上 `($locale)` 动态段。
 
 </Question>
 <Question title="我必须在 URL 中包含语言环境吗？">
@@ -1084,6 +1095,13 @@ React Router v7 本身不包含消息管理层，因此需要将其与 i18n 库�
 <Question title="翻译人员如何无需接触代码即可编辑内容？">
 
 可以通过自托管的 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 进行无需重新部署的内容外部化更新。
+
+</Question>
+<Question title="可视化编辑器的成本是多少？如果我不需要它，会不会显得多余？">
+
+如果未进行配置，Intlayer [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)对您的应用程序是 **零成本** 的。额外的逻辑仅在显式启用并在需要时才会加载。
+
+即使启用，其开销也极其轻量（仅在激活时动态加载 +5 kB），因为主要逻辑由 [app.intlayer.org](https://app.intlayer.org) 上的服务端编辑器或通过 `intlayer-editor` 软件包进行处理。如果您只需要一个无需可视化编辑的简单翻译方案，Intlayer 不会给您的应用带来任何额外负担。
 
 </Question>
 <Question title="Intlayer 是免费且开源的吗？">

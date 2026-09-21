@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "React Router v7 i18n - Guida completa per tradurre la tua applicazione"
 description: "Niente più i18next. La guida 2026 per creare un'applicazione React Router v7 multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
@@ -43,7 +43,7 @@ author: aymericzip
 
 Questa guida dimostra come integrare **Intlayer** per un'internazionalizzazione senza soluzione di continuità nei progetti React Router v7 con routing consapevole della localizzazione, supporto TypeScript e pratiche di sviluppo moderne.
 
-Questa guida si concentra sul routing frontend. Per il routing con fs-routes, consulta la guida [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_react_router_v7_fs_routes.md).
+Copre sia il **routing basato su configurazione** (`routes.ts`) sia il **routing basato sul file system** (`@react-router/fs-routes`).
 
 ## Indice
 
@@ -888,7 +888,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilatore Babel'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Aggiorna il tuo `vite.config.ts` per includere il plugin `intlayerCompiler`:
 
@@ -903,6 +909,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Compila la tua applicazione per trasformare i tuoi componenti ed estrarre il contenuto
 
 ```bash packageManager="npm"
 npm run build # Oppure npm run dev
@@ -1036,7 +1047,7 @@ Cinque componenti, tutti opzionali:
 </Question>
 <Question title="Come aggiungo un segmento di locale alle mie rotte?">
 
-Dichiara un segmento `:locale` sul tuo albero delle rotte e lascia che Intlayer lo risolva. `validatePrefix` ti dice se il segmento è una locale dichiarata, così un prefisso sconosciuto ritorna un 404 invece di renderizzare una pagina duplicata, e `getLocalizedUrl` riscrive qualsiasi percorso nella lingua di destinazione. Se usi le rotte del file system, segui la [variante con rotte del file system](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_react_router_v7_fs_routes.md) di questa guida.
+Dichiara un segmento `:locale` sul tuo albero delle rotte e lascia che Intlayer lo risolva. `validatePrefix` ti dice se il segmento è una locale dichiarata, così un prefisso sconosciuto ritorna un 404 invece di renderizzare una pagina duplicata, e `getLocalizedUrl` riscrive qualsiasi percorso nella lingua di destinazione. Se usi le rotte del file system, anteponi il segmento dinamico `($locale)` ai nomi dei file delle rotte.
 
 </Question>
 <Question title="Devo mettere la locale nell'URL?">
@@ -1072,6 +1083,13 @@ Sì: [forme plurali](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 <Question title="Come possono i traduttori modificare il contenuto senza toccare il codice?">
 
 Attraverso l'[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) auto-ospitato o il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md), che esternalizza il contenuto così può cambiare senza un deployment.
+
+</Question>
+<Question title="Qual è il costo dell'editor visuale? È eccessivo se non ne ho bisogno?">
+
+L'[editor visuale di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) ha un **costo pari a zero** sulla tua applicazione se non viene configurato. La logica aggiuntiva viene caricata solo se esplicitamente abilitata e necessaria.
+
+Se abilitato, l'impatto è estremamente ridotto (+5 KB, caricato dinamicamente solo quando attivato) poiché la maggior parte della logica è gestita dal server editor su [app.intlayer.org](https://app.intlayer.org) o tramite il pacchetto `intlayer-editor`. Se hai solo bisogno di una soluzione di traduzione semplice senza editing visuale, Intlayer non aggiunge alcun overhead alla tua applicazione.
 
 </Question>
 <Question title="Intlayer è gratuito e open source?">

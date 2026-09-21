@@ -256,7 +256,7 @@ Standaard zal `hono-intlayer` de `Accept-Language` header interpreteren om de vo
 
 ![Automatische aanvulling](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Vertaalfout](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Vertaalfout](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Zorg ervoor dat de automatisch gegenereerde types (standaard in ./types/intlayer.d.ts) zijn opgenomen in uw tsconfig.json-bestand.
 

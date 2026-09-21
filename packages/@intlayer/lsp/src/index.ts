@@ -7,9 +7,9 @@ import {
   getConfiguration,
   searchConfigurationFile,
 } from '@intlayer/config/node';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import { buildComponentFilesList } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import {
   type CompletionItem,
   CompletionItemKind,

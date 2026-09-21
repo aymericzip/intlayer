@@ -256,7 +256,7 @@ export default config;
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 নিশ্চিত করুন যে অটোজেনারেটেড টাইপগুলো (ডিফল্টভাবে `./types/intlayer.d.ts`-এ থাকে) আপনার `tsconfig.json` ফাইলে অন্তর্ভুক্ত আছে।
 

@@ -1,18 +1,18 @@
 import { LanguageSection } from '@intlayer/design-system/language-background';
 import { Link } from '@intlayer/design-system/link';
 import { Website_Playground_Path } from '@intlayer/design-system/routes';
-import { StatsRecording } from 'framer-motion';
 import { getLocalizedUrl } from 'intlayer';
-import { CircleArrowRight, PlaySquare } from 'lucide-react';
-import { type FC, useState } from 'react';
+import { PlaySquare } from 'lucide-react';
+import type { FC } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { CompilerSection } from './CompilerSection';
-import { FrameworkProvider, Mode } from './FrameworkContext';
+import { FrameworkProvider } from './FrameworkContext';
 import { FrameworkSelector } from './FrameworkSelector';
 import { IDESection } from './IDESection';
 import { ModeSelector } from './ModeSelector';
 import { TestSection } from './TestSection';
 import { VisualEditorSection } from './VisualEditorSection';
+
 export const FeaturesSection: FC = () => {
   const { locale } = useLocale();
   const { gotToPlaygroundButton } = useIntlayer('visual-editor-section');
@@ -41,7 +41,6 @@ export const FeaturesSection: FC = () => {
             {sectionsData[1].description}
           </p>
         </div>
-
         <div className="col-span-4 flex flex-col gap-4 bg-background p-6">
           <LanguageSection />
           <h1 className="text-3xl">{sectionsData[3].title}</h1>
@@ -49,7 +48,6 @@ export const FeaturesSection: FC = () => {
             {sectionsData[3].description}
           </p>
         </div>
-
         <div className="col-span-2 flex flex-col gap-4 bg-background p-6">
           <VisualEditorSection />
           <h1 className="text-3xl">{sectionsData[2].title}</h1>

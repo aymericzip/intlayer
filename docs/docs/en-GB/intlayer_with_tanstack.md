@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "TanStack Start i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) TanStack Start app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
@@ -1072,7 +1072,13 @@ bun x intlayer extract
  </Tab>
  <Tab value="Babel compiler">
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
 
@@ -1087,6 +1093,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Build your application to transform your components and extract the content
 
 ```bash packageManager="npm"
 npm run build # Or npm run dev
@@ -1156,10 +1167,6 @@ Then, create a `src/routes/sitemap[.]xml.ts` route that uses the `generateSitema
 import { createFileRoute } from "@tanstack/react-router";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
-
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
@@ -1169,7 +1176,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             { path: "/", changefreq: "daily", priority: 1.0 },
             { path: "/about", changefreq: "monthly", priority: 0.8 },
           ],
-          { siteUrl: SITE_URL }
+          { siteUrl: "https://example.com" }
         );
 
         return new Response(sitemap, {
@@ -1330,6 +1337,13 @@ Yes. Content declarations support [plural forms](https://github.com/aymericzip/i
 <Question title="How can translators edit the content without touching the code?">
 
 Through the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md), which runs on your own infrastructure and lets anyone edit text in place on the running site, or the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md), which externalizes content so it can change without a deployment.
+
+</Question>
+<Question title="What is the cost of the visual editor? Is it overkill if I don't need it?">
+
+The [Intlayer visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) has **zero cost** on your application if it is not set up. The extra logic is only loaded if explicitly enabled and needed.
+
+If enabled, the cost is extremely light (+5 KB, dynamically loaded only when activated) because the main logic is handled by the server editor on [app.intlayer.org](https://app.intlayer.org) or via the `intlayer-editor` package. If you only need a simple translation setup without visual editing, Intlayer adds no overhead to your app.
 
 </Question>
 <Question title="Is Intlayer free and open source?">

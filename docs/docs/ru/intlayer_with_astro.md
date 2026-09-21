@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Astro i18n - Полное руководство по переводу вашего приложения"
 description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения Astro. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Добавлены хуки useIntlayer / useLocale и middleware Astro.locals в astro-intlayer"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
@@ -152,7 +155,7 @@ bun add intlayer astro-intlayer
   Основной пакет, предоставляющий инструменты интернационализации для управления конфигурацией, переводами, [объявлением контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md), транспиляцией и [командами CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).
 
 - **astro-intlayer**
-  Включает плагин интеграции для Astro для интеграции Intlayer с [бандлером Vite](https://vite.dev/guide/why.html#why-bundle-for-production), а также промежуточное ПО (middleware) для определения предпочтительной локали пользователя, управления куки и обработки перенаправлений URL.
+  Включает плагин интеграции Astro для интеграции Intlayer с [бандлером Vite](https://vite.dev/guide/why.html#why-bundle-for-production), middleware, разрешающее локаль каждого запроса в `Astro.locals.intlayer`, и хуки `useIntlayer` / `useDictionary` / `useLocale`. Тот же путь импорта разрешается в серверную реализацию во фронтматтере `.astro` и в клиентскую (на базе `vanilla-intlayer`) в блоках `<script>`.
 
 </Step>
 <Step number={2} title="Настройка вашего проекта">
@@ -229,26 +232,28 @@ export default appContent;
 </Step>
 <Step number={5} title="Использование контента в Astro">
 
-Вы можете использовать словари напрямую в файлах `.astro`, используя основные хелперы, экспортируемые из `intlayer`.
+Используйте ваши словари в файлах `.astro` с помощью хуков, экспортируемых `astro-intlayer`. Они имеют те же сигнатуры, что и `react-intlayer`: `useIntlayer("key")` возвращает содержимое словаря, а `useLocale()` текущую локаль, без необходимости передавать аргументы.
+
+Локаль поступает из middleware `astro-intlayer`, которое интеграция регистрирует автоматически перед вашим собственным `src/middleware.ts`. Оно разрешает ее для каждого запроса, на основе префикса URL, затем сохраненной клиентом локали (cookie или заголовок), затем `Accept-Language`, и сохраняет в `Astro.locals.intlayer`. Предварительно отрендеренные страницы используют только URL, так как рендерятся один раз для каждого посетителя.
+
+Вам также следует добавить SEO-метаданные, такие как hreflang и канонические ссылки, на каждую страницу и включить переключатель языков, чтобы пользователи могли менять язык.
 
 ```astro fileName="src/pages/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
   defaultLocale,
   localeMap,
   getHTMLTextDir,
-  type LocalesValues,
 } from "intlayer";
 import LocaleSwitcher from "../components/LocaleSwitcher.astro";
 
-// Get the current locale from the URL (e.g. /es/about -> 'es')
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+// Локаль, разрешенная middleware (напр. /ru/about -> 'ru')
+const { locale } = useLocale();
 
-// Get the content for the 'app' dictionary
-const { title } = getIntlayer("app", locale);
+// Содержимое словаря 'app' для этой локали
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -300,6 +305,8 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
+> `Astro.locals.intlayer` также предоставляет доступ к `locale`, `defaultLocale` и `availableLocales` в ваших собственных middleware и эндпоинтах. Передайте локаль или селектор вторым аргументом (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`), чтобы переопределить локаль запроса для одного вызова.
+
 </Step>
 <Step number={6} title="Локализованная маршрутизация">
 
@@ -325,44 +332,51 @@ const { title } = getIntlayer('app');
 
 ```astro fileName="src/components/LocaleSwitcher.astro"
 ---
-import {
-  locales,
-  getLocaleName,
-  getLocalizedUrl,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  type LocalesValues,
-} from "intlayer";
+import { useLocale } from "astro-intlayer";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { locale, availableLocales } = useLocale();
 const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ---
 
-<nav>
-  {
-    locales.map((localeItem) => (
-      <a
-        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-        data-locale={localeItem}
-        aria-current={localeItem === locale ? "page" : undefined}
-      >
-        {getLocaleName(localeItem)}
-      </a>
-    ))
-  }
+<nav aria-label="Languages">
+  <ul>
+    {
+      availableLocales.map((localeItem) => (
+        <li key={localeItem} class="p-1">
+          <a
+            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+            data-locale={localeItem}
+            aria-current={localeItem === locale ? "page" : undefined}
+          >
+            {getLocaleName(localeItem)}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </nav>
 
 <script>
-  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+  // В браузере тот же импорт разрешается в клиентскую реализацию
+  import { useLocale } from "astro-intlayer";
+  import { getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  // Сохраняет выбор в cookie локали, затем переходит на локализованный URL
+  const { setLocale } = useLocale({
+    onLocaleChange: (newLocale) => {
+      window.location.href = getLocalizedUrl(window.location.pathname, newLocale);
+    },
+  });
 
   const localeLinks = document.querySelectorAll("[data-locale]");
 
   localeLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
+    link.addEventListener("click", (event) => {
       const locale = link.getAttribute("data-locale") as LocalesValues;
 
-      // Update the locale cookie
-      setLocaleInStorageClient(locale);
+      event.preventDefault();
+      setLocale(locale);
     });
   });
 </script>
@@ -372,6 +386,13 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
     display: flex;
     gap: 1rem;
   }
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+  }
   a[aria-current="page"] {
     font-weight: bold;
     text-decoration: underline;
@@ -379,8 +400,11 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 </style>
 ```
 
-> **Примечание о сохранении настроек:**
-> Использование `setLocaleInStorageClient` в клиентском скрипте гарантирует, что языковые предпочтения пользователя сохраняются в куки. Это позволяет промежуточному ПО Intlayer запомнить выбор и автоматически перенаправлять пользователя на предпочитаемый язык при будущих посещениях.
+> **Примечание о сохранении состояния:**
+> `setLocale` из клиентского `useLocale` сохраняет языковые предпочтения пользователя в cookie. Это позволяет Intlayer запоминать выбор и автоматически перенаправлять пользователя на предпочитаемый язык при будущих посещениях: страницы, рендерируемые по требованию (адаптер с `output: 'server'` или `prerender = false`), перенаправляются middleware Intlayer до отправки какого-либо HTML, в то время как предварительно отрендеренные страницы, предоставляемые как статические файлы, перенаправляются небольшим скриптом, который интеграция внедряет на каждую страницу. Установите `routing.enableProxy` в `false`, чтобы отключить оба варианта. В `astro dev` cookie игнорируется как источник перенаправления, если только `routing.enableProxy` не установлен в `true`, поэтому устаревший cookie не сможет перехватить страницы, над которыми вы работаете.
+>
+> **Взаимосовместимость сервера и клиента:**
+> `astro-intlayer` разрешается в серверные хуки во фронтматтере (считывая `Astro.locals`) и в клиентские хуки `vanilla-intlayer` в блоках `<script>` и островах (islands), с теми же именами и структурой данных. `setLocale` и `onChange` действуют только на клиенте, вызовите `installIntlayer()` один раз для инициализации клиентского хранилища. `astro-intlayer/client` экспортирует клиентскую точку входа явно.
 
 </Step>
 <Step number={8} title="Sitemap и Robots.txt">
@@ -404,10 +428,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -448,11 +472,12 @@ export const GET: APIRoute = ({ site }) => {
 
 Продолжайте использовать ваш любимый фреймворк для создания вашего приложения.
 
-- Intlayer + React: [Intlayer с React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md)
-- Intlayer + Vue: [Intlayer с Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+vue.md)
-- Intlayer + Svelte: [Intlayer со Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+svelte.md)
-- Intlayer + Solid: [Intlayer с Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+solid.md)
-- Intlayer + Preact: [Intlayer с Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+preact.md)
+- Intlayer + React: [Intlayer с React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_astro_react.md)
+- Intlayer + Vue: [Intlayer с Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_astro_vue.md)
+- Intlayer + Svelte: [Intlayer со Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_astro_svelte.md)
+- Intlayer + Solid: [Intlayer с Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_astro_solid.md)
+- Intlayer + Preact: [Intlayer с Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_astro_preact.md)
+- Intlayer + Lit: [Intlayer с Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="Извлечение содержимого ваших компонентов" isOptional={true}>
@@ -518,21 +543,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Компилятор Babel'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Обновите ваш `vite.config.ts`, чтобы включить плагин `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Соберите приложение, чтобы преобразовать ваши компоненты и извлечь контент
 
 ```bash packageManager="npm"
 npm run build # Или npm run dev
@@ -563,7 +574,7 @@ Intlayer использует расширение модулей (module augmen
 
 ![Автодополнение](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Убедитесь, что ваша конфигурация TypeScript включает автогенерируемые типы.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Устарел ли i18next в 2026 году?
 description: i18next используется на миллионах сайтов, но его runtime-архитектура 2011 года устаревает. Анализ раздувания бандла, ограничений tree-shaking и замедления инноваций.
 keywords:
@@ -70,7 +70,7 @@ author: aymericzip
 | `i18next` core  | 2 626                 | **259**       | Небольшие патчи                         |
 | Intlayer        | 7 156                 | **4 343**     | Компилятор, инструменты IDE и движок ИИ |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Компактная библиотека может быть стабильной, но инструменты локализации не стоят на месте: сборщики удаляют неиспользуемый контент во время сборки, языковые модели переводят прямо в CI, а среды разработки используют Language Server (LSP) и ИИ-агентов. Ограниченная временем выполнения архитектура i18next затрудняет внедрение этих инноваций.
 
@@ -124,6 +124,10 @@ style="border:none;"
 **Утечка переводов:**
 
 По умолчанию почти **90% текста**, отправляемого на страницу, относится к другим маршрутам. Ручное разделение на неймспейсы сложно поддерживать без ошибок.
+
+График ниже оценивает объём контента для теоретического приложения, в котором от 1 до 10 страниц и от 1 до 10 языков, примерно по 30 КБ текста на страницу. Динамическая загрузка по локали убирает ось языков, ограничение контента компонентом или маршрутом убирает ось страниц, и только их сочетание сохраняет объём стабильным.
+
+![Теоретическая утечка контента по архитектуре](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Задержка гидратации:**
 

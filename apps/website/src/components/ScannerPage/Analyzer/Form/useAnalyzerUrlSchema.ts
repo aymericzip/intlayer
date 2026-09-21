@@ -1,25 +1,26 @@
 import { getIntlayer } from 'intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useAnalyzerUrlSchema = () => {
   const { invalidUrlError } = getIntlayer('analyzer-form');
 
-  const urlSchema = z
-    .string()
-    .min(3, { error: invalidUrlError })
-    .transform((val) => {
-      // Remove leading/trailing spaces
-      let value = val.trim();
+  const urlSchema = z.pipe(
+    z.pipe(
+      z.string().check(z.minLength(3, { error: invalidUrlError })),
+      z.transform((val) => {
+        // Remove leading/trailing spaces
+        let value = val.trim();
 
-      // If missing protocol, add it (default to https)
-      if (!/^https?:\/\//i.test(value)) {
-        value = `https://${value}`;
-      }
+        // If missing protocol, add it (default to https)
+        if (!/^https?:\/\//i.test(value)) {
+          value = `https://${value}`;
+        }
 
-      return value;
-    })
-    .pipe(
-      z.url({ error: invalidUrlError }).refine(
+        return value;
+      })
+    ),
+    z.url({ error: invalidUrlError }).check(
+      z.refine(
         (urlString) => {
           try {
             const url = new URL(urlString);
@@ -41,7 +42,8 @@ export const useAnalyzerUrlSchema = () => {
         },
         { error: invalidUrlError.value }
       )
-    );
+    )
+  );
 
   return z.object({
     url: urlSchema,

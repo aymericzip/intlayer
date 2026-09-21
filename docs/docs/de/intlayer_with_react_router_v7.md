@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-09-06
+updatedAt: 2026-09-20
 title: "React Router v7 i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) React Router v7-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
@@ -895,7 +895,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel-Compiler'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Seit v9 ist der `intlayerCompiler` im `intlayer` Plugin enthalten. Sie müssen ihn also nicht manuell hinzufügen.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Aktualisieren Sie Ihre `vite.config.ts`, um das `intlayerCompiler` Plugin einzuschließen:
 
@@ -910,6 +916,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Bauen Sie Ihre Anwendung, um Ihre Komponenten zu transformieren und den Inhalt zu extrahieren
 
 ```bash packageManager="npm"
 npm run build # Oder npm run dev
@@ -1079,6 +1090,13 @@ Ja: [Pluralformen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de
 <Question title="Wie können Übersetzer den Inhalt bearbeiten, ohne den Code zu berühren?">
 
 Durch den selbst gehosteten [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) oder das [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md), das Inhalte externalisiert, sodass sie sich ohne Deployment ändern können.
+
+</Question>
+<Question title="Welche Auswirkungen hat der visuelle Editor auf die Performance? Ist er überdimensioniert, wenn ich ihn nicht benötige?">
+
+Der [visuelle Editor von Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) verursacht **keine Kosten** für Ihre Anwendung, wenn er nicht eingerichtet ist. Die zusätzliche Logik wird nur geladen, wenn sie explizit aktiviert und benötigt wird.
+
+Selbst wenn er aktiviert ist, ist der Overhead extrem gering (+5 KB, wird nur bei Aktivierung dynamisch geladen), da der Großteil der Logik vom Server-Editor auf [app.intlayer.org](https://app.intlayer.org) oder über das Paket `intlayer-editor` verarbeitet wird. Wenn Sie lediglich eine einfache Übersetzungslösung ohne visuelle Bearbeitung benötigen, verursacht Intlayer keinerlei zusätzlichen Aufwand für Ihre App.
 
 </Question>
 <Question title="Ist Intlayer kostenlos und Open Source?">

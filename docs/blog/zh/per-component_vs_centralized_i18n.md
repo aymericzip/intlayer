@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-16
 title: 每组件（Per-Component）与集中式（Centralized）i18n：Intlayer 的新方法
 description: 深入探讨 React 国际化策略，对比集中式、按键（per-key）和按组件（per-component）方法，并介绍 Intlayer。
 keywords:
@@ -63,6 +63,7 @@ extension Localization on String {
 - 按键或按组件对内容检索进行细化。
 
   </Column>
+
 </Columns>
 
 > 在本博文中，我不会专注于基于编译器的解决方案，我已经在这里覆盖过：[Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md).
@@ -79,6 +80,10 @@ extension Localization on String {
 
 当然，library 的作者们也意识到这些限制并提供了解决方案。
 其中包括：将内容拆分为命名空间、动态加载 JSON 文件（`await import()`），或在构建时剔除内容。
+
+下图估算了一个理论应用的内容体积：1 到 10 个页面，翻译成 1 到 10 种语言，每页约 30 KB 文本。按 locale 动态加载内容可消除语言维度，按组件或路由划分内容可消除页面维度，只有两者结合才能让体积保持平稳。
+
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 与此同时，你应该知道，当你动态加载内容时，会向服务器引入额外的请求。每多一个 `useState` 或 hook，就意味着一次额外的服务器请求。
 
@@ -112,9 +117,9 @@ extension Localization on String {
 
 第一个示例没有为每个 locale 进行懒加载翻译，也没有进行命名空间拆分。第二个示例则包含内容清理（purging）和翻译的动态加载。
 
-| 已优化的 bundle                                                                                                      | 未优化的 bundle                                                                                      |
-| -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| ![未优化的 bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![已优化的 bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| 已优化的 bundle                                                                                                       | 未优化的 bundle                                                                                       |
+| --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| ![未优化的 bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![已优化的 bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 因此，多亏了 namespaces，我们将结构从以下形式迁移：
 

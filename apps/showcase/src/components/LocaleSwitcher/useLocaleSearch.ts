@@ -1,6 +1,11 @@
 import { useListKeyboardNavigation } from '@intlayer/design-system/hooks';
 import Fuse, { type IFuseOptions } from 'fuse.js';
-import { getLocaleName, Locales, type LocalesValues, locales } from 'intlayer';
+import {
+  defaultLocale,
+  getLocaleName,
+  type LocalesValues,
+  locales,
+} from 'intlayer';
 import { useCallback, useMemo, useState } from 'react';
 
 type MultilingualAvailableLocales = {
@@ -12,14 +17,14 @@ type MultilingualAvailableLocales = {
 
 export const useLocaleSearch = (
   availableLocales: LocalesValues[] = locales,
-  locale: LocalesValues = Locales.ENGLISH
+  locale: LocalesValues = defaultLocale
 ) => {
   const multilingualAvailableLocales: MultilingualAvailableLocales[] = useMemo(
     () =>
       availableLocales.map((localeEl) => {
-        const englishName = getLocaleName(localeEl, Locales.ENGLISH);
+        const englishName = getLocaleName(localeEl, defaultLocale);
         const currentLocaleName = getLocaleName(localeEl, locale);
-        const ownLocaleName = getLocaleName(localeEl);
+        const ownLocaleName = getLocaleName(localeEl, localeEl);
         return {
           locale: localeEl,
           englishName,

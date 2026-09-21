@@ -108,7 +108,7 @@ export const Route = createFileRoute('/{-$locale}/_other/pricing')({
               name: 'Intlayer CMS',
               description: String(productContent.description),
               imageUrl:
-                'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.png',
+                'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.webp',
               offers,
             })
           ),

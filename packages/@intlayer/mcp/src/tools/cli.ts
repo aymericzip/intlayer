@@ -12,60 +12,75 @@ import {
 import { listProjects } from '@intlayer/engine/cli';
 import { scanWebsite } from '@intlayer/engine/scan';
 import { ALL_LOCALES } from '@intlayer/types/allLocales';
-import z from 'zod';
+import { z } from 'zod/mini';
 import type { McpServer } from './docs';
 
 const configOptionsSchema = z
-  .object({
-    baseDir: z.string().optional().describe('Base directory for the project'),
-    env: z.string().optional().describe('Environment name'),
-    envFile: z.string().optional().describe('Path to the environment file'),
-    override: z
-      .object({
-        editor: z
-          .object({
-            clientId: z.string().optional().describe('Intlayer CMS client ID'),
-            clientSecret: z
-              .string()
-              .optional()
-              .describe('Intlayer CMS client secret'),
-            backendURL: z
-              .string()
-              .optional()
-              .describe('Intlayer CMS backend URL'),
+  .optional(
+    z.object({
+      baseDir: z.optional(z.string()).register(z.globalRegistry, {
+        description: 'Base directory for the project',
+      }),
+      env: z
+        .optional(z.string())
+        .register(z.globalRegistry, { description: 'Environment name' }),
+      envFile: z.optional(z.string()).register(z.globalRegistry, {
+        description: 'Path to the environment file',
+      }),
+      override: z
+        .optional(
+          z.object({
+            editor: z.optional(
+              z.object({
+                clientId: z.optional(z.string()).register(z.globalRegistry, {
+                  description: 'Intlayer CMS client ID',
+                }),
+                clientSecret: z
+                  .optional(z.string())
+                  .register(z.globalRegistry, {
+                    description: 'Intlayer CMS client secret',
+                  }),
+                backendURL: z.optional(z.string()).register(z.globalRegistry, {
+                  description: 'Intlayer CMS backend URL',
+                }),
+              })
+            ),
+            internationalization: z.optional(
+              z.object({
+                locales: z
+                  .optional(z.array(z.enum(ALL_LOCALES)))
+                  .register(z.globalRegistry, {
+                    description: 'Available locales',
+                  }),
+                defaultLocale: z
+                  .optional(z.enum(ALL_LOCALES))
+                  .register(z.globalRegistry, {
+                    description: 'Default locale',
+                  }),
+              })
+            ),
+            log: z.optional(
+              z.object({
+                mode: z
+                  .optional(z.enum(['default', 'verbose', 'disabled']))
+                  .register(z.globalRegistry, { description: 'Log mode' }),
+                prefix: z
+                  .optional(z.string())
+                  .register(z.globalRegistry, { description: 'Log prefix' }),
+              })
+            ),
           })
-          .optional(),
-        internationalization: z
-          .object({
-            locales: z
-              .array(z.nativeEnum(ALL_LOCALES))
-              .optional()
-              .describe('Available locales'),
-            defaultLocale: z
-              .nativeEnum(ALL_LOCALES)
-              .optional()
-              .describe('Default locale'),
-          })
-          .optional(),
-        log: z
-          .object({
-            mode: z
-              .enum(['default', 'verbose', 'disabled'])
-              .optional()
-              .describe('Log mode'),
-            prefix: z.string().optional().describe('Log prefix'),
-          })
-          .optional(),
-      })
-      .optional()
-      .describe(
-        'Config override - use when running remotely or without a local config file'
-      ),
-  })
-  .optional()
-  .describe(
-    'Configuration options. Required when running remotely or when no intlayer config file is present'
-  );
+        )
+        .register(z.globalRegistry, {
+          description:
+            'Config override - use when running remotely or without a local config file',
+        }),
+    })
+  )
+  .register(z.globalRegistry, {
+    description:
+      'Configuration options. Required when running remotely or when no intlayer config file is present',
+  });
 
 type LoadCLITools = (server: McpServer) => Promise<void>;
 
@@ -76,7 +91,9 @@ export const loadCLITools: LoadCLITools = async (server) => {
       title: 'Initialize Intlayer',
       description: 'Initialize Intlayer in the project',
       inputSchema: {
-        projectRoot: z.string().describe('Project root directory'),
+        projectRoot: z.string().register(z.globalRegistry, {
+          description: 'Project root directory',
+        }),
       },
       annotations: {
         destructiveHint: true,
@@ -116,7 +133,9 @@ export const loadCLITools: LoadCLITools = async (server) => {
       description:
         'Build the dictionaries. List all content declarations files `.content.{ts,tsx,js,json,...}` to update the content callable using the `useIntlayer` hook.',
       inputSchema: {
-        watch: z.boolean().optional().describe('Watch for changes'),
+        watch: z
+          .optional(z.boolean())
+          .register(z.globalRegistry, { description: 'Watch for changes' }),
         configOptions: configOptionsSchema,
       },
       annotations: {
@@ -158,55 +177,52 @@ export const loadCLITools: LoadCLITools = async (server) => {
         'Fill the dictionaries with missing translations / review translations using Intlayer servers',
       inputSchema: {
         sourceLocale: z
-          .nativeEnum(ALL_LOCALES)
-          .optional()
-          .describe('Source locale'),
+          .optional(z.enum(ALL_LOCALES))
+          .register(z.globalRegistry, { description: 'Source locale' }),
         outputLocales: z
-          .union([
-            z.nativeEnum(ALL_LOCALES),
-            z.array(z.nativeEnum(ALL_LOCALES)),
-          ])
-          .optional()
-          .describe('Output locales'),
+          .optional(
+            z.union([z.enum(ALL_LOCALES), z.array(z.enum(ALL_LOCALES))])
+          )
+          .register(z.globalRegistry, { description: 'Output locales' }),
         file: z
-          .union([z.string(), z.array(z.string())])
-          .optional()
-          .describe('File path'),
-        mode: z.enum(['complete', 'review']).optional().describe('Fill mode'),
+          .optional(z.union([z.string(), z.array(z.string())]))
+          .register(z.globalRegistry, { description: 'File path' }),
+        mode: z
+          .optional(z.enum(['complete', 'review']))
+          .register(z.globalRegistry, { description: 'Fill mode' }),
         keys: z
-          .union([z.string(), z.array(z.string())])
-          .optional()
-          .describe('Keys to include'),
+          .optional(z.union([z.string(), z.array(z.string())]))
+          .register(z.globalRegistry, { description: 'Keys to include' }),
         excludedKeys: z
-          .union([z.string(), z.array(z.string())])
-          .optional()
-          .describe('Keys to exclude'),
+          .optional(z.union([z.string(), z.array(z.string())]))
+          .register(z.globalRegistry, { description: 'Keys to exclude' }),
         pathFilter: z
-          .union([z.string(), z.array(z.string())])
-          .optional()
-          .describe('Path filter'),
+          .optional(z.union([z.string(), z.array(z.string())]))
+          .register(z.globalRegistry, { description: 'Path filter' }),
         gitOptions: z
-          .object({
-            gitDiff: z.boolean().optional(),
-            gitDiffBase: z.string().optional(),
-            gitDiffCurrent: z.string().optional(),
-            uncommitted: z.boolean().optional(),
-            unpushed: z.boolean().optional(),
-            untracked: z.boolean().optional(),
-          })
-          .optional()
-          .describe('Git options'),
+          .optional(
+            z.object({
+              gitDiff: z.optional(z.boolean()),
+              gitDiffBase: z.optional(z.string()),
+              gitDiffCurrent: z.optional(z.string()),
+              uncommitted: z.optional(z.boolean()),
+              unpushed: z.optional(z.boolean()),
+              untracked: z.optional(z.boolean()),
+            })
+          )
+          .register(z.globalRegistry, { description: 'Git options' }),
         aiOptions: z
-          .object({
-            provider: z.string().optional(),
-            temperature: z.number().optional(),
-            model: z.string().optional(),
-            apiKey: z.string().optional(),
-            customPrompt: z.string().optional(),
-            applicationContext: z.string().optional(),
-          })
-          .optional()
-          .describe('AI options'),
+          .optional(
+            z.object({
+              provider: z.optional(z.string()),
+              temperature: z.optional(z.number()),
+              model: z.optional(z.string()),
+              apiKey: z.optional(z.string()),
+              customPrompt: z.optional(z.string()),
+              applicationContext: z.optional(z.string()),
+            })
+          )
+          .register(z.globalRegistry, { description: 'AI options' }),
         configOptions: configOptionsSchema,
       },
       annotations: {
@@ -262,28 +278,32 @@ export const loadCLITools: LoadCLITools = async (server) => {
       description: 'Push local dictionaries to the server',
       inputSchema: {
         deleteLocaleDictionary: z
-          .boolean()
-          .optional()
-          .describe('Delete local dictionary after push'),
+          .optional(z.boolean())
+          .register(z.globalRegistry, {
+            description: 'Delete local dictionary after push',
+          }),
         keepLocaleDictionary: z
-          .boolean()
-          .optional()
-          .describe('Keep local dictionary after push'),
+          .optional(z.boolean())
+          .register(z.globalRegistry, {
+            description: 'Keep local dictionary after push',
+          }),
         dictionaries: z
-          .array(z.string())
-          .optional()
-          .describe('List of dictionaries to push'),
+          .optional(z.array(z.string()))
+          .register(z.globalRegistry, {
+            description: 'List of dictionaries to push',
+          }),
         gitOptions: z
-          .object({
-            gitDiff: z.boolean().optional(),
-            gitDiffBase: z.string().optional(),
-            gitDiffCurrent: z.string().optional(),
-            uncommitted: z.boolean().optional(),
-            unpushed: z.boolean().optional(),
-            untracked: z.boolean().optional(),
-          })
-          .optional()
-          .describe('Git options'),
+          .optional(
+            z.object({
+              gitDiff: z.optional(z.boolean()),
+              gitDiffBase: z.optional(z.string()),
+              gitDiffCurrent: z.optional(z.string()),
+              uncommitted: z.optional(z.boolean()),
+              unpushed: z.optional(z.boolean()),
+              untracked: z.optional(z.boolean()),
+            })
+          )
+          .register(z.globalRegistry, { description: 'Git options' }),
         configOptions: configOptionsSchema,
       },
       annotations: {
@@ -339,13 +359,13 @@ export const loadCLITools: LoadCLITools = async (server) => {
       description: 'Pull dictionaries from the CMS',
       inputSchema: {
         dictionaries: z
-          .array(z.string())
-          .optional()
-          .describe('List of dictionaries to pull'),
-        newDictionariesPath: z
-          .string()
-          .optional()
-          .describe('Path to save new dictionaries'),
+          .optional(z.array(z.string()))
+          .register(z.globalRegistry, {
+            description: 'List of dictionaries to pull',
+          }),
+        newDictionariesPath: z.optional(z.string()).register(z.globalRegistry, {
+          description: 'Path to save new dictionaries',
+        }),
         configOptions: configOptionsSchema,
       },
       annotations: {
@@ -387,16 +407,13 @@ export const loadCLITools: LoadCLITools = async (server) => {
         'List the content declaration (.content.{ts,tsx,js,json,...}) files present in the project. That files contain the multilingual content of the application and are used to build the dictionaries.',
       inputSchema: {
         configOptions: configOptionsSchema,
-        absolute: z
-          .boolean()
-          .optional()
-          .describe(
-            'Output the results as absolute paths instead of relative paths'
-          ),
-        json: z
-          .boolean()
-          .optional()
-          .describe('Output the results as JSON instead of formatted text'),
+        absolute: z.optional(z.boolean()).register(z.globalRegistry, {
+          description:
+            'Output the results as absolute paths instead of relative paths',
+        }),
+        json: z.optional(z.boolean()).register(z.globalRegistry, {
+          description: 'Output the results as JSON instead of formatted text',
+        }),
       },
       annotations: {
         readOnlyHint: true,
@@ -479,13 +496,15 @@ export const loadCLITools: LoadCLITools = async (server) => {
         'Extract strings from an existing component to be placed in a .content file close to the component. Trigger this action to make an existing component multilingual. If the component does not exist, create a normal component including text in JSX, and then trigger this tool to extract it.',
       inputSchema: {
         file: z
-          .union([z.string(), z.array(z.string())])
-          .optional()
-          .describe('List of files to extract'),
+          .optional(z.union([z.string(), z.array(z.string())]))
+          .register(z.globalRegistry, {
+            description: 'List of files to extract',
+          }),
         outputContentDeclarations: z
-          .string()
-          .optional()
-          .describe('Path to output content declaration files'),
+          .optional(z.string())
+          .register(z.globalRegistry, {
+            description: 'Path to output content declaration files',
+          }),
         configOptions: configOptionsSchema,
       },
       annotations: {
@@ -533,13 +552,13 @@ export const loadCLITools: LoadCLITools = async (server) => {
       description:
         'Scan a website to measure its page size and audit its i18n / SEO health (html lang/dir, canonical, hreflang, x-default, localized internal links, robots.txt, sitemap.xml, and unused bundle locale content). Returns a 0-100 score and per-check results.',
       inputSchema: {
-        url: z.string().describe('Absolute URL of the website to scan'),
-        deep: z
-          .boolean()
-          .optional()
-          .describe(
-            'Attempt a deeper render-based scan using a locally installed puppeteer. Falls back to a basic fetch scan when puppeteer is not installed.'
-          ),
+        url: z.string().register(z.globalRegistry, {
+          description: 'Absolute URL of the website to scan',
+        }),
+        deep: z.optional(z.boolean()).register(z.globalRegistry, {
+          description:
+            'Attempt a deeper render-based scan using a locally installed puppeteer. Falls back to a basic fetch scan when puppeteer is not installed.',
+        }),
       },
       annotations: {
         readOnlyHint: true,
@@ -579,26 +598,20 @@ export const loadCLITools: LoadCLITools = async (server) => {
       description:
         'List all Intlayer projects in the directory. Search for configuration files to find all Intlayer projects.',
       inputSchema: {
-        baseDir: z
-          .string()
-          .optional()
-          .describe('Base directory to search from'),
-        gitRoot: z
-          .boolean()
-          .optional()
-          .describe(
-            'Search from the git root directory instead of the base directory'
-          ),
-        absolute: z
-          .boolean()
-          .optional()
-          .describe(
-            'Output the results as absolute paths instead of relative paths'
-          ),
-        json: z
-          .boolean()
-          .optional()
-          .describe('Output the results as JSON instead of formatted text'),
+        baseDir: z.optional(z.string()).register(z.globalRegistry, {
+          description: 'Base directory to search from',
+        }),
+        gitRoot: z.optional(z.boolean()).register(z.globalRegistry, {
+          description:
+            'Search from the git root directory instead of the base directory',
+        }),
+        absolute: z.optional(z.boolean()).register(z.globalRegistry, {
+          description:
+            'Output the results as absolute paths instead of relative paths',
+        }),
+        json: z.optional(z.boolean()).register(z.globalRegistry, {
+          description: 'Output the results as JSON instead of formatted text',
+        }),
       },
       annotations: {
         readOnlyHint: true,

@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useProjectSchema = () => {
   const { requiredErrorName, invalidTypeErrorName } = useIntlayer(
@@ -14,7 +14,7 @@ export const useProjectSchema = () => {
             ? requiredErrorName.value
             : invalidTypeErrorName.value,
       })
-      .min(1, { error: invalidTypeErrorName.value }),
+      .check(z.minLength(1, { error: invalidTypeErrorName.value })),
   });
 };
 

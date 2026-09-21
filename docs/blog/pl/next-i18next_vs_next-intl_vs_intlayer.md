@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - Kompletny przewodnik po tłumaczeniu next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: Najlepsze rozwiązanie dla rozmiaru bundle, SEO, wydajności & utrzymania. Uczyń swój Next.js stronę internetową wielojęzycznym w 2026, tłumaczenie LLM, Agent Skills & MCP.
 keywords:
@@ -20,7 +20,7 @@ author: aymericzip
 
 # next-i18next VS next-intl VS intlayer | Internacjonalizacja (i18n) Next.js
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Przyjrzyjmy się podobieństwom i różnicom między trzema opcjami i18n dla Next.js: next-i18next, next-intl oraz Intlayer.
 
@@ -128,6 +128,10 @@ Dwa ważne zagadnienia:
 
   > Jeśli jestem na stronie `/fr/about`, nie chcę ładować zawartości strony `/en/about`
 
+Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 1 do 10 stron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę. Dynamiczne ładowanie treści per locale usuwa oś języków, ograniczenie treści do komponentu lub trasy usuwa oś stron, a tylko połączenie obu utrzymuje rozmiar na stałym poziomie.
+
+![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 Ponownie, wszystkie trzy rozwiązania zdają sobie sprawę z tych problemów i pozwalają zarządzać tymi optymalizacjami. Różnica między tymi trzema rozwiązaniami to DX (Developer Experience).
 
 `next-intl` i `next-i18next` używają scentralizowanego podejścia do zarządzania tłumaczeniami, pozwalając na podział plików JSON według lokalizacji i podplików. W `next-i18next` nazywamy pliki JSON 'namespaces'; `next-intl` pozwala deklarować wiadomości. W `intlayer` nazywamy pliki JSON 'dictionaries'.
@@ -152,9 +156,9 @@ W przypadku `next-intl` i `next-i18next` biblioteka wymaga załadowania pliku JS
 
 Oto przykład wpływu optymalizacji rozmiaru bundle za pomocą `intlayer` w aplikacji vite + react:
 
-| Zoptymalizowany pakiet                                                                                      | Pakiet niezoptymalizowany                                                                                                      |
-| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| ![zoptymalizowany pakiet](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![niezoptymalizowany pakiet](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Zoptymalizowany pakiet                                                                                       | Pakiet niezoptymalizowany                                                                                                       |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| ![zoptymalizowany pakiet](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![niezoptymalizowany pakiet](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript i bezpieczeństwo
 
@@ -1466,7 +1470,7 @@ Jeśli wolisz minimalną konfigurację i akceptujesz trochę ręcznego łączeni
 
 Gwiazdy na GitHubie są silnym wskaźnikiem popularności projektu, zaufania społeczności oraz jego długoterminowej istotności. Choć nie są bezpośrednią miarą jakości technicznej, odzwierciedlają, ilu deweloperów uważa projekt za przydatny, śledzi jego rozwój i prawdopodobnie zdecyduje się go używać. Przy szacowaniu wartości projektu, gwiazdy pomagają porównać zainteresowanie różnymi alternatywami oraz dostarczają wglądu w rozwój ekosystemu.
 
-[![Wykres historii gwiazd](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Wykres historii gwiazd](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ## Podsumowanie
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: O i18next está obsoleto em 2026?
 description: O i18next alimenta milhões de sites, mas sua arquitetura em tempo de execução de 2011 começa a mostrar a idade. Uma análise sobre inchaço de bundle, limites de tree-shaking e estagnação.
 keywords:
@@ -70,7 +70,7 @@ Atividade nos últimos doze meses:
 | `i18next` core  | 2.626              | **259**          | Correções menores                          |
 | Intlayer        | 7.156              | **4.343**        | Compilador, extensões de IDE e motor de IA |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Uma biblioteca enxuta pode ser completa e estável. Contudo, o ferramental de i18n continua a se transformar: bundlers modernos eliminam conteúdo desnecessário em tempo de build, modelos de linguagem traduzem em CI e editores utilizam Language Servers (LSP) e agentes de IA. A dependência exclusiva de plugins em tempo de execução impede que o i18next acompanhe essa evolução.
 
@@ -124,6 +124,10 @@ No Next.js, o `next-i18next` adiciona **76.7 KB gzipped** em relação ao projet
 **Vazamento de traduções:**
 
 Por padrão, cerca de **90% dos textos carregados** em uma rota pertencem a outras páginas. A divisão manual de namespaces é desgastante e vulnerável a omissões.
+
+O gráfico abaixo estima o peso do conteúdo para uma aplicação teórica de 1 a 10 páginas traduzida para 1 a 10 idiomas, com cerca de 30 KB de texto por página. Carregar o conteúdo dinamicamente por locale remove o eixo dos idiomas, delimitar o conteúdo por componente ou por rota remove o eixo das páginas, e só a combinação dos dois mantém o peso estável.
+
+![Vazamento de conteúdo teórico por arquitetura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Tempo de hidratação:**
 

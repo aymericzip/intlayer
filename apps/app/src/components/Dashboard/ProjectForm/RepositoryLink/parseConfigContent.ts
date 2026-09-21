@@ -3,7 +3,7 @@ import { buildConfigurationFields } from '@intlayer/config/node';
 import type { CustomIntlayerConfig } from '@intlayer/types/config';
 import { createServerFn } from '@tanstack/react-start';
 import type { Plugin } from 'esbuild';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 import { safeParseJS } from '#utils/safeParseJS';
 
 // Reject configs larger than 256 KB — a real intlayer.config.ts is never this big.

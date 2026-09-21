@@ -9,11 +9,11 @@ import {
 } from '@intlayer/config/logger';
 import { getFilterTranslationsOnlyDictionary } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import { formatLocale } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { listMissingTranslationsWithConfig } from '../test';
 
 export type TranslationTask = {
@@ -64,7 +64,7 @@ export const listTranslationsTasks = (
 
     const dictionaryKey = targetUnmergedDictionary.key;
     const dictionaryLocalId = targetUnmergedDictionary.localId!;
-    const mainDictionaryToProcess: Dictionary =
+    const mainDictionaryToProcess: Dictionary | undefined =
       mergedDictionariesRecord[dictionaryKey];
     const dictionaryFilled = targetUnmergedDictionary.filled ?? false;
 

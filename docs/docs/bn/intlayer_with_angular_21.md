@@ -378,7 +378,7 @@ Intlayer মডিউল অগমেন্টেশন (Module Augmentation) �
 
 ![অটোকমপ্লিশন](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![অনুবাদ ত্রুটি](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![অনুবাদ ত্রুটি](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 নিশ্চিত করুন আপনার TypeScript কনফিগারেশনে অটো-জেনারেটেড টাইপগুলো অন্তর্ভুক্ত আছে।
 

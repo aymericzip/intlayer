@@ -235,7 +235,7 @@ Sử dụng `intlayer`, bạn có thể khai báo nội dung theo định dạng
 
 Sao trên GitHub là một chỉ số mạnh mẽ về độ phổ biến của dự án, sự tin tưởng của cộng đồng và tính liên quan lâu dài. Mặc dù không phải là thước đo trực tiếp về chất lượng kỹ thuật, chúng phản ánh số lượng nhà phát triển thấy dự án hữu ích, theo dõi tiến trình của nó và có khả năng áp dụng nó. Để ước tính giá trị của một dự án, sao giúp so sánh mức độ thu hút giữa các lựa chọn thay thế và cung cấp cái nhìn sâu sắc về sự phát triển của hệ sinh thái.
 
-[![Biểu đồ Lịch sử Sao](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Biểu đồ Lịch sử Sao](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## Kết luận
 

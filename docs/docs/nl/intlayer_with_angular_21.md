@@ -388,7 +388,7 @@ Intlayer maakt gebruik van module augmentation om de voordelen van TypeScript te
 
 ![Automatische aanvulling](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Vertaalfout](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Vertaalfout](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Zorg ervoor dat uw TypeScript-configuratie de automatisch gegenereerde types bevat.
 

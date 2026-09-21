@@ -1300,7 +1300,7 @@ Intlayer wykorzystuje augmentację modułów, aby czerpać korzyści z TypeScrip
 
 ![Autouzupełnianie](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Błąd tłumaczenia](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Błąd tłumaczenia](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Upewnij się, że Twoja konfiguracja TypeScript zawiera automatycznie generowane typy.
 
@@ -1434,6 +1434,13 @@ Tak. Deklaracje zawartości obsługują [formy mnogie (plurals)](https://github.
 <Question title="Jak tłumacze i osoby nietechniczne mogą edytować treść?">
 
 Dostępne są dwie opcje, obie opcjonalne. [Edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) działa na Twojej własnej infrastrukturze i pozwala każdemu kliknąć tekst na działającej stronie, aby edytować go w miejscu. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md) umożliwia externalizację treści, dzięki czemu można ją aktualizować bez ponownego wdrażania aplikacji, a funkcja [live sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/live.md) odzwierciedla zmiany w czasie rzeczywistym.
+
+</Question>
+<Question title="Jaki jest koszt edytora wizualnego? Czy to przesada, jeśli go nie potrzebuję?">
+
+[Edytor wizualny Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) generuje **zerowy koszt** dla Twojej aplikacji, jeśli nie jest skonfigurowany. Dodatkowa logika jest ładowana tylko wtedy, gdy jest jawnie włączona i potrzebna.
+
+Nawet po włączeniu narzut jest niezwykle mały (+5 KB, ładowane dynamicznie tylko po aktywacji), ponieważ większość logiki jest obsługiwana przez edytor serwerowy na [app.intlayer.org](https://app.intlayer.org) lub za pośrednictwem pakietu `intlayer-editor`. Jeśli potrzebujesz jedynie prostego rozwiązania do tłumaczenia bez edycji wizualnej, Intlayer nie dodaje żadnego narzutu do Twojej aplikacji.
 
 </Question>
 <Question title="Jak wychwycić brakujące tłumaczenia przed wdrożeniem na produkcję?">

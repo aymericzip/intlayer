@@ -7,6 +7,7 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import { getProjectRequire } from '@intlayer/config/utils';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import {
   type DictionaryStatus,
   writeContentDeclaration,
@@ -14,7 +15,6 @@ import {
 import { logConfigDetails } from '@intlayer/engine/cli';
 import { parallelize } from '@intlayer/engine/utils';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PullLogger, type PullStatus } from './push/pullLog';
 import { checkCMSAuth, getAuthenticatedAPI } from './utils/checkAccess';
 import { selectCmsEnvironment } from './utils/selectCmsEnvironment';

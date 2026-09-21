@@ -44,7 +44,7 @@ Das Intlayer CMS ist eine Anwendung, die es Ihnen ermöglicht, die Inhalte eines
 
 Dafür führt Intlayer das Konzept der „fernen Wörterbücher“ ein.
 
-![Intlayer CMS Oberfläche](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![Intlayer CMS Oberfläche](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## Inhaltsverzeichnis
 

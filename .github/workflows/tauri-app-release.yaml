@@ -2,6 +2,10 @@ name: 💻 Tauri Release
 
 on:
   push:
+    branches:
+      - 'main'
+    paths:
+      - 'package.json'
     tags:
       - 'v*'
   workflow_dispatch:
@@ -10,8 +14,32 @@ permissions:
   contents: write
 
 jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+      version: ${{ steps.check.outputs.version }}
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 🔎 Check version change
+        id: check
+        run: bash .github/scripts/check-version-change.sh
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF_TYPE: ${{ github.ref_type }}
+          BEFORE_SHA: ${{ github.event.before }}
+
   build-and-publish:
+    needs: check-version
+    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
+
     strategy:
+      # Let the other platforms finish (and publish) when one of them fails.
+      fail-fast: false
       matrix:
         platform: [macos-latest, windows-latest, ubuntu-latest]
     runs-on: ${{ matrix.platform }}
@@ -19,21 +47,19 @@ jobs:
     # Code-signing secrets. When a secret is not configured in the repo it
     # resolves to an empty string, and the matching signing step is skipped,
     # so the corresponding artifact is simply built unsigned (green build).
+    #
+    # The Apple secrets and the AppImage `SIGN*` variables are deliberately
+    # NOT exported here: the Tauri bundler treats an empty `APPLE_CERTIFICATE`
+    # as a certificate to import (fails with `SecKeychainItemImport`), and
+    # linuxdeploy-plugin-appimage treats an empty `SIGN` as "sign" (fails with
+    # `failed to run linuxdeploy`). They are exported by the platform steps
+    # below only when the matching secret is actually configured.
     env:
-      # --- macOS (Apple Developer ID signing + notarization) ---
-      APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-      APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-      APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
-      APPLE_ID: ${{ secrets.APPLE_ID }}
-      APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
       # --- Windows (code-signing certificate) ---
       WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
       WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
       # --- Linux (AppImage GPG signing) ---
       LINUX_SIGN_GPG_PRIVATE_KEY: ${{ secrets.LINUX_SIGN_GPG_PRIVATE_KEY }}
-      LINUX_SIGN_GPG_KEY_ID: ${{ secrets.LINUX_SIGN_GPG_KEY_ID }}
-      APPIMAGETOOL_SIGN_PASSPHRASE: ${{ secrets.LINUX_SIGN_GPG_PASSPHRASE }}
 
     steps:
       - uses: actions/checkout@v4
@@ -78,7 +104,11 @@ jobs:
 
       # Windows: decode the base64 .pfx from the secret and import it into the
       # current-user certificate store so signtool can find it by thumbprint.
-      # Emits the `--config` arg that merges the Windows signing settings.
+      # The thumbprint is read from the imported certificate and written to a
+      # generated config passed via `--config`. Tauri auto-merges the committed
+      # `tauri.windows.conf.json` (digest algorithm, timestamp URL); that file
+      # must NOT set `certificateThumbprint`, otherwise Tauri tries to sign
+      # even when no certificate is configured and signtool fails.
       - name: Import Windows signing certificate
         id: windows_signing
         if: matrix.platform == 'windows-latest' && env.WINDOWS_CERTIFICATE != ''
@@ -88,28 +118,101 @@ jobs:
           Set-Content -Path certificate/tempCert.txt -Value $env:WINDOWS_CERTIFICATE
           certutil -decode certificate/tempCert.txt certificate/certificate.pfx
           Remove-Item -Path certificate/tempCert.txt
-          Import-PfxCertificate -FilePath certificate/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
-          "args=--config src-tauri/tauri.windows.conf.json" >> $env:GITHUB_OUTPUT
+          $importedCertificates = Import-PfxCertificate -FilePath certificate/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
+          $signingCertificate = @($importedCertificates | Where-Object { $_.HasPrivateKey }) | Select-Object -First 1
+          if (-not $signingCertificate) {
+            Write-Output "::error::WINDOWS_CERTIFICATE contains no certificate with a private key; signtool cannot sign with it"
+            exit 1
+          }
+          Write-Output "Signing with certificate '$($signingCertificate.Subject)' (thumbprint $($signingCertificate.Thumbprint))"
+          $signingConfig = @{ bundle = @{ windows = @{ certificateThumbprint = $signingCertificate.Thumbprint } } }
+          $signingConfigPath = Join-Path $env:RUNNER_TEMP 'tauri.windows.signing.conf.json'
+          $signingConfig | ConvertTo-Json -Depth 10 | Set-Content -Path $signingConfigPath
+          "args=--config $signingConfigPath" >> $env:GITHUB_OUTPUT
 
-      # Linux: import the GPG private key used to sign the AppImage.
+      # macOS: expose the Apple Developer ID signing + notarization secrets to
+      # the Tauri bundler only when the certificate is configured. Without it
+      # the app is built unsigned instead of failing on the keychain import.
+      - name: Export Apple signing secrets (macOS)
+        if: matrix.platform == 'macos-latest'
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          if [ -z "$APPLE_CERTIFICATE" ]; then
+            echo "APPLE_CERTIFICATE secret is not set: building the macOS app unsigned"
+            exit 0
+          fi
+
+          # Preflight: run the exact `security import` the Tauri bundler runs, so
+          # a broken certificate fails here instead of after the Rust compile.
+          # Observed `security import` messages:
+          #  - "One or more parameters ... not valid": the decoded .p12 is empty
+          #  - "MAC verification failed": wrong APPLE_CERTIFICATE_PASSWORD, or the
+          #    .p12 was exported with OpenSSL 3 defaults (re-export with
+          #    `openssl pkcs12 -export -legacy` or from Keychain Access)
+          #  - "Unknown format in import": not a .p12 (e.g. a .cer) or truncated
+          preflight_dir="$(mktemp -d)"
+          preflight_keychain="$preflight_dir/preflight.keychain-db"
+          if ! printf '%s' "$APPLE_CERTIFICATE" | tr -d '[:space:]' | base64 -d -o "$preflight_dir/cert.p12"; then
+            echo "::error::APPLE_CERTIFICATE is not valid base64"
+            exit 1
+          fi
+          if [ ! -s "$preflight_dir/cert.p12" ]; then
+            echo "::error::APPLE_CERTIFICATE decodes to an empty file: the secret is blank or whitespace-only"
+            exit 1
+          fi
+          security create-keychain -p preflight "$preflight_keychain"
+          if ! security import "$preflight_dir/cert.p12" -P "$APPLE_CERTIFICATE_PASSWORD" -k "$preflight_keychain" -T /usr/bin/codesign; then
+            echo "::error::macOS cannot import the APPLE_CERTIFICATE .p12 (see the security message above). 'MAC verification failed' = wrong APPLE_CERTIFICATE_PASSWORD or a .p12 exported by OpenSSL 3 (re-export with 'openssl pkcs12 -export -legacy'); 'Unknown format' = not a .p12 or truncated base64."
+            security delete-keychain "$preflight_keychain"
+            rm -rf "$preflight_dir"
+            exit 1
+          fi
+          security delete-keychain "$preflight_keychain"
+          rm -rf "$preflight_dir"
+
+          for name in APPLE_CERTIFICATE APPLE_CERTIFICATE_PASSWORD APPLE_SIGNING_IDENTITY APPLE_ID APPLE_PASSWORD APPLE_TEAM_ID; do
+            value="${!name}"
+            if [ -n "$value" ]; then
+              delimiter="EOF_$(openssl rand -hex 8)"
+              printf '%s<<%s\n%s\n%s\n' "$name" "$delimiter" "$value" "$delimiter" >> "$GITHUB_ENV"
+            fi
+          done
+
+      # Linux: import the GPG private key used to sign the AppImage and enable
+      # signing in linuxdeploy-plugin-appimage / appimagetool. `SIGN` must not
+      # exist at all when unsigned: the plugin only checks that it is set.
       - name: Import GPG signing key (Linux)
         if: matrix.platform == 'ubuntu-latest' && env.LINUX_SIGN_GPG_PRIVATE_KEY != ''
-        run: echo "$LINUX_SIGN_GPG_PRIVATE_KEY" | gpg --batch --import
+        env:
+          LINUX_SIGN_GPG_KEY_ID: ${{ secrets.LINUX_SIGN_GPG_KEY_ID }}
+          LINUX_SIGN_GPG_PASSPHRASE: ${{ secrets.LINUX_SIGN_GPG_PASSPHRASE }}
+        run: |
+          echo "$LINUX_SIGN_GPG_PRIVATE_KEY" | gpg --batch --import
+          {
+            echo "SIGN=1"
+            echo "SIGN_KEY=$LINUX_SIGN_GPG_KEY_ID"
+            echo "APPIMAGETOOL_SIGN_PASSPHRASE=$LINUX_SIGN_GPG_PASSPHRASE"
+            echo "APPIMAGETOOL_FORCE_SIGN=1"
+          } >> "$GITHUB_ENV"
 
       - name: Build and publish Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # AppImage GPG signing (Linux only; ignored on other platforms).
-          # SIGN=1 is only enabled when the GPG private key secret is present.
-          SIGN: ${{ matrix.platform == 'ubuntu-latest' && env.LINUX_SIGN_GPG_PRIVATE_KEY != '' && '1' || '' }}
-          SIGN_KEY: ${{ env.LINUX_SIGN_GPG_KEY_ID }}
-          APPIMAGETOOL_FORCE_SIGN: '1'
         with:
           projectPath: apps/app
           tauriScript: bunx tauri
-          # Windows signing config merge (empty on other platforms / when unsigned).
-          args: ${{ steps.windows_signing.outputs.args }}
+          # `--verbose` (Linux): at the default log level the bundler discards
+          # linuxdeploy's stderr and only reports "failed to run linuxdeploy".
+          # `--config` (Windows): merges the signing settings when a
+          # certificate is configured; empty otherwise.
+          args: ${{ matrix.platform == 'ubuntu-latest' && '--verbose' || '' }} ${{ steps.windows_signing.outputs.args }}
           tagName: ${{ steps.get_version.outputs.version }}
           releaseName: '${{ steps.get_version.outputs.version }}'
           releaseBody: 'See the assets to download this version and install.'

@@ -419,7 +419,7 @@ O Intlayer usa o aumento de módulo para obter os benefícios do TypeScript e to
 
 ![Autocompletar](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Erro de tradução](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Erro de tradução](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Certifique-se de que sua configuração do TypeScript inclua os tipos gerados automaticamente.
 

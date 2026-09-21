@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-09-19
 title: Як працює Intlayer
 description: Дізнайтеся, як Intlayer працює всередині. Зрозумійте архітектуру та компоненти, що роблять Intlayer потужним.
 keywords:
@@ -133,49 +133,105 @@ Intlayer складається з кількох пакетів, кожен і�
 
 Пакет `intlayer` використовується в застосунках для оголошення контенту у файлах контенту.
 
-### react-intlayer
+### Фронтенд-фреймворки
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 Пакет `react-intlayer` використовується для інтерпретації словників Intlayer і робить їх придатними для використання в React-застосунках.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 Пакет `next-intlayer` використовується як шар поверх `react-intlayer`, щоб зробити словники Intlayer придатними для використання в Next.js-застосунках. Він інтегрує необхідні функції для роботи Intlayer у середовищі Next.js, такі як translation middleware, маршрутизація або конфігурація файлу `next.config.js`.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 Пакет `vue-intlayer` використовується для інтерпретації словників Intlayer і робить їх придатними для використання у Vue-застосунках.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 The `nuxt-intlayer` package is as Nuxt module to make Intlayer dictionaries usable in Nuxt applications. It integrates essential features to make Intlayer work in a Nuxt environment, such as translation middleware, routing, or the `nuxt.config.js` file configuration.
 
-### svelte-intlayer
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 The `svelte-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Svelte applications.
 
-### solid-intlayer (WIP)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 The `solid-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Solid.js applications.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 The `preact-intlayer` package is used to interpret Intlayer dictionaries and make them usable in Preact applications.
 
-### angular-intlayer (WIP)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 Пакет `angular-intlayer` використовується для інтерпретації словників Intlayer та забезпечення їхнього використання в додатках Angular.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
 
-Пакет `express-intlayer` використовується для застосування Intlayer на бекенді Express.js.
+Пакет `astro-intlayer` надає необхідні інструменти для інтеграції Intlayer у додатки Astro. Він налаштовує маршрутизацію на основі локалі та керування словниками.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+Пакет `remix-intlayer` надає необхідні інструменти для інтеграції Intlayer у додатки Remix. Він налаштовує маршрутизацію на основі локалі, контекст на стороні сервера та керування словниками.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
 
 Пакет `react-native-intlayer` надає інструменти для інтеграції плагінів, щоб Intlayer працював з бандлером Metro.
 
-### lynx-intlayer
+  </Tab>
+  <Tab label="Lit" value="lit">
 
-Пакет `lynx-intlayer` надає інструменти для інтеграції плагінів, щоб Intlayer працював з бандлером Lynx.
+Пакет `lit-intlayer` надає інструменти та компоненти для інтерпретації та використання словників Intlayer у програмах Lit.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+Пакет `vanilla-intlayer` надає інструменти для інтеграції Intlayer у програми на чистому JavaScript, HTML або PHP.
+
+  </Tab>
+</Tabs>
+
+### Бекенд-фреймворки
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
+
+Пакет `express-intlayer` використовується для застосування Intlayer на бекенді Express.js.
+
+  </Tab>
+  <Tab label="Fastify" value="fastify">
+
+Пакет `fastify-intlayer` надає плагін для додатків на Fastify для роботи з інтернаціоналізацією. Він визначає локаль користувача та декорує об'єкт запиту (request).
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+Пакет `hono-intlayer` надає проміжне програмне забезпечення (middleware) для додатків Hono для обробки інтернаціоналізації. Він виявляє локаль користувача та заповнює об'єкт контексту.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+Пакет `elysia-intlayer` надає плагін для додатків на Elysia для роботи з інтернаціоналізацією. Він визначає локаль користувача та впроваджує об'єкт `intlayer` у контекст маршруту.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+Пакет `adonis-intlayer` надає проміжне ПЗ для додатків AdonisJS для обробки інтернаціоналізації. Він визначає локаль користувача та надає функції перекладу.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 
@@ -184,6 +240,10 @@ The `preact-intlayer` package is used to interpret Intlayer dictionaries and mak
 ### react-scripts-intlayer
 
 Містить команди та плагіни `react-scripts-intlayer` для інтеграції Intlayer з додатком на базі Create React App. Ці плагіни засновані на [craco](https://craco.js.org/) і включають додаткову конфігурацію для бандлера [Webpack](https://webpack.js.org/).
+
+### eslint-plugin-intlayer
+
+Пакет `eslint-plugin-intlayer` надає правила ESLint та oxlint для виявлення неперекладених рядків, перевірки визначень словників та дотримання найкращих практик i18n.
 
 ### intlayer-editor
 
@@ -218,9 +278,21 @@ The `@intlayer/webpack` package is used to provide a Webpack configuration to ma
 
 Пакет `@intlayer/mcp` забезпечує сервер MCP (Model Context Protocol), який надає підтримку IDE на базі ШІ, адаптовану до екосистеми Intlayer. Він автоматично завантажує документацію та інтегрується з Intlayer CLI.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/lsp
 
-Пакети `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` та `@intlayer/dynamic-dictionaries-entry` повертають шлях entry словників Intlayer. Оскільки з браузера неможливо виконувати пошук по файловій системі, використання bundler-ів, таких як Webpack або Rollup, для отримання шляху entry словників неможливе. Ці пакети розроблені для того, щоб їх можна було alias-ити, що дозволяє оптимізувати bundling для різних збирачів, таких як Vite, Webpack та Turbopack.
+Пакет `@intlayer/lsp` надає сервер Language Server Protocol (LSP), адаптований для Intlayer. Він забезпечує функції IDE, такі як перехід до визначення, пошук посилань, попередній перегляд при наведенні, автодоповнення ключів словника та діагностичні попередження.
+
+### @intlayer/ai
+
+Пакет `@intlayer/ai` надає можливості SDK для програм Intlayer, уможливлюючи автоматизований переклад і генерацію контенту за допомогою ШІ.
+
+### @intlayer/analytics
+
+Пакет `@intlayer/analytics` надає інструменти для збору метрик показів контенту, аналітики на рівні сторінок/локалей та вузлів, а також забезпечує A/B-тестування контенту.
+
+### @intlayer/dictionaries-entry
+
+Пакет `@intlayer/dictionaries-entry` повертає шлях entry словників Intlayer: об'єднані словники з кореня, а також необ'єднані, віддалені, динамічні та fetch-словники з підшляхів `/unmerged`, `/remote`, `/dynamic` та `/fetch`. Оскільки з браузера неможливо виконувати пошук по файловій системі, використання bundler-ів, таких як Webpack або Rollup, для отримання шляху entry словників неможливе. Пакет та його підшляхи розроблені для того, щоб їх можна було alias-ити, що дозволяє оптимізувати bundling для різних збирачів, таких як Vite, Webpack та Turbopack.
 
 ### @intlayer/engine
 

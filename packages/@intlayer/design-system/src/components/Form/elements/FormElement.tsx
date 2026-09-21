@@ -18,7 +18,14 @@ export type FormElementProps<T extends ElementType> = {
   showErrorMessage?: boolean;
   focus?: boolean;
   layoutClassName?: string;
+  toolParamDescription?: string;
 } & Omit<FormItemLayoutProps, 'children'>;
+
+/** Lowercase attribute the browser reads; React's JSX types do not know it yet. */
+const getWebMCPParamAttributes = (
+  toolParamDescription?: string
+): Record<string, string> =>
+  toolParamDescription ? { toolparamdescription: toolParamDescription } : {};
 
 type FormFieldElementProps<T extends ElementType> = FormElementProps<T> &
   ComponentProps<T> & {
@@ -35,6 +42,7 @@ const FormFieldElement = <T extends ElementType>({
   description,
   showErrorMessage = true,
   layoutClassName,
+  toolParamDescription,
   ...props
 }: FormFieldElementProps<T>) => {
   const { error } = useFormField();
@@ -79,6 +87,7 @@ const FormFieldElement = <T extends ElementType>({
         id={name}
         {...fieldRest}
         {...props}
+        {...getWebMCPParamAttributes(toolParamDescription)}
         // Force controlled value to avoid uncontrolled-to-controlled warnings
         value={mergedValue as never}
         // Merge onChange so RHF stays in sync while allowing custom handlers

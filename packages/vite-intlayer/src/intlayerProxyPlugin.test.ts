@@ -1,5 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
+import type { Plugin } from 'vite';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import type { NodeMiddleware } from './intlayerProxyHandler';
 
 // ── Hoisted mock state ────────────────────────────────────────────────────────
 
@@ -62,9 +64,11 @@ vi.mock('@intlayer/config/defaultValues', () => ({
   ROUTING_MODE: 'prefix-no-default',
 }));
 vi.mock('@intlayer/config/colors', () => ({}));
+const mockLogger = vi.hoisted(() => vi.fn());
+
 vi.mock('@intlayer/config/logger', () => ({
   colorize: (s: string) => s,
-  getAppLogger: () => () => undefined,
+  getAppLogger: () => mockLogger,
 }));
 vi.mock('./dedupePlugin', () => ({
   createPrimaryInstanceGuard: () => ({
@@ -130,9 +134,12 @@ vi.mock('@intlayer/core/localization', () => {
       proxyMode: string,
       isDevServer: boolean
     ): boolean => !(proxyMode === 'auto' && isDevServer),
-    formatProxyEnabledMessage: (isStorageLocaleSuppressed: boolean): string =>
+    formatProxyEnabledMessage: (
+      isStorageLocaleSuppressed: boolean,
+      purpose: 'dev' | 'build' = 'dev'
+    ): string =>
       isStorageLocaleSuppressed
-        ? 'Intlayer proxy enabled - storage redirection disabled for dev purpose'
+        ? `Intlayer proxy enabled - storage redirection disabled for ${purpose} purpose`
         : 'Intlayer proxy enabled',
   };
 });
@@ -143,6 +150,16 @@ vi.mock('@intlayer/core/utils', () => ({
 }));
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
+
+/** Resolved Vite config narrowed to what the proxy plugin inspects. */
+type ResolvedConfigLike = {
+  command?: 'build' | 'serve';
+  plugins: readonly { name: string }[];
+};
+
+/** Runs the plugin's `configResolved` hook (declared as a plain function). */
+const resolveConfig = (plugin: Plugin, config: ResolvedConfigLike) =>
+  (plugin.configResolved as (config: ResolvedConfigLike) => void)(config);
 
 type MockResponse = ServerResponse<IncomingMessage> & {
   writeHead: ReturnType<typeof vi.fn>;
@@ -526,32 +543,242 @@ describe('intlayerProxy (preview server registration)', () => {
     middlewares: { use: vi.fn() },
   });
 
-  it('does not add a preview middleware when Nitro serves the preview', async () => {
-    // The built Nitro server already runs this proxy as a Nitro middleware, so
-    // registering it here too would resolve the locale twice per request.
+  /**
+   * Mounts the plugin on a preview server that Nitro serves, and returns the
+   * middleware it registered, with a stored `fr` locale.
+   */
+  const mountNitroPreviewHandler = async () => {
     vi.resetModules();
+    mockGetLocaleFromStorage.mockReturnValue('fr');
+    mockLocaleDetector.mockImplementation((_h, _l, def: string) => def);
     const mod = await import('./intlayerProxyPlugin');
     const plugin = mod.intlayerProxy();
-    plugin.configResolved?.({
+    resolveConfig(plugin, {
       plugins: [{ name: 'nitro:preview' }, { name: plugin.name }],
-    } as never);
+    });
 
     const server = makePreviewServer();
     (plugin.configurePreviewServer as (previewServer: unknown) => void)(server);
 
-    expect(server.middlewares.use).not.toHaveBeenCalled();
+    return server.middlewares.use.mock.calls[0]?.[0] as (
+      req: IncomingMessage,
+      res: ServerResponse<IncomingMessage>,
+      next: () => void
+    ) => void;
+  };
+
+  it('is mounted ahead of the Nitro preview middleware', async () => {
+    const { intlayerProxy } = await import('./intlayerProxyPlugin');
+
+    // `nitro:preview` answers every request itself, so this layer only runs
+    // if Vite sorts it first, whatever the plugin order in the user config.
+    expect(intlayerProxy().enforce).toBe('pre');
+  });
+
+  it('redirects prerendered pages that Nitro would serve from disk', async () => {
+    // Nitro's preview serves prerendered pages before its own pipeline, so
+    // the stored locale would be ignored on `/` unless this layer redirects.
+    const handler = await mountNitroPreviewHandler();
+    const res = makeRes();
+    handler(makeReq('/'), res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/fr' });
+  });
+
+  it('hands Nitro the URL the browser sent, rewrite undone', async () => {
+    // A rewrite leaking to the Nitro pass would be read as a browser URL and
+    // redirected back — the "max redirects reached" ping-pong.
+    const { createRedirectOnlyMiddleware } = await import(
+      './intlayerProxyPlugin'
+    );
+    const rewriting: NodeMiddleware = (req, _res, next) => {
+      req.url = '/en/about';
+      next();
+    };
+    const req = makeReq('/about');
+    const next = vi.fn();
+    createRedirectOnlyMiddleware(rewriting)(req, makeRes(), next);
+
+    expect(next).toHaveBeenCalled();
+    expect(req.url).toBe('/about');
+  });
+
+  it('lets a redirect of the wrapped handler through untouched', async () => {
+    const { createRedirectOnlyMiddleware } = await import(
+      './intlayerProxyPlugin'
+    );
+    const redirecting: NodeMiddleware = (_req, res) => {
+      res.writeHead(302, { Location: '/fr' });
+      res.end();
+    };
+    const res = makeRes();
+    const next = vi.fn();
+    createRedirectOnlyMiddleware(redirecting)(makeReq('/'), res, next);
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/fr' });
+    expect(next).not.toHaveBeenCalled();
   });
 
   it('adds a preview middleware for a plain (Nitro-less) preview server', async () => {
     vi.resetModules();
     const mod = await import('./intlayerProxyPlugin');
     const plugin = mod.intlayerProxy();
-    plugin.configResolved?.({ plugins: [{ name: plugin.name }] } as never);
+    resolveConfig(plugin, { plugins: [{ name: plugin.name }] });
 
     const server = makePreviewServer();
     (plugin.configurePreviewServer as (previewServer: unknown) => void)(server);
 
     expect(server.middlewares.use).toHaveBeenCalledTimes(1);
+  });
+
+  /**
+   * Registers the plugin on a stub server and returns the middleware it
+   * mounted, with a stored `fr` locale and an `en`-preferring
+   * `Accept-Language` so the two locale sources can be told apart.
+   */
+  const mountHandler = async (
+    hook: 'configureServer' | 'configurePreviewServer'
+  ) => {
+    vi.resetModules();
+    mockGetLocaleFromStorage.mockReturnValue('fr');
+    mockLocaleDetector.mockImplementation((_h, _l, def: string) => def);
+    const mod = await import('./intlayerProxyPlugin');
+    const plugin = mod.intlayerProxy();
+    resolveConfig(plugin, { plugins: [{ name: plugin.name }] });
+
+    const server = {
+      middlewares: { use: vi.fn() },
+      config: { server: {} },
+    };
+    (plugin[hook] as (server: unknown) => void)(server);
+
+    return server.middlewares.use.mock.calls[0]?.[0] as (
+      req: IncomingMessage,
+      res: ServerResponse<IncomingMessage>,
+      next: () => void
+    ) => void;
+  };
+
+  afterEach(() => {
+    mockGetLocaleFromStorage.mockReturnValue(undefined);
+  });
+
+  it('serves the preview from the production handler (stored locale drives redirects)', async () => {
+    // `vite preview` serves the production build, so a locale cookie must
+    // redirect there exactly as it will once deployed — unlike the dev server.
+    const handler = await mountHandler('configurePreviewServer');
+    const res = makeRes();
+    handler(makeReq('/'), res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/fr' });
+  });
+
+  it('keeps the dev server URL-driven (stored locale ignored)', async () => {
+    const handler = await mountHandler('configureServer');
+    const res = makeRes();
+    const next = vi.fn();
+    handler(makeReq('/'), res, next);
+
+    expect(res.writeHead).not.toHaveBeenCalled();
+    expect(next).toHaveBeenCalled();
+  });
+});
+
+describe('intlayerProxy (build announcement)', () => {
+  const buildConfig = (
+    pluginName: string,
+    command: 'build' | 'serve'
+  ): ResolvedConfigLike => ({ command, plugins: [{ name: pluginName }] });
+
+  beforeEach(() => {
+    mockLogger.mockClear();
+  });
+
+  it('announces the proxy once per build, whatever the number of Vite builds', async () => {
+    // Astro runs a server build and a client build from the same plugin
+    // instances; the SPA `vite build` runs one.
+    vi.resetModules();
+    const { intlayerProxy } = await import('./intlayerProxyPlugin');
+    const plugin = intlayerProxy();
+
+    resolveConfig(plugin, buildConfig(plugin.name, 'build'));
+    resolveConfig(plugin, buildConfig(plugin.name, 'build'));
+
+    expect(mockLogger).toHaveBeenCalledTimes(1);
+    expect(mockLogger).toHaveBeenCalledWith(
+      'Intlayer proxy enabled - storage redirection disabled for build purpose',
+      { level: 'info' }
+    );
+  });
+
+  it('stays silent when resolving a server config', async () => {
+    vi.resetModules();
+    const { intlayerProxy } = await import('./intlayerProxyPlugin');
+    const plugin = intlayerProxy();
+
+    resolveConfig(plugin, buildConfig(plugin.name, 'serve'));
+
+    expect(mockLogger).not.toHaveBeenCalled();
+  });
+});
+
+describe('intlayerProxy (Nitro middleware registration)', () => {
+  it('resolves the handler path with forward slashes on Windows', async () => {
+    // Nitro inlines the handler path as an import specifier in its virtual
+    // routing module, where a Windows backslash would be read as an escape.
+    const { resolveNitroHandlerPath } = await import('./intlayerProxyPlugin');
+    const windowsFileURLToPath = () =>
+      'D:\\a\\intlayer\\packages\\vite-intlayer\\dist\\esm\\intlayerNitroHandler.mjs';
+
+    expect(
+      resolveNitroHandlerPath(
+        'file:///D:/a/intlayer/packages/vite-intlayer/dist/esm/intlayerProxyPlugin.mjs',
+        windowsFileURLToPath
+      )
+    ).toBe(
+      'D:/a/intlayer/packages/vite-intlayer/dist/esm/intlayerNitroHandler.mjs'
+    );
+  });
+
+  it('resolves the handler next to the calling module', async () => {
+    const { resolveNitroHandlerPath } = await import('./intlayerProxyPlugin');
+
+    expect(
+      resolveNitroHandlerPath('file:///repo/dist/esm/intlayerProxyPlugin.mjs')
+    ).toBe('/repo/dist/esm/intlayerNitroHandler.mjs');
+  });
+
+  it('registers the handler for both the server and the prerenderer silently', async () => {
+    // Nitro instantiates the module again for the prerenderer it builds from
+    // the same config; the build itself is announced by `configResolved`.
+    vi.resetModules();
+    const mod = await import('./intlayerProxyPlugin');
+    const plugin = mod.intlayerProxy() as unknown as {
+      nitro: { setup: (nitroInstance: unknown) => void };
+    };
+    const buildNitro = () => ({ options: { dev: false, handlers: [] } });
+    const serverNitro = buildNitro();
+    const prerendererNitro = buildNitro();
+
+    plugin.nitro.setup(serverNitro);
+    plugin.nitro.setup(prerendererNitro);
+
+    expect(serverNitro.options.handlers).toHaveLength(1);
+    expect(prerendererNitro.options.handlers).toHaveLength(1);
+    expect(mockLogger).not.toHaveBeenCalled();
+  });
+
+  it('does not register the handler for the Nitro dev server', async () => {
+    vi.resetModules();
+    const mod = await import('./intlayerProxyPlugin');
+    const plugin = mod.intlayerProxy() as unknown as {
+      nitro: { setup: (nitroInstance: unknown) => void };
+    };
+    const nitro = { options: { dev: true, handlers: [] as unknown[] } };
+
+    plugin.nitro.setup(nitro);
+
+    expect(nitro.options.handlers).toHaveLength(0);
   });
 });
 

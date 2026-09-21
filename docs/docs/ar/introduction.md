@@ -179,7 +179,6 @@ export const MyComponent: FC = () => {
 - **[Intlayer مع Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack+solid.md)**
 - **[Intlayer مع Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)**
 - **[Intlayer مع React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_router_v7.md)**
-- **[Intlayer مع React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_router_v7_fs_routes.md)**
 - **[Intlayer مع React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)**
 - **[Intlayer مع React Native و Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_native+expo.md)**
 - **[Intlayer مع Lynx و React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_lynx+react.md)**
@@ -190,7 +189,6 @@ export const MyComponent: FC = () => {
 - **[Intlayer مع Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_solid.md)**
 - **[Intlayer مع Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_preact.md)**
 - **[Intlayer مع Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_lit.md)**
-- **[Intlayer مع Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_vanilla.md)**
 - **[Intlayer مع Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md)**
 - **[Intlayer مع Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md)**
 - **[Intlayer مع Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+svelte.md)**

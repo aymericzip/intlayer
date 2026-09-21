@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-11
+updatedAt: 2026-09-19
 title: "Remix 3 i18n - 앱 다국어 번역 완벽 가이드"
 description: "더 이상 i18next는 필요 없습니다. 2026년 다국어(i18n) Remix 3 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO 및 성능을 최적화하세요."
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-remix-3-template
 applicationShowcase: https://intlayer-remix-3-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "remix-intlayer 미들웨어 및 훅 사용"
   - version: 9.5.0
     date: 2026-09-09
     changes: "Remix 3 초기 문서"
@@ -39,7 +42,7 @@ author: aymericzip
 - **`remix/node-fetch-server`**: Bun, Deno 및 엣지 런타임을 기본 지원하는 Node.js용 서버 어댑터.
 - **`remix/cookie`**: 암호학적으로 안전한 쿠키 파싱 및 직렬화.
 
-**Intlayer**와 결합하면 컴파일 타임 안전성, 자동화된 AI 번역, 서버 렌더링 시 추가 오버헤드 없는 성능, 매끄러운 언어 라우팅을 제공하는 완전한 국제화 시스템을 구축할 수 있습니다.
+**Intlayer**와 **`remix-intlayer`** 패키지(로케일 미들웨어 및 Remix 요청 컨텍스트에 바인딩된 `react-intlayer`와 동일한 `useIntlayer` / `useDictionary` / `useLocale` 훅)를 결합하면 컴파일 타임 안전성, 자동화된 AI 번역, 오버헤드 없는 서버 렌더링 및 원활한 로케일 라우팅을 제공하는 완전한 국제화 시스템을 얻을 수 있습니다.
 
 ## 목차
 
@@ -52,7 +55,7 @@ author: aymericzip
 <AccordionGroup>
 <Accordion header="Remix 3 및 웹 표준 완전 지원">
 
-Intlayer는 웹 표준(`Request`, `Response`, `Headers`, `URL`)과 완벽하게 작동하도록 설계되었습니다. 가벼운 미들웨어를 통해 Remix 3의 Fetch 라우터에 쉽게 통합되어 특정 런타임에 종속되지 않고 URL 경로, 쿠키 또는 `Accept-Language` 헤더에서 언어를 추출합니다.
+Intlayer는 웹 표준(`Request`, `Response`, `Headers`, `URL`)과 원활하게 작동하도록 구축되었습니다. `remix-intlayer`는 가벼운 미들웨어로 Remix 3의 Fetch 라우터에 플러그인되어 URL 경로, 쿠키 또는 `Accept-Language` 헤더에서 로케일을 추출하고, 인수를 직접 전달하지 않고도 핸들러, 뷰, `remix/ui` 컴포넌트 등 요청의 나머지 부분에 로케일을 노출합니다.
 
 </Accordion>
 <Accordion header="타입 안전한 콘텐츠 선언">
@@ -109,25 +112,26 @@ GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlay
 <Steps>
 <Step number={1} title="종속성 설치">
 
-원하는 패키지 관리자를 사용하여 `intlayer` 및 `remix`(버전 3)를 설치합니다.
+원하는 패키지 관리자를 사용하여 `intlayer`, `remix-intlayer` 및 `remix`(버전 3)를 설치합니다:
 
 ```bash packageManager="npm"
-npm install intlayer remix@next
+npm install intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer remix@next
+pnpm add intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer remix@next
+yarn add intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="bun"
-bun add intlayer remix@next
+bun add intlayer remix-intlayer remix@next
 ```
 
 - **`intlayer`**: 구성 관리, 사전 선언(`t()`, `Dictionary`), CLI 도구 및 런타임 인터프리터를 제공하는 핵심 국제화 엔진입니다.
+- **`remix-intlayer`**: Remix 3 통합: 각 요청의 로케일을 확인하는 `intlayer()` 라우터 미들웨어와 이후 모든 곳에서 이를 읽는 `useIntlayer`, `useDictionary`, `useLocale` 훅.
 - **`remix`**: `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render`, `remix/node-fetch-server`를 내보내는 통합 Remix 3 프레임워크 패키지입니다.
 
 </Step>
@@ -239,64 +243,29 @@ bun x intlayer build
 이 명령은 콘텐츠를 `.intlayer` 아티팩트 디렉터리로 컴파일하여 완벽한 TypeScript 자동 완성과 빠른 사전 조회를 제공합니다.
 
 </Step>
-<Step number={5} title="Intlayer 미들웨어 구현">
+<Step number={5} title="Intlayer 미들웨어 추가">
 
-Remix 3는 `createRouter({ middleware: [...] })`를 통해 조합 가능한 미들웨어 파이프라인을 제공합니다.
+Remix 3은 `createRouter({ middleware: [...] })`를 통해 구성 가능한 미들웨어 파이프라인을 제공합니다.
 
-다음 우선순위에 따라 들어오는 각 요청의 언어를 확인하는 Intlayer 미들웨어를 생성합니다.
+`remix-intlayer`는 `intlayer()` 미들웨어를 제공합니다. 들어오는 각 요청에 대해 다음을 사용하여 로케일을 확인합니다:
 
-1. Intlayer의 `getLocaleFromPath`를 통한 URL 경로 접두사(예: `/ko` 또는 `/fr`).
-2. 저장 쿠키(`INTLAYER_LOCALE`), 사용자 정의 헤더(`x-intlayer-locale`), 표준 `Accept-Language` 헤더 및 설정된 `defaultLocale`을 자동으로 협상하는 Intlayer의 `getLocale` 헬퍼.
+1. `no-prefix`를 제외한 모든 라우팅 모드의 URL: 경로 접두사(예: `/ko` 또는 `/en`) 또는 `?locale=` 검색 매개변수.
+2. 클라이언트에 의해 저장된 로케일: 스토리지 쿠키(`INTLAYER_LOCALE`) 또는 커스텀 헤더(`x-intlayer-locale`).
+3. 표준 `Accept-Language` 협상(구성된 `defaultLocale`로 대체).
 
-```typescript fileName="src/middleware/intlayer.ts" codeFormat={["typescript", "esm"]}
-import {
-  defaultLocale,
-  getCookie,
-  getLocale,
-  getLocaleFromPath,
-  type Locale,
-} from "intlayer";
-import { createContextKey, type Middleware } from "remix/router";
+결과는 `locale`, `defaultLocale`, `availableLocales`와 함께 Remix 요청 컨텍스트에 `context.intlayer`(또는 `context.get(Intlayer)`)로 저장됩니다. 그런 다음 미들웨어는 해당 컨텍스트에 바인딩된 `AsyncLocalStorage` 범위 내에서 요청의 나머지 부분을 실행하므로 라우트 핸들러, 뷰, `remix/ui` 컴포넌트 모두에서 인수 없이 로케일을 읽을 수 있습니다:
 
-/**
- * Remix 3 RequestContext에서 확인된 언어를 검색하기 위한 타입 안전한 컨텍스트 키입니다.
- */
-export const localeKey = createContextKey<Locale>(defaultLocale);
+```typescript
+import { useIntlayer, useLocale } from "remix-intlayer";
 
-/**
- * Remix 3용 Intlayer 미들웨어입니다.
- *
- * 다음 우선순위에 따라 요청 언어를 확인합니다:
- * 1. `getLocaleFromPath`를 통한 URL 경로 접두사(예: `/ko/...`)
- * 2. `getLocale`을 통한 헤더 및 저장소 협상(쿠키, 사용자 정의 헤더, Accept-Language, 기본 defaultLocale 대체)
- *
- * 확인된 언어를 Remix 3 RequestContext에 연결합니다.
- */
-export const intlayer = (): Middleware => {
-  return async (context, next) => {
-    // 경로 감지 (/ko/about -> "ko", /about -> undefined)
-    const pathLocale = getLocaleFromPath(context.url.pathname);
-
-    if (pathLocale) {
-      // 확인된 언어를 Remix 3 요청 컨텍스트에 첨부
-      context.set(localeKey, pathLocale);
-
-      return next();
-    }
-
-    const storedLocale = await getLocale({
-      getHeader: (name) => context.headers.get(name),
-      getCookie: (name) =>
-        getCookie(name, context.headers.get("cookie") ?? undefined),
-    });
-
-    // 확인된 언어를 Remix 3 요청 컨텍스트에 첨부
-    context.set(localeKey, storedLocale ?? defaultLocale);
-
-    return next();
-  };
-};
+// 미들웨어 이후 어디에서나
+const { locale, availableLocales } = useLocale();
+const { title } = useIntlayer("home");
 ```
+
+`useIntlayer("home", "fr")` 또는 `useIntlayer("faq", { item: 2 })`는 단일 호출에 대해 요청 로케일을 재정의하며, `useDictionary(homeContent)`는 키 대신 가져온 사전을 읽습니다. 요청 외부에서 훅은 기본 로케일로 대체됩니다.
+
+> 미들웨어는 서버 시작 시 Intlayer 사전도 준비하므로 `intlayer build`가 누락되어도 레지스트리가 비어 있지 않습니다.
 
 </Step>
 <Step number={6} title="타입 안전한 라우트 정의">
@@ -327,20 +296,21 @@ routes.localizedHome.href({ locale: "ko" }); // "/ko"
 
 Remix 3는 `remix/ui`의 JSX 컴포넌트를 사용하여 UI를 렌더링합니다. 컴포넌트는 `Handle`을 받아 **렌더 함수**를 반환하는 **셋업 함수**입니다. 셋업은 인스턴스당 한 번 실행되고, 렌더는 매 업데이트마다 실행되며, props는 `handle.props`를 통해 읽습니다.
 
-확인된 언어로부터 `<html lang="..." dir="...">` 속성을 설정하는 공유 `Document` 셸부터 시작합니다.
+미들웨어에서 확인된 로케일로부터 `<html lang="..." dir="...">` 속성을 설정하는 공유 `Document` 셸로 시작합니다:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
-import { getHTMLTextDir, type Locale } from "intlayer";
+import { getHTMLTextDir } from "intlayer";
+import { useLocale } from "remix-intlayer";
 import type { Handle, RemixNode } from "remix/ui";
 
 type DocumentProps = {
-  locale: Locale;
   title: string;
   children?: RemixNode;
 };
 
 export const Document = (handle: Handle<DocumentProps>) => () => {
-  const { locale, title, children } = handle.props;
+  const { title, children } = handle.props;
+  const { locale } = useLocale();
 
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
@@ -355,47 +325,40 @@ export const Document = (handle: Handle<DocumentProps>) => () => {
 };
 ```
 
-그런 다음 홈페이지를 만듭니다. `getIntlayer`로 지역화된 사전을 추출하고 언어 전환기를 렌더링합니다.
+그런 다음 홈 페이지를 만듭니다. `useIntlayer`로 현지화된 사전을 읽고 언어 전환기를 렌더링합니다:
 
 ```tsx fileName="src/views/home.tsx" codeFormat={["typescript", "esm"]}
-import {
-  getIntlayer,
-  getLocaleName,
-  getLocalizedPath,
-  type Locale,
-  locales,
-} from "intlayer";
-import type { Handle } from "remix/ui";
-import { routes } from "../routes";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
+import { useIntlayer, useLocale } from "remix-intlayer";
 import { Document } from "./document";
 
-type HomePageProps = {
-  locale: Locale;
-};
-
-export const HomePage = (handle: Handle<HomePageProps>) => () => {
-  const { locale } = handle.props;
-  const home = getIntlayer("home", locale);
+export const HomePage = () => () => {
+  const { locale, availableLocales } = useLocale();
+  const home = useIntlayer("home");
+  const pathWithoutLocale = getPathWithoutLocale();
 
   return (
-    <Document locale={locale} title={home.title}>
+    <Document title={home.title}>
       <header>
         <nav aria-label="Languages">
           <span>{home.switchLanguage}</span>
-          {locales.map((targetLocale) => {
-            const isActive = targetLocale === locale;
+          <ul>
+            {availableLocales.map((localeItem) => {
+              const isActive = localeItem === locale;
 
-            return (
-              <a
-                key={targetLocale}
-                href={getLocalizedPath(routes.home.href(), targetLocale)}
-                class={isActive ? "active" : undefined}
-                aria-current={isActive ? "page" : undefined}
-              >
-                {getLocaleName(targetLocale, locale)}
-              </a>
-            );
-          })}
+              return (
+                <li key={localeItem} class="p-1">
+                  <a
+                    href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+                    class={isActive ? "active" : undefined}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {getLocaleName(localeItem, locale)}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
         </nav>
       </header>
       <main>
@@ -407,7 +370,7 @@ export const HomePage = (handle: Handle<HomePageProps>) => () => {
 };
 ```
 
-> Remix JSX는 React가 아닙니다. 훅이 없으며, `class`는 있는 그대로 작성하고(`className`도 허용됨), 재렌더링은 `handle.update()`로 명시적으로 트리거합니다. 보간된 값은 자동으로 이스케이프됩니다.
+> Remix JSX는 React가 아닙니다: `class`는 있는 그대로 작성되며(`className`도 허용됨), 재렌더링은 `handle.update()`를 통해 명시적으로 트리거됩니다. 보간된 값은 자동으로 이스케이프됩니다. Intlayer 훅은 요청 범위를 읽는 일반 함수이므로 setup 함수나 render 함수 모두에서 호출할 수 있습니다.
 
 </Step>
 <Step number={8} title="라우터 및 서버 연결">
@@ -416,39 +379,37 @@ Intlayer 미들웨어 옆에 `remix/middleware/render`의 `render()` 미들웨�
 
 ```tsx fileName="src/router.tsx" codeFormat={["typescript", "esm"]}
 import { isDeclaredLocale } from "intlayer";
+import { intlayer } from "remix-intlayer";
 import { render } from "remix/middleware/render";
 import { createRouter } from "remix/router";
-import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
 import { HomePage } from "./views/home";
 
-// 1. Intlayer + render 미들웨어로 라우터 초기화
+// 1. Initialize router with Intlayer + render middleware
 export const router = createRouter({
   middleware: [intlayer(), render()],
 });
 
-// 2. 라우트 핸들러 매핑
+// 2. Map route handlers
 router.map(routes, {
   actions: {
-    // 기본 로케일 라우트
+    // Default locale route
     home(context) {
-      const locale = context.get(localeKey);
-      return context.render(<HomePage locale={locale} />);
+      return context.render(<HomePage />);
     },
 
-    // 현지화된 라우트
+    // Localized route
     localizedHome(context) {
       if (!isDeclaredLocale(context.params.locale)) {
         return new Response("Not Found", { status: 404 });
       }
-      const locale = context.get(localeKey);
-      return context.render(<HomePage locale={locale} />);
+      return context.render(<HomePage />);
     },
   },
 });
 ```
 
-> `context.render`는 두 번째 인수로 선택적 `ResponseInit`을 받습니다(예: `context.render(<NotFoundPage locale={locale} />, { status: 404 })`).
+> `context.render`는 두 번째 인수로 선택적 `ResponseInit`을 허용합니다(예: `context.render(<NotFoundPage />, { status: 404 })`). 확인된 로케일은 예를 들어 `Response.json` 페이로드를 생성하기 위해 핸들러에서 `context.intlayer.locale`로 계속 접근할 수 있습니다.
 
 마지막으로 표준 `fetch` 핸들러를 통해 라우터를 노출합니다. 동일한 라우터가 Node.js, Bun, Deno 및 Cloudflare Workers에서 실행됩니다.
 

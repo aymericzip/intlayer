@@ -79,6 +79,22 @@ const READABLE_METHODS = new Set(['GET', 'HEAD']);
 const RESERVED_PATH_PREFIXES = ['/_serverFn/', '/api/'] as const;
 
 /**
+ * Routes whose response depends on a search param. Their prerendered file only
+ * holds the param-less variant, so a request carrying the param must reach the
+ * SSR catch-all instead. `/markdown` is the landing page, but `/markdown?url=…`
+ * renders the remote document at that URL.
+ */
+const SEARCH_DRIVEN_ROUTES: readonly {
+  pathPattern: RegExp;
+  searchParam: string;
+}[] = [
+  {
+    pathPattern: /^(?:\/[a-z]{2}(?:-[A-Z]{2})?)?\/markdown\/?$/,
+    searchParam: 'url',
+  },
+];
+
+/**
  * Content encodings this middleware can serve, ordered best-compression first.
  * Each maps to the filename suffix written by `scripts/compress-static.ts`.
  */
@@ -117,6 +133,29 @@ const getPublicDirectory = (): string => {
 
 /** Resolved once per process — the public directory never moves at runtime. */
 const publicDirectory = getPublicDirectory();
+
+/**
+ * Whether the request names a search param that changes what the route
+ * renders, in which case its prerendered file cannot answer it.
+ */
+const isSearchDrivenRequest = (
+  event: H3EventLike,
+  pathname: string
+): boolean => {
+  const requestUrl = event.req.url ?? event.path;
+
+  let searchParams: URLSearchParams;
+  try {
+    searchParams = new URL(requestUrl, 'http://localhost').searchParams;
+  } catch {
+    return false;
+  }
+
+  return SEARCH_DRIVEN_ROUTES.some(
+    ({ pathPattern, searchParam }) =>
+      pathPattern.test(pathname) && searchParams.has(searchParam)
+  );
+};
 
 /**
  * Extracts the public pathname from the untouched incoming request URL.
@@ -233,6 +272,8 @@ export default async (event: H3EventLike): Promise<Response | void> => {
   if (RESERVED_PATH_PREFIXES.some((prefix) => pathname.startsWith(prefix))) {
     return;
   }
+
+  if (isSearchDrivenRequest(event, pathname)) return;
 
   for (const relativePath of getCandidateRelativePaths(pathname)) {
     const absolutePath = resolveWithinPublicDirectory(relativePath);

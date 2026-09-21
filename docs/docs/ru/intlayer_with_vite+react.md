@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Vite + React i18n - Полное руководство по переводу вашего приложения"
 description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения Vite + React. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
@@ -827,7 +827,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Обновите ваш `vite.config.ts`, чтобы включить плагин `intlayerCompiler`:
 
@@ -842,6 +848,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Соберите приложение, чтобы преобразовать ваши компоненты и извлечь контент
 
 ```bash packageManager="npm"
 npm run build # Или npm run dev
@@ -899,7 +910,9 @@ const pathList = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+const sitemapXml = generateSitemap(pathList, {
+  siteUrl: "https://example.com",
+});
 fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
 
 const getAllMultilingualUrls = (urls) =>
@@ -912,7 +925,7 @@ const robotsTxt = [
   "Allow: /",
   ...disallowedPaths.map((path) => `Disallow: ${path}`),
   "",
-  `Sitemap: ${SITE_URL}/sitemap.xml`,
+  `Sitemap: https://example.com/sitemap.xml`,
 ].join("\n");
 
 fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
@@ -945,7 +958,7 @@ Intlayer использует расширение модулей (module augmen
 
 ![Автодополнение](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Убедитесь, что ваша конфигурация TypeScript включает автоматически сгенерированные типы.
 
@@ -1067,6 +1080,13 @@ Intlayer обрабатывает разрешение локали и оста�
 <Question title="Как переводчики могут редактировать контент, не касаясь кода?">
 
 Через [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), размещённый самостоятельно, который позволяет любому редактировать текст на месте в работающем приложении, или [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) для контента, который должен меняться без развёртывания.
+
+</Question>
+<Question title="Каковы затраты ресурсов на визуальный редактор? Не является ли он избыточным, если он мне не нужен?">
+
+[Визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) имеет **нулевую стоимость** для вашего приложения, если он не настроен. Дополнительная логика загружается только в том случае, если она явно включена и необходима.
+
+Даже если он включен, влияние крайне незначительно (+5 кБ, загружается динамически только при активации), поскольку основная логика обрабатывается серверным редактором на [app.intlayer.org](https://app.intlayer.org) или через пакет `intlayer-editor`. Если вам нужно простое решение для перевода без визуального редактирования, Intlayer не создает никаких накладных расходов для вашего приложения.
 
 </Question>
 <Question title="Является ли Intlayer бесплатным и с открытым исходным кодом?">

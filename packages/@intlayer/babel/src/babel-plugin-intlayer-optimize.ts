@@ -32,6 +32,8 @@ const PACKAGE_LIST = [
   'solid-intlayer',
   'lit-intlayer',
   'vanilla-intlayer',
+  'astro-intlayer',
+  'remix-intlayer',
 ];
 
 const CALLER_LIST = ['useIntlayer', 'getIntlayer', 'getIntlayerAsync'] as const;

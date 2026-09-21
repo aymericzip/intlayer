@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-08-30
+updatedAt: 2026-09-19
 title: Intlayer 的工作原理
 description: 了解Intlayer的内部运作方式。理解使Intlayer强大的架构和组件。
 keywords:
@@ -134,49 +134,105 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 
 `intlayer` 包用于在应用中声明内容文件中的内容。
 
-### react-intlayer
+### 前端框架
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 `react-intlayer` 包用于解释 Intlayer 字典并使其在 React 应用中可用。
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 `next-intlayer` 包作为 `react-intlayer` 的扩展层，用于使 Intlayer 字典在 Next.js 应用中可用。它集成了使 Intlayer 在 Next.js 环境中工作的基本功能，例如翻译中间件、路由或 `next.config.js` 文件配置。
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 `vue-intlayer` 包用于解释 Intlayer 字典并使其在 Vue 应用中可用。
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 `nuxt-intlayer` 包作为 Nuxt 模块，用于使 Intlayer 字典在 Nuxt 应用中可用。它集成了使 Intlayer 能够在 Nuxt 环境中工作的关键功能，例如翻译中间件、路由以及 `nuxt.config.js` 文件配置。
 
-### svelte-intlayer (开发中)
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 `svelte-intlayer` 包用于解释 Intlayer 字典并使其在 Svelte 应用中可用。
 
-### solid-intlayer (开发中)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 `solid-intlayer` 包用于解释 Intlayer 字典并使其在 Solid.js 应用中可用。
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 `preact-intlayer` 包用于解释 Intlayer 字典并使其在 Preact 应用中可用。
 
-### angular-intlayer (开发中)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 `angular-intlayer` 包用于解释 Intlayer 字典并使其在 Angular 应用中可用。
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
 
-`express-intlayer` 包用于在 Express.js 后端中使用 Intlayer。
+`astro-intlayer` 包提供将 Intlayer 集成到 Astro 应用所需的工具。它配置基于区域设置（locale）的路由和字典管理。
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+`remix-intlayer` 包提供将 Intlayer 集成到 Remix 应用所需的工具。它配置基于区域设置（locale）的路由、服务端上下文和字典管理。
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
 
 `react-native-intlayer` 包提供了集成插件的工具，使 Intlayer 能够与 Metro 打包器一起工作。
 
-### lynx-intlayer
+  </Tab>
+  <Tab label="Lit" value="lit">
 
-`lynx-intlayer` 包提供了集成插件的工具，使 Intlayer 能够与 Lynx 打包器一起工作。
+`lit-intlayer` 包提供在 Lit 应用程序中解析和使用 Intlayer 字典的工具和组件。
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+`vanilla-intlayer` 包提供将 Intlayer 集成到原生 JavaScript、HTML 或 PHP 应用程序中的工具。
+
+  </Tab>
+</Tabs>
+
+### 后端框架
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
+
+`express-intlayer` 包用于在 Express.js 后端中使用 Intlayer。
+
+  </Tab>
+  <Tab label="Fastify" value="fastify">
+
+`fastify-intlayer` 包为 Fastify 应用提供了一个处理国际化的插件。它会检测用户的 locale 并装饰请求对象。
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+`hono-intlayer` 包为 Hono 应用程序提供了一个处理国际化的中间件。它检测用户的语言并填充上下文对象。
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+`elysia-intlayer` 包为 Elysia 应用提供了一个处理国际化的插件。它会检测用户的 locale，并向路由上下文注入一个 `intlayer` 对象。
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+`adonis-intlayer` 包为 AdonisJS 应用程序提供了一个处理国际化的中间件。它检测用户的语言区域并提供翻译函数。
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 
@@ -185,6 +241,10 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 ### react-scripts-intlayer
 
 包括用于将 Intlayer 集成到基于 Create React App 的应用程序中的 `react-scripts-intlayer` 命令和插件。这些插件基于 [craco](https://craco.js.org/)，并包含针对 [Webpack](https://webpack.js.org/) 打包器的额外配置。
+
+### eslint-plugin-intlayer
+
+`eslint-plugin-intlayer` 包提供 ESLint 和 oxlint 规则，用于捕获未翻译的字符串、验证字典定义并在代码库中强制执行 i18n 最佳实践。
 
 ### intlayer-editor
 
@@ -220,9 +280,21 @@ Intlayer 由多个包组成，每个包在翻译过程中都有特定的角色�
 `@intlayer/mcp` 包提供一个 MCP（模型上下文协议）服务器，提供针对 Intlayer 生态系统的 AI 驱动的 IDE 辅助。它会自动加载文档并与 Intlayer CLI 集成。
 `@intlayer/mcp` 包提供一个 MCP（模型上下文协议）服务器，提供针对 Intlayer 生态系统定制的 AI 驱动的 IDE 辅助。它会自动加载文档并与 Intlayer CLI 集成。
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/lsp
 
-`@intlayer/dictionaries-entry`、`@intlayer/unmerged-dictionaries-entry` 和 `@intlayer/dynamic-dictionaries-entry` 包返回 Intlayer 字典的入口路径。由于浏览器无法搜索文件系统，因此无法使用像 Webpack 或 Rollup 这样的打包工具来获取字典的入口路径。这些包设计为别名，以便在 Vite、Webpack 和 Turbopack 等各种打包工具中进行打包优化。
+`@intlayer/lsp` 包提供专门为 Intlayer 定制的语言服务器协议（LSP）服务。它为支持 LSP 的编辑器带来跳转到定义、查找引用、悬停预览、字典键自动补全和诊断警告等 IDE 功能。
+
+### @intlayer/ai
+
+`@intlayer/ai` 包为 Intlayer 应用程序提供 SDK 功能，实现自动化翻译和 AI 驱动的内容生成。
+
+### @intlayer/analytics
+
+`@intlayer/analytics` 包提供收集内容展示指标、页面/语言环境和节点级别分析的工具，并支持内容 A/B 测试。
+
+### @intlayer/dictionaries-entry
+
+`@intlayer/dictionaries-entry` 包返回 Intlayer 字典的入口路径：来自根目录的合并字典，以及来自 `/unmerged`、`/remote`、`/dynamic` 和 `/fetch` 子路径的未合并、远程、动态和 fetch 字典。由于浏览器无法搜索文件系统，因此无法使用像 Webpack 或 Rollup 这样的打包工具来获取字典的入口路径。该包及其子路径设计为别名，以便在 Vite、Webpack 和 Turbopack 等各种打包工具中进行打包优化。
 
 ### @intlayer/engine
 

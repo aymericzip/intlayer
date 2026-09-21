@@ -44,7 +44,7 @@ Intlayer CMS एक एप्लिकेशन है जो आपको Intla
 
 इसके लिए, Intlayer ने 'दूरस्थ शब्दकोश' (distant dictionaries) की अवधारणा पेश की है।
 
-![Intlayer CMS इंटरफ़ेस](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![Intlayer CMS इंटरफ़ेस](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## विषय सूची
 

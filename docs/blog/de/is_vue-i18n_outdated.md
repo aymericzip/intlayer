@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Ist vue-i18n im Jahr 2026 veraltet?
 description: vue-i18n war ein Jahrzehnt lang der Standard für Vue- und Nuxt-Anwendungen. Doch in unseren Benchmarks erwies es sich als die schwerste i18n-Runtime im Web. Warum das so ist.
 keywords:
@@ -64,7 +64,7 @@ Vergangene zwölf Monate:
 - `intlify/vue-i18n`: **259 Commits** (Pflege für Vue 3 und Nuxt).
 - `aymericzip/intlayer`: **4.343 Commits** (Compiler-Optimierungen, LSP-Erweiterungen und KI-Agenten-Unterstützung).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Eine etablierte Bibliothek bietet Stabilität. Moderne Frontend-Stacks nutzen jedoch AST-Transformationen im Build, Dead-Code-Elimination und KI-Lokalisierung. Eine reine Laufzeitarchitektur kann diese Entwicklungen nur schwer adaptieren.
 
@@ -115,6 +115,12 @@ Standardmäßig gehören **90% der geladenen Übersetzungen** zu anderen Seiten.
 **Gewicht isolierter Komponenten:**
 
 Komponenten mit lokalen Scopes erreichten unter `vue-i18n` durchschnittlich 196 KB durch duplizierte Kataloge, verglichen mit **6.5 KB** bei Intlayer.
+
+**Wie das Leakage skaliert:**
+
+Das folgende Diagramm schätzt die Payload für eine theoretische App mit 1 bis 10 Seiten, übersetzt in 1 bis 10 Sprachen, mit etwa 30 KB Text pro Seite. Dynamisches Laden pro Locale entfernt die Sprachachse, das Scoping des Contents pro Komponente oder Route entfernt die Seitenachse, und nur die Kombination hält die Payload flach.
+
+![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ## Warum ist vue-i18n schwer?
 

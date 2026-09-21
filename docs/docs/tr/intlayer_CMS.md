@@ -44,7 +44,7 @@ Intlayer CMS, bir Intlayer projesinin içeriğini dışa aktarmanıza olanak tan
 
 Bunun için Intlayer, 'uzak sözlükler' kavramını tanıtmaktadır.
 
-![Intlayer CMS Arayüzü](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![Intlayer CMS Arayüzü](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## İçindekiler
 

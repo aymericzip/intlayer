@@ -238,7 +238,7 @@ Secara default, `express-intlayer` akan menginterpretasikan header `Accept-Langu
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Kesalahan Terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Kesalahan Terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Pastikan tipe yang dihasilkan secara otomatis (secara default di ./types/intlayer.d.ts) sudah termasuk dalam file tsconfig.json Anda.
 

@@ -8,11 +8,11 @@ import {
 import { useSearch } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import z from 'zod';
+import { z } from 'zod/mini';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 
 const backupCodeSchema = z.object({
-  code: z.string().min(1),
+  code: z.string().check(z.minLength(1)),
 });
 
 type BackupCodeFormData = z.infer<typeof backupCodeSchema>;

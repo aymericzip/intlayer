@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-16
 title: "Bileşen-Başına vs Merkezileştirilmiş i18n: Intlayer ile Yeni Bir Yaklaşım"
 description: React'te uluslararasılaştırma stratejilerine derinlemesine bir bakış; merkezi, per-key (anahtar-başına) ve bileşen-başına yaklaşımları karşılaştırır ve Intlayer'ı tanıtır.
 keywords:
@@ -63,6 +63,7 @@ Ancak React dünyasında genellikle farklı yaklaşımlar görüyoruz; bunları 
 - içerik alımını anahtar başına veya bileşen başına ince taneli olarak yapar.
 
   </Column>
+
 </Columns>
 
 > Bu blogda, zaten burada ele aldığım derleyici tabanlı çözümlere odaklanmayacağım: [Derleyici vs Deklaratif i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md).
@@ -78,6 +79,10 @@ Genel olarak karar kabaca şu şekilde özetlenebilir:
 - Sayfa sayısından daha fazla diliniz varsa, merkezi yaklaşıma yönelmelisiniz.
 
 Elbette, kütüphane yazarları bu sınırlamaların farkındadır ve çözüm yolları sağlarlar. Bunlar arasında: namespaces'lere bölme, JSON dosyalarını dinamik olarak yükleme (`await import()`), veya derleme zamanında içeriği temizleme yer alır.
+
+Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın içerik yükünü tahmin eder. İçeriği locale bazında dinamik yüklemek dil eksenini ortadan kaldırır, içeriği bileşen veya rota bazında sınırlamak sayfa eksenini ortadan kaldırır ve yalnızca ikisinin birleşimi yükü sabit tutar.
+
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Aynı zamanda, içeriğinizi dinamik olarak yüklediğinizde sunucunuza ek istekler gönderdiğinizi bilmelisiniz. Her ek `useState` veya hook, ekstra bir sunucu isteği anlamına gelir.
 
@@ -108,9 +113,9 @@ Evet, bu büyük bir ilerleme. Vite + React + React Router v7 + Intlayer kurulum
 
 İlk örnek locale başına lazy-loaded çeviriler içermez ve namespace ayrımı yapmaz. İkinci örnek içerik temizleme + çeviriler için dinamik yükleme içerir.
 
-| Optimize edilmiş bundle                                                                                                        | Optimize edilmemiş bundle                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| ![optimize edilmemiş bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![optimize edilmiş bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| Optimize edilmiş bundle                                                                                                         | Optimize edilmemiş bundle                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| ![optimize edilmemiş bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![optimize edilmiş bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 Bu nedenle namespaces sayesinde şu yapıdan şu yapıya geçtik:
 

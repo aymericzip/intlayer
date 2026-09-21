@@ -3,7 +3,7 @@ import cn from 'cnfast';
 import type { FC } from 'react';
 
 export const Status: FC<{ className?: string }> = ({ className, ...props }) => {
-  const { theme, resolvedTheme } = useTheme();
+  const { resolvedTheme } = useTheme();
   return (
     <div
       {...props}
@@ -13,13 +13,10 @@ export const Status: FC<{ className?: string }> = ({ className, ...props }) => {
         title="Badge"
         src={`https://status.intlayer.org/badge?theme=${resolvedTheme}`}
         height="30"
-        frameBorder="0"
-        scrolling="no"
         style={{
           width: '100%',
           colorScheme: 'light',
         }}
-        allowTransparency
       />
     </div>
   );

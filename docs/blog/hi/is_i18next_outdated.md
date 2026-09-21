@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: क्या 2026 में i18next पुराना हो चुका है?
 description: i18next लाखों वेबसाइट्स को सपोर्ट करता है, लेकिन इसका 2011 का रनटाइम आर्किटेक्चर अब पुराना लगने लगा है। बंडल साइज, ट्री-शेकिंग की सीमाएं और विकास की सुस्ती का विश्लेषण।
 keywords:
@@ -70,7 +70,7 @@ author: aymericzip
 | `i18next` core  | 2,626            | **259**        | छोटे सुधार                             |
 | Intlayer        | 7,156            | **4,343**      | कंपाइलर, आईडीई टूल्स और एआई इंजन विकास |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 एक स्थापित लाइब्रेरी स्थिरता देती है। लेकिन i18n टूल्स का परिदृश्य बदल चुका है: मॉडर्न बंडलर्स बिल्ड के दौरान अप्रयुक्त कंटेंट हटाते हैं, एलएलएम सीधे सीआई में ट्रांसलेट करते हैं, और एडिटर्स लैंग्वेज सर्वर (LSP) और एआई एजेंट्स पर निर्भर हैं। केवल रनटाइम पर आधारित आर्किटेक्चर इन प्रगतियों को आसानी से नहीं अपना सकता।
 
@@ -124,6 +124,10 @@ Next.js में `next-i18next` बेस प्रोजेक्ट की �
 **कंटेंट लीकेज:**
 
 डिफ़ॉल्ट सेटिंग्स में, किसी रूट पर लोड होने वाले टेक्स्ट का लगभग **90%** हिस्सा अन्य पेजों से संबंधित होता है। नेमस्पेस को मैन्युअल रूप से विभाजित करना जटिल और जोखिम भरा है।
+
+नीचे दिया गया ग्राफ़ एक सैद्धांतिक ऐप के कंटेंट पेलोड का अनुमान देता है, जिसमें 1 से 10 पेज हैं और जिसे 1 से 10 भाषाओं में अनुवादित किया गया है, प्रति पेज लगभग 30 KB टेक्स्ट के साथ। locale के अनुसार कंटेंट को डायनामिक रूप से लोड करने से भाषा वाली धुरी हट जाती है, कंटेंट को कंपोनेंट या रूट तक सीमित करने से पेज वाली धुरी हट जाती है, और केवल दोनों के संयोजन से ही पेलोड स्थिर रहता है।
+
+![आर्किटेक्चर के अनुसार सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **धीमा हाइड्रेशन:**
 

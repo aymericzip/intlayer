@@ -17,6 +17,76 @@ const DEFAULT_ASSETS_DIRNAME_IN_DIST = 'assets';
 const DEFAULT_COPY_IN = 'all';
 const VIRTUAL_ID = 'utils:asset';
 const RESOLVED_ID = '\0utils:asset';
+const RETRYABLE_COPY_ERROR_CODES = new Set(['EBUSY', 'EPERM']);
+const COPY_RETRY_ATTEMPTS = 5;
+const COPY_RETRY_BASE_DELAY_MS = 50;
+
+/**
+ * In-flight copy per destination root. tsdown builds the esm/cjs/types
+ * configs concurrently in one process, so without this the same file is
+ * copied to the same path three times at once (EBUSY on Windows).
+ * @type {Map<string, Promise<void>>}
+ */
+const inFlightCopies = new Map();
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Copies a file, retrying on transient Windows lock errors (antivirus,
+ * concurrent writers).
+ * @param {string} fromAbs
+ * @param {string} toAbs
+ */
+const copyFileWithRetry = async (fromAbs, toAbs) => {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      await copyFile(fromAbs, toAbs);
+      return;
+    } catch (error) {
+      const isRetryable =
+        RETRYABLE_COPY_ERROR_CODES.has(error?.code) &&
+        attempt < COPY_RETRY_ATTEMPTS;
+      if (!isRetryable) throw error;
+      await sleep(COPY_RETRY_BASE_DELAY_MS * attempt);
+    }
+  }
+};
+
+/**
+ * Copies every matched asset under `distAssetsRoot`, once per process for a
+ * given destination even if several builds request it concurrently.
+ * @param {{ cwd: string, patterns: string[], srcBaseDir: string, distAssetsRoot: string }} params
+ */
+const copyAssetsOnce = ({ cwd, patterns, srcBaseDir, distAssetsRoot }) => {
+  const key = `${cwd}\0${distAssetsRoot}`;
+  const pending = inFlightCopies.get(key);
+  if (pending) return pending;
+
+  const copy = (async () => {
+    const entries = await fg(patterns, { cwd, dot: false });
+
+    await Promise.all(
+      entries.map(async (rel) => {
+        // keep path relative to srcBaseDir
+        const normalized = rel.replaceAll('\\', '/');
+        const stripped = normalized.startsWith(`${srcBaseDir}/`)
+          ? normalized.slice(srcBaseDir.length + 1)
+          : normalized;
+
+        const fromAbs = join(cwd, rel);
+        const toAbs = join(distAssetsRoot, stripped);
+
+        await mkdir(dirname(toAbs), { recursive: true });
+        await copyFileWithRetry(fromAbs, toAbs);
+      })
+    );
+  })().finally(() => {
+    inFlightCopies.delete(key);
+  });
+
+  inFlightCopies.set(key, copy);
+  return copy;
+};
 
 /**
  * A tsdown/rolldown-compatible plugin that:
@@ -77,24 +147,12 @@ export const AssetPlugin = (opts = {}) => {
 
       const distAssetsRoot = join(outDir, '..', assetsDirnameInDist);
 
-      const cwd = process.cwd();
-      const entries = await fg(patterns, { cwd, dot: false });
-
-      await Promise.all(
-        entries.map(async (rel) => {
-          // keep path relative to srcBaseDir
-          const normalized = rel.replaceAll('\\', '/');
-          const stripped = normalized.startsWith(`${srcBaseDir}/`)
-            ? normalized.slice(srcBaseDir.length + 1)
-            : normalized;
-
-          const fromAbs = join(cwd, rel);
-          const toAbs = join(distAssetsRoot, stripped);
-
-          await mkdir(dirname(toAbs), { recursive: true });
-          await copyFile(fromAbs, toAbs);
-        })
-      );
+      await copyAssetsOnce({
+        cwd: process.cwd(),
+        patterns,
+        srcBaseDir,
+        distAssetsRoot,
+      });
     },
   };
 };

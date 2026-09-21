@@ -5,8 +5,10 @@ import { getAlias } from '@intlayer/config/utils';
 import { IntlayerPlugin } from '@intlayer/webpack'; // adjust path if needed
 import { defu } from 'defu';
 
-const _require =
-  typeof require !== 'undefined' ? require : createRequire(import.meta.url);
+// `import.meta.url` is shimmed to `__filename` in the CommonJS build, while a
+// `typeof require` guard would pick up the ESM build's `require` proxy.
+const _require = createRequire(import.meta.url);
+
 export const mergeConfig = (
   baseConfig: import('webpack').Configuration
 ): import('webpack').Configuration => {

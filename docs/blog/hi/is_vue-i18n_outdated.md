@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: क्या 2026 में vue-i18n पुराना हो चुका है?
 description: vue-i18n एक दशक से Vue और Nuxt का मानक रहा है। लेकिन हमारे बेंचमार्क में यह वेब पर सबसे भारी i18n रनटाइम साबित हुआ। इसके कारणों का विश्लेषण।
 keywords:
@@ -64,7 +64,7 @@ Vite + Vue पर आधारित केवल 31.5 KB के बुनिय
 - `intlify/vue-i18n`: **259 कमिट्स** (Vue 3 और Nuxt का नियमित रखरखाव)।
 - `aymericzip/intlayer`: **4,343 कमिट्स** (कंपाइलर ऑप्टिमाइजेशन, LSP टूल्स और एआई इंटीग्रेशन पर सक्रिय विकास)।
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 एक पुरानी लाइब्रेरी स्थिरता तो देती है, लेकिन आधुनिक फ्रंटएंड अब बिल्ड-टाइम AST ट्रांसफॉर्मेशन, डेड-कोड रिमूवल और एआई ऑटोमेशन पर आधारित है। केवल रनटाइम पर चलने वाली लाइब्रेरी इन आधुनिक तकनीकों को सहजता से नहीं अपना पाती।
 
@@ -115,6 +115,12 @@ style="border:none;"
 **कंपोनेंट्स का असामान्य आकार:**
 
 डिक्शनरीज़ की बार-बार कॉपी होने से `vue-i18n` में लोकली-स्कोप्ड कंपोनेंट्स औसतन 196 KB तक पहुंच गए, जबकि Intlayer में यह सिर्फ **6.5 KB** रहा।
+
+**लीकेज कैसे बढ़ता है:**
+
+नीचे दिया गया ग्राफ़ एक सैद्धांतिक ऐप के कंटेंट पेलोड का अनुमान देता है, जिसमें 1 से 10 पेज हैं और जिसे 1 से 10 भाषाओं में अनुवादित किया गया है, प्रति पेज लगभग 30 KB टेक्स्ट के साथ। locale के अनुसार कंटेंट को डायनामिक रूप से लोड करने से भाषा वाली धुरी हट जाती है, कंटेंट को कंपोनेंट या रूट तक सीमित करने से पेज वाली धुरी हट जाती है, और केवल दोनों के संयोजन से ही पेलोड स्थिर रहता है।
+
+![आर्किटेक्चर के अनुसार सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ## vue-i18n भारी क्यों है?
 

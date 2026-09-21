@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - Vollständiger Leitfaden zur Übersetzung next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: Beste Lösung für Bundle-Größe, SEO, Performance & Wartbarkeit. Machen Sie Ihre Next.js Website 2026 mehrsprachig, LLM-Übersetzung, Agent Skills & MCP.
 keywords:
@@ -22,7 +22,7 @@ author: aymericzip
 
 <TOC/>
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Werfen wir einen Blick auf die Gemeinsamkeiten und Unterschiede zwischen drei i18n-Optionen für Next.js: next-i18next, next-intl und Intlayer.
 
@@ -136,6 +136,10 @@ Zwei wichtige Probleme:
 
   > Wenn ich mich auf der Seite `/fr/about` befinde, möchte ich nicht den Inhalt der Seite `/en/about` laden.
 
+Das folgende Diagramm schätzt die Payload für eine theoretische App mit 1 bis 10 Seiten, übersetzt in 1 bis 10 Sprachen, mit etwa 30 KB Text pro Seite. Dynamisches Laden pro Locale entfernt die Sprachachse, das Scoping des Contents pro Komponente oder Route entfernt die Seitenachse, und nur die Kombination hält die Payload flach.
+
+![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 Alle drei Lösungen sind sich dieser Probleme bewusst und ermöglichen die Verwaltung dieser Optimierungen. Der Unterschied zwischen den drei Lösungen liegt in der DX (Developer Experience).
 
 `next-intl` und `next-i18next` verwenden einen zentralisierten Ansatz zur Verwaltung von Übersetzungen, der es erlaubt, JSON-Dateien nach Sprache und Unterdateien aufzuteilen. In `next-i18next` nennen wir die JSON-Dateien „Namespaces“; `next-intl` erlaubt das Deklarieren von Nachrichten. In `intlayer` nennen wir die JSON-Dateien „Dictionaries“.
@@ -158,9 +162,9 @@ Im Fall von `next-intl` und `next-i18next` erfordert die Bibliothek das Laden de
 
 Hier ein Beispiel für die Auswirkung der Bundle-Größenoptimierung mit `intlayer` in einer vite + react Anwendung:
 
-| Optimiertes Bundle                                                                                      | Nicht optimiertes Bundle                                                                                                      |
-| ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| ![optimiertes Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![nicht optimiertes Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Optimiertes Bundle                                                                                       | Nicht optimiertes Bundle                                                                                                       |
+| -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| ![optimiertes Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![nicht optimiertes Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript & Sicherheit
 
@@ -1427,7 +1431,7 @@ Wenn Sie eine minimale Einrichtung bevorzugen und etwas manuelle Verkabelung akz
 
 GitHub-Sterne sind ein starkes Indiz für die Popularität eines Projekts, das Vertrauen der Community und die langfristige Relevanz. Obwohl sie kein direktes Maß für die technische Qualität sind, spiegeln sie wider, wie viele Entwickler das Projekt nützlich finden, seinen Fortschritt verfolgen und es wahrscheinlich übernehmen werden. Zur Einschätzung des Werts eines Projekts helfen Sterne dabei, die Resonanz im Vergleich zu Alternativen zu vergleichen und Einblicke in das Wachstum des Ökosystems zu geben.
 
-[![Stern-Historien-Diagramm](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Stern-Historien-Diagramm](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ## Fazit
 

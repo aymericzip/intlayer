@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-08-25
+updatedAt: 2026-09-20
 title: "TanStack Start i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi TanStack Start multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
@@ -1068,7 +1068,13 @@ bun x intlayer extract
  </Tab>
  <Tab value="Compiler Babel">
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Perbarui `vite.config.ts` Anda untuk menyertakan plugin `intlayerCompiler`:
 
@@ -1083,6 +1089,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Build aplikasi Anda untuk mentransformasi komponen Anda dan mengekstrak konten
 
 ```bash packageManager="npm"
 npm run build # Atau npm run dev
@@ -1152,10 +1163,6 @@ Kemudian, buat rute `src/routes/sitemap[.]xml.ts` yang menggunakan fungsi `gener
 import { createFileRoute } from "@tanstack/react-router";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
-
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
@@ -1165,7 +1172,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             { path: "/", changefreq: "daily", priority: 1.0 },
             { path: "/about", changefreq: "monthly", priority: 0.8 },
           ],
-          { siteUrl: SITE_URL }
+          { siteUrl: "https://example.com" }
         );
 
         return new Response(sitemap, {
@@ -1324,6 +1331,13 @@ Ya: [bentuk jamak (plurals)](https://github.com/aymericzip/intlayer/blob/main/do
 <Question title="Bagaimana penerjemah dapat mengedit konten tanpa menyentuh kode?">
 
 Melalui [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), yang memungkinkan siapa saja mengedit teks langsung di aplikasi yang berjalan, atau melalui [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), yang memisahkan konten sehingga dapat diubah tanpa perlu redeploy kode.
+
+</Question>
+<Question title="Berapa biaya dari visual editor? Apakah berlebihan jika saya tidak membutuhkannya?">
+
+[Visual editor Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) memiliki **biaya nol** pada aplikasi Anda jika tidak disiapkan. Logika tambahan hanya dimuat jika diaktifkan secara eksplisit dan dibutuhkan.
+
+Bahkan jika diaktifkan, bebannya sangat ringan (+5 KB, dimuat secara dinamis hanya saat diaktifkan) karena sebagian besar logika ditangani oleh server editor di [app.intlayer.org](https://app.intlayer.org) atau melalui paket `intlayer-editor`. Jika Anda hanya memerlukan solusi terjemahan sederhana tanpa pengeditan visual, Intlayer tidak menambahkan overhead apa pun ke aplikasi Anda.
 
 </Question>
 <Question title="Apakah Intlayer gratis dan open source?">

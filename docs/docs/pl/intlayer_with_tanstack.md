@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-08-25
+updatedAt: 2026-09-20
 title: "TanStack Start i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji TanStack Start. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
@@ -1068,7 +1068,13 @@ bun x intlayer extract
  </Tab>
  <Tab value="Kompilator Babel">
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Zaktualizuj `vite.config.ts`, aby dołączyć wtyczkę `intlayerCompiler`:
 
@@ -1083,6 +1089,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Zbuduj aplikację, aby przekształcić komponenty i wyodrębnić treść
 
 ```bash packageManager="npm"
 npm run build # Lub npm run dev
@@ -1152,10 +1163,6 @@ Następnie utwórz trasę `src/routes/sitemap[.]xml.ts`, która wykorzystuje fun
 import { createFileRoute } from "@tanstack/react-router";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
-
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
@@ -1165,7 +1172,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             { path: "/", changefreq: "daily", priority: 1.0 },
             { path: "/about", changefreq: "monthly", priority: 0.8 },
           ],
-          { siteUrl: SITE_URL }
+          { siteUrl: "https://example.com" }
         );
 
         return new Response(sitemap, {
@@ -1324,6 +1331,13 @@ Tak: [formy mnogie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/p
 <Question title="Jak tłumacze mogą edytować treść bez dotykania kodu?">
 
 Za pośrednictwem [edytora wizualnego](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md), który działa na Twojej własnej infrastrukturze i pozwala każdemu edytować tekst bezpośrednio w działającej aplikacji, lub systemu [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), który wyodrębnia treść, dzięki czemu może być zmieniana bez konieczności ponownego wdrażania.
+
+</Question>
+<Question title="Jaki jest koszt edytora wizualnego? Czy to przesada, jeśli go nie potrzebuję?">
+
+[Edytor wizualny Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) generuje **zerowy koszt** dla Twojej aplikacji, jeśli nie jest skonfigurowany. Dodatkowa logika jest ładowana tylko wtedy, gdy jest jawnie włączona i potrzebna.
+
+Nawet po włączeniu narzut jest niezwykle mały (+5 KB, ładowane dynamicznie tylko po aktywacji), ponieważ większość logiki jest obsługiwana przez edytor serwerowy na [app.intlayer.org](https://app.intlayer.org) lub za pośrednictwem pakietu `intlayer-editor`. Jeśli potrzebujesz jedynie prostego rozwiązania do tłumaczenia bez edycji wizualnej, Intlayer nie dodaje żadnego narzutu do Twojej aplikacji.
 
 </Question>
 <Question title="Czy Intlayer jest darmowy i open source?">

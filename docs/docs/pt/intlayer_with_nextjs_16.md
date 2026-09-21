@@ -1300,7 +1300,7 @@ O Intlayer usa aumento de módulo para obter benefícios do TypeScript e tornar 
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Erro de tradução](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Erro de tradução](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Certifique-se de que sua configuração TypeScript inclua os tipos autogerados.
 
@@ -1434,6 +1434,13 @@ Sim. As declarações de conteúdo suportam [formas plurais](https://github.com/
 <Question title="Como tradutores e não desenvolvedores podem editar o conteúdo?">
 
 Duas opções estão disponíveis, ambas opcionais. O [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) roda em sua própria infraestrutura e permite clicar no texto do site para editá-lo diretamente na tela. O [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md) externaliza o conteúdo para que ele possa ser atualizado sem novos deploys, com a [sincronização ao vivo (live sync)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/live.md) refletindo as mudanças em tempo de execução.
+
+</Question>
+<Question title="Qual é o custo do editor visual? É excessivo se eu não precisar dele?">
+
+O [editor visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) tem **custo zero** na sua aplicação se não estiver configurado. A lógica extra só é carregada se explicitamente ativada e necessária.
+
+Mesmo quando ativado, o impacto é extremamente leve (+5 KB, carregado dinamicamente apenas quando ativado), pois a maior parte da lógica é tratada pelo editor do servidor em [app.intlayer.org](https://app.intlayer.org) ou através do pacote `intlayer-editor`. Se você precisa apenas de uma solução simples de tradução sem edição visual, o Intlayer não adiciona nenhuma sobrecarga à sua aplicação.
 
 </Question>
 <Question title="Como detecto traduções ausentes antes do deploy?">

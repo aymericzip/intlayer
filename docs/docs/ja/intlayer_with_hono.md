@@ -257,7 +257,7 @@ export default config;
 
 ![オートコンプリート](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![翻訳エラー](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![翻訳エラー](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 自動生成された型 (デフォルトは `./types/intlayer.d.ts`) が `tsconfig.json` ファイルに含まれていることを確認してください。
 

@@ -1,6 +1,6 @@
 [package]
 name = "intlayer-swc-plugin"
-version = "9.0.0-canary.11"
+version = "9.5.6"
 edition = "2021"
 description = "SWC transform plugin for Intlayer. Replaces `useIntlayer` / `getIntlayer` string keys with pre-loaded dictionary imports at compile time, enabling tree-shaking and eliminating runtime registry lookups."
 keywords = ["intlayer", "i18n", "swc", "plugin", "internationalization"]

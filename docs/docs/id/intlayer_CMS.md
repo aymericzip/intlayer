@@ -41,7 +41,7 @@ Intlayer CMS adalah sebuah Aplikasi yang memungkinkan Anda untuk mengeksternalis
 
 Untuk itu, Intlayer memperkenalkan konsep 'kamus jauh'.
 
-![Antarmuka Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![Antarmuka Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## Daftar Isi
 

@@ -179,7 +179,6 @@ Intlayer جدید ویب ڈیولپمنٹ کی ضروریات کو پورا کر
 - **[Tanstack Start + Solid کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_tanstack+solid.md)**
 - **[Vite + React کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+react.md)**
 - **[React Router v7 کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_react_router_v7.md)**
-- **[React Router v7 (fs-routes) کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_react_router_v7_fs_routes.md)**
 - **[React CRA کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_create_react_app.md)**
 - **[React Native اور Expo کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_react_native+expo.md)**
 - **[Lynx اور React کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_lynx+react.md)**
@@ -190,7 +189,6 @@ Intlayer جدید ویب ڈیولپمنٹ کی ضروریات کو پورا کر
 - **[Astro + Solid کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_solid.md)**
 - **[Astro + Preact کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_preact.md)**
 - **[Astro + Lit کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_lit.md)**
-- **[Astro + Vanilla JS کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_astro_vanilla.md)**
 - **[Vite + Vue کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+vue.md)**
 - **[Nuxt کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_nuxt.md)**
 - **[Vite + Svelte کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_vite+svelte.md)**

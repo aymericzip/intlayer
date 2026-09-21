@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-08-30
+updatedAt: 2026-09-19
 title: Como o Intlayer funciona
 description: Aprenda como o Intlayer opera internamente. Compreenda a arquitetura e os componentes que tornam o Intlayer poderoso.
 keywords:
@@ -134,49 +134,105 @@ O Intlayer é composto por vários pacotes, cada um com um papel específico no 
 
 O pacote `intlayer` é usado em aplicações para declarar conteúdo em arquivos de conteúdo.
 
-### react-intlayer
+### Frameworks de Frontend
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 O pacote `react-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações React.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 O pacote `next-intlayer` é usado como uma camada sobre o `react-intlayer` para tornar os dicionários do Intlayer utilizáveis em aplicações Next.js. Ele integra recursos essenciais para fazer o Intlayer funcionar em um ambiente Next.js, como middleware de tradução, roteamento ou configuração do arquivo `next.config.js`.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 O pacote `vue-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Vue.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 O pacote `nuxt-intlayer` é um módulo Nuxt para tornar os dicionários do Intlayer utilizáveis em aplicações Nuxt. Ele integra recursos essenciais para fazer o Intlayer funcionar em um ambiente Nuxt, como middleware de tradução, roteamento e a configuração do arquivo `nuxt.config.js`.
 
-### svelte-intlayer
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 O pacote `svelte-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Svelte.
 
-### solid-intlayer (WIP)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 O pacote `solid-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Solid.js.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 O pacote `preact-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Preact.
 
-### angular-intlayer (WIP)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 O pacote `angular-intlayer` é usado para interpretar os dicionários do Intlayer e torná-los utilizáveis em aplicações Angular.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
 
-O pacote `express-intlayer` é usado para utilizar o Intlayer em um backend Express.js.
+O pacote `astro-intlayer` fornece as ferramentas necessárias para integrar o Intlayer em aplicações Astro. Ele configura o roteamento baseado em locale e o gerenciamento de dicionários.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+O pacote `remix-intlayer` fornece as ferramentas necessárias para integrar o Intlayer em aplicações Remix. Ele configura o roteamento baseado em locale, o contexto do lado do servidor e o gerenciamento de dicionários.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
 
 O pacote `react-native-intlayer` fornece ferramentas que integram plugins para o Intlayer funcionar com o Metro bundler.
 
-### lynx-intlayer
+  </Tab>
+  <Tab label="Lit" value="lit">
 
-O pacote `lynx-intlayer` fornece ferramentas que integram plugins para o Intlayer funcionar com o Lynx bundler.
+O pacote `lit-intlayer` fornece ferramentas e componentes para interpretar e usar dicionários do Intlayer em aplicações Lit.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+O pacote `vanilla-intlayer` fornece ferramentas para integrar o Intlayer em aplicações JavaScript vanilla, HTML ou PHP.
+
+  </Tab>
+</Tabs>
+
+### Frameworks de Backend
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
+
+O pacote `express-intlayer` é usado para utilizar o Intlayer em um backend Express.js.
+
+  </Tab>
+  <Tab label="Fastify" value="fastify">
+
+O pacote `fastify-intlayer` fornece um plugin para aplicações Fastify para tratar da internacionalização. Ele detecta o locale do utilizador e decora o objeto request.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+O pacote `hono-intlayer` fornece um middleware para aplicações Hono para lidar com a internacionalização. Ele detecta a localidade do usuário e preenche o objeto de contexto.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+O pacote `elysia-intlayer` fornece um plugin para aplicações Elysia para tratar da internacionalização. Ele deteta o locale do utilizador e injeta um objeto `intlayer` no contexto da rota.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+O pacote `adonis-intlayer` fornece um middleware para aplicações AdonisJS para lidar com a internacionalização. Ele detecta o locale do usuário e fornece funções de tradução.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 
@@ -185,6 +241,10 @@ Inclui o plugin Vite para integrar o Intlayer com o [Vite bundler](https://vite.
 ### react-scripts-intlayer
 
 Inclui os comandos e plugins `react-scripts-intlayer` para integrar o Intlayer com aplicações baseadas no Create React App. Esses plugins são baseados no [craco](https://craco.js.org/) e incluem configurações adicionais para o empacotador [Webpack](https://webpack.js.org/).
+
+### eslint-plugin-intlayer
+
+O pacote `eslint-plugin-intlayer` fornece regras de ESLint e oxlint para detectar strings não traduzidas, validar definições de dicionário e garantir as melhores práticas de i18n.
 
 ### intlayer-editor
 
@@ -219,9 +279,21 @@ O pacote `@intlayer/cli` é um pacote NPM usado para declarar os scripts relacio
 
 O pacote `@intlayer/mcp` fornece um servidor MCP (Model Context Protocol) que oferece assistência para IDE com inteligência artificial, adaptada ao ecossistema Intlayer. Ele carrega automaticamente a documentação e integra-se com o Intlayer CLI.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/lsp
 
-Os pacotes `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` e `@intlayer/dynamic-dictionaries-entry` retornam o caminho de entrada dos dicionários Intlayer. Como é impossível pesquisar o sistema de arquivos a partir do navegador, usar bundlers como Webpack ou Rollup para recuperar o caminho de entrada dos dicionários não é viável. Esses pacotes são projetados para serem aliasados, permitindo a otimização do empacotamento em vários bundlers, como Vite, Webpack e Turbopack.
+O pacote `@intlayer/lsp` fornece um servidor Language Server Protocol (LSP) sob medida para o Intlayer. Ele traz recursos de IDE como Ir para a definição, Encontrar referências, visualizações prévias ao passar o mouse, autocompletar chaves de dicionário e avisos de diagnóstico.
+
+### @intlayer/ai
+
+O pacote `@intlayer/ai` fornece capacidades de SDK para aplicações Intlayer, permitindo tradução automatizada e geração de conteúdo impulsionada por IA.
+
+### @intlayer/analytics
+
+O pacote `@intlayer/analytics` fornece ferramentas para coletar métricas de impressão de conteúdo, análises por página/locale e nível de nó, e potencializa testes A/B de conteúdo.
+
+### @intlayer/dictionaries-entry
+
+O pacote `@intlayer/dictionaries-entry` retorna o caminho de entrada dos dicionários Intlayer: os dicionários mesclados a partir de sua raiz, e os não mesclados, remotos, dinâmicos e fetch a partir de seus subcaminhos `/unmerged`, `/remote`, `/dynamic` e `/fetch`. Como é impossível pesquisar o sistema de arquivos a partir do navegador, usar bundlers como Webpack ou Rollup para recuperar o caminho de entrada dos dicionários não é viável. O pacote e seus subcaminhos são projetados para serem aliasados, permitindo a otimização do empacotamento em vários bundlers, como Vite, Webpack e Turbopack.
 
 ### @intlayer/engine
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Apakah vue-i18n Sudah Ketinggalan Zaman di Tahun 2026?
 description: vue-i18n telah menjadi standar untuk Vue dan Nuxt selama satu dekade. Namun dalam pengujian tolok ukur kami, pustaka ini menjadi runtime i18n terberat di web. Simak ulasannya.
 keywords:
@@ -64,7 +64,7 @@ Catatan selama 12 bulan terakhir:
 - `intlify/vue-i18n`: **259 commit** (perawatan berkala untuk Vue 3 dan Nuxt).
 - `aymericzip/intlayer`: **4.343 commit** (pengembangan berkelanjutan pada optimasi kompiler, LSP, dan integrasi AI agent).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Pustaka yang matang memang menjamin keandalan. Namun paradigma frontend modern kini berpusat pada transformasi AST saat build time, pembersihan dead code, dan otomatisasi AI. Sistem yang terpaku pada eksekusi di browser sulit mengadopsi kemudahan ini.
 
@@ -115,6 +115,12 @@ Secara bawaan, **90% terjemahan** yang dikirimkan ke suatu rute sebenarnya adala
 **Ukuran komponen terisolasi:**
 
 Komponen dengan scope lokal mencapai rata-rata 196 KB pada `vue-i18n` akibat duplikasi kamus, berbanding **6.5 KB** pada Intlayer.
+
+**Bagaimana kebocoran berskala:**
+
+Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
+
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ## Mengapa vue-i18n Begitu Berat?
 

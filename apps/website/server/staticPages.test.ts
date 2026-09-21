@@ -27,6 +27,7 @@ type StaticPagesHandler = (
 
 const HOME_PAGE_HTML = `<!doctype html><title>home</title>${'padding'.repeat(300)}`;
 const DOC_PAGE_HTML = `<!doctype html><title>doc</title>${'padding'.repeat(300)}`;
+const MARKDOWN_LANDING_HTML = '<!doctype html><title>markdown</title>';
 
 /** Stands in for a `staticFunctionMiddleware` cache entry, seroval payload included. */
 const STATIC_CACHE_NAME = 'be79bcf7ed21a235f33aeca5c60cb2e2edeafa59.json';
@@ -89,6 +90,16 @@ beforeAll(async () => {
     DOC_PAGE_HTML
   );
   await writeFile(join(publicDirectory, 'ru', 'index.html'), '<!doctype html>');
+  await mkdir(join(publicDirectory, 'markdown'), { recursive: true });
+  await mkdir(join(publicDirectory, 'ru', 'markdown'), { recursive: true });
+  await writeFile(
+    join(publicDirectory, 'markdown', 'index.html'),
+    MARKDOWN_LANDING_HTML
+  );
+  await writeFile(
+    join(publicDirectory, 'ru', 'markdown', 'index.html'),
+    MARKDOWN_LANDING_HTML
+  );
   await writeFile(join(publicDirectory, 'robots.txt'), 'User-agent: *');
   await writeFile(
     join(publicDirectory, '__tsr', 'staticServerFnCache', STATIC_CACHE_NAME),
@@ -308,5 +319,47 @@ describe('staticPages middleware', () => {
     const response = await handleStaticPage(createEvent({ url: '/ru' }));
 
     expect(await response?.text()).toBe('<!doctype html>');
+  });
+
+  describe('search-driven routes', () => {
+    const REMOTE_MARKDOWN_QUERY = `?url=${encodeURIComponent(
+      'https://raw.githubusercontent.com/intlayer-org/benchmark-i18n/main/report/scripts/summarize-tanstack.md'
+    )}`;
+
+    it.each(['/markdown', '/markdown/', '/ru/markdown'])(
+      'serves the prerendered landing page for %s without a url param',
+      async (url) => {
+        const response = await handleStaticPage(createEvent({ url }));
+
+        expect(await response?.text()).toBe(MARKDOWN_LANDING_HTML);
+      }
+    );
+
+    it.each(['/markdown', '/markdown/', '/ru/markdown'])(
+      'leaves %s?url=… to the server so the remote document is rendered',
+      async (path) => {
+        const response = await handleStaticPage(
+          createEvent({ url: `${path}${REMOTE_MARKDOWN_QUERY}` })
+        );
+
+        expect(response).toBeUndefined();
+      }
+    );
+
+    it('still serves the landing page when an unrelated param is present', async () => {
+      const response = await handleStaticPage(
+        createEvent({ url: '/markdown?utm_source=newsletter' })
+      );
+
+      expect(await response?.text()).toBe(MARKDOWN_LANDING_HTML);
+    });
+
+    it('does not let the url param bypass other prerendered pages', async () => {
+      const response = await handleStaticPage(
+        createEvent({ url: `/doc/get-started${REMOTE_MARKDOWN_QUERY}` })
+      );
+
+      expect(await response?.text()).toBe(DOC_PAGE_HTML);
+    });
   });
 });

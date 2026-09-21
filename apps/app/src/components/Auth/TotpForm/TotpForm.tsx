@@ -8,11 +8,11 @@ import {
 import { useSearch } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import z from 'zod';
+import { z } from 'zod/mini';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 
 const totpSchema = z.object({
-  code: z.string().length(6),
+  code: z.string().check(z.length(6)),
 });
 
 type TotpFormData = z.infer<typeof totpSchema>;

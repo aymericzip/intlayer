@@ -1120,6 +1120,77 @@ const docDataContent: Dictionary = {
                 './docs/en/packages/astro-intlayer/exports.md'
               ),
               frameworks: ['astro'],
+              subSections: {
+                intlayer: {
+                  title: 'intlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/astro-intlayer/intlayer.md'
+                  ),
+                },
+                onRequest: {
+                  title: 'onRequest',
+                  default: getDocMetadata(
+                    './docs/en/packages/astro-intlayer/onRequest.md'
+                  ),
+                },
+                useDictionary: {
+                  title: 'useDictionary',
+                  default: getDocMetadata(
+                    './docs/en/packages/astro-intlayer/useDictionary.md'
+                  ),
+                },
+                useIntlayer: {
+                  title: 'useIntlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/astro-intlayer/useIntlayer.md'
+                  ),
+                },
+                useLocale: {
+                  title: 'useLocale',
+                  default: getDocMetadata(
+                    './docs/en/packages/astro-intlayer/useLocale.md'
+                  ),
+                },
+              },
+            },
+            'remix-intlayer': {
+              title: 'remix-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/remix-intlayer/exports.md'
+              ),
+              frameworks: ['remix', 'react'],
+              subSections: {
+                intlayerMiddleware: {
+                  title: 'intlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/remix-intlayer/intlayerMiddleware.md'
+                  ),
+                },
+                Intlayer: {
+                  title: 'Intlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/remix-intlayer/Intlayer.md'
+                  ),
+                },
+                useDictionary: {
+                  title: 'useDictionary',
+                  default: getDocMetadata(
+                    './docs/en/packages/remix-intlayer/useDictionary.md'
+                  ),
+                },
+                useIntlayer: {
+                  title: 'useIntlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/remix-intlayer/useIntlayer.md'
+                  ),
+                },
+                useLocale: {
+                  title: 'useLocale',
+                  default: getDocMetadata(
+                    './docs/en/packages/remix-intlayer/useLocale.md'
+                  ),
+                },
+              },
             },
             'vite-intlayer': {
               title: 'vite-intlayer',
@@ -1573,32 +1644,6 @@ const docDataContent: Dictionary = {
               }),
               default: getDocMetadata('./docs/en/intlayer_with_astro_lit.md'),
               frameworks: ['lit', 'astro', 'vite'],
-            },
-            'astro-and-vanilla-js': {
-              title: t({
-                en: 'Astro and Vanilla JS',
-                fr: 'Astro et Vanilla JS',
-                es: 'Astro y Vanilla JS',
-                'en-GB': 'Astro and Vanilla JS',
-                de: 'Astro und Vanilla JS',
-                ja: 'AstroおよびVanilla JS',
-                ko: 'Astro 및 Vanilla JS',
-                zh: 'Astro和Vanilla JS',
-                it: 'Astro e Vanilla JS',
-                pt: 'Astro e Vanilla JS',
-                hi: 'Astro और Vanilla JS',
-                ar: 'Astro و Vanilla JS',
-                uk: 'Astro та Vanilla JS',
-                ru: 'Astro и Vanilla JS',
-                tr: 'Astro ve Vanilla JS',
-                pl: 'Astro dan Vanilla JS',
-                id: 'Astro dan Vanilla JS',
-                vi: 'Astro và Vanilla JS',
-              }),
-              default: getDocMetadata(
-                './docs/en/intlayer_with_astro_vanilla.md'
-              ),
-              frameworks: ['vanilla', 'astro', 'vite'],
             },
           },
         },

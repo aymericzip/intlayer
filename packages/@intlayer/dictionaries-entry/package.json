@@ -1,13 +1,17 @@
 {
   "name": "@intlayer/dictionaries-entry",
-  "version": "9.5.2",
+  "version": "9.5.6",
   "private": false,
-  "description": "Provides the entry path for Intlayer dictionaries, solving filesystem retrieval issues for bundlers like Webpack and Rollup.",
+  "description": "Provides the entry points for the generated Intlayer dictionaries (merged, unmerged, remote, dynamic, fetch), designed to be aliased by bundlers like Webpack, Vite, Turbopack, esbuild and Metro.",
   "keywords": [
     "intlayer",
     "alias",
     "dictionaries",
-    "entry"
+    "entry",
+    "unmerged",
+    "remote",
+    "dynamic",
+    "fetch"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
@@ -32,16 +36,34 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "browser": "./dist/esm/index.browser.mjs",
       "types": "./dist/types/index.d.ts",
+      "browser": "./dist/esm/index.browser.mjs",
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
-    "./*": {
-      "browser": "./dist/esm/index.browser.mjs",
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
+    "./unmerged": {
+      "types": "./dist/types/unmerged.d.ts",
+      "browser": "./dist/esm/unmerged.browser.mjs",
+      "require": "./dist/cjs/unmerged.cjs",
+      "import": "./dist/esm/unmerged.mjs"
+    },
+    "./remote": {
+      "types": "./dist/types/remote.d.ts",
+      "browser": "./dist/esm/remote.browser.mjs",
+      "require": "./dist/cjs/remote.cjs",
+      "import": "./dist/esm/remote.mjs"
+    },
+    "./dynamic": {
+      "types": "./dist/types/dynamic.d.ts",
+      "browser": "./dist/esm/dynamic.browser.mjs",
+      "require": "./dist/cjs/dynamic.cjs",
+      "import": "./dist/esm/dynamic.mjs"
+    },
+    "./fetch": {
+      "types": "./dist/types/fetch.d.ts",
+      "browser": "./dist/esm/fetch.browser.mjs",
+      "require": "./dist/cjs/fetch.cjs",
+      "import": "./dist/esm/fetch.mjs"
     },
     "./package.json": "./package.json"
   },
@@ -50,6 +72,18 @@
   "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
+      "unmerged": [
+        "./dist/types/unmerged.d.ts"
+      ],
+      "remote": [
+        "./dist/types/remote.d.ts"
+      ],
+      "dynamic": [
+        "./dist/types/dynamic.d.ts"
+      ],
+      "fetch": [
+        "./dist/types/fetch.d.ts"
+      ],
       "package.json": [
         "./package.json"
       ]
@@ -72,6 +106,7 @@
     "prepublish": "cp -f ../../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
+    "publish:ci": "bun ../../../scripts/publish-package.mjs",
     "publish:latest": "bun publish --access public --tag latest || true",
     "test": "bun --bun vitest run",
     "test:watch": "bun --bun vitest",
@@ -89,7 +124,7 @@
     "rimraf": "6.1.3",
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
-    "vitest": "5.0.0"
+    "vitest": "5.0.1"
   },
   "engines": {
     "node": ">=14.18"

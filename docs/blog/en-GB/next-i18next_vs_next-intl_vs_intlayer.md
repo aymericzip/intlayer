@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - Complete guide to translate next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: Best solution for bundle size, SEO, performances & maintainability. Make your Next.js website multilingual in 2026, LLM translation, Agent Skills & MCP.
 keywords:
@@ -20,7 +20,7 @@ author: aymericzip
 
 # next-i18next VS next-intl VS intlayer | Next.js Internationalisation (i18n)
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Let’s take a look into the similarities and differences between three i18n options for Next.js: next-i18next, next-intl, and Intlayer.
 
@@ -134,6 +134,10 @@ Two important issues:
 
   > If I'm on the `/fr/about` page, I don't want to load the content of the `/en/about` page
 
+The graph below shows how each split plays out on the same 10 pages x 10 languages app, with about 30 KB of text per page. Dynamic import per locale removes the locale axis, splitting content per route or component removes the page axis, and only the combination keeps the payload flat.
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 Again, all three solutions are aware of these issues and allow managing these optimisations. The difference between the three solutions is the DX (Developer Experience).
 
 `next-intl` and `next-i18next` use a centralised approach to manage translations, allowing splitting JSON by locale and by sub-files. In `next-i18next`, we call the JSON files 'namespaces'; `next-intl` allows declaring messages. In `intlayer`, we call the JSON files 'dictionaries'.
@@ -156,9 +160,9 @@ In the case of `next-intl` and `next-i18next`, the library requires loading the 
 
 Here is an example of the impact of bundle size optimisation using `intlayer` in a vite + react application:
 
-| Optimised bundle                                                                                      | Bundle not optimised                                                                                                     |
-| ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| ![optimised bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![no optimised bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Optimised bundle                                                                                       | Bundle not optimised                                                                                                      |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| ![optimised bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![no optimised bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript & safety
 
@@ -1285,7 +1289,7 @@ If you prefer minimal setup and accept some manual wiring, next-intl is a good c
 
 GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ## Conclusion
 

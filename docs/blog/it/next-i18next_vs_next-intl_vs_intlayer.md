@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - Guida completa per tradurre next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Next.js sito web multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
 keywords:
@@ -20,7 +20,7 @@ author: aymericzip
 
 # next-i18next VS next-intl VS intlayer | Internazionalizzazione (i18n) in Next.js
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Diamo un'occhiata alle somiglianze e differenze tra tre opzioni i18n per Next.js: next-i18next, next-intl e Intlayer.
 
@@ -132,6 +132,10 @@ Due questioni importanti:
 
   > Se sono nella pagina `/fr/about`, non voglio caricare il contenuto della pagina `/en/about`
 
+Il grafico seguente stima il peso del contenuto per un'app teorica da 1 a 10 pagine tradotta in 1 a 10 lingue, con circa 30 KB di testo per pagina. Caricare il contenuto dinamicamente per locale elimina l'asse delle lingue, delimitare il contenuto per componente o per route elimina l'asse delle pagine, e solo la combinazione dei due mantiene il peso stabile.
+
+![Leakage di contenuto teorico per architettura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 Ancora una volta, tutte e tre le soluzioni sono consapevoli di queste problematiche e permettono di gestire queste ottimizzazioni. La differenza tra le tre soluzioni è l'esperienza dello sviluppatore (DX).
 
 `next-intl` e `next-i18next` utilizzano un approccio centralizzato per gestire le traduzioni, permettendo di suddividere i file JSON per locale e per sotto-file. In `next-i18next`, chiamiamo i file JSON 'namespaces'; `next-intl` permette di dichiarare i messaggi. In `intlayer`, chiamiamo i file JSON 'dictionaries'.
@@ -154,9 +158,9 @@ Nel caso di `next-intl` e `next-i18next`, la libreria richiede il caricamento de
 
 Ecco un esempio dell'impatto dell'ottimizzazione della dimensione del bundle utilizzando `intlayer` in un'applicazione vite + react:
 
-| Bundle ottimizzato                                                                                      | Bundle non ottimizzato                                                                                                      |
-| ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| ![bundle ottimizzato](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![bundle non ottimizzato](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Bundle ottimizzato                                                                                       | Bundle non ottimizzato                                                                                                       |
+| -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| ![bundle ottimizzato](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![bundle non ottimizzato](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript e sicurezza
 
@@ -1282,7 +1286,7 @@ Se preferisci una configurazione minima e accetti un po' di collegamenti manuali
 
 Le stelle di GitHub sono un forte indicatore della popolarità di un progetto, della fiducia della comunità e della rilevanza a lungo termine. Sebbene non siano una misura diretta della qualità tecnica, riflettono quanti sviluppatori trovano il progetto utile, ne seguono i progressi e sono propensi ad adottarlo. Per stimare il valore di un progetto, le stelle aiutano a confrontare l'attrattiva tra le alternative e forniscono informazioni sulla crescita dell'ecosistema.
 
-[![Grafico della Storia delle Stelle](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Grafico della Storia delle Stelle](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ## Conclusione
 

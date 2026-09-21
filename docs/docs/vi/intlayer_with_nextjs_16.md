@@ -1302,7 +1302,7 @@ Intlayer sử dụng tăng cường mô-đun (module augmentation) để nhận 
 
 ![Tự động hoàn thành](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Lỗi dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Lỗi dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tạo tự động.
 
@@ -1441,6 +1441,13 @@ Chạy `npx intlayer fill`. CLI phát hiện các bản dịch còn thiếu và 
 <Question title="Intlayer có hỗ trợ dạng số nhiều, giới tính và rich text không?">
 
 Có: [dạng số nhiều (plurals)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md), [nội dung dựa trên giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md), điều kiện, [chèn (insertions)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md), [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md), và [định dạng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/formatters.md) cho số, ngày tháng và tiền tệ.
+
+</Question>
+<Question title="Chi phí của trình chỉnh sửa trực quan là bao nhiêu? Nó có dư thừa nếu tôi không cần đến không?">
+
+[Trình chỉnh sửa trực quan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) có **chi phí bằng không** đối với ứng dụng của bạn nếu không được thiết lập. Logic bổ sung chỉ được tải nếu được bật rõ ràng và khi cần thiết.
+
+Ngay cả khi được bật, chi phí cũng cực kỳ nhẹ (+5 KB, chỉ tải động khi được kích hoạt) vì phần lớn logic được xử lý bởi trình chỉnh sửa máy chủ trên [app.intlayer.org](https://app.intlayer.org) hoặc thông qua gói `intlayer-editor`. Nếu bạn chỉ cần một giải pháp dịch thuật đơn giản mà không cần chỉnh sửa trực quan, Intlayer sẽ không tạo ra bất kỳ tải phụ nào cho ứng dụng của bạn.
 
 </Question>
 <Question title="Intlayer có phải là mã nguồn mở và miễn phí không?">

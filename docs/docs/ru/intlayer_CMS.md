@@ -47,7 +47,7 @@ Intlayer CMS, это приложение, которое позволяет в�
 
 Для этого Intlayer вводит концепцию «удалённых словарей».
 
-![Интерфейс Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![Интерфейс Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## Оглавление
 

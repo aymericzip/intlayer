@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-06-23
+updatedAt: 2026-09-20
 title: "Astro i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Astro đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Thêm các hook useIntlayer / useLocale và middleware Astro.locals vào astro-intlayer"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
@@ -152,7 +155,7 @@ bun add intlayer astro-intlayer
   Gói cốt lõi cung cấp các công cụ i18n để quản lý cấu hình, bản dịch, [khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md), chuyển mã và [các lệnh CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).
 
 - **astro-intlayer**
-  Plugin tích hợp Astro để kết nối Intlayer với [trình đóng gói Vite](https://vite.dev/guide/why.html#why-bundle-for-production); nó cũng bao gồm middleware để phát hiện ngôn ngữ ưa thích của người dùng, quản lý cookie và xử lý chuyển hướng URL.
+  Bao gồm plugin tích hợp Astro để tích hợp Intlayer với [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), một middleware phân giải ngôn ngữ của mỗi yêu cầu vào `Astro.locals.intlayer`, và các hook `useIntlayer` / `useDictionary` / `useLocale`. Cùng một đường dẫn import sẽ phân giải thành triển khai máy chủ trong frontmatter `.astro` của bạn và thành triển khai máy khách (được hỗ trợ bởi `vanilla-intlayer`) trong các khối `<script>`.
 
 </Step>
 <Step number={2} title="Cấu hình dự án của bạn">
@@ -230,26 +233,28 @@ export default appContent;
 </Step>
 <Step number={5} title="Sử dụng nội dung trong Astro">
 
-Bạn có thể sử dụng các từ điển trực tiếp trong các file `.astro` bằng cách sử dụng các hàm hỗ trợ cốt lõi được xuất từ `intlayer`.
+Sử dụng từ điển của bạn trong các tệp `.astro` với các hook được xuất bởi `astro-intlayer`. Chúng chia sẻ chữ ký của `react-intlayer`: `useIntlayer("key")` trả về nội dung của từ điển và `useLocale()` trả về ngôn ngữ hiện tại mà không cần truyền tham số.
+
+Ngôn ngữ đến từ middleware `astro-intlayer`, mà tích hợp tự động đăng ký trước `src/middleware.ts` của riêng bạn. Nó phân giải ngôn ngữ cho mỗi yêu cầu, từ tiền tố URL, sau đó đến ngôn ngữ được lưu trữ bởi máy khách (cookie hoặc tiêu đề), sau đó đến `Accept-Language`, và lưu trữ trong `Astro.locals.intlayer`. Các trang được kết xuất trước chỉ sử dụng URL vì chúng được kết xuất một lần cho mọi khách truy cập.
+
+Bạn cũng nên thêm siêu dữ liệu SEO như hreflang và liên kết chuẩn (canonical) vào mỗi trang và bao gồm bộ chuyển đổi ngôn ngữ để cho phép người dùng thay đổi ngôn ngữ.
 
 ```astro fileName="src/pages/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
   defaultLocale,
   localeMap,
   getHTMLTextDir,
-  type LocalesValues,
 } from "intlayer";
 import LocaleSwitcher from "../components/LocaleSwitcher.astro";
 
-// Get the current locale from the URL (e.g. /es/about -> 'es')
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+// Ngôn ngữ được phân giải bởi middleware (ví dụ /vi/about -> 'vi')
+const { locale } = useLocale();
 
-// Get the content for the 'app' dictionary
-const { title } = getIntlayer("app", locale);
+// Nội dung của từ điển 'app' cho ngôn ngữ đó
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -301,6 +306,8 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
+> `Astro.locals.intlayer` cũng hiển thị `locale`, `defaultLocale` và `availableLocales` cho middleware và điểm cuối của riêng bạn. Truyền ngôn ngữ hoặc bộ chọn làm đối số thứ hai (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`) để ghi đè ngôn ngữ yêu cầu cho một lệnh gọi.
+
 </Step>
 <Step number={6} title="Định tuyến bản địa hóa">
 
@@ -325,44 +332,51 @@ Tích hợp Astro thêm middleware Vite giúp định tuyến nhận biết ngô
 
 ```astro fileName="src/components/LocaleSwitcher.astro"
 ---
-import {
-  locales,
-  getLocaleName,
-  getLocalizedUrl,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  type LocalesValues,
-} from "intlayer";
+import { useLocale } from "astro-intlayer";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { locale, availableLocales } = useLocale();
 const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ---
 
-<nav>
-  {
-    locales.map((localeItem) => (
-      <a
-        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-        data-locale={localeItem}
-        aria-current={localeItem === locale ? "page" : undefined}
-      >
-        {getLocaleName(localeItem)}
-      </a>
-    ))
-  }
+<nav aria-label="Languages">
+  <ul>
+    {
+      availableLocales.map((localeItem) => (
+        <li key={localeItem} class="p-1">
+          <a
+            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+            data-locale={localeItem}
+            aria-current={localeItem === locale ? "page" : undefined}
+          >
+            {getLocaleName(localeItem)}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </nav>
 
 <script>
-  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+  // Trong trình duyệt, cùng một import sẽ phân giải thành triển khai máy khách
+  import { useLocale } from "astro-intlayer";
+  import { getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  // Lưu lựa chọn vào cookie ngôn ngữ, sau đó điều hướng đến URL đã bản địa hóa
+  const { setLocale } = useLocale({
+    onLocaleChange: (newLocale) => {
+      window.location.href = getLocalizedUrl(window.location.pathname, newLocale);
+    },
+  });
 
   const localeLinks = document.querySelectorAll("[data-locale]");
 
   localeLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
+    link.addEventListener("click", (event) => {
       const locale = link.getAttribute("data-locale") as LocalesValues;
 
-      // Update the locale cookie
-      setLocaleInStorageClient(locale);
+      event.preventDefault();
+      setLocale(locale);
     });
   });
 </script>
@@ -372,6 +386,13 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
     display: flex;
     gap: 1rem;
   }
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+  }
   a[aria-current="page"] {
     font-weight: bold;
     text-decoration: underline;
@@ -380,7 +401,10 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **Lưu ý về tính bền vững:**
-> Sử dụng `setLocaleInStorageClient` trong tập lệnh phía khách hàng để đảm bảo rằng ưu tiên ngôn ngữ của người dùng được lưu trong cookie. Điều này cho phép phần mềm trung gian Intlayer nhớ lựa chọn và tự động chuyển hướng người dùng đến ngôn ngữ ưu tiên của họ trong các chuyến viếng thăm tương lai.
+> `setLocale` từ `useLocale` phía client lưu tùy chọn ngôn ngữ của người dùng vào cookie. Điều này cho phép Intlayer ghi nhớ lựa chọn và tự động chuyển hướng người dùng đến ngôn ngữ ưa thích của họ trong các lần truy cập sau: các trang được render theo yêu cầu (một adapter với `output: 'server'` hoặc `prerender = false`) được chuyển hướng bởi middleware Intlayer trước khi bất kỳ mã HTML nào được gửi đi, trong khi các trang được render sẵn, được phân phối dưới dạng tệp tĩnh, được chuyển hướng bởi một đoạn script nhỏ mà tích hợp đưa vào mỗi trang. Đặt `routing.enableProxy` thành `false` để tắt cả hai. Trong `astro dev`, cookie bị bỏ qua như một nguồn chuyển hướng trừ khi `routing.enableProxy` được đặt thành `true`, do đó cookie cũ không thể chiếm quyền kiểm soát các trang bạn đang phát triển.
+>
+> **Khả năng tương thích giữa máy chủ và máy khách:**
+> `astro-intlayer` phân giải thành các hook máy chủ trong frontmatter (đọc `Astro.locals`) và thành các hook máy khách của `vanilla-intlayer` trong các khối `<script>` và đảo (islands), với cùng tên và cấu trúc nội dung. `setLocale` và `onChange` chỉ hoạt động trên máy khách, hãy gọi `installIntlayer()` một lần ở đó để khởi tạo bộ lưu trữ máy khách. `astro-intlayer/client` hiển thị mục nhập máy khách một cách rõ ràng.
 
 </Step>
 <Step number={8} title="Sitemap và Robots.txt">
@@ -404,10 +428,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -448,11 +472,12 @@ export const GET: APIRoute = ({ site }) => {
 
 Tiếp tục xây dựng ứng dụng của bạn bằng cách sử dụng framework mà bạn chọn.
 
-- Intlayer + React: [Intlayer với React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md)
-- Intlayer + Vue: [Intlayer với Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md)
-- Intlayer + Svelte: [Intlayer với Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+svelte.md)
-- Intlayer + Solid: [Intlayer với Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+solid.md)
-- Intlayer + Preact: [Intlayer với Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+preact.md)
+- Intlayer + React: [Intlayer với React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_react.md)
+- Intlayer + Vue: [Intlayer với Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_vue.md)
+- Intlayer + Svelte: [Intlayer với Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_svelte.md)
+- Intlayer + Solid: [Intlayer với Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_solid.md)
+- Intlayer + Preact: [Intlayer với Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_preact.md)
+- Intlayer + Lit: [Intlayer với Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
@@ -518,21 +543,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Trình biên dịch Babel'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Cập nhật `vite.config.ts` của bạn để bao gồm plugin `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Build ứng dụng của bạn để chuyển đổi các thành phần và trích xuất nội dung
 
 ```bash packageManager="npm"
 npm run build # Hoặc npm run dev
@@ -563,7 +574,7 @@ Intlayer sử dụng cơ chế mở rộng module (module augmentation) để t�
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation Error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation Error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu dữ liệu được tạo tự động.
 

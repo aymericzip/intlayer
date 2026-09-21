@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Чи застарів i18next у 2026 році?
 description: i18next використовується на мільйонах сайтів, але його runtime-архітектура 2011 року показує свій вік. Аналіз розміру бандла, обмежень tree-shaking та сповільнення інновацій.
 keywords:
@@ -70,7 +70,7 @@ author: aymericzip
 | `i18next` core  | 2 626           | **259**            | Невеликі патчі                             |
 | Intlayer        | 7 156           | **4 343**          | Компілятор, інструменти IDE та ШІ-рушій    |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Невелика бібліотека може бути стабільною. Але засоби i18n змінюються: сучасні збирачі видаляють непотрібний контент під час збірки, нейромережі перекладають безпосередньо в CI, а редактори підключають Language Server (LSP) та ШІ-агентів. Модель i18next, побудована виключно на runtime, не дозволяє легко впроваджувати ці рішення.
 
@@ -124,6 +124,10 @@ style="border:none;"
 **Витік перекладів:**
 
 За замовчуванням майже **90% тексту**, що завантажується на сторінку, стосується інших маршрутів. Ручне налаштування неймспейсів потребує постійної уваги та призводить до помилок.
+
+Графік нижче оцінює обсяг контенту для теоретичного застосунку, в якому від 1 до 10 сторінок і від 1 до 10 мов, приблизно по 30 КБ тексту на сторінку. Динамічне завантаження за локаллю прибирає вісь мов, обмеження контенту компонентом або маршрутом прибирає вісь сторінок, і лише їх поєднання зберігає обсяг стабільним.
+
+![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Затримка гідратації:**
 

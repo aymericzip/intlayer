@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-05-31
+updatedAt: 2026-09-20
 title: "SvelteKit i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji SvelteKit. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
@@ -707,7 +707,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Kompilator Babel'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Zaktualizuj `vite.config.ts`, aby dołączyć wtyczkę `intlayerCompiler`:
 
@@ -722,6 +728,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Zbuduj aplikację, aby przekształcić komponenty i wyodrębnić treść
 
 ```bash packageManager="npm"
 npm run build # Lub npm run dev

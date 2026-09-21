@@ -279,6 +279,13 @@ Düzenleyici sitenizi iframe içinde görüntüler, bu nedenle İçerik Güvenli
 Geliştirme ve hazırlık (staging) ortamları için tasarlanmıştır. Canlı üretim sitelerindeki anlık düzenlemeler için [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) önerilir.
 
 </Question>
+<Question title="Görsel düzenleyicinin maliyeti nedir? İhtiyacım yoksa gereksiz yere yük oluşturur mu?">
+
+Intlayer görsel düzenleyicisi ayarlanmadığı sürece uygulamanız üzerinde **sıfır maliyete** sahiptir. Ek mantık yalnızca açıkça etkinleştirildiğinde ve ihtiyaç duyulduğunda yüklenir.
+
+Etkinleştirilse bile maliyet son derece düşüktür (yalnızca etkinleştirildiğinde dinamik olarak yüklenen +5 kB), çünkü mantığın ana kısmı [app.intlayer.org](https://app.intlayer.org) üzerindeki sunucu düzenleyicisi veya `intlayer-editor` paketi tarafından işlenir. Görsel düzenlemeye ihtiyaç duymadan yalnızca basit bir çeviri çözümüne ihtiyacınız varsa, Intlayer uygulamanıza hiçbir ek yük getirmez.
+
+</Question>
 <Question title="Görsel düzenleyici ücretsiz mi?">
 
 Evet. Görsel düzenleyici ticari kullanım dahil Apache 2.0 lisansı altında açık kaynak projesinin bir parçasıdır.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: React 앱의 국제화(i18n)를 위해 react-i18next를 next-intl 및 Intlayer와 통합하기
 keywords:
@@ -104,6 +104,10 @@ author: aymericzip
 
 **중요한 이유:** 더 작은 번들과 사용하지 않는 문자열 감소는 시작 및 탐색 성능을 향상시킵니다.
 
+아래 그래프는 1~~10개의 페이지를 1~~10개 언어로 번역한 이론상의 앱(페이지당 약 30KB의 텍스트)의 콘텐츠 용량을 추정한 것입니다. 로케일별 동적 로딩은 언어 축을 없애고, 컴포넌트나 라우트 단위로 콘텐츠를 스코프하면 페이지 축이 없어지며, 두 가지를 결합했을 때만 용량이 일정하게 유지됩니다.
+
+![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 ### 6) 개발자 경험(DX), 도구 및 유지보수
 
 - **react-intl / react-i18next**: 광범위한 커뮤니티 생태계; 편집 워크플로우를 위해 일반적으로 외부 현지화 플랫폼을 채택합니다.
@@ -128,7 +132,7 @@ author: aymericzip
 
 GitHub star는 프로젝트의 인기도, 커뮤니티 신뢰도, 장기적 관련성의 강력한 지표입니다. 기술적 품질의 직접적인 척도는 아니지만, 얼마나 많은 개발자가 프로젝트를 유용하다고 생각하는지, 진행 상황을 팔로우하는지, 그리고 이를 도입할 가능성이 있는지를 반영합니다. 프로젝트의 가치를 추정할 때, star는 대안들 간의 견인력을 비교하고 생태계 성장에 대한 통찰력을 제공하는 데 도움이 됩니다.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
 ## 결론
 

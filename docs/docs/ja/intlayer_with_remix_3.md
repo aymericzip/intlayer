@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-11
+updatedAt: 2026-09-19
 title: "Remix 3 i18n - アプリを多言語化するための完全ガイド"
 description: "もう i18next は不要です。2026 年版、多言語 (i18n) Remix 3 アプリ構築ガイド。AI エージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-remix-3-template
 applicationShowcase: https://intlayer-remix-3-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "remix-intlayer ミドルウェアとフックの使用"
   - version: 9.5.0
     date: 2026-09-09
     changes: "Remix 3 用の初期ドキュメント"
@@ -39,7 +42,7 @@ author: aymericzip
 - **`remix/node-fetch-server`**: Bun、Deno、およびエッジランタイムをネイティブサポートする Node.js 用サーバーアダプター。
 - **`remix/cookie`**: 暗号学的に安全な Cookie の解析とシリアル化。
 
-**Intlayer** と組み合わせることで、コンパイル時安全性、自動 AI 翻訳、オーバーヘッドのないサーバーレンダリング、および滑らかなロケールルーティングを提供する完全な国際化システムが手に入ります。
+**Intlayer** と **`remix-intlayer`** パッケージ（ロケールミドルウェアおよび Remix リクエストコンテキストにバインドされた `react-intlayer` と同じ `useIntlayer` / `useDictionary` / `useLocale` フック）を組み合わせることで、コンパイル時の安全性、AI による自動翻訳、オーバーヘッドのないサーバーレンダリング、シームレスなロケールルーティングを提供する完全な国際化システムが実現します。
 
 ## 目次
 
@@ -52,7 +55,7 @@ author: aymericzip
 <AccordionGroup>
 <Accordion header="Remix 3 と Web 標準の完全なサポート">
 
-Intlayer は Web 標準 (`Request`、`Response`、`Headers`、`URL`) とシームレスに連携するように設計されています。軽量なミドルウェアを介して Remix 3 の Fetch ルーターに簡単に統合され、特定のランタイムに縛られることなく URL パス、Cookie、または `Accept-Language` ヘッダーからロケールを抽出します。
+Intlayer はウェブ標準（`Request`、`Response`、`Headers`、`URL`）とシームレスに連携するように構築されています。`remix-intlayer` は軽量なミドルウェアとして Remix 3 の Fetch ルーターに組み込まれ、URL パス、Cookie、または `Accept-Language` ヘッダーからロケールを抽出し、引数として引き回すことなく、ハンドラー、ビュー、`remix/ui` コンポーネントなどのリクエスト全体に公開します。
 
 </Accordion>
 <Accordion header="型安全なコンテンツ宣言">
@@ -109,25 +112,26 @@ GitHub の [アプリケーションテンプレート](https://github.com/aymer
 <Steps>
 <Step number={1} title="依存関係のインストール">
 
-お好みのパッケージマネージャーを使用して `intlayer` と `remix` (バージョン 3) をインストールします。
+お好みのパッケージマネージャーを使用して、`intlayer`、`remix-intlayer`、および `remix`（バージョン 3）をインストールします:
 
 ```bash packageManager="npm"
-npm install intlayer remix@next
+npm install intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer remix@next
+pnpm add intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer remix@next
+yarn add intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="bun"
-bun add intlayer remix@next
+bun add intlayer remix-intlayer remix@next
 ```
 
 - **`intlayer`**: 設定管理、辞書宣言 (`t()`, `Dictionary`)、CLI ツール、およびランタイムインタープリターを提供するコア国際化エンジン。
+- **`remix-intlayer`**: Remix 3 統合: 各リクエストのロケールを解決する `intlayer()` ルーターミドルウェア、およびそれ以降の任意の場所で読み取る `useIntlayer`、`useDictionary`、`useLocale` フック。
 - **`remix`**: `remix/router`、`remix/routes`、`remix/ui`、`remix/middleware/render`、および `remix/node-fetch-server` をエクスポートする統合 Remix 3 フレームワークパッケージ。
 
 </Step>
@@ -254,64 +258,29 @@ bun x intlayer build
 これにより、コンテンツが `.intlayer` アーティファクトディレクトリにコンパイルされ、TypeScript による完全な自動補完と高速な辞書参照が可能になります。
 
 </Step>
-<Step number={5} title="Intlayer ミドルウェアの実装">
+<Step number={5} title="Intlayer ミドルウェアの追加">
 
-Remix 3 は `createRouter({ middleware: [...] })` を通じてコンポーザブルなミドルウェアパイプラインを提供します。
+Remix 3 は、`createRouter({ middleware: [...] })` を介して構成可能なミドルウェアパイプラインを提供します。
 
-以下の優先順位に従って受信リクエストのロケールを解決する Intlayer ミドルウェアを作成します。
+`remix-intlayer` は `intlayer()` ミドルウェアを提供します。受信するリクエストごとに、以下を使用してロケールを解決します:
 
-1. Intlayer の `getLocaleFromPath` による URL パスプレフィックス (例: `/ja` または `/fr`)。
-2. ストレージ Cookie (`INTLAYER_LOCALE`)、カスタムヘッダー (`x-intlayer-locale`)、標準の `Accept-Language` ヘッダー、および `defaultLocale` を自動ネゴシエーションする Intlayer の `getLocale` ヘルパー。
+1. `no-prefix` 以外のすべてのルーティングモードにおける URL: パスプレフィックス（例: `/ja` または `/en`）または `?locale=` 検索パラメータ。
+2. クライアントによって永続化されたロケール: ストレージ Cookie（`INTLAYER_LOCALE`）またはカスタムヘッダー（`x-intlayer-locale`）。
+3. 標準の `Accept-Language` ネゴシエーション（設定された `defaultLocale` へのフォールバック）。
 
-```typescript fileName="src/middleware/intlayer.ts" codeFormat={["typescript", "esm"]}
-import {
-  defaultLocale,
-  getCookie,
-  getLocale,
-  getLocaleFromPath,
-  type Locale,
-} from "intlayer";
-import { createContextKey, type Middleware } from "remix/router";
+結果は `locale`、`defaultLocale`、`availableLocales` とともに Remix リクエストコンテキストに `context.intlayer`（または `context.get(Intlayer)`）として保存されます。ミドルウェアはその後、そのコンテキストにバインドされた `AsyncLocalStorage` スコープ内でリクエストの残りを実行します。これにより、パッケージのフックはルートハンドラー、ビュー、`remix/ui` コンポーネントのいずれでも引数なしでロケールを読み取ることができます:
 
-/**
- * Remix 3 RequestContext から解決されたロケールを取得するための型安全なコンテキストキー。
- */
-export const localeKey = createContextKey<Locale>(defaultLocale);
+```typescript
+import { useIntlayer, useLocale } from "remix-intlayer";
 
-/**
- * Remix 3 用 Intlayer ミドルウェア。
- *
- * 次の優先順位でリクエストロケールを解決します:
- * 1. `getLocaleFromPath` を使用した URL パスプレフィックス (例: `/ja/...`)
- * 2. `getLocale` を使用したヘッダーおよびストレージのネゴシエーション (Cookie、カスタムヘッダー、Accept-Language、フォールバック defaultLocale)
- *
- * 解決されたロケールを Remix 3 RequestContext に付加します。
- */
-export const intlayer = (): Middleware => {
-  return async (context, next) => {
-    // パス検出 (/ja/about -> "ja", /about -> undefined)
-    const pathLocale = getLocaleFromPath(context.url.pathname);
-
-    if (pathLocale) {
-      // 解決されたロケールを Remix 3 リクエストコンテキストに設定
-      context.set(localeKey, pathLocale);
-
-      return next();
-    }
-
-    const storedLocale = await getLocale({
-      getHeader: (name) => context.headers.get(name),
-      getCookie: (name) =>
-        getCookie(name, context.headers.get("cookie") ?? undefined),
-    });
-
-    // 解決されたロケールを Remix 3 リクエストコンテキストに設定
-    context.set(localeKey, storedLocale ?? defaultLocale);
-
-    return next();
-  };
-};
+// ミドルウェア以降の任意の場所
+const { locale, availableLocales } = useLocale();
+const { title } = useIntlayer("home");
 ```
+
+`useIntlayer("home", "fr")` または `useIntlayer("faq", { item: 2 })` は1回の呼び出しでリクエストロケールを上書きし、`useDictionary(homeContent)` はキーの代わりにインポートされた辞書を読み取ります。リクエスト外ではフックはデフォルトロケールにフォールバックします。
+
+> ミドルウェアはサーバー起動時に Intlayer 辞書も準備するため、`intlayer build` が実行されていなくてもレジストリが空になることはありません。
 
 </Step>
 <Step number={6} title="型安全なルートの定義">
@@ -342,20 +311,21 @@ routes.localizedHome.href({ locale: "ja" }); // "/ja"
 
 Remix 3 は `remix/ui` の JSX コンポーネントを使用して UI をレンダリングします。コンポーネントは `Handle` を受け取り**レンダー関数**を返す**セットアップ関数**です。セットアップはインスタンスごとに 1 回だけ実行され、レンダリングは更新ごとに実行され、props は `handle.props` を介して読み取られます。
 
-まず、解決されたロケールから `<html lang="..." dir="...">` 属性を設定する共有 `Document` シェルを作成します。
+ミドルウェアによって解決されたロケールから `<html lang="..." dir="...">` 属性を設定する共有 `Document` シェルから始めます:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
-import { getHTMLTextDir, type Locale } from "intlayer";
+import { getHTMLTextDir } from "intlayer";
+import { useLocale } from "remix-intlayer";
 import type { Handle, RemixNode } from "remix/ui";
 
 type DocumentProps = {
-  locale: Locale;
   title: string;
   children?: RemixNode;
 };
 
 export const Document = (handle: Handle<DocumentProps>) => () => {
-  const { locale, title, children } = handle.props;
+  const { title, children } = handle.props;
+  const { locale } = useLocale();
 
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
@@ -370,47 +340,40 @@ export const Document = (handle: Handle<DocumentProps>) => () => {
 };
 ```
 
-次にホームページを作成します。`getIntlayer` でローカライズされた辞書を取得し、言語スイッチャーを表示します。
+次にホームページを作成します。`useIntlayer` でローカライズされた辞書を読み取り、言語スイッチャーをレンダリングします:
 
 ```tsx fileName="src/views/home.tsx" codeFormat={["typescript", "esm"]}
-import {
-  getIntlayer,
-  getLocaleName,
-  getLocalizedPath,
-  type Locale,
-  locales,
-} from "intlayer";
-import type { Handle } from "remix/ui";
-import { routes } from "../routes";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
+import { useIntlayer, useLocale } from "remix-intlayer";
 import { Document } from "./document";
 
-type HomePageProps = {
-  locale: Locale;
-};
-
-export const HomePage = (handle: Handle<HomePageProps>) => () => {
-  const { locale } = handle.props;
-  const home = getIntlayer("home", locale);
+export const HomePage = () => () => {
+  const { locale, availableLocales } = useLocale();
+  const home = useIntlayer("home");
+  const pathWithoutLocale = getPathWithoutLocale();
 
   return (
-    <Document locale={locale} title={home.title}>
+    <Document title={home.title}>
       <header>
         <nav aria-label="Languages">
           <span>{home.switchLanguage}</span>
-          {locales.map((targetLocale) => {
-            const isActive = targetLocale === locale;
+          <ul>
+            {availableLocales.map((localeItem) => {
+              const isActive = localeItem === locale;
 
-            return (
-              <a
-                key={targetLocale}
-                href={getLocalizedPath(routes.home.href(), targetLocale)}
-                class={isActive ? "active" : undefined}
-                aria-current={isActive ? "page" : undefined}
-              >
-                {getLocaleName(targetLocale, locale)}
-              </a>
-            );
-          })}
+              return (
+                <li key={localeItem} class="p-1">
+                  <a
+                    href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+                    class={isActive ? "active" : undefined}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {getLocaleName(localeItem, locale)}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
         </nav>
       </header>
       <main>
@@ -422,7 +385,7 @@ export const HomePage = (handle: Handle<HomePageProps>) => () => {
 };
 ```
 
-> Remix JSX は React ではありません。フックはなく、`class` はそのまま記述し (`className` も利用可能)、再レンダリングは `handle.update()` で明示的にトリガーします。展開された値は自動的にエスケープされます。
+> Remix JSX は React ではありません: `class` はそのまま記述され（`className` も使用可能）、再レンダリングは `handle.update()` で明示的にトリガーされます。補間された値は自動的にエスケープされます。Intlayer フックはリクエストスコープを読み取るプレーンな関数であるため、セットアップ関数またはレンダリング関数のどちらからでも呼び出すことができます。
 
 </Step>
 <Step number={8} title="ルーターとサーバーの接続">
@@ -431,39 +394,37 @@ Intlayer ミドルウェアの横に `remix/middleware/render` の `render()` �
 
 ```tsx fileName="src/router.tsx" codeFormat={["typescript", "esm"]}
 import { isDeclaredLocale } from "intlayer";
+import { intlayer } from "remix-intlayer";
 import { render } from "remix/middleware/render";
 import { createRouter } from "remix/router";
-import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
 import { HomePage } from "./views/home";
 
-// 1. Intlayer + render ミドルウェアでルーターを初期化
+// 1. Initialize router with Intlayer + render middleware
 export const router = createRouter({
   middleware: [intlayer(), render()],
 });
 
-// 2. ルートハンドラーをマッピング
+// 2. Map route handlers
 router.map(routes, {
   actions: {
-    // デフォルトロケールルート
+    // Default locale route
     home(context) {
-      const locale = context.get(localeKey);
-      return context.render(<HomePage locale={locale} />);
+      return context.render(<HomePage />);
     },
 
-    // ローカライズルート
+    // Localized route
     localizedHome(context) {
       if (!isDeclaredLocale(context.params.locale)) {
         return new Response("Not Found", { status: 404 });
       }
-      const locale = context.get(localeKey);
-      return context.render(<HomePage locale={locale} />);
+      return context.render(<HomePage />);
     },
   },
 });
 ```
 
-> `context.render` は第 2 引数としてオプションの `ResponseInit` を受け取ります (例: `context.render(<NotFoundPage locale={locale} />, { status: 404 })`)。
+> `context.render` は第2引数としてオプションの `ResponseInit` を受け入れます（例: `context.render(<NotFoundPage />, { status: 404 })`）。解決されたロケールは、`Response.json` ペイロードを作成する場合などに、ハンドラーから `context.intlayer.locale` としてアクセスできます。
 
 最後に、標準の `fetch` ハンドラーを介してルーターを公開します。同じルーターが Node.js、Bun、Deno、および Cloudflare Workers 上で動作します。
 

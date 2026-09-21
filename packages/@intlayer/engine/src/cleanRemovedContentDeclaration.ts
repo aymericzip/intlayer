@@ -7,11 +7,47 @@ import {
   getAppLogger,
 } from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import type { Dictionary } from '@intlayer/types/dictionary';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import fg from 'fast-glob';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint';
 import { readDictionariesFromDisk } from './utils/readDictionariesFromDisk';
 import { writeJsonIfChanged } from './writeJsonIfChanged';
+
+/**
+ * Grace period before bundler-graph artifacts (JSON, dynamic chunks) are
+ * deleted, so a bundler rebuild started from the previous entry point can
+ * still resolve them.
+ */
+const ARTIFACT_REMOVAL_DELAY_MS = 3000;
+
+/**
+ * Source ids of a merged dictionary. A dictionary built from a single source
+ * is written as-is, so it carries `localId` rather than `localIds`.
+ */
+const getMergedLocalIds = (dictionary: Dictionary): LocalDictionaryId[] =>
+  dictionary.localIds ?? (dictionary.localId ? [dictionary.localId] : []);
+
+const removeArtifacts = async (
+  paths: string[],
+  baseDir: string,
+  appLogger: ReturnType<typeof getAppLogger>
+) =>
+  await Promise.all(
+    paths.map(async (path) => {
+      const relativePath = relative(baseDir, path);
+      try {
+        await rm(path, { force: true });
+
+        appLogger(`Deleted artifact: ${colorizePath(relativePath)}`, {
+          isVerbose: true,
+        });
+      } catch {
+        appLogger(`Error while removing file ${colorizePath(relativePath)}`, {
+          isVerbose: true,
+        });
+      }
+    })
+  );
 
 export const cleanRemovedContentDeclaration = async (
   filePath: string,
@@ -46,7 +82,11 @@ export const cleanRemovedContentDeclaration = async (
   );
 
   const changedDictionariesLocalIds: string[] = [];
+  // Bundler-graph artifacts, deleted after the entry points stop importing them
   const filesToRemove: string[] = [];
+  // Type declarations are not in the bundler graph and must be gone before the
+  // module augmentation is regenerated, so they are deleted right away
+  const typeFilesToRemove: string[] = [];
   const excludeKeys: string[] = [];
 
   // Identify Unmerged Dictionaries to remove or clean
@@ -94,13 +134,13 @@ export const cleanRemovedContentDeclaration = async (
   );
   const flatDictionaries = Object.values(dictionaries) as Dictionary[];
 
+  const isFromChangedFile = (localId: LocalDictionaryId) =>
+    localId.endsWith(`::local::${relativeFilePath}`);
+
   const filteredMergedDictionaries = flatDictionaries?.filter(
     (dictionary) =>
       !keysToKeep.includes(dictionary.key) &&
-      dictionary.localIds?.length === 1 &&
-      (dictionary.localIds[0] as string).endsWith(
-        `::local::${relativeFilePath}`
-      )
+      getMergedLocalIds(dictionary).some(isFromChangedFile)
   );
 
   const uniqueMergedDictionaries = filteredMergedDictionaries.filter(
@@ -118,11 +158,10 @@ export const cleanRemovedContentDeclaration = async (
       try {
         const fileContent = await readFile(mergedFilePath, 'utf8');
         const parsedContent = JSON.parse(fileContent) as Dictionary;
+        const localIds = getMergedLocalIds(parsedContent);
 
-        if (parsedContent.localIds?.length === 1) {
-          if (
-            parsedContent.localIds[0].endsWith(`::local::${relativeFilePath}`)
-          ) {
+        if (localIds.length === 1) {
+          if (isFromChangedFile(localIds[0]!)) {
             appLogger(
               `Removing outdated unmerged dictionary ${colorizeKey(dictionary.key)}`,
               { isVerbose: true }
@@ -135,7 +174,7 @@ export const cleanRemovedContentDeclaration = async (
             const typesFilePath = normalize(
               join(configuration.system.typesDir, `${dictionary.key}.ts`)
             );
-            filesToRemove.push(typesFilePath);
+            typeFilesToRemove.push(typesFilePath);
 
             // Mark Dynamic Dictionaries for removal
             // We use glob to catch the loader files (.cjs, .mjs) AND the split locale files (.en.json, etc.)
@@ -153,10 +192,10 @@ export const cleanRemovedContentDeclaration = async (
             }
           }
         } else {
-          const localIds = parsedContent.localIds?.filter(
-            (localeId) => !localeId.endsWith(`::local::${relativeFilePath}`)
-          ) as string[];
-          const newContent = { ...parsedContent, localIds };
+          const newContent = {
+            ...parsedContent,
+            localIds: localIds.filter((localId) => !isFromChangedFile(localId)),
+          };
           await writeJsonIfChanged(mergedFilePath, newContent);
         }
       } catch (error: any) {
@@ -167,41 +206,28 @@ export const cleanRemovedContentDeclaration = async (
           const typesFilePath = normalize(
             join(configuration.system.typesDir, `${dictionary.key}.ts`)
           );
-          filesToRemove.push(typesFilePath);
+          typeFilesToRemove.push(typesFilePath);
         }
       }
     })
   );
 
+  const hasRebuilt =
+    filesToRemove.length > 0 ||
+    typeFilesToRemove.length > 0 ||
+    excludeKeys.length > 0;
+
   // Execute Cleanup
-  if (filesToRemove.length > 0 || excludeKeys.length > 0) {
+  if (hasRebuilt) {
     // Update entry points (indexes) first so the app doesn't import dead files
     await createDictionaryEntryPoint(configuration, { excludeKeys });
 
-    // Remove the files synchronously (awaited) immediately after.
+    await removeArtifacts(typeFilesToRemove, baseDir, appLogger);
+
     if (filesToRemove.length > 0) {
       setTimeout(
-        async () =>
-          await Promise.all(
-            filesToRemove.map(async (path) => {
-              const relativePath = relative(baseDir, path);
-              try {
-                await rm(path, { force: true });
-
-                appLogger(`Deleted artifact: ${colorizePath(relativePath)}`, {
-                  isVerbose: true,
-                });
-              } catch {
-                appLogger(
-                  `Error while removing file ${colorizePath(relativePath)}`,
-                  {
-                    isVerbose: true,
-                  }
-                );
-              }
-            })
-          ),
-        3000
+        () => removeArtifacts(filesToRemove, baseDir, appLogger),
+        ARTIFACT_REMOVAL_DELAY_MS
       );
     }
   }
@@ -209,6 +235,6 @@ export const cleanRemovedContentDeclaration = async (
   return {
     changedDictionariesLocalIds,
     excludeKeys,
-    hasRebuilt: filesToRemove.length > 0 || excludeKeys.length > 0,
+    hasRebuilt,
   };
 };

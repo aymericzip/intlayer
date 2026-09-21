@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-09-19
 title: كيف يعمل Intlayer
 description: تعلم كيف يعمل Intlayer داخليًا. افهم البنية والمكونات التي تجعل Intlayer قويًا.
 keywords:
@@ -135,49 +135,105 @@ const MyComponent = () => {
 
 تُستخدم حزمة `intlayer` في التطبيقات لإعلان المحتوى في ملفات المحتوى.
 
-### react-intlayer
+### أطر عمل الواجهة الأمامية (Frontend)
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 تُستخدم حزمة `react-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات React.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 تُستخدم حزمة `next-intlayer` كطبقة فوق `react-intlayer` لجعل قواميس Intlayer قابلة للاستخدام في تطبيقات Next.js. تتكامل مع الميزات الأساسية لجعل Intlayer يعمل في بيئة Next.js، مثل الوسيطات الخاصة بالترجمة، التوجيه، أو تكوين ملف `next.config.js`.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 تُستخدم حزمة `vue-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات Vue.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 تُستخدم حزمة `nuxt-intlayer` كوحدة Nuxt لجعل قواميس Intlayer قابلة للاستخدام في تطبيقات Nuxt. تدمج ميزات أساسية لجعل Intlayer يعمل في بيئة Nuxt، مثل وسيط الترجمة، التوجيه، أو تكوين ملف `nuxt.config.js`.
 
-### svelte-intlayer (قيد العمل)
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 تُستخدم حزمة `svelte-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات Svelte.
 
-### solid-intlayer (قيد العمل)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 تُستخدم حزمة `solid-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات Solid.js.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 تُستخدم حزمة `preact-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات Preact.
 
-### angular-intlayer (قيد العمل)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 تُستخدم حزمة `angular-intlayer` لتفسير قواميس Intlayer وجعلها قابلة للاستخدام في تطبيقات Angular.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
 
-تُستخدم حزمة `express-intlayer` لاستخدام Intlayer على واجهة خلفية Express.js.
+توفر حزمة `astro-intlayer` الأدوات اللازمة لدمج Intlayer في تطبيقات Astro. تقوم بتكوين التوجيه القائم على اللغة وإدارة القواميس.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+توفر حزمة `remix-intlayer` الأدوات اللازمة لدمج Intlayer في تطبيقات Remix. تقوم بتكوين التوجيه القائم على اللغة وسياق جانب الخادم وإدارة القواميس.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
 
 توفر حزمة `react-native-intlayer` أدوات تتكامل مع مكونات إضافية لـ Intlayer للعمل مع Metro bundler.
 
-### lynx-intlayer
+  </Tab>
+  <Tab label="Lit" value="lit">
 
-توفر حزمة `lynx-intlayer` أدوات تتكامل مع مكونات إضافية لـ Intlayer للعمل مع Lynx bundler.
+توفر حزمة `lit-intlayer` أدوات ومكونات لتفسير واستخدام قواميس Intlayer في تطبيقات Lit.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+توفر حزمة `vanilla-intlayer` أدوات لدمج Intlayer في تطبيقات JavaScript العادية أو HTML أو PHP.
+
+  </Tab>
+</Tabs>
+
+### أطر عمل الواجهة الخلفية (Backend)
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
+
+تُستخدم حزمة `express-intlayer` لاستخدام Intlayer على واجهة خلفية Express.js.
+
+  </Tab>
+  <Tab label="Fastify" value="fastify">
+
+توفر حزمة `fastify-intlayer` ملحقًا لتطبيقات Fastify للتعامل مع التدويل (internationalization). تقوم باكتشاف الـ locale الخاص بالمستخدم وتزيّن كائن الطلب (request) بخصائص متعلقة بالتدويل.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+توفر حزمة `hono-intlayer` وسيطًا (middleware) لتطبيقات Hono للتعامل مع التدويل. يقوم باكتشاف لغة المستخدم وملء كائن السياق.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+توفر حزمة `elysia-intlayer` ملحقًا لتطبيقات Elysia للتعامل مع التدويل (internationalization). تقوم باكتشاف الـ locale الخاص بالمستخدم وتحقن كائن `intlayer` في سياق المسار.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+توفر حزمة `adonis-intlayer` وسيطًا لتطبيقات AdonisJS للتعامل مع التدويل. تكتشف لغة المستخدم وتوفر وظائف الترجمة.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 
@@ -186,6 +242,10 @@ const MyComponent = () => {
 ### react-scripts-intlayer
 
 تتضمن أوامر ومكونات `react-scripts-intlayer` الإضافية لتكامل Intlayer مع التطبيقات المستندة إلى Create React App. هذه المكونات الإضافية مبنية على [craco](https://craco.js.org/) وتشمل تكوينًا إضافيًا لأداة التجميع [Webpack](https://webpack.js.org/).
+
+### eslint-plugin-intlayer
+
+توفر حزمة `eslint-plugin-intlayer` قواعد لـ ESLint وoxlint لاكتشاف النصوص غير المترجمة، والتحقق من تعريفات القواميس، وفرض أفضل ممارسات التدويل.
 
 ### intlayer-editor
 
@@ -220,9 +280,21 @@ const MyComponent = () => {
 
 تُوفر حزمة `@intlayer/mcp` خادم MCP (بروتوكول سياق النموذج) الذي يقدم مساعدة IDE مدعومة بالذكاء الاصطناعي مصممة خصيصًا لنظام Intlayer البيئي. يقوم بتحميل الوثائق تلقائيًا ويتكامل مع واجهة سطر الأوامر Intlayer CLI.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/lsp
 
-تُعيد حزم `@intlayer/dictionaries-entry` و `@intlayer/unmerged-dictionaries-entry` و `@intlayer/dynamic-dictionaries-entry` مسار الدخول لقواميس Intlayer. نظرًا لأن البحث في نظام الملفات من المتصفح مستحيل، فإن استخدام أدوات التجميع مثل Webpack أو Rollup لاسترجاع مسار الدخول للقواميس غير ممكن. تم تصميم هذه الحزم لتكون قابلة للاختصار (aliased)، مما يسمح بتحسين التجميع عبر أدوات تجميع مختلفة مثل Vite وWebpack وTurbopack.
+توفر حزمة `@intlayer/lsp` خادم بروتوكول خادم اللغة (LSP) مخصص لـ Intlayer. حيث توفر ميزات بيئة التطوير مثل الانتقال إلى التعريف، والبحث عن المراجع، ومعاينات التمرير، والإكمال التلقائي لمفاتيح القاموس، والتحذيرات التشخيصية.
+
+### @intlayer/ai
+
+توفر حزمة `@intlayer/ai` إمكانيات SDK لتطبيقات Intlayer، مما يتيح الترجمة المؤتمتة وتوليد المحتوى بالذكاء الاصطناعي.
+
+### @intlayer/analytics
+
+توفر حزمة `@intlayer/analytics` أدوات لجمع مقاييس مرات ظهور المحتوى، وتحليلات على مستوى الصفحة/اللغة والعقد، وتدعم اختبار A/B للمحتوى.
+
+### @intlayer/dictionaries-entry
+
+تُعيد حزمة `@intlayer/dictionaries-entry` مسار الدخول لقواميس Intlayer: القواميس المدمجة من جذرها، والقواميس غير المدمجة والبعيدة والديناميكية وfetch من مساراتها الفرعية `/unmerged` و`/remote` و`/dynamic` و`/fetch`. نظرًا لأن البحث في نظام الملفات من المتصفح مستحيل، فإن استخدام أدوات التجميع مثل Webpack أو Rollup لاسترجاع مسار الدخول للقواميس غير ممكن. تم تصميم الحزمة ومساراتها الفرعية لتكون قابلة للاختصار (aliased)، مما يسمح بتحسين التجميع عبر أدوات تجميع مختلفة مثل Vite وWebpack وTurbopack.
 
 ### @intlayer/engine
 

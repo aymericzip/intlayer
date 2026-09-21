@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Astro i18n - 앱을 번역하는 완전 가이드"
 description: "i18next는 이제 그만. 2026년 다국어 (i18n) Astro 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "astro-intlayer에 useIntlayer / useLocale 훅 및 Astro.locals 미들웨어 추가"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Solid useIntlayer API 사용법을 직접 속성 액세스로 업데이트"
@@ -152,7 +155,7 @@ bun add intlayer astro-intlayer
   설정 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md), 트랜스파일 및 [CLI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 위한 국제화 도구를 제공하는 핵심 패키지입니다.
 
 - **astro-intlayer**
-  Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Astro 통합 플러그인과 사용자의 선호 로케일을 감지하고 쿠키를 관리하며 URL 리디렉션을 처리하는 미들웨어가 포함되어 있습니다.
+  Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Astro 통합 플러그인, 모든 요청의 로케일을 `Astro.locals.intlayer`로 확인하는 미들웨어, `useIntlayer` / `useDictionary` / `useLocale` 훅이 포함되어 있습니다. 동일한 import 경로가 `.astro` 프론트매터에서는 서버 구현체로, `<script>` 블록에서는 클라이언트 구현체(`vanilla-intlayer` 기반)로 확인됩니다.
 
 </Step>
 <Step number={2} title="프로젝트 설정">
@@ -229,26 +232,28 @@ export default appContent;
 </Step>
 <Step number={5} title="Astro에서 콘텐츠 사용">
 
-`intlayer`에서 내보낸 핵심 헬퍼를 사용하여 `.astro` 파일에서 직접 사전을 소비할 수 있습니다.
+`astro-intlayer`에서 내보낸 훅을 사용하여 `.astro` 파일에서 사전을 사용하세요. 이 훅들은 `react-intlayer`와 동일한 시그니처를 공유합니다. `useIntlayer("key")`는 사전의 내용을 반환하고 `useLocale()`은 인수를 전달할 필요 없이 현재 로케일을 반환합니다.
+
+로케일은 통합 플러그인이 자체 `src/middleware.ts`보다 먼저 등록하는 `astro-intlayer` 미들웨어에서 제공됩니다. URL 접두사, 클라이언트가 저장한 로케일(쿠키 또는 헤더), `Accept-Language` 순으로 모든 요청에 대해 로케일을 확인하고 이를 `Astro.locals.intlayer`에 저장합니다. 사전 렌더링된 페이지는 방문자마다 한 번만 렌더링되므로 URL만 사용합니다.
+
+또한 각 페이지에 hreflang 및 정식(canonical) 링크와 같은 SEO 메타데이터를 추가하고 사용자가 언어를 변경할 수 있도록 언어 전환기를 포함해야 합니다.
 
 ```astro fileName="src/pages/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
   defaultLocale,
   localeMap,
   getHTMLTextDir,
-  type LocalesValues,
 } from "intlayer";
 import LocaleSwitcher from "../components/LocaleSwitcher.astro";
 
-// Get the current locale from the URL (e.g. /es/about -> 'es')
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+// 미들웨어에 의해 확인된 로케일 (예: /ko/about -> 'ko')
+const { locale } = useLocale();
 
-// Get the content for the 'app' dictionary
-const { title } = getIntlayer("app", locale);
+// 해당 로케일의 'app' 사전 내용
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -300,6 +305,8 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
+> `Astro.locals.intlayer`는 자체 미들웨어 및 엔드포인트에 `locale`, `defaultLocale`, `availableLocales`도 노출합니다. 단일 호출에 대해 요청 로케일을 재정의하려면 로케일이나 선택기를 두 번째 인수로 전달하세요(`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`).
+
 </Step>
 <Step number={6} title="로컬라이즈된 라우팅">
 
@@ -325,44 +332,51 @@ Astro 통합은 개발 중에 언어 인식 라우팅 및 환경 정의를 돕�
 
 ```astro fileName="src/components/LocaleSwitcher.astro"
 ---
-import {
-  locales,
-  getLocaleName,
-  getLocalizedUrl,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  type LocalesValues,
-} from "intlayer";
+import { useLocale } from "astro-intlayer";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { locale, availableLocales } = useLocale();
 const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ---
 
-<nav>
-  {
-    locales.map((localeItem) => (
-      <a
-        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-        data-locale={localeItem}
-        aria-current={localeItem === locale ? "page" : undefined}
-      >
-        {getLocaleName(localeItem)}
-      </a>
-    ))
-  }
+<nav aria-label="Languages">
+  <ul>
+    {
+      availableLocales.map((localeItem) => (
+        <li key={localeItem} class="p-1">
+          <a
+            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+            data-locale={localeItem}
+            aria-current={localeItem === locale ? "page" : undefined}
+          >
+            {getLocaleName(localeItem)}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </nav>
 
 <script>
-  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+  // 브라우저에서는 동일한 import가 클라이언트 구현체로 확인됩니다
+  import { useLocale } from "astro-intlayer";
+  import { getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  // 로케일 쿠키에 선택 사항을 저장한 다음 현지화된 URL로 이동합니다
+  const { setLocale } = useLocale({
+    onLocaleChange: (newLocale) => {
+      window.location.href = getLocalizedUrl(window.location.pathname, newLocale);
+    },
+  });
 
   const localeLinks = document.querySelectorAll("[data-locale]");
 
   localeLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
+    link.addEventListener("click", (event) => {
       const locale = link.getAttribute("data-locale") as LocalesValues;
 
-      // Update the locale cookie
-      setLocaleInStorageClient(locale);
+      event.preventDefault();
+      setLocale(locale);
     });
   });
 </script>
@@ -372,6 +386,13 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
     display: flex;
     gap: 1rem;
   }
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+  }
   a[aria-current="page"] {
     font-weight: bold;
     text-decoration: underline;
@@ -379,8 +400,11 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 </style>
 ```
 
-> **지속성에 대한 참고 사항:**
-> 클라이언트 측 스크립트에서 `setLocaleInStorageClient`를 사용하면 사용자의 언어 선호도가 쿠키에 저장됩니다. 이를 통해 Intlayer 미들웨어는 선택을 기억하고 향후 방문 시 사용자가 선호하는 언어로 자동으로 리다이렉트할 수 있습니다.
+> **영속성에 대한 참고 사항:**
+> 클라이언트 측 `useLocale`의 `setLocale`은 사용자의 언어 설정을 쿠키에 저장합니다. 이를 통해 Intlayer는 선택 사항을 기억하고 향후 방문 시 사용자를 선호하는 언어로 자동 리디렉션할 수 있습니다. 온디맨드 렌더링 페이지(`output: 'server'` 또는 `prerender = false`인 어댑터)는 HTML이 전송되기 전에 Intlayer 미들웨어에 의해 리디렉션되며, 정적 파일로 제공되는 사전 렌더링 페이지는 통합 플러그인이 모든 페이지에 삽입하는 작은 스크립트에 의해 리디렉션됩니다. 둘 다 끄려면 `routing.enableProxy`를 `false`로 설정하세요. `astro dev`에서는 `routing.enableProxy`가 `true`로 설정되지 않는 한 쿠키가 리디렉션 소스로 무시되므로 오래된 쿠키가 작업 중인 페이지를 가로채지 않습니다.
+>
+> **서버 / 클라이언트 상호 호환성:**
+> `astro-intlayer`는 프론트매터에서는 서버 훅(`Astro.locals` 읽기)으로 확인되고, `<script>` 블록과 아일랜드에서는 `vanilla-intlayer`의 클라이언트 훅으로 확인되며 동일한 이름과 데이터 구조를 가집니다. `setLocale`과 `onChange`는 클라이언트에서만 동작하므로, 클라이언트 스토어를 초기화하려면 클라이언트에서 `installIntlayer()`를 한 번 호출하세요. `astro-intlayer/client`는 클라이언트 엔트리를 명시적으로 노출합니다.
 
 </Step>
 <Step number={8} title="Sitemap 및 Robots.txt">
@@ -404,10 +428,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -454,7 +478,6 @@ export const GET: APIRoute = ({ site }) => {
 - Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_solid.md)
 - Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_preact.md)
 - Intlayer + Lit: [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_lit.md)
-- Intlayer + Vanilla JS: [Intlayer with Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_vanilla.md)
 </Step>
 
 <Step number={15} title="컴포넌트에서 콘텐츠 추출" isOptional={true}>
@@ -524,21 +547,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-> v9 이후로, `intlayerCompiler`는 `intlayer` 플러그인에 포함되어 있습니다. 따라서 수동으로 추가할 필요가 없습니다.
-
-`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함시키세요:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // 컴파일러 플러그인 추가
-  ],
-});
-```
+애플리케이션을 빌드하여 컴포넌트를 변환하고 콘텐츠를 추출합니다.
 
 ```bash packageManager="npm"
 npm run build # 또는 npm run dev
@@ -569,7 +578,7 @@ Intlayer는 모듈 증강(module augmentation)을 사용하여 TypeScript의 이
 
 ![자동 완성](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![번역 오류](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![번역 오류](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScript 설정에 자동 생성된 타입이 포함되어 있는지 확인하세요.
 

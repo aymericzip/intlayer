@@ -218,6 +218,47 @@ describe('Markdown Core Compiler', () => {
     expect(html.match(/<div /g)).toHaveLength(2);
   });
 
+  it('should keep an element indented by up to three spaces as a sibling block', () => {
+    // Mirrors `<Tabs>` docs where one `<Tab>` carries an extra space of indentation.
+    const markdown = [
+      '<Tabs>',
+      '  <Tab label="a">',
+      '',
+      'first',
+      '',
+      '  </Tab>',
+      '   <Tab label="b">',
+      '',
+      'second',
+      '',
+      '  </Tab>',
+      '  <Tab label="c">',
+      '',
+      'third',
+      '',
+      '  </Tab>',
+      '</Tabs>',
+    ].join('\n');
+    const html = (compile(markdown, ctx) as any).toString();
+
+    expect(html.match(/<Tab /g)).toHaveLength(3);
+    expect(html).not.toContain('<p key="1">&lt;/Tab');
+    expect(html).not.toContain('<Tab label="b"></Tab>');
+  });
+
+  it('should read an element indented by four spaces as an indented code block', () => {
+    const html = (compile('    <div>code</div>\n', ctx) as any).toString();
+
+    expect(html).toContain('<pre');
+    expect(html).not.toContain('<div ');
+  });
+
+  it('should keep the space before inline HTML that follows another inline node', () => {
+    const html = (compile('*a* <b>b</b>\n', ctx) as any).toString();
+
+    expect(html).toContain('</em> <b');
+  });
+
   it('should not read a self-closing tag followed by its own closing tag as self-closing', () => {
     const html = (compile('<span/></span>\n', ctx) as any).toString();
 

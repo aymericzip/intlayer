@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Is next-intl Outdated in 2026?
 description: next-intl became the go-to choice for Next.js App Router. But beneath the surface, it still carries runtime bundle bloat and manual namespace overhead.
 keywords:
@@ -66,7 +66,7 @@ Trailing 12-month activity:
 - `amannn/next-intl`: **187 commits** (mostly patch updates and peer dependency bumps).
 - `aymericzip/intlayer`: **4,343 commits** (active work across compilers, IDE extensions, MCP servers, and translation engines).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 A small library can be complete and stable. But frontend i18n has moved forward: compilers can now prune unreferenced copy at build time, LLMs can automate localisation directly in CI, and editors rely on dedicated Language Servers (LSP) and AI agents. A maintenance-mode library cannot easily absorb this evolution.
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 Because `messages` is passed to the client provider at the root, the browser receives the full translation dictionary on every page. Visiting `/login` forces the user to download FAQ, documentation, and dashboard copy as well.
 
 You can prevent this by splitting JSON files into namespaces and loading them conditionally per route. But maintaining that route-to-namespace map manually is tedious and prone to missing keys in production.
+
+The graph below estimates the payload for a theoretical app of 1 to 10 pages in 1 to 10 locales, with about 30 KB of text per page. Loading messages dynamically per locale removes one axis, splitting them per route removes the other, and only the combination keeps the payload flat.
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer solves this via static analysis: the [Intlayer compiler](https://intlayer.org/doc/compiler) bundles only the copy actually referenced on that route, driving other-page leakage to **0.0%**.
 

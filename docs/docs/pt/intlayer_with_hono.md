@@ -257,7 +257,7 @@ O `hono-intlayer` aproveita as capacidades robustas do TypeScript para aprimorar
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Certifique-se de que os tipos gerados automaticamente (por padrão em ./types/intlayer.d.ts) estejam incluídos no seu arquivo tsconfig.json.
 

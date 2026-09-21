@@ -42,6 +42,8 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
     <Form
       schema={urlSchema}
       onSubmitSuccess={onSubmitSuccess}
+      toolName="submitWebsiteScanForm"
+      toolDescription="Fill the i18n SEO scanner form with a website URL for the user to launch. To run the audit and get the report directly, call `createWebsiteI18nScan` instead."
       className={cn(
         'flex w-full max-w-lg flex-col gap-2 rounded-2xl bg-card p-2 shadow-sm md:flex-row',
         className
@@ -51,6 +53,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
       <FormInput
         name="url"
         aria-label={input.label.value}
+        toolParamDescription="Public URL of the website to audit, e.g. https://example.com"
         type="url"
         placeholder={input.placeholder.value}
         className="flex-1 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2"

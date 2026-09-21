@@ -10,7 +10,7 @@ import {
   buildReviewReport,
   formatReviewReport,
 } from '@intlayer/engine/docReview';
-import z from 'zod';
+import { z } from 'zod/mini';
 
 export type ToolResult = {
   content: { type: string; text: string }[];
@@ -101,17 +101,15 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
         'Get an array of docs by their slugs. If not slug is provided, return all docs (1.2Mb). List all docs metadata first to get more details about what doc to retrieve.',
       inputSchema: {
         slug: z
-          .union([z.string(), z.array(z.string())])
-          .optional()
-          .describe(
-            'Slug of the docs. If not provided, return all docs. If not provided, return all docs.'
-          ),
-        strict: z
-          .boolean()
-          .optional()
-          .describe(
-            'Strict mode - only return docs that match all slugs, by excluding additional slugs'
-          ),
+          .optional(z.union([z.string(), z.array(z.string())]))
+          .register(z.globalRegistry, {
+            description:
+              'Slug of the docs. If not provided, return all docs. If not provided, return all docs.',
+          }),
+        strict: z.optional(z.boolean()).register(z.globalRegistry, {
+          description:
+            'Strict mode - only return docs that match all slugs, by excluding additional slugs',
+        }),
       },
       annotations: {
         readOnlyHint: true,
@@ -142,11 +140,12 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
       description:
         'Fetch related doc chunks using keywords or questions. This tool will return the most relevant chunks of documentation based on the input query.',
       inputSchema: {
-        query: z.string().describe('The keywords or question to search for'),
-        limit: z
-          .number()
-          .optional()
-          .describe('The number of chunks to retrieve (default: 10)'),
+        query: z.string().register(z.globalRegistry, {
+          description: 'The keywords or question to search for',
+        }),
+        limit: z.optional(z.number()).register(z.globalRegistry, {
+          description: 'The number of chunks to retrieve (default: 10)',
+        }),
       },
       annotations: {
         readOnlyHint: true,
@@ -201,32 +200,30 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
       description:
         'Compare a base markdown document with its translation and return only the blocks that diverge (changed, missing, or stale), with their line ranges and content. Use this to translate a large document incrementally without retranslating it from scratch: it tells you exactly which blocks to (re)translate. Optionally pass the base line numbers that changed (for example from a git diff) so aligned-but-edited blocks are flagged for review.',
       inputSchema: {
-        baseContent: z
-          .string()
-          .describe('The base (source) markdown document, used as reference'),
-        targetContent: z
-          .string()
-          .describe(
-            'The existing translated markdown document (may be empty for a brand new translation)'
-          ),
+        baseContent: z.string().register(z.globalRegistry, {
+          description: 'The base (source) markdown document, used as reference',
+        }),
+        targetContent: z.string().register(z.globalRegistry, {
+          description:
+            'The existing translated markdown document (may be empty for a brand new translation)',
+        }),
         changedLines: z
-          .array(z.number())
-          .optional()
-          .describe(
-            '1-based line numbers that changed in the base document. When omitted, only inserted and deleted blocks are reported.'
-          ),
-        baseLabel: z
-          .string()
-          .optional()
-          .describe('Label for the base locale in the formatted output'),
-        targetLabel: z
-          .string()
-          .optional()
-          .describe('Label for the target locale in the formatted output'),
+          .optional(z.array(z.number()))
+          .register(z.globalRegistry, {
+            description:
+              '1-based line numbers that changed in the base document. When omitted, only inserted and deleted blocks are reported.',
+          }),
+        baseLabel: z.optional(z.string()).register(z.globalRegistry, {
+          description: 'Label for the base locale in the formatted output',
+        }),
+        targetLabel: z.optional(z.string()).register(z.globalRegistry, {
+          description: 'Label for the target locale in the formatted output',
+        }),
         format: z
-          .enum(['text', 'json'])
-          .optional()
-          .describe('Output format. Defaults to "text".'),
+          .optional(z.enum(['text', 'json']))
+          .register(z.globalRegistry, {
+            description: 'Output format. Defaults to "text".',
+          }),
       },
       annotations: {
         readOnlyHint: true,

@@ -235,7 +235,7 @@ Korzystając z `intlayer`, możesz zadeklarować swoją zawartość w formacie u
 
 Gwiazdy na GitHubie są silnym wskaźnikiem popularności projektu, zaufania społeczności oraz jego długoterminowej istotności. Choć nie są bezpośrednim miernikiem jakości technicznej, odzwierciedlają, ilu deweloperów uważa projekt za użyteczny, śledzi jego rozwój i jest skłonnych go przyjąć. Przy szacowaniu wartości projektu, gwiazdy pomagają porównać zainteresowanie różnymi alternatywami oraz dostarczają wglądu w rozwój ekosystemu.
 
-[![Wykres historii gwiazd](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Wykres historii gwiazd](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## Podsumowanie
 

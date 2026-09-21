@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Vite + Lit i18n - Guide complet pour traduire votre application"
 description: "Oubliez i18next. Le guide 2026 pour créer une application Vite + Lit multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
@@ -606,6 +606,76 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+<Tabs>
+ <Tab value="Commande d'extraction">
+
+Exécutez l'extracteur pour transformer vos composants et extraire le contenu
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Compilateur Babel'>
+
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
+> Depuis la v9, `intlayerCompiler` est inclus dans le plugin `intlayer`. Vous n'avez donc pas besoin de l'ajouter manuellement.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
+
+Mettez à jour votre `vite.config.ts` pour inclure le plugin `intlayerCompiler` :
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Ajoute le plugin du compilateur
+  ],
+});
+```
+
+ </Tab>
+ </Tabs>
+
+Buildez votre application pour transformer vos composants et extraire le contenu
+
+```bash packageManager="npm"
+npm run build # Ou npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Ou pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Ou yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Ou bun run dev
+```
+
+ </Tab>
+</Tabs>
+
 </Step>
 
 </Steps>
@@ -644,7 +714,9 @@ const pathList = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+const sitemapXml = generateSitemap(pathList, {
+  siteUrl: "https://example.com",
+});
 fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
 
 const getAllMultilingualUrls = (urls) =>
@@ -657,7 +729,7 @@ const robotsTxt = [
   "Allow: /",
   ...disallowedPaths.map((path) => `Disallow: ${path}`),
   "",
-  `Sitemap: ${SITE_URL}/sitemap.xml`,
+  `Sitemap: https://example.com/sitemap.xml`,
 ].join("\n");
 
 fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);

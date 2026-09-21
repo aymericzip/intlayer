@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Apakah next-intl Sudah Ketinggalan Zaman di Tahun 2026?
 description: next-intl telah menjadi standar untuk Next.js App Router. Namun di balik itu, beban runtime bundle dan manajemen namespace manual masih menjadi persoalan.
 keywords:
@@ -66,7 +66,7 @@ Catatan tahun terakhir:
 - `amannn/next-intl`: **187 commit** (sebagian besar adaptasi dependensi dan perbaikan minor).
 - `aymericzip/intlayer`: **4.343 commit** (pengembangan aktif pada kompiler, ekstensi IDE, server MCP, dan mesin terjemahan).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Pustaka yang matang memang memberikan rasa aman. Namun dunia i18n telah berubah: kompiler menghapus teks tak terpakai saat build, LLM menerjemahkan teks di CI, dan pengembang dibantu oleh Language Server (LSP) serta AI agent. Pustaka yang terpaku pada runtime sulit memanfaatkan inovasi ini.
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 Karena `messages` diserahkan ke client provider di tingkat teratas, browser mengunduh seluruh kamus pada setiap kunjungan. Pengunjung halaman `/login` terpaksa mengunduh teks panduan, ketentuan, dan dasbor.
 
 Hal ini bisa diatasi dengan memecah file JSON ke dalam beberapa namespace. Namun, memelihara pemetaan tersebut secara manual cukup rumit dan rawan salah.
+
+Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
+
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer menyelesaikannya lewat analisis statis: [kompiler Intlayer](https://intlayer.org/id/doc/compiler) hanya memasukkan teks yang dipanggil pada rute tersebut, sehingga kebocoran antar halaman turun menjadi **0.0%**.
 

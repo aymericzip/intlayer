@@ -18,6 +18,7 @@ describe('resolveDevScript', () => {
     'adonis-intlayer',
     'hono-intlayer',
     'elysia-intlayer',
+    'remix-intlayer',
   ])('should wrap the dev server of a project using %s', (packageName) => {
     expect(
       resolveDevScript({

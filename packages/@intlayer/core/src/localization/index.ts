@@ -16,6 +16,8 @@ export { getCanonicalPath } from './getCanonicalPath';
 export { getHTMLTextDir } from './getHTMLTextDir';
 export { getLocale } from './getLocale';
 export { getLocaleFromPath } from './getLocaleFromPath';
+export type { LocaleRequest } from './getLocaleFromRequest';
+export { getLocaleFromRequest } from './getLocaleFromRequest';
 export { getLocaleLang } from './getLocaleLang';
 export { getLocaleName } from './getLocaleName';
 export { getLocalizedPath } from './getLocalizedPath';
@@ -27,7 +29,10 @@ export { getPrefix, isDeclaredLocale } from './getPrefix';
 export { localeDetector } from './localeDetector';
 export { localeFlatMap, localeMap, localeRecord } from './localeMapper';
 export { localeResolver } from './localeResolver';
-export type { ProxyMode } from './proxyMode';
+export type {
+  ProxyMode,
+  ProxyStorageSuppressionPurpose,
+} from './proxyMode';
 export {
   formatProxyEnabledMessage,
   isProxyStorageLocaleEnabled,

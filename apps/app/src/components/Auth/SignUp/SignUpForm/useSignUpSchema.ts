@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useSignUpSchema = () => {
   const {
@@ -22,7 +22,7 @@ export const useSignUpSchema = () => {
               ? requiredErrorEmail.value
               : invalidTypeErrorEmail.value,
         })
-        .min(1, { error: invalidTypeErrorEmail.value }),
+        .check(z.minLength(1, { error: invalidTypeErrorEmail.value })),
       password: z
         .string({
           error: (issue) =>
@@ -30,7 +30,7 @@ export const useSignUpSchema = () => {
               ? requiredErrorPassword.value
               : invalidTypeErrorPassword.value,
         })
-        .min(8, { error: invalidTypeErrorPassword.value }),
+        .check(z.minLength(8, { error: invalidTypeErrorPassword.value })),
       passwordConfirmation: z
         .string({
           error: (issue) =>
@@ -38,18 +38,21 @@ export const useSignUpSchema = () => {
               ? requiredErrorPasswordConfirmation.value
               : invalidTypeErrorPasswordConfirmation.value,
         })
-        .min(8, { error: invalidTypeErrorPasswordConfirmation.value }),
-      termsAndConditions: z
-        .boolean()
-        .default(false)
-        .refine((value) => Boolean(value), {
+        .check(
+          z.minLength(8, { error: invalidTypeErrorPasswordConfirmation.value })
+        ),
+      termsAndConditions: z._default(z.boolean(), false).check(
+        z.refine((value) => Boolean(value), {
           message: termsAndConditionsError.value,
-        }),
+        })
+      ),
     })
-    .refine((data) => data.password === data.passwordConfirmation, {
-      message: passwordNotMatchError.value,
-      path: ['passwordConfirmation'], // This specifies which field the error should be associated with
-    });
+    .check(
+      z.refine((data) => data.password === data.passwordConfirmation, {
+        message: passwordNotMatchError.value,
+        path: ['passwordConfirmation'], // This specifies which field the error should be associated with
+      })
+    );
 };
 
 export type SignUp = z.infer<ReturnType<typeof useSignUpSchema>>;

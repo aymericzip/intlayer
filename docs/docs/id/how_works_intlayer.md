@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-09-19
 title: Cara Kerja Intlayer
 description: Pelajari bagaimana Intlayer beroperasi secara internal. Pahami arsitektur dan komponen yang membuat Intlayer kuat.
 keywords:
@@ -131,49 +131,105 @@ Intlayer terdiri dari beberapa paket, masing-masing dengan peran spesifik dalam 
 
 Paket `intlayer` digunakan dalam aplikasi untuk mendeklarasikan konten dalam file konten.
 
-### react-intlayer
+### Framework Frontend
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 Paket `react-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi React.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 Paket `next-intlayer` digunakan sebagai lapisan di atas `react-intlayer` untuk membuat kamus Intlayer dapat digunakan dalam aplikasi Next.js. Paket ini mengintegrasikan fitur-fitur penting agar Intlayer dapat bekerja di lingkungan Next.js, seperti middleware terjemahan, routing, atau konfigurasi file `next.config.js`.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 Paket `vue-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Vue.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 Paket `nuxt-intlayer` adalah modul Nuxt untuk membuat kamus Intlayer dapat digunakan dalam aplikasi Nuxt. Paket ini mengintegrasikan fitur-fitur penting agar Intlayer dapat bekerja di lingkungan Nuxt, seperti middleware terjemahan, routing, atau konfigurasi file `nuxt.config.js`.
 
-### svelte-intlayer
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 Paket `svelte-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Svelte.
 
-### solid-intlayer (WIP)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 Paket `solid-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Solid.js.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 Paket `preact-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Preact.
 
-### angular-intlayer (WIP)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 Paket `angular-intlayer` digunakan untuk menginterpretasikan kamus Intlayer dan membuatnya dapat digunakan dalam aplikasi Angular.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
 
-Paket `express-intlayer` digunakan untuk menggunakan Intlayer pada backend Express.js.
+Paket `astro-intlayer` menyediakan alat yang diperlukan untuk mengintegrasikan Intlayer ke dalam aplikasi Astro. Paket ini mengonfigurasi routing berbasis locale dan manajemen kamus.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+Paket `remix-intlayer` menyediakan alat yang diperlukan untuk mengintegrasikan Intlayer ke dalam aplikasi Remix. Paket ini mengonfigurasi perutean berbasis locale, konteks sisi server, dan manajemen kamus.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
 
 Paket `react-native-intlayer` menyediakan alat yang mengintegrasikan plugin agar Intlayer dapat bekerja dengan Metro bundler.
 
-### lynx-intlayer
+  </Tab>
+  <Tab label="Lit" value="lit">
 
-Paket `lynx-intlayer` menyediakan alat yang mengintegrasikan plugin agar Intlayer dapat bekerja dengan Lynx bundler.
+Paket `lit-intlayer` menyediakan alat dan komponen untuk menginterpretasikan dan menggunakan kamus Intlayer dalam aplikasi Lit.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+Paket `vanilla-intlayer` menyediakan alat untuk mengintegrasikan Intlayer ke dalam aplikasi vanilla JavaScript, HTML, atau PHP.
+
+  </Tab>
+</Tabs>
+
+### Framework Backend
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
+
+Paket `express-intlayer` digunakan untuk menggunakan Intlayer pada backend Express.js.
+
+  </Tab>
+  <Tab label="Fastify" value="fastify">
+
+Paket `fastify-intlayer` menyediakan plugin untuk aplikasi Fastify untuk menangani internasionalisasi. Ia mendeteksi locale pengguna dan mendekorasi objek request.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+Paket `hono-intlayer` menyediakan middleware untuk aplikasi Hono untuk menangani internasionalisasi. Paket ini mendeteksi locale pengguna dan mengisi objek konteks.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+Paket `elysia-intlayer` menyediakan plugin untuk aplikasi Elysia untuk menangani internasionalisasi. Ia mendeteksi locale pengguna dan menyuntikkan objek `intlayer` ke dalam route context.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+Paket `adonis-intlayer` menyediakan middleware untuk aplikasi AdonisJS guna menangani internasionalisasi. Ini mendeteksi locale pengguna dan menyediakan fungsi terjemahan.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 
@@ -182,6 +238,10 @@ Menyertakan plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](ht
 ### react-scripts-intlayer
 
 Mencakup perintah dan plugin `react-scripts-intlayer` untuk mengintegrasikan Intlayer dengan aplikasi berbasis Create React App. Plugin ini didasarkan pada [craco](https://craco.js.org/) dan mencakup konfigurasi tambahan untuk bundler [Webpack](https://webpack.js.org/).
+
+### eslint-plugin-intlayer
+
+Paket `eslint-plugin-intlayer` menyediakan aturan ESLint dan oxlint untuk mendeteksi string yang belum diterjemahkan, memvalidasi definisi kamus, dan menegakkan praktik terbaik i18n.
 
 ### intlayer-editor
 
@@ -216,9 +276,21 @@ Paket `@intlayer/cli` adalah paket NPM yang digunakan untuk mendeklarasikan skri
 
 Paket `@intlayer/mcp` menyediakan server MCP (Model Context Protocol) yang memberikan bantuan IDE bertenaga AI yang disesuaikan untuk ekosistem Intlayer. Paket ini secara otomatis memuat dokumentasi dan terintegrasi dengan Intlayer CLI.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/lsp
 
-Paket `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` dan `@intlayer/dynamic-dictionaries-entry` mengembalikan jalur entri dari kamus Intlayer. Karena pencarian sistem berkas dari browser tidak mungkin dilakukan, menggunakan bundler seperti Webpack atau Rollup untuk mengambil jalur entri kamus juga tidak memungkinkan. Paket-paket ini dirancang untuk di-alias-kan, memungkinkan optimasi bundling di berbagai bundler seperti Vite, Webpack, dan Turbopack.
+Paket `@intlayer/lsp` menyediakan server Language Server Protocol (LSP) yang disesuaikan untuk Intlayer. Paket ini menghadirkan fitur IDE seperti Buka Definisi, Temukan Referensi, pratinjau hover, pelengkapan otomatis kunci kamus, dan peringatan diagnostik.
+
+### @intlayer/ai
+
+Paket `@intlayer/ai` menyediakan kemampuan SDK untuk aplikasi Intlayer, memungkinkan penerjemahan otomatis dan pembuatan konten bertenaga AI.
+
+### @intlayer/analytics
+
+Paket `@intlayer/analytics` menyediakan alat untuk mengumpulkan metrik tayangan konten, analitik tingkat halaman/lokal dan node, serta mendukung pengujian A/B konten.
+
+### @intlayer/dictionaries-entry
+
+Paket `@intlayer/dictionaries-entry` mengembalikan jalur entri dari kamus Intlayer: kamus gabungan dari root-nya, dan kamus yang belum digabung, jarak jauh (remote), dinamis, serta fetch dari subpath `/unmerged`, `/remote`, `/dynamic`, dan `/fetch`. Karena pencarian sistem berkas dari browser tidak mungkin dilakukan, menggunakan bundler seperti Webpack atau Rollup untuk mengambil jalur entri kamus juga tidak memungkinkan. Paket dan subpath-nya dirancang untuk di-alias-kan, memungkinkan optimasi bundling di berbagai bundler seperti Vite, Webpack, dan Turbopack.
 
 ### @intlayer/engine
 

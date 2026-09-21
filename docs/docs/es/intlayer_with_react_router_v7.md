@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-09-06
+updatedAt: 2026-09-20
 title: "React Router v7 i18n - Guía completa para traducir tu aplicación"
 description: "Sin más i18next. La guía 2026 para construir una aplicación React Router v7 multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
@@ -889,7 +889,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Desde v9, el `intlayerCompiler` está incluido en el plugin `intlayer`. Por lo tanto, no necesitas agregarlo manualmente.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Actualiza tu `vite.config.ts` para incluir el plugin `intlayerCompiler`:
 
@@ -904,6 +910,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Compila tu aplicación para transformar tus componentes y extraer el contenido
 
 ```bash packageManager="npm"
 npm run build # O npm run dev
@@ -1073,6 +1084,13 @@ Sí: [formas plurales](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 <Question title="¿Cómo pueden los traductores editar el contenido sin tocar el código?">
 
 A través del [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) autohospedado o el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md), que externaliza el contenido para que pueda cambiar sin una implementación.
+
+</Question>
+<Question title="¿Cuál es el costo del editor visual? ¿Es excesivo si no lo necesito?">
+
+El [editor visual de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) tiene un **costo cero** en su aplicación si no está configurado. La lógica adicional solo se carga si se habilita explícitamente y es necesaria.
+
+Si está habilitado, el impacto es extremadamente ligero (+5 KB, cargado dinámicamente solo cuando se activa) porque la mayor parte de la lógica es manejada por el editor del servidor en [app.intlayer.org](https://app.intlayer.org) o a través del paquete `intlayer-editor`. Si solo necesita una solución de traducción simple sin edición visual, Intlayer no agrega ninguna sobrecarga a su aplicación.
 
 </Question>
 <Question title="¿Es Intlayer gratuito y de código abierto?">

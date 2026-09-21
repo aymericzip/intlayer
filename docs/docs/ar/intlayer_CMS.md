@@ -44,7 +44,7 @@ author: aymericzip
 
 لهذا، قدم Intlayer مفهوم "القواميس البعيدة".
 
-![واجهة نظام إدارة المحتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![واجهة نظام إدارة المحتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## جدول المحتويات
 

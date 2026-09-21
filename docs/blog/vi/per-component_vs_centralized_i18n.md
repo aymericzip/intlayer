@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-16
 title: "i18n theo thành phần so với i18n tập trung: Một cách tiếp cận mới với Intlayer"
 description: Phân tích sâu các chiến lược quốc tế hóa trong React, so sánh các phương pháp tập trung, theo khóa và theo thành phần, và giới thiệu Intlayer.
 keywords:
@@ -63,6 +63,7 @@ Tuy nhiên, trong thế giới React, chúng ta chủ yếu thấy các cách ti
 - phân nhỏ việc truy xuất nội dung theo key, hoặc theo component.
 
   </Column>
+
 </Columns>
 
 > Trong blog này, tôi sẽ không tập trung vào các giải pháp dựa trên compiler, những cái tôi đã đề cập ở đây: [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md).
@@ -78,6 +79,10 @@ So, broadly speaking, the decision breaks down like this:
 - Nếu bạn có nhiều ngôn ngữ hơn trang, bạn nên nghiêng về phương pháp tập trung.
 
 Tất nhiên, các tác giả thư viện nhận thức được những giới hạn này và cung cấp các cách khắc phục. Trong số đó: tách thành namespaces, tải động các file JSON (`await import()`), hoặc loại bỏ (purge) nội dung trong quá trình build.
+
+Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
+
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Đồng thời, bạn cần biết rằng khi bạn tải nội dung một cách động, bạn sẽ tạo thêm các yêu cầu tới server. Mỗi `useState` bổ sung hoặc hook đồng nghĩa với một yêu cầu server thêm.
 
@@ -111,9 +116,9 @@ Chắc chắn, và đó là một bước tiến lớn. Hãy xem so sánh kích 
 
 Ví dụ đầu tiên không bao gồm việc lazy-load các bản dịch theo locale và không tách namespace. Ví dụ thứ hai bao gồm content purging + tải động các bản dịch.
 
-| Bundle tối ưu hóa                                                                                                         | Bundle không tối ưu hóa                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| ![gói chưa được tối ưu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![gói được tối ưu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| Bundle tối ưu hóa                                                                                                          | Bundle không tối ưu hóa                                                                               |
+| -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| ![gói chưa được tối ưu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![gói được tối ưu](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 Nhờ có namespaces, chúng ta đã chuyển từ cấu trúc này:
 

@@ -1001,7 +1001,7 @@ Intlayer utilizza l'augmentation dei moduli per sfruttare i vantaggi di TypeScri
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Assicurati che la tua configurazione di TypeScript includa i tipi generati automaticamente.
 
@@ -1136,6 +1136,13 @@ Sì: [forme plurali](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 <Question title="Come possono i traduttori modificare il contenuto senza toccare il codice?">
 
 Attraverso l'[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md), che gira sulla tua infrastruttura e permette a chiunque di modificare il testo sul posto nell'app in esecuzione, o il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md), che esternalizza il contenuto così può cambiare senza un deployment.
+
+</Question>
+<Question title="Qual è il costo dell'editor visuale? È eccessivo se non ne ho bisogno?">
+
+L'[editor visuale di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) ha un **costo pari a zero** sulla tua applicazione se non viene configurato. La logica aggiuntiva viene caricata solo se esplicitamente abilitata e necessaria.
+
+Se abilitato, l'impatto è estremamente ridotto (+5 KB, caricato dinamicamente solo quando attivato) poiché la maggior parte della logica è gestita dal server editor su [app.intlayer.org](https://app.intlayer.org) o tramite il pacchetto `intlayer-editor`. Se hai solo bisogno di una soluzione di traduzione semplice senza editing visuale, Intlayer non aggiunge alcun overhead alla tua applicazione.
 
 </Question>
 <Question title="Intlayer è gratuito e open source?">

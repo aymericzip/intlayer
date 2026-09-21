@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: هل أصبحت مكتبة i18next قديمة في عام 2026؟
 description: تدير i18next ملايين المواقع، لكن بنية وقت التشغيل التي صُممت في عام 2011 بدأت تظهر عليها علامات القدم. تحليل لحجم الحزم وقيود Tree-shaking وركود التطوير.
 keywords:
@@ -70,7 +70,7 @@ author: aymericzip
 | `i18next` core  | 2,626            | **259**      | تحسينات طفيفة                              |
 | Intlayer        | 7,156            | **4,343**    | المترجم، أدوات IDE، ومحرك الذكاء الاصطناعي |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 المكتبات المستقرة توفر الأمان البرمجي، لكن أدوات التدويل تشهد تطوراً سريعاً: حزم البناء الحديثة تستبعد النصوص غير المستخدمة وقت البناء، ونماذج الذكاء الاصطناعي تترجم آلياً في مرحلة CI، وبيئات التطوير تستفيد من خوادم اللغات (LSP) والوكلاء الأذكياء. نموذج i18next المعتمد كلياً على وقت التشغيل يواجه صعوبة في مواكبة هذه التحولات.
 
@@ -124,6 +124,10 @@ style="border:none;"
 **تسريب الترجمات:**
 
 بشكل افتراضي، ما يقرب من **90% من النصوص** المحملة لأي مسار تخص مسارات وصفحات أخرى. تقسيم ملفات الترجمة يدوياً يستهلك وقتاً ويزيد من احتمالية الأخطاء.
+
+يقدّر الرسم البياني أدناه حجم المحتوى لتطبيق نظري يتكوّن من 1 إلى 10 صفحات مترجمة إلى 1 إلى 10 لغات، بنحو 30 كيلوبايت من النص لكل صفحة. التحميل الديناميكي للمحتوى حسب اللغة يزيل محور اللغات، وحصر المحتوى ضمن المكوّن أو المسار يزيل محور الصفحات، ولا يبقى الحجم ثابتًا إلا بالجمع بينهما.
+
+![تسرب المحتوى النظري حسب البنية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **تأخير تفاعلية الصفحة (Hydration):**
 

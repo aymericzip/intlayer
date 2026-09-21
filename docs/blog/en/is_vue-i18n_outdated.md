@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Is vue-i18n Outdated in 2026?
 description: vue-i18n has been the standard for Vue and Nuxt apps for a decade. But in our benchmarks, it proved to be the heaviest i18n runtime on the web. Here is why.
 keywords:
@@ -64,7 +64,7 @@ Trailing twelve months:
 - `intlify/vue-i18n`: **259 commits** (routine patches and Vue 3 / Nuxt dependency maintenance).
 - `aymericzip/intlayer`: **4,343 commits** (active work across compiler optimizations, LSP tools, and AI agents).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 A mature library can be complete. But modern frontends now leverage build-time AST transformations, bundler dead-code elimination, and AI-driven localization. A runtime-bound architecture cannot easily adopt these paradigms.
 
@@ -115,6 +115,12 @@ By default, **90% of localized text** sent to a route belongs to other pages. In
 **Isolated component weight:**
 
 Components compiled with localized scopes averaged 196 KB with `vue-i18n` because catalogs were duplicated inside them, versus **6.5 KB** with Intlayer.
+
+**How leakage scales:**
+
+The benchmark is a single data point. On a theoretical app of 1 to 10 pages in 1 to 10 locales (about 30 KB of text per page), a centralized catalog with static imports grows with both axes. Lazy-loading per locale removes one axis, scoping content per component removes the other, and only the combination stays flat.
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ## Why Is vue-i18n Heavy?
 

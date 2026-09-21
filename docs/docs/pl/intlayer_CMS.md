@@ -44,7 +44,7 @@ Intlayer CMS to aplikacja, która pozwala na zewnętrzne zarządzanie treścią 
 
 W tym celu Intlayer wprowadza koncepcję „zdalnych słowników”.
 
-![Interfejs Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![Interfejs Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## Spis treści
 

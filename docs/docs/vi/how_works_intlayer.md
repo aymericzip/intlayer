@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-09-19
 title: Cách Thức Hoạt Động của Intlayer
 description: Tìm hiểu cách Intlayer hoạt động bên trong. Hiểu kiến trúc và các thành phần làm cho Intlayer mạnh mẽ.
 keywords:
@@ -131,49 +131,105 @@ Intlayer bao gồm nhiều gói, mỗi gói có một vai trò cụ thể trong 
 
 Gói `intlayer` được sử dụng trong các ứng dụng để khai báo nội dung trong các tệp nội dung.
 
-### react-intlayer
+### Framework Frontend
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 Gói `react-intlayer` được sử dụng để diễn giải các từ điển Intlayer và làm cho chúng có thể sử dụng trong các ứng dụng React.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 Gói `next-intlayer` được sử dụng như một lớp trên `react-intlayer` để làm cho các từ điển Intlayer có thể sử dụng trong các ứng dụng Next.js. Nó tích hợp các tính năng thiết yếu để làm cho Intlayer hoạt động trong môi trường Next.js, chẳng hạn như middleware dịch thuật, định tuyến, hoặc cấu hình tệp `next.config.js`.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 Gói `vue-intlayer` được sử dụng để diễn giải các từ điển Intlayer và làm cho chúng có thể sử dụng trong các ứng dụng Vue.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 Gói `nuxt-intlayer` là một module Nuxt để làm cho các từ điển Intlayer có thể sử dụng trong các ứng dụng Nuxt. Nó tích hợp các tính năng thiết yếu để làm cho Intlayer hoạt động trong môi trường Nuxt, chẳng hạn như middleware dịch thuật, định tuyến, hoặc cấu hình tệp `nuxt.config.js`.
 
-### svelte-intlayer (Đang phát triển)
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 Gói `svelte-intlayer` được sử dụng để diễn giải các từ điển Intlayer và làm cho chúng có thể sử dụng trong các ứng dụng Svelte.
 
-### solid-intlayer (Đang phát triển)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 Gói `solid-intlayer` được sử dụng để diễn giải các từ điển Intlayer và làm cho chúng có thể sử dụng trong các ứng dụng Solid.js.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 Gói `preact-intlayer` được sử dụng để diễn giải các từ điển Intlayer và làm cho chúng có thể sử dụng trong các ứng dụng Preact.
 
-### angular-intlayer (Đang phát triển)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 Gói `angular-intlayer` được sử dụng để diễn giải các từ điển Intlayer và làm cho chúng có thể sử dụng trong các ứng dụng Angular.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
 
-Gói `express-intlayer` được sử dụng để dùng Intlayer trên backend Express.js.
+Gói `astro-intlayer` cung cấp các công cụ cần thiết để tích hợp Intlayer vào các ứng dụng Astro. Nó cấu hình định tuyến theo locale và quản lý từ điển.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+Gói `remix-intlayer` cung cấp các công cụ cần thiết để tích hợp Intlayer vào các ứng dụng Remix. Nó cấu hình định tuyến theo locale, ngữ cảnh phía máy chủ và quản lý từ điển.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
 
 Gói `react-native-intlayer` cung cấp các công cụ tích hợp plugin để Intlayer hoạt động với Metro bundler.
 
-### lynx-intlayer
+  </Tab>
+  <Tab label="Lit" value="lit">
 
-Gói `lynx-intlayer` cung cấp các công cụ tích hợp plugin để Intlayer hoạt động với Lynx bundler.
+Gói `lit-intlayer` cung cấp các công cụ và thành phần để diễn giải và sử dụng từ điển Intlayer trong các ứng dụng Lit.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+Gói `vanilla-intlayer` cung cấp các công cụ để tích hợp Intlayer vào các ứng dụng JavaScript thuần, HTML hoặc PHP.
+
+  </Tab>
+</Tabs>
+
+### Framework Backend
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
+
+Gói `express-intlayer` được sử dụng để dùng Intlayer trên backend Express.js.
+
+  </Tab>
+  <Tab label="Fastify" value="fastify">
+
+Gói `fastify-intlayer` cung cấp một plugin cho các ứng dụng Fastify để xử lý internationalization. Nó phát hiện locale của người dùng và mở rộng (decorate) đối tượng request.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+Gói `hono-intlayer` cung cấp một middleware cho các ứng dụng Hono để xử lý quốc tế hóa. Nó phát hiện ngôn ngữ của người dùng và điền vào đối tượng ngữ cảnh.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+Gói `elysia-intlayer` cung cấp một plugin cho các ứng dụng Elysia để xử lý internationalization. Nó phát hiện locale của người dùng và tiêm một đối tượng `intlayer` vào route context.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+Gói `adonis-intlayer` cung cấp một middleware cho các ứng dụng AdonisJS để xử lý quốc tế hóa. Nó phát hiện ngôn ngữ của người dùng và cung cấp các hàm dịch.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 
@@ -182,6 +238,10 @@ Bao gồm plugin Vite để tích hợp Intlayer với [Vite bundler](https://vi
 ### react-scripts-intlayer
 
 Bao gồm các lệnh và plugin `react-scripts-intlayer` để tích hợp Intlayer với ứng dụng dựa trên Create React App. Các plugin này dựa trên [craco](https://craco.js.org/) và bao gồm cấu hình bổ sung cho bundler [Webpack](https://webpack.js.org/).
+
+### eslint-plugin-intlayer
+
+Gói `eslint-plugin-intlayer` cung cấp các quy tắc ESLint và oxlint để phát hiện chuỗi chưa được dịch, xác thực định nghĩa từ điển và thực thi các phương pháp hay nhất về i18n.
 
 ### intlayer-editor
 
@@ -216,9 +276,21 @@ Gói `@intlayer/cli` là một gói NPM được sử dụng để khai báo cá
 
 Gói `@intlayer/mcp` cung cấp một server MCP (Model Context Protocol) mang đến sự hỗ trợ IDE được trang bị AI, được tùy chỉnh cho hệ sinh thái Intlayer. Nó tự động tải tài liệu và tích hợp với CLI của Intlayer.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/lsp
 
-Gói `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` và `@intlayer/dynamic-dictionaries-entry` trả về đường dẫn entry của các từ điển Intlayer. Vì việc tìm kiếm hệ thống tập tin từ trình duyệt là không thể, nên việc sử dụng các bundler như Webpack hoặc Rollup để lấy đường dẫn entry của các từ điển cũng không khả thi. Các gói này được thiết kế để được alias, cho phép tối ưu hóa bundling trên nhiều bundler khác nhau như Vite, Webpack và Turbopack.
+Gói `@intlayer/lsp` cung cấp máy chủ Language Server Protocol (LSP) dành riêng cho Intlayer. Nó mang lại các tính năng IDE như Đi đến định nghĩa, Tìm tham chiếu, xem trước khi di chuột, tự động hoàn thành khóa từ điển và cảnh báo chẩn đoán.
+
+### @intlayer/ai
+
+Gói `@intlayer/ai` cung cấp các khả năng SDK cho các ứng dụng Intlayer, cho phép dịch tự động và tạo nội dung bằng AI.
+
+### @intlayer/analytics
+
+Gói `@intlayer/analytics` cung cấp các công cụ để thu thập số liệu lượt hiển thị nội dung, phân tích cấp độ trang/ngôn ngữ và nút, đồng thời hỗ trợ thử nghiệm A/B nội dung.
+
+### @intlayer/dictionaries-entry
+
+Gói `@intlayer/dictionaries-entry` trả về đường dẫn entry của các từ điển Intlayer: các từ điển đã hợp nhất từ thư mục gốc, và các từ điển chưa hợp nhất, từ xa (remote), động (dynamic) và fetch từ các đường dẫn con `/unmerged`, `/remote`, `/dynamic` và `/fetch`. Vì việc tìm kiếm hệ thống tập tin từ trình duyệt là không thể, nên việc sử dụng các bundler như Webpack hoặc Rollup để lấy đường dẫn entry của các từ điển cũng không khả thi. Gói này và các đường dẫn con của nó được thiết kế để được alias, cho phép tối ưu hóa bundling trên nhiều bundler khác nhau như Vite, Webpack và Turbopack.
 
 ### @intlayer/engine
 

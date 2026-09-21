@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-08-09
+updatedAt: 2026-09-16
 title: Otimizando o Tamanho e a Performance do Bundle i18n
 description: Reduza o tamanho do bundle da sua aplicação otimizando o conteúdo de internacionalização (i18n). Aprenda como aproveitar o tree shaking e lazy loading para dicionários usando o Intlayer.
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 Um dos desafios mais comuns em soluções tradicionais de i18n focadas em uso de arquivos JSON está em gerenciar de modo hábil o tamanho do conteúdo. Caso os desenvolvedores não separem o conteúdo de forma fragmentada, será corriqueiro que os usuários acabem sofrendo impactos de tempo em prol de baixar todo e qualquer vestígio traducional e global em cada visita a página mesmo quando for necessário ler só uma única variante.
 
 Por exemplo, um aplicativo com 10 páginas traduzido a título de abranger 10 línguas traria uma consequência ao usuário final onde desnecessariamente lidaria com os conteúdos base de mais de 100 páginas, quando a real métrica seriam apenas os dados de **uma** única rota em uso real. Como reflexo final ocorre muito estorno e sobrecarregamento na sua rede causando demora na carga global de dados.
+
+O gráfico abaixo estima o peso do conteúdo para uma aplicação teórica de 1 a 10 páginas traduzida para 1 a 10 idiomas, com cerca de 30 KB de texto por página. Carregar o conteúdo dinamicamente por locale remove o eixo dos idiomas, delimitar o conteúdo por componente ou por rota remove o eixo das páginas, e só a combinação dos dois mantém o peso estável.
+
+![Vazamento de conteúdo teórico por arquitetura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **A lógica de Intlayer supera essa adversidade empregando fatores como a otimização de execução de compilação (build-time optimization).** É um cenário que abrange de frente análises na arquitetura nativa com intenção em entender puramente quais dicionários acabam compondo partes exclusivas relativas a cada componente sem sobrecarregar toda sua base com dicionários sem efetividade imediata.
 

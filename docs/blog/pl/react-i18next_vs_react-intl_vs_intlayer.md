@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: Integracja react-i18next z next-intl i Intlayer dla internacjonalizacji (i18n) aplikacji React
 keywords:
@@ -106,6 +106,10 @@ Oceniamy:
 
 **Dlaczego to ważne:** Mniejsze paczki i mniej nieużywanych ciągów poprawiają wydajność uruchamiania i nawigacji.
 
+Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 1 do 10 stron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę. Dynamiczne ładowanie treści per locale usuwa oś języków, ograniczenie treści do komponentu lub trasy usuwa oś stron, a tylko połączenie obu utrzymuje rozmiar na stałym poziomie.
+
+![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 ### 6) DX, narzędzia i utrzymanie
 
 - **react-intl / react-i18next**: Szeroki ekosystem społeczności; do przepływów redakcyjnych zazwyczaj korzystasz z zewnętrznych platform lokalizacyjnych.
@@ -129,7 +133,7 @@ Korzystając z `intlayer`, możesz deklarować swoją zawartość w formacie ulu
 
 Gwiazdy na GitHubie są silnym wskaźnikiem popularności projektu, zaufania społeczności oraz jego długoterminowej istotności. Choć nie są bezpośrednią miarą jakości technicznej, odzwierciedlają, ilu programistów uważa projekt za użyteczny, śledzi jego rozwój i prawdopodobnie go zaadaptuje. Przy szacowaniu wartości projektu, gwiazdy pomagają porównać zainteresowanie różnymi alternatywami oraz dostarczają wglądu w rozwój ekosystemu.
 
-[![Wykres historii gwiazd](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+[![Wykres historii gwiazd](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
 ## Podsumowanie
 

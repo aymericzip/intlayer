@@ -1302,7 +1302,7 @@ Intlayer использует расширение модулей (module augmen
 
 ![Автодополнение](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Убедитесь, что ваша конфигурация TypeScript включает автоматически сгенерированные типы.
 
@@ -1436,6 +1436,13 @@ Intlayer поддерживает Next.js 12, 13, 14, 15 и 16. Это руко�
 <Question title="Как переводчики и не-разработчики могут редактировать контент?">
 
 Два варианта, оба опциональные. [Визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) работает на вашей собственной инфраструктуре и позволяет любому кликнуть на текст вашего сайта, чтобы отредактировать его на месте. [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) выносит контент вовне, чтобы его можно было обновлять без развёртывания, при этом [живая синхронизация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/live.md) отражает изменения во время выполнения.
+
+</Question>
+<Question title="Каковы затраты ресурсов на визуальный редактор? Не является ли он избыточным, если он мне не нужен?">
+
+[Визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) имеет **нулевую стоимость** для вашего приложения, если он не настроен. Дополнительная логика загружается только в том случае, если она явно включена и необходима.
+
+Даже если он включен, влияние крайне незначительно (+5 кБ, загружается динамически только при активации), поскольку основная логика обрабатывается серверным редактором на [app.intlayer.org](https://app.intlayer.org) или через пакет `intlayer-editor`. Если вам нужно простое решение для перевода без визуального редактирования, Intlayer не создает никаких накладных расходов для вашего приложения.
 
 </Question>
 <Question title="Как отловить недостающие переводы перед выпуском?">

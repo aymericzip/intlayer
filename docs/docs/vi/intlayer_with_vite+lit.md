@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-06-23
+updatedAt: 2026-09-20
 title: "Vite + Lit i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Vite + Lit đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
@@ -600,6 +600,76 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+<Tabs>
+ <Tab value='Lệnh Extract'>
+
+Chạy trình trích xuất để chuyển đổi các thành phần và trích xuất nội dung
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Trình biên dịch Babel'>
+
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
+
+Cập nhật `vite.config.ts` của bạn để bao gồm plugin `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Adds the compiler plugin
+  ],
+});
+```
+
+ </Tab>
+ </Tabs>
+
+Build ứng dụng của bạn để chuyển đổi các thành phần và trích xuất nội dung
+
+```bash packageManager="npm"
+npm run build # Hoặc npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Hoặc pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Hoặc yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Hoặc bun run dev
+```
+
+ </Tab>
+</Tabs>
+
 </Step>
 
 </Steps>
@@ -638,7 +708,9 @@ const pathList = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+const sitemapXml = generateSitemap(pathList, {
+  siteUrl: "https://example.com",
+});
 fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
 
 const getAllMultilingualUrls = (urls) =>
@@ -651,7 +723,7 @@ const robotsTxt = [
   "Allow: /",
   ...disallowedPaths.map((path) => `Disallow: ${path}`),
   "",
-  `Sitemap: ${SITE_URL}/sitemap.xml`,
+  `Sitemap: https://example.com/sitemap.xml`,
 ].join("\n");
 
 fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);

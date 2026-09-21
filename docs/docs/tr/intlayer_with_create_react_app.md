@@ -607,7 +607,7 @@ Intlayer, kod tabanınızı daha güçlü hale getirmek için modül genişletme
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScript yapılandırmanızın otomatik oluşturulan türleri içerdiğinden emin olun.
 

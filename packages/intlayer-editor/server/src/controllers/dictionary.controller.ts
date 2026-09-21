@@ -2,14 +2,14 @@ import { join } from 'node:path';
 import { getConfiguration } from '@intlayer/config/node';
 import { clearModuleCache } from '@intlayer/config/utils';
 import {
+  getUnmergedDictionaries,
+  type UnmergedDictionaries,
+} from '@intlayer/dictionaries-entry/unmerged';
+import {
   type DictionaryStatus,
   writeContentDeclaration as writeContentDeclarationEditor,
 } from '@intlayer/engine/build';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import {
-  getUnmergedDictionaries,
-  type UnmergedDictionaries,
-} from '@intlayer/unmerged-dictionaries-entry';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';

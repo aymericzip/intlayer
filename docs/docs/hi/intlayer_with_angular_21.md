@@ -419,7 +419,7 @@ Intlayer TypeScript के लाभों को प्राप्त कर�
 
 ![स्वत: पूर्णता](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![अनुवाद त्रुटि](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![अनुवाद त्रुटि](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 सुनिश्चित करें कि आपके TypeScript कॉन्फ़िगरेशन में स्वत: उत्पन्न प्रकार शामिल हैं।
 

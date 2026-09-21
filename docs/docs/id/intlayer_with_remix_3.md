@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-11
+updatedAt: 2026-09-19
 title: "Remix 3 i18n - Panduan Lengkap Menerjemahkan Aplikasi Anda"
 description: "Lupakan i18next. Panduan 2026 untuk membangun aplikasi Remix 3 multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, serta performa."
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-remix-3-template
 applicationShowcase: https://intlayer-remix-3-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Menggunakan middleware dan hook remix-intlayer"
   - version: 9.5.0
     date: 2026-09-09
     changes: "Dokumentasi awal untuk Remix 3"
@@ -39,7 +42,7 @@ Panduan ini menunjukkan cara mengintegrasikan **Intlayer** untuk internasionalis
 - **`remix/node-fetch-server`**: Adapter server untuk Node.js dengan dukungan bawaan untuk Bun, Deno, dan runtime edge.
 - **`remix/cookie`**: Penguraian dan serialisasi cookie yang ditandatangani secara kriptografis.
 
-Dikombinasikan dengan **Intlayer**, Anda mendapatkan sistem internasionalisasi lengkap yang memberikan keamanan waktu kompilasi, terjemahan AI otomatis, rendering server tanpa overhead, dan perutean lokal yang lancar.
+Dikombinasikan dengan **Intlayer** dan paket **`remix-intlayer`**, middleware lokal plus hook `useIntlayer` / `useDictionary` / `useLocale` yang sama dengan `react-intlayer`, yang terikat pada konteks permintaan Remix, Anda mendapatkan sistem internasionalisasi lengkap yang menghadirkan keamanan saat kompilasi, terjemahan otomatis AI, rendering server tanpa beban tambahan, dan perutean lokal yang lancar.
 
 ## Daftar Isi
 
@@ -52,7 +55,7 @@ Dibandingkan dengan solusi tradisional seperti `i18next` atau pemuat terjemahan 
 <AccordionGroup>
 <Accordion header="Cakupan Penuh Remix 3 & Standar Web">
 
-Intlayer dirancang untuk bekerja secara mulus dengan standar web (`Request`, `Response`, `Headers`, dan `URL`). Intlayer terintegrasi dengan mudah ke dalam router Fetch Remix 3 melalui middleware ringan, mengekstrak lokalitas dari jalur URL, cookie, atau header `Accept-Language` tanpa mengunci Anda ke runtime tertentu.
+Intlayer dirancang untuk bekerja secara mulus dengan standar web (`Request`, `Response`, `Headers`, dan `URL`). `remix-intlayer` terhubung ke perute Fetch Remix 3 sebagai middleware ringan, mengekstrak lokal dari jalur URL, cookie, atau header `Accept-Language` dan mengeksposnya ke sisa permintaan, penangan, tampilan, dan komponen `remix/ui`, tanpa meneruskannya secara manual atau mengunci Anda ke runtime tertentu.
 
 </Accordion>
 <Accordion header="Deklarasi Konten yang Aman Secara Tipe">
@@ -109,25 +112,26 @@ Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-remix-3-templat
 <Steps>
 <Step number={1} title="Instal Dependensi">
 
-Instal `intlayer` dan `remix` (versi 3) menggunakan manajer paket pilihan Anda:
+Instal `intlayer`, `remix-intlayer`, dan `remix` (versi 3) menggunakan pengelola paket pilihan Anda:
 
 ```bash packageManager="npm"
-npm install intlayer remix@next
+npm install intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer remix@next
+pnpm add intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer remix@next
+yarn add intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="bun"
-bun add intlayer remix@next
+bun add intlayer remix-intlayer remix@next
 ```
 
 - **`intlayer`**: Mesin inti internasionalisasi yang menyediakan manajemen konfigurasi, deklarasi kamus (`t()`, `Dictionary`), alat CLI, dan penerjemah runtime.
+- **`remix-intlayer`**: Integrasi Remix 3: middleware perute `intlayer()` yang menyelesaikan lokal setiap permintaan, dan hook `useIntlayer`, `useDictionary`, dan `useLocale` yang membacanya di mana pun setelahnya.
 - **`remix`**: Paket kerangka kerja terpadu Remix 3 yang mengekspor `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render`, dan `remix/node-fetch-server`.
 
 </Step>
@@ -254,64 +258,29 @@ bun x intlayer build
 Ini mengompilasi konten Anda ke dalam direktori artefak `.intlayer`, memungkinkan pelengkapan otomatis TypeScript penuh dan pencarian kamus yang cepat.
 
 </Step>
-<Step number={5} title="Terapkan Middleware Intlayer">
+<Step number={5} title="Tambahkan Middleware Intlayer">
 
-Remix 3 menyediakan pipeline middleware modular melalui `createRouter({ middleware: [...] })`.
+Remix 3 menyediakan pipa middleware yang dapat disusun melalui `createRouter({ middleware: [...] })`.
 
-Buat middleware Intlayer yang menyelesaikan lokalitas setiap permintaan yang masuk berdasarkan:
+`remix-intlayer` menyediakan middleware `intlayer()`. Untuk setiap permintaan masuk, ia menyelesaikan lokal menggunakan:
 
-1. Prefiks jalur URL melalui `getLocaleFromPath` (misalnya `/id` atau `/fr`).
-2. Pembantu `getLocale` Intlayer, yang secara otomatis menegosiasikan cookie penyimpanan (`INTLAYER_LOCALE`), header kustom (`x-intlayer-locale`), header standar `Accept-Language`, dan `defaultLocale` Anda.
+1. URL, dalam setiap mode perutean kecuali `no-prefix`: awalan jalur (mis. `/id` atau `/en`) atau parameter pencarian `?locale=`.
+2. Lokal yang disimpan oleh klien: cookie penyimpanan (`INTLAYER_LOCALE`) atau header kustom (`x-intlayer-locale`).
+3. Negosiasi standar `Accept-Language`, kembali ke `defaultLocale` yang Anda konfigurasikan.
 
-```typescript fileName="src/middleware/intlayer.ts" codeFormat={["typescript", "esm"]}
-import {
-  defaultLocale,
-  getCookie,
-  getLocale,
-  getLocaleFromPath,
-  type Locale,
-} from "intlayer";
-import { createContextKey, type Middleware } from "remix/router";
+Hasilnya disimpan dalam konteks permintaan Remix sebagai `context.intlayer` (atau `context.get(Intlayer)`), dengan `locale`, `defaultLocale`, dan `availableLocales`. Middleware kemudian menjalankan sisa permintaan di dalam cakupan `AsyncLocalStorage` yang terikat pada konteks tersebut, yang memungkinkan hook dari paket membaca lokal tanpa argumen, baik di penangan rute, tampilan, maupun komponen `remix/ui`:
 
-/**
- * Kunci konteks yang aman secara tipe untuk mengambil bahasa yang diselesaikan dari Remix 3 RequestContext.
- */
-export const localeKey = createContextKey<Locale>(defaultLocale);
+```typescript
+import { useIntlayer, useLocale } from "remix-intlayer";
 
-/**
- * Middleware Intlayer untuk Remix 3.
- *
- * Menyelesaikan bahasa permintaan berdasarkan prioritas berikut:
- * 1. Prefiks jalur URL (misalnya `/id/...`) melalui `getLocaleFromPath`
- * 2. Negosiasi penyimpanan & header melalui `getLocale` (cookie, header kustom, Accept-Language, fallback defaultLocale)
- *
- * Melampirkan bahasa yang diselesaikan ke Remix 3 RequestContext.
- */
-export const intlayer = (): Middleware => {
-  return async (context, next) => {
-    // Deteksi jalur (/id/about -> "id", /about -> undefined)
-    const pathLocale = getLocaleFromPath(context.url.pathname);
-
-    if (pathLocale) {
-      // Lampirkan bahasa yang diselesaikan ke konteks permintaan Remix 3
-      context.set(localeKey, pathLocale);
-
-      return next();
-    }
-
-    const storedLocale = await getLocale({
-      getHeader: (name) => context.headers.get(name),
-      getCookie: (name) =>
-        getCookie(name, context.headers.get("cookie") ?? undefined),
-    });
-
-    // Lampirkan bahasa yang diselesaikan ke konteks permintaan Remix 3
-    context.set(localeKey, storedLocale ?? defaultLocale);
-
-    return next();
-  };
-};
+// Di mana saja setelah middleware
+const { locale, availableLocales } = useLocale();
+const { title } = useIntlayer("home");
 ```
+
+`useIntlayer("home", "fr")` atau `useIntlayer("faq", { item: 2 })` mengganti lokal permintaan untuk satu panggilan, dan `useDictionary(homeContent)` membaca kamus yang diimpor alih-alih kunci. Di luar permintaan, hook kembali ke lokal default.
+
+> Middleware juga menyiapkan kamus Intlayer saat server dimulai, sehingga `intlayer build` yang terlewat tidak membiarkan registri kosong.
 
 </Step>
 <Step number={6} title="Definisikan Rute yang Aman Secara Tipe">
@@ -342,89 +311,81 @@ routes.localizedHome.href({ locale: "id" }); // "/id"
 
 Remix 3 menggunakan `remix/ui` untuk komponen JSX. Sebuah komponen adalah **fungsi setup** yang mengembalikan **fungsi render**. Props diteruskan melalui `handle` yang bertipe (misalnya, `handle.props.locale`):
 
-Buat cangkang dokumen HTML bersama:
+Mulailah dengan shell `Document` bersama yang menyetel atribut `<html lang="..." dir="...">` dari lokal yang diselesaikan oleh middleware:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
-import type { SetupFunction } from "remix/ui";
+import { getHTMLTextDir } from "intlayer";
+import { useLocale } from "remix-intlayer";
+import type { Handle, RemixNode } from "remix/ui";
 
-export const Document: SetupFunction<{
+type DocumentProps = {
   title: string;
-  lang?: string;
-  dir?: string;
-  children?: any;
-}> = (handle) => {
-  return () => {
-    const { title, lang = "en", dir = "ltr", children } = handle.props;
+  children?: RemixNode;
+};
 
-    return (
-      <html lang={lang} dir={dir}>
-        <head>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <title>{title}</title>
-        </head>
-        <body>{children}</body>
-      </html>
-    );
-  };
+export const Document = (handle: Handle<DocumentProps>) => () => {
+  const { title, children } = handle.props;
+  const { locale } = useLocale();
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+      </head>
+      <body>{children}</body>
+    </html>
+  );
 };
 ```
 
-Kemudian buat tampilan halaman beranda. Gunakan `getIntlayer` untuk mengambil konten kamus untuk lokalitas aktif, dan render pengalih bahasa menggunakan `getLocalizedPath`:
+Kemudian buat halaman beranda. Halaman ini membaca kamus yang dilokalkan dengan `useIntlayer` dan merender pengalih bahasa:
 
 ```tsx fileName="src/views/home.tsx" codeFormat={["typescript", "esm"]}
-import {
-  getIntlayer,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedPath,
-  type Locale,
-  locales,
-} from "intlayer";
-import type { SetupFunction } from "remix/ui";
-import { routes } from "../routes";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
+import { useIntlayer, useLocale } from "remix-intlayer";
 import { Document } from "./document";
 
-export const HomePage: SetupFunction<{ locale: Locale }> = (handle) => {
-  return () => {
-    const { locale } = handle.props;
-    const content = getIntlayer("home", locale);
+export const HomePage = () => () => {
+  const { locale, availableLocales } = useLocale();
+  const home = useIntlayer("home");
+  const pathWithoutLocale = getPathWithoutLocale();
 
-    return (
-      <Document
-        title={content.title}
-        lang={locale}
-        dir={getHTMLTextDir(locale)}
-      >
-        <header>
-          <nav aria-label="Languages">
-            <span>{content.switchLanguage}</span>
-            {locales.map((loc) => {
-              const href = getLocalizedPath(routes.home.href(), loc);
-              const isActive = loc === locale;
+  return (
+    <Document title={home.title}>
+      <header>
+        <nav aria-label="Languages">
+          <span>{home.switchLanguage}</span>
+          <ul>
+            {availableLocales.map((localeItem) => {
+              const isActive = localeItem === locale;
+
               return (
-                <a
-                  href={href}
-                  class={isActive ? "active" : undefined}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  {getLocaleName(loc, locale)}
-                </a>
+                <li key={localeItem} class="p-1">
+                  <a
+                    href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+                    class={isActive ? "active" : undefined}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {getLocaleName(localeItem, locale)}
+                  </a>
+                </li>
               );
             })}
-          </nav>
-        </header>
-        <main>
-          <h1>{content.title}</h1>
-          <p>{content.description}</p>
-        </main>
-      </Document>
-    );
-  };
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <h1>{home.title}</h1>
+        <p>{home.description}</p>
+      </main>
+    </Document>
+  );
 };
 ```
 
-> Remix JSX bukan React: tidak ada hooks, `class` ditulis sebagaimana adanya (bukan `className`), dan komponen dialirkan langsung ke respons HTML tanpa beban JavaScript sisi klien apa pun.
+> Remix JSX bukanlah React: `class` ditulis apa adanya (`className` juga diterima), dan render ulang dipicu secara eksplisit dengan `handle.update()`. Nilai yang diinterpolasi otomatis lolos (escaped). Hook Intlayer adalah fungsi biasa yang membaca cakupan permintaan, sehingga dapat dipanggil dari fungsi setup atau fungsi render.
 
 </Step>
 <Step number={8} title="Hubungkan Router dan Server">
@@ -433,45 +394,37 @@ Buat `src/router.tsx` untuk mendaftarkan middleware dan menentukan aksi rute. Gu
 
 ```tsx fileName="src/router.tsx" codeFormat={["typescript", "esm"]}
 import { isDeclaredLocale } from "intlayer";
+import { intlayer } from "remix-intlayer";
 import { render } from "remix/middleware/render";
 import { createRouter } from "remix/router";
-import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
 import { HomePage } from "./views/home";
 
+// 1. Initialize router with Intlayer + render middleware
 export const router = createRouter({
   middleware: [intlayer(), render()],
 });
 
+// 2. Map route handlers
 router.map(routes, {
   actions: {
-    // Rute bahasa default (misalnya /)
+    // Default locale route
     home(context) {
-      const locale = context.get(localeKey);
-      return context.render(<HomePage locale={locale} />);
+      return context.render(<HomePage />);
     },
 
-    // Rute terlokalisasi (misalnya /fr, /es)
+    // Localized route
     localizedHome(context) {
-      const { locale } = context.params;
-
-      if (!isDeclaredLocale(locale)) {
+      if (!isDeclaredLocale(context.params.locale)) {
         return new Response("Not Found", { status: 404 });
       }
-
-      return context.render(<HomePage locale={locale} />);
+      return context.render(<HomePage />);
     },
   },
 });
 ```
 
-> `context.render` menerima `ResponseInit` opsional sebagai argumen kedua, sehingga Anda dapat menetapkan header kustom (misalnya `Content-Language` atau `Cache-Control`) bersama halaman yang dirender:
->
-> ```typescript
-> return context.render(<HomePage locale={locale} />, {
->   headers: { "Content-Language": locale },
-> });
-> ```
+> `context.render` menerima `ResponseInit` opsional sebagai argumen kedua, mis. `context.render(<NotFoundPage />, { status: 404 })`. Lokal yang diselesaikan tetap dapat dijangkau dari penangan sebagai `context.intlayer.locale`, misalnya untuk membangun respons `Response.json`.
 
 Sekarang hubungkan `src/server.ts` menggunakan `remix/node-fetch-server` untuk Node.js (atau ekspor handler `fetch` secara langsung untuk Bun, Deno, atau Cloudflare Workers):
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Is i18next Outdated in 2026?
 description: i18next powers millions of websites, but its 2011 runtime architecture is showing its age. A look at bundle bloat, tree-shaking limits, and stalled innovation.
 keywords:
@@ -70,7 +70,7 @@ Activity across the trailing twelve months:
 | `i18next` core  | 2,626            | **259**        | Minor patches                             |
 | Intlayer        | 7,156            | **4,343**      | Compiler, IDE tooling & AI engine         |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 A small library can be complete and stable. But i18n tooling didn't freeze: modern bundlers now eliminate unreferenced copy at build time, LLMs handle translations instantly in CI, and editors rely on dedicated Language Servers (LSP) and AI agents. Because i18next relies on an open runtime plugin model, compilers cannot inspect it, leaving it stuck in place.
 
@@ -124,6 +124,10 @@ On Next.js, `next-i18next` adds **76.7 KB gzipped** over baseline, a ~50% jump. 
 **Copy leakage:**
 
 In default setups, nearly **90% of localized text** sent to a route belongs to other pages. Manual namespacing helps, but requires brittle route-by-route bookkeeping.
+
+The graph below generalizes this to a theoretical app of 1 to 10 pages in 1 to 10 locales, with about 30 KB of text per page. Lazy backends remove the locale axis, namespaces scoped per route or component remove the page axis, and only the combination keeps the payload flat.
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Hydration lag:**
 

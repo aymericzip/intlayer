@@ -10,6 +10,7 @@ export const BACKEND_INTLAYER_PACKAGES = [
   'adonis-intlayer',
   'hono-intlayer',
   'elysia-intlayer',
+  'remix-intlayer',
 ];
 
 export type ResolveDevScriptParams = {

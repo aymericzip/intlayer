@@ -350,7 +350,7 @@ Intlayerは、TypeScriptの利点を活かしてコードベースを強力に�
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScriptの設定に自動生成された型が含まれていることを確認してください。
 

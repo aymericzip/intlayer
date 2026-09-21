@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Vite + Solid i18n - Guia completo para traduzir seu aplicativo"
 description: "Sem mais i18next. O guia 2026 para criar uma aplicação Vite + Solid multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:
@@ -585,7 +585,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilador Babel'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Atualize seu `vite.config.ts` para incluir o plugin `intlayerCompiler`:
 
@@ -600,6 +606,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Compile sua aplicação para transformar seus componentes e extrair o conteúdo
 
 ```bash packageManager="npm"
 npm run build # Ou npm run dev
@@ -657,7 +668,9 @@ const pathList = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+const sitemapXml = generateSitemap(pathList, {
+  siteUrl: "https://example.com",
+});
 fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
 
 const getAllMultilingualUrls = (urls) =>
@@ -670,7 +683,7 @@ const robotsTxt = [
   "Allow: /",
   ...disallowedPaths.map((path) => `Disallow: ${path}`),
   "",
-  `Sitemap: ${SITE_URL}/sitemap.xml`,
+  `Sitemap: https://example.com/sitemap.xml`,
 ].join("\n");
 
 fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
@@ -819,6 +832,13 @@ Sim: [formas plurais](https://github.com/aymericzip/intlayer/blob/main/docs/docs
 <Question title="Como tradutores podem editar o conteúdo sem tocar no código?">
 
 Por meio do [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md), que roda em sua própria infraestrutura e permite editar textos diretamente no app em execução, ou pelo [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md), que externaliza o conteúdo para que ele possa ser alterado sem novos deploys.
+
+</Question>
+<Question title="Qual é o custo do editor visual? É excessivo se eu não precisar dele?">
+
+O [editor visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) tem **custo zero** na sua aplicação se não estiver configurado. A lógica extra só é carregada se explicitamente ativada e necessária.
+
+Mesmo quando ativado, o impacto é extremamente leve (+5 KB, carregado dinamicamente apenas quando ativado), pois a maior parte da lógica é tratada pelo editor do servidor em [app.intlayer.org](https://app.intlayer.org) ou através do pacote `intlayer-editor`. Se você precisa apenas de uma solução simples de tradução sem edição visual, o Intlayer não adiciona nenhuma sobrecarga à sua aplicação.
 
 </Question>
 <Question title="O Intlayer é gratuito e de código aberto?">

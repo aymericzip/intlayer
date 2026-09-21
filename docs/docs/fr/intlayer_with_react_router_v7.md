@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "React Router v7 i18n - Guide complet pour traduire votre application"
 description: "Oubliez i18next. Le guide 2026 pour créer une application React Router v7 multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
@@ -43,7 +43,7 @@ author: aymericzip
 
 Ce guide montre comment intégrer **Intlayer** pour une internationalisation fluide dans les projets React Router v7 avec un routage sensible à la locale, la prise en charge de TypeScript, et des pratiques de développement modernes.
 
-Ce guide se concentre sur le routage frontend. Pour le routage fs-routes, consultez le guide [Intlayer avec React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_react_router_v7_fs_routes.md).
+Il couvre à la fois le **routage basé sur la configuration** (`routes.ts`) et le **routage basé sur le système de fichiers** (`@react-router/fs-routes`).
 
 ## Table of Contents
 
@@ -865,7 +865,7 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='Commande d'extraction'>
+ <Tab value="Commande d'extraction">
 
 Exécutez l'extracteur pour transformer vos composants et extraire le contenu
 
@@ -888,7 +888,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilateur Babel'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
+> Depuis la v9, `intlayerCompiler` est inclus dans le plugin `intlayer`. Vous n'avez donc pas besoin de l'ajouter manuellement.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Mettez à jour votre fichier `vite.config.ts` pour inclure le plugin `intlayerCompiler` :
 
@@ -899,10 +905,15 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
+    intlayerCompiler(), // Ajoute le plugin du compilateur
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Buildez votre application pour transformer vos composants et extraire le contenu
 
 ```bash packageManager="npm"
 npm run build # Ou npm run dev
@@ -1036,7 +1047,7 @@ Cinq éléments, tous optionnels :
 </Question>
 <Question title="Comment ajouter un segment de locale à mes routes ?">
 
-Déclarez un segment `:locale` sur votre arbre de routes et laissez Intlayer le résoudre. `validatePrefix` vous indique si le segment est une locale déclarée, si bien qu'un préfixe inconnu renvoie un 404 au lieu d'afficher une page dupliquée, et `getLocalizedUrl` réécrit n'importe quel chemin dans la langue cible. Si vous utilisez les routes du système de fichiers, suivez la [variante routes du système de fichiers](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_react_router_v7_fs_routes.md) de ce guide.
+Déclarez un segment `:locale` sur votre arbre de routes et laissez Intlayer le résoudre. `validatePrefix` vous indique si le segment est une locale déclarée, si bien qu'un préfixe inconnu renvoie un 404 au lieu d'afficher une page dupliquée, et `getLocalizedUrl` réécrit n'importe quel chemin dans la langue cible. Si vous utilisez les routes du système de fichiers, préfixez le nom de vos fichiers de route avec le segment dynamique `($locale)`.
 
 </Question>
 <Question title="Dois-je mettre la locale dans l'URL ?">
@@ -1072,6 +1083,13 @@ Oui : les [formes plurielles](https://github.com/aymericzip/intlayer/blob/main/d
 <Question title="Comment les traducteurs peuvent-ils modifier le contenu sans toucher au code ?">
 
 Via l'[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) auto-hébergé ou le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md), qui externalise le contenu afin qu'il puisse changer sans déploiement.
+
+</Question>
+<Question title="Quel est le coût de l'éditeur visuel ? Est-il superflu si je n'en ai pas besoin ?">
+
+L'[éditeur visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) a un **coût nul** sur votre application s'il n'est pas configuré. La logique supplémentaire n'est chargée que si elle est explicitement activée et nécessaire.
+
+Même s'il est activé, le coût est extrêmement léger (+5 ko, chargé dynamiquement uniquement lorsqu'il est activé), car l'essentiel de la logique est géré par l'éditeur serveur sur [app.intlayer.org](https://app.intlayer.org) ou via le package `intlayer-editor`. Si vous avez seulement besoin d'une solution de traduction simple sans édition visuelle, Intlayer n'ajoute aucune surcharge à votre application.
 
 </Question>
 <Question title="Intlayer est-il gratuit et open source ?">

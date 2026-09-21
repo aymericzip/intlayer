@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-06-23
+updatedAt: 2026-09-20
 title: "Astro + React i18n - Повний посібник з перекладу вашого застосунку"
 description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Astro + React. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Використання хуків useIntlayer / useLocale з astro-intlayer на сторінці Astro"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Оновлення використання API useIntlayer у Solid для прямого доступу до властивостей"
@@ -153,7 +156,7 @@ bun add intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
   Основний пакет, що надає інструменти i18n для керування конфігурацією, перекладами, [декларацією вмісту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md), транспіляцією та [командами CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md).
 
 - **astro-intlayer**
-  Плагін інтеграції Astro для зв'язку Intlayer з [бандлером Vite](https://vite.dev/guide/why.html#why-bundle-for-production); він також включає middleware для визначення бажаної мови користувача, керування cookie та обробки перенаправлень URL.
+  Включає плагін інтеграції Astro для інтеграції Intlayer із [бандлером Vite](https://vite.dev/guide/why.html#why-bundle-for-production), middleware, що розпізнає локаль кожного запиту в `Astro.locals.intlayer`, та хуки `useIntlayer` / `useDictionary` / `useLocale`. Той самий шлях імпорту розпізнається як серверна реалізація у фронтматтері `.astro` та як клієнтська (на базі `vanilla-intlayer`) у блоках `<script>`.
 
 - **react**, **react-dom**
   Основні пакети React, що використовуються для рендерингу компонентів React у браузері.
@@ -243,19 +246,21 @@ export default appContent;
 </Step>
 <Step number={5} title="Використання вмісту в Astro">
 
-Ви можете використовувати словники безпосередньо у ваших `.astro` файлах, використовуючи основні допоміжні функції, експортовані з `intlayer`. Вам також слід додати метадані SEO (такі як hreflang та канонічні посилання) на кожній сторінці та додати React island для інтерактивного вмісту на стороні клієнта.
+Використовуйте ваші словники у файлах `.astro` за допомогою хуків, що експортуються `astro-intlayer`. Вони мають такі ж сигнатури, як і `react-intlayer`: `useIntlayer("key")` повертає вміст словника, а `useLocale()` поточну локаль, без необхідності передавати аргументи.
+
+Локаль надходить із middleware `astro-intlayer`, яке інтеграція реєструє перед вашим власним `src/middleware.ts`. Воно визначає її для кожного запиту, на основі префікса URL, потім збереженої клієнтом локалі (cookie або заголовок), потім `Accept-Language`, і зберігає в `Astro.locals.intlayer`. Попередньо відрендерені сторінки використовують лише URL, оскільки вони рендеряться один раз для кожного відвідувача.
+
+Вам також слід додати метадані SEO (такі як hreflang та канонічні посилання) на кожній сторінці та додати React island для інтерактивного вмісту на стороні клієнта.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 import { ReactIsland } from "../../components/react/ReactIsland";
 
@@ -265,8 +270,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
+// Локаль, визначена middleware (напр. /uk/about -> 'uk')
+const { locale } = useLocale();
+
+// Вміст словника 'app' для цієї локалі
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -321,6 +329,8 @@ const { title } = getIntlayer("app", locale);
 > <img src={content.image.src.toString()} alt={content.image.toString()} />
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
+
+> `Astro.locals.intlayer` також надає доступ до `locale`, `defaultLocale` та `availableLocales` у ваших власних middleware та ендпоінтах. Передайте локаль або селектор другим аргументом (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`), щоб перевизначити локаль запиту для одного виклику.
 
 > **Примітка щодо налаштування маршрутизації:**
 > Структура каталогів, яку ви використовуєте, залежить від параметра `middleware.routing` у `intlayer.config.ts`:
@@ -434,10 +444,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -537,21 +547,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Компілятор Babel'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Оновіть свій `vite.config.ts`, щоб включити плагін `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Зберіть застосунок, щоб перетворити ваші компоненти та витягти вміст
 
 ```bash packageManager="npm"
 npm run build # Або npm run dev
@@ -582,7 +578,7 @@ Intlayer використовує розширення модулів (module au
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation Error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation Error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Переконайтеся, що ваша конфігурація TypeScript включає автоматично згенеровані типи.
 
@@ -713,6 +709,13 @@ Intlayer використовує розширення модулів (module au
 <Question title="Як перекладачі можуть редагувати вміст без втручання в код?">
 
 Через [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), який дозволяє будь-кому редагувати тексти безпосередньо у працюючому додатку, або через [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), яка відокремлює вміст і дозволяє оновлювати його без повторного розгортання коду.
+
+</Question>
+<Question title="Яка вартість візуального редактора? Чи не є він надлишковим, якщо він мені не потрібен?">
+
+[Візуальний редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) має **нульову вартість** для вашого застосунку, якщо він не налаштований. Додаткова логіка завантажується лише тоді, коли вона явно увімкнена та необхідна.
+
+Навіть якщо він увімкнений, вплив є надзвичайно малим (+5 кБ, завантажується динамічно лише під час активації), оскільки основна логіка обробляється серверним редактором на [app.intlayer.org](https://app.intlayer.org) або через пакет `intlayer-editor`. Якщо вам потрібне просте рішення для перекладу без візуального редагування, Intlayer не створює жодних накладних витрат для вашого застосунку.
 
 </Question>
 <Question title="Чи є Intlayer безкоштовним та відкритим кодом?">

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-16
 title: "컴포넌트별 vs 중앙집중식 i18n: Intlayer를 통한 새로운 접근"
 description: React에서의 국제화 전략을 심층적으로 탐구하며 중앙집중식, 키별, 컴포넌트별 접근법을 비교하고 Intlayer를 소개합니다.
 keywords:
@@ -63,6 +63,7 @@ extension Localization on String {
 - 키 단위 또는 컴포넌트 단위로 콘텐츠 조회를 세분화합니다.
 
   </Column>
+
 </Columns>
 
 > 이 블로그에서는 컴파일러 기반 솔루션에 초점을 맞추지 않겠습니다. 해당 내용은 이미 여기에서 다뤘습니다: [Compiler vs Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md).
@@ -78,6 +79,10 @@ extension Localization on String {
 - 언어 수가 페이지 수보다 많은 경우에는 중앙집중식 접근을 택하는 것이 좋습니다.
 
 물론 라이브러리 저자들은 이러한 한계를 인지하고 우회 방법을 제공합니다. 그중에는 네임스페이스로 분리하기, JSON 파일을 동적으로 로드하기 (`await import()`), 또는 빌드 시 콘텐츠를 정리(purge)하는 방법 등이 있습니다.
+
+아래 그래프는 1~~10개의 페이지를 1~~10개 언어로 번역한 이론상의 앱(페이지당 약 30KB의 텍스트)의 콘텐츠 용량을 추정한 것입니다. 로케일별 동적 로딩은 언어 축을 없애고, 컴포넌트나 라우트 단위로 콘텐츠를 스코프하면 페이지 축이 없어지며, 두 가지를 결합했을 때만 용량이 일정하게 유지됩니다.
+
+![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 동시에, 콘텐츠를 동적으로 로드하면 서버에 대한 추가 요청이 발생한다는 점을 알아두어야 합니다. 추가적인 `useState`나 hook 하나마다 서버 요청이 하나 더 발생합니다.
 
@@ -111,9 +116,9 @@ extension Localization on String {
 
 첫 번째 예시는 locale별로 lazy-loaded 번역을 포함하지 않았으며 네임스페이스 분할도 없습니다. 두 번째는 content purging + 번역의 동적 로딩을 포함합니다.
 
-| 최적화된 번들                                                                                                             | 최적화되지 않은 번들                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| ![최적화되지 않은 번들](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![최적화된 번들](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| 최적화된 번들                                                                                                              | 최적화되지 않은 번들                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| ![최적화되지 않은 번들](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![최적화된 번들](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 네임스페이스 덕분에, 우리는 다음 구조에서:
 

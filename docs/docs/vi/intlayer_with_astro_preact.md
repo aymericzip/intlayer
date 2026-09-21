@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-06-23
+updatedAt: 2026-09-20
 title: "Astro + Preact i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Astro + Preact đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Sử dụng các hook useIntlayer / useLocale của astro-intlayer trong trang Astro"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
@@ -150,7 +153,7 @@ bun add intlayer astro-intlayer preact preact-intlayer @astrojs/preact
   Gói cốt lõi cung cấp các công cụ i18n để quản lý cấu hình, bản dịch, [khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md), chuyển mã và [các lệnh CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).
 
 - **astro-intlayer**
-  Plugin tích hợp Astro để kết nối Intlayer với [trình đóng gói Vite](https://vite.dev/guide/why.html#why-bundle-for-production); nó cũng bao gồm middleware để phát hiện ngôn ngữ ưa thích của người dùng, quản lý cookie và xử lý chuyển hướng URL.
+  Bao gồm plugin tích hợp Astro để tích hợp Intlayer với [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), một middleware phân giải ngôn ngữ của mỗi yêu cầu vào `Astro.locals.intlayer`, và các hook `useIntlayer` / `useDictionary` / `useLocale`. Cùng một đường dẫn import sẽ phân giải thành triển khai máy chủ trong frontmatter `.astro` của bạn và thành triển khai máy khách (được hỗ trợ bởi `vanilla-intlayer`) trong các khối `<script>`.
 
 - **preact**
   Gói Preact cốt lõi - một thay thế nhanh và nhẹ cho React.
@@ -243,19 +246,21 @@ export default appContent;
 </Step>
 <Step number={5} title="Sử dụng nội dung trong Astro">
 
-Bạn có thể sử dụng các từ điển trực tiếp trong các file `.astro` bằng cách sử dụng các hàm hỗ trợ cốt lõi được xuất từ `intlayer`. Bạn cũng nên thêm metadata cho SEO (như hreflang và liên kết canonical) vào mỗi trang và giới thiệu một Preact island cho nội dung tương tác phía client.
+Sử dụng từ điển của bạn trong các tệp `.astro` với các hook được xuất bởi `astro-intlayer`. Chúng chia sẻ chữ ký của `react-intlayer`: `useIntlayer("key")` trả về nội dung của từ điển và `useLocale()` trả về ngôn ngữ hiện tại mà không cần truyền tham số.
+
+Ngôn ngữ đến từ middleware `astro-intlayer`, mà tích hợp tự động đăng ký trước `src/middleware.ts` của riêng bạn. Nó phân giải ngôn ngữ cho mỗi yêu cầu, từ tiền tố URL, sau đó đến ngôn ngữ được lưu trữ bởi máy khách (cookie hoặc tiêu đề), sau đó đến `Accept-Language`, và lưu trữ trong `Astro.locals.intlayer`. Các trang được kết xuất trước chỉ sử dụng URL vì chúng được kết xuất một lần cho mọi khách truy cập.
+
+Bạn cũng nên thêm metadata cho SEO (như hreflang và liên kết canonical) vào mỗi trang và giới thiệu một Preact island cho nội dung tương tác phía client.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 import { PreactIsland } from "../../components/preact/ReactIsland";
 
@@ -265,8 +270,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
+// Ngôn ngữ được phân giải bởi middleware (ví dụ /vi/about -> 'vi')
+const { locale } = useLocale();
+
+// Nội dung của từ điển 'app' cho ngôn ngữ đó
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -321,6 +329,8 @@ const { title } = getIntlayer("app", locale);
 > <img src={content.image.src.toString()} alt={content.image.toString()} />
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
+
+> `Astro.locals.intlayer` cũng hiển thị `locale`, `defaultLocale` và `availableLocales` cho middleware và điểm cuối của riêng bạn. Truyền ngôn ngữ hoặc bộ chọn làm đối số thứ hai (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`) để ghi đè ngôn ngữ yêu cầu cho một lệnh gọi.
 
 > **Lưu ý về thiết lập định tuyến:**
 > Cấu trúc thư mục bạn sử dụng phụ thuộc vào cài đặt `middleware.routing` trong `intlayer.config.ts`:
@@ -438,10 +448,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -541,21 +551,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Trình biên dịch Babel'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Cập nhật `vite.config.ts` của bạn để bao gồm plugin `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Build ứng dụng của bạn để chuyển đổi các thành phần và trích xuất nội dung
 
 ```bash packageManager="npm"
 npm run build # Hoặc npm run dev
@@ -586,7 +582,7 @@ Intlayer sử dụng module augmentation để tận dụng lợi ích của Typ
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Lỗi dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Lỗi dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Intlayer sử dụng cơ chế mở rộng module (module augmentation) để tận dụng TypeScript, làm cho cơ sở mã của bạn mạnh mẽ hơn. Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu dữ liệu được tạo tự động và được cấu hình cho Preact:
 
@@ -721,6 +717,13 @@ Có: [dạng số nhiều (plurals)](https://github.com/aymericzip/intlayer/blob
 <Question title="Làm thế nào người dịch có thể chỉnh sửa nội dung mà không cần chạm vào mã nguồn?">
 
 Thông qua [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), cho phép bất kỳ ai chỉnh sửa văn bản trực tiếp trên ứng dụng đang chạy, hoặc qua [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md), giúp tách biệt nội dung để cập nhật mà không cần triển khai lại mã nguồn.
+
+</Question>
+<Question title="Chi phí của trình chỉnh sửa trực quan là bao nhiêu? Nó có dư thừa nếu tôi không cần đến không?">
+
+[Trình chỉnh sửa trực quan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) có **chi phí bằng không** đối với ứng dụng của bạn nếu không được thiết lập. Logic bổ sung chỉ được tải nếu được bật rõ ràng và khi cần thiết.
+
+Ngay cả khi được bật, chi phí cũng cực kỳ nhẹ (+5 KB, chỉ tải động khi được kích hoạt) vì phần lớn logic được xử lý bởi trình chỉnh sửa máy chủ trên [app.intlayer.org](https://app.intlayer.org) hoặc thông qua gói `intlayer-editor`. Nếu bạn chỉ cần một giải pháp dịch thuật đơn giản mà không cần chỉnh sửa trực quan, Intlayer sẽ không tạo ra bất kỳ tải phụ nào cho ứng dụng của bạn.
 
 </Question>
 <Question title="Intlayer có phải là mã nguồn mở và miễn phí không?">

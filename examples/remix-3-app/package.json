@@ -1,6 +1,6 @@
 {
   "name": "remix-3-app",
-  "version": "9.5.2",
+  "version": "9.5.6",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "remix": "^3.0.0-rc.2"
+    "remix": "^3.0.0-rc.2",
+    "remix-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22",

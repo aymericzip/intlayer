@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2025-06-29
+updatedAt: 2026-09-19
 title: Intlayer कैसे काम करता है
 description: जानें कि Intlayer आंतरिक रूप से कैसे काम करता है। समझें कि Intlayer को शक्तिशाली बनाने वाली संरचना और घटक क्या हैं।
 keywords:
@@ -135,49 +135,105 @@ Intlayer कई पैकेजों से बना है, जिनमे�
 
 `intlayer` पैकेज का उपयोग एप्लिकेशन में सामग्री फ़ाइलों में सामग्री घोषित करने के लिए किया जाता है।
 
-### react-intlayer
+### फ़्रंटएंड फ़्रेमवर्क
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 `react-intlayer` पैकेज का उपयोग Intlayer डिक्शनरीज़ की व्याख्या करने और उन्हें React एप्लिकेशन में उपयोगी बनाने के लिए किया जाता है।
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 `next-intlayer` पैकेज का उपयोग `react-intlayer` के ऊपर एक लेयर के रूप में किया जाता है ताकि Intlayer डिक्शनरीज़ को Next.js एप्लिकेशन में उपयोगी बनाया जा सके। इसमें Next.js वातावरण में Intlayer को काम करने के लिए आवश्यक सुविधाएँ शामिल हैं, जैसे अनुवाद मिडलवेयर, रूटिंग, या `next.config.js` फ़ाइल कॉन्फ़िगरेशन।
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 `vue-intlayer` पैकेज का उपयोग Intlayer डिक्शनरीज़ की व्याख्या करने और उन्हें Vue एप्लिकेशन में उपयोगी बनाने के लिए किया जाता है।
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 `nuxt-intlayer` पैकेज Nuxt मॉड्यूल के रूप में है ताकि Intlayer डिक्शनरीज़ को Nuxt एप्लिकेशन में उपयोगी बनाया जा सके। यह Intlayer को Nuxt वातावरण में काम करने के लिए आवश्यक सुविधाओं को एकीकृत करता है, जैसे अनुवाद मिडलवेयर, रूटिंग, या `nuxt.config.js` फ़ाइल कॉन्फ़िगरेशन।
 
-### svelte-intlayer (कार्य प्रगति पर)
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 `svelte-intlayer` पैकेज का उपयोग Intlayer डिक्शनरीज़ की व्याख्या करने और उन्हें Svelte एप्लिकेशन में उपयोगी बनाने के लिए किया जाता है।
 
-### solid-intlayer (कार्य प्रगति पर)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 `solid-intlayer` पैकेज का उपयोग Intlayer डिक्शनरीज़ की व्याख्या करने और उन्हें Solid.js एप्लिकेशन में उपयोगी बनाने के लिए किया जाता है।
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 `preact-intlayer` पैकेज का उपयोग Intlayer डिक्शनरीज़ की व्याख्या करने और उन्हें Preact एप्लिकेशन में उपयोगी बनाने के लिए किया जाता है।
 
-### angular-intlayer (कार्य प्रगति पर)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 `angular-intlayer` पैकेज का उपयोग Intlayer डिक्शनरीज़ की व्याख्या करने और उन्हें Angular एप्लिकेशन में उपयोगी बनाने के लिए किया जाता है।
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
 
-`express-intlayer` पैकेज का उपयोग Express.js बैकएंड पर Intlayer का उपयोग करने के लिए किया जाता है।
+`astro-intlayer` पैकेज Intlayer को Astro एप्लिकेशनों में इंटीग्रेट करने के लिए आवश्यक टूल प्रदान करता है। यह locale-आधारित राउटिंग और डिक्शनरी प्रबंधन को कॉन्फ़िगर करता है।
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+`remix-intlayer` पैकेज Intlayer को Remix एप्लिकेशनों में इंटीग्रेट करने के लिए आवश्यक टूल प्रदान करता है। यह locale-आधारित राउटिंग, सर्वर-साइड संदर्भ और डिक्शनरी प्रबंधन को कॉन्फ़िगर करता है।
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
 
 `react-native-intlayer` पैकेज Intlayer को Metro बंडलर के साथ काम करने के लिए प्लगइन्स को एकीकृत करने वाले उपकरण प्रदान करता है।
 
-### lynx-intlayer
+  </Tab>
+  <Tab label="Lit" value="lit">
 
-`lynx-intlayer` पैकेज Intlayer को Lynx बंडलर के साथ काम करने के लिए प्लगइन्स को एकीकृत करने वाले उपकरण प्रदान करता है।
+`lit-intlayer` पैकेज Lit अनुप्रयोगों में Intlayer शब्दकोशों की व्याख्या करने और उनका उपयोग करने के लिए उपकरण और घटक प्रदान करता है।
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+`vanilla-intlayer` पैकेज वैनिला JavaScript, HTML या PHP अनुप्रयोगों में Intlayer को एकीकृत करने के लिए उपकरण प्रदान करता है।
+
+  </Tab>
+</Tabs>
+
+### बैकएंड फ़्रेमवर्क
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
+
+`express-intlayer` पैकेज का उपयोग Express.js बैकएंड पर Intlayer का उपयोग करने के लिए किया जाता है।
+
+  </Tab>
+  <Tab label="Fastify" value="fastify">
+
+`fastify-intlayer` पैकेज Fastify एप्लिकेशनों के लिए एक प्लगइन प्रदान करता है जो internationalization को संभालता है। यह उपयोगकर्ता की locale का पता लगाता है और request ऑब्जेक्ट को सजाता है।
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+`hono-intlayer` पैकेज अंतर्राष्ट्रीयकरण को संभालने के लिए Hono अनुप्रयोगों के लिए एक मिडलवेयर प्रदान करता है। यह उपयोगकर्ता के लोकेल का पता लगाता है और संदर्भ ऑब्जेक्ट को भरता है।
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+`elysia-intlayer` पैकेज Elysia एप्लिकेशनों के लिए एक प्लगइन प्रदान करता है जो internationalization को संभालता है। यह उपयोगकर्ता की locale का पता लगाता है और route context में एक `intlayer` ऑब्जेक्ट इंजेक्ट करता है।
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+`adonis-intlayer` पैकेज AdonisJS अनुप्रयोगों के लिए अंतर्राष्ट्रीयकरण को संभालने के लिए एक मिडलवेयर प्रदान करता है। यह उपयोगकर्ता के लोकेल का पता लगाता है और अनुवाद फ़ंक्शन प्रदान करता है।
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 
@@ -186,6 +242,10 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 ### react-scripts-intlayer
 
 `react-scripts-intlayer` कमांड और प्लगइन्स शामिल करता है जो Create React App आधारित एप्लिकेशन के साथ Intlayer को एकीकृत करने के लिए हैं। ये प्लगइन्स [craco](https://craco.js.org/) पर आधारित हैं और [Webpack](https://webpack.js.org/) बंडलर के लिए अतिरिक्त कॉन्फ़िगरेशन शामिल करते हैं।
+
+### eslint-plugin-intlayer
+
+`eslint-plugin-intlayer` पैकेज अनुवाद न किए गए स्ट्रिंग्स को पकड़ने, शब्दकोश परिभाषाओं को सत्यापित करने और i18n सर्वोत्तम प्रथाओं को लागू करने के लिए ESLint और oxlint नियम प्रदान करता है।
 
 ### intlayer-editor
 
@@ -220,9 +280,21 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 
 `@intlayer/mcp` पैकेज एक MCP (मॉडल संदर्भ प्रोटोकॉल) सर्वर प्रदान करता है जो Intlayer इकोसिस्टम के लिए अनुकूलित AI-संचालित IDE सहायता प्रदान करता है। यह स्वचालित रूप से दस्तावेज़ीकरण लोड करता है और Intlayer CLI के साथ एकीकृत होता है।
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/lsp
 
-`@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` और `@intlayer/dynamic-dictionaries-entry` पैकेज Intlayer शब्दकोशों का एंट्री पथ लौटाते हैं। चूंकि ब्राउज़र से फ़ाइल सिस्टम की खोज असंभव है, इसलिए Webpack या Rollup जैसे बंडलर्स का उपयोग करके शब्दकोशों का एंट्री पथ प्राप्त करना संभव नहीं है। ये पैकेज alias किए जाने के लिए डिज़ाइन किए गए हैं, जिससे Vite, Webpack, और Turbopack जैसे विभिन्न बंडलर्स में बंडलिंग अनुकूलन की अनुमति मिलती है।
+`@intlayer/lsp` पैकेज Intlayer के लिए Language Server Protocol (LSP) सर्वर प्रदान करता है। यह परिभाषा पर जाएं, संदर्भ खोजें, होवर पूर्वावलोकन, शब्दकोश कुंजियों का स्वतः-पूर्ण और निदान चेतावनियों जैसी IDE सुविधाएं लाता है।
+
+### @intlayer/ai
+
+`@intlayer/ai` पैकेज Intlayer अनुप्रयोगों के लिए SDK क्षमताएं प्रदान करता है, जो स्वचालित अनुवाद और AI-संचालित सामग्री निर्माण को सक्षम बनाता है।
+
+### @intlayer/analytics
+
+`@intlayer/analytics` पैकेज सामग्री इंप्रेशन मेट्रिक्स, पृष्ठ/लोकेल और नोड-स्तरीय विश्लेषण एकत्र करने के लिए उपकरण प्रदान करता है, और सामग्री A/B परीक्षण को सक्षम करता है।
+
+### @intlayer/dictionaries-entry
+
+`@intlayer/dictionaries-entry` पैकेज Intlayer शब्दकोशों का एंट्री पथ लौटाता है: इसके रूट से मर्ज किए गए शब्दकोश, और इसके `/unmerged`, `/remote`, `/dynamic` और `/fetch` सबपाथ से अनमर्ज, रिमोट, डायनामिक और fetch शब्दकोश। चूंकि ब्राउज़र से फ़ाइल सिस्टम की खोज असंभव है, इसलिए Webpack या Rollup जैसे बंडलर्स का उपयोग करके शब्दकोशों का एंट्री पथ प्राप्त करना संभव नहीं है। यह पैकेज और इसके सबपाथ alias किए जाने के लिए डिज़ाइन किए गए हैं, जिससे Vite, Webpack, और Turbopack जैसे विभिन्न बंडलर्स में बंडलिंग अनुकूलन की अनुमति मिलती है।
 
 ### @intlayer/engine
 

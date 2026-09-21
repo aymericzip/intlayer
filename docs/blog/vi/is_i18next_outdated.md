@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Liệu i18next Đã Lỗi Thời Vào Năm 2026?
 description: i18next đang vận hành hàng triệu trang web, nhưng kiến trúc runtime từ năm 2011 đang bộc lộ giới hạn. Phân tích về dung lượng bundle, hạn chế tree-shaking và tốc độ đổi mới.
 keywords:
@@ -70,7 +70,7 @@ Hoạt động phát triển trong 12 tháng qua:
 | `i18next` core  | 2.626          | **259**      | Các bản vá nhỏ                            |
 | Intlayer        | 7.156          | **4.343**    | Trình biên dịch, công cụ IDE và AI engine |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Một thư viện trưởng thành mang lại sự an tâm. Tuy nhiên, các tiêu chuẩn của công cụ i18n đã thay đổi: bundler hiện đại loại bỏ nội dung không sử dụng khi build, LLM tự động dịch trên CI, và lập trình viên tận dụng Language Server (LSP) cùng AI agent. Mô hình chỉ dựa vào runtime của i18next gặp khó khăn trong việc đón nhận những tiến bộ này.
 
@@ -124,6 +124,10 @@ Trên Next.js, `next-i18next` thêm vào **76.7 KB gzipped** so với ứng dụ
 **Rò rỉ nội dung dịch thuật:**
 
 Theo mặc định, khoảng **90% văn bản dịch** gửi tới một route thực chất thuộc về các trang khác. Việc phân chia namespace thủ công tốn nhiều công sức và rất dễ phát sinh lỗi sót từ khóa.
+
+Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
+
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Độ trễ hydration:**
 

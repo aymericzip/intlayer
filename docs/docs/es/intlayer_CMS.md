@@ -44,7 +44,7 @@ El CMS de Intlayer es una aplicación que te permite externalizar el contenido d
 
 Para ello, Intlayer introduce el concepto de 'diccionarios distantes'.
 
-![Interfaz del CMS de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![Interfaz del CMS de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## Tabla de Contenidos
 

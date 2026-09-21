@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Solid Start i18n - 앱 번역을 위한 완벽한 가이드"
 description: "더 이상 i18next는 필요하지 않습니다. 2026년 다국어(i18n) SolidStart 앱 구축 가이드입니다. 서버 렌더링 로케일 라우팅, hreflang, 사이트맵 및 AI 지원 번역."
 keywords:
@@ -748,15 +748,13 @@ SolidStart는 HTTP 메서드를 내보내는 파일을 API 라우트로 변환�
 import type { APIEvent } from "@solidjs/start/server";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 export const GET = (_event: APIEvent) => {
   const sitemap = generateSitemap(
     [
       { path: "/", changefreq: "daily", priority: 1.0 },
       { path: "/about", changefreq: "monthly", priority: 0.8 },
     ],
-    { siteUrl: SITE_URL }
+    { siteUrl: "https://example.com" }
   );
 
   return new Response(sitemap, {
@@ -790,8 +788,6 @@ export const GET = (_event: APIEvent) => {
 ```typescript fileName="src/routes/robots.txt.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 const disallowedPaths = ["/admin", "/private"].flatMap((path) =>
   Object.values(getMultilingualUrls(path))
 );
@@ -803,7 +799,7 @@ export const GET = () =>
       "Allow: /",
       ...disallowedPaths.map((path) => `Disallow: ${path}`),
       "",
-      `Sitemap: ${SITE_URL}/sitemap.xml`,
+      `Sitemap: https://example.com/sitemap.xml`,
     ].join("\n"),
     { headers: { "Content-Type": "text/plain" } }
   );
@@ -922,7 +918,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel 컴파일러'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > v9부터 `intlayerCompiler`가 `intlayer` 플러그인에 포함되어 있으므로 수동으로 추가할 필요가 없습니다.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 `vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함하세요:
 
@@ -941,6 +943,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+애플리케이션을 빌드하여 컴포넌트를 변환하고 콘텐츠를 추출합니다.
 
 ```bash packageManager="npm"
 npm run build # 또는 npm run dev

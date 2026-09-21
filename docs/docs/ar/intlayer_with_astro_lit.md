@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-06-23
+updatedAt: 2026-09-20
 title: "تدويل Astro + Lit - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Astro + Lit متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "استخدام خطافات useIntlayer / useLocale لـ astro-intlayer في صفحة Astro"
   - version: 8.9.0
     date: 2026-05-04
     changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
@@ -151,7 +154,7 @@ bun add intlayer astro-intlayer lit lit-intlayer @astrojs/lit
   الحزمة الأساسية التي توفر أدوات i18n لإدارة التكوين، الترجمات، [تعريف المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)، التحويل، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
 
 - **astro-intlayer**
-  تتضمن إضافة تكامل Astro لربط Intlayer بـ [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط (middleware) لاكتشاف لغة المستخدم المفضلة، وإدارة ملفات تعريف الارتباط (cookies)، والتعامل مع إعادة توجيه الروابط.
+  يتضمن ملحق تكامل Astro لدمج Intlayer مع [حازم Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، ووسيطاً برمجياً يحدد لغة كل طلب في `Astro.locals.intlayer`، وخطافات `useIntlayer` / `useDictionary` / `useLocale`. يحل نفس مسار الاستيراد إلى تنفيذ الخادم في واجهة `.astro` وإلى تنفيذ العميل (المدعوم بـ `vanilla-intlayer`) في كتل `<script>`.
 
 - **lit**
   حزمة Lit الأساسية لبناء مكونات ويب (Web Components) سريعة وخفيفة.
@@ -246,29 +249,34 @@ export default litDemoContent;
 </Step>
 <Step number={5} title="استخدام المحتوى في Astro">
 
-يمكنك استهلاك القواميس مباشرة في ملفات `.astro` الخاصة بك باستخدام المساعدين الأساسيين المصدرين من `intlayer`. يجب عليك أيضًا إضافة ميتا داتا SEO (مثل hreflang وروابط canonical) لكل صفحة. يتم استيراد عناصر Lit المخصصة عبر وسم `<script>` للعميل وتوضع في المتن (body).
+استخدم قواميسك في ملفات `.astro` باستخدام الخطافات المصدرة بواسطة `astro-intlayer`. تشترك هذه الخطافات في نفس تواقيع روابط إطار العمل: يُرجع `useIntlayer("key")` محتوى القاموس ويُرجع `useLocale()` اللغة الحالية، دون الحاجة إلى تمرير أي وسيطات.
+
+تأتي اللغة من الوسيط البرمجي `astro-intlayer`، والذي يسجله التكامل تلقائياً قبل `src/middleware.ts` الخاص بك. يحدد الوسيط اللغة لكل طلب، بدءاً من بادئة عنوان URL، ثم اللغة المحفوظة بواسطة العميل (ملف تعريف الارتباط أو الترويسة)، ثم `Accept-Language`، ويخزنها في `Astro.locals.intlayer`. تستخدم الصفحات المعروضة مسبقاً عنوان URL فقط، حيث يتم عرضها مرة واحدة لكل زائر.
+
+يجب عليك أيضاً إضافة بيانات تعريف SEO مثل hreflang والروابط الأساسية (canonical) إلى كل صفحة. يتم بعد ذلك استيراد عنصر Lit المخصص عبر `<script>` من جانب العميل ووضعه في النص الأساسي (body).
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 
 export const getStaticPaths = () => {
-  return localeMap(({ locale }) => ({
-    params: { locale: getPrefix(locale).localePrefix },
+  return defaultLocale.map((locale) => ({
+    params: { locale },
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { greeting } = getIntlayer("lit-demo", locale);
+// اللغة المحددة بواسطة الوسيط البرمجي (مثال: /ar/about -> 'ar')
+const { locale } = useLocale();
+
+// محتوى قاموس 'lit-demo' لتلك اللغة
+const { greeting } = useIntlayer("lit-demo");
 ---
 
 <!doctype html>
@@ -326,6 +334,8 @@ const { greeting } = getIntlayer("lit-demo", locale);
 > <img src={content.image.src.toString()} alt={content.image.toString()} />
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
+
+> يعرض `Astro.locals.intlayer` أيضاً `locale` و `defaultLocale` و `availableLocales` للوسطاء البرمجيين ونقاط النهاية الخاصة بك. مرر لغة أو محدداً كوسيط ثانٍ (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`) لتجاوز لغة الطلب لاستدعاء واحد.
 
 > **ملاحظة حول إعداد التوجيه:**
 > تعتمد بنية الدليل التي تستخدمها على إعداد `middleware.routing` في `intlayer.config.ts`:
@@ -468,9 +478,9 @@ override render() {
 
 #### خريطة الموقع (Sitemap)
 
-Intlayer comes with a built-in sitemap generator to help you create a sitemap for your application easily. It handles localized routes and adds the necessary metadata for search engines.
+يأتي Intlayer مع مولد خريطة موقع مدمج لمساعدتك في إنشاء خريطة موقع لتطبيقك بسهولة. يتعامل مع المسارات المترجمة ويضيف البيانات الوصفية اللازمة لمحركات البحث.
 
-> The Intlayer generated sitemap supports the `xhtml:link` namespace (Hreflang XML Extensions). Unlike the default sitemap generators that only list raw URLs, Intlayer automatically creates the required bidirectional links between all language versions of a page (e.g., `/about`, `/about?lang=fr`, and `/about?lang=es`). This ensures search engines correctly index and serve the right language version to the right audience.
+> تدعم خريطة الموقع المُنشأة من قِبل Intlayer مساحة الأسماء `xhtml:link` (Hreflang XML Extensions). على عكس مولدات خرائط الموقع الافتراضية التي تُدرج عناوين URL الخام فقط، ينشئ Intlayer تلقائياً الروابط ثنائية الاتجاه المطلوبة بين جميع إصدارات الصفحة باللغات المختلفة (على سبيل المثال، `/about` و `/about?lang=fr` و `/about?lang=es`). هذا يضمن أن محركات البحث تفهرس بشكل صحيح وتقدم النسخة الصحيحة من اللغة للجمهور المناسب.
 
 أنشئ `src/pages/sitemap.xml.ts` لإنشاء خريطة موقع تتضمن جميع مساراتك المترجمة.
 
@@ -483,10 +493,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -523,13 +533,13 @@ export const GET: APIRoute = ({ site }) => {
 ```
 
 </Step>
-<Step number={15} title="Extract the content of your components" isOptional={true}>
+<Step number={15} title="استخراج محتوى مكوناتك" isOptional={true}>
 
-If you have an existing codebase, transforming thousands of files can be time-consuming.
+إذا كان لديك كود برمجي موجود بالفعل، فقد يستغرق تحويل آلاف الملفات وقتاً طويلاً.
 
-To ease this process, Intlayer propose a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md) to transform your components and extract the content.
+لتسهيل هذه العملية، يقترح Intlayer [مترجمًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) / [مستخرجًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md) لتحويل مكوناتك واستخراج المحتوى.
 
-To set it up, you can add a `compiler` section in your `intlayer.config.ts` file:
+لإعداده، يمكنك إضافة قسم `compiler` في ملف `intlayer.config.ts` الخاص بك:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
@@ -569,7 +579,7 @@ export default config;
 <Tabs>
  <Tab value='Extract command'>
 
-Run the extractor to transform your components and extract the content
+قم بتشغيل المستخرج لتحويل مكوناتك واستخراج المحتوى
 
 ```bash packageManager="npm"
 npx intlayer extract
@@ -590,21 +600,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+قم ببناء تطبيقك لتحويل مكوناتك واستخراج المحتوى
 
 ```bash packageManager="npm"
 npm run build # Or npm run dev
@@ -635,7 +631,7 @@ bun run build # Or bun run dev
 
 ![الإكمال التلقائي](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![خطأ في الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![خطأ في الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع المولدة تلقائيًا.
 

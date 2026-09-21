@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-06-23
+updatedAt: 2026-09-20
 title: "Astro + Lit i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Astro + Lit uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Astro sayfasında astro-intlayer'ın useIntlayer / useLocale hook'larının kullanımı"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
@@ -151,7 +154,7 @@ bun add intlayer astro-intlayer lit lit-intlayer @astrojs/lit
   Konfigürasyon yönetimi, çeviriler, [içerik deklarasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), transpilasyon ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) için i18n araçları sağlayan temel paket.
 
 - **astro-intlayer**
-  Intlayer'ı [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile bağlamak için Astro entegrasyon eklentisi; ayrıca kullanıcının tercih ettiği dili algılamak, çerezleri yönetmek ve URL yönlendirmelerini işlemek için ara yazılım (middleware) içerir.
+  Intlayer'ı [Vite paketleyicisi](https://vite.dev/guide/why.html#why-bundle-for-production) ile entegre etmek için Astro entegrasyon eklentisini, her isteğin yerel ayarını `Astro.locals.intlayer` içine çözümleyen bir ara yazılımı ve `useIntlayer` / `useDictionary` / `useLocale` hook'larını içerir. Aynı içe aktarma yolu, `.astro` frontmatter'ında sunucu uygulamasına ve `<script>` bloklarında istemci uygulamasına (`vanilla-intlayer` destekli) çözümlenir.
 
 - **lit**
   Hızlı ve hafif Web Bileşenleri (Web Components) oluşturmak için temel Lit paketi.
@@ -244,21 +247,23 @@ export default litDemoContent;
 > Daha fazla bilgi için [içerik deklarasyon dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
 
 </Step>
-<Step number={5} title="Astro'da İçerik Kullanma">
+<Step number={5} title="Astro'da İçeriği Kullanma">
 
-Sözlükleri doğrudan `.astro` dosyalarınızda, `intlayer`'dan dışa aktarılan temel yardımcıları kullanarak tüketebilirsiniz. Ayrıca her sayfaya SEO meta verileri (hreflang ve kurallı bağlantılar gibi) eklemelisiniz. Lit özel öğeleri, bir istemci `<script>`'i aracılığıyla içe aktarılır ve gövdeye (body) yerleştirilir.
+`astro-intlayer` tarafından dışa aktarılan hook'ları kullanarak sözlüklerinizi `.astro` dosyalarında kullanın. Bunlar `react-intlayer` ile aynı imzaları paylaşır: `useIntlayer("key")` bir sözlüğün içeriğini ve `useLocale()` herhangi bir argüman geçirmeden geçerli yerel ayarı döndürür.
+
+Yerel ayar, entegrasyonun kendi `src/middleware.ts` dosyanızın önünde sizin için kaydettiği `astro-intlayer` ara yazılımından gelir. Her istek için yerel ayarı sırasıyla URL ön ekinden, ardından istemci tarafından saklanan yerel ayardan (çerez veya başlık), ardından `Accept-Language` başlığından çözümler ve `Astro.locals.intlayer` içinde saklar. Önceden oluşturulmuş sayfalar her ziyaretçi için bir kez oluşturulduğundan yalnızca URL'yi kullanır.
+
+Lit özel öğeleri, bir istemci `<script>`'i aracılığıyla içe aktarılır ve gövdeye (body) yerleştirilir.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 
 export const getStaticPaths = () => {
@@ -267,8 +272,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { greeting } = getIntlayer("lit-demo", locale);
+// Ara yazılım tarafından çözümlenen yerel ayar (ör. /tr/about -> 'tr')
+const { locale } = useLocale();
+
+// Bu yerel ayar için 'lit-demo' sözlüğünün içeriği
+const { greeting } = useIntlayer("lit-demo");
 ---
 
 <!doctype html>
@@ -326,6 +334,8 @@ const { greeting } = getIntlayer("lit-demo", locale);
 > <img src={content.image.src.toString()} alt={content.image.toString()} />
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
+
+> `Astro.locals.intlayer` ayrıca `locale`, `defaultLocale` ve `availableLocales` değerlerini kendi ara yazılımlarınıza ve uç noktalarınıza sunar. İstek yerel ayarını tek bir çağrı için geçersiz kılmak üzere ikinci argüman olarak bir yerel ayar veya seçici iletin (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`).
 
 > **Yönlendirme Kurulumu Hakkında Not:**
 > Kullandığınız dizin yapısı, `intlayer.config.ts` dosyasındaki `middleware.routing` ayarına bağlıdır:
@@ -483,10 +493,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -586,21 +596,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel derleyicisi'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-`vite.config.ts` dosyanızı `intlayerCompiler` eklentisini içerecek şekilde güncelleyin:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Bileşenlerinizi dönüştürmek ve içeriği ayıklamak için uygulamanızı derleyin
 
 ```bash packageManager="npm"
 npm run build # Veya npm run dev
@@ -631,7 +627,7 @@ Intlayer, kod tabanınızı daha sağlam hale getirmek için TypeScript'ten yara
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation Error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation Error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun.
 

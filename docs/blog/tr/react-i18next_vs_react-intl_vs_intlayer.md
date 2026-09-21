@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: react-i18next'i next-intl ve Intlayer ile React uygulamasının uluslararasılaştırması (i18n) için entegre edin
 keywords:
@@ -106,6 +106,10 @@ Bu rehber, **React** için üç yerleşik i18n seçeneğini karşılaştırır: 
 
 **Neden önemli:** Daha küçük paketler ve daha az kullanılmayan dize başlatma ve navigasyon performansını iyileştirir.
 
+Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 sayfadan oluşan ve 1 ila 10 dile çevrilmiş teorik bir uygulamanın içerik yükünü tahmin eder. İçeriği locale bazında dinamik yüklemek dil eksenini ortadan kaldırır, içeriği bileşen veya rota bazında sınırlamak sayfa eksenini ortadan kaldırır ve yalnızca ikisinin birleşimi yükü sabit tutar.
+
+![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 ### 6) DX, araçlar ve bakım
 
 - **react-intl / react-i18next**: Geniş topluluk ekosistemi; düzenleme iş akışları için genellikle harici yerelleştirme platformlarını benimser.
@@ -129,7 +133,7 @@ Bu rehber, **React** için üç yerleşik i18n seçeneğini karşılaştırır: 
 
 GitHub yıldızları, bir projenin popülaritesinin, topluluk güveninin ve uzun vadeli öneminin güçlü bir göstergesidir. Teknik kalitenin doğrudan bir ölçüsü olmasa da, kaç geliştiricinin projeyi yararlı bulduğunu, ilerlemesini takip ettiğini ve muhtemelen benimsediğini yansıtır. Bir projenin değerini tahmin etmek için yıldızlar, alternatifler arasındaki çekişmeyi karşılaştırmaya ve ekosistem büyümesine ilişkin içgörüler sağlamaya yardımcı olur.
 
-[![Yıldız Geçmişi Grafiği](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+[![Yıldız Geçmişi Grafiği](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
 ## Sonuç
 

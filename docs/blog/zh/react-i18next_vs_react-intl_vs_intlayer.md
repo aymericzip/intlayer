@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: 将 react-i18next 与 next-intl 和 Intlayer 集成，用于 React 应用的国际化 (i18n)
 keywords:
@@ -106,6 +106,10 @@ author: aymericzip
 
 **重要性说明：** 更小的包体积和更少的未使用字符串能提升启动和导航性能。
 
+下图估算了一个理论应用的内容体积：1 到 10 个页面，翻译成 1 到 10 种语言，每页约 30 KB 文本。按 locale 动态加载内容可消除语言维度，按组件或路由划分内容可消除页面维度，只有两者结合才能让体积保持平稳。
+
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 ### 6) 开发体验（DX）、工具链与维护
 
 - **react-intl / react-i18next**：拥有广泛的社区生态系统；对于编辑工作流，通常采用外部本地化平台。
@@ -130,7 +134,7 @@ author: aymericzip
 
 GitHub stars 是项目受欢迎程度、社区信任度和长期相关性的强有力指标。虽然不是技术质量的直接衡量标准，但它们反映了有多少开发者认为该项目有用、关注其进展，以及可能会采用它。对于评估项目价值，stars 有助于比较不同替代方案的吸引力，并提供对生态系统增长的洞察。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
 ## 结论
 

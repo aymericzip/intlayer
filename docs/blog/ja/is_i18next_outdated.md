@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: 2026年においてi18nextは時代遅れなのか？
 description: i18nextは数百万のWebサイトで利用されていますが、2011年設計のランタイムアーキテクチャには限界も見え始めています。バンドルサイズ、Tree-shakingの制約、進化の停滞を分析します。
 keywords:
@@ -70,7 +70,7 @@ GitHubのスター数は過去の実績を示す指標であり、現在の技�
 | `i18next` core  | 2,626          | **259**    | マイナー修正                              |
 | Intlayer        | 7,156          | **4,343**  | コンパイラ、IDEツール、AIエンジン等の開発 |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 成熟したライブラリは安定性という価値を提供します。しかし、i18nツールの基準は進化しています。ビルド時に不要なコンテンツを排除し、CIでLLMによる自動翻訳を行い、開発環境ではLanguage Server（LSP）やAIエージェントと統合される時代です。ランタイムに特化した従来の設計では、こうした技術的進展を取り入れるのが困難です。
 
@@ -124,6 +124,10 @@ Next.js環境において、`next-i18next`は素の状態と比較して**76.7 K
 **翻訳データの無駄な配信:**
 
 デフォルト設定では、対象ルートに配信されるテキストの約**90%**が他ページ用のデータです。名前空間の手動分割は維持コストが高く、人為的ミスの原因になりやすいのが実情です。
+
+以下のグラフは、1〜10ページを1〜10言語に翻訳した理論上のアプリ（1ページあたり約30KBのテキスト）のコンテンツ量を推定したものです。ロケールごとの動的読み込みは言語の軸を取り除き、コンポーネントやルート単位でコンテンツをスコープすることはページの軸を取り除きます。両方を組み合わせた場合のみ、コンテンツ量は一定に保たれます。
+
+![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **ハイドレーション速度の差:**
 

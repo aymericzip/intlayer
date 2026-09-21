@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-06-23
+updatedAt: 2026-09-20
 title: "Astro + Preact i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Astro + Preact multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Penggunaan hook useIntlayer / useLocale dari astro-intlayer di halaman Astro"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
@@ -150,7 +153,7 @@ bun add intlayer astro-intlayer preact preact-intlayer @astrojs/preact
   Paket inti yang menyediakan alat i18n untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpilasyon, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
 - **astro-intlayer**
-  Plugin integrasi Astro untuk menghubungkan Intlayer dengan [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production); juga mencakup middleware untuk mendeteksi bahasa pilihan pengguna, mengelola cookie, dan menangani pengalihan URL.
+  Menyertakan plugin integrasi Astro untuk mengintegrasikan Intlayer dengan [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), middleware yang menyelesaikan lokal setiap permintaan ke dalam `Astro.locals.intlayer`, dan hook `useIntlayer` / `useDictionary` / `useLocale`. Jalur impor yang sama menyelesaikan ke implementasi server di frontmatter `.astro` Anda dan ke implementasi klien (didukung oleh `vanilla-intlayer`) di blok `<script>`.
 
 - **preact**
   Paket inti Preact - alternatif yang cepat dan ringan untuk React.
@@ -243,19 +246,21 @@ export default appContent;
 </Step>
 <Step number={5} title="Menggunakan Konten di Astro">
 
-Anda dapat mengonsumsi kamus langsung di file `.astro` menggunakan pembantu inti yang diekspor dari `intlayer`. Anda juga harus menambahkan metadata SEO (seperti hreflang dan tautan kanonikal) di setiap halaman dan memperkenalkan island Preact untuk konten interaktif di sisi klien.
+Gunakan kamus Anda dalam file `.astro` dengan hook yang diekspor oleh `astro-intlayer`. Mereka memiliki tanda tangan yang sama dengan `react-intlayer`: `useIntlayer("key")` mengembalikan konten kamus dan `useLocale()` mengembalikan lokal saat ini, tanpa argumen yang perlu diteruskan.
+
+Lokal berasal dari middleware `astro-intlayer`, yang didaftarkan oleh integrasi sebelum `src/middleware.ts` Anda sendiri. Ini menyelesaikannya untuk setiap permintaan, dari awalan URL, kemudian lokal yang disimpan oleh klien (cookie atau header), lalu `Accept-Language`, dan menyimpannya di `Astro.locals.intlayer`. Halaman yang dirender sebelumnya hanya menggunakan URL, karena halaman tersebut dirender sekali untuk setiap pengunjung.
+
+Anda juga harus menambahkan metadata SEO (seperti hreflang dan tautan kanonikal) di setiap halaman dan memperkenalkan island Preact untuk konten interaktif di sisi klien.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 import { PreactIsland } from "../../components/preact/ReactIsland";
 
@@ -265,8 +270,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
+// Lokal diselesaikan oleh middleware (mis. /id/about -> 'id')
+const { locale } = useLocale();
+
+// Konten kamus 'app' untuk lokal tersebut
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -321,6 +329,8 @@ const { title } = getIntlayer("app", locale);
 > <img src={content.image.src.toString()} alt={content.image.toString()} />
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
+
+> `Astro.locals.intlayer` juga mengekspos `locale`, `defaultLocale`, dan `availableLocales` ke middleware dan endpoint Anda sendiri. Teruskan lokal atau pemilih sebagai argumen kedua (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`) untuk mengganti lokal permintaan untuk satu panggilan.
 
 > **Catatan tentang Penyiapan Perutean:**
 > Struktur direktori yang Anda gunakan bergantung pada pengaturan `middleware.routing` di `intlayer.config.ts`:
@@ -438,10 +448,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -541,21 +551,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compiler Babel'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Perbarui `vite.config.ts` Anda untuk menyertakan plugin `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Build aplikasi Anda untuk mentransformasi komponen Anda dan mengekstrak konten
 
 ```bash packageManager="npm"
 npm run build # Atau npm run dev
@@ -586,7 +582,7 @@ Intlayer menggunakan module augmentation untuk mendapatkan manfaat TypeScript da
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Kesalahan Terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Kesalahan Terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Intlayer menggunakan augmentasi modul (module augmentation) untuk memanfaatkan TypeScript, membuat basis kode Anda lebih kuat. Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dibuat secara otomatis dan dikonfigurasi untuk Preact:
 
@@ -721,6 +717,13 @@ Ya: [bentuk jamak (plurals)](https://github.com/aymericzip/intlayer/blob/main/do
 <Question title="Bagaimana penerjemah dapat mengedit konten tanpa menyentuh kode?">
 
 Melalui [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), yang memungkinkan siapa saja mengedit teks langsung di aplikasi yang berjalan, atau melalui [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), yang memisahkan konten sehingga dapat diubah tanpa perlu redeploy kode.
+
+</Question>
+<Question title="Berapa biaya dari visual editor? Apakah berlebihan jika saya tidak membutuhkannya?">
+
+[Visual editor Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) memiliki **biaya nol** pada aplikasi Anda jika tidak disiapkan. Logika tambahan hanya dimuat jika diaktifkan secara eksplisit dan dibutuhkan.
+
+Bahkan jika diaktifkan, bebannya sangat ringan (+5 KB, dimuat secara dinamis hanya saat diaktifkan) karena sebagian besar logika ditangani oleh server editor di [app.intlayer.org](https://app.intlayer.org) atau melalui paket `intlayer-editor`. Jika Anda hanya memerlukan solusi terjemahan sederhana tanpa pengeditan visual, Intlayer tidak menambahkan overhead apa pun ke aplikasi Anda.
 
 </Question>
 <Question title="Apakah Intlayer gratis dan open source?">

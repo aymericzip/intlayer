@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-16
 title: "i18n per-komponentowy kontra scentralizowany: nowe podejście z Intlayer"
 description: Dogłębna analiza strategii internacjonalizacji w React, porównująca podejścia scentralizowane, per-key i per-component oraz wprowadzająca Intlayer.
 keywords:
@@ -63,6 +63,7 @@ Drobnoziarniste podejście (intlayer, inlang)
 - pobieranie treści w sposób drobnoziarnisty, na poziomie klucza lub komponentu.
 
   </Column>
+
 </Columns>
 
 > W tym wpisie na blogu nie będę się skupiał na rozwiązaniach opartych na kompilatorze, które już omówiłem tutaj: [Kompilator vs deklaratywne i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/compiler_vs_declarative_i18n.md).
@@ -78,6 +79,10 @@ Ogólnie rzecz biorąc, decyzja wygląda mniej więcej tak:
 - Jeśli masz więcej języków niż stron, powinieneś skłaniać się ku podejściu scentralizowanemu.
 
 Oczywiście autorzy bibliotek zdają sobie sprawę z tych ograniczeń i proponują obejścia. Wśród nich: dzielenie na namespaces, dynamiczne ładowanie plików JSON (`await import()`), albo oczyszczanie zawartości podczas procesu budowania.
+
+Poniższy wykres szacuje rozmiar treści dla teoretycznej aplikacji mającej od 1 do 10 stron, przetłumaczonej na 1 do 10 języków, z około 30 KB tekstu na stronę. Dynamiczne ładowanie treści per locale usuwa oś języków, ograniczenie treści do komponentu lub trasy usuwa oś stron, a tylko połączenie obu utrzymuje rozmiar na stałym poziomie.
+
+![Teoretyczny wyciek treści w zależności od architektury](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Jednocześnie powinieneś wiedzieć, że gdy dynamicznie ładujesz swoją zawartość, wprowadzasz dodatkowe żądania do serwera. Każde dodatkowe `useState` lub hook oznacza dodatkowe żądanie do serwera.
 
@@ -111,9 +116,9 @@ Oczywiście, to ogromny krok naprzód. Przyjrzyjmy się porównaniu rozmiaru gł
 
 Pierwszy przykład nie uwzględnia leniwego ładowania tłumaczeń dla każdego locale i nie stosuje podziału na namespaces. Drugi obejmuje content purging + dynamiczne ładowanie tłumaczeń.
 
-| Zoptymalizowany bundle                                                                                                        | Bundle bez optymalizacji                                                                                    |
-| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| ![bundle bez optymalizacji](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) | ![zoptymalizowany bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) |
+| Zoptymalizowany bundle                                                                                                         | Bundle bez optymalizacji                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| ![bundle bez optymalizacji](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) | ![zoptymalizowany bundle](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) |
 
 Dzięki namespaces, przeszliśmy z tej struktury:
 

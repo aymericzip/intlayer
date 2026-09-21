@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: 2026年においてnext-intlは時代遅れなのか？
 description: next-intlはNext.js App Routerの定番となりました。しかし、ランタイムによるバンドルの肥大化や手動での名前空間管理という課題は残されています。
 keywords:
@@ -66,7 +66,7 @@ Crowdinの公式パートナーであるため、CLIに完全無料で使える�
 - `amannn/next-intl`: **187コミット**（フレームワーク追従と不具合修正）。
 - `aymericzip/intlayer`: **4,343コミット**（コンパイラ機能の拡充、IDE拡張機能、MCPサーバー、翻訳エンジンの開発）。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 成熟したライブラリは安心感をもたらします。しかし現在のi18n環境は大きく変化しました。ビルド時に不要文言を自動削除し、CI環境でLLMが翻訳を行い、開発者はLanguage Server（LSP）やAIエージェントの支援を受けます。ランタイムに頼る設計では、こうした新しい恩恵を十分に享受できません。
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 トップレベルで`messages`をクライアントプロバイダーに渡すため、ブラウザはどのページでもアプリ全体の文言一式を受け取ることになります。`/login`を開いたユーザーが、FAQやヘルプ、ダッシュボード専用の文言まで同時にダウンロードしてしまうのです。
 
 JSONファイルを名前空間ごとに分けることで緩和できますが、どのルートにどの名前空間が必要かを人間が管理し続けるのは骨が折れる作業です。
+
+以下のグラフは、1〜10ページを1〜10言語に翻訳した理論上のアプリ（1ページあたり約30KBのテキスト）のコンテンツ量を推定したものです。ロケールごとの動的読み込みは言語の軸を取り除き、コンポーネントやルート単位でコンテンツをスコープすることはページの軸を取り除きます。両方を組み合わせた場合のみ、コンテンツ量は一定に保たれます。
+
+![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayerはこの問題を静的解析で解決します。[Intlayerコンパイラ](https://intlayer.org/ja/doc/compiler)が該当ルートで使用されている文言だけを過不足なく抽出するため、ページ間のデータ漏洩率は**0.0%**となります。
 

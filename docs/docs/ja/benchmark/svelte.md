@@ -145,7 +145,7 @@ i18nリークの問題を素早く特定するために、無料のスキャナ�
 
 GitHubのスターは、プロジェクトの普及度、コミュニティの信頼、および長期的な関連性を示す強力な指標です。技術的な品質を直接測定するものではありませんが、どれだけの開発者がプロジェクトを有用だと感じ、その進捗をフォローし、採用する可能性があるかを反映しています。プロジェクトの価値を見積もる際、スターは代替案との勢いの比較を助け、エコシステムの成長に関する洞察を提供します。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
 
 ## 結果の詳細
 

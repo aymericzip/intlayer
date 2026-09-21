@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-08-09
+updatedAt: 2026-09-16
 title: Tối ưu hóa dung lượng Bundle & Hiệu suất i18n
 description: Giảm dung lượng bundle của ứng dụng bằng cách tối ưu hóa nội dung quốc tế hóa (i18n). Tìm hiểu cách tận dụng tree shaking và tải 지연 (lazy loading) cho các từ điển với Intlayer.
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 Một trong những thách thức phổ biến nhất với các giải pháp i18n truyền thống dựa trên file JSON là quản lý dung lượng nội dung. Nếu lập trình viên không tự tay phân tách nội dung vào các namespace một cách hợp lý, người dùng cuối thường phải tải về toàn bộ bản dịch cho tất cả các trang và có thể là cả tất cả các ngôn ngữ chỉ để xem một trang duy nhất.
 
 Ví dụ, một ứng dụng có 10 trang được dịch ra 10 ngôn ngữ có thể khiến người dùng tải về nội dung tương đương 100 trang, mặc dù họ chỉ cần **một trang** (trang hiện tại với ngôn ngữ hiện tại). Điều này dẫn đến sự lãng phí băng thông và thời gian tải trang bị chậm đi đáng kể.
+
+Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
+
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Intlayer giải quyết vấn đề này thông qua tối ưu hóa ở thời điểm build.** Nó phân tích code của bạn để phát hiện chính xác các từ điển nào đang thực sự được sử dụng cho mỗi component, và chỉ tích hợp nội dung cần thiết đó vào bundle.
 

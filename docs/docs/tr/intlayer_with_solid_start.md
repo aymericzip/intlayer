@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-08-06
+updatedAt: 2026-09-20
 title: "Solid Start i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. Çok dilli (i18n) bir SolidStart uygulaması oluşturmak için 2026 kılavuzu. Sunucu tarafında işlenen yerel ayar yönlendirmesi, hreflang, sitemap ve yapay zeka destekli çeviri."
 keywords:
@@ -748,15 +748,13 @@ SolidStart, bir HTTP yöntemini dışa aktaran bir dosyayı bir API rotasına d�
 import type { APIEvent } from "@solidjs/start/server";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 export const GET = (_event: APIEvent) => {
   const sitemap = generateSitemap(
     [
       { path: "/", changefreq: "daily", priority: 1.0 },
       { path: "/about", changefreq: "monthly", priority: 0.8 },
     ],
-    { siteUrl: SITE_URL }
+    { siteUrl: "https://example.com" }
   );
 
   return new Response(sitemap, {
@@ -790,8 +788,6 @@ Aynı şekilde `getMultilingualUrls` ile bir `robots.txt` oluşturabilirsiniz, b
 ```typescript fileName="src/routes/robots.txt.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 const disallowedPaths = ["/admin", "/private"].flatMap((path) =>
   Object.values(getMultilingualUrls(path))
 );
@@ -803,7 +799,7 @@ export const GET = () =>
       "Allow: /",
       ...disallowedPaths.map((path) => `Disallow: ${path}`),
       "",
-      `Sitemap: ${SITE_URL}/sitemap.xml`,
+      `Sitemap: https://example.com/sitemap.xml`,
     ].join("\n"),
     { headers: { "Content-Type": "text/plain" } }
   );
@@ -922,7 +918,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel derleyicisi'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > v9 sürümünden itibaren `intlayerCompiler`, `intlayer` eklentisine dahil edilmiştir. Bu nedenle manuel olarak eklemenize gerek yoktur.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 `vite.config.ts` dosyanızı `intlayerCompiler` eklentisini içerecek şekilde güncelleyin:
 
@@ -941,6 +943,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Bileşenlerinizi dönüştürmek ve içeriği ayıklamak için uygulamanızı derleyin
 
 ```bash packageManager="npm"
 npm run build # Veya npm run dev

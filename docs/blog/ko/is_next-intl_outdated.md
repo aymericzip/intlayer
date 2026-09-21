@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: 2026년에도 next-intl을 계속 써야 할까요?
 description: next-intl은 Next.js App Router의 표준으로 자리잡았습니다. 하지만 런타임 번들 오버헤드와 수동 네임스페이스 관리라는 부담은 여전히 남아 있습니다.
 keywords:
@@ -66,7 +66,7 @@ Crowdin의 공식 파트너이기 때문에, CLI 자체에 무료 로컬 AI 번�
 - `amannn/next-intl`: **187 커밋** (Next.js 호환성 유지 및 소규모 수정).
 - `aymericzip/intlayer`: **4,343 커밋** (컴파일러 최적화, IDE 확장, MCP 서버, AI 번역 엔진 개발 등).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 성숙한 라이브러리는 안정감을 줍니다. 하지만 i18n 환경은 달라졌습니다. 빌드 시 미사용 텍스트를 걸러내고, CI에서 LLM이 번역을 수행하며, 에디터는 Language Server (LSP) 및 AI 어시스턴트와 밀접하게 연동됩니다. 런타임 처리에 갇힌 아키텍처는 이러한 진보를 온전히 누리기 어렵습니다.
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 `messages`를 최상위 클라이언트 프로바이더로 전달하기 때문에, 브라우저는 모든 라우트에서 애플리케이션 전체의 번역 데이터를 다운로드하게 됩니다. `/login` 페이지만 방문하는 사용자도 FAQ, 약관, 관리자 대시보드 문구를 함께 내려받게 됩니다.
 
 JSON을 네임스페이스별로 나누어 일부 해소할 수 있으나, 어떤 라우트에 어떤 네임스페이스가 필요한지 수작업으로 관리하는 것은 매우 번거롭고 실수가 발생하기 쉽습니다.
+
+아래 그래프는 1~~10개의 페이지를 1~~10개 언어로 번역한 이론상의 앱(페이지당 약 30KB의 텍스트)의 콘텐츠 용량을 추정한 것입니다. 로케일별 동적 로딩은 언어 축을 없애고, 컴포넌트나 라우트 단위로 콘텐츠를 스코프하면 페이지 축이 없어지며, 두 가지를 결합했을 때만 용량이 일정하게 유지됩니다.
+
+![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer는 정적 분석을 통해 이 문제를 해결합니다. [Intlayer 컴파일러](https://intlayer.org/ko/doc/compiler)가 각 라우트에서 실제로 호출되는 문구만 번들링하므로 페이지 간 누수율이 **0.0%**가 됩니다.
 

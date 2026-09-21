@@ -4,7 +4,7 @@ import { getLocaleName } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
 import { decode, encode } from '@toon-format/toon';
 import { generateText, Output } from 'ai';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 import { type AIConfig, type AIOptions, AIProvider } from '../aiSdk';
 import { extractJson } from '../utils/extractJSON';
 
@@ -70,7 +70,7 @@ const getModeInstructions = (mode: 'complete' | 'review'): string => {
   return 'Mode: "Review" - Fill missing content and review existing keys from the preset content. If a key from the entry is missing in the output, it must be translated to the target language and added. If you detect misspelled content, or content that should be reformulated, correct it. If a translation is not coherent with the desired language, translate it.';
 };
 
-const jsonToZod = (content: any): z.ZodTypeAny => {
+const jsonToZod = (content: any): z.ZodMiniType => {
   // Base case: content is a string (the translation target)
   if (typeof content === 'string') {
     return z.string();
@@ -96,7 +96,7 @@ const jsonToZod = (content: any): z.ZodTypeAny => {
 
   // Recursive case: Object
   if (typeof content === 'object' && content !== null) {
-    const shape: Record<string, z.ZodTypeAny> = {};
+    const shape: Record<string, z.ZodMiniType> = {};
     for (const key in content) {
       shape[key] = jsonToZod(content[key]);
     }

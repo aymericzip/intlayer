@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next مقابل next-intl مقابل Intlayer - الدليل الكامل لترجمة next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: أفضل حل لحجم الحزمة وتحسين محركات البحث والأداء والصيانة. اجعل Next.js موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
 keywords:
@@ -134,6 +134,10 @@ author: aymericzip
 
   > إذا كنت في صفحة `/fr/about`، لا أريد تحميل محتوى صفحة `/en/about`
 
+يقدّر الرسم البياني أدناه حجم المحتوى لتطبيق نظري يتكوّن من 1 إلى 10 صفحات مترجمة إلى 1 إلى 10 لغات، بنحو 30 كيلوبايت من النص لكل صفحة. التحميل الديناميكي للمحتوى حسب اللغة يزيل محور اللغات، وحصر المحتوى ضمن المكوّن أو المسار يزيل محور الصفحات، ولا يبقى الحجم ثابتًا إلا بالجمع بينهما.
+
+![تسرب المحتوى النظري حسب البنية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 مرة أخرى، كل الحلول الثلاثة تدرك هذه القضايا وتسمح بإدارة هذه التحسينات. الفرق بين الحلول الثلاثة هو تجربة المطور (DX).
 
 يستخدم كل من `next-intl` و `next-i18next` نهجًا مركزيًا لإدارة الترجمات، مما يسمح بتقسيم ملفات JSON حسب اللغة وحسب الملفات الفرعية. في `next-i18next`، نسمي ملفات JSON "مساحات الأسماء" (namespaces)؛ بينما يسمح `next-intl` بإعلان الرسائل. في `intlayer`، نسمي ملفات JSON "القواميس" (dictionaries).
@@ -156,9 +160,9 @@ author: aymericzip
 
 فيما يلي مثال على تأثير تحسين حجم الحزمة باستخدام `intlayer` في تطبيق vite + react:
 
-| الحزمة المحسنة                                                                                  | الحزمة غير المحسنة                                                                                                  |
-| ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| ![حزمة محسنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![حزمة غير محسنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| الحزمة المحسنة                                                                                   | الحزمة غير المحسنة                                                                                                   |
+| ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| ![حزمة محسنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![حزمة غير محسنة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## تايب سكريبت والسلامة
 
@@ -1437,7 +1441,7 @@ The set up of the middleware centralized in the `intlayer.config.ts` file.
 
 نجوم GitHub هي مؤشر قوي على شعبية المشروع، وثقة المجتمع، وأهميته على المدى الطويل. وعلى الرغم من أنها ليست مقياسًا مباشرًا للجودة التقنية، إلا أنها تعكس عدد المطورين الذين يجدون المشروع مفيدًا، ويتابعون تقدمه، ومن المحتمل أن يتبنوه. لتقدير قيمة المشروع، تساعد النجوم في مقارنة الجذب بين البدائل وتوفر رؤى حول نمو النظام البيئي.
 
-[![مخطط تاريخ النجوم](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![مخطط تاريخ النجوم](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ## الخلاصة
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "React Router v7 i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）React Router v7アプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -894,7 +894,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel コンパイラ'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > v9 以降、`intlayerCompiler` は `intlayer` プラグインに含まれています。したがって、手動で追加する必要はありません。
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 `vite.config.ts` を更新して `intlayerCompiler` プラグインを含めます:
 
@@ -909,6 +915,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+アプリケーションをビルドしてコンポーネントを変換し、コンテンツを抽出します。
 
 ```bash packageManager="npm"
 npm run build # または npm run dev
@@ -1078,6 +1089,13 @@ React Router v7 にはメッセージレイヤーが付属していないため�
 <Question title="翻訳者がコードに触れずにコンテンツを編集するにはどうすればよいですか？">
 
 自己ホスト型の[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)または [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を通じて。コンテンツを外部化し、デプロイメントなしで変更できます。
+
+</Question>
+<Question title="ビジュアルエディターのコストはどれくらいですか？不要な場合はオーバースペックですか？">
+
+Intlayerの[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)は、セットアップされていない場合はアプリケーションへの**コストはゼロ**です。追加のロジックは、明示的に有効化され、必要な場合にのみ読み込まれます。
+
+有効にした場合でも、ロジックの大半は[app.intlayer.org](https://app.intlayer.org)のサーバーエディターまたは`intlayer-editor`パッケージによって処理されるため、負荷は極めて軽量です（有効化時に動的に読み込まれる+5 kBのみ）。ビジュアル編集を必要とせず、シンプルな翻訳ソリューションのみが必要な場合、Intlayerがアプリにオーバーヘッドを追加することはありません。
 
 </Question>
 <Question title="Intlayer は無料でオープンソースですか？">

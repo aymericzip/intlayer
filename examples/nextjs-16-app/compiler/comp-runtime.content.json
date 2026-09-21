@@ -1,0 +1,12 @@
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "comp-runtime",
+  "content": {
+    "callingRequireFor": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Calling `require` for \""
+      }
+    }
+  }
+}

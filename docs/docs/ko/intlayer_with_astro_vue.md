@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Astro + Vue i18n - 앱을 번역하는 완전 가이드"
 description: "i18next는 이제 그만. 2026년 다국어 (i18n) Astro + Vue 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Astro 페이지에서 astro-intlayer의 useIntlayer / useLocale 훅 사용"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Solid useIntlayer API 사용법을 직접 속성 액세스로 업데이트"
@@ -150,7 +153,7 @@ bun add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
   설정 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md), 트랜스파일 및 [CLI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 위한 국제화 도구를 제공하는 핵심 패키지입니다.
 
 - **astro-intlayer**
-  Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Astro 통합 플러그인과 사용자의 선호 로케일을 감지하고 쿠키를 관리하며 URL 리디렉션을 처리하는 미들웨어가 포함되어 있습니다.
+  Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Astro 통합 플러그인, 모든 요청의 로케일을 `Astro.locals.intlayer`로 확인하는 미들웨어, `useIntlayer` / `useDictionary` / `useLocale` 훅이 포함되어 있습니다. 동일한 import 경로가 `.astro` 프론트매터에서는 서버 구현체로, `<script>` 블록에서는 클라이언트 구현체(`vanilla-intlayer` 기반)로 확인됩니다.
 
 - **vue**
   핵심 Vue 패키지입니다.
@@ -238,19 +241,21 @@ export default appContent;
 </Step>
 <Step number={5} title="Astro에서 콘텐츠 사용">
 
-`intlayer`에서 내보낸 핵심 헬퍼를 사용하여 `.astro` 파일에서 직접 사전을 소비할 수 있습니다. 또한 각 페이지에 hreflang 및 canonical 링크와 같은 SEO 메타데이터를 추가하고, 클라이언트 사이드의 인터랙티브 콘텐츠를 위해 Vue 아일랜드를 포함해야 합니다.
+`astro-intlayer`에서 내보낸 훅을 사용하여 `.astro` 파일에서 사전을 사용하세요. 이 훅들은 `react-intlayer`와 동일한 시그니처를 공유합니다. `useIntlayer("key")`는 사전의 내용을 반환하고 `useLocale()`은 인수를 전달할 필요 없이 현재 로케일을 반환합니다.
+
+로케일은 통합 플러그인이 자체 `src/middleware.ts`보다 먼저 등록하는 `astro-intlayer` 미들웨어에서 제공됩니다. URL 접두사, 클라이언트가 저장한 로케일(쿠키 또는 헤더), `Accept-Language` 순으로 모든 요청에 대해 로케일을 확인하고 이를 `Astro.locals.intlayer`에 저장합니다. 사전 렌더링된 페이지는 방문자마다 한 번만 렌더링되므로 URL만 사용합니다.
+
+또한 각 페이지에 hreflang 및 canonical 링크와 같은 SEO 메타데이터를 추가하고, 클라이언트 사이드의 인터랙티브 콘텐츠를 위해 Vue 아일랜드를 포함해야 합니다.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 import VueIsland from "../../components/vue/VueIsland.vue";
 
@@ -260,8 +265,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
+// 미들웨어에 의해 확인된 로케일 (예: /ko/about -> 'ko')
+const { locale } = useLocale();
+
+// 해당 로케일의 'app' 사전 내용
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -308,6 +316,8 @@ const { title } = getIntlayer("app", locale);
   </body>
 </html>
 ```
+
+> `Astro.locals.intlayer`는 자체 미들웨어 및 엔드포인트에 `locale`, `defaultLocale`, `availableLocales`도 노출합니다. 단일 호출에 대해 요청 로케일을 재정의하려면 로케일이나 선택기를 두 번째 인수로 전달하세요(`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`).
 
 > **라우팅 설정에 관한 참고 사항:**
 > 사용하는 디렉토리 구조는 `intlayer.config.ts`의 `middleware.routing` 설정에 따라 달라집니다:
@@ -447,10 +457,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -554,21 +564,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-> v9부터 `intlayerCompiler`이 `intlayer` 플러그인에 포함되어 있습니다. 따라서 수동으로 추가할 필요가 없습니다.
-
-`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함하세요:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // 컴파일러 플러그인 추가
-  ],
-});
-```
+애플리케이션을 빌드하여 컴포넌트를 변환하고 콘텐츠를 추출합니다.
 
 ```bash packageManager="npm"
 npm run build # 또는 npm run dev
@@ -599,7 +595,7 @@ Intlayer는 모듈 증강(module augmentation)을 사용하여 TypeScript의 이
 
 ![자동 완성](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![번역 오류](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![번역 오류](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScript 설정에 자동 생성된 타입이 포함되어 있는지 확인하세요.
 
@@ -730,6 +726,13 @@ Astro 페이지가 이를 prop으로 전달하고 아일랜드의 Intlayer 프�
 <Question title="번역가가 코드를 건드리지 않고 콘텐츠를 수정할 수 있나요?">
 
 자체 인프라에서 실행되어 실행 중인 앱에서 직접 텍스트를 수정할 수 있는 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 배포 없이 변경할 수 있도록 콘텐츠를 외부화하는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 통해 가능합니다.
+
+</Question>
+<Question title="비주얼 에디터의 비용은 얼마인가요? 필요하지 않은 경우 과도한가요?">
+
+Intlayer [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)는 설정되지 않은 경우 애플리케이션에 **비용이 전혀 들지 않습니다**. 추가 로직은 명시적으로 활성화되고 필요할 때만 로드됩니다.
+
+활성화하더라도 대부분의 로직은 [app.intlayer.org](https://app.intlayer.org)의 서버 에디터나 `intlayer-editor` 패키지를 통해 처리되므로 영향은 극히 미미합니다(활성화 시 동적으로 로드되는 +5 kB에 불과함). 비주얼 편집 없이 간단한 번역 솔루션만 필요한 경우 Intlayer는 앱에 어떠한 오버헤드도 추가하지 않습니다.
 
 </Question>
 <Question title="Intlayer는 무료이며 오픈 소스인가요?">

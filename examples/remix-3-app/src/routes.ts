@@ -2,13 +2,13 @@ import { route } from 'remix/routes';
 
 /**
  * Type-safe route definitions for the Remix 3 application.
- * Defines both root-level routes and locale-prefixed routes.
+ *
+ * Routes are declared once, without a locale segment: the `intlayer()`
+ * middleware serves `/fr/about` from `about` and exposes the locale through
+ * the request context.
  */
 export const routes = route({
   home: '/',
   about: '/about',
   apiGreeting: '/api/greeting',
-  localizedHome: '/:locale',
-  localizedAbout: '/:locale/about',
-  localizedApiGreeting: '/:locale/api/greeting',
 });

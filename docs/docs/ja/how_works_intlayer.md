@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-08-30
+updatedAt: 2026-09-19
 title: Intlayerの仕組み
 description: Intlayerが内部でどのように機能するかを学びます。Intlayerを強力にするアーキテクチャとコンポーネントを理解しましょう。
 keywords:
@@ -135,49 +135,105 @@ Intlayerは、翻訳プロセスにおいて特定の役割を持つ複数のパ
 
 `intlayer`パッケージは、コンテンツファイル内でコンテンツを宣言するためにアプリケーションで使用されます。
 
-### react-intlayer
+### フロントエンドフレームワーク
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 `react-intlayer`パッケージは、Intlayer辞書を解釈し、Reactアプリケーションで使用可能にします。
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 `next-intlayer`パッケージは、`react-intlayer`の上にレイヤーを構築し、Next.jsアプリケーションでIntlayer辞書を使用可能にします。翻訳ミドルウェア、ルーティング、または`next.config.js`ファイルの設定など、Next.js環境でIntlayerを動作させるための重要な機能を統合しています。
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 `vue-intlayer`パッケージは、Intlayer辞書を解釈し、Vueアプリケーションで使用可能にします。
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 `nuxt-intlayer`パッケージは、NuxtモジュールとしてIntlayer辞書をNuxtアプリケーションで使用可能にします。翻訳ミドルウェア、ルーティング、`nuxt.config.js`ファイルの設定など、Nuxt環境でIntlayerを動作させるための重要な機能を統合しています。
 
-### svelte-intlayer (作業中)
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 `svelte-intlayer`パッケージは、Intlayer辞書を解釈し、Svelteアプリケーションで使用可能にします。
 
-### solid-intlayer (作業中)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 `solid-intlayer`パッケージは、Intlayer辞書を解釈し、Solid.jsアプリケーションで使用可能にします。
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 `preact-intlayer`パッケージは、Intlayer辞書を解釈し、Preactアプリケーションで使用可能にします。
 
-### angular-intlayer (作業中)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 `angular-intlayer`パッケージは、Intlayer辞書を解釈し、Angularアプリケーションで使用可能にします。
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
 
-`express-intlayer`パッケージは、Express.jsバックエンドでIntlayerを使用するために使用されます。
+`astro-intlayer` パッケージは、IntlayerをAstroアプリケーションに統合するために必要なツールを提供します。ロケールベースのルーティングと辞書管理を設定します。
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+`remix-intlayer` パッケージは、IntlayerをRemixアプリケーションに統合するために必要なツールを提供します。ロケールベースのルーティング、サーバー側のコンテキスト、辞書管理を設定します。
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
 
 `react-native-intlayer`パッケージは、MetroバンドラーでIntlayerを動作させるためのプラグインを統合するツールを提供します。
 
-### lynx-intlayer
+  </Tab>
+  <Tab label="Lit" value="lit">
 
-`lynx-intlayer`パッケージは、LynxバンドラーでIntlayerを動作させるためのプラグインを統合するツールを提供します。
+`lit-intlayer` パッケージは、Lit アプリケーションで Intlayer 辞書を解釈して使用するためのツールとコンポーネントを提供します。
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+`vanilla-intlayer` パッケージは、Intlayer をバニラ JavaScript、HTML、または PHP アプリケーションに統合するためのツールを提供します。
+
+  </Tab>
+</Tabs>
+
+### バックエンドフレームワーク
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
+
+`express-intlayer`パッケージは、Express.jsバックエンドでIntlayerを使用するために使用されます。
+
+  </Tab>
+  <Tab label="Fastify" value="fastify">
+
+`fastify-intlayer` パッケージは Fastify アプリケーション向けのプラグインを提供し、国際化を扱います。ユーザーのロケールを検出し、request オブジェクトをデコレートします。
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+`hono-intlayer` パッケージは、国際化を処理するための Hono アプリケーション用ミドルウェアを提供します。ユーザーのロケールを検出し、コンテキスト オブジェクトに入力します。
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+`elysia-intlayer` パッケージは Elysia アプリケーション向けのプラグインを提供し、国際化を扱います。ユーザーのロケールを検出し、ルートコンテキストに `intlayer` オブジェクトを注入します。
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+`adonis-intlayer` パッケージは、国際化を処理するための AdonisJS アプリケーション用ミドルウェアを提供します。ユーザーのロケールを検出し、翻訳機能を提供します。
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 
@@ -186,6 +242,10 @@ Viteバンドラー([Vite](https://vite.dev/guide/why.html#why-bundle-for-produc
 ### react-scripts-intlayer
 
 `react-scripts-intlayer`パッケージには、Create React AppベースのアプリケーションとIntlayerを統合するためのコマンドとプラグインが含まれています。これらのプラグインは[craco](https://craco.js.org/)に基づいており、[Webpack](https://webpack.js.org/)バンドラーの追加設定も含まれています。
+
+### eslint-plugin-intlayer
+
+`eslint-plugin-intlayer` パッケージは、未翻訳の文字列の検出、辞書定義の検証、i18n のベストプラクティスの適用を行う ESLint および oxlint ルールを提供します。
 
 ### intlayer-editor
 
@@ -221,9 +281,21 @@ Expressに基づいたサーバーは、ビジュアルエディターのリク�
 `@intlayer/mcp`パッケージは、Intlayerエコシステム向けにAI搭載のIDE支援を提供するMCP（Model Context Protocol）サーバーを提供します。ドキュメントを自動的に読み込み、Intlayer CLIと統合されます。
 `@intlayer/mcp`パッケージは、Intlayerエコシステムに特化したAI搭載のIDE支援を提供するMCP（Model Context Protocol）サーバーを提供します。ドキュメントを自動的に読み込み、Intlayer CLIと統合されます。
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/lsp
 
-`@intlayer/dictionaries-entry`、`@intlayer/unmerged-dictionaries-entry`、および`@intlayer/dynamic-dictionaries-entry`パッケージは、Intlayer辞書のエントリパスを返します。ブラウザからファイルシステムを検索することは不可能なため、WebpackやRollupのようなバンドラーを使用して辞書のエントリパスを取得することはできません。これらのパッケージはエイリアスとして設計されており、Vite、Webpack、Turbopackなどのさまざまなバンドラーでのバンドル最適化を可能にします。
+`@intlayer/lsp` パッケージは、Intlayer 専用にカスタマイズされた Language Server Protocol (LSP) サーバーを提供します。定義への移動、すべての参照の検索、ホバープレビュー、辞書キーの自動補完、診断警告などの IDE 機能をあらゆる LSP 対応エディタにもたらします。
+
+### @intlayer/ai
+
+`@intlayer/ai` パッケージは、Intlayer アプリケーション向けの SDK 機能を提供し、自動翻訳と AI によるコンテンツ生成を可能にします。
+
+### @intlayer/analytics
+
+`@intlayer/analytics` パッケージは、コンテンツのインプレッション指標、ページ/ロケールおよびノードレベルの分析を収集し、コンテンツの A/B テストを支援するツールを提供します。
+
+### @intlayer/dictionaries-entry
+
+`@intlayer/dictionaries-entry`パッケージは、Intlayer辞書のエントリパスを返します。ルートからのマージされた辞書、および`/unmerged`、`/remote`、`/dynamic`、`/fetch`サブパスからの未マージ、リモート、動的、fetchの辞書です。ブラウザからファイルシステムを検索することは不可能なため、WebpackやRollupのようなバンドラーを使用して辞書のエントリパスを取得することはできません。このパッケージとそのサブパスはエイリアスとして設計されており、Vite、Webpack、Turbopackなどのさまざまなバンドラーでのバンドル最適化を可能にします。
 
 ### @intlayer/engine
 

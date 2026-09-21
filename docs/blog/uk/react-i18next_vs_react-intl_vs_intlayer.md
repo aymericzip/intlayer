@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next vs react-intl vs Intlayer
 description: Інтеграція react-i18next з next-intl та Intlayer для інтернаціоналізації (i18n) React-додатка
 keywords:
@@ -106,6 +106,10 @@ author: aymericzip
 
 **Чому це важливо:** Менші бандли і менше невикористаних рядків покращують час запуску та продуктивність навігації.
 
+Графік нижче оцінює обсяг контенту для теоретичного застосунку, в якому від 1 до 10 сторінок і від 1 до 10 мов, приблизно по 30 КБ тексту на сторінку. Динамічне завантаження за локаллю прибирає вісь мов, обмеження контенту компонентом або маршрутом прибирає вісь сторінок, і лише їх поєднання зберігає обсяг стабільним.
+
+![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 ### 6) DX, інструменти та супровід
 
 - **react-intl / react-i18next**: Широка екосистема спільноти; для редакційних робочих процесів ви зазвичай використовуєте зовнішні платформи локалізації.
@@ -129,7 +133,7 @@ author: aymericzip
 
 GitHub-зірки, це вагомий індикатор популярності проєкту, довіри спільноти та його довгострокової релевантності. Хоча вони не є прямим показником технічної якості, вони відображають, скільки розробників вважають проєкт корисним, стежать за його розвитком і ймовірно його приймуть. Для оцінки цінності проєкту зірки допомагають порівнювати популярність між альтернативами та дають уявлення про зростання екосистеми.
 
-[![Діаграма історії зірок](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+[![Діаграма історії зірок](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
 ## Висновок
 

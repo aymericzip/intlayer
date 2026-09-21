@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - 完全な翻訳ガイド： next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にNext.js ウェブサイトを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:
@@ -22,7 +22,7 @@ author: aymericzip
 
 <TOC/>
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Next.js向けの3つのi18nオプション、next-i18next、next-intl、Intlayerの類似点と相違点を見ていきましょう。
 
@@ -134,6 +134,10 @@ Next.jsは国際化されたルーティング（例：ロケールセグメン�
 
   > `/fr/about` ページにいる場合、`/en/about` ページのコンテンツを読み込みたくない
 
+以下のグラフは、1〜10ページを1〜10言語に翻訳した理論上のアプリ（1ページあたり約30KBのテキスト）のコンテンツ量を推定したものです。ロケールごとの動的読み込みは言語の軸を取り除き、コンポーネントやルート単位でコンテンツをスコープすることはページの軸を取り除きます。両方を組み合わせた場合のみ、コンテンツ量は一定に保たれます。
+
+![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 改めて、これら3つのソリューションはこれらの問題を認識しており、これらの最適化を管理することができます。3つのソリューションの違いはDX（開発者体験）にあります。
 
 `next-intl` と `next-i18next` は翻訳を管理するために集中管理型のアプローチを使用しており、ロケールやサブファイルごとにJSONを分割することが可能です。`next-i18next` ではJSONファイルを「ネームスペース」と呼び、`next-intl` ではメッセージを宣言することができます。`intlayer` ではJSONファイルを「辞書」と呼びます。
@@ -156,9 +160,9 @@ Next.jsは国際化されたルーティング（例：ロケールセグメン�
 
 以下は、vite + react アプリケーションで `intlayer` を使用したバンドルサイズ最適化の影響の例です：
 
-| 最適化されたバンドル                                                                                      | 最適化されていないバンドル                                                                                                      |
-| --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| ![最適化されたバンドル](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![最適化されていないバンドル](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| 最適化されたバンドル                                                                                       | 最適化されていないバンドル                                                                                                       |
+| ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| ![最適化されたバンドル](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![最適化されていないバンドル](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript と安全性
 
@@ -1296,7 +1300,7 @@ export const config = {
 
 GitHubのスターは、プロジェクトの人気、コミュニティの信頼、そして長期的な関連性を示す強力な指標です。技術的な品質の直接的な尺度ではありませんが、どれだけ多くの開発者がそのプロジェクトを有用と感じ、進捗を追い、採用する可能性が高いかを反映しています。プロジェクトの価値を評価する際、スターは代替案間のトラクションを比較し、エコシステムの成長に関する洞察を提供するのに役立ちます。
 
-[![スター履歴チャート](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![スター履歴チャート](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ## 結論
 

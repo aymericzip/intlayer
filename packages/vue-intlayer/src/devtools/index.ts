@@ -1,7 +1,6 @@
 import { internationalization } from '@intlayer/config/built';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { setupDevtoolsPlugin } from '@vue/devtools-api';
 import { type App, watch } from 'vue';
 import { createIntlayerClient } from '../client/installIntlayer';
 import { setLocaleInStorage } from '../client/useLocaleStorage';
@@ -11,6 +10,12 @@ import {
   isLocaleNodeId,
   LOCALES_GROUP_NODE_ID,
 } from './buildLocalesInspectorNode';
+import {
+  type PluginDescriptor,
+  type SetupFunction,
+  setupDevtoolsPlugin,
+} from '@vue/devtools-api';
+import type { App } from 'vue';
 import { formatDictionaryForInspector } from './formatDictionaryForInspector';
 
 export const INTLAYER_DEVTOOLS_PLUGIN_ID = 'intlayer';
@@ -29,7 +34,7 @@ const { defaultLocale, locales: availableLocales } = internationalization ?? {};
  * no-ops when Vue Devtools is not installed.
  */
 export const enableIntlayerDevtools = (app: App): void => {
-  setupDevtoolsPlugin(
+  registerDevtoolsPlugin(
     {
       id: INTLAYER_DEVTOOLS_PLUGIN_ID,
       label: 'Intlayer',

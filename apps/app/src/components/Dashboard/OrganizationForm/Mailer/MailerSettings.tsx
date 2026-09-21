@@ -17,7 +17,7 @@ import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
 import { Mail } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 /**
  * Builds the mailer configuration form schema.
@@ -35,47 +35,49 @@ const useMailerConfigSchema = (hasApiKey: boolean) => {
     .object({
       isActive: z.boolean(),
       provider: z.enum(['resend', 'smtp']),
-      fromName: z.string().optional(),
-      fromEmail: z.string().optional(),
-      resendApiKey: z.string().optional(),
-      smtpHost: z.string().optional(),
-      smtpPort: z.coerce.number().int().positive().optional(),
-      smtpSecure: z.boolean().optional(),
-      smtpUser: z.string().optional(),
-      smtpPassword: z.string().optional(),
+      fromName: z.optional(z.string()),
+      fromEmail: z.optional(z.string()),
+      resendApiKey: z.optional(z.string()),
+      smtpHost: z.optional(z.string()),
+      smtpPort: z.optional(z.coerce.number().check(z.int(), z.positive())),
+      smtpSecure: z.optional(z.boolean()),
+      smtpUser: z.optional(z.string()),
+      smtpPassword: z.optional(z.string()),
     })
-    .superRefine((data, ctx) => {
-      if (!data.isActive) {
-        return;
-      }
+    .check(
+      z.superRefine((data, ctx) => {
+        if (!data.isActive) {
+          return;
+        }
 
-      if (
-        !data.fromEmail ||
-        !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.fromEmail)
-      ) {
-        ctx.addIssue({
-          code: 'custom',
-          message: content.fromEmailInvalid.value,
-          path: ['fromEmail'],
-        });
-      }
+        if (
+          !data.fromEmail ||
+          !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.fromEmail)
+        ) {
+          ctx.addIssue({
+            code: 'custom',
+            message: content.fromEmailInvalid.value,
+            path: ['fromEmail'],
+          });
+        }
 
-      if (data.provider === 'resend' && !hasApiKey && !data.resendApiKey) {
-        ctx.addIssue({
-          code: 'custom',
-          message: content.apiKeyRequired.value,
-          path: ['resendApiKey'],
-        });
-      }
+        if (data.provider === 'resend' && !hasApiKey && !data.resendApiKey) {
+          ctx.addIssue({
+            code: 'custom',
+            message: content.apiKeyRequired.value,
+            path: ['resendApiKey'],
+          });
+        }
 
-      if (data.provider === 'smtp' && !data.smtpHost) {
-        ctx.addIssue({
-          code: 'custom',
-          message: content.smtpHostRequired.value,
-          path: ['smtpHost'],
-        });
-      }
-    });
+        if (data.provider === 'smtp' && !data.smtpHost) {
+          ctx.addIssue({
+            code: 'custom',
+            message: content.smtpHostRequired.value,
+            path: ['smtpHost'],
+          });
+        }
+      })
+    );
 };
 
 type MailerConfigFormData = z.infer<ReturnType<typeof useMailerConfigSchema>>;

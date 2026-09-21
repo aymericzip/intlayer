@@ -1,28 +1,21 @@
-import {
-  getHTMLTextDir,
-  getIntlayer,
-  getLocaleName,
-  getLocalizedPath,
-  type Locale,
-  locales,
-} from 'intlayer';
+import { getHTMLTextDir, getLocaleName, getLocalizedPath } from 'intlayer';
 import { html, type SafeHtml } from 'remix/html-template';
+import { useIntlayer, useLocale } from 'remix-intlayer';
 import { routes } from '../routes';
 
 interface LayoutOptions {
   title: string;
-  locale: Locale;
   content: SafeHtml;
   currentPath?: 'home' | 'about';
 }
 
 export const renderLayout = ({
   title,
-  locale,
   content,
   currentPath = 'home',
 }: LayoutOptions): SafeHtml => {
-  const common = getIntlayer('common', locale);
+  const { locale, availableLocales } = useLocale();
+  const common = useIntlayer('common');
 
   const homeHref = getLocalizedPath(routes.home.href(), locale);
   const aboutHref = getLocalizedPath(routes.about.href(), locale);
@@ -325,7 +318,7 @@ export const renderLayout = ({
             </nav>
             <div class="controls">
               <div class="lang-switcher">
-                ${locales.map((loc) => {
+                ${availableLocales.map((loc) => {
                   const targetPath =
                     currentPath === 'about'
                       ? routes.about.href()

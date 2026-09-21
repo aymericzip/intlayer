@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Устарел ли next-intl в 2026 году?
 description: next-intl стал популярным решением для Next.js App Router. Но он по-прежнему создает оверхед в клиентском бандле и требует ручной организации неймспейсов.
 keywords:
@@ -66,7 +66,7 @@ author: aymericzip
 - `amannn/next-intl`: **187 коммитов** (обновления зависимостей и небольшие патчи).
 - `aymericzip/intlayer`: **4 343 коммита** (активная работа над компилятором, плагинами для IDE, MCP-серверами и алгоритмами перевода).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Стабильная библиотека полезна, но подходы к i18n изменились: компиляторы удаляют неиспользуемые строки при сборке, нейросети переводят тексты в CI, а среды разработки подключают LSP и ИИ-помощников. Архитектура, сосредоточенная на времени выполнения, с трудом использует эти возможности.
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 Поскольку `messages` попадает в клиентский провайдер в самом верху дерева, браузер скачивает весь словарь на каждой странице. Посетитель страницы `/login` загружает описания функций, разделы помощи и интерфейс личного кабинета.
 
 Частично это решается делением на неймспейсы. Но ручное отслеживание привязки текстов к маршрутам трудоемко и часто приводит к сбоям.
+
+График ниже оценивает объём контента для теоретического приложения, в котором от 1 до 10 страниц и от 1 до 10 языков, примерно по 30 КБ текста на страницу. Динамическая загрузка по локали убирает ось языков, ограничение контента компонентом или маршрутом убирает ось страниц, и только их сочетание сохраняет объём стабильным.
+
+![Теоретическая утечка контента по архитектуре](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer решает эту задачу с помощью статического анализа: [компилятор Intlayer](https://intlayer.org/ru/doc/compiler) бандлит исключительно те строки, которые задействованы на конкретном маршруте, снижая утечку до **0.0%**.
 

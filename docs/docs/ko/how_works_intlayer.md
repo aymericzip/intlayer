@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-08-30
+updatedAt: 2026-09-19
 title: Intlayer 작동 방식
 description: Intlayer가 내부적으로 어떻게 작동하는지 알아보세요. Intlayer를 강력하게 만드는 아키텍처와 구성 요소를 이해하십시오.
 keywords:
@@ -135,49 +135,105 @@ Intlayer는 번역 프로세스에서 특정 역할을 하는 여러 패키지�
 
 `intlayer` 패키지는 애플리케이션에서 콘텐츠 파일 내의 콘텐츠를 선언하는 데 사용됩니다.
 
-### react-intlayer
+### 프론트엔드 프레임워크
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
 `react-intlayer` 패키지는 Intlayer 사전을 해석하여 React 애플리케이션에서 사용할 수 있도록 합니다.
 
-### next-intlayer
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
 `next-intlayer` 패키지는 `react-intlayer` 위에 레이어로 작동하여 Intlayer 사전을 Next.js 애플리케이션에서 사용할 수 있도록 합니다. 번역 미들웨어, 라우팅, 또는 `next.config.js` 파일 구성과 같은 Next.js 환경에서 Intlayer가 작동하도록 필수 기능을 통합합니다.
 
-### vue-intlayer
+  </Tab>
+  <Tab label="Vue" value="vue">
 
 `vue-intlayer` 패키지는 Intlayer 사전을 해석하여 Vue 애플리케이션에서 사용할 수 있도록 합니다.
 
-### nuxt-intlayer
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
 
 `nuxt-intlayer` 패키지는 Nuxt 모듈로서 Intlayer 사전을 Nuxt 애플리케이션에서 사용할 수 있도록 합니다. 이 패키지는 번역 미들웨어, 라우팅, `nuxt.config.js` 파일 구성 등 Nuxt 환경에서 Intlayer가 작동하는 데 필요한 필수 기능을 통합합니다.
 
-### svelte-intlayer (작업 중)
+  </Tab>
+  <Tab label="Svelte" value="svelte">
 
 `svelte-intlayer` 패키지는 Intlayer 사전을 해석하여 Svelte 애플리케이션에서 사용할 수 있도록 합니다.
 
-### solid-intlayer (작업 중)
+  </Tab>
+  <Tab label="Solid" value="solid">
 
 `solid-intlayer` 패키지는 Intlayer 사전을 해석하여 Solid.js 애플리케이션에서 사용할 수 있도록 합니다.
 
-### preact-intlayer
+  </Tab>
+  <Tab label="Preact" value="preact">
 
 `preact-intlayer` 패키지는 Intlayer 사전을 해석하여 Preact 애플리케이션에서 사용할 수 있도록 합니다.
 
-### angular-intlayer (작업 중)
+  </Tab>
+  <Tab label="Angular" value="angular">
 
 `angular-intlayer` 패키지는 Intlayer 사전을 해석하여 Angular 애플리케이션에서 사용할 수 있도록 합니다.
 
-### express-intlayer
+  </Tab>
+  <Tab label="Astro" value="astro">
 
-`express-intlayer` 패키지는 Express.js 백엔드에서 Intlayer를 사용할 수 있도록 합니다.
+`astro-intlayer` 패키지는 Intlayer를 Astro 애플리케이션에 통합하기 위한 필수 도구를 제공합니다. 로케일 기반 라우팅 및 사전 관리(딕셔너리 관리를) 구성합니다.
 
-### react-native-intlayer
+  </Tab>
+  <Tab label="Remix" value="remix">
+
+`remix-intlayer` 패키지는 Intlayer를 Remix 애플리케이션에 통합하기 위한 필수 도구를 제공합니다. 로케일 기반 라우팅, 서버 측 컨텍스트 및 사전 관리를 구성합니다.
+
+  </Tab>
+  <Tab label="React Native" value="react-native">
 
 `react-native-intlayer` 패키지는 Metro 번들러와 함께 작동하도록 Intlayer 플러그인을 통합하는 도구를 제공합니다.
 
-### lynx-intlayer
+  </Tab>
+  <Tab label="Lit" value="lit">
 
-`lynx-intlayer` 패키지는 Lynx 번들러와 함께 작동하도록 Intlayer 플러그인을 통합하는 도구를 제공합니다.
+`lit-intlayer` 패키지는 Lit 애플리케이션에서 Intlayer 사전을 해석하고 사용하기 위한 도구와 컴포넌트를 제공합니다.
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+`vanilla-intlayer` 패키지는 Intlayer를 바닐라 JavaScript, HTML 또는 PHP 애플리케이션에 통합하기 위한 도구를 제공합니다.
+
+  </Tab>
+</Tabs>
+
+### 백엔드 프레임워크
+
+<Tabs group="backend">
+  <Tab label="Express" value="express">
+
+`express-intlayer` 패키지는 Express.js 백엔드에서 Intlayer를 사용할 수 있도록 합니다.
+
+  </Tab>
+  <Tab label="Fastify" value="fastify">
+
+`fastify-intlayer` 패키지는 Fastify 애플리케이션에서 국제화를 처리하기 위한 플러그인을 제공합니다. 사용자 로케일을 감지하고 요청(request) 객체에 데코레이터를 추가합니다.
+
+  </Tab>
+  <Tab label="Hono" value="hono">
+
+`hono-intlayer` 패키지는 국제화를 처리하기 위한 Hono 애플리케이션용 미들웨어를 제공합니다. 사용자의 로케일을 감지하고 컨텍스트 객체를 채웁니다.
+
+  </Tab>
+  <Tab label="Elysia" value="elysia">
+
+`elysia-intlayer` 패키지는 Elysia 애플리케이션에서 국제화를 처리하기 위한 플러그인을 제공합니다. 사용자 로케일을 감지하고 라우트 컨텍스트에 `intlayer` 객체를 주입합니다.
+
+  </Tab>
+  <Tab label="AdonisJS" value="adonis">
+
+`adonis-intlayer` 패키지는 AdonisJS 애플리케이션이 국제화를 처리할 수 있도록 미들웨어를 제공합니다. 사용자의 로케일을 감지하고 번역 기능을 제공합니다.
+
+  </Tab>
+</Tabs>
 
 ### vite-intlayer
 
@@ -186,6 +242,10 @@ Intlayer는 번역 프로세스에서 특정 역할을 하는 여러 패키지�
 ### react-scripts-intlayer
 
 `react-scripts-intlayer` 명령어와 플러그인을 포함하며, Create React App 기반 애플리케이션과 Intlayer를 통합하는 데 사용됩니다. 이 플러그인들은 [craco](https://craco.js.org/)를 기반으로 하며, [Webpack](https://webpack.js.org/) 번들러에 대한 추가 구성을 포함합니다.
+
+### eslint-plugin-intlayer
+
+`eslint-plugin-intlayer` 패키지는 번역되지 않은 문자열을 감지하고 사전 정의를 검증하며 i18n 모범 사례를 적용하기 위한 ESLint 및 oxlint 규칙을 제공합니다.
 
 ### intlayer-editor
 
@@ -220,9 +280,21 @@ Express를 기반으로 한 서버는 시각적 편집기 요청을 수신하고
 
 `@intlayer/mcp` 패키지는 Intlayer 생태계에 맞춘 AI 기반 IDE 지원을 제공하는 MCP(Model Context Protocol) 서버를 제공합니다. 이 서버는 문서를 자동으로 로드하며 Intlayer CLI와 통합됩니다.
 
-### @intlayer/dictionaries-entry & @intlayer/unmerged-dictionaries-entry & @intlayer/dynamic-dictionaries-entry
+### @intlayer/lsp
 
-`@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` 및 `@intlayer/dynamic-dictionaries-entry` 패키지는 Intlayer 사전의 진입 경로를 반환합니다. 브라우저에서 파일 시스템을 검색하는 것이 불가능하기 때문에, Webpack이나 Rollup과 같은 번들러를 사용하여 사전의 진입 경로를 가져오는 것은 불가능합니다. 이 패키지들은 별칭(alias)으로 설계되어 Vite, Webpack, Turbopack 등 다양한 번들러에서 번들링 최적화를 가능하게 합니다.
+`@intlayer/lsp` 패키지는 Intlayer에 맞춘 Language Server Protocol (LSP) 서버를 제공합니다. 정의로 이동, 모든 참조 찾기, 호버 미리보기, 사전 키 자동 완성 및 진단 경고와 같은 IDE 기능을 지원합니다.
+
+### @intlayer/ai
+
+`@intlayer/ai` 패키지는 Intlayer 애플리케이션을 위한 SDK 기능을 제공하여 자동 번역 및 AI 기반 콘텐츠 생성을 지원합니다.
+
+### @intlayer/analytics
+
+`@intlayer/analytics` 패키지는 콘텐츠 노출 지표, 페이지/로케일 및 노드 수준 분석을 수집하고 콘텐츠 A/B 테스트를 지원하는 도구를 제공합니다.
+
+### @intlayer/dictionaries-entry
+
+`@intlayer/dictionaries-entry` 패키지는 Intlayer 사전의 진입 경로를 반환합니다. 루트의 병합된 사전과 `/unmerged`, `/remote`, `/dynamic`, `/fetch` 하위 경로의 미병합, 원격, 동적 및 fetch 사전입니다. 브라우저에서 파일 시스템을 검색하는 것이 불가능하기 때문에, Webpack이나 Rollup과 같은 번들러를 사용하여 사전의 진입 경로를 가져오는 것은 불가능합니다. 이 패키지와 해당 하위 경로는 별칭(alias)으로 설계되어 Vite, Webpack, Turbopack 등 다양한 번들러에서 번들링 최적화를 가능하게 합니다.
 
 ### @intlayer/engine
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next проти next-intl проти Intlayer - Повний посібник з перекладу next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: Найкраще рішення для розміру бандлу, SEO, продуктивності & підтримуваності. Зробіть Next.js сайт багатомовним у 2026, переклад LLM, Agent Skills & MCP.
 keywords:
@@ -20,7 +20,7 @@ author: aymericzip
 
 # next-i18next VS next-intl VS intlayer | Інтернаціоналізація Next.js (i18n)
 
-![next-i18next проти next-intl та intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next проти next-intl та intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Розглянемо схожості та відмінності між трьома варіантами i18n для Next.js: next-i18next, next-intl та Intlayer.
 
@@ -137,6 +137,10 @@ Next.js надає вбудовану підтримку інтернаціон�
 
   > Якщо я на сторінці `/fr/about`, я не хочу завантажувати вміст сторінки `/en/about`
 
+Графік нижче оцінює обсяг контенту для теоретичного застосунку, в якому від 1 до 10 сторінок і від 1 до 10 мов, приблизно по 30 КБ тексту на сторінку. Динамічне завантаження за локаллю прибирає вісь мов, обмеження контенту компонентом або маршрутом прибирає вісь сторінок, і лише їх поєднання зберігає обсяг стабільним.
+
+![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 Знову ж таки, усі три рішення усвідомлюють ці проблеми та дозволяють керувати цими оптимізаціями. Різниця між ними, це DX (Developer Experience).
 
 `next-intl` та `next-i18next` використовують централізований підхід для керування перекладами, дозволяючи розбивати JSON за локаллю й на підфайли. У `next-i18next` ми називаємо JSON-файли 'namespaces'; `next-intl` дозволяє оголошувати messages. В `intlayer` ми називаємо JSON-файли 'dictionaries'.
@@ -161,9 +165,9 @@ Next.js надає вбудовану підтримку інтернаціон�
 
 Нижче приклад впливу оптимізації розміру бандла за допомогою `intlayer` у застосунку на vite + react:
 
-| Оптимізований бандл                                                                                      | Неоптимізований бандл                                                                                                      |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| ![оптимізований бандл](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![неоптимізований бандл](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Оптимізований бандл                                                                                       | Неоптимізований бандл                                                                                                       |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| ![оптимізований бандл](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![неоптимізований бандл](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript і безпека
 
@@ -1473,7 +1477,7 @@ export const config = {
 
 Зірки на GitHub є потужним індикатором популярності проєкту, довіри спільноти та його довгострокової значущості. Хоча це не прямий показник технічної якості, вони відображають, скільки розробників вважають проєкт корисним, стежать за його розвитком і, ймовірно, приймуть його у використання. Для оцінки цінності проєкту зірки допомагають порівнювати залученість між альтернативами та дають уявлення про зростання екосистеми.
 
-[![Графік історії зірок](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Графік історії зірок](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ## Висновок
 

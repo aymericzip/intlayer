@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: 2026 年，i18next 已经过时了吗？
 description: i18next 为数百万个网站提供多语言支持，但其始于 2011 年的运行时架构已显老态。本文深入剖析其打包体积膨胀、Tree-shaking 限制与创新停滞问题。
 keywords:
@@ -70,7 +70,7 @@ GitHub Stars 仅代表历史上的流行程度，并不代表当下的架构活�
 | `i18next` 核心  | 2,626            | **259**      | 小幅度更新                               |
 | Intlayer        | 7,156            | **4,343**    | 编译器优化、IDE 工具链与 AI 翻译引擎研发 |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 成熟的代码库能提供稳定性，但现代 i18n 工具链已经发生质变：现代打包工具在构建期剔除无用文本，CI 阶段借助大语言模型实现自动化翻译，编辑器环境深度融合 Language Server (LSP) 与 AI Agent。纯运行时的架构设计很难融入这些前沿技术。
 
@@ -124,6 +124,10 @@ style="border:none;"
 **翻译内容泄漏：**
 
 在默认设置下，下发到特定路由的内容中约 **90%** 实际上属于其他页面。依靠手动划分命名空间不仅繁琐，而且容易漏配。
+
+下图估算了一个理论应用的内容体积：1 到 10 个页面，翻译成 1 到 10 种语言，每页约 30 KB 文本。按 locale 动态加载内容可消除语言维度，按组件或路由划分内容可消除页面维度，只有两者结合才能让体积保持平稳。
+
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **水合延迟：**
 

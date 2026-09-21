@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-11
+updatedAt: 2026-09-19
 title: "Remix 3 i18n - 完整的应用多语言国际化翻译指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Remix 3 应用的权威指南。借助 AI 智能体完成翻译，并优化打包体积、SEO 和性能。"
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-remix-3-template
 applicationShowcase: https://intlayer-remix-3-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "使用 remix-intlayer 中间件和钩子"
   - version: 9.5.0
     date: 2026-09-09
     changes: "Remix 3 初始文档"
@@ -39,7 +42,7 @@ author: aymericzip
 - **`remix/node-fetch-server`**: Node.js 服务器适配器，原生支持 Bun、Deno 与边缘运行时。
 - **`remix/cookie`**: 具备加密安全性的 Cookie 解析与序列化工具。
 
-与 **Intlayer** 结合使用时，您将获得一个完整的国际化系统，提供编译期安全性、自动化 AI 翻译、零额外开销的服务端渲染以及无缝的语言路由。
+结合 **Intlayer** 和 **`remix-intlayer`** 软件包（包含语言环境中间件以及与 `react-intlayer` 相同的 `useIntlayer` / `useDictionary` / `useLocale` 钩子，绑定到 Remix 请求上下文），你将获得一个完整的国际化系统，提供编译时安全性、自动化 AI 翻译、零开销服务端渲染以及流畅的语言环境路由。
 
 ## 目录
 
@@ -52,7 +55,7 @@ author: aymericzip
 <AccordionGroup>
 <Accordion header="全面支持 Remix 3 和 Web 标准">
 
-Intlayer 原生适配 Web 标准（`Request`、`Response`、`Headers` 和 `URL`）。通过轻量级中间件，它能够无缝融入 Remix 3 的 Fetch 路由器，从 URL 路径、Cookie 或 `Accept-Language` 请求头中提取语言信息，而不会将您绑定在特定运行时上。
+Intlayer 专为与 Web 标准（`Request`、`Response`、`Headers` 和 `URL`）无缝协作而构建。`remix-intlayer` 作为轻量级中间件插入 Remix 3 的 Fetch 路由器中，从 URL 路径、Cookie 或 `Accept-Language` 请求头中提取语言环境，并将其暴露给请求的其余部分、处理程序、视图和 `remix/ui` 组件，无需手动传递参数，也不会将你锁定在特定运行时。
 
 </Accordion>
 <Accordion header="类型安全的内容声明">
@@ -109,25 +112,27 @@ Intlayer 将内容声明 (`.content.ts`) 与路由业务逻辑就近同构，大
 <Steps>
 <Step number={1} title="安装依赖">
 
-使用您喜欢的包管理器安装 `intlayer` 和 `remix` (第 3 版)：
+使用你喜欢的包管理器安装 `intlayer`、`remix-intlayer` 和 `remix`（版本 3）：
 
 ```bash packageManager="npm"
-npm install intlayer remix@next
+npm install intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer remix@next
+pnpm add intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer remix@next
+yarn add intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="bun"
-bun add intlayer remix@next
+bun add intlayer remix-intlayer remix@next
 ```
 
 - **`intlayer`**: 核心国际化引擎，负责配置管理、字典声明 (`t()`, `Dictionary`)、CLI 工具和运行时解释器。
+- **`remix-intlayer`**：Remix 3 集成：解析每个请求语言环境的 `intlayer()` 路由器中间件，以及在下游任何位置读取它的 `useIntlayer`、`useDictionary` 和 `useLocale` 钩子。
+- **`remix-intlayer`**：Remix 3 集成：解析每个请求语言环境的 `intlayer()` 路由器中间件，以及在下游任何位置读取它的 `useIntlayer`、`useDictionary` 和 `useLocale` 钩子。
 - **`remix`**: 统一的 Remix 3 框架包，导出 `remix/router`、`remix/routes`、`remix/ui`、`remix/middleware/render` 以及 `remix/node-fetch-server`。
 
 </Step>
@@ -254,64 +259,29 @@ bun x intlayer build
 此操作会将内容编译至 `.intlayer` 产物目录中，提供完整的 TypeScript 自动补全和快速字典查询。
 
 </Step>
-<Step number={5} title="实现 Intlayer 中间件">
+<Step number={5} title="添加 Intlayer 中间件">
 
-Remix 3 通过 `createRouter({ middleware: [...] })` 提供了可组合的中间件管道。
+Remix 3 通过 `createRouter({ middleware: [...] })` 提供可组合的中间件管道。
 
-创建一个 Intlayer 中间件，按以下优先级解析每个请求的目标语言：
+`remix-intlayer` 提供了 `intlayer()` 中间件。对于每个传入请求，它使用以下内容解析语言环境：
 
-1. 通过 Intlayer 的 `getLocaleFromPath` 解析 URL 路径前缀（如 `/zh` 或 `/fr`）。
-2. 使用 Intlayer 的 `getLocale` 辅助函数，自动对 Cookie 存储 (`INTLAYER_LOCALE`)、自定义请求头 (`x-intlayer-locale`)、标准 `Accept-Language` 请求头以及配置的 `defaultLocale` 进行协商。
+1. 除 `no-prefix` 之外的所有路由模式下的 URL：路径前缀（例如 `/zh` 或 `/en`）或 `?locale=` 查询参数。
+2. 客户端持久化的语言环境：存储 Cookie（`INTLAYER_LOCALE`）或自定义标头（`x-intlayer-locale`）。
+3. 标准 `Accept-Language` 协商，回退到配置的 `defaultLocale`。
 
-```typescript fileName="src/middleware/intlayer.ts" codeFormat={["typescript", "esm"]}
-import {
-  defaultLocale,
-  getCookie,
-  getLocale,
-  getLocaleFromPath,
-  type Locale,
-} from "intlayer";
-import { createContextKey, type Middleware } from "remix/router";
+结果作为 `context.intlayer`（或 `context.get(Intlayer)`）存储在 Remix 请求上下文中，包含 `locale`、`defaultLocale` 和 `availableLocales`。中间件随后在绑定到该上下文的 `AsyncLocalStorage` 作用域内运行请求的其余部分，使得该包的钩子无需传递参数即可读取语言环境，无论是在路由处理程序、视图还是 `remix/ui` 组件中：
 
-/**
- * 用于从 Remix 3 RequestContext 中获取已解析语言的类型安全上下文键。
- */
-export const localeKey = createContextKey<Locale>(defaultLocale);
+```typescript
+import { useIntlayer, useLocale } from "remix-intlayer";
 
-/**
- * Remix 3 的 Intlayer 中间件。
- *
- * 按照以下优先级解析请求语言：
- * 1. URL 路径前缀（例如 `/zh/...`），通过 `getLocaleFromPath` 获取
- * 2. 存储与请求头协商，通过 `getLocale` 获取（Cookie、自定义请求头、Accept-Language 协商、fallback 回退 defaultLocale）
- *
- * 将解析出的语言附加至 Remix 3 RequestContext。
- */
-export const intlayer = (): Middleware => {
-  return async (context, next) => {
-    // 路径检测 (/zh/about -> "zh", /about -> undefined)
-    const pathLocale = getLocaleFromPath(context.url.pathname);
-
-    if (pathLocale) {
-      // 将解析出的语言附加至 Remix 3 请求上下文
-      context.set(localeKey, pathLocale);
-
-      return next();
-    }
-
-    const storedLocale = await getLocale({
-      getHeader: (name) => context.headers.get(name),
-      getCookie: (name) =>
-        getCookie(name, context.headers.get("cookie") ?? undefined),
-    });
-
-    // 将解析出的语言附加至 Remix 3 请求上下文
-    context.set(localeKey, storedLocale ?? defaultLocale);
-
-    return next();
-  };
-};
+// 中间件下游的任何位置
+const { locale, availableLocales } = useLocale();
+const { title } = useIntlayer("home");
 ```
+
+`useIntlayer("home", "fr")` 或 `useIntlayer("faq", { item: 2 })` 可在单次调用中覆盖请求语言环境，而 `useDictionary(homeContent)` 读取导入的字典而不是键。在请求之外，钩子会回退到默认语言环境。
+
+> 中间件还会在服务器启动时准备 Intlayer 字典，因此即使缺少 `intlayer build` 也不会导致注册表为空。
 
 </Step>
 <Step number={6} title="定义类型安全路由">
@@ -342,20 +312,21 @@ routes.localizedHome.href({ locale: "zh" }); // "/zh"
 
 Remix 3 使用来自 `remix/ui` 的 JSX 组件渲染 UI。组件是一个接收 `Handle` 并返回**渲染函数**的**设置函数**。设置函数每个实例仅执行一次，渲染函数在每次更新时执行，并通过 `handle.props` 读取属性。
 
-首先创建一个共享的 `Document` 外壳，根据解析出的语言设置 `<html lang="..." dir="...">` 属性：
+从一个共享的 `Document` 外壳开始，它根据中间件解析的语言环境设置 `<html lang="..." dir="...">` 属性：
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
-import { getHTMLTextDir, type Locale } from "intlayer";
+import { getHTMLTextDir } from "intlayer";
+import { useLocale } from "remix-intlayer";
 import type { Handle, RemixNode } from "remix/ui";
 
 type DocumentProps = {
-  locale: Locale;
   title: string;
   children?: RemixNode;
 };
 
 export const Document = (handle: Handle<DocumentProps>) => () => {
-  const { locale, title, children } = handle.props;
+  const { title, children } = handle.props;
+  const { locale } = useLocale();
 
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
@@ -370,47 +341,40 @@ export const Document = (handle: Handle<DocumentProps>) => () => {
 };
 ```
 
-接着创建首页。使用 `getIntlayer` 提取本地化字典，并展示语言切换器：
+然后创建主页。它使用 `useIntlayer` 读取本地化字典并渲染语言切换器：
 
 ```tsx fileName="src/views/home.tsx" codeFormat={["typescript", "esm"]}
-import {
-  getIntlayer,
-  getLocaleName,
-  getLocalizedPath,
-  type Locale,
-  locales,
-} from "intlayer";
-import type { Handle } from "remix/ui";
-import { routes } from "../routes";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
+import { useIntlayer, useLocale } from "remix-intlayer";
 import { Document } from "./document";
 
-type HomePageProps = {
-  locale: Locale;
-};
-
-export const HomePage = (handle: Handle<HomePageProps>) => () => {
-  const { locale } = handle.props;
-  const home = getIntlayer("home", locale);
+export const HomePage = () => () => {
+  const { locale, availableLocales } = useLocale();
+  const home = useIntlayer("home");
+  const pathWithoutLocale = getPathWithoutLocale();
 
   return (
-    <Document locale={locale} title={home.title}>
+    <Document title={home.title}>
       <header>
         <nav aria-label="Languages">
           <span>{home.switchLanguage}</span>
-          {locales.map((targetLocale) => {
-            const isActive = targetLocale === locale;
+          <ul>
+            {availableLocales.map((localeItem) => {
+              const isActive = localeItem === locale;
 
-            return (
-              <a
-                key={targetLocale}
-                href={getLocalizedPath(routes.home.href(), targetLocale)}
-                class={isActive ? "active" : undefined}
-                aria-current={isActive ? "page" : undefined}
-              >
-                {getLocaleName(targetLocale, locale)}
-              </a>
-            );
-          })}
+              return (
+                <li key={localeItem} class="p-1">
+                  <a
+                    href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+                    class={isActive ? "active" : undefined}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {getLocaleName(localeItem, locale)}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
         </nav>
       </header>
       <main>
@@ -422,7 +386,7 @@ export const HomePage = (handle: Handle<HomePageProps>) => () => {
 };
 ```
 
-> Remix JSX 并非 React：没有 Hook，`class` 直接按原样书写（同时也支持 `className`），且通过 `handle.update()` 显式触发重新渲染。插值内容会自动进行安全转义。
+> Remix JSX 不是 React：`class` 原样书写（也接受 `className`），并且通过 `handle.update()` 显式触发重新渲染。插值会自动转义。Intlayer 钩子是读取请求作用域的普通函数，因此可以从 setup 函数或 render 函数中调用。
 
 </Step>
 <Step number={8} title="串联路由器与服务器">
@@ -431,39 +395,37 @@ export const HomePage = (handle: Handle<HomePageProps>) => () => {
 
 ```tsx fileName="src/router.tsx" codeFormat={["typescript", "esm"]}
 import { isDeclaredLocale } from "intlayer";
+import { intlayer } from "remix-intlayer";
 import { render } from "remix/middleware/render";
 import { createRouter } from "remix/router";
-import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
 import { HomePage } from "./views/home";
 
-// 1. 使用 Intlayer + render 中间件初始化路由器
+// 1. Initialize router with Intlayer + render middleware
 export const router = createRouter({
   middleware: [intlayer(), render()],
 });
 
-// 2. 映射路由处理函数
+// 2. Map route handlers
 router.map(routes, {
   actions: {
-    // 默认语言路由
+    // Default locale route
     home(context) {
-      const locale = context.get(localeKey);
-      return context.render(<HomePage locale={locale} />);
+      return context.render(<HomePage />);
     },
 
-    // 本地化语言路由
+    // Localized route
     localizedHome(context) {
       if (!isDeclaredLocale(context.params.locale)) {
         return new Response("Not Found", { status: 404 });
       }
-      const locale = context.get(localeKey);
-      return context.render(<HomePage locale={locale} />);
+      return context.render(<HomePage />);
     },
   },
 });
 ```
 
-> `context.render` 支持传入可选的 `ResponseInit` 作为第二参数，例如：`context.render(<NotFoundPage locale={locale} />, { status: 404 })`。
+> `context.render` 接受可选的 `ResponseInit` 作为第二个参数，例如 `context.render(<NotFoundPage />, { status: 404 })`。解析后的语言环境仍可作为 `context.intlayer.locale` 从处理程序访问，例如用于构建 `Response.json` 响应体。
 
 最后，通过标准 `fetch` 处理函数暴露路由器。同一个路由器可无缝运行在 Node.js、Bun、Deno 及 Cloudflare Workers 上：
 

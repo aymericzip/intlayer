@@ -279,6 +279,13 @@ El editor muestra tu aplicación en un iframe, así que tu Content Security Poli
 Está diseñado para desarrollo y staging, donde es aceptable una recompilación tras una edición. Para editar contenido en un sitio en vivo sin un despliegue, usa el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) y sus diccionarios remotos en su lugar.
 
 </Question>
+<Question title="¿Cuál es el costo del editor visual? ¿Es excesivo si no lo necesito?">
+
+El editor visual de Intlayer tiene un **costo cero** en su aplicación si no está configurado. La lógica adicional solo se carga si se habilita explícitamente y es necesaria.
+
+Si está habilitado, el impacto es extremadamente ligero (+5 KB, cargado dinámicamente solo cuando se activa) porque la mayor parte de la lógica es manejada por el editor del servidor en [app.intlayer.org](https://app.intlayer.org) o a través del paquete `intlayer-editor`. Si solo necesita una solución de traducción simple sin edición visual, Intlayer no agrega ninguna sobrecarga a su aplicación.
+
+</Question>
 <Question title="¿El editor visual es gratuito?">
 
 Sí. El editor visual forma parte del proyecto de código abierto, bajo la licencia Apache 2.0, uso comercial incluido. Solo el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) alojado es un servicio de pago, y también puede [autoalojarse](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md).

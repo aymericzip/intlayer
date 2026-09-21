@@ -1341,7 +1341,7 @@ Intlayer utilise l'augmentation de module pour bénéficier de TypeScript et ren
 
 ![Autocomplétion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Erreur de traduction](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Erreur de traduction](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Assurez-vous que votre configuration TypeScript inclut les types générés automatiquement.
 
@@ -1475,6 +1475,13 @@ Oui. Les déclarations de contenu prennent en charge les [formes plurielles](htt
 <Question title="Comment les traducteurs et les non-développeurs peuvent-ils modifier le contenu ?">
 
 Deux options, toutes deux optionnelles. L'[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) tourne sur votre propre infrastructure et permet à quiconque de cliquer sur le texte de votre site pour le modifier sur place. Le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) externalise le contenu afin qu'il puisse être mis à jour sans déploiement, avec la [synchronisation en direct](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/live.md) qui reflète les changements à l'exécution.
+
+</Question>
+<Question title="Quel est le coût de l'éditeur visuel ? Est-il superflu si je n'en ai pas besoin ?">
+
+L'[éditeur visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) a un **coût nul** sur votre application s'il n'est pas configuré. La logique supplémentaire n'est chargée que si elle est explicitement activée et nécessaire.
+
+Même s'il est activé, le coût est extrêmement léger (+5 ko, chargé dynamiquement uniquement lorsqu'il est activé), car l'essentiel de la logique est géré par l'éditeur serveur sur [app.intlayer.org](https://app.intlayer.org) ou via le package `intlayer-editor`. Si vous avez seulement besoin d'une solution de traduction simple sans édition visuelle, Intlayer n'ajoute aucune surcharge à votre application.
 
 </Question>
 <Question title="Comment détecter les traductions manquantes avant la mise en production ?">

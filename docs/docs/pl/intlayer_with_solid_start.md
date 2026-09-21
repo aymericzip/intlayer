@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-08-06
+updatedAt: 2026-09-20
 title: "Solid Start i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji SolidStart. Server-rendered routing lokalizacji, hreflang, mapa strony i tłumaczenie wspomagane przez AI."
 keywords:
@@ -748,15 +748,13 @@ SolidStart zmienia plik eksportujący metodę HTTP w trasę API i usuwa rozszerz
 import type { APIEvent } from "@solidjs/start/server";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 export const GET = (_event: APIEvent) => {
   const sitemap = generateSitemap(
     [
       { path: "/", changefreq: "daily", priority: 1.0 },
       { path: "/about", changefreq: "monthly", priority: 0.8 },
     ],
-    { siteUrl: SITE_URL }
+    { siteUrl: "https://example.com" }
   );
 
   return new Response(sitemap, {
@@ -790,8 +788,6 @@ Możesz zbudować `robots.txt` w ten sam sposób za pomocą `getMultilingualUrls
 ```typescript fileName="src/routes/robots.txt.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 const disallowedPaths = ["/admin", "/private"].flatMap((path) =>
   Object.values(getMultilingualUrls(path))
 );
@@ -803,7 +799,7 @@ export const GET = () =>
       "Allow: /",
       ...disallowedPaths.map((path) => `Disallow: ${path}`),
       "",
-      `Sitemap: ${SITE_URL}/sitemap.xml`,
+      `Sitemap: https://example.com/sitemap.xml`,
     ].join("\n"),
     { headers: { "Content-Type": "text/plain" } }
   );
@@ -922,7 +918,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Od v9 `intlayerCompiler` jest dołączony do wtyczki `intlayer`. Nie musisz więc dodawać go ręcznie.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Zaktualizuj swój `vite.config.ts`, aby dołączyć wtyczkę `intlayerCompiler`:
 
@@ -941,6 +943,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Zbuduj aplikację, aby przekształcić komponenty i wyodrębnić treść
 
 ```bash packageManager="npm"
 npm run build # Lub npm run dev

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "TanStack Start + Solid i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) TanStack Start + Solid 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -993,7 +993,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel 编译器'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > 从 v9 开始，`intlayerCompiler` 已包含在 `intlayer` 插件中。所以你不需要手动添加它。
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 更新你的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
 
@@ -1019,6 +1025,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+构建你的应用程序来转换你的组件并提取内容
 
 ```bash packageManager="npm"
 npm run build # 或 npm run dev
@@ -1099,7 +1110,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             { path: "/", changefreq: "daily", priority: 1.0 },
             { path: "/about", changefreq: "monthly", priority: 0.8 },
           ],
-          { siteUrl: SITE_URL }
+          { siteUrl: "https://example.com" }
         );
 
         return new Response(sitemap, {
@@ -1265,6 +1276,13 @@ TanStack Start 本身不包含 i18n 层，而在 Solid 生态中可用的选择�
 <Question title="翻译人员如何无需接触代码即可编辑内容？">
 
 可以通过在您自己的基础设施上运行的 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)（允许任何人直接在运行的应用中就地修改文本），或通过 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 进行无需重新部署的内容外部化更新。
+
+</Question>
+<Question title="可视化编辑器的成本是多少？如果我不需要它，会不会显得多余？">
+
+如果未进行配置，Intlayer [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)对您的应用程序是 **零成本** 的。额外的逻辑仅在显式启用并在需要时才会加载。
+
+即使启用，其开销也极其轻量（仅在激活时动态加载 +5 kB），因为主要逻辑由 [app.intlayer.org](https://app.intlayer.org) 上的服务端编辑器或通过 `intlayer-editor` 软件包进行处理。如果您只需要一个无需可视化编辑的简单翻译方案，Intlayer 不会给您的应用带来任何额外负担。
 
 </Question>
 <Question title="Intlayer 是免费且开源的吗？">

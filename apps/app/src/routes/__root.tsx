@@ -18,6 +18,7 @@ import { ThemeProvider } from '#/providers/ThemeProvider';
 import appCss from '#/styles.css?url';
 import { ErrorComponent } from '#components/ErrorComponent';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber';
+import { WebMCPTools } from '#components/WebMCP';
 import { sessionQueryOptions } from '#utils/auth.tsx';
 import { getRootStructuredDataScripts } from '#utils/structuredData';
 
@@ -137,6 +138,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                   <ReactQueryProvider client={queryClient}>
                     <Toaster />
                     <ServiceWorkerSubscriber />
+                    <WebMCPTools />
                     <Suspense fallback={<Loader />}>{children}</Suspense>
                   </ReactQueryProvider>
                 </IntlayerMarkdownProvider>

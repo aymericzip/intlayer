@@ -21,7 +21,7 @@ import {
 import { beginServerSentEventStream } from '@utils/serverSentEvents';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 import type { ShowcaseProjectAPI } from '@/types/showcaseProject.types';
 
 const getUserId = (request: FastifyRequest): string | undefined =>
@@ -29,21 +29,20 @@ const getUserId = (request: FastifyRequest): string | undefined =>
     ? String(request.session.user.id ?? (request.session.user as any)._id)
     : undefined;
 
-const urlSchema = z
-  .url()
-  .optional()
-  .or(z.literal(''))
-  .transform((value) => (value === '' ? undefined : value));
+const urlSchema = z.pipe(
+  z.union([z.optional(z.url()), z.literal('')]),
+  z.transform((value) => (value === '' ? undefined : value))
+);
 
 const submitProjectSchema = z.object({
-  name: z.string().min(1),
-  url: z
-    .url()
-    .refine((val) => !/github\.com|gitlab\.com|bitbucket\.org/.test(val), {
+  name: z.string().check(z.minLength(1)),
+  url: z.url().check(
+    z.refine((val) => !/github\.com|gitlab\.com|bitbucket\.org/.test(val), {
       message: 'Repository URLs should be placed in the GitHub URL field',
-    }),
+    })
+  ),
   githubUrl: urlSchema,
-  useCases: z.array(z.string()).max(3).optional(),
+  useCases: z.optional(z.array(z.string()).check(z.maxLength(3))),
 });
 export type SubmitShowcaseProjectBody = z.input<typeof submitProjectSchema>;
 export type SubmitShowcaseProjectResult = ResponseData<ShowcaseProjectAPI>;
@@ -394,25 +393,26 @@ export const toggleShowcaseDownvote = async (
 };
 
 const updateProjectSchema = z.object({
-  name: z.string().min(1).max(255).optional(),
-  url: z
-    .url()
-    .refine((val) => !/github\.com|gitlab\.com|bitbucket\.org/.test(val), {
-      message: 'Repository URLs should be placed in the GitHub URL field',
-    })
-    .optional(),
-  githubUrl: z
-    .string()
-    .optional()
-    .transform((value) => {
+  name: z.optional(z.string().check(z.minLength(1), z.maxLength(255))),
+  url: z.optional(
+    z.url().check(
+      z.refine((val) => !/github\.com|gitlab\.com|bitbucket\.org/.test(val), {
+        message: 'Repository URLs should be placed in the GitHub URL field',
+      })
+    )
+  ),
+  githubUrl: z.pipe(
+    z.optional(z.string()),
+    z.transform((value) => {
       if (!value) return null;
       if (value.startsWith('http://') || value.startsWith('https://'))
         return value;
       return `https://${value}`;
-    }),
-  tagline: z.string().min(1).max(500).optional(),
-  description: z.string().optional(),
-  useCases: z.array(z.string()).max(3).optional(),
+    })
+  ),
+  tagline: z.optional(z.string().check(z.minLength(1), z.maxLength(500))),
+  description: z.optional(z.string()),
+  useCases: z.optional(z.array(z.string()).check(z.maxLength(3))),
 });
 
 export type UpdateShowcaseProjectBody = z.input<typeof updateProjectSchema>;

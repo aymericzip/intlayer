@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "TanStack Start + Solid i18n - Guide complet pour traduire votre application"
 description: "Oubliez i18next. Le guide 2026 pour créer une application TanStack Start + Solid multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
@@ -985,7 +985,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
+> Depuis la v9, `intlayerCompiler` est inclus dans le plugin `intlayer`. Vous n'avez donc pas besoin de l'ajouter manuellement.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Mettez à jour votre `vite.config.ts` pour inclure le plugin `intlayerCompiler` :
 
@@ -1007,10 +1013,15 @@ export default defineConfig({
     }),
     solidPlugin({ ssr: true }),
     intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
+    intlayerCompiler(), // Ajoute le plugin du compilateur
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Buildez votre application pour transformer vos composants et extraire le contenu
 
 ```bash packageManager="npm"
 npm run build # Ou npm run dev
@@ -1091,7 +1102,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             { path: "/", changefreq: "daily", priority: 1.0 },
             { path: "/about", changefreq: "monthly", priority: 0.8 },
           ],
-          { siteUrl: SITE_URL }
+          { siteUrl: "https://example.com" }
         );
 
         return new Response(sitemap, {
@@ -1256,6 +1267,13 @@ Oui : les [formes plurielles](https://github.com/aymericzip/intlayer/blob/main/d
 <Question title="Comment les traducteurs peuvent-ils modifier le contenu sans toucher au code ?">
 
 Via l'[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md), qui tourne sur votre propre infrastructure et permet à quiconque de modifier le texte sur place sur l'application en cours d'exécution, ou le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md), qui externalise le contenu afin qu'il puisse changer sans déploiement.
+
+</Question>
+<Question title="Quel est le coût de l'éditeur visuel ? Est-il superflu si je n'en ai pas besoin ?">
+
+L'[éditeur visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) a un **coût nul** sur votre application s'il n'est pas configuré. La logique supplémentaire n'est chargée que si elle est explicitement activée et nécessaire.
+
+Même s'il est activé, le coût est extrêmement léger (+5 ko, chargé dynamiquement uniquement lorsqu'il est activé), car l'essentiel de la logique est géré par l'éditeur serveur sur [app.intlayer.org](https://app.intlayer.org) ou via le package `intlayer-editor`. Si vous avez seulement besoin d'une solution de traduction simple sans édition visuelle, Intlayer n'ajoute aucune surcharge à votre application.
 
 </Question>
 <Question title="Intlayer est-il gratuit et open source ?">

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Solid Start i18n — полное руководство по переводу вашего приложения"
 description: "Забудьте про i18next. Руководство 2026 года по созданию многоязычного (i18n) приложения на SolidStart. Серверная маршрутизация локалей, hreflang, sitemap и перевод с помощью ИИ."
 keywords:
@@ -748,15 +748,13 @@ SolidStart превращает файл, экспортирующий HTTP-ме
 import type { APIEvent } from "@solidjs/start/server";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 export const GET = (_event: APIEvent) => {
   const sitemap = generateSitemap(
     [
       { path: "/", changefreq: "daily", priority: 1.0 },
       { path: "/about", changefreq: "monthly", priority: 0.8 },
     ],
-    { siteUrl: SITE_URL }
+    { siteUrl: "https://example.com" }
   );
 
   return new Response(sitemap, {
@@ -790,8 +788,6 @@ export const GET = (_event: APIEvent) => {
 ```typescript fileName="src/routes/robots.txt.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls } from "intlayer";
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3000";
-
 const disallowedPaths = ["/admin", "/private"].flatMap((path) =>
   Object.values(getMultilingualUrls(path))
 );
@@ -803,7 +799,7 @@ export const GET = () =>
       "Allow: /",
       ...disallowedPaths.map((path) => `Disallow: ${path}`),
       "",
-      `Sitemap: ${SITE_URL}/sitemap.xml`,
+      `Sitemap: https://example.com/sitemap.xml`,
     ].join("\n"),
     { headers: { "Content-Type": "text/plain" } }
   );
@@ -922,7 +918,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Начиная с v9, `intlayerCompiler` включён в плагин `intlayer`. Так что добавлять его вручную не нужно.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Обновите ваш `vite.config.ts`, включив плагин `intlayerCompiler`:
 
@@ -941,6 +943,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Соберите приложение, чтобы преобразовать ваши компоненты и извлечь контент
 
 ```bash packageManager="npm"
 npm run build # Или npm run dev

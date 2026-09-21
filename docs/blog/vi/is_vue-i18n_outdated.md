@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Liệu vue-i18n Đã Lỗi Thời Vào Năm 2026?
 description: vue-i18n là chuẩn mực cho Vue và Nuxt suốt cả thập kỷ. Nhưng trong các bài kiểm tra benchmark, nó lại là runtime i18n nặng nhất trên web. Tìm hiểu nguyên nhân tại đây.
 keywords:
@@ -64,7 +64,7 @@ Số liệu 12 tháng qua:
 - `intlify/vue-i18n`: **259 commit** (bảo trì định kỳ cho Vue 3 và Nuxt).
 - `aymericzip/intlayer`: **4.343 commit** (liên tục cải tiến trình biên dịch, công cụ LSP và tích hợp AI agent).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Một thư viện lâu năm luôn có tính ổn định cao. Tuy nhiên, lập trình web ngày nay dựa trên phân tích AST khi build, loại bỏ mã không dùng và dịch tự động bằng AI. Một hệ thống phụ thuộc vào việc thực thi trên trình duyệt khó lòng áp dụng hiệu quả các tiện ích này.
 
@@ -115,6 +115,12 @@ Theo mặc định, **90% dữ liệu dịch** được gửi tới một route 
 **Độ phình của component có phạm vi riêng:**
 
 Các component có phạm vi dịch cục bộ đạt kích thước trung bình 196 KB ở `vue-i18n` do trùng lặp từ điển, so với chỉ **6.5 KB** khi dùng Intlayer.
+
+**Rò rỉ tăng như thế nào:**
+
+Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
+
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ## Tại Sao vue-i18n Lại Nặng?
 

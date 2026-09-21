@@ -1,10 +1,12 @@
-import { getIntlayer, getLocalizedPath, type Locale } from 'intlayer';
+import { getLocalizedPath } from 'intlayer';
 import { html, type SafeHtml } from 'remix/html-template';
+import { useIntlayer, useLocale } from 'remix-intlayer';
 import { routes } from '../routes';
 import { renderLayout } from './layout';
 
-export const renderAboutPage = (locale: Locale): SafeHtml => {
-  const about = getIntlayer('about', locale);
+export const renderAboutPage = (): SafeHtml => {
+  const { locale } = useLocale();
+  const about = useIntlayer('about');
   const homeHref = getLocalizedPath(routes.home.href(), locale);
 
   const content = html`
@@ -35,7 +37,6 @@ export const renderAboutPage = (locale: Locale): SafeHtml => {
 
   return renderLayout({
     title: about.title,
-    locale,
     content,
     currentPath: 'about',
   });

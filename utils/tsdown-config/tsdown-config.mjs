@@ -96,7 +96,7 @@ export const typesOptions = {
 };
 
 /** @type {import('tsdown').UserConfig[]} */
-// ESM runs first to emit assets to dist/assets, then CJS and types reuse them
+// The three configs build concurrently; AssetPlugin dedupes the dist/assets copy
 export const options = [esmOptions, cjsOptions, typesOptions];
 
 /** @type {(options: { all?: Partial<import('tsdown').UserConfig>, cjs?: Partial<import('tsdown').UserConfig>, esm?: Partial<import('tsdown').UserConfig>, types?: Partial<import('tsdown').UserConfig> }) => import('tsdown').UserConfig[]} */

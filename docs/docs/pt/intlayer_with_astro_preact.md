@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Astro + Preact i18n - Guia completo para traduzir seu aplicativo"
 description: "Sem mais i18next. O guia 2026 para criar uma aplicação Astro + Preact multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Uso dos hooks useIntlayer / useLocale do astro-intlayer na página Astro"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Atualizar o uso da API useIntlayer do Solid para acesso direto a propriedades"
@@ -150,7 +153,7 @@ bun add intlayer astro-intlayer preact preact-intlayer @astrojs/preact
   O pacote principal que fornece ferramentas de i18n para gerenciamento de configuração, traduções, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md), transpilação e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md).
 
 - **astro-intlayer**
-  Inclui o plugin de integração do Astro para vincular o Intlayer ao [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), bem como o middleware para detectar o idioma preferido do usuário, gerenciar cookies e lidar com redirecionamentos de URL.
+  Inclui o plugin de integração do Astro para integrar o Intlayer com o [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), um middleware que resolve o locale de cada requisição em `Astro.locals.intlayer`, e os hooks `useIntlayer` / `useDictionary` / `useLocale`. O mesmo caminho de importação resolve para a implementação de servidor no seu frontmatter `.astro` e para a de cliente (suportada por `vanilla-intlayer`) em blocos `<script>`.
 
 - **preact**
   Pacote principal do Preact - uma alternativa rápida e leve ao React.
@@ -243,19 +246,21 @@ export default appContent;
 </Step>
 <Step number={5} title="Usar o conteúdo no Astro">
 
-Você pode consumir os dicionários diretamente nos seus arquivos `.astro` usando os ajudantes principais exportados do `intlayer`. Você também deve adicionar metadados de SEO (como hreflang e links canônicos) a cada página e introduzir uma island de Preact para conteúdo interativo no lado do cliente.
+Consuma seus dicionários em arquivos `.astro` com os hooks exportados pelo `astro-intlayer`. Eles compartilham as assinaturas do `react-intlayer`: `useIntlayer("key")` retorna o conteúdo de um dicionário e `useLocale()` o locale atual, sem necessidade de passar argumentos.
+
+O locale vem do middleware `astro-intlayer`, que a integração registra à frente do seu próprio `src/middleware.ts`. Ele o resolve para cada requisição, a partir do prefixo da URL, depois do locale persistido pelo cliente (cookie ou cabeçalho), depois de `Accept-Language`, e o armazena em `Astro.locals.intlayer`. Páginas pré-renderizadas usam apenas a URL, pois são renderizadas uma única vez para cada visitante.
+
+Você também deve adicionar metadados de SEO (como hreflang e links canônicos) a cada página e introduzir uma island de Preact para conteúdo interativo no lado do cliente.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 import { PreactIsland } from "../../components/preact/ReactIsland";
 
@@ -265,8 +270,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
+// Locale resolvido pelo middleware (ex. /pt/about -> 'pt')
+const { locale } = useLocale();
+
+// Conteúdo do dicionário 'app' para este locale
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -321,6 +329,8 @@ const { title } = getIntlayer("app", locale);
 > <img src={content.image.src.toString()} alt={content.image.toString()} />
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
+
+> `Astro.locals.intlayer` também expõe `locale`, `defaultLocale` e `availableLocales` aos seus próprios middlewares e endpoints. Passe um locale ou seletor como segundo argumento (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`) para sobrescrever o locale da requisição em uma chamada.
 
 > **Nota sobre a configuração de roteamento:**
 > A estrutura de diretórios que você usa depende da configuração `middleware.routing` no `intlayer.config.ts`:
@@ -438,10 +448,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -541,21 +551,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilador Babel'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Atualize seu `vite.config.ts` para incluir o plugin `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Compile sua aplicação para transformar seus componentes e extrair o conteúdo
 
 ```bash packageManager="npm"
 npm run build # Ou npm run dev
@@ -586,7 +582,7 @@ Intlayer utiliza module augmentation para aproveitar os benefícios do TypeScrip
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Erro de tradução](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Erro de tradução](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 O Intlayer usa o aumento de módulos (module augmentation) para aproveitar o TypeScript, tornando sua base de código mais robusta. Certifique-se de que sua configuração do TypeScript inclua os tipos gerados automaticamente e esteja configurada para o Preact:
 
@@ -721,6 +717,13 @@ Sim: [formas plurais](https://github.com/aymericzip/intlayer/blob/main/docs/docs
 <Question title="Como tradutores podem editar o conteúdo sem tocar no código?">
 
 Por meio do [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md), que roda em sua própria infraestrutura e permite editar textos diretamente no app em execução, ou pelo [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md), que externaliza o conteúdo para que ele possa ser alterado sem novos deploys.
+
+</Question>
+<Question title="Qual é o custo do editor visual? É excessivo se eu não precisar dele?">
+
+O [editor visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) tem **custo zero** na sua aplicação se não estiver configurado. A lógica extra só é carregada se explicitamente ativada e necessária.
+
+Mesmo quando ativado, o impacto é extremamente leve (+5 KB, carregado dinamicamente apenas quando ativado), pois a maior parte da lógica é tratada pelo editor do servidor em [app.intlayer.org](https://app.intlayer.org) ou através do pacote `intlayer-editor`. Se você precisa apenas de uma solução simples de tradução sem edição visual, o Intlayer não adiciona nenhuma sobrecarga à sua aplicação.
 
 </Question>
 <Question title="O Intlayer é gratuito e de código aberto?">

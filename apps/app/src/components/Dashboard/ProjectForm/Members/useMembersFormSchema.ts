@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useProjectMembersSchema = () => {
   const { schema } = useIntlayer('project-members-form');
@@ -7,10 +7,10 @@ export const useProjectMembersSchema = () => {
   return z.object({
     membersIds: z
       .array(z.string())
-      .min(1, { error: schema.requiredErrorMember.value }),
+      .check(z.minLength(1, { error: schema.requiredErrorMember.value })),
     adminsIds: z
       .array(z.string())
-      .min(1, { error: schema.requiredErrorAdmin.value }),
+      .check(z.minLength(1, { error: schema.requiredErrorAdmin.value })),
   });
 };
 

@@ -179,7 +179,6 @@ Intlayer আধুনিক ওয়েব ডেভেলপমেন্টে
 - **[Tanstack Start + Solid এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_tanstack+solid.md)**
 - **[Vite + React এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+react.md)**
 - **[React Router v7 এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_react_router_v7.md)**
-- **[React Router v7 (fs-routes) এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_react_router_v7_fs_routes.md)**
 - **[React CRA এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_create_react_app.md)**
 - **[React Native এবং Expo এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_react_native+expo.md)**
 - **[Lynx এবং React এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_lynx+react.md)**
@@ -190,7 +189,6 @@ Intlayer আধুনিক ওয়েব ডেভেলপমেন্টে
 - **[Astro + Solid এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_astro_solid.md)**
 - **[Astro + Preact এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_astro_preact.md)**
 - **[Astro + Lit এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_astro_lit.md)**
-- **[Astro + Vanilla JS এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_astro_vanilla.md)**
 - **[Vite + Vue এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+vue.md)**
 - **[Nuxt এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_nuxt.md)**
 - **[Vite + Svelte এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_vite+svelte.md)**

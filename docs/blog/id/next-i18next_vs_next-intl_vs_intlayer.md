@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - Panduan lengkap menerjemahkan next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Next.js situs web Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
 keywords:
@@ -20,7 +20,7 @@ author: aymericzip
 
 # next-i18next VS next-intl VS intlayer | Internasionalisasi Next.js (i18n)
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Mari kita lihat persamaan dan perbedaan antara tiga opsi i18n untuk Next.js: next-i18next, next-intl, dan Intlayer.
 
@@ -126,6 +126,10 @@ Dua masalah penting:
 
   > Jika saya berada di halaman `/fr/about`, saya tidak ingin memuat konten dari halaman `/en/about`
 
+Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
+
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 Sekali lagi, ketiga solusi ini menyadari masalah ini dan memungkinkan pengelolaan optimasi tersebut. Perbedaan antara ketiga solusi ini adalah DX (Developer Experience).
 
 `next-intl` dan `next-i18next` menggunakan pendekatan terpusat untuk mengelola terjemahan, memungkinkan pemecahan JSON berdasarkan locale dan sub-file. Dalam `next-i18next`, file JSON disebut 'namespaces'; `next-intl` memungkinkan deklarasi pesan. Dalam `intlayer`, file JSON disebut 'dictionaries'.
@@ -150,9 +154,9 @@ Dalam kasus `next-intl` dan `next-i18next`, perpustakaan mengharuskan memuat JSO
 
 Berikut adalah contoh dampak optimasi ukuran bundle menggunakan `intlayer` dalam aplikasi vite + react:
 
-| Bundle yang dioptimalkan                                                                                      | Bundle yang tidak dioptimalkan                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| ![bundle yang dioptimalkan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![bundle yang tidak dioptimalkan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Bundle yang dioptimalkan                                                                                       | Bundle yang tidak dioptimalkan                                                                                                       |
+| -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| ![bundle yang dioptimalkan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![bundle yang tidak dioptimalkan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript & keamanan
 
@@ -1463,7 +1467,7 @@ Jika Anda lebih memilih pengaturan minimal dan menerima beberapa penyambungan ma
 
 Bintang GitHub adalah indikator kuat dari popularitas sebuah proyek, kepercayaan komunitas, dan relevansi jangka panjang. Meskipun bukan ukuran langsung dari kualitas teknis, bintang tersebut mencerminkan berapa banyak pengembang yang menganggap proyek tersebut berguna, mengikuti perkembangannya, dan kemungkinan akan mengadopsinya. Untuk memperkirakan nilai sebuah proyek, bintang membantu membandingkan daya tarik antar alternatif dan memberikan wawasan tentang pertumbuhan ekosistem.
 
-[![Grafik Sejarah Bintang](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Grafik Sejarah Bintang](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ## Kesimpulan
 

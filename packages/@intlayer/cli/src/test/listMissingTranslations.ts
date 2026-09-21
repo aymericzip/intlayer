@@ -4,11 +4,11 @@ import {
 } from '@intlayer/config/node';
 import { getMissingLocalesContentFromDictionary } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import { logConfigDetails } from '@intlayer/engine/cli';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 export const listMissingTranslationsWithConfig = (
   configuration: IntlayerConfig

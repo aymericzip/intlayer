@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: 2026년에도 i18next를 계속 써야 할까요?
 description: i18next는 수많은 웹사이트를 지원하지만, 2011년에 설계된 런타임 아키텍처는 한계를 보이기 시작했습니다. 번들 크기, 트리 쉐이킹 제약, 정체된 혁신을 분석합니다.
 keywords:
@@ -70,7 +70,7 @@ GitHub 스타 수는 과거의 누적 인기를 반영할 뿐, 현재의 아키�
 | `i18next` core  | 2,626        | **259**     | 마이너 패치                              |
 | Intlayer        | 7,156        | **4,343**   | 컴파일러, IDE 툴링, AI 번역 엔진 개발 등 |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 성숙한 라이브러리는 안정성을 제공합니다. 하지만 i18n 도구의 패러다임은 완전히 바뀌었습니다. 빌드 타임에 불필요한 콘텐츠를 제거하고, CI에서 LLM으로 자동 번역하며, Language Server (LSP)와 AI 에이전트를 IDE에 통합합니다. 런타임에 전적으로 의존하는 아키텍처는 이러한 현대적 기술을 수용하기 어렵습니다.
 
@@ -124,6 +124,10 @@ Next.js에서 `next-i18next`는 기본 앱 대비 **76.7 KB (gzip)**를 추가�
 **번역 콘텐츠 누수:**
 
 기본 설정 상태에서는 특정 라우트에 로드되는 텍스트의 약 **90%**가 다른 페이지의 데이터입니다. 네임스페이스를 수동으로 쪼개는 것은 유지보수가 까다롭고 누락 실수가 빈번합니다.
+
+아래 그래프는 1~~10개의 페이지를 1~~10개 언어로 번역한 이론상의 앱(페이지당 약 30KB의 텍스트)의 콘텐츠 용량을 추정한 것입니다. 로케일별 동적 로딩은 언어 축을 없애고, 컴포넌트나 라우트 단위로 콘텐츠를 스코프하면 페이지 축이 없어지며, 두 가지를 결합했을 때만 용량이 일정하게 유지됩니다.
+
+![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **하이드레이션 지연:**
 

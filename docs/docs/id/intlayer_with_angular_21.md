@@ -419,7 +419,7 @@ Intlayer menggunakan Augmentasi Modul (Module Augmentation) untuk mendapatkan ma
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Kesalahan terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Kesalahan terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dibuat secara otomatis.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - Hướng dẫn đầy đủ để dịch next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Next.js trang web của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
 keywords:
@@ -20,7 +20,7 @@ author: aymericzip
 
 # next-i18next VS next-intl VS intlayer | Quốc tế hóa Next.js (i18n)
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 Hãy cùng xem xét những điểm tương đồng và khác biệt giữa ba lựa chọn i18n cho Next.js: next-i18next, next-intl và Intlayer.
 
@@ -126,6 +126,10 @@ Hai vấn đề quan trọng:
 
   > Nếu tôi đang ở trang `/fr/about`, tôi không muốn tải nội dung của trang `/en/about`
 
+Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng dụng giả định gồm 1 đến 10 trang, được dịch sang 1 đến 10 ngôn ngữ, với khoảng 30 KB văn bản mỗi trang. Tải nội dung động theo locale loại bỏ trục ngôn ngữ, giới hạn nội dung theo component hoặc route loại bỏ trục trang, và chỉ khi kết hợp cả hai thì dung lượng mới giữ nguyên.
+
+![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 Một lần nữa, cả ba giải pháp đều nhận thức được những vấn đề này và cho phép quản lý các tối ưu hóa này. Sự khác biệt giữa ba giải pháp là trải nghiệm nhà phát triển (DX).
 
 `next-intl` và `next-i18next` sử dụng phương pháp tập trung để quản lý bản dịch, cho phép phân tách JSON theo locale và theo các tệp con. Trong `next-i18next`, chúng ta gọi các tệp JSON là 'namespaces'; `next-intl` cho phép khai báo các messages. Trong `intlayer`, chúng ta gọi các tệp JSON là 'dictionaries'.
@@ -150,9 +154,9 @@ Trong trường hợp của `next-intl` và `next-i18next`, thư viện yêu c�
 
 Dưới đây là ví dụ về tác động của việc tối ưu kích thước bundle sử dụng `intlayer` trong ứng dụng vite + react:
 
-| Gói tối ưu hóa                                                                                      | Gói không tối ưu hóa                                                                                                      |
-| --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| ![gói tối ưu hóa](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![gói không tối ưu hóa](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| Gói tối ưu hóa                                                                                       | Gói không tối ưu hóa                                                                                                       |
+| ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| ![gói tối ưu hóa](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![gói không tối ưu hóa](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript & an toàn
 
@@ -1483,7 +1487,7 @@ Nếu bạn ưu tiên thiết lập tối giản và chấp nhận một số c�
 
 Sao trên GitHub là một chỉ số mạnh mẽ cho thấy mức độ phổ biến của dự án, sự tin tưởng của cộng đồng và tính liên quan lâu dài. Mặc dù không phải là thước đo trực tiếp về chất lượng kỹ thuật, nhưng chúng phản ánh số lượng nhà phát triển thấy dự án hữu ích, theo dõi tiến trình của nó và có khả năng áp dụng nó. Để ước tính giá trị của một dự án, sao giúp so sánh mức độ thu hút giữa các lựa chọn thay thế và cung cấp cái nhìn sâu sắc về sự phát triển của hệ sinh thái.
 
-[![Biểu đồ Lịch sử Sao](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Biểu đồ Lịch sử Sao](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ## Kết luận
 

@@ -3,6 +3,7 @@ import { Button } from '@intlayer/design-system/button';
 import { Key } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { LastUsedIndicator } from '../LastUsedIndicator';
 
 type PassKeyButtonProps = {
   callbackUrl?: string;
@@ -31,16 +32,19 @@ export const PasskeyButton: FC<PassKeyButtonProps> = ({ callbackUrl }) => {
   };
 
   return (
-    <Button
-      variant="outline"
-      color="text"
-      className="w-full"
-      Icon={Key}
-      label={ariaLabel.value}
-      onClick={handleSignIn}
-      isLoading={isPending}
-    >
-      {text}
-    </Button>
+    <div className="flex flex-col gap-1">
+      <Button
+        variant="outline"
+        color="text"
+        className="w-full"
+        Icon={Key}
+        label={ariaLabel.value}
+        onClick={handleSignIn}
+        isLoading={isPending}
+      >
+        {text}
+      </Button>
+      <LastUsedIndicator method="passkey" />
+    </div>
   );
 };

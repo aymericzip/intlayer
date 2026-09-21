@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: 2026年においてvue-i18nは時代遅れなのか？
 description: vue-i18nは10年以上にわたりVueとNuxtの標準として親しまれてきました。しかしベンチマークではWebで最も重いi18nランタイムという結果に。その理由を紐解きます。
 keywords:
@@ -64,7 +64,7 @@ Language Server（LSP）、AI向けMCPサーバー、CLIを通じた自動翻訳
 - `intlify/vue-i18n`: **259コミット**（Vue 3およびNuxt向けの定期保守）。
 - `aymericzip/intlayer`: **4,343コミット**（コンパイラ最適化、LSP機能、AI連携ツールの継続開発）。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 歴史あるライブラリには安定性の利点があります。しかし近年の開発手法は、ビルド時のAST解析、デッドコード除去、AIによる自動化を前提としています。クライアント上での実行に依存するアーキテクチャでは、こうした進化を取り入れるのが難しくなります。
 
@@ -115,6 +115,12 @@ Vue自体のフットプリントが非常に小さいため（約31 KB）、`vu
 **スコープ付きコンポーネントの肥大化:**
 
 辞書が重複してバンドルされるため、`vue-i18n`を使ったスコープ付きコンポーネントの平均サイズは196 KBに達しました。一方、Intlayerでは**6.5 KB**です。
+
+**リークの増え方:**
+
+以下のグラフは、1〜10ページを1〜10言語に翻訳した理論上のアプリ（1ページあたり約30KBのテキスト）のコンテンツ量を推定したものです。ロケールごとの動的読み込みは言語の軸を取り除き、コンポーネントやルート単位でコンテンツをスコープすることはページの軸を取り除きます。両方を組み合わせた場合のみ、コンテンツ量は一定に保たれます。
+
+![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ## なぜvue-i18nは重いのか？
 

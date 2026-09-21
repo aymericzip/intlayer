@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-11
+updatedAt: 2026-09-19
 title: "Remix 3 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "i18next'i unutun. Çok dilli (i18n) bir Remix 3 uygulaması oluşturmak için 2026 rehberi. Yapay zeka ajanlarıyla çeviri yapın, paket boyutunu, SEO'yu ve performansı optimize edin."
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-remix-3-template
 applicationShowcase: https://intlayer-remix-3-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "remix-intlayer ara yazılımı ve hook'larının kullanımı"
   - version: 9.5.0
     date: 2026-09-09
     changes: "Remix 3 için ilk dokümantasyon"
@@ -39,7 +42,7 @@ Bu kılavuz, yerel ayara duyarlı yönlendirme, tip güvenli içerik bildirimler
 - **`remix/node-fetch-server`**: Node.js için sunucu bağdaştırıcıları ile Bun, Deno ve uç (edge) çalışma zamanları için yerel destek.
 - **`remix/cookie`**: Kriptografik olarak imzalanmış çerez ayrıştırma ve serileştirme.
 
-**Intlayer** ile birleştirildiğinde, derleme zamanı güvenliği, otomatik yapay zeka çevirileri, sıfır ek yüklü sunucu oluşturma ve sorunsuz yerel ayar yönlendirmesi sağlayan eksiksiz bir uluslararasılaştırma sistemine sahip olursunuz.
+**Intlayer** ve **`remix-intlayer`** paketi (Remix istek bağlamına bağlı bir yerel ayar ara yazılımı ve `react-intlayer` ile aynı `useIntlayer` / `useDictionary` / `useLocale` hook'ları) ile birleştiğinde derleme zamanı güvenliği, yapay zeka ile otomatik çeviriler, sıfır ek yüklü sunucu oluşturma ve sorunsuz yerel ayar yönlendirmesi sunan eksiksiz bir uluslararasılaştırma sistemine sahip olursunuz.
 
 ## İçindekiler
 
@@ -52,7 +55,7 @@ Bu kılavuz, yerel ayara duyarlı yönlendirme, tip güvenli içerik bildirimler
 <AccordionGroup>
 <Accordion header="Tam Remix 3 ve Web Standartları Uyumluluğu">
 
-Intlayer, web standartlarıyla (`Request`, `Response`, `Headers` ve `URL`) sorunsuz çalışacak şekilde tasarlanmıştır. Remix 3'ün Fetch yönlendiricisine hafif bir ara yazılım aracılığıyla kolayca entegre olur ve sizi belirli bir çalışma zamanına bağlamadan URL yollarından, çerezlerden veya `Accept-Language` başlıklarından yerel ayarları ayıklar.
+Intlayer, web standartlarıyla (`Request`, `Response`, `Headers` ve `URL`) sorunsuz çalışacak şekilde tasarlanmıştır. `remix-intlayer`, hafif bir ara yazılım olarak Remix 3'ün Fetch yönlendiricisine bağlanır; URL yollarından, çerezlerden veya `Accept-Language` başlıklarından yerel ayarı çıkarır ve bunu elden ele aktarmaya gerek kalmadan isteğin geri kalanına, işleyicilere, görünümlere ve `remix/ui` bileşenlerine sunar.
 
 </Accordion>
 <Accordion header="Tip Güvenli İçerik Bildirimleri">
@@ -109,25 +112,26 @@ GitHub üzerindeki [Uygulama Şablonu](https://github.com/aymericzip/intlayer-re
 <Steps>
 <Step number={1} title="Bağımlılıkları Yükleyin">
 
-Tercih ettiğiniz paket yöneticisini kullanarak `intlayer` ve `remix` (sürüm 3) paketlerini yükleyin:
+Tercih ettiğiniz paket yöneticisini kullanarak `intlayer`, `remix-intlayer` ve `remix` (sürüm 3) paketlerini yükleyin:
 
 ```bash packageManager="npm"
-npm install intlayer remix@next
+npm install intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer remix@next
+pnpm add intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer remix@next
+yarn add intlayer remix-intlayer remix@next
 ```
 
 ```bash packageManager="bun"
-bun add intlayer remix@next
+bun add intlayer remix-intlayer remix@next
 ```
 
 - **`intlayer`**: Yapılandırma yönetimi, sözlük bildirimi (`t()`, `Dictionary`), CLI araçları ve çalışma zamanı yorumlayıcısı sağlayan çekirdek uluslararasılaştırma motoru.
+- **`remix-intlayer`**: Remix 3 entegrasyonu: her isteğin yerel ayarını çözümleyen `intlayer()` yönlendirici ara yazılımı ve bunu sonraki herhangi bir aşamada okuyan `useIntlayer`, `useDictionary` ve `useLocale` hook'ları.
 - **`remix`**: `remix/router`, `remix/routes`, `remix/ui`, `remix/middleware/render` ve `remix/node-fetch-server` dışa aktaran birleşik Remix 3 çatı paketi.
 
 </Step>
@@ -254,64 +258,29 @@ bun x intlayer build
 Bu işlem içeriğinizi `.intlayer` dizininde derleyerek tam TypeScript otomatik tamamlamasını ve hızlı sözlük aramasını etkinleştirir.
 
 </Step>
-<Step number={5} title="Intlayer Ara Yazılımını (Middleware) Uygulayın">
+<Step number={5} title="Intlayer Ara Yazılımını Ekleme">
 
-Remix 3, `createRouter({ middleware: [...] })` aracılığıyla modüler bir ara yazılım hattı sağlar.
+Remix 3, `createRouter({ middleware: [...] })` aracılığıyla birleştirilebilir bir ara yazılım ardışık düzeni sunar.
 
-Aşağıdaki öncelik sırasına göre her gelen isteğin dilini çözümleyen bir Intlayer ara yazılımı oluşturun:
+`remix-intlayer`, `intlayer()` ara yazılımını sağlar. Gelen her istek için yerel ayarı şunları kullanarak çözümler:
 
-1. Intlayer'ın `getLocaleFromPath` fonksiyonu ile URL yolu öneki (örneğin `/tr` veya `/fr`).
-2. Çerezleri (`INTLAYER_LOCALE`), özel başlıkları (`x-intlayer-locale`), standart `Accept-Language` başlıklarını ve `defaultLocale` ayarını otomatik olarak müzakere eden Intlayer `getLocale` yardımcısı.
+1. `no-prefix` dışındaki tüm yönlendirme modlarında URL: yol ön eki (ör. `/tr` veya `/en`) veya `?locale=` arama parametresi.
+2. İstemci tarafından kalıcı hale getirilen yerel ayar: depolama çerezi (`INTLAYER_LOCALE`) veya özel başlık (`x-intlayer-locale`).
+3. Yapılandırdığınız `defaultLocale` değerine geri dönen standart `Accept-Language` anlaşması.
 
-```typescript fileName="src/middleware/intlayer.ts" codeFormat={["typescript", "esm"]}
-import {
-  defaultLocale,
-  getCookie,
-  getLocale,
-  getLocaleFromPath,
-  type Locale,
-} from "intlayer";
-import { createContextKey, type Middleware } from "remix/router";
+Sonuç, `locale`, `defaultLocale` ve `availableLocales` ile birlikte Remix istek bağlamında `context.intlayer` (veya `context.get(Intlayer)`) olarak saklanır. Ara yazılım ardından isteğin geri kalanını bu bağlama bağlı bir `AsyncLocalStorage` kapsamında çalıştırır; bu da paketin hook'larının rota işleyicilerinde, görünümlerde ve `remix/ui` bileşenlerinde bağımsız değişken olmadan yerel ayarı okumasını sağlar:
 
-/**
- * Remix 3 RequestContext içinden çözümlenen yerel ayarı almak için tip güvenli bağlam anahtarı.
- */
-export const localeKey = createContextKey<Locale>(defaultLocale);
+```typescript
+import { useIntlayer, useLocale } from "remix-intlayer";
 
-/**
- * Remix 3 için Intlayer ara yazılımı.
- *
- * İstek dilini aşağıdaki önceliğe göre çözümler:
- * 1. `getLocaleFromPath` ile URL yolu öneki (ör. `/tr/...`)
- * 2. `getLocale` ile başlık ve depolama müzakeresi (çerez, özel başlık, Accept-Language, varsayılan defaultLocale)
- *
- * Çözümlenen yerel ayarı Remix 3 RequestContext'e ekler.
- */
-export const intlayer = (): Middleware => {
-  return async (context, next) => {
-    // Yol tespiti (/tr/about -> "tr", /about -> undefined)
-    const pathLocale = getLocaleFromPath(context.url.pathname);
-
-    if (pathLocale) {
-      // Çözümlenen yerel ayarı Remix 3 istek bağlamına ekle
-      context.set(localeKey, pathLocale);
-
-      return next();
-    }
-
-    const storedLocale = await getLocale({
-      getHeader: (name) => context.headers.get(name),
-      getCookie: (name) =>
-        getCookie(name, context.headers.get("cookie") ?? undefined),
-    });
-
-    // Çözümlenen yerel ayarı Remix 3 istek bağlamına ekle
-    context.set(localeKey, storedLocale ?? defaultLocale);
-
-    return next();
-  };
-};
+// Ara yazılımdan sonraki herhangi bir noktada
+const { locale, availableLocales } = useLocale();
+const { title } = useIntlayer("home");
 ```
+
+`useIntlayer("home", "fr")` veya `useIntlayer("faq", { item: 2 })` tek bir çağrı için istek yerel ayarını geçersiz kılar ve `useDictionary(homeContent)` bir anahtar yerine içe aktarılan bir sözlüğü okur. Bir isteğin dışındayken hook'lar varsayılan yerel ayara döner.
+
+> Ara yazılım ayrıca sunucu başladığında Intlayer sözlüklerini hazırlar, böylece eksik bir `intlayer build` kaydı boş bırakmaz.
 
 </Step>
 <Step number={6} title="Tip Güvenli Rotalar Tanımlayın">
@@ -342,89 +311,81 @@ routes.localizedHome.href({ locale: "tr" }); // "/tr"
 
 Remix 3, JSX bileşenleri için `remix/ui` kullanır. Bir bileşen, bir **render işlevi** döndüren bir **kurulum (setup) işlevidir**. Proplar, tipli bir `handle` aracılığıyla iletilir (örneğin, `handle.props.locale`):
 
-Paylaşılan bir HTML belge kabuğu (document shell) oluşturun:
+Ara yazılım tarafından çözümlenen yerel ayardan `<html lang="..." dir="...">` niteliklerini ayarlayan paylaşılan bir `Document` kabuğu ile başlayın:
 
 ```tsx fileName="src/views/document.tsx" codeFormat={["typescript", "esm"]}
-import type { SetupFunction } from "remix/ui";
+import { getHTMLTextDir } from "intlayer";
+import { useLocale } from "remix-intlayer";
+import type { Handle, RemixNode } from "remix/ui";
 
-export const Document: SetupFunction<{
+type DocumentProps = {
   title: string;
-  lang?: string;
-  dir?: string;
-  children?: any;
-}> = (handle) => {
-  return () => {
-    const { title, lang = "en", dir = "ltr", children } = handle.props;
+  children?: RemixNode;
+};
 
-    return (
-      <html lang={lang} dir={dir}>
-        <head>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <title>{title}</title>
-        </head>
-        <body>{children}</body>
-      </html>
-    );
-  };
+export const Document = (handle: Handle<DocumentProps>) => () => {
+  const { title, children } = handle.props;
+  const { locale } = useLocale();
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+      </head>
+      <body>{children}</body>
+    </html>
+  );
 };
 ```
 
-Ardından ana sayfa görünümünü oluşturun. Etkin yerel ayar için sözlük içeriğini almak üzere `getIntlayer` kullanın ve `getLocalizedPath` kullanarak bir dil değiştirici işleyin:
+Ardından ana sayfayı oluşturun. `useIntlayer` ile yerelleştirilmiş sözlüğü okur ve bir dil değiştirici oluşturur:
 
 ```tsx fileName="src/views/home.tsx" codeFormat={["typescript", "esm"]}
-import {
-  getIntlayer,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedPath,
-  type Locale,
-  locales,
-} from "intlayer";
-import type { SetupFunction } from "remix/ui";
-import { routes } from "../routes";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
+import { useIntlayer, useLocale } from "remix-intlayer";
 import { Document } from "./document";
 
-export const HomePage: SetupFunction<{ locale: Locale }> = (handle) => {
-  return () => {
-    const { locale } = handle.props;
-    const content = getIntlayer("home", locale);
+export const HomePage = () => () => {
+  const { locale, availableLocales } = useLocale();
+  const home = useIntlayer("home");
+  const pathWithoutLocale = getPathWithoutLocale();
 
-    return (
-      <Document
-        title={content.title}
-        lang={locale}
-        dir={getHTMLTextDir(locale)}
-      >
-        <header>
-          <nav aria-label="Languages">
-            <span>{content.switchLanguage}</span>
-            {locales.map((loc) => {
-              const href = getLocalizedPath(routes.home.href(), loc);
-              const isActive = loc === locale;
+  return (
+    <Document title={home.title}>
+      <header>
+        <nav aria-label="Languages">
+          <span>{home.switchLanguage}</span>
+          <ul>
+            {availableLocales.map((localeItem) => {
+              const isActive = localeItem === locale;
+
               return (
-                <a
-                  href={href}
-                  class={isActive ? "active" : undefined}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  {getLocaleName(loc, locale)}
-                </a>
+                <li key={localeItem} class="p-1">
+                  <a
+                    href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+                    class={isActive ? "active" : undefined}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {getLocaleName(localeItem, locale)}
+                  </a>
+                </li>
               );
             })}
-          </nav>
-        </header>
-        <main>
-          <h1>{content.title}</h1>
-          <p>{content.description}</p>
-        </main>
-      </Document>
-    );
-  };
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <h1>{home.title}</h1>
+        <p>{home.description}</p>
+      </main>
+    </Document>
+  );
 };
 ```
 
-> Remix JSX, React değildir: kancalar (hooks) yoktur, `class` olduğu gibi yazılır (`className` değil) ve bileşenler herhangi bir istemci tarafı JavaScript ek yükü olmadan doğrudan HTML yanıtına aktarılır.
+> Remix JSX, React değildir: `class` olduğu gibi yazılır (`className` de kabul edilir) ve yeniden oluşturmalar `handle.update()` ile açıkça tetiklenir. İnterpole edilen değerler otomatik olarak kaçış karakteriyle korunur. Intlayer hook'ları istek kapsamını okuyan düz işlevlerdir, bu nedenle hem setup işlevinden hem de render işlevinden çağrılabilirler.
 
 </Step>
 <Step number={8} title="Yönlendiriciyi ve Sunucuyu Bağlayın">
@@ -433,45 +394,37 @@ Ara yazılımları kaydetmek ve rota eylemlerini tanımlamak için `src/router.t
 
 ```tsx fileName="src/router.tsx" codeFormat={["typescript", "esm"]}
 import { isDeclaredLocale } from "intlayer";
+import { intlayer } from "remix-intlayer";
 import { render } from "remix/middleware/render";
 import { createRouter } from "remix/router";
-import { intlayer, localeKey } from "./middleware/intlayer";
 import { routes } from "./routes";
 import { HomePage } from "./views/home";
 
+// 1. Initialize router with Intlayer + render middleware
 export const router = createRouter({
   middleware: [intlayer(), render()],
 });
 
+// 2. Map route handlers
 router.map(routes, {
   actions: {
-    // Varsayılan yerel ayar rotası (ör. /)
+    // Default locale route
     home(context) {
-      const locale = context.get(localeKey);
-      return context.render(<HomePage locale={locale} />);
+      return context.render(<HomePage />);
     },
 
-    // Yerelleştirilmiş rota (ör. /fr, /es)
+    // Localized route
     localizedHome(context) {
-      const { locale } = context.params;
-
-      if (!isDeclaredLocale(locale)) {
+      if (!isDeclaredLocale(context.params.locale)) {
         return new Response("Not Found", { status: 404 });
       }
-
-      return context.render(<HomePage locale={locale} />);
+      return context.render(<HomePage />);
     },
   },
 });
 ```
 
-> `context.render`, ikinci bağımsız değişken olarak isteğe bağlı bir `ResponseInit` kabul eder, böylece işlenen sayfanın yanında özel başlıklar da (örneğin `Content-Language` veya `Cache-Control`) ayarlayabilirsiniz:
->
-> ```typescript
-> return context.render(<HomePage locale={locale} />, {
->   headers: { "Content-Language": locale },
-> });
-> ```
+> `context.render`, ikinci bağımsız değişken olarak isteğe bağlı bir `ResponseInit` kabul eder (ör. `context.render(<NotFoundPage />, { status: 404 })`). Çözümlenen yerel ayar, örneğin bir `Response.json` yükü oluşturmak için işleyiciden `context.intlayer.locale` olarak erişilebilir kalır.
 
 Şimdi Node.js için `remix/node-fetch-server` kullanarak `src/server.ts` dosyasını bağlayın (veya Bun, Deno ya da Cloudflare Workers için `fetch` işleyicisini doğrudan dışa aktarın):
 

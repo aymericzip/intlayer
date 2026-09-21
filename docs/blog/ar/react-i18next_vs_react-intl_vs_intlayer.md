@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-16
 title: react-i18next مقابل react-intl مقابل Intlayer
 description: دمج react-i18next مع next-intl و Intlayer للتدويل (i18n) في تطبيق React
 keywords:
@@ -104,6 +104,10 @@ author: aymericzip
 
 **لماذا هذا مهم:** الحزم الأصغر وسلاسل النصوص غير المستخدمة الأقل تحسن من أداء بدء التشغيل والتنقل.
 
+يقدّر الرسم البياني أدناه حجم المحتوى لتطبيق نظري يتكوّن من 1 إلى 10 صفحات مترجمة إلى 1 إلى 10 لغات، بنحو 30 كيلوبايت من النص لكل صفحة. التحميل الديناميكي للمحتوى حسب اللغة يزيل محور اللغات، وحصر المحتوى ضمن المكوّن أو المسار يزيل محور الصفحات، ولا يبقى الحجم ثابتًا إلا بالجمع بينهما.
+
+![تسرب المحتوى النظري حسب البنية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 ### 6) تجربة المطور، الأدوات والصيانة
 
 - **react-intl / react-i18next**: نظام بيئي واسع للمجتمع؛ في سير العمل التحريري عادةً ما تعتمد على منصات الترجمة الخارجية.
@@ -128,7 +132,7 @@ author: aymericzip
 
 نجوم GitHub هي مؤشر قوي على شعبية المشروع وثقة المجتمع وأهميته طويلة الأجل. على الرغم من أنها ليست مقياساً مباشراً للجودة التقنية، إلا أنها تعكس عدد المطورين الذين يجدون المشروع مفيداً ويتابعون تقدمه ويرجح أن يعتمدوه. لتقدير قيمة المشروع، تساعد النجوم في مقارنة الزخم عبر البدائل وتوفر رؤى حول نمو النظام البيئي.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
 ## الخلاصة
 

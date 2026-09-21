@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useDictionaryDetailsSchema = (projectId: string) => {
   const {
@@ -22,79 +22,78 @@ export const useDictionaryDetailsSchema = (projectId: string) => {
   } = useIntlayer('dictionary-detail-schema');
 
   return z.object({
-    title: z
-      .string({
-        error: (issue) =>
-          issue.input === undefined
-            ? titleRequiredError.value
-            : titleInvalidTypeError.value,
-      })
-      // Can be length of 0 or > 4
-      .refine((val) => val.length === 0 || val.length >= 4, {
-        error: titleMinLengthError.value,
-      })
-      .optional(),
-    key: z
-      .string({
-        error: (issue) =>
-          issue.input === undefined
-            ? keyRequiredError.value
-            : keyInvalidTypeError.value,
-      })
-      .min(4, { error: keyMinLengthError.value })
-      /**
-       * Valid :
-       * my-key
-       * my_key
-       *
-       * Invalid :
-       * my key
-       * my.key
-       */
-      .regex(/^[a-zA-Z0-9-_]+$/, { error: keySpaceError.value })
-      .default(''),
-    description: z
-      .string({
+    title: z.optional(
+      z
+        .string({
+          error: (issue) =>
+            issue.input === undefined
+              ? titleRequiredError.value
+              : titleInvalidTypeError.value,
+        })
+        .check(
+          z.refine((val) => val.length === 0 || val.length >= 4, {
+            error: titleMinLengthError.value,
+          })
+        )
+    ),
+    key: z._default(
+      z
+        .string({
+          error: (issue) =>
+            issue.input === undefined
+              ? keyRequiredError.value
+              : keyInvalidTypeError.value,
+        })
+        .check(
+          z.minLength(4, { error: keyMinLengthError.value }),
+          z.regex(/^[a-zA-Z0-9-_]+$/, { error: keySpaceError.value })
+        ),
+      ''
+    ),
+    description: z.optional(
+      z.string({
         error: (issue) =>
           issue.input === undefined
             ? descriptionRequiredError.value
             : descriptionInvalidTypeError.value,
       })
-      .optional(),
-    projectIds: z
-      .array(
+    ),
+    projectIds: z._default(
+      z.array(
         z.string({
           error: (issue) =>
             issue.input === undefined
               ? requiredErrorProjectId.value
               : invalidTypeErrorProjectId.value,
         })
-      )
-      .default([projectId]),
-    tags: z
-      .array(
+      ),
+      [projectId]
+    ),
+    tags: z._default(
+      z.array(
         z.string({
           error: () => invalidTypeErrorTags.value,
         })
-      )
-      .default([]),
-    location: z
-      .enum(['local', 'remote', 'hybrid', 'plugin'], {
+      ),
+      []
+    ),
+    location: z.optional(
+      z.enum(['local', 'remote', 'hybrid', 'plugin'], {
         error: (issue) =>
           issue.input === undefined
             ? locationRequiredError.value
             : locationInvalidTypeError.value,
       })
-      .optional(),
-    importMode: z.enum(['static', 'dynamic', 'fetch']).optional(),
-    filePath: z
-      .string({
+    ),
+    importMode: z.optional(z.enum(['static', 'dynamic', 'fetch'])),
+    filePath: z.optional(
+      z.string({
         error: (issue) =>
           issue.input === undefined
             ? filePathRequiredError.value
             : filePathInvalidTypeError.value,
       })
-      .optional(),
+    ),
   });
 };
 

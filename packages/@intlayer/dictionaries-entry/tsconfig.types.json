@@ -5,6 +5,9 @@
   "exclude": ["**/*.test.*"],
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "dist/types"
+    "outDir": "dist/types",
+    "paths": {
+      "@intlayer/backend": ["../../../apps/backend/dist/types/export"]
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useTwoFactorAuthSchema = () => {
   const { requiredErrorPassword, invalidTypeErrorPassword } = useIntlayer(
@@ -7,15 +7,17 @@ export const useTwoFactorAuthSchema = () => {
   );
 
   return z.object({
-    password: z
-      .string({
-        error: (issue) =>
-          issue.input === undefined
-            ? requiredErrorPassword.value
-            : invalidTypeErrorPassword.value,
-      })
-      .min(1, { error: invalidTypeErrorPassword.value })
-      .default(''),
+    password: z._default(
+      z
+        .string({
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorPassword.value
+              : invalidTypeErrorPassword.value,
+        })
+        .check(z.minLength(1, { error: invalidTypeErrorPassword.value })),
+      ''
+    ),
   });
 };
 
@@ -28,12 +30,14 @@ export const useTwoFactorAuthOTPSchema = () => {
 
   return z
     .object({
-      code: z.string().length(6),
+      code: z.string().check(z.length(6)),
     })
-    .refine((data) => data.code.length === 6, {
-      message: invalidTypeErrorOTP.value,
-      path: ['code'],
-    });
+    .check(
+      z.refine((data) => data.code.length === 6, {
+        message: invalidTypeErrorOTP.value,
+        path: ['code'],
+      })
+    );
 };
 
 export type TwoFactorAuthOTPSchema = z.infer<

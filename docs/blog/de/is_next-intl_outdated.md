@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Ist next-intl im Jahr 2026 veraltet?
 description: next-intl wurde zur Standardlösung für den Next.js App Router. Doch unter der Haube verursacht es Runtime-Bundle-Overhead und aufwendiges manuelles Namespace-Management.
 keywords:
@@ -66,7 +66,7 @@ Die letzten 12 Monate:
 - `amannn/next-intl`: **187 Commits** (überwiegend Versionsanpassungen und kleinere Patches).
 - `aymericzip/intlayer`: **4.343 Commits** (kontinuierliche Entwicklung an Compilern, IDE-Erweiterungen, MCP-Servern und Übersetzungs-Engines).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Eine fokussierte Bibliothek kann stabil sein. Doch i18n hat sich gewandelt: Compiler bereinigen ungenutzte Texte beim Build, LLMs automatisieren Workflows in der CI und Editoren nutzen Language Server (LSP) sowie KI-Agenten. Eine reine Laufzeit-Architektur kann diese Vorteile kaum ausschöpfen.
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 Da `messages` global an den Client-Provider übergeben wird, erhält der Browser überall das gesamte Wörterbuch. Beim Aufruf von `/login` lädt der Nutzer FAQ-, Dokumentations- und Dashboard-Inhalte mit.
 
 Dies lässt sich durch manuelles Aufteilen in Namespaces mildern. Das Pflegen solcher Zuweisungen pro Route ist jedoch mühsam und fehleranfällig.
+
+Das folgende Diagramm schätzt die Payload für eine theoretische App mit 1 bis 10 Seiten, übersetzt in 1 bis 10 Sprachen, mit etwa 30 KB Text pro Seite. Dynamisches Laden pro Locale entfernt die Sprachachse, das Scoping des Contents pro Komponente oder Route entfernt die Seitenachse, und nur die Kombination hält die Payload flach.
+
+![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer löst dies per statischer Analyse: Der [Intlayer-Compiler](https://intlayer.org/de/doc/compiler) bündelt exakt die Texte, die auf der jeweiligen Route benötigt werden. Die Leakage sinkt auf **0.0%**.
 

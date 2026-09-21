@@ -1,9 +1,11 @@
 import { Container } from '@intlayer/design-system/container';
 import { H4 } from '@intlayer/design-system/headers';
 import {
+  MarkDownIframe,
   MarkdownRenderer,
   type ParsedMarkdown,
 } from '@intlayer/design-system/mark-down-render';
+import { Website_Origin } from '@intlayer/design-system/routes';
 import { Step, Steps } from '@intlayer/design-system/steps';
 import { type ComponentProps, type FC, lazy } from 'react';
 import { useLocale } from 'react-intlayer';
@@ -22,6 +24,21 @@ const I18nBenchmark = lazy(() =>
     default: mod.I18nBenchmark,
   }))
 );
+
+/**
+ * The origin the docs are written for, wherever it appears in an embed `src`
+ * (`https://intlayer.org/…` as well as `origin=https://intlayer.org`).
+ */
+const AUTHORED_WEBSITE_ORIGIN_PATTERN =
+  /https?:\/\/(www\.)?intlayer\.org(?=[/?#&]|$)/g;
+
+/**
+ * Points an embed authored for intlayer.org at the origin this deployment
+ * serves (e.g. intlayer.cn), so the frame stays same-site and mirrors do not
+ * embed the main site.
+ */
+const toDeploymentOrigin = (src: string | undefined): string | undefined =>
+  src?.replace(AUTHORED_WEBSITE_ORIGIN_PATTERN, Website_Origin);
 
 type DocumentationRenderProps = {
   children: string | ParsedMarkdown;
@@ -84,7 +101,12 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
               <div className="text-sm text-text/80">{children}</div>
             </Container>
           ),
-          ClickToOpenIframe,
+          iframe: ({ src, ...props }: ComponentProps<'iframe'>) => (
+            <MarkDownIframe {...props} src={toDeploymentOrigin(src)} />
+          ),
+          ClickToOpenIframe: ({ src, ...props }: ComponentProps<'iframe'>) => (
+            <ClickToOpenIframe {...props} src={toDeploymentOrigin(src)} />
+          ),
           Step,
           Steps,
           Accordion,

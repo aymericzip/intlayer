@@ -1,7 +1,7 @@
 ---
 title: Jak umiędzynarodowić (i18n) aplikację React Router v7 za pomocą Intlayer
 createdAt: 2025-02-07
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 description: Zintegruj Intlayer z React Router v7, aby stworzyć w pełni wielojęzyczną aplikację z optymalnym SEO i routingiem.
 keywords:
   - Internacjonalizacja
@@ -43,7 +43,7 @@ author: aymericzip
 
 Ten przewodnik pokazuje, jak zintegrować **Intlayer** dla płynnej internacjonalizacji w projektach React Router v7 z routingiem uwzględniającym lokalizację, wsparciem TypeScript oraz nowoczesnymi praktykami programistycznymi.
 
-Ten przewodnik skupia się na routowaniu frontend. W przypadku routowania fs-routes, zapoznaj się z przewodnikiem [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_react_router_v7_fs_routes.md).
+Obejmuje zarówno **routing oparty na konfiguracji** (`routes.ts`), jak i **routing oparty na systemie plików** (`@react-router/fs-routes`).
 
 ## Table of Contents
 
@@ -891,7 +891,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Kompilator Babel'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Zaktualizuj `vite.config.ts`, aby dołączyć wtyczkę `intlayerCompiler`:
 
@@ -906,6 +912,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Zbuduj aplikację, aby przekształcić komponenty i wyodrębnić treść
 
 ```bash packageManager="npm"
 npm run build # Lub npm run dev
@@ -1039,7 +1050,7 @@ Pięć narzędzi, wszystkie opcjonalne:
 </Question>
 <Question title="Jak dodać segment lokalizacji do moich tras?">
 
-Zadeklaruj segment `:locale` w drzewie tras i pozwól Intlayer go rozpoznać. `validatePrefix` informuje, czy segment jest zadeklarowaną lokalizacją, dzięki czemu nieznany prefiks zwraca 404 zamiast renderować zduplikowaną stronę, a `getLocalizedUrl` przepisuje dowolną ścieżkę na język docelowy. Jeśli używasz tras opartych na systemie plików, postępuj zgodnie z [wariantem tras z systemem plików](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_react_router_v7_fs_routes.md) tego przewodnika.
+Zadeklaruj segment `:locale` w drzewie tras i pozwól Intlayer go rozpoznać. `validatePrefix` informuje, czy segment jest zadeklarowaną lokalizacją, dzięki czemu nieznany prefiks zwraca 404 zamiast renderować zduplikowaną stronę, a `getLocalizedUrl` przepisuje dowolną ścieżkę na język docelowy. Jeśli używasz tras opartych na systemie plików, dodaj dynamiczny segment `($locale)` na początku nazw plików tras.
 
 </Question>
 <Question title="Czy muszę umieszczać lokalizację w adresie URL?">
@@ -1075,6 +1086,13 @@ Tak: [formy liczby mnogiej](https://github.com/aymericzip/intlayer/blob/main/doc
 <Question title="Jak tłumacze mogą edytować treść bez dotykania kodu?">
 
 Za pośrednictwem hostowanego we własnym zakresie [edytora wizualnego](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), który eksternalizuje treść, dzięki czemu może się zmieniać bez wdrożenia.
+
+</Question>
+<Question title="Jaki jest koszt edytora wizualnego? Czy to przesada, jeśli go nie potrzebuję?">
+
+[Edytor wizualny Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) generuje **zerowy koszt** dla Twojej aplikacji, jeśli nie jest skonfigurowany. Dodatkowa logika jest ładowana tylko wtedy, gdy jest jawnie włączona i potrzebna.
+
+Nawet po włączeniu narzut jest niezwykle mały (+5 KB, ładowane dynamicznie tylko po aktywacji), ponieważ większość logiki jest obsługiwana przez edytor serwerowy na [app.intlayer.org](https://app.intlayer.org) lub za pośrednictwem pakietu `intlayer-editor`. Jeśli potrzebujesz jedynie prostego rozwiązania do tłumaczenia bez edycji wizualnej, Intlayer nie dodaje żadnego narzutu do Twojej aplikacji.
 
 </Question>
 <Question title="Czy Intlayer jest darmowy i open source?">

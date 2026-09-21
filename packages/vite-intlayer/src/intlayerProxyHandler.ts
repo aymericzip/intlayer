@@ -45,6 +45,21 @@ const NITRO_PRERENDER_HEADER = 'x-nitro-prerender';
 const TANSTACK_PRERENDER_ENV_VAR = 'TSS_PRERENDERING';
 
 /**
+ * Detects a process that only exists to prerender pages: a TanStack Start
+ * build (flag set on the build process, which loads the server in-process) or
+ * Nitro's own prerenderer (a dedicated build where Nitro defines
+ * `import.meta.prerender`).
+ *
+ * Prerendered pages are served to every visitor, so such a process never lets
+ * the stored locale drive a redirect — see {@link isPrerenderRequest} for the
+ * per-request counterpart, which also covers a prerenderer hitting a
+ * long-lived server.
+ */
+export const isPrerenderProcess = (): boolean =>
+  process.env[TANSTACK_PRERENDER_ENV_VAR] === 'true' ||
+  (import.meta as { prerender?: boolean }).prerender === true;
+
+/**
  * Detects requests issued by a prerenderer rather than by a real visitor.
  *
  * Prerendered pages are written to disk and then served to every visitor, so
@@ -62,8 +77,7 @@ const TANSTACK_PRERENDER_ENV_VAR = 'TSS_PRERENDERING';
  * ```
  */
 const isPrerenderRequest = (req: IncomingMessage): boolean =>
-  Boolean(req.headers[NITRO_PRERENDER_HEADER]) ||
-  process.env[TANSTACK_PRERENDER_ENV_VAR] === 'true';
+  Boolean(req.headers[NITRO_PRERENDER_HEADER]) || isPrerenderProcess();
 
 /**
  * Decodes a request pathname so it can be matched against the rewrite rules.

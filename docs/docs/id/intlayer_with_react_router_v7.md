@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-06-23
+updatedAt: 2026-09-20
 title: "React Router v7 i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi React Router v7 multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
@@ -43,7 +43,7 @@ author: aymericzip
 
 Panduan ini menunjukkan cara mengintegrasikan **Intlayer** untuk internasionalisasi yang mulus dalam proyek React Router v7 dengan routing yang mendukung locale, dukungan TypeScript, dan praktik pengembangan modern.
 
-Panduan ini fokus pada frontend routing. Untuk routing fs-routes, lihat panduan [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_router_v7_fs_routes.md).
+Panduan ini mencakup **routing berbasis konfigurasi** (`routes.ts`) dan **routing berbasis sistem file** (`@react-router/fs-routes`).
 
 ## Table of Contents
 
@@ -886,7 +886,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compiler Babel'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 Perbarui `vite.config.ts` Anda untuk menyertakan plugin `intlayerCompiler`:
 
@@ -901,6 +907,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+Build aplikasi Anda untuk mentransformasi komponen Anda dan mengekstrak konten
 
 ```bash packageManager="npm"
 npm run build # Atau npm run dev
@@ -1070,6 +1081,13 @@ Ya: [bentuk jamak (plurals)](https://github.com/aymericzip/intlayer/blob/main/do
 <Question title="Bagaimana penerjemah dapat mengedit konten tanpa menyentuh kode?">
 
 Melalui [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), yang memungkinkan siapa saja mengedit teks langsung di aplikasi yang berjalan, atau melalui [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), yang memisahkan konten sehingga dapat diubah tanpa perlu redeploy kode.
+
+</Question>
+<Question title="Berapa biaya dari visual editor? Apakah berlebihan jika saya tidak membutuhkannya?">
+
+[Visual editor Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) memiliki **biaya nol** pada aplikasi Anda jika tidak disiapkan. Logika tambahan hanya dimuat jika diaktifkan secara eksplisit dan dibutuhkan.
+
+Bahkan jika diaktifkan, bebannya sangat ringan (+5 KB, dimuat secara dinamis hanya saat diaktifkan) karena sebagian besar logika ditangani oleh server editor di [app.intlayer.org](https://app.intlayer.org) atau melalui paket `intlayer-editor`. Jika Anda hanya memerlukan solusi terjemahan sederhana tanpa pengeditan visual, Intlayer tidak menambahkan overhead apa pun ke aplikasi Anda.
 
 </Question>
 <Question title="Apakah Intlayer gratis dan open source?">

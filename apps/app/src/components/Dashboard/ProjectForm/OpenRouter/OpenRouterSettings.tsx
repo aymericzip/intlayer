@@ -18,7 +18,7 @@ import { AiProviders } from '@intlayer/types/config';
 import { Save, Waypoints } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 /**
  * Builds the validation schema for the OpenRouter settings form.
@@ -35,29 +35,31 @@ const useOpenRouterSchema = (hasConfiguredKey: boolean) => {
   return z
     .object({
       enabled: z.boolean(),
-      apiKey: z.string().optional(),
-      model: z.string().optional(),
-      baseURL: z.string().optional(),
+      apiKey: z.optional(z.string()),
+      model: z.optional(z.string()),
+      baseURL: z.optional(z.string()),
     })
-    .superRefine((data, ctx) => {
-      if (!data.enabled) return;
+    .check(
+      z.superRefine((data, ctx) => {
+        if (!data.enabled) return;
 
-      if (!hasConfiguredKey && !data.apiKey?.trim()) {
-        ctx.addIssue({
-          code: 'custom',
-          message: apiKey.required.value,
-          path: ['apiKey'],
-        });
-      }
+        if (!hasConfiguredKey && !data.apiKey?.trim()) {
+          ctx.addIssue({
+            code: 'custom',
+            message: apiKey.required.value,
+            path: ['apiKey'],
+          });
+        }
 
-      if (data.baseURL?.trim() && !/^https?:\/\//.test(data.baseURL.trim())) {
-        ctx.addIssue({
-          code: 'custom',
-          message: invalidUrl.value,
-          path: ['baseURL'],
-        });
-      }
-    });
+        if (data.baseURL?.trim() && !/^https?:\/\//.test(data.baseURL.trim())) {
+          ctx.addIssue({
+            code: 'custom',
+            message: invalidUrl.value,
+            path: ['baseURL'],
+          });
+        }
+      })
+    );
 };
 
 type OpenRouterFormData = z.infer<ReturnType<typeof useOpenRouterSchema>>;

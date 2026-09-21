@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Astro + Lit i18n - Guia completo para traduzir seu aplicativo"
 description: "Sem mais i18next. O guia 2026 para criar uma aplicação Astro + Lit multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - lit
   applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Uso dos hooks useIntlayer / useLocale do astro-intlayer na página Astro"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Atualizar o uso da API useIntlayer do Solid para acesso direto a propriedades"
@@ -150,7 +153,7 @@ bun add intlayer astro-intlayer lit lit-intlayer @astrojs/lit
   O pacote principal que fornece ferramentas de i18n para gerenciamento de configuração, traduções, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md), transpilação e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md).
 
 - **astro-intlayer**
-  Inclui o plugin de integração do Astro para vincular o Intlayer ao [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), bem como o middleware para detectar o idioma preferido do usuário, gerenciar cookies e lidar com redirecionamentos de URL.
+  Inclui o plugin de integração do Astro para integrar o Intlayer com o [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), um middleware que resolve o locale de cada requisição em `Astro.locals.intlayer`, e os hooks `useIntlayer` / `useDictionary` / `useLocale`. O mesmo caminho de importação resolve para a implementação de servidor no seu frontmatter `.astro` e para a de cliente (suportada por `vanilla-intlayer`) em blocos `<script>`.
 
 - **lit**
   Pacote principal do Lit para criar Web Components rápidos e leves.
@@ -245,19 +248,21 @@ export default litDemoContent;
 </Step>
 <Step number={5} title="Usar o conteúdo no Astro">
 
-Você pode consumir os dicionários diretamente nos seus arquivos `.astro` usando os ajudantes principais exportados do `intlayer`. Você também deve adicionar metadados de SEO (como hreflang e links canônicos) a cada página. Os custom elements Lit são importados via um `<script>` no cliente e colocados no corpo da página.
+Consuma seus dicionários em arquivos `.astro` com os hooks exportados pelo `astro-intlayer`. Eles compartilham as assinaturas do `react-intlayer`: `useIntlayer("key")` retorna o conteúdo de um dicionário e `useLocale()` o locale atual, sem necessidade de passar argumentos.
+
+O locale vem do middleware `astro-intlayer`, que a integração registra à frente do seu próprio `src/middleware.ts`. Ele o resolve para cada requisição, a partir do prefixo da URL, depois do locale persistido pelo cliente (cookie ou cabeçalho), depois de `Accept-Language`, e o armazena em `Astro.locals.intlayer`. Páginas pré-renderizadas usam apenas a URL, pois são renderizadas uma única vez para cada visitante.
+
+Os custom elements Lit são importados via um `<script>` no cliente e colocados no corpo da página.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
-  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
-  type LocalesValues,
+  getHTMLTextDir,
 } from "intlayer";
 
 export const getStaticPaths = () => {
@@ -266,8 +271,11 @@ export const getStaticPaths = () => {
   }));
 };
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { greeting } = getIntlayer("lit-demo", locale);
+// Locale resolvido pelo middleware (ex. /pt/about -> 'pt')
+const { locale } = useLocale();
+
+// Conteúdo do dicionário 'lit-demo' para este locale
+const { greeting } = useIntlayer("lit-demo");
 ---
 
 <!doctype html>
@@ -325,6 +333,8 @@ const { greeting } = getIntlayer("lit-demo", locale);
 > <img src={content.image.src.toString()} alt={content.image.toString()} />
 > <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
+
+> `Astro.locals.intlayer` também expõe `locale`, `defaultLocale` e `availableLocales` aos seus próprios middlewares e endpoints. Passe um locale ou seletor como segundo argumento (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`) para sobrescrever o locale da requisição em uma chamada.
 
 > **Nota sobre a configuração de roteamento:**
 > A estrutura de diretórios que você usa depende da configuração `middleware.routing` no `intlayer.config.ts`:
@@ -482,10 +492,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -585,21 +595,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilador Babel'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Atualize seu `vite.config.ts` para incluir o plugin `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Compile sua aplicação para transformar seus componentes e extrair o conteúdo
 
 ```bash packageManager="npm"
 npm run build # Ou npm run dev
@@ -630,7 +626,7 @@ O Intlayer usa o aumento de módulos (module augmentation) para aproveitar o Typ
 
 ![Preenchimento automático](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Erro de tradução](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Erro de tradução](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Certifique-se de que sua configuração do TypeScript inclua os tipos gerados automaticamente.
 

@@ -607,7 +607,7 @@ Intlayer는 TypeScript의 모듈 확장을 사용하여 코드베이스를 더 �
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 TypeScript 구성에 자동 생성된 타입을 포함해야 합니다.
 

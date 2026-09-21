@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: هل أصبحت مكتبة next-intl قديمة في عام 2026؟
 description: أصبحت next-intl الخيار الشائع لـ Next.js App Router. لكنها ما زالت تثقل حزم التشغيل وتتطلب إدارة يدوية معقدة للمساحات الاسمية.
 keywords:
@@ -66,7 +66,7 @@ author: aymericzip
 - `amannn/next-intl`: **187 تعديلاً** (تحديثات وتعديلات طفيفة).
 - `aymericzip/intlayer`: **4,343 تعديلاً** (تطوير مستمر للمترجم، وإضافات المحررات، وخوادم MCP، ومحركات الترجمة).
 
-[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 الاستقرار ميزة بلا شك، لكن مفاهيم التدويل تغيرت: فالمترجمات أصبحت تتخلص من النصوص غير المطلوبة أثناء التجميع، والذكاء الاصطناعي يتولى الترجمة في مراحل البناء، والمطورون يعتمدون على خوادم اللغات والوكلاء الأذكياء. نموذج يعتمد كلياً على وقت التشغيل يجد صعوبة في الاستفادة من هذه القفزات.
 
@@ -126,6 +126,10 @@ export default async function RootLayout({ children, params }) {
 بسبب تمرير `messages` لمزود العميل في أعلى الشجرة، يُجبر المتصفح على تنزيل كل الترجمات في كل زيارة. فالزائر لصفحة `/login` يحمل أيضاً نصوص المساعدة والشروط ولوحة التحكم.
 
 يمكن معالجة ذلك بتوزيع ملفات JSON على مساحات اسمية محددة، غير أن إدارتها يدوياً مستهلكة للوقت وتتسبب في إغفال بعض الترجمات.
+
+يقدّر الرسم البياني أدناه حجم المحتوى لتطبيق نظري يتكوّن من 1 إلى 10 صفحات مترجمة إلى 1 إلى 10 لغات، بنحو 30 كيلوبايت من النص لكل صفحة. التحميل الديناميكي للمحتوى حسب اللغة يزيل محور اللغات، وحصر المحتوى ضمن المكوّن أو المسار يزيل محور الصفحات، ولا يبقى الحجم ثابتًا إلا بالجمع بينهما.
+
+![تسرب المحتوى النظري حسب البنية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 تتجاوز Intlayer هذا القصور عبر التحليل الثابت: حيث يستخلص [مترجم Intlayer](https://intlayer.org/ar/doc/compiler) النصوص المستخدمة فعلياً في المسار المحدد، لتنخفض نسبة التسريب إلى **0.0%**.
 

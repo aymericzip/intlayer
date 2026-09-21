@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useChangePasswordSchema = () => {
   const {
@@ -22,7 +22,7 @@ export const useChangePasswordSchema = () => {
               ? requiredErrorPassword.value
               : invalidTypeErrorPassword.value,
         })
-        .min(8, { error: invalidPasswordLengthError.value }),
+        .check(z.minLength(8, { error: invalidPasswordLengthError.value })),
       newPassword: z
         .string({
           error: (issue) =>
@@ -30,7 +30,7 @@ export const useChangePasswordSchema = () => {
               ? requiredErrorNewPassword.value
               : invalidTypeErrorNewPassword.value,
         })
-        .min(8, { error: invalidPasswordLengthError.value }),
+        .check(z.minLength(8, { error: invalidPasswordLengthError.value })),
       newPasswordConfirmation: z
         .string({
           error: (issue) =>
@@ -38,12 +38,14 @@ export const useChangePasswordSchema = () => {
               ? requiredErrorNewPasswordConfirmation.value
               : invalidTypeErrorNewPasswordConfirmation.value,
         })
-        .min(8, { error: invalidPasswordLengthError.value }),
+        .check(z.minLength(8, { error: invalidPasswordLengthError.value })),
     })
-    .refine((data) => data.newPassword === data.newPasswordConfirmation, {
-      message: passwordNotMatchError.value,
-      path: ['newPasswordConfirmation'], // This specifies which field the error should be associated with
-    });
+    .check(
+      z.refine((data) => data.newPassword === data.newPasswordConfirmation, {
+        message: passwordNotMatchError.value,
+        path: ['newPasswordConfirmation'], // This specifies which field the error should be associated with
+      })
+    );
 };
 export type ChangePassword = z.infer<
   ReturnType<typeof useChangePasswordSchema>

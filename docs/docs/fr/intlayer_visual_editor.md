@@ -279,6 +279,13 @@ L'éditeur affiche votre application dans une iframe, votre Content Security Pol
 Il est conçu pour le développement et la préproduction, où une reconstruction après une modification est acceptable. Pour modifier du contenu sur un site en direct sans déploiement, utilisez plutôt le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) et ses dictionnaires distants.
 
 </Question>
+<Question title="Quel est le coût de l'éditeur visuel ? Est-il superflu si je n'en ai pas besoin ?">
+
+L'éditeur visuel Intlayer a un **coût nul** sur votre application s'il n'est pas configuré. La logique supplémentaire n'est chargée que si elle est explicitement activée et nécessaire.
+
+Même s'il est activé, le coût est extrêmement léger (+5 ko, chargé dynamiquement uniquement lorsqu'il est activé), car l'essentiel de la logique est géré par l'éditeur serveur sur [app.intlayer.org](https://app.intlayer.org) ou via le package `intlayer-editor`. Si vous avez seulement besoin d'une solution de traduction simple sans édition visuelle, Intlayer n'ajoute aucune surcharge à votre application.
+
+</Question>
 <Question title="L'éditeur visuel est-il gratuit ?">
 
 Oui. L'éditeur visuel fait partie du projet open source, sous licence Apache 2.0, usage commercial inclus. Seul le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) hébergé est un service payant, et il peut aussi être [auto-hébergé](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/self_hosting.md).

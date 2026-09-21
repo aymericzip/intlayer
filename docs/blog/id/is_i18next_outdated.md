@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-16
 title: Apakah i18next Sudah Ketinggalan Zaman di Tahun 2026?
 description: i18next memberdayakan jutaan situs web, tetapi arsitektur runtime buatan 2011 mulai menunjukkan usianya. Analisis ukuran bundle, batas tree-shaking, dan laju inovasi.
 keywords:
@@ -70,7 +70,7 @@ Aktivitas pengembangan selama 12 bulan terakhir:
 | `i18next` core  | 2.626        | **259**           | Patch minor                          |
 | Intlayer        | 7.156        | **4.343**         | Kompiler, perkakas IDE, dan mesin AI |
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Pustaka yang matang memang menawarkan stabilitas. Namun standar perkakas i18n telah berubah: bundler modern memangkas teks tak terpakai saat build, model bahasa (LLM) menerjemahkan langsung di pipeline CI, dan editor terintegrasi dengan Language Server (LSP) serta AI agent. Arsitektur i18next yang murni mengandalkan runtime kesulitan mengadopsi kemajuan ini.
 
@@ -124,6 +124,10 @@ Di Next.js, `next-i18next` menambahkan **76.7 KB gzipped** dibanding aplikasi da
 **Kebocoran konten:**
 
 Secara default, sekitar **90% teks terjemahan** yang dikirim ke suatu rute sebenarnya adalah milik halaman lain. Membagi namespace secara manual memakan waktu dan rawan kelalaian.
+
+Grafik di bawah memperkirakan ukuran konten untuk aplikasi teoretis dengan 1 hingga 10 halaman yang diterjemahkan ke 1 hingga 10 bahasa, dengan sekitar 30 KB teks per halaman. Memuat konten secara dinamis per locale menghilangkan sumbu bahasa, membatasi konten per komponen atau per rute menghilangkan sumbu halaman, dan hanya kombinasi keduanya yang menjaga ukuran tetap datar.
+
+![Kebocoran konten teoretis berdasarkan arsitektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Waktu hidrasi:**
 

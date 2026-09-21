@@ -47,7 +47,7 @@ Intlayer CMSは、Intlayerプロジェクトのコンテンツを外部化でき
 
 そのために、Intlayerは「遠隔辞書（distant dictionaries）」の概念を導入しています。
 
-![Intlayer CMS インターフェース](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![Intlayer CMS インターフェース](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## 目次
 

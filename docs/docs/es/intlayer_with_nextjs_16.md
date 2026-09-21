@@ -1321,7 +1321,7 @@ Intlayer usa la ampliación de módulos para aprovechar las ventajas de TypeScri
 
 ![Autocompletado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Error de traducción](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Error de traducción](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerados.
 
@@ -1455,6 +1455,13 @@ Sí. Las declaraciones de contenido admiten [formas plurales](https://github.com
 <Question title="¿Cómo pueden editar el contenido los traductores y las personas que no programan?">
 
 Dos opciones, ambas opcionales. El [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) se ejecuta en tu propia infraestructura y permite que cualquiera haga clic en el texto de tu sitio para editarlo en su sitio. El [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) externaliza el contenido para que pueda actualizarse sin un despliegue, con la [sincronización en vivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/live.md) reflejando los cambios en tiempo de ejecución.
+
+</Question>
+<Question title="¿Cuál es el costo del editor visual? ¿Es excesivo si no lo necesito?">
+
+El [editor visual de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) tiene un **costo cero** en su aplicación si no está configurado. La lógica adicional solo se carga si se habilita explícitamente y es necesaria.
+
+Si está habilitado, el impacto es extremadamente ligero (+5 KB, cargado dinámicamente solo cuando se activa) porque la mayor parte de la lógica es manejada por el editor del servidor en [app.intlayer.org](https://app.intlayer.org) o a través del paquete `intlayer-editor`. Si solo necesita una solución de traducción simple sin edición visual, Intlayer no agrega ninguna sobrecarga a su aplicación.
 
 </Question>
 <Question title="¿Cómo detecto las traducciones que faltan antes de publicar?">

@@ -1,5 +1,5 @@
+import { getUnmergedDictionaries } from '@intlayer/dictionaries-entry/unmerged';
 import { useDictionariesRecordActions } from '@intlayer/editor-react';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 

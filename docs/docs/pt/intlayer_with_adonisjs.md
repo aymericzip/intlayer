@@ -279,7 +279,7 @@ O `adonis-intlayer` aproveita as robustas capacidades do TypeScript para aprimor
 
 ![Autocompletar](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Erro de tradução](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Erro de tradução](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Certifique-se de que os tipos autogerados (por padrão em ./types/intlayer.d.ts) estão incluídos no seu arquivo tsconfig.json.
 

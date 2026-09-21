@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://intlayer.org" rel="">
-    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/cover.png" width="60%" alt="Intlayer Logo" />
+    <img src="https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/cover.webp" width="60%" alt="Intlayer Logo" />
   </a>
 </p>
 
@@ -342,7 +342,6 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
       <li><a href="https://intlayer.org/doc/environment/astro/vue" rel=''>Vue</a></li>
       <li><a href="https://intlayer.org/doc/environment/astro/svelte" rel=''>Svelte</a></li>
       <li><a href="https://intlayer.org/doc/environment/astro/solid" rel=''>Solid</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/vanilla" rel=''>Vanilla JS</a></li>
       <li><a href="https://intlayer.org/doc/environment/astro/lit" rel=''>Lit</a></li>
     </ul>
   </li>

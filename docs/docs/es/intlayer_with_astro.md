@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "Astro i18n - Guía completa para traducir tu aplicación"
 description: "Sin más i18next. La guía 2026 para crear una aplicación Astro multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 9.5.5
+    date: 2026-09-19
+    changes: "Añadir los hooks useIntlayer / useLocale y el middleware Astro.locals a astro-intlayer"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Actualizar el uso de la API useIntlayer de Solid para el acceso directo a las propiedades"
@@ -152,7 +155,7 @@ bun add intlayer astro-intlayer
   El paquete core que proporciona herramientas de i18n para la gestión de la configuración, traducciones, [declaración de contenidos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md).
 
 - **astro-intlayer**
-  Incluye el plugin de integración de Astro para conectar Intlayer con el [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), así como el middleware para detectar el idioma preferido del usuario, gestionar cookies y manejar redirecciones de URL.
+  Incluye el plugin de integración de Astro para integrar Intlayer con el [empaquetador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), un middleware que resuelve el idioma de cada solicitud en `Astro.locals.intlayer`, y los hooks `useIntlayer` / `useDictionary` / `useLocale`. La misma ruta de importación resuelve a la implementación de servidor en tu frontmatter `.astro` y a la de cliente (respaldada por `vanilla-intlayer`) en bloques `<script>`.
 
 </Step>
 <Step number={2} title="Configurar tu proyecto">
@@ -228,26 +231,28 @@ export default appContent;
 </Step>
 <Step number={5} title="Usar el contenido en Astro">
 
-Puedes consumir los diccionarios directamente en tus archivos `.astro` utilizando los helpers core exportados por `intlayer`.
+Consume tus diccionarios en archivos `.astro` con los hooks exportados por `astro-intlayer`. Comparten las firmas de `react-intlayer`: `useIntlayer("key")` devuelve el contenido de un diccionario y `useLocale()` el idioma actual, sin necesidad de pasar argumentos.
+
+El idioma proviene del middleware `astro-intlayer`, que la integración registra automáticamente antes de tu propio `src/middleware.ts`. Lo resuelve para cada solicitud, a partir del prefijo de URL, luego del idioma guardado por el cliente (cookie o encabezado), luego de `Accept-Language`, y lo almacena en `Astro.locals.intlayer`. Las páginas pre-renderizadas solo usan la URL, ya que se renderizan una vez para cada visitante.
+
+También debes agregar metadatos de SEO como hreflang y enlaces canónicos a cada página e incluir un selector de idioma para permitir a los usuarios cambiar de idioma.
 
 ```astro fileName="src/pages/index.astro"
 ---
+import { useIntlayer, useLocale } from "astro-intlayer";
 import {
-  getIntlayer,
-  getLocaleFromPath,
   getLocalizedUrl,
   defaultLocale,
   localeMap,
   getHTMLTextDir,
-  type LocalesValues,
 } from "intlayer";
 import LocaleSwitcher from "../components/LocaleSwitcher.astro";
 
-// Get the current locale from the URL (e.g. /es/about -> 'es')
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+// Idioma resuelto por el middleware (ej. /es/about -> 'es')
+const { locale } = useLocale();
 
-// Get the content for the 'app' dictionary
-const { title } = getIntlayer("app", locale);
+// Contenido del diccionario 'app' para ese idioma
+const { title } = useIntlayer("app");
 ---
 
 <!doctype html>
@@ -299,6 +304,8 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
+> `Astro.locals.intlayer` también expone `locale`, `defaultLocale` y `availableLocales` a tus propios middlewares y endpoints. Pasa un idioma o un selector como segundo argumento (`useIntlayer("app", "fr")`, `useIntlayer("faq", { item: 2 })`) para anular el idioma de la solicitud en una llamada.
+
 </Step>
 <Step number={6} title="Enrutamiento localizado">
 
@@ -324,44 +331,51 @@ Para permitir a los usuarios cambiar de idioma, puedes crear un componente `Loca
 
 ```astro fileName="src/components/LocaleSwitcher.astro"
 ---
-import {
-  locales,
-  getLocaleName,
-  getLocalizedUrl,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  type LocalesValues,
-} from "intlayer";
+import { useLocale } from "astro-intlayer";
+import { getLocaleName, getLocalizedUrl, getPathWithoutLocale } from "intlayer";
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { locale, availableLocales } = useLocale();
 const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ---
 
-<nav>
-  {
-    locales.map((localeItem) => (
-      <a
-        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-        data-locale={localeItem}
-        aria-current={localeItem === locale ? "page" : undefined}
-      >
-        {getLocaleName(localeItem)}
-      </a>
-    ))
-  }
+<nav aria-label="Languages">
+  <ul>
+    {
+      availableLocales.map((localeItem) => (
+        <li key={localeItem} class="p-1">
+          <a
+            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+            data-locale={localeItem}
+            aria-current={localeItem === locale ? "page" : undefined}
+          >
+            {getLocaleName(localeItem)}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </nav>
 
 <script>
-  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+  // En el navegador, la misma importación resuelve a la implementación del cliente
+  import { useLocale } from "astro-intlayer";
+  import { getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  // Guarda la elección en la cookie de idioma y luego navega a la URL localizada
+  const { setLocale } = useLocale({
+    onLocaleChange: (newLocale) => {
+      window.location.href = getLocalizedUrl(window.location.pathname, newLocale);
+    },
+  });
 
   const localeLinks = document.querySelectorAll("[data-locale]");
 
   localeLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
+    link.addEventListener("click", (event) => {
       const locale = link.getAttribute("data-locale") as LocalesValues;
 
-      // Update the locale cookie
-      setLocaleInStorageClient(locale);
+      event.preventDefault();
+      setLocale(locale);
     });
   });
 </script>
@@ -371,6 +385,13 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
     display: flex;
     gap: 1rem;
   }
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+  }
   a[aria-current="page"] {
     font-weight: bold;
     text-decoration: underline;
@@ -379,7 +400,10 @@ const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
 ```
 
 > **Nota sobre la persistencia:**
-> El uso de `setLocaleInStorageClient` en el script del lado del cliente garantiza que la preferencia de idioma del usuario se guarde en una cookie. Esto permite que el middleware de Intlayer recuerde la elección y redirija automáticamente al usuario a su idioma preferido en futuras visitas.
+> `setLocale` desde el `useLocale` del lado del cliente guarda la preferencia de idioma del usuario en una cookie. Esto permite que Intlayer recuerde la elección y redirija automáticamente al usuario a su idioma preferido en futuras visitas: las páginas renderizadas bajo demanda (un adaptador con `output: 'server'` o `prerender = false`) son redirigidas por el middleware de Intlayer antes de que se envíe cualquier HTML, mientras que las páginas prerenderizadas, servidas como archivos estáticos, son redirigidas por un pequeño script que la integración inyecta en cada página. Establece `routing.enableProxy` en `false` para desactivar ambos. En `astro dev`, la cookie se ignora como fuente de redirección a menos que `routing.enableProxy` esté establecido en `true`, por lo que una cookie obsoleta no puede secuestrar las páginas en las que estás trabajando.
+>
+> **Intercompatibilidad servidor / cliente:**
+> `astro-intlayer` resuelve a sus hooks de servidor en el frontmatter (leyendo `Astro.locals`) y a los hooks de cliente de `vanilla-intlayer` en bloques `<script>` e islas, con los mismos nombres y formato de contenido. `setLocale` y `onChange` solo actúan en el cliente, llama a `installIntlayer()` allí una vez para inicializar el almacén del cliente. `astro-intlayer/client` expone la entrada del cliente explícitamente.
 
 </Step>
 <Step number={8} title="Sitemap y Robots.txt">
@@ -403,10 +427,10 @@ const pathList: SitemapUrlEntry[] = [
   { path: "/about", changefreq: "monthly", priority: 0.7 },
 ];
 
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
 export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+  const xmlOutput = generateSitemap(pathList, {
+    siteUrl: "https://example.com",
+  });
 
   return new Response(xmlOutput, {
     headers: { "Content-Type": "application/xml" },
@@ -447,11 +471,12 @@ export const GET: APIRoute = ({ site }) => {
 
 Sigue construyendo tu aplicación con el framework que prefieras.
 
-- Intlayer + React: [Intlayer con React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md)
-- Intlayer + Vue: [Intlayer con Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+vue.md)
-- Intlayer + Svelte: [Intlayer con Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+svelte.md)
-- Intlayer + Solid: [Intlayer con Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+solid.md)
-- Intlayer + Preact: [Intlayer con Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+preact.md)
+- Intlayer + React: [Intlayer con React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_react.md)
+- Intlayer + Vue: [Intlayer con Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_vue.md)
+- Intlayer + Svelte: [Intlayer con Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_svelte.md)
+- Intlayer + Solid: [Intlayer con Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_solid.md)
+- Intlayer + Preact: [Intlayer con Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_preact.md)
+- Intlayer + Lit: [Intlayer con Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="Extraer el contenido de tus componentes" isOptional={true}>
@@ -517,21 +542,7 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilador Babel'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-Actualiza tu archivo `vite.config.ts` para incluir el plugin `intlayerCompiler` :
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
+Compila tu aplicación para transformar tus componentes y extraer el contenido
 
 ```bash packageManager="npm"
 npm run build # O npm run dev
@@ -562,7 +573,7 @@ Intlayer utiliza el aumento de módulos (module augmentation) para aprovechar Ty
 
 ![Autocompletado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Error de traducción](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Error de traducción](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerados.
 

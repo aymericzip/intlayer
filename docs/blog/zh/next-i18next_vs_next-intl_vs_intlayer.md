@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-31
+updatedAt: 2026-09-16
 title: "next-i18next vs next-intl vs Intlayer - 完整翻译指南： next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Next.js 网站在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:
@@ -22,7 +22,7 @@ author: aymericzip
 
 <TOC/>
 
-![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.png?raw=true)
+![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 让我们来看看 Next.js 的三种 i18n 方案：next-i18next、next-intl 和 Intlayer 之间的相似点和差异。
 
@@ -134,6 +134,10 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 
   > 如果我在 `/fr/about` 页面，我不想加载 `/en/about` 页面的内容
 
+下图估算了一个理论应用的内容体积：1 到 10 个页面，翻译成 1 到 10 种语言，每页约 30 KB 文本。按 locale 动态加载内容可消除语言维度，按组件或路由划分内容可消除页面维度，只有两者结合才能让体积保持平稳。
+
+![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
 同样，三种解决方案都意识到这些问题，并允许管理这些优化。三者之间的区别在于开发者体验（DX）。
 
 `next-intl` 和 `next-i18next` 使用集中式方法管理翻译，允许按语言和子文件拆分 JSON。在 `next-i18next` 中，我们称这些 JSON 文件为“命名空间”；`next-intl` 允许声明消息。在 `intlayer` 中，我们称这些 JSON 文件为“词典”。
@@ -156,9 +160,9 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 
 下面是使用 `intlayer` 在 vite + react 应用中进行包大小优化的影响示例：
 
-| 优化后的包                                                                                      | 未优化的包                                                                                                      |
-| ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| ![优化后的包](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true) | ![未优化的包](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.png?raw=true) |
+| 优化后的包                                                                                       | 未优化的包                                                                                                       |
+| ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| ![优化后的包](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true) | ![未优化的包](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle_no_optimization.webp?raw=true) |
 
 ## TypeScript 与安全性
 
@@ -1299,7 +1303,7 @@ export const config = {
 
 GitHub 星标是衡量项目受欢迎程度、社区信任度和长期相关性的有力指标。虽然它们不是技术质量的直接衡量标准，但反映了有多少开发者认为该项目有用、关注其进展并可能采用它。对于评估项目价值，星标有助于比较不同选项的吸引力，并提供生态系统增长的洞察。
 
-[![星标历史图表](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![星标历史图表](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ## 结论
 

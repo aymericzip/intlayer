@@ -181,7 +181,6 @@ Intlayer 提供了多種功能，旨在滿足現代 Web 開發的需求。以下
 - **[Intlayer 與 Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_tanstack+solid.md)**
 - **[Intlayer 與 Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_vite+react.md)**
 - **[Intlayer 與 React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_react_router_v7.md)**
-- **[Intlayer 與 React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_react_router_v7_fs_routes.md)**
 - **[Intlayer 與 React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_create_react_app.md)**
 - **[Intlayer 與 React Native 及 Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_react_native+expo.md)**
 - **[Intlayer 與 Lynx 及 React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_lynx+react.md)**
@@ -192,7 +191,6 @@ Intlayer 提供了多種功能，旨在滿足現代 Web 開發的需求。以下
 - **[Intlayer 與 Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_astro_solid.md)**
 - **[Intlayer 與 Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_astro_preact.md)**
 - **[Intlayer 與 Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_astro_lit.md)**
-- **[Intlayer 與 Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_astro_vanilla.md)**
 - **[Intlayer 與 Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_vite+vue.md)**
 - **[Intlayer 與 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_nuxt.md)**
 - **[Intlayer 與 Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_vite+svelte.md)**

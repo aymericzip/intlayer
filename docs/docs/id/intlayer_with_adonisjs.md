@@ -279,7 +279,7 @@ Secara default, `adonis-intlayer` akan menginterpretasikan header `Accept-Langua
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Kesalahan terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Kesalahan terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 Pastikan tipe yang dibuat secara otomatis (secara default di ./types/intlayer.d.ts) disertakan dalam file tsconfig.json Anda.
 

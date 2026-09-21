@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-08-09
+updatedAt: 2026-09-16
 title: i18n Bundelgrootte & Prestatie-optimalisatie
 description: Verklein de bundelgrootte van uw applicatie door internationalisatie (i18n) content te optimaliseren. Leer hoe u tree shaking en lazy loading kunt inzetten voor woordenboeken met Intlayer.
 keywords:
@@ -36,6 +36,10 @@ author: aymericzip
 Een van de meest voorkomende uitdagingen bij traditionele i18n-oplossingen die op JSON-bestanden vertrouwen, is het beheren van de contentgrootte. Als ontwikkelaars de content niet handmatig scheiden in namespaces, downloaden gebruikers vaak vertalingen voor elke pagina en mogelijk voor elke taal, alleen maar om één enkele pagina te bekijken.
 
 Bijvoorbeeld, een applicatie met 10 pagina's die in 10 talen zijn vertaald, kan ertoe leiden dat een gebruiker de content van 100 pagina's downloadt, terwijl ze er maar **één** nodig hebben (de huidige pagina in de huidige taal). Dit leidt tot verspilde bandbreedte en tragere laadtijden.
+
+De onderstaande grafiek schat de payload voor een theoretische app met 1 tot 10 pagina's, vertaald in 1 tot 10 talen, met ongeveer 30 KB tekst per pagina. Content dynamisch laden per locale verwijdert de taal-as, content scopen per component of route verwijdert de pagina-as, en alleen de combinatie houdt de payload vlak.
+
+![Theoretische content leakage per architectuur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Intlayer lost dit probleem op door build-time optimalisatie.** Het analyseert uw code om te detecteren welke woordenboeken daadwerkelijk per component worden gebruikt en voegt alleen de benodigde content weer in uw bundel in.
 

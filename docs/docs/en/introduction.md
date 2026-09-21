@@ -177,7 +177,7 @@ We’ve built Intlayer with flexibility in mind, offering seamless integration a
 - **[Intlayer with Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_tanstack+solid.md)**
 - **[Intlayer with Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)**
 - **[Intlayer with React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_router_v7.md)**
-- **[Intlayer with React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_router_v7_fs_routes.md)**
+- **[Intlayer with Remix 3](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_remix_3.md)**
 - **[Intlayer with React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_create_react_app.md)**
 - **[Intlayer with React Native and Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_react_native+expo.md)**
 - **[Intlayer with Lynx and React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_lynx+react.md)**
@@ -188,7 +188,6 @@ We’ve built Intlayer with flexibility in mind, offering seamless integration a
 - **[Intlayer with Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_solid.md)**
 - **[Intlayer with Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_preact.md)**
 - **[Intlayer with Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_lit.md)**
-- **[Intlayer with Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_vanilla.md)**
 - **[Intlayer with Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+vue.md)**
 - **[Intlayer with Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md)**
 - **[Intlayer with Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+svelte.md)**
@@ -276,7 +275,7 @@ See [why Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en
 </Question>
 <Question title="Which frameworks does Intlayer support?">
 
-React, Next.js, Vite, TanStack Start, React Router, Vue, Nuxt, Svelte, SvelteKit, Angular, Solid, Preact, Lit, Astro with every island framework, React Native with Expo, Lynx, and on the server Express, Fastify, NestJS, Hono, Elysia and AdonisJS. Each has its own guide under [environments](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/introduction.md).
+React, Next.js, Vite, TanStack Start, React Router, Remix, Vue, Nuxt, Svelte, SvelteKit, Angular, Solid, Preact, Lit, Astro with every island framework, React Native with Expo, Lynx, and on the server Express, Fastify, NestJS, Hono, Elysia and AdonisJS. Each has its own guide under [environments](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/introduction.md).
 
 </Question>
 <Question title="Why declare content next to the component instead of in a central JSON file?">

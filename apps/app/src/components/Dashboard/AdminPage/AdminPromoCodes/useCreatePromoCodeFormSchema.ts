@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useCreatePromoCodeFormSchema = () => {
   const content = useIntlayer('admin-promo-codes');
@@ -7,13 +7,15 @@ export const useCreatePromoCodeFormSchema = () => {
   return z.object({
     code: z
       .string()
-      .min(1, content.codeRequiredError.value)
-      .regex(/^[a-zA-Z0-9_-]+$/, content.codeRegexError.value),
+      .check(
+        z.minLength(1, content.codeRequiredError.value),
+        z.regex(/^[a-zA-Z0-9_-]+$/, content.codeRegexError.value)
+      ),
     discountType: z.enum(['amount', 'percentage']),
     discountValue: z.coerce
       .number()
-      .min(1, content.discountValueMinError.value),
-    expiresAt: z.string().optional(),
+      .check(z.minimum(1, content.discountValueMinError.value)),
+    expiresAt: z.optional(z.string()),
   });
 };
 

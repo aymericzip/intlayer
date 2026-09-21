@@ -75,8 +75,13 @@ import { stripeWebhook } from '@webhooks/stripe.webhook';
 import dotenv from 'dotenv';
 import Fastify, { type FastifyInstance } from 'fastify';
 import { intlayer, t } from 'fastify-intlayer';
+import { z } from 'zod/mini';
+import englishLocale from 'zod/v4/locales/en.js';
 /// Logger
 import { logger } from './logger/index';
+
+// `zod/mini` ships no default locale: restore English issue messages for the whole process.
+z.config(englishLocale());
 
 const startServer = async () => {
   const app: FastifyInstance = Fastify({

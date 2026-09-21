@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { dirname as pathDirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isESModule } from '@intlayer/config/utils';
-import z from 'zod';
+import { z } from 'zod/mini';
 import { loadAPITools } from '../tools/api';
 import { loadCLITools } from '../tools/cli';
 import { loadDocsTools } from '../tools/docs';

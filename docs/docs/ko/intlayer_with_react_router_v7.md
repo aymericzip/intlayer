@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-08-30
+updatedAt: 2026-09-20
 title: "React Router v7 i18n - 앱을 번역하는 완전 가이드"
 description: "i18next는 이제 그만. 2026년 다국어 (i18n) React Router v7 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
@@ -43,7 +43,7 @@ author: aymericzip
 
 이 가이드는 React Router v7 프로젝트에서 로케일 인식 라우팅, TypeScript 지원 및 최신 개발 방식을 활용하여 **Intlayer**를 통합해 원활한 국제화(i18n)를 구현하는 방법을 보여줍니다.
 
-이 가이드는 프론트엔드 라우팅에 중점을 둡니다. fs-routes 라우팅의 경우 [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_router_v7_fs_routes.md) 가이드를 참조하세요.
+이 가이드는 **설정 기반 라우팅**(`routes.ts`)과 **파일 시스템 기반 라우팅**(`@react-router/fs-routes`)을 모두 다룹니다.
 
 ## 목차
 
@@ -892,7 +892,13 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
+ <Tabs>
+ <Tab value='intlayer >= 9'>
+
 > v9부터 `intlayerCompiler`는 `intlayer` 플러그인에 포함되어 있습니다. 따라서 수동으로 추가할 필요가 없습니다.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
 
 `vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함하세요:
 
@@ -907,6 +913,11 @@ export default defineConfig({
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+애플리케이션을 빌드하여 컴포넌트를 변환하고 콘텐츠를 추출합니다.
 
 ```bash packageManager="npm"
 npm run build # 또는 npm run dev
@@ -1040,7 +1051,7 @@ React Router v7은 자체 메시지 레이어를 제공하지 않으므로 i18n 
 </Question>
 <Question title="라우트에 로케일 세그먼트를 어떻게 추가하나요?">
 
-라우트 트리에 `:locale` 세그먼트를 선언하고 Intlayer가 이를 확인하도록 합니다. `validatePrefix`는 세그먼트가 유효한 선언 로케일인지 여부를 알려주므로 알 수 없는 접두사는 중복 페이지를 렌더링하는 대신 404를 반환하고, `getLocalizedUrl`은 모든 경로를 대상 언어로 다시 작성합니다. 파일 시스템 라우트를 사용하는 경우 본 가이드의 [파일 시스템 라우트 변형](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_router_v7_fs_routes.md)을 참조하세요.
+라우트 트리에 `:locale` 세그먼트를 선언하고 Intlayer가 이를 확인하도록 합니다. `validatePrefix`는 세그먼트가 유효한 선언 로케일인지 여부를 알려주므로 알 수 없는 접두사는 중복 페이지를 렌더링하는 대신 404를 반환하고, `getLocalizedUrl`은 모든 경로를 대상 언어로 다시 작성합니다. 파일 시스템 라우트를 사용하는 경우 라우트 파일 이름 앞에 `($locale)` 동적 세그먼트를 붙이세요.
 
 </Question>
 <Question title="URL에 로케일을 반드시 포함해야 하나요?">
@@ -1076,6 +1087,13 @@ React Router v7은 자체 메시지 레이어를 제공하지 않으므로 i18n 
 <Question title="번역가가 코드를 건드리지 않고 콘텐츠를 수정할 수 있나요?">
 
 자체 호스팅되는 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 또는 배포 없이 콘텐츠를 수정할 수 있도록 외부화하는 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 통해 가능합니다.
+
+</Question>
+<Question title="비주얼 에디터의 비용은 얼마인가요? 필요하지 않은 경우 과도한가요?">
+
+Intlayer [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)는 설정되지 않은 경우 애플리케이션에 **비용이 전혀 들지 않습니다**. 추가 로직은 명시적으로 활성화되고 필요할 때만 로드됩니다.
+
+활성화하더라도 대부분의 로직은 [app.intlayer.org](https://app.intlayer.org)의 서버 에디터나 `intlayer-editor` 패키지를 통해 처리되므로 영향은 극히 미미합니다(활성화 시 동적으로 로드되는 +5 kB에 불과함). 비주얼 편집 없이 간단한 번역 솔루션만 필요한 경우 Intlayer는 앱에 어떠한 오버헤드도 추가하지 않습니다.
 
 </Question>
 <Question title="Intlayer는 무료이며 오픈 소스인가요?">

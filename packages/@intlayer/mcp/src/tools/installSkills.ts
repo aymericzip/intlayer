@@ -5,7 +5,7 @@ import {
   SKILLS,
   type Skill,
 } from '@intlayer/engine/cli';
-import z from 'zod';
+import { z } from 'zod/mini';
 import type { McpServer } from './docs';
 
 export const loadInstallSkillsTool = (server: McpServer): void => {
@@ -16,16 +16,16 @@ export const loadInstallSkillsTool = (server: McpServer): void => {
       description:
         'Install Intlayer documentation and skills to the project to assist AI agents. Ask the user for the platform (Cursor, VSCode, OpenCode, Claude, etc.) and which skills they want to install before calling this tool.',
       inputSchema: {
-        platform: z
-          .enum(PLATFORMS)
-          .describe('The platform to install skills for'),
-        skills: z.array(z.enum(SKILLS)).describe('List of skills to install'),
-        projectRoot: z
-          .string()
-          .optional()
-          .describe(
-            'Root directory of the project. Defaults to current directory.'
-          ),
+        platform: z.enum(PLATFORMS).register(z.globalRegistry, {
+          description: 'The platform to install skills for',
+        }),
+        skills: z.array(z.enum(SKILLS)).register(z.globalRegistry, {
+          description: 'List of skills to install',
+        }),
+        projectRoot: z.optional(z.string()).register(z.globalRegistry, {
+          description:
+            'Root directory of the project. Defaults to current directory.',
+        }),
       },
     },
 

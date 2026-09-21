@@ -41,7 +41,7 @@ Intlayer CMS 是一个应用程序，允许您将 Intlayer 项目的内容外部
 
 为此，Intlayer 引入了“远程字典”的概念。
 
-![Intlayer CMS 界面](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
+![Intlayer CMS 界面](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.webp)
 
 ## 目录
 

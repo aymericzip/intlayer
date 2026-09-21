@@ -39,6 +39,7 @@ COPY \
     --exclude=packages/express-intlayer \
     --exclude=packages/hono-intlayer \
     --exclude=packages/elysia-intlayer \
+    --exclude=packages/remix-intlayer \
     --exclude=packages/adonis-intlayer \
     --exclude=packages/eslint-plugin-intlayer \
     --exclude=docs/assets \

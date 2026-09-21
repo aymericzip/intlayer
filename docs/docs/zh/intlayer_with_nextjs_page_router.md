@@ -812,7 +812,7 @@ Intlayer 使用模块增强（module augmentation）来利用 TypeScript 的优�
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.webp?raw=true)
 
 确保您的 TypeScript 配置包含自动生成的类型。
 

@@ -3,15 +3,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { FC, HTMLProps, SubmitEvent } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 const Schema = z.object({
-  test: z.string().min(3, 'test error'),
+  test: z.string().check(z.minLength(3, 'test error')),
 });
 
 type FormElementWrapperProps = HTMLProps<HTMLFormElement> & {
-  schema?: z.ZodObject;
-  values?: z.infer<z.ZodObject>;
+  schema?: z.ZodMiniObject;
+  values?: z.infer<z.ZodMiniObject>;
 };
 
 export const FormElementWrapper: FC<FormElementWrapperProps> = (props) => {

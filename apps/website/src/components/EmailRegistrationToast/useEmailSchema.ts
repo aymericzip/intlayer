@@ -1,5 +1,5 @@
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 export const useEmailSchema = () => {
   const { requiredErrorEmail, invalidTypeErrorEmail } = useIntlayer(
@@ -7,16 +7,18 @@ export const useEmailSchema = () => {
   );
 
   return z.object({
-    email: z
-      .string()
-      .min(1, { error: requiredErrorEmail.value })
-      .email({
-        error: (issue) =>
-          issue.input === undefined
-            ? requiredErrorEmail.value
-            : invalidTypeErrorEmail.value,
-      })
-      .default(''),
+    email: z._default(
+      z.string().check(
+        z.minLength(1, { error: requiredErrorEmail.value }),
+        z.email({
+          error: (issue) =>
+            issue.input === undefined
+              ? requiredErrorEmail.value
+              : invalidTypeErrorEmail.value,
+        })
+      ),
+      ''
+    ),
   });
 };
 

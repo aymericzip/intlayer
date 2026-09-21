@@ -9,6 +9,33 @@ export type GetAliasOptions = {
   formatter?: (value: string) => string;
 };
 
+/**
+ * Generated entry files of `.intlayer/main`, keyed by the
+ * `@intlayer/dictionaries-entry` subpath that resolves to them.
+ */
+const DICTIONARIES_ENTRY_SUBPATH_FILES = {
+  unmerged: 'unmerged_dictionaries',
+  remote: 'remote_dictionaries',
+  dynamic: 'dynamic_dictionaries',
+  fetch: 'fetch_dictionaries',
+} as const;
+
+type DictionariesEntrySubpath = keyof typeof DICTIONARIES_ENTRY_SUBPATH_FILES;
+
+type DictionariesEntrySubpathAlias = {
+  [Subpath in DictionariesEntrySubpath as `@intlayer/dictionaries-entry/${Subpath}`]: string;
+};
+
+/**
+ * Maps the aliasable Intlayer packages to the generated `.intlayer` files so
+ * bundlers (webpack, Vite, Turbopack, esbuild, Metro, …) resolve them to the
+ * app's own dictionaries and hot reload on any content change.
+ *
+ * Key order matters: webpack (enhanced-resolve) and Vite match string aliases
+ * by prefix and stop at the first hit, so the bare `@intlayer/dictionaries-entry`
+ * key MUST come after its subpaths, otherwise `@intlayer/dictionaries-entry/remote`
+ * would be rewritten to `<dictionaries entry>/remote`.
+ */
 export const getAlias = ({
   configuration,
   format,
@@ -19,93 +46,27 @@ export const getAlias = ({
     format ?? configuration.build.outputFormat[0] ?? 'esm'
   );
 
-  const { baseDir } = configuration.system;
-  const { mainDir, configDir } = configuration.system;
+  const { baseDir, mainDir, configDir } = configuration.system;
 
-  /**
-   * Dictionaries
-   */
-  const dictionariesPath = join(mainDir, `dictionaries.${extension}`);
-  const relativeDictionariesPath = relative(baseDir, dictionariesPath);
-  const fixedDictionariesPath = formatter(
-    normalizePath(relativeDictionariesPath)
-  );
+  const toAliasPath = (absolutePath: string) =>
+    formatter(normalizePath(relative(baseDir, absolutePath)));
 
-  /**
-   * Unmerged dictionaries
-   */
-  const unmergedDictionariesPath = join(
-    mainDir,
-    `unmerged_dictionaries.${extension}`
-  );
-  const relativeUnmergedDictionariesPath = relative(
-    baseDir,
-    unmergedDictionariesPath
-  );
-  const fixedUnmergedDictionariesPath = formatter(
-    normalizePath(relativeUnmergedDictionariesPath)
-  );
-
-  /**
-   * Remote dictionaries
-   */
-  const remoteDictionariesPath = join(
-    mainDir,
-    `remote_dictionaries.${extension}`
-  );
-  const relativeRemoteDictionariesPath = relative(
-    baseDir,
-    remoteDictionariesPath
-  );
-  const fixedRemoteDictionariesPath = formatter(
-    normalizePath(relativeRemoteDictionariesPath)
-  );
-
-  /**
-   * Dynamic dictionaries
-   */
-  const dynamicDictionariesPath = join(
-    mainDir,
-    `dynamic_dictionaries.${extension}`
-  );
-  const relativeDynamicDictionariesPath = relative(
-    baseDir,
-    dynamicDictionariesPath
-  );
-  const fixedDynamicDictionariesPath = formatter(
-    normalizePath(relativeDynamicDictionariesPath)
-  );
-
-  /**
-   * Fetch dictionaries
-   */
-  const fetchDictionariesPath = join(
-    mainDir,
-    `fetch_dictionaries.${extension}`
-  );
-  const relativeFetchDictionariesPath = relative(
-    baseDir,
-    fetchDictionariesPath
-  );
-  const fixedFetchDictionariesPath = formatter(
-    normalizePath(relativeFetchDictionariesPath)
-  );
-
-  /**
-   * Configuration
-   */
-  const configurationPath = join(configDir, `configuration.${extension}`);
-  const relativeConfigurationPath = relative(baseDir, configurationPath);
-  const fixedConfigurationPath = formatter(
-    normalizePath(relativeConfigurationPath)
-  );
+  const subpathAlias = Object.fromEntries(
+    Object.entries(DICTIONARIES_ENTRY_SUBPATH_FILES).map(
+      ([subpath, fileName]) => [
+        `@intlayer/dictionaries-entry/${subpath}`,
+        toAliasPath(join(mainDir, `${fileName}.${extension}`)),
+      ]
+    )
+  ) as DictionariesEntrySubpathAlias;
 
   return {
-    '@intlayer/dictionaries-entry': fixedDictionariesPath,
-    '@intlayer/unmerged-dictionaries-entry': fixedUnmergedDictionariesPath,
-    '@intlayer/remote-dictionaries-entry': fixedRemoteDictionariesPath,
-    '@intlayer/dynamic-dictionaries-entry': fixedDynamicDictionariesPath,
-    '@intlayer/fetch-dictionaries-entry': fixedFetchDictionariesPath,
-    '@intlayer/config/built': fixedConfigurationPath,
-  } as const;
+    ...subpathAlias,
+    '@intlayer/dictionaries-entry': toAliasPath(
+      join(mainDir, `dictionaries.${extension}`)
+    ),
+    '@intlayer/config/built': toAliasPath(
+      join(configDir, `configuration.${extension}`)
+    ),
+  };
 };

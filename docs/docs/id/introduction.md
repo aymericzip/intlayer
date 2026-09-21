@@ -179,7 +179,6 @@ Kami membangun Intlayer dengan mempertimbangkan fleksibilitas, menawarkan integr
 - **[Intlayer dengan Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack+solid.md)**
 - **[Intlayer dengan Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md)**
 - **[Intlayer dengan React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_router_v7.md)**
-- **[Intlayer dengan React Router v7 (fs-routes)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_router_v7_fs_routes.md)**
 - **[Intlayer dengan React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_create_react_app.md)**
 - **[Intlayer dengan React Native dan Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_native+expo.md)**
 - **[Intlayer dengan Lynx dan React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_lynx+react.md)**
@@ -190,7 +189,6 @@ Kami membangun Intlayer dengan mempertimbangkan fleksibilitas, menawarkan integr
 - **[Intlayer dengan Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_solid.md)**
 - **[Intlayer dengan Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_preact.md)**
 - **[Intlayer dengan Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_lit.md)**
-- **[Intlayer dengan Astro + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_vanilla.md)**
 - **[Intlayer dengan Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue.md)**
 - **[Intlayer dengan Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md)**
 - **[Intlayer dengan Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+svelte.md)**

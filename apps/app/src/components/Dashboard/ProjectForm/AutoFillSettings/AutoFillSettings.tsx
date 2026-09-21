@@ -10,7 +10,7 @@ import { H3, H4 } from '@intlayer/design-system/headers';
 import { Save, Sparkles } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 const autoFillSchema = z.object({
   autoFill: z.boolean(),

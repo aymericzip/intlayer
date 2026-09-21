@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-06-23
+updatedAt: 2026-09-20
 title: "React Router v7 i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "अब i18next की जरूरत नहीं। 2026 में React Router v7 ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
@@ -43,7 +43,7 @@ author: aymericzip
 
 यह गाइड दिखाता है कि कैसे **Intlayer** को React Router v7 प्रोजेक्ट्स में seamless अंतरराष्ट्रीयकरण के लिए एकीकृत किया जाए, जिसमें locale-aware रूटिंग, TypeScript समर्थन, और आधुनिक विकास प्रथाएँ शामिल हैं।
 
-यह गाइड फ्रंटएंड राउटिंग पर केंद्रित है। fs-routes राउटिंग के लिए, [Intlayer with React Router v7 File-System Routes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_react_router_v7_fs_routes.md) गाइड देखें।
+यह **कॉन्फ़िगरेशन-आधारित राउटिंग** (`routes.ts`) और **फ़ाइल-सिस्टम-आधारित राउटिंग** (`@react-router/fs-routes`) दोनों को कवर करता है।
 
 ## Table of Contents
 
@@ -890,39 +890,47 @@ bun x intlayer extract
  </Tab>
  <Tab value='बैबेल कंपाइलर'>
 
-> v9 के बाद से, `intlayerCompiler` को `intlayer` plugin में शामिल किया गया है। इसलिए आपको इसे manually जोड़ने की आवश्यकता नहीं है।
+ <Tabs>
+ <Tab value='intlayer >= 9'>
 
-intlayerCompiler प्लगइन शामिल करने के लिए अपनी `vite.config.ts` अपडेट करें:
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
+ </Tab>
+ <Tab value='intlayer < 9'>
+
+`intlayerCompiler` प्लगइन शामिल करने के लिए अपना `vite.config.ts` अपडेट करें:
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayer({
-      proxy: {
-        ignore: (req) => req.url?.startsWith("/api"),
-      },
-    }),
+    intlayer(),
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```
+
+ </Tab>
+ </Tabs>
+
+अपने घटकों को बदलने और सामग्री निकालने के लिए अपना एप्लिकेशन बिल्ड करें
 
 ```bash packageManager="npm"
 npm run build # या npm run dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm run build # Or pnpm run dev
+pnpm run build # या pnpm run dev
 ```
 
 ```bash packageManager="yarn"
-yarn build # Or yarn dev
+yarn build # या yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
+bun run build # या bun run dev
 ```
 
  </Tab>
@@ -1077,6 +1085,13 @@ React Router के `meta` फ़ंक्शन में `getMultilingualUrls`
 <Question title="अनुवादक कोड को छुए बिना सामग्री को कैसे संपादित कर सकते हैं?">
 
 [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) के माध्यम से, जो किसी को भी सीधे चलते हुए ऐप में टेक्स्ट संपादित करने देता है, या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के माध्यम से, जो सामग्री को अलग करता है ताकि कोड को फिर से तैनात किए बिना उसे अपडेट किया जा सके।
+
+</Question>
+<Question title="विज़ुअल एडिटर की क्या लागत है? यदि मुझे इसकी आवश्यकता नहीं है तो क्या यह ज़रूरत से ज़्यादा है?">
+
+यदि [Intlayer विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) सेटअप नहीं किया गया है, तो इसका आपके एप्लिकेशन पर **शून्य प्रभाव (zero cost)** होता है। अतिरिक्त लॉजिक केवल तभी लोड होता है जब इसे स्पष्ट रूप से सक्षम किया गया हो और इसकी आवश्यकता हो।
+
+सक्षम होने पर भी, इसका प्रभाव बेहद हल्का होता है (+5 KB, केवल सक्रिय होने पर गतिशील रूप से लोड होता है) क्योंकि मुख्य लॉजिक [app.intlayer.org](https://app.intlayer.org) पर सर्वर एडिटर या `intlayer-editor` पैकेज द्वारा संभाला जाता है। यदि आपको विज़ुअल एडिटिंग के बिना केवल एक सरल अनुवाद समाधान की आवश्यकता है, तो Intlayer आपके ऐप पर कोई अतिरिक्त बोझ नहीं डालता है।
 
 </Question>
 <Question title="क्या Intlayer मुफ्त और ओपन सोर्स है?">
