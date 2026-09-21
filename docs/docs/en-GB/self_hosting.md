@@ -334,35 +334,9 @@ docker run --rm \
 - **No custom domain.** All browser-facing `VITE_*` URLs are inlined into the app at build time, and the published image ships with `localhost` values. The dashboard must be accessed at `http://localhost:3000`; serving it on a public domain would require rebuilding the image with the target URLs baked in and is not supported out of the box.
 - **Email requires a working mailer.** First-run setup enforces email verification, so either `RESEND_API_KEY` or a [global SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) must be configured. After the first admin signs in, each organisation can also configure its own SMTP or Resend mailer from the dashboard.
 
-## Troubleshooting
-
-### Backend crash-loops on first start
-
-MongoDB and Redis must be healthy before the backend starts. The compose file uses `depends_on` with `condition: service_healthy`. If you see repeated backend restarts, check that the `mongo` and `redis` healthchecks pass:
-
-```sh
-docker compose ps
-docker compose logs mongo
-docker compose logs redis
-```
-
-Look for `MongoDB connection error` near the top of the log.
-
-### Dashboard cannot reach the API
-
-Verify that `VITE_BACKEND_URL` matches the URL where the backend is reachable from the **browser** (not the Docker network). If you changed the backend port or added a reverse proxy, rebuild the dashboard image:
-
-### MinIO bucket missing
-
-If the `minio-init` one-shot service didn't run (or ran before MinIO was ready), create the bucket manually:
-
-```sh
-docker compose run --rm minio-init
-```
-
 ## Useful links
 
 - [Intlayer CMS documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)
 - [Configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md)
 - [CMS SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
-- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/repository/docker/aymercizip/intlayer-selfhost/general)
+- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/r/aymercizip/intlayer-selfhost)

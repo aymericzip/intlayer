@@ -334,35 +334,9 @@ docker run --rm \
 - **사용자 정의 도메인 없음.** 모든 브라우저 대면 `VITE_*` URL은 빌드 시 앱에 인라인되며, 게시된 이미지는 `localhost` 값으로 제공됩니다. 대시보드는 `http://localhost:3000`에서 액세스해야 합니다. 공개 도메인에서 제공하려면 대상 URL을 포함하여 이미지를 다시 빌드해야 하며 기본적으로 지원되지 않습니다.
 - **이메일에는 작동하는 메일러가 필요합니다.** 초기 실행 설정은 이메일 확인을 강제하므로 `RESEND_API_KEY` 또는 [글로벌 SMTP 메일러](#global-mailer)(`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`)를 구성해야 합니다. 첫 번째 관리자가 로그인한 후 각 조직은 대시보드에서 자신의 SMTP 또는 Resend 메일러를 구성할 수도 있습니다.
 
-## 문제 해결
-
-### 첫 시작 시 백엔드 충돌 반복
-
-백엔드가 시작되기 전에 MongoDB와 Redis가 정상 상태여야 합니다. compose 파일은 `condition: service_healthy`와 함께 `depends_on`을 사용합니다. 백엔드 재시작이 반복적으로 발생하면 `mongo` 및 `redis` 헬스체크가 통과하는지 확인하세요:
-
-```sh
-docker compose ps
-docker compose logs mongo
-docker compose logs redis
-```
-
-로그의 상단 근처에서 `MongoDB connection error`를 찾아보세요.
-
-### 대시보드가 API에 연결할 수 없음
-
-`VITE_BACKEND_URL`이 **브라우저**에서 백엔드에 접근 가능한 URL(Docker 네트워크가 아님)과 일치하는지 확인하세요. 백엔드 포트를 변경했거나 리버스 프록시를 추가했다면, 대시보드 이미지를 다시 빌드해야 합니다:
-
-### MinIO 버킷 누락
-
-`minio-init` 일회성 서비스가 실행되지 않았거나(또는 MinIO가 준비되기 전에 실행된 경우), 수동으로 버킷을 생성하세요:
-
-```sh
-docker compose run --rm minio-init
-```
-
 ## 유용한 링크
 
 - [Intlayer CMS 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 - [설정 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 - [CMS SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
-- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/repository/docker/aymercizip/intlayer-selfhost/general)
+- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/r/aymercizip/intlayer-selfhost)

@@ -333,35 +333,9 @@ docker run --rm \
 - **कोई कस्टम डोमेन नहीं।** सभी ब्राउज़र-सामने वाले `VITE_*` URLs बिल्ड टाइम पर ऐप में इनलाइन किए जाते हैं, और प्रकाशित इमेज `localhost` मानों के साथ आती है। डैशबोर्ड को `http://localhost:3000` पर एक्सेस किया जाना चाहिए; इसे एक सार्वजनिक डोमेन पर सर्व करने के लिए इमेज को लक्ष्य URLs के साथत: फिर से बनाने की आवश्यकता होगी और इसे तुरंत समर्थित नहीं किया जाता है।
 - **ईमेल को एक काम करने वाले मेलर की आवश्यकता है।** पहली बार सेटअप ईमेल सत्यापन को लागू करता है, इसलिए या तो `RESEND_API_KEY` या एक [global SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) को कॉन्फ़िगर किया जाना चाहिए। पहले एडमिन साइन इन करने के बाद, प्रत्येक संगठन डैशबोर्ड से अपना स्वयं का SMTP या Resend मेलर भी कॉन्फ़िगर कर सकता है।
 
-## समस्या निवारण
-
-### पहली शुरुआत में बैकएंड क्रैश-लूप करता है
-
-बैकएंड शुरू होने से पहले MongoDB और Redis स्वस्थ होने चाहिए। कंपोज़ फ़ाइल `condition: service_healthy` के साथ `depends_on` का उपयोग करती है। यदि आप बार-बार बैकएंड रीस्टार्ट देखते हैं, तो जांचें कि `mongo` और `redis` हेल्थचेक पास हो गए हैं या नहीं:
-
-```sh
-docker compose ps
-docker compose logs mongo
-docker compose logs redis
-```
-
-लॉग के शीर्ष के पास `MongoDB connection error` खोजें।
-
-### ईमेल नहीं भेजा जा रहा है
-
-डिफ़ॉल्ट रूप से, सभी आउटबाउंड ईमेल मेलपिट द्वारा कैप्चर किए जाते हैं। भेजे गए संदेशों को देखने के लिए `http://localhost:8025` खोलें। वास्तविक ईमेल भेजने के लिए, `.env` में `MAIL_PROVIDER=resend` और `RESEND_API_KEY=<your-key>` सेट करें, फिर बैकएंड को रीस्टार्ट करें:
-
-### MinIO बकेट गायब है
-
-यदि `minio-init` वन-शॉट सर्विस नहीं चली (या MinIO के तैयार होने से पहले चली), तो बकेट को मैन्युअल रूप से बनाएँ:
-
-```sh
-docker compose run --rm minio-init
-```
-
 ## उपयोगी लिंक
 
 - [इंटलेयर सीएमएस डॉक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 - [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
 - [सीएमएस SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
-- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/repository/docker/aymercizip/intlayer-selfhost/general)
+- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/r/aymercizip/intlayer-selfhost)

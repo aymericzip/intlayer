@@ -332,35 +332,9 @@ docker run --rm \
 - **カスタムドメインはサポートされていません。** すべてのブラウザ向け `VITE_*` URL はビルド時にアプリにインラインされ、公開されたイメージには `localhost` の値が付属します。ダッシュボードには `http://localhost:3000` でアクセスする必要があります。パブリックドメインでサービスするには、イメージをターゲット URL を焼き込んで再構築する必要があり、そのままではサポートされていません。
 - **メールは機能するメーラーが必要です。** 初回実行セットアップではメール検証が強制されるため、`RESEND_API_KEY` または [グローバル SMTP メーラー](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) を設定する必要があります。最初の管理者がサインインした後、各組織はダッシュボードから独自の SMTP または Resend メーラーを設定することもできます。
 
-## トラブルシューティング
-
-### 最初の起動時にバックエンドがクラッシュループする
-
-バックエンドが起動する前に、MongoDBとRedisが正常である必要があります。composeファイルは `condition: service_healthy` とともに `depends_on` を使用しています。バックエンドの再起動が繰り返される場合は、`mongo` と `redis` のヘルスチェックがパスしているか確認してください。
-
-```sh
-docker compose ps
-docker compose logs mongo
-docker compose logs redis
-```
-
-ログの上部付近で `MongoDB connection error` を探してください。
-
-### メールが送信されない
-
-デフォルトでは、すべての送信メールはMailpitによって捕捉されます。送信されたメッセージを確認するには、`http://localhost:8025` を開いてください。実際のメールを送信するには、`.env` で `MAIL_PROVIDER=resend` と `RESEND_API_KEY=<your-key>` を設定し、バックエンドを再起動します。
-
-### MinIOバケットが見つからない
-
-`minio-init` ワンショットサービスが実行されなかった場合 (またはMinIOが準備できる前に実行された場合) は、手動でバケットを作成してください。
-
-```sh
-docker compose run --rm minio-init
-```
-
 ## 役立つリンク
 
 - [Intlayer CMS ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 - [設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 - [CMS SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
-- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/repository/docker/aymercizip/intlayer-selfhost/general)
+- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/r/aymercizip/intlayer-selfhost)

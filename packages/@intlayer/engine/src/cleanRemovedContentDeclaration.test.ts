@@ -8,12 +8,18 @@ import { cleanRemovedContentDeclaration } from './cleanRemovedContentDeclaration
 
 const contentFilePath = 'src/app/app.content.ts';
 
-/** Flush the deferred removal: fire its timer, then let the fs calls settle. */
-const runDeferredRemoval = async () => {
+/**
+ * Flush the deferred removal: fire its timer, then wait for the fs calls it
+ * started to settle. `vi.waitFor` polls on real timers, so the faked
+ * `setTimeout` does not stall it.
+ */
+const runDeferredRemoval = async (pathsToBeRemoved: string[] = []) => {
   await vi.runAllTimersAsync();
-  for (let attempt = 0; attempt < 10; attempt++) {
-    await new Promise((resolve) => setImmediate(resolve));
-  }
+  await vi.waitFor(() => {
+    for (const path of pathsToBeRemoved) {
+      expect(existsSync(path)).toBe(false);
+    }
+  });
 };
 
 const createConfiguration = (baseDir: string): IntlayerConfig => {
@@ -123,10 +129,11 @@ describe('cleanRemovedContentDeclaration', () => {
     expect(existsSync(join(dictionariesDir, 'main.json'))).toBe(true);
     expect(existsSync(join(unmergedDictionariesDir, 'main.json'))).toBe(true);
 
-    await runDeferredRemoval();
+    await runDeferredRemoval([
+      join(dictionariesDir, 'main.json'),
+      join(unmergedDictionariesDir, 'main.json'),
+    ]);
 
-    expect(existsSync(join(dictionariesDir, 'main.json'))).toBe(false);
-    expect(existsSync(join(unmergedDictionariesDir, 'main.json'))).toBe(false);
     expect(existsSync(join(dictionariesDir, 'main2.json'))).toBe(true);
     expect(existsSync(join(unmergedDictionariesDir, 'main2.json'))).toBe(true);
   });

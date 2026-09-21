@@ -77,8 +77,6 @@ export const grammarAliases = {
   cjs: 'javascript',
   console: 'bash',
   cts: 'typescript',
-  dockerfile: 'docker',
-  gql: 'graphql',
   htm: 'html',
   js: 'javascript',
   jsonc: 'json5',
@@ -134,7 +132,7 @@ export type ResolvedCodeLanguage = {
  *
  * @example
  * resolveCodeLanguage('ts'); // { id: 'typescript', loadGrammar: fn }
- * resolveCodeLanguage('toml'); // { id: 'toml', loadGrammar: fn }
+ * resolveCodeLanguage('yaml'); // { id: 'yaml', loadGrammar: fn }
  * resolveCodeLanguage('brainfuck'); // { id: 'plaintext', loadGrammar: null }
  */
 export const resolveCodeLanguage = (

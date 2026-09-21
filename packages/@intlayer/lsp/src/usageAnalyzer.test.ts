@@ -457,7 +457,7 @@ describe('react-intl usages', () => {
 describe('lingui usages', () => {
   const linguiImport = `import { useLingui } from '@lingui/react';`;
 
-  it('resolves i18n._("id") into the messages dictionary (flat key)', () => {
+  it('resolves i18n._("id") through the first id segment', () => {
     const text = [linguiImport, `i18n._('results-table.bundleSize');`].join(
       '\n'
     );
@@ -468,8 +468,20 @@ describe('lingui usages', () => {
     );
 
     expect(usage).toMatchObject({
+      dictionaryKey: 'results-table',
+      fieldPath: ['bundleSize'],
+      library: 'lingui',
+    });
+  });
+
+  it('falls back to the messages catalog for a single-segment id', () => {
+    const text = [linguiImport, `i18n._('greeting');`].join('\n');
+
+    const usage = findMessageUsageAtOffset(text, offsetOf(text, `'greeting'`));
+
+    expect(usage).toMatchObject({
       dictionaryKey: 'messages',
-      fieldPath: ['results-table.bundleSize'],
+      fieldPath: ['greeting'],
       library: 'lingui',
     });
   });
@@ -487,8 +499,8 @@ describe('lingui usages', () => {
     );
 
     expect(usage).toMatchObject({
-      dictionaryKey: 'messages',
-      fieldPath: ['home.title'],
+      dictionaryKey: 'home',
+      fieldPath: ['title'],
     });
   });
 
@@ -508,7 +520,7 @@ describe('lingui usages', () => {
     });
   });
 
-  it('resolves <Trans id> to the messages dictionary', () => {
+  it('resolves <Trans id> through the first id segment', () => {
     const text = [
       `import { Trans } from '@lingui/react';`,
       `const node = <Trans id="home.title" message="Welcome" />;`,
@@ -517,8 +529,8 @@ describe('lingui usages', () => {
     const usage = findMessageUsageAtOffset(text, offsetOf(text, 'home.title'));
 
     expect(usage).toMatchObject({
-      dictionaryKey: 'messages',
-      fieldPath: ['home.title'],
+      dictionaryKey: 'home',
+      fieldPath: ['title'],
       kind: 'jsx',
     });
   });

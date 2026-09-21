@@ -241,5 +241,121 @@ const count = ref(0);
 **Intlayer**
 
 ```ts fileName="src/components/Counter/Counter.content.ts"
+import { t, type Dictionary } from "intlayer";
 
+const counterContent = {
+  key: "counter",
+  content: {
+    label: t({ en: "Counter", fr: "Compteur" }),
+    increment: t({ en: "Increment", fr: "Incrémenter" }),
+  },
+} satisfies Dictionary;
+
+export default counterContent;
 ```
+
+```vue fileName="src/components/Counter/Counter.vue"
+<script setup lang="ts">
+import { ref } from "vue";
+import { useIntlayer } from "vue-intlayer";
+import { useNumber } from "vue-intlayer/format";
+
+const { label, increment } = useIntlayer("counter");
+const number = useNumber();
+const count = ref(0);
+</script>
+
+<template>
+  <div>
+    <p>{{ number.value(count) }}</p>
+    <button :aria-label="label" @click="count++">
+      {{ increment }}
+    </button>
+  </div>
+</template>
+```
+
+`label` and `increment` are typed; a typo is a TypeScript error, a missing French value is a build error.
+
+### Lazy loading per locale
+
+**vue-i18n**
+
+```ts fileName="src/i18n.ts"
+import { nextTick } from "vue";
+import { createI18n } from "vue-i18n";
+
+export const i18n = createI18n({
+  legacy: false,
+  locale: "en",
+  fallbackLocale: "en",
+});
+
+export const loadLocaleMessages = async (locale: string) => {
+  const messages = await import(`../locales/${locale}.json`);
+  i18n.global.setLocaleMessage(locale, messages.default);
+  await nextTick();
+  i18n.global.locale.value = locale;
+};
+```
+
+Then call `loadLocaleMessages()` from a router guard, and split `locales/{locale}.json` by route yourself if you want per-page scoping.
+
+**Intlayer**
+
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  // ...
+  dictionary: {
+    importMode: "dynamic",
+  },
+};
+```
+
+## Keep the vue-i18n API, get Intlayer's output
+
+`@intlayer/vue-i18n` is a drop-in adapter: `useI18n()`, `t()`, `d()`, `n()`, `{name}` and `{0}` interpolation, pipe plurals (`"car | cars"`), `v-t` and `i18n.global.locale` keep working, served from Intlayer dictionaries compiled by `vite-intlayer`.
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import vueI18nVitePlugin from "@intlayer/vue-i18n/plugin";
+
+export default defineConfig({
+  plugins: [vue(), vueI18nVitePlugin()],
+});
+```
+
+In the benchmark, the compat build of the same app went from **134.9 KB to 47.0 KB** per page and from **196 KB to 8.4 KB** per component, with the components untouched. Your existing `locales/{locale}.json` can stay the source of truth through the JSON sync plugin.
+
+See the [vue-i18n migration guide](https://intlayer.org/doc/migration/vue-i18n) and the [compatibility doc](https://intlayer.org/doc/compatibility/vue-i18n). Nuxt users have the same path through [`@nuxtjs/i18n` compatibility](https://intlayer.org/doc/compatibility/nuxtjs-i18n).
+
+## When to choose which?
+
+- **Choose vue-i18n** if you want the standard Vue approach, you rely on ICU messages or SFC `<i18n>` blocks, you already use `@nuxtjs/i18n`, or a translation platform expects centralised JSON. Budget the time to split catalogues and lazy-load per route if bundle size matters.
+- **Choose Intlayer** if you want **component-scoped content**, **strict TypeScript**, **build-time missing-key errors**, **zero-effort tree-shaking and lazy loading**, and built-in editorial tooling (Visual Editor, CMS, AI translation, MCP server). Especially relevant for large, modular Vue / Nuxt codebases and design systems.
+- **Choose `@intlayer/vue-i18n`** if you are already on `vue-i18n` and want the bundle gains without a rewrite.
+
+## Related comparisons
+
+- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (same benchmark)
+- [i18next vs Intlayer](https://intlayer.org/blog/i18next-vs-intlayer) (same benchmark)
+- [Lingui vs Intlayer](https://intlayer.org/blog/lingui-vs-intlayer) (same benchmark)
+- [vue-i18n vs Intlayer (features & DX)](https://intlayer.org/blog/vue-i18n-vs-intlayer)
+- [Is vue-i18n outdated?](https://intlayer.org/blog/is-vue-i18n-outdated)
+
+## GitHub STARs
+
+GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+
+## Conclusion
+
+`vue-i18n` is mature, flexible and deeply integrated with Vue. The benchmark shows what its runtime-first design costs on a Vite build: a **24 KB gzip runtime**, **134.9 KB per page** for an app that weighs 41 KB without i18n, **90% foreign-page content** on every page, and components that each reach **196 KB** because they hang off the global message tree.
+
+Intlayer moves the work into the compiler. Per-component dictionaries and dead-content purging are build outputs, not conventions. On the same app: **3.9 KB runtime**, **57.1 KB per page**, **0% page leakage**, components **25x smaller**. And if a rewrite isn't on the table, `@intlayer/vue-i18n` gets most of the way there with the components untouched.
+
+All the raw data, the test apps and the scripts are in the [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom). Run it yourself.
+
+Refer to the ['Why Intlayer?' doc](https://intlayer.org/doc/why) for more details.

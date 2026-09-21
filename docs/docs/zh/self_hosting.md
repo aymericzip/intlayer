@@ -334,35 +334,9 @@ docker run --rm \
 - **不支持自定义域名。** 所有面向浏览器的 `VITE_*` URL 都在构建时内联到应用中，发布的镜像带有 `localhost` 值。必须在 `http://localhost:3000` 上访问仪表板；在公共域上提供服务需要使用目标 URL 重新构建镜像，这在开箱即用时不受支持。
 - **Email 需要工作的邮件程序。** 首次运行设置强制执行电子邮件验证，因此必须配置 `RESEND_API_KEY` 或 [全局 SMTP 邮件程序](#global-mailer)（`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`）。第一个管理员登录后，每个组织也可以从仪表板配置自己的 SMTP 或 Resend 邮件程序。
 
-## 故障排除
-
-### 后端首次启动时崩溃循环
-
-MongoDB 和 Redis 必须在后端启动前保持健康。compose 文件使用带有 `condition: service_healthy` 的 `depends_on`。如果您看到后端重复重启，请检查 `mongo` 和 `redis` 的健康检查是否通过：
-
-```sh
-docker compose ps
-docker compose logs mongo
-docker compose logs redis
-```
-
-在日志的顶部附近查找 `MongoDB connection error`。
-
-### 电子邮件未发送
-
-默认情况下，所有出站电子邮件都会被 Mailpit 捕获。打开 `http://localhost:8025` 查看已发送的消息。要发送真实电子邮件，请在 `.env` 中设置 `MAIL_PROVIDER=resend` 和 `RESEND_API_KEY=<your-key>`，然后重启后端：
-
-### MinIO 存储桶缺失
-
-如果 `minio-init` 一次性服务未运行（或在 MinIO 准备好之前运行），请手动创建存储桶：
-
-```sh
-docker compose run --rm minio-init
-```
-
 ## 有用链接
 
 - [Intlayer CMS 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 - [配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
 - [CMS SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
-- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/repository/docker/aymercizip/intlayer-selfhost/general)
+- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/r/aymercizip/intlayer-selfhost)

@@ -309,35 +309,10 @@ docker run --rm \
 - **No custom domain, and no port remapping.** All browser-facing `VITE_*` URLs are inlined into the app at build time, and the published image ships with `localhost` values. The dashboard must be accessed at `http://localhost:3000`, the API at `:3100` and MinIO at `:9000`; serving it on a public domain — or on different ports — would require rebuilding the image with the target URLs baked in (`--build-arg VITE_BACKEND_URL=…`) and is not supported out of the box.
 - **Email requires a working mailer.** First-run setup enforces email verification, so either `RESEND_API_KEY` or a [global SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) must be configured. After the first admin signs in, each organization can also configure its own SMTP or Resend mailer from the dashboard.
 
-## Troubleshooting
-
-### Dashboard loads but the API resets the connection (`ERR_CONNECTION_RESET` on `:3100`)
-
-The backend crashed on startup and is not listening. The most common cause is a missing or invalid MongoDB connection — usually the `TODO` values in `intlayer.env` were never filled in:
-
-```sh
-grep -E '^DB_(ID|MDP|CLUSTER)=' intlayer.env
-docker logs intlayer
-```
-
-Look for `MongoDB connection error` near the top of the log. After correcting `intlayer.env`, recreate the container (`docker rm -f intlayer`, then the `docker run …` command again) — `--env-file` is read at creation time, so editing the file does not affect a running container.
-
-### First account can't be verified
-
-Email verification is mandatory. Make sure a mailer is configured — either `RESEND_API_KEY`, or a [global SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) — then re-check your inbox (and spam). Without a working mailer, the verification link is never delivered. Delivery failures are logged by the backend (`docker logs intlayer`) with the underlying error message.
-
-### MinIO bucket missing
-
-The `init-minio` one-shot creates the bucket on first boot. If assets fail to load, restart the container so it runs again:
-
-```sh
-docker restart intlayer
-```
-
 ## Useful links
 
 - [Intlayer CMS documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 - [Configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 - [CMS SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
 - [Container image on GHCR](https://github.com/aymericzip/intlayer/pkgs/container/intlayer-selfhost) — `ghcr.io/aymericzip/intlayer-selfhost`
-- [Container image on Docker Hub](https://hub.docker.com/r/aymericzip/intlayer-selfhost) — mirror of the same build
+- [Container image on Docker Hub](https://hub.docker.com/r/aymercizip/intlayer-selfhost) — mirror of the same build

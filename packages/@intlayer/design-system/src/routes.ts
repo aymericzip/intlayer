@@ -570,7 +570,7 @@ export const External_Github =
   'https://github.com/aymericzip/intlayer' as const;
 
 export const External_DockerHub_SelfHost =
-  'https://hub.docker.com/r/aymericzip/intlayer-selfhost' as const;
+  'https://hub.docker.com/r/aymercizip/intlayer-selfhost' as const;
 
 export const External_Github_i18n_benchmark =
   'https://github.com/intlayer-org/benchmark-i18n' as const;

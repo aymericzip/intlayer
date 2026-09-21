@@ -238,6 +238,7 @@ export const i18n = createI18n({ locale: "en" });
 `vueI18nVitePlugin()` enveloppe `vite-intlayer` (surveillance du contenu, compilation du dictionnaire, l'étape d'optimisation) et crée un alias de `vue-i18n` vers l'adaptateur. La suppression de l'importation `messages` est ce qui réduit les 88 KB ; la laisser conserve le fonctionnement de l'application mais expédie les deux.
 
 </Step>
+</Steps>
 
 ### Ce que vous pouvez supprimer par la suite
 

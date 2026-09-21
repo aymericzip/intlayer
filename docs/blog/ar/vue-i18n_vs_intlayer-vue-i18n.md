@@ -214,6 +214,8 @@ export default config;
 ```
 
 يبقى `locales/{locale}.json` في مكانه. كل مفتاح على المستوى الأعلى (`footer`, `hero`...) يصبح قاموس.
+
+</Step>
 <Step number={3} title="أضف الـ plugin وحذف استيراد الرسائل">
 
 ```ts fileName="vite.config.ts"

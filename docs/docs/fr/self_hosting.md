@@ -332,35 +332,9 @@ docker run --rm \
 - **No custom domain.** All browser-facing `VITE_*` URLs are inlined into the app at build time, and the published image ships with `localhost` values. The dashboard must be accessed at `http://localhost:3000`; serving it on a public domain would require rebuilding the image with the target URLs baked in and is not supported out of the box.
 - **Email requires a working mailer.** First-run setup enforces email verification, so either `RESEND_API_KEY` or a [global SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) must be configured. After the first admin signs in, each organization can also configure its own SMTP or Resend mailer from the dashboard.
 
-## Dépannage
-
-### Le backend redémarre en boucle au premier démarrage
-
-MongoDB et Redis doivent être sains avant le démarrage du backend. Le fichier compose utilise `depends_on` avec `condition: service_healthy`. Si vous voyez des redémarrages répétés du backend, vérifiez que les contrôles de santé de `mongo` et `redis` sont réussis :
-
-```sh
-docker compose ps
-docker compose logs mongo
-docker compose logs redis
-```
-
-Recherchez `MongoDB connection error` près du haut du journal.
-
-### Le tableau de bord ne peut pas atteindre l'API
-
-Vérifiez que `VITE_BACKEND_URL` correspond à l'URL où le backend est accessible depuis le **navigateur** (pas le réseau Docker). Si vous avez modifié le port du backend ou ajouté un proxy inverse, reconstruisez l'image du tableau de bord :
-
-### Bucket MinIO manquant
-
-Si le service ponctuel `minio-init` n'a pas fonctionné (ou a fonctionné avant que MinIO ne soit prêt), créez le bucket manuellement :
-
-```sh
-docker compose run --rm minio-init
-```
-
 ## Liens utiles
 
 - [Documentation du CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
 - [Référence de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
 - [SDK CMS — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
-- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/repository/docker/aymercizip/intlayer-selfhost/general)
+- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/r/aymercizip/intlayer-selfhost)

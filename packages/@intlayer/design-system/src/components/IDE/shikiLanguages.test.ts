@@ -9,20 +9,17 @@ import {
 const DOCUMENTATION_LANGUAGES: CodeLanguage[] = [
   'astro',
   'bash',
-  'dart',
   'html',
   'javascript',
   'js',
   'json',
   'json5',
   'jsx',
-  'lua',
   'markdown',
   'plaintext',
   'sh',
   'svelte',
   'text',
-  'toml',
   'ts',
   'tsx',
   'txt',
@@ -34,7 +31,7 @@ const DOCUMENTATION_LANGUAGES: CodeLanguage[] = [
 
 describe('resolveCodeLanguage', () => {
   it('keeps canonical language ids untouched', () => {
-    expect(resolveCodeLanguage('toml').id).toBe('toml');
+    expect(resolveCodeLanguage('yaml').id).toBe('yaml');
     expect(resolveCodeLanguage('typescript').id).toBe('typescript');
   });
 
@@ -47,7 +44,7 @@ describe('resolveCodeLanguage', () => {
   });
 
   it('normalizes casing and surrounding whitespace', () => {
-    expect(resolveCodeLanguage(' TOML ').id).toBe('toml');
+    expect(resolveCodeLanguage(' YAML ').id).toBe('yaml');
   });
 
   it('falls back to plain text — never to another grammar — when unknown', () => {

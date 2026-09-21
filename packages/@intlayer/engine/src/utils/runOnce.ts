@@ -1,5 +1,12 @@
 import { rmSync } from 'node:fs';
-import { mkdir, readFile, stat, unlink, writeFile } from 'node:fs/promises';
+import {
+  mkdir,
+  readFile,
+  rmdir,
+  stat,
+  unlink,
+  writeFile,
+} from 'node:fs/promises';
 import { dirname } from 'node:path';
 import packageJson from '@intlayer/core/package.json' with { type: 'json' };
 
@@ -83,6 +90,11 @@ process.on('exit', () => {
   for (const sentinelFilePath of ownedSentinelFilePaths) {
     try {
       rmSync(sentinelFilePath, { force: true });
+    } catch {}
+  }
+  for (const mutexDirPath of ownedMutexDirPaths) {
+    try {
+      rmSync(mutexDirPath, { recursive: true, force: true });
     } catch {}
   }
 });
@@ -200,6 +212,76 @@ const removeSentinel = async (sentinelFilePath: string): Promise<void> => {
   } catch {}
 };
 
+/** Delay between two attempts to enter the sentinel critical section. */
+const MUTEX_POLL_INTERVAL_MS = 10;
+
+/**
+ * A critical-section mutex older than this was left behind by a process that
+ * died while holding it, and can be taken over.
+ */
+const MUTEX_STALE_MS = 10 * 1000;
+
+/** Mutex directories owned by this process, released on exit like sentinels. */
+const ownedMutexDirPaths = new Set<string>();
+
+/**
+ * Serializes the "read the sentinel, decide, replace it" sequence across
+ * processes so it behaves as a compare-and-swap.
+ *
+ * Without it, two contenders reading the same stale sentinel could both remove
+ * it, and the slower one would delete the `running` sentinel the faster one
+ * had just created — letting two callbacks run at once. A directory is used
+ * because `mkdir` is atomic on every platform.
+ */
+const withSentinelMutex = async <TResult>(
+  sentinelFilePath: string,
+  criticalSection: () => Promise<TResult>
+): Promise<TResult> => {
+  const mutexDirPath = `${sentinelFilePath}.mutex`;
+
+  while (true) {
+    try {
+      await mkdir(dirname(sentinelFilePath), { recursive: true });
+      // Non-recursive on purpose: `recursive` swallows EEXIST
+      await mkdir(mutexDirPath);
+      break;
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+
+      // The parent directory was removed between the two `mkdir` calls (e.g. a
+      // concurrent output-directory clean): recreate it and retry.
+      if (code === 'ENOENT') continue;
+      if (code !== 'EEXIST') throw error;
+
+      try {
+        const mutexStats = await stat(mutexDirPath);
+
+        if (Date.now() - mutexStats.mtime.getTime() > MUTEX_STALE_MS) {
+          await rmdir(mutexDirPath).catch(() => {});
+          continue;
+        }
+      } catch {
+        // The holder released it in the meantime: retry right away
+        continue;
+      }
+
+      await delay(MUTEX_POLL_INTERVAL_MS);
+    }
+  }
+
+  ownedMutexDirPaths.add(mutexDirPath);
+
+  try {
+    return await criticalSection();
+  } finally {
+    ownedMutexDirPaths.delete(mutexDirPath);
+    await rmdir(mutexDirPath).catch(() => {});
+  }
+};
+
+/** Outcome of one pass through the sentinel critical section. */
+type AcquisitionOutcome = 'acquired' | 'cached' | 'wait';
+
 /**
  * Ensures a callback function runs only once within a specified time window across multiple processes.
  * Uses a sentinel file to coordinate execution and prevent duplicate work.
@@ -243,49 +325,52 @@ export const runOnce = async (
   // wait for the current owner, or take the lock. Every branch either returns or
   // makes progress, so the loop always terminates.
   while (true) {
-    const sentinelState = await readSentinelState(sentinelFilePath);
+    const outcome = await withSentinelMutex(
+      sentinelFilePath,
+      async (): Promise<AcquisitionOutcome> => {
+        const sentinelState = await readSentinelState(sentinelFilePath);
 
-    if (sentinelState) {
-      const sentinelAge = Date.now() - sentinelState.mtimeMs;
+        if (sentinelState) {
+          const sentinelAge = Date.now() - sentinelState.mtimeMs;
 
-      if (sentinelState.status === 'running') {
-        const isAbandoned =
-          sentinelAge > lockWaitTimeoutMs ||
-          !isOwnerProcessAlive(sentinelState.pid);
+          if (sentinelState.status === 'running') {
+            const isAbandoned =
+              sentinelAge > lockWaitTimeoutMs ||
+              !isOwnerProcessAlive(sentinelState.pid);
 
-        if (!isAbandoned && Date.now() < waitDeadline) {
-          await delay(LOCK_POLL_INTERVAL_MS);
-          continue;
+            if (!isAbandoned && Date.now() < waitDeadline) return 'wait';
+            // The owner died or overran the timeout: reclaim the sentinel below.
+          } else {
+            const isCacheValid =
+              !forceRun &&
+              sentinelAge <= cacheTimeoutMs &&
+              sentinelState.version === packageJson.version;
+
+            if (isCacheValid) return 'cached';
+          }
+
+          await removeSentinel(sentinelFilePath);
         }
 
-        // The owner died or overran the timeout: reclaim the sentinel.
-        await removeSentinel(sentinelFilePath);
-        continue;
+        const hasAcquiredSentinel = await acquireSentinel(
+          sentinelFilePath,
+          currentTimestamp
+        );
+
+        return hasAcquiredSentinel ? 'acquired' : 'wait';
       }
-
-      const isCacheValid =
-        !forceRun &&
-        sentinelAge <= cacheTimeoutMs &&
-        sentinelState.version === packageJson.version;
-
-      if (isCacheValid) {
-        await onIsCached?.();
-        return;
-      }
-
-      await removeSentinel(sentinelFilePath);
-    }
-
-    const hasAcquiredSentinel = await acquireSentinel(
-      sentinelFilePath,
-      currentTimestamp
     );
 
-    if (hasAcquiredSentinel) break;
+    if (outcome === 'cached') {
+      await onIsCached?.();
+      return;
+    }
 
-    // Another process won the race in the meantime: loop back and wait for it.
-    // The delay also guarantees the loop yields, so a sentinel being repeatedly
-    // created and removed can never turn into a busy wait.
+    if (outcome === 'acquired') break;
+
+    // Another process owns the sentinel: wait for it, then look again. The
+    // delay also guarantees the loop yields, so it can never turn into a busy
+    // wait.
     await delay(LOCK_POLL_INTERVAL_MS);
   }
 

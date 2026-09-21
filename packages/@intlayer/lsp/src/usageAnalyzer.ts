@@ -258,8 +258,30 @@ const resolveMessageId = (
 
   if (!segments[0]) return null;
 
+  // A single-segment id names no dictionary: it lives in the library's
+  // whole-file catalog (lingui's `messages`), id kept intact.
+  if (segments.length === 1) {
+    const rootDictionaryKey = getLibraryRootDictionaryKey(descriptor.library);
+
+    return rootDictionaryKey
+      ? { dictionaryKey: rootDictionaryKey, fieldPath: [messageId] }
+      : { dictionaryKey: segments[0], fieldPath: [] };
+  }
+
   return { dictionaryKey: segments[0], fieldPath: segments.slice(1) };
 };
+
+/**
+ * The whole-file catalog a library falls back to when an id-derived key names
+ * no dictionary, declared on any of its callers (`useLingui` → `messages`).
+ */
+const getLibraryRootDictionaryKey = (
+  library: CallerDescriptor['library']
+): string | undefined =>
+  ALL_CALLERS.find(
+    (candidate) =>
+      candidate.library === library && candidate.rootDictionaryKey !== undefined
+  )?.rootDictionaryKey;
 
 /**
  * i18next-style `ns:key` ids override the bound namespace:

@@ -1,10 +1,9 @@
-/** biome-ignore-all lint/suspicious/noGlobalAssign: it's a test */
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 import { CopyToClipboard } from '.';
 
-describe.skip('CopyToClipboard ', () => {
+describe('CopyToClipboard ', () => {
   afterEach(cleanup);
 
   const mockedNavigator = {
@@ -12,8 +11,8 @@ describe.skip('CopyToClipboard ', () => {
       writeText: vi.fn().mockResolvedValue(null), // Resolved promise with no value
     },
   } as unknown as Navigator;
-  // mock navigator
-  navigator = mockedNavigator;
+  // `window.navigator` is getter-only in jsdom, so it cannot be assigned
+  vi.stubGlobal('navigator', mockedNavigator);
 
   test('Run as Standalone Component', async () => {
     render(<CopyToClipboard text="Hello World" />);
@@ -22,7 +21,7 @@ describe.skip('CopyToClipboard ', () => {
     expect(button).toBeDefined();
 
     // Simulate the user clicking the button
-    userEvent.click(button);
+    await userEvent.click(button);
 
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith('Hello World');
   });
@@ -37,7 +36,7 @@ describe.skip('CopyToClipboard ', () => {
     const button = screen.getByTestId('copy-to-clipboard');
     expect(button).toBeDefined();
 
-    userEvent.click(button);
+    await userEvent.click(button);
 
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith('Hello World');
 

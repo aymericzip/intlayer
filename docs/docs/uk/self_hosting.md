@@ -334,35 +334,9 @@ docker run --rm \
 - **Немає користувацького домену.** Усі `VITE_*` URL-адреси, видимі браузером, вбудовуються в додаток під час збирання, а опублікований образ поставляється зі значеннями `localhost`. Доступ до панелі керування має здійснюватися через `http://localhost:3000`; обслуговування її на публічному домені потребувало б перебудови образу з цільовими URL-адресами вбудованими та не підтримується з коробки.
 - **Email вимагає працюючого mailer.** Перша установка примушує перевірку електронної пошти, тому має бути налаштований або `RESEND_API_KEY`, або [глобальний SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`). Після того як перший адміністратор увійде, кожна організація також може налаштувати власний SMTP або Resend mailer з панелі керування.
 
-## Усунення несправностей
-
-### Бекенд циклічно перезапускається під час першого запуску
-
-MongoDB та Redis повинні бути справними, перш ніж бекенд почне працювати. Файл compose використовує `depends_on` з `condition: service_healthy`. Якщо ви бачите багаторазові перезапуски бекенду, перевірте, чи проходять перевірки стану `mongo` та `redis`:
-
-```sh
-docker compose ps
-docker compose logs mongo
-docker compose logs redis
-```
-
-Шукайте `MongoDB connection error` близько до початку логу.
-
-### Електронні листи не надсилаються
-
-За замовчуванням усі вихідні електронні листи захоплюються Mailpit. Відкрийте `http://localhost:8025`, щоб побачити надіслані повідомлення. Щоб надсилати реальні електронні листи, встановіть `MAIL_PROVIDER=resend` та `RESEND_API_KEY=<ваш-ключ>` у `.env`, а потім перезапустіть бекенд:
-
-### Відсутній кошик MinIO
-
-Якщо одноразовий сервіс `minio-init` не запустився (або запустився до того, як MinIO був готовий), створіть кошик вручну:
-
-```sh
-docker compose run --rm minio-init
-```
-
 ## Корисні посилання
 
 - [Документація Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 - [Довідка щодо конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
 - [CMS SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md#програмний-доступ-за-допомогою-intlayerapi-sdk)
-- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/repository/docker/aymercizip/intlayer-selfhost/general)
+- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/r/aymercizip/intlayer-selfhost)

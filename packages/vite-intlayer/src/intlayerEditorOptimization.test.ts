@@ -1,7 +1,12 @@
+// @vitest-environment node
+
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { createPruneContext, type PruneContext } from '@intlayer/babel';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Plugin } from 'vite';
-import { describe, expect, it } from 'vitest';
+import { afterAll, describe, expect, it } from 'vitest';
 import { intlayerMinify } from './intlayerMinifyPlugin';
 import { intlayerPrune } from './intlayerPrunePlugin';
 
@@ -12,7 +17,10 @@ import { intlayerPrune } from './intlayerPrunePlugin';
  * keys the `keyPath` is built from.
  */
 
-const BASE_DIR = '/app';
+// The minify plugin logs its editor warning through `runOnce`, which writes a
+// lock file under `${baseDir}/.intlayer/cache`, so the base dir must be
+// writable.
+const BASE_DIR = mkdtempSync(join(tmpdir(), 'intlayer-editor-optimization-'));
 const DICTIONARIES_DIR = `${BASE_DIR}/.intlayer/dictionary`;
 const DYNAMIC_DICTIONARIES_DIR = `${BASE_DIR}/.intlayer/dynamic_dictionary`;
 const FETCH_DICTIONARIES_DIR = `${BASE_DIR}/.intlayer/fetch_dictionary`;
@@ -81,6 +89,10 @@ const appliesToBuild = (plugin: Plugin): boolean =>
   );
 
 describe('dictionary optimization with the visual editor enabled', () => {
+  afterAll(() => {
+    rmSync(BASE_DIR, { recursive: true, force: true });
+  });
+
   it('still purges the fields no component reads', () => {
     const prunePlugin = firstPluginOf(
       intlayerPrune(createConfig(true), createContextWithFieldRename())

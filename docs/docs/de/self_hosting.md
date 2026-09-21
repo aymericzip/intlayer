@@ -332,35 +332,9 @@ docker run --rm \
 - **Keine benutzerdefinierte Domain.** Alle browsergestützten `VITE_*` URLs werden zur Build-Zeit in die App inline eingefügt, und das veröffentlichte Image wird mit `localhost` Werten ausgeliefert. Das Dashboard muss unter `http://localhost:3000` aufgerufen werden; das Serving auf einer öffentlichen Domain würde ein Neubau des Images mit den eingebetteten Ziel-URLs erfordern und wird out-of-the-box nicht unterstützt.
 - **E-Mail erfordert einen funktionierenden Mailer.** Das Setup beim ersten Durchlauf erzwingt eine E-Mail-Verifizierung, daher muss entweder `RESEND_API_KEY` oder ein [globaler SMTP Mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) konfiguriert sein. Nach der ersten Anmeldung eines Administrators kann jede Organisation auch ihren eigenen SMTP oder Resend Mailer vom Dashboard aus konfigurieren.
 
-## Fehlerbehebung
-
-### Backend-Absturzschleifen beim ersten Start
-
-MongoDB und Redis müssen fehlerfrei sein, bevor das Backend startet. Die Compose-Datei verwendet `depends_on` mit `condition: service_healthy`. Wenn Sie wiederholte Backend-Neustarts sehen, überprüfen Sie, ob die `mongo`- und `redis`-Healthchecks erfolgreich sind:
-
-```sh
-docker compose ps
-docker compose logs mongo
-docker compose logs redis
-```
-
-Suchen Sie nach `MongoDB connection error` oben im Log.
-
-### E-Mail wird nicht gesendet
-
-Standardmäßig werden alle ausgehenden E-Mails von Mailpit abgefangen. Öffnen Sie `http://localhost:8025`, um gesendete Nachrichten anzuzeigen. Um echte E-Mails zu senden, setzen Sie `MAIL_PROVIDER=resend` und `RESEND_API_KEY=<Ihr-Schlüssel>` in `.env` und starten Sie dann das Backend neu:
-
-### MinIO-Bucket fehlt
-
-Wenn der `minio-init`-One-Shot-Service nicht ausgeführt wurde (oder vor der Bereitschaft von MinIO lief), erstellen Sie den Bucket manuell:
-
-```sh
-docker compose run --rm minio-init
-```
-
 ## Nützliche Links
 
 - [Intlayer CMS-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md)
 - [Konfigurationsreferenz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
 - [CMS SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
-- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/repository/docker/aymercizip/intlayer-selfhost/general)
+- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/r/aymercizip/intlayer-selfhost)

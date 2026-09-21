@@ -332,35 +332,9 @@ docker run --rm \
 - **لا توجد نطاقات مخصصة.** جميع عناوين URL الموجهة للمتصفح `VITE_*` مدرجة مباشرة في التطبيق وقت البناء، والصورة المنشورة تأتي مع قيم `localhost`. يجب الوصول إلى لوحة التحكم على `http://localhost:3000`؛ تقديمها على نطاق عام سيتطلب إعادة بناء الصورة مع عناوين URL المستهدفة المدمجة فيها وليس مدعوماً بشكل افتراضي.
 - **البريد الإلكتروني يتطلب خادم بريد يعمل.** إعداد التشغيل الأول يفرض التحقق من البريد الإلكتروني، لذا يجب تكوين إما `RESEND_API_KEY` أو [خادم SMTP عام](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`). بعد دخول المسؤول الأول، يمكن لكل منظمة أيضاً تكوين خادم SMTP أو Resend الخاص بها من لوحة التحكم.
 
-## استكشاف الأخطاء وإصلاحها
-
-### الخادم الخلفي يتعطل عند الإقلاع
-
-يجب أن يكون MongoDB وRedis في حالة صحية قبل بدء تشغيل الخادم الخلفي. يستخدم ملف compose `depends_on` مع `condition: service_healthy`. إذا رأيت إعادات تشغيل متكررة للخادم الخلفي، تحقق من اجتياز فحوصات صحة `mongo` و`redis`:
-
-```sh
-docker compose ps
-docker compose logs mongo
-docker compose logs redis
-```
-
-ابحث عن `MongoDB connection error` بالقرب من أعلى السجل.
-
-### لوحة التحكم لا تستطيع الوصول إلى API
-
-تحقق من أن `VITE_BACKEND_URL` يطابق عنوان URL حيث يمكن الوصول إلى الخادم الخلفي من **المتصفح** (ليس شبكة Docker). إذا غيّرت منفذ الخادم الخلفي أو أضفت وكيلاً عكسياً، أعد بناء صورة لوحة التحكم:
-
-### دلو MinIO مفقود
-
-إذا لم تُشغَّل خدمة `minio-init` المؤقتة (أو شُغّلت قبل أن يكون MinIO جاهزاً)، أنشئ الدلو يدوياً:
-
-```sh
-docker compose run --rm minio-init
-```
-
 ## روابط مفيدة
 
 - [توثيق Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 - [مرجع التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 - [CMS SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
-- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/repository/docker/aymercizip/intlayer-selfhost/general)
+- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/r/aymercizip/intlayer-selfhost)

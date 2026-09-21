@@ -334,35 +334,9 @@ docker run --rm \
 - **Tidak ada custom domain.** Semua URL `VITE_*` yang dihadapi browser di-inline ke dalam app pada saat build, dan image yang dipublikasikan dilengkapi dengan nilai `localhost`. Dashboard harus diakses di `http://localhost:3000`; melayaninya di domain publik memerlukan rebuilding image dengan target URLs yang tertanam dan tidak didukung out of the box.
 - **Email memerlukan mailer yang berfungsi.** Setup first-run menerapkan verifikasi email, jadi baik `RESEND_API_KEY` atau [global SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) harus dikonfigurasi. Setelah admin pertama masuk, setiap organisasi juga dapat mengonfigurasi SMTP atau Resend mailer-nya sendiri dari dashboard.
 
-## Pemecahan Masalah
-
-### Backend crash-loops pada start pertama
-
-MongoDB dan Redis harus sehat sebelum backend dimulai. File compose menggunakan `depends_on` dengan `condition: service_healthy`. Jika Anda melihat restart backend berulang, periksa apakah `healthchecks` `mongo` dan `redis` lulus:
-
-```sh
-docker compose ps
-docker compose logs mongo
-docker compose logs redis
-```
-
-Cari `MongoDB connection error` di bagian atas log.
-
-### Dashboard tidak dapat mencapai API
-
-Verifikasi bahwa `VITE_BACKEND_URL` cocok dengan URL di mana backend dapat dijangkau dari **browser** (bukan jaringan Docker). Jika Anda mengubah port backend atau menambahkan reverse proxy, bangun ulang image dashboard:
-
-### Bucket MinIO hilang
-
-Jika layanan one-shot `minio-init` tidak berjalan (atau berjalan sebelum MinIO siap), buat bucket secara manual:
-
-```sh
-docker compose run --rm minio-init
-```
-
 ## Tautan Berguna
 
 - [Dokumentasi Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 - [Referensi Konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
 - [SDK CMS — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
-- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/repository/docker/aymercizip/intlayer-selfhost/general)
+- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/r/aymercizip/intlayer-selfhost)
