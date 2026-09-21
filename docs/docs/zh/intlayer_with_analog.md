@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-21
 title: "Analog i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Analog 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -156,6 +156,28 @@ bun add intlayer angular-intlayer vite-intlayer
 
 </Step>
 <Step number={2} title="配置你的项目">
+
+### 架构
+
+在此架构中，`angular-intlayer` 提供 `provideIntlayer()`，并在 `src/app/app.config.ts` 中注册，以便每个组件和基于文件的页面都能通过 `useIntlayer` signal 读取其内容。Analog 基于 Vite 构建，因此 `vite-intlayer` 的 `intlayer()` 插件与 `analog()` 一起添加到 `vite.config.ts` 中，以监视并重新构建你的内容声明并运行语言环境代理。内容声明文件与组件和页面一起放置在 `src/app/` 中。
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── pages
+│   │   │   └── index.page.ts         # File-based route using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts                    # analog() and intlayer() Vite plugins
+```
+
+### 配置
 
 创建一个配置文件来配置应用的语言：
 

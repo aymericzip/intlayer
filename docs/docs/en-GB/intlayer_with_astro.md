@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Astro app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
@@ -159,6 +159,29 @@ bun add intlayer astro-intlayer
 
 </Step>
 <Step number={2} title="Configure Your Project">
+
+### Architecture
+
+In this architecture, the `intlayer()` integration registered in `astro.config.ts` builds your dictionaries and adds a middleware that resolves the locale of every request and exposes it on `Astro.locals.intlayer`. Pages live under a `src/pages/[...locale]/` rest segment, so the default locale is served without prefix and every other locale gets its own dedicated URL. `.astro` files read the content with the `useIntlayer` / `useLocale` hooks of `astro-intlayer`, and content declarations are placed alongside your components in `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── LocaleSwitcher.astro      # Locale switcher component
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page (rest param also serves the default locale)
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() integration
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Configuration
 
 Create a configuration file to define your application's languages:
 

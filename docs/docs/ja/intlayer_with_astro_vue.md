@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + Vue i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Astro + Vueアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -166,6 +166,30 @@ bun add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
 
 </Step>
 <Step number={2} title="プロジェクトの設定">
+
+### アーキテクチャ
+
+このアーキテクチャでは、`astro.config.ts` に登録された `intlayer()` 統合が辞書をビルドし、各リクエストのロケールを解決して `Astro.locals.intlayer` に公開するミドルウェアを追加します。ページは `src/pages/[...locale]/` レストセグメントの下に配置されるため、デフォルトロケールはプレフィックスなしで提供され、他のすべてのロケールには専用の URL が割り当てられます。`.astro` ファイルはサーバーレンダリング用に `astro-intlayer` の `useIntlayer` / `useLocale` フックを使用してコンテンツを読み取り、Vue アイランド (`src/components/vue/VueIsland.vue`) はサーバーで検出されたロケールを prop として受け取り、インタラクティブ部分のために `vue-intlayer` に渡します。コンテンツ宣言は `src/` 内のコンポーネントと一緒に配置されます。
+
+```bash
+.
+├── src
+│   ├── app.content.ts                # App content declaration
+│   ├── components
+│   │   └── vue
+│   │       └── VueIsland.vue         # Vue island (content + locale switcher)
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and vue() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### 設定
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 

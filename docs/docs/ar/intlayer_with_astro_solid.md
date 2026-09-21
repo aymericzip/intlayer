@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "تدويل Astro + Solid - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Astro + Solid متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
@@ -166,6 +166,31 @@ bun add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
 
 </Step>
 <Step number={2} title="تهيئة مشروعك">
+
+### البنية
+
+في هذه البنية، يقوم تكامل `intlayer()` المسجل في `astro.config.ts` ببناء القواميس الخاصة بك وإضافة برمجية وسيطة (middleware) تحدد لغة كل طلب وتوفرها عبر `Astro.locals.intlayer`. تتواجد الصفحات تحت مقطع `src/pages/[...locale]/`، بحيث يتم تقديم اللغة الافتراضية بدون بادئة ويحصل كل خيار لغة آخر على عنوان URL مخصص له. تقرأ ملفات `.astro` المحتوى باستخدام خطافات `useIntlayer` / `useLocale` الخاصة بـ `astro-intlayer` للعرض على جانب الخادم، وتتلقى جزيرة Solid (`src/components/solid/SolidIsland.tsx`) اللغة المكتشفة من الخادم كخاصية (prop) وتمررها إلى `solid-intlayer` للجزء التفاعلي. وتوضع تصريحات المحتوى جنباً إلى جنب مع مكوناتك في `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── solid
+│   │       ├── LocaleSwitcher.tsx    # Locale switcher rendered inside the island
+│   │       └── SolidIsland.tsx       # Solid island wrapping the tree in IntlayerProvider
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and solid() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### التكوين
 
 أنشئ ملف تكوين لتحديد لغات تطبيقك:
 

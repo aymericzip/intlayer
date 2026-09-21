@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-21
 title: "Angular 19 i18n - Guia completo para traduzir seu aplicativo"
 description: "Sem mais i18next. O guia 2026 para criar uma aplicação Angular 19 multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:
@@ -163,6 +163,29 @@ bun add @angular-builders/custom-webpack --dev
 
 </Step>
 <Step number={2} title="Configuração do seu projeto">
+
+### Arquitetura
+
+Nesta arquitetura, `angular-intlayer` fornece `provideIntlayer()`, registrado em `src/app/app.config.ts` para que cada componente possa ler seu conteúdo através do signal `useIntlayer`. O Angular CLI é alterado para o builder Webpack personalizado, e `webpack.config.ts` mescla o plugin do Intlayer na compilação para observar e recompilar suas declarações de conteúdo. As declarações de conteúdo são colocadas ao lado dos componentes em `src/app/`.
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── app.component.html        # Root template reading the content signal
+│   │   ├── app.component.ts          # Root component using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── angular.json                      # Custom Webpack builder for build and serve
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── webpack.config.ts                 # mergeConfig() from angular-intlayer/webpack
+```
+
+### Configuração
 
 Crie um arquivo de configuração para configurar os idiomas da sua aplicação:
 

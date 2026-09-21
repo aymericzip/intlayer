@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + Svelte i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Astro + Svelte-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
@@ -166,6 +166,30 @@ bun add intlayer astro-intlayer svelte svelte-intlayer @astrojs/svelte
 
 </Step>
 <Step number={2} title="Konfigurieren Sie Ihr Projekt">
+
+### Architektur
+
+In dieser Architektur erstellt die in `astro.config.ts` registrierte `intlayer()`-Integration Ihre Wörterbücher und fügt eine Middleware hinzu, die das Gebietsschema jeder Anfrage auflöst und unter `Astro.locals.intlayer` bereitstellt. Seiten befinden sich unter einem Rest-Segment `src/pages/[...locale]/`, sodass das Standard-Gebietsschema ohne Präfix bereitgestellt wird und jedes andere Gebietsschema eine eigene dedizierte URL erhält. `.astro`-Dateien lesen den Inhalt mit den `useIntlayer` / `useLocale`-Hooks von `astro-intlayer` für das Server-Rendering, und die Svelte-Insel (`src/components/svelte/SvelteIsland.svelte`) empfängt das vom Server erkannte Gebietsschema als Prop und übergibt es an `svelte-intlayer` für den interaktiven Teil. Inhaltsdeklarationen werden neben Ihren Komponenten in `src/` abgelegt.
+
+```bash
+.
+├── src
+│   ├── app.content.ts                # App content declaration
+│   ├── components
+│   │   └── svelte
+│   │       └── SvelteIsland.svelte   # Svelte island (content + locale switcher)
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and svelte() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Konfiguration
 
 Erstellen Sie eine Konfigurationsdatei, um die Sprachen Ihrer Anwendung zu definieren:
 

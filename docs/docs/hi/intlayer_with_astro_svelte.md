@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + Svelte i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "अब i18next की जरूरत नहीं। 2026 में Astro + Svelte ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
@@ -178,6 +178,30 @@ bun x intlayer init
 
 </Step>
 <Step number={2} title="अपना प्रोजेक्ट कॉन्फ़िगर करें">
+
+### आर्किटेक्चर
+
+इस आर्किटेक्चर में, `astro.config.ts` में पंजीकृत `intlayer()` इंटीग्रेशन आपकी डिक्शनरी बनाता है और एक मिडलवेयर जोड़ता है जो प्रत्येक अनुरोध के लोकेल को हल करता है और इसे `Astro.locals.intlayer` पर प्रदर्शित करता है। पेज `src/pages/[...locale]/` रेस्ट सेगमेंट के तहत रहते हैं, इसलिए डिफ़ॉल्ट लोकेल बिना किसी प्रीफ़िक्स के सर्व किया जाता है और अन्य प्रत्येक लोकेल को अपना समर्पित URL मिलता है। `.astro` फ़ाइलें सर्वर रेंडर के लिए `astro-intlayer` के `useIntlayer` / `useLocale` हुक्स के साथ कंटेंट को पढ़ती हैं, और Svelte आइलैंड (`src/components/svelte/SvelteIsland.svelte`) सर्वर द्वारा पहचाने गए लोकेल को एक prop के रूप में प्राप्त करता है और इंटरैक्टिव भाग के लिए इसे `svelte-intlayer` को सौंपता है। कंटेंट घोषणाएं `src/` में आपके कंपोनेंट्स के साथ रखी जाती हैं।
+
+```bash
+.
+├── src
+│   ├── app.content.ts                # App content declaration
+│   ├── components
+│   │   └── svelte
+│   │       └── SvelteIsland.svelte   # Svelte island (content + locale switcher)
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and svelte() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### कॉन्फ़िगरेशन
 
 अपने एप्लिकेशन की भाषाओं को परिभाषित करने के लिए एक कॉन्फ़िगरेशन फ़ाइल बनाएँ:
 

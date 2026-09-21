@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-19
+updatedAt: 2026-09-21
 title: "Remix 3 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn cần đến i18next. Hướng dẫn năm 2026 để xây dựng ứng dụng Remix 3 đa ngôn ngữ (i18n). Dịch bằng các tác tử AI và tối ưu hóa kích thước gói bundle, SEO và hiệu năng."
 keywords:
@@ -136,6 +136,27 @@ bun add intlayer remix-intlayer remix@next
 
 </Step>
 <Step number={2} title="Cấu hình Intlayer">
+
+### Kiến trúc
+
+Trong kiến trúc này, middleware `intlayer()` của `remix-intlayer` được đăng ký trong `createRouter()` trước middleware `render()`. Nó loại bỏ tiền tố locale trước khi router khớp, do đó các route chỉ được khai báo một lần trong `src/routes.ts` mà không có phân đoạn `:locale`, đồng thời chạy phần còn lại của yêu cầu bên trong phạm vi `AsyncLocalStorage`, cho phép `useIntlayer` / `useLocale` đọc locale mà không cần đối số trong các trình xử lý route và view `remix/ui`. Các khai báo nội dung được đặt cùng với các view của bạn trong `src/`:
+
+```bash
+.
+├── src
+│   ├── home.content.ts               # Home page content declaration
+│   ├── router.tsx                    # createRouter() with the intlayer() and render() middleware
+│   ├── routes.ts                     # Type-safe routes, declared once without locale segment
+│   ├── server.ts                     # fetch handler (Node.js, Bun, Deno, Cloudflare Workers)
+│   └── views
+│       ├── document.tsx              # HTML shell setting <html lang dir> from the locale
+│       └── home.tsx                  # Localized page using useIntlayer / useLocale
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Cấu hình
 
 Tạo tệp `intlayer.config.ts` trong thư mục gốc của dự án để khai báo các ngôn ngữ được hỗ trợ và cài đặt quốc tế hóa:
 

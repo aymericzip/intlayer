@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + Svelte i18n - Guia completo para traduzir seu aplicativo"
 description: "Sem mais i18next. O guia 2026 para criar uma aplicação Astro + Svelte multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:
@@ -166,6 +166,30 @@ bun add intlayer astro-intlayer svelte svelte-intlayer @astrojs/svelte
 
 </Step>
 <Step number={2} title="Configurar seu Projeto">
+
+### Arquitetura
+
+Nesta arquitetura, a integração `intlayer()` registrada em `astro.config.ts` compila seus dicionários e adiciona um middleware que resolve a localidade de cada requisição e a expõe em `Astro.locals.intlayer`. As páginas ficam sob um segmento rest `src/pages/[...locale]/`, para que a localidade padrão seja servida sem prefixo e cada outra localidade tenha sua própria URL dedicada. Os arquivos `.astro` leem o conteúdo com os hooks `useIntlayer` / `useLocale` do `astro-intlayer` para a renderização no servidor, e a ilha Svelte (`src/components/svelte/SvelteIsland.svelte`) recebe a localidade detectada pelo servidor como prop e a entrega ao `svelte-intlayer` para a parte interativa. As declarações de conteúdo são colocadas ao lado dos seus componentes em `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.ts                # App content declaration
+│   ├── components
+│   │   └── svelte
+│   │       └── SvelteIsland.svelte   # Svelte island (content + locale switcher)
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and svelte() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Configuração
 
 Crie um arquivo de configuração para definir os idiomas da sua aplicação:
 

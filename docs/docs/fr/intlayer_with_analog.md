@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-08-29
+updatedAt: 2026-09-21
 title: "Analog i18n - Guide complet pour traduire votre application"
 description: "Oubliez i18next. Le guide 2026 pour créer une application Analog multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
@@ -156,6 +156,28 @@ bun add intlayer angular-intlayer vite-intlayer
 
 </Step>
 <Step number={2} title="Configuration de votre projet">
+
+### Architecture
+
+Dans cette architecture, `angular-intlayer` fournit `provideIntlayer()`, enregistré dans `src/app/app.config.ts` afin que chaque composant et chaque page basée sur les fichiers puissent lire leur contenu via le signal `useIntlayer`. Analog repose sur Vite, le plugin `intlayer()` de `vite-intlayer` est donc ajouté aux côtés d'`analog()` dans `vite.config.ts` pour observer et reconstruire vos déclarations de contenu et exécuter le proxy de locale. Les déclarations de contenu sont placées aux côtés des composants et des pages dans `src/app/`.
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── pages
+│   │   │   └── index.page.ts         # File-based route using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts                    # analog() and intlayer() Vite plugins
+```
+
+### Configuration
 
 Créez un fichier de configuration pour configurer les langues de votre application :
 

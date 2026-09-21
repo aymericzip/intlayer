@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-21
 title: "Angular 22 i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Angular 21アプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -165,6 +165,29 @@ bun add @angular-builders/custom-esbuild --dev
 
 </Step>
 <Step number={2} title="プロジェクトの構成">
+
+### アーキテクチャ
+
+このアーキテクチャでは、`angular-intlayer` が `provideIntlayer()` を提供し、`src/app/app.config.ts` に登録されることで、すべてのコンポーネントが `useIntlayer` シグナルを通じてコンテンツを読み取れるようになります。Angular CLI はカスタム esbuild ビルダーに切り替えられ、`esbuild.plugins.ts` が Intlayer プラグインをビルドに登録してコンテンツ宣言を監視および再構築します。コンテンツ宣言は `src/app/` 内のコンポーネントと一緒に配置されます。
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── app.component.html        # Root template reading the content signal
+│   │   ├── app.component.ts          # Root component using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── angular.json                      # Custom esbuild builder for build and serve
+├── esbuild.plugins.ts                # intlayerEsbuildPlugin() from angular-intlayer/esbuild
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### 設定
 
 アプリケーションの言語を構成するための構成ファイルを作成します：
 

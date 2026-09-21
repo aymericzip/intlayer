@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + Svelte i18n - 앱을 번역하는 완전 가이드"
 description: "i18next는 이제 그만. 2026년 다국어 (i18n) Astro + Svelte 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
@@ -178,6 +178,30 @@ bun x intlayer init
 
 </Step>
 <Step number={2} title="프로젝트 설정">
+
+### 아키텍처
+
+이 아키텍처에서 `astro.config.ts`에 등록된 `intlayer()` 통합은 사전을 빌드하고 모든 요청의 로케일을 확인하여 `Astro.locals.intlayer`에 노출하는 미들웨어를 추가합니다. 페이지는 `src/pages/[...locale]/` 나머지(rest) 세그먼트 아래에 위치하므로 기본 로케일은 접두사 없이 제공되고 다른 모든 로케일은 전용 URL을 갖습니다. `.astro` 파일은 서버 렌더링을 위해 `astro-intlayer`의 `useIntlayer` / `useLocale` 훅을 사용하여 콘텐츠를 읽고, Svelte 아일랜드(`src/components/svelte/SvelteIsland.svelte`)는 서버에서 감지된 로케일을 prop으로 받아 대화형 처리를 위해 `svelte-intlayer`에 전달합니다. 콘텐츠 선언은 `src/`의 컴포넌트와 함께 배치됩니다.
+
+```bash
+.
+├── src
+│   ├── app.content.ts                # App content declaration
+│   ├── components
+│   │   └── svelte
+│   │       └── SvelteIsland.svelte   # Svelte island (content + locale switcher)
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and svelte() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### 설정
 
 애플리케이션의 언어를 설정하기 위한 설정 파일을 생성합니다:
 

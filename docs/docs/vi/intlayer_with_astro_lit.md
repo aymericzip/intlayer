@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + Lit i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Astro + Lit đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
@@ -167,6 +167,30 @@ bun add intlayer astro-intlayer lit lit-intlayer @astrojs/lit
 
 </Step>
 <Step number={2} title="Cấu hình dự án của bạn">
+
+### Kiến trúc
+
+Trong kiến trúc này, tích hợp `intlayer()` được đăng ký trong `astro.config.ts` sẽ xây dựng các từ điển của bạn và thêm một middleware giúp xử lý locale của mỗi yêu cầu và hiển thị nó trên `Astro.locals.intlayer`. Các trang nằm dưới phân đoạn rest `src/pages/[...locale]/`, do đó locale mặc định được phân phối mà không có tiền tố và mọi locale khác đều có URL riêng biệt. Các tệp `.astro` đọc nội dung bằng các hook `useIntlayer` / `useLocale` của `astro-intlayer` để render phía máy chủ, và đảo Lit (`src/components/lit/LitDemo.ts`) nhận locale do máy chủ phát hiện dưới dạng prop và chuyển nó tới `lit-intlayer` cho phần tương tác. Các khai báo nội dung được đặt cùng với các component của bạn trong `src/`.
+
+```bash
+.
+├── src
+│   ├── components
+│   │   └── lit
+│   │       ├── app.content.ts        # App content declaration
+│   │       └── LitDemo.ts            # Lit custom element (content + locale switcher)
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the custom element
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and lit() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Cấu hình
 
 Tạo một file cấu hình để xác định các ngôn ngữ của ứng dụng:
 

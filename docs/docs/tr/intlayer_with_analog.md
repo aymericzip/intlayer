@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-31
+updatedAt: 2026-09-21
 title: "Analog i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Analog uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
@@ -156,6 +156,28 @@ bun add intlayer angular-intlayer vite-intlayer
 
 </Step>
 <Step number={2} title="Projenizin Yapılandırılması">
+
+### Mimari
+
+Bu mimaride, `angular-intlayer` her bileşenin ve dosya tabanlı sayfanın içeriğini `useIntlayer` sinyali aracılığıyla okuyabilmesi için `src/app/app.config.ts` içinde kaydedilen `provideIntlayer()` işlevini sağlar. Analog, Vite üzerine inşa edilmiştir; bu nedenle `vite-intlayer` kütüphanesinin `intlayer()` eklentisi, içerik bildirimlerinizi izlemek, yeniden derlemek ve yerel ayar proxy'sini çalıştırmak için `vite.config.ts` dosyasında `analog()` eklentisinin yanına eklenir. İçerik bildirimleri `src/app/` içinde bileşenlerin ve sayfaların yanında yer alır.
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── pages
+│   │   │   └── index.page.ts         # File-based route using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts                    # analog() and intlayer() Vite plugins
+```
+
+### Yapılandırma
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 

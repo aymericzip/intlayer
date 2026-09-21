@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-31
+updatedAt: 2026-09-21
 title: "Angular 19 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Angular 19 đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
@@ -163,6 +163,29 @@ bun add @angular-builders/custom-webpack --dev
 
 </Step>
 <Step number={2} title="Cấu hình dự án của bạn">
+
+### Kiến trúc
+
+Trong kiến trúc này, `angular-intlayer` cung cấp `provideIntlayer()`, được đăng ký trong `src/app/app.config.ts` để mọi component đều có thể đọc nội dung của nó thông qua signal `useIntlayer`. Angular CLI được chuyển sang builder Webpack tùy chỉnh, và `webpack.config.ts` hợp nhất plugin Intlayer vào bản dựng để theo dõi và xây dựng lại các khai báo nội dung của bạn. Các khai báo nội dung được đặt cùng với các component trong `src/app/`.
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── app.component.html        # Root template reading the content signal
+│   │   ├── app.component.ts          # Root component using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── angular.json                      # Custom Webpack builder for build and serve
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── webpack.config.ts                 # mergeConfig() from angular-intlayer/webpack
+```
+
+### Cấu hình
 
 Tạo một tệp cấu hình để thiết lập các ngôn ngữ cho ứng dụng của bạn:
 

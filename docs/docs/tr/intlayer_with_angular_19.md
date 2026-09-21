@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-31
+updatedAt: 2026-09-21
 title: "Angular 19 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Angular 19 uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
@@ -163,6 +163,29 @@ bun add @angular-builders/custom-webpack --dev
 
 </Step>
 <Step number={2} title="Projenizin Yapılandırılması">
+
+### Mimari
+
+Bu mimaride, `angular-intlayer` her bileşenin içeriğini `useIntlayer` sinyali aracılığıyla okuyabilmesi için `src/app/app.config.ts` içinde kaydedilen `provideIntlayer()` işlevini sağlar. Angular CLI özel Webpack derleyicisine geçirilir ve `webpack.config.ts`, içerik bildirimlerinizi izlemek ve yeniden derlemek için Intlayer eklentisini derleme sürecine dahil eder. İçerik bildirimleri `src/app/` içinde bileşenlerin yanında yer alır.
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── app.component.html        # Root template reading the content signal
+│   │   ├── app.component.ts          # Root component using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── angular.json                      # Custom Webpack builder for build and serve
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── webpack.config.ts                 # mergeConfig() from angular-intlayer/webpack
+```
+
+### Yapılandırma
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 

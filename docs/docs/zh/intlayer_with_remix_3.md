@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-19
+updatedAt: 2026-09-21
 title: "Remix 3 i18n - 完整的应用多语言国际化翻译指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Remix 3 应用的权威指南。借助 AI 智能体完成翻译，并优化打包体积、SEO 和性能。"
 keywords:
@@ -137,6 +137,27 @@ bun add intlayer remix-intlayer remix@next
 
 </Step>
 <Step number={2} title="配置 Intlayer">
+
+### 架构
+
+在此架构中，`remix-intlayer` 的 `intlayer()` 中间件在 `render()` 中间件之前注册到 `createRouter()` 中。它会在路由匹配前去除语言环境前缀，因此路由只需在 `src/routes.ts` 中声明一次，无需 `:locale` 段，并且它会在 `AsyncLocalStorage` 作用域内运行请求的其余部分，从而让 `useIntlayer` / `useLocale` 能够在路由处理函数和 `remix/ui` 视图中无需参数读取语言环境。内容声明文件与你的视图一起放置在 `src/` 中：
+
+```bash
+.
+├── src
+│   ├── home.content.ts               # Home page content declaration
+│   ├── router.tsx                    # createRouter() with the intlayer() and render() middleware
+│   ├── routes.ts                     # Type-safe routes, declared once without locale segment
+│   ├── server.ts                     # fetch handler (Node.js, Bun, Deno, Cloudflare Workers)
+│   └── views
+│       ├── document.tsx              # HTML shell setting <html lang dir> from the locale
+│       └── home.tsx                  # Localized page using useIntlayer / useLocale
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### 配置
 
 在项目根目录下创建 `intlayer.config.ts`，声明支持的语言及国际化设置：
 

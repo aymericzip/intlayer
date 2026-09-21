@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-31
+updatedAt: 2026-09-21
 title: "Angular 22 i18n - Повний посібник з перекладу вашого застосунку"
 description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Angular 22. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
 keywords:
@@ -165,6 +165,29 @@ bun add @angular-builders/custom-esbuild --dev
 
 </Step>
 <Step number={2} title="Налаштування вашого проєкту">
+
+### Архітектура
+
+У цій архітектурі `angular-intlayer` надає `provideIntlayer()`, зареєстрований у `src/app/app.config.ts`, щоб кожен компонент міг читати свій вміст через сигнал `useIntlayer`. Angular CLI перемикається на кастомний збирач esbuild, а `esbuild.plugins.ts` реєструє плагін Intlayer у збірці для відстеження та перебудови оголошень вмісту. Оголошення вмісту розміщуються поруч із компонентами в `src/app/`.
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── app.component.html        # Root template reading the content signal
+│   │   ├── app.component.ts          # Root component using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── angular.json                      # Custom esbuild builder for build and serve
+├── esbuild.plugins.ts                # intlayerEsbuildPlugin() from angular-intlayer/esbuild
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Конфігурація
 
 Створіть файл конфігурації для налаштування мов вашого додатка:
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + React i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Astro + React uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
@@ -169,6 +169,31 @@ bun add intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
 
 </Step>
 <Step number={2} title="Projenizi Yapılandırın">
+
+### Mimari
+
+Bu mimaride, `astro.config.ts` içinde tanımlanan `intlayer()` entegrasyonu sözlüklerinizi derler ve her isteğin yerel ayarını (locale) çözümleyip `Astro.locals.intlayer` üzerinde sunan bir ara yazılım (middleware) ekler. Sayfalar `src/pages/[...locale]/` rest segmenti altında yer alır, bu sayede varsayılan yerel ayar ön ek olmadan sunulurken diğer tüm yerel ayarlar kendilerine ait özel bir URL alır. `.astro` dosyaları sunucu tarafı render için içeriği `astro-intlayer` kütüphanesinin `useIntlayer` / `useLocale` kancalarıyla okur ve React adası (`src/components/react/ReactIsland.tsx`) sunucu tarafından algılanan yerel ayarı bir prop olarak alıp etkileşimli kısım için `react-intlayer` kütüphanesine iletir. İçerik bildirimleri `src/` içinde bileşenlerinizin yanında yer alır.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── react
+│   │       ├── LocaleSwitcher.tsx    # Locale switcher rendered inside the island
+│   │       └── ReactIsland.tsx       # React island wrapping the tree in IntlayerProvider
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and react() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Yapılandırma
 
 Uygulamanızın dillerini tanımlamak için bir konfigürasyon dosyası oluşturun:
 

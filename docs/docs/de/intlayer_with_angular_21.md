@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-21
 title: "Angular 22 i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Angular 22-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
@@ -165,6 +165,29 @@ bun add @angular-builders/custom-esbuild --dev
 
 </Step>
 <Step number={2} title="Konfiguration Ihres Projekts">
+
+### Architektur
+
+In dieser Architektur stellt `angular-intlayer` `provideIntlayer()` bereit, das in `src/app/app.config.ts` registriert ist, damit jede Komponente ihren Inhalt über das `useIntlayer`-Signal lesen kann. Die Angular CLI wird auf den benutzerdefinierten esbuild-Builder umgestellt, und `esbuild.plugins.ts` registriert das Intlayer-Plugin im Build, um Ihre Inhaltsdeklarationen zu überwachen und neu zu erstellen. Inhaltsdeklarationen werden neben Komponenten in `src/app/` abgelegt.
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── app.component.html        # Root template reading the content signal
+│   │   ├── app.component.ts          # Root component using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── angular.json                      # Custom esbuild builder for build and serve
+├── esbuild.plugins.ts                # intlayerEsbuildPlugin() from angular-intlayer/esbuild
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Konfiguration
 
 Erstellen Sie eine Konfigurationsdatei, um die Sprachen Ihrer Anwendung festzulegen:
 

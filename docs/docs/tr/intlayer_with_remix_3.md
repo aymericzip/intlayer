@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-19
+updatedAt: 2026-09-21
 title: "Remix 3 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "i18next'i unutun. Çok dilli (i18n) bir Remix 3 uygulaması oluşturmak için 2026 rehberi. Yapay zeka ajanlarıyla çeviri yapın, paket boyutunu, SEO'yu ve performansı optimize edin."
 keywords:
@@ -136,6 +136,27 @@ bun add intlayer remix-intlayer remix@next
 
 </Step>
 <Step number={2} title="Intlayer'ı Yapılandırın">
+
+### Mimari
+
+Bu mimaride, `remix-intlayer` kütüphanesinin `intlayer()` ara yazılımı `createRouter()` içinde `render()` ara yazılımından önce kaydedilir. Yönlendirici eşleşmesinden önce yerel ayar ön ekini kaldırır, böylece rotalar `src/routes.ts` içinde `:locale` segmenti olmadan bir kez bildirilir ve isteğin geri kalanını bir `AsyncLocalStorage` kapsamında çalıştırır; bu da `useIntlayer` / `useLocale` kancalarının rota işleyicilerinde ve `remix/ui` görünümlerinde bağımsız değişken olmadan yerel ayarı okumasını sağlar. İçerik bildirimleri `src/` içinde görünümlerinizin yanında yer alır:
+
+```bash
+.
+├── src
+│   ├── home.content.ts               # Home page content declaration
+│   ├── router.tsx                    # createRouter() with the intlayer() and render() middleware
+│   ├── routes.ts                     # Type-safe routes, declared once without locale segment
+│   ├── server.ts                     # fetch handler (Node.js, Bun, Deno, Cloudflare Workers)
+│   └── views
+│       ├── document.tsx              # HTML shell setting <html lang dir> from the locale
+│       └── home.tsx                  # Localized page using useIntlayer / useLocale
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Yapılandırma
 
 Desteklenen dillerinizi ve uluslararasılaştırma ayarlarınızı bildirmek için projenizin kök dizininde bir `intlayer.config.ts` dosyası oluşturun:
 

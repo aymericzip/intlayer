@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-19
+updatedAt: 2026-09-21
 title: "Remix 3 i18n - Panduan Lengkap Menerjemahkan Aplikasi Anda"
 description: "Lupakan i18next. Panduan 2026 untuk membangun aplikasi Remix 3 multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, serta performa."
 keywords:
@@ -136,6 +136,27 @@ bun add intlayer remix-intlayer remix@next
 
 </Step>
 <Step number={2} title="Konfigurasikan Intlayer">
+
+### Arsitektur
+
+Dalam arsitektur ini, middleware `intlayer()` dari `remix-intlayer` didaftarkan di `createRouter()` sebelum middleware `render()`. Middleware ini menghapus awalan locale sebelum router mencocokkan, sehingga rute dideklarasikan sekali di `src/routes.ts` tanpa segmen `:locale`, dan menjalankan sisa permintaan di dalam cakupan `AsyncLocalStorage`, yang memungkinkan `useIntlayer` / `useLocale` membaca locale tanpa argumen di route handler dan tampilan `remix/ui`. Deklarasi konten ditempatkan bersama tampilan Anda di `src/`:
+
+```bash
+.
+├── src
+│   ├── home.content.ts               # Home page content declaration
+│   ├── router.tsx                    # createRouter() with the intlayer() and render() middleware
+│   ├── routes.ts                     # Type-safe routes, declared once without locale segment
+│   ├── server.ts                     # fetch handler (Node.js, Bun, Deno, Cloudflare Workers)
+│   └── views
+│       ├── document.tsx              # HTML shell setting <html lang dir> from the locale
+│       └── home.tsx                  # Localized page using useIntlayer / useLocale
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Konfigurasi
 
 Buat file `intlayer.config.ts` di root proyek Anda untuk mendeklarasikan bahasa yang didukung dan pengaturan internasionalisasi:
 

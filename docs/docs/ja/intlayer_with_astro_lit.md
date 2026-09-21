@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + Lit i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Astro + Litアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -167,6 +167,30 @@ bun add intlayer astro-intlayer lit lit-intlayer @astrojs/lit
 
 </Step>
 <Step number={2} title="プロジェクトの設定">
+
+### アーキテクチャ
+
+このアーキテクチャでは、`astro.config.ts` に登録された `intlayer()` 統合が辞書をビルドし、各リクエストのロケールを解決して `Astro.locals.intlayer` に公開するミドルウェアを追加します。ページは `src/pages/[...locale]/` レストセグメントの下に配置されるため、デフォルトロケールはプレフィックスなしで提供され、他のすべてのロケールには専用の URL が割り当てられます。`.astro` ファイルはサーバーレンダリング用に `astro-intlayer` の `useIntlayer` / `useLocale` フックを使用してコンテンツを読み取り、Lit アイランド (`src/components/lit/LitDemo.ts`) はサーバーで検出されたロケールを prop として受け取り、インタラクティブ部分のために `lit-intlayer` に渡します。コンテンツ宣言は `src/` 内のコンポーネントと一緒に配置されます。
+
+```bash
+.
+├── src
+│   ├── components
+│   │   └── lit
+│   │       ├── app.content.ts        # App content declaration
+│   │       └── LitDemo.ts            # Lit custom element (content + locale switcher)
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the custom element
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and lit() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### 設定
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 

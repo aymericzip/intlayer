@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + React i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Astro + React đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
@@ -169,6 +169,31 @@ bun add intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
 
 </Step>
 <Step number={2} title="Cấu hình dự án của bạn">
+
+### Kiến trúc
+
+Trong kiến trúc này, tích hợp `intlayer()` được đăng ký trong `astro.config.ts` sẽ xây dựng các từ điển của bạn và thêm một middleware giúp xử lý locale của mỗi yêu cầu và hiển thị nó trên `Astro.locals.intlayer`. Các trang nằm dưới phân đoạn rest `src/pages/[...locale]/`, do đó locale mặc định được phân phối mà không có tiền tố và mọi locale khác đều có URL riêng biệt. Các tệp `.astro` đọc nội dung bằng các hook `useIntlayer` / `useLocale` của `astro-intlayer` để render phía máy chủ, và đảo React (`src/components/react/ReactIsland.tsx`) nhận locale do máy chủ phát hiện dưới dạng prop và chuyển nó tới `react-intlayer` cho phần tương tác. Các khai báo nội dung được đặt cùng với các component của bạn trong `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── react
+│   │       ├── LocaleSwitcher.tsx    # Locale switcher rendered inside the island
+│   │       └── ReactIsland.tsx       # React island wrapping the tree in IntlayerProvider
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and react() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Cấu hình
 
 Tạo một file cấu hình để xác định các ngôn ngữ của ứng dụng:
 

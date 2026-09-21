@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Astroアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
@@ -159,6 +159,29 @@ bun add intlayer astro-intlayer
 
 </Step>
 <Step number={2} title="プロジェクトの設定">
+
+### アーキテクチャ
+
+このアーキテクチャでは、`astro.config.ts` に登録された `intlayer()` 統合が辞書をビルドし、各リクエストのロケールを解決して `Astro.locals.intlayer` に公開するミドルウェアを追加します。ページは `src/pages/[...locale]/` レストセグメントの下に配置されるため、デフォルトロケールはプレフィックスなしで提供され、他のすべてのロケールには専用の URL が割り当てられます。`.astro` ファイルは `astro-intlayer` の `useIntlayer` / `useLocale` フックを使用してコンテンツを読み取り、コンテンツ宣言は `src/` 内のコンポーネントと一緒に配置されます。
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── LocaleSwitcher.astro      # Locale switcher component
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page (rest param also serves the default locale)
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() integration
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### 設定
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 

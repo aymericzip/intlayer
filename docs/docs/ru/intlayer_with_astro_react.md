@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + React i18n - Полное руководство по переводу вашего приложения"
 description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения Astro + React. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
@@ -181,6 +181,31 @@ bun x intlayer init
 
 </Step>
 <Step number={2} title="Настройка вашего проекта">
+
+### Архитектура
+
+В этой архитектуре интеграция `intlayer()`, зарегистрированная в `astro.config.ts`, собирает ваши словари и добавляет middleware, который определяет локаль каждого запроса и предоставляет её в `Astro.locals.intlayer`. Страницы располагаются в сегменте rest `src/pages/[...locale]/`, благодаря чему локаль по умолчанию отдается без префикса, а каждая другая локаль получает собственный выделенный URL. Файлы `.astro` читают контент с помощью хуков `useIntlayer` / `useLocale` из `astro-intlayer` для серверного рендеринга, а остров React (`src/components/react/ReactIsland.tsx`) получает определённую сервером локаль в качестве пропа и передаёт её в `react-intlayer` для интерактивной части. Объявления контента размещаются рядом с вашими компонентами в `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── react
+│   │       ├── LocaleSwitcher.tsx    # Locale switcher rendered inside the island
+│   │       └── ReactIsland.tsx       # React island wrapping the tree in IntlayerProvider
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and react() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Конфигурация
 
 Создайте конфигурационный файл для настройки языков вашего приложения:
 

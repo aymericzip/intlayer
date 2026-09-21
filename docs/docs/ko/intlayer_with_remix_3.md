@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-19
+updatedAt: 2026-09-21
 title: "Remix 3 i18n - 앱 다국어 번역 완벽 가이드"
 description: "더 이상 i18next는 필요 없습니다. 2026년 다국어(i18n) Remix 3 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO 및 성능을 최적화하세요."
 keywords:
@@ -136,6 +136,27 @@ bun add intlayer remix-intlayer remix@next
 
 </Step>
 <Step number={2} title="Intlayer 구성">
+
+### 아키텍처
+
+이 아키텍처에서 `remix-intlayer`의 `intlayer()` 미들웨어는 `render()` 미들웨어에 앞서 `createRouter()`에 등록됩니다. 라우터가 매칭되기 전에 로케일 접두사를 제거하므로 라우트는 `:locale` 세그먼트 없이 `src/routes.ts`에 한 번만 선언되며, 요청의 나머지 부분을 `AsyncLocalStorage` 스코프 내에서 실행하여 라우트 핸들러 및 `remix/ui` 뷰에서 인자 없이 `useIntlayer` / `useLocale`이 로케일을 읽을 수 있도록 합니다. 콘텐츠 선언은 `src/`의 뷰와 함께 배치됩니다:
+
+```bash
+.
+├── src
+│   ├── home.content.ts               # Home page content declaration
+│   ├── router.tsx                    # createRouter() with the intlayer() and render() middleware
+│   ├── routes.ts                     # Type-safe routes, declared once without locale segment
+│   ├── server.ts                     # fetch handler (Node.js, Bun, Deno, Cloudflare Workers)
+│   └── views
+│       ├── document.tsx              # HTML shell setting <html lang dir> from the locale
+│       └── home.tsx                  # Localized page using useIntlayer / useLocale
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### 설정
 
 프로젝트 루트에 `intlayer.config.ts`를 생성하여 지원 언어 및 국제화 설정을 선언합니다.
 

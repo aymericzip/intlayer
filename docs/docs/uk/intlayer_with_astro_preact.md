@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + Preact i18n - Повний посібник з перекладу вашого застосунку"
 description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Astro + Preact. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
 keywords:
@@ -166,6 +166,31 @@ bun add intlayer astro-intlayer preact preact-intlayer @astrojs/preact
 
 </Step>
 <Step number={2} title="Налаштуйте свій проект">
+
+### Архітектура
+
+У цій архітектурі інтеграція `intlayer()`, зареєстрована в `astro.config.ts`, збирає ваші словники та додає middleware, який визначає локаль кожного запиту та надає її в `Astro.locals.intlayer`. Сторінки розміщуються під rest-сегментом `src/pages/[...locale]/`, завдяки чому локаль за замовчуванням обслуговується без префікса, а кожна інша локаль отримує власну виділену URL-адресу. Файли `.astro` читають вміст за допомогою хуків `useIntlayer` / `useLocale` з `astro-intlayer` для серверного рендерингу, а острів Preact (`src/components/preact/PreactIsland.tsx`) отримує визначену сервером локаль як проп і передає її в `preact-intlayer` для інтерактивної частини. Оголошення вмісту розміщуються поруч із вашими компонентами в `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── preact
+│   │       ├── LocaleSwitcher.tsx    # Locale switcher rendered inside the island
+│   │       └── PreactIsland.tsx      # Preact island wrapping the tree in IntlayerProvider
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and preact() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Конфігурація
 
 Створіть конфігураційний файл, щоб визначити мови вашого додатка:
 

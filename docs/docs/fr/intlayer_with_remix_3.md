@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-19
+updatedAt: 2026-09-21
 title: "Remix 3 i18n - Guide complet pour traduire votre application"
 description: "Oubliez i18next. Le guide 2026 pour créer une application Remix 3 multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
@@ -136,6 +136,27 @@ bun add intlayer remix-intlayer remix@next
 
 </Step>
 <Step number={2} title="Configurer Intlayer">
+
+### Architecture
+
+Dans cette architecture, le middleware `intlayer()` de `remix-intlayer` est enregistré dans `createRouter()` avant le middleware `render()`. Il retire le préfixe de locale avant la résolution par le routeur, de sorte que les routes ne sont déclarées qu'une seule fois dans `src/routes.ts` sans segment `:locale`, et il exécute le reste de la requête dans un scope `AsyncLocalStorage`, ce qui permet à `useIntlayer` / `useLocale` de lire la locale sans argument dans les gestionnaires de routes et les vues `remix/ui`. Les déclarations de contenu sont placées aux côtés de vos vues dans `src/` :
+
+```bash
+.
+├── src
+│   ├── home.content.ts               # Home page content declaration
+│   ├── router.tsx                    # createRouter() with the intlayer() and render() middleware
+│   ├── routes.ts                     # Type-safe routes, declared once without locale segment
+│   ├── server.ts                     # fetch handler (Node.js, Bun, Deno, Cloudflare Workers)
+│   └── views
+│       ├── document.tsx              # HTML shell setting <html lang dir> from the locale
+│       └── home.tsx                  # Localized page using useIntlayer / useLocale
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Configuration
 
 Créez un fichier `intlayer.config.ts` à la racine de votre projet pour déclarer les langues prises en charge et les paramètres d'internationalisation :
 

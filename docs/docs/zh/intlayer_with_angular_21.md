@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-21
 title: "Angular 22 i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Angular 22 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
@@ -165,6 +165,29 @@ bun add @angular-builders/custom-esbuild --dev
 
 </Step>
 <Step number={2} title="配置您的项目">
+
+### 架构
+
+在此架构中，`angular-intlayer` 提供 `provideIntlayer()`，并在 `src/app/app.config.ts` 中注册，以便每个组件都能通过 `useIntlayer` signal 读取其内容。Angular CLI 切换为自定义 esbuild 构建器，`esbuild.plugins.ts` 将 Intlayer 插件注册到构建中，以监视并重新构建你的内容声明。内容声明文件与组件一起放置在 `src/app/` 中。
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── app.component.html        # Root template reading the content signal
+│   │   ├── app.component.ts          # Root component using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── angular.json                      # Custom esbuild builder for build and serve
+├── esbuild.plugins.ts                # intlayerEsbuildPlugin() from angular-intlayer/esbuild
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### 配置
 
 创建一个配置文件以配置您应用程序的语言：
 

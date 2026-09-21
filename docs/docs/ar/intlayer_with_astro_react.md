@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "تدويل Astro + React - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Astro + React متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
@@ -169,6 +169,31 @@ bun add intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
 
 </Step>
 <Step number={2} title="تهيئة مشروعك">
+
+### البنية
+
+في هذه البنية، يقوم تكامل `intlayer()` المسجل في `astro.config.ts` ببناء القواميس الخاصة بك وإضافة برمجية وسيطة (middleware) تحدد لغة كل طلب وتوفرها عبر `Astro.locals.intlayer`. تتواجد الصفحات تحت مقطع `src/pages/[...locale]/`، بحيث يتم تقديم اللغة الافتراضية بدون بادئة ويحصل كل خيار لغة آخر على عنوان URL مخصص له. تقرأ ملفات `.astro` المحتوى باستخدام خطافات `useIntlayer` / `useLocale` الخاصة بـ `astro-intlayer` للعرض على جانب الخادم، وتتلقى جزيرة React (`src/components/react/ReactIsland.tsx`) اللغة المكتشفة من الخادم كخاصية (prop) وتمررها إلى `react-intlayer` للجزء التفاعلي. وتوضع تصريحات المحتوى جنباً إلى جنب مع مكوناتك في `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── react
+│   │       ├── LocaleSwitcher.tsx    # Locale switcher rendered inside the island
+│   │       └── ReactIsland.tsx       # React island wrapping the tree in IntlayerProvider
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and react() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### التكوين
 
 أنشئ ملف تكوين لتحديد لغات تطبيقك:
 

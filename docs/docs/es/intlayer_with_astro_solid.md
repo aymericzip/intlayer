@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + Solid i18n - Guía completa para traducir tu aplicación"
 description: "Sin más i18next. La guía 2026 para crear una aplicación Astro + Solid multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
@@ -166,6 +166,31 @@ bun add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
 
 </Step>
 <Step number={2} title="Configurar tu proyecto">
+
+### Arquitectura
+
+En esta arquitectura, la integración `intlayer()` registrada en `astro.config.ts` compila tus diccionarios y agrega un middleware que resuelve la locale de cada solicitud y la expone en `Astro.locals.intlayer`. Las páginas residen bajo un segmento rest `src/pages/[...locale]/`, de modo que la locale predeterminada se sirve sin prefijo y cada otra locale obtiene su propia URL dedicada. Los archivos `.astro` leen el contenido con los hooks `useIntlayer` / `useLocale` de `astro-intlayer` para el renderizado en el servidor, y la isla de Solid (`src/components/solid/SolidIsland.tsx`) recibe la locale detectada por el servidor como prop y la pasa a `solid-intlayer` para la parte interactiva. Las declaraciones de contenido se ubican junto a tus componentes en `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── solid
+│   │       ├── LocaleSwitcher.tsx    # Locale switcher rendered inside the island
+│   │       └── SolidIsland.tsx       # Solid island wrapping the tree in IntlayerProvider
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and solid() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Configuración
 
 Crea un archivo de configuración para definir los idiomas de tu aplicación:
 

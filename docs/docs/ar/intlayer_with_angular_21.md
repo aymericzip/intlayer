@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-31
+updatedAt: 2026-09-21
 title: "تدويل Angular 22 - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Angular 22 متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
@@ -165,6 +165,29 @@ bun add @angular-builders/custom-esbuild --dev
 
 </Step>
 <Step number={2} title="تكوين مشروعك">
+
+### البنية
+
+في هذه البنية، يوفر `angular-intlayer` الدالة `provideIntlayer()`، المسجلة في `src/app/app.config.ts` حتى يتمكن كل مكون من قراءة محتواه من خلال إشارة `useIntlayer`. يتم تبديل واجهة سطر أوامر Angular (CLI) إلى أداة بناء esbuild المخصصة، ويقوم `esbuild.plugins.ts` بتسجيل مكون Intlayer الإضافي في البناء لمراقبة تصريحات المحتوى وإعادة بنائها. توضع تصريحات المحتوى بجانب المكونات في `src/app/`.
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── app.component.html        # Root template reading the content signal
+│   │   ├── app.component.ts          # Root component using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── angular.json                      # Custom esbuild builder for build and serve
+├── esbuild.plugins.ts                # intlayerEsbuildPlugin() from angular-intlayer/esbuild
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### التكوين
 
 قم بإنشاء ملف تكوين لتكوين لغات تطبيقك:
 

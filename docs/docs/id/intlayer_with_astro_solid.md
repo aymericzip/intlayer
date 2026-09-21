@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + Solid i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Astro + Solid multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
@@ -166,6 +166,31 @@ bun add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
 
 </Step>
 <Step number={2} title="Konfigurasikan Proyek Anda">
+
+### Arsitektur
+
+Dalam arsitektur ini, integrasi `intlayer()` yang didaftarkan di `astro.config.ts` membangun kamus Anda dan menambahkan middleware yang menyelesaikan locale setiap permintaan serta mengeksposnya di `Astro.locals.intlayer`. Halaman berada di bawah segmen rest `src/pages/[...locale]/`, sehingga locale default disajikan tanpa awalan dan setiap locale lainnya mendapatkan URL khusus sendiri. File `.astro` membaca konten dengan hook `useIntlayer` / `useLocale` dari `astro-intlayer` untuk rendering server, dan pulau Solid (`src/components/solid/SolidIsland.tsx`) menerima locale yang terdeteksi server sebagai prop dan meneruskannya ke `solid-intlayer` untuk bagian interaktif. Deklarasi konten ditempatkan bersama komponen Anda di `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── solid
+│   │       ├── LocaleSwitcher.tsx    # Locale switcher rendered inside the island
+│   │       └── SolidIsland.tsx       # Solid island wrapping the tree in IntlayerProvider
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and solid() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Konfigurasi
 
 Buat file konfigurasi untuk menentukan bahasa aplikasi Anda:
 

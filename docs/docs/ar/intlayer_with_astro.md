@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "تدويل Astro - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Astro متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
@@ -159,6 +159,29 @@ bun add intlayer astro-intlayer
 
 </Step>
 <Step number={2} title="تهيئة مشروعك">
+
+### البنية
+
+في هذه البنية، يقوم تكامل `intlayer()` المسجل في `astro.config.ts` ببناء القواميس الخاصة بك وإضافة برمجية وسيطة (middleware) تحدد لغة كل طلب وتوفرها عبر `Astro.locals.intlayer`. تتواجد الصفحات تحت مقطع `src/pages/[...locale]/`، بحيث يتم تقديم اللغة الافتراضية بدون بادئة ويحصل كل خيار لغة آخر على عنوان URL مخصص له. تقرأ ملفات `.astro` المحتوى باستخدام خطافات `useIntlayer` / `useLocale` الخاصة بـ `astro-intlayer`، وتوضع تصريحات المحتوى جنباً إلى جنب مع مكوناتك في `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── LocaleSwitcher.astro      # Locale switcher component
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page (rest param also serves the default locale)
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() integration
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### التكوين
 
 أنشئ ملف تكوين لتحديد لغات تطبيقك:
 

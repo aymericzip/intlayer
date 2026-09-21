@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + Preact i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Astro + Preact app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:
@@ -166,6 +166,31 @@ bun add intlayer astro-intlayer preact preact-intlayer @astrojs/preact
 
 </Step>
 <Step number={2} title="Configuration of your project">
+
+### Architecture
+
+In this architecture, the `intlayer()` integration registered in `astro.config.ts` builds your dictionaries and adds a middleware that resolves the locale of every request and exposes it on `Astro.locals.intlayer`. Pages live under a `src/pages/[...locale]/` rest segment, so the default locale is served without prefix and every other locale gets its own dedicated URL. `.astro` files read the content with the `useIntlayer` / `useLocale` hooks of `astro-intlayer` for the server render, and the Preact island (`src/components/preact/PreactIsland.tsx`) receives the server-detected locale as a prop and hands it to `preact-intlayer` for the interactive part. Content declarations are placed alongside your components in `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── preact
+│   │       ├── LocaleSwitcher.tsx    # Locale switcher rendered inside the island
+│   │       └── PreactIsland.tsx      # Preact island wrapping the tree in IntlayerProvider
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and preact() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Configuration
 
 Create a config file to configure the languages of your application:
 

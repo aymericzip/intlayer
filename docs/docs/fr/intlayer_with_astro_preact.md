@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + Preact i18n - Guide complet pour traduire votre application"
 description: "Oubliez i18next. Le guide 2026 pour créer une application Astro + Preact multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
@@ -166,6 +166,31 @@ bun add intlayer astro-intlayer preact preact-intlayer @astrojs/preact
 
 </Step>
 <Step number={2} title="Configurer votre projet">
+
+### Architecture
+
+Dans cette architecture, l'intégration `intlayer()` enregistrée dans `astro.config.ts` compile vos dictionnaires et ajoute un middleware qui résout la locale de chaque requête et l'expose sur `Astro.locals.intlayer`. Les pages résident sous un segment rest `src/pages/[...locale]/`, ainsi la locale par défaut est servie sans préfixe et chaque autre locale dispose de sa propre URL dédiée. Les fichiers `.astro` lisent le contenu avec les hooks `useIntlayer` / `useLocale` d'`astro-intlayer` pour le rendu serveur, et l'îlot Preact (`src/components/preact/PreactIsland.tsx`) reçoit la locale détectée par le serveur en prop et la transmet à `preact-intlayer` pour la partie interactive. Les déclarations de contenu sont placées aux côtés de vos composants dans `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── preact
+│   │       ├── LocaleSwitcher.tsx    # Locale switcher rendered inside the island
+│   │       └── PreactIsland.tsx      # Preact island wrapping the tree in IntlayerProvider
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and preact() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Configuration
 
 Créez un fichier de configuration pour définir les langues de votre application :
 

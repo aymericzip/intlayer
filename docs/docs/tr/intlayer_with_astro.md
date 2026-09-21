@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Astro uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
@@ -159,6 +159,29 @@ bun add intlayer astro-intlayer
 
 </Step>
 <Step number={2} title="Projenizi Yapılandırın">
+
+### Mimari
+
+Bu mimaride, `astro.config.ts` içinde tanımlanan `intlayer()` entegrasyonu sözlüklerinizi derler ve her isteğin yerel ayarını (locale) çözümleyip `Astro.locals.intlayer` üzerinde sunan bir ara yazılım (middleware) ekler. Sayfalar `src/pages/[...locale]/` rest segmenti altında yer alır, bu sayede varsayılan yerel ayar ön ek olmadan sunulurken diğer tüm yerel ayarlar kendilerine ait özel bir URL alır. `.astro` dosyaları içeriği `astro-intlayer` kütüphanesinin `useIntlayer` / `useLocale` kancalarıyla okur ve içerik bildirimleri `src/` içinde bileşenlerinizin yanında yer alır.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── LocaleSwitcher.astro      # Locale switcher component
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page (rest param also serves the default locale)
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() integration
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Yapılandırma
 
 Uygulamanızın dillerini tanımlamak için bir konfigürasyon dosyası oluşturun:
 

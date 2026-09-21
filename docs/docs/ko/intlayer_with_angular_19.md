@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-21
 title: "Angular 19 i18n - 앱을 번역하는 완전 가이드"
 description: "i18next는 이제 그만. 2026년 다국어 (i18n) Angular 19 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
@@ -163,6 +163,29 @@ bun add @angular-builders/custom-webpack --dev
 
 </Step>
 <Step number={2} title="프로젝트 구성">
+
+### 아키텍처
+
+이 아키텍처에서 `angular-intlayer`는 `provideIntlayer()`를 제공하며, `src/app/app.config.ts`에 등록되어 모든 컴포넌트가 `useIntlayer` 시그널을 통해 콘텐츠를 읽을 수 있습니다. Angular CLI는 커스텀 Webpack 빌더로 전환되며, `webpack.config.ts`는 Intlayer 플러그인을 빌드에 병합하여 콘텐츠 선언을 감시하고 다시 빌드합니다. 콘텐츠 선언은 `src/app/`의 컴포넌트와 함께 배치됩니다.
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── app.component.html        # Root template reading the content signal
+│   │   ├── app.component.ts          # Root component using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── angular.json                      # Custom Webpack builder for build and serve
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── webpack.config.ts                 # mergeConfig() from angular-intlayer/webpack
+```
+
+### 설정
 
 애플리케이션의 언어를 구성하기 위한 설정 파일을 생성합니다:
 

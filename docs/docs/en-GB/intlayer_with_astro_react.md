@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + React i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Astro + React app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
@@ -169,6 +169,31 @@ bun add intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
 
 </Step>
 <Step number={2} title="Configure Your Project">
+
+### Architecture
+
+In this architecture, the `intlayer()` integration registered in `astro.config.ts` builds your dictionaries and adds a middleware that resolves the locale of every request and exposes it on `Astro.locals.intlayer`. Pages live under a `src/pages/[...locale]/` rest segment, so the default locale is served without prefix and every other locale gets its own dedicated URL. `.astro` files read the content with the `useIntlayer` / `useLocale` hooks of `astro-intlayer` for the server render, and the React island (`src/components/react/ReactIsland.tsx`) receives the server-detected locale as a prop and hands it to `react-intlayer` for the interactive part. Content declarations are placed alongside your components in `src/`.
+
+```bash
+.
+├── src
+│   ├── app.content.tsx               # App content declaration
+│   ├── components
+│   │   └── react
+│   │       ├── LocaleSwitcher.tsx    # Locale switcher rendered inside the island
+│   │       └── ReactIsland.tsx       # React island wrapping the tree in IntlayerProvider
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the island
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and react() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Configuration
 
 Create a configuration file to define your application's languages:
 

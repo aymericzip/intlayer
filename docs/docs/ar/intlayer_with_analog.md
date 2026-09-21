@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-31
+updatedAt: 2026-09-21
 title: "تدويل Analog - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Analog متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
@@ -156,6 +156,28 @@ bun add intlayer angular-intlayer vite-intlayer
 
 </Step>
 <Step number={2} title="تكوين مشروعك">
+
+### البنية
+
+في هذه البنية، يوفر `angular-intlayer` الدالة `provideIntlayer()`، المسجلة في `src/app/app.config.ts` حتى يتمكن كل مكون وصفحة قائمة على الملفات من قراءة محتواها من خلال إشارة `useIntlayer`. يعتمد Analog على Vite، لذلك تتم إضافة مكون `intlayer()` الإضافي من `vite-intlayer` بجانب `analog()` في `vite.config.ts` لمراقبة تصريحات المحتوى وإعادة بنائها وتشغيل وكيل اللغة. توضع تصريحات المحتوى بجانب المكونات والصفحات في `src/app/`.
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── pages
+│   │   │   └── index.page.ts         # File-based route using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts                    # analog() and intlayer() Vite plugins
+```
+
+### التكوين
 
 أنشئ ملف تكوين لتكوين لغات تطبيقك:
 

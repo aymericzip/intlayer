@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-20
+updatedAt: 2026-09-21
 title: "Astro + Lit i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Astro + Lit-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
@@ -167,6 +167,30 @@ bun add intlayer astro-intlayer lit lit-intlayer @astrojs/lit
 
 </Step>
 <Step number={2} title="Konfigurieren Sie Ihr Projekt">
+
+### Architektur
+
+In dieser Architektur erstellt die in `astro.config.ts` registrierte `intlayer()`-Integration Ihre Wörterbücher und fügt eine Middleware hinzu, die das Gebietsschema jeder Anfrage auflöst und unter `Astro.locals.intlayer` bereitstellt. Seiten befinden sich unter einem Rest-Segment `src/pages/[...locale]/`, sodass das Standard-Gebietsschema ohne Präfix bereitgestellt wird und jedes andere Gebietsschema eine eigene dedizierte URL erhält. `.astro`-Dateien lesen den Inhalt mit den `useIntlayer` / `useLocale`-Hooks von `astro-intlayer` für das Server-Rendering, und die Lit-Insel (`src/components/lit/LitDemo.ts`) empfängt das vom Server erkannte Gebietsschema als Prop und übergibt es an `lit-intlayer` für den interaktiven Teil. Inhaltsdeklarationen werden neben Ihren Komponenten in `src/` abgelegt.
+
+```bash
+.
+├── src
+│   ├── components
+│   │   └── lit
+│   │       ├── app.content.ts        # App content declaration
+│   │       └── LitDemo.ts            # Lit custom element (content + locale switcher)
+│   └── pages
+│       ├── [...locale]
+│       │   └── index.astro           # Localized page mounting the custom element
+│       ├── robots.txt.ts             # robots.txt endpoint
+│       └── sitemap.xml.ts            # Localized sitemap endpoint
+├── astro.config.ts                   # Astro config with the intlayer() and lit() integrations
+├── intlayer.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+### Konfiguration
 
 Erstellen Sie eine Konfigurationsdatei, um die Sprachen Ihrer Anwendung zu definieren:
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-31
+updatedAt: 2026-09-21
 title: "Analog i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "अब i18next की जरूरत नहीं। 2026 में Analog ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
@@ -156,6 +156,28 @@ bun add intlayer angular-intlayer vite-intlayer
 
 </Step>
 <Step number={2} title="अपने प्रोजेक्ट का कॉन्फ़िगरेशन">
+
+### आर्किटेक्चर
+
+इस आर्किटेक्चर में, `angular-intlayer` `provideIntlayer()` प्रदान करता है, जो `src/app/app.config.ts` में पंजीकृत होता है ताकि प्रत्येक कंपोनेंट और फ़ाइल-आधारित पेज `useIntlayer` सिग्नल के माध्यम से अपनी सामग्री पढ़ सके। Analog Vite पर आधारित है, इसलिए आपकी कंटेंट घोषणाओं को देखने, फिर से बनाने और लोकेल प्रॉक्सी चलाने के लिए `vite.config.ts` में `analog()` के बगल में `vite-intlayer` का `intlayer()` प्लगइन जोड़ा जाता है। कंटेंट घोषणाएं `src/app/` में कंपोनेंट्स और पेजों के साथ रखी जाती हैं।
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── pages
+│   │   │   └── index.page.ts         # File-based route using useIntlayer
+│   │   ├── app.config.ts             # Application config with provideIntlayer()
+│   │   ├── app.content.ts            # App content declaration
+│   │   └── locale-switcher.component.ts
+│   └── main.ts
+├── intlayer.config.ts
+├── package.json
+├── tsconfig.json
+└── vite.config.ts                    # analog() and intlayer() Vite plugins
+```
+
+### कॉन्फ़िगरेशन
 
 अपने एप्लिकेशन की भाषाओं को कॉन्फ़िगर करने के लिए एक कॉन्फ़िग फ़ाइल बनाएं:
 
