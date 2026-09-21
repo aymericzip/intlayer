@@ -82,14 +82,77 @@ export const pathList = [
   App_Onboarding_Path,
 ];
 
-const localizedPages = localeFlatMap(({ urlPrefix }) =>
-  pathList.map((path) => ({
-    path: `${urlPrefix}${path}`,
-    prerender: {
-      enabled: true,
-    },
-  }))
-);
+/**
+ * Routes that only render behind a session — a `validateAuth` `beforeLoad` or
+ * an `AuthenticationBarrier`.
+ *
+ * The prerender crawls without cookies, so each of these either 302s to the
+ * sign-in page (whose HTML then gets written under the dashboard URL) or
+ * renders its anonymous fallback. Neither is worth the render.
+ */
+const sessionGatedPathList = [
+  App_Dashboard_Editor_Path,
+  App_Dashboard_Translate_Path,
+  App_Dashboard_IDE_Path,
+  App_Dashboard_Dictionaries_Path,
+  App_Dashboard_Projects_Path,
+  App_Dashboard_Tags_Path,
+  App_Dashboard_Organization_Path,
+  App_Dashboard_Profile_Path,
+  App_Dashboard_Scanner_Path,
+  App_Dashboard_Assets_Path,
+  App_ReviewerMarketplace_Dashboard_Path,
+  App_Auth_ChangePassword_Path,
+  App_Admin_Path,
+  App_Admin_Users_Path,
+  App_Admin_Organizations_Path,
+  App_Admin_Projects_Path,
+  App_Admin_Dashboard_Path,
+  App_Admin_Management_Path,
+  App_Admin_Discussions_Path,
+  App_Admin_Affiliate_Path,
+  App_Admin_PromoCodes_Path,
+  App_Admin_Reviewers_Path,
+];
+
+/**
+ * Routes whose `beforeLoad` calls `redirectIfSelfHosted` — cloud-only
+ * features that a self-hosted instance redirects straight to the home page.
+ */
+const cloudOnlyPathList = [
+  App_Demo_Path,
+  App_Auth_Demo_Path,
+  App_Pricing_Path,
+  App_Affiliation_Path,
+  App_ReviewerMarketplace_Path,
+  App_ReviewerMarketplace_Dashboard_Path,
+];
+
+/**
+ * Pages worth prerendering for the given build. A self-hosted image runs on
+ * one box with no backend reachable at build time, so it keeps only the
+ * public, anonymous-renderable pages — the cloud build keeps every route.
+ */
+const getPrerenderPathList = (isSelfHosted: boolean): string[] => {
+  if (!isSelfHosted) return pathList;
+
+  const excludedPaths = new Set<string>([
+    ...sessionGatedPathList,
+    ...cloudOnlyPathList,
+  ]);
+
+  return pathList.filter((path) => !excludedPaths.has(path));
+};
+
+const getLocalizedPages = (isSelfHosted: boolean) =>
+  localeFlatMap(({ urlPrefix }) =>
+    getPrerenderPathList(isSelfHosted).map((path) => ({
+      path: `${urlPrefix}${path}`,
+      prerender: {
+        enabled: true,
+      },
+    }))
+  );
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -194,6 +257,7 @@ export default defineConfig(({ mode }) => {
   const domain = new URL(env.VITE_SITE_URL).hostname;
   const appUrl = env.VITE_SITE_URL;
   const backendUrl = env.VITE_BACKEND_URL;
+  const isSelfHosted = env.VITE_SELF_HOSTED === 'true';
 
   const cspDirectives = {
     'default-src': ["'self'"],
@@ -371,7 +435,7 @@ export default defineConfig(({ mode }) => {
           crawlLinks: false,
           concurrency: 10,
         },
-        pages: localizedPages,
+        pages: getLocalizedPages(isSelfHosted),
       }),
       react({ compiler: true }),
       wasm(),
