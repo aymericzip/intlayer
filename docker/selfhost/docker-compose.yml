@@ -20,7 +20,7 @@ name: intlayer
 services:
   # ------------------------------------------------------------------ dashboard
   app:
-    image: intlayer/intlayer-app:${INTLAYER_IMAGE_TAG:-latest}
+    image: intlayer/cms-frontend:${INTLAYER_IMAGE_TAG:-latest}
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
@@ -48,7 +48,7 @@ services:
 
   # ------------------------------------------------------------------------ api
   backend:
-    image: intlayer/intlayer-backend:${INTLAYER_IMAGE_TAG:-latest}
+    image: intlayer/cms-backend:${INTLAYER_IMAGE_TAG:-latest}
     restart: unless-stopped
     # Both Intlayer images run as an unprivileged user; Chromium is launched
     # with --no-sandbox, so dropping privilege escalation costs nothing.

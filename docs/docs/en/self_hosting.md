@@ -22,11 +22,11 @@ author: aymericzip
 
 Intlayer can run on your own infrastructure. No Intlayer Cloud account required. Three setups are available, all installed by the same one-line installer:
 
-| Setup                                                                                                                                                            | What it is                                                                                   | Pick it for                             |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------- |
-| **Desktop app**                                                                                                                                                  | Native dashboard for macOS, Linux and Windows, connected to the Intlayer Cloud               | A local client, nothing to host         |
-| **All-in-one Docker** — [`intlayer-selfhost`](https://hub.docker.com/r/intlayer/intlayer-selfhost)                                                               | Dashboard, API, MongoDB, Redis and MinIO in a **single container**, supervised by s6-overlay | Trials and small single-box installs    |
-| **Docker Compose** — [`intlayer-app`](https://hub.docker.com/r/intlayer/intlayer-app) + [`intlayer-backend`](https://hub.docker.com/r/intlayer/intlayer-backend) | **One container per service**, each datastore replaceable by a managed offering              | Production, scaling, managed datastores |
+| Setup                                                                                                                                                  | What it is                                                                                   | Pick it for                             |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- | --------------------------------------- |
+| **Desktop app**                                                                                                                                        | Native dashboard for macOS, Linux and Windows, connected to the Intlayer Cloud               | A local client, nothing to host         |
+| **All-in-one Docker** — [`cms-all`](https://hub.docker.com/r/intlayer/cms-all)                                                                         | Dashboard, API, MongoDB, Redis and MinIO in a **single container**, supervised by s6-overlay | Trials and small single-box installs    |
+| **Docker Compose** — [`cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend) + [`cms-backend`](https://hub.docker.com/r/intlayer/cms-backend) | **One container per service**, each datastore replaceable by a managed offering              | Production, scaling, managed datastores |
 
 ## Table of Contents
 
@@ -91,20 +91,20 @@ The installer reads a few environment variables. Because it is piped into the sh
 curl -fsSL https://intlayer.org/install.sh | INTLAYER_COMPOSE_DIR=./cms sh -s -- --mode compose
 ```
 
-| Variable                  | Default                             | Applies to | Description                                                |
-| ------------------------- | ----------------------------------- | ---------- | ---------------------------------------------------------- |
-| `INTLAYER_MODE`           | _(asked)_                           | all        | `desktop`, `docker` or `compose` — same as `--mode`        |
-| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`                       | desktop    | Where the app installer is saved                           |
-| `INTLAYER_IMAGE`          | `intlayer/intlayer-selfhost:latest` | docker     | All-in-one image to pull                                   |
-| `INTLAYER_ENV_FILE`       | `./intlayer.env`                    | docker     | Where to write the environment file                        |
-| `INTLAYER_CONTAINER_NAME` | `intlayer`                          | docker     | Container name                                             |
-| `INTLAYER_DATA_VOLUME`    | `intlayer-data`                     | docker     | Named volume mounted at `/data`                            |
-| `INTLAYER_APP_PORT`       | `3000`                              | docker     | Host port for the dashboard                                |
-| `INTLAYER_API_PORT`       | `3100`                              | docker     | Host port for the API                                      |
-| `INTLAYER_S3_PORT`        | `9000`                              | docker     | Host port for the MinIO S3 API                             |
-| `INTLAYER_CONSOLE_PORT`   | `9001`                              | docker     | Host port for the MinIO console                            |
-| `INTLAYER_COMPOSE_DIR`    | `./intlayer`                        | compose    | Where `docker-compose.yml` and `.env` are written          |
-| `INTLAYER_SELFHOST_REF`   | `main`                              | both       | Git ref the compose file and env template are fetched from |
+| Variable                  | Default                   | Applies to | Description                                                |
+| ------------------------- | ------------------------- | ---------- | ---------------------------------------------------------- |
+| `INTLAYER_MODE`           | _(asked)_                 | all        | `desktop`, `docker` or `compose` — same as `--mode`        |
+| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`             | desktop    | Where the app installer is saved                           |
+| `INTLAYER_IMAGE`          | `intlayer/cms-all:latest` | docker     | All-in-one image to pull                                   |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`          | docker     | Where to write the environment file                        |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                | docker     | Container name                                             |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`           | docker     | Named volume mounted at `/data`                            |
+| `INTLAYER_APP_PORT`       | `3000`                    | docker     | Host port for the dashboard                                |
+| `INTLAYER_API_PORT`       | `3100`                    | docker     | Host port for the API                                      |
+| `INTLAYER_S3_PORT`        | `9000`                    | docker     | Host port for the MinIO S3 API                             |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
+| `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
+| `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
 
 > The port variables only change the **host** side of the mapping. The published images have `http://localhost:3000`, `http://localhost:3100` and `http://localhost:9000` compiled into the dashboard bundle, so remapping them leaves the browser pointing at the old ports. Keep the defaults unless you build your own images — see [Limitations](#limitations).
 
@@ -205,7 +205,7 @@ Boot order is enforced by s6 dependencies: `mongod` → replica-set init, `minio
      -p 9001:9001 \
      -v intlayer-data:/data \
      --env-file ./intlayer.env \
-     intlayer/intlayer-selfhost:latest
+     intlayer/cms-all:latest
    ```
 
 Then open **http://localhost:3000** and follow [First-run setup](#first-run-setup). First boot initialises the replica set and the bucket, so give it a minute.
@@ -216,7 +216,7 @@ Then open **http://localhost:3000** and follow [First-run setup](#first-run-setu
 | ----------- | ----------------------------- | -------------------------------------------------------- |
 | **app**     | `3000`                        | TanStack Start dashboard (CMS UI)                        |
 | **backend** | `3100`                        | Fastify REST API (`/health` endpoint)                    |
-| **mongo**   | internal                      | MongoDB 7, single-node replica set `rs0`                 |
+| **mongo**   | internal                      | MongoDB 8, single-node replica set `rs0`                 |
 | **redis**   | internal                      | Job queues (BullMQ) and caching (ioredis)                |
 | **minio**   | `9000` (S3), `9001` (console) | S3-compatible object storage for avatars and screenshots |
 
@@ -254,7 +254,7 @@ To use a managed MongoDB instead of the bundled one, set `MONGODB_URI` in `intla
 
 ### Architecture
 
-One container per service, on a private Compose network. The dashboard and the API use the published `intlayer/intlayer-app` and `intlayer/intlayer-backend` images; the datastores use the official `mongo`, `redis` and `minio` images.
+One container per service, on a private Compose network. The dashboard and the API use the published `intlayer/cms-frontend` and `intlayer/cms-backend` images; the datastores use the official `mongo`, `redis` and `minio` images.
 
 ```
                 ┌───────────────────┐
@@ -269,14 +269,14 @@ One container per service, on a private Compose network. The dashboard and the A
      (1-node RS)                     minio:9001
 ```
 
-| Service      | Image                       | Role                                                                      |
-| ------------ | --------------------------- | ------------------------------------------------------------------------- |
-| `app`        | `intlayer/intlayer-app`     | Dashboard on `:3000`; waits for the backend to be healthy                 |
-| `backend`    | `intlayer/intlayer-backend` | API on `:3100` with Chromium; waits for Mongo, Redis and the MinIO bucket |
-| `mongo`      | `mongo:8`                   | Single-node replica set `rs0`, initiated by its own healthcheck           |
-| `redis`      | `redis:8-alpine`            | Queues and caching, append-only persistence                               |
-| `minio`      | `quay.io/minio/minio`       | S3 storage on `:9000`, console on `:9001`                                 |
-| `minio-init` | `quay.io/minio/mc`          | One-shot: creates the bucket and its anonymous-download policy            |
+| Service      | Image                   | Role                                                                      |
+| ------------ | ----------------------- | ------------------------------------------------------------------------- |
+| `app`        | `intlayer/cms-frontend` | Dashboard on `:3000`; waits for the backend to be healthy                 |
+| `backend`    | `intlayer/cms-backend`  | API on `:3100` with Chromium; waits for Mongo, Redis and the MinIO bucket |
+| `mongo`      | `mongo:8`               | Single-node replica set `rs0`, initiated by its own healthcheck           |
+| `redis`      | `redis:8-alpine`        | Queues and caching, append-only persistence                               |
+| `minio`      | `quay.io/minio/minio`   | S3 storage on `:9000`, console on `:9001`                                 |
+| `minio-init` | `quay.io/minio/mc`      | One-shot: creates the bucket and its anonymous-download policy            |
 
 Data is kept in the `intlayer_mongo-data`, `intlayer_redis-data` and `intlayer_minio-data` volumes. The service wiring (`MONGODB_URI`, `REDIS_URL`, `S3_ENDPOINT`, the internal backend URL used by server-side rendering) is fixed in the compose file and takes precedence over `.env`, which only carries secrets and optional integrations.
 
@@ -499,5 +499,5 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 - [Configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 - [CMS SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
 - [Desktop app releases](https://github.com/aymericzip/intlayer/releases/latest)
-- Docker Hub: [`intlayer/intlayer-selfhost`](https://hub.docker.com/r/intlayer/intlayer-selfhost), [`intlayer/intlayer-app`](https://hub.docker.com/r/intlayer/intlayer-app), [`intlayer/intlayer-backend`](https://hub.docker.com/r/intlayer/intlayer-backend) — mirrored on GHCR under `ghcr.io/aymericzip/`
+- Docker Hub: [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all), [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend), [`intlayer/cms-backend`](https://hub.docker.com/r/intlayer/cms-backend) — mirrored on GHCR under `ghcr.io/aymericzip/intlayer/`
 - [`docker/selfhost/`](https://github.com/aymericzip/intlayer/tree/main/docker/selfhost) — Dockerfile, `docker-compose.yml` and `.env.template`

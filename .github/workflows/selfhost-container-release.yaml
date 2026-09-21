@@ -1,17 +1,14 @@
 name: 🐳 Self-host Container
 
 # Builds the three self-hosting images from docker/selfhost/Dockerfile and pushes
-# them to Docker Hub (<DOCKERHUB_USERNAME>/<image>, i.e. intlayer/<image>) and
-# GHCR (ghcr.io/<owner>/<image>):
+# them to Docker Hub (intlayer/<name>) and GHCR (ghcr.io/<owner>/intlayer/<name>):
 #
-#   intlayer-app       dashboard only                 (--target app)
-#   intlayer-backend   API only, with Chromium        (--target backend)
-#   intlayer-selfhost  app + backend + MongoDB + Redis + MinIO in one box
-#                                                     (--target all-in-one)
+#   cms-frontend   dashboard only                                   (--target app)
+#   cms-backend    API only, with Chromium                          (--target backend)
+#   cms-all        app + backend + MongoDB + Redis + MinIO in one box (--target all-in-one)
 #
-# `intlayer-app` + `intlayer-backend` are what docker/selfhost/docker-compose.yml
-# runs, one process per container; `intlayer-selfhost` is the single-container
-# quick start. Runs on every version bump of the root package.json, or manually
+# `cms-frontend` + `cms-backend` are what docker/selfhost/docker-compose.yml runs,
+# one process per container; `cms-all` is the single-container quick start. Runs on every version bump of the root package.json, or manually
 # from the Actions tab.
 #
 # The browser-facing VITE_* URLs are inlined at build time and left at their
@@ -71,24 +68,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image: [app, backend, selfhost]
+        # `image` is the published name; `target` the matching Dockerfile stage.
+        image: [cms-frontend, cms-backend, cms-all]
         platform: [linux/amd64, linux/arm64]
         include:
+          - image: cms-frontend
+            target: app
+          - image: cms-backend
+            target: backend
+          - image: cms-all
+            target: all-in-one
           - platform: linux/amd64
             runner: ubuntu-latest
             arch: linux-amd64
           - platform: linux/arm64
             runner: ubuntu-24.04-arm
             arch: linux-arm64
-          - image: app
-            target: app
-            image_name: intlayer-app
-          - image: backend
-            target: backend
-            image_name: intlayer-backend
-          - image: selfhost
-            target: all-in-one
-            image_name: intlayer-selfhost
     runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
@@ -121,7 +116,7 @@ jobs:
         if: steps.requested.outputs.enabled == 'true'
         run: bash .github/scripts/resolve-selfhost-images.sh
         env:
-          IMAGE_NAME: ${{ matrix.image_name }}
+          IMAGE_NAME: ${{ matrix.image }}
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -165,9 +160,9 @@ jobs:
           # image of a platform reads the caches written by the other two.
           cache-from: |
             type=gha,scope=${{ matrix.image }}-${{ matrix.arch }}
-            type=gha,scope=app-${{ matrix.arch }}
-            type=gha,scope=backend-${{ matrix.arch }}
-            type=gha,scope=selfhost-${{ matrix.arch }}
+            type=gha,scope=cms-frontend-${{ matrix.arch }}
+            type=gha,scope=cms-backend-${{ matrix.arch }}
+            type=gha,scope=cms-all-${{ matrix.arch }}
           cache-to: type=gha,mode=max,scope=${{ matrix.image }}-${{ matrix.arch }}
 
       - name: 📤 Export digest
@@ -188,19 +183,13 @@ jobs:
           retention-days: 1
 
   merge:
-    name: 🐳 Publish ${{ matrix.image_name }} manifest
+    name: 🐳 Publish ${{ matrix.image }} manifest
     needs: [check-version, build]
     if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - image: app
-            image_name: intlayer-app
-          - image: backend
-            image_name: intlayer-backend
-          - image: selfhost
-            image_name: intlayer-selfhost
+        image: [cms-frontend, cms-backend, cms-all]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -226,7 +215,7 @@ jobs:
         id: registries
         run: bash .github/scripts/resolve-selfhost-images.sh
         env:
-          IMAGE_NAME: ${{ matrix.image_name }}
+          IMAGE_NAME: ${{ matrix.image }}
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 

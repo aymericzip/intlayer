@@ -12,19 +12,19 @@ set -e
 # a secret ("Skip output since it may contain secret").
 #
 # Inputs (env):
-#   IMAGE_NAME          repository name, e.g. intlayer-selfhost / intlayer-app
+#   IMAGE_NAME          published image name: cms-frontend / cms-backend / cms-all
 #   GITHUB_REPOSITORY_OWNER, DOCKERHUB_USERNAME, DOCKERHUB_TOKEN
 # Outputs:
-#   ghcr_image=<ghcr.io/owner/name>
+#   ghcr_image=ghcr.io/<owner>/intlayer/<name>
 #   dockerhub=true|false
-#   images=<comma-separated image names>
+#   images=<comma-separated image names>  (adds <DOCKERHUB_USERNAME>/<name>)
 
 if [ -z "${IMAGE_NAME:-}" ]; then
   echo "::error::IMAGE_NAME is required" >&2
   exit 1
 fi
 
-ghcr_image="ghcr.io/${GITHUB_REPOSITORY_OWNER}/${IMAGE_NAME}"
+ghcr_image="ghcr.io/${GITHUB_REPOSITORY_OWNER}/intlayer/${IMAGE_NAME}"
 images="${ghcr_image}"
 
 if [ -n "$DOCKERHUB_USERNAME" ] && [ -n "$DOCKERHUB_TOKEN" ]; then

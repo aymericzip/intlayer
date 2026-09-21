@@ -36,7 +36,7 @@ SELFHOST_REF="${INTLAYER_SELFHOST_REF:-main}"
 SELFHOST_BASE_URL="${INTLAYER_SELFHOST_BASE_URL:-https://raw.githubusercontent.com/aymericzip/intlayer/${SELFHOST_REF}/docker/selfhost}"
 
 # docker (all-in-one)
-IMAGE="${INTLAYER_IMAGE:-intlayer/intlayer-selfhost:latest}"
+IMAGE="${INTLAYER_IMAGE:-intlayer/cms-all:latest}"
 NAME="${INTLAYER_CONTAINER_NAME:-intlayer}"
 DATA_VOLUME="${INTLAYER_DATA_VOLUME:-intlayer-data}"
 ENV_FILE="${INTLAYER_ENV_FILE:-./intlayer.env}"

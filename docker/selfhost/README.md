@@ -3,14 +3,14 @@
 Everything needed to run Intlayer on your own infrastructure, built from one
 Dockerfile with three targets:
 
-| Image               | Target       | Contents                                                         | Use it for                               |
-| ------------------- | ------------ | ---------------------------------------------------------------- | ---------------------------------------- |
-| `intlayer-selfhost` | `all-in-one` | app + backend + **MongoDB 8** + **Redis** + **MinIO** + Chromium | quick trials, single-box installs        |
-| `intlayer-app`      | `app`        | dashboard (TanStack Start on Bun)                                | `docker-compose.yml`, Kubernetes, Swarm… |
-| `intlayer-backend`  | `backend`    | API (Fastify on Bun) + Chromium                                  | `docker-compose.yml`, Kubernetes, Swarm… |
+| Image          | Target       | Contents                                                         | Use it for                               |
+| -------------- | ------------ | ---------------------------------------------------------------- | ---------------------------------------- |
+| `cms-all`      | `all-in-one` | app + backend + **MongoDB 8** + **Redis** + **MinIO** + Chromium | quick trials, single-box installs        |
+| `cms-frontend` | `app`        | dashboard (TanStack Start on Bun)                                | `docker-compose.yml`, Kubernetes, Swarm… |
+| `cms-backend`  | `backend`    | API (Fastify on Bun) + Chromium                                  | `docker-compose.yml`, Kubernetes, Swarm… |
 
-Published on every version bump to Docker Hub as `intlayer/<image>` (mirrored on
-GHCR as `ghcr.io/aymericzip/<image>`) by
+Published on every version bump to Docker Hub as `intlayer/<name>` (mirrored on
+GHCR as `ghcr.io/aymericzip/intlayer/<name>`) by
 `.github/workflows/selfhost-container-release.yaml`.
 
 Users install either shape through `https://intlayer.org/install.sh` (macOS /
@@ -30,9 +30,9 @@ User-facing guide: [`docs/docs/en/self_hosting.md`](../../docs/docs/en/self_host
 The build context must be the **monorepo root**:
 
 ```sh
-docker build -f docker/selfhost/Dockerfile                    -t intlayer/selfhost .
-docker build -f docker/selfhost/Dockerfile --target app       -t intlayer/app .
-docker build -f docker/selfhost/Dockerfile --target backend   -t intlayer/backend .
+docker build -f docker/selfhost/Dockerfile                    -t intlayer/cms-all .
+docker build -f docker/selfhost/Dockerfile --target app       -t intlayer/cms-frontend .
+docker build -f docker/selfhost/Dockerfile --target backend   -t intlayer/cms-backend .
 ```
 
 The `app-builder` / `backend-builder` stages are shared, so the three builds hit
@@ -51,7 +51,7 @@ docker run -d --name intlayer \
   -p 3000:3000 -p 3100:3100 -p 9000:9000 -p 9001:9001 \
   -v intlayer-data:/data \
   --env-file ./intlayer.env \
-  intlayer/intlayer-selfhost
+  intlayer/cms-all
 ```
 
 Open **http://localhost:3000**. A fresh instance redirects to `/init` to create the

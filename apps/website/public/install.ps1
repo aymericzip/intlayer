@@ -40,7 +40,7 @@ $SelfhostBaseUrl = if ($env:INTLAYER_SELFHOST_BASE_URL) { $env:INTLAYER_SELFHOST
 }
 
 # docker (all-in-one)
-$Image = if ($env:INTLAYER_IMAGE) { $env:INTLAYER_IMAGE } else { 'intlayer/intlayer-selfhost:latest' }
+$Image = if ($env:INTLAYER_IMAGE) { $env:INTLAYER_IMAGE } else { 'intlayer/cms-all:latest' }
 $ContainerName = if ($env:INTLAYER_CONTAINER_NAME) { $env:INTLAYER_CONTAINER_NAME } else { 'intlayer' }
 $DataVolume = if ($env:INTLAYER_DATA_VOLUME) { $env:INTLAYER_DATA_VOLUME } else { 'intlayer-data' }
 $EnvFile = if ($env:INTLAYER_ENV_FILE) { $env:INTLAYER_ENV_FILE } else { '.\intlayer.env' }

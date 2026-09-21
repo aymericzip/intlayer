@@ -444,6 +444,10 @@ export default defineConfig(({ mode }) => {
           enabled: true,
           crawlLinks: false,
           concurrency: 10,
+          // The crawl is always seeded with `/`, whatever `pages` lists, so the
+          // state-dependent routes have to be dropped here as well.
+          filter: ({ path }) =>
+            !isSelfHosted || !stateDependentPathList.includes(path),
         },
         pages: getLocalizedPages(isSelfHosted),
       }),

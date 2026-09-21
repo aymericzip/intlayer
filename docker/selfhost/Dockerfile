@@ -3,9 +3,9 @@
 #
 # Intlayer self-hosting images. One Dockerfile, three build targets:
 #
-#   --target backend     API only (Fastify + Bun + Chromium)         -> intlayer-backend
-#   --target app         dashboard only (TanStack Start + Bun)       -> intlayer-app
-#   --target all-in-one  app + backend + MongoDB + Redis + MinIO,    -> intlayer-selfhost
+#   --target backend     API only (Fastify + Bun + Chromium)         -> intlayer/cms-backend
+#   --target app         dashboard only (TanStack Start + Bun)       -> intlayer/cms-frontend
+#   --target all-in-one  app + backend + MongoDB + Redis + MinIO,    -> intlayer/cms-all
 #                        supervised by s6-overlay (default target)
 #
 # `backend` and `app` are the building blocks of docker/selfhost/docker-compose.yml,
@@ -13,9 +13,9 @@
 # independently. `all-in-one` is the "one box" image for quick trials.
 #
 # Build context MUST be the monorepo root:
-#   docker build -f docker/selfhost/Dockerfile -t intlayer/selfhost .
-#   docker build -f docker/selfhost/Dockerfile --target backend -t intlayer/backend .
-#   docker build -f docker/selfhost/Dockerfile --target app     -t intlayer/app .
+#   docker build -f docker/selfhost/Dockerfile -t intlayer/cms-all .
+#   docker build -f docker/selfhost/Dockerfile --target backend -t intlayer/cms-backend .
+#   docker build -f docker/selfhost/Dockerfile --target app     -t intlayer/cms-frontend .
 #
 # The builder stages are shared by every target, so building the three images
 # from the same BuildKit cache only compiles the app and the backend once.
