@@ -129,6 +129,15 @@ const cloudOnlyPathList = [
 ];
 
 /**
+ * Routes whose response depends on the instance's state rather than on the
+ * request alone. On a self-hosted instance the home page answers with a
+ * redirect — `/init` while the first super-admin is still to be created, the
+ * sign-in page afterwards — which a prerender would freeze at build time (and
+ * serve with public cache headers). It must be rendered per request.
+ */
+const stateDependentPathList = [App_Home_Path];
+
+/**
  * Pages worth prerendering for the given build. A self-hosted image runs on
  * one box with no backend reachable at build time, so it keeps only the
  * public, anonymous-renderable pages — the cloud build keeps every route.
@@ -139,6 +148,7 @@ const getPrerenderPathList = (isSelfHosted: boolean): string[] => {
   const excludedPaths = new Set<string>([
     ...sessionGatedPathList,
     ...cloudOnlyPathList,
+    ...stateDependentPathList,
   ]);
 
   return pathList.filter((path) => !excludedPaths.has(path));

@@ -337,4 +337,4 @@ docker run --rm \
 - [Intlayer CMS ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
 - [設定リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 - [CMS SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
-- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/r/aymercizip/intlayer-selfhost)
+- [Docker Image (intlayer/intlayer-selfhost)](https://hub.docker.com/r/intlayer/intlayer-selfhost)

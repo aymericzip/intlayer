@@ -1,3 +1,5 @@
+import { resolveInternalBackendUrl } from './resolveInternalBackendUrl';
+
 /**
  * Error thrown when the backend answers with a non-ok response.
  *
@@ -205,8 +207,10 @@ export const fetcher = async <T>(
     signal,
   };
 
-  // Construct the full URL with query parameters
-  const urlResult = `${url}${paramsString}`;
+  // Construct the full URL with query parameters. Server code inside a private
+  // network may need to reach the backend under another origin — see
+  // `resolveInternalBackendUrl`.
+  const urlResult = resolveInternalBackendUrl(`${url}${paramsString}`);
 
   // Make the HTTP request using fetch
   const response = await fetch(urlResult, formattedOptions);

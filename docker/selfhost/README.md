@@ -3,14 +3,19 @@
 Everything needed to run Intlayer on your own infrastructure, built from one
 Dockerfile with three targets:
 
-| Image               | Target       | Contents                                                       | Use it for                               |
-| ------------------- | ------------ | -------------------------------------------------------------- | ---------------------------------------- |
-| `intlayer-selfhost` | `all-in-one` | app + backend + **MongoDB** + **Redis** + **MinIO** + Chromium | quick trials, single-box installs        |
-| `intlayer-app`      | `app`        | dashboard (TanStack Start on Bun)                              | `docker-compose.yml`, Kubernetes, Swarm… |
-| `intlayer-backend`  | `backend`    | API (Fastify on Bun) + Chromium                                | `docker-compose.yml`, Kubernetes, Swarm… |
+| Image               | Target       | Contents                                                         | Use it for                               |
+| ------------------- | ------------ | ---------------------------------------------------------------- | ---------------------------------------- |
+| `intlayer-selfhost` | `all-in-one` | app + backend + **MongoDB 8** + **Redis** + **MinIO** + Chromium | quick trials, single-box installs        |
+| `intlayer-app`      | `app`        | dashboard (TanStack Start on Bun)                                | `docker-compose.yml`, Kubernetes, Swarm… |
+| `intlayer-backend`  | `backend`    | API (Fastify on Bun) + Chromium                                  | `docker-compose.yml`, Kubernetes, Swarm… |
 
-Published on every version bump to `ghcr.io/aymericzip/<image>` (and mirrored on
-Docker Hub) by `.github/workflows/selfhost-container-release.yaml`.
+Published on every version bump to Docker Hub as `intlayer/<image>` (mirrored on
+GHCR as `ghcr.io/aymericzip/<image>`) by
+`.github/workflows/selfhost-container-release.yaml`.
+
+Users install either shape through `https://intlayer.org/install.sh` (macOS /
+Linux), `install.ps1` (Windows) or `npx intlayer init infra`; both installers
+fetch `docker-compose.yml` and `.env.template` from this directory on `main`.
 
 - **All-in-one** — one container, one volume, supervised by
   [s6-overlay](https://github.com/just-containers/s6-overlay). Nothing external
@@ -40,14 +45,13 @@ the same BuildKit cache and compile each app once.
 ## Run — all-in-one
 
 ```sh
+cp .env.template intlayer.env      # fill in the secrets and a mailer
 docker run -d --name intlayer \
   --restart unless-stopped \
   -p 3000:3000 -p 3100:3100 -p 9000:9000 -p 9001:9001 \
   -v intlayer-data:/data \
-  -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
-  -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
-  -e RESEND_API_KEY="<your-resend-key>" \
-  ghcr.io/aymericzip/intlayer-selfhost
+  --env-file ./intlayer.env \
+  intlayer/intlayer-selfhost
 ```
 
 Open **http://localhost:3000**. A fresh instance redirects to `/init` to create the
@@ -81,7 +85,13 @@ Data lives in the `mongo-data`, `redis-data` and `minio-data` volumes.
 
 The service wiring (`MONGODB_URI`, `REDIS_URL`, `S3_ENDPOINT`…) is fixed in the
 compose file and takes precedence over `.env`; `.env` carries the secrets, the
-mailer and the optional integrations.
+mailer and the optional integrations. The same `.env.template` serves the
+all-in-one container (`docker run --env-file`).
+
+`app` gets `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: the browser reaches
+the API on `localhost:3100` (compiled into the bundle) but server-side rendering
+runs inside the Compose network, where `localhost` is the app container itself.
+`@intlayer/api`'s fetcher rewrites server-side requests to that origin.
 
 To build the images from a checkout instead of pulling them:
 

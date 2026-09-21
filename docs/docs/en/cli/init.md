@@ -132,7 +132,7 @@ This will set up all configuration files but will not modify your `.gitignore`.
 npx intlayer init infra
 ```
 
-Downloads and runs the hosted installer (`https://intlayer.org/install.sh`), which asks how you want to run Intlayer:
+Downloads and runs the hosted installer (`https://intlayer.org/install.sh`, or `install.ps1` on Windows), which asks how you want to run Intlayer:
 
 - **Desktop app** — installs the native dashboard on your machine, connected to the Intlayer Cloud.
 - **All-in-one Docker** — dashboard + API + MongoDB + Redis + MinIO in a single container.

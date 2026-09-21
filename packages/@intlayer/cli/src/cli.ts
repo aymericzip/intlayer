@@ -349,7 +349,7 @@ export const setAPI = (): Command => {
   initCmd
     .command('infra')
     .description(
-      'Set up the Intlayer infrastructure: desktop app, all-in-one Docker container or Docker Compose stack (runs https://intlayer.org/install.sh)'
+      'Set up the Intlayer infrastructure: desktop app, all-in-one Docker container or Docker Compose stack (runs https://intlayer.org/install.sh, or install.ps1 on Windows)'
     )
     .option('-m, --mode <mode>', 'Skip the menu: desktop | docker | compose')
     .action(async (options) => {

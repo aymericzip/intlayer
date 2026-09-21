@@ -8,8 +8,9 @@
 #   docker compose up -d
 #   open http://localhost:3000
 #
-# Images are pulled from GHCR. To build them from a checkout of the monorepo
-# instead, layer the build override on top:
+# Images are pulled from Docker Hub (mirrored on GHCR as ghcr.io/aymericzip/*).
+# To build them from a checkout of the monorepo instead, layer the build
+# override on top:
 #   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 #
 # Reference: https://intlayer.org/doc/self-hosting
@@ -19,10 +20,16 @@ name: intlayer
 services:
   # ------------------------------------------------------------------ dashboard
   app:
-    image: ghcr.io/aymericzip/intlayer-app:${INTLAYER_IMAGE_TAG:-latest}
+    image: intlayer/intlayer-app:${INTLAYER_IMAGE_TAG:-latest}
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
     ports:
       - '${INTLAYER_APP_PORT:-3000}:3000'
+    environment:
+      # The browser reaches the API on localhost:3100 (compiled into the bundle);
+      # server-side rendering inside this network must use the service name.
+      INTLAYER_BACKEND_INTERNAL_URL: http://backend:3100
     depends_on:
       backend:
         condition: service_healthy
@@ -41,8 +48,12 @@ services:
 
   # ------------------------------------------------------------------------ api
   backend:
-    image: ghcr.io/aymericzip/intlayer-backend:${INTLAYER_IMAGE_TAG:-latest}
+    image: intlayer/intlayer-backend:${INTLAYER_IMAGE_TAG:-latest}
     restart: unless-stopped
+    # Both Intlayer images run as an unprivileged user; Chromium is launched
+    # with --no-sandbox, so dropping privilege escalation costs nothing.
+    security_opt:
+      - no-new-privileges:true
     ports:
       - '${INTLAYER_API_PORT:-3100}:3100'
     # Secrets and optional integrations come from .env; the service wiring below
@@ -88,7 +99,7 @@ services:
   # The healthcheck initiates the set on first boot and only reports healthy
   # once the node is a writable primary, which is what gates the backend.
   mongo:
-    image: mongo:7
+    image: mongo:8
     restart: unless-stopped
     command: ['mongod', '--replSet', 'rs0', '--bind_ip_all']
     volumes:
@@ -106,7 +117,7 @@ services:
 
   # ---------------------------------------------------------------------- redis
   redis:
-    image: redis:7-alpine
+    image: redis:8-alpine
     restart: unless-stopped
     command: ['redis-server', '--appendonly', 'yes']
     volumes:
@@ -121,7 +132,7 @@ services:
   # S3-compatible storage for avatars and screenshots. Port 9000 must be
   # reachable by the browser: assets are loaded straight from S3_PUBLIC_URL.
   minio:
-    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
     restart: unless-stopped
     command: ['server', '/data', '--console-address', ':9001']
     environment:
@@ -140,7 +151,7 @@ services:
 
   # One-shot: create the bucket and allow anonymous downloads. Idempotent.
   minio-init:
-    image: minio/mc:RELEASE.2025-04-16T18-13-26Z
+    image: quay.io/minio/mc:RELEASE.2025-04-16T18-13-26Z
     depends_on:
       minio:
         condition: service_healthy

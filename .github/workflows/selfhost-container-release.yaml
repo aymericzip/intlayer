@@ -1,7 +1,8 @@
 name: 🐳 Self-host Container
 
 # Builds the three self-hosting images from docker/selfhost/Dockerfile and pushes
-# them to GHCR and Docker Hub:
+# them to Docker Hub (<DOCKERHUB_USERNAME>/<image>, i.e. intlayer/<image>) and
+# GHCR (ghcr.io/<owner>/<image>):
 #
 #   intlayer-app       dashboard only                 (--target app)
 #   intlayer-backend   API only, with Chromium        (--target backend)
