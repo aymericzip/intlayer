@@ -9,6 +9,7 @@ import {
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import { logger } from '@logger';
+import { isSelfHosted } from '@utils/isSelfHosted';
 import { OpenAI } from 'openai';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -120,7 +121,7 @@ const generateEmbedding = async (text: string): Promise<number[]> => {
     input: text,
   });
 
-  return response.data[0].embedding;
+  return response.data[0]?.embedding ?? [];
 };
 
 /**
@@ -134,7 +135,7 @@ const generateEmbedding = async (text: string): Promise<number[]> => {
  */
 const cosineSimilarity = (vecA: number[], vecB: number[]): number => {
   // Calculate the dot product of the two vectors
-  const dotProduct = vecA.reduce((sum, a, idx) => sum + a * vecB[idx], 0);
+  const dotProduct = vecA.reduce((sum, a, idx) => sum + a * vecB[idx]!, 0);
 
   // Calculate the magnitude (Euclidean norm) of each vector
   const magnitudeA = Math.sqrt(vecA.reduce((sum, a) => sum + a * a, 0));
@@ -237,8 +238,11 @@ export const loadMarkdownFiles = async (): Promise<void> => {
   }
 };
 
-// Automatically index Markdown files
-loadMarkdownFiles();
+// Automatically index Markdown files. The doc assistant (`/api/ai/ask`,
+// `/api/search/doc`) only backs the public website and the MCP server: in
+// self-hosted mode the routes are not registered and the embeddings are not
+// shipped, so skip loading ~130 MB of vectors at boot.
+if (!isSelfHosted()) loadMarkdownFiles();
 
 /**
  * Searches the indexed documents for the most relevant chunks based on a query.

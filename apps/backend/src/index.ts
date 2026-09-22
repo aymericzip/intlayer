@@ -337,7 +337,6 @@ const startServer = async () => {
   await app.register(dictionaryRouter, { prefix: dictionaryRoute });
   await app.register(aiRouter, { prefix: aiRoute });
   await app.register(eventListenerRouter, { prefix: eventListenerRoute });
-  await app.register(searchRouter, { prefix: searchRoute });
   await app.register(newsletterRouter, { prefix: newsletterRoute });
   await app.register(analyticsRouter, { prefix: analyticsRoute });
   await app.register(publicRouter, { prefix: publicRoute });
@@ -349,6 +348,7 @@ const startServer = async () => {
   await app.register(assetRouter, { prefix: assetRoute });
 
   if (!isSelfHosted()) {
+    await app.register(searchRouter, { prefix: searchRoute });
     await app.register(stripeRouter, { prefix: stripeRoute });
     await app.register(reviewerRouter, { prefix: reviewerRoute });
     await app.register(showcaseProjectRouter, { prefix: showcaseProjectRoute });

@@ -125,7 +125,7 @@ Boot order is enforced by s6 dependencies (`mongod` → replica-set init, `minio
 
 ### 1. Install
 
-Writes `./intlayer.env` with `BETTER_AUTH_SECRET` and `S3_SECRET_ACCESS_KEY` generated, and pulls `intlayer/cms-all:latest`.
+Writes `./intlayer.env` with `BETTER_AUTH_SECRET` and `S3_SECRET_ACCESS_KEY` generated, asks a few questions to fill in the rest, and pulls `intlayer/cms-all:latest`.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -153,9 +153,15 @@ npx intlayer init infra --mode docker
 </Tab>
 </Tabs>
 
-### 2. Configure a mailer
+### 2. Answer the setup questions
 
-Open `intlayer.env` and fill in Resend **or** SMTP (details in [Global mailer](#global-mailer)):
+The installer asks for (press Enter to accept a suggestion, every answer can be changed in the file later):
+
+- **The domain** Intlayer is served on. Leave it empty to stay on `localhost`. With a domain such as `example.org`, it suggests `https://cms.example.org` for the dashboard, `https://back.example.org` for the API and `https://s3.example.org/intlayer` for the object storage, and writes `DOMAIN`, `APP_URL`, `BACKEND_URL` and `S3_PUBLIC_URL`. See [Custom domain](#custom-domain) for what follows.
+- **The mailer**: Resend (API key) or an SMTP relay (host, port, credentials), plus the sender address. This can be skipped and done by hand later.
+- An optional **OpenAI API key** for the AI features.
+
+Without a terminal (for instance when the script is run from CI), the questions are skipped and only the secrets are generated. Open `intlayer.env` and fill in Resend **or** SMTP by hand (details in [Global mailer](#global-mailer)):
 
 ```sh fileName="intlayer.env"
 # Option A: Resend
@@ -171,7 +177,7 @@ MAIL_FROM=Intlayer <no-reply@example.com>
 
 ### 3. Start
 
-This is the command the installer prints:
+This is the command the installer prints (with a custom domain, it is preceded by the `docker build` that produces `intlayer/cms-all:custom`, see [Custom domain](#custom-domain)):
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -205,7 +211,7 @@ The CLI runs the installer, which prints the `docker run …` command shown in t
 </Tab>
 </Tabs>
 
-Open **http://localhost:3000** and follow [First-run setup](#first-run-setup). The first boot initialises the replica set and the bucket, so give it a minute.
+Open **http://localhost:3000** (or your dashboard URL) and follow [First-run setup](#first-run-setup). The first boot initialises the replica set and the bucket, so give it a minute.
 
 ### Backup and upgrade
 
@@ -260,7 +266,7 @@ Data is kept in the `intlayer_mongo-data`, `intlayer_redis-data` and `intlayer_m
 
 ### 1. Install
 
-Writes `docker-compose.yml` and a `.env` with the secrets generated into `./intlayer/`, and pulls the images.
+Writes `docker-compose.yml` and a `.env` with the secrets generated into `./intlayer/`, asks the same setup questions as the all-in-one mode (domain, mailer, OpenAI key), and pulls the images.
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
@@ -308,7 +314,7 @@ npx intlayer init infra --mode compose
 
 ### 2. Configure a mailer
 
-Fill in Resend **or** SMTP in `intlayer/.env`, exactly as for the all-in-one container (see [Global mailer](#global-mailer)).
+If you skipped the mailer question, fill in Resend **or** SMTP in `intlayer/.env`, exactly as for the all-in-one container (see [Global mailer](#global-mailer)).
 
 ### 3. Start
 
@@ -316,7 +322,9 @@ Fill in Resend **or** SMTP in `intlayer/.env`, exactly as for the all-in-one con
 cd intlayer && docker compose up -d
 ```
 
-Open **http://localhost:3000** and follow [First-run setup](#first-run-setup).
+With a custom domain, the installer also downloads `docker-compose.build.yml` and the start command becomes `docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build` (see [Custom domain](#custom-domain)).
+
+Open **http://localhost:3000** (or your dashboard URL) and follow [First-run setup](#first-run-setup).
 
 ### Managed datastores
 
@@ -340,14 +348,14 @@ services:
 
 ### Building from source
 
-From a checkout of the repository, an override switches the two Intlayer services from `image:` to `build:`:
+An override switches the two Intlayer services from `image:` to `build:`. From a checkout of the repository:
 
 ```sh
 cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-This is also how you produce images for a custom domain: pass the `VITE_*` values as build args (see [Limitations](#limitations)).
+Without a checkout, point the build context at the repository itself by setting `INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main` in `.env`. The dashboard's `VITE_*` build args follow `DOMAIN`, `APP_URL` and `BACKEND_URL` from the same file, which is how a [custom domain](#custom-domain) is applied.
 
 ### Backup and upgrade
 
@@ -390,6 +398,8 @@ $env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https:/
 | `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
 | `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
 | `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
+| `INTLAYER_BUILD_CONTEXT`  | `…/intlayer.git#main`     | both       | Build context used when a custom domain requires a rebuild |
+| `INTLAYER_CUSTOM_IMAGE`   | `intlayer/cms-all:custom` | docker     | Tag of the all-in-one image built for a custom domain      |
 
 > The port variables only change the **host** side of the mapping. The published images have `http://localhost:3000`, `http://localhost:3100` and `http://localhost:9000` compiled into the dashboard bundle, so remapping them leaves the browser pointing at the old ports. Keep the defaults unless you build your own images, see [Limitations](#limitations).
 
@@ -417,7 +427,7 @@ Both Docker modes read the same file (`intlayer.env` for the container, `.env` f
 
 ### Fixed by the deployment
 
-These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology.
+These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology. `DOMAIN`, `APP_URL`, `BACKEND_URL` and `S3_PUBLIC_URL` are the exception: set in the env file, they take precedence in both modes (see [Custom domain](#custom-domain)).
 
 | Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
 | ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
@@ -434,6 +444,37 @@ These are set by the image (all-in-one) or by the compose file, and only need ov
 | `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
 
 The Compose `app` service additionally receives `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: the browser reaches the API on `localhost:3100`, but server-side rendering runs inside the Compose network and must use the service name.
+
+### Custom domain
+
+The backend reads its public URLs at runtime, but the dashboard has them **compiled in**: the published `intlayer/cms-frontend` and `intlayer/cms-all` images only work on `http://localhost:3000`. Serving Intlayer on your own domain therefore takes two things, both prepared by the installer when you answer the domain question:
+
+1. **Four variables in the env file**, read by the backend (cookies, email links, OAuth callbacks, asset URLs) and used as build args by `docker-compose.build.yml`:
+
+   ```sh fileName="intlayer.env"
+   DOMAIN=example.org                          # cookie domain, parent of the hosts below
+   APP_URL=https://cms.example.org
+   BACKEND_URL=https://back.example.org
+   S3_PUBLIC_URL=https://s3.example.org/intlayer
+   ```
+
+2. **A dashboard image built with those URLs.** Docker builds it straight from the repository, no checkout needed:
+
+   ```sh
+   # Docker Compose: the override reads the build args from .env
+   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+
+   # All-in-one
+   docker build -f docker/selfhost/Dockerfile \
+     --build-arg VITE_DOMAIN=example.org \
+     --build-arg VITE_SITE_URL=https://cms.example.org \
+     --build-arg VITE_IDE_URL=https://cms.example.org \
+     --build-arg VITE_BACKEND_URL=https://back.example.org \
+     -t intlayer/cms-all:custom \
+     https://github.com/aymericzip/intlayer.git#main
+   ```
+
+Then put a reverse proxy with TLS in front of the container: `cms.example.org` → port `3000`, `back.example.org` → `3100`, `s3.example.org` → `9000`. The three hosts must share the `DOMAIN` suffix, since the session cookie is scoped to it.
 
 ### Optional (features degrade gracefully when absent)
 
@@ -529,9 +570,10 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Limitations
 
-- **No custom domain, and no port remapping.** All browser-facing `VITE_*` URLs are inlined into the dashboard at build time, and the published images (and the desktop app) ship with `localhost` / Intlayer Cloud values. The dashboard must be accessed at `http://localhost:3000`, the API at `:3100` and MinIO at `:9000`. Serving it on a public domain, or pointing the desktop app at a self-hosted backend, requires rebuilding with the target URLs baked in (`--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…` on `docker/selfhost/Dockerfile`, or through `docker-compose.build.yml`) and is not supported out of the box.
+- **A custom domain means a rebuild.** All browser-facing `VITE_*` URLs are inlined into the dashboard at build time, and the published images (and the desktop app) ship with `localhost` / Intlayer Cloud values. Out of the box the dashboard must be accessed at `http://localhost:3000`, the API at `:3100` and MinIO at `:9000`; remapping the host ports has the same effect. The installer wires everything for a rebuild from the repository when you give it a domain (see [Custom domain](#custom-domain)), but the build itself takes several minutes. Pointing the desktop app at a self-hosted backend is not supported.
 - **Email requires a working mailer.** First-run setup enforces email verification, so either `RESEND_API_KEY` or an [SMTP relay](#global-mailer) (`MAIL_SMTP_*`) must be configured. After the first admin signs in, each organization can also configure its own SMTP or Resend mailer from the dashboard.
 - **The desktop app needs Node.js** on the machine to start its embedded server.
+- **No documentation assistant.** The AI doc assistant of intlayer.org (`/api/ai/ask`, `/api/search/doc`) relies on ~130 MB of pre-computed documentation embeddings that the self-host images do not ship; those two routes are not registered in self-hosted mode. The dashboard's own AI features (translation, audit, autocomplete, chat) are unaffected and only need `OPENAI_API_KEY`.
 
 ## Useful links
 

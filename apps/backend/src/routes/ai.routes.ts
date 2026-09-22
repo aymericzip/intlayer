@@ -12,6 +12,7 @@ import {
   translateJSON,
 } from '@controllers/ai.controller';
 import fastifyRateLimit from '@fastify/rate-limit';
+import { isSelfHosted } from '@utils/isSelfHosted';
 import { unauthenticatedChatBotLimiter } from '@utils/rateLimiter';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
@@ -105,6 +106,8 @@ export const aiRouter = async (fastify: FastifyInstance) => {
   await fastify.register(fastifyRateLimit, {
     ...unauthenticatedChatBotLimiter,
   });
-  fastify.post(getAiRoutes().ask.urlModel, askDocQuestion);
+  // The doc assistant relies on the doc embeddings, which self-hosted
+  // deployments do not ship (see utils/AI/askDocQuestion).
+  if (!isSelfHosted()) fastify.post(getAiRoutes().ask.urlModel, askDocQuestion);
   fastify.post(getAiRoutes().chat.urlModel, chat);
 };

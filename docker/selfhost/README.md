@@ -40,7 +40,10 @@ the same BuildKit cache and compile each app once.
 
 > The browser-facing `VITE_*` values are inlined at **build time** and default to
 > `localhost`. Pass `--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…`
-> to target another host — see [Limitations](#limitations).
+> to target another host. `docker-compose.build.yml` does it from `DOMAIN` /
+> `APP_URL` / `BACKEND_URL` in `.env`, and accepts the repository URL as build
+> context (`INTLAYER_BUILD_CONTEXT`) so no checkout is needed — see
+> [Limitations](#limitations).
 
 ## Run — all-in-one
 
@@ -130,5 +133,8 @@ images and disable the cloud-only features (billing, marketplace, analytics).
 - **No custom domain from the published images.** `VITE_*` browser URLs are
   inlined at build time with `localhost` values, so the dashboard must be reached
   at `http://localhost:3000`. Serving it on a public domain requires rebuilding
-  the images with the target URLs as build args.
+  the images with the target URLs as build args. The backend side is runtime:
+  `DOMAIN`, `APP_URL`, `BACKEND_URL` and `S3_PUBLIC_URL` in the env file
+  override the localhost defaults in both modes, and the installer writes them
+  (plus the build wiring) when asked for a domain.
 - **Email delivery must work** before the first admin can sign in.

@@ -3,8 +3,9 @@
  *
  * In self-hosted mode every cloud-only / monetization capability is turned off:
  * the Stripe REST routes, the Stripe webhook, the subscription/affiliate/
- * promo-code endpoints and the reviewer marketplace endpoints are never
- * registered.
+ * promo-code endpoints, the reviewer marketplace endpoints and the doc
+ * assistant (`/api/ai/ask`, `/api/search/doc`, whose embeddings are not
+ * shipped) are never registered.
  *
  * Toggled through the `SELF_HOSTED` environment variable (read at runtime).
  *

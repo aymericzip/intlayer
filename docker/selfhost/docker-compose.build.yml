@@ -1,17 +1,30 @@
-# Override that builds the images from the monorepo instead of pulling them.
-# Requires a checkout of the repository (build context is the repo root):
+# Override that builds the images instead of pulling them. The browser-facing
+# VITE_* URLs are compiled into the dashboard, so this is also how a custom
+# domain is applied: the build args follow APP_URL / BACKEND_URL / DOMAIN from
+# .env, the same values the backend receives at runtime.
 #
+# From a checkout of the repository (build context is the repo root):
 #   docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+#
+# Without a checkout, point the context at the repository itself:
+#   INTLAYER_BUILD_CONTEXT=https://github.com/aymericzip/intlayer.git#main
+
+x-build-context: &build-context ${INTLAYER_BUILD_CONTEXT:-../..}
 
 services:
   app:
     build:
-      context: ../..
+      context: *build-context
       dockerfile: docker/selfhost/Dockerfile
       target: app
+      args:
+        VITE_DOMAIN: ${DOMAIN:-localhost}
+        VITE_SITE_URL: ${APP_URL:-http://localhost:${INTLAYER_APP_PORT:-3000}}
+        VITE_IDE_URL: ${APP_URL:-http://localhost:${INTLAYER_APP_PORT:-3000}}
+        VITE_BACKEND_URL: ${BACKEND_URL:-http://localhost:${INTLAYER_API_PORT:-3100}}
 
   backend:
     build:
-      context: ../..
+      context: *build-context
       dockerfile: docker/selfhost/Dockerfile
       target: backend

@@ -75,20 +75,17 @@ COPY \
     --exclude=**/*.stories.* \
     . .
 
-COPY docs/docs/en/                 docs/docs/en/
-COPY docs/blog/en/                 docs/blog/en/
-COPY docs/frequent_questions/en/   docs/frequent_questions/en/
-COPY docs/legal/en/                docs/legal/en/
-
 RUN bun install --ignore-scripts --filter=./apps/backend
 RUN bun x turbo run build:ci --filter=./apps/backend
 
 # Slim the workspace before it is copied into the runtime images:
-#  - the backend runs from dist/esm, which already carries the doc embeddings
-#    (~130 MB) and PROMPT.md; the src/ and dist/assets/ copies are redundant
+#  - the backend runs from dist/esm; the src/ and dist/assets/ copies are
+#    redundant
+#  - the doc assistant is a cloud-only feature (SELF_HOSTED skips its routes
+#    and indexing), so its ~130 MB of embeddings are dropped as well
 #  - source maps, the turbo cache and the type declarations are build-only
 #  - devDependencies are not needed to run; reinstall with --production
-RUN rm -rf apps/backend/src .turbo \
+RUN rm -rf apps/backend/src .turbo apps/backend/dist/esm/utils/AI/askDocQuestion/embeddings \
     && find . -type d -path "*/dist/assets" -not -path "*/node_modules/*" -prune -exec rm -rf {} + \
     && find . -type d -path "*/dist/types" -not -path "*/node_modules/*" -prune -exec rm -rf {} + \
     && find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete \
