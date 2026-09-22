@@ -107,17 +107,17 @@ Her derleme için, suite şunları kaydeder:
 
 ### Vite + Vue 3 Sonuçları
 
-| Kurulum                                           | Strategi | Lib size (gz) | Lib size (min) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Page load |
-| ------------------------------------------------- | -------- | ------------: | -------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
-| İlgilendiğiniz metrikleri ve kütüphaneleri seçin: |
+İlgilendiğiniz metrikleri ve kütüphaneleri seçin:
 
 <I18nBenchmark framework="vite-vue" vertical/>
 
-| **base** (i18n yok) | - | 0.0 KB | 0.0 KB | 41.3 KB | 0.0% | - | 1.1 KB | 1.8 ms | 10.8 ms |
-| `vue-i18n` | static | 24.3 KB | 83.2 KB | 134.9 KB | 50.0% | 90.0% | 196.0 KB | 2.8 ms | 13.6 ms |
-| **`@intlayer/vue-i18n`** | static | **7.9 KB** | **23.2 KB** | **47.0 KB** | **15.0%** | **0.0%** | **8.4 KB** | **1.5 ms** | **9.3 ms** |
-| `vue-intlayer` (native) | static | 3.9 KB | 11.1 KB | 57.1 KB | 56.8% | 0.0% | 7.7 KB | 4.5 ms | 13.8 ms |
-| `vue-intlayer` (native) | dynamic | 3.9 KB | 11.1 KB | 59.8 KB | 50.0% | 0.0% | 6.5 KB | 4.0 ms | 15.8 ms |
+| Kurulum                  | Strategi | Lib size (gz) | Lib size (min) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |  Page load |
+| ------------------------ | -------- | ------------: | -------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ---------: |
+| **base** (i18n yok)      | -        |        0.0 KB |         0.0 KB |          41.3 KB |        0.0% |         - |             1.1 KB |         1.8 ms |    10.8 ms |
+| `vue-i18n`               | static   |       24.3 KB |        83.2 KB |         134.9 KB |       50.0% |     90.0% |           196.0 KB |         2.8 ms |    13.6 ms |
+| **`@intlayer/vue-i18n`** | static   |    **7.9 KB** |    **23.2 KB** |      **47.0 KB** |   **15.0%** |  **0.0%** |         **8.4 KB** |     **1.5 ms** | **9.3 ms** |
+| `vue-intlayer` (native)  | static   |        3.9 KB |        11.1 KB |          57.1 KB |       56.8% |      0.0% |             7.7 KB |         4.5 ms |    13.8 ms |
+| `vue-intlayer` (native)  | dynamic  |        3.9 KB |        11.1 KB |          59.8 KB |       50.0% |      0.0% |             6.5 KB |         4.0 ms |    15.8 ms |
 
 > Temel uygulamanın page-leak sütunu boş bırakılmıştır: i18n kütüphanesi olmadan, parmak izi alma paylaşılan chunk'lardaki sabit kodlanmış stringleri alır ve sayı anlamlı değildir.
 

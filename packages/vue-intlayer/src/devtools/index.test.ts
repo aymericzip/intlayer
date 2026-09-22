@@ -99,7 +99,13 @@ const setupDevtools = (currentLocale = 'en') => {
 
   enableIntlayerDevtools(createApp({}));
 
-  const [descriptor, setupCallback] = setupDevtoolsPluginMock.mock.calls[0];
+  const registrationCall = setupDevtoolsPluginMock.mock.calls[0];
+
+  if (!registrationCall) {
+    throw new Error('setupDevtoolsPlugin was not called');
+  }
+
+  const [descriptor, setupCallback] = registrationCall;
 
   let treeHandler: (payload: TreePayload) => void = () => {};
   let stateHandler: (payload: StatePayload) => void = () => {};
@@ -121,7 +127,7 @@ const setupDevtools = (currentLocale = 'en') => {
     },
   } as never);
 
-  const inspectorOptions = addInspector.mock.calls[0][0] as InspectorOptions;
+  const inspectorOptions = addInspector.mock.calls[0]?.[0] as InspectorOptions;
 
   return {
     descriptor,
@@ -190,8 +196,8 @@ describe('enableIntlayerDevtools', () => {
     treeHandler(payload);
 
     expect(payload.rootNodes).toHaveLength(2);
-    expect(payload.rootNodes[0].label).toContain('No dictionaries loaded');
-    expect(payload.rootNodes[1].id).toBe(LOCALES_GROUP_NODE_ID);
+    expect(payload.rootNodes[0]?.label).toContain('No dictionaries loaded');
+    expect(payload.rootNodes[1]?.id).toBe(LOCALES_GROUP_NODE_ID);
   });
 
   it('ignores tree requests from other inspectors', () => {
@@ -390,7 +396,7 @@ describe('enableIntlayerDevtools', () => {
     const initialLocalesNode = initialPayload.rootNodes.find(
       (node) => node.id === LOCALES_GROUP_NODE_ID
     );
-    expect(initialLocalesNode?.children?.[0].id).toBe(
+    expect(initialLocalesNode?.children?.[0]?.id).toBe(
       `${LOCALE_NODE_ID_PREFIX}en${CURRENT_LOCALE_NODE_ID_SUFFIX}`
     );
 

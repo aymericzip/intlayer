@@ -1,6 +1,11 @@
 import { internationalization } from '@intlayer/config/built';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import {
+  type PluginDescriptor,
+  type SetupFunction,
+  setupDevtoolsPlugin,
+} from '@vue/devtools-api';
 import { type App, watch } from 'vue';
 import { createIntlayerClient } from '../client/installIntlayer';
 import { setLocaleInStorage } from '../client/useLocaleStorage';
@@ -10,12 +15,6 @@ import {
   isLocaleNodeId,
   LOCALES_GROUP_NODE_ID,
 } from './buildLocalesInspectorNode';
-import {
-  type PluginDescriptor,
-  type SetupFunction,
-  setupDevtoolsPlugin,
-} from '@vue/devtools-api';
-import type { App } from 'vue';
 import { formatDictionaryForInspector } from './formatDictionaryForInspector';
 
 export const INTLAYER_DEVTOOLS_PLUGIN_ID = 'intlayer';
@@ -23,6 +22,17 @@ export const INTLAYER_DICTIONARIES_INSPECTOR_ID =
   'intlayer-dictionaries-inspector';
 
 const { defaultLocale, locales: availableLocales } = internationalization ?? {};
+
+/**
+ * `setupDevtoolsPlugin` narrows its descriptor through a recursive mapped
+ * type that walks `app: App` down to DOM `Element`, whose self-referencing
+ * aria properties make TypeScript 7 report a circular reference (TS2615).
+ * Re-typing the function with the plain descriptor type skips that walk.
+ */
+const registerDevtoolsPlugin: (
+  pluginDescriptor: PluginDescriptor,
+  setupFunction: SetupFunction
+) => void = setupDevtoolsPlugin;
 
 /**
  * Register the Intlayer plugin in Vue Devtools with an inspector listing

@@ -113,7 +113,7 @@
     "@utils/ts-config": "workspace:*",
     "@vitejs/plugin-react": "6.1.1",
     "autoprefixer": "10.6.0",
-    "framer-motion": "13.4.0",
+    "framer-motion": "13.4.1",
     "fuse.js": "7.5.0",
     "globals": "17.12.0",
     "intlayer": "workspace:*",
