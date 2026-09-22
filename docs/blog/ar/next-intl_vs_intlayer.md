@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "next-intl مقابل Intlayer: معيار ومقارنة 2026"
 description: "مقارنة دقيقة بين next-intl وIntlayer على Next.js App Router وTanStack Start. حجم الحزمة، تسرب المحتوى، حجم المكونات، وسرعة تبديل اللغة وتجربة المطور."
 keywords:
@@ -22,15 +22,15 @@ author: aymericzip
 
 # next-intl مقابل Intlayer | مقارنة أداء التدويل (i18n) في React وNext.js
 
-مكتبة `next-intl` هي الخيار الافتراضي لتدويل تطبيقات Next.js App Router اليوم: تكامل محكم مع التوجيه، دعم كامل لـ ICU MessageFormat، وتجربة مطور مألوفة لأي شخص استخدم أنظمة i18n الكلاسيكية.
+![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
-أما `Intlayer` فتعيد التفكير في المشكلة من أساسها: لا توجد قواميس مركزية، ولا حاجة لمطابقة مساحات الأسماء (namespaces) مع المسارات يدوياً. يتم الإعلان عن المحتوى بجانب كل مكون، بينما يتكفل مترجم وقت البناء بحزم ما تحتاجه كل صفحة فقط.
+مكتبة `next-intl` هي أكثر مكتبات i18n شيوعاً لـ Next.js. وتعتبر Intlayer بديلاً قائماً على المترجم بنطاق محدد على مستوى المكونات. كلاهما يقدم حلول التدويل لتطبيقات App Router. والسؤال الأهم هو ما تكلفة كل منهما بمجرد بناء التطبيق.
 
-تقارن هذه المقالة المكتبتين بناءً على بيانات مستخرجة من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)، وهو مشروع اختبار مفتوح المصدر يبني التطبيق نفسه مع كل مكتبة ويسجل ما يقوم المتصفح بتنزيله وتنفيذه فعلياً.
+هذا المقال ليس دليلاً تعليمياً، بل هو مقارنة مدعومة بالأرقام من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)، وهو مشروع اختبار مفتوح المصدر يبني التطبيق نفسه مع كل مكتبة ويقيس ما يقوم المتصفح بتنزيله وتنفيذه فعلياً.
 
 <TOC/>
 
-> **باختصار (tl;dr)**: تضيف `next-intl` ما لا يقل عن **+12.6 كيلوبايت gzip** في كل صفحة لمجرد وقت التشغيل (runtime)، وتسرب **~90% من سلاسل الصفحات الأخرى** في إعداداتها القياسية (`static` و`dynamic`). يتطلب التخلص من هذا التسرب تقسيم الكتالوجات إلى مساحات أسماء واختيارها يدوياً لكل صفحة، وهي مهمة معقدة يتجنبها معظم المطورين. في المقابل، يضمن مترجم `Intlayer` تسريباً بنسبة **0%**، ومكونات أصغر **بثلاث مرات**، و**+0.3 كيلوبايت** فقط فوق التطبيق الأساسي، كل ذلك بدون أي إعدادات يدوية إضافية.
+> **tl;dr**: في نفس تطبيق Next.js، تضيف `next-intl` **+12.6 كيلوبايت gzip** من JavaScript على كل صفحة، مقابل **+0.3 كيلوبايت** لـ Intlayer. دون أي عمل إضافي، ترسل `next-intl` **~90% من سلاسل الصفحات الأجنبية** مع كل صفحة. يتطلب الوصول إلى تسريب بنسبة 0% مع `next-intl` تحديد نطاقات مساحات الأسماء واستخدام `pick(messages, [...])` لكل صفحة. بينما تصل Intlayer إلى 0% افتراضياً لأن مترجمها يحدد نطاق المحتوى لكل مكون. وإذا كنت تريد واجهة برمجة تطبيقات `next-intl` مع مخرجات Intlayer، فقد سجل محول `@intlayer/next-intl` **147.5 كيلوبايت** لكل صفحة مقابل **153.6 كيلوبايت** مع المكتبة الأصلية.
 
 ## نظرة عامة
 
@@ -89,6 +89,10 @@ author: aymericzip
 
 ### النتائج على Next.js (App Router)
 
+اختر المقاييس والمكتبات التي تهمك:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | المكتبة                       | الاستراتيجية   | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسرب اللغة | تسرب الصفحة | متوسط المكون (gz) | تفاعلية E2E | الترطيب |
 | ----------------------------- | -------------- | ---------------: | -------------------: | ---------: | ----------: | ----------------: | ----------: | ------: |
 | **base** (بدون i18n)          | -              |           0.0 KB |             141.0 KB |       0.0% |        0.0% |            0.9 KB |     13.4 ms | 11.8 ms |
@@ -107,7 +111,20 @@ author: aymericzip
 - **التسريب.** في الإعدادين الأكثر استخداماً (`static` و`dynamic`)، ترسل `next-intl` ما يقرب من **~90% من سلاسل الصفحات الأخرى** في كل صفحة، لأن ملف `en.json` كاملاً يدخل في مزود العميل. يتطلب الوصول إلى 0% تقسيماً يدوياً دقيقاً. أما Intlayer فيحقق 0% تلقائياً.
 - **حجم المكون.** المكون الذي يستدعي `useTranslations()` يُترجم في المتوسط إلى 21.8 كيلوبايت؛ والمكون نفسه مع `useIntlayer()` يبلغ 6.9 كيلوبايت فقط. وفي وضع `scoped-static` تقفز مكونات `next-intl` إلى 80.1 كيلوبايت لأن كل مكون يُضمن مساحة أسمائه داخلياً.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> الجدول الكامل، لكل مكتبة واستراتيجية، في [تقرير قياس أداء Next.js](https://intlayer.org/ar/doc/benchmark/nextjs).
+
 ### النتائج على TanStack Start (`use-intl`)
+
+تعتبر `use-intl` النواة المستقلة عن أي إطار عمل لمكتبة `next-intl`. نفس واجهة برمجة التطبيقات ونفس تنسيق الرسائل. مقارنتها مع `intlayer` على TanStack Start تزيل العوامل الخاصة بـ Next.js من المعادلة.
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | المكتبة                      | الاستراتيجية   | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسرب اللغة | تسرب الصفحة | متوسط المكون (gz) | تفاعلية E2E |
 | ---------------------------- | -------------- | ---------------: | -------------------: | ---------: | ----------: | ----------------: | ----------: |
@@ -127,7 +144,18 @@ author: aymericzip
 - يظهر الفارق المعماري بوضوح في **حجم المكونات**: 76-87 كيلوبايت مع `use-intl` مقابل 6-8 كيلوبايت مع Intlayer.
 - **تبديل اللغة** أسرع بمرتين إلى أربع مرات مع Intlayer (3 مللي ثانية مقابل 7-21 مللي ثانية).
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> الجدول الكامل في [تقرير قياس أداء TanStack Start](https://intlayer.org/ar/doc/benchmark/tanstack).
+
 ## لماذا هذا الفارق؟ الكتالوجات المركزية مقابل القواميس المجمعة
+
+![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
 
 تتبع `next-intl` النموذج التقليدي: ملف JSON واحد لكل لغة، يُحمّل في `getRequestConfig`، ويُمرر إلى `NextIntlClientProvider`، ويُقرأ عبر `t("namespace.key")`.
 
@@ -149,6 +177,10 @@ author: aymericzip
 ```
 
 لا يمكن لوقت التشغيل معرفة المفاتيح التي ستستخدمها الصفحة فعلياً، لذا فإن الخيار الآمن هو إرسال الكتالوج بأكمله.
+
+تزداد تكلفة عدم الوصول إلى هناك على محورين في وقت واحد، الصفحات واللغات:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 بينما تقلب Intlayer هذه المسؤولية؛ حيث يتم الإعلان عن المحتوى بجانب المكون المعني مباشرة:
 
@@ -177,7 +209,8 @@ author: aymericzip
 
 ### مكون العميل (Client Component)
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```json fileName="messages/en.json"
 {
@@ -188,7 +221,7 @@ author: aymericzip
 }
 ```
 
-```tsx fileName="src/components/Counter.tsx"
+```tsx fileName="src/components/ClientCounter.tsx"
 "use client";
 
 import { useState } from "react";
@@ -210,7 +243,10 @@ export const Counter = () => {
 };
 ```
 
-**Intlayer**
+> تذكر تضمين مساحة الأسماء `counter` في الرسائل الممررة إلى `NextIntlClientProvider` في كل صفحة تعرض هذا المكون.
+
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -249,11 +285,16 @@ export const Counter = () => {
 };
 ```
 
+لا يوجد شيء لتسجيله في الصفحة: المكون يجلب محتواه الخاص معه.
+
+</Tab>
+</Tabs>
 ### مكونات الخادم المتزامنة (Server Components)
 
 غالباً ما تكون عناصر واجهة المستخدم المشتركة (شريط التنقل، التذييل، البطاقات) مكونات خادم تُعرض كأبناء لمكونات العميل، لذا لا يمكن أن تكون غير متزامنة (`async`).
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 type ServerCounterProps = {
@@ -269,7 +310,10 @@ export const ServerCounter = ({ t, formattedCount }: ServerCounterProps) => (
 );
 ```
 
-**Intlayer**
+يتعين على الصفحة استدعاء `await getTranslations("counter")` و `await getFormatter()`، ثم تمرير النتائج كـ props. لم يعد المكون مستقلاً بذاته.
+
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 import { useIntlayer } from "next-intlayer/server";
@@ -288,9 +332,12 @@ export const ServerCounter = ({ count }: { count: number }) => {
 };
 ```
 
+</Tab>
+</Tabs>
 ### البيانات الوصفية (Metadata)
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/page.tsx"
 import type { Metadata } from "next";
@@ -323,7 +370,8 @@ export const generateMetadata = async ({
 };
 ```
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/app/[locale]/about/page.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -347,6 +395,9 @@ export const generateMetadata = async ({
 };
 ```
 
+</Tab>
+</Tabs>
+
 ## الاحتفاظ بـ API الخاص بـ next-intl مع مخرجات Intlayer
 
 لا يتعين عليك إعادة كتابة مكوناتك للحصول على أرقام الأداء الموضحة أعلاه. حزمة `@intlayer/next-intl` هي محول متوافق مباشرة: يحتفظ بـ `useTranslations` و`getTranslations` و`useFormatter` و`t.rich()` وصيغ الجمع في ICU، ويقدمها من قواميس Intlayer التي يترجمها مترجم Intlayer.
@@ -368,17 +419,84 @@ export default withIntlayer(nextConfig);
 
 ## متى تختار أياً منهما؟
 
-- **اختر next-intl** إذا كنت بحاجة إلى معيار مجتمع Next.js الواسع، أو تعتمد بشكل كبير على ICU MessageFormat، أو كان تطبيقك صغيراً إلى متوسط الحجم، أو كنت مدمجاً بالفعل مع منصات ترجمة مركزية (Crowdin، Phrase، Lokalise...).
-- **اختر Intlayer** إذا كنت تريد **محتوى بنطاق المكونات**، و**TypeScript صارماً**، و**أخطاء للمفاتيح المفقودة عند البناء**، و**تقليم الشجرة والتحميل الكسول دون أي جهد**، ومكونات خادم متزامنة، وأدوات تحرير مدمجة (محرر مرئي، CMS، ترجمة بالذكاء الاصطناعي، خادم MCP).
-- **اختر `@intlayer/next-intl`** إذا كنت تستخدم `next-intl` بالفعل وتريد مكاسب الحزمة والأداء دون إعادة كتابة التطبيق.
+<AccordionGroup>
+<Accordion header="اختر next-intl">
+
+أنت تريد معيار النظام البيئي لـ Next.js، وتعتمد على ICU MessageFormat، وتطبيقك صغير إلى متوسط الحجم، أو تتكامل مع منصة ترجمة (Crowdin، Phrase، Lokalise...) تتوقع ملفات JSON مركزية. خصص وقتاً لتقسيم الكتالوجات إلى مساحات أسماء واختيار الرسائل باستخدام `pick()` لكل صفحة إذا كان الأداء مهماً.
+
+</Accordion>
+<Accordion header="اختر Intlayer">
+
+تريد **محتوى مخصصاً لكل مكون**، و**TypeScript صارماً**، و**أخطاء المفاتيح المفقودة في وقت البناء**، و**tree-shaking والتحميل الكسول دون أي جهد إضافي**، ومكونات خادم متزامنة، وأدوات تحرير مدمجة ([المحرر المرئي](https://intlayer.org/ar/doc/concept/editor)، [نظام إدارة المحتوى CMS](https://intlayer.org/ar/doc/concept/cms)، [الترجمة بالذكاء الاصطناعي](https://intlayer.org/ar/doc/concept/auto-fill)، [خادم MCP](https://intlayer.org/ar/doc/mcp-server)). ملائم بشكل خاص لقواعد الكود الكبيرة والمعيارية وأنظمة التصميم.
+
+</Accordion>
+<Accordion header="اختر @intlayer/next-intl">
+
+أنت تستخدم بالفعل `next-intl` وتريد الحصول على مزايا حجم الحزمة دون إعادة كتابة الكود. يحافظ [محول التوافق](https://intlayer.org/ar/doc/compatibility/next-intl) على عمليات الاستيراد وملف `messages/{locale}.json` كمصدر وحيد للحقيقة. تم قياسه جنباً إلى جنب في [next-intl مقابل @intlayer/next-intl](https://intlayer.org/ar/blog/next-intl-vs-intlayer-next-intl).
+
+</Accordion>
+</AccordionGroup>
+
+## الأسئلة الشائعة
+
+<FAQ>
+
+<Question title="هل next-intl أبطأ من Intlayer؟">
+
+ليس في وقت العرض (Render time). الفرق يكمن في ما يتم إرساله إلى المتصفح: يضيف `next-intl` **+12.6 كيلوبايت gzip** من وقت التشغيل على كل صفحة، وفي معظم الإعدادات الشائعة، يرسل ~90% من سلاسل الصفحات الأجنبية مع كل صفحة. تبديل اللغة وتفعيل الـ Hydration متقاربان على Next.js (15-18 مللي ثانية)؛ وعلى TanStack Start، يستغرق `use-intl` من 7 إلى 21 مللي ثانية مقارنة بـ 3-4 مللي ثانية لـ Intlayer.
+
+</Question>
+
+<Question title="هل يمكنني الوصول إلى تسريب بنسبة 0% مع next-intl؟">
+
+نعم، باستخدام إعداد `scoped-dynamic`: قسّم `messages/{locale}.json` إلى مساحة أسماء لكل مسار، ثم استخدم `pick(messages, [...])` في كل صفحة وحافظ على صحة هذا التعيين مع تنقل المكونات. هذا هو الجهد الذي تعكسه صفوف `scoped-*` في الاختبار. يصل Intlayer إلى 0% بدون ذلك لأن المترجم يحدد نطاق المحتوى لكل مكون. راجع [تحسين الحزمة](https://intlayer.org/ar/doc/concept/bundle-optimization).
+
+</Question>
+
+<Question title="هل يجب علي إعادة كتابة مكوناتي للترحيل؟">
+
+لا. يحافظ `@intlayer/next-intl` على `useTranslations` و `getTranslations` و `useFormatter` و `t.rich()` وصيغ الجمع في ICU ومساعدات التنقل، ويقدمها من قواميس مجمعة بواسطة مترجم Intlayer. سطر إضافي واحد في `next.config.ts`. دليلك خطوة بخطوة في [دليل ترحيل next-intl](https://intlayer.org/ar/doc/migration/next-intl).
+
+</Question>
+
+<Question title="هل يدعم Intlayer تنسيق رسائل ICU؟">
+
+دعم ICU الأصلي قيد التطوير في واجهة برمجة التطبيقات الأساسية. لكن محولات التوافق (`@intlayer/next-intl`، `@intlayer/use-intl`) تدعم ICU بالكامل: صيغ الجمع، و `select`، و `selectordinal`، و `#` و `{ts, date, long}` تتم معالجتها عبر محلل ICU في Intlayer. اقرأ [تنسيق رسائل ICU](https://intlayer.org/ar/blog/icu-message-format) لمزيد من التفاصيل.
+
+</Question>
+
+<Question title="هل يمكنني الاحتفاظ بملفات messages/{locale}.json؟">
+
+نعم. يقرأها [المكون الإضافي لمزامنة JSON](https://intlayer.org/ar/doc/compatibility/next-intl)، ويقسم المفاتيح العليا إلى قواميس، ويكتب الترجمات مرة أخرى في نفس الملفات عندما تقوم أداة CLI أو CMS بتحديثها. سير عمل المترجمين لديك لن يتغير.
+
+</Question>
+
+</FAQ>
 
 ## مقارنات ذات صلة
 
-- [i18next مقابل Intlayer](https://intlayer.org/ar/blog/i18next-vs-intlayer) (الاختبار نفسه)
-- [Lingui مقابل Intlayer](https://intlayer.org/ar/blog/lingui-vs-intlayer) (الاختبار نفسه)
-- [vue-i18n مقابل Intlayer](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer-benchmark) (الاختبار نفسه)
-- [next-i18next مقابل next-intl مقابل Intlayer](https://intlayer.org/ar/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [هل أصبحت next-intl قديمة؟](https://intlayer.org/ar/blog/is-next-intl-outdated)
+نفس المقارنة المرجعية، مكتبات أخرى:
+
+- [i18next vs Intlayer](https://intlayer.org/ar/blog/i18next-vs-intlayer)
+- [Lingui vs Intlayer](https://intlayer.org/ar/blog/lingui-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer-benchmark)
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ar/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ar/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+المزيد حول next-intl:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/ar/blog/next-intl-vs-intlayer-next-intl), المحول المقاس على نفس التطبيق
+- [Is next-intl outdated?](https://intlayer.org/ar/blog/is-next-intl-outdated)
+- [Using Intlayer with next-intl](https://intlayer.org/ar/blog/intlayer-with-next-intl)
+- [How to internationalize a Next.js app with next-intl](https://intlayer.org/ar/blog/nextjs-internationalization-using-next-intl)
+
+وثائق مرجعية:
+
+- [تقرير قياس أداء Next.js](https://intlayer.org/ar/doc/benchmark/nextjs) و [تقرير قياس أداء TanStack Start](https://intlayer.org/ar/doc/benchmark/tanstack)
+- [محول التوافق: next-intl](https://intlayer.org/ar/doc/compatibility/next-intl) و [دليل الترحيل](https://intlayer.org/ar/doc/migration/next-intl)
+- [تحسين الحزمة](https://intlayer.org/ar/doc/concept/bundle-optimization) و [مترجم Intlayer](https://intlayer.org/ar/doc/compiler)
+- [i18n لكل مكون مقابل المركزية](https://intlayer.org/ar/blog/per-component-vs-centralized-i18n)
+- [i18n المعتمدة على المترجم مقابل التصريحية](https://intlayer.org/ar/blog/compiler-vs-declarative-i18n)
 
 ## نجوم GitHub
 

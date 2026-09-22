@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "next-intl vs Intlayer: Benchmark и сравнение 2026"
 description: Bundle size, утечки контента, реактивность переключения локали и опыт разработчика, измеренные на Next.js и TanStack Start. Какую библиотеку i18n вам выбрать в 2026?
 keywords:
@@ -23,6 +23,8 @@ author: aymericzip
 ---
 
 # next-intl VS Intlayer | Benchmark интернационализации Next.js (i18n)
+
+![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `next-intl` - самая популярная библиотека i18n для Next.js. Intlayer - это альтернатива на основе компилятора с областью видимости компонента. Обе локализуют приложение App Router. Вопрос в том, какие затраты каждая из них влечет после сборки приложения.
 
@@ -96,6 +98,10 @@ Intlayer не имеет варианта "scoped": компилятор авт�
 
 ### Результаты на Next.js (App Router)
 
+Выберите метрики и библиотеки, которые вас интересуют:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Library                        | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
 | ------------------------------ | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
 | **base** (no i18n)             | -              |        0.0 KB |         141.0 KB |        0.0% |      0.0% |             0.9 KB |        13.4 ms |   11.8 ms |
@@ -116,9 +122,20 @@ Intlayer не имеет варианта "scoped": компилятор авт�
 - **Размер компонента.** Компонент, который вызывает `useTranslations()`, компилируется в среднем до 21.8 KB; тот же компонент с `useIntlayer()` компилируется до 6.9 KB. В конфигурации `scoped-static` компоненты `next-intl` увеличиваются до 80.1 KB, потому что каждый встраивает свой каталог пространства имен.
 - **Реактивность и гидратация** находятся в одном диапазоне для обеих библиотек на Next.js (15-18 мс). Ни одна из них не является узким местом здесь.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Полная таблица, каждая библиотека и каждая стратегия, в [отчете о бенчмарке Next.js](https://intlayer.org/ru/doc/benchmark/nextjs).
+
 ### Результаты на TanStack Start (`use-intl`)
 
 `use-intl` - это не зависящее от фреймворка ядро `next-intl`. Тот же API, тот же формат сообщений. Его сравнение с `intlayer` на TanStack Start исключает из уравнения части, специфичные для Next.js.
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Библиотека                    | Стратегия      | Размер библиотеки (gz) | Среднее JS страницы (gz) | Утечка локали | Утечка страницы | Среднее размер компонента (gz) | E2E реактивность |
 | ----------------------------- | -------------- | ---------------------: | -----------------------: | ------------: | --------------: | -----------------------------: | ---------------: |
@@ -139,7 +156,18 @@ Intlayer не имеет варианта "scoped": компилятор авт�
 - **Размер компонента показывает разницу в архитектуре**: 76-87 KB на компонент с `use-intl` против 6-8 KB с Intlayer. `useTranslations()` привязывает каждый компонент к глобальному дереву сообщений; `useIntlayer()` привязывает его к собственному словарю.
 - **Переключение локали** в 2-4 раза быстрее с Intlayer (3 мс против 7-21 мс).
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Полная таблица в [отчете о бенчмарке TanStack Start](https://intlayer.org/ru/doc/benchmark/tanstack).
+
 ## Почему такая разница? Централизованные каталоги vs скомпилированные словари
+
+![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
 
 `next-intl` следует классической модели: один JSON на локаль, загруженный в `getRequestConfig`, переданный в `NextIntlClientProvider`, доступный через `t("namespace.key")`.
 
@@ -161,6 +189,10 @@ Intlayer не имеет варианта "scoped": компилятор авт�
 ```
 
 Runtime не может знать, какие ключи будет использовать страница, поэтому безопасный стандарт - отправить весь каталог. Оптимизация означает, что **вы** разделяете каталог на пространства имён, **вы** решаете, какие пространства имён нужны каждой странице, и **вы** поддерживаете это соответствие в синхронизации при перемещении компонентов. Строка `scoped-dynamic` в тесте производительности - это награда за эту работу, и большинство команд туда никогда не доходят.
+
+Цена недостижения этой цели растет сразу по двум осям, страницы и локали:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer переворачивает ответственность. Контент объявляется рядом с компонентом:
 
@@ -189,7 +221,8 @@ Intlayer переворачивает ответственность. Конте
 
 ### Client компонент
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```json fileName="messages/en.json"
 {
@@ -224,7 +257,8 @@ export const Counter = () => {
 
 > Помните, что нужно включить пространство имён `counter` в сообщения, передаваемые в `NextIntlClientProvider` на каждой странице, которая отображает этот компонент.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -265,11 +299,14 @@ export const Counter = () => {
 
 Не требуется регистрировать на странице: компонент содержит свой собственный контент.
 
+</Tab>
+</Tabs>
 ### Синхронный серверный компонент
 
 Компоненты системы проектирования (navbar, footer, карточки) часто являются серверными компонентами, отрендеренными как дочерние элементы клиентских компонентов, поэтому они не могут быть `async`.
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 type ServerCounterProps = {
@@ -287,7 +324,8 @@ export const ServerCounter = ({ t, formattedCount }: ServerCounterProps) => (
 
 Страница должна `await getTranslations("counter")` и `await getFormatter()`, затем передать результаты вниз как props. Компонент больше не является самостоятельным.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 import { useIntlayer } from "next-intlayer/server";
@@ -306,9 +344,12 @@ export const ServerCounter = ({ count }: { count: number }) => {
 };
 ```
 
+</Tab>
+</Tabs>
 ### Метаданные
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/page.tsx"
 import type { Metadata } from "next";
@@ -343,7 +384,8 @@ export const generateMetadata = async ({
 };
 ```
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/app/[locale]/about/page.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -367,6 +409,9 @@ export const generateMetadata = async ({
 };
 ```
 
+</Tab>
+</Tabs>
+
 ## Сохраните API next-intl, получите вывод Intlayer
 
 Вам не нужно переписывать компоненты, чтобы получить указанные выше числа производительности. `@intlayer/next-intl` - это готовый адаптер: он сохраняет `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, ICU plurals и помощники `next-intl/navigation`, и предоставляет их из словарей Intlayer, скомпилированных компилятором Intlayer.
@@ -388,17 +433,84 @@ export default withIntlayer(nextConfig);
 
 ## Когда выбрать что?
 
-- **Выбирайте next-intl**, если вам нужен стандарт экосистемы для Next.js, вы полагаетесь на ICU MessageFormat, ваше приложение небольшого или среднего размера, или вы интегрируетесь с платформой перевода (Crowdin, Phrase, Lokalise...), которая ожидает централизованный JSON. Учтите время на организацию пространств имён каталогов и выбор сообщений для каждой страницы, если производительность важна.
-- **Выбирайте Intlayer**, если вам нужно **контент, привязанный к компонентам**, **строгий TypeScript**, **ошибки missing-key на этапе сборки**, **автоматический tree-shaking и ленивая загрузка**, синхронные серверные компоненты и встроенные инструменты редактирования (Visual Editor, CMS, перевод с помощью AI, MCP server). Особенно актуально для больших модульных кодовых баз и дизайн-систем.
-- **Выбирайте `@intlayer/next-intl`**, если вы уже используете `next-intl` и хотите сэкономить на размере бандла без полного переписывания.
+<AccordionGroup>
+<Accordion header="Выбрать next-intl">
+
+Вам нужен стандарт экосистемы для Next.js, вы полагаетесь на ICU MessageFormat, ваше приложение небольшое или среднего размера, либо вы интегрируетесь с платформой переводов (Crowdin, Phrase, Lokalise...), ожидающей централизованный JSON. Заложите время на разделение каталогов по пространствам имен и выборку сообщений через `pick()` на каждой странице, если важна производительность.
+
+</Accordion>
+<Accordion header="Выбрать Intlayer">
+
+Вам нужен **контент с областью видимости компонента**, **строгий TypeScript**, **ошибки отсутствующих ключей на этапе сборки**, **автоматический tree-shaking и ленивая загрузка**, синхронные серверные компоненты и встроенные редакционные инструменты ([Визуальный редактор](https://intlayer.org/ru/doc/concept/editor), [CMS](https://intlayer.org/ru/doc/concept/cms), [ИИ-перевод](https://intlayer.org/ru/doc/concept/auto-fill), [MCP-сервер](https://intlayer.org/ru/doc/mcp-server)). Особенно актуально для крупных модульных кодовых баз и дизайн-систем.
+
+</Accordion>
+<Accordion header="Выбрать @intlayer/next-intl">
+
+Вы уже используете `next-intl` и хотите получить преимущества в размере бандла без полного переписывания. [Адаптер совместимости](https://intlayer.org/ru/doc/compatibility/next-intl) сохраняет ваши импорты и файл `messages/{locale}.json` в качестве единого источника правды. Сравнение производительности в [next-intl против @intlayer/next-intl](https://intlayer.org/ru/blog/next-intl-vs-intlayer-next-intl).
+
+</Accordion>
+</AccordionGroup>
+
+## Часто задаваемые вопросы
+
+<FAQ>
+
+<Question title="next-intl медленнее, чем Intlayer?">
+
+Не во время рендеринга. Разница в том, что передается клиенту: `next-intl` добавляет **+12.6 KB gzip** рантайма на каждой странице и в стандартных конфигурациях отправляет ~90% строк посторонних страниц с каждой страницей. Переключение локали и гидратация сопоставимы в Next.js (15-18 мс); в TanStack Start `use-intl` занимает 7-21 мс против 3-4 мс у Intlayer.
+
+</Question>
+
+<Question title="Могу ли я достичь 0% утечки с next-intl?">
+
+Да, с конфигурацией `scoped-dynamic`: разделите `messages/{locale}.json` на пространства имен для каждого маршрута, затем используйте `pick(messages, [...])` на каждой странице и поддерживайте эту структуру при перемещении компонентов. Строки `scoped-*` бенчмарка как раз отражают эту работу. Intlayer достигает 0% по умолчанию без этого, так как компилятор изолирует контент по компонентам. См. [оптимизация бандла](https://intlayer.org/ru/doc/concept/bundle-optimization).
+
+</Question>
+
+<Question title="Нужно ли переписывать компоненты для миграции?">
+
+Нет. `@intlayer/next-intl` сохраняет `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, множественные формы ICU и хелперы навигации, предоставляя их из скомпилированных словарей. Достаточно одной строки плагина в `next.config.ts`. Пошаговое руководство в [руководстве по миграции с next-intl](https://intlayer.org/ru/doc/migration/next-intl).
+
+</Question>
+
+<Question title="Поддерживает ли Intlayer формат сообщений ICU?">
+
+Нативная поддержка ICU находится в разработке. Адаптеры совместимости (`@intlayer/next-intl`, `@intlayer/use-intl`) полностью поддерживают ICU: множественные формы, `select`, `selectordinal`, `#` и `{ts, date, long}` обрабатываются резолвером ICU от Intlayer. Подробнее читайте в [формат сообщений ICU](https://intlayer.org/ru/blog/icu-message-format).
+
+</Question>
+
+<Question title="Могу ли я сохранить файлы messages/{locale}.json?">
+
+Да. [Плагин синхронизации JSON](https://intlayer.org/ru/doc/compatibility/next-intl) читает их, разбивает ключи верхнего уровня на словари и перезаписывает переводы в те же файлы при обновлении через CLI или CMS. Рабочий процесс переводчиков не меняется.
+
+</Question>
+
+</FAQ>
 
 ## Связанные сравнения
 
-- [i18next vs Intlayer](https://intlayer.org/ru/blog/i18next-vs-intlayer) (тот же benchmark)
-- [Lingui vs Intlayer](https://intlayer.org/ru/blog/lingui-vs-intlayer) (тот же benchmark)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/ru/blog/vue-i18n-vs-intlayer-benchmark) (тот же benchmark)
+Тот же бенчмарк, другие библиотеки:
+
+- [i18next vs Intlayer](https://intlayer.org/ru/blog/i18next-vs-intlayer)
+- [Lingui vs Intlayer](https://intlayer.org/ru/blog/lingui-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/ru/blog/vue-i18n-vs-intlayer-benchmark)
 - [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ru/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ru/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+Подробнее о next-intl:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/ru/blog/next-intl-vs-intlayer-next-intl), адаптер измерен на том же приложении
 - [Is next-intl outdated?](https://intlayer.org/ru/blog/is-next-intl-outdated)
+- [Using Intlayer with next-intl](https://intlayer.org/ru/blog/intlayer-with-next-intl)
+- [How to internationalize a Next.js app with next-intl](https://intlayer.org/ru/blog/nextjs-internationalization-using-next-intl)
+
+Справочная документация:
+
+- [Отчет о бенчмарке Next.js](https://intlayer.org/ru/doc/benchmark/nextjs) и [отчет о бенчмарке TanStack Start](https://intlayer.org/ru/doc/benchmark/tanstack)
+- [Адаптер совместимости: next-intl](https://intlayer.org/ru/doc/compatibility/next-intl) и [руководство по миграции](https://intlayer.org/ru/doc/migration/next-intl)
+- [Оптимизация бандла](https://intlayer.org/ru/doc/concept/bundle-optimization) и [компилятор Intlayer](https://intlayer.org/ru/doc/compiler)
+- [Компонентная i18n против централизованной](https://intlayer.org/ru/blog/per-component-vs-centralized-i18n)
+- [Компиляторная i18n против декларативной](https://intlayer.org/ru/blog/compiler-vs-declarative-i18n)
 
 ## GitHub STARs
 

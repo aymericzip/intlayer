@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "Lingui vs Intlayer: Tolok Ukur & Perbandingan 2026"
 description: "Dua pustaka i18n berbasis kompiler diuji pada Next.js dan TanStack Start. Ukuran bundle, kebocoran konten, ukuran komponen, hidrasi, reaktivitas pergantian lokal, dan pengalaman pengembang."
 keywords:
@@ -23,6 +23,8 @@ author: aymericzip
 ---
 
 # Lingui VS Intlayer | Tolok Ukur Internasionalisasi (i18n) React & Next.js
+
+![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 Lingui dan Intlayer adalah dua pustaka dalam tolok ukur ini yang mengandalkan **kompiler** daripada runtime murni. Lingui mengekstrak pesan dari makro saat build time dan mengompilasi katalog per lokal. Intlayer mengompilasi kamus per komponen dan melakukan tree-shake per lokal. Di atas kertas keduanya seharusnya sebanding. Angka-angka berikut menunjukkan di mana keduanya berbeda.
 
@@ -96,6 +98,10 @@ Untuk setiap build, pengujian mencatat:
 
 ### Hasil pada Next.js
 
+Pilih metrik dan pustaka yang Anda minati:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Pustaka               | Strategi       | Ukuran Lib (gz) | Rata-rata JS Halaman (gz) | Bocor Lokal | Bocor Halaman | Rata-rata Komponen (gz) | Reaktivitas E2E | Hidrasi |
 | --------------------- | -------------- | --------------: | ------------------------: | ----------: | ------------: | ----------------------: | --------------: | ------: |
 | **base** (tanpa i18n) | -              |          0.0 KB |                  141.0 KB |        0.0% |          0.0% |                  0.9 KB |         13.4 ms | 11.8 ms |
@@ -114,7 +120,18 @@ Untuk setiap build, pengujian mencatat:
 - **Fallback lokal sumber bocor.** Bahkan dalam pengaturan yang dioptimalkan, **3-15% string `en` tetap terkirim di dalam halaman `fr`**. Makro Lingui menjaga pesan sumber tetap tersedia sebagai fallback, sehingga ikut masuk ke dalam bundle bersama terjemahan. Intlayer menyelesaikan fallback pada saat build dan hanya mengirimkan lokal yang aktif.
 - **Ukuran komponen membengkak pada `scoped-dynamic`.** Setiap komponen yang dikompilasi secara terisolasi rata-rata berukuran **152.6 KB**, karena katalog setiap rute dapat diakses dari komponen yang mengimpornya. Komponen yang sama dengan `useIntlayer()` hanya berukuran rata-rata **6.9 KB**.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tabel lengkap, setiap pustaka dan setiap strategi, dalam [laporan tolok ukur Next.js](https://intlayer.org/id/doc/benchmark/nextjs).
+
 ### Hasil pada TanStack Start
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Pustaka                     | Strategi       | Ukuran Lib (gz) | Rata-rata JS Halaman (gz) | Bocor Lokal | Bocor Halaman | Rata-rata Komponen (gz) | Reaktivitas E2E | Hidrasi |
 | --------------------------- | -------------- | --------------: | ------------------------: | ----------: | ------------: | ----------------------: | --------------: | ------: |
@@ -135,7 +152,18 @@ Untuk setiap build, pengujian mencatat:
 - **Baris `static` Intlayer sudah memiliki 0% kebocoran halaman** karena hanya kamus yang diimpor oleh komponen halaman yang dibundel. Satu baris konfigurasi (`importMode: 'dynamic'`) menghapus kebocoran lokal juga.
 - **`@intlayer/lingui`** mempertahankan sintaks makro Lingui dan menyajikannya dari kamus Intlayer. Pendekatan ini mengorbankan sedikit ukuran halaman (137 KB, karena runtime makro tetap ada) demi komponen yang lebih kecil (12.8 KB) dan hidrasi yang lebih cepat daripada Lingui bawaan. Ini adalah langkah migrasi, bukan tujuan akhir.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tabel lengkap dalam [laporan tolok ukur TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack).
+
 ## Mengapa ada perbedaan? Dua kompiler, dua unit kerja
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 Kedua pustaka melakukan kompilasi. Perbedaannya terletak pada **apa** yang mereka kompilasi.
 
@@ -176,7 +204,9 @@ Kedua pustaka melakukan kompilasi. Perbedaannya terletak pada **apa** yang merek
             └── about.content.ts
 ```
 
-Itulah mengapa pola `scoped-dynamic` adalah output bawaan bagi Intlayer dan merupakan proyek konfigurasi manual yang rumit bagi Lingui.
+Itulah mengapa pola `scoped-dynamic` adalah output bawaan bagi Intlayer dan merupakan proyek konfigurasi manual yang rumit bagi Lingui. Kesenjangan melebar pada dua sumbu sekaligus, halaman dan bahasa:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > Untuk mendapatkan angka pada baris `dynamic`, atur `dictionary.importMode: 'dynamic'` di `intlayer.config.ts`. Lihat [panduan optimasi bundle](https://intlayer.org/id/doc/concept/bundle-optimization).
 
@@ -184,7 +214,8 @@ Itulah mengapa pola `scoped-dynamic` adalah output bawaan bagi Intlayer dan meru
 
 ### Pengaturan
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="lingui.config.ts"
 import { defineConfig } from "@lingui/cli";
@@ -215,7 +246,8 @@ export const loadCatalog = async (locale: string) => {
 
 Kemudian tambahkan `@lingui/babel-plugin-lingui-macro` (atau `@lingui/swc-plugin`) ke bundler, jalankan `lingui extract` setelah mengedit kode sumber, jalankan `lingui compile` sebelum build, dan bungkus hierarki aplikasi dengan `<I18nProvider i18n={i18n}>`.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -232,9 +264,12 @@ export default config;
 
 Tambahkan `intlayer()` ke `vite.config.ts` (atau `withIntlayer()` ke `next.config.ts`) dan bungkus hierarki komponen dengan `<IntlayerProvider>`. Tidak ada langkah ekstrak atau kompilasi terpisah: kamus dibangun secara otomatis saat bundler berjalan.
 
+</Tab>
+</Tabs>
 ### Komponen
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```tsx fileName="src/components/Counter.tsx"
 import { useState } from "react";
@@ -258,7 +293,8 @@ export const Counter = () => {
 
 Teks bahasa Inggris berada di dalam komponen; teks bahasa Prancis berada di `src/locales/fr/messages.po` di bawah ID ter-hash, setelah `lingui extract` dijalankan. Jika Anda lupa menjalankannya atau lupa menjalankan `compile`, aplikasi akan secara diam-diam kembali ke bahasa Inggris.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -297,11 +333,14 @@ export const Counter = () => {
 
 Kedua lokal berada dalam satu file di samping komponen. Nilai `fr` yang hilang akan memicu error saat build, dan kunci yang salah akan menjadi error TypeScript.
 
+</Tab>
+</Tabs>
 ### Di luar komponen
 
 Metadata, loader, fungsi server: di mana saja tanpa hierarki React.
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { setupI18n } from "@lingui/core";
@@ -324,7 +363,8 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
 
 Instans `I18n` baru dibuat per pemanggilan, katalog yang tepat dimuat secara manual, serta menggunakan `msg` + `i18n._()` daripada `t`. Sebagaimana dicatat dalam [catatan tolok ukur](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md), mengetahui kapan harus menggunakan `t`, `` t` ` ``, `i18n.t()`, `msg`, atau `<Trans>` sering kali membingungkan.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { getIntlayer } from "intlayer";
@@ -335,6 +375,9 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
   return { title };
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## Pertahankan makro Lingui, dapatkan kamus Intlayer
 
@@ -353,16 +396,82 @@ Biarkan `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` tetap berada 
 
 ## Kapan harus memilih yang mana?
 
-- **Pilih Lingui** jika Anda menginginkan **ICU MessageFormat** dengan makro bertipe, penerjemah Anda bekerja dengan file **`.po`** dalam alur TMS yang sudah ada, Anda menyukai string sumber inline di JSX, dan tim Anda terbiasa mengelola alur kerja ekstrak / kompilasi / pemisahan katalog. Ukuran JS per halamannya sangat kompetitif setelah lazy loading dikonfigurasi.
-- **Pilih Intlayer** jika Anda menginginkan **konten dengan cakupan komponen**, **TypeScript yang ketat**, **deteksi error kunci yang hilang saat build**, **tree-shaking dan lazy loading otomatis tanpa konfigurasi**, komponen yang ringan, hidrasi cepat, pergantian lokal instan, dan alat editorial bawaan (Visual Editor, CMS, terjemahan AI, server MCP). Sangat relevan untuk codebase modular dan sistem desain berskala besar.
-- **Pilih `@intlayer/lingui`** jika Anda saat ini menggunakan Lingui dan ingin bermigrasi ke kamus Intlayer secara bertahap tanpa mengubah makro.
+<AccordionGroup>
+<Accordion header="Pilih Lingui">
+
+Anda menginginkan **ICU MessageFormat** dengan makro bertipe, penerjemah Anda bekerja di **`.po`** dengan alur TMS yang ada, Anda lebih suka string sumber sebaris di JSX, dan tim Anda terbiasa mengelola alur kerja ekstrak / kompilasi / pemisahan katalog. JS per halamannya kompetitif setelah pemuatan lambat (lazy loading) diatur.
+
+</Accordion>
+<Accordion header="Pilih Intlayer">
+
+Anda menginginkan **konten dengan cakupan komponen**, **TypeScript yang ketat**, **kesalahan kunci yang hilang saat waktu build**, **tree-shaking dan pemuatan lambat tanpa usaha**, komponen kecil, hidrasi cepat, pergantian bahasa instan, dan alat editorial bawaan ([Editor Visual](https://intlayer.org/id/doc/concept/editor), [CMS](https://intlayer.org/id/doc/concept/cms), [terjemahan AI](https://intlayer.org/id/doc/concept/auto-fill), [server MCP](https://intlayer.org/id/doc/mcp-server)). Sangat relevan untuk basis kode modular besar dan sistem desain.
+
+</Accordion>
+<Accordion header="Pilih @intlayer/lingui">
+
+Anda menggunakan Lingui dan ingin beralih ke kamus Intlayer secara bertahap tanpa menyentuh makro. Katalog `.po` Anda tetap menjadi sumber kebenaran melalui [plugin sinkronisasi PO](https://intlayer.org/id/doc/compatibility/lingui). Diukur berdampingan dalam [Lingui vs @intlayer/lingui](https://intlayer.org/id/blog/lingui-vs-intlayer-lingui).
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Lingui juga mengompilasi. Mengapa hasilnya sangat berbeda?">
+
+Karena unit kompilasinya berbeda. Lingui mengompilasi **satu katalog per bahasa**: segala sesuatu di bawahnya (katalog per rute, pemuatan lambat, menjaga fallback dari bundel) adalah konfigurasi manual. Intlayer mengompilasi **satu kamus per komponen**, sehingga pemisahan rute menjadi hasil langsung dari build. Itulah mengapa komponen Lingui yang dikompilasi secara terpisah berukuran 58-153 KB dibandingkan 6-8 KB pada Intlayer.
+
+</Question>
+
+<Question title="Mengapa kebocoran bahasa tidak pernah mencapai 0% dengan Lingui?">
+
+Makro mempertahankan pesan sumber tersedia sebagai fallback runtime, sehingga string bahasa Inggris dikirim bersama terjemahannya. Tolok ukur mengukur **3-15% string `en` di dalam halaman `fr`** di setiap pengaturan yang dioptimalkan. Intlayer menyelesaikan fallback pada waktu build dan hanya mengirim bahasa yang aktif.
+
+</Question>
+
+<Question title="Apakah JavaScript per halaman Lingui benar-benar kompetitif?">
+
+Ya, dan di TanStack Start ia menang tipis: 115.2 KB dalam mode `dynamic` dibandingkan 118.6 KB untuk Intlayer. Katalog yang dikompilasi dengan ID hash sangat ringkas. Biaya muncul di tempat lain: hidrasi pada 28-34 ms dibandingkan 11-14 ms, dan pergantian bahasa **42 ms** dalam pengaturan `scoped-dynamic`.
+
+</Question>
+
+<Question title="Apakah saya harus meninggalkan makro untuk bermigrasi?">
+
+Tidak. `@intlayer/lingui` mempertahankan kompilasi `` t`...` ``, `<Trans>`, `msg`, `plural`, `select`, dan `selectOrdinal` seperti sebelumnya; hanya target resolusi `i18n._()` yang berubah. Pertahankan `@lingui/babel-plugin-lingui-macro` atau `@lingui/swc-plugin` dalam build. Lihat [dokumentasi kompatibilitas Lingui](https://intlayer.org/id/doc/compatibility/lingui).
+
+</Question>
+
+<Question title="Bagaimana dengan langkah ekstraksi dan kompilasi?">
+
+Langkah-langkah tersebut tetap ada untuk makro, dan hilang untuk konten asli Intlayer. Kamus `.content.ts` dibangun saat bundler berjalan, tanpa perintah CLI terpisah, dan [`intlayer test`](https://intlayer.org/id/doc/concept/cli) menggagalkan CI jika ada kunci yang hilang alih-alih secara diam-diam kembali ke string sumber.
+
+</Question>
+
+</FAQ>
 
 ## Perbandingan terkait
 
-- [next-intl vs Intlayer](https://intlayer.org/id/blog/next-intl-vs-intlayer) (tolok ukur yang sama)
-- [i18next vs Intlayer](https://intlayer.org/id/blog/i18next-vs-intlayer) (tolok ukur yang sama)
-- [Tolok ukur vue-i18n vs Intlayer](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-benchmark) (tolok ukur yang sama)
-- [Kompiler vs i18n deklaratif](https://intlayer.org/id/blog/compiler-vs-declarative-i18n)
+Tolok ukur yang sama, pustaka lain:
+
+- [next-intl vs Intlayer](https://intlayer.org/id/blog/next-intl-vs-intlayer)
+- [i18next vs Intlayer](https://intlayer.org/id/blog/i18next-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-benchmark)
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/id/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/id/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+Lebih lanjut:
+
+- [Lingui vs @intlayer/lingui](https://intlayer.org/id/blog/lingui-vs-intlayer-lingui), adaptor diukur pada aplikasi yang sama
+- [Compiler-driven vs declarative i18n](https://intlayer.org/id/blog/compiler-vs-declarative-i18n)
+- [Per-component vs centralized i18n](https://intlayer.org/id/blog/per-component-vs-centralized-i18n)
+- [ICU message format explained](https://intlayer.org/id/blog/icu-message-format)
+
+Dokumen referensi:
+
+- [Laporan tolok ukur Next.js](https://intlayer.org/id/doc/benchmark/nextjs) dan [laporan tolok ukur TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack)
+- [Compat adapter: Lingui](https://intlayer.org/id/doc/compatibility/lingui)
+- [Optimalisasi bundel](https://intlayer.org/id/doc/concept/bundle-optimization) dan [kompiler Intlayer](https://intlayer.org/id/doc/compiler)
 
 ## Bintang GitHub
 

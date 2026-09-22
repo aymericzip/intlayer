@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "next-intl vs @intlayer/next-intl: Misma API, Diferentes Bundle"
 description: Qué cambia cuando las importaciones de next-intl de una aplicación Next.js se sirven mediante el adaptador de compatibilidad @intlayer/next-intl. Tamaño de bundle, fugas, tamaño de componentes e hidratación medidos en el mismo código, más lo que el adaptador mantiene, ignora y no puede reemplazar.
 keywords:
@@ -25,6 +25,8 @@ author: aymericzip
 ---
 
 # next-intl VS @intlayer/next-intl | Misma API, Diferentes Bundle
+
+![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `@intlayer/next-intl` es un adaptador de compatibilidad: expone la API de `next-intl` (`useTranslations`, `getTranslations`, `useLocale`, `t.rich()`, plurales ICU, `NextIntlClientProvider`...) y la sirve desde diccionarios compilados por Intlayer. El código de la aplicación no cambia. El bundle sí.
 
@@ -109,6 +111,10 @@ Para cada compilación, la suite registra:
 
 ### Resultados en Next.js
 
+Selecciona las métricas y las bibliotecas que te interesen:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Setup                     | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |   Hydration |
 | ------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ----------: |
 | **base** (no i18n)        | -              |        0.0 KB |         141.0 KB |        0.0% |      0.0% |             0.9 KB |        13.4 ms |     11.8 ms |
@@ -129,9 +135,20 @@ Para cada compilación, la suite registra:
 - **La hidratación es 2 ms más rápida** (12.8 vs 14.7 ms): no hay un objeto de mensaje que deserializar de la carga útil de RSC antes de que React pueda hidratarse.
 - **El adaptador no es el runtime nativo.** `next-intlayer` se ubica en **141.3 KB**, +0.3 KB sobre la aplicación base, con un runtime de 5.5 KB. El adaptador lleva la superficie de la API de `next-intl` (`useFormatter`, `t.rich`, el resolutor de ICU) sobre el núcleo de Intlayer, por lo que consume 8.0 KB y +6 KB por página. Es el puente, no el destino.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tabla completa, cada biblioteca y cada estrategia, en el [informe de benchmark de Next.js](https://intlayer.org/es/doc/benchmark/nextjs).
+
 ### Resultados en TanStack Start (`use-intl`)
 
 `use-intl` es el núcleo agnóstico del framework de `next-intl`. Su adaptador, `@intlayer/use-intl`, sigue el mismo diseño con un plugin de Vite (`@intlayer/use-intl/plugin`).
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Configuración            | Estrategia     | Tamaño lib (gz) | Promedio JS página (gz) | Fuga de locale | Fuga de página | Promedio componente (gz) | Reactividad E2E | Hidratación |
 | ------------------------ | -------------- | --------------: | ----------------------: | -------------: | -------------: | -----------------------: | --------------: | ----------: |
@@ -152,11 +169,24 @@ Para cada compilación, la suite registra:
 - **El cambio de locale es más rápido.** Las configuraciones optimizadas de `use-intl` tardan **13-21 ms** en actualizar `html[lang]`; el adaptador tarda **4-9 ms**. Menos componentes se re-renderizan, y nada se vuelve a seleccionar de un árbol de mensajes.
 - **`static` mantiene cada locale.** La fila `static` del adaptador muestra 49.7% de fuga de locale, lo mismo que Intlayer nativo en modo `static`: todos los locales se empaquetan, solo se incluyen los diccionarios de la página. Una línea de configuración (`importMode: 'dynamic'`) lo elimina.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tabla completa en el [informe de benchmark de TanStack Start](https://intlayer.org/es/doc/benchmark/tanstack).
+
 ## Por qué los números cambian
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 Nada en el componente cambió, por lo que las ganancias provienen completamente de lo que `useTranslations` está vinculado.
 
-**Con `next-intl`**, el binding es el provider. `NextIntlClientProvider` recibe todo el objeto `messages` para la locale; cada `useTranslations("about")` lee desde él. El bundler ve un componente importando un hook que lee un contexto, y no puede saber que solo se usa la rama `about`. Las rutas de abajo comparten el mismo objeto de mensajes, por lo que la columna page-leak lee ~90% hasta que dividas el archivo tú mismo.
+**Con `next-intl`**, el binding es el provider. `NextIntlClientProvider` recibe todo el objeto `messages` para la locale; cada `useTranslations("about")` lee desde él. El bundler ve un componente importando un hook que lee un contexto, y no puede saber que solo se usa la rama `about`. Las rutas de abajo comparten el mismo objeto de mensajes, por lo que la columna page-leak lee ~90% hasta que dividas el archivo tú mismo, y el desperdicio crece en dos ejes a la vez, páginas e idiomas:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ```bash
 .
@@ -280,25 +310,106 @@ export default withIntlayer(nextConfig);
 
 ## Límites a conocer antes de comenzar
 
-- **La configuración de enrutamiento se traslada a `intlayer.config.ts`.** `createNavigation(routing)` y `createMiddleware(routing)` mantienen su firma pero ignoran el argumento: las locales, la locale predeterminada y la estrategia de prefijo provienen de la configuración `routing` de Intlayer. Si utilizas `pathnames` localizadas de `next-intl` (`/about` → `/a-propos`), el adaptador no las interpola; el `routing.rewrite` de Intlayer cubre ese caso pero es un cambio separado.
-- **`useTranslations()` sin namespace no está vinculado.** El paso de optimización necesita un namespace estático para saber qué diccionario importar. Una llamada sin argumentos sigue funcionando, a través de un registro en tiempo de ejecución que referencia cada diccionario, que es exactamente la fuga que intentabas eliminar. Pasa el namespace.
-- **El adaptador no es gratuito.** 8.0 KB de runtime versus 5.5 KB para `next-intlayer`, y +6-7 KB por página sobre la compilación nativa. Cubre la superficie de la API de `next-intl`. Si llegas al punto donde cada componente ha sido movido a `useIntlayer`, abandona el adaptador.
-- **`messages`, `timeZone`, `now` en el proveedor son ignorados.** Los formateadores están respaldados por `Intl` nativo y solo la locale influye en su salida; si dependes de una zona horaria forzada o un `now` fijo para fechas estables en hidratación, manéjalo en el sitio de la llamada.
+<AccordionGroup>
+<Accordion header="La configuración de enrutamiento se traslada a intlayer.config.ts">
+
+`createNavigation(routing)` y `createMiddleware(routing)` mantienen su firma pero ignoran el argumento: los idiomas, el idioma predeterminado y la estrategia de prefijo provienen de la configuración `routing` de Intlayer. Si utilizas los `pathnames` localizados de `next-intl` (`/about` a `/a-propos`), el adaptador no los interpola; `routing.rewrite` de Intlayer cubre ese caso pero es un cambio separado.
+
+</Accordion>
+<Accordion header="useTranslations() sin namespace no está vinculado">
+
+El paso de optimización necesita un namespace estático para saber qué diccionario importar. Una llamada sin namespace sigue funcionando a través de un registro de runtime que referencia cada diccionario, lo cual es exactamente la fuga que intentabas eliminar. Pasa el namespace.
+
+</Accordion>
+<Accordion header="El adaptador no es gratuito">
+
+8.0 KB de runtime frente a 5.5 KB de `next-intlayer`, y +6-7 KB por página sobre la compilación nativa. Paga por la superficie de la API de `next-intl`. Si llegas al punto en que cada componente se ha migrado a `useIntlayer`, elimina el adaptador.
+
+</Accordion>
+<Accordion header="messages, timeZone y now en el provider son ignorados">
+
+Los formateadores están respaldados por la API nativa `Intl` y solo el idioma influye en su salida. Si dependes de una zona horaria forzada o un `now` fijo para fechas estables en hidratación, manéjalo en el punto de llamada. Consulta [formateo de fechas, horas y números](https://intlayer.org/es/blog/date-time-number-formatting-locales).
+
+</Accordion>
+</AccordionGroup>
 
 ## ¿Cuándo usar cuál?
 
-- **Mantente en `next-intl`** si tu aplicación es pequeña, tu bundle no es una preocupación, y tu equipo se siente cómodo siendo propietario de los namespaces y `pick()` por página.
-- **Usa `@intlayer/next-intl`** si estás en `next-intl` hoy y quieres las ganancias de bundle, leakage e hidratación, claves tipadas y las herramientas CLI / CMS sin una reescritura. Este es el punto de entrada recomendado para cualquier codebase existente de `next-intl`.
-- **Ve nativo (`next-intlayer`)** para nuevos proyectos, o una vez que el adapter ha hecho su trabajo. Es el más ligero de los tres (5.5 KB, +0.3 KB por página) y desbloquea componentes de servidor síncronos, archivos `.content.ts` por componente y el conjunto completo de características.
+<AccordionGroup>
+<Accordion header="Quédate en next-intl">
+
+Tu aplicación es pequeña, el tamaño del bundle no es una preocupación y tu equipo se siente cómodo gestionando namespaces y `pick()` por página.
+
+</Accordion>
+<Accordion header="Usa @intlayer/next-intl">
+
+Hoy usas `next-intl` y quieres las ventajas de bundle, reducción de fugas e hidratación rápida, claves tipadas y las herramientas de CLI / CMS sin una reescritura. Este es el punto de entrada recomendado para cualquier base de código `next-intl` existente.
+
+</Accordion>
+<Accordion header="Pasa a nativo (next-intlayer)">
+
+Para nuevos proyectos, o una vez que el adaptador haya cumplido su función. Es el más ligero de los tres (5.5 KB, +0.3 KB por página) y desbloquea componentes de servidor síncronos, archivos `.content.ts` por componente y el conjunto completo de características. Comienza con [Intlayer con Next.js](https://intlayer.org/es/doc/environment/nextjs).
+
+</Accordion>
+</AccordionGroup>
+
+## Preguntas frecuentes
+
+<FAQ>
+
+<Question title="¿El código de mi aplicación realmente se mantiene intacto?">
+
+En Next.js, sí para los componentes: la compilación del benchmark solo modificó `next.config.ts` e `intlayer.config.ts`. `getRequestConfig` en `src/i18n.ts`, la prop `messages` en el provider y las llamadas `pick()` por página se convierten en código muerto que puedes eliminar después.
+
+</Question>
+
+<Question title="¿Qué ocurre con los mensajes ICU?">
+
+Siguen funcionando. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` y `{ts, date, long}` son resueltos por el intérprete ICU de Intlayer. Consulta [formato de mensaje ICU](https://intlayer.org/es/blog/icu-message-format).
+
+</Question>
+
+<Question title="¿Por qué el adaptador es más pesado que next-intlayer nativo?">
+
+Transporta la superficie de la API de `next-intl` sobre el núcleo de Intlayer: `useFormatter`, `t.rich`, el intérprete ICU, los helpers de navegación. Eso representa 8.0 KB frente a 5.5 KB, y +6 KB por página. Es el puente, no el destino final.
+
+</Question>
+
+<Question title="¿Puedo migrar componente por componente?">
+
+Sí. Cualquier componente puede cambiar de `useTranslations("about")` a `useIntlayer("about")` con un archivo `.content.ts` coubicado. Los diccionarios JSON y `.content.ts` coexisten y se combinan, por lo que no hay interrupciones.
+
+</Question>
+
+<Question title="¿Funcionan las rutas (pathnames) localizadas?">
+
+No a través de los `pathnames` de `next-intl`: el adaptador los acepta para tipado pero no los interpola. Utiliza en su lugar `routing.rewrite` de Intlayer, que emite los literales localizados en el registro de tipos.
+
+</Question>
+
+</FAQ>
 
 ## Comparaciones relacionadas
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (las librerías, el mismo benchmark)
-- [i18next vs @intlayer/i18next](https://intlayer.org/blog/i18next-vs-intlayer-i18next) (la misma serie de adaptadores)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/blog/lingui-vs-intlayer-lingui) (misma serie de adaptadores)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/blog/vue-i18n-vs-intlayer-vue-i18n) (misma serie de adaptadores)
-- [Guía de migración: next-intl a Intlayer](https://intlayer.org/doc/migration/next-intl)
-- [Referencia del adaptador de compatibilidad: next-intl](https://intlayer.org/doc/compatibility/next-intl)
+Misma serie de adaptadores:
+
+- [i18next vs @intlayer/i18next](https://intlayer.org/es/blog/i18next-vs-intlayer-i18next)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/es/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/es/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+Las bibliotecas comparadas directamente:
+
+- [next-intl vs Intlayer](https://intlayer.org/es/blog/next-intl-vs-intlayer), mismo benchmark
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/es/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [Is next-intl outdated?](https://intlayer.org/es/blog/is-next-intl-outdated)
+
+Documentación de referencia:
+
+- [Compat adapter: next-intl](https://intlayer.org/es/doc/compatibility/next-intl)
+- [Guía de migración: next-intl a Intlayer](https://intlayer.org/es/doc/migration/next-intl)
+- [Informe de benchmark de Next.js](https://intlayer.org/es/doc/benchmark/nextjs) e [informe de benchmark de TanStack Start](https://intlayer.org/es/doc/benchmark/tanstack)
+- [Optimización del bundle](https://intlayer.org/es/doc/concept/bundle-optimization) y [el compilador Intlayer](https://intlayer.org/es/doc/compiler)
+- [Visual Editor](https://intlayer.org/es/doc/concept/editor), [CMS](https://intlayer.org/es/doc/concept/cms) y [traducción por IA](https://intlayer.org/es/doc/concept/auto-fill)
 
 ## Conclusión
 

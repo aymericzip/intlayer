@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next vs @intlayer/i18next：相同的 API，截然不同的 Bundle"
 description: 当 React 或 Next.js 应用保持其 i18next、react-i18next 和 next-i18next 调用不变，但改由 @intlayer/i18next 适配器提供服务时会发生什么变化。基于同一套代码测量的每页 JavaScript 体积、组件大小、文本泄漏与水合性能，以及适配器保留、忽略和无法替代的功能。
 keywords:
@@ -27,6 +27,8 @@ author: aymericzip
 ---
 
 # i18next VS @intlayer/i18next | 相同的 API，截然不同的 Bundle
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `@intlayer/i18next`、`@intlayer/react-i18next` 和 `@intlayer/next-i18next` 是兼容适配器。它们暴露了你的代码已经在使用的 `i18next` API（`useTranslation`、`t()`、`<Trans>`、`i18n.changeLanguage()`、`getFixedT`、`serverSideTranslations` 等），并通过 Intlayer 编译好的字典来提供数据。组件不需要做任何更改，只是其底层的运行时发生了改变。
 
@@ -109,17 +111,21 @@ const About = () => {
 
 ### Next.js 平台对比数据
 
-| 方案                         | 加载策略       | Lib 体积 (gz) | 每页 JS 均值 (gz) | 语言泄漏率 | 跨页泄漏率 | 组件均值 (gz) | E2E 响应耗时 |    水合耗时 |
-| ---------------------------- | -------------- | ------------: | ----------------: | ---------: | ---------: | ------------: | -----------: | ----------: |
-| **base** (无 i18n)           | -              |        0.0 KB |          141.0 KB |       0.0% |       0.0% |        0.9 KB |      13.4 ms |     11.8 ms |
-| `next-i18next`               | static         |       19.7 KB |          218.5 KB |       0.0% |      89.8% |       78.5 KB |      16.4 ms |     15.6 ms |
-| `next-i18next`               | dynamic        |       19.7 KB |          169.5 KB |      50.0% |      89.8% |       26.1 KB |      15.4 ms |     27.7 ms |
-| `next-i18next`               | scoped-static  |       19.7 KB |          220.1 KB |       0.0% |      89.8% |       78.9 KB |      16.4 ms |     14.7 ms |
-| `next-i18next`               | scoped-dynamic |       19.7 KB |          163.4 KB |       0.0% |       0.0% |       27.1 KB |      15.9 ms |     15.1 ms |
-| **`@intlayer/next-i18next`** | static         |    **9.4 KB** |      **150.7 KB** |   **0.0%** |   **0.0%** |    **9.7 KB** |  **10.7 ms** | **11.3 ms** |
-| **`@intlayer/next-i18next`** | dynamic        |    **9.4 KB** |      **150.7 KB** |   **0.0%** |   **0.0%** |    **9.7 KB** |  **11.9 ms** | **10.6 ms** |
-| `next-intlayer` (原生)       | static         |        5.5 KB |          141.3 KB |       0.0% |       0.0% |        8.5 KB |      15.5 ms |     16.9 ms |
-| `next-intlayer` (原生)       | dynamic        |        5.5 KB |          141.3 KB |       0.0% |       0.0% |        6.9 KB |      15.3 ms |     15.9 ms |
+| 方案                   | 加载策略 | Lib 体积 (gz) | 每页 JS 均值 (gz) | 语言泄漏率 | 跨页泄漏率 | 组件均值 (gz) | E2E 响应耗时 | 水合耗时 |
+| ---------------------- | -------- | ------------: | ----------------: | ---------: | ---------: | ------------: | -----------: | -------: |
+| 选择您关注的指标和库： |
+
+<I18nBenchmark framework="nextjs" vertical/>
+
+| **base** (无 i18n) | - | 0.0 KB | 141.0 KB | 0.0% | 0.0% | 0.9 KB | 13.4 ms | 11.8 ms |
+| `next-i18next` | static | 19.7 KB | 218.5 KB | 0.0% | 89.8% | 78.5 KB | 16.4 ms | 15.6 ms |
+| `next-i18next` | dynamic | 19.7 KB | 169.5 KB | 50.0% | 89.8% | 26.1 KB | 15.4 ms | 27.7 ms |
+| `next-i18next` | scoped-static | 19.7 KB | 220.1 KB | 0.0% | 89.8% | 78.9 KB | 16.4 ms | 14.7 ms |
+| `next-i18next` | scoped-dynamic | 19.7 KB | 163.4 KB | 0.0% | 0.0% | 27.1 KB | 15.9 ms | 15.1 ms |
+| **`@intlayer/next-i18next`** | static | **9.4 KB** | **150.7 KB** | **0.0%** | **0.0%** | **9.7 KB** | **10.7 ms** | **11.3 ms** |
+| **`@intlayer/next-i18next`** | dynamic | **9.4 KB** | **150.7 KB** | **0.0%** | **0.0%** | **9.7 KB** | **11.9 ms** | **10.6 ms** |
+| `next-intlayer` (原生) | static | 5.5 KB | 141.3 KB | 0.0% | 0.0% | 8.5 KB | 15.5 ms | 16.9 ms |
+| `next-intlayer` (原生) | dynamic | 5.5 KB | 141.3 KB | 0.0% | 0.0% | 6.9 KB | 15.3 ms | 15.9 ms |
 
 **深度数据解读**
 
@@ -129,9 +135,20 @@ const About = () => {
 - **更迅捷的水合与语言切换。** 水合耗时从 15.6 ms 降至 **11.3 ms**（对比 `dynamic` 方案中后端请求阻塞关键渲染路径导致的 27.7 ms 提升尤为显著）。语言实时切换耗时也从 15-16 ms 缩减至 **11-12 ms**。
 - **适配器不等于原生极致架构。** 原生的 `next-intlayer` 仅有 **141.3 KB**，仅比无任何国际化逻辑的基础应用多了 0.3 KB。适配器为了维持 `i18next` API 的兼容性（插值语法、复数与上下文后缀解析、`<Trans>` 标签树解析），在 Intlayer 核心之上保留了一层 9.4 KB 的兼容垫片。它是迈向现代化的无缝桥梁，而非终点。
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 完整表格、各个库及每种策略，请参阅 [Next.js 基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs)。
+
 > 本次评测暂未包含 Vite / TanStack Start 上的 `react-i18next` 适配器。有关 TanStack Start 的基准表现可参考 [i18next vs Intlayer](https://intlayer.org/zh/blog/i18next-vs-intlayer)：每页 127-184 KB，后端异步加载下的语言切换延迟约为 123-185 ms。
 
 ## 性能巨幅提升的底层机理
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 业务 `components/` 目录没有改动一行代码，所有性能收益完全归结于 `useTranslation` 到底绑定在什么载体上。
 
@@ -148,6 +165,10 @@ const About = () => {
     ├── AppProviders.tsx              # <I18nextProvider i18n={i18n}>
     └── About.tsx                     # useTranslation(); t("about.title")
 ```
+
+实例中包含的任何内容都会发送到每个页面，浪费在页面和语言两个维度上不断增长：
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **在 `@intlayer/next-i18next` 中**，组件直接与精简字典绑定。`syncJSON` 将每个命名空间文件解析并独立封装为字典；编译优化通道将组件精准重定向为对其声明字典的直接导入，这让打包工具能够像处理普通 JS 模块一样，按照页面和语言维度进行 Tree-shaking 与按需代码分割。
 
@@ -297,26 +318,112 @@ export default defineConfig({
 
 ## 启动迁移前必须明确的技术边界
 
-- **运行时后端与动态探测器将不再生效。** `i18n.use(HttpBackend)` 仅会执行插件基础初始化，并不会在页面访问时动态拉取外部翻译接口。如果原应用依赖于请求发生时由 CMS 动态返回翻译，建议切换至 Intlayer 官方 CMS 或使用 `intlayer pull` / `push` 指令。
-- **`resources` 参数被忽略而非智能合并。** 与部分轻度包装器不同，`@intlayer/i18next` 不会将内联的 `resources` 作为降级兜底方案。每一个键都必须真实存在于同步好的本地字典中（可通过 `intlayer test` 校验）。
-- **App Router 需要且仅需要修改一次 Provider。** 即上述所示的一处微调。若采用 Pages Router 搭配 `appWithTranslation`，则连这处都不需要修改。
-- **`next-i18next.config.js` 会被彻底跳过。** 原有的 `localePath`、`fallbackLng`、`reloadOnPrerender` 等选项不再生效；所有相关逻辑统一迁移至 `intlayer.config.ts`。
-- **适配器自身具备少量固定体积。** 包含 9.4 KB 的运行时以及相比原生 `next-intlayer` 每页多出 9.4 KB。当项目所有组件都逐步平移至原生的 `useIntlayer` 后，即可直接卸载适配器。
+<AccordionGroup>
+<Accordion header="后端和检测器不生效">
+
+`i18n.use(HttpBackend)` 仅调用插件的 init，不执行其他任何操作。如果您的应用依赖于在运行时从 CMS 获取翻译，该流程已不复存在；请改用 [Intlayer CMS](https://intlayer.org/zh/doc/concept/cms) 或 `intlayer pull` / `push` 命令。语言检测由 Intlayer 的路由配置接管（URL 前缀、cookie、请求头）。
+
+</Accordion>
+<Accordion header="resources 被忽略，不进行合并">
+
+与其他一些适配器不同，`@intlayer/i18next` 不使用内联 `resources` 作为回退。每个键必须存在于同步的字典中，`intlayer test` 会对此进行验证。
+
+</Accordion>
+<Accordion header="App Router 需要修改 provider">
+
+仅需修改一个文件，如上所示。使用 `appWithTranslation` 的 Pages Router 无需任何更改。
+
+</Accordion>
+<Accordion header="不读取 next-i18next.config.js">
+
+`localePath`、`fallbackLng`、`reloadOnPrerender` 等配置项均无对应项；语言和回退语言均来自 `intlayer.config.ts`。
+
+</Accordion>
+<Accordion header="适配器并非完全零成本">
+
+相比 `next-intlayer`，它增加了 9.4 KB 的运行时以及每页 +9.4 KB 的体积。一旦所有组件都迁移到 `useIntlayer`，即可将其移除。
+
+</Accordion>
+</AccordionGroup>
 
 ## 选型决策指南
 
-- **继续坚守 `i18next` 原生方案**：如果你的系统高度依赖运行时接口后端（即每次请求必须动态拉取 CMS 最新内容）、强依赖特定三方插件生态，或者属于适配器尚未覆盖的非 React 运行时环境。
-- **全面接入 `@intlayer/*` 兼容适配器**：如果你正在使用 `react-i18next` / `next-i18next`，希望在零业务代码重写的条件下立刻获得 68 KB 减重、8 倍更小的轻量组件、0% 文本泄漏、类型安全保障和 CI 自动化。这是既有 `i18next` 项目的最佳渐进式改造路径。
-- **拥抱原生纯血架构 (`next-intlayer` / `react-intlayer`)**：适合全新启动的项目，或者已经通过适配器平稳完成过渡的团队。它拥有无与伦比的超轻量表现（5.5 KB，每页仅增加 0.3 KB），并彻底解锁同步 Server Components 与组件级 `.content.ts` 同构体验。
+<AccordionGroup>
+<Accordion header="继续使用 i18next">
+
+您的应用依赖于运行时后端（在请求时由 CMS 提供的翻译）、插件生态系统，或者适配器未涵盖的非 React 目标环境。
+
+</Accordion>
+<Accordion header="使用 @intlayer/*">
+
+您正在使用 `react-i18next` / `next-i18next`，希望在无需重写代码的前提下节省 68 KB、实现组件体积缩小 8 倍、0% 泄漏、类型化键和 CI 检查。这是现有 `i18next` 代码库的最佳过渡方案。
+
+</Accordion>
+<Accordion header="转向原生 (next-intlayer / react-intlayer)">
+
+适用于新项目，或在适配器完成过渡任务之后。它具有最轻量的运行时（5.5 KB，每页仅增加 0.3 KB），并解锁同步 Server Components 和按组件划分的 `.content.ts` 文件。请从 [Intlayer 与 Next.js](https://intlayer.org/zh/doc/environment/nextjs) 或 [与 Vite 和 React](https://intlayer.org/zh/doc/environment/vite-and-react) 开始。
+
+</Accordion>
+</AccordionGroup>
+
+## 常见问题解答
+
+<FAQ>
+
+<Question title="68 KB 的体积节省来自哪里？">
+
+来自 `resources: { en, fr, ... }`。原生的 `next-i18next` 配置会在 `init()` 中导入每种语言的全部 JSON，因此每个页面都携带所有语言的每个命名空间：每页达到 **218.5 KB**。适配器从不打包整个区块；它仅在当前激活的语言下向每个组件提供其声明的字典。
+
+</Question>
+
+<Question title="我的 <Trans> 组件还能正常工作吗？">
+
+可以，完全支持 `components`、数字标签 `<1>...</1>` 以及 `values`。同时支持 `{{interpolation}}`、`$t(key)` 嵌套、`key_one` / `key_other` 复数（由 `Intl.PluralRules` 计算）、上下文后缀以及 `returnObjects`。
+
+</Question>
+
+<Question title="如果我每种语言只使用一个 translation.json 怎么办？">
+
+在 `syncJSON` 插件中设置 `splitKeys: false`。整个文件将保持为一个字典，普通的 `useTranslation()` 会继续针对其进行解析。
+
+</Question>
+
+<Question title="这是否等同于直接迁移到 Intlayer？">
+
+不等同，它是过渡桥梁。适配器保留了 `i18next` 的 API，运行时开销为 9.4 KB；原生 `next-intlayer` 仅需 5.5 KB，并带来同步 Server Components 和同级放置的 `.content.ts` 文件。由于 JSON 和 `.content.ts` 字典可以并存，您可以逐个组件推进迁移。
+
+</Question>
+
+<Question title="翻译人员是否能沿用目前的工作流程？">
+
+可以。`locales/{lng}/{ns}.json` 依然是唯一事实来源：`syncJSON` 以 i18next 方言读取它，并在 CLI 或 CMS 更新时将翻译写回。
+
+</Question>
+
+</FAQ>
 
 ## 相关对比与进阶文档
 
-- [i18next vs Intlayer](https://intlayer.org/zh/blog/i18next-vs-intlayer)（库级别深度全方位基准测试）
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/zh/blog/next-intl-vs-intlayer-next-intl)（同系列适配器测评）
-- [Lingui vs @intlayer/lingui](https://intlayer.org/zh/blog/lingui-vs-intlayer-lingui)（同系列适配器测评）
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-vue-i18n)（同系列适配器测评）
-- 迁移指引：[i18next](https://intlayer.org/zh/doc/migration/i18next), [react-i18next](https://intlayer.org/zh/doc/migration/react-i18next), [next-i18next](https://intlayer.org/zh/doc/migration/next-i18next)
-- 适配器技术规范：[i18next](https://intlayer.org/zh/doc/compatibility/i18next), [react-i18next](https://intlayer.org/zh/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/zh/doc/compatibility/next-i18next)
+同系列适配器：
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/zh/blog/next-intl-vs-intlayer-next-intl)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/zh/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+两两直接对比：
+
+- [i18next vs Intlayer](https://intlayer.org/zh/blog/i18next-vs-intlayer), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/zh/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/zh/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [Is i18next outdated?](https://intlayer.org/zh/blog/is-i18next-outdated)
+
+参考文档：
+
+- Compat adapters: [i18next](https://intlayer.org/zh/doc/compatibility/i18next), [react-i18next](https://intlayer.org/zh/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/zh/doc/compatibility/next-i18next)
+- Migration guides: [i18next](https://intlayer.org/zh/doc/migration/i18next), [react-i18next](https://intlayer.org/zh/doc/migration/react-i18next), [next-i18next](https://intlayer.org/zh/doc/migration/next-i18next)
+- [Next.js benchmark report](https://intlayer.org/zh/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/zh/doc/benchmark/tanstack)
+- [Bundle optimization](https://intlayer.org/zh/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/zh/doc/compiler)
+- [Visual Editor](https://intlayer.org/zh/doc/concept/editor), [CMS](https://intlayer.org/zh/doc/concept/cms) and [AI translation](https://intlayer.org/zh/doc/concept/auto-fill)
 
 ## 总结
 

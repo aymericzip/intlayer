@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "Lingui vs Intlayer: 2026년 벤치마크 및 종합 비교"
 description: "Next.js 및 TanStack Start 환경에서 측정된 두 컴파일러 기반 i18n 라이브러리. 번들 크기, 콘텐츠 누수, 컴포넌트 크기, 하이드레이션, 언어 전환 반응성 및 개발자 경험 비교."
 keywords:
@@ -23,6 +23,8 @@ author: aymericzip
 ---
 
 # Lingui VS Intlayer | React & Next.js 국제화 (i18n) 벤치마크 비교
+
+![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 Lingui와 Intlayer는 이번 벤치마크에서 단순한 런타임 대신 **컴파일러**를 기반으로 작동하는 두 라이브러리입니다. Lingui는 빌드 시 매크로에서 메시지를 추출하여 언어별 카탈로그를 컴파일합니다. Intlayer는 컴포넌트 단위로 딕셔너리를 컴파일하고 언어별로 Tree-shaking을 적용합니다. 이론상 두 라이브러리의 성능은 매우 유사해야 하지만, 실제 측정 데이터는 명확한 차이점을 보여줍니다.
 
@@ -96,6 +98,10 @@ Intlayer는 별도의 "scoped" 버전이 필요하지 않습니다. 컴파일러
 
 ### Next.js 측정 결과
 
+관심 있는 지표와 라이브러리를 선택하세요:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | 라이브러리           | 전략           | Lib size (gz) | Page JS 평균 (gz) | 언어 누수율 | 페이지 누수율 | 컴포넌트 평균 (gz) |  E2E 반응성 | 하이드레이션 |
 | -------------------- | -------------- | ------------: | ----------------: | ----------: | ------------: | -----------------: | ----------: | -----------: |
 | **base** (i18n 없음) | -              |        0.0 KB |          141.0 KB |        0.0% |          0.0% |             0.9 KB |     13.4 ms |      11.8 ms |
@@ -114,7 +120,18 @@ Intlayer는 별도의 "scoped" 버전이 필요하지 않습니다. 컴파일러
 - **영어 원문 폴백의 번들 유입.** 최적화된 설정에서도 **프랑스어 페이지에 3~15%의 영어 문자열이 항상 포함**됩니다. Lingui 매크로는 만약을 대비해 원문 문자열을 번들에 보관하기 때문입니다. Intlayer는 빌드 시점에 폴백을 처리하므로 활성 언어만 전달합니다.
 - **`scoped-dynamic`에서 컴포넌트 크기 급증.** 개별 컴파일된 컴포넌트는 평균 **152.6 KB**에 달합니다. 임포트 체인을 통해 라우트 카탈로그 전체에 접근 가능해지기 때문입니다. 동일 컴포넌트를 `useIntlayer()`로 구성하면 평균 **6.9 KB**에 불과합니다.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 모든 라이브러리와 전략이 포함된 전체 표는 [Next.js 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/nextjs)에서 확인하세요.
+
 ### TanStack Start 측정 결과
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | 라이브러리                  | 전략           | Lib size (gz) | Page JS 평균 (gz) | 언어 누수율 | 페이지 누수율 | 컴포넌트 평균 (gz) | E2E 반응성 | 하이드레이션 |
 | --------------------------- | -------------- | ------------: | ----------------: | ----------: | ------------: | -----------------: | ---------: | -----------: |
@@ -135,7 +152,18 @@ Intlayer는 별도의 "scoped" 버전이 필요하지 않습니다. 컴파일러
 - **Intlayer의 `static`은 이미 페이지 누수 0% 달성.** 해당 페이지의 컴포넌트가 실제로 사용하는 딕셔너리만 번들링하기 때문입니다. 설정에 `importMode: 'dynamic'`을 추가하면 언어 누수까지 완벽히 제거됩니다.
 - **`@intlayer/lingui`**는 Lingui의 매크로 구문을 유지하면서 Intlayer 딕셔너리를 통해 데이터를 서빙합니다. 페이지 크기(매크로 런타임 유지로 인해 137 KB)를 소폭 양보하는 대신 훨씬 가벼운 컴포넌트(12.8 KB)와 빠른 하이드레이션을 얻을 수 있어 훌륭한 전환 경로가 됩니다.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 전체 표는 [TanStack Start 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/tanstack)에서 확인하세요.
+
 ## 왜 이런 격차가 발생하는가? 두 컴파일러의 서로 다른 작업 단위
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 두 도구 모두 컴파일러를 사용합니다. 핵심 차이는 **무엇을** 컴파일하는가에 있습니다.
 
@@ -176,7 +204,9 @@ Intlayer는 별도의 "scoped" 버전이 필요하지 않습니다. 컴파일러
             └── about.content.ts
 ```
 
-이것이 바로 `scoped-dynamic` 패턴이 Intlayer에서는 기본 빌드 결과물인 반면, Lingui에서는 복잡한 수동 엔지니어링 프로젝트가 되는 근본적인 이유입니다.
+이것이 바로 `scoped-dynamic` 패턴이 Intlayer에서는 기본 빌드 결과물인 반면, Lingui에서는 복잡한 수동 엔지니어링 프로젝트가 되는 근본적인 이유입니다. 그 격차는 페이지와 로케일이라는 두 축에서 동시에 벌어집니다:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > `dynamic` 행의 측정 결과를 재현하려면 `intlayer.config.ts`에서 `dictionary.importMode: 'dynamic'`을 설정하십시오. 자세한 내용은 [번들 최적화 문서](https://intlayer.org/ko/doc/concept/bundle-optimization)를 참고하시기 바랍니다.
 
@@ -184,7 +214,8 @@ Intlayer는 별도의 "scoped" 버전이 필요하지 않습니다. 컴파일러
 
 ### 초기 설정
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="lingui.config.ts"
 import { defineConfig } from "@lingui/cli";
@@ -215,7 +246,8 @@ export const loadCatalog = async (locale: string) => {
 
 이후 번들러에 `@lingui/babel-plugin-lingui-macro`(또는 `@lingui/swc-plugin`)를 추가하고, 소스 수정 후 `lingui extract`, 빌드 전 `lingui compile`을 실행하며, 최상위 트리를 `<I18nProvider i18n={i18n}>`으로 감싸야 합니다.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -232,9 +264,12 @@ export default config;
 
 `vite.config.ts`에 `intlayer()` 플러그인을 추가(Next.js의 경우 `next.config.ts`에 `withIntlayer()`)하고 트리를 `<IntlayerProvider>`로 감싸기만 하면 됩니다. 별도의 추출 및 컴파일 명령어 없이 번들러 실행 시 자동으로 빌드됩니다.
 
+</Tab>
+</Tabs>
 ### 컴포넌트 작성
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```tsx fileName="src/components/Counter.tsx"
 import { useState } from "react";
@@ -258,7 +293,8 @@ export const Counter = () => {
 
 영어 텍스트는 컴포넌트 내부에 직접 작성되며, 프랑스어 번역은 `lingui extract` 실행 후 `src/locales/fr/messages.po` 파일에 해시 ID 형태로 저장됩니다. 추출 또는 컴파일을 잊어버리면 조용히 영어 원문으로 대체됩니다.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -297,11 +333,14 @@ export const Counter = () => {
 
 두 언어가 컴포넌트 바로 옆 단일 파일에 함께 위치합니다. 프랑스어 값이 누락되면 빌드가 실패하며, 키 이름을 잘못 입력하면 TypeScript가 즉시 오류를 감지합니다.
 
+</Tab>
+</Tabs>
 ### 컴포넌트 외부에서의 사용
 
 메타데이터, 로더, 서버 함수 등 React 트리가 존재하지 않는 곳에서의 사용 방식입니다.
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { setupI18n } from "@lingui/core";
@@ -324,7 +363,8 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
 
 호출마다 새로운 `I18n` 인스턴스를 생성하고, 적합한 카탈로그를 수동 임포트한 뒤, `t` 대신 `msg` + `i18n._()`를 조합해야 합니다. [벤치마크 노트](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md)에서도 지적하듯, 상황에 맞춰 `t`, `` t` ` ``, `i18n.t()`, `msg`, `<Trans>`를 선택하는 것은 매우 비직관적입니다.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { getIntlayer } from "intlayer";
@@ -335,6 +375,9 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
   return { title };
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## Lingui 매크로는 유지하고 Intlayer 딕셔너리로 서빙하기
 
@@ -353,16 +396,82 @@ export default defineConfig({
 
 ## 언제 어떤 라이브러리를 선택해야 하는가?
 
-- **Lingui를 추천하는 경우**: 정밀한 **ICU MessageFormat** 구문과 타입 안전한 매크로가 필수적인 경우, 번역 팀이 기존 TMS와 연계된 **`.po`** 파일 기반으로 작업하는 경우, JSX 내 인라인 원문 작성을 선호하고 카탈로그 추출/컴파일/분할 워크플로우 관리에 익숙한 팀인 경우. 지연 로딩을 갖추면 페이지 크기가 매우 우수합니다.
-- **Intlayer를 추천하는 경우**: **컴포넌트 스코프 콘텐츠**, **엄격한 TypeScript 연동**, **빌드 타임 누락 키 감지**, **무설정 자동 Tree-shaking 및 지연 로딩**, 초경량 컴포넌트, 빠른 하이드레이션, 지연 없는 언어 전환, 기본 내장된 에디터 툴킷(비주얼 에디터, CMS, AI 번역, MCP 서버)을 원하는 경우. 대규모 모듈형 프로젝트나 디자인 시스템에 최적화되어 있습니다.
-- **`@intlayer/lingui`를 추천하는 경우**: 기존 Lingui 기반 애플리케이션에서 매크로 코드를 건드리지 않고 Intlayer의 모듈형 딕셔너리 구조로 단계적 전환을 꾀할 때.
+<AccordionGroup>
+<Accordion header="Lingui 선택하기">
+
+타입 안전한 매크로가 포함된 **ICU MessageFormat**을 원하고, 번역가가 기존 TMS 파이프라인과 함께 **`.po`** 파일로 작업하며, JSX 내 인라인 소스 문자열을 선호하고, 팀이 추출 / 컴파일 / 카탈로그 분할 워크플로를 직접 관리하는 데 익숙한 경우. 지연 로딩을 설정하면 페이지당 JS 크기가 매우 경쟁력 있습니다.
+
+</Accordion>
+<Accordion header="Intlayer 선택하기">
+
+**컴포넌트 스코프 콘텐츠**, **엄격한 TypeScript**, **빌드 타임 누락 키 오류**, **노력 없는 트리 쉐이킹 및 지연 로딩**, 가벼운 컴포넌트, 빠른 수화, 즉각적인 로케일 전환 및 내장 편집 도구([비주얼 에디터](https://intlayer.org/ko/doc/concept/editor), [CMS](https://intlayer.org/ko/doc/concept/cms), [AI 번역](https://intlayer.org/ko/doc/concept/auto-fill), [MCP 서버](https://intlayer.org/ko/doc/mcp-server))를 원하는 경우. 대규모 모듈식 코드베이스와 디자인 시스템에 특히 적합합니다.
+
+</Accordion>
+<Accordion header="@intlayer/lingui 선택하기">
+
+이미 Lingui를 사용 중이며 매크로를 수정하지 않고 점진적으로 Intlayer 사전으로 마이그레이션하려는 경우. [PO 동기화 플러그인](https://intlayer.org/ko/doc/compatibility/lingui)을 통해 `.po` 카탈로그를 신뢰할 수 있는 단일 소스로 유지합니다. [Lingui vs @intlayer/lingui](https://intlayer.org/ko/blog/lingui-vs-intlayer-lingui)에서 나란히 측정되었습니다.
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Lingui도 컴파일을 수행합니다. 출력이 왜 이렇게 다른가요?">
+
+컴파일 단위가 다르기 때문입니다. Lingui는 **로케일당 하나의 카탈로그**를 컴파일합니다. 그 하위의 모든 작업(경로별 카탈로그 분할, 지연 로딩, 번들에서 폴백 제거)은 설정의 영역입니다. Intlayer는 **컴포넌트당 하나의 사전**을 컴파일하므로 빌드 시 경로 스코프가 자동으로 처리됩니다. 이것이 격리되어 컴파일된 Lingui 컴포넌트가 6-8 KB 대비 58-153 KB에 달하는 이유입니다.
+
+</Question>
+
+<Question title="Lingui에서 로케일 누출이 0%에 도달하지 않는 이유는 무엇인가요?">
+
+매크로는 런타임 폴백으로 소스 메시지를 보존하므로 영어 문자열이 번역과 함께 번들에 포함됩니다. 벤치마크는 모든 최적화 설정에서 **`fr` 페이지 내에 3-15%의 `en` 문자열**이 포함됨을 측정했습니다. Intlayer는 빌드 시점에 폴백을 처리하고 활성 로케일만 제공합니다.
+
+</Question>
+
+<Question title="Lingui의 페이지당 JavaScript는 실제로 경쟁력이 있나요?">
+
+네, TanStack Start에서는 아주 근소하게 앞섭니다: Intlayer의 118.6 KB 대비 `dynamic`에서 115.2 KB입니다. 해시된 ID가 있는 컴파일된 카탈로그는 매우 간결합니다. 다만 비용은 다른 부분에서 발생합니다: 11-14 ms 대비 28-34 ms의 수화 시간, `scoped-dynamic` 설정에서 **42 ms**가 소요되는 로케일 전환이 그 예입니다.
+
+</Question>
+
+<Question title="마이그레이션하려면 매크로를 포기해야 하나요?">
+
+아닙니다. `@intlayer/lingui`는 `` t`...` ``, `<Trans>`, `msg`, `plural`, `select`, `selectOrdinal`을 기존과 동일하게 컴파일합니다; `i18n._()`가 확인하는 대상만 바뀝니다. 빌드에서 `@lingui/babel-plugin-lingui-macro` 또는 `@lingui/swc-plugin`을 계속 유지하세요. [Lingui 호환성 문서](https://intlayer.org/ko/doc/compatibility/lingui)를 참조하세요.
+
+</Question>
+
+<Question title="추출 및 컴파일 단계는 어떻게 되나요?">
+
+매크로에는 그대로 유지되지만 Intlayer 자체 콘텐츠에서는 제거됩니다. `.content.ts` 사전은 번들러가 실행될 때 별도의 CLI 단계 없이 생성되며, [`intlayer test`](https://intlayer.org/ko/doc/concept/cli)는 소스 문자열로 조용히 폴백하는 대신 누락된 키가 있을 때 CI를 실패시킵니다.
+
+</Question>
+
+</FAQ>
 
 ## 관련 비교 자료
 
-- [next-intl vs Intlayer](https://intlayer.org/ko/blog/next-intl-vs-intlayer) (동일 벤치마크)
-- [i18next vs Intlayer](https://intlayer.org/ko/blog/i18next-vs-intlayer) (동일 벤치마크)
-- [vue-i18n vs Intlayer](https://intlayer.org/ko/blog/vue-i18n-vs-intlayer-benchmark) (동일 벤치마크)
-- [컴파일러 vs 선언형 i18n](https://intlayer.org/ko/blog/compiler-vs-declarative-i18n)
+동일한 벤치마크, 다른 라이브러리:
+
+- [next-intl vs Intlayer](https://intlayer.org/ko/blog/next-intl-vs-intlayer)
+- [i18next vs Intlayer](https://intlayer.org/ko/blog/i18next-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/ko/blog/vue-i18n-vs-intlayer-benchmark)
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ko/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ko/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+더 알아보기:
+
+- [Lingui vs @intlayer/lingui](https://intlayer.org/ko/blog/lingui-vs-intlayer-lingui), 동일한 앱에서 측정된 어댑터
+- [Compiler-driven vs declarative i18n](https://intlayer.org/ko/blog/compiler-vs-declarative-i18n)
+- [Per-component vs centralized i18n](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)
+- [ICU message format explained](https://intlayer.org/ko/blog/icu-message-format)
+
+참조 문서:
+
+- [Next.js 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/nextjs) 및 [TanStack Start 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/tanstack)
+- [Compat adapter: Lingui](https://intlayer.org/ko/doc/compatibility/lingui)
+- [번들 최적화](https://intlayer.org/ko/doc/concept/bundle-optimization) 및 [Intlayer 컴파일러](https://intlayer.org/ko/doc/compiler)
 
 ## GitHub 스타 추이
 

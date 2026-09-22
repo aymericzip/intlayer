@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next vs Intlayer: Benchmark & Perbandingan 2026"
 description: "react-i18next dan next-i18next diuji terhadap Intlayer pada Next.js dan TanStack Start. Ukuran bundle, kebocoran konten, responsivitas pergantian bahasa, dan pengalaman pengembang."
 keywords:
@@ -24,6 +24,8 @@ author: aymericzip
 ---
 
 # i18next VS Intlayer | Benchmark Internasionalisasi (i18n) React & Next.js
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `i18next` adalah framework i18n yang paling banyak digunakan dalam ekosistem JavaScript. Melalui `react-i18next` dan `next-i18next`, library ini mendukung sebagian besar aplikasi React dan Next.js. Intlayer hadir sebagai alternatif modern berbasis kompilator dengan cakupan konten per komponen.
 
@@ -99,6 +101,10 @@ Metrik yang dicatat untuk setiap build:
 
 ### Hasil pada Next.js (`next-i18next`)
 
+Pilih metrik dan pustaka yang Anda minati:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Library                           | Strategi       | Lib size (gz) | Page JS avg (gz) | Kebocoran Bahasa | Kebocoran Halaman | Rata-rata Komp. (gz) | Reaktivitas E2E | Hydration |
 | --------------------------------- | -------------- | ------------: | ---------------: | ---------------: | ----------------: | -------------------: | --------------: | --------: |
 | **base** (tanpa i18n)             | -              |        0.0 KB |         141.0 KB |             0.0% |              0.0% |               0.9 KB |         13.4 ms |   11.8 ms |
@@ -119,9 +125,20 @@ Metrik yang dicatat untuk setiap build:
 - **Ukuran per komponen**: Komponen yang memanggil `useTranslation()` menghasilkan ukuran 26-79 KB; komponen yang sama dengan `useIntlayer()` hanya berukuran 6.9 KB.
 - **Waktu hidrasi**: Pada konfigurasi `dynamic`, waktu hidrasi melonjak menjadi 27.7 ms karena instance i18next harus diinisialisasi dan meminta data backend di sisi klien sebelum React dapat menyelesaikan hidrasi.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tabel lengkap, setiap pustaka dan setiap strategi, ada di [laporan benchmark Next.js](https://intlayer.org/id/doc/benchmark/nextjs).
+
 ### Hasil pada TanStack Start (`react-i18next`)
 
 Aplikasi yang sama pada TanStack Start dengan `react-i18next` murni untuk memisahkan faktor arsitektur Next.js:
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Library               | Strategi       | Lib size (gz) | Page JS avg (gz) | Kebocoran Bahasa | Kebocoran Halaman | Rata-rata Komp. (gz) | Reaktivitas E2E | Hydration |
 | --------------------- | -------------- | ------------: | ---------------: | ---------------: | ----------------: | -------------------: | --------------: | --------: |
@@ -141,7 +158,18 @@ Aplikasi yang sama pada TanStack Start dengan `react-i18next` murni untuk memisa
 - Mode `static` pada Intlayer secara bawaan memiliki **0% kebocoran halaman** karena hanya kamus yang diimpor oleh komponen halaman tersebut yang dimasukkan ke bundle. Mengaktifkan `importMode: 'dynamic'` juga langsung meniadakan kebocoran bahasa.
 - **Ukuran per komponen**: 24-27 KB pada `react-i18next` berbanding 6-8 KB pada Intlayer. `useTranslation()` mengikat setiap komponen ke instance global i18next.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tabel lengkap ada di [laporan benchmark TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack).
+
 ## Mengapa Perbedaannya Begitu Nyata? Global Instance vs Kamus Terkompilasi
+
+![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
 
 `i18next` dirancang pada tahun 2012 sebagai pustaka runtime: Satu instance global menyimpan data teks, serangkaian plugin memperluas fungsinya, dan fungsi `t()` mencari kunci saat perenderan. Pola ini sangat fleksibel namun memicu penumpukan ukuran:
 
@@ -166,7 +194,13 @@ Aplikasi yang sama pada TanStack Start dengan `react-i18next` murni untuk memisa
                 └── page.tsx     # harus tahu bahwa halaman ini membutuhkan ["common", "about"]
 ```
 
-Instance global tidak dapat mengetahui kunci apa saja yang akan dipanggil oleh suatu komponen; sehingga ia menampung seluruh namespace yang diminta. Mengoptimalkannya berarti **Anda** harus membagi file, **Anda** harus mencatat namespace yang dibutuhkan setiap halaman, dan **Anda** harus memperbaruinya saat ada komponen yang dipindahkan. Seperti dikutip dalam [laporan benchmark](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md): "Menjaga keamanan tipe data sambil memastikan namespace mana yang harus disertakan di setiap halaman adalah mimpi buruk".
+Instance global tidak dapat mengetahui kunci apa saja yang akan dipanggil oleh suatu komponen; sehingga ia menampung seluruh namespace yang diminta. Mengoptimalkannya berarti **Anda** harus membagi file, **Anda** harus mencatat namespace yang dibutuhkan setiap halaman, dan **Anda** harus memperbaruinya saat ada komponen yang dipindahkan.
+
+Biaya membengkak pada dua sumbu sekaligus, halaman dan bahasa:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+Seperti dikutip dalam [laporan benchmark](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md): "Menjaga keamanan tipe data sambil memastikan namespace mana yang harus disertakan di setiap halaman adalah mimpi buruk".
 
 Intlayer meniadakan instance global tersebut. Konten dideklarasikan langsung di sebelah komponen, dan kompilator menyelesaikan grafik ketergantungan pada fase build:
 
@@ -193,7 +227,8 @@ Intlayer meniadakan instance global tersebut. Konten dideklarasikan langsung di 
 
 ### Perbandingan Konfigurasi Awal
 
-**next-i18next (App Router)**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-i18next" value="i18next">
 
 ```ts fileName="src/app/i18n/server.ts"
 import { createInstance } from "i18next";
@@ -228,7 +263,8 @@ export const initI18next = async (
 
 Pengembang juga harus mengelola `I18nProvider` di klien, mengatur `generateStaticParams`, serta mendefinisikan array `namespaces` pada tiap halaman.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -264,9 +300,13 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
+</Tab>
+</Tabs>
+
 ### Komponen Klien
 
-**react-i18next**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="react-i18next" value="i18next">
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -304,7 +344,8 @@ export const Counter = () => {
 
 > Halaman yang memuat komponen ini wajib menyertakan namespace `about`, dan `t("counter.label")` hanyalah string biasa tanpa bantuan tipe TypeScript sebelum `CustomTypeOptions` diperluas.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -345,9 +386,13 @@ export const Counter = () => {
 
 Properti `label` dan `increment` memiliki tipe data yang sangat ketat; kesalahan ketik akan langsung terdeteksi oleh TypeScript dan terjemahan bahasa Prancis yang belum diisi akan menggagalkan proses build.
 
+</Tab>
+</Tabs>
+
 ### Komponen Server Sinkron (RSC)
 
-**next-i18next**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-i18next" value="i18next">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 type ServerCounterProps = {
@@ -366,7 +411,8 @@ export const ServerCounter = ({ t, locale, count }: ServerCounterProps) => (
 
 Halaman harus menjalankan `i18n.getFixedT(locale, "about")` dan meneruskan `t` serta `locale` ke bawah melalui props.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 import { useIntlayer } from "next-intlayer/server";
@@ -384,6 +430,9 @@ export const ServerCounter = ({ count }: { count: number }) => {
   );
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## Gunakan API i18next, Nikmati Keringanan Intlayer
 
@@ -415,18 +464,85 @@ Pelajari panduan migrasinya: [i18next](https://intlayer.org/id/doc/migration/i18
 
 ## Kapan Memilih yang Mana?
 
-- **Pilih i18next**: Jika Anda sangat bergantung pada ekosistem pluginnya (pendeteksi khusus, backend unik, ICU, Locize), menerapkan lokalisasi di luar React (Node services, vanilla JS, framework lain), tim Anda sudah terbiasa, atau sistem penerjemah mengharuskan struktur `locales/{lng}/{ns}.json`. Namun, pastikan Anda menyisihkan waktu untuk mengelola namespace dan rute jika kinerja adalah prioritas.
-- **Pilih Intlayer**: Jika Anda mengutamakan **konten per komponen**, **keamanan tipe TypeScript yang ketat**, **deteksi terjemahan hilang saat build**, **tree-shaking dan lazy loading otomatis tanpa repot**, pergantian bahasa instan, komponen server sinkron, dan alat terintegrasi (Visual Editor, CMS, terjemahan AI, server MCP). Pilihan sempurna untuk aplikasi modular dan design system.
-- **Pilih adaptor `@intlayer/*-i18next`**: Jika proyek Anda sudah berjalan menggunakan i18next dan ingin segera memangkas ukuran bundle serta mempercepat waktu muat tanpa perlu refactoring besar-besaran.
+<AccordionGroup>
+<Accordion header="Pilih i18next">
+
+Jika Anda sangat bergantung pada ekosistem pluginnya (pendeteksi khusus, backend unik, ICU, Locize), menerapkan lokalisasi di luar React (Node services, vanilla JS, framework lain), tim Anda sudah terbiasa, atau sistem penerjemah mengharuskan struktur `locales/{lng}/{ns}.json`. Namun, pastikan Anda menyisihkan waktu untuk mengelola namespace dan rute jika kinerja adalah prioritas.
+
+</Accordion>
+<Accordion header="Pilih Intlayer">
+
+Anda menginginkan **konten berbasis komponen**, **TypeScript yang ketat**, **kesalahan kunci yang hilang saat waktu build**, **tree-shaking dan lazy loading tanpa usaha**, pergantian bahasa instan, komponen server sinkron, dan alat editorial bawaan ([Visual Editor](https://intlayer.org/id/doc/concept/editor), [CMS](https://intlayer.org/id/doc/concept/cms), [terjemahan AI](https://intlayer.org/id/doc/concept/auto-fill), [server MCP](https://intlayer.org/id/doc/mcp-server)). Sangat relevan untuk basis kode modular yang besar dan sistem desain.
+
+</Accordion>
+<Accordion header="Pilih adaptor @intlayer/*-i18next">
+
+Anda sudah menggunakan i18next dan menginginkan efisiensi bundle serta peningkatan reaktivitas tanpa perlu menulis ulang komponen. Berkas `locales/{lng}/{ns}.json` Anda tetap menjadi sumber kebenaran utama. Diukur berdampingan dalam [i18next vs @intlayer/i18next](https://intlayer.org/id/blog/i18next-vs-intlayer-i18next).
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Mengapa i18next jauh lebih berat dibandingkan pustaka lainnya?">
+
+Ia dirancang sebagai runtime agnostik framework: instance global, pipeline plugin, repositori sumber daya, resolver kunci. Fleksibilitas tersebut dikompilasi ke dalam setiap bundel. Komponen kosong yang hanya mengimpor pustaka berbobot **19.7 KB gzip** dengan `next-i18next` berbanding **5.5 KB** dengan `next-intlayer`, dan biaya tersebut dibayar pada setiap halaman apa pun isi konten Anda.
+
+</Question>
+
+<Question title="Apakah lazy loading dengan backend memperbaikinya?">
+
+Itu memperbaiki ukuran byte, bukan latensi. Beralih ke `i18next-resources-to-backend` menghemat ~49 KB per halaman tetapi menambahkan round-trip jaringan pada pergantian bahasa: **123 ms** dalam pengaturan `dynamic` dan **185 ms** dalam `scoped-static`, berbanding **3-4 ms** dengan Intlayer. Hidrasi juga melonjak ke 27.7 ms karena instance menyelesaikan backend-nya sebelum React dapat melakukan hidrasi.
+
+</Question>
+
+<Question title="Bisakah saya mencapai 0% kebocoran konten dengan i18next?">
+
+Bisa, dengan `scoped-dynamic`: satu namespace per rute, backend sumber daya, dan pemetaan halaman ke namespace yang dikelola secara manual. Ini menghasilkan 163.4 KB per halaman di Next.js, masih **+22 KB** lebih besar daripada 141.3 KB milik Intlayer yang tidak memerlukan konfigurasi tambahan. Lihat [optimasi bundel](https://intlayer.org/id/doc/concept/bundle-optimization).
+
+</Question>
+
+<Question title="Apakah saya harus menulis ulang komponen untuk bermigrasi?">
+
+Tidak. `@intlayer/i18next`, `@intlayer/react-i18next`, dan `@intlayer/next-i18next` mempertahankan `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, bentuk jamak `_one` / `_other`, sufiks konteks, dan `returnObjects`. Cukup satu baris plugin di `next.config.ts` atau `vite.config.ts`. Panduan langkah demi langkah ada di [panduan migrasi next-i18next](https://intlayer.org/id/doc/migration/next-i18next).
+
+</Question>
+
+<Question title="Apa yang terjadi pada plugin i18next saya?">
+
+Backend dan pendeteksi bahasa tetap diterima tetapi menjadi tidak aktif: tidak ada lagi yang perlu dimuat atau dideteksi saat runtime. Deteksi bahasa menjadi konfigurasi routing Intlayer (awalan URL, cookie, header). Jika aplikasi Anda mengambil terjemahan dari CMS saat permintaan tiba, gunakan [Intlayer CMS](https://intlayer.org/id/doc/concept/cms) atau perintah `intlayer pull` / `push` sebagai gantinya.
+
+</Question>
+
+</FAQ>
 
 ## Perbandingan Terkait
 
-- [next-intl vs Intlayer](https://intlayer.org/id/blog/next-intl-vs-intlayer) (benchmark yang sama)
-- [Lingui vs Intlayer](https://intlayer.org/id/blog/lingui-vs-intlayer) (benchmark yang sama)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-benchmark) (benchmark yang sama)
+Benchmark yang sama, pustaka lain:
+
+- [next-intl vs Intlayer](https://intlayer.org/id/blog/next-intl-vs-intlayer)
+- [Lingui vs Intlayer](https://intlayer.org/id/blog/lingui-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-benchmark)
 - [next-i18next vs next-intl vs Intlayer](https://intlayer.org/id/blog/next-i18next-vs-next-intl-vs-intlayer)
 - [react-i18next vs react-intl vs Intlayer](https://intlayer.org/id/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+Mendalami i18next lebih lanjut:
+
+- [i18next vs @intlayer/i18next](https://intlayer.org/id/blog/i18next-vs-intlayer-i18next), perbandingan adaptor yang diukur pada aplikasi yang sama
 - [Apakah i18next sudah ketinggalan zaman?](https://intlayer.org/id/blog/is-i18next-outdated)
+- [Menggunakan Intlayer dengan i18next](https://intlayer.org/id/blog/intlayer-with-i18next) dan [dengan react-i18next](https://intlayer.org/id/blog/intlayer-with-react-i18next)
+- [Cara menginternasionalkan aplikasi Next.js dengan next-i18next](https://intlayer.org/id/blog/nextjs-internationalization-using-next-i18next)
+
+Dokumentasi referensi:
+
+- [Laporan benchmark Next.js](https://intlayer.org/id/doc/benchmark/nextjs) dan [laporan benchmark TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack)
+- Adaptor kompatibilitas: [i18next](https://intlayer.org/id/doc/compatibility/i18next), [react-i18next](https://intlayer.org/id/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/id/doc/compatibility/next-i18next)
+- Panduan migrasi: [i18next](https://intlayer.org/id/doc/migration/i18next), [react-i18next](https://intlayer.org/id/doc/migration/react-i18next), [next-i18next](https://intlayer.org/id/doc/migration/next-i18next)
+- [Optimasi bundel](https://intlayer.org/id/doc/concept/bundle-optimization) dan [kompiler Intlayer](https://intlayer.org/id/doc/compiler)
+- [i18n per komponen vs terpusat](https://intlayer.org/id/blog/per-component-vs-centralized-i18n)
+- [i18n berbasis kompilator vs deklaratif](https://intlayer.org/id/blog/compiler-vs-declarative-i18n)
 
 ## Bintang GitHub
 

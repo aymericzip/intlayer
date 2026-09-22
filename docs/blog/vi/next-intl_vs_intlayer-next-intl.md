@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "next-intl vs @intlayer/next-intl: Cùng API, Bundle Khác Nhau"
 description: Những thay đổi khi các import next-intl của một ứng dụng Next.js được phục vụ bởi compat adapter @intlayer/next-intl. Kích thước bundle, rò rỉ, kích thước component và hydration được đo lường trên cùng một code, cộng với những gì adapter giữ lại, bỏ qua và không thể thay thế.
 keywords:
@@ -25,6 +25,8 @@ author: aymericzip
 ---
 
 # next-intl VS @intlayer/next-intl | Cùng API, Bundle Khác Nhau
+
+![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `@intlayer/next-intl` là một compat adapter: nó cung cấp API của `next-intl` (`useTranslations`, `getTranslations`, `useLocale`, `t.rich()`, ICU plurals, `NextIntlClientProvider`...) và phục vụ nó từ các từ điển được biên dịch bởi Intlayer. Mã ứng dụng không thay đổi. Bundle thì có.
 
@@ -109,6 +111,10 @@ Suite [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) xây d�
 
 ### Kết quả trên Next.js
 
+Chọn các chỉ số và thư viện mà bạn quan tâm:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Setup                     | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |   Hydration |
 | ------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ----------: |
 | **base** (no i18n)        | -              |        0.0 KB |         141.0 KB |        0.0% |      0.0% |             0.9 KB |        13.4 ms |     11.8 ms |
@@ -129,9 +135,20 @@ Suite [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) xây d�
 - **Hydration nhanh hơn 2 ms** (12.8 vs 14.7 ms): không có message object để deserialize từ RSC payload trước khi React có thể hydrate.
 - **Adapter không phải là native runtime.** `next-intlayer` nằm ở **141.3 KB**, +0.3 KB so với base app, với 5.5 KB runtime. Adapter mang API surface của `next-intl` (`useFormatter`, `t.rich`, ICU resolver) trên top của core của Intlayer, do đó 8.0 KB và +6 KB trên mỗi page. Đó là cây cầu, không phải đích đến.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://intlayer.org/vi/doc/benchmark/nextjs).
+
 ### Kết quả trên TanStack Start (`use-intl`)
 
 `use-intl` là core framework-agnostic của `next-intl`. Adapter của nó, `@intlayer/use-intl`, tuân theo cùng design với Vite plugin (`@intlayer/use-intl/plugin`).
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Thiết lập                | Chiến lược     | Kích thước Lib (gz) | Page JS trung bình (gz) | Rò rỉ Locale | Rò rỉ Page | Component trung bình (gz) | E2E reactivity |   Hydration |
 | ------------------------ | -------------- | ------------------: | ----------------------: | -----------: | ---------: | ------------------------: | -------------: | ----------: |
@@ -152,11 +169,24 @@ Suite [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) xây d�
 - **Chuyển đổi locale nhanh hơn.** Các setup `use-intl` được tối ưu hóa mất **13-21 ms** để cập nhật `html[lang]`; adapter mất **4-9 ms**. Ít component hơn được re-render, và không có gì được lấy lại từ một message tree.
 - **`static` giữ lại mọi locale.** Hàng `static` của adapter cho thấy 49.7% rò rỉ locale, giống như native Intlayer ở chế độ `static`: tất cả locale được bundled, chỉ các từ điển của trang được bundled. Một dòng config (`importMode: 'dynamic'`) sẽ loại bỏ nó.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Bảng đầy đủ trong [báo cáo benchmark TanStack Start](https://intlayer.org/vi/doc/benchmark/tanstack).
+
 ## Tại sao các con số thay đổi
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 Không có gì trong component thay đổi, vì vậy các lợi ích đều đến từ những gì `useTranslations` được liên kết tới.
 
-**Với `next-intl`**, ràng buộc là provider. `NextIntlClientProvider` nhận toàn bộ object `messages` cho locale; mỗi `useTranslations("about")` đọc từ nó. Bundler thấy một component import một hook đọc một context, và không thể biết rằng chỉ có branch `about` được sử dụng. Các routes dưới đây đều chia sẻ cùng một object message, vì vậy cột page-leak đọc ~90% cho đến khi bạn tự chia nhỏ file.
+**Với `next-intl`**, ràng buộc là provider. `NextIntlClientProvider` nhận toàn bộ object `messages` cho locale; mỗi `useTranslations("about")` đọc từ nó. Bundler thấy một component import một hook đọc một context, và không thể biết rằng chỉ có branch `about` được sử dụng. Các routes dưới đây đều chia sẻ cùng một object message, vì vậy cột page-leak đọc ~90% cho đến khi bạn tự chia nhỏ file, và sự lãng phí tăng lên theo cả hai chiều cùng lúc: số trang và số ngôn ngữ:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ```bash
 .
@@ -280,25 +310,106 @@ export default withIntlayer(nextConfig);
 
 ## Những giới hạn cần biết trước khi bạn bắt đầu
 
-- **Routing config chuyển sang `intlayer.config.ts`.** `createNavigation(routing)` và `createMiddleware(routing)` giữ nguyên signature của chúng nhưng bỏ qua argument: locales, default locale và prefix strategy đến từ Intlayer's `routing` config. Nếu bạn sử dụng `next-intl`'s localized `pathnames` (`/about` → `/a-propos`), adapter không interpolate chúng; Intlayer's `routing.rewrite` bao gồm trường hợp đó nhưng đó là một thay đổi riêng biệt.
-- **Namespace-less `useTranslations()` không được bind.** Optimize pass cần một namespace tĩnh để biết dictionary nào cần import. Một bare call vẫn hoạt động thông qua một runtime registry tham chiếu đến mọi dictionary, đó chính xác là sự rò rỉ mà bạn đang cố gắng loại bỏ. Truyền namespace.
-- **Adapter không miễn phí.** 8.0 KB runtime so với 5.5 KB cho `next-intlayer`, và +6-7 KB cho mỗi trang so với native build. Nó chi trả cho bề mặt API của `next-intl`. Nếu bạn đến điểm mà mọi component đã được chuyển sang `useIntlayer`, hãy bỏ adapter.
-- **`messages`, `timeZone`, `now` trên provider bị bỏ qua.** Các formatter được hỗ trợ bởi `Intl` native và chỉ locale ảnh hưởng đến output của chúng; nếu bạn dựa vào một time zone bắt buộc hoặc một `now` cố định cho các ngày ổn định hydration, hãy xử lý nó tại call site.
+<AccordionGroup>
+<Accordion header="Cấu hình định tuyến chuyển sang intlayer.config.ts">
+
+`createNavigation(routing)` và `createMiddleware(routing)` giữ nguyên cú pháp nhưng bỏ qua đối số: ngôn ngữ, ngôn ngữ mặc định và chiến lược tiền tố đều lấy từ cấu hình `routing` của Intlayer. Nếu bạn sử dụng `pathnames` đã bản địa hóa của `next-intl` (`/about` sang `/a-propos`), adapter sẽ không nội suy chúng; `routing.rewrite` của Intlayer hỗ trợ trường hợp này nhưng là một cấu hình riêng.
+
+</Accordion>
+<Accordion header="useTranslations() không có namespace sẽ không được liên kết">
+
+Quá trình tối ưu hóa cần một namespace tĩnh để biết cần import từ điển nào. Một lệnh gọi không tham số vẫn hoạt động thông qua một registry lúc runtime tham chiếu đến mọi từ điển, nhưng đó chính xác là sự rò rỉ mà bạn đang cố loại bỏ. Hãy truyền namespace.
+
+</Accordion>
+<Accordion header="Adapter không hoàn toàn miễn phí">
+
+8.0 KB runtime so với 5.5 KB của `next-intlayer`, và tăng thêm +6-7 KB mỗi trang so với bản build gốc. Đây là chi phí cho bề mặt API của `next-intl`. Khi mọi component đã được chuyển sang `useIntlayer`, hãy gỡ bỏ adapter.
+
+</Accordion>
+<Accordion header="messages, timeZone và now trên provider bị bỏ qua">
+
+Các trình định dạng được hỗ trợ bởi `Intl` gốc và chỉ có ngôn ngữ mới ảnh hưởng đến kết quả. Nếu bạn phụ thuộc vào múi giờ bắt buộc hoặc một giá trị `now` cố định cho ngày tháng ổn định khi hydrate, hãy xử lý tại nơi gọi. Xem [định dạng ngày, giờ và số](https://intlayer.org/vi/blog/date-time-number-formatting-locales).
+
+</Accordion>
+</AccordionGroup>
 
 ## Khi nào nên sử dụng cái nào?
 
-- **Tiếp tục với `next-intl`** nếu ứng dụng của bạn nhỏ, bundle của bạn không phải là mối quan tâm, và team của bạn thoải mái sở hữu namespaces và `pick()` cho mỗi trang.
-- **Sử dụng `@intlayer/next-intl`** nếu bạn đang dùng `next-intl` và muốn có những lợi ích về bundle, rò rỉ và hydration, typed keys cũng như CLI / CMS tooling mà không cần viết lại toàn bộ. Đây là điểm vào được khuyến nghị cho bất kỳ codebase `next-intl` hiện có nào.
-- **Đi native (`next-intlayer`)** cho các dự án mới, hoặc khi adapter đã hoàn thành công việc của nó. Đây là lựa chọn nhẹ nhất trong ba cái (5.5 KB, +0.3 KB per page) và mở khóa các server components đồng bộ, các file `.content.ts` per-component và bộ tính năng đầy đủ.
+<AccordionGroup>
+<Accordion header="Ở lại với next-intl">
+
+Ứng dụng của bạn nhỏ, kích thước gói không phải mối bận tâm và nhóm của bạn thoải mái quản lý thủ công namespace và `pick()` trên từng trang.
+
+</Accordion>
+<Accordion header="Sử dụng @intlayer/next-intl">
+
+Bạn đang dùng `next-intl` và muốn giảm kích thước bundle, hạn chế rò rỉ, tăng tốc hydrate, khóa có kiểu dữ liệu rõ ràng và bộ công cụ CLI / CMS mà không cần viết lại mã. Đây là điểm khởi đầu được khuyến nghị cho bất kỳ dự án `next-intl` nào.
+
+</Accordion>
+<Accordion header="Chuyển sang bản gốc (next-intlayer)">
+
+Dành cho các dự án mới, hoặc khi adapter đã hoàn thành nhiệm vụ chuyển tiếp. Đây là giải pháp nhẹ nhất trong cả ba (5.5 KB, +0.3 KB mỗi trang) và mở khóa các server component đồng bộ, tệp `.content.ts` theo từng component cùng đầy đủ tính năng. Bắt đầu với [Intlayer với Next.js](https://intlayer.org/vi/doc/environment/nextjs).
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Mã ứng dụng của tôi có thực sự không bị xáo trộn không?">
+
+Trên Next.js, câu trả lời là có đối với các component: bản build benchmark chỉ sửa đổi `next.config.ts` và `intlayer.config.ts`. `getRequestConfig` trong `src/i18n.ts`, prop `messages` trên provider và các lệnh gọi `pick()` theo trang trở thành mã chết mà bạn có thể xóa sau đó.
+
+</Question>
+
+<Question title="Điều gì xảy ra với các thông điệp ICU?">
+
+Chúng vẫn hoạt động bình thường. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` và `{ts, date, long}` đều được xử lý bởi bộ giải quyết ICU của Intlayer. Xem [định dạng thông điệp ICU](https://intlayer.org/vi/blog/icu-message-format).
+
+</Question>
+
+<Question title="Tại sao adapter lại nặng hơn next-intlayer gốc?">
+
+Nó mang theo bề mặt API của `next-intl` bên trên lõi Intlayer: `useFormatter`, `t.rich`, bộ giải quyết ICU, các helper điều hướng. Điều đó tốn 8.0 KB so với 5.5 KB, và thêm +6 KB mỗi trang. Đó là chiếc cầu nối, không phải đích đến.
+
+</Question>
+
+<Question title="Tôi có thể di chuyển từng component một không?">
+
+Có. Bất kỳ component nào cũng có thể chuyển từ `useTranslations("about")` sang `useIntlayer("about")` với tệp `.content.ts` đặt cùng vị trí. Các từ điển JSON và `.content.ts` cùng tồn tại và hợp nhất liền mạch.
+
+</Question>
+
+<Question title="Các đường dẫn đã bản địa hóa (pathnames) có hoạt động không?">
+
+Không hoạt động thông qua `pathnames` của `next-intl`: adapter chấp nhận nó để kiểm tra kiểu nhưng không nội suy. Thay vào đó, hãy sử dụng `routing.rewrite` của Intlayer.
+
+</Question>
+
+</FAQ>
 
 ## Các so sánh liên quan
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (các thư viện, cùng benchmark)
-- [i18next vs @intlayer/i18next](https://intlayer.org/blog/i18next-vs-intlayer-i18next) (cùng chuỗi adapter)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/blog/lingui-vs-intlayer-lingui) (cùng chuỗi adapter)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/blog/vue-i18n-vs-intlayer-vue-i18n) (cùng chuỗi adapter)
-- [Hướng dẫn di chuyển: next-intl sang Intlayer](https://intlayer.org/doc/migration/next-intl)
-- [Tham khảo adapter tương thích: next-intl](https://intlayer.org/doc/compatibility/next-intl)
+Cùng loạt adapter:
+
+- [i18next vs @intlayer/i18next](https://intlayer.org/vi/blog/i18next-vs-intlayer-i18next)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/vi/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+So sánh trực tiếp các thư viện:
+
+- [next-intl vs Intlayer](https://intlayer.org/vi/blog/next-intl-vs-intlayer), cùng benchmark
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/vi/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [Is next-intl outdated?](https://intlayer.org/vi/blog/is-next-intl-outdated)
+
+Tài liệu tham khảo:
+
+- [Compat adapter: next-intl](https://intlayer.org/vi/doc/compatibility/next-intl)
+- [Hướng dẫn di chuyển: từ next-intl sang Intlayer](https://intlayer.org/vi/doc/migration/next-intl)
+- [Báo cáo benchmark Next.js](https://intlayer.org/vi/doc/benchmark/nextjs) và [báo cáo benchmark TanStack Start](https://intlayer.org/vi/doc/benchmark/tanstack)
+- [Tối ưu hóa bundle](https://intlayer.org/vi/doc/concept/bundle-optimization) và [trình biên dịch Intlayer](https://intlayer.org/vi/doc/compiler)
+- [Visual Editor](https://intlayer.org/vi/doc/concept/editor), [CMS](https://intlayer.org/vi/doc/concept/cms) và [dịch thuật AI](https://intlayer.org/vi/doc/concept/auto-fill)
 
 ## Kết luận
 

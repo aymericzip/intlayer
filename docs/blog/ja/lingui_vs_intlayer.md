@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "Lingui vs Intlayer: 2026年ベンチマーク＆機能比較"
 description: "Next.jsおよびTanStack Startで測定された2つのコンパイラベースi18nライブラリ。バンドルサイズ、コンテンツリーク率、コンポーネントサイズ、ハイドレーション、言語切り替え応答性、および開発者体験の徹底比較。"
 keywords:
@@ -23,6 +23,8 @@ author: aymericzip
 ---
 
 # Lingui VS Intlayer | React & Next.js 国際化 (i18n) ベンチマーク比較
+
+![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 LinguiとIntlayerは、本ベンチマークにおいて純粋なランタイムではなく**コンパイラ**を活用する2つのライブラリです。Linguiはビルド時にマクロからメッセージを抽出し、言語ごとにカタログをコンパイルします。Intlayerはコンポーネント単位で辞書をコンパイルし、言語ごとにTree-shakingを行います。理論上は非常に近い性能になるはずですが、実測データはその決定的な違いを浮き彫りにしています。
 
@@ -96,6 +98,10 @@ Intlayerには個別の "scoped" バリアントは存在しません。コン�
 
 ### Next.jsでの測定結果
 
+関心のある指標とライブラリを選択してください：
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | ライブラリ          | 戦略           | Lib size (gz) | Page JS 平均 (gz) | 言語リーク | ページリーク | コンポーネント平均 (gz) |   E2E応答性 | ハイドレーション |
 | ------------------- | -------------- | ------------: | ----------------: | ---------: | -----------: | ----------------------: | ----------: | ---------------: |
 | **base** (i18nなし) | -              |        0.0 KB |          141.0 KB |       0.0% |         0.0% |                  0.9 KB |     13.4 ms |          11.8 ms |
@@ -114,7 +120,18 @@ Intlayerには個別の "scoped" バリアントは存在しません。コン�
 - **原文フォールバックによるリーク。** 最適化構成であっても、**フランス語ページに英語文字列が3〜15%混入**します。Linguiマクロはフォールバック用として原文をバンドル内に保持するためです。Intlayerはビルド時にフォールバックを解決し、要求された言語のみを配信します。
 - **`scoped-dynamic` でコンポーネントが肥大化。** 個別にコンパイルされたコンポーネントは平均 **152.6 KB** に達します。インポートを通じて各ルートのカタログに到達可能となるためです。同じコンポーネントを `useIntlayer()` で組んだ場合は平均 **6.9 KB** です。
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> すべてのライブラリと戦略の完全な表は、[Next.js ベンチマークレポート](https://intlayer.org/ja/doc/benchmark/nextjs)をご覧ください。
+
 ### TanStack Startでの測定結果
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | ライブラリ                | 戦略           | Lib size (gz) | Page JS 平均 (gz) | 言語リーク | ページリーク | コンポーネント平均 (gz) |  E2E応答性 | ハイドレーション |
 | ------------------------- | -------------- | ------------: | ----------------: | ---------: | -----------: | ----------------------: | ---------: | ---------------: |
@@ -135,7 +152,18 @@ Intlayerには個別の "scoped" バリアントは存在しません。コン�
 - **Intlayerの `static` は最初からページリーク0%。** 該当ページのコンポーネントがインポートする辞書のみをバンドルするためです。設定に `importMode: 'dynamic'` を1行追加すれば言語リークも完全に解消されます。
 - **`@intlayer/lingui`** はLinguiのマクロ構文を維持したままIntlayerの辞書からコンテンツを供給します。ページサイズ（マクロランタイムが残るため137 KB）を少し犠牲にする代わりに、コンポーネントの軽量化（12.8 KB）とハイドレーションの高速化を実現します。既存プロジェクトからの優れた移行手段となります。
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 完全な表は、[TanStack Start ベンチマークレポート](https://intlayer.org/ja/doc/benchmark/tanstack)をご覧ください。
+
 ## なぜ差がつくのか？ 2つのコンパイラと2つの作業単位
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 両者ともコンパイルを行います。決定的な違いは**何を**コンパイルするかです。
 
@@ -176,7 +204,9 @@ Intlayerには個別の "scoped" バリアントは存在しません。コン�
             └── about.content.ts
 ```
 
-これが、`scoped-dynamic` パターンがIntlayerにとって「自動出力」であり、Linguiにとっては「手動の設定プロジェクト」となる理由です。
+これが、`scoped-dynamic` パターンがIntlayerにとって「自動出力」であり、Linguiにとっては「手動の設定プロジェクト」となる理由です. その差はページとロケールの両軸で同時に拡大します：
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > `dynamic` 行の測定結果を再現するには、`intlayer.config.ts` で `dictionary.importMode: 'dynamic'` を指定してください。詳細は [バンドル最適化ドキュメント](https://intlayer.org/ja/doc/concept/bundle-optimization) をご覧ください。
 
@@ -184,7 +214,8 @@ Intlayerには個別の "scoped" バリアントは存在しません。コン�
 
 ### 初期設定
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="lingui.config.ts"
 import { defineConfig } from "@lingui/cli";
@@ -215,7 +246,8 @@ export const loadCatalog = async (locale: string) => {
 
 さらに `@lingui/babel-plugin-lingui-macro`（または `@lingui/swc-plugin`）をバンドラーに追加し、コード編集後に `lingui extract` を実行し、ビルド前に `lingui compile` を行い、ツリーを `<I18nProvider i18n={i18n}>` でラップします。
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -232,9 +264,12 @@ export default config;
 
 `vite.config.ts` に `intlayer()` を追加（Next.jsの場合は `next.config.ts` に `withIntlayer()` を追加）し、ツリーを `<IntlayerProvider>` でラップするだけです。抽出やコンパイルの個別コマンドは不要で、バンドラー実行時に自動処理されます。
 
+</Tab>
+</Tabs>
 ### コンポーネント実装
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```tsx fileName="src/components/Counter.tsx"
 import { useState } from "react";
@@ -258,7 +293,8 @@ export const Counter = () => {
 
 英語テキストはコンポーネント内に記述し、フランス語テキストは `lingui extract` 実行後に `src/locales/fr/messages.po` 内のハッシュ化IDの下に生成されます。抽出やコンパイルを忘れると、無言で英語原文が表示されます。
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -297,11 +333,14 @@ export const Counter = () => {
 
 両言語がコンポーネントの隣の同一ファイルに同居します。`fr` の値が欠けていればビルドエラーになり、キー名を誤記すればTypeScriptが即座にエラーを報告します。
 
+</Tab>
+</Tabs>
 ### コンポーネント外部での利用
 
 メタデータ、ローダー、サーバー関数など、Reactツリーが存在しない場所での利用です。
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { setupI18n } from "@lingui/core";
@@ -324,7 +363,8 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
 
 呼び出しごとに新しい `I18n` インスタンスを生成し、適切なカタログを手動でインポートし、`t` ではなく `msg` + `i18n._()` を使用します。[ベンチマークノート](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md)でも指摘されている通り、`t`、`` t` ` ``、`i18n.t()`、`msg`、`<Trans>` の使い分けは直感的とは言えません。
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { getIntlayer } from "intlayer";
@@ -335,6 +375,9 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
   return { title };
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## Linguiマクロを維持したままIntlayer辞書を利用する
 
@@ -353,16 +396,82 @@ export default defineConfig({
 
 ## どちらを選択すべきか？
 
-- **Linguiを選ぶべきケース**: 型付きマクロで **ICU MessageFormat** をフル活用したい場合、翻訳者が既存のTMS連携のもと **`.po`** ファイルで作業している場合、JSX内に原文を直接書きたい場合、および抽出・コンパイル・カタログ分割の工程をチームで無理なく運用できる場合。遅延ロードが確立されていれば、ページ容量は極めて良好です。
-- **Intlayerを選ぶべきケース**: **コンポーネントスコープのコンテンツ**、**厳格なTypeScript型チェック**、**ビルド時の未翻訳キー検出**、**設定不要の自動Tree-shaking＆遅延ロード**、軽量なコンポーネント、高速なハイドレーション、瞬時の言語切り替え、組み込みの編集ツール（Visual Editor、CMS、AI翻訳、MCPサーバー）を求める場合。特に大規模アプリやデザインシステムに最適です。
-- **`@intlayer/lingui` を選ぶべきケース**: 既存のLinguiアプリで、マクロを修正することなくIntlayerの辞書アーキテクチャへ段階的に移行したい場合。
+<AccordionGroup>
+<Accordion header="Lingui を選ぶ理由">
+
+型付きマクロを使用した **ICU MessageFormat** を求め、翻訳者が既存の TMS パイプラインで **`.po`** ファイルを扱い、JSX 内に直接ソース文字列を記述することを好み、チームが抽出・コンパイル・カタログ分割ワークフローの管理に慣れている場合。遅延読み込みを設定すれば、ページあたりの JS は十分に競争力があります。
+
+</Accordion>
+<Accordion header="Intlayer を選ぶ理由">
+
+**コンポーネントスコープのコンテンツ**、**厳格な TypeScript**、**ビルド時のキー欠落エラー**、**設定不要のツリーシェイキングと遅延読み込み**、軽量なコンポーネント、高速なハイドレーション、即時のロケール切り替え、および組み込みの編集ツール（[ビジュアルエディター](https://intlayer.org/ja/doc/concept/editor)、[CMS](https://intlayer.org/ja/doc/concept/cms)、[AI 翻訳](https://intlayer.org/ja/doc/concept/auto-fill)、[MCP サーバー](https://intlayer.org/ja/doc/mcp-server)）を求める場合。特に大規模でモジュール化されたコードベースやデザインシステムに適しています。
+
+</Accordion>
+<Accordion header="@intlayer/lingui を選ぶ理由">
+
+現在 Lingui を使用しており、マクロに手を加えることなく段階的に Intlayer の辞書へ移行したい場合。[PO 同期プラグイン](https://intlayer.org/ja/doc/compatibility/lingui)により、`.po` カタログは引き続き信頼できる単一の情報源として機能します。[Lingui vs @intlayer/lingui](https://intlayer.org/ja/blog/lingui-vs-intlayer-lingui) で詳細を測定しています。
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Lingui もコンパイルしますが、なぜ出力がこれほど異なるのですか？">
+
+コンパイルの単位が異なるためです。Lingui は**ロケールごとに1つのカタログ**をコンパイルします。それ以下の単位（ルートごとのカタログ、遅延読み込み、フォールバックの除外）はすべて追加の設定が必要です。Intlayer は**コンポーネントごとに1つの辞書**をコンパイルするため、ルートごとのスコープがビルド時に自動的に生成されます。これが、単独でコンパイルされた Lingui コンポーネントが 6-8 KB に対し 58-153 KB になる理由です。
+
+</Question>
+
+<Question title="Lingui でロケールリークが 0% にならないのはなぜですか？">
+
+マクロは実行時のフォールバックとして元のメッセージを利用可能にしておくため、英語の文字列が翻訳と一緒にバンドルに含まれます。最適化されたすべての構成において、ベンチマークでは **`fr` ページ内に 3-15% の `en` 文字列が含まれる** ことが測定されています。Intlayer はビルド時にフォールバックを解決し、アクティブなロケールのみを配信します。
+
+</Question>
+
+<Question title="Lingui のページあたり JavaScript は本当に競争力がありますか？">
+
+はい、TanStack Start では僅差で勝利しています（`dynamic` で Intlayer の 118.6 KB に対し 115.2 KB）。ハッシュ化された ID を持つコンパイル済みカタログは非常にコンパクトです。ただしコストは別の場所に現れます。ハイドレーションは 11-14 ms に対し 28-34 ms であり、`scoped-dynamic` 構成でのロケール切り替えには **42 ms** かかります。
+
+</Question>
+
+<Question title="移行するためにマクロを諦める必要がありますか？">
+
+いいえ。`@intlayer/lingui` は `` t`...` ``、`<Trans>`、`msg`、`plural`、`select`、`selectOrdinal` を従来どおりコンパイルします。`i18n._()` が解決する参照先のみが変わります。ビルド構成で `@lingui/babel-plugin-lingui-macro` または `@lingui/swc-plugin` をそのまま維持してください。[Lingui 互換性ドキュメント](https://intlayer.org/ja/doc/compatibility/lingui)を参照してください。
+
+</Question>
+
+<Question title="抽出とコンパイルの手順はどうなりますか？">
+
+マクロ部分には残りますが、Intlayer 独自のコンテンツでは不要になります。`.content.ts` 辞書はバンドラーの実行時に自動構築され、個別の CLI コマンドは不要です。また、[`intlayer test`](https://intlayer.org/ja/doc/concept/cli) はキーが欠落している場合に元の文字列へ無言でフォールバックするのではなく、CI を失敗させます。
+
+</Question>
+
+</FAQ>
 
 ## 関連する比較記事
 
-- [next-intl vs Intlayer](https://intlayer.org/ja/blog/next-intl-vs-intlayer)（同一ベンチマーク）
-- [i18next vs Intlayer](https://intlayer.org/ja/blog/i18next-vs-intlayer)（同一ベンチマーク）
-- [vue-i18n vs Intlayer](https://intlayer.org/ja/blog/vue-i18n-vs-intlayer-benchmark)（同一ベンチマーク）
-- [コンパイラ型 vs 宣言型 i18n](https://intlayer.org/ja/blog/compiler-vs-declarative-i18n)
+同じベンチマーク、他のライブラリ：
+
+- [next-intl vs Intlayer](https://intlayer.org/ja/blog/next-intl-vs-intlayer)
+- [i18next vs Intlayer](https://intlayer.org/ja/blog/i18next-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/ja/blog/vue-i18n-vs-intlayer-benchmark)
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ja/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ja/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+さらに詳しく：
+
+- [Lingui vs @intlayer/lingui](https://intlayer.org/ja/blog/lingui-vs-intlayer-lingui), 同一アプリで測定されたアダプター
+- [Compiler-driven vs declarative i18n](https://intlayer.org/ja/blog/compiler-vs-declarative-i18n)
+- [Per-component vs centralized i18n](https://intlayer.org/ja/blog/per-component-vs-centralized-i18n)
+- [ICU message format explained](https://intlayer.org/ja/blog/icu-message-format)
+
+参考ドキュメント：
+
+- [Next.js ベンチマークレポート](https://intlayer.org/ja/doc/benchmark/nextjs) および [TanStack Start ベンチマークレポート](https://intlayer.org/ja/doc/benchmark/tanstack)
+- [Compat adapter: Lingui](https://intlayer.org/ja/doc/compatibility/lingui)
+- [バンドル最適化](https://intlayer.org/ja/doc/concept/bundle-optimization) および [Intlayer コンパイラー](https://intlayer.org/ja/doc/compiler)
 
 ## GitHubスターの推移
 

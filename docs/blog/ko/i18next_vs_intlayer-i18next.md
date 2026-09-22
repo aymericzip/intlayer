@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next vs @intlayer/i18next: 동일한 API, 완전히 다른 번들 크기"
 description: React 또는 Next.js 앱이 기존의 i18next, react-i18next, next-i18next 호출을 그대로 유지하면서 @intlayer/i18next 어댑터를 통해 제공될 때 무엇이 달라지는지 알아봅니다. 동일한 코드에서 측정한 페이지별 JavaScript 용량, 컴포넌트 크기, 문자열 누수 및 하이드레이션 성능과 어댑터의 지원 범위를 상세히 분석합니다.
 keywords:
@@ -27,6 +27,8 @@ author: aymericzip
 ---
 
 # i18next VS @intlayer/i18next | 동일한 API, 완전히 다른 번들 크기
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `@intlayer/i18next`, `@intlayer/react-i18next`, `@intlayer/next-i18next`는 호환성 어댑터입니다. 기존 코드에서 이미 사용 중인 `i18next` API(`useTranslation`, `t()`, `<Trans>`, `i18n.changeLanguage()`, `getFixedT`, `serverSideTranslations` 등)를 그대로 노출하면서, Intlayer가 컴파일한 딕셔너리로부터 번역 데이터를 공급합니다. 컴포넌트는 단 한 줄도 바꿀 필요가 없으며, 그 밑에서 동작하는 런타임만 교체됩니다.
 
@@ -109,6 +111,10 @@ const About = () => {
 
 ### Next.js 벤치마크 결과
 
+관심 있는 메트릭과 라이브러리를 선택하세요:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | 설정                         | 전략           | Lib 크기 (gz) | 페이지 JS 평균 (gz) | 로케일 누수 | 페이지 누수 | 컴포넌트 평균 (gz) | E2E 반응속도 | 하이드레이션 |
 | ---------------------------- | -------------- | ------------: | ------------------: | ----------: | ----------: | -----------------: | -----------: | -----------: |
 | **base** (i18n 미사용)       | -              |        0.0 KB |            141.0 KB |        0.0% |        0.0% |             0.9 KB |      13.4 ms |      11.8 ms |
@@ -129,9 +135,20 @@ const About = () => {
 - **하이드레이션 및 로케일 전환 속도 개선.** 하이드레이션 시간은 15.6 ms에서 **11.3 ms**로 단축됩니다(백엔드 조회가 렌더링 경로를 막는 `dynamic`의 27.7 ms와 비교하면 큰 폭의 차이). 로케일 전환도 15~16 ms에서 **11~12 ms**로 빨라집니다.
 - **어댑터와 네이티브 런타임의 차이.** `next-intlayer`는 기본 앱 대비 단 +0.3 KB 늘어난 **141.3 KB**를 기록합니다. 어댑터는 Intlayer 코어 위에 `i18next` API 규격(보간 문법, 복수형/컨텍스트 해석, `<Trans>` 태그 파싱)을 탑재하므로 네이티브 대비 +9.4 KB를 가집니다. 어댑터는 완벽한 이전을 위한 다리이지 최종 종착지가 아닙니다.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 모든 라이브러리와 전략이 포함된 전체 표는 [Next.js 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/nextjs)에서 확인하세요.
+
 > Vite / TanStack Start 환경에서의 `react-i18next` 어댑터는 이번 벤치마크에 포함되지 않았습니다. TanStack Start 기준 수치는 [i18next vs Intlayer](https://intlayer.org/ko/blog/i18next-vs-intlayer)에서 확인할 수 있습니다.
 
 ## 수치가 개선되는 이유
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 `components/` 디렉터리의 소스 코드는 전혀 바뀌지 않았습니다. 모든 차이는 `useTranslation`이 무엇에 바인딩되는지에서 기인합니다.
 
@@ -148,6 +165,10 @@ const About = () => {
     ├── AppProviders.tsx              # <I18nextProvider i18n={i18n}>
     └── About.tsx                     # useTranslation(); t("about.title")
 ```
+
+인스턴스가 보유한 모든 것이 모든 페이지로 전송되며, 낭비는 페이지와 로케일이라는 두 축에서 증가합니다:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **`@intlayer/next-i18next`의 경우**, 바인딩 대상은 딕셔너리 그 자체입니다. `syncJSON`이 각 네임스페이스 파일을 딕셔너리로 변환하고, 최적화 단계가 컴포넌트에 해당 딕셔너리만을 직결 임포트로 넘겨주므로, 번들러가 페이지별, 로케일별로 안전하게 코드를 분할할 수 있습니다.
 
@@ -297,26 +318,112 @@ export default defineConfig({
 
 ## 시작 전 알아두어야 할 한계
 
-- **백엔드 및 감지기 비활성화.** `i18n.use(HttpBackend)`는 플러그인의 `init`만 호출하고 종료됩니다. 클라이언트 요청 시점에 CMS로부터 번역을 실시간으로 가져오던 방식은 중단되므로, Intlayer CMS 또는 `intlayer pull` / `push` 명령을 사용해야 합니다.
-- **`resources`는 병합되지 않고 무시됨.** 일부 어댑터와 달리, `@intlayer/i18next`는 인라인 `resources`를 폴백으로 사용하지 않습니다. 모든 키는 동기화된 딕셔너리에 실질적으로 존재해야 하며, 이는 `intlayer test`로 검증할 수 있습니다.
-- **App Router는 Provider 파일 수정 필요.** 위에서 설명한 1개 파일 수정이 요구됩니다. Pages Router에서 `appWithTranslation`을 사용 중인 경우는 추가 작업이 없습니다.
-- **`next-i18next.config.js` 무시.** `localePath`, `fallbackLng`, `reloadOnPrerender` 등의 옵션은 적용되지 않으며, 로케일과 폴백 규칙은 `intlayer.config.ts`에 정의해야 합니다.
-- **어댑터 자체의 런타임 비용.** 네이티브 `next-intlayer`에 비해 9.4 KB의 런타임과 페이지당 +9.4 KB가 추가됩니다. 모든 컴포넌트가 `useIntlayer`로 전환되면 어댑터를 제거하는 것이 좋습니다.
+<AccordionGroup>
+<Accordion header="백엔드 및 감지기는 비활성 상태임">
+
+`i18n.use(HttpBackend)`는 플러그인의 init만 호출할 뿐 다른 작업은 수행하지 않습니다. 앱이 런타임에 CMS에서 번역을 가져오는 데 의존했다면 해당 흐름은 사라집니다. 대신 [Intlayer CMS](https://intlayer.org/ko/doc/concept/cms) 또는 `intlayer pull` / `push` 명령을 사용하세요. 언어 감지는 Intlayer의 라우팅 설정(URL 접두사, 쿠키, 헤더)으로 대체됩니다.
+
+</Accordion>
+<Accordion header="resources는 병합되지 않고 무시됨">
+
+다른 어댑터와 달리 `@intlayer/i18next`는 인라인 `resources`를 폴백으로 사용하지 않습니다. 모든 키는 동기화된 사전에 존재해야 하며, 이는 `intlayer test`를 통해 검증됩니다.
+
+</Accordion>
+<Accordion header="App Router는 공급자 수정이 필요함">
+
+위에 표시된 단 하나의 파일만 수정하면 됩니다. `appWithTranslation`을 사용하는 Pages Router는 아무런 수정도 필요하지 않습니다.
+
+</Accordion>
+<Accordion header="next-i18next.config.js는 읽히지 않음">
+
+`localePath`, `fallbackLng`, `reloadOnPrerender` 등은 해당 사항이 없습니다. 로케일 및 폴백은 `intlayer.config.ts`에서 가져옵니다.
+
+</Accordion>
+<Accordion header="어댑터가 완전히 무료는 아님">
+
+`next-intlayer`에 비해 9.4 KB의 런타임 및 페이지당 +9.4 KB의 오버헤드가 발생합니다. 모든 컴포넌트가 `useIntlayer`로 전환되면 어댑터를 제거하세요.
+
+</Accordion>
+</AccordionGroup>
 
 ## 어떤 선택을 해야 할까?
 
-- **`i18next` 유지**: 요청 시점에 외부 CMS에서 번역을 실시간 수신해야 하거나, 독점적인 플러그인 생태계에 의존하거나, 어댑터가 커버하지 않는 비-React 환경인 경우.
-- **`@intlayer/*` 도입**: 기존 `react-i18next` / `next-i18next` 프로젝트에서 코드 재작성 없이 68 KB 절감, 8배 작아진 컴포넌트, 누수 0%, 타입 추론, CI 검증을 즉각 확보하고자 하는 경우.
-- **네이티브(`next-intlayer` / `react-intlayer`) 선택**: 신규 프로젝트이거나 어댑터 전환을 마친 후 최상의 성능을 원할 때. 가장 가벼운 구성(5.5 KB, 페이지당 +0.3 KB)으로 동기 서버 컴포넌트와 컴포넌트별 `.content.ts`를 지원합니다.
+<AccordionGroup>
+<Accordion header="i18next 유지">
+
+애플리케이션이 런타임 백엔드(요청 시 CMS에서 제공하는 번역), 플러그인 생태계 또는 어댑터가 지원하지 않는 비 React 환경에 의존하는 경우.
+
+</Accordion>
+<Accordion header="@intlayer/* 사용">
+
+`react-i18next` / `next-i18next`를 사용 중이며 코드 재작성 없이 68 KB 절감, 8배 더 작은 컴포넌트, 0% 누수, 타입 정의된 키 및 CI 검사를 원하는 경우. 기존 `i18next` 코드베이스의 진입점입니다.
+
+</Accordion>
+<Accordion header="네이티브로 전환 (next-intlayer / react-intlayer)">
+
+새 프로젝트이거나 어댑터가 역할을 다한 경우 적합합니다. 가장 가벼운 런타임(5.5 KB, 페이지당 +0.3 KB)을 제공하며 동기식 Server Components 및 컴포넌트별 `.content.ts` 파일을 지원합니다. [Next.js와 함께 사용하는 Intlayer](https://intlayer.org/ko/doc/environment/nextjs) 또는 [Vite 및 React와 함께](https://intlayer.org/ko/doc/environment/vite-and-react) 시작하세요.
+
+</Accordion>
+</AccordionGroup>
+
+## 자주 묻는 질문
+
+<FAQ>
+
+<Question title="68 KB의 절감 효과는 어디서 나오나요?">
+
+`resources: { en, fr, ... }`에서 나옵니다. 기본적인 `next-i18next` 설정은 각 로케일의 JSON을 `init()`으로 가져오므로 모든 페이지가 모든 언어의 모든 네임스페이스를 끌어옵니다(페이지당 **218.5 KB**). 어댑터는 해당 블록을 번들로 묶지 않으며, 각 컴포넌트가 활성 로케일에서 지정한 사전만 전달합니다.
+
+</Question>
+
+<Question title="<Trans> 컴포넌트가 계속 작동하나요?">
+
+네, `components`, 번호가 지정된 `<1>...</1>` 태그 및 `values`를 지원합니다. `{{interpolation}}`, `$t(key)` 중첩, `key_one` / `key_other` 복수형(`Intl.PluralRules`로 평가됨), 컨텍스트 접미사 및 `returnObjects`도 지원됩니다.
+
+</Question>
+
+<Question title="로케일당 단일 translation.json을 사용하는 경우는 어떻게 되나요?">
+
+`syncJSON` 플러그인에서 `splitKeys: false`로 설정하세요. 전체 파일이 하나의 사전으로 유지되며 기본 `useTranslation()` 호출이 이에 대해 계속 확인됩니다.
+
+</Question>
+
+<Question title="이것이 Intlayer로 완전히 마이그레이션하는 것과 같나요?">
+
+아닙니다. 이것은 가교 역할을 합니다. 어댑터는 `i18next` API를 유지하며 9.4 KB의 런타임 비용이 듭니다. 네이티브 `next-intlayer`는 5.5 KB의 비용이 들며 동기식 Server Components와 동일 위치의 `.content.ts` 파일을 추가합니다. JSON과 `.content.ts` 사전이 공존하므로 컴포넌트별로 점진적 전환이 가능합니다.
+
+</Question>
+
+<Question title="번역가가 현재 작업 방식을 유지할 수 있나요?">
+
+네. `locales/{lng}/{ns}.json`이 단일 진실 공급원으로 유지됩니다. `syncJSON`이 i18next 문법으로 이를 읽고 CLI 또는 CMS가 업데이트할 때 번역을 다시 기록합니다.
+
+</Question>
+
+</FAQ>
 
 ## 관련 비교 자료
 
-- [i18next vs Intlayer](https://intlayer.org/ko/blog/i18next-vs-intlayer) (라이브러리 단독 비교, 동일 벤치마크)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/ko/blog/next-intl-vs-intlayer-next-intl) (어댑터 시리즈)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/ko/blog/lingui-vs-intlayer-lingui) (어댑터 시리즈)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ko/blog/vue-i18n-vs-intlayer-vue-i18n) (어댑터 시리즈)
-- 마이그레이션 가이드: [i18next](https://intlayer.org/ko/doc/migration/i18next), [react-i18next](https://intlayer.org/ko/doc/migration/react-i18next), [next-i18next](https://intlayer.org/ko/doc/migration/next-i18next)
-- 어댑터 규격 문서: [i18next](https://intlayer.org/ko/doc/compatibility/i18next), [react-i18next](https://intlayer.org/ko/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/ko/doc/compatibility/next-i18next)
+동일한 어댑터 시리즈:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/ko/blog/next-intl-vs-intlayer-next-intl)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/ko/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ko/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+직접 비교된 라이브러리:
+
+- [i18next vs Intlayer](https://intlayer.org/ko/blog/i18next-vs-intlayer), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ko/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ko/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [Is i18next outdated?](https://intlayer.org/ko/blog/is-i18next-outdated)
+
+참조 문서:
+
+- Compat adapters: [i18next](https://intlayer.org/ko/doc/compatibility/i18next), [react-i18next](https://intlayer.org/ko/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/ko/doc/compatibility/next-i18next)
+- Migration guides: [i18next](https://intlayer.org/ko/doc/migration/i18next), [react-i18next](https://intlayer.org/ko/doc/migration/react-i18next), [next-i18next](https://intlayer.org/ko/doc/migration/next-i18next)
+- [Next.js benchmark report](https://intlayer.org/ko/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/ko/doc/benchmark/tanstack)
+- [Bundle optimization](https://intlayer.org/ko/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/ko/doc/compiler)
+- [Visual Editor](https://intlayer.org/ko/doc/concept/editor), [CMS](https://intlayer.org/ko/doc/concept/cms) and [AI translation](https://intlayer.org/ko/doc/concept/auto-fill)
 
 ## 결론
 

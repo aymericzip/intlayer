@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next vs Intlayer: Benchmark & Vergleich 2026"
 description: "react-i18next und next-i18next im Benchmark gegen Intlayer auf Next.js und TanStack Start. Bundle-Größe, Inhaltslecks, Reaktivität beim Sprachwechsel und Entwicklererfahrung."
 keywords:
@@ -24,6 +24,8 @@ author: aymericzip
 ---
 
 # i18next VS Intlayer | React & Next.js Internationalisierungs-Benchmark (i18n)
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `i18next` ist das am weitesten verbreitete i18n-Framework im JavaScript-Ökosystem. Über `react-i18next` und `next-i18next` betreibt es einen großen Teil der React- und Next.js-Anwendungen. Intlayer ist eine compilerbasierte, komponentenzentrierte Alternative.
 
@@ -99,6 +101,10 @@ Für jeden Build erfasst die Suite:
 
 ### Ergebnisse auf Next.js (`next-i18next`)
 
+Wählen Sie die Metriken und Bibliotheken aus, die für Sie wichtig sind:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Bibliothek                        | Strategie      | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E-Reaktivität | Hydration |
 | --------------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | --------------: | --------: |
 | **base** (ohne i18n)              | -              |        0.0 KB |         141.0 KB |        0.0% |      0.0% |             0.9 KB |         13.4 ms |   11.8 ms |
@@ -119,9 +125,20 @@ Für jeden Build erfasst die Suite:
 - **Komponentengröße.** Eine Komponente mit `useTranslation()` kompiliert je nach Konfiguration auf 26 bis 79 KB; dieselbe Komponente mit `useIntlayer()` benötigt lediglich 6.9 KB.
 - **Die Hydratisierung** steigt im `dynamic`-Setup auf 27.7 ms an: Die i18next-Instanz initialisiert sich und löst ihr Backend auf dem Client auf, bevor React die Hydratisierung abschließen kann.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Vollständige Tabelle, jede Bibliothek und jede Strategie, im [Next.js-Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/nextjs).
+
 ### Ergebnisse auf TanStack Start (`react-i18next`)
 
 Dieselbe Testanwendung auf TanStack Start mit reinem `react-i18next`, wodurch Next.js-spezifische Eigenheiten aus dem Vergleich herausgefiltert werden.
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Bibliothek           | Strategie      | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E-Reaktivität | Hydration |
 | -------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | --------------: | --------: |
@@ -141,7 +158,18 @@ Dieselbe Testanwendung auf TanStack Start mit reinem `react-i18next`, wodurch Ne
 - Intlayers `static`-Zeile weist bereits **0% Seitenleckage** auf, weil ausschließlich die von den Komponenten der jeweiligen Seite importierten Wörterbücher gebündelt werden. Das Aktivieren von `importMode: 'dynamic'` eliminiert auch die Sprachleckage vollständig.
 - **Komponentengröße**: 24-27 KB pro Komponente mit `react-i18next` gegenüber 6-8 KB mit Intlayer. `useTranslation()` bindet jede Komponente an die globale i18next-Instanz.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Vollständige Tabelle im [TanStack Start-Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/tanstack).
+
 ## Woher kommt der Unterschied? Globale Instanz vs. kompilierte Wörterbücher
+
+![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
 
 `i18next` wurde 2012 als Runtime konzipiert: Eine globale Instanz verwaltet einen Ressourcenspeicher, Plugins erweitern ihn und `t()` schlägt Schlüssel zur Renderzeit nach. Das macht es sehr flexibel (für jedes Framework, Backend und Format), führt aber auch zu Mehrgewicht:
 
@@ -166,7 +194,13 @@ Dieselbe Testanwendung auf TanStack Start mit reinem `react-i18next`, wodurch Ne
                 └── page.tsx     # muss wissen, dass es ["common", "about"] benötigt
 ```
 
-Die Instanz kann nicht wissen, welche Schlüssel eine Komponente anfordern wird. Optimierung bedeutet daher: **Sie** unterteilen Kataloge in Namespaces, **Sie** listen die Namespaces für jede Seite auf und **Sie** halten diese Liste synchron, wenn Komponenten verschoben werden. Wie die [Benchmark-Hinweise](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md) festhalten: "Typsicherheit zu wahren und exakt zu wissen, welcher Namespace auf welcher Seite eingebunden werden muss, ist ein Albtraum".
+Die Instanz kann nicht wissen, welche Schlüssel eine Komponente anfordern wird. Optimierung bedeutet daher: **Sie** unterteilen Kataloge in Namespaces, **Sie** listen die Namespaces für jede Seite auf und **Sie** halten diese Liste synchron, wenn Komponenten verschoben werden.
+
+Die Rechnung wächst auf zwei Achsen gleichzeitig, Seiten und Sprachen:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+Wie die [Benchmark-Hinweise](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md) festhalten: "Typsicherheit zu wahren und exakt zu wissen, welcher Namespace auf welcher Seite eingebunden werden muss, ist ein Albtraum".
 
 Intlayer verzichtet auf die globale Instanz. Inhalte werden direkt bei der Komponente deklariert und der Compiler löst den Abhängigkeitsgraphen zur Build-Zeit auf:
 
@@ -193,7 +227,8 @@ Intlayer verzichtet auf die globale Instanz. Inhalte werden direkt bei der Kompo
 
 ### Einrichtung
 
-**next-i18next (App Router)**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-i18next" value="i18next">
 
 ```ts fileName="src/app/i18n/server.ts"
 import { createInstance } from "i18next";
@@ -228,7 +263,8 @@ export const initI18next = async (
 
 Dazu kommt ein clientseitiger `I18nProvider`, der die Instanz mit identischen Optionen instanziiert, `generateStaticParams` und eine `namespaces`-Liste auf jeder Seite.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -264,9 +300,13 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
+</Tab>
+</Tabs>
+
 ### Client-Komponente
 
-**react-i18next**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="react-i18next" value="i18next">
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -304,7 +344,8 @@ export const Counter = () => {
 
 > Die Seite, die diese Komponente einbindet, muss den Namespace `about` laden, und `t("counter.label")` bleibt ein einfacher String, sofern `CustomTypeOptions` nicht erweitert wird.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -345,9 +386,13 @@ export const Counter = () => {
 
 `label` und `increment` sind strikt typisiert; Tippfehler werden als TypeScript-Fehler gemeldet und fehlende Übersetzungen verhindern den Build.
 
+</Tab>
+</Tabs>
+
 ### Synchrone Server-Komponente
 
-**next-i18next**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-i18next" value="i18next">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 type ServerCounterProps = {
@@ -366,7 +411,8 @@ export const ServerCounter = ({ t, locale, count }: ServerCounterProps) => (
 
 Die Seite ruft `i18n.getFixedT(locale, "about")` auf und reicht `t` und `locale` als Props nach unten weiter.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 import { useIntlayer } from "next-intlayer/server";
@@ -384,6 +430,9 @@ export const ServerCounter = ({ count }: { count: number }) => {
   );
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## i18next-API behalten, Intlayer-Performance nutzen
 
@@ -415,18 +464,85 @@ Siehe die Migrationsanleitungen: [i18next](https://intlayer.org/de/doc/migration
 
 ## Wann welche Lösung wählen?
 
-- **Wählen Sie i18next**, wenn Sie dessen Plugin-Ökosystem (Detektoren, Backends, ICU, Locize) benötigen, Lokalisierung auch außerhalb von React stattfindet (Node-Dienste, Vanilla JS, andere Frameworks), Ihr Team bereits damit vertraut ist oder Übersetzungsplattformen `locales/{lng}/{ns}.json` erwarten. Planen Sie die Zeit ein, um Kataloge in Namespaces aufzuteilen, ein Backend einzubinden und das Seiten-Mapping manuell zu pflegen.
-- **Wählen Sie Intlayer**, wenn Sie **komponentenzentrierte Inhalte**, **strikte TypeScript-Typen**, **Build-Time-Fehler bei fehlenden Übersetzungen**, **automatisiertes Tree-Shaking und Lazy Loading**, sofortige Sprachwechsel, synchrone Server-Komponenten und integrierte redaktionelle Werkzeuge (visueller Editor, CMS, KI-Übersetzung, MCP-Server) wünschen. Besonders wertvoll für modulare Codebases und Design-Systeme.
-- **Wählen Sie die `@intlayer/*-i18next`-Adapter**, wenn Sie bereits auf i18next setzen und die Bundle- sowie Reaktivitätsgewinne ohne Refactoring realisieren möchten.
+<AccordionGroup>
+<Accordion header="i18next wählen">
+
+Wenn Sie dessen Plugin-Ökosystem (Detektoren, Backends, ICU, Locize) benötigen, Lokalisierung auch außerhalb von React stattfindet (Node-Dienste, Vanilla JS, andere Frameworks), Ihr Team bereits damit vertraut ist oder Übersetzungsplattformen `locales/{lng}/{ns}.json` erwarten. Planen Sie die Zeit ein, um Kataloge in Namespaces aufzuteilen, ein Backend einzubinden und das Seiten-Mapping manuell zu pflegen.
+
+</Accordion>
+<Accordion header="Intlayer wählen">
+
+Sie möchten **komponentenbezogene Inhalte**, **striktes TypeScript**, **Fehler bei fehlenden Schlüsseln zur Build-Zeit**, **müheloses Tree-Shaking und Lazy Loading**, sofortiges Umschalten der Sprache, synchrone Serverkomponenten und integrierte Redaktionswerkzeuge ([Visueller Editor](https://intlayer.org/de/doc/concept/editor), [CMS](https://intlayer.org/de/doc/concept/cms), [KI-Übersetzung](https://intlayer.org/de/doc/concept/auto-fill), [MCP-Server](https://intlayer.org/de/doc/mcp-server)). Besonders relevant für große, modulare Codebasen und Design-Systeme.
+
+</Accordion>
+<Accordion header="@intlayer/*-i18next-Adapter wählen">
+
+Sie nutzen bereits i18next und möchten die Bundle- und Reaktivitätsgewinne ohne Umschreiben nutzen. Ihre `locales/{lng}/{ns}.json`-Dateien bleiben die Quelle der Wahrheit. Direkt verglichen in [i18next vs @intlayer/i18next](https://intlayer.org/de/blog/i18next-vs-intlayer-i18next).
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Warum ist i18next so viel schwerer als die anderen Bibliotheken?">
+
+Es wurde als Framework-agnostische Laufzeitumgebung konzipiert: eine globale Instanz, eine Plugin-Pipeline, ein Ressourcenspeicher, ein Schlüssel-Resolver. Diese Flexibilität wird in jedes Bundle kompiliert. Eine leere Komponente, die nur die Bibliothek importiert, kostet **19.7 KB gzip** mit `next-i18next` gegenüber **5.5 KB** mit `next-intlayer`, und diese Kosten fallen auf jeder Seite an, unabhängig vom Inhalt.
+
+</Question>
+
+<Question title="Löst Lazy Loading mit einem Backend das Problem?">
+
+Es spart Bytes, verringert aber nicht die Latenz. Der Wechsel zu `i18next-resources-to-backend` spart ~49 KB pro Seite, fügt aber beim Sprachwechsel einen Netzwerk-Roundtrip hinzu: **123 ms** im `dynamic`-Setup und **185 ms** in `scoped-static`, gegenüber **3-4 ms** bei Intlayer. Die Hydratisierung steigt ebenfalls auf 27.7 ms, da die Instanz ihr Backend auflöst, bevor React hydratisieren kann.
+
+</Question>
+
+<Question title="Kann ich mit i18next 0% Leakage erreichen?">
+
+Ja, mit `scoped-dynamic`: ein Namespace pro Route, ein Ressourcen-Backend und eine manuell gepflegte Zuordnung von Seiten zu Namespaces. Das landet bei 163.4 KB pro Seite auf Next.js, immer noch **+22 KB** über den 141.3 KB von Intlayer, das keine Konfiguration benötigte. Siehe [Bundle-Optimierung](https://intlayer.org/de/doc/concept/bundle-optimization).
+
+</Question>
+
+<Question title="Muss ich meine Komponenten für die Migration umschreiben?">
+
+Nein. `@intlayer/i18next`, `@intlayer/react-i18next` und `@intlayer/next-i18next` behalten `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, `_one` / `_other`-Plurale, Kontext-Suffixe und `returnObjects` bei. Eine einzige Plugin-Zeile in `next.config.ts` oder `vite.config.ts`. Schritt für Schritt im [next-i18next-Migrationsleitfaden](https://intlayer.org/de/doc/migration/next-i18next).
+
+</Question>
+
+<Question title="Was passiert mit meinen i18next-Plugins?">
+
+Backends und Spracherkenner werden akzeptiert, bleiben aber wirkungslos: Es gibt zur Laufzeit nichts mehr zu laden oder zu erkennen. Die Spracherkennung wird zur Routing-Konfiguration von Intlayer (URL-Präfix, Cookie, Header). Wenn Ihre App Übersetzungen zur Laufzeit von einem CMS abruft, nutzen Sie stattdessen das [Intlayer CMS](https://intlayer.org/de/doc/concept/cms) oder `intlayer pull` / `push`.
+
+</Question>
+
+</FAQ>
 
 ## Verwandte Vergleiche
 
-- [next-intl vs Intlayer](https://intlayer.org/de/blog/next-intl-vs-intlayer) (gleicher Benchmark)
-- [Lingui vs Intlayer](https://intlayer.org/de/blog/lingui-vs-intlayer) (gleicher Benchmark)
-- [vue-i18n vs Intlayer Benchmark](https://intlayer.org/de/blog/vue-i18n-vs-intlayer-benchmark) (gleicher Benchmark)
+Gleicher Benchmark, andere Bibliotheken:
+
+- [next-intl vs Intlayer](https://intlayer.org/de/blog/next-intl-vs-intlayer)
+- [Lingui vs Intlayer](https://intlayer.org/de/blog/lingui-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/de/blog/vue-i18n-vs-intlayer-benchmark)
 - [next-i18next vs next-intl vs Intlayer](https://intlayer.org/de/blog/next-i18next-vs-next-intl-vs-intlayer)
 - [react-i18next vs react-intl vs Intlayer](https://intlayer.org/de/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+Mehr zu i18next:
+
+- [i18next vs @intlayer/i18next](https://intlayer.org/de/blog/i18next-vs-intlayer-i18next), die Adapter auf derselben App gemessen
 - [Ist i18next veraltet?](https://intlayer.org/de/blog/is-i18next-outdated)
+- [Intlayer mit i18next nutzen](https://intlayer.org/de/blog/intlayer-with-i18next) und [mit react-i18next](https://intlayer.org/de/blog/intlayer-with-react-i18next)
+- [Wie man eine Next.js-App mit next-i18next internationalisiert](https://intlayer.org/de/blog/nextjs-internationalization-using-next-i18next)
+
+Referenzdokumentation:
+
+- [Next.js-Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/nextjs) und [TanStack Start-Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/tanstack)
+- Kompatibilitätsadapter: [i18next](https://intlayer.org/de/doc/compatibility/i18next), [react-i18next](https://intlayer.org/de/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/de/doc/compatibility/next-i18next)
+- Migrationsleitfäden: [i18next](https://intlayer.org/de/doc/migration/i18next), [react-i18next](https://intlayer.org/de/doc/migration/react-i18next), [next-i18next](https://intlayer.org/de/doc/migration/next-i18next)
+- [Bundle-Optimierung](https://intlayer.org/de/doc/concept/bundle-optimization) und [der Intlayer-Compiler](https://intlayer.org/de/doc/compiler)
+- [Komponentenbezogene vs. zentrale i18n](https://intlayer.org/de/blog/per-component-vs-centralized-i18n)
+- [Compiler-gesteuerte vs. deklarative i18n](https://intlayer.org/de/blog/compiler-vs-declarative-i18n)
 
 ## GitHub-Sterne
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next vs @intlayer/i18next: Mesma API, Outro Bundle"
 description: O que muda quando uma aplicação React ou Next.js mantém suas chamadas de i18next, react-i18next e next-i18next mas as executa através dos adaptadores @intlayer/i18next. JavaScript por página, tamanho de componentes, vazamento de conteúdo e hidratação medidos no mesmo código, além do que os adaptadores mantêm, ignoram e não substituem.
 keywords:
@@ -27,6 +27,8 @@ author: aymericzip
 ---
 
 # i18next VS @intlayer/i18next | Mesma API, Outro Bundle
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `@intlayer/i18next`, `@intlayer/react-i18next` e `@intlayer/next-i18next` são adaptadores de compatibilidade. Eles expõem a API do `i18next` que seu código já utiliza (`useTranslation`, `t()`, `<Trans>`, `i18n.changeLanguage()`, `getFixedT`, `serverSideTranslations`...) e a fornecem a partir de dicionários compilados pelo Intlayer. Os componentes não mudam. O runtime abaixo deles sim.
 
@@ -109,6 +111,10 @@ Para cada compilação, registram-se:
 
 ### Resultados no Next.js
 
+Escolha as métricas e as bibliotecas que importam para você:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Setup                        | Estratégia     | Tamanho lib (gz) | Média JS pág (gz) | Vazamento locale | Vazamento pág | Média comp (gz) | Reatividade E2E |  Hidratação |
 | ---------------------------- | -------------- | ---------------: | ----------------: | ---------------: | ------------: | --------------: | --------------: | ----------: |
 | **base** (sem i18n)          | -              |           0.0 KB |          141.0 KB |             0.0% |          0.0% |          0.9 KB |         13.4 ms |     11.8 ms |
@@ -129,9 +135,20 @@ Para cada compilação, registram-se:
 - **Hidratação e alternância de idioma aceleradas.** A hidratação cai de 15.6 ms para **11.3 ms** (e de 27.7 ms no modo `dynamic`, no qual o carregamento do backend reside no caminho crítico). A troca de idioma cai de 15-16 ms para **11-12 ms**.
 - **O adaptador é diferente do runtime nativo.** O `next-intlayer` crava **141.3 KB**, meros +0.3 KB acima do app sem i18n. O adaptador suporta as particularidades da API do `i18next` (expressões de interpolação, sufixos de plural e contexto, tags `<Trans>`) sobre o núcleo do Intlayer: 9.4 KB e +9.4 KB por página em relação ao nativo. Atua como transição, não como destino final.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tabela completa, cada biblioteca e cada estratégia, no [relatório de benchmark do Next.js](https://intlayer.org/pt/doc/benchmark/nextjs).
+
 > O adaptador `react-i18next` no Vite / TanStack Start não constou desta rodada de testes. A medição para `react-i18next` no TanStack Start pode ser verificada em [i18next vs Intlayer](https://intlayer.org/pt/blog/i18next-vs-intlayer): 127-184 KB por página e 123-185 ms na troca de idioma com backend sob demanda.
 
 ## O motivo da mudança nos indicadores
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 Nenhum arquivo em `components/` foi alterado, logo o ganho advém da entidade à qual `useTranslation` se acopla.
 
@@ -148,6 +165,10 @@ Nenhum arquivo em `components/` foi alterado, logo o ganho advém da entidade à
     ├── AppProviders.tsx              # <I18nextProvider i18n={i18n}>
     └── About.tsx                     # useTranslation(); t("about.title")
 ```
+
+Tudo o que a instância contém é enviado para todas as páginas, e o desperdício cresce em dois eixos, páginas e idiomas:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Com o `@intlayer/next-i18next`**, a ligação é feita diretamente com o dicionário. O plugin `syncJSON` transforma cada arquivo de namespace em um dicionário; o ciclo de otimização repassa ao componente apenas o dicionário declarado, na forma de import que o empacotador rastreia e separa por página e locale.
 
@@ -297,26 +318,112 @@ O `reactI18nextVitePlugin()` encapsula o `vite-intlayer` e define os aliases par
 
 ## Limitações importantes antes de iniciar
 
-- **Backends e detectores ficam desativados.** `i18n.use(HttpBackend)` executa o método `init` do plugin e encerra. Se seu projeto dependia de buscar traduções em um CMS em tempo de execução, esse fluxo é descontinuado; use o CMS do Intlayer ou os comandos `intlayer pull` / `push`.
-- **`resources` é descartado, não combinado.** Ao contrário de certos adaptadores, o `@intlayer/i18next` não usa `resources` inline como recurso de segurança. Toda chave precisa existir nos dicionários sincronizados, o que é validado por `intlayer test`.
-- **App Router necessita do ajuste de provider.** Apenas um arquivo, apresentado acima. O Pages Router com `appWithTranslation` opera sem ajustes adicionais.
-- **`next-i18next.config.js` não é aproveitado.** Parâmetros como `localePath`, `fallbackLng` e `reloadOnPrerender` não são lidos; configurações de idioma e fallback residem em `intlayer.config.ts`.
-- **O adaptador possui um custo.** 9.4 KB de runtime e +9.4 KB por página em relação ao `next-intlayer`. Assim que todos os componentes forem convertidos para `useIntlayer`, ele pode ser desinstalado.
+<AccordionGroup>
+<Accordion header="Backends e detectores são inertes">
+
+`i18n.use(HttpBackend)` chama o init do plugin e nada mais. Se o seu aplicativo dependia de buscar traduções de um CMS em tempo de execução, esse fluxo desaparece; use o [CMS do Intlayer](https://intlayer.org/pt/doc/concept/cms) ou os comandos `intlayer pull` / `push`. A detecção de idioma passa a ser a configuração de roteamento do Intlayer (prefixo de URL, cookie, cabeçalho).
+
+</Accordion>
+<Accordion header="resources é ignorado, não mesclado">
+
+Ao contrário de outros adaptadores, o `@intlayer/i18next` não usa `resources` em linha como fallback. Cada chave deve existir nos dicionários sincronizados, o que o `intlayer test` verifica.
+
+</Accordion>
+<Accordion header="O App Router requer edição do provider">
+
+Apenas um arquivo, mostrado acima. O Pages Router com `appWithTranslation` não requer nada.
+
+</Accordion>
+<Accordion header="next-i18next.config.js não é lido">
+
+`localePath`, `fallbackLng`, `reloadOnPrerender` e semelhantes não têm equivalente; idiomas e fallback vêm de `intlayer.config.ts`.
+
+</Accordion>
+<Accordion header="O adaptador não é gratuito">
+
+9.4 KB de runtime e +9.4 KB por página em relação ao `next-intlayer`. Assim que cada componente migrar para o `useIntlayer`, remova-o.
+
+</Accordion>
+</AccordionGroup>
 
 ## Quando utilizar cada alternativa?
 
-- **Mantenha-se no `i18next`** se sua infraestrutura depender de backends dinâmicos em tempo de execução (traduções servidas sob demanda por CMS), de plugins exclusivos ou de um ambiente fora do ecossistema React não atendido pelos adaptadores.
-- **Adote `@intlayer/*`** se você já opera com `react-i18next` / `next-i18next` e deseja resgatar 68 KB, atingir componentes 8x menores, eliminar vazamento (0%), obter chaves tipadas e validação na CI sem reescrever seus componentes. É a transição recomendada para bases existentes de `i18next`.
-- **Prefira o modelo nativo (`next-intlayer` / `react-intlayer`)** em projetos novos ou logo após o adaptador consolidar a migração. Trata-se da opção mais rápida (5.5 KB, +0.3 KB por página), liberando Server Components síncronos e arquivos `.content.ts` por componente.
+<AccordionGroup>
+<Accordion header="Permanecer no i18next">
+
+Seu aplicativo depende de backends em tempo de execução (traduções servidas por um CMS no momento da requisição), do ecossistema de plugins ou de um destino não-React não coberto pelos adaptadores.
+
+</Accordion>
+<Accordion header="Usar @intlayer/*">
+
+Você está no `react-i18next` / `next-i18next` e quer os 68 KB economizados, componentes 8 vezes menores, 0% de vazamento, chaves tipadas e verificações no CI sem reescrever o código. Este é o ponto de entrada para uma base de código `i18next` existente.
+
+</Accordion>
+<Accordion header="Tornar-se nativo (next-intlayer / react-intlayer)">
+
+Para novos projetos, ou assim que o adaptador cumprir seu papel. Possui o runtime mais leve (5.5 KB, +0.3 KB por página) e desbloqueia Server Components síncronos e arquivos `.content.ts` por componente. Comece com [Intlayer com Next.js](https://intlayer.org/pt/doc/environment/nextjs) ou [com Vite e React](https://intlayer.org/pt/doc/environment/vite-and-react).
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="De onde vêm os 68 KB?">
+
+De `resources: { en, fr, ... }`. A configuração padrão do `next-i18next` importa o JSON de cada idioma no `init()`, portanto, cada página carrega cada namespace em cada idioma: **218.5 KB** por página. O adaptador nunca empacota esse bloco; ele entrega a cada componente apenas o dicionário nomeado, no idioma ativo.
+
+</Question>
+
+<Question title="Meus componentes <Trans> continuam funcionando?">
+
+Sim, com `components`, tags numeradas `<1>...</1>` e `values`. O mesmo vale para `{{interpolation}}`, aninhamento `$t(key)`, plurais `key_one` / `key_other` (avaliados com `Intl.PluralRules`), sufixos de contexto e `returnObjects`.
+
+</Question>
+
+<Question title="E se eu usar um único translation.json por idioma?">
+
+Defina `splitKeys: false` no plugin `syncJSON`. Todo o arquivo permanece como um único dicionário e um `useTranslation()` simples continuará resolvendo contra ele.
+
+</Question>
+
+<Question title="Isso é o mesmo que migrar para o Intlayer?">
+
+Não, é a ponte. O adaptador mantém a API do `i18next` e custa 9.4 KB de runtime; o `next-intlayer` nativo custa 5.5 KB e adiciona Server Components síncronos e arquivos `.content.ts` co-localizados. Você pode migrar componente por componente, já que os dicionários JSON e `.content.ts` coexistem.
+
+</Question>
+
+<Question title="Os tradutores podem continuar trabalhando como fazem hoje?">
+
+Sim. `locales/{lng}/{ns}.json` permanece a fonte da verdade: o `syncJSON` o lê com o dialeto do i18next e grava as traduções de volta quando a CLI ou o CMS os atualiza.
+
+</Question>
+
+</FAQ>
 
 ## Comparações relacionadas
 
-- [i18next vs Intlayer](https://intlayer.org/pt/blog/i18next-vs-intlayer) (comparação das bibliotecas, mesmo benchmark)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/pt/blog/next-intl-vs-intlayer-next-intl) (mesma série de adaptadores)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/pt/blog/lingui-vs-intlayer-lingui) (mesma série de adaptadores)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/pt/blog/vue-i18n-vs-intlayer-vue-i18n) (mesma série de adaptadores)
-- Guias de migração: [i18next](https://intlayer.org/pt/doc/migration/i18next), [react-i18next](https://intlayer.org/pt/doc/migration/react-i18next), [next-i18next](https://intlayer.org/pt/doc/migration/next-i18next)
-- Referência dos adaptadores: [i18next](https://intlayer.org/pt/doc/compatibility/i18next), [react-i18next](https://intlayer.org/pt/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/pt/doc/compatibility/next-i18next)
+Mesma série de adaptadores:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/pt/blog/next-intl-vs-intlayer-next-intl)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/pt/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/pt/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+Bibliotecas comparadas diretamente:
+
+- [i18next vs Intlayer](https://intlayer.org/pt/blog/i18next-vs-intlayer), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/pt/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/pt/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [Is i18next outdated?](https://intlayer.org/pt/blog/is-i18next-outdated)
+
+Documentação de referência:
+
+- Compat adapters: [i18next](https://intlayer.org/pt/doc/compatibility/i18next), [react-i18next](https://intlayer.org/pt/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/pt/doc/compatibility/next-i18next)
+- Migration guides: [i18next](https://intlayer.org/pt/doc/migration/i18next), [react-i18next](https://intlayer.org/pt/doc/migration/react-i18next), [next-i18next](https://intlayer.org/pt/doc/migration/next-i18next)
+- [Next.js benchmark report](https://intlayer.org/pt/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/pt/doc/benchmark/tanstack)
+- [Bundle optimization](https://intlayer.org/pt/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/pt/doc/compiler)
+- [Visual Editor](https://intlayer.org/pt/doc/concept/editor), [CMS](https://intlayer.org/pt/doc/concept/cms) and [AI translation](https://intlayer.org/pt/doc/concept/auto-fill)
 
 ## Conclusão
 

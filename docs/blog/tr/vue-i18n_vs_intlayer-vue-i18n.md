@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "vue-i18n vs @intlayer/vue-i18n: Aynı API, Farklı Bundle"
 description: Bir Vue 3 uygulaması vue-i18n çağrılarını tuttuğunda ancak @intlayer/vue-i18n compat adapter aracılığıyla sunduğunda neler değişiyor. Aynı Vite + Vue kodunda sayfa başına JavaScript, runtime boyutu, component boyutu ve sızıntı ölçüldü; adapter'ın ne tuttuğu, ne yoksaydığı ve neyi değiştiremeyeceği.
 keywords:
@@ -24,6 +24,8 @@ author: aymericzip
 ---
 
 # vue-i18n VS @intlayer/vue-i18n | Aynı API, Farklı Bundle
+
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 `@intlayer/vue-i18n`, bir uyumluluk adaptörüdür: `vue-i18n` API'sini (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...) ortaya çıkarır ve bunu Intlayer tarafından derlenmiş sözlüklerden sunar. `.vue` dosyalarınız değişmez. `t("footer.github")`'nin bağlı olduğu şey değişir.
 
@@ -105,13 +107,17 @@ Her derleme için, suite şunları kaydeder:
 
 ### Vite + Vue 3 Sonuçları
 
-| Kurulum                  | Strategi | Lib size (gz) | Lib size (min) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |  Page load |
-| ------------------------ | -------- | ------------: | -------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ---------: |
-| **base** (i18n yok)      | -        |        0.0 KB |         0.0 KB |          41.3 KB |        0.0% |         - |             1.1 KB |         1.8 ms |    10.8 ms |
-| `vue-i18n`               | static   |       24.3 KB |        83.2 KB |         134.9 KB |       50.0% |     90.0% |           196.0 KB |         2.8 ms |    13.6 ms |
-| **`@intlayer/vue-i18n`** | static   |    **7.9 KB** |    **23.2 KB** |      **47.0 KB** |   **15.0%** |  **0.0%** |         **8.4 KB** |     **1.5 ms** | **9.3 ms** |
-| `vue-intlayer` (native)  | static   |        3.9 KB |        11.1 KB |          57.1 KB |       56.8% |      0.0% |             7.7 KB |         4.5 ms |    13.8 ms |
-| `vue-intlayer` (native)  | dynamic  |        3.9 KB |        11.1 KB |          59.8 KB |       50.0% |      0.0% |             6.5 KB |         4.0 ms |    15.8 ms |
+| Kurulum                                           | Strategi | Lib size (gz) | Lib size (min) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Page load |
+| ------------------------------------------------- | -------- | ------------: | -------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
+| İlgilendiğiniz metrikleri ve kütüphaneleri seçin: |
+
+<I18nBenchmark framework="vite-vue" vertical/>
+
+| **base** (i18n yok) | - | 0.0 KB | 0.0 KB | 41.3 KB | 0.0% | - | 1.1 KB | 1.8 ms | 10.8 ms |
+| `vue-i18n` | static | 24.3 KB | 83.2 KB | 134.9 KB | 50.0% | 90.0% | 196.0 KB | 2.8 ms | 13.6 ms |
+| **`@intlayer/vue-i18n`** | static | **7.9 KB** | **23.2 KB** | **47.0 KB** | **15.0%** | **0.0%** | **8.4 KB** | **1.5 ms** | **9.3 ms** |
+| `vue-intlayer` (native) | static | 3.9 KB | 11.1 KB | 57.1 KB | 56.8% | 0.0% | 7.7 KB | 4.5 ms | 13.8 ms |
+| `vue-intlayer` (native) | dynamic | 3.9 KB | 11.1 KB | 59.8 KB | 50.0% | 0.0% | 6.5 KB | 4.0 ms | 15.8 ms |
 
 > Temel uygulamanın page-leak sütunu boş bırakılmıştır: i18n kütüphanesi olmadan, parmak izi alma paylaşılan chunk'lardaki sabit kodlanmış stringleri alır ve sayı anlamlı değildir.
 
@@ -124,11 +130,24 @@ Her derleme için, suite şunları kaydeder:
 - **Reaktivite ve sayfa yükü.** Yerel ayar değiştirme her ikisi için de ucuzdur (1,5-2,8 ms); Vue'nin reaktivite sistemi mesajlar bellekte olduktan sonra bunu sağlar. Sayfa yükü 13,6 ms'den **9,3 ms**'ye gider; ayrıştırılacak 88 KB daha az JavaScript ile uyumludur.
 - **Yerel satırlar hakkında.** `vue-intlayer` bu çalıştırmada `static` modunda her yerel ayarı paketledi ve 3,9 KB çalışma zamanı ile 57,1 KB'ye ulaştı; adaptörün senkronize edilen sözlükleri daha az yabancı yerel ayar dizesi içeriyordu, bu nedenle sayfa başına daha düşük rakam. Yerel çalışma zamanı üçünün en hafifi olmaya devam ediyor ve `.content.ts` modeli SFC `<i18n>` bloklarının eşdeğerini bulduğu yerdir.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tüm tablo, her kütüphane ve her strateji, [Vue kıyaslama raporunda](https://intlayer.org/tr/doc/benchmark/vue).
+
 ## Sayılar neden değişiyor
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 `src/components/` içinde hiçbir şey değişmedi, bu nedenle kazançlar `useI18n` bağlı olduğu şeyden geliyor.
 
-**`vue-i18n` ile**, bağlama global örnek olur. `createI18n({ messages: { en, fr, ... } })` her şeyi içeren tek bir importtur; `useI18n()` çağıran her bileşen tümüne erişebilir, bu nedenle bundler örneğin altında bölemez. Optimize etmek, _siz_ `en.json` dosyasını rota tarafından bölmeniz, bir router guard içinde `setLocaleMessage()` çağırmanız ve bileşenler hareket ettikçe rota-dosya haritasını doğru tutmanız anlamına gelir.
+**`vue-i18n` ile**, bağlama global örnek olur. `createI18n({ messages: { en, fr, ... } })` her şeyi içeren tek bir importtur; `useI18n()` çağıran her bileşen tümüne erişebilir, bu nedenle bundler örneğin altında bölemez. Optimize etmek, _siz_ `en.json` dosyasını rota tarafından bölmeniz, bir router guard içinde `setLocaleMessage()` çağırmanız ve bileşenler hareket ettikçe rota-dosya haritasını doğru tutmanız anlamına gelir. İsraf aynı anda iki eksende büyür, sayfalar ve diller:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ```bash
 .
@@ -258,26 +277,107 @@ export const i18n = createI18n({ locale: "en" });
 
 ## Başlamadan önce bilmeniz gereken sınırlamalar
 
-- **SFC `<i18n>` blokları okunmaz.** Mesajlarınız componentler içinde bulunuyorsa, bunların locale dosyalarına (veya türleri olan `.content.ts` dosyasına, bu da aynı fikrin türlü halidir) taşınması gerekir.
-- **Runtime mesaj yükleme kaldırılmıştır.** `setLocaleMessage()` ve `mergeLocaleMessage()` uyarı verir ve geri döner. CMS'den runtime'da alınan çeviriler, Intlayer'ın CMS'ini veya `intlayer pull` / `push` komutlarını gerektirir.
-- **`messages` bir fallback'tir, ücretsiz değildir.** `createI18n()` içindeki JSON import'larını tutmak, bundle'a 75 KB ekler. `intlayer test` geçtikten sonra bunları silin.
-- **Adapter, native runtime değildir.** 7.9 KB vs `vue-intlayer` için 3.9 KB. Her component `useIntlayer`'a geçtikten sonra bunu kaldırabilirsiniz.
+<AccordionGroup>
+<Accordion header="SFC <i18n> blokları okunmaz">
+
+Mesajlarınız bileşenlerin içindeyse, yerel ayarlara ait dosyalara veya üretilen tiplerle aynı mantıkta olan `.content.ts` dosyasına taşınmalıdır.
+
+</Accordion>
+<Accordion header="Çalışma zamanı mesaj yükleme kaldırıldı">
+
+`setLocaleMessage()` ve `mergeLocaleMessage()` bir uyarı verip geri döner. Çalışma zamanında bir CMS'ten çekilen çeviriler, [Intlayer CMS](https://intlayer.org/tr/doc/concept/cms) veya `intlayer pull` / `push` komutlarını gerektirir.
+
+</Accordion>
+<Accordion header="messages bir yedek seçenektir, ücretsiz değildir">
+
+`createI18n()` içindeki JSON içe aktarmalarını tutmak, pakette 75 KB tutmaya devam eder. `intlayer test` başarıyla geçtikten sonra bunları silin.
+
+</Accordion>
+<Accordion header="Adaptör yerel çalışma zamanı değildir">
+
+`vue-intlayer` için 3.9 KB iken adaptör için 7.9 KB. Her bileşen `useIntlayer` kullanımına geçtikten sonra kaldırın.
+
+</Accordion>
+</AccordionGroup>
 
 ## Hangisini ne zaman kullanmalı?
 
-- **`vue-i18n` üzerinde kalın** eğer uygulamanız SFC `<i18n>` blocks'a, runtime `setLocaleMessage()` flows'a bağlı ise, veya 90 KB per page sizin audience'ınız için bir sorun değilse.
-- **`@intlayer/vue-i18n` kullanın** eğer `vue-i18n` üzerindeyseniz ve 88 KB, 23x daha küçük components, 0% page leakage, typed keys ve `.vue` dosyasını düzenlemeden CI checks istiyorsanız. Bu, mevcut bir `vue-i18n` codebase'i için giriş noktasıdır.
-- **Native'ye gidin (`vue-intlayer`)** yeni projeler için veya adapter işini bitirdikten sonra. En hafif runtime'a (3.9 KB) ve `<i18n>` blocks'ı typed content ile değiştiren per-component `.content.ts` modelini içerir.
+<AccordionGroup>
+<Accordion header="vue-i18n'de kalın">
+
+Uygulamanız SFC `<i18n>` bloklarına veya çalışma zamanı `setLocaleMessage()` akışlarına bağımlıysa ya da sayfa başına 90 KB kitleniz için bir endişe kaynağı değilse.
+
+</Accordion>
+<Accordion header="@intlayer/vue-i18n kullanın">
+
+`vue-i18n` kullanıyorsanız ve hiçbir `.vue` dosyasını düzenlemeden 88 KB tasarruf, 23 kat daha küçük bileşenler, %0 sayfa sızıntısı, tiplenmiş anahtarlar ve CI denetimleri istiyorsanız. Mevcut bir `vue-i18n` kod tabanı için giriş noktası budur.
+
+</Accordion>
+<Accordion header="Yerel kullanıma geçin (vue-intlayer)">
+
+Yeni projeler için veya adaptör görevini tamamladıktan sonra. En hafif çalışma zamanına (3.9 KB) ve `<i18n>` bloklarını tiplenmiş içerikle değiştiren bileşen başına `.content.ts` modeline sahiptir. [Vue ile Intlayer](https://intlayer.org/tr/doc/environment/vite-and-vue) veya [Nuxt ile](https://intlayer.org/tr/doc/environment/nuxt-and-vue) başlayın.
+
+</Accordion>
+</AccordionGroup>
+
+## SSS
+
+<FAQ>
+
+<Question title=".vue dosyalarımı düzenlemem gerekiyor mu?">
+
+Hayır. Kıyaslama derlemesi yalnızca `vite.config.ts`, `intlayer.config.ts` ve `src/i18n.ts` dosyasındaki `messages` içe aktarımını değiştirdi. Her `useI18n()`, `$t`, `v-t` ve Options API çağrısı olduğu gibi kaldı.
+
+</Question>
+
+<Question title="Bileşen boyutu neden 23 kat daha küçük?">
+
+Çünkü `useI18n()` artık genel örneğe erişmeyi bırakır. `createI18n({ messages })` her yerel ayarın tüm mesajlarını tutar, bu nedenle tek başına derlenen bir bileşen 196 KB yük getirir. Adaptörle yalnızca kendi sözlüğüne erişir: 8.4 KB.
+
+</Question>
+
+<Question title="d() ve n() biçimlendirmeleri ne olacak?">
+
+Korundu. `createI18n()` işlevine iletilen `datetimeFormats` ve `numberFormats` yapılandırmalarına uyulur ve yerel `Intl` API'si ile desteklenir. Bkz. [tarih, saat ve sayı biçimlendirmesi](https://intlayer.org/tr/blog/date-time-number-formatting-locales).
+
+</Question>
+
+<Question title="Nuxt ile çalışır mı?">
+
+`@intlayer/vue-i18n` Vite + Vue hedefler. `@nuxtjs/i18n` için [Nuxt i18n uyumluluk adaptörünü](https://intlayer.org/tr/doc/compatibility/nuxtjs-i18n) kullanın ve yerel kurulum için [Nuxt ile Intlayer](https://intlayer.org/tr/doc/environment/nuxt-and-vue) sayfasına bakın.
+
+</Question>
+
+<Question title="Bileşen bileşen geçiş yapabilir miyim?">
+
+Evet. Herhangi bir bileşen, aynı dizinde bulunan bir içerik dosyasıyla `useI18n()` kullanımından `useIntlayer("footer")` kullanımına geçebilir. JSON ve `.content.ts` sözlükleri bir arada var olur ve birleşir.
+
+</Question>
+
+</FAQ>
 
 ## İlgili karşılaştırmalar
 
-- [vue-i18n vs Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer) (özellikler ve DX)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/blog/vue-i18n-vs-intlayer-benchmark) (kütüphaneler, aynı benchmark)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/blog/next-intl-vs-intlayer-next-intl) (aynı adapter serisi)
-- [i18next vs @intlayer/i18next](https://intlayer.org/blog/i18next-vs-intlayer-i18next) (aynı adapter serisi)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/blog/lingui-vs-intlayer-lingui) (aynı adapter serisi)
-- [Geçiş rehberi: vue-i18n to Intlayer](https://intlayer.org/doc/migration/vue-i18n)
-- [Compat adapter reference: vue-i18n](https://intlayer.org/doc/compatibility/vue-i18n), [Nuxt i18n](https://intlayer.org/doc/compatibility/nuxtjs-i18n)
+Aynı adaptör serisi:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/tr/blog/next-intl-vs-intlayer-next-intl)
+- [i18next vs @intlayer/i18next](https://intlayer.org/tr/blog/i18next-vs-intlayer-i18next)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/tr/blog/lingui-vs-intlayer-lingui)
+
+Doğrudan karşılaştırılan kütüphaneler:
+
+- [vue-i18n vs Intlayer](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer), features and DX
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-benchmark)
+- [Is vue-i18n outdated?](https://intlayer.org/tr/blog/is-vue-i18n-outdated)
+- [How to pick a Vue i18n library](https://intlayer.org/tr/blog/how-to-pick-vue-i18n-library)
+
+Referans belgeler:
+
+- [Compat adapter: vue-i18n](https://intlayer.org/tr/doc/compatibility/vue-i18n) and [Nuxt i18n](https://intlayer.org/tr/doc/compatibility/nuxtjs-i18n)
+- [Geçiş kılavuzu: vue-i18n'den Intlayer'a](https://intlayer.org/tr/doc/migration/vue-i18n)
+- [Vue kıyaslama raporu](https://intlayer.org/tr/doc/benchmark/vue)
+- [Paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization) ve [Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler)
+- [Görsel Düzenleyici](https://intlayer.org/tr/doc/concept/editor), [CMS](https://intlayer.org/tr/doc/concept/cms) ve [yapay zeka çevirisi](https://intlayer.org/tr/doc/concept/auto-fill)
 
 ## Sonuç
 
@@ -285,4 +385,4 @@ export const i18n = createI18n({ locale: "en" });
 
 Tüm ham veriler, test uygulamaları ve scriptler [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom) içinde bulunmaktadır. Kendiniz çalıştırabilirsiniz.
 
-Daha fazla ayrıntı için ['Neden Intlayer?' dokümantasyonuna](https://intlayer.org/doc/why) bakınız.
+Daha fazla ayrıntı için ['Neden Intlayer?' dokümantasyonuna](https://intlayer.org/tr/doc/why) bakınız.

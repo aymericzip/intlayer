@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-08-23
+updatedAt: 2026-09-22
 title: vue-i18n vs Intlayer
 description: Comparaison de vue-i18n avec Intlayer pour l'internationalisation (i18n) dans les applications Vue/Nuxt
 keywords:
@@ -20,6 +20,8 @@ author: aymericzip
 
 # vue-i18n VS Intlayer | Internationalisation Vue (i18n)
 
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 Ce guide compare deux options i18n populaires pour **Vue 3** (et **Nuxt**) : **vue-i18n** et **Intlayer**.
 Nous nous concentrons sur les outils modernes de Vue (Vite, Composition API) et évaluons :
 
@@ -31,12 +33,38 @@ Nous nous concentrons sur les outils modernes de Vue (Vite, Composition API) et 
 6. **Expérience développeur (DX), outils & maintenance**
 7. **SEO & évolutivité pour les grands projets**
 
+<TOC/>
+
 > **en résumé** : Les deux peuvent localiser des applications Vue. Si vous souhaitez un **contenu scoped par composant**, des **types TypeScript stricts**, des **vérifications des clés manquantes à la compilation**, des **dictionnaires optimisés par tree-shaking**, ainsi que des **helpers intégrés pour le routeur/SEO** et en plus un **éditeur visuel & des traductions assistées par IA**, **Intlayer** est le choix le plus complet et moderne.
 
 ## Positionnement général
 
 - **vue-i18n** - La bibliothèque i18n de référence pour Vue. Formatage flexible des messages (style ICU), blocs SFC `<i18n>` pour les messages locaux, et un large écosystème. La sécurité et la maintenance à grande échelle dépendent principalement de vous.
 - **Intlayer** - Modèle de contenu centré sur les composants pour Vue/Vite/Nuxt avec **typage TS strict**, **vérifications à la compilation**, **tree-shaking**, **helpers pour le routeur & SEO**, **éditeur visuel/CMS** optionnel, et **traductions assistées par IA**.
+
+## Ce que cela coûte au moment de la compilation
+
+Avant les tableaux de fonctionnalités, la partie mesurée. [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) construit la même application Vite + Vue 3 (10 pages, 10 locales) avec chaque bibliothèque et enregistre ce que le navigateur télécharge :
+
+<I18nBenchmark framework="vite-vue" vertical/>
+
+| Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
+| -------------------- | ------------: | ---------------: | --------: | -----------------: |
+| **base** (no i18n)   |        0.0 KB |          41.3 KB |         - |             1.1 KB |
+| `vue-i18n`           |       24.3 KB |         134.9 KB |     90.0% |           196.0 KB |
+| `@intlayer/vue-i18n` |        7.9 KB |          47.0 KB |      0.0% |             8.4 KB |
+| **`vue-intlayer`**   |    **3.9 KB** |      **57.1 KB** |  **0.0%** |         **7.7 KB** |
+
+Le runtime de `vue-i18n` pèse à lui seul **6x** celui d'Intlayer, chaque page transporte **90% de chaînes de pages étrangères**, et un composant compilé isolément pèse **196 KB** car `useI18n()` le lie à l'arborescence globale des messages. L'exécution complète, avec les temps de réactivité et de chargement de page, se trouve dans le [benchmark vue-i18n vs Intlayer](https://intlayer.org/fr/blog/vue-i18n-vs-intlayer-benchmark).
+
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tableau complet dans le [rapport de benchmark Vue](https://intlayer.org/fr/doc/benchmark/vue).
 
 ## Comparaison des fonctionnalités côte à côte (axée sur Vue)
 
@@ -63,58 +91,73 @@ Nous nous concentrons sur les outils modernes de Vue (Vite, Composition API) et 
 
 ## Comparaison approfondie
 
-### 1) Architecture et évolutivité
+<AccordionGroup>
+<Accordion header="1) Architecture et évolutivité">
 
-- **vue-i18n** : Les configurations courantes utilisent des **catalogues centralisés** par locale (optionnellement divisés en fichiers/namespaces). Les blocs SFC `<i18n>` permettent des messages locaux, mais les équipes reviennent souvent à des catalogues partagés à mesure que les projets grandissent.
+- **vue-i18n** : Les configurations courantes utilisent des **catalogues centralisés** par locale (optionnellement divisés en fichiers/namespaces). Les blocs SFC `<i18n>` permettent des messages locaux, mais les équipes reviennent souvent à des catalogues partagés à mesure que les projets grandissent. Voir [i18n par composant vs centralisée](https://intlayer.org/fr/blog/per-component-vs-centralized-i18n).
 - **Intlayer** : Favorise des **dictionnaires par composant** stockés à côté du composant qu'ils servent. Cela réduit les conflits entre équipes, maintient le contenu facilement accessible et limite naturellement la dérive/les clés inutilisées.
 
 **Pourquoi c'est important :** Dans les grandes applications Vue ou les design systems, le **contenu modulaire** évolue mieux que les catalogues monolithiques.
 
-### 2) TypeScript & sécurité
+</Accordion>
+<Accordion header="2) TypeScript et sécurité">
 
 - **vue-i18n** : Bon support TS ; la **typage strict des clés** nécessite généralement des schémas/génériques personnalisés et des conventions rigoureuses.
 - **Intlayer** : **Génère des types stricts** à partir de votre contenu, offrant **l’autocomplétion dans l’IDE** et des **erreurs à la compilation** pour les fautes de frappe ou les clés manquantes.
 
 **Pourquoi c’est important :** Le typage fort détecte les problèmes **avant** l’exécution.
 
-### 3) Gestion des traductions manquantes
+</Accordion>
+<Accordion header="3) Gestion des traductions manquantes">
 
-- **vue-i18n** : Avertissements/repli **à l’exécution** (par exemple, locale ou clé de repli).
+- **vue-i18n** : Avertissements/repli **à l’exécution** (par exemple, locale ou clé de repli). Voir [détection des traductions manquantes](https://intlayer.org/fr/blog/detecting-missing-translations).
 - **Intlayer** : Détection **à la compilation** avec avertissements/erreurs sur les locales et les clés.
 
 **Pourquoi c’est important :** L’application à la compilation garantit une interface utilisateur propre et cohérente en production.
 
-### 4) Stratégie de routage et d’URL (Vue Router/Nuxt)
+</Accordion>
+<Accordion header="4) Stratégie de routage et d'URL (Vue Router/Nuxt)">
 
-- **Les deux** peuvent fonctionner avec des routes localisées.
+- **Les deux** peuvent fonctionner avec des routes localisées. Voir le [guide hreflang](https://intlayer.org/fr/blog/hreflang-guide-multilingual-seo).
 - **Intlayer** fournit des helpers pour **générer des chemins localisés**, **gérer les préfixes de locale**, et émettre des **`<link rel="alternate" hreflang>`** pour le SEO. Avec Nuxt, il complète le routage du framework.
 
 **Pourquoi c’est important :** Moins de couches personnalisées et un **SEO plus propre** à travers les locales.
 
-### 5) Performance et comportement de chargement
+</Accordion>
+<Accordion header="5) Performance et comportement de chargement">
 
-- **vue-i18n** : Supporte les messages de locale asynchrones ; éviter le sur-emballage dépend de vous (divisez les catalogues avec soin).
+- **vue-i18n** : Supporte les messages de locale asynchrones ; éviter le sur-emballage dépend de vous (divisez les catalogues avec soin). Le benchmark ci-dessus illustre ces chiffres : 134.9 KB contre 57.1 KB par page.
 - **Intlayer** : **Élimine le code mort** à la compilation et **charge paresseusement par dictionnaire/locale**. Le contenu inutilisé n’est pas embarqué.
 
 **Pourquoi c’est important :** Des bundles plus petits et un démarrage plus rapide pour les applications Vue multi-locales.
 
-### 6) Expérience développeur et outils
+</Accordion>
+<Accordion header="6) Expérience développeur et outillage">
 
 - **vue-i18n** : Documentation et communauté matures ; vous vous appuierez généralement sur des **plateformes de localisation externes** pour les flux éditoriaux.
-- **Intlayer** : Propose un **éditeur visuel gratuit**, un **CMS** optionnel (compatible Git ou externalisé), une **extension VSCode**, des utilitaires **CLI/CI**, et des **traductions assistées par IA** utilisant vos propres clés de fournisseur.
+- **Intlayer** : Propose un **éditeur visuel gratuit**, un **CMS** optionnel (compatible Git ou externalisé), une **extension VSCode**, des utilitaires **CLI/CI**, et des **traductions assistées par IA** utilisant vos propres clés de fournisseur., un **serveur MCP**
 
 **Pourquoi c’est important :** Réduction des coûts opérationnels et boucle dev–contenu plus courte.
 
-### 7) SEO, SSR & SSG
+</Accordion>
+<Accordion header="7) SEO, SSR et SSG">
 
-- **Les deux** fonctionnent avec Vue SSR et Nuxt.
+- **Les deux** fonctionnent avec Vue SSR et Nuxt. Voir [internationalisation et SEO](https://intlayer.org/fr/blog/SEO-and-i18n).
 - **Intlayer** : Ajoute des **aides SEO** (sitemaps/métadonnées/`hreflang`) indépendantes du framework et compatibles avec les builds Vue/Nuxt.
 
 **Pourquoi c’est important :** SEO international sans câblage personnalisé.
 
+</Accordion>
+</AccordionGroup>
+
 ## Pourquoi Intlayer ? (Problème & approche)
 
+![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
+
 La plupart des stacks i18n (y compris **vue-i18n**) partent de **catalogues centralisés** :
+
+<Tabs defaultTab="per-locale" group="catalog">
+<Tab label="Un fichier par locale" value="per-locale">
 
 ```bash
 .
@@ -127,7 +170,8 @@ La plupart des stacks i18n (y compris **vue-i18n**) partent de **catalogues cent
         └── MyComponent.vue
 ```
 
-Ou avec des dossiers par langue :
+</Tab>
+<Tab label="Un dossier par locale" value="per-folder">
 
 ```bash
 .
@@ -146,6 +190,13 @@ Ou avec des dossiers par langue :
         └── MyComponent.vue
 ```
 
+</Tab>
+</Tabs>
+
+Ce dossier ne cesse de croître, un namespace par fonctionnalité, dans chaque locale :
+
+![A locales folder with dozens of namespace files per language](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)
+
 Cela ralentit souvent le développement à mesure que les applications grandissent :
 
 1. **Pour un nouveau composant**, vous créez/modifiez des catalogues distants, configurez les espaces de noms, et traduisez (souvent via un copier/coller manuel depuis des outils d’IA).
@@ -161,19 +212,44 @@ Cela ralentit souvent le développement à mesure que les applications grandisse
         └── MyComponent.vue
 ```
 
-**Déclaration du contenu** (par composant) :
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="vue-i18n" value="vue-i18n">
+
+```json fileName="./locales/en.json"
+{
+  "componentExample": {
+    "greeting": "Hello World"
+  }
+}
+```
+
+```vue fileName="./components/MyComponent.vue"
+<script setup lang="ts">
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
+</script>
+
+<template>
+  <span>{{ t("componentExample.greeting") }}</span>
+</template>
+```
+
+Chaque fichier de locale doit être modifié à la main, et la clé est une simple chaîne de caractères : une faute de frappe s'affiche sous la forme `componentExample.greting` en production.
+
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="./components/MyComponent/myComponent.content.ts"
 import { t, type Dictionary } from "intlayer";
 
-// Contenu d'exemple pour le composant
 const componentExampleContent = {
   key: "component-example",
   content: {
     greeting: t({
       en: "Hello World",
-      es: "Hola Mundo",
       fr: "Bonjour le monde",
+      es: "Hola Mundo",
     }),
   },
 } satisfies Dictionary;
@@ -181,11 +257,10 @@ const componentExampleContent = {
 export default componentExampleContent;
 ```
 
-**Utilisation dans Vue** (Composition API) :
-
 ```vue fileName="./components/MyComponent/MyComponent.vue"
 <script setup lang="ts">
-import { useIntlayer } from "vue-intlayer"; // Intégration Vue
+import { useIntlayer } from "vue-intlayer"; // Vue integration
+
 const { greeting } = useIntlayer("component-example");
 </script>
 
@@ -193,6 +268,11 @@ const { greeting } = useIntlayer("component-example");
   <span>{{ greeting }}</span>
 </template>
 ```
+
+Toutes les locales se trouvent dans un seul fichier typé à côté du composant.
+
+</Tab>
+</Tabs>
 
 Cette approche :
 
@@ -221,22 +301,71 @@ Cette approche :
 
 ## Quand choisir quoi ?
 
-- **Choisissez vue-i18n** si vous souhaitez l’**approche standard Vue**, que vous êtes à l’aise pour gérer vous-même les catalogues/namespaces, et que votre application est de taille **petite à moyenne** (ou si vous utilisez déjà Nuxt i18n).
-- **Choisissez Intlayer** si vous valorisez le **contenu scoped par composant**, un **TypeScript strict**, des **garanties à la compilation**, le **tree-shaking**, et des outils intégrés pour le routage/SEO/éditeur - particulièrement pour des bases de code **Vue/Nuxt larges et modulaires**.
+<AccordionGroup>
+<Accordion header="Choisir vue-i18n">
+
+Vous souhaitez **l'approche standard de Vue**, vous êtes à l'aise pour gérer vous-même les catalogues et les namespaces, et votre application est de **taille petite à moyenne** (ou vous vous appuyez déjà sur Nuxt i18n). Les blocs SFC `<i18n>` et le chargement `setLocaleMessage()` au runtime sont des fonctionnalités qu'Intlayer ne reproduit délibérément pas.
+
+</Accordion>
+<Accordion header="Choisir Intlayer">
+
+Vous privilégiez le **contenu par composant**, un **TypeScript strict**, des **garanties à la compilation**, le **tree-shaking** et des outils intégrés de routage, SEO et d'édition, en particulier pour les **grandes bases de code modulaires Vue/Nuxt** et les design systems. Commencez avec [Intlayer avec Vue](https://intlayer.org/fr/doc/environment/vite-and-vue) ou [avec Nuxt](https://intlayer.org/fr/doc/environment/nuxt-and-vue).
+
+</Accordion>
+<Accordion header="Choisir @intlayer/vue-i18n">
+
+Vous utilisez `vue-i18n` aujourd'hui et souhaitez bénéficier des gains de bundle sans modifier de fichier `.vue`. L'[adaptateur de compatibilité](https://intlayer.org/fr/doc/compatibility/vue-i18n) conserve `createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t` et `v-t`, et les sert à partir de dictionnaires compilés. Mesuré côte à côte dans [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/fr/blog/vue-i18n-vs-intlayer-vue-i18n).
+
+</Accordion>
+</AccordionGroup>
 
 ## Interopérabilité avec vue-i18n
 
 `intlayer` peut aussi vous aider à gérer vos namespaces `vue-i18n`.
 
-En utilisant `intlayer`, vous pouvez déclarer votre contenu dans le format de votre bibliothèque i18n préférée, et intlayer générera vos namespaces à l'emplacement de votre choix (exemple : `/messages/{{locale}}/{{namespace}}.json`).
+En utilisant `intlayer`, vous pouvez déclarer votre contenu dans le format de votre bibliothèque i18n préférée, et intlayer générera vos namespaces à l'emplacement de votre choix (exemple : `/messages/{{locale}}/{{namespace}}.json`). Voir la [documentation de compatibilité vue-i18n](https://intlayer.org/fr/doc/compatibility/vue-i18n) et l'[adaptateur Nuxt i18n](https://intlayer.org/fr/doc/compatibility/nuxtjs-i18n).
 
-## Notes pratiques de migration (vue-i18n → Intlayer)
+## FAQ
 
-- **Commencez par fonctionnalité** : Déplacez une route/vue/composant à la fois vers les dictionnaires locaux d’Intlayer.
-- **Pont pendant la migration** : Gardez les catalogues vue-i18n en parallèle ; remplacez progressivement les recherches.
-- **Activez les vérifications strictes** : Laissez la détection à la compilation révéler tôt les clés/locales manquantes.
-- **Adoptez les helpers routeur/SEO** : Standardisez la détection de la locale et les balises `hreflang`.
-- **Mesurez les bundles** : Attendez-vous à des **réductions de taille de bundle** à mesure que le contenu inutilisé est exclu.
+<FAQ>
+
+<Question title="Intlayer est-il un remplaçant pour vue-i18n ou une couche par-dessus ?">
+
+Les deux, selon la façon dont vous l'adoptez. `vue-intlayer` est un runtime natif avec son propre composable `useIntlayer()`. `@intlayer/vue-i18n` est un adaptateur de compatibilité qui conserve l'API `vue-i18n` et remplace ce à quoi elle est liée, afin que vous puissiez migrer sans toucher aux composants et progresser fichier par fichier ensuite.
+
+</Question>
+
+<Question title="Qu'advient-il de mes blocs SFC <i18n> ?">
+
+L'adaptateur ne les lit pas. Déplacez ces messages dans votre JSON de locale, ou dans un `.content.ts` à côté du composant, ce qui est la même idée avec des types générés. C'est la seule fonctionnalité de `vue-i18n` qui n'est pas reportée.
+
+</Question>
+
+<Question title="Intlayer fonctionne-t-il avec Nuxt ?">
+
+Oui. [Intlayer avec Nuxt](https://intlayer.org/fr/doc/environment/nuxt-and-vue) prend en charge le routage multilingue, le middleware de détection de locale et la génération de sitemaps. Si vous utilisez `@nuxtjs/i18n`, l'[adaptateur de compatibilité Nuxt i18n](https://intlayer.org/fr/doc/compatibility/nuxtjs-i18n) constitue la voie de migration.
+
+</Question>
+
+<Question title="Puis-je conserver mes locales/{locale}.json comme source de vérité ?">
+
+Oui. Le [plugin de synchronisation JSON](https://intlayer.org/fr/doc/compatibility/vue-i18n) les lit avec le dialecte `vue-i18n` (`{name}`, `{0}`, les pluriels en pipe `"car | cars"`) et réécrit les traductions lorsque la CLI ou le CMS les met à jour.
+
+</Question>
+
+<Question title="ICU fonctionne-t-il avec Intlayer sur Vue ?">
+
+Le support natif d'ICU est en cours de développement. L'adaptateur `@intlayer/vue-i18n` gère la syntaxe propre à `vue-i18n`, y compris les pluriels et l'interpolation de listes et de variables nommées. Pour le modèle de pluralisation d'Intlayer, consultez le [contenu d'énumération](https://intlayer.org/fr/doc/concept/content/enumeration).
+
+</Question>
+
+</FAQ>
+
+## GitHub STARs
+
+Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la confiance de la communauté et de sa pertinence à long terme. Bien qu'elles ne constituent pas une mesure directe de la qualité technique, elles reflètent le nombre de développeurs qui trouvent le projet utile, suivent ses progrès et sont susceptibles de l'adopter. Pour estimer la valeur d'un projet, les étoiles aident à comparer l'attraction entre les alternatives et donnent un aperçu de la croissance de l'écosystème.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## Conclusion
 
@@ -245,4 +374,15 @@ Les deux, **vue-i18n** et **Intlayer**, localisent bien les applications Vue. La
 - Avec **Intlayer**, le **contenu modulaire**, **TS strict**, la **sécurité à la compilation**, les **bundles optimisés par tree-shaking**, ainsi que les **outils pour le routeur/SEO/éditeur** sont disponibles **nativement**.
 - Si votre équipe privilégie la **maintenabilité et la rapidité** dans une application Vue/Nuxt multi-locale et pilotée par composants, Intlayer offre aujourd’hui l’expérience la **plus complète**.
 
-Consultez la documentation ['Pourquoi Intlayer ?'](https://intlayer.org/doc/why) pour plus de détails.
+## Lectures complémentaires
+
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/fr/blog/vue-i18n-vs-intlayer-benchmark), l’exécution mesurée derrière le tableau ci-dessus
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/fr/blog/vue-i18n-vs-intlayer-vue-i18n), l’adaptateur sur la même application
+- [Is vue-i18n outdated?](https://intlayer.org/fr/blog/is-vue-i18n-outdated)
+- [How to pick a Vue i18n library](https://intlayer.org/fr/blog/how-to-pick-vue-i18n-library)
+- [Using Intlayer with vue-i18n](https://intlayer.org/fr/blog/intlayer-with-vue-i18n)
+- [Vue benchmark report](https://intlayer.org/fr/doc/benchmark/vue)
+- [Migration guide: vue-i18n to Intlayer](https://intlayer.org/fr/doc/migration/vue-i18n)
+- [Bundle optimization](https://intlayer.org/fr/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/fr/doc/compiler)
+
+Refer to ['Why Intlayer?' doc](https://intlayer.org/fr/doc/why) for more details.

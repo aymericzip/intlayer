@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next مقابل Intlayer: اختبار الأداء والمقارنة الشاملة لعام 2026"
 description: "قياس أداء react-i18next و next-i18next ومقارنتهما مع Intlayer على Next.js و TanStack Start. حجم الحزمة (Bundle size)، تسرب المحتوى، سرعة الاستجابة عند تبديل اللغة، وتجربة المطور."
 keywords:
@@ -24,6 +24,8 @@ author: aymericzip
 ---
 
 # i18next مقابل Intlayer | اختبار أداء تدويل (i18n) تطبيقات React و Next.js
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 يُعد `i18next` إطار عمل التدويل (i18n) الأكثر استخداما في بيئة عمل JavaScript. فمن خلال `react-i18next` و `next-i18next`، يدعم شريحة ضخمة من تطبيقات React و Next.js. في المقابل، يمثل Intlayer بديلا حديثا قائما على المترجم (Compiler) ونطاق المكونات (Component-scoped).
 
@@ -99,6 +101,10 @@ author: aymericzip
 
 ### النتائج على Next.js (`next-i18next`)
 
+اختر المقاييس والمكتبات التي تهمك:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | المكتبة                           | الاستراتيجية   | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسرب اللغات | تسرب الصفحات | متوسط حجم المكون (gz) | سرعة الاستجابة E2E | مدة الإماهة (Hydration) |
 | --------------------------------- | -------------- | ---------------: | -------------------: | ----------: | -----------: | --------------------: | -----------------: | ----------------------: |
 | **base** (بدون i18n)              | -              |           0.0 KB |             141.0 KB |        0.0% |         0.0% |                0.9 KB |            13.4 ms |                 11.8 ms |
@@ -119,9 +125,20 @@ author: aymericzip
 - **حجم المكون الفردي**: المكون الذي يستدعي `useTranslation()` يتراوح حجمه بين 26 و 79 كيلوبايت؛ بينما يبلغ حجم نفس المكون مع `useIntlayer()` ما يعادل 6.9 كيلوبايت فقط.
 - **تباطؤ الإماهة**: يقفز زمن الإماهة إلى 27.7 مللي ثانية في إعداد `dynamic`، نظرا لأن نسخة i18next تبدأ العمل وتعالج طلبات الخلفية على العميل قبل أن يتمكن React من إتمام عملية الإماهة.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> الجدول الكامل، لكل مكتبة وكل استراتيجية، في [تقرير قياس الأداء لـ Next.js](https://intlayer.org/ar/doc/benchmark/nextjs).
+
 ### النتائج على TanStack Start (`react-i18next`)
 
 نفس التطبيق التجريبي على TanStack Start مع استخدام `react-i18next` الصافي لإبعاد التأثيرات الخاصة بـ Next.js.
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | المكتبة              | الاستراتيجية   | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسرب اللغات | تسرب الصفحات | متوسط حجم المكون (gz) | سرعة الاستجابة E2E | مدة الإماهة (Hydration) |
 | -------------------- | -------------- | ---------------: | -------------------: | ----------: | -----------: | --------------------: | -----------------: | ----------------------: |
@@ -141,7 +158,18 @@ author: aymericzip
 - يسجل وضع `static` في Intlayer نسبة **0% تسرب للصفحات** افتراضيا لأن القواميس التي تستوردها مكونات الصفحة فقط هي التي تُحزم في الكود. وتفعيل `importMode: 'dynamic'` يزيل تسرب اللغات أيضا.
 - **حجم المكونات**: 24-27 كيلوبايت مع `react-i18next` مقابل 6-8 كيلوبايت مع Intlayer. حيث يربط `useTranslation()` كل مكون بالنسخة العالمية لـ i18next.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> الجدول الكامل في [تقرير قياس الأداء لـ TanStack Start](https://intlayer.org/ar/doc/benchmark/tanstack).
+
 ## ما سبب هذا الفارق؟ النسخة العالمية مقابل القواميس المترجمة
+
+![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
 
 صُمم `i18next` في عام 2012 كبيئة تشغيل (runtime): تحتفظ نسخة عالمية واحدة بمخزن الموارد، وتتولى الإضافات توسيعها، بينما تبحث دالة `t()` عن المفاتيح أثناء العرض. هذه البنية تمنحه مرونة واسعة ولكنها تفرض تكلفة باهظة في الحجم:
 
@@ -166,7 +194,13 @@ author: aymericzip
                 └── page.tsx     # يجب أن تعرف مسبقا أنها تحتاج ["common", "about"]
 ```
 
-لا يمكن للنسخة العالمية التنبؤ بالمفاتيح التي سيطلبها المكون، لذا تضطر لتحميل جميع مساحات الأسماء التي تحددها لها. والتحسين يفرض عليك **أنت** تقسيم الملفات، و**أنت** تحديد مساحات الأسماء لكل صفحة، و**أنت** الحفاظ على دقة هذه القائمة كلما تم نقل المكونات. وكما توضح [ملاحظات الاختبار](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md): "الحفاظ على أمان الأنواع ومعرفة أي مساحة أسماء يجب تضمينها في كل صفحة يعد كابوسا حقيقيا".
+لا يمكن للنسخة العالمية التنبؤ بالمفاتيح التي سيطلبها المكون، لذا تضطر لتحميل جميع مساحات الأسماء التي تحددها لها. والتحسين يفرض عليك **أنت** تقسيم الملفات، و**أنت** تحديد مساحات الأسماء لكل صفحة، و**أنت** الحفاظ على دقة هذه القائمة كلما تم نقل المكونات.
+
+التكلفة تتضخم على محورين في آن واحد، الصفحات واللغات:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+وكما توضح [ملاحظات الاختبار](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md): "الحفاظ على أمان الأنواع ومعرفة أي مساحة أسماء يجب تضمينها في كل صفحة يعد كابوسا حقيقيا".
 
 يتخلص Intlayer من النسخة العالمية تماما. يُعلن المحتوى بجوار المكون مباشرة، ويقوم المترجم بحل مخطط الاعتماديات في وقت البناء:
 
@@ -193,7 +227,8 @@ author: aymericzip
 
 ### الإعداد
 
-**next-i18next (App Router)**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-i18next" value="i18next">
 
 ```ts fileName="src/app/i18n/server.ts"
 import { createInstance } from "i18next";
@@ -228,7 +263,8 @@ export const initI18next = async (
 
 بالإضافة إلى كتابة `I18nProvider` لجانب العميل يعيد بناء نفس النسخة، مع إعداد `generateStaticParams` وتحديد مصفوفة `namespaces` في كل صفحة.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -264,9 +300,13 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
+</Tab>
+</Tabs>
+
 ### مكون العميل
 
-**react-i18next**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="react-i18next" value="i18next">
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -304,7 +344,8 @@ export const Counter = () => {
 
 > الصفحة التي تعرض هذا المكون ملزمة بتحميل مساحة أسماء `about`، ودالة `t("counter.label")` تبقى نصا عاديا مجردا من أنواع التحقق ما لم تقم بتوسيع `CustomTypeOptions`.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -345,9 +386,13 @@ export const Counter = () => {
 
 يتمتع كل من `label` و `increment` بأنواع TypeScript صارمة ودقيقة؛ أي خطأ كتابي يظهر فورا كخطأ برمجي، والترجمة المفقودة تتسبب في إيقاف عملية البناء وتنبيهك فوريا.
 
+</Tab>
+</Tabs>
+
 ### مكون الخادم المتزامن
 
-**next-i18next**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-i18next" value="i18next">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 type ServerCounterProps = {
@@ -366,7 +411,8 @@ export const ServerCounter = ({ t, locale, count }: ServerCounterProps) => (
 
 يجب أن تستدعي الصفحة دالة `i18n.getFixedT(locale, "about")` وتقوم بتمرير `t` و `locale` عبر الخصائص (Props).
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 import { useIntlayer } from "next-intlayer/server";
@@ -384,6 +430,9 @@ export const ServerCounter = ({ count }: { count: number }) => {
   );
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## احتفظ بواجهة i18next، واحصل على أداء Intlayer العالي
 
@@ -415,18 +464,85 @@ export default defineConfig({
 
 ## متى تختار كل منهما؟
 
-- **اختر i18next**: إذا كنت بحاجة حتمية إلى نظامه البيئي من الإضافات (مكتشفات محددة، خلفيات خاصة، ICU، Locize)، أو تقوم بالتدويل خارج بيئة React أيضا (خدمات Node، جافاسكريبت نقية، أطر عمل أخرى)، أو كان فريقك يتقنه بالفعل، أو كانت منصة الترجمة تتطلب ملفات `locales/{lng}/{ns}.json`. ولكن خصص وقتا كافيا لإدارة مساحات الأسماء والخلفيات البرمجية ومطابقة المسارات إذا كان الأداء يهمك.
-- **اختر Intlayer**: إذا كنت تريد **محتوى مرتبطا بالمكونات**، و**أنواع TypeScript صارمة**، و**اكتشاف الأخطاء والترجمات الناقصة وقت البناء**، و**تحسينا تلقائيا للحزم والتحميل الكسول دون تعقيدات**، مع تبديل لغات فوري، ومكونات خادم متزامنة، وأدوات تحرير مدمجة (محرر مرئي، CMS، ترجمة بالذكاء الاصطناعي، خادم MCP). وهو ملائم بامتياز لقواعد الأكواد المعيارية وأنظمة التصميم (Design Systems).
-- **اختر محولات `@intlayer/*-i18next`**: إذا كان لديك تطبيق يعمل بالفعل على i18next وتريد جني فوائد تقليص الحجم وسرعة الاستجابة دون إعادة كتابة الأكواد.
+<AccordionGroup>
+<Accordion header="اختر i18next">
+
+إذا كنت بحاجة حتمية إلى نظامه البيئي من الإضافات (مكتشفات محددة، خلفيات خاصة، ICU، Locize)، أو تقوم بالتدويل خارج بيئة React أيضا (خدمات Node، جافاسكريبت نقية، أطر عمل أخرى)، أو كان فريقك يتقنه بالفعل، أو كانت منصة الترجمة تتطلب ملفات `locales/{lng}/{ns}.json`. ولكن خصص وقتا كافيا لإدارة مساحات الأسماء والخلفيات البرمجية ومطابقة المسارات إذا كان الأداء يهمك.
+
+</Accordion>
+<Accordion header="اختر Intlayer">
+
+أنت تبحث عن **محتوى محدد بنطاق المكونات**، و**TypeScript صارم**، و**أخطاء المفاتيح المفقودة في وقت البناء**، و**Tree-shaking وتحميل كسول بدون عناء**، وتبديل فوري للغة، ومكونات خادم متزامنة، وأدوات تحرير مدمجة ([المحرر المرئي](https://intlayer.org/ar/doc/concept/editor)، [نظام إدارة المحتوى CMS](https://intlayer.org/ar/doc/concept/cms)، [الترجمة بالذكاء الاصطناعي](https://intlayer.org/ar/doc/concept/auto-fill)، [خادم MCP](https://intlayer.org/ar/doc/mcp-server)). مناسب بشكل خاص لقواعد الأكواد البرمجية النمطية الكبيرة وأنظمة التصميم.
+
+</Accordion>
+<Accordion header="اختر محولات @intlayer/*-i18next">
+
+أنت تستخدم i18next بالفعل وتريد مكاسب الحزمة وسرعة الاستجابة دون إعادة كتابة مكوناتك. تظل ملفات `locales/{lng}/{ns}.json` الخاصة بك هي مصدر الحقيقة الأساسي. تم قياسها جنبًا إلى جنب في [i18next مقابل @intlayer/i18next](https://intlayer.org/ar/blog/i18next-vs-intlayer-i18next).
+
+</Accordion>
+</AccordionGroup>
+
+## الأسئلة الشائعة (FAQ)
+
+<FAQ>
+
+<Question title="لماذا تعد i18next أثقل بكثير مقارنة بالمكتبات الأخرى؟">
+
+تم تصميمها كبيئة تشغيل لا تعتمد على إطار عمل معين: مثيل عام، وخط معالجة للمكونات الإضافية، ومخزن موارد، وحلال مفاتيح. يتم تجميع هذه المرونة بالكامل في كل حزمة. المكون الفارغ الذي يستورد المكتبة فقط يكلف **19.7 KB gzip** مع `next-i18next` مقابل **5.5 KB** مع `next-intlayer`، وتُدفع هذه التكلفة في كل صفحة بغض النظر عن حجم محتواك.
+
+</Question>
+
+<Question title="هل يحل التحميل الكسول عبر الواجهة الخلفية المشكلة؟">
+
+إنه يحل مشكلة حجم البايتات، وليس زمن الانتقال. الانتقال إلى `i18next-resources-to-backend` يوفر ~49 كيلوبايت لكل صفحة ولكنه يضيف رحلة ذهاب وإياب عبر الشبكة عند تبديل اللغة: **123 مللي ثانية** في إعداد `dynamic` و **185 مللي ثانية** في `scoped-static`، مقابل **3-4 مللي ثانية** مع Intlayer. كما يقفز وقت الترطيب (Hydration) إلى 27.7 مللي ثانية لأن المثيل يقوم بحل واجهته الخلفية قبل أن تتمكن React من الترطيب.
+
+</Question>
+
+<Question title="هل يمكنني الوصول إلى 0% تسرب مع i18next؟">
+
+نعم، باستخدام `scoped-dynamic`: مساحة اسم واحدة لكل مسار، وواجهة خلفية للموارد، وخريطة من الصفحة إلى مساحة الاسم تتم صيانتها يدويًا. يستقر الحجم عند 163.4 كيلوبايت لكل صفحة على Next.js، وهو ما يزال **+22 كيلوبايت** فوق 141.3 كيلوبايت لـ Intlayer التي لم تتطلب أي إعداد. انظر [تحسين الحزمة](https://intlayer.org/ar/doc/concept/bundle-optimization).
+
+</Question>
+
+<Question title="هل يجب علي إعادة كتابة مكوناتي للترحيل؟">
+
+لا. تحتفظ `@intlayer/i18next` و `@intlayer/react-i18next` و `@intlayer/next-i18next` بـ `useTranslation` و `t()` و `<Trans>` و `{{interpolation}}` وصيغ الجمع `_one` / `_other` ولاحقات السياق و `returnObjects`. سطر إضافي واحد في `next.config.ts` أو `vite.config.ts`. خطوة بخطوة في [دليل الترحيل لـ next-i18next](https://intlayer.org/ar/doc/migration/next-i18next).
+
+</Question>
+
+<Question title="ماذا يحدث للمكونات الإضافية لـ i18next الخاصة بي؟">
+
+يتم قبول الواجهات الخلفية وأدوات اكتشاف اللغة ولكنها تظل خاملة: لم يعد هناك شيء لتحميله أو اكتشافه في وقت التشغيل. يصبح اكتشاف اللغة إعداد التوجيه الخاص بـ Intlayer (بادئة URL، ملف تعريف الارتباط، الترويسة). إذا كان تطبيقك يجلب الترجمات من نظام إدارة محتوى (CMS) وقت الطلب، فاستخدم [Intlayer CMS](https://intlayer.org/ar/doc/concept/cms) أو أوامر `intlayer pull` / `push` بدلاً من ذلك.
+
+</Question>
+
+</FAQ>
 
 ## مقارنات ذات صلة
 
-- [next-intl مقابل Intlayer](https://intlayer.org/ar/blog/next-intl-vs-intlayer) (نفس اختبار الأداء)
-- [Lingui مقابل Intlayer](https://intlayer.org/ar/blog/lingui-vs-intlayer) (نفس اختبار الأداء)
-- [اختبار أداء vue-i18n مقابل Intlayer](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer-benchmark) (نفس اختبار الأداء)
-- [next-i18next مقابل next-intl مقابل Intlayer](https://intlayer.org/ar/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next مقابل react-intl مقابل Intlayer](https://intlayer.org/ar/blog/react-i18next-vs-react-intl-vs-intlayer)
+نفس المعيار، مكتبات أخرى:
+
+- [next-intl vs Intlayer](https://intlayer.org/ar/blog/next-intl-vs-intlayer)
+- [Lingui vs Intlayer](https://intlayer.org/ar/blog/lingui-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer-benchmark)
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ar/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ar/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+المزيد حول i18next:
+
+- [i18next مقابل @intlayer/i18next](https://intlayer.org/ar/blog/i18next-vs-intlayer-i18next)، المحولات مقاسة على نفس التطبيق
 - [هل عفا عليه الزمن i18next؟](https://intlayer.org/ar/blog/is-i18next-outdated)
+- [استخدام Intlayer مع i18next](https://intlayer.org/ar/blog/intlayer-with-i18next) و [مع react-i18next](https://intlayer.org/ar/blog/intlayer-with-react-i18next)
+- [كيفية تدويل تطبيق Next.js باستخدام next-i18next](https://intlayer.org/ar/blog/nextjs-internationalization-using-next-i18next)
+
+الوثائق المرجعية:
+
+- [تقرير قياس الأداء لـ Next.js](https://intlayer.org/ar/doc/benchmark/nextjs) و [تقرير قياس الأداء لـ TanStack Start](https://intlayer.org/ar/doc/benchmark/tanstack)
+- محولات التوافق: [i18next](https://intlayer.org/ar/doc/compatibility/i18next)، [react-i18next](https://intlayer.org/ar/doc/compatibility/react-i18next)، [next-i18next](https://intlayer.org/ar/doc/compatibility/next-i18next)
+- أدلة الترحيل: [i18next](https://intlayer.org/ar/doc/migration/i18next)، [react-i18next](https://intlayer.org/ar/doc/migration/react-i18next)، [next-i18next](https://intlayer.org/ar/doc/migration/next-i18next)
+- [تحسين الحزمة](https://intlayer.org/ar/doc/concept/bundle-optimization) و [مترجم Intlayer](https://intlayer.org/ar/doc/compiler)
+- [i18n لكل مكون مقابل المركزية](https://intlayer.org/ar/blog/per-component-vs-centralized-i18n)
+- [i18n المعتمدة على المترجم مقابل التصريحية](https://intlayer.org/ar/blog/compiler-vs-declarative-i18n)
 
 ## نجوم GitHub
 

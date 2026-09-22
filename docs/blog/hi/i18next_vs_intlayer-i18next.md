@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next बनाम @intlayer/i18next: समान API, पूरी तरह भिन्न बंडल"
 description: "क्या बदलता है जब एक React या Next.js ऐप अपने i18next, react-i18next और next-i18next कॉल्स को बरकरार रखता है लेकिन उन्हें @intlayer/i18next एडेप्टर के माध्यम से प्रस्तुत करता है। समान कोड पर मापा गया प्रति-पेज JavaScript आकार, घटक आकार, सामग्री लीकेज और हाइड्रेशन।"
 keywords:
@@ -27,6 +27,8 @@ author: aymericzip
 ---
 
 # i18next बनाम @intlayer/i18next | समान API, पूरी तरह भिन्न बंडल
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `@intlayer/i18next`, `@intlayer/react-i18next` और `@intlayer/next-i18next` अनुकूलता (compat) एडेप्टर हैं। वे उसी `i18next` API को प्रदर्शित करते हैं जिसका उपयोग आपका कोड पहले से कर रहा है (`useTranslation`, `t()`, `<Trans>`, `i18n.changeLanguage()`, `getFixedT`, `serverSideTranslations`...) और इसे Intlayer द्वारा संकलित शब्दकोशों से प्रस्तुत करते हैं। घटक नहीं बदलते; केवल उनके नीचे का रनटाइम बदलता है।
 
@@ -109,6 +111,10 @@ const About = () => {
 
 ### Next.js पर परिणाम
 
+वे मेट्रिक्स और लाइब्रेरी चुनें जिनकी आपको परवाह है:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | सेटअप                        | रणनीति         | लाइब्रेरी आकार (gz) | पेज JS औसत (gz) | लोकेल लीकेज | पेज लीकेज | घटक औसत (gz) | E2E प्रतिक्रियाशीलता |   हाइड्रेशन |
 | ---------------------------- | -------------- | ------------------: | --------------: | ----------: | --------: | -----------: | -------------------: | ----------: |
 | **base** (बिना i18n)         | -              |              0.0 KB |        141.0 KB |        0.0% |      0.0% |       0.9 KB |              13.4 ms |     11.8 ms |
@@ -129,9 +135,20 @@ const About = () => {
 - **तेज़ हाइड्रेशन और भाषा बदलना।** हाइड्रेशन 15.6 ms से घटकर **11.3 ms** हो जाता है (और `dynamic` सेटअप में 27.7 ms से, जहाँ बैकएंड फ़ेच महत्वपूर्ण पथ पर स्थित होता है)। लोकेल बदलना 15-16 ms से घटकर **11-12 ms** हो जाता है।
 - **एडेप्टर मूल रनटाइम नहीं है।** `next-intlayer` बेस ऐप से केवल +0.3 KB अधिक यानी **141.3 KB** पर पहुंचता है। एडेप्टर Intlayer के कोर के ऊपर `i18next` API सतह (इंटरपोलेशन, बहुवचन और संदर्भ प्रत्यय समाधान, `<Trans>` टैग पार्सिंग) रखता है: 9.4 KB और मूल की तुलना में प्रति पेज +9.4 KB। यह एक पुल है, अंतिम गंतव्य नहीं।
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> पूरी तालिका, प्रत्येक लाइब्रेरी और रणनीति, [Next.js बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/nextjs) में।
+
 > Vite / TanStack Start पर `react-i18next` एडेप्टर इस परीक्षण का हिस्सा नहीं था। TanStack Start पर `react-i18next` बेसलाइन [i18next बनाम Intlayer](https://intlayer.org/hi/blog/i18next-vs-intlayer) में देखी जा सकती है।
 
 ## संख्याएँ क्यों बदलती हैं
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 `components/` में कुछ भी नहीं बदला, इसलिए लाभ इस बात से आता है कि `useTranslation` किससे बंधा है।
 
@@ -148,6 +165,10 @@ const About = () => {
     ├── AppProviders.tsx              # <I18nextProvider i18n={i18n}>
     └── About.tsx                     # useTranslation(); t("about.title")
 ```
+
+इंस्टेंस में जो कुछ भी होता है वह हर पेज पर भेजा जाता है, और अपव्यय दो अक्षों, पेज और लोकेल पर बढ़ता है:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **`@intlayer/next-i18next` के साथ**, बाइंडिंग सीधे शब्दकोश होती है। `syncJSON` प्रत्येक नेमस्पेस फ़ाइल को एक शब्दकोश में बदल देता है; अनुकूलन पास घटक को वह शब्दकोश सौंपता है जिसे वह निर्दिष्ट करता है, एक ऐसे आयात के रूप में जिसे बंडलर ट्रैक कर सकता है और प्रति पेज और प्रति लोकेल विभाजित कर सकता है।
 
@@ -297,26 +318,112 @@ export default defineConfig({
 
 ## शुरू करने से पहले जानने योग्य सीमाएँ
 
-- **बैकएंड और डिटेक्टर निष्क्रिय हैं।** `i18n.use(HttpBackend)` केवल प्लगइन के `init` को कॉल करता है और कुछ नहीं। यदि आपका ऐप अनुरोध के समय CMS से अनुवाद प्राप्त करने पर निर्भर करता था, तो वह प्रवाह चला गया है; इसके बजाय Intlayer के CMS या `intlayer pull` / `push` कमांड का उपयोग करें।
-- **`resources` को अनदेखा किया जाता है, मर्ज नहीं किया जाता।** कुछ अन्य एडेप्टर के विपरीत, `@intlayer/i18next` इनलाइन `resources` का उपयोग फ़ॉलबैक के रूप में नहीं करता है। प्रत्येक कुंजी सिंक किए गए शब्दकोशों में मौजूद होनी चाहिए, जिसे `intlayer test` सत्यापित करता है।
-- **App Router को प्रोवाइडर संपादन की आवश्यकता है।** केवल एक फ़ाइल, जैसा कि ऊपर दिखाया गया है। `appWithTranslation` वाले Pages Router को किसी चीज़ की आवश्यकता नहीं है।
-- **`next-i18next.config.js` पढ़ा नहीं जाता है।** `localePath`, `fallbackLng`, `reloadOnPrerender` का कोई प्रभाव नहीं पड़ता; लोकेल और फ़ॉलबैक `intlayer.config.ts` से आते हैं।
-- **एडेप्टर मुफ़्त नहीं है।** `next-intlayer` की तुलना में 9.4 KB रनटाइम और प्रति पेज +9.4 KB अतिरिक्त लगता है। जब प्रत्येक घटक `useIntlayer` पर चला जाए, तो इसे हटा दें।
+<AccordionGroup>
+<Accordion header="बैकएंड और डिटेक्टर निष्क्रिय हैं">
+
+`i18n.use(HttpBackend)` केवल प्लगइन के init को कॉल करता है और कुछ नहीं। यदि आपका ऐप रनटाइम पर CMS से अनुवाद लाने पर निर्भर था, तो वह प्रवाह चला गया है; इसके बजाय [Intlayer CMS](https://intlayer.org/hi/doc/concept/cms) या `intlayer pull` / `push` कमांड का उपयोग करें। भाषा पहचान Intlayer का रूटिंग कॉन्फ़िगरेशन बन जाती है (URL उपसर्ग, कुकी, हेडर)।
+
+</Accordion>
+<Accordion header="resources को नजरअंदाज किया जाता है, मर्ज नहीं">
+
+कुछ अन्य एडाप्टरों के विपरीत, `@intlayer/i18next` इनलाइन `resources` को फ़ॉलबैक के रूप में उपयोग नहीं करता है। प्रत्येक कुंजी सिंक्रनाइज़ किए गए शब्दकोशों में मौजूद होनी चाहिए, जिसे `intlayer test` सत्यापित करता है।
+
+</Accordion>
+<Accordion header="App Router को प्रदाता संपादन की आवश्यकता है">
+
+केवल एक फ़ाइल, ऊपर दिखाई गई है। `appWithTranslation` के साथ Pages Router को किसी भी बदलाव की आवश्यकता नहीं है।
+
+</Accordion>
+<Accordion header="next-i18next.config.js नहीं पढ़ा जाता है">
+
+`localePath`, `fallbackLng`, `reloadOnPrerender` और समकक्षों का कोई विकल्प नहीं है; भाषाएँ और फ़ॉलबैक `intlayer.config.ts` से आते हैं।
+
+</Accordion>
+<Accordion header="एडाप्टर मुफ़्त नहीं है">
+
+`next-intlayer` की तुलना में 9.4 KB का रनटाइम और प्रति पेज +9.4 KB। एक बार जब प्रत्येक घटक `useIntlayer` पर चला जाए, तो इसे हटा दें।
+
+</Accordion>
+</AccordionGroup>
 
 ## कब किसका उपयोग करें?
 
-- **`i18next` पर बने रहें** यदि आपका ऐप रनटाइम बैकएंड (अनुरोध के समय CMS द्वारा दिए जाने वाले अनुवाद), प्लगइन पारिस्थितिकी तंत्र, या गैर-React लक्ष्य पर निर्भर करता है जिसे एडेप्टर कवर नहीं करते हैं।
-- **`@intlayer/*` का उपयोग करें** यदि आप `react-i18next` / `next-i18next` पर हैं और बिना किसी पुनर्लेखन के 68 KB की बचत, 8 गुना छोटे घटक, 0% लीकेज, टाइप की गई कुंजियाँ और CI जाँच चाहते हैं। यह मौजूदा `i18next` कोडबेस के लिए सबसे उत्तम प्रवेश बिंदु है।
-- **मूल रनटाइम (`next-intlayer` / `react-intlayer`) पर जाएँ** नई परियोजनाओं के लिए, या जब एडेप्टर अपना काम पूरा कर ले। यह तीनों में सबसे हल्का है (5.5 KB, प्रति पेज +0.3 KB) और सिंक्रोनस सर्वर घटकों और प्रति-घटक `.content.ts` फ़ाइलों का समर्थन करता है।
+<AccordionGroup>
+<Accordion header="i18next पर बने रहें">
+
+यदि आपका ऐप रनटाइम बैकएंड (अनुरोध के समय CMS द्वारा दिए गए अनुवाद), प्लगइन पारिस्थितिकी तंत्र, या गैर-React लक्ष्य पर निर्भर करता है जिसे एडाप्टर कवर नहीं करते हैं।
+
+</Accordion>
+<Accordion header="@intlayer/* का उपयोग करें">
+
+आप `react-i18next` / `next-i18next` पर हैं और बिना दोबारा लिखे 68 KB की बचत, 8 गुना छोटे घटक, 0% लीकेज, टाइप की गई कुंजियाँ और CI जांच चाहते हैं। यह मौजूदा `i18next` कोडबेस के लिए प्रवेश बिंदु है।
+
+</Accordion>
+<Accordion header="नेटिव बनें (next-intlayer / react-intlayer)">
+
+नई परियोजनाओं के लिए, या एक बार जब एडाप्टर अपना काम कर ले। इसमें सबसे हल्का रनटाइम (5.5 KB, प्रति पेज +0.3 KB) है और यह समकालिक Server Components और प्रति-घटक `.content.ts` फ़ाइलों को अनलॉक करता है। [Next.js के साथ Intlayer](https://intlayer.org/hi/doc/environment/nextjs) या [Vite और React के साथ](https://intlayer.org/hi/doc/environment/vite-and-react) से शुरुआत करें।
+
+</Accordion>
+</AccordionGroup>
+
+## अक्सर पूछे जाने वाले प्रश्न
+
+<FAQ>
+
+<Question title="68 KB की बचत कहाँ से आती है?">
+
+`resources: { en, fr, ... }` से। सामान्य `next-i18next` सेटअप प्रत्येक भाषा के JSON को `init()` में आयात करता है, इसलिए प्रत्येक पृष्ठ हर भाषा में प्रत्येक नेमस्पेस को ले जाता है: प्रति पृष्ठ **218.5 KB**। एडाप्टर उस ब्लॉक को कभी बंडल नहीं करता है; यह प्रत्येक घटक को केवल वही शब्दकोश सौंपता है जिसे वह सक्रिय भाषा में नाम देता है।
+
+</Question>
+
+<Question title="क्या मेरे <Trans> घटक काम करना जारी रखते हैं?">
+
+हाँ, `components`, क्रमांकित `<1>...</1>` टैग और `values` के साथ। इसी तरह `{{interpolation}}`, `$t(key)` नेस्टिंग, `key_one` / `key_other` बहुवचन (`Intl.PluralRules` के साथ मूल्यांकित), संदर्भ प्रत्यय और `returnObjects` भी काम करते हैं।
+
+</Question>
+
+<Question title="यदि मैं प्रति भाषा एकल translation.json का उपयोग करता हूँ तो क्या होगा?">
+
+`syncJSON` प्लगइन में `splitKeys: false` सेट करें। पूरी फ़ाइल एक शब्दकोश बनी रहती है और एक साधारण `useTranslation()` इसके विरुद्ध हल करना जारी रखता है।
+
+</Question>
+
+<Question title="क्या यह पूरी तरह से Intlayer पर माइग्रेट करने जैसा है?">
+
+नहीं, यह एक सेतु है। एडाप्टर `i18next` API को बनाए रखता है और इसमें 9.4 KB का रनटाइम लगता है; नेटिव `next-intlayer` की लागत 5.5 KB है और यह समकालिक Server Components और सह-स्थित `.content.ts` फ़ाइलें जोड़ता है। आप घटक दर घटक स्थानांतरित कर सकते हैं, क्योंकि JSON और `.content.ts` शब्दकोश सह-अस्तित्व में रहते हैं।
+
+</Question>
+
+<Question title="क्या अनुवादक उसी तरह काम करना जारी रख सकते हैं जैसे वे आज करते हैं?">
+
+हाँ। `locales/{lng}/{ns}.json` सत्य का स्रोत बना रहता है: `syncJSON` इसे i18next बोली के साथ पढ़ता है और जब CLI या CMS उन्हें अपडेट करता है तो अनुवाद वापस लिखता है।
+
+</Question>
+
+</FAQ>
 
 ## संबंधित तुलनाएं
 
-- [i18next बनाम Intlayer](https://intlayer.org/hi/blog/i18next-vs-intlayer) (लाइब्रेरी तुलना, समान बेंचमार्क)
-- [next-intl बनाम @intlayer/next-intl](https://intlayer.org/hi/blog/next-intl-vs-intlayer-next-intl) (समान एडेप्टर श्रृंखला)
-- [Lingui बनाम @intlayer/lingui](https://intlayer.org/hi/blog/lingui-vs-intlayer-lingui) (समान एडेप्टर श्रृंखला)
-- [vue-i18n बनाम @intlayer/vue-i18n](https://intlayer.org/hi/blog/vue-i18n-vs-intlayer-vue-i18n) (समान एडेप्टर श्रृंखला)
-- माइग्रेशन गाइड: [i18next](https://intlayer.org/hi/doc/migration/i18next), [react-i18next](https://intlayer.org/hi/doc/migration/react-i18next), [next-i18next](https://intlayer.org/hi/doc/migration/next-i18next)
-- अनुकूलता एडेप्टर संदर्भ: [i18next](https://intlayer.org/hi/doc/compatibility/i18next), [react-i18next](https://intlayer.org/hi/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/hi/doc/compatibility/next-i18next)
+समान एडाप्टर श्रृंखला:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/hi/blog/next-intl-vs-intlayer-next-intl)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/hi/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/hi/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+लाइब्रेरी की आमने-सामने तुलना:
+
+- [i18next vs Intlayer](https://intlayer.org/hi/blog/i18next-vs-intlayer), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/hi/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/hi/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [Is i18next outdated?](https://intlayer.org/hi/blog/is-i18next-outdated)
+
+संदर्भ दस्तावेज़:
+
+- Compat adapters: [i18next](https://intlayer.org/hi/doc/compatibility/i18next), [react-i18next](https://intlayer.org/hi/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/hi/doc/compatibility/next-i18next)
+- Migration guides: [i18next](https://intlayer.org/hi/doc/migration/i18next), [react-i18next](https://intlayer.org/hi/doc/migration/react-i18next), [next-i18next](https://intlayer.org/hi/doc/migration/next-i18next)
+- [Next.js benchmark report](https://intlayer.org/hi/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/hi/doc/benchmark/tanstack)
+- [Bundle optimization](https://intlayer.org/hi/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/hi/doc/compiler)
+- [Visual Editor](https://intlayer.org/hi/doc/concept/editor), [CMS](https://intlayer.org/hi/doc/concept/cms) and [AI translation](https://intlayer.org/hi/doc/concept/auto-fill)
 
 ## निष्कर्ष
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next vs Intlayer: Đo kiểm và So sánh chi tiết năm 2026"
 description: "Đo lường react-i18next và next-i18next so với Intlayer trên Next.js và TanStack Start. Kích thước bundle, rò rỉ nội dung, tốc độ phản hồi khi chuyển ngôn ngữ và trải nghiệm lập trình viên."
 keywords:
@@ -24,6 +24,8 @@ author: aymericzip
 ---
 
 # i18next VS Intlayer | Đo kiểm đa ngôn ngữ (i18n) cho React & Next.js
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `i18next` là framework i18n phổ biến nhất trong hệ sinh thái JavaScript. Thông qua `react-i18next` và `next-i18next`, nó đang vận hành phần lớn các ứng dụng React và Next.js. Intlayer là một giải pháp thay thế hiện đại dựa trên trình biên dịch và cô lập phạm vi theo từng component.
 
@@ -99,6 +101,10 @@ Các chỉ số đo lường:
 
 ### Kết quả trên Next.js (`next-i18next`)
 
+Chọn các chỉ số và thư viện bạn quan tâm:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Thư viện                               | Chiến lược     | Dung lượng Lib (gz) | JS TB mỗi trang (gz) | Rò rỉ ngôn ngữ | Rò rỉ trang | Kích thước TB Comp (gz) | Phản hồi E2E | Thời gian Hydrate |
 | -------------------------------------- | -------------- | ------------------: | -------------------: | -------------: | ----------: | ----------------------: | -----------: | ----------------: |
 | **base** (không i18n)                  | -              |              0.0 KB |             141.0 KB |           0.0% |        0.0% |                  0.9 KB |      13.4 ms |           11.8 ms |
@@ -119,9 +125,20 @@ Các chỉ số đo lường:
 - **Kích thước từng component**: Một component gọi `useTranslation()` được đóng gói trong khoảng 26 đến 79 KB; trong khi component tương đương dùng `useIntlayer()` chỉ nặng 6.9 KB.
 - **Độ trễ khi hydrate**: Thời gian hydrate tăng vọt lên 27.7 ms ở cấu hình `dynamic` do thực thể i18next cần khởi tạo và nạp backend tại client trước khi React có thể hoàn tất quá trình hydrate.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://intlayer.org/vi/doc/benchmark/nextjs).
+
 ### Kết quả trên TanStack Start (`react-i18next`)
 
 Cùng ứng dụng kiểm thử trên nền tảng TanStack Start sử dụng trực tiếp `react-i18next` nhằm loại bỏ các yếu tố can thiệp riêng của Next.js:
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Thư viện              | Chiến lược     | Dung lượng Lib (gz) | JS TB mỗi trang (gz) | Rò rỉ ngôn ngữ | Rò rỉ trang | Kích thước TB Comp (gz) | Phản hồi E2E | Thời gian Hydrate |
 | --------------------- | -------------- | ------------------: | -------------------: | -------------: | ----------: | ----------------------: | -----------: | ----------------: |
@@ -141,7 +158,18 @@ Cùng ứng dụng kiểm thử trên nền tảng TanStack Start sử dụng tr
 - Chế độ `static` của Intlayer đã mặc định đạt **0% rò rỉ trang** vì nó chỉ đóng gói các từ điển được import bởi component của trang đó. Bật `importMode: 'dynamic'` sẽ triệt tiêu hoàn toàn rò rỉ ngôn ngữ.
 - **Kích thước component**: 24-27 KB ở `react-i18next` so với 6-8 KB ở Intlayer. `useTranslation()` luôn gắn chặt từng component với instance i18next toàn cục.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Bảng đầy đủ trong [báo cáo benchmark TanStack Start](https://intlayer.org/vi/doc/benchmark/tanstack).
+
 ## Nguyên nhân của sự chênh lệch: Global Instance vs Từ điển biên dịch
+
+![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
 
 `i18next` được xây dựng từ năm 2012 theo hướng runtime: một instance toàn cục nắm giữ kho tài nguyên, các plugin mở rộng nó và hàm `t()` tìm khóa khi render. Thiết kế này đem lại tính linh hoạt cao nhưng tạo ra gánh nặng lớn về dung lượng:
 
@@ -166,7 +194,13 @@ Cùng ứng dụng kiểm thử trên nền tảng TanStack Start sử dụng tr
                 └── page.tsx     # phải tự biết rằng trang này cần ["common", "about"]
 ```
 
-Instance toàn cục không thể biết trước component sẽ gọi những khóa nào; vì vậy nó buộc phải lưu trữ toàn bộ các namespace được chỉ định nạp. Muốn tối ưu, **bạn** phải chia nhỏ danh mục, **bạn** phải liệt kê các namespace cần thiết cho từng trang, và **bạn** phải duy trì danh sách này khi component di chuyển. Đúng như [ghi chú benchmark](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md) đã chỉ ra: "Vừa duy trì an toàn kiểu dữ liệu vừa quản lý đúng namespace cho từng trang thực sự là một cơn ác mộng".
+Instance toàn cục không thể biết trước component sẽ gọi những khóa nào; vì vậy nó buộc phải lưu trữ toàn bộ các namespace được chỉ định nạp. Muốn tối ưu, **bạn** phải chia nhỏ danh mục, **bạn** phải liệt kê các namespace cần thiết cho từng trang, và **bạn** phải duy trì danh sách này khi component di chuyển.
+
+Chi phí gia tăng đồng thời trên hai trục, trang và ngôn ngữ:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+Đúng như [ghi chú benchmark](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md) đã chỉ ra: "Vừa duy trì an toàn kiểu dữ liệu vừa quản lý đúng namespace cho từng trang thực sự là một cơn ác mộng".
 
 Intlayer loại bỏ hoàn toàn instance toàn cục. Nội dung được khai báo ngay cạnh component và trình biên dịch sẽ giải quyết cây phụ thuộc vào lúc build:
 
@@ -193,7 +227,8 @@ Intlayer loại bỏ hoàn toàn instance toàn cục. Nội dung được khai 
 
 ### Khởi tạo cấu hình
 
-**next-i18next (App Router)**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-i18next" value="i18next">
 
 ```ts fileName="src/app/i18n/server.ts"
 import { createInstance } from "i18next";
@@ -228,7 +263,8 @@ export const initI18next = async (
 
 Bên cạnh đó, bạn phải viết thêm `I18nProvider` ở phía client, khai báo `generateStaticParams` và quản lý mảng `namespaces` trên từng trang.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -264,9 +300,13 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
+</Tab>
+</Tabs>
+
 ### Component phía Client
 
-**react-i18next**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="react-i18next" value="i18next">
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -304,7 +344,8 @@ export const Counter = () => {
 
 > Trang hiển thị component này bắt buộc phải nạp namespace `about`, và `t("counter.label")` sẽ chỉ là chuỗi thông thường nếu chưa mở rộng `CustomTypeOptions`.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -345,9 +386,13 @@ export const Counter = () => {
 
 `label` và `increment` đều được kiểm tra kiểu dữ liệu nghiêm ngặt; gõ sai tên sẽ báo lỗi TypeScript ngay lập tức, và nếu thiếu bản dịch tiếng Pháp thì quá trình build sẽ bị dừng lại.
 
+</Tab>
+</Tabs>
+
 ### Component phía Server đồng bộ
 
-**next-i18next**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-i18next" value="i18next">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 type ServerCounterProps = {
@@ -366,7 +411,8 @@ export const ServerCounter = ({ t, locale, count }: ServerCounterProps) => (
 
 Trang cha phải gọi `i18n.getFixedT(locale, "about")` rồi truyền `t` và `locale` xuống dưới dạng props.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 import { useIntlayer } from "next-intlayer/server";
@@ -384,6 +430,9 @@ export const ServerCounter = ({ count }: { count: number }) => {
   );
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## Giữ nguyên API của i18next, nhận ngay hiệu năng của Intlayer
 
@@ -415,18 +464,85 @@ Xem hướng dẫn chuyển đổi: [i18next](https://intlayer.org/vi/doc/migrat
 
 ## Khi nào nên chọn giải pháp nào?
 
-- **Chọn i18next**: Nếu bạn phụ thuộc chặt chẽ vào hệ sinh thái plugin (bộ nhận diện đặc thù, backend chuyên biệt, ICU, Locize), cần bản địa hóa ở cả ngoài React (Node services, vanilla JS, các framework khác), đội ngũ của bạn đã rất thành thạo, hoặc nền tảng dịch thuật bắt buộc định dạng `locales/{lng}/{ns}.json`. Hãy dành thời gian để quản lý namespace và bản đồ route nếu hiệu năng là ưu tiên hàng đầu.
-- **Chọn Intlayer**: Nếu bạn muốn **nội dung đặt ngay tại component**, **an toàn kiểu dữ liệu TypeScript nghiêm ngặt**, **báo lỗi thiếu bản dịch khi build**, **tự động tree-shaking và lazy loading không tốn công**, chuyển đổi ngôn ngữ tức thì, hỗ trợ component server đồng bộ và các công cụ biên tập tích hợp sẵn (Visual Editor, CMS, dịch thuật AI, máy chủ MCP). Rất thích hợp cho dự án dạng module lớn và Design Systems.
-- **Chọn adapter `@intlayer/*-i18next`**: Nếu bạn đã có ứng dụng chạy i18next và muốn tối ưu hóa kích thước bundle và tốc độ phản hồi ngay lập tức mà không phải refactor mã nguồn.
+<AccordionGroup>
+<Accordion header="Chọn i18next">
+
+Nếu bạn phụ thuộc chặt chẽ vào hệ sinh thái plugin (bộ nhận diện đặc thù, backend chuyên biệt, ICU, Locize), cần bản địa hóa ở cả ngoài React (Node services, vanilla JS, các framework khác), đội ngũ của bạn đã rất thành thạo, hoặc nền tảng dịch thuật bắt buộc định dạng `locales/{lng}/{ns}.json`. Hãy dành thời gian để quản lý namespace và bản đồ route nếu hiệu năng là ưu tiên hàng đầu.
+
+</Accordion>
+<Accordion header="Chọn Intlayer">
+
+Bạn mong muốn **nội dung theo phạm vi component**, **TypeScript nghiêm ngặt**, **phát hiện thiếu khóa trong thời gian build**, **tree-shaking và lazy loading không tốn công sức**, chuyển đổi ngôn ngữ tức thì, server component đồng bộ và các công cụ biên tập tích hợp sẵn ([Visual Editor](https://intlayer.org/vi/doc/concept/editor), [CMS](https://intlayer.org/vi/doc/concept/cms), [dịch thuật AI](https://intlayer.org/vi/doc/concept/auto-fill), [MCP server](https://intlayer.org/vi/doc/mcp-server)). Đặc biệt phù hợp cho các codebase dạng module quy mô lớn và design system.
+
+</Accordion>
+<Accordion header="Chọn adapter @intlayer/*-i18next">
+
+Bạn đã sử dụng i18next và muốn tối ưu dung lượng bundle cùng độ phản hồi mà không cần viết lại component. Các tệp `locales/{lng}/{ns}.json` hiện tại vẫn là nguồn chân lý duy nhất. Được đo lường song song trong [i18next vs @intlayer/i18next](https://intlayer.org/vi/blog/i18next-vs-intlayer-i18next).
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ (Câu hỏi thường gặp)
+
+<FAQ>
+
+<Question title="Tại sao i18next lại nặng hơn nhiều so với các thư viện khác?">
+
+Nó được thiết kế như một runtime độc lập với framework: một global instance, một pipeline plugin, một kho lưu trữ tài nguyên, một bộ phân giải khóa. Sự linh hoạt đó được biên dịch vào từng bundle. Một component rỗng chỉ import thư viện đã tốn **19.7 KB gzip** với `next-i18next` so với **5.5 KB** của `next-intlayer`, và chi phí đó phải trả trên mọi trang bất kể nội dung của bạn nặng bao nhiêu.
+
+</Question>
+
+<Question title="Lazy loading với backend có giải quyết được vấn đề không?">
+
+Nó giảm dung lượng byte, nhưng không giải quyết được độ trễ. Chuyển sang `i18next-resources-to-backend` tiết kiệm ~49 KB mỗi trang nhưng lại thêm một round-trip mạng khi chuyển đổi ngôn ngữ: **123 ms** trong cấu hình `dynamic` và **185 ms** trong `scoped-static`, so với **3-4 ms** của Intlayer. Thời gian hydration cũng tăng lên 27.7 ms vì instance phải phân giải backend trước khi React có thể hydrate.
+
+</Question>
+
+<Question title="Tôi có thể đạt 0% rò rỉ nội dung với i18next không?">
+
+Có, với `scoped-dynamic`: một namespace cho mỗi route, một backend tài nguyên và một bảng ánh xạ trang - namespace bạn tự quản lý thủ công. Kích thước trang đạt 163.4 KB trên Next.js, vẫn cao hơn **+22 KB** so với 141.3 KB của Intlayer vốn không cần bất kỳ cấu hình nào. Xem [tối ưu hóa bundle](https://intlayer.org/vi/doc/concept/bundle-optimization).
+
+</Question>
+
+<Question title="Tôi có phải viết lại các component để di chuyển không?">
+
+Không. `@intlayer/i18next`, `@intlayer/react-i18next` và `@intlayer/next-i18next` giữ nguyên `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, các dạng số nhiều `_one` / `_other`, hậu tố ngữ cảnh và `returnObjects`. Chỉ một dòng plugin trong `next.config.ts` hoặc `vite.config.ts`. Chi tiết từng bước trong [hướng dẫn di chuyển next-i18next](https://intlayer.org/vi/doc/migration/next-i18next).
+
+</Question>
+
+<Question title="Điều gì xảy ra với các plugin i18next của tôi?">
+
+Các backend và plugin phát hiện ngôn ngữ vẫn được chấp nhận nhưng ở trạng thái bất hoạt: không còn gì để tải hoặc phát hiện trong thời gian chạy. Việc phát hiện ngôn ngữ trở thành cấu hình định tuyến của Intlayer (tiền tố URL, cookie, header). Nếu ứng dụng của bạn lấy bản dịch từ CMS tại thời điểm yêu cầu, hãy sử dụng [Intlayer CMS](https://intlayer.org/vi/doc/concept/cms) hoặc lệnh `intlayer pull` / `push` thay thế.
+
+</Question>
+
+</FAQ>
 
 ## Các bài so sánh liên quan
 
-- [next-intl vs Intlayer](https://intlayer.org/vi/blog/next-intl-vs-intlayer) (cùng benchmark)
-- [Lingui vs Intlayer](https://intlayer.org/vi/blog/lingui-vs-intlayer) (cùng benchmark)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-benchmark) (cùng benchmark)
+Cùng benchmark, các thư viện khác:
+
+- [next-intl vs Intlayer](https://intlayer.org/vi/blog/next-intl-vs-intlayer)
+- [Lingui vs Intlayer](https://intlayer.org/vi/blog/lingui-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-benchmark)
 - [next-i18next vs next-intl vs Intlayer](https://intlayer.org/vi/blog/next-i18next-vs-next-intl-vs-intlayer)
 - [react-i18next vs react-intl vs Intlayer](https://intlayer.org/vi/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+Tìm hiểu sâu hơn về i18next:
+
+- [i18next vs @intlayer/i18next](https://intlayer.org/vi/blog/i18next-vs-intlayer-i18next), đo lường adapter trên cùng một ứng dụng
 - [i18next có bị lỗi thời không?](https://intlayer.org/vi/blog/is-i18next-outdated)
+- [Sử dụng Intlayer với i18next](https://intlayer.org/vi/blog/intlayer-with-i18next) và [với react-i18next](https://intlayer.org/vi/blog/intlayer-with-react-i18next)
+- [Cách quốc tế hóa ứng dụng Next.js với next-i18next](https://intlayer.org/vi/blog/nextjs-internationalization-using-next-i18next)
+
+Tài liệu tham khảo:
+
+- [Báo cáo benchmark Next.js](https://intlayer.org/vi/doc/benchmark/nextjs) và [báo cáo benchmark TanStack Start](https://intlayer.org/vi/doc/benchmark/tanstack)
+- Adapter tương thích: [i18next](https://intlayer.org/vi/doc/compatibility/i18next), [react-i18next](https://intlayer.org/vi/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/vi/doc/compatibility/next-i18next)
+- Hướng dẫn di chuyển: [i18next](https://intlayer.org/vi/doc/migration/i18next), [react-i18next](https://intlayer.org/vi/doc/migration/react-i18next), [next-i18next](https://intlayer.org/vi/doc/migration/next-i18next)
+- [Tối ưu hóa bundle](https://intlayer.org/vi/doc/concept/bundle-optimization) và [trình biên dịch Intlayer](https://intlayer.org/vi/doc/compiler)
+- [i18n theo component vs i18n tập trung](https://intlayer.org/vi/blog/per-component-vs-centralized-i18n)
+- [i18n dựa trên compiler vs khai báo](https://intlayer.org/vi/blog/compiler-vs-declarative-i18n)
 
 ## Lượt gắn sao trên GitHub
 

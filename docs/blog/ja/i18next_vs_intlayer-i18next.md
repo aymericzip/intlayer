@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next vs @intlayer/i18next: 同じAPI、異なるバンドルサイズ"
 description: ReactやNext.jsアプリがi18next、react-i18next、next-i18nextの呼び出しを維持したまま、@intlayer/i18nextアダプターを経由して提供された場合に何が変わるのか。同一コードで測定されたページごとのJavaScript、コンポーネントサイズ、文字列リーク、ハイドレーション、そしてアダプターが保持・無視・置換できない機能を解説します。
 keywords:
@@ -27,6 +27,8 @@ author: aymericzip
 ---
 
 # i18next VS @intlayer/i18next | 同じAPI、異なるバンドルサイズ
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `@intlayer/i18next`、`@intlayer/react-i18next`、`@intlayer/next-i18next` は互換アダプターです。既存のコードが使用している `i18next` のAPI（`useTranslation`、`t()`、`<Trans>`、`i18n.changeLanguage()`、`getFixedT`、`serverSideTranslations` など）をそのまま公開し、Intlayerによってコンパイルされた辞書からデータを提供します。コンポーネント自体は変更されず、内部のランタイムのみが置き換わります。
 
@@ -109,17 +111,21 @@ const About = () => {
 
 ### Next.js での検証結果
 
-| 構成                         | 戦略           | Libサイズ (gz) | ページJS平均 (gz) | ロケールリーク | ページリーク | コンポーネント平均 (gz) | E2E反応速度 | ハイドレーション |
-| ---------------------------- | -------------- | -------------: | ----------------: | -------------: | -----------: | ----------------------: | ----------: | ---------------: |
-| **base** (i18nなし)          | -              |         0.0 KB |          141.0 KB |           0.0% |         0.0% |                  0.9 KB |     13.4 ms |          11.8 ms |
-| `next-i18next`               | static         |        19.7 KB |          218.5 KB |           0.0% |        89.8% |                 78.5 KB |     16.4 ms |          15.6 ms |
-| `next-i18next`               | dynamic        |        19.7 KB |          169.5 KB |          50.0% |        89.8% |                 26.1 KB |     15.4 ms |          27.7 ms |
-| `next-i18next`               | scoped-static  |        19.7 KB |          220.1 KB |           0.0% |        89.8% |                 78.9 KB |     16.4 ms |          14.7 ms |
-| `next-i18next`               | scoped-dynamic |        19.7 KB |          163.4 KB |           0.0% |         0.0% |                 27.1 KB |     15.9 ms |          15.1 ms |
-| **`@intlayer/next-i18next`** | static         |     **9.4 KB** |      **150.7 KB** |       **0.0%** |     **0.0%** |              **9.7 KB** | **10.7 ms** |      **11.3 ms** |
-| **`@intlayer/next-i18next`** | dynamic        |     **9.4 KB** |      **150.7 KB** |       **0.0%** |     **0.0%** |              **9.7 KB** | **11.9 ms** |      **10.6 ms** |
-| `next-intlayer` (ネイティブ) | static         |         5.5 KB |          141.3 KB |           0.0% |         0.0% |                  8.5 KB |     15.5 ms |          16.9 ms |
-| `next-intlayer` (ネイティブ) | dynamic        |         5.5 KB |          141.3 KB |           0.0% |         0.0% |                  6.9 KB |     15.3 ms |          15.9 ms |
+| 構成                                           | 戦略 | Libサイズ (gz) | ページJS平均 (gz) | ロケールリーク | ページリーク | コンポーネント平均 (gz) | E2E反応速度 | ハイドレーション |
+| ---------------------------------------------- | ---- | -------------: | ----------------: | -------------: | -----------: | ----------------------: | ----------: | ---------------: |
+| 関心のある指標とライブラリを選択してください： |
+
+<I18nBenchmark framework="nextjs" vertical/>
+
+| **base** (i18nなし) | - | 0.0 KB | 141.0 KB | 0.0% | 0.0% | 0.9 KB | 13.4 ms | 11.8 ms |
+| `next-i18next` | static | 19.7 KB | 218.5 KB | 0.0% | 89.8% | 78.5 KB | 16.4 ms | 15.6 ms |
+| `next-i18next` | dynamic | 19.7 KB | 169.5 KB | 50.0% | 89.8% | 26.1 KB | 15.4 ms | 27.7 ms |
+| `next-i18next` | scoped-static | 19.7 KB | 220.1 KB | 0.0% | 89.8% | 78.9 KB | 16.4 ms | 14.7 ms |
+| `next-i18next` | scoped-dynamic | 19.7 KB | 163.4 KB | 0.0% | 0.0% | 27.1 KB | 15.9 ms | 15.1 ms |
+| **`@intlayer/next-i18next`** | static | **9.4 KB** | **150.7 KB** | **0.0%** | **0.0%** | **9.7 KB** | **10.7 ms** | **11.3 ms** |
+| **`@intlayer/next-i18next`** | dynamic | **9.4 KB** | **150.7 KB** | **0.0%** | **0.0%** | **9.7 KB** | **11.9 ms** | **10.6 ms** |
+| `next-intlayer` (ネイティブ) | static | 5.5 KB | 141.3 KB | 0.0% | 0.0% | 8.5 KB | 15.5 ms | 16.9 ms |
+| `next-intlayer` (ネイティブ) | dynamic | 5.5 KB | 141.3 KB | 0.0% | 0.0% | 6.9 KB | 15.3 ms | 15.9 ms |
 
 **データの読み解き方**
 
@@ -129,9 +135,20 @@ const About = () => {
 - **ハイドレーションと切り替え速度の向上。** ハイドレーション時間は15.6 msから **11.3 ms** に短縮されます（バックエンド取得がクリティカルパスに乗る `dynamic` の27.7 msと比較すると大幅な改善）。ロケール切り替えも15〜16 msから **11〜12 ms** へ高速化します。
 - **アダプターはネイティブランタイムとは別物。** `next-intlayer` はベースアプリ比わずか+0.3 KBの **141.3 KB** です。アダプターはIntlayerのコア上に `i18next` のAPI互換レイヤー（補間構文、複数形・コンテキスト解決、`<Trans>` 解析）を保持しているため、ネイティブ比で+9.4 KBとなります。これは移行のための架け橋であり、最終ゴールではありません。
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> すべてのライブラリと各戦略の完全な表は、[Next.jsベンチマークレポート](https://intlayer.org/ja/doc/benchmark/nextjs)をご覧ください。
+
 > Vite / TanStack Start 環境での `react-i18next` アダプターはこのテストには含まれていません。TanStack Start における基準値は [i18next vs Intlayer](https://intlayer.org/ja/blog/i18next-vs-intlayer) で確認できます。
 
 ## なぜ数値が改善するのか
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 `components/` 配下のソースコードは一切変わっていません。この改善は、`useTranslation` が何にバインドされているかの違いによるものです。
 
@@ -148,6 +165,10 @@ const About = () => {
     ├── AppProviders.tsx              # <I18nextProvider i18n={i18n}>
     └── About.tsx                     # useTranslation(); t("about.title")
 ```
+
+インスタンスが保持するすべてのものが各ページに送信され、無駄はページと言語の2つの軸で増加します：
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **`@intlayer/next-i18next` の場合**、コンポーネントは辞書ファイルに直接バインドされます。`syncJSON` が各名前空間ファイルを辞書に変換し、最適化パスが指定された辞書だけを直接インポートとしてコンポーネントに渡すため、バンドラーはページごと・ロケールごとに過不足なくコード分割できます。
 
@@ -297,26 +318,112 @@ export default defineConfig({
 
 ## 事前に把握しておくべき制限事項
 
-- **バックエンドと検出器は不活性化します。** `i18n.use(HttpBackend)` はプラグインの `init` を呼ぶだけで動作を完了します。リクエスト時に外部CMSからリアルタイムで翻訳を取得していたワークフローは動作しなくなるため、IntlayerのCMSまたは `intlayer pull` / `push` コマンドをご利用ください。
-- **`resources` はマージされず無視されます。** 一部のアダプターと異なり、`@intlayer/i18next` はインラインの `resources` をフォールバックとして使用しません。すべてのキーは同期された辞書内に存在する必要があり、これは `intlayer test` で検証できます。
-- **App RouterではProviderの変更が必要です。** 上述の通り1ファイルのみ差し替えます。Pages Routerで `appWithTranslation` を使用している場合は変更不要です。
-- **`next-i18next.config.js` は無視されます。** `localePath`、`fallbackLng`、`reloadOnPrerender` などの設定は機能しません。ロケールおよびフォールバックは `intlayer.config.ts` に記述してください。
-- **アダプター自体のオーバーヘッド。** ネイティブの `next-intlayer` と比較して、ランタイムで9.4 KB、ページあたり+9.4 KBのコストが発生します。すべてのコンポーネントが `useIntlayer` へ移行完了した後は、アダプターをアンインストールすることをおすすめします。
+<AccordionGroup>
+<Accordion header="バックエンドと検出器は機能しません">
+
+`i18n.use(HttpBackend)` はプラグインの init を呼び出すだけで、他には何もしません。アプリが実行時にCMSから翻訳を取得することに依存していた場合、そのフローは利用できなくなります。代わりに [Intlayer CMS](https://intlayer.org/ja/doc/concept/cms) または `intlayer pull` / `push` コマンドを使用してください。言語検出はIntlayerのルーティング設定（URLプレフィックス、cookie、ヘッダー）に置き換わります。
+
+</Accordion>
+<Accordion header="resources はマージされず、無視されます">
+
+他のアダプターとは異なり、`@intlayer/i18next` はインラインの `resources` をフォールバックとして使用しません。すべてのキーは同期された辞書内に存在する必要があり、これは `intlayer test` で検証されます。
+
+</Accordion>
+<Accordion header="App Router ではプロバイダーの編集が必要です">
+
+上記に示した1つのファイルのみです。`appWithTranslation` を使用する Pages Router では何も変更する必要はありません。
+
+</Accordion>
+<Accordion header="next-i18next.config.js は読み取られません">
+
+`localePath`、`fallbackLng`、`reloadOnPrerender` などに相当するものはありません。ロケールとフォールバックは `intlayer.config.ts` から取得されます。
+
+</Accordion>
+<Accordion header="アダプターには一定のコストがあります">
+
+`next-intlayer` に対してランタイムが 9.4 KB、ページあたり +9.4 KB 増加します。すべてのコンポーネントが `useIntlayer` に移行したら、アダプターを削除してください。
+
+</Accordion>
+</AccordionGroup>
 
 ## 選択の指針
 
-- **`i18next` を維持すべきケース**: ランタイム時の動的バックエンド（リクエスト時に外部CMSから配信される翻訳）、固有のプラグイン群、またはアダプターがサポートしていない非React環境に強く依存している場合。
-- **`@intlayer/*` を採用すべきケース**: `react-i18next` や `next-i18next` を利用中で、コードを書き換えることなく68 KBの削減、8倍軽量なコンポーネント、リーク率0%、型付きキー、CI検証を即座に導入したい場合。既存の `i18next` コードベースにとって最も手軽な選択肢です。
-- **ネイティブ（`next-intlayer` / `react-intlayer`）へ移行すべきケース**: 新規プロジェクト、またはアダプターによる移行が安定した段階。3つの中で最も軽量（5.5 KB、ページあたり+0.3 KB）であり、同期Server Componentsやコンポーネント共配置の `.content.ts` が利用できます。
+<AccordionGroup>
+<Accordion header="i18next を継続利用する">
+
+アプリが実行時バックエンド（リクエスト時にCMSから提供される翻訳）、プラグインエコシステム、またはアダプターが対応していない非Reactターゲットに依存している場合。
+
+</Accordion>
+<Accordion header="@intlayer/* を使用する">
+
+`react-i18next` / `next-i18next` を使用中で、コードを書き直さずに 68 KB の削減、8倍小さいコンポーネント、0%のリーク、型付けされたキー、CIチェックを実現したい場合。既存の `i18next` コードベースへのエントリポイントとなります。
+
+</Accordion>
+<Accordion header="ネイティブに移行する (next-intlayer / react-intlayer)">
+
+新規プロジェクト、またはアダプターが役割を果たした後向けです。最も軽量なランタイム（5.5 KB、ページあたり +0.3 KB）を備え、同期サーバーコンポーネントおよびコンポーネント単位の `.content.ts` ファイルを利用可能にします。[Next.jsとIntlayer](https://intlayer.org/ja/doc/environment/nextjs) または [ViteおよびReact](https://intlayer.org/ja/doc/environment/vite-and-react) から始めてください。
+
+</Accordion>
+</AccordionGroup>
+
+## よくある質問
+
+<FAQ>
+
+<Question title="68 KB の削減はどこから得られるのですか？">
+
+`resources: { en, fr, ... }` からです。素朴な `next-i18next` セットアップでは、各言語のJSONを `init()` にインポートするため、すべてのページが全言語の全名前空間を持ち運びます（ページあたり **218.5 KB**）。アダプターはそのブロックを一切バンドルせず、各コンポーネントにアクティブな言語で指定された辞書のみを渡します。
+
+</Question>
+
+<Question title="<Trans> コンポーネントは引き続き動作しますか？">
+
+はい、`components`、番号付きの `<1>...</1>` タグ、`values` をサポートしています。`{{interpolation}}`、`$t(key)` のネスト、`key_one` / `key_other` の複数形（`Intl.PluralRules` による評価）、コンテキストサフィックス、`returnObjects` も同様に動作します。
+
+</Question>
+
+<Question title="言語ごとに単一の translation.json を使用している場合はどうなりますか？">
+
+`syncJSON` プラグインで `splitKeys: false` を設定してください。ファイル全体が1つの辞書として保持され、シンプルな `useTranslation()` が引き続きそれに対して解決されます。
+
+</Question>
+
+<Question title="これは Intlayer への完全な移行と同じですか？">
+
+いいえ、移行の架け橋です。アダプターは `i18next` API を維持し、ランタイムコストは 9.4 KB です。ネイティブの `next-intlayer` は 5.5 KB で、同期サーバーコンポーネントと同ディレクトリ配置の `.content.ts` ファイルが追加されます。JSON と `.content.ts` の辞書は共存できるため、コンポーネント単位で移行できます。
+
+</Question>
+
+<Question title="翻訳者は現在の作業フローを維持できますか？">
+
+はい。`locales/{lng}/{ns}.json` が信頼できる唯一の情報源として維持されます。`syncJSON` が i18next 構文で読み取り、CLI または CMS が更新したときに翻訳を書き戻します。
+
+</Question>
+
+</FAQ>
 
 ## 関連する比較記事
 
-- [i18next vs Intlayer](https://intlayer.org/ja/blog/i18next-vs-intlayer)（ライブラリ自体の直接比較、同一ベンチマーク）
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/ja/blog/next-intl-vs-intlayer-next-intl)（同アダプターシリーズ）
-- [Lingui vs @intlayer/lingui](https://intlayer.org/ja/blog/lingui-vs-intlayer-lingui)（同アダプターシリーズ）
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ja/blog/vue-i18n-vs-intlayer-vue-i18n)（同アダプターシリーズ）
-- 移行ガイド: [i18next](https://intlayer.org/ja/doc/migration/i18next), [react-i18next](https://intlayer.org/ja/doc/migration/react-i18next), [next-i18next](https://intlayer.org/ja/doc/migration/next-i18next)
-- 互換アダプター仕様: [i18next](https://intlayer.org/ja/doc/compatibility/i18next), [react-i18next](https://intlayer.org/ja/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/ja/doc/compatibility/next-i18next)
+同じアダプターシリーズ：
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/ja/blog/next-intl-vs-intlayer-next-intl)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/ja/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ja/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+直接比較されたライブラリ：
+
+- [i18next vs Intlayer](https://intlayer.org/ja/blog/i18next-vs-intlayer), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ja/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ja/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [Is i18next outdated?](https://intlayer.org/ja/blog/is-i18next-outdated)
+
+リファレンスドキュメント：
+
+- Compat adapters: [i18next](https://intlayer.org/ja/doc/compatibility/i18next), [react-i18next](https://intlayer.org/ja/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/ja/doc/compatibility/next-i18next)
+- Migration guides: [i18next](https://intlayer.org/ja/doc/migration/i18next), [react-i18next](https://intlayer.org/ja/doc/migration/react-i18next), [next-i18next](https://intlayer.org/ja/doc/migration/next-i18next)
+- [Next.js benchmark report](https://intlayer.org/ja/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/ja/doc/benchmark/tanstack)
+- [Bundle optimization](https://intlayer.org/ja/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/ja/doc/compiler)
+- [Visual Editor](https://intlayer.org/ja/doc/concept/editor), [CMS](https://intlayer.org/ja/doc/concept/cms) and [AI translation](https://intlayer.org/ja/doc/concept/auto-fill)
 
 ## まとめ
 

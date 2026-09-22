@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next vs @intlayer/i18next: API yang Sama, Bundle Berbeda"
 description: "Apa yang berubah ketika aplikasi React atau Next.js tetap menggunakan panggilan i18next, react-i18next, dan next-i18next tetapi menyajikannya melalui adapter @intlayer/i18next. JavaScript per halaman, ukuran komponen, kebocoran, dan hidrasi diukur pada kode yang sama, serta apa yang dipertahankan, diabaikan, dan tidak dapat digantikan oleh adapter."
 keywords:
@@ -27,6 +27,8 @@ author: aymericzip
 ---
 
 # i18next VS @intlayer/i18next | API yang Sama, Bundle Berbeda
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `@intlayer/i18next`, `@intlayer/react-i18next`, dan `@intlayer/next-i18next` adalah adapter kompatibilitas. Mereka mengekspos API `i18next` yang sudah digunakan kode Anda (`useTranslation`, `t()`, `<Trans>`, `i18n.changeLanguage()`, `getFixedT`, `serverSideTranslations`...) dan menyajikannya dari kamus (dictionaries) yang dikompilasi oleh Intlayer. Komponen tidak berubah. Runtime di bawahnya yang berubah.
 
@@ -109,6 +111,10 @@ Untuk setiap build, suite mencatat:
 
 ### Hasil pada Next.js
 
+Pilih metrik dan pustaka yang Anda minati:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Setup                        | Strategi       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |   Hydration |
 | ---------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ----------: |
 | **base** (tanpa i18n)        | -              |        0.0 KB |         141.0 KB |        0.0% |      0.0% |             0.9 KB |        13.4 ms |     11.8 ms |
@@ -129,9 +135,20 @@ Untuk setiap build, suite mencatat:
 - **Hidrasi dan pergantian bahasa lebih cepat.** Hidrasi meningkat dari 15.6 ms menjadi **11.3 ms** (dan dari 27.7 ms pada setup `dynamic`, di mana pengambilan data dari backend berada di jalur kritis). Pergantian locale meningkat dari 15-16 ms menjadi **11-12 ms**.
 - **Adapter bukanlah runtime native.** `next-intlayer` berukuran **141.3 KB**, hanya +0.3 KB di atas aplikasi dasar. Adapter membawa permukaan API `i18next` (dialek interpolasi, resolusi sufiks jamak dan konteks, penguraian tag `<Trans>`) di atas inti Intlayer: 9.4 KB dan +9.4 KB per halaman dibandingkan native. Ini adalah jembatan transisi, bukan tujuan akhir.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tabel lengkap, setiap pustaka dan strategi, dalam [laporan benchmark Next.js](https://intlayer.org/id/doc/benchmark/nextjs).
+
 > Adapter `react-i18next` pada Vite / TanStack Start tidak diikutsertakan dalam pengujian ini. Data dasar `react-i18next` pada TanStack Start ada di [i18next vs Intlayer](https://intlayer.org/id/blog/i18next-vs-intlayer): 127-184 KB per halaman dan pergantian locale 123-185 ms saat backend dimuat secara malas.
 
 ## Mengapa angkanya berubah
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 Tidak ada apa pun di direktori `components/` yang diubah, sehingga penghematan berasal dari apa yang diikat oleh `useTranslation`.
 
@@ -148,6 +165,10 @@ Tidak ada apa pun di direktori `components/` yang diubah, sehingga penghematan b
     ├── AppProviders.tsx              # <I18nextProvider i18n={i18n}>
     └── About.tsx                     # useTranslation(); t("about.title")
 ```
+
+Apa pun yang ditampung instans dikirim ke setiap halaman, dan pemborosan bertambah pada dua sumbu, halaman dan lokal:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **Dengan `@intlayer/next-i18next`**, pengikatan dilakukan ke kamus. `syncJSON` mengubah setiap file namespace menjadi kamus; tahap optimasi memberikan kamus yang dibutuhkan langsung ke komponen, sebagai modul import yang dapat dilacak dan dipecah oleh bundler per halaman dan per locale.
 
@@ -297,26 +318,112 @@ export default defineConfig({
 
 ## Batasan yang perlu diketahui sebelum memulai
 
-- **Backend dan detektor bersifat inaktif.** `i18n.use(HttpBackend)` hanya memanggil `init` plugin dan tidak ada tindakan lain. Jika aplikasi Anda bergantung pada pengambilan terjemahan dari CMS saat runtime, alur tersebut tidak lagi berlaku; gunakan CMS Intlayer atau perintah `intlayer pull` / `push` sebagai gantinya.
-- **`resources` diabaikan, bukan digabungkan.** Berbeda dengan beberapa adapter lain, `@intlayer/i18next` tidak menggunakan `resources` inline sebagai fallback. Setiap kunci harus ada di dalam kamus yang disinkronkan, yang dapat diverifikasi dengan `intlayer test`.
-- **App Router membutuhkan penyesuaian provider.** Cukup satu file, seperti ditunjukkan di atas. Pages Router dengan `appWithTranslation` tidak memerlukan perubahan apa pun.
-- **`next-i18next.config.js` tidak dibaca.** Pengaturan seperti `localePath`, `fallbackLng`, `reloadOnPrerender`, dan lainnya tidak memiliki padanan langsung; locale dan fallback dikonfigurasi melalui `intlayer.config.ts`.
-- **Adapter membutuhkan sedikit overhead.** Membawa 9.4 KB runtime dan +9.4 KB per halaman dibandingkan `next-intlayer`. Setelah semua komponen bermigrasi ke `useIntlayer`, adapter ini dapat dihapus sepenuhnya.
+<AccordionGroup>
+<Accordion header="Backend dan detektor tidak aktif">
+
+`i18n.use(HttpBackend)` memanggil init plugin dan tidak melakukan hal lain. Jika aplikasi Anda mengandalkan pengambilan terjemahan dari CMS saat runtime, alur tersebut tidak ada lagi; gunakan [CMS Intlayer](https://intlayer.org/id/doc/concept/cms) atau perintah `intlayer pull` / `push`. Deteksi bahasa menjadi konfigurasi perutean Intlayer (prefiks URL, cookie, header).
+
+</Accordion>
+<Accordion header="resources diabaikan, bukan digabungkan">
+
+Tidak seperti beberapa adaptor lainnya, `@intlayer/i18next` tidak menggunakan `resources` inline sebagai fallback. Setiap kunci harus ada dalam kamus yang disinkronkan, yang diverifikasi oleh `intlayer test`.
+
+</Accordion>
+<Accordion header="App Router memerlukan pengeditan provider">
+
+Hanya satu berkas, ditunjukkan di atas. Pages Router dengan `appWithTranslation` tidak memerlukan apa pun.
+
+</Accordion>
+<Accordion header="next-i18next.config.js tidak dibaca">
+
+`localePath`, `fallbackLng`, `reloadOnPrerender` dan sejenisnya tidak memiliki padanan; bahasa dan fallback berasal dari `intlayer.config.ts`.
+
+</Accordion>
+<Accordion header="Adaptor tidak gratis">
+
+9.4 KB runtime dan +9.4 KB per halaman dibandingkan `next-intlayer`. Setelah setiap komponen beralih ke `useIntlayer`, hapus adaptor tersebut.
+
+</Accordion>
+</AccordionGroup>
 
 ## Kapan menggunakan yang mana?
 
-- **Tetap gunakan `i18next`** jika aplikasi Anda bergantung pada backend runtime (terjemahan disajikan oleh CMS saat request dibuat), ekosistem plugin, atau lingkungan non-React yang tidak didukung oleh adapter.
-- **Gunakan `@intlayer/*`** jika Anda menggunakan `react-i18next` / `next-i18next` dan menginginkan penghematan 68 KB, komponen 8x lebih kecil, 0% kebocoran, kunci bertipe aman, dan validasi CI tanpa perlu menulis ulang kode. Ini adalah pintu masuk praktis untuk basis kode `i18next` yang ada.
-- **Gunakan native (`next-intlayer` / `react-intlayer`)** untuk proyek baru, atau setelah adapter menyelesaikan tugasnya. Opsi ini adalah yang paling ringan dari ketiganya (5.5 KB, +0.3 KB per halaman) dan mendukung komponen server sinkron serta file `.content.ts` per komponen.
+<AccordionGroup>
+<Accordion header="Tetap di i18next">
+
+Aplikasi Anda bergantung pada backend runtime (terjemahan yang disajikan oleh CMS pada saat permintaan), pada ekosistem plugin, atau pada target non-React yang tidak dicakup oleh adaptor.
+
+</Accordion>
+<Accordion header="Gunakan @intlayer/*">
+
+Anda menggunakan `react-i18next` / `next-i18next` dan menginginkan penghematan 68 KB, komponen 8x lebih kecil, 0% kebocoran, kunci bertipe, dan pemeriksaan CI tanpa penulisan ulang. Ini adalah titik masuk untuk basis kode `i18next` yang sudah ada.
+
+</Accordion>
+<Accordion header="Beralih ke native (next-intlayer / react-intlayer)">
+
+Untuk proyek baru, atau setelah adaptor menyelesaikan tugasnya. Menawarkan runtime teringan (5.5 KB, +0.3 KB per halaman) dan membuka Server Components sinkron serta berkas `.content.ts` per komponen. Mulai dengan [Intlayer dengan Next.js](https://intlayer.org/id/doc/environment/nextjs) atau [dengan Vite dan React](https://intlayer.org/id/doc/environment/vite-and-react).
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Dari mana datangnya penghematan 68 KB?">
+
+Dari `resources: { en, fr, ... }`. Penyiapan umum `next-i18next` mengimpor JSON setiap bahasa ke `init()`, sehingga setiap halaman membawa setiap namespace di setiap bahasa: **218.5 KB** per halaman. Adaptor tidak pernah membundel blok itu; adaptor hanya memberikan kamus yang disebutkan ke setiap komponen, dalam bahasa yang aktif.
+
+</Question>
+
+<Question title="Apakah komponen <Trans> saya tetap berfungsi?">
+
+Ya, dengan `components`, tag bernomor `<1>...</1>` dan `values`. Begitu pula dengan `{{interpolation}}`, penyarangan `$t(key)`, bentuk jamak `key_one` / `key_other` (dievaluasi dengan `Intl.PluralRules`), sufiks konteks, dan `returnObjects`.
+
+</Question>
+
+<Question title="Bagaimana jika saya menggunakan satu berkas translation.json per bahasa?">
+
+Atur `splitKeys: false` di plugin `syncJSON`. Seluruh berkas tetap menjadi satu kamus dan panggilan sederhana `useTranslation()` akan terus menyelesaikan terhadapnya.
+
+</Question>
+
+<Question title="Apakah ini sama dengan bermigrasi ke Intlayer?">
+
+Tidak, ini adalah jembatan. Adaptor mempertahankan API `i18next` dan berbiaya runtime 9.4 KB; `next-intlayer` native berbiaya 5.5 KB dan menambahkan Server Components sinkron serta berkas `.content.ts` yang ditempatkan bersama. Anda dapat bermigrasi komponen demi komponen, karena kamus JSON dan `.content.ts` hidup berdampingan.
+
+</Question>
+
+<Question title="Bisakah penerjemah tetap bekerja seperti yang mereka lakukan saat ini?">
+
+Ya. `locales/{lng}/{ns}.json` tetap menjadi sumber kebenaran: `syncJSON` membacanya dengan dialek i18next dan menulis kembali terjemahan saat CLI atau CMS memperbaruinya.
+
+</Question>
+
+</FAQ>
 
 ## Perbandingan terkait
 
-- [i18next vs Intlayer](https://intlayer.org/id/blog/i18next-vs-intlayer) (perbandingan library, benchmark yang sama)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/id/blog/next-intl-vs-intlayer-next-intl) (seri adapter yang sama)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/id/blog/lingui-vs-intlayer-lingui) (seri adapter yang sama)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-vue-i18n) (seri adapter yang sama)
-- Panduan migrasi: [i18next](https://intlayer.org/id/doc/migration/i18next), [react-i18next](https://intlayer.org/id/doc/migration/react-i18next), [next-i18next](https://intlayer.org/id/doc/migration/next-i18next)
-- Referensi adapter kompatibilitas: [i18next](https://intlayer.org/id/doc/compatibility/i18next), [react-i18next](https://intlayer.org/id/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/id/doc/compatibility/next-i18next)
+Seri adaptor yang sama:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/id/blog/next-intl-vs-intlayer-next-intl)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/id/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+Pustaka yang dibandingkan secara langsung:
+
+- [i18next vs Intlayer](https://intlayer.org/id/blog/i18next-vs-intlayer), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/id/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/id/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [Is i18next outdated?](https://intlayer.org/id/blog/is-i18next-outdated)
+
+Dokumentasi referensi:
+
+- Compat adapters: [i18next](https://intlayer.org/id/doc/compatibility/i18next), [react-i18next](https://intlayer.org/id/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/id/doc/compatibility/next-i18next)
+- Migration guides: [i18next](https://intlayer.org/id/doc/migration/i18next), [react-i18next](https://intlayer.org/id/doc/migration/react-i18next), [next-i18next](https://intlayer.org/id/doc/migration/next-i18next)
+- [Next.js benchmark report](https://intlayer.org/id/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/id/doc/benchmark/tanstack)
+- [Bundle optimization](https://intlayer.org/id/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/id/doc/compiler)
+- [Visual Editor](https://intlayer.org/id/doc/concept/editor), [CMS](https://intlayer.org/id/doc/concept/cms) and [AI translation](https://intlayer.org/id/doc/concept/auto-fill)
 
 ## Kesimpulan
 

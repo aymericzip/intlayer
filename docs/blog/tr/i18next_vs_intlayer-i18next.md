@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next vs @intlayer/i18next: Aynı API, Farklı Paket Boyutu"
 description: Bir React veya Next.js uygulaması i18next, react-i18next ve next-i18next çağrılarını koruyup bunları @intlayer/i18next bağdaştırıcıları aracılığıyla sunduğunda ne değişir? Aynı kod üzerinde ölçülen sayfa başına JavaScript, bileşen boyutu, metin sızıntısı ve hidrasyon performansı.
 keywords:
@@ -27,6 +27,8 @@ author: aymericzip
 ---
 
 # i18next VS @intlayer/i18next | Aynı API, Farklı Paket Boyutu
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `@intlayer/i18next`, `@intlayer/react-i18next` ve `@intlayer/next-i18next` uyumluluk bağdaştırıcılarıdır. Kodunuzun zaten kullanmakta olduğu `i18next` API'sini (`useTranslation`, `t()`, `<Trans>`, `i18n.changeLanguage()`, `getFixedT`, `serverSideTranslations`...) doğrudan sunar ve Intlayer tarafından derlenen sözlüklerden besler. Bileşenleriniz değişmez; yalnızca altlarındaki çalışma zamanı (runtime) değişir.
 
@@ -109,6 +111,10 @@ Her derleme için şu metrikler kaydedilmiştir:
 
 ### Next.js Sonuçları
 
+İlgilendiğiniz metrikleri ve kütüphaneleri seçin:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Yapılandırma                 | Strateji       | Kütüphane (gz) | Sayfa JS Ort (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Bileşen Ort (gz) |   E2E Tepki |   Hidrasyon |
 | ---------------------------- | -------------- | -------------: | ----------------: | ------------: | --------------: | ---------------: | ----------: | ----------: |
 | **base** (i18n yok)          | -              |         0.0 KB |          141.0 KB |          0.0% |            0.0% |           0.9 KB |     13.4 ms |     11.8 ms |
@@ -129,9 +135,20 @@ Her derleme için şu metrikler kaydedilmiştir:
 - **Daha hızlı hidrasyon ve dil değiştirme.** Hidrasyon süresi 15.6 ms'den **11.3 ms**'ye iner (`dynamic` kurgusunda arka uç sorgusu kritik yolda olduğu için 27.7 ms sürer). Dil değiştirme süresi de 15-16 ms'den **11-12 ms**'ye düşer.
 - **Bağdaştırıcı yerel çalışma zamanının aynısı değildir.** Yerel `next-intlayer` **141.3 KB** ile temel uygulamanın sadece +0.3 KB üzerindedir. Bağdaştırıcı, Intlayer çekirdeği üzerinde `i18next` API katmanını (enterpolasyon kuralları, çoğul ve bağlam çözümlemeleri, `<Trans>` etiket ayrıştırması) barındırdığı için yerel sürüme göre +9.4 KB ek yük getirir. Bu bir geçiş köprüsüdür, nihai durak değildir.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tüm tablo, her kütüphane ve her strateji, [Next.js kıyaslama raporunda](https://intlayer.org/tr/doc/benchmark/nextjs).
+
 > Vite / TanStack Start üzerindeki `react-i18next` bağdaştırıcısı bu test serisine dahil edilmemiştir. TanStack Start için temel referans [i18next vs Intlayer](https://intlayer.org/tr/blog/i18next-vs-intlayer) yazısında incelenebilir.
 
 ## Rakamların Değişme Sebebi
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 `components/` klasöründeki kodlar hiç değişmedi; tüm kazanımlar `useTranslation` fonksiyonunun neye bağlandığından kaynaklanmaktadır.
 
@@ -148,6 +165,10 @@ Her derleme için şu metrikler kaydedilmiştir:
     ├── AppProviders.tsx              # <I18nextProvider i18n={i18n}>
     └── About.tsx                     # useTranslation(); t("about.title")
 ```
+
+Örneğin içerdiği her şey her sayfaya gönderilir ve israf iki eksende büyür, sayfalar ve diller:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **`@intlayer/next-i18next` ile**, bağlama doğrudan sözlüğe yapılır. `syncJSON` her ad alanı dosyasını bir sözlüğe dönüştürür; optimizasyon adımı ise bileşene yalnızca bildirdiği sözlüğü verir. Bu içe aktarım paketleyici tarafından kolayca izlenebilir, sayfa ve dil bazında eksiksiz olarak bölünebilir.
 
@@ -297,26 +318,112 @@ export default defineConfig({
 
 ## Başlamadan Önce Bilinmesi Gereken Kısıtlamalar
 
-- **Arka uçlar ve algılayıcılar devre dışıdır.** `i18n.use(HttpBackend)` yalnızca eklentinin `init` fonksiyonunu çağırır. Uygulamanız çalışma zamanında CMS'ten dinamik çeviri çekmeye bağımlıysa bu akış sonlanır; bunun yerine Intlayer CMS'i veya `intlayer pull` / `push` komutlarını tercih edin.
-- **`resources` birleştirilmez, yok sayılır.** Bazı diğer bağdaştırıcıların aksine, `@intlayer/i18next` satır içi `resources` nesnesini bir yedekleme mekanizması olarak kullanmaz. Her anahtarın senkronize sözlüklerde fiilen bulunması şarttır (bu durum `intlayer test` ile doğrulanır).
-- **App Router sağlayıcı düzenlemesi gerektirir.** Yukarıda gösterilen tek bir dosya. `appWithTranslation` kullanan Pages Router projelerinde hiçbir değişiklik gerekmez.
-- **`next-i18next.config.js` dikkate alınmaz.** `localePath`, `fallbackLng`, `reloadOnPrerender` gibi parametreler çalışmaz; diller ve varsayılanlar `intlayer.config.ts` içinde tanımlanmalıdır.
-- **Bağdaştırıcının da bir boyutu vardır.** `next-intlayer`'a kıyasla çalışma zamanında 9.4 KB ve sayfa başına +9.4 KB ek yük getirir. Tüm bileşenler `useIntlayer`'a geçtiğinde bağdaştırıcıyı kaldırabilirsiniz.
+<AccordionGroup>
+<Accordion header="Backend'ler ve algılayıcılar etkisizdir">
+
+`i18n.use(HttpBackend)` eklentinin init fonksiyonunu çağırır ve başka hiçbir şey yapmaz. Uygulamanız çalışma zamanında bir CMS'ten çevirileri çekmeye dayanıyorsa, bu akış artık yoktur; bunun yerine [Intlayer CMS](https://intlayer.org/tr/doc/concept/cms) veya `intlayer pull` / `push` komutlarını kullanın. Dil algılama, Intlayer'ın yönlendirme yapılandırması haline gelir (URL ön eki, çerez, başlık).
+
+</Accordion>
+<Accordion header="resources yoksayılır, birleştirilmez">
+
+Diğer bazı adaptörlerin aksine, `@intlayer/i18next` satır içi `resources` nesnesini bir geri dönüş olarak kullanmaz. Her anahtar, `intlayer test` komutunun doğruladığı senkronize sözlüklerde bulunmalıdır.
+
+</Accordion>
+<Accordion header="App Router sağlayıcı düzenlemesi gerektirir">
+
+Yukarıda gösterilen tek bir dosya. `appWithTranslation` kullanan Pages Router hiçbir şey gerektirmez.
+
+</Accordion>
+<Accordion header="next-i18next.config.js okunmaz">
+
+`localePath`, `fallbackLng`, `reloadOnPrerender` ve benzerlerinin bir karşılığı yoktur; diller ve geri dönüş `intlayer.config.ts` dosyasından gelir.
+
+</Accordion>
+<Accordion header="Adaptör ücretsiz değildir">
+
+`next-intlayer`'a kıyasla 9.4 KB çalışma zamanı ve sayfa başına +9.4 KB ek yük. Her bileşen `useIntlayer` kullanımına geçtikten sonra adaptörü kaldırın.
+
+</Accordion>
+</AccordionGroup>
 
 ## Hangi Çözüm Ne Zaman Tercih Edilmeli?
 
-- **`i18next` ile devam edin**: Uygulamanız çalışma zamanı arka uçlarına (istek anında CMS'ten sunulan çeviriler), özel eklenti ekosistemine veya bağdaştırıcıların kapsamadığı React dışı bir ortama zorunlu olarak bağımlıysa.
-- **`@intlayer/*` kullanın**: Halihazırda `react-i18next` / `next-i18next` kullanıyorsanız ve kodunuzu yeniden yazmadan 68 KB tasarruf, 8 kat daha küçük bileşenler, %0 sızıntı, tiplendirilmiş anahtarlar ve CI doğrulaması elde etmek istiyorsanız. Mevcut `i18next` projeleri için en pratik yükseltme yoludur.
-- **Yerel mimariye (`next-intlayer` / `react-intlayer`) geçin**: Yeni projeler için veya bağdaştırıcı geçişi tamamlandıktan sonra. En hafif alternatiftir (5.5 KB, sayfa başına +0.3 KB) ve senkron Server Components ile bileşen düzeyinde `.content.ts` kullanımının önünü açar.
+<AccordionGroup>
+<Accordion header="i18next'te kalın">
+
+Uygulamanız çalışma zamanı backend'lerine (istek anında bir CMS tarafından sunulan çeviriler), eklenti ekosistemine veya adaptörlerin kapsamadığı React dışı bir hedefe bağımlıysa.
+
+</Accordion>
+<Accordion header="@intlayer/* kullanın">
+
+`react-i18next` / `next-i18next` kullanıyorsanız ve kodu yeniden yazmadan 68 KB tasarruf, 8 kat daha küçük bileşenler, %0 sızıntı, tiplenmiş anahtarlar ve CI kontrolleri istiyorsanız. Mevcut bir `i18next` kod tabanı için giriş noktası budur.
+
+</Accordion>
+<Accordion header="Yerel kullanıma geçin (next-intlayer / react-intlayer)">
+
+Yeni projeler için veya adaptör görevini tamamladıktan sonra. En hafif çalışma zamanına (5.5 KB, sayfa başına +0.3 KB) sahiptir ve eşzamanlı Server Components ile bileşen başına `.content.ts` dosyalarının kilidini açar. [Next.js ile Intlayer](https://intlayer.org/tr/doc/environment/nextjs) veya [Vite ve React ile](https://intlayer.org/tr/doc/environment/vite-and-react) başlayın.
+
+</Accordion>
+</AccordionGroup>
+
+## SSS
+
+<FAQ>
+
+<Question title="68 KB tasarruf nereden geliyor?">
+
+`resources: { en, fr, ... }` yapısından. Temel `next-i18next` kurulumu her dilin JSON'unu `init()` içine aktarır, bu nedenle her sayfa her dildeki her ad alanını taşır: sayfa başına **218.5 KB**. Adaptör bu bloğu asla paketlemez; her bileşene yalnızca belirttiği sözlüğü, aktif dilde sunar.
+
+</Question>
+
+<Question title="<Trans> bileşenlerim çalışmaya devam ediyor mu?">
+
+Evet, `components`, numaralandırılmış `<1>...</1>` etiketleri ve `values` ile. Ayrıca `{{interpolation}}`, `$t(key)` iç içe geçirme, `key_one` / `key_other` çoğulları (`Intl.PluralRules` ile değerlendirilir), bağlam son ekleri ve `returnObjects` de desteklenir.
+
+</Question>
+
+<Question title="Dil başına tek bir translation.json kullanırsam ne olur?">
+
+`syncJSON` eklentisinde `splitKeys: false` olarak ayarlayın. Dosyanın tamamı tek bir sözlük olarak kalır ve yalın bir `useTranslation()` çağrısı ona göre çözümlenmeye devam eder.
+
+</Question>
+
+<Question title="Bu, Intlayer'a tamamen geçmekle aynı şey mi?">
+
+Hayır, bu bir köprüdür. Adaptör `i18next` API'sini korur ve 9.4 KB çalışma zamanı maliyeti vardır; yerel `next-intlayer` 5.5 KB maliyetindedir ve eşzamanlı Server Components ile bileşenle aynı konumda bulunan `.content.ts` dosyalarını ekler. JSON ve `.content.ts` sözlükleri bir arada var olduğundan bileşen bileşen geçiş yapabilirsiniz.
+
+</Question>
+
+<Question title="Çevirmenler bugün çalıştıkları gibi çalışmaya devam edebilir mi?">
+
+Evet. `locales/{lng}/{ns}.json` referans kaynağı olarak kalır: `syncJSON` dosyayı i18next sözdizimiyle okur ve CLI veya CMS güncellediğinde çevirileri geri yazar.
+
+</Question>
+
+</FAQ>
 
 ## İlgili Karşılaştırmalar
 
-- [i18next vs Intlayer](https://intlayer.org/tr/blog/i18next-vs-intlayer) (kütüphane bazlı doğrudan kıyaslama, aynı test verileri)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/tr/blog/next-intl-vs-intlayer-next-intl) (aynı bağdaştırıcı serisi)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/tr/blog/lingui-vs-intlayer-lingui) (aynı bağdaştırıcı serisi)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-vue-i18n) (aynı bağdaştırıcı serisi)
-- Geçiş rehberleri: [i18next](https://intlayer.org/tr/doc/migration/i18next), [react-i18next](https://intlayer.org/tr/doc/migration/react-i18next), [next-i18next](https://intlayer.org/tr/doc/migration/next-i18next)
-- Bağdaştırıcı referansları: [i18next](https://intlayer.org/tr/doc/compatibility/i18next), [react-i18next](https://intlayer.org/tr/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/tr/doc/compatibility/next-i18next)
+Aynı adaptör serisi:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/tr/blog/next-intl-vs-intlayer-next-intl)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/tr/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+Doğrudan karşılaştırılan kütüphaneler:
+
+- [i18next vs Intlayer](https://intlayer.org/tr/blog/i18next-vs-intlayer), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/tr/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/tr/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [Is i18next outdated?](https://intlayer.org/tr/blog/is-i18next-outdated)
+
+Referans belgeler:
+
+- Compat adapters: [i18next](https://intlayer.org/tr/doc/compatibility/i18next), [react-i18next](https://intlayer.org/tr/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/tr/doc/compatibility/next-i18next)
+- Migration guides: [i18next](https://intlayer.org/tr/doc/migration/i18next), [react-i18next](https://intlayer.org/tr/doc/migration/react-i18next), [next-i18next](https://intlayer.org/tr/doc/migration/next-i18next)
+- [Next.js benchmark report](https://intlayer.org/tr/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/tr/doc/benchmark/tanstack)
+- [Bundle optimization](https://intlayer.org/tr/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/tr/doc/compiler)
+- [Visual Editor](https://intlayer.org/tr/doc/concept/editor), [CMS](https://intlayer.org/tr/doc/concept/cms) and [AI translation](https://intlayer.org/tr/doc/concept/auto-fill)
 
 ## Sonuç
 

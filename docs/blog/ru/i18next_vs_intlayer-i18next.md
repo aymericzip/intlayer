@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next vs @intlayer/i18next: Тот же API, другой бандл"
 description: Что меняется, когда приложение на React или Next.js сохраняет вызовы i18next, react-i18next и next-i18next, но обслуживает их через адаптеры @intlayer/i18next. Размер JavaScript на страницу, вес компонентов, утечка строк и гидратация на одном и том же коде, а также то, что адаптеры сохраняют, игнорируют и чем не могут стать.
 keywords:
@@ -27,6 +27,8 @@ author: aymericzip
 ---
 
 # i18next VS @intlayer/i18next | Тот же API, другой бандл
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `@intlayer/i18next`, `@intlayer/react-i18next` и `@intlayer/next-i18next` - это адаптеры совместимости. Они предоставляют API `i18next`, который уже использует ваш код (`useTranslation`, `t()`, `<Trans>`, `i18n.changeLanguage()`, `getFixedT`, `serverSideTranslations`...), и передают данные из словарей, скомпилированных Intlayer. Компоненты не меняются. Меняется среда выполнения (runtime) под ними.
 
@@ -109,17 +111,21 @@ const About = () => {
 
 ### Результаты на Next.js
 
-| Конфигурация                 | Стратегия      | Размер либы (gz) | JS стр сред (gz) | Утечка локали | Утечка стр | Комп сред (gz) | E2E-реактивность |  Гидратация |
-| ---------------------------- | -------------- | ---------------: | ---------------: | ------------: | ---------: | -------------: | ---------------: | ----------: |
-| **base** (без i18n)          | -              |           0.0 КБ |         141.0 КБ |          0.0% |       0.0% |         0.9 КБ |          13.4 мс |     11.8 мс |
-| `next-i18next`               | static         |          19.7 КБ |         218.5 КБ |          0.0% |      89.8% |        78.5 КБ |          16.4 мс |     15.6 мс |
-| `next-i18next`               | dynamic        |          19.7 КБ |         169.5 КБ |         50.0% |      89.8% |        26.1 КБ |          15.4 мс |     27.7 мс |
-| `next-i18next`               | scoped-static  |          19.7 КБ |         220.1 КБ |          0.0% |      89.8% |        78.9 КБ |          16.4 мс |     14.7 мс |
-| `next-i18next`               | scoped-dynamic |          19.7 КБ |         163.4 КБ |          0.0% |       0.0% |        27.1 КБ |          15.9 мс |     15.1 мс |
-| **`@intlayer/next-i18next`** | static         |       **9.4 КБ** |     **150.7 КБ** |      **0.0%** |   **0.0%** |     **9.7 КБ** |      **10.7 мс** | **11.3 мс** |
-| **`@intlayer/next-i18next`** | dynamic        |       **9.4 КБ** |     **150.7 КБ** |      **0.0%** |   **0.0%** |     **9.7 КБ** |      **11.9 мс** | **10.6 мс** |
-| `next-intlayer` (native)     | static         |           5.5 КБ |         141.3 КБ |          0.0% |       0.0% |         8.5 КБ |          15.5 мс |     16.9 мс |
-| `next-intlayer` (native)     | dynamic        |           5.5 КБ |         141.3 КБ |          0.0% |       0.0% |         6.9 КБ |          15.3 мс |     15.9 мс |
+| Конфигурация                                           | Стратегия | Размер либы (gz) | JS стр сред (gz) | Утечка локали | Утечка стр | Комп сред (gz) | E2E-реактивность | Гидратация |
+| ------------------------------------------------------ | --------- | ---------------: | ---------------: | ------------: | ---------: | -------------: | ---------------: | ---------: |
+| Выберите метрики и библиотеки, которые вас интересуют: |
+
+<I18nBenchmark framework="nextjs" vertical/>
+
+| **base** (без i18n) | - | 0.0 КБ | 141.0 КБ | 0.0% | 0.0% | 0.9 КБ | 13.4 мс | 11.8 мс |
+| `next-i18next` | static | 19.7 КБ | 218.5 КБ | 0.0% | 89.8% | 78.5 КБ | 16.4 мс | 15.6 мс |
+| `next-i18next` | dynamic | 19.7 КБ | 169.5 КБ | 50.0% | 89.8% | 26.1 КБ | 15.4 мс | 27.7 мс |
+| `next-i18next` | scoped-static | 19.7 КБ | 220.1 КБ | 0.0% | 89.8% | 78.9 КБ | 16.4 мс | 14.7 мс |
+| `next-i18next` | scoped-dynamic | 19.7 КБ | 163.4 КБ | 0.0% | 0.0% | 27.1 КБ | 15.9 мс | 15.1 мс |
+| **`@intlayer/next-i18next`** | static | **9.4 КБ** | **150.7 КБ** | **0.0%** | **0.0%** | **9.7 КБ** | **10.7 мс** | **11.3 мс** |
+| **`@intlayer/next-i18next`** | dynamic | **9.4 КБ** | **150.7 КБ** | **0.0%** | **0.0%** | **9.7 КБ** | **11.9 мс** | **10.6 мс** |
+| `next-intlayer` (native) | static | 5.5 КБ | 141.3 КБ | 0.0% | 0.0% | 8.5 КБ | 15.5 мс | 16.9 мс |
+| `next-intlayer` (native) | dynamic | 5.5 КБ | 141.3 КБ | 0.0% | 0.0% | 6.9 КБ | 15.3 мс | 15.9 мс |
 
 **Как читать эти данные**
 
@@ -129,9 +135,20 @@ const About = () => {
 - **Быстрее гидратация и переключение локали.** Гидратация ускоряется с 15.6 мс до **11.3 мс** (и с 27.7 мс в конфигурации `dynamic`, где запрос бэкенда блокирует критический путь). Переключение языка ускоряется с 15-16 мс до **11-12 мс**.
 - **Адаптер не равен нативному рантайму.** `next-intlayer` весит **141.3 КБ**, всего на +0.3 КБ больше базового приложения без i18n. Адаптер несет поверх ядра Intlayer всю поверхность API `i18next` (синтаксис интерполяции, суффиксы чисел и контекста, разбор тегов `<Trans>`): 9.4 КБ и +9.4 КБ на страницу относительно нативного решения. Это промежуточный мост, а не конечная точка.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Полная таблица, каждая библиотека и каждая стратегия, в [отчете о бенчмарке Next.js](https://intlayer.org/ru/doc/benchmark/nextjs).
+
 > Адаптер `react-i18next` на Vite / TanStack Start не входил в этот тестовый прогон. Базовые замеры для `react-i18next` на TanStack Start можно найти в статье [i18next vs Intlayer](https://intlayer.org/ru/blog/i18next-vs-intlayer): 127-184 КБ на страницу и 123-185 мс задержки переключения языка при отложенном бэкенде.
 
 ## Почему изменяются показатели
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 В директории `components/` ничего не менялось, поэтому весь выигрыш достигается за счет того, к чему привязан `useTranslation`.
 
@@ -148,6 +165,10 @@ const About = () => {
     ├── AppProviders.tsx              # <I18nextProvider i18n={i18n}>
     └── About.tsx                     # useTranslation(); t("about.title")
 ```
+
+Все, что содержит экземпляр, отправляется на каждую страницу, и утечки растут по двум осям, страницы и локали:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **В случае `@intlayer/next-i18next`** связывание идет напрямую со словарем. Плагин `syncJSON` превращает каждый файл пространства имен в словарь; оптимизатор передает компоненту только запрошенный словарь в виде импорта, который сборщик может отследить и разделить по страницам и локалям.
 
@@ -297,26 +318,112 @@ export default defineConfig({
 
 ## Ограничения, о которых важно знать
 
-- **Бэкенды и детекторы неактивны.** `i18n.use(HttpBackend)` просто вызывает `init` плагина. Если ваше приложение рассчитывало на подгрузку переводов из CMS при каждом запросе, эта схема больше не работает; используйте CMS Intlayer или команды `intlayer pull` / `push`.
-- **`resources` игнорируется, а не объединяется.** В отличие от некоторых адаптеров, `@intlayer/i18next` не использует инлайновые `resources` как запасной вариант. Каждый ключ обязан существовать в синхронизированных словарях, что проверяется командой `intlayer test`.
-- **App Router требует правки провайдера.** Всего один файл, показанный выше. Pages Router с `appWithTranslation` не требует никаких правок.
-- **`next-i18next.config.js` игнорируется.** Настройки `localePath`, `fallbackLng`, `reloadOnPrerender` и аналогичные не действуют; локали и запасные варианты берутся из `intlayer.config.ts`.
-- **Адаптер не бесплатный.** 9.4 КБ в рантайме и +9.4 КБ на страницу относительно `next-intlayer`. Когда все компоненты мигрируют на `useIntlayer`, адаптер можно отключить.
+<AccordionGroup>
+<Accordion header="Бэкенды и детекторы не активны">
+
+`i18n.use(HttpBackend)` вызывает init плагина и ничего больше. Если ваше приложение полагалось на получение переводов из CMS во время выполнения, этот процесс больше не работает; используйте [Intlayer CMS](https://intlayer.org/ru/doc/concept/cms) или команды `intlayer pull` / `push`. Определение локали становится конфигурацией маршрутизации Intlayer (префикс URL, cookie, заголовок).
+
+</Accordion>
+<Accordion header="resources игнорируется, а не объединяется">
+
+В отличие от некоторых других адаптеров, `@intlayer/i18next` не использует встроенные `resources` в качестве резервного варианта. Каждый ключ должен существовать в синхронизированных словарях, что проверяет `intlayer test`.
+
+</Accordion>
+<Accordion header="App Router требует изменения провайдера">
+
+Один файл, показанный выше. Pages Router с `appWithTranslation` не требует никаких изменений.
+
+</Accordion>
+<Accordion header="next-i18next.config.js не считывается">
+
+`localePath`, `fallbackLng`, `reloadOnPrerender` и аналоги не имеют эквивалентов; локали и резервные варианты берутся из `intlayer.config.ts`.
+
+</Accordion>
+<Accordion header="Адаптер не бесплатен">
+
+9.4 КБ рантайма и +9.4 КБ на страницу по сравнению с `next-intlayer`. Как только каждый компонент перейдет на `useIntlayer`, удалите его.
+
+</Accordion>
+</AccordionGroup>
 
 ## Когда что выбирать?
 
-- **Оставайтесь на `i18next`**, если приложение жестко зависит от сетевых бэкендов в рантайме (раздача переводов из CMS по запросу), экосистемы сторонних плагинов или окружения вне React, которое адаптеры не поддерживают.
-- **Используйте `@intlayer/*`**, если вы работаете с `react-i18next` / `next-i18next` и хотите выиграть 68 КБ, сделать компоненты в 8 раз легче, устранить утечки (0%), получить типизацию ключей и проверки в CI без переписывания кодовой базы. Это лучший путь модернизации существующего проекта на `i18next`.
-- **Переходите на нативный `next-intlayer` / `react-intlayer`** для новых проектов или после завершения этапа адаптера. Это самое быстрое и легкое решение (5.5 КБ, +0.3 КБ на страницу), открывающее синхронные серверные компоненты и изолированные файлы контента `.content.ts`.
+<AccordionGroup>
+<Accordion header="Остаться на i18next">
+
+Ваше приложение зависит от бэкендов времени выполнения (переводы, предоставляемые CMS во время запроса), от экосистемы плагинов или от платформы без React, которую адаптеры не поддерживают.
+
+</Accordion>
+<Accordion header="Использовать @intlayer/*">
+
+Вы используете `react-i18next` / `next-i18next` и хотите получить экономию 68 КБ, в 8 раз меньшие компоненты, 0% утечек, типизированные ключи и проверки CI без переписывания кода. Это точка входа для существующей кодовой базы `i18next`.
+
+</Accordion>
+<Accordion header="Перейти на нативный (next-intlayer / react-intlayer)">
+
+Для новых проектов или когда адаптер выполнил свою задачу. Он имеет самый легкий рантайм (5.5 КБ, +0.3 КБ на страницу) и открывает доступ к синхронным серверным компонентам и файлам `.content.ts` для каждого компонента. Начните с [Intlayer с Next.js](https://intlayer.org/ru/doc/environment/nextjs) или [с Vite и React](https://intlayer.org/ru/doc/environment/vite-and-react).
+
+</Accordion>
+</AccordionGroup>
+
+## Часто задаваемые вопросы
+
+<FAQ>
+
+<Question title="Откуда берутся 68 КБ?">
+
+Из `resources: { en, fr, ... }`. Стандартная настройка `next-i18next` импортирует JSON каждой локали в `init()`, поэтому каждая страница несет в себе каждое пространство имен на каждом языке: **218.5 КБ** на страницу. Адаптер никогда не включает этот блок целиком; он передает каждому компоненту только названный словарь на активном языке.
+
+</Question>
+
+<Question title="Продолжают ли работать мои компоненты <Trans>?">
+
+Да, с `components`, нумерованными тегами `<1>...</1>` и `values`. Также поддерживаются `{{interpolation}}`, вложенность `$t(key)`, формы множественного числа `key_one` / `key_other` (вычисляемые с помощью `Intl.PluralRules`), суффиксы контекста и `returnObjects`.
+
+</Question>
+
+<Question title="Что если я использую один файл translation.json для каждой локали?">
+
+Установите `splitKeys: false` в плагине `syncJSON`. Весь файл останется одним словарем, и обычный вызов `useTranslation()` продолжит разрешаться относительно него.
+
+</Question>
+
+<Question title="Это то же самое, что миграция на Intlayer?">
+
+Нет, это мост. Адаптер сохраняет API `i18next` и требует 9.4 КБ рантайма; нативный `next-intlayer` весит 5.5 КБ и добавляет синхронные серверные компоненты и файлы `.content.ts` рядом с компонентами. Вы можете мигрировать покомпонентно, так как словари JSON и `.content.ts` сосуществуют.
+
+</Question>
+
+<Question title="Могут ли переводчики продолжать работать так, как они привыкли?">
+
+Да. `locales/{lng}/{ns}.json` остается источником истины: `syncJSON` считывает его с диалектом i18next и записывает переводы обратно при обновлении через CLI или CMS.
+
+</Question>
+
+</FAQ>
 
 ## Связанные сравнения
 
-- [i18next vs Intlayer](https://intlayer.org/ru/blog/i18next-vs-intlayer) (сравнение библиотек, тот же бенчмарк)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/ru/blog/next-intl-vs-intlayer-next-intl) (та же серия адаптеров)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/ru/blog/lingui-vs-intlayer-lingui) (та же серия адаптеров)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ru/blog/vue-i18n-vs-intlayer-vue-i18n) (та же серия адаптеров)
-- Руководства по миграции: [i18next](https://intlayer.org/ru/doc/migration/i18next), [react-i18next](https://intlayer.org/ru/doc/migration/react-i18next), [next-i18next](https://intlayer.org/ru/doc/migration/next-i18next)
-- Документация адаптеров: [i18next](https://intlayer.org/ru/doc/compatibility/i18next), [react-i18next](https://intlayer.org/ru/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/ru/doc/compatibility/next-i18next)
+Та же серия адаптеров:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/ru/blog/next-intl-vs-intlayer-next-intl)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/ru/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ru/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+Прямое сравнение библиотек:
+
+- [i18next vs Intlayer](https://intlayer.org/ru/blog/i18next-vs-intlayer), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ru/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ru/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [Is i18next outdated?](https://intlayer.org/ru/blog/is-i18next-outdated)
+
+Справочная документация:
+
+- Compat adapters: [i18next](https://intlayer.org/ru/doc/compatibility/i18next), [react-i18next](https://intlayer.org/ru/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/ru/doc/compatibility/next-i18next)
+- Migration guides: [i18next](https://intlayer.org/ru/doc/migration/i18next), [react-i18next](https://intlayer.org/ru/doc/migration/react-i18next), [next-i18next](https://intlayer.org/ru/doc/migration/next-i18next)
+- [Next.js benchmark report](https://intlayer.org/ru/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/ru/doc/benchmark/tanstack)
+- [Bundle optimization](https://intlayer.org/ru/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/ru/doc/compiler)
+- [Visual Editor](https://intlayer.org/ru/doc/concept/editor), [CMS](https://intlayer.org/ru/doc/concept/cms) and [AI translation](https://intlayer.org/ru/doc/concept/auto-fill)
 
 ## Заключение
 

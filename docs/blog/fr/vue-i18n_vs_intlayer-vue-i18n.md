@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "vue-i18n vs @intlayer/vue-i18n: Même API, Bundle différent"
 description: Ce qui change quand une application Vue 3 garde ses appels vue-i18n mais les exécute via l'adaptateur de compatibilité @intlayer/vue-i18n. JavaScript par page, taille d'exécution, taille de composant et fuites mesurées sur le même code Vite + Vue, plus ce que l'adaptateur conserve, ignore et ne peut pas remplacer.
 keywords:
@@ -24,6 +24,8 @@ author: aymericzip
 ---
 
 # vue-i18n VS @intlayer/vue-i18n | Même API, Bundle différent
+
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 `@intlayer/vue-i18n` est un adaptateur de compatibilité : il expose l'API `vue-i18n` (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...) et la sert à partir des dictionnaires compilés par Intlayer. Vos fichiers `.vue` ne changent pas. Ce à quoi `t("footer.github")` est lié, si.
 
@@ -105,6 +107,10 @@ Pour chaque build, la suite enregistre :
 
 ### Résultats sur Vite + Vue 3
 
+Sélectionnez les métriques et les bibliothèques qui vous intéressent :
+
+<I18nBenchmark framework="vite-vue" vertical/>
+
 | Configuration            | Stratégie | Taille Lib (gz) | Taille Lib (min) | Moyenne Page JS (gz) | Fuite de locale | Fuite de page | Moyenne Component (gz) | Réactivité E2E | Chargement de page |
 | ------------------------ | --------- | --------------: | ---------------: | -------------------: | --------------: | ------------: | ---------------------: | -------------: | -----------------: |
 | **base** (no i18n)       | -         |          0.0 KB |           0.0 KB |              41.3 KB |            0.0% |             - |                 1.1 KB |         1.8 ms |            10.8 ms |
@@ -124,11 +130,24 @@ Pour chaque build, la suite enregistre :
 - **Réactivité et chargement de page.** Le changement de locale est peu coûteux pour les deux (1,5-2,8 ms) ; le système de réactivité de Vue le rend possible une fois que les messages sont en mémoire. Le chargement de page passe de 13,6 ms à **9,3 ms**, en ligne avec 88 KB de JavaScript en moins à analyser.
 - **À propos des lignes natives.** `vue-intlayer` dans cette exécution a regroupé chaque locale en mode `static` et a atteint 57,1 KB avec un runtime de 3,9 KB ; les dictionnaires synchronisés de l'adaptateur contenaient moins de chaînes de locale étrangère, d'où la figure inférieure par page. Le runtime natif reste le plus léger des trois, et son modèle `.content.ts` est l'équivalent des blocs SFC `<i18n>`.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tableau complet, chaque bibliothèque et chaque stratégie, dans le [rapport de benchmark Vue](https://intlayer.org/fr/doc/benchmark/vue).
+
 ## Pourquoi les chiffres changent
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 Rien dans `src/components/` n'a changé, donc les gains proviennent de ce à quoi `useI18n` est lié.
 
-**Avec `vue-i18n`**, la liaison est l'instance globale. `createI18n({ messages: { en, fr, ... } })` est une seule importation qui contient tout ; chaque composant qui appelle `useI18n()` peut y accéder en entier, donc le bundler ne peut pas diviser en dessous de l'instance. L'optimisation signifie que _vous_ divisez `en.json` par route, appelez `setLocaleMessage()` dans un garde de routeur, et gardez la carte route-vers-fichier correcte au fur et à mesure que les composants se déplacent.
+**Avec `vue-i18n`**, la liaison est l'instance globale. `createI18n({ messages: { en, fr, ... } })` est une seule importation qui contient tout ; chaque composant qui appelle `useI18n()` peut y accéder en entier, donc le bundler ne peut pas diviser en dessous de l'instance. L'optimisation signifie que _vous_ divisez `en.json` par route, appelez `setLocaleMessage()` dans un garde de routeur, et gardez la carte route-vers-fichier correcte au fur et à mesure que les composants se déplacent. Le gaspillage augmente sur deux axes à la fois, les pages et les locales :
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ```bash
 .
@@ -258,26 +277,107 @@ export const i18n = createI18n({ locale: "en" });
 
 ## Limitations à connaître avant de commencer
 
-- **Les blocs SFC `<i18n>` ne sont pas lus.** Si vos messages se trouvent à l'intérieur des composants, ils doivent être déplacés vers les fichiers de locale (ou vers `.content.ts`, qui est la même idée avec les types).
-- **Le chargement des messages à l'exécution a disparu.** `setLocaleMessage()` et `mergeLocaleMessage()` avertissent et retournent. Les traductions récupérées d'un CMS à l'exécution nécessitent le CMS d'Intlayer, ou les commandes `intlayer pull` / `push`.
-- **`messages` est un fallback, pas gratuit.** Garder les imports JSON dans `createI18n()` maintient les 75 KB dans le bundle. Supprimez-les une fois que `intlayer test` passe.
-- **L'adaptateur n'est pas le runtime natif.** 7.9 KB contre 3.9 KB pour `vue-intlayer`. Une fois que chaque composant a migré vers `useIntlayer`, supprimez-le.
+<AccordionGroup>
+<Accordion header="Les blocs SFC <i18n> ne sont pas lus">
+
+Si vos messages se trouvent dans des composants, ils doivent être déplacés vers les fichiers de locale, ou vers un fichier `.content.ts`, ce qui est la même idée avec des types générés.
+
+</Accordion>
+<Accordion header="Le chargement de messages au runtime a disparu">
+
+`setLocaleMessage()` et `mergeLocaleMessage()` affichent un avertissement et retournent. Les traductions récupérées depuis un CMS au runtime nécessitent le [CMS d'Intlayer](https://intlayer.org/fr/doc/concept/cms), ou les commandes `intlayer pull` / `push`.
+
+</Accordion>
+<Accordion header="messages est une solution de repli, pas gratuite">
+
+Garder les imports JSON dans `createI18n()` conserve les 75 KB dans le bundle. Supprimez-les une fois que `intlayer test` réussit.
+
+</Accordion>
+<Accordion header="L'adaptateur n'est pas le runtime natif">
+
+7.9 KB contre 3.9 KB pour `vue-intlayer`. Une fois que chaque composant est passé à `useIntlayer`, supprimez-le.
+
+</Accordion>
+</AccordionGroup>
 
 ## Quand utiliser quoi ?
 
-- **Restez sur `vue-i18n`** si votre app dépend des blocs SFC `<i18n>`, des flux runtime `setLocaleMessage()`, ou si 90 KB par page n'est pas une préoccupation pour votre audience.
-- **Utilisez `@intlayer/vue-i18n`** si vous êtes sur `vue-i18n` et souhaitez les 88 KB économisés, les composants 23x plus petits, 0% de fuite de page, les clés typées et les vérifications CI sans éditer un fichier `.vue`. C'est le point d'entrée pour une codebase `vue-i18n` existante.
-- **Allez au natif (`vue-intlayer`)** pour les nouveaux projets, ou une fois que l'adaptateur a fait son travail. Il dispose du runtime le plus léger (3.9 KB) et du modèle `.content.ts` par composant qui remplace les blocs `<i18n>` par du contenu typé.
+<AccordionGroup>
+<Accordion header="Rester sur vue-i18n">
+
+Votre application dépend des blocs SFC `<i18n>`, des flux `setLocaleMessage()` au runtime, ou 90 KB par page n'est pas une préoccupation pour votre public.
+
+</Accordion>
+<Accordion header="Utiliser @intlayer/vue-i18n">
+
+Vous utilisez `vue-i18n` et souhaitez économiser 88 KB, avoir des composants 23x plus petits, 0% de fuite de page, des clés typées et des vérifications CI sans modifier un seul fichier `.vue`. C'est le point d'entrée pour une codebase `vue-i18n` existante.
+
+</Accordion>
+<Accordion header="Passer en natif (vue-intlayer)">
+
+Pour les nouveaux projets, ou une fois que l'adaptateur a fait son travail. Il possède le runtime le plus léger (3.9 KB) et le modèle `.content.ts` par composant qui remplace les blocs `<i18n>` par du contenu typé. Commencez avec [Intlayer avec Vue](https://intlayer.org/fr/doc/environment/vite-and-vue) ou [avec Nuxt](https://intlayer.org/fr/doc/environment/nuxt-and-vue).
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Dois-je modifier mes fichiers .vue ?">
+
+Non. Le build de benchmark n'a modifié que `vite.config.ts`, `intlayer.config.ts` et une ligne dans `src/i18n.ts`, l'import de `messages`. Chaque appel à `useI18n()`, `$t`, `v-t` et l'Options API reste tel quel.
+
+</Question>
+
+<Question title="Pourquoi la taille des composants est-elle 23x plus petite ?">
+
+Parce que `useI18n()` ne fait plus référence à l'instance globale. `createI18n({ messages })` contient tous les messages de chaque locale, donc un composant compilé isolément embarque 196 KB. Avec l'adaptateur, il n'accède qu'à son propre dictionnaire : 8.4 KB.
+
+</Question>
+
+<Question title="Qu'en est-il du formatage avec d() et n() ?">
+
+Conservé. Les configurations `datetimeFormats` et `numberFormats` passées à `createI18n()` sont respectées, prises en charge par l'API native `Intl`. Consultez [formatage de dates, heures et nombres](https://intlayer.org/fr/blog/date-time-number-formatting-locales).
+
+</Question>
+
+<Question title="Fonctionne-t-il avec Nuxt ?">
+
+`@intlayer/vue-i18n` cible Vite + Vue. Pour `@nuxtjs/i18n`, utilisez l'[adaptateur de compatibilité Nuxt i18n](https://intlayer.org/fr/doc/compatibility/nuxtjs-i18n), et consultez [Intlayer avec Nuxt](https://intlayer.org/fr/doc/environment/nuxt-and-vue) pour l'installation native.
+
+</Question>
+
+<Question title="Puis-je migrer composant par composant ?">
+
+Oui. N'importe quel composant peut passer de `useI18n()` à `useIntlayer("footer")` avec un fichier de contenu colocalisé. Les dictionnaires JSON et `.content.ts` coexistent et fusionnent.
+
+</Question>
+
+</FAQ>
 
 ## Comparaisons associées
 
-- [vue-i18n vs Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer) (features et DX)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/blog/vue-i18n-vs-intlayer-benchmark) (les libraries, même benchmark)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/blog/next-intl-vs-intlayer-next-intl) (même série d'adapter)
-- [i18next vs @intlayer/i18next](https://intlayer.org/blog/i18next-vs-intlayer-i18next) (même série d'adapter)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/blog/lingui-vs-intlayer-lingui) (même série d'adapter)
-- [Guide de migration : vue-i18n vers Intlayer](https://intlayer.org/doc/migration/vue-i18n)
-- [Référence de l'adaptateur de compatibilité : vue-i18n](https://intlayer.org/doc/compatibility/vue-i18n), [Nuxt i18n](https://intlayer.org/doc/compatibility/nuxtjs-i18n)
+Même série d'adaptateurs :
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/fr/blog/next-intl-vs-intlayer-next-intl)
+- [i18next vs @intlayer/i18next](https://intlayer.org/fr/blog/i18next-vs-intlayer-i18next)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/fr/blog/lingui-vs-intlayer-lingui)
+
+Les bibliothèques comparées directement :
+
+- [vue-i18n vs Intlayer](https://intlayer.org/fr/blog/vue-i18n-vs-intlayer), features et DX
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/fr/blog/vue-i18n-vs-intlayer-benchmark)
+- [Is vue-i18n outdated?](https://intlayer.org/fr/blog/is-vue-i18n-outdated)
+- [How to pick a Vue i18n library](https://intlayer.org/fr/blog/how-to-pick-vue-i18n-library)
+
+Documentation de référence :
+
+- [Compat adapter: vue-i18n](https://intlayer.org/fr/doc/compatibility/vue-i18n) and [Nuxt i18n](https://intlayer.org/fr/doc/compatibility/nuxtjs-i18n)
+- [Guide de migration : vue-i18n vers Intlayer](https://intlayer.org/fr/doc/migration/vue-i18n)
+- [Rapport de benchmark Vue](https://intlayer.org/fr/doc/benchmark/vue)
+- [Optimisation du bundle](https://intlayer.org/fr/doc/concept/bundle-optimization) et [le compilateur Intlayer](https://intlayer.org/fr/doc/compiler)
+- [Visual Editor](https://intlayer.org/fr/doc/concept/editor), [CMS](https://intlayer.org/fr/doc/concept/cms) et [traduction par IA](https://intlayer.org/fr/doc/concept/auto-fill)
 
 ## Conclusion
 
@@ -285,4 +385,4 @@ export const i18n = createI18n({ locale: "en" });
 
 Toutes les données brutes, les applications de test et les scripts se trouvent dans le [référentiel Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Exécutez-le vous-même.
 
-Reportez-vous à la [documentation 'Pourquoi Intlayer ?'](https://intlayer.org/doc/why) pour plus de détails.
+Reportez-vous à la [documentation 'Pourquoi Intlayer ?'](https://intlayer.org/fr/doc/why) pour plus de détails.

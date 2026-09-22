@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "Lingui बनाम Intlayer: 2026 बेंचमार्क और तुलना"
 description: "Next.js और TanStack Start पर मापी गई दो कंपाइलर-आधारित i18n लाइब्रेरी। बंडल साइज़, कंटेंट लीकेज, कंपोनेंट साइज़, हाइड्रेशन, लोकेल-स्विच प्रतिक्रियाशीलता और डेवलपर अनुभव।"
 keywords:
@@ -23,6 +23,8 @@ author: aymericzip
 ---
 
 # Lingui VS Intlayer | React और Next.js अंतर्राष्ट्रीयकरण (i18n) बेंचमार्क
+
+![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 Lingui और Intlayer इस बेंचमार्क में दो ऐसी लाइब्रेरी हैं जो केवल रनटाइम पर निर्भर रहने के बजाय एक **कंपाइलर** का उपयोग करती हैं। Lingui बिल्ड टाइम पर मैक्रोज़ से संदेश निकालता है और प्रति लोकेल कैटलॉग कंपाइल करता है। Intlayer प्रति-कंपोनेंट डिक्शनरी कंपाइल करता है और उन्हें प्रति लोकेल ट्री-शेक करता है। कागज़ पर वे काफी करीब दिखने चाहिए। आंकड़े दिखाते हैं कि वे कहाँ भिन्न होते हैं।
 
@@ -96,6 +98,10 @@ Intlayer में कोई "scoped" संस्करण नहीं है:
 
 ### Next.js पर परिणाम
 
+उन मेट्रिक्स और लाइब्रेरीज़ को चुनें जिनकी आपको परवाह है:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | लाइब्रेरी            | रणनीति         | लाइब्रेरी साइज़ (gz) | पेज JS औसत (gz) | लोकेल लीक |  पेज लीक | कंपोनेंट औसत (gz) | E2E प्रतिक्रियाशीलता | हाइड्रेशन |
 | -------------------- | -------------- | -------------------: | --------------: | --------: | -------: | ----------------: | -------------------: | --------: |
 | **base** (बिना i18n) | -              |               0.0 KB |        141.0 KB |      0.0% |     0.0% |            0.9 KB |              13.4 ms |   11.8 ms |
@@ -114,7 +120,18 @@ Intlayer में कोई "scoped" संस्करण नहीं है:
 - **सोर्स-लोकेल फ़ॉलबैक लीक होता है।** अनुकूलित सेटअप में भी, **`en` स्ट्रिंग्स का 3-15% `fr` पेजों के अंदर भेजा जाता है**। Lingui मैक्रोज़ सोर्स मैसेज को फ़ॉलबैक के रूप में उपलब्ध रखते हैं, इसलिए यह अनुवाद के बगल में बंडल में आ जाता है। Intlayer बिल्ड समय पर फ़ॉलबैक को हल करता है और केवल सक्रिय लोकेल को भेजता है।
 - **`scoped-dynamic` में कंपोनेंट साइज़ बहुत बढ़ जाता है।** अलग से कंपाइल किए गए प्रत्येक कंपोनेंट का औसत **152.6 KB** होता है, क्योंकि हर रूट का कैटलॉग उस कंपोनेंट से पहुँच योग्य होता है जो इसे इम्पोर्ट करता है। `useIntlayer()` के साथ वही कंपोनेंट औसतन **6.9 KB** का होता है।
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> [Next.js बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/nextjs) में पूरी तालिका, प्रत्येक लाइब्रेरी और प्रत्येक रणनीति देखें।
+
 ### TanStack Start पर परिणाम
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | लाइब्रेरी                   | रणनीति         | लाइब्रेरी साइज़ (gz) | पेज JS औसत (gz) | लोकेल लीक |  पेज लीक | कंपोनेंट औसत (gz) | E2E प्रतिक्रियाशीलता | हाइड्रेशन |
 | --------------------------- | -------------- | -------------------: | --------------: | --------: | -------: | ----------------: | -------------------: | --------: |
@@ -135,7 +152,18 @@ Intlayer में कोई "scoped" संस्करण नहीं है:
 - **Intlayer की `static` पंक्ति में पहले से ही 0% पेज लीकेज है** क्योंकि केवल पेज के कंपोनेंट्स द्वारा इम्पोर्ट की गई डिक्शनरी ही बंडल की जाती हैं। कॉन्फ़िगरेशन की एक पंक्ति (`importMode: 'dynamic'`) लोकेल लीकेज को भी हटा देती है।
 - **`@intlayer/lingui`** Lingui के मैक्रो सिंटैक्स को बनाए रखता है और इसे Intlayer डिक्शनरी से परोसता है। यह मूल Lingui की तुलना में छोटे कंपोनेंट्स (12.8 KB) और तेज़ हाइड्रेशन के लिए थोड़े पेज साइज़ (137 KB) का समझौता करता है। यह एक माइग्रेशन चरण है, अंतिम मंजिल नहीं।
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> [TanStack Start बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/tanstack) में पूरी तालिका देखें।
+
 ## अंतर क्यों है? दो कंपाइलर, काम की दो इकाइयाँ
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 दोनों लाइब्रेरी कंपाइल करती हैं। अंतर यह है कि वे **क्या** कंपाइल करती हैं।
 
@@ -176,7 +204,9 @@ Intlayer में कोई "scoped" संस्करण नहीं है:
             └── about.content.ts
 ```
 
-यही कारण है कि `scoped-dynamic` पैटर्न Intlayer के लिए एक स्वचालित बिल्ड आउटपुट है और Lingui के लिए एक कॉन्फ़िगरेशन प्रोजेक्ट है।
+यही कारण है कि `scoped-dynamic` पैटर्न Intlayer के लिए एक स्वचालित बिल्ड आउटपुट है और Lingui के लिए एक कॉन्फ़िगरेशन प्रोजेक्ट है. यह अंतर एक साथ दो अक्षों, पृष्ठों और भाषाओं पर बढ़ता है:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > `dynamic` पंक्ति के आंकड़े प्राप्त करने के लिए, `intlayer.config.ts` में `dictionary.importMode: 'dynamic'` सेट करें। [बंडल ऑप्टिमाइज़ेशन दस्तावेज़](https://intlayer.org/hi/doc/concept/bundle-optimization) देखें।
 
@@ -184,7 +214,8 @@ Intlayer में कोई "scoped" संस्करण नहीं है:
 
 ### सेटअप
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="lingui.config.ts"
 import { defineConfig } from "@lingui/cli";
@@ -215,7 +246,8 @@ export const loadCatalog = async (locale: string) => {
 
 फिर बंडलर में `@lingui/babel-plugin-lingui-macro` (या `@lingui/swc-plugin`) जोड़ें, सोर्स एडिट करने के बाद `lingui extract` चलाएं, बिल्ड करने से पहले `lingui compile` चलाएं, और ट्री को `<I18nProvider i18n={i18n}>` में लपेटें।
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -232,9 +264,12 @@ export default config;
 
 `vite.config.ts` में `intlayer()` (या `next.config.ts` में `withIntlayer()`) जोड़ें और ट्री को `<IntlayerProvider>` में लपेटें। कोई एक्सट्रैक्ट या कंपाइल चरण नहीं: बंडलर चलने पर डिक्शनरी अपने आप बन जाती हैं।
 
+</Tab>
+</Tabs>
 ### कंपोनेंट
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```tsx fileName="src/components/Counter.tsx"
 import { useState } from "react";
@@ -258,7 +293,8 @@ export const Counter = () => {
 
 अंग्रेजी टेक्स्ट कंपोनेंट में रहता है; फ्रेंच वाला `lingui extract` चलने के बाद एक हैशेड आईडी के तहत `src/locales/fr/messages.po` में रहता है। इसे चलाना या `compile` करना भूल जाने पर चुपचाप अंग्रेजी फ़ॉलबैक हो जाता है।
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -297,11 +333,14 @@ export const Counter = () => {
 
 दोनों लोकेल कंपोनेंट के बगल में एक ही फ़ाइल में बैठते हैं। गायब `fr` मान एक बिल्ड एरर है, गलत कुंजी एक TypeScript एरर है।
 
+</Tab>
+</Tabs>
 ### कंपोनेंट्स के बाहर
 
 मेटाडेटा, लोडर्स, सर्वर फ़ंक्शंस: बिना React ट्री के कहीं भी।
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { setupI18n } from "@lingui/core";
@@ -324,7 +363,8 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
 
 प्रति कॉल एक नया `I18n` इंस्टेंस, हाथ से लोड किया गया सही कैटलॉग, और `t` के बजाय `msg` + `i18n._()`। जैसा कि [बेंचमार्क नोट्स](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md) बताते हैं, यह जानना कि कब `t`, `` t` ` ``, `i18n.t()`, `msg` या `<Trans>` का उपयोग करना है, "सहज नहीं है"।
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { getIntlayer } from "intlayer";
@@ -335,6 +375,9 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
   return { title };
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## Lingui मैक्रोज़ रखें, Intlayer डिक्शनरी प्राप्त करें
 
@@ -353,16 +396,82 @@ export default defineConfig({
 
 ## कब किसे चुनें?
 
-- **Lingui चुनें** यदि आप टाइप्ड मैक्रोज़ के साथ **ICU MessageFormat** चाहते हैं, आपके अनुवादक मौजूदा TMS पाइपलाइन के साथ **`.po`** में काम करते हैं, आप JSX में इनलाइन सोर्स स्ट्रिंग्स पसंद करते हैं, और आपकी टीम एक्सट्रैक्ट / कंपाइल / कैटलॉग-विभाजन वर्कफ़्लो को प्रबंधित करने में सहज है।
-- **Intlayer चुनें** यदि आप **कंपोनेंट-स्कोप्ड कंटेंट**, **सख्त TypeScript**, **बिल्ड-टाइम गायब-कुंजी एरर**, **शून्य-प्रयास ट्री-शेकिंग और लेज़ी लोडिंग**, छोटे कंपोनेंट्स, तेज़ हाइड्रेशन, त्वरित लोकेल स्विचिंग, और बिल्ट-इन एडिटोरियल टूलिंग (विजुअल एडिटर, CMS, AI अनुवाद, MCP सर्वर) चाहते हैं। बड़े, मॉड्यूलर कोडबेस और डिज़ाइन सिस्टम के लिए विशेष रूप से प्रासंगिक।
-- **`@intlayer/lingui` चुनें** यदि आप Lingui पर हैं और मैक्रोज़ को छुए बिना वृद्धिशील रूप से Intlayer डिक्शनरी में माइग्रेट करना चाहते हैं।
+<AccordionGroup>
+<Accordion header="Lingui चुनें">
+
+यदि आप टाइप किए गए मैक्रोज़ के साथ **ICU MessageFormat** चाहते हैं, आपके अनुवादक मौजूदा TMS पाइपलाइन के साथ **`.po`** में काम करते हैं, आप JSX में इनलाइन स्रोत स्ट्रिंग्स पसंद करते हैं, और आपकी टीम एक्सट्रैक्ट / कंपाइल / कैटलॉग-विभाजन वर्कफ़्लो को संभालने में सहज है। लेज़ी लोडिंग सेट होने के बाद इसका प्रति-पृष्ठ JS प्रतिस्पर्धी है।
+
+</Accordion>
+<Accordion header="Intlayer चुनें">
+
+यदि आप **घटक-क्षेत्रीय सामग्री**, **सख्त TypeScript**, **बिल्ड-टाइम अनुपलब्ध-कुंजी त्रुटियाँ**, **शून्य-प्रयास ट्री-शेकिंग और लेज़ी लोडिंग**, छोटे घटक, तेज़ हाइड्रेशन, त्वरित भाषा स्विचिंग और अंतर्निहित संपादकीय उपकरण ([विजुअल एडिटर](https://intlayer.org/hi/doc/concept/editor), [CMS](https://intlayer.org/hi/doc/concept/cms), [AI अनुवाद](https://intlayer.org/hi/doc/concept/auto-fill), [MCP सर्वर](https://intlayer.org/hi/doc/mcp-server)) चाहते हैं। बड़े, मॉड्यूलर कोडबेस और डिज़ाइन सिस्टम के लिए विशेष रूप से प्रासंगिक।
+
+</Accordion>
+<Accordion header="@intlayer/lingui चुनें">
+
+यदि आप Lingui पर हैं और मैक्रोज़ को छुए बिना वृद्धिशील रूप से Intlayer शब्दकोशों में स्थानांतरित होना चाहते हैं। आपके `.po` कैटलॉग [PO सिंक प्लगइन](https://intlayer.org/hi/doc/compatibility/lingui) के माध्यम से सत्य का स्रोत बने रहते हैं। [Lingui vs @intlayer/lingui](https://intlayer.org/hi/blog/lingui-vs-intlayer-lingui) में साथ-साथ मापा गया।
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Lingui भी कंपाइल करता है। आउटपुट इतना अलग क्यों है?">
+
+क्योंकि संकलन की इकाई भिन्न है। Lingui **प्रति भाषा एक कैटलॉग** संकलित करता है: उसके नीचे सब कुछ (प्रति-मार्ग कैटलॉग, लेज़ी लोडिंग, बंडल से फ़ॉलबैक को बाहर रखना) कॉन्फ़िगरेशन है। Intlayer **प्रति घटक एक शब्दकोश** संकलित करता है, इसलिए रूट स्कोपिंग बिल्ड का एक स्वाभाविक आउटपुट बन जाता है। यही कारण है कि अलगाव में संकलित Lingui घटक 6-8 KB के मुकाबले 58-153 KB का होता है।
+
+</Question>
+
+<Question title="Lingui के साथ भाषा का रिसाव कभी 0% तक क्यों नहीं पहुँचता?">
+
+मैक्रोज़ स्रोत संदेश को रनटाइम फ़ॉलबैक के रूप में उपलब्ध रखते हैं, इसलिए अनुवाद के साथ-साथ अंग्रेजी स्ट्रिंग भी बंडल में जाती है। बेंचमार्क प्रत्येक अनुकूलित सेटअप में **`fr` पृष्ठों के अंदर 3-15% `en` स्ट्रिंग्स** मापता है। Intlayer बिल्ड समय पर फ़ॉलबैक को हल करता है और केवल सक्रिय भाषा भेजता है।
+
+</Question>
+
+<Question title="क्या Lingui का प्रति-पृष्ठ जावास्क्रिप्ट वास्तव में प्रतिस्पर्धी है?">
+
+हाँ, और TanStack Start पर यह बहुत कम अंतर से जीतता है: Intlayer के लिए 118.6 KB के मुकाबले `dynamic` में 115.2 KB। हैश की गई आईडी वाले संकलित कैटलॉग कॉम्पैक्ट होते हैं। लागत अन्यत्र दिखाई देती है: 11-14 ms के मुकाबले 28-34 ms पर हाइड्रेशन, और `scoped-dynamic` सेटअप में **42 ms** का भाषा स्विच।
+
+</Question>
+
+<Question title="क्या माइग्रेट करने के लिए मुझे मैक्रोज़ छोड़ना होगा?">
+
+नहीं। `@intlayer/lingui` `` t`...` ``, `<Trans>`, `msg`, `plural`, `select` और `selectOrdinal` को पहले की तरह संकलित करता रहता है; केवल वह स्रोत बदलता है जिसके विरुद्ध `i18n._()` हल होता है। बिल्ड में `@lingui/babel-plugin-lingui-macro` या `@lingui/swc-plugin` बनाए रखें। [Lingui संगतता दस्तावेज़](https://intlayer.org/hi/doc/compatibility/lingui) देखें।
+
+</Question>
+
+<Question title="एक्सट्रैक्ट और कंपाइल चरणों का क्या?">
+
+वे मैक्रोज़ के लिए बने रहते हैं, और Intlayer की अपनी सामग्री के लिए हट जाते हैं। `.content.ts` शब्दकोश तब बनाए जाते हैं जब बंडलर चलता है, बिना किसी अलग CLI पास के, और [`intlayer test`](https://intlayer.org/hi/doc/concept/cli) चुपचाप स्रोत स्ट्रिंग पर वापस जाने के बजाय किसी भी लापता कुंजी पर CI को विफल कर देता है।
+
+</Question>
+
+</FAQ>
 
 ## संबंधित तुलनाएँ
 
-- [next-intl बनाम Intlayer](https://intlayer.org/hi/blog/next-intl-vs-intlayer) (समान बेंचमार्क)
-- [i18next बनाम Intlayer](https://intlayer.org/hi/blog/i18next-vs-intlayer) (समान बेंचमार्क)
-- [vue-i18n बनाम Intlayer बेंचमार्क](https://intlayer.org/hi/blog/vue-i18n-vs-intlayer-benchmark) (समान बेंचमार्क)
-- [कंपाइलर बनाम डिक्लेरेटिव i18n](https://intlayer.org/hi/blog/compiler-vs-declarative-i18n)
+समान बेंचमार्क, अन्य लाइब्रेरीज़:
+
+- [next-intl vs Intlayer](https://intlayer.org/hi/blog/next-intl-vs-intlayer)
+- [i18next vs Intlayer](https://intlayer.org/hi/blog/i18next-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/hi/blog/vue-i18n-vs-intlayer-benchmark)
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/hi/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/hi/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+और आगे:
+
+- [Lingui vs @intlayer/lingui](https://intlayer.org/hi/blog/lingui-vs-intlayer-lingui), उसी ऐप पर मापा गया एडॉप्टर
+- [Compiler-driven vs declarative i18n](https://intlayer.org/hi/blog/compiler-vs-declarative-i18n)
+- [Per-component vs centralized i18n](https://intlayer.org/hi/blog/per-component-vs-centralized-i18n)
+- [ICU message format explained](https://intlayer.org/hi/blog/icu-message-format)
+
+संदर्भ दस्तावेज़:
+
+- [Next.js बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/nextjs) और [TanStack Start बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/tanstack)
+- [Compat adapter: Lingui](https://intlayer.org/hi/doc/compatibility/lingui)
+- [बंडल अनुकूलन](https://intlayer.org/hi/doc/concept/bundle-optimization) और [Intlayer कंपाइलर](https://intlayer.org/hi/doc/compiler)
 
 ## GitHub STARS
 

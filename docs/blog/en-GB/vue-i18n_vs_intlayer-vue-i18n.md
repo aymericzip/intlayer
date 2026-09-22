@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "vue-i18n vs @intlayer/vue-i18n: Same API, Different Bundle"
 description: What changes when a Vue 3 app keeps its vue-i18n calls but serves them through the @intlayer/vue-i18n compat adapter. Per-page JavaScript, runtime size, component size and leakage measured on the same Vite + Vue code, plus what the adapter keeps, ignores and cannot replace.
 keywords:
@@ -24,6 +24,8 @@ author: aymericzip
 ---
 
 # vue-i18n VS @intlayer/vue-i18n | Same API, Different Bundle
+
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 `@intlayer/vue-i18n` is a compat adapter: it exposes the `vue-i18n` API (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...) and serves it from dictionaries compiled by Intlayer. Your `.vue` files do not change. What `t("footer.github")` is bound to does.
 
@@ -105,6 +107,10 @@ For each build, the suite records:
 
 ### Results on Vite + Vue 3
 
+Pick the metrics and the libraries you care about:
+
+<I18nBenchmark framework="vite-vue" vertical/>
+
 | Setup                    | Strategy | Lib size (gz) | Lib size (min) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |  Page load |
 | ------------------------ | -------- | ------------: | -------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ---------: |
 | **base** (no i18n)       | -        |        0.0 KB |         0.0 KB |          41.3 KB |        0.0% |         - |             1.1 KB |         1.8 ms |    10.8 ms |
@@ -124,11 +130,24 @@ For each build, the suite records:
 - **Reactivity and page load.** Locale switching is cheap for both (1.5–2.8 ms); Vue's reactivity system makes it so once messages are in memory. Page load goes from 13.6 ms to **9.3 ms**, in line with 88 KB less JavaScript to parse.
 - **About the native rows.** `vue-intlayer` in this run bundled every locale in `static` mode and landed at 57.1 KB with a 3.9 KB runtime; the adapter's synced dictionaries carried fewer foreign-locale strings, hence the lower per-page figure. The native runtime remains the lightest of the three, and its `.content.ts` model is where SFC `<i18n>` blocks find their equivalent.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Full table, every library and every strategy, in the [Vue benchmark report](https://intlayer.org/en-GB/doc/benchmark/vue).
+
 ## Why the numbers move
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 Nothing in `src/components/` changed, so the gains come from what `useI18n` is bound to.
 
-**With `vue-i18n`**, the binding is the global instance. `createI18n({ messages: { en, fr, ... } })` is one import that holds everything; every component that calls `useI18n()` can reach all of it, so the bundler cannot split below the instance. Optimising means _you_ split `en.json` by route, call `setLocaleMessage()` in a router guard, and keep the route-to-file map correct as components move.
+**With `vue-i18n`**, the binding is the global instance. `createI18n({ messages: { en, fr, ... } })` is one import that holds everything; every component that calls `useI18n()` can reach all of it, so the bundler cannot split below the instance. Optimising means _you_ split `en.json` by route, call `setLocaleMessage()` in a router guard, and keep the route-to-file map correct as components move. The waste grows on two axes at once, pages and locales:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ```bash
 .
@@ -258,26 +277,107 @@ export const i18n = createI18n({ locale: "en" });
 
 ## Limits to know before you start
 
-- **SFC `<i18n>` blocks are not read.** If your messages live inside components, they need to move to the locale files (or to `.content.ts`, which is the same idea with types).
-- **Runtime message loading is gone.** `setLocaleMessage()` and `mergeLocaleMessage()` warn and return. Translations fetched from a CMS at runtime need Intlayer's CMS, or the `intlayer pull` / `push` commands.
-- **`messages` is a fallback, not free.** Keeping the JSON imports in `createI18n()` keeps the 75 KB in the bundle. Delete them once `intlayer test` passes.
-- **The adapter is not the native runtime.** 7.9 KB against 3.9 KB for `vue-intlayer`. Once every component has moved to `useIntlayer`, drop it.
+<AccordionGroup>
+<Accordion header="SFC <i18n> blocks are not read">
+
+If your messages live inside components, they need to move to the locale files, or to `.content.ts`, which is the same idea with generated types.
+
+</Accordion>
+<Accordion header="Runtime message loading is gone">
+
+`setLocaleMessage()` and `mergeLocaleMessage()` warn and return. Translations fetched from a CMS at runtime need the [Intlayer CMS](https://intlayer.org/en-GB/doc/concept/cms), or the `intlayer pull` / `push` commands.
+
+</Accordion>
+<Accordion header="messages is a fallback, not free">
+
+Keeping the JSON imports in `createI18n()` keeps the 75 KB in the bundle. Delete them once `intlayer test` passes.
+
+</Accordion>
+<Accordion header="The adapter is not the native runtime">
+
+7.9 KB against 3.9 KB for `vue-intlayer`. Once every component has moved to `useIntlayer`, drop it.
+
+</Accordion>
+</AccordionGroup>
 
 ## When to use which?
 
-- **Stay on `vue-i18n`** if your app depends on SFC `<i18n>` blocks, on runtime `setLocaleMessage()` flows, or if 90 KB per page is not a concern for your audience.
-- **Use `@intlayer/vue-i18n`** if you are on `vue-i18n` and want the 88 KB, the 23x smaller components, 0% page leakage, typed keys and CI checks without editing a `.vue` file. This is the entry point for an existing `vue-i18n` codebase.
-- **Go native (`vue-intlayer`)** for new projects, or once the adapter has done its job. It has the lightest runtime (3.9 KB) and the per-component `.content.ts` model that replaces `<i18n>` blocks with typed content.
+<AccordionGroup>
+<Accordion header="Stay on vue-i18n">
+
+Your app depends on SFC `<i18n>` blocks, on runtime `setLocaleMessage()` flows, or 90 KB per page is not a concern for your audience.
+
+</Accordion>
+<Accordion header="Use @intlayer/vue-i18n">
+
+You are on `vue-i18n` and want the 88 KB, the 23x smaller components, 0% page leakage, typed keys and CI checks without editing a `.vue` file. This is the entry point for an existing `vue-i18n` codebase.
+
+</Accordion>
+<Accordion header="Go native (vue-intlayer)">
+
+For new projects, or once the adapter has done its job. It has the lightest runtime (3.9 KB) and the per-component `.content.ts` model that replaces `<i18n>` blocks with typed content. Start with [Intlayer with Vue](https://intlayer.org/en-GB/doc/environment/vite-and-vue) or [with Nuxt](https://intlayer.org/en-GB/doc/environment/nuxt-and-vue).
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Do I have to edit my .vue files?">
+
+No. The benchmark build changed `vite.config.ts`, `intlayer.config.ts` and one line in `src/i18n.ts`, the `messages` import. Every `useI18n()`, `$t`, `v-t` and Options API call site stayed as it was.
+
+</Question>
+
+<Question title="Why is the component size 23x smaller?">
+
+Because `useI18n()` stops reaching the global instance. `createI18n({ messages })` holds every message of every locale, so a component compiled in isolation drags in 196 KB. With the adapter it reaches its own dictionary: 8.4 KB.
+
+</Question>
+
+<Question title="What about d() and n() formatting?">
+
+Kept. `datetimeFormats` and `numberFormats` passed to `createI18n()` are honored, backed by native `Intl`. See [date, time and number formatting](https://intlayer.org/en-GB/blog/date-time-number-formatting-locales).
+
+</Question>
+
+<Question title="Does it work with Nuxt?">
+
+`@intlayer/vue-i18n` targets Vite + Vue. For `@nuxtjs/i18n`, use the [Nuxt i18n compat adapter](https://intlayer.org/en-GB/doc/compatibility/nuxtjs-i18n), and see [Intlayer with Nuxt](https://intlayer.org/en-GB/doc/environment/nuxt-and-vue) for the native setup.
+
+</Question>
+
+<Question title="Can I migrate component by component?">
+
+Yes. Any component can switch from `useI18n()` to `useIntlayer("footer")` with a co-located content file. JSON and `.content.ts` dictionaries coexist and merge.
+
+</Question>
+
+</FAQ>
 
 ## Related comparisons
 
-- [vue-i18n vs Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer) (features and DX)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/blog/vue-i18n-vs-intlayer-benchmark) (the libraries, same benchmark)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/blog/next-intl-vs-intlayer-next-intl) (same adapter series)
-- [i18next vs @intlayer/i18next](https://intlayer.org/blog/i18next-vs-intlayer-i18next) (same adapter series)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/blog/lingui-vs-intlayer-lingui) (same adapter series)
-- [Migration guide: vue-i18n to Intlayer](https://intlayer.org/doc/migration/vue-i18n)
-- [Compat adapter reference: vue-i18n](https://intlayer.org/doc/compatibility/vue-i18n), [Nuxt i18n](https://intlayer.org/doc/compatibility/nuxtjs-i18n)
+Same adapter series:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/en-GB/blog/next-intl-vs-intlayer-next-intl)
+- [i18next vs @intlayer/i18next](https://intlayer.org/en-GB/blog/i18next-vs-intlayer-i18next)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/en-GB/blog/lingui-vs-intlayer-lingui)
+
+The libraries compared head to head:
+
+- [vue-i18n vs Intlayer](https://intlayer.org/en-GB/blog/vue-i18n-vs-intlayer), features and DX
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/en-GB/blog/vue-i18n-vs-intlayer-benchmark)
+- [Is vue-i18n outdated?](https://intlayer.org/en-GB/blog/is-vue-i18n-outdated)
+- [How to pick a Vue i18n library](https://intlayer.org/en-GB/blog/how-to-pick-vue-i18n-library)
+
+Reference docs:
+
+- [Compat adapter: vue-i18n](https://intlayer.org/en-GB/doc/compatibility/vue-i18n) and [Nuxt i18n](https://intlayer.org/en-GB/doc/compatibility/nuxtjs-i18n)
+- [Migration guide: vue-i18n to Intlayer](https://intlayer.org/en-GB/doc/migration/vue-i18n)
+- [Vue benchmark report](https://intlayer.org/en-GB/doc/benchmark/vue)
+- [Bundle optimization](https://intlayer.org/en-GB/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/en-GB/doc/compiler)
+- [Visual Editor](https://intlayer.org/en-GB/doc/concept/editor), [CMS](https://intlayer.org/en-GB/doc/concept/cms) and [AI translation](https://intlayer.org/en-GB/doc/concept/auto-fill)
 
 ## Conclusion
 
@@ -285,4 +385,4 @@ export const i18n = createI18n({ locale: "en" });
 
 All the raw data, the test apps and the scripts are in the [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom). Run it yourself.
 
-Refer to the ['Why Intlayer?' doc](https://intlayer.org/doc/why) for more details.
+Refer to the ['Why Intlayer?' doc](https://intlayer.org/en-GB/doc/why) for more details.

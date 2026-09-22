@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next vs Intlayer: 2026年基准测试与深度对比"
 description: "在 Next.js 和 TanStack Start 上对比评测 react-i18next、next-i18next 与 Intlayer。涵盖打包体积、多余内容泄露、语言切换响应速度及开发体验。"
 keywords:
@@ -24,6 +24,8 @@ author: aymericzip
 ---
 
 # i18next VS Intlayer | React & Next.js 国际化 (i18n) 基准测试对比
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `i18next` 是 JavaScript 生态中最广泛使用的国际化（i18n）框架。通过 `react-i18next` 和 `next-i18next`，它为大量的 React 和 Next.js 应用提供支持。Intlayer 则是基于编译器、按组件作用域划分的现代化替代方案。
 
@@ -99,6 +101,10 @@ Intlayer 无需独立的 "scoped" 策略: 编译器会自动**以组件为粒度
 
 ### Next.js 平台测试结果 (`next-i18next`)
 
+选择您关注的指标和库：
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | 方案                              | 策略           | 库体积 (gz) | 页面平均 JS (gz) | 语言泄露率 | 页面泄露率 | 组件平均体积 (gz) | 端到端响应时间 | 水合耗时 |
 | --------------------------------- | -------------- | ----------: | ---------------: | ---------: | ---------: | ----------------: | -------------: | -------: |
 | **base** (无 i18n)                | -              |      0.0 KB |         141.0 KB |       0.0% |       0.0% |            0.9 KB |        13.4 ms |  11.8 ms |
@@ -119,9 +125,20 @@ Intlayer 无需独立的 "scoped" 策略: 编译器会自动**以组件为粒度
 - **组件级打包体积**: 调用 `useTranslation()` 的组件打包体积在 26 到 79 KB 之间；而使用 `useIntlayer()` 的相同组件仅需 6.9 KB。
 - **水合延迟**: 在 `dynamic` 配置下，水合耗时飙升至 27.7 ms，这是因为客户端在 React 启动水合之前，i18next 实例必须完成初始化并解析后端。
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 完整表格及各库、各策略数据，请参阅 [Next.js 性能基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs)。
+
 ### TanStack Start 平台测试结果 (`react-i18next`)
 
 为了排除 Next.js 平台特有机制的影响，在 TanStack Start 上直接运行纯粹的 `react-i18next`:
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | 方案               | 策略           | 库体积 (gz) | 页面平均 JS (gz) | 语言泄露率 | 页面泄露率 | 组件平均体积 (gz) | 端到端响应时间 | 水合耗时 |
 | ------------------ | -------------- | ----------: | ---------------: | ---------: | ---------: | ----------------: | -------------: | -------: |
@@ -141,7 +158,18 @@ Intlayer 无需独立的 "scoped" 策略: 编译器会自动**以组件为粒度
 - Intlayer 的 `static` 策略已默认具备 **0% 页面泄露**，因为仅打包当前页面组件显式导入的字典。若开启 `importMode: 'dynamic'`，更可彻底杜绝语言层面的泄露。
 - **组件体积差异**: `react-i18next` 单组件占用 24-27 KB，而 Intlayer 仅为 6-8 KB。因为 `useTranslation()` 会将每个组件与全局 i18next 实例绑定。
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 完整表格请参阅 [TanStack Start 性能基准测试报告](https://intlayer.org/zh/doc/benchmark/tanstack)。
+
 ## 为什么差距如此悬殊？全局实例模式 vs 编译时字典
+
+![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
 
 `i18next` 最初于 2012 年设计为纯运行时架构: 全局单一实例维护资源仓库，各种插件对其进行扩展，并在组件渲染时通过 `t()` 查找键名。这种设计赋予了它极高的通用性（支持任何框架、后端与文件格式），但也是其性能开销的根源:
 
@@ -166,7 +194,13 @@ Intlayer 无需独立的 "scoped" 策略: 编译器会自动**以组件为粒度
                 └── page.tsx     # 必须明确知道该页面依赖 ["common", "about"]
 ```
 
-全局实例在运行时无法预知某个组件到底会请求哪些键，因此只能加载开发者预先指定的整个命名空间。优化意味着**开发者必须**手动拆分翻译文件为命名空间、**必须**在每个页面手动枚举所需命名空间，并且在组件移动或重构时**必须**手动同步这一映射清单。正如[基准测试总结](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md)所言: “在保证类型安全的同时，精确维护每个页面需要哪些命名空间简直是一场噩梦”。
+全局实例在运行时无法预知某个组件到底会请求哪些键，因此只能加载开发者预先指定的整个命名空间。优化意味着**开发者必须**手动拆分翻译文件为命名空间、**必须**在每个页面手动枚举所需命名空间，并且在组件移动或重构时**必须**手动同步这一映射清单。
+
+资源开销在页面与语言两个维度上成倍激增：
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+正如 [基准测试总结](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md)所言: “在保证类型安全的同时，精确维护每个页面需要哪些命名空间简直是一场噩梦”。
 
 Intlayer 彻底抛弃了全局实例模式。翻译内容直接声明在组件同级，编译器在构建阶段直接解析依赖图谱:
 
@@ -193,7 +227,8 @@ Intlayer 彻底抛弃了全局实例模式。翻译内容直接声明在组件�
 
 ### 初始化配置
 
-**next-i18next (App Router)**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-i18next" value="i18next">
 
 ```ts fileName="src/app/i18n/server.ts"
 import { createInstance } from "i18next";
@@ -228,7 +263,8 @@ export const initI18next = async (
 
 此外还需要编写客户端 `I18nProvider`，配置 `generateStaticParams`，并在每个页面显式指定 `namespaces` 数组。
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -264,9 +300,13 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
+</Tab>
+</Tabs>
+
 ### 客户端组件开发
 
-**react-i18next**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="react-i18next" value="i18next">
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -304,7 +344,8 @@ export const Counter = () => {
 
 > 渲染该组件的页面必须确保预加载了 `about` 命名空间，且除非扩展 `CustomTypeOptions`，否则 `t("counter.label")` 只是无类型保护的普通字符串。
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -345,9 +386,13 @@ export const Counter = () => {
 
 `label` 和 `increment` 拥有完全严格的自动类型推导；输错字段名会直接触发 TypeScript 编译报错，如果缺少法语翻译则会在构建时立即拦截。
 
+</Tab>
+</Tabs>
+
 ### 同步服务端组件 (RSC)
 
-**next-i18next**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-i18next" value="i18next">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 type ServerCounterProps = {
@@ -366,7 +411,8 @@ export const ServerCounter = ({ t, locale, count }: ServerCounterProps) => (
 
 顶层页面必须先调用 `i18n.getFixedT(locale, "about")`，然后通过 Props 将 `t` 和 `locale` 逐层传递给子组件。
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 import { useIntlayer } from "next-intlayer/server";
@@ -384,6 +430,9 @@ export const ServerCounter = ({ count }: { count: number }) => {
   );
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## 保留 i18next API，直接享受 Intlayer 的极致性能
 
@@ -415,18 +464,85 @@ export default defineConfig({
 
 ## 如何做出选择？
 
-- **选择 i18next**: 如果你的应用极度依赖其庞大的插件生态（特定语言检测器、特殊后端、ICU、Locize 等），需要在 React 之外（如 Node.js 后端服务、原生 JS 或其他前端框架）统一国际化方案，团队成员已有深度积累，或者外部翻译平台硬性要求使用 `locales/{lng}/{ns}.json` 目录结构。若追求性能，需预留充足精力维护命名空间与页面加载清单。
-- **选择 Intlayer**: 如果你追求**就近组织组件文本**、**严苛的 TypeScript 类型安全**、**构建期漏翻即时报错**、**零配置自动 Tree-shaking 与按需懒加载**、瞬时语言切换、原生同步服务端组件支持以及开箱即用的可视化编辑器 / CMS / AI 翻译工具流。在大型复杂模块化项目及设计系统中表现尤为出色。
-- **选择 `@intlayer/*-i18next` 适配器**: 如果你已经在运行大型 i18next 项目，并希望零成本获取打包体积缩减与响应速度提升。
+<AccordionGroup>
+<Accordion header="选择 i18next">
+
+如果你的应用极度依赖其庞大的插件生态（特定语言检测器、特殊后端、ICU、Locize 等），需要在 React 之外（如 Node.js 后端服务、原生 JS 或其他前端框架）统一国际化方案，团队成员已有深度积累，或者外部翻译平台硬性要求使用 `locales/{lng}/{ns}.json` 目录结构。若追求性能，需预留充足精力维护命名空间与页面加载清单。
+
+</Accordion>
+<Accordion header="选择 Intlayer">
+
+您希望获得**组件级内容管理**、**严格的 TypeScript 类型提示**、**构建期漏译检测**、**零心智负担的 Tree-shaking 与按需懒加载**、毫秒级语言切换、同步服务端组件支持以及开箱即用的内容编辑套件（[可视化编辑器](https://intlayer.org/zh/doc/concept/editor)、[CMS](https://intlayer.org/zh/doc/concept/cms)、[AI 自动翻译](https://intlayer.org/zh/doc/concept/auto-fill)、[MCP 服务端](https://intlayer.org/zh/doc/mcp-server)）。特别适用于大型、模块化代码库与设计系统。
+
+</Accordion>
+<Accordion header="选择 @intlayer/*-i18next 适配层">
+
+您现有项目已深度依赖 i18next，希望在完全不重构组件代码的前提下，立即获取包体积缩减与极致响应速度。您的 `locales/{lng}/{ns}.json` 文件继续作为唯一事实来源。在 [i18next vs @intlayer/i18next](https://intlayer.org/zh/blog/i18next-vs-intlayer-i18next) 中进行了同台实测。
+
+</Accordion>
+</AccordionGroup>
+
+## 常见问题解答 (FAQ)
+
+<FAQ>
+
+<Question title="为什么 i18next 的体积比其他现代国际化库大得多？">
+
+它最初被设计为跨框架的通用运行时：全局单例实例、插件执行管道、资源存储库、键名解析器。这种高灵活性全部被编译进了每个客户端包中。一个仅引入该库的空组件在 `next-i18next` 下需要 **19.7 KB gzip**，而 `next-intlayer` 仅需 **5.5 KB**，且这一基准开销在每个页面都必须无差别承担。
+
+</Question>
+
+<Question title="通过后端加载插件（Lazy Loading）能否彻底解决开销问题？">
+
+它仅优化了下载字节数，却牺牲了交互延迟。采用 `i18next-resources-to-backend` 每页节省了 ~49 KB，但在切换语言时增加了网络往返延迟：在 `dynamic` 配置下为 **123 ms**，在 `scoped-static` 下为 **185 ms**，而 Intlayer 仅需 **3-4 ms**。客户端水合耗时也激增至 27.7 ms，因为实例必须在 React 水合前完成远程解析。
+
+</Question>
+
+<Question title="使用 i18next 能否达到 0% 内容泄漏？">
+
+可以，通过 `scoped-dynamic` 方案：为每个路由划分独立的命名空间、配置资源后端并人工维护页面与命名空间的映射表。这使 Next.js 页面体积降至 163.4 KB，但仍比零配置的 Intlayer（141.3 KB）多出 **+22 KB**。请参阅[包体积优化指南](https://intlayer.org/zh/doc/concept/bundle-optimization)。
+
+</Question>
+
+<Question title="迁移到 Intlayer 是否需要彻底重写我的现有组件？">
+
+不需要。`@intlayer/i18next`、`@intlayer/react-i18next` 和 `@intlayer/next-i18next` 完整保留了 `useTranslation`、`t()`、`<Trans>`、`{{interpolation}}`、`_one` / `_other` 复数规则、上下文后缀及 `returnObjects`。仅需在 `next.config.ts` 或 `vite.config.ts` 中配置一行插件即可。详见 [next-i18next 迁移指南](https://intlayer.org/zh/doc/migration/next-i18next)。
+
+</Question>
+
+<Question title="我原有的 i18next 插件会受到什么影响？">
+
+后端加载器与语言探测器依然会被接收但处于空转状态：运行时不再需要加载或探测任何内容。语言探测被 Intlayer 的原生路由策略（URL 前缀、Cookie、Header）接管。若您的应用依赖请求期从 CMS 动态获取翻译，请改用 [Intlayer CMS](https://intlayer.org/zh/doc/concept/cms) 或 `intlayer pull` / `push` 指令。
+
+</Question>
+
+</FAQ>
 
 ## 相关对比
 
-- [next-intl vs Intlayer](https://intlayer.org/zh/blog/next-intl-vs-intlayer) (同一基准测试)
-- [Lingui vs Intlayer](https://intlayer.org/zh/blog/lingui-vs-intlayer) (同一基准测试)
-- [vue-i18n vs Intlayer 评测](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-benchmark) (同一基准测试)
+同类基准测试，其他国际化库：
+
+- [next-intl vs Intlayer](https://intlayer.org/zh/blog/next-intl-vs-intlayer)
+- [Lingui vs Intlayer](https://intlayer.org/zh/blog/lingui-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-benchmark)
 - [next-i18next vs next-intl vs Intlayer](https://intlayer.org/zh/blog/next-i18next-vs-next-intl-vs-intlayer)
 - [react-i18next vs react-intl vs Intlayer](https://intlayer.org/zh/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+深入探索 i18next 与 Intlayer：
+
+- [i18next vs @intlayer/i18next](https://intlayer.org/zh/blog/i18next-vs-intlayer-i18next)，在相同应用下的适配器性能实测
 - [i18next 已经过时了吗？](https://intlayer.org/zh/blog/is-i18next-outdated)
+- [在 i18next 中使用 Intlayer](https://intlayer.org/zh/blog/intlayer-with-i18next) 以及[在 react-i18next 中使用](https://intlayer.org/zh/blog/intlayer-with-react-i18next)
+- [如何使用 next-i18next 实现 Next.js 应用国际化](https://intlayer.org/zh/blog/nextjs-internationalization-using-next-i18next)
+
+核心参考文档：
+
+- [Next.js 基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs) 与 [TanStack Start 基准测试报告](https://intlayer.org/zh/doc/benchmark/tanstack)
+- 兼容适配器：[i18next](https://intlayer.org/zh/doc/compatibility/i18next)、[react-i18next](https://intlayer.org/zh/doc/compatibility/react-i18next)、[next-i18next](https://intlayer.org/zh/doc/compatibility/next-i18next)
+- 迁移指南：[i18next](https://intlayer.org/zh/doc/migration/i18next)、[react-i18next](https://intlayer.org/zh/doc/migration/react-i18next)、[next-i18next](https://intlayer.org/zh/doc/migration/next-i18next)
+- [包体积优化](https://intlayer.org/zh/doc/concept/bundle-optimization) 与 [Intlayer 编译器](https://intlayer.org/zh/doc/compiler)
+- [组件级 vs 集中式 i18n](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)
+- [编译器驱动 vs 声明式 i18n](https://intlayer.org/zh/blog/compiler-vs-declarative-i18n)
 
 ## GitHub 关注度趋势 (STARs)
 

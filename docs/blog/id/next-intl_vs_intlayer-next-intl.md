@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "next-intl vs @intlayer/next-intl: API yang Sama, Bundle Berbeda"
 description: Apa yang berubah ketika impor next-intl dari aplikasi Next.js disajikan oleh adapter kompatibilitas @intlayer/next-intl. Ukuran bundle, kebocoran, ukuran komponen dan hidrasi diukur pada kode yang sama, ditambah apa yang adapter pertahankan, abaikan dan tidak dapat gantikan.
 keywords:
@@ -25,6 +25,8 @@ author: aymericzip
 ---
 
 # next-intl VS @intlayer/next-intl | API yang Sama, Bundle Berbeda
+
+![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `@intlayer/next-intl` adalah compat adapter: ia mengekspos API `next-intl` (`useTranslations`, `getTranslations`, `useLocale`, `t.rich()`, ICU plurals, `NextIntlClientProvider`...) dan melayaninya dari dictionary yang dikompilasi oleh Intlayer. Kode aplikasi tidak berubah. Bundle-nya berubah.
 
@@ -110,6 +112,10 @@ Untuk setiap build, suite merekam:
 
 ### Hasil di Next.js
 
+Pilih metrik dan pustaka yang Anda minati:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Setup                     | Strategi       | Ukuran lib (gz) | Rata-rata JS halaman (gz) | Bocor locale | Bocor halaman | Rata-rata komponen (gz) | Reaktivitas E2E |     Hidrasi |
 | ------------------------- | -------------- | --------------: | ------------------------: | -----------: | ------------: | ----------------------: | --------------: | ----------: |
 | **base** (no i18n)        | -              |          0.0 KB |                  141.0 KB |         0.0% |          0.0% |                  0.9 KB |         13.4 ms |     11.8 ms |
@@ -130,9 +136,20 @@ Untuk setiap build, suite merekam:
 - **Hydration 2 ms lebih cepat** (12.8 vs 14.7 ms): tidak ada message object yang perlu di-deserialize dari RSC payload sebelum React dapat melakukan hydrate.
 - **Adapter bukan runtime native.** `next-intlayer` berada di **141.3 KB**, +0.3 KB di atas base app, dengan runtime 5.5 KB. Adapter membawa surface API `next-intl` (`useFormatter`, `t.rich`, ICU resolver) di atas core Intlayer, sehingga 8.0 KB dan +6 KB per page. Ini adalah bridge, bukan destination.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tabel lengkap, setiap pustaka dan setiap strategi, dalam [laporan tolok ukur Next.js](https://intlayer.org/id/doc/benchmark/nextjs).
+
 ### Hasil pada TanStack Start (`use-intl`)
 
 `use-intl` adalah core framework-agnostic dari `next-intl`. Adapternya, `@intlayer/use-intl`, mengikuti desain yang sama dengan Vite plugin (`@intlayer/use-intl/plugin`).
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Pengaturan               | Strategi       | Ukuran Lib (gz) | Rata-rata JS Halaman (gz) | Locale leak | Page leak | Rata-rata Komponen (gz) | E2E reactivity |   Hydration |
 | ------------------------ | -------------- | --------------: | ------------------------: | ----------: | --------: | ----------------------: | -------------: | ----------: |
@@ -153,11 +170,24 @@ Untuk setiap build, suite merekam:
 - **Pengalihan locale lebih cepat.** Setup `use-intl` yang dioptimalkan membutuhkan **13-21 ms** untuk memperbarui `html[lang]`; adapter membutuhkan **4-9 ms**. Lebih sedikit komponen yang di-render ulang, dan tidak ada yang diambil ulang dari pohon pesan.
 - **`static` menyimpan setiap locale.** Baris `static` adapter menunjukkan kebocoran locale 49,7%, sama seperti Intlayer native dalam mode `static`: semua locale dibundel, hanya kamus halaman yang tersimpan. Satu baris konfigurasi (`importMode: 'dynamic'`) menghilangkannya.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tabel lengkap dalam [laporan tolok ukur TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack).
+
 ## Mengapa angka-angka berubah
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 Tidak ada yang berubah dalam komponen, jadi keuntungannya berasal sepenuhnya dari apa yang `useTranslations` terikat.
 
-**Dengan `next-intl`**, pengikatan adalah provider. `NextIntlClientProvider` menerima seluruh object `messages` untuk locale; setiap `useTranslations("about")` membacanya. Bundler melihat satu komponen mengimpor satu hook yang membaca satu context, dan tidak dapat mengetahui bahwa hanya branch `about` yang digunakan. Rute di bawah ini semuanya berbagi object message yang sama, jadi kolom page-leak membaca ~90% hingga Anda membagi file sendiri.
+**Dengan `next-intl`**, pengikatan adalah provider. `NextIntlClientProvider` menerima seluruh object `messages` untuk locale; setiap `useTranslations("about")` membacanya. Bundler melihat satu komponen mengimpor satu hook yang membaca satu context, dan tidak dapat mengetahui bahwa hanya branch `about` yang digunakan. Rute di bawah ini semuanya berbagi object message yang sama, jadi kolom page-leak membaca ~90% hingga Anda membagi file sendiri, dan pemborosan tumbuh pada dua sumbu sekaligus, halaman dan bahasa:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ```bash
 .
@@ -281,25 +311,106 @@ export default withIntlayer(nextConfig);
 
 ## Batasan yang perlu Anda ketahui sebelum memulai
 
-- **Konfigurasi routing bergerak ke `intlayer.config.ts`.** `createNavigation(routing)` dan `createMiddleware(routing)` mempertahankan signature mereka tetapi mengabaikan argumen: locale, locale default, dan strategi prefix berasal dari konfigurasi `routing` Intlayer. Jika Anda menggunakan `pathnames` terlokalisasi dari `next-intl` (`/about` → `/a-propos`), adapter tidak melakukan interpolasi; `routing.rewrite` Intlayer mencakup kasus itu tetapi merupakan perubahan terpisah.
-- **`useTranslations()` tanpa namespace tidak terikat.** Pass optimasi memerlukan namespace statis untuk mengetahui dictionary mana yang harus diimpor. Panggilan kosong masih berfungsi, melalui registry runtime yang mereferensikan setiap dictionary, yang merupakan kebocoran persis yang Anda coba hapus. Berikan namespace.
-- **Adapter tidak gratis.** 8.0 KB runtime versus 5.5 KB untuk `next-intlayer`, dan +6-7 KB per halaman dibandingkan native build. Ini adalah biaya untuk API surface `next-intl`. Jika Anda mencapai titik di mana setiap komponen telah dipindahkan ke `useIntlayer`, lepaskan adapter.
-- **`messages`, `timeZone`, `now` pada provider diabaikan.** Formatter didukung oleh native `Intl` dan hanya locale yang mempengaruhi output mereka; jika Anda bergantung pada forced time zone atau `now` tetap untuk tanggal yang stabil saat hydration, tangani di call site.
+<AccordionGroup>
+<Accordion header="Konfigurasi perutean berpindah ke intlayer.config.ts">
+
+`createNavigation(routing)` dan `createMiddleware(routing)` mempertahankan fungsi mereka tetapi mengabaikan argumen: bahasa, bahasa default, dan strategi prefiks berasal dari konfigurasi `routing` Intlayer. Jika Anda menggunakan `pathnames` terlokalisasi dari `next-intl` (`/about` ke `/a-propos`), adaptor tidak menginterpolasinya; `routing.rewrite` Intlayer mencakup kasus tersebut tetapi merupakan perubahan terpisah.
+
+</Accordion>
+<Accordion header="useTranslations() tanpa namespace tidak terikat">
+
+Tahap pengoptimalan membutuhkan namespace statis untuk mengetahui kamus mana yang harus diimpor. Panggilan tanpa namespace tetap berfungsi melalui registri runtime yang merujuk ke setiap kamus, yang merupakan kebocoran yang coba Anda hapus. Teruskan namespace.
+
+</Accordion>
+<Accordion header="Adaptor tidak sepenuhnya gratis">
+
+Runtime 8.0 KB dibandingkan 5.5 KB untuk `next-intlayer`, dan +6-7 KB per halaman di atas build asli. Ini membayar kompatibilitas API `next-intl`. Jika Anda mencapai titik di mana setiap komponen telah dipindahkan ke `useIntlayer`, hapus adaptor.
+
+</Accordion>
+<Accordion header="messages, timeZone, dan now pada provider diabaikan">
+
+Pemformat didukung oleh `Intl` bawaan dan hanya bahasa yang memengaruhi hasilnya. Jika Anda mengandalkan zona waktu paksa atau `now` tetap untuk tanggal yang stabil saat hidrasi, tangani di titik panggilan. Lihat [pemformatan tanggal, waktu, dan angka](https://intlayer.org/id/blog/date-time-number-formatting-locales).
+
+</Accordion>
+</AccordionGroup>
 
 ## Kapan menggunakan yang mana?
 
-- **Tetap di `next-intl`** jika aplikasi Anda kecil, bundle bukan masalah, dan tim Anda nyaman mengelola namespace dan `pick()` per halaman.
-- **Gunakan `@intlayer/next-intl`** jika Anda saat ini menggunakan `next-intl` dan menginginkan keuntungan bundle, menghindari kebocoran, stabilitas hydration, typed keys, dan tooling CLI / CMS tanpa menulis ulang. Ini adalah entry point yang direkomendasikan untuk setiap codebase `next-intl` yang sudah ada.
-- **Gunakan native (`next-intlayer`)** untuk proyek baru, atau setelah adapter telah menjalankan tugasnya. Ini adalah yang paling ringan dari ketiganya (5.5 KB, +0.3 KB per halaman) dan membuka akses ke synchronous server components, per-component `.content.ts` files, dan full feature set.
+<AccordionGroup>
+<Accordion header="Tetap di next-intl">
+
+Aplikasi Anda kecil, ukuran bundel bukan masalah, dan tim Anda nyaman mengelola namespace dan `pick()` per halaman.
+
+</Accordion>
+<Accordion header="Gunakan @intlayer/next-intl">
+
+Anda menggunakan `next-intl` hari ini dan menginginkan keuntungan bundel, pengurangan kebocoran, dan hidrasi cepat, kunci bertipe, dan alat CLI / CMS tanpa menulis ulang kode. Ini adalah titik awal yang direkomendasikan untuk basis kode `next-intl` yang sudah ada.
+
+</Accordion>
+<Accordion header="Gunakan bawaan (next-intlayer)">
+
+Untuk proyek baru, atau setelah adaptor menyelesaikan tugasnya. Ini adalah yang paling ringan dari ketiganya (5.5 KB, +0.3 KB per halaman) dan membuka komponen server sinkron, file `.content.ts` per komponen, dan rangkaian fitur lengkap. Mulai dengan [Intlayer dengan Next.js](https://intlayer.org/id/doc/environment/nextjs).
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Apakah kode aplikasi saya benar-benar tidak tersentuh?">
+
+Pada Next.js, ya untuk komponen: build tolok ukur hanya mengubah `next.config.ts` dan `intlayer.config.ts`. `getRequestConfig` di `src/i18n.ts`, properti `messages` pada provider, dan panggilan `pick()` per halaman menjadi kode mati yang dapat Anda hapus nanti.
+
+</Question>
+
+<Question title="Apa yang terjadi dengan pesan ICU?">
+
+Mereka tetap berfungsi. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#`, dan `{ts, date, long}` diselesaikan oleh resolver ICU Intlayer. Lihat [format pesan ICU](https://intlayer.org/id/blog/icu-message-format).
+
+</Question>
+
+<Question title="Mengapa adaptor lebih berat daripada next-intlayer bawaan?">
+
+Ini membawa permukaan API `next-intl` di atas inti Intlayer: `useFormatter`, `t.rich`, resolver ICU, pembantu navigasi. Itu 8.0 KB dibandingkan 5.5 KB, dan +6 KB per halaman. Ini adalah jembatan, bukan tujuan akhir.
+
+</Question>
+
+<Question title="Bisakah saya bermigrasi komponen demi komponen?">
+
+Ya. Komponen mana pun dapat beralih dari `useTranslations("about")` ke `useIntlayer("about")` dengan file `.content.ts` yang diletakkan bersama. Kamus JSON dan `.content.ts` hidup berdampingan dan bergabung.
+
+</Question>
+
+<Question title="Apakah pathnames yang dilokalisasi berfungsi?">
+
+Tidak melalui `pathnames` dari `next-intl`: adaptor menerimanya untuk pengetikan tetapi tidak menginterpolasinya. Gunakan `routing.rewrite` Intlayer sebagai gantinya.
+
+</Question>
+
+</FAQ>
 
 ## Perbandingan terkait
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (library-nya, benchmark yang sama)
-- [i18next vs @intlayer/i18next](https://intlayer.org/blog/i18next-vs-intlayer-i18next) (series adapter yang sama)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/blog/lingui-vs-intlayer-lingui) (seri adapter yang sama)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/blog/vue-i18n-vs-intlayer-vue-i18n) (seri adapter yang sama)
-- [Panduan migrasi: next-intl ke Intlayer](https://intlayer.org/doc/migration/next-intl)
-- [Referensi adapter kompatibilitas: next-intl](https://intlayer.org/doc/compatibility/next-intl)
+Seri adaptor yang sama:
+
+- [i18next vs @intlayer/i18next](https://intlayer.org/id/blog/i18next-vs-intlayer-i18next)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/id/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+Perbandingan langsung pustaka:
+
+- [next-intl vs Intlayer](https://intlayer.org/id/blog/next-intl-vs-intlayer), tolok ukur yang sama
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/id/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [Is next-intl outdated?](https://intlayer.org/id/blog/is-next-intl-outdated)
+
+Dokumen referensi:
+
+- [Compat adapter: next-intl](https://intlayer.org/id/doc/compatibility/next-intl)
+- [Panduan migrasi: next-intl ke Intlayer](https://intlayer.org/id/doc/migration/next-intl)
+- [Laporan tolok ukur Next.js](https://intlayer.org/id/doc/benchmark/nextjs) dan [laporan tolok ukur TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack)
+- [Optimalisasi bundel](https://intlayer.org/id/doc/concept/bundle-optimization) dan [kompiler Intlayer](https://intlayer.org/id/doc/compiler)
+- [Editor Visual](https://intlayer.org/id/doc/concept/editor), [CMS](https://intlayer.org/id/doc/concept/cms), dan [terjemahan AI](https://intlayer.org/id/doc/concept/auto-fill)
 
 ## Kesimpulan
 

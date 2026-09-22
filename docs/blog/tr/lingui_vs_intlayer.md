@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "Lingui ve Intlayer Karşılaştırması: 2026 Kıyaslama Testi"
 description: "Next.js ve TanStack Start üzerinde ölçülen derleyici tabanlı iki i18n kütüphanesi. Paket boyutu, içerik sızıntısı, bileşen boyutu, hidrasyon, dil değiştirme tepkiselliği ve geliştirici deneyimi."
 keywords:
@@ -23,6 +23,8 @@ author: aymericzip
 ---
 
 # Lingui ve Intlayer Karşılaştırması | React & Next.js Uluslararasılaşma (i18n) Testi
+
+![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 Lingui ve Intlayer, bu karşılaştırmada saf bir çalışma zamanı (runtime) yerine bir **derleyiciye (compiler)** dayanan iki kütüphanedir. Lingui derleme sırasında makrolardan mesajları çıkarır ve her dil için kataloglar derler. Intlayer ise bileşen başına sözlükler derler ve bunları dil başına tree-shake eder. Kağıt üzerinde birbirine çok yakın görünmelidirler. Ancak sayılar nerede ayrıştıklarını açıkça ortaya koyuyor.
 
@@ -96,6 +98,10 @@ Her derleme için test paketi şunları kaydeder:
 
 ### Next.js Sonuçları
 
+İlgilendiğiniz metrikleri ve kütüphaneleri seçin:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Kütüphane           | Strateji       | Kütüphane Boyutu (gz) | Ort. Sayfa JS (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Ort. Bileşen (gz) | E2E Tepkisellik | Hidrasyon |
 | ------------------- | -------------- | --------------------: | -----------------: | ------------: | --------------: | ----------------: | --------------: | --------: |
 | **base** (i18n yok) | -              |                0.0 KB |           141.0 KB |          0.0% |            0.0% |            0.9 KB |         13.4 ms |   11.8 ms |
@@ -114,7 +120,18 @@ Her derleme için test paketi şunları kaydeder:
 - **Kaynak dil yedeği sızdırır.** Optimize edilmiş kurulumlarda bile **`en` dizgilerinin %3-15'i `fr` sayfalarına gönderilir**. Lingui makroları kaynak mesajı yedek olarak hazır tutar, bu nedenle çevirinin yanında pakete girer. Intlayer ise yedekleri derleme sırasında çözer ve yalnızca etkin dili gönderir.
 - **`scoped-dynamic` modunda bileşen boyutu aşırı büyür.** Yalıtılmış olarak derlenen her bileşenin ortalaması **152.6 KB** olur, çünkü her rotanın kataloğu onu içe aktaran bileşenden erişilebilir hale gelir. `useIntlayer()` kullanan aynı bileşenin ortalaması yalnızca **6.9 KB**'dır.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tüm kütüphaneler ve stratejiler için tam tablo [Next.js benchmark raporunda](https://intlayer.org/tr/doc/benchmark/nextjs).
+
 ### TanStack Start Sonuçları
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Kütüphane                   | Strateji       | Kütüphane Boyutu (gz) | Ort. Sayfa JS (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Ort. Bileşen (gz) | E2E Tepkisellik | Hidrasyon |
 | --------------------------- | -------------- | --------------------: | -----------------: | ------------: | --------------: | ----------------: | --------------: | --------: |
@@ -135,7 +152,18 @@ Her derleme için test paketi şunları kaydeder:
 - **Intlayer'ın `static` satırı zaten %0 sayfa sızıntısına sahiptir**, çünkü yalnızca sayfa bileşenlerinin içe aktardığı sözlükler paketlenir. Tek satırlık bir yapılandırma (`importMode: 'dynamic'`) dil sızıntısını da ortadan kaldırır.
 - **`@intlayer/lingui`**, Lingui'nin makro sözdizimini korur ve bunu Intlayer sözlüklerinden sunar. Orijinal Lingui'ye göre daha küçük bileşenler (12.8 KB) ve daha hızlı hidrasyon elde etmek için sayfa boyutundan (137 KB) bir miktar ödün verir. Bu bir geçiş adımıdır, nihai hedef değildir.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tam tablo [TanStack Start benchmark raporunda](https://intlayer.org/tr/doc/benchmark/tanstack).
+
 ## Neden bu fark var? İki derleyici, iki çalışma birimi
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 Her iki kütüphane de derleme yapar. Fark, **neyi** derlediklerindedir.
 
@@ -176,7 +204,9 @@ Her iki kütüphane de derleme yapar. Fark, **neyi** derlediklerindedir.
             └── about.content.ts
 ```
 
-Bu nedenle `scoped-dynamic` modeli Intlayer için doğal bir derleme çıktısı iken, Lingui için zahmetli bir yapılandırma projesidir.
+Bu nedenle `scoped-dynamic` modeli Intlayer için doğal bir derleme çıktısı iken, Lingui için zahmetli bir yapılandırma projesidir. Fark iki eksende birden açılır: sayfalar ve diller:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > `dynamic` satırının sayılarını elde etmek için `intlayer.config.ts` dosyasında `dictionary.importMode: 'dynamic'` ayarını yapın. [Paket optimizasyonu kılavuzuna](https://intlayer.org/tr/doc/concept/bundle-optimization) göz atın.
 
@@ -184,7 +214,8 @@ Bu nedenle `scoped-dynamic` modeli Intlayer için doğal bir derleme çıktısı
 
 ### Kurulum
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="lingui.config.ts"
 import { defineConfig } from "@lingui/cli";
@@ -215,7 +246,8 @@ export const loadCatalog = async (locale: string) => {
 
 Ardından paketleyiciye `@lingui/babel-plugin-lingui-macro` (veya `@lingui/swc-plugin`) ekleyin, kaynak kodu düzenledikten sonra `lingui extract`, derlemeden önce `lingui compile` çalıştırın ve ağacı `<I18nProvider i18n={i18n}>` ile sarın.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -232,9 +264,12 @@ export default config;
 
 `vite.config.ts` içine `intlayer()` (veya `next.config.ts` içine `withIntlayer()`) ekleyin ve ağacı `<IntlayerProvider>` ile sarın. Ayıklama veya derleme adımı yoktur: sözlükler paketleyici çalıştığında kendiliğinden oluşturulur.
 
+</Tab>
+</Tabs>
 ### Bileşen
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```tsx fileName="src/components/Counter.tsx"
 import { useState } from "react";
@@ -258,7 +293,8 @@ export const Counter = () => {
 
 İngilizce metin bileşenin içinde yaşar; Fransızca olanı ise `lingui extract` çalıştırıldıktan sonra `src/locales/fr/messages.po` içinde hash'lenmiş bir kimlik altında saklanır. Bunu çalıştırmayı veya `compile` etmeyi unutmak sessizce İngilizceye geri döner.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -297,11 +333,14 @@ export const Counter = () => {
 
 Her iki dil de bileşenin yanında tek bir dosyada bulunur. Eksik bir `fr` değeri derleme hatasıdır, yanlış bir anahtar ise doğrudan TypeScript hatasıdır.
 
+</Tab>
+</Tabs>
 ### Bileşenlerin dışında
 
 Meta veriler, yükleyiciler (loaders), sunucu fonksiyonları: React ağacının bulunmadığı her yer.
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { setupI18n } from "@lingui/core";
@@ -324,7 +363,8 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
 
 Çağrı başına yeni bir `I18n` örneği, doğru kataloğun manuel olarak yüklenmesi ve `t` yerine `msg` + `i18n._()` kullanımı. [Test notlarında](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md) belirtildiği gibi, `t`, `` t` ` ``, `i18n.t()`, `msg` veya `<Trans>` yapılarının ne zaman kullanılacağını kestirmek her zaman sezgisel değildir.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { getIntlayer } from "intlayer";
@@ -335,6 +375,9 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
   return { title };
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## Lingui makrolarını koruyun, Intlayer sözlüklerine geçin
 
@@ -353,16 +396,82 @@ export default defineConfig({
 
 ## Hangisi ne zaman seçilmeli?
 
-- **Lingui'yi seçin**: Tipli makrolarla **ICU MessageFormat** istiyorsanız, çevirmenleriniz mevcut bir TMS süreciyle **`.po`** dosyaları üzerinde çalışıyorsa, JSX içinde satır içi kaynak dizgileri tercih ediyorsanız ve ekibiniz ayıklama / derleme / katalog bölme iş akışını yönetmekten çekinmiyorsa. Tembel yükleme kurulduktan sonra sayfa başına JS boyutu oldukça rekabetçidir.
-- **Intlayer'ı seçin**: **Bileşen kapsamlı içerik**, **katı TypeScript desteği**, **derleme zamanı eksik anahtar hataları**, **yapılandırmasız tree-shaking ve tembel yükleme**, hafif bileşenler, hızlı hidrasyon, anında dil değiştirme ve yerleşik yönetim araçları (Görsel Düzenleyici, CMS, yapay zeka çevirisi, MCP sunucusu) istiyorsanız. Özellikle modüler kod tabanları ve tasarım sistemleri için idealdir.
-- **`@intlayer/lingui`'yi seçin**: Halihazırda Lingui kullanıyorsanız ve makrolara dokunmadan kademeli olarak Intlayer sözlüklerine geçmek istiyorsanız.
+<AccordionGroup>
+<Accordion header="Lingui'yi Seçin">
+
+Tiplendirilmiş makrolarla **ICU MessageFormat** istiyorsanız, çevirmenleriniz mevcut bir TMS işlem hattıyla **`.po`** dosyalarında çalışıyorsa, kaynak metinlerin JSX içinde doğrudan yer almasını tercih ediyorsanız ve ekibiniz ayıklama / derleme / katalog bölme iş akışını yönetmekten memnunsa. Lazi loading ayarlandıktan sonra sayfa başına JS boyutu oldukça rekabetçidir.
+
+</Accordion>
+<Accordion header="Intlayer'ı Seçin">
+
+**Bileşen kapsamlı içerik**, **katı TypeScript**, **derleme zamanında eksik anahtar hataları**, **sıfır çabayla tree-shaking ve lazy loading**, küçük bileşenler, hızlı hidrasyon, anında dil değiştirme ve yerleşik editöryal araçlar ([Görsel Düzenleyici](https://intlayer.org/tr/doc/concept/editor), [CMS](https://intlayer.org/tr/doc/concept/cms), [Yapay Zeka Çevirisi](https://intlayer.org/tr/doc/concept/auto-fill), [MCP Sunucusu](https://intlayer.org/tr/doc/mcp-server)) istiyorsanız. Özellikle büyük, modüler kod tabanları ve tasarım sistemleri için uygundur.
+
+</Accordion>
+<Accordion header="@intlayer/lingui'yi Seçin">
+
+Zaten Lingui kullanıyorsanız ve makrolara dokunmadan aşamalı olarak Intlayer sözlüklerine geçmek istiyorsanız. `.po` kataloglarınız [PO senkronizasyon eklentisi](https://intlayer.org/tr/doc/compatibility/lingui) sayesinde tek doğruluk kaynağı olarak kalır. [Lingui vs @intlayer/lingui](https://intlayer.org/tr/blog/lingui-vs-intlayer-lingui) sayfasında yan yana ölçülmüştür.
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Lingui de derleme yapıyor. Çıktı neden bu kadar farklı?">
+
+Çünkü derleme birimi farklıdır. Lingui **dil başına bir katalog** derler: bunun altındaki her şey (rota başına kataloglar, lazy loading, yedek metnin paketten çıkarılması) yapılandırma gerektirir. Intlayer **bileşen başına bir sözlük** derler, bu nedenle rota kapsamı derlemenin doğal bir sonucu olarak ortaya çıkar. Bu yüzden tek başına derlenen bir Lingui bileşeni 6-8 KB'a karşı 58-153 KB yer kaplar.
+
+</Question>
+
+<Question title="Lingui ile dil sızıntısı neden hiçbir zaman %0'a ulaşmaz?">
+
+Makrolar, kaynak mesajı çalışma zamanında bir geri dönüş (fallback) olarak kullanılabilir halde tutar, böylece İngilizce dize çevirisinin yanında pakete dahil olur. Benchmark, her optimize edilmiş kurulumda **`fr` sayfalarında %3-15 oranında `en` dizeleri** ölçmektedir. Intlayer derleme zamanında geri dönüşleri çözer ve yalnızca aktif dili gönderir.
+
+</Question>
+
+<Question title="Lingui'nin sayfa başına JavaScript'i gerçekten rekabetçi mi?">
+
+Evet, TanStack Start'ta kıl payı öndedir: Intlayer için 118.6 KB'a karşılık `dynamic` modda 115.2 KB. Karmaşık kimliklere sahip derlenmiş kataloglar kompakttır. Maliyet başka yerlerde ortaya çıkar: 11-14 ms'ye karşılık 28-34 ms hidrasyon ve `scoped-dynamic` kurulumunda **42 ms** süren dil değişimi.
+
+</Question>
+
+<Question title="Geçiş yapmak için makrolardan vazgeçmek zorunda mıyım?">
+
+Hayır. `@intlayer/lingui` `` t`...` ``, `<Trans>`, `msg`, `plural`, `select` ve `selectOrdinal` ifadelerinin eskisi gibi derlenmesini sağlar; yalnızca `i18n._()` çağrısının çözümlendiği kaynak değişir. Derlemede `@lingui/babel-plugin-lingui-macro` veya `@lingui/swc-plugin` kullanmaya devam edin. [Lingui uyumluluk belgesine](https://intlayer.org/tr/doc/compatibility/lingui) bakın.
+
+</Question>
+
+<Question title="Ayıklama ve derleme adımları ne olacak?">
+
+Makrolar için kalır, Intlayer'ın kendi içeriği için ortadan kalkar. `.content.ts` sözlükleri, ayrı bir CLI komutu olmadan paketleyici çalıştığında derlenir ve [`intlayer test`](https://intlayer.org/tr/doc/concept/cli) sessizce kaynak dizeye dönmek yerine eksik bir anahtar olduğunda CI sürecini durdurur.
+
+</Question>
+
+</FAQ>
 
 ## İlgili karşılaştırmalar
 
-- [next-intl ve Intlayer Karşılaştırması](https://intlayer.org/tr/blog/next-intl-vs-intlayer) (aynı test)
-- [i18next ve Intlayer Karşılaştırması](https://intlayer.org/tr/blog/i18next-vs-intlayer) (aynı test)
-- [vue-i18n ve Intlayer Kıyaslaması](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-benchmark) (aynı test)
-- [Derleyici ve Bildirimsel i18n Karşılaştırması](https://intlayer.org/tr/blog/compiler-vs-declarative-i18n)
+Aynı benchmark, diğer kütüphaneler:
+
+- [next-intl vs Intlayer](https://intlayer.org/tr/blog/next-intl-vs-intlayer)
+- [i18next vs Intlayer](https://intlayer.org/tr/blog/i18next-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-benchmark)
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/tr/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/tr/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+Daha fazlası:
+
+- [Lingui vs @intlayer/lingui](https://intlayer.org/tr/blog/lingui-vs-intlayer-lingui), aynı uygulamada ölçülen bağdaştırıcı
+- [Compiler-driven vs declarative i18n](https://intlayer.org/tr/blog/compiler-vs-declarative-i18n)
+- [Per-component vs centralized i18n](https://intlayer.org/tr/blog/per-component-vs-centralized-i18n)
+- [ICU message format explained](https://intlayer.org/tr/blog/icu-message-format)
+
+Referans belgeler:
+
+- [Next.js benchmark raporu](https://intlayer.org/tr/doc/benchmark/nextjs) ve [TanStack Start benchmark raporu](https://intlayer.org/tr/doc/benchmark/tanstack)
+- [Compat adapter: Lingui](https://intlayer.org/tr/doc/compatibility/lingui)
+- [Paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization) ve [Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler)
 
 ## GitHub Yıldızları
 

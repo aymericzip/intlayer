@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "next-intl vs Intlayer: 2026 벤치마크 및 비교"
 description: "Next.js App Router와 TanStack Start에서 next-intl과 Intlayer를 비교 측정했습니다. 번들 크기, 콘텐츠 누출, 컴포넌트 크기, 하이드레이션, 로케일 전환 속도 및 개발자 경험."
 keywords:
@@ -22,11 +22,11 @@ author: aymericzip
 
 # next-intl VS Intlayer | React & Next.js 국제화(i18n) 벤치마크
 
-`next-intl`은 오늘날 Next.js App Router의 기본 선택지입니다. 라우팅과의 긴밀한 통합, 완전한 ICU MessageFormat 지원, 전통적인 i18n 시스템을 사용해 본 사람이라면 누구나 익숙한 개발자 경험을 제공합니다.
+![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
-반면 `Intlayer`는 문제를 근본적으로 재구성합니다. 중앙 집중식 사전이 없으며, 네임스페이스와 라우트를 수동으로 일치시킬 필요가 없습니다. 콘텐츠는 각 컴포넌트 바로 옆에 선언되며, 빌드 타임 컴파일러가 각 페이지에 필요한 콘텐츠만 자동으로 번들링합니다.
+`next-intl`은 Next.js에서 가장 널리 사용되는 i18n 라이브러리입니다. Intlayer는 컴파일러 기반의 컴포넌트 스코프 대안입니다. 두 라이브러리 모두 App Router 애플리케이션을 현지화합니다. 질문은 앱이 빌드된 후 각각의 비용이 얼마인가 하는 것입니다.
 
-이 글은 각 라이브러리로 동일한 애플리케이션을 빌드하고 브라우저가 실제로 다운로드하고 실행하는 항목을 기록하는 오픈 소스 테스트 스위트인 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)의 데이터를 바탕으로 두 라이브러리를 비교합니다.
+이 기사는 튜토리얼이 아닙니다. 각 라이브러리로 동일한 애플리케이션을 빌드하고 브라우저가 실제로 다운로드하고 실행하는 것을 측정하는 오픈 소스 벤치마크 스위트인 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)의 수치로 뒷받침된 비교입니다.
 
 <TOC/>
 
@@ -89,6 +89,10 @@ Intlayer에는 "scoped" 변형이 없습니다. 컴파일러가 콘텐츠 범위
 
 ### Next.js (App Router) 결과
 
+관심 있는 메트릭과 라이브러리를 선택하세요:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | 라이브러리                   | 전략           | 라이브러리 크기 (gz) | 평균 페이지 JS (gz) | 로케일 누출 | 페이지 누출 | 평균 컴포넌트 (gz) |  E2E 반응성 | 하이드레이션 |
 | ---------------------------- | -------------- | -------------------: | ------------------: | ----------: | ----------: | -----------------: | ----------: | -----------: |
 | **기본 앱** (i18n 없음)      | -              |               0.0 KB |            141.0 KB |        0.0% |        0.0% |             0.9 KB |     13.4 ms |      11.8 ms |
@@ -107,7 +111,20 @@ Intlayer에는 "scoped" 변형이 없습니다. 컴파일러가 콘텐츠 범위
 - **콘텐츠 누출.** 가장 흔히 사용되는 설정(`static` 및 `dynamic`)에서 `next-intl`은 전체 `en.json`이 클라이언트 공급자에 들어가기 때문에 페이지마다 **다른 페이지 문자열의 약 90%**를 전송합니다. 이를 0%로 만들려면 복잡한 수동 네임스페이스 분할이 필요하지만, Intlayer는 기본적으로 0%입니다.
 - **컴포넌트 크기.** `useTranslations()`를 호출하는 컴포넌트는 평균 21.8 KB로 컴파일되지만, `useIntlayer()`를 사용하는 동일한 컴포넌트는 단 6.9 KB입니다.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 모든 라이브러리와 전략이 포함된 전체 표는 [Next.js 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/nextjs)에서 확인하세요.
+
 ### TanStack Start (`use-intl`) 결과
+
+`use-intl`은 `next-intl`의 프레임워크 독립적인 핵심 코어입니다. 동일한 API, 동일한 메시지 형식을 사용합니다. TanStack Start에서 이를 `intlayer`와 비교하면 방정식에서 Next.js 관련 요소를 배제할 수 있습니다.
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | 라이브러리                  | 전략           | 라이브러리 크기 (gz) | 평균 페이지 JS (gz) | 로케일 누출 | 페이지 누출 | 평균 컴포넌트 (gz) | E2E 반응성 |
 | --------------------------- | -------------- | -------------------: | ------------------: | ----------: | ----------: | -----------------: | ---------: |
@@ -127,7 +144,18 @@ Intlayer에는 "scoped" 변형이 없습니다. 컴파일러가 콘텐츠 범위
 - 아키텍처의 차이는 **컴포넌트 크기**에서 명확히 드러납니다. `use-intl`의 76-87 KB 대비 Intlayer는 6-8 KB에 불과합니다.
 - **로케일 전환 속도**는 Intlayer가 2~4배 더 빠릅니다(3 ms vs 7-21 ms).
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 전체 표는 [TanStack Start 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/tanstack)에서 확인하세요.
+
 ## 왜 이런 차이가 발생하는가? 중앙 집중식 카탈로그 vs 컴파일된 사전
+
+![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
 
 `next-intl`은 전통적인 방식을 따릅니다. 로케일당 하나의 JSON 파일이 `getRequestConfig`에서 로드되고, `NextIntlClientProvider`에 전달되며, `t("namespace.key")`로 읽힙니다.
 
@@ -149,6 +177,10 @@ Intlayer에는 "scoped" 변형이 없습니다. 컴파일러가 콘텐츠 범위
 ```
 
 런타임은 페이지에서 어떤 키가 사용될지 미리 알 수 없으므로 전체 카탈로그를 전송하는 것이 유일하게 안전한 기본값입니다.
+
+최적화에 도달하지 못할 때 발생하는 비용은 페이지와 언어라는 두 축에서 동시에 증가합니다:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer는 이 구조를 완전히 뒤집습니다. 콘텐츠는 컴포넌트 바로 옆에 선언됩니다.
 
@@ -177,7 +209,8 @@ Intlayer는 이 구조를 완전히 뒤집습니다. 콘텐츠는 컴포넌트 �
 
 ### 클라이언트 컴포넌트
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```json fileName="messages/en.json"
 {
@@ -188,7 +221,7 @@ Intlayer는 이 구조를 완전히 뒤집습니다. 콘텐츠는 컴포넌트 �
 }
 ```
 
-```tsx fileName="src/components/Counter.tsx"
+```tsx fileName="src/components/ClientCounter.tsx"
 "use client";
 
 import { useState } from "react";
@@ -210,7 +243,10 @@ export const Counter = () => {
 };
 ```
 
-**Intlayer**
+> 이 컴포넌트를 렌더링하는 모든 페이지에서 `NextIntlClientProvider`에 전달되는 메시지에 `counter` 네임스페이스를 포함해야 합니다.
+
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -249,11 +285,16 @@ export const Counter = () => {
 };
 ```
 
+페이지에 등록할 것이 전혀 없습니다: 컴포넌트가 자체 콘텐츠를 직접 가져옵니다.
+
+</Tab>
+</Tabs>
 ### 동기식 서버 컴포넌트
 
 디자인 시스템 요소(내비게이션 바, 바닥글, 카드 등)는 클라이언트 컴포넌트의 자식으로 렌더링되는 서버 컴포넌트인 경우가 많으므로 비동기(`async`)일 수 없습니다.
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 type ServerCounterProps = {
@@ -269,7 +310,10 @@ export const ServerCounter = ({ t, formattedCount }: ServerCounterProps) => (
 );
 ```
 
-**Intlayer**
+페이지에서 `await getTranslations("counter")` 및 `await getFormatter()`를 실행한 다음 결과를 props로 전달해야 합니다. 컴포넌트는 더 이상 독립적이지 않습니다.
+
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 import { useIntlayer } from "next-intlayer/server";
@@ -288,9 +332,12 @@ export const ServerCounter = ({ count }: { count: number }) => {
 };
 ```
 
+</Tab>
+</Tabs>
 ### 메타데이터
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/page.tsx"
 import type { Metadata } from "next";
@@ -323,7 +370,8 @@ export const generateMetadata = async ({
 };
 ```
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/app/[locale]/about/page.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -347,6 +395,9 @@ export const generateMetadata = async ({
 };
 ```
 
+</Tab>
+</Tabs>
+
 ## next-intl API 유지 및 Intlayer 출력 획득
 
 위의 벤치마크 결과를 얻기 위해 기존 컴포넌트를 모두 다시 작성할 필요는 없습니다. `@intlayer/next-intl`은 드롭인 어댑터입니다. `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, ICU 복수형을 그대로 유지하면서 Intlayer 컴파일러로 컴파일된 Intlayer 사전에서 콘텐츠를 제공합니다.
@@ -368,17 +419,84 @@ export default withIntlayer(nextConfig);
 
 ## 언제 무엇을 선택해야 할까요?
 
-- **next-intl 선택**: Next.js의 광범위한 생태계 표준을 원하거나, ICU MessageFormat에 크게 의존하거나, 앱이 중소 규모이거나, 중앙 집중식 번역 플랫폼(Crowdin, Phrase, Lokalise 등)과 연동하는 경우.
-- **Intlayer 선택**: **컴포넌트 단위 콘텐츠 관리**, **엄격한 TypeScript 지원**, **빌드 타임 누락 키 감지**, **설정 없는 자동 트리 셰이킹 및 지연 로딩**, 동기식 서버 컴포넌트, 내장 편집 도구(비주얼 에디터, CMS, AI 번역, MCP 서버)를 원하는 경우. 모듈식 코드베이스나 대규모 디자인 시스템에 특히 유용합니다.
-- **`@intlayer/next-intl` 선택**: 이미 `next-intl`을 사용 중이며 코드 재작성 없이 번들 최적화 이점을 얻고 싶은 경우.
+<AccordionGroup>
+<Accordion header="next-intl 선택">
+
+Next.js의 생태계 표준을 원하고, ICU MessageFormat에 의존하며, 앱이 중소 규모이거나 중앙 집중식 JSON을 요구하는 번역 플랫폼(Crowdin, Phrase, Lokalise...)과 연동하는 경우. 성능이 중요하다면 카탈로그를 네임스페이스로 나누고 페이지별로 `pick()`을 통해 메시지를 선별하는 시간을 고려해야 합니다.
+
+</Accordion>
+<Accordion header="Intlayer 선택">
+
+**컴포넌트 스코프 콘텐츠**, **엄격한 TypeScript**, **빌드 타임 누락 키 에러**, **노력 없는 트리 쉐이킹 및 지연 로딩**, 동기식 서버 컴포넌트, 내장 편집 툴([비주얼 에디터](https://intlayer.org/ko/doc/concept/editor), [CMS](https://intlayer.org/ko/doc/concept/cms), [AI 번역](https://intlayer.org/ko/doc/concept/auto-fill), [MCP 서버](https://intlayer.org/ko/doc/mcp-server))을 원하는 경우. 특히 대규모 모듈식 코드베이스 및 디자인 시스템에 적합합니다.
+
+</Accordion>
+<Accordion header="@intlayer/next-intl 선택">
+
+이미 `next-intl`을 사용 중이며 코드 재작성 없이 번들 크기를 줄이고자 하는 경우. [호환 어댑터](https://intlayer.org/ko/doc/compatibility/next-intl)는 기존 import 구문과 `messages/{locale}.json` 파일을 단일 진실 공급원으로 유지합니다. [next-intl vs @intlayer/next-intl](https://intlayer.org/ko/blog/next-intl-vs-intlayer-next-intl)에서 나란히 측정되었습니다.
+
+</Accordion>
+</AccordionGroup>
+
+## 자주 묻는 질문 (FAQ)
+
+<FAQ>
+
+<Question title="next-intl은 Intlayer보다 느린가요?">
+
+렌더링 시점에는 그렇지 않습니다. 차이점은 클라이언트에 전달되는 번들 크기에 있습니다. `next-intl`은 각 페이지마다 **+12.6 KB gzip**의 런타임 비용이 발생하며, 일반적인 설정에서는 다른 페이지의 문자열 중 약 90%를 함께 전송합니다. 언어 전환 및 하이드레이션 시간은 Next.js에서 유사합니다(15-18 ms). TanStack Start에서는 `use-intl`이 7-21 ms 걸리는 반면 Intlayer는 3-4 ms에 불과합니다.
+
+</Question>
+
+<Question title="next-intl로 누출률 0%를 달성할 수 있나요?">
+
+네, `scoped-dynamic` 설정을 통해 가능합니다. `messages/{locale}.json`을 라우트당 하나의 네임스페이스로 분할한 다음 각 페이지에서 `pick(messages, [...])`을 사용하고 컴포넌트 변경 시 이 매핑을 정확하게 유지해야 합니다. 벤치마크의 `scoped-*` 행이 바로 이러한 작업의 결과입니다. Intlayer는 컴파일러가 컴포넌트별로 콘텐츠 범위를 지정하므로 별도 작업 없이 기본적으로 0%에 도달합니다. [번들 최적화](https://intlayer.org/ko/doc/concept/bundle-optimization)를 참조하세요.
+
+</Question>
+
+<Question title="마이그레이션하려면 컴포넌트를 다시 작성해야 하나요?">
+
+아닙니다. `@intlayer/next-intl`은 `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, ICU 복수형 및 네비게이션 헬퍼를 유지하며, 컴파일된 딕셔너리에서 이를 제공합니다. `next.config.ts`에 플러그인 한 줄만 추가하면 됩니다. 단계별 안내는 [next-intl 마이그레이션 가이드](https://intlayer.org/ko/doc/migration/next-intl)를 참조하세요.
+
+</Question>
+
+<Question title="Intlayer는 ICU MessageFormat을 지원하나요?">
+
+네이티브 API에서 ICU 지원은 지속적으로 확장 중입니다. 호환 어댑터(`@intlayer/next-intl`, `@intlayer/use-intl`)는 이미 ICU를 지원합니다: 복수형, `select`, `selectordinal`, `#`, `{ts, date, long}`은 Intlayer의 ICU 리졸버를 통해 처리됩니다. 자세한 내용은 [ICU 메시지 포맷 설명](https://intlayer.org/ko/blog/icu-message-format)을 참조하세요.
+
+</Question>
+
+<Question title="messages/{locale}.json 파일을 그대로 유지할 수 있나요?">
+
+네. [JSON 동기화 플러그인](https://intlayer.org/ko/doc/compatibility/next-intl)이 해당 파일을 읽어 최상위 키를 딕셔너리로 분할하고, CLI나 CMS가 번역을 업데이트할 때 동일한 파일에 다시 기록합니다. 번역 팀의 워크플로는 변경되지 않습니다.
+
+</Question>
+
+</FAQ>
 
 ## 관련 비교
 
-- [i18next vs Intlayer](https://intlayer.org/ko/blog/i18next-vs-intlayer) (동일 벤치마크)
-- [Lingui vs Intlayer](https://intlayer.org/ko/blog/lingui-vs-intlayer) (동일 벤치마크)
-- [vue-i18n vs Intlayer 벤치마크](https://intlayer.org/ko/blog/vue-i18n-vs-intlayer-benchmark) (동일 벤치마크)
+동일한 벤치마크, 다른 라이브러리:
+
+- [i18next vs Intlayer](https://intlayer.org/ko/blog/i18next-vs-intlayer)
+- [Lingui vs Intlayer](https://intlayer.org/ko/blog/lingui-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/ko/blog/vue-i18n-vs-intlayer-benchmark)
 - [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ko/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [next-intl은 구식인가요?](https://intlayer.org/ko/blog/is-next-intl-outdated)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ko/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+next-intl 심층 분석:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/ko/blog/next-intl-vs-intlayer-next-intl), 동일한 앱에서 측정된 어댑터
+- [Is next-intl outdated?](https://intlayer.org/ko/blog/is-next-intl-outdated)
+- [Using Intlayer with next-intl](https://intlayer.org/ko/blog/intlayer-with-next-intl)
+- [How to internationalize a Next.js app with next-intl](https://intlayer.org/ko/blog/nextjs-internationalization-using-next-intl)
+
+참고 문서:
+
+- [Next.js 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/nextjs) 및 [TanStack Start 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/tanstack)
+- [호환 어댑터: next-intl](https://intlayer.org/ko/doc/compatibility/next-intl) 및 [마이그레이션 가이드](https://intlayer.org/ko/doc/migration/next-intl)
+- [번들 최적화](https://intlayer.org/ko/doc/concept/bundle-optimization) 및 [Intlayer 컴파일러](https://intlayer.org/ko/doc/compiler)
+- [컴포넌트별 vs 중앙 집중식 i18n](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)
+- [컴파일러 기반 vs 선언적 i18n](https://intlayer.org/ko/blog/compiler-vs-declarative-i18n)
 
 ## GitHub STARS
 

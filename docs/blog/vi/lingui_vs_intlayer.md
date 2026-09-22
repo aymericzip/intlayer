@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "Lingui vs Intlayer: Điểm chuẩn & So sánh 2026"
 description: "Hai thư viện i18n dựa trên trình biên dịch được đo lường trên Next.js và TanStack Start. Kích thước bundle, rò rỉ nội dung, kích thước component, quá trình hydrate, độ phản hồi chuyển đổi ngôn ngữ và trải nghiệm lập trình viên."
 keywords:
@@ -23,6 +23,8 @@ author: aymericzip
 ---
 
 # Lingui VS Intlayer | Điểm chuẩn quốc tế hóa (i18n) trên React & Next.js
+
+![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 Lingui và Intlayer là hai thư viện trong bài đánh giá điểm chuẩn này dựa trên một **trình biên dịch (compiler)** thay vì một runtime thuần túy. Lingui trích xuất các thông điệp từ macro trong thời gian build và biên dịch các danh mục theo từng ngôn ngữ. Intlayer biên dịch các từ điển theo từng component và thực hiện tree-shake chúng theo từng ngôn ngữ. Về mặt lý thuyết, chúng phải rất gần nhau. Các con số cho thấy chúng bắt đầu phân kỳ ở đâu.
 
@@ -96,6 +98,10 @@ Intlayer không có biến thể "scoped": trình biên dịch tự động gi�
 
 ### Kết quả trên Next.js
 
+Chọn các chỉ số và thư viện mà bạn quan tâm:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Thư viện              | Chiến lược     | Kích thước Lib (gz) | JS trang TB (gz) | Rò rỉ ngôn ngữ | Rò rỉ trang | TB component (gz) | Độ phản hồi E2E | Hydrate |
 | --------------------- | -------------- | ------------------: | ---------------: | -------------: | ----------: | ----------------: | --------------: | ------: |
 | **base** (không i18n) | -              |              0.0 KB |         141.0 KB |           0.0% |        0.0% |            0.9 KB |         13.4 ms | 11.8 ms |
@@ -114,7 +120,18 @@ Intlayer không có biến thể "scoped": trình biên dịch tự động gi�
 - **Dự phòng ngôn ngữ nguồn bị rò rỉ.** Ngay cả trong các thiết lập tối ưu hóa, **3-15% chuỗi `en` vẫn bị đưa vào các trang `fr`**. Macro của Lingui giữ lại thông điệp nguồn như một phương án dự phòng, do đó nó nằm trong bundle bên cạnh bản dịch. Intlayer giải quyết các dự phòng tại thời gian build và chỉ gửi đúng ngôn ngữ đang hoạt động.
 - **Kích thước component bùng nổ trong `scoped-dynamic`.** Mỗi component được biên dịch riêng lẻ đạt trung bình **152.6 KB**, vì danh mục của mọi route đều có thể truy cập được từ component import nó. Component tương tự sử dụng `useIntlayer()` chỉ đạt trung bình **6.9 KB**.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://intlayer.org/vi/doc/benchmark/nextjs).
+
 ### Kết quả trên TanStack Start
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Thư viện                         | Chiến lược     | Kích thước Lib (gz) | JS trang TB (gz) | Rò rỉ ngôn ngữ | Rò rỉ trang | TB component (gz) | Độ phản hồi E2E | Hydrate |
 | -------------------------------- | -------------- | ------------------: | ---------------: | -------------: | ----------: | ----------------: | --------------: | ------: |
@@ -135,7 +152,18 @@ Intlayer không có biến thể "scoped": trình biên dịch tự động gi�
 - **Hàng `static` của Intlayer vốn đã có 0% rò rỉ trang** vì chỉ các từ điển được import bởi các component trên trang mới được đóng gói. Một dòng cấu hình (`importMode: 'dynamic'`) cũng loại bỏ luôn tình trạng rò rỉ ngôn ngữ.
 - **`@intlayer/lingui`** giữ nguyên cú pháp macro của Lingui và phân phối từ các từ điển Intlayer. Nó chấp nhận hy sinh một phần dung lượng trang (137 KB, do runtime của macro vẫn tồn tại) để đổi lấy component nhỏ hơn (12.8 KB) và quá trình hydrate nhanh hơn Lingui gốc. Đây là một bước chuyển đổi dần, không phải đích đến cuối cùng.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Bảng đầy đủ trong [báo cáo benchmark TanStack Start](https://intlayer.org/vi/doc/benchmark/tanstack).
+
 ## Tại sao lại có khoảng cách? Hai trình biên dịch, hai đơn vị xử lý
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 Cả hai thư viện đều thực hiện biên dịch. Sự khác biệt nằm ở chỗ chúng **biên dịch cái gì**.
 
@@ -176,7 +204,9 @@ Cả hai thư viện đều thực hiện biên dịch. Sự khác biệt nằm 
             └── about.content.ts
 ```
 
-Đó là lý do tại sao mẫu `scoped-dynamic` là kết quả build tự động của Intlayer nhưng lại là một dự án cấu hình thủ công đầy gian nan đối với Lingui.
+Đó là lý do tại sao mẫu `scoped-dynamic` là kết quả build tự động của Intlayer nhưng lại là một dự án cấu hình thủ công đầy gian nan đối với Lingui. Khoảng cách nới rộng theo cả hai chiều cùng lúc: số trang và số ngôn ngữ:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > Để có được các số liệu của hàng `dynamic`, hãy đặt `dictionary.importMode: 'dynamic'` trong `intlayer.config.ts`. Xem thêm [tài liệu tối ưu hóa bundle](https://intlayer.org/vi/doc/concept/bundle-optimization).
 
@@ -184,7 +214,8 @@ Cả hai thư viện đều thực hiện biên dịch. Sự khác biệt nằm 
 
 ### Cài đặt
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="lingui.config.ts"
 import { defineConfig } from "@lingui/cli";
@@ -215,7 +246,8 @@ export const loadCatalog = async (locale: string) => {
 
 Sau đó thêm `@lingui/babel-plugin-lingui-macro` (hoặc `@lingui/swc-plugin`) vào bundler, chạy `lingui extract` sau khi sửa đổi mã nguồn, chạy `lingui compile` trước khi build và bọc cây component trong `<I18nProvider i18n={i18n}>`.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -232,9 +264,12 @@ export default config;
 
 Thêm `intlayer()` vào `vite.config.ts` (hoặc `withIntlayer()` vào `next.config.ts`) và bọc cây ứng dụng trong `<IntlayerProvider>`. Không cần bước trích xuất hay biên dịch riêng biệt: từ điển được xây dựng tự động khi bundler chạy.
 
+</Tab>
+</Tabs>
 ### Component
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```tsx fileName="src/components/Counter.tsx"
 import { useState } from "react";
@@ -258,7 +293,8 @@ export const Counter = () => {
 
 Văn bản tiếng Anh nằm trực tiếp trong component; văn bản tiếng Pháp nằm trong `src/locales/fr/messages.po` dưới dạng một ID đã được băm, sau khi chạy `lingui extract`. Nếu quên chạy lệnh hoặc quên `compile`, ứng dụng sẽ lặng lẽ quay về tiếng Anh.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -297,11 +333,14 @@ export const Counter = () => {
 
 Cả hai ngôn ngữ đều nằm trong cùng một tệp ngay cạnh component. Việc thiếu giá trị `fr` sẽ gây ra lỗi khi build, và sai key sẽ báo lỗi TypeScript ngay lập tức.
 
+</Tab>
+</Tabs>
 ### Bên ngoài các component
 
 Metadata, loaders, các hàm server: bất kỳ nơi nào không có cây React.
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { setupI18n } from "@lingui/core";
@@ -324,7 +363,8 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
 
 Cần tạo phiên bản `I18n` mới cho mỗi lần gọi, tự tay tải đúng danh mục và dùng `msg` + `i18n._()` thay vì `t`. Như ghi nhận từ [báo cáo điểm chuẩn](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md), việc xác định khi nào dùng `t`, `` t` ` ``, `i18n.t()`, `msg` hay `<Trans>` không hề dễ đoán.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { getIntlayer } from "intlayer";
@@ -335,6 +375,9 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
   return { title };
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## Giữ lại macro Lingui, tận dụng từ điển Intlayer
 
@@ -353,16 +396,82 @@ Giữ `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` chạy trước
 
 ## Khi nào nên chọn thư viện nào?
 
-- **Chọn Lingui** nếu bạn muốn **ICU MessageFormat** với các macro được định kiểu, người dịch của bạn làm việc với tệp **`.po`** trong quy trình TMS sẵn có, bạn thích viết chuỗi nguồn inline ngay trong JSX và đội ngũ của bạn thành thạo quy trình trích xuất, biên dịch và chia nhỏ danh mục. Lượng JS trên mỗi trang rất cạnh tranh sau khi thiết lập tải lười.
-- **Chọn Intlayer** nếu bạn muốn **nội dung theo phạm vi component**, **TypeScript nghiêm ngặt**, **phát hiện thiếu bản dịch khi build**, **tự động tree-shaking và tải lười mà không cần cấu hình**, component siêu nhẹ, hydrate nhanh chóng, chuyển đổi ngôn ngữ tức thì và bộ công cụ biên tập tích hợp sẵn (Visual Editor, CMS, dịch thuật AI, máy chủ MCP). Đặc biệt phù hợp cho các codebase dạng module và hệ thống thiết kế lớn.
-- **Chọn `@intlayer/lingui`** nếu bạn đang sử dụng Lingui và muốn chuyển dần sang từ điển Intlayer mà không phải sửa đổi các macro hiện có.
+<AccordionGroup>
+<Accordion header="Chọn Lingui">
+
+Bạn muốn **ICU MessageFormat** với các macro có kiểu dữ liệu, dịch giả của bạn làm việc với tệp **`.po`** qua quy trình TMS hiện có, bạn thích viết trực tiếp chuỗi nguồn trong JSX và nhóm của bạn thoải mái quản lý quy trình trích xuất / biên dịch / chia nhỏ danh mục. JS trên mỗi trang của nó rất cạnh tranh khi đã thiết lập lazy loading.
+
+</Accordion>
+<Accordion header="Chọn Intlayer">
+
+Bạn muốn **nội dung có phạm vi theo component**, **TypeScript chặt chẽ**, **báo lỗi thiếu khóa ngay khi build**, **tree-shaking và lazy loading không tốn công sức**, component nhỏ gọn, hydrate nhanh, chuyển đổi ngôn ngữ tức thì và các công cụ biên tập tích hợp ([Visual Editor](https://intlayer.org/vi/doc/concept/editor), [CMS](https://intlayer.org/vi/doc/concept/cms), [dịch thuật AI](https://intlayer.org/vi/doc/concept/auto-fill), [máy chủ MCP](https://intlayer.org/vi/doc/mcp-server)). Đặc biệt phù hợp cho các codebase mô-đun lớn và hệ thống thiết kế.
+
+</Accordion>
+<Accordion header="Chọn @intlayer/lingui">
+
+Bạn đang dùng Lingui và muốn chuyển dần sang từ điển của Intlayer mà không cần chỉnh sửa macro. Các danh mục `.po` của bạn vẫn là nguồn chân lý duy nhất thông qua [plugin đồng bộ hóa PO](https://intlayer.org/vi/doc/compatibility/lingui). Được đo lường cạnh nhau trong [Lingui vs @intlayer/lingui](https://intlayer.org/vi/blog/lingui-vs-intlayer-lingui).
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Lingui cũng biên dịch. Tại sao đầu ra lại khác biệt đến vậy?">
+
+Bởi vì đơn vị biên dịch khác nhau. Lingui biên dịch **một danh mục cho mỗi ngôn ngữ**: mọi thứ dưới cấp độ đó (danh mục theo route, lazy loading, loại bỏ fallback khỏi bundle) đều cần cấu hình thủ công. Intlayer biên dịch **một từ điển cho mỗi component**, do đó phạm vi theo route là kết quả tự nhiên của quá trình build. Đó là lý do component Lingui khi biên dịch độc lập nặng 58-153 KB so với 6-8 KB của Intlayer.
+
+</Question>
+
+<Question title="Tại sao rò rỉ ngôn ngữ không bao giờ đạt 0% với Lingui?">
+
+Macro giữ lại thông điệp nguồn như một giải pháp dự phòng (fallback) lúc runtime, vì vậy chuỗi tiếng Anh được gửi kèm cùng với bản dịch. Benchmark ghi nhận **3-15% chuỗi `en` nằm trong các trang `fr`** ở mọi cấu hình tối ưu. Intlayer giải quyết fallback ngay khi build và chỉ phân phối ngôn ngữ đang hoạt động.
+
+</Question>
+
+<Question title="JavaScript mỗi trang của Lingui có thực sự cạnh tranh?">
+
+Có, và trên TanStack Start nó thắng sít sao: 115.2 KB ở chế độ `dynamic` so với 118.6 KB của Intlayer. Các danh mục được biên dịch với mã ID băm rất nhỏ gọn. Nhưng chi phí phát sinh ở điểm khác: hydrate mất 28-34 ms so với 11-14 ms, và chuyển đổi ngôn ngữ mất **42 ms** trong thiết lập `scoped-dynamic`.
+
+</Question>
+
+<Question title="Tôi có phải từ bỏ macro để chuyển đổi không?">
+
+Không. `@intlayer/lingui` giữ nguyên cách biên dịch `` t`...` ``, `<Trans>`, `msg`, `plural`, `select` và `selectOrdinal`; chỉ có nguồn giải quyết của `i18n._()` thay đổi. Tiếp tục giữ `@lingui/babel-plugin-lingui-macro` hoặc `@lingui/swc-plugin` trong bản build. Xem [tài liệu tương thích Lingui](https://intlayer.org/vi/doc/compatibility/lingui).
+
+</Question>
+
+<Question title="Còn các bước trích xuất và biên dịch thì sao?">
+
+Chúng được giữ lại cho macro và biến mất đối với nội dung riêng của Intlayer. Các từ điển `.content.ts` được tạo tự động khi bundler chạy mà không cần lệnh CLI riêng, và [`intlayer test`](https://intlayer.org/vi/doc/concept/cli) sẽ làm dừng CI nếu thiếu khóa thay vì lặng lẽ quay lại chuỗi nguồn.
+
+</Question>
+
+</FAQ>
 
 ## So sánh liên quan
 
-- [next-intl vs Intlayer](https://intlayer.org/vi/blog/next-intl-vs-intlayer) (cùng bài đánh giá)
-- [i18next vs Intlayer](https://intlayer.org/vi/blog/i18next-vs-intlayer) (cùng bài đánh giá)
-- [Điểm chuẩn vue-i18n vs Intlayer](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-benchmark) (cùng bài đánh giá)
-- [Trình biên dịch vs i18n khai báo](https://intlayer.org/vi/blog/compiler-vs-declarative-i18n)
+Cùng benchmark, các thư viện khác:
+
+- [next-intl vs Intlayer](https://intlayer.org/vi/blog/next-intl-vs-intlayer)
+- [i18next vs Intlayer](https://intlayer.org/vi/blog/i18next-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-benchmark)
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/vi/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/vi/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+Tìm hiểu thêm:
+
+- [Lingui vs @intlayer/lingui](https://intlayer.org/vi/blog/lingui-vs-intlayer-lingui), adapter được đo lường trên cùng một ứng dụng
+- [Compiler-driven vs declarative i18n](https://intlayer.org/vi/blog/compiler-vs-declarative-i18n)
+- [Per-component vs centralized i18n](https://intlayer.org/vi/blog/per-component-vs-centralized-i18n)
+- [ICU message format explained](https://intlayer.org/vi/blog/icu-message-format)
+
+Tài liệu tham khảo:
+
+- [Báo cáo benchmark Next.js](https://intlayer.org/vi/doc/benchmark/nextjs) và [báo cáo benchmark TanStack Start](https://intlayer.org/vi/doc/benchmark/tanstack)
+- [Compat adapter: Lingui](https://intlayer.org/vi/doc/compatibility/lingui)
+- [Tối ưu hóa bundle](https://intlayer.org/vi/doc/concept/bundle-optimization) và [trình biên dịch Intlayer](https://intlayer.org/vi/doc/compiler)
 
 ## Ngôi sao GitHub
 

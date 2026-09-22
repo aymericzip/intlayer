@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "vue-i18n vs @intlayer/vue-i18n：相同的 API，不同的 Bundle"
 description: 当 Vue 3 应用保持其 vue-i18n 调用但通过 @intlayer/vue-i18n compat 适配器提供服务时会发生什么变化。在相同的 Vite + Vue 代码上测量的每页 JavaScript、运行时大小、组件大小和泄漏，以及适配器保留、忽略和无法替换的内容。
 keywords:
@@ -24,6 +24,8 @@ author: aymericzip
 ---
 
 # vue-i18n VS @intlayer/vue-i18n | 相同的 API，不同的 Bundle
+
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 `@intlayer/vue-i18n` 是一个兼容适配器：它公开了 `vue-i18n` API（`createI18n`、`useI18n`、`t()`、`d()`、`n()`、`$t`、`v-t`、`i18n.global.locale`...），并从 Intlayer 编译的字典中提供服务。你的 `.vue` 文件不会改变。改变的是 `t("footer.github")` 绑定的内容。
 
@@ -105,6 +107,10 @@ const { t } = useI18n(_dicHash_footer);
 
 ### Vite + Vue 3 的结果
 
+选择您关注的指标和库：
+
+<I18nBenchmark framework="vite-vue" vertical/>
+
 | Setup                    | Strategy | Lib size (gz) | Lib size (min) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |  Page load |
 | ------------------------ | -------- | ------------: | -------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ---------: |
 | **base** (no i18n)       | -        |        0.0 KB |         0.0 KB |          41.3 KB |        0.0% |         - |             1.1 KB |         1.8 ms |    10.8 ms |
@@ -124,11 +130,24 @@ const { t } = useI18n(_dicHash_footer);
 - **响应性和页面加载。** 对于两者而言，语言环境切换成本低廉（1.5-2.8 ms）；一旦消息在内存中，Vue 的响应性系统会实现这一点。页面加载从 13.6 ms 降低到 **9.3 ms**，与减少 88 KB 的 JavaScript 解析量一致。
 - **关于原生行。** `vue-intlayer` 在此运行中在 `static` 模式下捆绑了每个区域设置，达到 57.1 KB，运行时为 3.9 KB；适配器的同步字典携带更少的外国语言环境字符串，因此每页数据更低。原生运行时仍然是三者中最轻的，其 `.content.ts` 模型是 SFC `<i18n>` 块找到其等效项的地方。
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 完整表格、各个库及每种策略，请参阅 [Vue 基准测试报告](https://intlayer.org/zh/doc/benchmark/vue)。
+
 ## 为什么数字会变化
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 `src/components/` 中的内容没有改变，所以收益来自 `useI18n` 绑定到的内容。
 
-**使用 `vue-i18n`** 时，绑定是全局实例。`createI18n({ messages: { en, fr, ... } })` 是一个导入，包含所有内容；每个调用 `useI18n()` 的组件都可以访问所有内容，因此 bundler 无法在实例以下进行分割。优化意味着 _你_ 需要按路由拆分 `en.json`，在路由守卫中调用 `setLocaleMessage()`，并在组件移动时保持路由到文件的映射正确。
+**使用 `vue-i18n`** 时，绑定是全局实例。`createI18n({ messages: { en, fr, ... } })` 是一个导入，包含所有内容；每个调用 `useI18n()` 的组件都可以访问所有内容，因此 bundler 无法在实例以下进行分割。优化意味着 _你_ 需要按路由拆分 `en.json`，在路由守卫中调用 `setLocaleMessage()`，并在组件移动时保持路由到文件的映射正确。 浪费在页面和语言两个维度上同时增长：
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ```bash
 .
@@ -258,26 +277,107 @@ export const i18n = createI18n({ locale: "en" });
 
 ## 开始前需要了解的限制
 
-- **SFC `<i18n>` 块不被读取。** 如果你的消息存在于组件内部，它们需要移动到 locale 文件（或 `.content.ts`，这是相同的想法但带有类型）。
-- **运行时消息加载已消除。** `setLocaleMessage()` 和 `mergeLocaleMessage()` 会发出警告并返回。从 CMS 在运行时获取的翻译需要 Intlayer 的 CMS，或者使用 `intlayer pull` / `push` 命令。
-- **`messages` 是一个回退方案，不是免费的。** 在 `createI18n()` 中保留 JSON 导入会在 bundle 中保留 75 KB。一旦 `intlayer test` 通过，就删除它们。
-- **该适配器不是原生运行时。** 7.9 KB 对比 `vue-intlayer` 的 3.9 KB。一旦每个组件都迁移到 `useIntlayer`，就可以删除它。
+<AccordionGroup>
+<Accordion header="不读取 SFC <i18n> 块">
+
+如果您的消息位于组件内部，则需要将它们移动到语言文件或 `.content.ts` 中，这具有相同的理念并提供类型支持。
+
+</Accordion>
+<Accordion header="移除了运行时消息加载">
+
+`setLocaleMessage()` 和 `mergeLocaleMessage()` 会发出警告并直接返回。在运行时从 CMS 获取的翻译需要使用 [Intlayer CMS](https://intlayer.org/zh/doc/concept/cms) 或 `intlayer pull` / `push` 命令。
+
+</Accordion>
+<Accordion header="messages 是回退方案，并非零成本">
+
+在 `createI18n()` 中保留 JSON 导入会在包中保留 75 KB。一旦 `intlayer test` 通过，即可将其删除。
+
+</Accordion>
+<Accordion header="适配器不是原生运行时">
+
+`vue-intlayer` 仅 3.9 KB，而适配器为 7.9 KB。一旦所有组件都迁移到 `useIntlayer`，即可将其移除。
+
+</Accordion>
+</AccordionGroup>
 
 ## 何时使用哪个？
 
-- **继续使用 `vue-i18n`** 如果你的应用依赖 SFC `<i18n>` 块、运行时 `setLocaleMessage()` 流程，或者 90 KB 每页对你的用户来说不是问题。
-- **使用 `@intlayer/vue-i18n`** 如果你在用 `vue-i18n` 并想要节省 88 KB、缩小 23 倍的组件、0% 页面泄漏、类型化的键和 CI 检查，而无需编辑 `.vue` 文件。这是现有 `vue-i18n` codebase 的入口点。
-- **使用原生方案（`vue-intlayer`）** 用于新项目，或在适配器完成其工作后。它具有最轻的运行时（3.9 KB）和按组件的 `.content.ts` 模型，用类型化内容替代 `<i18n>` 块。
+<AccordionGroup>
+<Accordion header="继续使用 vue-i18n">
+
+您的应用依赖于 SFC `<i18n>` 块、运行时 `setLocaleMessage()` 流程，或者每页 90 KB 对您的用户群而言并不是问题。
+
+</Accordion>
+<Accordion header="使用 @intlayer/vue-i18n">
+
+您正在使用 `vue-i18n`，希望在不修改任何 `.vue` 文件的前提下节省 88 KB、实现组件体积缩小 23 倍、0% 页面泄漏、类型化键和 CI 检查。这是现有 `vue-i18n` 代码库的最佳切入点。
+
+</Accordion>
+<Accordion header="转向原生 (vue-intlayer)">
+
+适用于新项目，或在适配器完成过渡任务之后。它具有最轻量的运行时（3.9 KB）以及按组件划分的 `.content.ts` 模式，用类型化内容取代 `<i18n>` 块。请从 [Intlayer 与 Vue](https://intlayer.org/zh/doc/environment/vite-and-vue) 或 [与 Nuxt](https://intlayer.org/zh/doc/environment/nuxt-and-vue) 开始。
+
+</Accordion>
+</AccordionGroup>
+
+## 常见问题解答
+
+<FAQ>
+
+<Question title="我需要修改我的 .vue 文件吗？">
+
+不需要。基准测试构建仅修改了 `vite.config.ts`、`intlayer.config.ts` 以及 `src/i18n.ts` 中引入 `messages` 的一行代码。所有 `useI18n()`、`$t`、`v-t` 和 Options API 的调用位置均保持原样。
+
+</Question>
+
+<Question title="为什么组件体积缩小了 23 倍？">
+
+因为 `useI18n()` 不再访问全局实例。`createI18n({ messages })` 会持有所有语言的全部消息，因此单独编译的组件会拖入 196 KB。使用适配器后，它仅访问自己的字典：8.4 KB。
+
+</Question>
+
+<Question title="d() 和 n() 格式化功能如何处理？">
+
+完全保留。传递给 `createI18n()` 的 `datetimeFormats` 和 `numberFormats` 依然有效，由原生 `Intl` 提供支持。请参阅[日期、时间和数字格式化](https://intlayer.org/zh/blog/date-time-number-formatting-locales)。
+
+</Question>
+
+<Question title="它是否适用于 Nuxt？">
+
+`@intlayer/vue-i18n` 针对 Vite + Vue。对于 `@nuxtjs/i18n`，请使用 [Nuxt i18n 兼容适配器](https://intlayer.org/zh/doc/compatibility/nuxtjs-i18n)，原生设置请参阅 [Intlayer 与 Nuxt](https://intlayer.org/zh/doc/environment/nuxt-and-vue)。
+
+</Question>
+
+<Question title="我可以按组件逐个迁移吗？">
+
+可以。任何组件都可以通过同级放置的内容文件从 `useI18n()` 切换到 `useIntlayer("footer")`。JSON 和 `.content.ts` 字典可以并存并合并。
+
+</Question>
+
+</FAQ>
 
 ## 相关比较
 
-- [vue-i18n vs Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer) (功能和开发体验)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/blog/vue-i18n-vs-intlayer-benchmark) (库，相同基准)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/blog/next-intl-vs-intlayer-next-intl) (相同adapter系列)
-- [i18next vs @intlayer/i18next](https://intlayer.org/blog/i18next-vs-intlayer-i18next) (相同adapter系列)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/blog/lingui-vs-intlayer-lingui) (相同adapter系列)
-- [迁移指南：vue-i18n 到 Intlayer](https://intlayer.org/doc/migration/vue-i18n)
-- [兼容适配器参考：vue-i18n](https://intlayer.org/doc/compatibility/vue-i18n), [Nuxt i18n](https://intlayer.org/doc/compatibility/nuxtjs-i18n)
+同系列适配器：
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/zh/blog/next-intl-vs-intlayer-next-intl)
+- [i18next vs @intlayer/i18next](https://intlayer.org/zh/blog/i18next-vs-intlayer-i18next)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/zh/blog/lingui-vs-intlayer-lingui)
+
+两两直接对比：
+
+- [vue-i18n vs Intlayer](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer), features and DX
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-benchmark)
+- [Is vue-i18n outdated?](https://intlayer.org/zh/blog/is-vue-i18n-outdated)
+- [How to pick a Vue i18n library](https://intlayer.org/zh/blog/how-to-pick-vue-i18n-library)
+
+参考文档：
+
+- [Compat adapter: vue-i18n](https://intlayer.org/zh/doc/compatibility/vue-i18n) and [Nuxt i18n](https://intlayer.org/zh/doc/compatibility/nuxtjs-i18n)
+- [迁移指南：从 vue-i18n 到 Intlayer](https://intlayer.org/zh/doc/migration/vue-i18n)
+- [Vue 基准测试报告](https://intlayer.org/zh/doc/benchmark/vue)
+- [包体积优化](https://intlayer.org/zh/doc/concept/bundle-optimization)与 [Intlayer 编译器](https://intlayer.org/zh/doc/compiler)
+- [可视化编辑器](https://intlayer.org/zh/doc/concept/editor)、[CMS](https://intlayer.org/zh/doc/concept/cms) 与 [AI 翻译](https://intlayer.org/zh/doc/concept/auto-fill)
 
 ## 总结
 
@@ -285,4 +385,4 @@ export const i18n = createI18n({ locale: "en" });
 
 所有原始数据、测试应用程序和脚本都在 [Benchmark Bloom 仓库](https://github.com/intlayer-org/benchmark-bloom) 中。自己运行它。
 
-有关更多详细信息，请参考 ['Why Intlayer?' 文档](https://intlayer.org/doc/why)。
+有关更多详细信息，请参考 ['Why Intlayer?' 文档](https://intlayer.org/zh/doc/why)。

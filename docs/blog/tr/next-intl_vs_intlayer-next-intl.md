@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "next-intl vs @intlayer/next-intl: Aynı API, Farklı Bundle"
 description: next-intl import'larının bir Next.js uygulamasının @intlayer/next-intl compat adapter tarafından sunulduğunda ne değiştiği. Bundle boyutu, sızıntı, bileşen boyutu ve hidrasyon aynı kod üzerinde ölçülmüştür, plus adapter'ın ne tuttuğu, ne göz ardı ettiği ve neyi değiştiremediği.
 keywords:
@@ -25,6 +25,8 @@ author: aymericzip
 ---
 
 # next-intl VS @intlayer/next-intl | Aynı API, Farklı Bundle
+
+![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `@intlayer/next-intl`, bir uyumluluk adaptörüdür: `next-intl` API'sini (`useTranslations`, `getTranslations`, `useLocale`, `t.rich()`, ICU plurals, `NextIntlClientProvider`...) kullanıma sunar ve bunu Intlayer tarafından derlenmiş sözlüklerden sunます. Uygulama kodu değişmez. Bundle değişir.
 
@@ -109,6 +111,10 @@ Her build için, suite şunları kaydeder:
 
 ### Next.js Sonuçları
 
+İlgilendiğiniz metrikleri ve kütüphaneleri seçin:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Kurulum                   | Strateji       | Kütüphane boyutu (gz) | Sayfa JS ort. (gz) | Yerel sızıntı | Sayfa sızıntı | Bileşen ort. (gz) | E2E tepkisellik |   Hidrasyon |
 | ------------------------- | -------------- | --------------------: | -----------------: | ------------: | ------------: | ----------------: | --------------: | ----------: |
 | **base** (no i18n)        | -              |                0.0 KB |           141.0 KB |          0.0% |          0.0% |            0.9 KB |         13.4 ms |     11.8 ms |
@@ -129,9 +135,20 @@ Her build için, suite şunları kaydeder:
 - **Hidrasyon 2 ms daha hızlı** (12.8 vs 14.7 ms): React hidrate olmadan önce RSC payload'ından deserialize edilecek bir message nesnesi yoktur.
 - **Adapter native runtime değildir.** `next-intlayer` **141.3 KB** konumundadır, base app üzerinde +0.3 KB, 5.5 KB runtime ile. Adapter, Intlayer'ın çekirdeğinin üstüne `next-intl` API yüzeyini (`useFormatter`, `t.rich`, ICU resolver) taşır, dolayısıyla 8.0 KB ve sayfa başına +6 KB. Bu köprü, hedef değildir.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tüm kütüphaneler ve stratejiler için tam tablo [Next.js benchmark raporunda](https://intlayer.org/tr/doc/benchmark/nextjs).
+
 ### TanStack Start üzerindeki sonuçlar (`use-intl`)
 
 `use-intl`, `next-intl`'nin framework-agnostic çekirdeğidir. Adaptörü olan `@intlayer/use-intl`, Vite plugin'i (`@intlayer/use-intl/plugin`) ile aynı tasarımı takip eder.
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Kurulum                  | Strateji       | Lib boyutu (gz) | Sayfa JS ort (gz) | Locale sızıntısı | Sayfa sızıntısı | Bileşen ort (gz) | E2E reaktivite |   Hidrasyon |
 | ------------------------ | -------------- | --------------: | ----------------: | ---------------: | --------------: | ---------------: | -------------: | ----------: |
@@ -152,11 +169,24 @@ Her build için, suite şunları kaydeder:
 - **Yerel ayar değişikliği daha hızlıdır.** Optimize edilmiş `use-intl` kurulumları `html[lang]` güncelleme için **13-21 ms** sürer; adapter **4-9 ms** sürer. Daha az bileşen yeniden render edilir ve hiçbir şey bir mesaj ağacından yeniden seçilmez.
 - **`static` her yerel ayarı tutar.** Adapterin `static` satırı %49,7 yerel ayar sızıntısı gösterir, bu da yerel Intlayer'ın `static` modundakiyle aynıdır: tüm yerel ayarlar paketlenmiş, yalnızca sayfanın sözlükleri paketlenmiştir. Bir satır yapılandırma (`importMode: 'dynamic'`) bunu kaldırır.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tam tablo [TanStack Start benchmark raporunda](https://intlayer.org/tr/doc/benchmark/tanstack).
+
 ## Sayılar neden hareket ediyor
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 Bileşende hiçbir şey değişmedi, bu nedenle kazançlar tamamen `useTranslations` neyin bağlandığından gelmektedir.
 
-**`next-intl` ile**, bağlama sağlayıcı tarafından yapılır. `NextIntlClientProvider`, locale için tüm `messages` nesnesini alır; her `useTranslations("about")` bundan okur. Bundler, bir bileşenin bir hook'u içe aktardığını ve bir context'i okuduğunu görür ve sadece `about` dalının kullanıldığını bilemez. Aşağıdaki rotalar aynı message nesnesini paylaştığından, sayfa sızıntısı sütunu dosyayı kendiniz bölmediğiniz sürece ~%90 olarak okunur.
+**`next-intl` ile**, bağlama sağlayıcı tarafından yapılır. `NextIntlClientProvider`, locale için tüm `messages` nesnesini alır; her `useTranslations("about")` bundan okur. Bundler, bir bileşenin bir hook'u içe aktardığını ve bir context'i okuduğunu görür ve sadece `about` dalının kullanıldığını bilemez. Aşağıdaki rotalar aynı message nesnesini paylaştığından, sayfa sızıntısı sütunu dosyayı kendiniz bölmediğiniz sürece ~%90 olarak okunur, ve gereksiz yük iki eksende birden büyür: sayfalar ve diller:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ```bash
 .
@@ -280,25 +310,106 @@ export default withIntlayer(nextConfig);
 
 ## Başlamadan önce bilmeniz gereken sınırlamalar
 
-- **Yönlendirme yapılandırması `intlayer.config.ts` dosyasına taşınır.** `createNavigation(routing)` ve `createMiddleware(routing)` imzalarını korur ancak argümanı yoksayar: yerel diller, varsayılan yerel dil ve önek stratejisi Intlayer'ın `routing` yapılandırmasından gelir. `next-intl`'nin lokalize edilmiş `pathnames` (`/about` → `/a-propos`) kullanıyorsanız, adapter bunları enterpolate etmez; Intlayer'ın `routing.rewrite` bu durumu kapsar ancak bu ayrı bir değişikliktir.
-- **Ad alanı olmayan `useTranslations()` bağlı değildir.** Optimize işlemi, hangi sözlüğü içe aktaracağını bilmek için statik bir ad alanına ihtiyaç duyar. Çıplak bir çağrı, her sözlüğe başvuran bir runtime registry aracılığıyla çalışır; bu tam olarak kaldırmaya çalıştığınız sızıntıdır. Ad alanını geçin.
-- **Adaptör ücretsiz değildir.** `next-intlayer` için 5.5 KB'a karşılık 8.0 KB runtime ve native build üzerinde sayfa başına +6-7 KB. Bu, `next-intl` API yüzeyinin maliyetidir. Her bileşen `useIntlayer`'a taşındığı noktaya ulaştığınızda, adaptörü bırakın.
-- **Sağlayıcı üzerindeki `messages`, `timeZone`, `now` yoksayılır.** Biçimlendiriciler native `Intl` tarafından desteklenir ve yalnızca locale bunların çıktısını etkiler; eğer zorlanmış bir zaman dilimi veya hydration açısından kararlı tarihler için sabit bir `now`'a bağlıysanız, bunu çağrı sitesinde işleyin.
+<AccordionGroup>
+<Accordion header="Yönlendirme yapılandırması intlayer.config.ts dosyasına taşınır">
+
+`createNavigation(routing)` ve `createMiddleware(routing)` imzalarını korur ancak argümanı yoksayar: diller, varsayılan dil ve önek stratejisi Intlayer'ın `routing` yapılandırmasından gelir. `next-intl`'in yerelleştirilmiş `pathnames` özelliğini (`/about` -> `/a-propos`) kullanıyorsanız, bağdaştırıcı bunları enterpole etmez; Intlayer'ın `routing.rewrite` seçeneği bu durumu kapsar ancak ayrı bir değişikliktir.
+
+</Accordion>
+<Accordion header="Ad alanı belirtilmemiş useTranslations() bağlı değildir">
+
+Optimizasyon aşaması, hangi sözlüğün içe aktarılacağını bilmek için statik bir ad alanına ihtiyaç duyar. Ad alanı olmadan yapılan yalın çağrılar, her sözlüğe başvuran bir çalışma zamanı kaydı aracılığıyla çalışmaya devam eder; bu da tam olarak ortadan kaldırmaya çalıştığınız sızıntıdır. Ad alanını iletin.
+
+</Accordion>
+<Accordion header="Bağdaştırıcı tamamen ücretsiz değildir">
+
+`next-intlayer` için 5.5 KB'a kıyasla 8.0 KB çalışma zamanı ve yerel derlemeye göre sayfa başına +6-7 KB. Bu, `next-intl` API yüzeyinin bedelidir. Her bileşen `useIntlayer`'a taşındığında bağdaştırıcıyı kaldırın.
+
+</Accordion>
+<Accordion header="Sağlayıcıdaki messages, timeZone ve now yoksayılır">
+
+Biçimlendiriciler yerel `Intl` tarafından desteklenir ve yalnızca yerel ayar çıktılarını etkiler. Hidrasyon açısından kararlı tarihler için zorunlu bir saat dilimine veya sabit bir `now` değerine güveniyorsanız, bunu çağrı noktasında yönetin. [Tarih, saat ve sayı biçimlendirmesine](https://intlayer.org/tr/blog/date-time-number-formatting-locales) bakın.
+
+</Accordion>
+</AccordionGroup>
 
 ## Hangisini ne zaman kullanmalı?
 
-- **`next-intl` üzerinde kalın** eğer uygulamanız küçükse, bundle'ınız endişe konusu değilse ve ekibiniz ad alanlarına ve sayfa başına `pick()` kullanımına sahip olmakta rahatsa.
-- **`@intlayer/next-intl` kullanın** eğer şu anda `next-intl` üzerinde iseniz ve bundle boyutu, veri sızıntısı ve hydration iyileştirmeleri, yazılan anahtarlar ve CLI / CMS araçlaması istiyorsanız ancak yeniden yazma yapmak istemiyorsanız. Bu, mevcut herhangi bir `next-intl` codebase'i için önerilen başlangıç noktasıdır.
-- **Native'e gidin (`next-intlayer`)** yeni projeler için veya adapter işini bitirdikten sonra. Üçünün en hafifi (5.5 KB, sayfa başına +0.3 KB) ve senkron server bileşenlerini, bileşen başına `.content.ts` dosyalarını ve tam özellik setini açar.
+<AccordionGroup>
+<Accordion header="next-intl'de kalın">
+
+Uygulamanız küçükse, paket boyutu bir sorun teşkil etmiyorsa ve ekibiniz ad alanlarını ve sayfa başına `pick()` yönetimini rahatça yapabiliyorsa.
+
+</Accordion>
+<Accordion header="@intlayer/next-intl kullanın">
+
+Bugün `next-intl` kullanıyorsanız ve kodları yeniden yazmadan paket boyutu, sızıntı ve hidrasyon kazanımları, tiplendirilmiş anahtarlar ve CLI / CMS araçlarını istiyorsanız. Mevcut herhangi bir `next-intl` kod tabanı için önerilen giriş noktası budur.
+
+</Accordion>
+<Accordion header="Doğrudan yerel kullanıma geçin (next-intlayer)">
+
+Yeni projeler için veya bağdaştırıcı görevini tamamladıktan sonra. Üçü arasında en hafif olanıdır (5.5 KB, sayfa başına +0.3 KB) ve senkron sunucu bileşenlerini, bileşen başına `.content.ts` dosyalarını ve eksiksiz özellik kümesini açar. [Next.js ile Intlayer](https://intlayer.org/tr/doc/environment/nextjs) ile başlayın.
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Uygulama kodum gerçekten hiç değişmeden kalır mı?">
+
+Next.js'de bileşenler için evet: benchmark derlemesi yalnızca `next.config.ts` ve `intlayer.config.ts` dosyalarını değiştirdi. `src/i18n.ts` içindeki `getRequestConfig`, sağlayıcıdaki `messages` özelliği ve sayfa başına `pick()` çağrıları daha sonra silebileceğiniz ölü koda dönüşür.
+
+</Question>
+
+<Question title="ICU mesajlarına ne olur?">
+
+Çalışmaya devam ederler. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` ve `{ts, date, long}` Intlayer'ın ICU çözümleyicisi tarafından işlenir. [ICU mesaj formatı](https://intlayer.org/tr/blog/icu-message-format) sayfasına bakın.
+
+</Question>
+
+<Question title="Bağdaştırıcı neden yerel next-intlayer'dan daha ağırdır?">
+
+Intlayer çekirdeğinin üzerinde `next-intl` API yüzeyini taşır: `useFormatter`, `t.rich`, ICU çözümleyici, navigasyon yardımcıları. Bu, 5.5 KB'a karşı 8.0 KB ve sayfa başına +6 KB anlamına gelir. Bir köprüdür, nihai hedef değil.
+
+</Question>
+
+<Question title="Bileşen bileşen kademeli geçiş yapabilir miyim?">
+
+Evet. Herhangi bir bileşen, yanına eklenen bir `.content.ts` ile `useTranslations("about")` kullanımından `useIntlayer("about")` kullanımına geçebilir. JSON ve `.content.ts` sözlükleri bir arada var olur ve birleşir.
+
+</Question>
+
+<Question title="Yerelleştirilmiş sayfa yolları (pathnames) çalışır mı?">
+
+`next-intl`'in `pathnames` özelliği üzerinden çalışmaz: bağdaştırıcı bunu tipleme için kabul eder ancak enterpole etmez. Bunun yerine Intlayer'ın `routing.rewrite` özelliğini kullanın.
+
+</Question>
+
+</FAQ>
 
 ## İlgili karşılaştırmalar
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (kütüphaneler, aynı benchmark)
-- [i18next vs @intlayer/i18next](https://intlayer.org/blog/i18next-vs-intlayer-i18next) (aynı adapter serisi)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/blog/lingui-vs-intlayer-lingui) (aynı adapter serisi)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/blog/vue-i18n-vs-intlayer-vue-i18n) (aynı adapter serisi)
-- [Migration guide: next-intl to Intlayer](https://intlayer.org/doc/migration/next-intl)
-- [Compat adapter reference: next-intl](https://intlayer.org/doc/compatibility/next-intl)
+Aynı bağdaştırıcı serisi:
+
+- [i18next vs @intlayer/i18next](https://intlayer.org/tr/blog/i18next-vs-intlayer-i18next)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/tr/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+Doğrudan karşılaştırılan kütüphaneler:
+
+- [next-intl vs Intlayer](https://intlayer.org/tr/blog/next-intl-vs-intlayer), aynı benchmark
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/tr/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [Is next-intl outdated?](https://intlayer.org/tr/blog/is-next-intl-outdated)
+
+Referans belgeler:
+
+- [Compat adapter: next-intl](https://intlayer.org/tr/doc/compatibility/next-intl)
+- [Geçiş kılavuzu: next-intl'den Intlayer'a](https://intlayer.org/tr/doc/migration/next-intl)
+- [Next.js benchmark raporu](https://intlayer.org/tr/doc/benchmark/nextjs) ve [TanStack Start benchmark raporu](https://intlayer.org/tr/doc/benchmark/tanstack)
+- [Paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization) ve [Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler)
+- [Görsel Düzenleyici](https://intlayer.org/tr/doc/concept/editor), [CMS](https://intlayer.org/tr/doc/concept/cms) ve [Yapay Zeka Çevirisi](https://intlayer.org/tr/doc/concept/auto-fill)
 
 ## Sonuç
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "next-intl ve Intlayer Karşılaştırması: 2026 Kıyaslama Testi"
 description: "Next.js App Router ve TanStack Start üzerinde next-intl ve Intlayer karşılaştırması. Paket boyutu, içerik sızıntısı, bileşen boyutu, hidrasyon ve geliştirici deneyimi."
 keywords:
@@ -22,15 +22,15 @@ author: aymericzip
 
 # next-intl ve Intlayer Karşılaştırması | React & Next.js Uluslararasılaşma (i18n) Testi
 
-`next-intl`, günümüzde Next.js App Router için varsayılan tercihtir: yönlendirme ile sıkı entegrasyon, eksiksiz ICU MessageFormat desteği ve klasik i18n sistemlerini kullanmış olan herkes için tanıdık bir geliştirici deneyimi sunar.
+![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
-`Intlayer` ise soruna temelden farklı yaklaşır: merkezi sözlükler yoktur, ad alanlarını (namespaces) rotalarla manuel olarak eşleştirme zahmeti bulunmaz. İçerik her bileşenin hemen yanında bildirilir ve derleme zamanı derleyicisi her sayfanın tam olarak neye ihtiyacı varsa yalnızca onu paketler.
+`next-intl`, Next.js için en popüler i18n kütüphanesidir. Intlayer ise derleyici tabanlı, bileşen kapsamlı bir alternatiftir. Her ikisi de bir App Router uygulamasını yerelleştirir. Soru, uygulama derlendikten sonra her birinin maliyetinin ne olduğudur.
 
-Bu makale, her iki kütüphaneyi aynı uygulamayı derleyen ve tarayıcının gerçekte ne indirdiğini ve çalıştırdığını kaydeden açık kaynaklı bir test paketi olan [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) verilerine dayanarak karşılaştırmaktadır.
+Bu makale bir kılavuz değildir. Her kütüphaneyle aynı uygulamayı derleyen ve tarayıcının gerçekte ne indirip çalıştırdığını ölçen açık kaynaklı bir karşılaştırma paketi olan [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) verileriyle desteklenen bir karşılaştırmadır.
 
 <TOC/>
 
-> **Özetle (tl;dr)**: `next-intl`, yalnızca çalışma zamanı için sayfa başına en az **+12.6 KB gzip** ekler ve standart kurulumlarında (`static` ve `dynamic`) **diğer sayfaların dizgilerinin yaklaşık %90'ını sızdırır**. Bu sızıntıyı gidermek, katalogları ad alanlarına bölmeyi ve sayfa başına manuel olarak seçmeyi gerektirir. Buna karşılık, `Intlayer` derleyicisi herhangi bir manuel yapılandırma olmadan **%0 sızıntı**, **3 kat daha küçük bileşenler** ve temel uygulamanın üzerine yalnızca **+0.3 KB** ek yük sağlar.
+> **tl;dr**: Aynı Next.js uygulamasında, `next-intl` her sayfaya **+12.6 KB gzip** JavaScript eklerken, Intlayer için bu **+0.3 KB**'dir. Ekstra bir çalışma olmadan, `next-intl` her sayfayla birlikte **diğer sayfaların dizgilerinin yaklaşık %90'ını** gönderir. `next-intl` ile %0 sızıntıya ulaşmak ad alanı kapsamlandırması ve sayfa başına `pick(messages, [...])` gerektirir. Intlayer, derleyicisi içeriği bileşen başına kapsamlandırdığı için varsayılan olarak %0'a ulaşır. Intlayer çıktısıyla `next-intl` API'sini korumak istiyorsanız, `@intlayer/next-intl` bağdaştırıcısı orijinalin **153.6 KB** değerine karşılık sayfa başına **147.5 KB** olarak ölçülmüştür.
 
 ## Kısaca
 
@@ -89,6 +89,10 @@ Her derleme için şunlar kaydedilir:
 
 ### Next.js (App Router) Sonuçları
 
+İlgilendiğiniz metrikleri ve kütüphaneleri seçin:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Kütüphane                      | Strateji       | Kütüphane Boyutu (gz) | Ort. Sayfa JS (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Ort. Bileşen (gz) | E2E Tepkisellik | Hidrasyon |
 | ------------------------------ | -------------- | --------------------: | -----------------: | ------------: | --------------: | ----------------: | --------------: | --------: |
 | **Temel uygulama** (i18n yok)  | -              |                0.0 KB |           141.0 KB |          0.0% |            0.0% |            0.9 KB |         13.4 ms |   11.8 ms |
@@ -107,7 +111,20 @@ Her derleme için şunlar kaydedilir:
 - **İçerik sızıntısı.** En yaygın kurulumlarda (`static` ve `dynamic`), `next-intl` tüm `en.json` istemci sağlayıcısına girdiği için her sayfada **diğer sayfaların içeriğinin yaklaşık %90'ını** gönderir. Bunu %0'a indirmek zahmetli manuel ad alanı ayrımı gerektirir; Intlayer ise bunu varsayılan olarak sunar.
 - **Bileşen boyutu.** `useTranslations()` çağıran bir bileşen ortalama 21.8 KB derlenirken, `useIntlayer()` kullanan aynı bileşen sadece 6.9 KB tutar.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tüm kütüphaneler ve stratejiler için tam tablo, [Next.js kıyaslama raporunda](https://intlayer.org/tr/doc/benchmark/nextjs).
+
 ### TanStack Start (`use-intl`) Sonuçları
+
+`use-intl`, `next-intl`'in framework bağımsız çekirdeğidir. Aynı API, aynı mesaj formatı. TanStack Start üzerinde `intlayer` ile karşılaştırmak, denklemin Next.js'e özgü kısımlarını ortadan kaldırır.
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Kütüphane                     | Strateji       | Kütüphane Boyutu (gz) | Ort. Sayfa JS (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Ort. Bileşen (gz) | E2E Tepkisellik |
 | ----------------------------- | -------------- | --------------------: | -----------------: | ------------: | --------------: | ----------------: | --------------: |
@@ -127,7 +144,18 @@ Her derleme için şunlar kaydedilir:
 - Mimari fark en çok **bileşen boyutunda** göze çarpar: `use-intl` ile 76-87 KB, Intlayer ile 6-8 KB.
 - **Dil değiştirme hızı** Intlayer ile 2-4 kat daha seridir (3 ms vs 7-21 ms).
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tam tablo [TanStack Start kıyaslama raporunda](https://intlayer.org/tr/doc/benchmark/tanstack).
+
 ## Neden bu fark var? Merkezi kataloglar vs derlenmiş sözlükler
+
+![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
 
 `next-intl` geleneksel modeli izler: dil başına bir JSON, `getRequestConfig` içinde yüklenir, `NextIntlClientProvider`'a aktarılır ve `t("namespace.key")` ile okunur.
 
@@ -149,6 +177,10 @@ Her derleme için şunlar kaydedilir:
 ```
 
 Çalışma zamanı bir sayfanın hangi anahtarları kullanacağını bilemez, bu yüzden tüm kataloğu göndermek en güvenli yoldur.
+
+Bunu başaramamanın maliyeti aynı anda iki eksende büyür: sayfalar ve yerel ayarlar:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer bu sorumluluğu tersine çevirir. İçerik doğrudan ilgili bileşenin yanında tanımlanır:
 
@@ -177,7 +209,8 @@ Derleme sırasında derleyici, hangi bileşenin hangi sözlüğü içe aktardı�
 
 ### İstemci bileşeni (Client component)
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```json fileName="messages/en.json"
 {
@@ -188,7 +221,7 @@ Derleme sırasında derleyici, hangi bileşenin hangi sözlüğü içe aktardı�
 }
 ```
 
-```tsx fileName="src/components/Counter.tsx"
+```tsx fileName="src/components/ClientCounter.tsx"
 "use client";
 
 import { useState } from "react";
@@ -210,7 +243,10 @@ export const Counter = () => {
 };
 ```
 
-**Intlayer**
+> Bu bileşeni oluşturan her sayfada `NextIntlClientProvider`'a iletilen mesajlara `counter` ad alanını eklemeyi unutmayın.
+
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -249,11 +285,16 @@ export const Counter = () => {
 };
 ```
 
+Sayfada kayıt edilecek hiçbir şey yok: bileşen kendi içeriğini kendisi getirir.
+
+</Tab>
+</Tabs>
 ### Eşzamanlı sunucu bileşenleri
 
 Tasarım sistemi bileşenleri (navbar, footer, kartlar) genellikle istemci bileşenlerinin alt öğeleri olarak işlenen sunucu bileşenleridir, dolayısıyla `async` olamazlar.
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 type ServerCounterProps = {
@@ -269,7 +310,10 @@ export const ServerCounter = ({ t, formattedCount }: ServerCounterProps) => (
 );
 ```
 
-**Intlayer**
+Sayfanın `await getTranslations("counter")` ve `await getFormatter()` çalıştırması, ardından sonuçları props olarak aşağı aktarması gerekir. Bileşen artık bağımsız değildir.
+
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 import { useIntlayer } from "next-intlayer/server";
@@ -288,9 +332,12 @@ export const ServerCounter = ({ count }: { count: number }) => {
 };
 ```
 
+</Tab>
+</Tabs>
 ### Meta veriler (Metadata)
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/page.tsx"
 import type { Metadata } from "next";
@@ -323,7 +370,8 @@ export const generateMetadata = async ({
 };
 ```
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/app/[locale]/about/page.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -347,6 +395,9 @@ export const generateMetadata = async ({
 };
 ```
 
+</Tab>
+</Tabs>
+
 ## next-intl API'sini koruyun, Intlayer verimini elde edin
 
 Yukarıdaki performans verilerine ulaşmak için bileşenlerinizi sıfırdan yazmanız gerekmez. `@intlayer/next-intl` doğrudan tak-çalıştır bir adaptördür: `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()` ve ICU çoğul yapılarını korur, bunları Intlayer derleyicisi tarafından derlenen Intlayer sözlüklerinden sunar.
@@ -368,17 +419,84 @@ Ayrıntılı adımlar için [next-intl geçiş kılavuzuna](https://intlayer.org
 
 ## Hangisi ne zaman tercih edilmeli?
 
-- **next-intl tercih edin**: Next.js ekosisteminin yaygın standartlarını istiyorsanız, ICU MessageFormat'a yoğun şekilde güveniyorsanız, uygulamanız küçük veya orta ölçekliyse veya merkezi JSON bekleyen çeviri platformlarıyla (Crowdin, Phrase, Lokalise...) entegreyseniz.
-- **Intlayer tercih edin**: **Bileşen kapsamlı içerik**, **katı TypeScript desteği**, **derleme zamanı eksik anahtar tespiti**, **sıfır yapılandırmalı tree-shaking ve tembel yükleme**, eşzamanlı sunucu bileşenleri ve yerleşik düzenleme araçları (Görsel Düzenleyici, CMS, yapay zeka çevirisi, MCP sunucusu) istiyorsanız.
-- **`@intlayer/next-intl` tercih edin**: Halihazırda `next-intl` kullanıyorsanız ve kodu yeniden yazmadan paket boyutu kazanımı elde etmek istiyorsanız.
+<AccordionGroup>
+<Accordion header="next-intl'i seçin">
+
+Next.js için ekosistem standardını istiyorsanız, ICU MessageFormat'a güveniyorsanız, uygulamanız küçük veya orta ölçekliyse veya merkezi JSON bekleyen bir çeviri platformuyla (Crowdin, Phrase, Lokalise...) entegre oluyorsanız. Performans önemliyse katalogları ad alanlarına bölmek ve sayfa başına `pick()` ile mesaj seçmek için zaman ayırın.
+
+</Accordion>
+<Accordion header="Intlayer'ı seçin">
+
+**Bileşen kapsamlı içerik**, **katı TypeScript**, **derleme zamanı eksik anahtar hataları**, **zahmetsiz tree-shaking ve lazy loading**, eşzamanlı sunucu bileşenleri ve yerleşik düzenleme araçları ([Görsel Düzenleyici](https://intlayer.org/tr/doc/concept/editor), [CMS](https://intlayer.org/tr/doc/concept/cms), [yapay zeka çevirisi](https://intlayer.org/tr/doc/concept/auto-fill), [MCP sunucusu](https://intlayer.org/tr/doc/mcp-server)) istiyorsanız. Özellikle büyük, modüler kod tabanları ve tasarım sistemleri için uygundur.
+
+</Accordion>
+<Accordion header="@intlayer/next-intl'i seçin">
+
+Zaten `next-intl` kullanıyorsanız ve kodu yeniden yazmadan paket boyutu kazanımı istiyorsanız. [Uyumluluk bağdaştırıcısı](https://intlayer.org/tr/doc/compatibility/next-intl) içe aktarmalarınızı ve `messages/{locale}.json` dosyanızı tek gerçek kaynak olarak korur. [next-intl vs @intlayer/next-intl](https://intlayer.org/tr/blog/next-intl-vs-intlayer-next-intl) içinde yan yana ölçülmüştür.
+
+</Accordion>
+</AccordionGroup>
+
+## SSS
+
+<FAQ>
+
+<Question title="next-intl, Intlayer'dan daha mı yavaş?">
+
+Render sırasında değil. Fark tarayıcıya ne gönderildiğindedir: `next-intl` her sayfada **+12.6 KB gzip** çalışma zamanı maliyeti getirir ve standart kurulumlarda her sayfayla birlikte yabancı sayfa dizelerinin yaklaşık %90'ını gönderir. Dil değiştirme ve hidrasyon Next.js'de benzerdir (15-18 ms); TanStack Start'ta `use-intl`, Intlayer'ın 3-4 ms'sine karşılık 7-21 ms sürer.
+
+</Question>
+
+<Question title="next-intl ile %0 sızıntıya ulaşabilir miyim?">
+
+Evet, `scoped-dynamic` kurulumuyla: `messages/{locale}.json` dosyasını rota başına bir ad alanına bölün, ardından her sayfada `pick(messages, [...])` kullanın ve bileşenler taşındıkça bu eşlemeyi doğru tutun. Kıyaslamadaki `scoped-*` satırları tam olarak bu çalışmayı temsil eder. Intlayer derleyici içeriği bileşen bazında kapsadığı için buna gerek kalmadan %0'a ulaşır. Bkz. [paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization).
+
+</Question>
+
+<Question title="Geçiş yapmak için bileşenlerimi yeniden yazmam gerekir mi?">
+
+Hayır. `@intlayer/next-intl`, `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, ICU çoğulları ve gezinme yardımcılarını korur ve bunları derlenmiş sözlüklerden sunar. `next.config.ts` içinde tek satırlık eklenti. [next-intl geçiş kılavuzunda](https://intlayer.org/tr/doc/migration/next-intl) adım adım anlatılmıştır.
+
+</Question>
+
+<Question title="Intlayer, ICU MessageFormat'ı destekliyor mu?">
+
+Yerel API'de ICU desteği üzerinde çalışılmaktadır. Uyumluluk bağdaştırıcıları (`@intlayer/next-intl`, `@intlayer/use-intl`) ICU'yu çalıştırır: çoğullar, `select`, `selectordinal`, `#` ve `{ts, date, long}` Intlayer'ın ICU çözücüsünden geçer. Ayrıntılar için [ICU mesaj formatı](https://intlayer.org/tr/blog/icu-message-format) sayfasına bakın.
+
+</Question>
+
+<Question title="messages/{locale}.json dosyalarımı saklayabilir miyim?">
+
+Evet. [JSON senkronizasyon eklentisi](https://intlayer.org/tr/doc/compatibility/next-intl) bunları okur, en üst düzey anahtarlarını sözlüklere böler ve CLI veya CMS bunları güncellediğinde çevirileri aynı dosyalara yazar. Çevirmenlerinizin iş akışı değişmez.
+
+</Question>
+
+</FAQ>
 
 ## İlgili karşılaştırmalar
 
-- [i18next ve Intlayer Karşılaştırması](https://intlayer.org/tr/blog/i18next-vs-intlayer) (aynı test)
-- [Lingui ve Intlayer Karşılaştırması](https://intlayer.org/tr/blog/lingui-vs-intlayer) (aynı test)
-- [vue-i18n ve Intlayer Kıyaslaması](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-benchmark) (aynı test)
-- [next-i18next, next-intl ve Intlayer Karşılaştırması](https://intlayer.org/tr/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [next-intl artık eski mi?](https://intlayer.org/tr/blog/is-next-intl-outdated)
+Aynı kıyaslama, diğer kütüphaneler:
+
+- [i18next vs Intlayer](https://intlayer.org/tr/blog/i18next-vs-intlayer)
+- [Lingui vs Intlayer](https://intlayer.org/tr/blog/lingui-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-benchmark)
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/tr/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/tr/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+next-intl hakkında daha fazlası:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/tr/blog/next-intl-vs-intlayer-next-intl), bağdaştırıcı aynı uygulama üzerinde ölçüldü
+- [Is next-intl outdated?](https://intlayer.org/tr/blog/is-next-intl-outdated)
+- [Using Intlayer with next-intl](https://intlayer.org/tr/blog/intlayer-with-next-intl)
+- [How to internationalize a Next.js app with next-intl](https://intlayer.org/tr/blog/nextjs-internationalization-using-next-intl)
+
+Referans belgeleri:
+
+- [Next.js kıyaslama raporu](https://intlayer.org/tr/doc/benchmark/nextjs) ve [TanStack Start kıyaslama raporu](https://intlayer.org/tr/doc/benchmark/tanstack)
+- [Uyumluluk bağdaştırıcısı: next-intl](https://intlayer.org/tr/doc/compatibility/next-intl) ve [geçiş kılavuzu](https://intlayer.org/tr/doc/migration/next-intl)
+- [Paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization) ve [Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler)
+- [Bileşen bazlı ve merkezi i18n](https://intlayer.org/tr/blog/per-component-vs-centralized-i18n)
+- [Derleyici güdümlü ve bildirimsel i18n](https://intlayer.org/tr/blog/compiler-vs-declarative-i18n)
 
 ## GitHub Yıldızları
 

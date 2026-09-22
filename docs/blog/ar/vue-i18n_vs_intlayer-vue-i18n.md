@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "vue-i18n مقابل @intlayer/vue-i18n: نفس الواجهة البرمجية، حزمة مختلفة"
 description: ما الذي يتغير عندما تحتفظ تطبيقات Vue 3 باستدعاءات vue-i18n الخاصة بها لكنها تخدمها من خلال محول التوافق @intlayer/vue-i18n. JavaScript لكل صفحة، حجم وقت التشغيل، حجم المكون والتسرب المقاس على نفس كود Vite + Vue، بالإضافة إلى ما يحتفظ به المحول وما يتجاهله وما لا يمكنه استبداله.
 keywords:
@@ -24,6 +24,8 @@ author: aymericzip
 ---
 
 # vue-i18n مقابل @intlayer/vue-i18n | نفس الواجهة البرمجية، حزمة مختلفة
+
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 `@intlayer/vue-i18n` هو محول توافقي: يعرّض واجهة برمجية (API) من `vue-i18n` (`createI18n`، `useI18n`، `t()`، `d()`، `n()`، `$t`، `v-t`، `i18n.global.locale`...) ويقدمها من القواميس المترجمة بواسطة Intlayer. ملفات `.vue` الخاصة بك لا تتغير. ما يرتبط به `t("footer.github")` هو ما يتغير.
 
@@ -105,6 +107,10 @@ const { t } = useI18n(_dicHash_footer);
 
 ### النتائج على Vite + Vue 3
 
+اختر المقاييس والمكتبات التي تهمك:
+
+<I18nBenchmark framework="vite-vue" vertical/>
+
 | الإعداد                  | الإستراتيجية | حجم المكتبة (gz) | حجم المكتبة (min) | متوسط صفحة JS (gz) | تسرب Locale | تسرب الصفحة | متوسط المكون (gz) | استجابة E2E | تحميل الصفحة |
 | ------------------------ | ------------ | ---------------: | ----------------: | -----------------: | ----------: | ----------: | ----------------: | ----------: | -----------: |
 | **base** (no i18n)       | -            |           0.0 KB |            0.0 KB |            41.3 KB |        0.0% |           - |            1.1 KB |      1.8 ms |      10.8 ms |
@@ -124,11 +130,24 @@ const { t } = useI18n(_dicHash_footer);
 - **التفاعلية وتحميل الصفحة.** تبديل Locale رخيص لكليهما (1.5-2.8 ms)؛ نظام التفاعلية في Vue يجعل الأمر كذلك بمجرد أن تكون الرسائل في الذاكرة. يذهب تحميل الصفحة من 13.6 ms إلى **9.3 ms**، متماشياً مع 88 KB أقل من JavaScript للتحليل.
 - **حول الصفوف الأصلية.** `vue-intlayer` في هذا التشغيل جمعت كل اللغة في وضع `static` وحققت 57.1 كيلوبايت مع وقت تشغيل 3.9 كيلوبايت؛ قاموس المحول المتزامن حمل سلاسل لغات أجنبية أقل، وبالتالي الرقم الأقل لكل صفحة. وقت التشغيل الأصلي يبقى الأخف من بين الثلاثة، وموديل `.content.ts` الخاص به هو حيث تجد كتل SFC `<i18n>` معادلتها.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> الجدول الكامل، كل مكتبة وكل استراتيجية، في [تقرير قياس أداء Vue](https://intlayer.org/ar/doc/benchmark/vue).
+
 ## لماذا تتحرك الأرقام
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 لم يتغير شيء في `src/components/`، لذا الفوائد تأتي من ما ترتبط به `useI18n`.
 
-**مع `vue-i18n`**, الربط هو المثيل العام. `createI18n({ messages: { en, fr, ... } })` هو استيراد واحد يحتوي على كل شيء؛ كل مكون يستدعي `useI18n()` يمكنه الوصول إلى كل شيء، لذلك لا يمكن للـ bundler أن ينقسم دون المثيل. التحسين يعني _أنت_ تقسم `en.json` حسب المسار، تستدعي `setLocaleMessage()` في حارس التوجيه، وتحافظ على خريطة المسار إلى الملف صحيحة عند تحرك المكونات.
+**مع `vue-i18n`**, الربط هو المثيل العام. `createI18n({ messages: { en, fr, ... } })` هو استيراد واحد يحتوي على كل شيء؛ كل مكون يستدعي `useI18n()` يمكنه الوصول إلى كل شيء، لذلك لا يمكن للـ bundler أن ينقسم دون المثيل. التحسين يعني _أنت_ تقسم `en.json` حسب المسار، تستدعي `setLocaleMessage()` في حارس التوجيه، وتحافظ على خريطة المسار إلى الملف صحيحة عند تحرك المكونات. يتزايد الهدر على محورين في آن واحد، الصفحات واللغات:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ```bash
 .
@@ -258,26 +277,107 @@ export const i18n = createI18n({ locale: "en" });
 
 ## الحدود التي يجب معرفتها قبل البدء
 
-- **كتل SFC `<i18n>` لا تُقرأ.** إذا كانت رسائلك موجودة داخل المكونات، فيجب نقلها إلى ملفات الإعدادات الإقليمية (أو إلى `.content.ts`، وهي نفس الفكرة مع الأنواع).
-- **تحميل الرسائل في وقت التشغيل قد اختفى.** `setLocaleMessage()` و `mergeLocaleMessage()` تحذر وتعود. الترجمات المجلوبة من نظام إدارة المحتوى في وقت التشغيل تحتاج إلى نظام إدارة محتوى Intlayer، أو أوامر `intlayer pull` / `push`.
-- **`messages` هو بديل، وليس مجاني.** الاحتفاظ باستيرادات JSON في `createI18n()` يحتفظ بـ 75 KB في الحزمة. احذفها بمجرد نجاح `intlayer test`.
-- **المحول ليس runtime الأصلي.** 7.9 KB مقابل 3.9 KB لـ `vue-intlayer`. بمجرد انتقال كل component إلى `useIntlayer`، يمكنك حذفه.
+<AccordionGroup>
+<Accordion header="لا تتم قراءة كتل SFC <i18n>">
+
+إذا كانت رسائلك موجودة داخل المكونات، فيجب نقلها إلى ملفات اللغات، أو إلى ملف `.content.ts`، وهو نفس المفهوم مع أنواع محددة مسبقًا.
+
+</Accordion>
+<Accordion header="تمت إزالة تحميل الرسائل في وقت التشغيل">
+
+`setLocaleMessage()` و `mergeLocaleMessage()` يقومان بإصدار تحذير والعودة. تتطلب الترجمات التي يتم جلبها من نظام إدارة المحتوى (CMS) في وقت التشغيل استخدام [Intlayer CMS](https://intlayer.org/ar/doc/concept/cms)، أو أوامر `intlayer pull` / `push`.
+
+</Accordion>
+<Accordion header="messages هو خيار احتياطي، وليس مجانيًا">
+
+الحفاظ على استيراد JSON في `createI18n()` يبقي الـ 75 كيلوبايت في الحزمة. احذفها بمجرد اجتياز `intlayer test` بنجاح.
+
+</Accordion>
+<Accordion header="المحول ليس وقت التشغيل الأصلي">
+
+7.9 كيلوبايت مقابل 3.9 كيلوبايت لـ `vue-intlayer`. بمجرد انتقال كل مكون إلى `useIntlayer`، قم بإزالته.
+
+</Accordion>
+</AccordionGroup>
 
 ## متى تستخدم أي منها؟
 
-- **ابق على `vue-i18n`** إذا كان تطبيقك يعتمد على كتل SFC `<i18n>`، على تدفقات runtime `setLocaleMessage()`، أو إذا لم يكن 90 KB لكل صفحة مصدر قلق لجمهورك.
-- **استخدم `@intlayer/vue-i18n`** إذا كنت على `vue-i18n` وتريد توفير 88 KB، و23x أصغر components، 0% page leakage، typed keys وفحوصات CI دون تعديل ملف `.vue`. هذه هي نقطة الدخول لـ codebase `vue-i18n` موجود.
-- **اذهب للنسخة الأصلية (`vue-intlayer`)** للمشاريع الجديدة، أو بمجرد انتهاء المحول من عمله. لديها أخف runtime (3.9 KB) والنموذج `.content.ts` لكل component الذي يحل محل كتل `<i18n>` بمحتوى مكتوب (typed).
+<AccordionGroup>
+<Accordion header="البقاء على vue-i18n">
+
+يعتمد تطبيقك على كتل SFC `<i18n>`، أو تدفقات `setLocaleMessage()` في وقت التشغيل، أو أن حجم 90 كيلوبايت لكل صفحة لا يمثل مصدر قلق لجمهورك.
+
+</Accordion>
+<Accordion header="استخدام @intlayer/vue-i18n">
+
+أنت تستخدم `vue-i18n` وتريد توفير 88 كيلوبايت، ومكونات أصغر بـ 23 مرة، وتسرب صفحات بنسبة 0%، ومفاتيح مطبوعة وفحوصات CI دون تعديل أي ملف `.vue`. هذه هي نقطة الدخول لقاعدة كود `vue-i18n` الحالية.
+
+</Accordion>
+<Accordion header="الانتقال إلى الوضع الأصلي (vue-intlayer)">
+
+للمشاريع الجديدة، أو بمجرد أن يؤدي المحول وظيفته. يتميز بأخف وقت تشغيل (3.9 كيلوبايت) ونموذج `.content.ts` لكل مكون يحل محل كتل `<i18n>` بمحتوى ذي أنواع محددة. ابدأ مع [Intlayer مع Vue](https://intlayer.org/ar/doc/environment/vite-and-vue) أو [مع Nuxt](https://intlayer.org/ar/doc/environment/nuxt-and-vue).
+
+</Accordion>
+</AccordionGroup>
+
+## الأسئلة الشائعة
+
+<FAQ>
+
+<Question title="هل يتعين علي تعديل ملفات .vue الخاصة بي؟">
+
+لا. أدى بناء الاختبار القياسي إلى تعديل `vite.config.ts` و `intlayer.config.ts` وسطر واحد فقط في `src/i18n.ts` وهو استيراد `messages`. ظل كل موضع استدعاء لـ `useI18n()` و `$t` و `v-t` و Options API كما كان تمامًا.
+
+</Question>
+
+<Question title="لماذا حجم المكون أصغر بـ 23 مرة؟">
+
+لأن `useI18n()` يتوقف عن الوصول إلى النسخة العامة. يحتفظ `createI18n({ messages })` بجميع الرسائل لكل لغة، لذلك يسحب المكون المترجم بمفرده 196 كيلوبايت. مع المحول فإنه يصل فقط إلى قاموسه الخاص: 8.4 كيلوبايت.
+
+</Question>
+
+<Question title="ماذا عن تنسيق d() و n()؟">
+
+تم الحفاظ عليه. يتم احترام إعدادات `datetimeFormats` و `numberFormats` التي تم تمريرها إلى `createI18n()`، وهي مدعومة بواسطة واجهة `Intl` الأصلية. راجع [تنسيق التاريخ والوقت والأرقام](https://intlayer.org/ar/blog/date-time-number-formatting-locales).
+
+</Question>
+
+<Question title="هل يعمل مع Nuxt؟">
+
+`@intlayer/vue-i18n` يستهدف Vite + Vue. بالنسبة لـ `@nuxtjs/i18n`، استخدم [محول التوافق Nuxt i18n](https://intlayer.org/ar/doc/compatibility/nuxtjs-i18n)، وراجع [Intlayer مع Nuxt](https://intlayer.org/ar/doc/environment/nuxt-and-vue) للإعداد الأصلي.
+
+</Question>
+
+<Question title="هل يمكنني الترحيل مكونًا تلو الآخر؟">
+
+نعم. يمكن لأي مكون التبديل من `useI18n()` إلى `useIntlayer("footer")` باستخدام ملف محتوى مجاور له. يتعايش قاموسا JSON و `.content.ts` ويتم دمجهما بسلاسة.
+
+</Question>
+
+</FAQ>
 
 ## المقارنات ذات الصلة
 
-- [vue-i18n مقابل Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer) (الميزات وتجربة المطور)
-- [معيار vue-i18n مقابل Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer-benchmark) (المكتبات، نفس المعيار)
-- [next-intl مقابل @intlayer/next-intl](https://intlayer.org/blog/next-intl-vs-intlayer-next-intl) (نفس سلسلة المحولات)
-- [i18next مقابل @intlayer/i18next](https://intlayer.org/blog/i18next-vs-intlayer-i18next) (نفس سلسلة المحولات)
-- [Lingui مقابل @intlayer/lingui](https://intlayer.org/blog/lingui-vs-intlayer-lingui) (نفس سلسلة المحولات)
-- [دليل الترحيل: من vue-i18n إلى Intlayer](https://intlayer.org/doc/migration/vue-i18n)
-- [مرجع محول التوافق: vue-i18n](https://intlayer.org/doc/compatibility/vue-i18n), [Nuxt i18n](https://intlayer.org/doc/compatibility/nuxtjs-i18n)
+نفس سلسلة المحولات:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/ar/blog/next-intl-vs-intlayer-next-intl)
+- [i18next vs @intlayer/i18next](https://intlayer.org/ar/blog/i18next-vs-intlayer-i18next)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/ar/blog/lingui-vs-intlayer-lingui)
+
+مقارنة المكتبات جنبًا إلى جنب:
+
+- [vue-i18n vs Intlayer](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer), features and DX
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer-benchmark)
+- [Is vue-i18n outdated?](https://intlayer.org/ar/blog/is-vue-i18n-outdated)
+- [How to pick a Vue i18n library](https://intlayer.org/ar/blog/how-to-pick-vue-i18n-library)
+
+وثائق مرجعية:
+
+- [Compat adapter: vue-i18n](https://intlayer.org/ar/doc/compatibility/vue-i18n) and [Nuxt i18n](https://intlayer.org/ar/doc/compatibility/nuxtjs-i18n)
+- [دليل الترحيل: من vue-i18n إلى Intlayer](https://intlayer.org/ar/doc/migration/vue-i18n)
+- [تقرير قياس أداء Vue](https://intlayer.org/ar/doc/benchmark/vue)
+- [تحسين الحزمة](https://intlayer.org/ar/doc/concept/bundle-optimization) و [مترجم Intlayer](https://intlayer.org/ar/doc/compiler)
+- [المحرر المرئي](https://intlayer.org/ar/doc/concept/editor)، [نظام إدارة المحتوى (CMS)](https://intlayer.org/ar/doc/concept/cms) و [الترجمة بالذكاء الاصطناعي](https://intlayer.org/ar/doc/concept/auto-fill)
 
 ## الخلاصة
 
@@ -285,4 +385,4 @@ export const i18n = createI18n({ locale: "en" });
 
 جميع البيانات الأولية وتطبيقات الاختبار والسكريبتات موجودة في [مستودع Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). قم بتشغيلها بنفسك.
 
-راجع وثيقة ['Why Intlayer?'](https://intlayer.org/doc/why) للحصول على مزيد من التفاصيل.
+راجع وثيقة ['Why Intlayer?'](https://intlayer.org/ar/doc/why) للحصول على مزيد من التفاصيل.

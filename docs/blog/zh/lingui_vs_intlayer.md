@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "Lingui vs Intlayer：2026 年基准测试与深度对比"
 description: "在 Next.js 和 TanStack Start 上实测的两款基于编译器的 i18n 库。打包体积、内容泄漏、组件大小、水合性能、语言切换响应速度及开发者体验全面对比。"
 keywords:
@@ -23,6 +23,8 @@ author: aymericzip
 ---
 
 # Lingui VS Intlayer | React & Next.js 国际化 (i18n) 基准测试对比
+
+![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 Lingui 和 Intlayer 是本次基准测试中仅有的两个依赖**编译器**而非纯运行时的国际化库。Lingui 在构建时从宏中提取消息，并为每个语言环境编译目录。Intlayer 按组件编译字典，并按语言环境进行 Tree-shaking。理论上它们的表现应当十分接近，但实际测试数据揭示了它们在哪方面走向了分歧。
 
@@ -96,6 +98,10 @@ Intlayer 无需单独的 "scoped" 变体：编译器自动**按组件维度**界
 
 ### Next.js 测试结果
 
+选择您关注的指标和库：
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | 库                  | 策略           | 库体积 (gz) | 页面 JS 平均 (gz) | 语言泄漏 | 页面泄漏 | 组件平均体积 (gz) | E2E 响应耗时 | 水合耗时 |
 | ------------------- | -------------- | ----------: | ----------------: | -------: | -------: | ----------------: | -----------: | -------: |
 | **base** (无 i18n)  | -              |      0.0 KB |          141.0 KB |     0.0% |     0.0% |            0.9 KB |      13.4 ms |  11.8 ms |
@@ -114,7 +120,18 @@ Intlayer 无需单独的 "scoped" 变体：编译器自动**按组件维度**界
 - **源语言回退导致的固有泄漏。** 即便在最佳配置下，**仍有 3-15% 的英文原文字符串被打包到法语页面中**。这是因为 Lingui 宏保留了原文字符串作为运行时安全回退。Intlayer 在构建期便彻底解决了回退关系，客户端仅传输目标语言。
 - **`scoped-dynamic` 下组件体积急剧放大。** 隔离编译下的单个组件平均体积暴增至 **152.6 KB**，因为通过导入引用，该组件将所有路由目录全都牵连了进来。而在 Intlayer 中，同样的组件使用 `useIntlayer()` 平均仅有 **6.9 KB**。
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 完整表格、所有库和策略请参阅 [Next.js 基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs)。
+
 ### TanStack Start 测试结果
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | 库                          | 策略           | 库体积 (gz) | 页面 JS 平均 (gz) | 语言泄漏 | 页面泄漏 | 组件平均体积 (gz) | E2E 响应耗时 |    水合耗时 |
 | --------------------------- | -------------- | ----------: | ----------------: | -------: | -------: | ----------------: | -----------: | ----------: |
@@ -135,7 +152,18 @@ Intlayer 无需单独的 "scoped" 变体：编译器自动**按组件维度**界
 - **Intlayer 的 `static` 模式已天然具备 0% 页面泄漏**，因为打包器只打包当前页面所渲染组件显式导入的字典。仅需增加一行配置（`importMode: 'dynamic'`）即可同时消除语言泄漏。
 - **`@intlayer/lingui`** 允许开发者继续沿用 Lingui 宏语法，底层由 Intlayer 字典直接服务。它牺牲了少许整页体积（由于宏运行时驻留，为 137 KB），换取了大幅缩小的单组件（12.8 KB）和显著加快的水合速度。对于既有项目而言是非常理想的平滑升级通道。
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 完整表格请参阅 [TanStack Start 基准测试报告](https://intlayer.org/zh/doc/benchmark/tanstack)。
+
 ## 根本成因剖析：两个编译器，两种不同的工作单元
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 两款库都引入了编译阶段。核心差异在于它们究竟**在编译什么**。
 
@@ -176,7 +204,9 @@ Intlayer 无需单独的 "scoped" 变体：编译器自动**按组件维度**界
             └── about.content.ts
 ```
 
-这也是为什么 `scoped-dynamic` 模式在 Intlayer 中是自动生成的底层产物，而在 Lingui 中则是一项复杂的工程配置项目。
+这也是为什么 `scoped-dynamic` 模式在 Intlayer 中是自动生成的底层产物，而在 Lingui 中则是一项复杂的工程配置项目. 差距在页面和语言两个维度上同时拉大：
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > 若要复现 `dynamic` 行的性能指标，只需在 `intlayer.config.ts` 中声明 `dictionary.importMode: 'dynamic'`。详见 [打包优化文档](https://intlayer.org/zh/doc/concept/bundle-optimization)。
 
@@ -184,7 +214,8 @@ Intlayer 无需单独的 "scoped" 变体：编译器自动**按组件维度**界
 
 ### 基础初始化
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="lingui.config.ts"
 import { defineConfig } from "@lingui/cli";
@@ -215,7 +246,8 @@ export const loadCatalog = async (locale: string) => {
 
 随后需在打包器中接入 `@lingui/babel-plugin-lingui-macro`（或 `@lingui/swc-plugin`），在源码更改后运行 `lingui extract`，在应用构建前运行 `lingui compile`，并使用 `<I18nProvider i18n={i18n}>` 嵌套根视图。
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -232,9 +264,12 @@ export default config;
 
 在 `vite.config.ts` 中加入 `intlayer()`（在 Next.js 中使用 `withIntlayer()`），再用 `<IntlayerProvider>` 包裹组件树。无需独立的提取或编译命令行操作：启动打包器时字典自动完成编译。
 
+</Tab>
+</Tabs>
 ### 组件内编写
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```tsx fileName="src/components/Counter.tsx"
 import { useState } from "react";
@@ -258,7 +293,8 @@ export const Counter = () => {
 
 英文文本直接书写在组件内；法语翻译由 `lingui extract` 提取到 `src/locales/fr/messages.po` 的哈希键下。如果开发者遗漏了提取或编译步骤，界面将静默显示英文原文。
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -297,11 +333,14 @@ export const Counter = () => {
 
 各语言配置统一存放在组件同级的单文件内。缺少 `fr` 内容会引发编译阻断，输入错误键名会立刻收到 TypeScript 的错误提示。
 
+</Tab>
+</Tabs>
 ### 组件树之外的环境
 
 如路由元数据、加载器（loaders）、服务端执行函数等非 React 树环境。
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { setupI18n } from "@lingui/core";
@@ -324,7 +363,8 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
 
 每次调用都需重新实例化 `I18n`，手动导入正确的目录，并必须采用 `msg` + `i18n._()` 而不能直接写 `t`。正如 [基准测试记录](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md) 所指出的，判断何时该使用 `t`、`` t` ` ``、`i18n.t()`、`msg` 还是 `<Trans>`，非常不够直观。
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { getIntlayer } from "intlayer";
@@ -335,6 +375,9 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
   return { title };
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## 保留 Lingui 宏，接入 Intlayer 字典
 
@@ -353,16 +396,82 @@ export default defineConfig({
 
 ## 该如何做出选型抉择？
 
-- **选择 Lingui 的场景**：如果你深度依赖 **ICU MessageFormat** 与强类型宏，翻译团队已高度绑定于基于 **`.po`** 的专业 TMS 协作管线，喜欢在 JSX 内直接编写源码字符串，且团队有成熟能力自管提取、编译和目录拆分工作流。配置好延迟加载后，其单页体积具备极佳的竞争力。
-- **选择 Intlayer 的场景**：如果你追求**组件级内聚内容**、**严格的 TypeScript 约束**、**构建期未翻译键自动报错**、**零配置全自动 Tree-shaking 与按需加载**、轻巧的单组件体积、闪电般的水合响应、瞬时语言切换，以及一整套现代内置协作套件（Visual Editor、CMS、AI 辅助翻译、MCP 服务端）。在大型模块化项目和设计系统中优势格外显著。
-- **选择 `@intlayer/lingui` 的场景**：如果你已有庞大的 Lingui 项目，并希望在不重构既有宏代码的前提下，平滑、渐进式地拥抱 Intlayer 字典架构。
+<AccordionGroup>
+<Accordion header="选择 Lingui">
+
+如果您想要带有类型化宏的 **ICU MessageFormat**，您的翻译人员在已有 TMS 流程中使用 **`.po`** 文件，您喜欢在 JSX 中就近书写源语言字符串，并且您的团队乐于掌控提取 / 编译 / 目录拆分的工作流。配置好懒加载后，其每页 JS 体积非常有竞争力。
+
+</Accordion>
+<Accordion header="选择 Intlayer">
+
+如果您想要**组件级作用域内容**、**严格的 TypeScript**、**构建期缺失键报错**、**零成本 tree-shaking 与懒加载**、微小的组件体积、快速注水、即时语言切换以及内置编辑工具（[可视化编辑器](https://intlayer.org/zh/doc/concept/editor)、[CMS](https://intlayer.org/zh/doc/concept/cms)、[AI 翻译](https://intlayer.org/zh/doc/concept/auto-fill)、[MCP 服务器](https://intlayer.org/zh/doc/mcp-server)）。特别适用于大型、模块化代码库与设计系统。
+
+</Accordion>
+<Accordion header="选择 @intlayer/lingui">
+
+如果您已在使用 Lingui，并希望在无需修改宏代码的情况下渐进式迁移到 Intlayer 字典。您的 `.po` 目录通过 [PO 同步插件](https://intlayer.org/zh/doc/compatibility/lingui) 仍然保持为唯一事实来源。在 [Lingui vs @intlayer/lingui](https://intlayer.org/zh/blog/lingui-vs-intlayer-lingui) 中并排测试。
+
+</Accordion>
+</AccordionGroup>
+
+## 常见问题
+
+<FAQ>
+
+<Question title="Lingui 也会编译，为什么输出差异如此之大？">
+
+因为编译的单元不同。Lingui **按语言编译单一目录**：其之下的细分（按路由分包、懒加载、将 fallback 排除在 bundle 之外）全部需要繁琐配置。Intlayer **按组件编译字典**，因此路由级作用域自然由构建器生成。这就是为什么单独编译一个 Lingui 组件体积高达 58-153 KB，而 Intlayer 仅为 6-8 KB。
+
+</Question>
+
+<Question title="为什么 Lingui 的语言泄漏率永远无法达到 0%？">
+
+宏会将源码中的原始消息保留为运行时兜底（fallback），因此英文文本会紧随翻译内容一同打包。基准测试在所有优化方案中均测得 `fr` 页面中含有 **3-15% 的 `en` 文本**。Intlayer 在构建期解析 fallback，并且只打包当前激活的语言。
+
+</Question>
+
+<Question title="Lingui 的每页 JS 体积真的很有竞争力吗？">
+
+是的，在 TanStack Start 上它甚至微弱胜出：`dynamic` 模式下为 115.2 KB（Intlayer 为 118.6 KB）。采用哈希 ID 的编译目录非常紧凑。但开销体现在其他方面：注水耗时 28-34 ms（Intlayer 为 11-14 ms），在 `scoped-dynamic` 配置下语言切换耗时高达 **42 ms**。
+
+</Question>
+
+<Question title="迁移需要放弃宏吗？">
+
+不需要。`@intlayer/lingui` 让 `` t`...` ``、`<Trans>`、`msg`、`plural`、`select` 和 `selectOrdinal` 保持原样编译；仅仅是 `i18n._()` 底层解析的数据来源发生了改变。在构建中保留 `@lingui/babel-plugin-lingui-macro` 或 `@lingui/swc-plugin` 即可。参见 [Lingui 兼容性文档](https://intlayer.org/zh/doc/compatibility/lingui)。
+
+</Question>
+
+<Question title="提取和编译步骤怎么处理？">
+
+宏代码继续保留这两个步骤，但对于 Intlayer 自身的内容则完全不需要。`.content.ts` 字典在打包器运行时自动生成，无需单独的 CLI 命令，并且 [`intlayer test`](https://intlayer.org/zh/doc/concept/cli) 会在缺失键时直接让 CI 报错，而不是静默回退到源文本。
+
+</Question>
+
+</FAQ>
 
 ## 相关对比评测
 
-- [next-intl vs Intlayer](https://intlayer.org/zh/blog/next-intl-vs-intlayer)（同一基准测试）
-- [i18next vs Intlayer](https://intlayer.org/zh/blog/i18next-vs-intlayer)（同一基准测试）
-- [vue-i18n vs Intlayer](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-benchmark)（同一基准测试）
-- [编译器型与声明式 i18n 理念对比](https://intlayer.org/zh/blog/compiler-vs-declarative-i18n)
+相同基准测试，其他库：
+
+- [next-intl vs Intlayer](https://intlayer.org/zh/blog/next-intl-vs-intlayer)
+- [i18next vs Intlayer](https://intlayer.org/zh/blog/i18next-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-benchmark)
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/zh/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/zh/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+深入了解：
+
+- [Lingui vs @intlayer/lingui](https://intlayer.org/zh/blog/lingui-vs-intlayer-lingui), 在同一应用上实测的适配器
+- [Compiler-driven vs declarative i18n](https://intlayer.org/zh/blog/compiler-vs-declarative-i18n)
+- [Per-component vs centralized i18n](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)
+- [ICU message format explained](https://intlayer.org/zh/blog/icu-message-format)
+
+参考文档：
+
+- [Next.js 基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs) 与 [TanStack Start 基准测试报告](https://intlayer.org/zh/doc/benchmark/tanstack)
+- [Compat adapter: Lingui](https://intlayer.org/zh/doc/compatibility/lingui)
+- [包体积优化](https://intlayer.org/zh/doc/concept/bundle-optimization) 与 [Intlayer 编译器](https://intlayer.org/zh/doc/compiler)
 
 ## GitHub 星标发展历程
 

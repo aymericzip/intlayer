@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "مقارنة i18next مقابل @intlayer/i18next: نفس واجهة البرمجة (API)، وحزمة برمجية مختلفة تماماً"
 description: "ما الذي يتغير عندما يحتفظ تطبيق React أو Next.js باستدعاءات i18next و react-i18next و next-i18next ولكنه يخدمها من خلال محولات @intlayer/i18next. قياسات حجم JavaScript لكل صفحة، وحجم المكونات، وتسريب النصوص، والترطيب على نفس الشيفرة البرمجية."
 keywords:
@@ -27,6 +27,8 @@ author: aymericzip
 ---
 
 # مقارنة i18next مقابل @intlayer/i18next | نفس واجهة البرمجة (API)، وحزمة برمجية مختلفة تماماً
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 تُعد `@intlayer/i18next` و `@intlayer/react-i18next` و `@intlayer/next-i18next` محولات توافقية. إنها توفر نفس واجهة برمجة التطبيقات (API) الخاصة بـ `i18next` التي تستخدمها بالفعل في شيفرتك البرمجية (`useTranslation`، `t()`، `<Trans>`، `i18n.changeLanguage()`، `getFixedT`، `serverSideTranslations`...) وتقدمها من خلال قواميس مبنية ومترجمة بواسطة Intlayer. المكونات لا تتغير إطلاقاً، بل إن بيئة التشغيل الأساسية تحتها هي التي تتغير.
 
@@ -109,6 +111,10 @@ const About = () => {
 
 ### النتائج على Next.js
 
+اختر المقاييس والمكتبات التي تهمك:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | الإعداد                      | الاستراتيجية   | حجم المكتبة (gz) | متوسط JS للصفحة (gz) | تسريب اللغات | تسريب الصفحات | متوسط المكون (gz) | تفاعلية E2E |     الترطيب |
 | ---------------------------- | -------------- | ---------------: | -------------------: | -----------: | ------------: | ----------------: | ----------: | ----------: |
 | **الأساس** (بدون i18n)       | -              |           0.0 KB |             141.0 KB |         0.0% |          0.0% |            0.9 KB |     13.4 ms |     11.8 ms |
@@ -129,9 +135,20 @@ const About = () => {
 - **ترطيب أسرع وتبديل لغات أكثر سلاسة.** انخفض وقت الترطيب من 15.6 مللي ثانية إلى **11.3 مللي ثانية** (ومن 27.7 مللي ثانية في نمط `dynamic` حيث يعيق جلب البيانات المسار الحرج). وتحسن وقت تبديل اللغة من 15-16 مللي ثانية إلى **11-12 مللي ثانية**.
 - **المحول ليس هو بيئة التشغيل الأصلية.** تبلغ حزمة `next-intlayer` الأصلية **141.3 كيلوبايت** (+0.3 كيلوبايت فقط فوق التطبيق الأساسي الخالي من اللغات). بينما يحمل المحول طبقة توافق واجهة `i18next` فوق نواة Intlayer ليضيف 9.4 كيلوبايت لكل صفحة مقارنة بالنسخة الأصلية. المحول هو جسر عبور مريح، وليس المحطة النهائية.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> الجدول الكامل، كل مكتبة وكل استراتيجية، في [تقرير قياس أداء Next.js](https://intlayer.org/ar/doc/benchmark/nextjs).
+
 > لم يكن محول `react-i18next` على Vite / TanStack Start جزءاً من هذا الاختبار المحدد. يمكن الاطلاع على قياسات `react-i18next` على TanStack Start في مقال [i18next vs Intlayer](https://intlayer.org/ar/blog/i18next-vs-intlayer).
 
 ## لماذا تتحسن هذه المؤشرات
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 لم تتغير أي شيفرة داخل مجلد `components/`، وبالتالي فإن كل هذه المكاسب ناتجة عن الكيان الذي ترتبط به الدالة `useTranslation`.
 
@@ -148,6 +165,10 @@ const About = () => {
     ├── AppProviders.tsx              # <I18nextProvider i18n={i18n}>
     └── About.tsx                     # useTranslation(); t("about.title")
 ```
+
+يتم إرسال كل ما تحتفظ به النسخة إلى كل صفحة، ويتزايد الهدر على محورين، الصفحات واللغات:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 **مع `@intlayer/next-i18next`**، يتم الربط مباشرة بالقاموس. يقوم ملحق `syncJSON` بتحويل كل ملف مساحة أسماء إلى قاموس مخصص؛ وتمرر مرحلة التحسين للمكون القاموس المعني مباشرة في صورة استيراد يستطيع مجمع الحزم تتبعه وتقسيمه لكل صفحة ولكل لغة بدقة.
 
@@ -297,26 +318,112 @@ export default defineConfig({
 
 ## قيود يجب معرفتها قبل البدء
 
-- **الواجهات الخلفية والكواشف غير فعالة.** تستدعي `i18n.use(HttpBackend)` دالة `init` الخاصة بالملحق فقط. وإذا كان تطبيقك يعتمد على جلب الترجمات في وقت الطلب من نظام CMS خارجي، فإن هذا المسار يتوقف؛ استخدم بدلاً من ذلك نظام Intlayer CMS أو أوامر `intlayer pull` / `push`.
-- **يتم تجاهل `resources` بدلاً من دمجها.** على عكس بعض المحولات السطحية، لا يستخدم `@intlayer/i18next` كائن `resources` المضمن كحل احتياطي. يجب أن يتواجد كل مفتاح في القواميس المتزامنة فعلياً، وهو ما يؤكده أمر `intlayer test`.
-- **يحتاج App Router إلى تعديل ملف المزود.** ملف واحد فقط، كما هو موضح أعلاه. بينما لا يتطلب Pages Router مع `appWithTranslation` أي تعديل.
-- **لا يتم قراءة `next-i18next.config.js`.** خيارات مثل `localePath` و `fallbackLng` و `reloadOnPrerender` تتوقف عن العمل؛ وتُدار اللغات والبدائل حصرياً داخل `intlayer.config.ts`.
-- **المحول ليس مجانياً تماماً من حيث الحجم.** يزن المحول 9.4 كيلوبايت وقت التشغيل ويضيف +9.4 كيلوبايت لكل صفحة مقارنة بنواة `next-intlayer` الصافية. وبمجرد تحويل جميع المكونات إلى `useIntlayer`، يمكنك حذفه تماماً.
+<AccordionGroup>
+<Accordion header="الواجهات الخلفية وأجهزة الكشف خاملة">
+
+`i18n.use(HttpBackend)` يقوم فقط باستدعاء دالة init الخاصة بالملحق ولا يفعل أي شيء آخر. إذا كان تطبيقك يعتمد على جلب الترجمات من نظام إدارة المحتوى (CMS) في وقت التشغيل، فإن هذا التدفق قد اختفى؛ استخدم [Intlayer CMS](https://intlayer.org/ar/doc/concept/cms) أو أوامر `intlayer pull` / `push` بدلاً من ذلك. يصبح اكتشاف اللغة جزءًا من إعدادات التوجيه الخاصة بـ Intlayer (بادئة URL، ملف تعريف الارتباط، الرأس).
+
+</Accordion>
+<Accordion header="يتم تجاهل resources وليس دمجها">
+
+على عكس بعض المحولات الأخرى، لا يستخدم `@intlayer/i18next` كائن `resources` المضمن كحل بديل. يجب أن يكون كل مفتاح موجودًا في القواميس المتزامنة، وهو ما يتحقق منه أمر `intlayer test`.
+
+</Accordion>
+<Accordion header="يتطلب App Router تعديل مزود الخدمة">
+
+ملف واحد فقط، موضح أعلاه. لا يتطلب Pages Router مع `appWithTranslation` أي تعديلات.
+
+</Accordion>
+<Accordion header="لا تتم قراءة next-i18next.config.js">
+
+ليس لـ `localePath` و `fallbackLng` و `reloadOnPrerender` وما شابهها أي مكافئ؛ تأتي اللغات والبدائل الاحتياطية من `intlayer.config.ts`.
+
+</Accordion>
+<Accordion header="المحول ليس مجانيًا">
+
+9.4 كيلوبايت لوقت التشغيل و +9.4 كيلوبايت لكل صفحة مقارنة بـ `next-intlayer`. بمجرد انتقال كل مكون إلى `useIntlayer`، قم بإزالته.
+
+</Accordion>
+</AccordionGroup>
 
 ## متى تستخدم كل خيار؟
 
-- **ابقَ على `i18next`**: إذا كان تطبيقك يعتمد بالضرورة على واجهات خلفية لجلب النصوص وقت الطلب عبر الشبكة، أو على منظومة إضافات مخصصة، أو على بيئة عمل خارج نطاق React لا تدعمها المحولات.
-- **استخدم `@intlayer/*`**: إذا كنت تستخدم `react-i18next` / `next-i18next` وتريد خفض 68 كيلوبايت، وتصغير المكونات 8 مرات، والقضاء على التسريب بنسبة 0%، والحصول على أمان الأنواع واختبارات الـ CI دون الحاجة لإعادة كتابة مكوناتك. هذا هو الخيار الأمثل للمشاريع القائمة.
-- **انتقل إلى البنية الأصلية (`next-intlayer` / `react-intlayer`)**: للمشاريع الجديدة، أو بمجرد استقرارك بعد مرحلة المحول. إنها الخيار الأخف على الإطلاق (5.5 كيلوبايت، و+0.3 كيلوبايت فقط لكل صفحة) وتتيح المكونات السيرفرية المتزامنة وملفات `.content.ts` لكل مكون.
+<AccordionGroup>
+<Accordion header="البقاء على i18next">
+
+يعتمد تطبيقك على واجهات خلفية في وقت التشغيل (ترجمات يقدمها CMS عند الطلب)، أو على نظام الملحقات البيئي، أو على هدف غير تابع لـ React لا تغطيه المحولات.
+
+</Accordion>
+<Accordion header="استخدام @intlayer/*">
+
+أنت تستخدم `react-i18next` / `next-i18next` وتريد توفير 68 كيلوبايت، ومكونات أصغر بـ 8 مرات، وتسرب بنسبة 0%، ومفاتيح مطبوعة وفحوصات CI دون إعادة كتابة التعليمات البرمجية. هذه هي نقطة الدخول لقاعدة كود `i18next` الحالية.
+
+</Accordion>
+<Accordion header="الانتقال إلى الوضع الأصلي (next-intlayer / react-intlayer)">
+
+للمشاريع الجديدة، أو بمجرد أن يؤدي المحول وظيفته. يتميز بأخف وقت تشغيل (5.5 كيلوبايت، +0.3 كيلوبايت لكل صفحة) ويوفر Server Components متزامنة وملفات `.content.ts` لكل مكون. ابدأ مع [Intlayer مع Next.js](https://intlayer.org/ar/doc/environment/nextjs) أو [مع Vite و React](https://intlayer.org/ar/doc/environment/vite-and-react).
+
+</Accordion>
+</AccordionGroup>
+
+## الأسئلة الشائعة
+
+<FAQ>
+
+<Question title="من أين يأتي توفير الـ 68 كيلوبايت؟">
+
+من `resources: { en, fr, ... }`. يستورد الإعداد التقليدي لـ `next-i18next` ملف JSON الخاص بكل لغة في `init()`، بحيث تحمل كل صفحة كل مساحة اسم بكل لغة: **218.5 كيلوبايت** لكل صفحة. لا يقوم المحول بتجميع تلك الكتلة أبدًا؛ بل يمنح كل مكون القاموس المحدد فقط، باللغة النشطة.
+
+</Question>
+
+<Question title="هل تستمر مكونات <Trans> في العمل؟">
+
+نعم، مع `components`، والعلامات المرقمة `<1>...</1>` و `values`. وبالمثل بالنسبة لـ `{{interpolation}}`، وتداخل `$t(key)`، وصيغ الجمع `key_one` / `key_other` (يتم تقييمها باستخدام `Intl.PluralRules`)، ولواحق السياق و `returnObjects`.
+
+</Question>
+
+<Question title="ماذا لو كنت أستخدم ملف translation.json واحدًا لكل لغة؟">
+
+اضبط `splitKeys: false` في ملحق `syncJSON`. يظل الملف بأكمله قاموسًا واحدًا ويستمر استدعاء `useTranslation()` البسيط في التحليل عليه.
+
+</Question>
+
+<Question title="هل هذا مطابق للانتقال الكامل إلى Intlayer؟">
+
+لا، إنه الجسر. يحافظ المحول على واجهة برمجة تطبيقات `i18next` وتكلفة وقت التشغيل 9.4 كيلوبايت؛ وتبلغ تكلفة `next-intlayer` الأصلي 5.5 كيلوبايت ويضيف Server Components متزامنة وملفات `.content.ts` مجاورة. يمكنك الترحيل مكونًا تلو الآخر، نظرًا لتعايش قواميس JSON و `.content.ts` معًا.
+
+</Question>
+
+<Question title="هل يمكن للمترجمين مواصلة العمل بالطريقة التي يعملون بها اليوم؟">
+
+نعم. يظل `locales/{lng}/{ns}.json` هو المصدر الوحيد للحقيقة: يقرأه `syncJSON` بلهجة i18next ويكتب الترجمات مرة أخرى عندما يقوم CLI أو CMS بتحديثها.
+
+</Question>
+
+</FAQ>
 
 ## مقارنات ذات صلة
 
-- [i18next vs Intlayer](https://intlayer.org/ar/blog/i18next-vs-intlayer) (مقارنة المكتبات على نفس مقياس الأداء)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/ar/blog/next-intl-vs-intlayer-next-intl) (نفس سلسلة المحولات)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/ar/blog/lingui-vs-intlayer-lingui) (نفس سلسلة المحولات)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer-vue-i18n) (نفس سلسلة المحولات)
-- أدلة الهجرة: [i18next](https://intlayer.org/ar/doc/migration/i18next), [react-i18next](https://intlayer.org/ar/doc/migration/react-i18next), [next-i18next](https://intlayer.org/ar/doc/migration/next-i18next)
-- مراجع المحولات التوافقية: [i18next](https://intlayer.org/ar/doc/compatibility/i18next), [react-i18next](https://intlayer.org/ar/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/ar/doc/compatibility/next-i18next)
+نفس سلسلة المحولات:
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/ar/blog/next-intl-vs-intlayer-next-intl)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/ar/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+مقارنة المكتبات جنبًا إلى جنب:
+
+- [i18next vs Intlayer](https://intlayer.org/ar/blog/i18next-vs-intlayer), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ar/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ar/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [Is i18next outdated?](https://intlayer.org/ar/blog/is-i18next-outdated)
+
+وثائق مرجعية:
+
+- Compat adapters: [i18next](https://intlayer.org/ar/doc/compatibility/i18next), [react-i18next](https://intlayer.org/ar/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/ar/doc/compatibility/next-i18next)
+- Migration guides: [i18next](https://intlayer.org/ar/doc/migration/i18next), [react-i18next](https://intlayer.org/ar/doc/migration/react-i18next), [next-i18next](https://intlayer.org/ar/doc/migration/next-i18next)
+- [Next.js benchmark report](https://intlayer.org/ar/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/ar/doc/benchmark/tanstack)
+- [Bundle optimization](https://intlayer.org/ar/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/ar/doc/compiler)
+- [Visual Editor](https://intlayer.org/ar/doc/concept/editor), [CMS](https://intlayer.org/ar/doc/concept/cms) and [AI translation](https://intlayer.org/ar/doc/concept/auto-fill)
 
 ## الخاتمة
 

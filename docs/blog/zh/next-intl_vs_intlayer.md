@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "next-intl vs Intlayer: 2026 基准测试与对比"
 description: Bundle 大小、内容泄漏、locale 切换响应性和开发者体验在 Next.js 和 TanStack Start 上的测量。你应该在 2026 年选择哪个 i18n 库？
 keywords:
@@ -23,6 +23,8 @@ author: aymericzip
 ---
 
 # next-intl VS Intlayer | Next.js 国际化 (i18n) 基准测试
+
+![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `next-intl` 是 Next.js 最流行的 i18n 库。Intlayer 是一个基于编译器、组件作用域的替代方案。两者都可以本地化 App Router 应用程序。问题是应用程序构建后每个库的成本是多少。
 
@@ -96,6 +98,10 @@ Intlayer 没有"scoped"变体：编译器会自动按**组件**对内容进行�
 
 ### Next.js (App Router)上的结果
 
+选择您关注的指标和库：
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Library                        | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
 | ------------------------------ | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
 | **base** (no i18n)             | -              |        0.0 KB |         141.0 KB |        0.0% |      0.0% |             0.9 KB |        13.4 ms |   11.8 ms |
@@ -116,9 +122,20 @@ Intlayer 没有"scoped"变体：编译器会自动按**组件**对内容进行�
 - **组件大小。** 调用 `useTranslations()` 的组件编译到平均 21.8 KB；使用 `useIntlayer()` 的相同组件编译到 6.9 KB。在 `scoped-static` 设置中，`next-intl` 组件跳升到 80.1 KB，因为每个组件都内联其命名空间 catalog。
 - **Reactivity 和 hydration** 在 Next.js 上对两个库都处于相同的范围（15-18 ms）。这里都不是瓶颈。
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 完整表格、每个库和每种策略，请参阅 [Next.js 基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs)。
+
 ### TanStack Start 上的结果（`use-intl`）
 
 `use-intl` 是 `next-intl` 的框架无关核心。相同的 API，相同的消息格式。在 TanStack Start 上将其与 `intlayer` 进行比较，移除了方程的 Next.js 特定部分。
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Library                       | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |
 | ----------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: |
@@ -139,7 +156,18 @@ Intlayer 没有"scoped"变体：编译器会自动按**组件**对内容进行�
 - **组件大小是架构的亮点**：使用 `use-intl` 每个组件 76-87 KB，而使用 Intlayer 仅 6-8 KB。`useTranslations()` 将每个组件绑定到全局消息树；`useIntlayer()` 将其绑定到自己的字典。
 - **区域设置切换**使用 Intlayer 快 2-4 倍（3 毫秒 vs 7-21 毫秒）。
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> 完整表格请参阅 [TanStack Start 基准测试报告](https://intlayer.org/zh/doc/benchmark/tanstack)。
+
 ## 为什么存在差距？集中式目录 vs. 编译的字典
+
+![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
 
 `next-intl` 遵循经典模型：每个区域设置一个 JSON，在 `getRequestConfig` 中加载，推送到 `NextIntlClientProvider`，通过 `t("namespace.key")` 读取。
 
@@ -161,6 +189,10 @@ Intlayer 没有"scoped"变体：编译器会自动按**组件**对内容进行�
 ```
 
 运行时无法知道页面将使用哪些 key，因此安全的默认做法是发送整个 catalog。优化意味着**你**需要将 catalog 拆分成 namespace，**你**需要决定每个页面需要哪些 namespace，并且**你**需要在组件移动时保持该映射同步。基准测试中的 `scoped-dynamic` 行是该工作的回报，但大多数团队从未实现过。
+
+未能实现这一目标的成本在两个维度上同时增长：页面和语言环境：
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 Intlayer 翻转了这个责任。内容在组件旁边声明：
 
@@ -189,7 +221,8 @@ Intlayer 翻转了这个责任。内容在组件旁边声明：
 
 ### Client 组件
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```json fileName="messages/en.json"
 {
@@ -226,7 +259,8 @@ export const Counter = () => {
 
 > 记住在渲染此组件的每个页面上，将 `counter` 命名空间包含在传递给 `NextIntlClientProvider` 的消息中。
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -269,11 +303,14 @@ export const Counter = () => {
 
 无需在页面上注册任何内容：该组件包含其自己的内容。
 
+</Tab>
+</Tabs>
 ### 同步服务器组件
 
 设计系统组件（导航栏、页脚、卡片）通常是作为客户端组件的子组件渲染的服务器组件，因此它们不能是 `async`。
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 type ServerCounterProps = {
@@ -291,7 +328,8 @@ export const ServerCounter = ({ t, formattedCount }: ServerCounterProps) => (
 
 页面必须 `await getTranslations("counter")` 和 `await getFormatter()`，然后将结果作为 props 向下传递。该组件不再是自包含的。
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 import { useIntlayer } from "next-intlayer/server";
@@ -310,9 +348,12 @@ export const ServerCounter = ({ count }: { count: number }) => {
 };
 ```
 
+</Tab>
+</Tabs>
 ### 元数据
 
-**next-intl**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/page.tsx"
 import type { Metadata } from "next";
@@ -347,7 +388,8 @@ export const generateMetadata = async ({
 };
 ```
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/app/[locale]/about/page.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -371,6 +413,9 @@ export const generateMetadata = async ({
 };
 ```
 
+</Tab>
+</Tabs>
+
 ## 保持 next-intl API，获得 Intlayer 的输出
 
 您不必重写组件来获得上述基准数字。`@intlayer/next-intl` 是一个开箱即用的适配器：它保持 `useTranslations`、`getTranslations`、`useFormatter`、`t.rich()`、ICU 复数形式和 `next-intl/navigation` 助手，并从 Intlayer 编译器编译的 Intlayer 字典中提供它们。
@@ -393,17 +438,84 @@ export default withIntlayer(nextConfig);
 
 ## 何时选择哪个？
 
-- **选择 next-intl** 如果你想要 Next.js 生态标准、依赖 ICU MessageFormat、应用规模小到中等，或者你集成了翻译平台（Crowdin、Phrase、Lokalise...）期望集中式 JSON。如果性能重要，需要预留时间来命名空间目录和按页面挑选消息。
-- **选择 Intlayer** 如果你想要**组件作用域内容**、**严格的 TypeScript**、**构建时缺失键错误检测**、**零成本的 tree-shaking 和懒加载**、同步服务器组件，以及内置编辑工具（Visual Editor、CMS、AI 翻译、MCP server）。特别适合大型、模块化的 codebase 和设计系统。
-- **选择 `@intlayer/next-intl`** 如果你已经在使用 `next-intl`，想要获得 bundle 优化而无需重写。
+<AccordionGroup>
+<Accordion header="选择 next-intl">
+
+您需要 Next.js 的生态标准，依赖 ICU MessageFormat，您的应用规模较小或中等，或者您与需要集中式 JSON 的翻译平台（Crowdin、Phrase、Lokalise...）集成。如果注重性能，请预留时间按命名空间划分目录并在每个页面使用 `pick()` 选择消息。
+
+</Accordion>
+<Accordion header="选择 Intlayer">
+
+您需要**组件级作用域内容**、**严格的 TypeScript**、**构建时缺失键报错**、**零成本 tree-shaking 和按需加载**、同步服务端组件以及内置编辑工具（[可视化编辑器](https://intlayer.org/zh/doc/concept/editor)、[CMS](https://intlayer.org/zh/doc/concept/cms)、[AI 自动翻译](https://intlayer.org/zh/doc/concept/auto-fill)、[MCP 服务端](https://intlayer.org/zh/doc/mcp-server)）。特别适用于大型模块化代码库和设计系统。
+
+</Accordion>
+<Accordion header="选择 @intlayer/next-intl">
+
+您已经在项目中使用了 `next-intl`，希望在无需重写的情况下获得包体积缩减优势。[兼容适配器](https://intlayer.org/zh/doc/compatibility/next-intl)保留了您的导入和 `messages/{locale}.json` 文件作为单一真实来源。在 [next-intl 对比 @intlayer/next-intl](https://intlayer.org/zh/blog/next-intl-vs-intlayer-next-intl) 中进行了同台实测。
+
+</Accordion>
+</AccordionGroup>
+
+## 常见问题
+
+<FAQ>
+
+<Question title="next-intl 比 Intlayer 慢吗？">
+
+在渲染阶段不是。两者的差异在于传输内容：`next-intl` 在每个页面上增加 **+12.6 KB gzip** 的运行时开销，并且在常见的配置下，每个页面都会携带 ~90% 的无关页面文本。在 Next.js 上语言切换与注水（hydration）耗时相近（15-18 毫秒）；在 TanStack Start 上，`use-intl` 耗时 7-21 毫秒，而 Intlayer 仅需 3-4 毫秒。
+
+</Question>
+
+<Question title="使用 next-intl 可以实现 0% 泄漏吗？">
+
+可以，通过 `scoped-dynamic` 配置：将 `messages/{locale}.json` 按路由拆分为单个命名空间，然后在每个页面中使用 `pick(messages, [...])` 并在组件调整时持续维护该映射关系。基准测试中的 `scoped-*` 行正代表这项工作。而 Intlayer 天然就能达到 0%，因为编译器会在组件层级对内容进行作用域划分。请参阅[包体积优化](https://intlayer.org/zh/doc/concept/bundle-optimization)。
+
+</Question>
+
+<Question title="迁移时需要重写组件吗？">
+
+不需要。`@intlayer/next-intl` 保留了 `useTranslations`、`getTranslations`、`useFormatter`、`t.rich()`、ICU 复数语法和导航助手，并通过编译后的字典进行提供。只需在 `next.config.ts` 中添加一行插件配置。详情请参阅 [next-intl 迁移指南](https://intlayer.org/zh/doc/migration/next-intl)。
+
+</Question>
+
+<Question title="Intlayer 支持 ICU MessageFormat 吗？">
+
+原生 API 正在积极完善 ICU 支持。兼容适配器（`@intlayer/next-intl`、`@intlayer/use-intl`）均能完美执行 ICU：复数、`select`、`selectordinal`、`#` 和 `{ts, date, long}` 都会经过 Intlayer 的 ICU 解析器处理。详情请参阅 [ICU 消息格式解析](https://intlayer.org/zh/blog/icu-message-format)。
+
+</Question>
+
+<Question title="我可以保留 messages/{locale}.json 文件吗？">
+
+可以。[JSON 同步插件](https://intlayer.org/zh/doc/compatibility/next-intl)会读取这些文件，将其顶层键拆分为字典，并在 CLI 或 CMS 更新时将翻译写回同一文件。译者的工作流程完全保持不变。
+
+</Question>
+
+</FAQ>
 
 ## 相关比较
 
-- [i18next vs Intlayer](https://intlayer.org/blog/i18next-vs-intlayer) (同一基准测试)
-- [Lingui vs Intlayer](https://intlayer.org/blog/lingui-vs-intlayer) (同一基准测试)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/blog/vue-i18n-vs-intlayer-benchmark) (同一基准测试)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Is next-intl outdated?](https://intlayer.org/blog/is-next-intl-outdated)
+同一基准测试，其他库：
+
+- [i18next vs Intlayer](https://intlayer.org/zh/blog/i18next-vs-intlayer)
+- [Lingui vs Intlayer](https://intlayer.org/zh/blog/lingui-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-benchmark)
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/zh/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/zh/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+深入了解 next-intl：
+
+- [next-intl vs @intlayer/next-intl](https://intlayer.org/zh/blog/next-intl-vs-intlayer-next-intl), 在同一应用上实测的适配器
+- [Is next-intl outdated?](https://intlayer.org/zh/blog/is-next-intl-outdated)
+- [Using Intlayer with next-intl](https://intlayer.org/zh/blog/intlayer-with-next-intl)
+- [How to internationalize a Next.js app with next-intl](https://intlayer.org/zh/blog/nextjs-internationalization-using-next-intl)
+
+参考文档：
+
+- [Next.js 基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs) 与 [TanStack Start 基准测试报告](https://intlayer.org/zh/doc/benchmark/tanstack)
+- [兼容适配器：next-intl](https://intlayer.org/zh/doc/compatibility/next-intl) 与 [迁移指南](https://intlayer.org/zh/doc/migration/next-intl)
+- [包体积优化](https://intlayer.org/zh/doc/concept/bundle-optimization) 与 [Intlayer 编译器](https://intlayer.org/zh/doc/compiler)
+- [组件级 vs 集中式 i18n](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)
+- [编译器驱动 vs 声明式 i18n](https://intlayer.org/zh/blog/compiler-vs-declarative-i18n)
 
 ## GitHub Stars
 

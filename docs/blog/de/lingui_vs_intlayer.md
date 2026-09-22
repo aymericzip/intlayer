@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "Lingui vs Intlayer: 2026 Benchmark & Vergleich"
 description: "Zwei compilerbasierte i18n-Bibliotheken gemessen auf Next.js und TanStack Start. Bundle-Größe, Content-Leakage, Komponentengröße, Hydratisierung, Sprachwechsel-Reaktivität und Developer Experience."
 keywords:
@@ -23,6 +23,8 @@ author: aymericzip
 ---
 
 # Lingui VS Intlayer | React & Next.js Internationalisierungs-Benchmark (i18n)
+
+![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 Lingui und Intlayer sind die beiden Bibliotheken in diesem Benchmark, die auf einen **Compiler** anstelle einer reinen Runtime setzen. Lingui extrahiert Nachrichten aus Makros zur Build-Zeit und kompiliert Kataloge pro Sprache. Intlayer kompiliert komponentenbasierte Wörterbücher und unterzieht sie pro Sprache einem automatischen Tree-Shaking. Auf dem Papier klingen beide Ansätze ähnlich. Die Messwerte zeigen jedoch, wo sie sich deutlich unterscheiden.
 
@@ -96,6 +98,10 @@ Für jeden Build erfasst die Suite:
 
 ### Ergebnisse auf Next.js
 
+Wählen Sie die Metriken und Bibliotheken aus, die für Sie wichtig sind:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Bibliothek           | Strategie      | Lib size (gz) | Page JS Ø (gz) | Sprach-Leak | Seiten-Leak | Komponente Ø (gz) | E2E-Reaktivität | Hydratisierung |
 | -------------------- | -------------- | ------------: | -------------: | ----------: | ----------: | ----------------: | --------------: | -------------: |
 | **base** (ohne i18n) | -              |        0,0 KB |       141,0 KB |        0,0% |        0,0% |            0,9 KB |         13,4 ms |        11,8 ms |
@@ -114,7 +120,18 @@ Für jeden Build erfasst die Suite:
 - **Quellsprachen-Leakage bleibt bestehen.** Selbst in den optimierten Setups werden **3-15% englische Texte in französischen Seiten mitgeliefert**. Lingui-Makros halten den Quelltext als Fallback vorrätig, wodurch er im Bundle landet. Intlayer löst Fallbacks zur Build-Zeit auf und liefert ausschließlich die aktive Sprache aus.
 - **Komponentengröße explodiert in `scoped-dynamic`.** Jede einzeln kompilierte Komponente wiegt im Schnitt **152,6 KB**, da alle Routenkataloge über die Komponentenimporte erreichbar bleiben. Dieselbe Komponente mit `useIntlayer()` wiegt im Schnitt nur **6,9 KB**.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Vollständige Tabelle, jede Bibliothek und jede Strategie, im [Next.js-Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/nextjs).
+
 ### Ergebnisse auf TanStack Start
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Bibliothek                  | Strategie      | Lib size (gz) | Page JS Ø (gz) | Sprach-Leak | Seiten-Leak | Komponente Ø (gz) | E2E-Reaktivität | Hydratisierung |
 | --------------------------- | -------------- | ------------: | -------------: | ----------: | ----------: | ----------------: | --------------: | -------------: |
@@ -135,7 +152,18 @@ Für jeden Build erfasst die Suite:
 - **Intlayers `static`-Zeile erreicht bereits 0% Seiten-Leakage**, da nur Wörterbücher gebündelt werden, die von den Komponenten dieser Seite tatsächlich importiert werden. Eine einzige Konfigurationszeile (`importMode: 'dynamic'`) beseitigt auch die Sprach-Leakage.
 - **`@intlayer/lingui`** behält Linguis Makrosyntax bei und bezieht Daten aus Intlayer-Wörterbüchern. Es tauscht etwas Gesamtgröße pro Seite (137 KB, da die Makro-Runtime verbleibt) gegen drastisch leichtere Komponenten (12,8 KB) und schnellere Hydratisierung. Eine hervorragende Migrationshilfe.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Vollständige Tabelle im [TanStack Start-Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/tanstack).
+
 ## Warum dieser Unterschied? Zwei Compiler, zwei Arbeitseinheiten
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 Beide Lösungen kompilieren. Der Unterschied liegt darin, **was** sie kompilieren.
 
@@ -176,7 +204,9 @@ Beide Lösungen kompilieren. Der Unterschied liegt darin, **was** sie kompiliere
             └── about.content.ts
 ```
 
-Genau deshalb ist das `scoped-dynamic`-Muster bei Intlayer ein automatisches Build-Ergebnis, während es bei Lingui ein eigenständiges Konfigurationsprojekt darstellt.
+Genau deshalb ist das `scoped-dynamic`-Muster bei Intlayer ein automatisches Build-Ergebnis, während es bei Lingui ein eigenständiges Konfigurationsprojekt darstellt. Die Lücke vergrößert sich auf zwei Achsen gleichzeitig, Seiten und Sprachen:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 > Um die Werte der Zeile `dynamic` zu erreichen, setzen Sie `dictionary.importMode: 'dynamic'` in Ihrer `intlayer.config.ts`. Siehe die [Dokumentation zur Bundle-Optimierung](https://intlayer.org/de/doc/concept/bundle-optimization).
 
@@ -184,7 +214,8 @@ Genau deshalb ist das `scoped-dynamic`-Muster bei Intlayer ein automatisches Bui
 
 ### Einrichtung
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="lingui.config.ts"
 import { defineConfig } from "@lingui/cli";
@@ -215,7 +246,8 @@ export const loadCatalog = async (locale: string) => {
 
 Anschließend fügen Sie `@lingui/babel-plugin-lingui-macro` (oder `@lingui/swc-plugin`) zum Bundler hinzu, führen `lingui extract` nach Codeänderungen und `lingui compile` vor dem Build aus, und umschließen die Anwendung mit `<I18nProvider i18n={i18n}>`.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -232,9 +264,12 @@ export default config;
 
 Fügen Sie `intlayer()` in `vite.config.ts` (oder `withIntlayer()` in `next.config.ts`) hinzu und umschließen Sie den Baum mit `<IntlayerProvider>`. Keine separaten Extraktions- oder Kompilierschritte: Wörterbücher werden direkt beim Start des Bundlers verarbeitet.
 
+</Tab>
+</Tabs>
 ### Komponente
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```tsx fileName="src/components/Counter.tsx"
 import { useState } from "react";
@@ -258,7 +293,8 @@ export const Counter = () => {
 
 Der englische Text steht in der Komponente; die französische Übersetzung landet in `src/locales/fr/messages.po` unter einer gehashten ID, sobald `lingui extract` ausgeführt wurde. Vergisst man die Extraktion oder das Kompilieren, wird stillschweigend auf Englisch zurückgegriffen.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -297,11 +333,14 @@ export const Counter = () => {
 
 Beide Sprachen liegen gemeinsam in einer Datei neben der Komponente. Ein fehlender `fr`-Wert erzeugt einen Build-Fehler, ein falscher Schlüssel sofort einen TypeScript-Fehler.
 
+</Tab>
+</Tabs>
 ### Außerhalb von Komponenten
 
 Metadaten, Loader, Serverfunktionen: überall dort, wo kein React-Baum existiert.
 
-**Lingui**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="Lingui" value="lingui">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { setupI18n } from "@lingui/core";
@@ -324,7 +363,8 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
 
 Eine frische `I18n`-Instanz pro Aufruf, manuelle Zuweisung des passenden Katalogs und `msg` + `i18n._()` anstelle von `t`. Wie die [Benchmark-Notizen](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md) festhalten, ist die Entscheidung zwischen `t`, `` t` ` ``, `i18n.t()`, `msg` oder `<Trans>` oft nicht intuitiv.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/routes/$locale/about.tsx"
 import { getIntlayer } from "intlayer";
@@ -335,6 +375,9 @@ export const loader = async ({ params }: { params: { locale: string } }) => {
   return { title };
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## Lingui-Makros behalten, Intlayer-Wörterbücher nutzen
 
@@ -353,16 +396,82 @@ Belassen Sie `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` im Build
 
 ## Wann welche Bibliothek wählen?
 
-- **Wählen Sie Lingui**, wenn Sie **ICU MessageFormat** mit typisierten Makros benötigen, Ihre Übersetzer mit **`.po`**-Dateien in bestehenden TMS-Pipelines arbeiten, Sie Quelltexte inline im JSX bevorzugen und Ihr Team die Verwaltung von Extraktions-, Kompilier- und Aufteilungsschritten beherrscht. Bei konfiguriertem Lazy Loading ist die Seitengröße sehr konkurrenzfähig.
-- **Wählen Sie Intlayer**, wenn Sie **komponentenbezogene Inhalte**, **strikte TypeScript-Typisierung**, **Fehler bei fehlenden Schlüsseln zur Build-Zeit**, **automatisiertes Tree-Shaking und Lazy Loading ohne Konfiguration**, kleine Komponenten, schnelle Hydratisierung, sofortigen Sprachwechsel und integrierte Redaktionstools (visueller Editor, CMS, KI-Übersetzung, MCP-Server) suchen. Besonders empfehlenswert für modulare Architekturen und Design-Systeme.
-- **Wählen Sie `@intlayer/lingui`**, wenn Sie Lingui nutzen und schrittweise auf Intlayers Wörterbuch-Architektur umsteigen möchten, ohne bestehende Makros umschreiben zu müssen.
+<AccordionGroup>
+<Accordion header="Lingui wählen">
+
+Sie möchten **ICU MessageFormat** mit typisierten Makros, Ihre Übersetzer arbeiten in **`.po`** mit einer bestehenden TMS-Pipeline, Sie bevorzugen Quellstrings inline in JSX und Ihr Team bewältigt den Workflow aus Extraktion / Kompilierung / Katalogaufteilung problemlos. Sein JS pro Seite ist wettbewerbsfähig, sobald Lazy Loading eingerichtet ist.
+
+</Accordion>
+<Accordion header="Intlayer wählen">
+
+Sie möchten **komponentenbezogene Inhalte**, **striktes TypeScript**, **Fehler bei fehlenden Schlüsseln zur Build-Zeit**, **müheloses Tree-Shaking und Lazy Loading**, schlanke Komponenten, schnelle Hydratisierung, sofortigen Sprachwechsel und integrierte Redaktionstools ([Visual Editor](https://intlayer.org/de/doc/concept/editor), [CMS](https://intlayer.org/de/doc/concept/cms), [KI-Übersetzung](https://intlayer.org/de/doc/concept/auto-fill), [MCP-Server](https://intlayer.org/de/doc/mcp-server)). Besonders relevant für große, modulare Codebasen und Designsysteme.
+
+</Accordion>
+<Accordion header="@intlayer/lingui wählen">
+
+Sie nutzen bereits Lingui und möchten schrittweise zu Intlayer-Wörterbüchern wechseln, ohne Makros anzutasten. Ihre `.po`-Kataloge bleiben über das [PO-Synchronisations-Plugin](https://intlayer.org/de/doc/compatibility/lingui) die Quelle der Wahrheit. Seite an Seite gemessen in [Lingui vs @intlayer/lingui](https://intlayer.org/de/blog/lingui-vs-intlayer-lingui).
+
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<FAQ>
+
+<Question title="Lingui kompiliert ebenfalls. Warum ist die Ausgabe so unterschiedlich?">
+
+Weil sich die Einheit der Kompilierung unterscheidet. Lingui kompiliert **einen Katalog pro Sprache**: Alles darunter (Kataloge pro Route, Lazy Loading, Ausschluss des Fallbacks aus dem Bundle) ist Konfigurationsaufwand. Intlayer kompiliert **ein Wörterbuch pro Komponente**, sodass die Routenabgrenzung automatisch im Build entsteht. Deshalb wiegt eine isoliert kompilierte Lingui-Komponente 58-153 KB gegenüber 6-8 KB bei Intlayer.
+
+</Question>
+
+<Question title="Warum erreicht das Locale-Leakage bei Lingui nie 0%?">
+
+Makros halten die Quellnachricht als Laufzeit-Fallback bereit, sodass der englische String neben seiner Übersetzung ausgeliefert wird. Der Benchmark misst **3-15% `en`-Strings in `fr`-Seiten** in jedem optimierten Setup. Intlayer löst Fallbacks zur Build-Zeit auf und liefert nur die aktive Sprache aus.
+
+</Question>
+
+<Question title="Ist das JavaScript pro Seite von Lingui wirklich wettbewerbsfähig?">
+
+Ja, und auf TanStack Start gewinnt es hauchdünn: 115.2 KB in `dynamic` gegenüber 118.6 KB bei Intlayer. Kompilierte Kataloge mit gehashten IDs sind kompakt. Die Kosten zeigen sich an anderer Stelle: Hydratisierung bei 28-34 ms gegenüber 11-14 ms und ein **42 ms** dauernder Sprachwechsel im `scoped-dynamic`-Setup.
+
+</Question>
+
+<Question title="Muss ich Makros aufgeben, um zu migrieren?">
+
+Nein. `@intlayer/lingui` kompiliert `` t`...` ``, `<Trans>`, `msg`, `plural`, `select` und `selectOrdinal` wie gewohnt weiter; nur die Auflösung unter `i18n._()` ändert sich. Behalten Sie `@lingui/babel-plugin-lingui-macro` oder `@lingui/swc-plugin` im Build. Siehe [Lingui-Kompatibilitätsdokumentation](https://intlayer.org/de/doc/compatibility/lingui).
+
+</Question>
+
+<Question title="Was ist mit den Extraktions- und Kompilierungsschritten?">
+
+Sie bleiben für die Makros bestehen und entfallen für Intlayers eigene Inhalte. `.content.ts`-Wörterbücher werden beim Ausführen des Bundlers ohne separaten CLI-Schritt erstellt, und [`intlayer test`](https://intlayer.org/de/doc/concept/cli) lässt CI bei fehlenden Schlüsseln fehlschlagen, anstatt stillschweigend auf den Quellstring zurückzugreifen.
+
+</Question>
+
+</FAQ>
 
 ## Weiterführende Vergleiche
 
-- [next-intl vs Intlayer](https://intlayer.org/de/blog/next-intl-vs-intlayer) (auf demselben Benchmark)
-- [i18next vs Intlayer](https://intlayer.org/de/blog/i18next-vs-intlayer) (auf demselben Benchmark)
-- [vue-i18n vs Intlayer](https://intlayer.org/de/blog/vue-i18n-vs-intlayer-benchmark) (auf demselben Benchmark)
-- [Compiler vs deklaratives i18n](https://intlayer.org/de/blog/compiler-vs-declarative-i18n)
+Gleicher Benchmark, andere Bibliotheken:
+
+- [next-intl vs Intlayer](https://intlayer.org/de/blog/next-intl-vs-intlayer)
+- [i18next vs Intlayer](https://intlayer.org/de/blog/i18next-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/de/blog/vue-i18n-vs-intlayer-benchmark)
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/de/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/de/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+Vertiefung:
+
+- [Lingui vs @intlayer/lingui](https://intlayer.org/de/blog/lingui-vs-intlayer-lingui), der Adapter gemessen auf derselben Anwendung
+- [Compiler-driven vs declarative i18n](https://intlayer.org/de/blog/compiler-vs-declarative-i18n)
+- [Per-component vs centralized i18n](https://intlayer.org/de/blog/per-component-vs-centralized-i18n)
+- [ICU message format explained](https://intlayer.org/de/blog/icu-message-format)
+
+Referenzdokumentation:
+
+- [Next.js-Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/nextjs) und [TanStack Start-Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/tanstack)
+- [Compat adapter: Lingui](https://intlayer.org/de/doc/compatibility/lingui)
+- [Bundle-Optimierung](https://intlayer.org/de/doc/concept/bundle-optimization) und [der Intlayer-Compiler](https://intlayer.org/de/doc/compiler)
 
 ## GitHub STARS
 

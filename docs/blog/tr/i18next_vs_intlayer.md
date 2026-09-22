@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "i18next vs Intlayer: 2026 Karşılaştırma ve Benchmark Testi"
 description: "Next.js ve TanStack Start üzerinde Intlayer ile karşılaştırılan react-i18next ve next-i18next ölçümleri. Paket boyutu, içerik sızıntısı, dil değiştirme tepki süresi ve geliştirici deneyimi."
 keywords:
@@ -24,6 +24,8 @@ author: aymericzip
 ---
 
 # i18next VS Intlayer | React & Next.js Uluslararasılaştırma (i18n) Benchmark Karşılaştırması
+
+![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `i18next`, JavaScript ekosisteminde en yaygın kullanılan i18n kütüphanesidir. `react-i18next` ve `next-i18next` aracılığıyla çok sayıda React ve Next.js uygulamasını destekler. Intlayer ise derleyici tabanlı ve bileşen kapsamlı (component-scoped) modern bir alternatiftir.
 
@@ -99,6 +101,10 @@ Her derleme için kaydedilen metrikler:
 
 ### Next.js Sonuçları (`next-i18next`)
 
+İlgilendiğiniz metrikleri ve kütüphaneleri seçin:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | Kütüphane                         | Strateji       | Lib size (gz) | Page JS avg (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Bileşen Ort. (gz) | E2E Tepki Süresi | Hydration |
 | --------------------------------- | -------------- | ------------: | ---------------: | ------------: | --------------: | ----------------: | ---------------: | --------: |
 | **base** (i18n yok)               | -              |        0.0 KB |         141.0 KB |          0.0% |            0.0% |            0.9 KB |          13.4 ms |   11.8 ms |
@@ -119,9 +125,20 @@ Her derleme için kaydedilen metrikler:
 - **Bileşen boyutu**: `useTranslation()` kullanan bir bileşen 26-79 KB boyutunda derlenirken, aynı bileşen `useIntlayer()` ile yalnızca 6.9 KB yer kaplar.
 - **Hidrasyon gecikmesi**: `dynamic` kurulumunda hidrasyon süresi 27.7 ms'ye yükselir; çünkü React hidrasyona başlamadan önce istemcide i18next örneğinin başlatılması ve arka uçtan veri alması gerekir.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tüm kütüphaneler ve her strateji için tam tablo [Next.js kıyaslama raporunda](https://intlayer.org/tr/doc/benchmark/nextjs).
+
 ### TanStack Start Sonuçları (`react-i18next`)
 
 Next.js'e özgü yapılandırmaları dışarıda bırakmak adına TanStack Start üzerinde doğrudan `react-i18next` ile yapılan ölçümler:
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | Kütüphane           | Strateji       | Lib size (gz) | Page JS avg (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Bileşen Ort. (gz) | E2E Tepki Süresi | Hydration |
 | ------------------- | -------------- | ------------: | ---------------: | ------------: | --------------: | ----------------: | ---------------: | --------: |
@@ -141,7 +158,18 @@ Next.js'e özgü yapılandırmaları dışarıda bırakmak adına TanStack Start
 - Intlayer'ın `static` modu, yalnızca ilgili sayfanın bileşenleri tarafından içe aktarılan sözlükleri paketlediği için zaten **%0 sayfa sızıntısına** sahiptir. `importMode: 'dynamic'` ayarını açmak dil sızıntısını da tamamen ortadan kaldırır.
 - **Bileşen boyutu**: `react-i18next` ile bileşen başına 24-27 KB iken Intlayer ile 6-8 KB seviyesindedir.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> Tam tablo [TanStack Start kıyaslama raporunda](https://intlayer.org/tr/doc/benchmark/tanstack).
+
 ## Fark Nereden Kaynaklanıyor? Global Örnek vs Derlenmiş Sözlükler
+
+![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
 
 `i18next`, 2012 yılında bir çalışma zamanı kütüphanesi olarak tasarlandı: Global bir örnek kaynak deposunu tutar, eklentiler bunu genişletir ve `t()` render anında anahtarları arar. Bu yapı ona yüksek esneklik kazandırsa da performans açısından ağır bir yük getirir:
 
@@ -166,7 +194,13 @@ Next.js'e özgü yapılandırmaları dışarıda bırakmak adına TanStack Start
                 └── page.tsx     # ["common", "about"] gerektirdiğini bilmek zorundadır
 ```
 
-Global örnek, bileşenin hangi anahtarlara ihtiyaç duyacağını önceden bilemez; bu nedenle yüklemesi söylenen tüm ad alanlarını bellekte tutar. Optimizasyon yapmak **sizin** katalogları bölmenizi, **sizin** her sayfanın ihtiyaç duyduğu ad alanlarını listelemenizi ve bileşenler taşındıkça bu listeyi elle güncellemenizi gerektirir. [Benchmark notlarında](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md) ifade edildiği gibi: "Tip güvenliğini korurken hangi sayfaya hangi ad alanının dahil edileceğini tam olarak bilmek tam bir kabustur".
+Global örnek, bileşenin hangi anahtarlara ihtiyaç duyacağını önceden bilemez; bu nedenle yüklemesi söylenen tüm ad alanlarını bellekte tutar. Optimizasyon yapmak **sizin** katalogları bölmenizi, **sizin** her sayfanın ihtiyaç duyduğu ad alanlarını listelemenizi ve bileşenler taşındıkça bu listeyi elle güncellemenizi gerektirir.
+
+Maliyet iki eksende birden büyür, sayfalar ve diller:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
+
+[Benchmark notlarında](https://github.com/intlayer-org/benchmark-bloom/blob/main/report/NOTE.md) ifade edildiği gibi: "Tip güvenliğini korurken hangi sayfaya hangi ad alanının dahil edileceğini tam olarak bilmek tam bir kabustur".
 
 Intlayer global örneği tamamen ortadan kaldırır. İçerik doğrudan bileşenin yanında tanımlanır ve derleyici bağımlılık grafiğini derleme zamanında çözer:
 
@@ -193,7 +227,8 @@ Intlayer global örneği tamamen ortadan kaldırır. İçerik doğrudan bileşen
 
 ### Kurulum Karşılaştırması
 
-**next-i18next (App Router)**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-i18next" value="i18next">
 
 ```ts fileName="src/app/i18n/server.ts"
 import { createInstance } from "i18next";
@@ -228,7 +263,8 @@ export const initI18next = async (
 
 Bunun yanı sıra istemci tarafı `I18nProvider`, `generateStaticParams` ve her sayfada ad alanı dizisi tanımlanmalıdır.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -264,9 +300,13 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
+</Tab>
+</Tabs>
+
 ### İstemci Bileşeni (Client Component)
 
-**react-i18next**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="react-i18next" value="i18next">
 
 ```json fileName="src/locales/en/about.json"
 {
@@ -304,7 +344,8 @@ export const Counter = () => {
 
 > Bu bileşeni kullanan sayfa `about` ad alanını yüklemek zorundadır ve `CustomTypeOptions` genişletilmedikçe `t("counter.label")` düz bir metinden ibarettir.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```ts fileName="src/components/Counter/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -345,9 +386,13 @@ export const Counter = () => {
 
 `label` ve `increment` katı tiplere sahiptir; yazım hataları anında TypeScript hatası verir ve eksik çeviriler derlemeyi durdurur.
 
+</Tab>
+</Tabs>
+
 ### Eşzamanlı Sunucu Bileşeni (Server Component)
 
-**next-i18next**
+<Tabs defaultTab="intlayer" group="techno">
+<Tab label="next-i18next" value="i18next">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 type ServerCounterProps = {
@@ -366,7 +411,8 @@ export const ServerCounter = ({ t, locale, count }: ServerCounterProps) => (
 
 Sayfa seviyesinde `i18n.getFixedT(locale, "about")` çağrılmalı ve `t` ile `locale` bileşene prop olarak aktarılmalıdır.
 
-**Intlayer**
+</Tab>
+<Tab label="Intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerCounter.tsx"
 import { useIntlayer } from "next-intlayer/server";
@@ -384,6 +430,9 @@ export const ServerCounter = ({ count }: { count: number }) => {
   );
 };
 ```
+
+</Tab>
+</Tabs>
 
 ## i18next API'sini Koruyarak Intlayer Performansına Erişin
 
@@ -415,18 +464,85 @@ Geçiş kılavuzlarına göz atın: [i18next](https://intlayer.org/tr/doc/migrat
 
 ## Hangisini Ne Zaman Seçmeli?
 
-- **i18next'i seçin**: Geniş eklenti ekosistemine (özel algılayıcılar, arka uçlar, ICU, Locize) kesin olarak ihtiyacınız varsa, React dışı alanlarda da (Node servisleri, vanilla JS, diğer çatılar) yerelleştirme yapıyorsanız, ekibiniz bu araca zaten hakimse veya harici çeviri platformunuz `locales/{lng}/{ns}.json` biçimini zorunlu kılıyorsa. Ancak performans önemliyse ad alanlarını ve rota haritalarını yönetmek için zaman ayırmayı unutmayın.
-- **Intlayer'ı seçin**: **Bileşen düzeyinde içerik yönetimi**, **katı TypeScript desteği**, **derleme zamanı eksik anahtar hataları**, **sıfır çaba ile otomatik tree-shaking ve tembel yükleme**, anında dil değişimi, eşzamanlı sunucu bileşenleri ve yerleşik düzenleme araçları (Görsel Editör, CMS, yapay zeka destekli çeviri, MCP sunucusu) istiyorsanız. Modüler kod tabanları ve tasarım sistemleri için idealdir.
-- **`@intlayer/*-i18next` adaptörlerini seçin**: Halihazırda i18next kullanıyorsanız ve büyük bir yeniden yazım sürecine girmeden paket boyutunda ve tepki süresinde hemen kazanım sağlamak istiyorsanız.
+<AccordionGroup>
+<Accordion header="i18next'i Seçin">
+
+Geniş eklenti ekosistemine (özel algılayıcılar, arka uçlar, ICU, Locize) kesin olarak ihtiyacınız varsa, React dışı alanlarda da (Node servisleri, vanilla JS, diğer çatılar) yerelleştirme yapıyorsanız, ekibiniz bu araca zaten hakimse veya harici çeviri platformunuz `locales/{lng}/{ns}.json` biçimini zorunlu kılıyorsa. Ancak performans önemliyse ad alanlarını ve rota haritalarını yönetmek için zaman ayırmayı unutmayın.
+
+</Accordion>
+<Accordion header="Intlayer'ı Seçin">
+
+**Bileşen düzeyinde içerik**, **katı TypeScript**, **derleme zamanı eksik anahtar hataları**, **zahmetsiz tree-shaking ve lazy loading**, anında dil değişimi, eşzamanlı sunucu bileşenleri ve yerleşik düzenleme araçları ([Görsel Düzenleyici](https://intlayer.org/tr/doc/concept/editor), [CMS](https://intlayer.org/tr/doc/concept/cms), [Yapay Zeka Çevirisi](https://intlayer.org/tr/doc/concept/auto-fill), [MCP Sunucusu](https://intlayer.org/tr/doc/mcp-server)) istiyorsanız. Özellikle büyük, modüler kod tabanları ve tasarım sistemleri için uygundur.
+
+</Accordion>
+<Accordion header="@intlayer/*-i18next Adaptörlerini Seçin">
+
+Zaten i18next kullanıyorsanız ve bileşenleri yeniden yazmadan paket ve tepkisellik kazanımlarını elde etmek istiyorsanız. `locales/{lng}/{ns}.json` dosyalarınız gerçek kaynak olarak kalır. [i18next vs @intlayer/i18next](https://intlayer.org/tr/blog/i18next-vs-intlayer-i18next) makalesinde yan yana ölçülmüştür.
+
+</Accordion>
+</AccordionGroup>
+
+## SSS (Sıkça Sorulan Sorular)
+
+<FAQ>
+
+<Question title="i18next neden diğer kütüphanelere göre çok daha ağırdır?">
+
+Framework'ten bağımsız bir çalışma zamanı olarak tasarlandı: global bir örnek, bir eklenti hattı, bir kaynak deposu, bir anahtar çözümleyici. Bu esneklik her pakete derlenir. Yalnızca kütüphaneyi içe aktaran boş bir bileşen `next-i18next` ile **19.7 KB gzip**, `next-intlayer` ile **5.5 KB** maliyete sahiptir ve bu maliyet içeriğiniz ne olursa olsun her sayfada ödenir.
+
+</Question>
+
+<Question title="Bir backend ile lazy loading bunu çözer mi?">
+
+Baytları çözer, gecikmeyi çözmez. `i18next-resources-to-backend`e geçmek sayfa başına ~49 KB kazandırır ancak dil geçişine bir ağ gidiş-dönüşü ekler: `dynamic` kurulumda **123 ms**, `scoped-static` kurulumda **185 ms**, Intlayer ile **3-4 ms**. Hidrasyon da 27.7 ms'ye fırlar çünkü React hidrasyon yapmadan önce örnek kendi backend'ini çözümler.
+
+</Question>
+
+<Question title="i18next ile %0 içerik sızıntısına ulaşabilir miyim?">
+
+Evet, `scoped-dynamic` ile: rota başına bir namespace, bir kaynak backend'i ve elle tuttuğunuz bir sayfa-namespace haritası. Next.js'te sayfa başına 163.4 KB'a ulaşır; bu da hiçbir yapılandırma gerektirmeyen Intlayer'ın 141.3 KB değerinden hala **+22 KB** fazladır. Bkz. [paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization).
+
+</Question>
+
+<Question title="Geçiş yapmak için bileşenlerimi yeniden yazmam gerekir mi?">
+
+Hayır. `@intlayer/i18next`, `@intlayer/react-i18next` ve `@intlayer/next-i18next`; `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, `_one` / `_other` çoğulları, bağlam son ekleri ve `returnObjects`i korur. `next.config.ts` veya `vite.config.ts` içine tek bir eklenti satırı yeterlidir. [next-i18next geçiş kılavuzunda](https://intlayer.org/tr/doc/migration/next-i18next) adım adım anlatılmıştır.
+
+</Question>
+
+<Question title="i18next eklentilerime ne olur?">
+
+Backend'ler ve dil algılayıcılar kabul edilir ancak devre dışı kalır: çalışma zamanında yüklenecek veya algılanacak hiçbir şey kalmaz. Dil algılama, Intlayer'ın yönlendirme yapılandırmasına dönüşür (URL öneki, çerez, başlık). Uygulamanız istek anında bir CMS'den çevirileri alıyorsa, bunun yerine [Intlayer CMS](https://intlayer.org/tr/doc/concept/cms) veya `intlayer pull` / `push` kullanın.
+
+</Question>
+
+</FAQ>
 
 ## İlgili Karşılaştırmalar
 
-- [next-intl vs Intlayer](https://intlayer.org/tr/blog/next-intl-vs-intlayer) (aynı benchmark)
-- [Lingui vs Intlayer](https://intlayer.org/tr/blog/lingui-vs-intlayer) (aynı benchmark)
-- [vue-i18n vs Intlayer Karşılaştırması](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-benchmark) (aynı benchmark)
+Aynı kıyaslama, diğer kütüphaneler:
+
+- [next-intl vs Intlayer](https://intlayer.org/tr/blog/next-intl-vs-intlayer)
+- [Lingui vs Intlayer](https://intlayer.org/tr/blog/lingui-vs-intlayer)
+- [vue-i18n vs Intlayer benchmark](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-benchmark)
 - [next-i18next vs next-intl vs Intlayer](https://intlayer.org/tr/blog/next-i18next-vs-next-intl-vs-intlayer)
 - [react-i18next vs react-intl vs Intlayer](https://intlayer.org/tr/blog/react-i18next-vs-react-intl-vs-intlayer)
+
+i18next hakkında daha fazlası:
+
+- [i18next vs @intlayer/i18next](https://intlayer.org/tr/blog/i18next-vs-intlayer-i18next), aynı uygulamada ölçülen adaptörler
 - [i18next modası geçti mi?](https://intlayer.org/tr/blog/is-i18next-outdated)
+- [i18next ile Intlayer Kullanımı](https://intlayer.org/tr/blog/intlayer-with-i18next) ve [react-i18next ile](https://intlayer.org/tr/blog/intlayer-with-react-i18next)
+- [next-i18next ile bir Next.js uygulamasını uluslararasılaştırma](https://intlayer.org/tr/blog/nextjs-internationalization-using-next-i18next)
+
+Referans belgeleri:
+
+- [Next.js kıyaslama raporu](https://intlayer.org/tr/doc/benchmark/nextjs) ve [TanStack Start kıyaslama raporu](https://intlayer.org/tr/doc/benchmark/tanstack)
+- Uyumluluk adaptörleri: [i18next](https://intlayer.org/tr/doc/compatibility/i18next), [react-i18next](https://intlayer.org/tr/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/tr/doc/compatibility/next-i18next)
+- Geçiş kılavuzları: [i18next](https://intlayer.org/tr/doc/migration/i18next), [react-i18next](https://intlayer.org/tr/doc/migration/react-i18next), [next-i18next](https://intlayer.org/tr/doc/migration/next-i18next)
+- [Paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization) ve [Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler)
+- [Bileşen bazlı ve merkezi i18n](https://intlayer.org/tr/blog/per-component-vs-centralized-i18n)
+- [Derleyici güdümlü ve bildirimsel i18n](https://intlayer.org/tr/blog/compiler-vs-declarative-i18n)
 
 ## GitHub Yıldızları
 

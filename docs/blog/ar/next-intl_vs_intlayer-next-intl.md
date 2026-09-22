@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-22
 title: "next-intl مقابل @intlayer/next-intl: نفس الواجهة البرمجية، حزمة مختلفة"
 description: ما الذي يتغير عندما يتم تقديم واردات next-intl من تطبيق Next.js بواسطة محول التوافق @intlayer/next-intl. تم قياس حجم الحزمة والتسرب وحجم المكون والترطيب على نفس الكود، بالإضافة إلى ما يحتفظ به المحول ويتجاهله ولا يمكنه الاستبدال.
 keywords:
@@ -25,6 +25,8 @@ author: aymericzip
 ---
 
 # next-intl مقابل @intlayer/next-intl | نفس الواجهة البرمجية، حزمة مختلفة
+
+![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
 `@intlayer/next-intl` هو محول توافقية: يكشف API `next-intl` (`useTranslations`، `getTranslations`، `useLocale`، `t.rich()`، ICU plurals، `NextIntlClientProvider`...) ويقدمه من القواميس المجمعة بواسطة Intlayer. كود التطبيق لا يتغير. الـ bundle يتغير.
 
@@ -109,6 +111,10 @@ const AboutPage = () => {
 
 ### النتائج على Next.js
 
+اختر المقاييس والمكتبات التي تهمك:
+
+<I18nBenchmark framework="nextjs" vertical/>
+
 | الإعداد                   | الاستراتيجية   | حجم المكتبة (gz) | متوسط صفحة JS (gz) | تسرب Locale | تسرب الصفحة | متوسط المكون (gz) | التفاعل E2E | الماء (Hydration) |
 | ------------------------- | -------------- | ---------------: | -----------------: | ----------: | ----------: | ----------------: | ----------: | ----------------: |
 | **base** (no i18n)        | -              |           0.0 KB |           141.0 KB |        0.0% |        0.0% |            0.9 KB |     13.4 ms |           11.8 ms |
@@ -129,9 +135,20 @@ const AboutPage = () => {
 - **الـ Hydration أسرع بمقدار 2 ms** (12.8 مقابل 14.7 ms): لا توجد كائن رسائل يجب فكّه من حمولة RSC قبل أن يتمكن React من الـ hydrate.
 - **المحول ليس وقت التشغيل الأصلي.** `next-intlayer` يجلس عند **141.3 KB**، +0.3 KB فوق تطبيق الأساس، مع وقت تشغيل 5.5 KB. يحمل المحول سطح API الخاص بـ `next-intl` (`useFormatter`, `t.rich`, محلل ICU) فوق نواة Intlayer، وبالتالي 8.0 KB و +6 KB لكل صفحة. إنه الجسر، وليس الوجهة.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> الجدول الكامل، لكل مكتبة واستراتيجية، في [تقرير قياس أداء Next.js](https://intlayer.org/ar/doc/benchmark/nextjs).
+
 ### النتائج على TanStack Start (`use-intl`)
 
 `use-intl` هو النواة المستقلة عن الإطار العمل الخاصة بـ `next-intl`. محولها، `@intlayer/use-intl`، يتبع نفس التصميم مع plugin Vite (`@intlayer/use-intl/plugin`).
+
+<I18nBenchmark framework="tanstack" vertical/>
 
 | الإعداد                  | الإستراتيجية   | حجم المكتبة (gz) | متوسط JS الصفحة (gz) | تسرب اللغة | تسرب الصفحة | متوسط المكون (gz) | استجابة E2E |     الترطيب |
 | ------------------------ | -------------- | ---------------: | -------------------: | ---------: | ----------: | ----------------: | ----------: | ----------: |
@@ -152,11 +169,24 @@ const AboutPage = () => {
 - **تبديل اللغة أسرع.** إعدادات `use-intl` المُحسَّنة تستغرق **13-21 ms** لتحديث `html[lang]`؛ المحول يستغرق **4-9 ms**. عدد أقل من المكونات يعاد تصيير، ولا شيء يتم اختياره مرة أخرى من شجرة الرسائل.
 - **`static` يحتفظ بكل لغة.** صف `static` في المحول يُظهر تسرب لغة بنسبة 49.7%، نفس نسبة Intlayer الأصلية في وضع `static`: يتم تجميع جميع اللغات، فقط قواميس الصفحة. سطر واحد من الإعدادات (`importMode: 'dynamic'`) يزيله.
 
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
+
+> الجدول الكامل في [تقرير قياس أداء TanStack Start](https://intlayer.org/ar/doc/benchmark/tanstack).
+
 ## لماذا تتحرك الأرقام
+
+![The Intlayer compiler extracts content from components](https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true)
 
 لم يتغير شيء في المكون، لذا تأتي المكاسب بالكامل من ما هو `useTranslations` مرتبطة به.
 
-**مع `next-intl`**، الربط هو مع المزود. يتلقى `NextIntlClientProvider` كائن `messages` كاملًا للإعدادات المحلية؛ كل استدعاء `useTranslations("about")` يقرأ منه. يرى bundler مكونًا واحدًا يستورد hook واحدًا يقرأ سياقًا واحدًا، ولا يمكنه معرفة أن فرع `about` فقط هو المستخدم. تشارك المسارات أدناه نفس كائن الرسائل، لذلك يقرأ عمود تسرب الصفحة ~90% حتى تقسم الملف بنفسك.
+**مع `next-intl`**، الربط هو مع المزود. يتلقى `NextIntlClientProvider` كائن `messages` كاملًا للإعدادات المحلية؛ كل استدعاء `useTranslations("about")` يقرأ منه. يرى bundler مكونًا واحدًا يستورد hook واحدًا يقرأ سياقًا واحدًا، ولا يمكنه معرفة أن فرع `about` فقط هو المستخدم. تشارك المسارات أدناه نفس كائن الرسائل، لذلك يقرأ عمود تسرب الصفحة ~90% حتى تقسم الملف بنفسك, ويتزايد الهدر على محورين في وقت واحد، الصفحات واللغات:
+
+![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
 ```bash
 .
@@ -280,25 +310,106 @@ export default withIntlayer(nextConfig);
 
 ## الحدود التي يجب أن تعرفها قبل البدء
 
-- **يتم نقل إعدادات التوجيه إلى `intlayer.config.ts`.** تحتفظ دوال `createNavigation(routing)` و `createMiddleware(routing)` بتوقيعها لكنها تتجاهل الوسيط: تأتي locales واللغة الافتراضية واستراتيجية البادئة من إعدادات `routing` في Intlayer. إذا كنت تستخدم `pathnames` الموضعية في `next-intl` (`/about` → `/a-propos`)، فإن المحول لا يقوم بالاستيفاء؛ `routing.rewrite` في Intlayer يغطي هذه الحالة لكنها تغيير منفصل.
-- **`useTranslations()` بدون مساحة اسم غير مرتبط.** تحتاج مرحلة التحسين إلى مساحة اسم ثابتة لمعرفة أي قاموس يجب استيراده. لا يزال الاستدعاء الأساسي يعمل، من خلال سجل وقت التشغيل الذي يشير إلى كل قاموس، وهو بالضبط التسرب الذي كنت تحاول إزالته. مرر مساحة الاسم.
-- **المحول ليس مجانيًا.** 8.0 كيلوبايت من وقت التشغيل مقابل 5.5 كيلوبايت لـ `next-intlayer`، و+6-7 كيلوبايت لكل صفحة فوق البناء الأصلي. يغطي سطح API `next-intl`. إذا وصلت إلى نقطة حيث تم نقل كل مكون إلى `useIntlayer`، أسقط المحول.
-- **`messages`, `timeZone`, `now` على المزود يتم تجاهلها.** يتم دعم المنسقات بواسطة `Intl` الأصلي والإعدادات المحلية فقط تؤثر على مخرجاتها؛ إذا كنت تعتمد على منطقة زمنية مفروضة أو `now` ثابتة لتواريخ مستقرة من حيث الترطيب، فتعامل معها في موقع الاستدعاء.
+<AccordionGroup>
+<Accordion header="تنتقل إعدادات التوجيه إلى intlayer.config.ts">
+
+تحتفظ `createNavigation(routing)` و `createMiddleware(routing)` بتوقيعها ولكنها تتجاهل الوسيط: اللغات، واللغة الافتراضية، واستراتيجية البادئة تأتي من إعدادات `routing` في Intlayer. وإذا كنت تستخدم مسارات `pathnames` المترجمة في `next-intl` (`/about` إلى `/a-propos`)، فإن المحول لا يستنبطها؛ بينما يغطي `routing.rewrite` في Intlayer تلك الحالة ولكنه تغيير منفصل.
+
+</Accordion>
+<Accordion header="useTranslations() بدون مساحة أسماء ليست مرتبطة">
+
+تحتاج مرحلة التحسين إلى مساحة أسماء ثابتة لمعرفة أي قاموس يجب استيراده. الاستدعاء البسيط بدون مساحة أسماء يستمر في العمل عبر سجل وقت التشغيل الذي يشير إلى كل قاموس، وهو بالضبط التسريب الذي تحاول التخلص منه. قم بتمرير مساحة الاسم.
+
+</Accordion>
+<Accordion header="المحول ليس مجانياً من حيث الحجم">
+
+8.0 كيلوبايت لوقت التشغيل مقابل 5.5 كيلوبايت لـ `next-intlayer`، و +6-7 كيلوبايت لكل صفحة مقارنة بالبناء الأصلي. هذا هو ثمن توفير واجهة برمجة تطبيقات `next-intl`. وعندما يتم نقل كل مكون إلى `useIntlayer`، قم بإزالة المحول.
+
+</Accordion>
+<Accordion header="يتم تجاهل messages و timeZone و now في المزود">
+
+تعتمد أدوات التنسيق على `Intl` الأصلي وتؤثر اللغة فقط على مخرجاتها. إذا كنت تعتمد على منطقة زمنية مفروضة أو قيمة `now` ثابتة لتواريخ مستقرة أثناء الـ Hydration، فتعامل مع ذلك في موضع الاستدعاء. راجع [تنسيق التاريخ والوقت والأرقام](https://intlayer.org/ar/blog/date-time-number-formatting-locales).
+
+</Accordion>
+</AccordionGroup>
 
 ## متى تستخدم أيًا منها؟
 
-- **ابقَ على `next-intl`** إذا كان تطبيقك صغيرًا، والحزمة ليست مصدر قلق، وفريقك مرتاح لامتلاك المساحات والقيام بـ `pick()` لكل صفحة.
-- **استخدم `@intlayer/next-intl`** إذا كنت تستخدم `next-intl` حالياً وتريد تحسينات الحزمة والتسرب والتنويم، والمفاتيح المكتوبة بشكل صحيح وأدوات CLI / CMS دون إعادة كتابة. هذه هي نقطة الدخول الموصى بها لأي codebase `next-intl` موجود.
-- **استخدم المحلل الأصلي (`next-intlayer`)** للمشاريع الجديدة، أو بعد انتهاء المحول من مهمته. إنها الأخف من بين الثلاثة (5.5 KB، +0.3 KB لكل صفحة) وتفتح مكونات الخادم المتزامنة وملفات `.content.ts` لكل مكون ومجموعة الميزات الكاملة.
+<AccordionGroup>
+<Accordion header="البقاء على next-intl">
+
+إذا كان تطبيقك صغيراً، وحجم الحزمة لا يشكل مصدر قلق، وفريقك مرتاح في إدارة مساحات الأسماء و `pick()` لكل صفحة.
+
+</Accordion>
+<Accordion header="استخدام @intlayer/next-intl">
+
+أنت تستخدم `next-intl` اليوم وتريد مكاسب الحزمة ومنع التسريب والـ Hydration السريع والمفاتيح المكتوبة وأدوات CLI / CMS دون الحاجة إلى إعادة كتابة الكود. هذه هي نقطة البداية الموصى بها لأي قاعدة كود `next-intl` حالية.
+
+</Accordion>
+<Accordion header="الانتقال إلى الحل الأصلي (next-intlayer)">
+
+للمشاريع الجديدة، أو بمجرد أن يكمل المحول مهمته الانتقالية. إنه الأخف بين الخيارات الثلاثة (5.5 كيلوبايت، +0.3 كيلوبايت لكل صفحة) ويفعل مكونات الخادم المتزامنة، وملفات `.content.ts` لكل مكون، وكامل مجموعة الميزات. ابدأ مع [Intlayer مع Next.js](https://intlayer.org/ar/doc/environment/nextjs).
+
+</Accordion>
+</AccordionGroup>
+
+## الأسئلة الشائعة
+
+<FAQ>
+
+<Question title="هل يظل كود تطبيقي دون أي تعديل بالفعل؟">
+
+في Next.js، نعم بالنسبة للمكونات: عدل بناء الاختبار `next.config.ts` و `intlayer.config.ts` فقط. وتصبح `getRequestConfig` في `src/i18n.ts`، وخاصية `messages` في المزود، واستدعاءات `pick()` لكل صفحة بمثابة كود غير مستخدم يمكنك حذفه لاحقاً.
+
+</Question>
+
+<Question title="ماذا يحدث لرسائل ICU؟">
+
+تستمر في العمل. يتم حل `t("key", { count })` و `t.rich()` و `t.markup()` و `select` و `selectordinal` و `#` و `{ts, date, long}` بواسطة محلل ICU الخاص بـ Intlayer. راجع [تنسيق رسائل ICU](https://intlayer.org/ar/blog/icu-message-format).
+
+</Question>
+
+<Question title="لماذا المحول أثقل من next-intlayer الأصلي؟">
+
+لأنه يحمل واجهة برمجة تطبيقات `next-intl` فوق نواة Intlayer: `useFormatter` و `t.rich` ومحلل ICU ومساعدات التنقل. وهذا يعادل 8.0 كيلوبايت مقابل 5.5 كيلوبايت، و +6 كيلوبايت لكل صفحة. إنه جسر عبور وليس الوجهة النهائية.
+
+</Question>
+
+<Question title="هل يمكنني الترحيل مكوناً تلو الآخر؟">
+
+نعم. يمكن لأي مكون الانتقال من `useTranslations("about")` إلى `useIntlayer("about")` مع ملف `.content.ts` مجاور له. تتعايش قواميس JSON و `.content.ts` وتندمج بسلاسة.
+
+</Question>
+
+<Question title="هل تعمل أسماء المسارات المترجمة (pathnames)؟">
+
+ليس من خلال `pathnames` الخاصة بـ `next-intl`: يقبلها المحول لغرض التحقق من الأنواع فقط ولكنه لا يستنبطها. استخدم بدلاً من ذلك `routing.rewrite` من Intlayer.
+
+</Question>
+
+</FAQ>
 
 ## المقارنات ذات الصلة
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (المكتبات، نفس المعيار)
-- [i18next vs @intlayer/i18next](https://intlayer.org/blog/i18next-vs-intlayer-i18next) (نفس سلسلة المحول)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/blog/lingui-vs-intlayer-lingui) (نفس سلسلة المحول)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/blog/vue-i18n-vs-intlayer-vue-i18n) (نفس سلسلة المحول)
-- [دليل الهجرة: next-intl إلى Intlayer](https://intlayer.org/doc/migration/next-intl)
-- [مرجع محول التوافقية: next-intl](https://intlayer.org/doc/compatibility/next-intl)
+نفس سلسلة المحولات:
+
+- [i18next vs @intlayer/i18next](https://intlayer.org/ar/blog/i18next-vs-intlayer-i18next)
+- [Lingui vs @intlayer/lingui](https://intlayer.org/ar/blog/lingui-vs-intlayer-lingui)
+- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer-vue-i18n)
+
+مقارنة مباشرة بين المكتبات:
+
+- [next-intl vs Intlayer](https://intlayer.org/ar/blog/next-intl-vs-intlayer), نفس الاختبار المرجعي
+- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ar/blog/next-i18next-vs-next-intl-vs-intlayer)
+- [Is next-intl outdated?](https://intlayer.org/ar/blog/is-next-intl-outdated)
+
+وثائق مرجعية:
+
+- [Compat adapter: next-intl](https://intlayer.org/ar/doc/compatibility/next-intl)
+- [دليل الترحيل: من next-intl إلى Intlayer](https://intlayer.org/ar/doc/migration/next-intl)
+- [تقرير قياس أداء Next.js](https://intlayer.org/ar/doc/benchmark/nextjs) و [تقرير قياس أداء TanStack Start](https://intlayer.org/ar/doc/benchmark/tanstack)
+- [تحسين الحزمة](https://intlayer.org/ar/doc/concept/bundle-optimization) و [مترجم Intlayer](https://intlayer.org/ar/doc/compiler)
+- [المحرر المرئي](https://intlayer.org/ar/doc/concept/editor)، [نظام إدارة المحتوى CMS](https://intlayer.org/ar/doc/concept/cms) و [الترجمة بالذكاء الاصطناعي](https://intlayer.org/ar/doc/concept/auto-fill)
 
 ## الخلاصة
 
