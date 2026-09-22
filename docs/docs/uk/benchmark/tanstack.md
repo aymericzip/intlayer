@@ -65,7 +65,7 @@ history:
 
 ## TL;DR
 
-- **Intlayer**: Забезпечує найкращу продуктивність і найменший розмір бандла (v9.5.1) для TanStack Start.
+- **Intlayer**: Забезпечує найкращу продуктивність і найменший розмір бандла (v9.5.6) для TanStack Start.
 - **react-i18next** та **use-intl**: Зрілі альтернативи з великими екосистемами, але значно важчі та складніші в оптимізації.
 - **Paraglide**: Інноваційна ідея tree-shaking, яка не працює на практиці. Складний DX та накладні витрати реактивності в TanStack Start.
 - **Уникайте**: **General Translation (GT)** та **Lingo.dev** через серйозні проблеми з продуктивністю, ліміти ШІ та прив'язку до вендора (vendor lock-in).
@@ -100,18 +100,19 @@ history:
 Для цього бенчмарку ми порівняли наступні бібліотеки:
 
 - `Base App` (Без бібліотеки i18n)
-- `react-intlayer` (v9.5.1)
-- `@intlayer/use-intl` (v9.5.1)
-- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md) (v9.5.1)
-- `react-i18next` (v17.0.13)
-- `use-intl` (v4.14.2)
-- `@lingui/core` (v6.6.0)
-- `@inlang/paraglide-js` (v2.15.1)
-- `@tolgee/react` (v7.2.0)
-- `react-intl` (v10.1.26)
-- `wuchale` (v0.26.6)
-- `gt-react` (v10.18.3)
-- `lingo.dev` (v0.138.7)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md) (v9.5.6)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md) (v9.5.6)
+- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/react-i18next.md) (v9.5.6)
+- [`react-i18next`](https://github.com/i18next/react-i18next) (v17.0.13)
+- [`use-intl`](https://github.com/amannn/next-intl/tree/main/packages/use-intl) (v4.14.2)
+- [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.15.1)
+- [`@tolgee/react`](https://github.com/tolgee/tolgee-js) (v7.2.0)
+- [`react-intl`](https://github.com/formatjs/formatjs) (v10.1.26)
+- [`wuchale`](https://github.com/wuchalejs/wuchale) (v0.26.6)
+- [`gt-react`](https://github.com/generaltranslation/gt) (v10.18.3)
+- [`lingo.dev`](https://github.com/lingodotdev/lingo.dev) (v0.138.7)
 
 Фреймворк - `TanStack Start` з багатомовним додатком на **10 сторінок** та **10 мов**.
 

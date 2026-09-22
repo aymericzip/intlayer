@@ -65,7 +65,7 @@ Ein weiterer Aspekt ist die Developer Experience (DX): Wie deklarieren Sie Inhal
 
 ## TL;DR
 
-- **Intlayer**: Bietet die beste Performance und die kleinste Bundle-Größe (v9.5.1) für TanStack Start.
+- **Intlayer**: Bietet die beste Performance und die kleinste Bundle-Größe (v9.5.6) für TanStack Start.
 - **react-i18next** & **use-intl**: Ausgereifte Alternativen mit großen Ökosystemen, aber deutlich schwerer und komplexer zu optimieren.
 - **Paraglide**: Innovative Tree-shaking-Idee, die in der Praxis nicht funktioniert. Komplexe DX und Reaktivitäts-Overhead in TanStack Start.
 - **Vermeiden**: **General Translation (GT)** und **Lingo.dev** aufgrund schwerwiegender Performance-Probleme, AI-Quota-Limits und Vendor-Lock-in.
@@ -100,18 +100,19 @@ Syntaxansätze um `const t = useTranslation()` + `t('a.b.c')` sind sehr bequem, 
 Für diesen Benchmark haben wir die folgenden Bibliotheken verglichen:
 
 - `Base App` (Ohne i18n-Bibliothek)
-- `react-intlayer` (v9.5.1)
-- `@intlayer/use-intl` (v9.5.1)
-- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/lingui.md) (v9.5.1)
-- `react-i18next` (v17.0.13)
-- `use-intl` (v4.14.2)
-- `@lingui/core` (v6.6.0)
-- `@inlang/paraglide-js` (v2.15.1)
-- `@tolgee/react` (v7.2.0)
-- `react-intl` (v10.1.26)
-- `wuchale` (v0.26.6)
-- `gt-react` (v10.18.3)
-- `lingo.dev` (v0.138.7)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/next-intl.md) (v9.5.6)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/lingui.md) (v9.5.6)
+- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/react-i18next.md) (v9.5.6)
+- [`react-i18next`](https://github.com/i18next/react-i18next) (v17.0.13)
+- [`use-intl`](https://github.com/amannn/next-intl/tree/main/packages/use-intl) (v4.14.2)
+- [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.15.1)
+- [`@tolgee/react`](https://github.com/tolgee/tolgee-js) (v7.2.0)
+- [`react-intl`](https://github.com/formatjs/formatjs) (v10.1.26)
+- [`wuchale`](https://github.com/wuchalejs/wuchale) (v0.26.6)
+- [`gt-react`](https://github.com/generaltranslation/gt) (v10.18.3)
+- [`lingo.dev`](https://github.com/lingodotdev/lingo.dev) (v0.138.7)
 
 Das Framework ist `TanStack Start` mit einer mehrsprachigen App mit **10 Seiten** und **10 Sprachen**.
 

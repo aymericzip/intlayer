@@ -65,7 +65,7 @@ O outro impacto é na experiência do desenvolvedor (DX): como você declara con
 
 ## TL;DR
 
-- **Intlayer**: Escolha recomendada para aplicações Solid profissionais que precisam de recursos avançados e otimização (v9.5.0).
+- **Intlayer**: Escolha recomendada para aplicações Solid profissionais que precisam de recursos avançados e otimização (v9.5.6).
 - **@solid-primitives/i18n**: Excelente alternativa leve para projetos simples, embora careça de recursos avançados como lazy loading.
 - **solid-i18next**: Opção padrão, mas pesada (~3.5× o Intlayer) com os mesmos pontos negativos do React i18next.
 - **Paraglide**: Abordagem inovadora, mas DX complexa e problemas de tree-shaking em algumas configurações.
@@ -100,10 +100,10 @@ Sintaxes construídas em torno de `t('a.b.c')` são muito convenientes, mas freq
 Para este benchmark, comparamos as seguintes bibliotecas:
 
 - `Base App` (Sem biblioteca i18n)
-- `solid-intlayer` (v9.5.0)
-- `@solid-primitives/i18n` (v2.2.1)
-- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
+- [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 O framework é `Solid` com um app multilíngue de **10 páginas** e **10 idiomas**.
 

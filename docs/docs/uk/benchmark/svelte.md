@@ -65,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: Найефективніший за продуктивністю вибір (v9.5.0) з найменшим слідом (footprint).
+- **Intlayer**: Найефективніший за продуктивністю вибір (v9.5.6) з найменшим слідом (footprint).
 - **Paraglide**: Сильний претендент для tree-shaking, але має складніший досвід розробника та накладні витрати на реактивність.
 - **svelte-i18n**: Комплексний та стандартний для Svelte, але несе значно більшу вагу бандла (~4.5 разів більше за Intlayer).
 
@@ -99,9 +99,9 @@ style="border:none;"
 Для цього бенчмарку ми порівняли наступні бібліотеки:
 
 - `Base App` (Без бібліотеки i18n)
-- `svelte-intlayer` (v9.5.0)
-- `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 Фреймворк - `Svelte` з багатомовним додатком із **10 сторінок** і **10 мов**.
 

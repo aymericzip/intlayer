@@ -65,7 +65,7 @@ Solid ऐप में अंतर्राष्ट्रीयकरण (Inte
 
 ## TL;DR
 
-- **Intlayer**: उन्नत सुविधाओं और अनुकूलन की आवश्यकता वाले पेशेवर Solid अनुप्रयोगों के लिए अनुशंसित विकल्प (v9.5.0)।
+- **Intlayer**: उन्नत सुविधाओं और अनुकूलन की आवश्यकता वाले पेशेवर Solid अनुप्रयोगों के लिए अनुशंसित विकल्प (v9.5.6)।
 - **@solid-primitives/i18n**: सरल परियोजनाओं के लिए उत्कृष्ट हल्का विकल्प, हालांकि इसमें लेज़ी लोडिंग (lazy loading) जैसी उन्नत सुविधाओं का अभाव है।
 - **solid-i18next**: मानक लेकिन भारी विकल्प (~3.5x Intlayer) जिसमें React i18next वाले ही नकारात्मक पक्ष हैं।
 - **Paraglide**: अभिनव दृष्टिकोण लेकिन जटिल DX और कुछ सेटअपों में ट्री-शेकिंग (tree-shaking) के मुद्दे।
@@ -100,10 +100,10 @@ i18n लीकेज समस्याओं को तुरंत पहच�
 इस बेंचमार्क के लिए, हमने निम्नलिखित पुस्तकालयों की तुलना की:
 
 - `Base App` (कोई i18n पुस्तकालय नहीं)
-- `solid-intlayer` (v9.5.0)
-- `@solid-primitives/i18n` (v2.2.1)
-- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
+- [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 फ्रेमवर्क `Solid` है जिसमें **10 पृष्ठों** और **10 भाषाओं** का एक बहुभाषी ऐप है।
 

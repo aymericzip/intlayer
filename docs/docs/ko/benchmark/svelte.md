@@ -65,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: 가장 성능 효율적인 선택(v9.5.0)으로, 발자국(footprint)이 가장 작습니다.
+- **Intlayer**: 가장 성능 효율적인 선택(v9.5.6)으로, 발자국(footprint)이 가장 작습니다.
 - **Paraglide**: 트리 쉐이킹(tree-shaking)을 위한 강력한 후보이지만, 개발자 경험이 더 복잡하고 반응성 오버헤드가 있습니다.
 - **svelte-i18n**: Svelte를 위한 표준적이고 기능이 완비된 솔루션이지만, 번들 무게가 훨씬 더 큽니다(Intlayer의 약 4.5배).
 
@@ -99,9 +99,9 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 이 벤치마크에서는 다음과 같은 라이브러리를 비교했습니다:
 
 - `Base App` (i18n 라이브러리 없음)
-- `svelte-intlayer` (v9.5.0)
-- `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 프레임워크는 `Svelte`이며 **10개의 페이지**와 **10개의 언어**를 가진 다국어 앱을 사용했습니다.
 

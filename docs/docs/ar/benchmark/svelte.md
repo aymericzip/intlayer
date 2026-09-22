@@ -65,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: الخيار الأكثر كفاءة في الأداء (v9.5.0) مع أصغر بصمة (footprint).
+- **Intlayer**: الخيار الأكثر كفاءة في الأداء (v9.5.6) مع أصغر بصمة (footprint).
 - **Paraglide**: منافس قوي للتخلص من الكود غير المستخدم (tree-shaking) ولكنه يمتلك تجربة مطور أكثر تعقيدًا وعبئًا في التفاعل.
 - **svelte-i18n**: كامل ومعياري لـ Svelte، ولكنه يحمل وزن حزمة أكبر بكثير (~4.5 أضعاف Intlayer).
 
@@ -99,9 +99,9 @@ style="border:none;"
 في هذا التقييم القياسي، قارنا المكتبات التالية:
 
 - `Base App` (بدون مكتبة i18n)
-- `svelte-intlayer` (v9.5.0)
-- `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 الإطار هو `Svelte` مع تطبيق متعدد اللغات يتكون من **10 صفحات** و **10 لغات**.
 

@@ -65,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: 最もパフォーマンス効率が高く、フットプリントが最も小さい選択肢（v9.5.0）。
+- **Intlayer**: 最もパフォーマンス効率が高く、フットプリントが最も小さい選択肢（v9.5.6）。
 - **Paraglide**: ツリーシェイキング（tree-shaking）の強力な候補ですが、開発者エクスペリエンスがより複雑で、反応性のオーバーヘッドがあります。
 - **svelte-i18n**: Svelte向けの標準的で機能が充実したソリューションですが、バンドル重量が非常に大きくなります（Intlayerの約4.5倍）。
 
@@ -99,9 +99,9 @@ i18nリークの問題を素早く特定するために、無料のスキャナ�
 このベンチマークでは、以下のライブラリを比較しました。
 
 - `Base App` (i18nライブラリなし)
-- `svelte-intlayer` (v9.5.0)
-- `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 フレームワークは `Svelte` で、**10ページ**と**10言語**を持つ多言語アプリを使用しました。
 

@@ -65,7 +65,7 @@ Svelte ऐप में अंतर्राष्ट्रीयकरण (Int
 
 ## TL;DR
 
-- **Intlayer**: सबसे छोटे पदचिह्न (footprint) के साथ सबसे प्रदर्शन-कुशल विकल्प (v9.5.0)।
+- **Intlayer**: सबसे छोटे पदचिह्न (footprint) के साथ सबसे प्रदर्शन-कुशल विकल्प (v9.5.6)।
 - **Paraglide**: ट्री-शेकिंग (tree-shaking) के लिए मजबूत दावेदार लेकिन इसमें अधिक जटिल डेवलपर अनुभव और प्रतिक्रियाशीलता ओवरहेड है।
 - **svelte-i18n**: Svelte के लिए व्यापक और मानक, लेकिन बहुत बड़े बंडल वजन (~4.5x Intlayer) के साथ आता है।
 
@@ -99,9 +99,9 @@ i18n लीकेज समस्याओं को तुरंत पहच�
 इस बेंचमार्क के लिए, हमने निम्नलिखित पुस्तकालयों की तुलना की:
 
 - `Base App` (कोई i18n पुस्तकालय नहीं)
-- `svelte-intlayer` (v9.5.0)
-- `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 फ्रेमवर्क `Svelte` है जिसमें **10 पृष्ठों** और **10 भाषाओं** का एक बहुभाषी ऐप है।
 

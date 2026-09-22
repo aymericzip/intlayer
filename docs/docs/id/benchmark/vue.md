@@ -65,7 +65,7 @@ Dampak lainnya adalah pada pengalaman pengembang (DX): bagaimana Anda mendeklara
 
 ## TL;DR
 
-- **Intlayer**: Solusi paling ringan (v9.5.0) dengan scoping bawaan dan pemuatan dinamis.
+- **Intlayer**: Solusi paling ringan (v9.5.6) dengan scoping bawaan dan pemuatan dinamis.
 - **vue-i18n**: Standar industri dengan ekosistem yang kaya, tetapi bisa menjadi jauh lebih berat dan sulit dioptimalkan untuk code-splitting dalam aplikasi besar.
 - **fluent-vue**: Organisasi pesan yang inovatif tetapi kurang dalam keamanan tipe (type-safety) dan ternyata merupakan solusi yang sangat berat.
 
@@ -99,10 +99,10 @@ Sintaks yang dibangun di sekitar `const { t } = useI18n()` + `t('a.b.c')` sangat
 Untuk benchmark ini, kami membandingkan pustaka berikut:
 
 - `Base App` (Tanpa pustaka i18n)
-- `vue-intlayer` (v9.5.0)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md) (v9.5.1)
-- `vue-i18n` (v11.4.0)
-- `fluent-vue` (v3.8.2)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vue-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md) (v9.5.6)
+- [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
+- [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 
 Framework yang digunakan adalah `Vue` dengan aplikasi multibahasa yang terdiri dari **10 halaman** dan **10 bahasa**.
 

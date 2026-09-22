@@ -65,7 +65,7 @@ Diğer etki geliştirici deneyimi (DX) üzerindedir: içeriği nasıl tanımlad�
 
 ## TL;DR
 
-- **Intlayer**: Yerel kapsam (scoping) ve dinamik yükleme ile en hafif çözüm (v9.5.0).
+- **Intlayer**: Yerel kapsam (scoping) ve dinamik yükleme ile en hafif çözüm (v9.5.6).
 - **vue-i18n**: Zengin bir ekosisteme sahip endüstri standardı, ancak büyük uygulamalarda önemli ölçüde ağırlaşabilir ve kod bölme (code-splitting) için optimize edilmesi zor olabilir.
 - **fluent-vue**: Yenilikçi mesaj organizasyonu ancak tip güvenliğinden yoksundur ve son derece ağır bir çözüm olduğu ortaya çıkmıştır.
 
@@ -99,10 +99,10 @@ Dinamik yükleme ile bir ödünleşimi kabul edersiniz: daha az başlangıç JS'
 Bu benchmark için aşağıdaki kütüphaneleri karşılaştırdık:
 
 - `Base App` (i18n kütüphanesi yok)
-- `vue-intlayer` (v9.5.0)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) (v9.5.1)
-- `vue-i18n` (v11.4.0)
-- `fluent-vue` (v3.8.2)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vue-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) (v9.5.6)
+- [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
+- [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 
 Framework, **10 sayfa** ve **10 dilden** oluşan çok dilli bir uygulamaya sahip `Vue`'dur.
 

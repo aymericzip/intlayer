@@ -65,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: Рекомендований вибір для професійних додатків Solid, які потребують розширених функцій та оптимізації (v9.5.0).
+- **Intlayer**: Рекомендований вибір для професійних додатків Solid, які потребують розширених функцій та оптимізації (v9.5.6).
 - **@solid-primitives/i18n**: Відмінна легка альтернатива для простих проєктів, хоча їй бракує розширених функцій, таких як lazy loading.
 - **solid-i18next**: Стандартний, але важкий варіант (~3.5 рази більше за Intlayer) з тими ж недоліками, що і React i18next.
 - **Paraglide**: Інноваційний підхід, але складний DX та проблеми з tree-shaking у деяких конфігураціях.
@@ -100,10 +100,10 @@ style="border:none;"
 Для цього бенчмарку ми порівняли наступні бібліотеки:
 
 - `Base App` (Без бібліотеки i18n)
-- `solid-intlayer` (v9.5.0)
-- `@solid-primitives/i18n` (v2.2.1)
-- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
+- [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 Фреймворк - `Solid` з багатомовним додатком із **10 сторінок** і **10 мов**.
 

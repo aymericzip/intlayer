@@ -65,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: Найлегше рішення (v9.5.0) з нативним скоупінгом (scoping) та динамічним завантаженням.
+- **Intlayer**: Найлегше рішення (v9.5.6) з нативним скоупінгом (scoping) та динамічним завантаженням.
 - **vue-i18n**: Галузевий стандарт з багатою екосистемою, але може стати значно важчим і важчим для оптимізації під code-splitting у великих додатках.
 - **fluent-vue**: Інноваційна організація повідомлень, але не вистачає безпеки типів (type-safety) і виявляється надзвичайно важким рішенням.
 
@@ -99,10 +99,10 @@ style="border:none;"
 Для цього бенчмарку ми порівняли наступні бібліотеки:
 
 - `Base App` (Без бібліотеки i18n)
-- `vue-intlayer` (v9.5.0)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/vue-i18n.md) (v9.5.1)
-- `vue-i18n` (v11.4.0)
-- `fluent-vue` (v3.8.2)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vue-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/vue-i18n.md) (v9.5.6)
+- [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
+- [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 
 Фреймворк - `Vue` з багатомовним додатком із **10 сторінок** і **10 мов**.
 

@@ -65,7 +65,7 @@ Diğer etki geliştirici deneyimi (DX) üzerindedir: içeriği nasıl tanımlad�
 
 ## TL;DR
 
-- **Intlayer**: En küçük ayak izine sahip en performans odaklı seçim (v9.5.0).
+- **Intlayer**: En küçük ayak izine sahip en performans odaklı seçim (v9.5.6).
 - **Paraglide**: Tree-shaking için güçlü bir rakip ancak daha karmaşık bir geliştirici deneyimine ve reaktivite yüküne sahip.
 - **svelte-i18n**: Svelte için kapsamlı ve standart, ancak çok daha büyük paket ağırlığı taşıyor (~4.5x Intlayer).
 
@@ -99,9 +99,9 @@ Dinamik yükleme ile bir ödünleşimi kabul edersiniz: daha az başlangıç JS'
 Bu benchmark için aşağıdaki kütüphaneleri karşılaştırdık:
 
 - `Base App` (i18n kütüphanesi yok)
-- `svelte-intlayer` (v9.5.0)
-- `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 Framework, **10 sayfa** ve **10 dilden** oluşan çok dilli bir uygulamaya sahip `Svelte`'dir.
 

@@ -65,7 +65,7 @@ history:
 
 ## TL;DR
 
-- **Intlayer**: 性能最高效的选择（v9.5.0），占用空间最小。
+- **Intlayer**: 性能最高效的选择（v9.5.6），占用空间最小。
 - **Paraglide**: tree-shaking 的有力竞争者，但开发者体验更复杂，且有反应性开销。
 - **svelte-i18n**: 功能完善且是 Svelte 的标准，但包重量大得多（约为 Intlayer 的 4.5 倍）。
 
@@ -99,9 +99,9 @@ history:
 在此基准测试中，我们比较了以下库：
 
 - `Base App`（无 i18n 库）
-- `svelte-intlayer` (v9.5.0)
-- `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 框架是 `Svelte`，应用包含 **10 个页面** 和 **10 种语言**。
 

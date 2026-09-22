@@ -65,7 +65,7 @@ The other impact is on developer experience: how you declare content, types, nam
 
 ## TL;DR
 
-- **Intlayer**: The lightest solution (v9.5.0) with built-in scoping and dynamic loading.
+- **Intlayer**: The lightest solution (v9.5.6) with built-in scoping and dynamic loading.
 - **vue-i18n**: The industry standard with a rich ecosystem, but can become significantly heavier and harder to optimise for code-splitting in large applications.
 - **fluent-vue**: Innovative message organisation but lacks type-safety and turns out to be an extremely heavy solution.
 
@@ -99,10 +99,10 @@ Syntaxes built around `const { t } = useI18n()` + `t('a.b.c')` are very convenie
 For this benchmark, we compared the following libraries:
 
 - `Base App` (No i18n library)
-- `vue-intlayer` (v9.5.0)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/vue-i18n.md) (v9.5.1)
-- `vue-i18n` (v11.4.0)
-- `fluent-vue` (v3.8.2)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/vue-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/vue-i18n.md) (v9.5.6)
+- [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
+- [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 
 The framework is `Vue` with a multilingual app of **10 pages** and **10 languages**.
 

@@ -65,7 +65,7 @@ El otro impacto es en la experiencia del desarrollador (DX): cómo se declara el
 
 ## TL;DR
 
-- **Intlayer**: La solución más ligera (v9.5.0) con segmentación (scoping) y carga dinámica nativas.
+- **Intlayer**: La solución más ligera (v9.5.6) con segmentación (scoping) y carga dinámica nativas.
 - **vue-i18n**: El estándar de la industria con un ecosistema rico, pero puede ser significativamente más pesado y difícil de optimizar para el code-splitting en aplicaciones grandes.
 - **fluent-vue**: Organización innovadora de mensajes pero carece de seguridad de tipos y resulta ser una solución extremadamente pesada.
 
@@ -99,10 +99,10 @@ Las sintaxis construidas en torno a `const { t } = useI18n()` + `t('a.b.c')` son
 Para este benchmark, comparamos las siguientes bibliotecas:
 
 - `Base App` (Sin biblioteca i18n)
-- `vue-intlayer` (v9.5.0)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/vue-i18n.md) (v9.5.1)
-- `vue-i18n` (v11.4.0)
-- `fluent-vue` (v3.8.2)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vue-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/vue-i18n.md) (v9.5.6)
+- [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
+- [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 
 El framework es `Vue` con una aplicación multilingüe de **10 páginas** y **10 idiomas**.
 

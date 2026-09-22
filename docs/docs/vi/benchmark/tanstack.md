@@ -65,7 +65,7 @@ Tác động khác là đối với trải nghiệm phát triển (DX): cách b�
 
 ## TL;DR
 
-- **Intlayer**: Cung cấp hiệu năng tốt nhất và kích thước bundle nhỏ nhất (v9.5.1) cho TanStack Start.
+- **Intlayer**: Cung cấp hiệu năng tốt nhất và kích thước bundle nhỏ nhất (v9.5.6) cho TanStack Start.
 - **react-i18next** & **use-intl**: Các lựa chọn thay thế thuần thục với hệ sinh thái lớn, nhưng nặng hơn đáng kể và phức tạp hơn để tối ưu hóa.
 - **Paraglide**: Ý tưởng tree-shaking sáng tạo nhưng không hoạt động trong thực tế. DX phức tạp và chi phí phản ứng trên TanStack Start.
 - **Cần tránh**: **General Translation (GT)** và **Lingo.dev** do các vấn đề hiệu năng nghiêm trọng, giới hạn hạn mức AI và bị ràng buộc vào nhà cung cấp (vendor lock-in).
@@ -100,18 +100,19 @@ Các cú pháp được xây dựng xung quanh `const t = useTranslation()` + `t
 Đối với benchmark này, chúng tôi đã so sánh các thư viện sau:
 
 - `Base App` (Không sử dụng thư viện i18n)
-- `react-intlayer` (v9.5.1)
-- `@intlayer/use-intl` (v9.5.1)
-- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md) (v9.5.1)
-- `react-i18next` (v17.0.13)
-- `use-intl` (v4.14.2)
-- `@lingui/core` (v6.6.0)
-- `@inlang/paraglide-js` (v2.15.1)
-- `@tolgee/react` (v7.2.0)
-- `react-intl` (v10.1.26)
-- `wuchale` (v0.26.6)
-- `gt-react` (v10.18.3)
-- `lingo.dev` (v0.138.7)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md) (v9.5.6)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md) (v9.5.6)
+- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-i18next.md) (v9.5.6)
+- [`react-i18next`](https://github.com/i18next/react-i18next) (v17.0.13)
+- [`use-intl`](https://github.com/amannn/next-intl/tree/main/packages/use-intl) (v4.14.2)
+- [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.15.1)
+- [`@tolgee/react`](https://github.com/tolgee/tolgee-js) (v7.2.0)
+- [`react-intl`](https://github.com/formatjs/formatjs) (v10.1.26)
+- [`wuchale`](https://github.com/wuchalejs/wuchale) (v0.26.6)
+- [`gt-react`](https://github.com/generaltranslation/gt) (v10.18.3)
+- [`lingo.dev`](https://github.com/lingodotdev/lingo.dev) (v0.138.7)
 
 Framework được sử dụng là `TanStack Start` với một ứng dụng đa ngôn ngữ gồm **10 trang** và **10 ngôn ngữ**.
 

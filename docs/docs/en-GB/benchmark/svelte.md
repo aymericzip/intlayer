@@ -65,7 +65,7 @@ The other impact is on developer experience: how you declare content, types, nam
 
 ## TL;DR
 
-- **Intlayer**: The most performance-efficient choice (v9.5.0) with the smallest footprint.
+- **Intlayer**: The most performance-efficient choice (v9.5.6) with the smallest footprint.
 - **Paraglide**: Strong contender for tree-shaking but has a more complex developer experience and reactivity overhead.
 - **svelte-i18n**: Comprehensive and standard for Svelte, but carries much larger bundle weight (~4.5× Intlayer).
 
@@ -99,9 +99,9 @@ Syntaxes built around `t('a.b.c')` are very convenient but often encourage keepi
 For this benchmark, we compared the following libraries:
 
 - `Base App` (No i18n library)
-- `svelte-intlayer` (v9.5.0)
-- `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 The framework is `Svelte` with a multilingual app of **10 pages** and **10 languages**.
 

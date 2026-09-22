@@ -65,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: 고급 기능과 최적화가 필요한 전문 Solid 애플리케이션을 위한 추천 선택(v9.5.0).
+- **Intlayer**: 고급 기능과 최적화가 필요한 전문 Solid 애플리케이션을 위한 추천 선택(v9.5.6).
 - **@solid-primitives/i18n**: 단순한 프로젝트를 위한 훌륭한 경량 대안이지만 지연 로딩과 같은 고급 기능이 부족합니다.
 - **solid-i18next**: 표준적이지만 무거운 옵션(Intlayer의 약 3.5배)으로 React i18next와 동일한 단점을 공유합니다.
 - **Paraglide**: 혁신적인 접근 방식이지만 DX가 복잡하고 일부 설정에서 트리 쉐이킹 문제가 발생합니다.
@@ -100,10 +100,10 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 이 벤치마크에서는 다음과 같은 라이브러리를 비교했습니다:
 
 - `Base App` (i18n 라이브러리 없음)
-- `solid-intlayer` (v9.5.0)
-- `@solid-primitives/i18n` (v2.2.1)
-- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
+- [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 프레임워크는 `Solid`이며 **10개의 페이지**와 **10개의 언어**를 가진 다국어 앱을 사용했습니다.
 

@@ -65,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: 내장된 스코핑(scoping)과 동적 로딩을 제공하는 가장 가벼운 솔루션(v9.5.0).
+- **Intlayer**: 내장된 스코핑(scoping)과 동적 로딩을 제공하는 가장 가벼운 솔루션(v9.5.6).
 - **vue-i18n**: 풍부한 에코시스템을 가진 업계 표준이지만, 대규모 애플리케이션에서 코드 분할 최적화가 어렵고 상당히 무거워질 수 있습니다.
 - **fluent-vue**: 혁신적인 메시지 구성을 제공하지만 타입 안전성이 부족하고 극도로 무거운 솔루션입니다.
 
@@ -99,10 +99,10 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 이 벤치마크에서는 다음과 같은 라이브러리를 비교했습니다:
 
 - `Base App` (i18n 라이브러리 없음)
-- `vue-intlayer` (v9.5.0)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md) (v9.5.1)
-- `vue-i18n` (v11.4.0)
-- `fluent-vue` (v3.8.2)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vue-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md) (v9.5.6)
+- [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
+- [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 
 프레임워크는 `Vue`이며 **10개의 페이지**와 **10개의 언어**를 가진 다국어 앱을 사용했습니다.
 

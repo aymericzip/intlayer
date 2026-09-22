@@ -65,7 +65,7 @@ Vue ऐप में अंतर्राष्ट्रीयकरण (Intern
 
 ## TL;DR
 
-- **Intlayer**: मूल स्कोपिंग (scoping) और डायनेमिक लोडिंग के साथ सबसे हल्का समाधान (v9.5.0)।
+- **Intlayer**: मूल स्कोपिंग (scoping) और डायनेमिक लोडिंग के साथ सबसे हल्का समाधान (v9.5.6)।
 - **vue-i18n**: एक समृद्ध पारिस्थितिकी तंत्र के साथ उद्योग मानक, लेकिन बड़े अनुप्रयोगों में महत्वपूर्ण रूप से भारी हो सकता है और कोड-स्प्लिटिंग के लिए अनुकूलित करना कठिन हो सकता है।
 - **fluent-vue**: अभिनव संदेश संगठन लेकिन इसमें टाइप-सेफ्टी की कमी है और यह एक अत्यंत भारी समाधान साबित होता है।
 
@@ -99,10 +99,10 @@ i18n लीकेज समस्याओं को तुरंत पहच�
 इस बेंचमार्क के लिए, हमने निम्नलिखित पुस्तकालयों की तुलना की:
 
 - `Base App` (कोई i18n पुस्तकालय नहीं)
-- `vue-intlayer` (v9.5.0)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md) (v9.5.1)
-- `vue-i18n` (v11.4.0)
-- `fluent-vue` (v3.8.2)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vue-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md) (v9.5.6)
+- [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
+- [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 
 फ्रेमवर्क `Vue` है जिसमें **10 पृष्ठों** और **10 भाषाओं** का एक बहुभाषी ऐप है।
 

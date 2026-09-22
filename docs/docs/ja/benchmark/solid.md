@@ -65,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: 高度な機能と最適化を必要とするプロフェッショナルなSolidアプリケーションに推奨される選択肢（v9.5.0）。
+- **Intlayer**: 高度な機能と最適化を必要とするプロフェッショナルなSolidアプリケーションに推奨される選択肢（v9.5.6）。
 - **@solid-primitives/i18n**: シンプルなプロジェクトには優れた軽量な代替案ですが、遅延ロードなどの高度な機能に欠けます。
 - **solid-i18next**: 標準的ですが重い選択肢（Intlayerの約3.5倍）で、React i18nextと同じ欠点があります。
 - **Paraglide**: 革新的なアプローチですが、一部のセットアップではDXが複雑で、ツリーシェイキングの問題があります。
@@ -100,10 +100,10 @@ i18nリークの問題を素早く特定するために、無料のスキャナ�
 このベンチマークでは、以下のライブラリを比較しました。
 
 - `Base App` (i18nライブラリなし)
-- `solid-intlayer` (v9.5.0)
-- `@solid-primitives/i18n` (v2.2.1)
-- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
+- [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 フレームワークは `Solid` で、**10ページ**と**10言語**を持つ多言語アプリを使用しました。
 

@@ -65,7 +65,7 @@ Tác động khác là đối với trải nghiệm nhà phát triển (DX): cá
 
 ## TL;DR
 
-- **Intlayer**: Lựa chọn được đề xuất cho các ứng dụng Solid chuyên nghiệp cần các tính năng nâng cao và tối ưu hóa (v9.5.0).
+- **Intlayer**: Lựa chọn được đề xuất cho các ứng dụng Solid chuyên nghiệp cần các tính năng nâng cao và tối ưu hóa (v9.5.6).
 - **@solid-primitives/i18n**: Giải pháp thay thế gọn nhẹ tuyệt vời cho các dự án đơn giản, mặc dù thiếu các tính năng nâng cao như lazy loading.
 - **solid-i18next**: Tùy chọn tiêu chuẩn nhưng nặng (~3.5 lần Intlayer) với các nhược điểm tương tự như React i18next.
 - **Paraglide**: Cách tiếp cận sáng tạo nhưng DX phức tạp và vấn đề tree-shaking trong một số thiết lập.
@@ -100,10 +100,10 @@ Các cú pháp được xây dựng xung quanh `t('a.b.c')` rất tiện lợi n
 Đối với benchmark này, chúng tôi đã so sánh các thư viện sau:
 
 - `Base App` (Không có thư viện i18n)
-- `solid-intlayer` (v9.5.0)
-- `@solid-primitives/i18n` (v2.2.1)
-- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
+- [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 Framework là `Solid` với một ứng dụng đa ngôn ngữ gồm **10 trang** và **10 ngôn ngữ**.
 

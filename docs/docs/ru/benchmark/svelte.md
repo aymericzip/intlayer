@@ -65,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: Самый эффективный выбор с точки зрения производительности (v9.5.0) с минимальным влиянием на размер.
+- **Intlayer**: Самый эффективный выбор с точки зрения производительности (v9.5.6) с минимальным влиянием на размер.
 - **Paraglide**: Сильный конкурент для tree-shaking, но имеет более сложный опыт разработки и накладные расходы на реактивность.
 - **svelte-i18n**: Полнофункциональный и стандартный для Svelte, но имеет гораздо больший вес бандла (~4.5 раз больше Intlayer).
 
@@ -99,9 +99,9 @@ style="border:none;"
 Для этого бенчмарка мы сравнили следующие библиотеки:
 
 - `Base App` (Без библиотеки i18n)
-- `svelte-intlayer` (v9.5.0)
-- `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 Фреймворк - `Svelte` с мультиязычным приложением из **10 страниц** и **10 языков**.
 

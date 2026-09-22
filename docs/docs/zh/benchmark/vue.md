@@ -65,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: 最轻量级的解决方案（v9.5.0），内置分层（scoping）和动态加载。
+- **Intlayer**: 最轻量级的解决方案（v9.5.6），内置分层（scoping）和动态加载。
 - **vue-i18n**: 具有丰富生态系统的行业标准，但在大型应用中可能会显著变重且难以进行代码拆分优化。
 - **fluent-vue**: 创新的消息组织方式，但缺乏类型安全且极其沉重。
 
@@ -99,10 +99,10 @@ style="border:none;"
 在此基准测试中，我们比较了以下库：
 
 - `Base App`（无 i18n 库）
-- `vue-intlayer` (v9.5.0)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) (v9.5.1)
-- `vue-i18n` (v11.4.0)
-- `fluent-vue` (v3.8.2)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vue-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) (v9.5.6)
+- [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
+- [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 
 框架是 `Vue`，应用包含 **10 个页面** 和 **10 种语言**。
 

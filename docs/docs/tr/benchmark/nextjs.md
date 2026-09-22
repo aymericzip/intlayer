@@ -112,19 +112,19 @@ Son olarak `Intlayer`, build zamanı (build-time) optimizasyonu uygulayarak `use
 Bu benchmark için aşağıdaki kütüphaneleri karşılaştırdık:
 
 - `Base App` (i18n kütüphanesi yok)
-- `next-intlayer` (v9.5.1)
-- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-intl.md) (v9.5.1)
-- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md) (v9.5.1)
-- `next-i18next` (v16.3.0)
-- `next-intl` (v4.14.2)
-- `@lingui/core` (v6.6.0)
-- `next-translate` (v3.2.0)
-- `next-international` (v1.3.1)
-- `@inlang/paraglide-js` (v2.15.1)
-- `@tolgee/react` (v7.2.0)
-- `@lingo.dev/compiler` (v0.4.12)
-- `wuchale` (v0.26.6)
-- `gt-next` (v11.1.24)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-intl.md) (v9.5.6)
+- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md) (v9.5.6)
+- [`next-i18next`](https://github.com/i18next/next-i18next) (v16.3.0)
+- [`next-intl`](https://github.com/amannn/next-intl) (v4.14.2)
+- [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
+- [`next-translate`](https://github.com/aralroca/next-translate) (v3.2.0)
+- [`next-international`](https://github.com/QuiiBz/next-international) (v1.3.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.15.1)
+- [`@tolgee/react`](https://github.com/tolgee/tolgee-js) (v7.2.0)
+- [`@lingo.dev/compiler`](https://github.com/lingodotdev/lingo.dev) (v0.4.12)
+- [`wuchale`](https://github.com/wuchalejs/wuchale) (v0.26.6)
+- [`gt-next`](https://github.com/generaltranslation/gt) (v11.1.24)
 
 Next.js'in `16.3.4` sürümünü App Router ile kullandım.
 

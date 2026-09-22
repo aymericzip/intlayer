@@ -65,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: الحل الأخف وزنًا (v9.5.0) مع ميزة النطاق (scoping) والتحميل الديناميكي المدمجة.
+- **Intlayer**: الحل الأخف وزنًا (v9.5.6) مع ميزة النطاق (scoping) والتحميل الديناميكي المدمجة.
 - **vue-i18n**: المعيار الصناعي مع نظام بيئي غني، ولكنه قد يصبح أثقل بكثير ويصعب تحسينه لتقسيم الكود في التطبيقات الكبيرة.
 - **fluent-vue**: تنظيم مبتكر للرسائل ولكنه يفتقر إلى سلامة النوع (type-safety) ويعد حلاً ثقيلًا للغاية.
 
@@ -99,10 +99,10 @@ style="border:none;"
 في هذا التقييم القياسي، قارنا المكتبات التالية:
 
 - `Base App` (بدون مكتبة i18n)
-- `vue-intlayer` (v9.5.0)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md) (v9.5.1)
-- `vue-i18n` (v11.4.0)
-- `fluent-vue` (v3.8.2)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vue-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md) (v9.5.6)
+- [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
+- [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 
 الإطار هو `Vue` مع تطبيق متعدد اللغات يتكون من **10 صفحات** و **10 لغات**.
 

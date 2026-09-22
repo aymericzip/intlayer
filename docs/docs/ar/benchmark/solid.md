@@ -65,7 +65,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: الخيار الموصى به لتطبيقات Solid المهنية التي تحتاج إلى ميزات متقدمة وتحسين (v9.5.0).
+- **Intlayer**: الخيار الموصى به لتطبيقات Solid المهنية التي تحتاج إلى ميزات متقدمة وتحسين (v9.5.6).
 - **@solid-primitives/i18n**: بديل خفيف الوزن ممتاز للمشاريع البسيطة، على الرغم من افتقاره إلى ميزات متقدمة مثل التحميل الكسول (lazy loading).
 - **solid-i18next**: خيار معياري ولكنه ثقيل (~3.5 أضعاف Intlayer) مع نفس عيوب React i18next.
 - **Paraglide**: نهج مبتكر ولكن DX معقد ومشكلات في التخلص من الكود غير المستخدم (tree-shaking) في بعض الإعدادات.
@@ -100,10 +100,10 @@ style="border:none;"
 في هذا التقييم القياسي، قارنا المكتبات التالية:
 
 - `Base App` (بدون مكتبة i18n)
-- `solid-intlayer` (v9.5.0)
-- `@solid-primitives/i18n` (v2.2.1)
-- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
+- [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 الإطار هو `Solid` مع تطبيق متعدد اللغات يتكون من **10 صفحات** و **10 لغات**.
 

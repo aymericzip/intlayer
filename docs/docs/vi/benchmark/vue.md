@@ -65,7 +65,7 @@ Tác động khác là đối với trải nghiệm nhà phát triển (DX): cá
 
 ## TL;DR
 
-- **Intlayer**: Giải pháp nhẹ nhất (v9.5.0) với tính năng scoping và tải động gốc.
+- **Intlayer**: Giải pháp nhẹ nhất (v9.5.6) với tính năng scoping và tải động gốc.
 - **vue-i18n**: Tiêu chuẩn ngành với hệ sinh thái phong phú, nhưng có thể trở nên nặng hơn đáng kể và khó tối ưu hóa cho code-splitting trong các ứng dụng lớn.
 - **fluent-vue**: Tổ chức thông báo sáng tạo nhưng thiếu an toàn kiểu (type-safety) và hóa ra là một giải pháp cực kỳ nặng.
 
@@ -99,10 +99,10 @@ Các cú pháp được xây dựng xung quanh `const { t } = useI18n()` + `t('a
 Đối với benchmark này, chúng tôi đã so sánh các thư viện sau:
 
 - `Base App` (Không có thư viện i18n)
-- `vue-intlayer` (v9.5.0)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) (v9.5.1)
-- `vue-i18n` (v11.4.0)
-- `fluent-vue` (v3.8.2)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vue-intlayer/exports.md) (v9.5.6)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) (v9.5.6)
+- [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
+- [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 
 Framework là `Vue` với một ứng dụng đa ngôn ngữ gồm **10 trang** và **10 ngôn ngữ**.
 

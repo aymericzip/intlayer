@@ -65,7 +65,7 @@ Tác động khác là đối với trải nghiệm nhà phát triển (DX): cá
 
 ## TL;DR
 
-- **Intlayer**: Lựa chọn hiệu quả nhất về hiệu suất (v9.5.0) với dấu chân (footprint) nhỏ nhất.
+- **Intlayer**: Lựa chọn hiệu quả nhất về hiệu suất (v9.5.6) với dấu chân (footprint) nhỏ nhất.
 - **Paraglide**: Đối thủ nặng ký cho tree-shaking nhưng có trải nghiệm nhà phát triển phức tạp hơn và overhead về tính phản ứng.
 - **svelte-i18n**: Toàn diện và tiêu chuẩn cho Svelte, nhưng mang trọng lượng bundle lớn hơn nhiều (~4.5 lần Intlayer).
 
@@ -99,9 +99,9 @@ Các cú pháp được xây dựng xung quanh `t('a.b.c')` rất tiện lợi n
 Đối với benchmark này, chúng tôi đã so sánh các thư viện sau:
 
 - `Base App` (Không có thư viện i18n)
-- `svelte-intlayer` (v9.5.0)
-- `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 Framework là `Svelte` với một ứng dụng đa ngôn ngữ gồm **10 trang** và **10 ngôn ngữ**.
 

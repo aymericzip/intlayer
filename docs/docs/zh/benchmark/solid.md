@@ -64,7 +64,7 @@ history:
 
 ## TL;DR
 
-- **Intlayer**: 需要高级功能和优化的专业 Solid 应用的推荐选择（v9.5.0）。
+- **Intlayer**: 需要高级功能和优化的专业 Solid 应用的推荐选择（v9.5.6）。
 - **@solid-primitives/i18n**: 简单项目的绝佳轻量级替代方案，但缺乏延迟加载等高级功能。
 - **solid-i18next**: 标准但沉重的选项（约为 Intlayer 的 3.5 倍），具有与 React i18next 相同的缺点。
 - **Paraglide**: 创新的方法，但在某些设置中 DX 复杂且存在 tree-shaking 问题。
@@ -99,10 +99,10 @@ history:
 在此基准测试中，我们比较了以下库：
 
 - `Base App`（无 i18n 库）
-- `solid-intlayer` (v9.5.0)
-- `@solid-primitives/i18n` (v2.2.1)
-- `i18next` (v26.0.8) + `@mbarzda/solid-i18next` (v1.4.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
+- [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 框架是 `Solid`，应用包含 **10 个页面** 和 **10 种语言**。
 

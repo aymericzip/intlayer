@@ -65,7 +65,7 @@ El otro impacto es en la experiencia del desarrollador (DX): cómo se declara el
 
 ## TL;DR
 
-- **Intlayer**: La opción más eficiente en cuanto a rendimiento (v9.5.0) con la menor huella.
+- **Intlayer**: La opción más eficiente en cuanto a rendimiento (v9.5.6) con la menor huella.
 - **Paraglide**: Candidato fuerte para el tree-shaking pero tiene una experiencia de desarrollador más compleja y sobrecarga de reactividad.
 - **svelte-i18n**: Completo y estándar para Svelte, pero conlleva un peso de paquete mucho mayor (~4.5 veces Intlayer).
 
@@ -99,9 +99,9 @@ Las sintaxis construidas en torno a `t('a.b.c')` son muy convenientes pero a men
 Para este benchmark, comparamos las siguientes bibliotecas:
 
 - `Base App` (Sin biblioteca i18n)
-- `svelte-intlayer` (v9.5.0)
-- `svelte-i18n` (v4.0.1)
-- `@inlang/paraglide-js` (v2.25.1)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 El framework es `Svelte` con una aplicación multilingüe de **10 páginas** y **10 idiomas**.
 
