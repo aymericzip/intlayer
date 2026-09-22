@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-09-21
 title: 初始化 Intlayer
 description: 了解如何在您的项目中初始化 Intlayer。
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "添加 init infra 子命令"
   - version: 8.6.4
     date: 2026-03-31
     changes: "添加 --no-gitignore 选项"
@@ -124,6 +127,26 @@ bun x intlayer init --no-gitignore
 ```
 
 这将设置所有配置文件，但不会修改您的 `.gitignore`。
+
+### 设置基础设施（桌面应用或自行托管）：
+
+```bash
+npx intlayer init infra
+```
+
+下载并运行在线安装程序（macOS / Linux 上为 `https://intlayer.org/install.sh`，Windows 上为 `install.ps1`），它会询问您希望如何运行 Intlayer：
+
+- **桌面应用** - 在您的机器上安装原生控制面板，连接到 Intlayer Cloud。
+- **多合一 Docker** - 在单个容器中包含控制面板 + API + MongoDB + Redis + MinIO。
+- **Docker Compose** - 每个服务一个容器，用于可扩展的自行托管。
+
+使用 `--mode` 跳过菜单：
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+`npx intlayer init --interactive` 也提供了相同的步骤。有关安装程序设置，请参阅 [`init infra` 参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/infra.md)，有关各模式设置的内容，请参阅[自行托管指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)。
 
 ## 输出示例：
 

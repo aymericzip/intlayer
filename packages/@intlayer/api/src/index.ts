@@ -25,4 +25,5 @@ export * from './getIntlayerAPI/tag';
 export * from './getIntlayerAPI/translate';
 export * from './getIntlayerAPI/user';
 export * from './proxy';
+export * from './resolveInternalBackendUrl';
 export * from './types';

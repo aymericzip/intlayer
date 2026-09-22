@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-21
 title: CLI - 适用于多语言网站的所有 Intlayer CLI 命令
 description: 了解如何使用 Intlayer CLI 管理您的多语言网站。按照此在线文档中的步骤，在几分钟内设置您的项目。
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "添加 init infra 命令"
   - version: 9.5.2
     date: 2026-09-12
     changes: "用 `--ci` 标志替换 `ci` 命令"
@@ -151,6 +154,7 @@ Intlayer 接受多种配置文件格式：
 ### 配置
 
 - **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/init.md)** - 使用自动配置在您的项目中设置 Intlayer
+- **[配置基础设施](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/infra.md)** - 安装桌面应用或使用 Docker（多合一或 Compose）自行托管 CMS
 - **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/configuration.md)** - 获取您的 Intlayer 配置并将其发送到 CMS
 
 ### 文档管理
@@ -177,6 +181,7 @@ Intlayer 接受多种配置文件格式：
 ```json fileName="package.json"
 "scripts": {
   "intlayer:init": "npx intlayer init",
+  "intlayer:infra": "npx intlayer init infra",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

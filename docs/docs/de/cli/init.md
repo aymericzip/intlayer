@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-09-21
 title: Intlayer initialisieren
 description: Erfahren Sie, wie Sie Intlayer in Ihrem Projekt initialisieren.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "Unterbefehl init infra hinzufügen"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Init-Befehl hinzugefügt"
@@ -120,6 +123,26 @@ bun x intlayer init --no-gitignore
 ```
 
 Dies richtet alle Konfigurationsdateien ein, ohne Ihre `.gitignore` zu ändern.
+
+### Infrastruktur einrichten (Desktop-App oder Self-Hosting):
+
+```bash
+npx intlayer init infra
+```
+
+Lädt das gehostete Installationsprogramm (`https://intlayer.org/install.sh` bzw. `install.ps1` unter Windows) herunter und führt es aus, welches fragt, wie Sie Intlayer ausführen möchten:
+
+- **Desktop-App** - installiert das native Dashboard auf Ihrem Computer, verbunden mit der Intlayer Cloud.
+- **All-in-One Docker** - Dashboard + API + MongoDB + Redis + MinIO in einem einzigen Container.
+- **Docker Compose** - ein Container pro Dienst für skalierbares Self-Hosting.
+
+Überspringen Sie das Menü mit `--mode`:
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+Derselbe Schritt wird auch von `npx intlayer init --interactive` angeboten. Siehe die [`init infra`-Referenz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/infra.md) für die Einstellungen des Installationsprogramms und den [Self-Hosting-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/self_hosting.md) für die Details zu jedem Modus.
 
 ## Beispielausgabe:
 

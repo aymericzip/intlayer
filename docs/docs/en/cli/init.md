@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "Add init infra sub-command"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Add --no-gitignore option"
@@ -144,7 +147,7 @@ Skip the menu with `--mode`:
 npx intlayer init infra --mode compose
 ```
 
-The same step is offered by `npx intlayer init --interactive`. See the [self-hosting guide](https://intlayer.org/doc/self-hosting) for what each mode sets up.
+The same step is offered by `npx intlayer init --interactive`. See the [`init infra` reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/infra.md) for the installer settings, and the [self-hosting guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md) for what each mode sets up.
 
 ## Example output:
 

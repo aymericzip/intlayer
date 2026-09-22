@@ -64,6 +64,7 @@ COPY \
     --exclude=plugins \
     --exclude=compat \
     --exclude=docs/assets \
+    --exclude=docs/docs \
     --exclude=docs/blog \
     --exclude=docs/frequent_questions \
     --exclude=docs/legal \
@@ -82,8 +83,19 @@ COPY docs/legal/en/                docs/legal/en/
 RUN bun install --ignore-scripts --filter=./apps/backend
 RUN bun x turbo run build:ci --filter=./apps/backend
 
-# Strip source files to reduce the size of the artifacts copied into the runner.
-RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
+# Slim the workspace before it is copied into the runtime images:
+#  - the backend runs from dist/esm, which already carries the doc embeddings
+#    (~130 MB) and PROMPT.md; the src/ and dist/assets/ copies are redundant
+#  - source maps, the turbo cache and the type declarations are build-only
+#  - devDependencies are not needed to run; reinstall with --production
+RUN rm -rf apps/backend/src .turbo \
+    && find . -type d -path "*/dist/assets" -not -path "*/node_modules/*" -prune -exec rm -rf {} + \
+    && find . -type d -path "*/dist/types" -not -path "*/node_modules/*" -prune -exec rm -rf {} + \
+    && find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete \
+    && find . -path "*/dist/*" -name "*.map" -not -path "*/node_modules/*" -delete
+RUN rm -rf node_modules \
+    && bun install --production --ignore-scripts --filter=./apps/backend \
+    && rm -rf ~/.bun/install/cache
 
 # ---------------------------------------------------------------------------
 # app-builder — mirrors apps/app/Dockerfile build logic
@@ -236,7 +248,8 @@ ARG S6_OVERLAY_VERSION=3.2.1.0
 ARG MINIO_RELEASE=RELEASE.2025-04-22T22-12-26Z
 ARG MC_RELEASE=RELEASE.2025-04-16T18-13-26Z
 
-# Base OS deps + headless Chromium (for Puppeteer) + MongoDB + Redis.
+# Base OS deps + headless Chromium (for Puppeteer) + MongoDB + Redis. mongosh is
+# left out (~280 MB): the replica set is initiated with the backend's driver.
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
@@ -259,7 +272,7 @@ RUN set -eux; \
       | gpg --dearmor -o /usr/share/keyrings/mongodb-server-8.0.gpg; \
     echo "$mongo_repo" > /etc/apt/sources.list.d/mongodb-org-8.0.list; \
     apt-get update; \
-    apt-get install -y --no-install-recommends mongodb-org-server mongodb-mongosh; \
+    apt-get install -y --no-install-recommends mongodb-org-server; \
     rm -rf /var/lib/apt/lists/*
 
 # Bun runtime (the app + backend are executed with bun)

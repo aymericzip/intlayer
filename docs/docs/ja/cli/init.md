@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-09-21
 title: Intlayerの初期化
 description: プロジェクトでIntlayerを初期化する方法。
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "init infra サブコマンドの追加"
   - version: 8.6.4
     date: 2026-03-31
     changes: "--no-gitignore オプションの追加"
@@ -124,6 +127,26 @@ bun x intlayer init --no-gitignore
 ```
 
 これにより、すべての設定ファイルがセットアップされますが、`.gitignore` は変更されません。
+
+### インフラストラクチャのセットアップ（デスクトップアプリまたはセルフホスティング）:
+
+```bash
+npx intlayer init infra
+```
+
+ホストされたインストーラー（macOS / Linux では `https://intlayer.org/install.sh`、Windows では `install.ps1`）をダウンロードして実行し、Intlayerの実行方法を尋ねます:
+
+- **デスクトップアプリ** - Intlayer Cloudに接続されたネイティブダッシュボードをマシンにインストールします。
+- **オールインワン Docker** - 単一コンテナ内にダッシュボード + API + MongoDB + Redis + MinIO を集約。
+- **Docker Compose** - スケーラブルなセルフホスティング向けにサービスごとに1つのコンテナを用意。
+
+`--mode` でメニューをスキップできます:
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+同様の手順は `npx intlayer init --interactive` でも提供されます。インストーラーの設定については [`init infra` リファレンス](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/infra.md) を、各モードで設定される内容については [セルフホスティングガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md) を参照してください。
 
 ## 出力例:
 

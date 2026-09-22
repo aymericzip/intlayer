@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-09-21
 title: Intlayer प्रारंभ करें (Initialize Intlayer)
 description: अपने प्रोजेक्ट में Intlayer को प्रारंभ करने का तरीका जानें।
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "init infra सब-कमांड जोड़ें"
   - version: 8.6.4
     date: 2026-03-31
     changes: "--no-gitignore विकल्प जोड़ा गया"
@@ -124,6 +127,26 @@ bun x intlayer init --no-gitignore
 ```
 
 यह सभी कॉन्फ़िगरेशन फ़ाइलें सेट करेगा लेकिन आपके `.gitignore` को संशोधित नहीं करेगा।
+
+### इन्फ्रास्ट्रक्चर सेट करें (डेस्कटॉप ऐप या सेल्फ-होस्टिंग):
+
+```bash
+npx intlayer init infra
+```
+
+होस्ट किए गए इंस्टॉलर (`https://intlayer.org/install.sh`, या Windows पर `install.ps1`) को डाउनलोड और रन करता है, जो पूछता है कि आप Intlayer को कैसे चलाना चाहते हैं:
+
+- **डेस्कटॉप ऐप** - Intlayer Cloud से जुड़े आपके कंप्यूटर पर नेटिव डैशबोर्ड इंस्टॉल करता है।
+- **ऑल-इन-वन Docker** - एक ही कंटेनर में डैशबोर्ड + API + MongoDB + Redis + MinIO।
+- **Docker Compose** - स्केलेबल सेल्फ-होस्टिंग के लिए प्रति सेवा एक कंटेनर।
+
+`--mode` के साथ मेनू छोड़ें:
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+वही चरण `npx intlayer init --interactive` द्वारा भी पेश किया जाता है। इंस्टॉलर सेटिंग्स के लिए [`init infra` संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/infra.md) देखें, और प्रत्येक मोड क्या सेट करता है इसके लिए [सेल्फ-होस्टिंग गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/self_hosting.md) देखें।
 
 ## आउटपुट उदाहरण:
 

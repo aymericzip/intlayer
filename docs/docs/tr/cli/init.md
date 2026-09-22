@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-09-21
 title: Intlayer'ı Başlat
 description: Projenizde Intlayer'ı nasıl başlatacağınızı öğrenin.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "init infra alt komutunu ekle"
   - version: 8.6.4
     date: 2026-03-31
     changes: "--no-gitignore seçeneği eklendi"
@@ -124,6 +127,26 @@ bun x intlayer init --no-gitignore
 ```
 
 Bu, tüm yapılandırma dosyalarını kurar ancak `.gitignore` dosyanızı değiştirmez.
+
+### Altyapıyı kurun (masaüstü uygulaması veya kendi sunucunuzda barındırma):
+
+```bash
+npx intlayer init infra
+```
+
+Barındırılan yükleyiciyi (`https://intlayer.org/install.sh` veya Windows'ta `install.ps1`) indirir ve çalıştırır; Intlayer'ı nasıl çalıştırmak istediğinizi sorar:
+
+- **Masaüstü uygulaması** - makinenize Intlayer Cloud'a bağlı yerel gösterge panelini yükler.
+- **Hepsi bir arada Docker** - tek bir kapsayıcıda gösterge paneli + API + MongoDB + Redis + MinIO.
+- **Docker Compose** - ölçeklenebilir kendi sunucunuzda barındırma için hizmet başına bir kapsayıcı.
+
+`--mode` ile menüyü atlayın:
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+Aynı adım `npx intlayer init --interactive` tarafından da sunulur. Yükleyici ayarları için [`init infra` referansına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/infra.md) ve her modun neleri kurduğu hakkında bilgi edinmek için [kendi sunucunuzda barındırma kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md) bakın.
 
 ## Örnek çıktı:
 

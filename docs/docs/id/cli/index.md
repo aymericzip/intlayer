@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-21
 title: CLI - Semua perintah Intlayer CLI untuk situs web multibahasa Anda
 description: Pelajari cara menggunakan Intlayer CLI untuk mengelola situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi online ini untuk menyiapkan proyek Anda dalam hitungan menit.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "Menambahkan perintah init infra"
   - version: 9.5.2
     date: 2026-09-12
     changes: "Mengganti perintah `ci` dengan flag `--ci`"
@@ -151,6 +154,7 @@ Untuk mempelajari cara mengonfigurasi bahasa yang tersedia atau parameter lainny
 ### Konfigurasi
 
 - **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/init.md)** - Siapkan Intlayer di proyek Anda dengan konfigurasi otomatis
+- **[Menyiapkan Infrastruktur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/infra.md)** - Instal aplikasi desktop atau self-host CMS dengan Docker (all-in-one atau Compose)
 - **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/configuration.md)** - Dapatkan konfigurasi Intlayer Anda dan kirimkan ke CMS
 
 ### Manajemen Dokumen
@@ -177,6 +181,7 @@ Untuk mempelajari cara mengonfigurasi bahasa yang tersedia atau parameter lainny
 ```json fileName="package.json"
 "scripts": {
   "intlayer:init": "npx intlayer init",
+  "intlayer:infra": "npx intlayer init infra",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-21
 title: CLI - Çok dilli web siteniz için tüm Intlayer CLI komutları
 description: Çok dilli web sitenizi yönetmek için Intlayer CLI'yı nasıl kullanacağınızı keşfedin. Projenizi birkaç dakika içinde kurmak için bu çevrimiçi belgelerdeki adımları izleyin.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "init infra komutunu ekle"
   - version: 9.5.2
     date: 2026-09-12
     changes: "`ci` komutu `--ci` bayrağıyla değiştirildi"
@@ -151,6 +154,7 @@ Mevcut dillerin veya diğer parametrelerin nasıl yapılandırılacağını öğ
 ### Yapılandırma
 
 - **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/init.md)** - Otomatik yapılandırma ile projenizde Intlayer'ı kurun
+- **[Altyapıyı Kur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/infra.md)** - Masaüstü uygulamasını yükleyin veya Docker (hepsi bir arada veya Compose) ile CMS'yi kendi sunucunuzda barındırın
 - **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/configuration.md)** - Intlayer yapılandırmanızı alın ve CMS'ye gönderin
 
 ### Belge Yönetimi
@@ -177,6 +181,7 @@ Mevcut dillerin veya diğer parametrelerin nasıl yapılandırılacağını öğ
 ```json fileName="package.json"
 "scripts": {
   "intlayer:init": "npx intlayer init",
+  "intlayer:infra": "npx intlayer init infra",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

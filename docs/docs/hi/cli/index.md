@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-21
 title: CLI - आपकी बहुभाषी वेबसाइट के लिए सभी Intlayer CLI कमांड
 description: अपनी बहुभाषी वेबसाइट को प्रबंधित करने के लिए Intlayer CLI का उपयोग करने का तरीका जानें। मिनटों में अपना प्रोजेक्ट सेट करने के लिए इस ऑनलाइन दस्तावेज़ीकरण के चरणों का पालन करें।
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "init infra कमांड जोड़ें"
   - version: 9.5.2
     date: 2026-09-12
     changes: "`ci` कमांड को `--ci` फ़्लैग से बदला गया"
@@ -151,6 +154,7 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
 ### कॉन्फ़िगरेशन
 
 - **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/init.md)** - स्वचालित कॉन्फ़िगरेशन के साथ अपने प्रोजेक्ट में Intlayer सेट करें
+- **[इन्फ्रास्ट्रक्चर सेट करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/infra.md)** - डेस्कटॉप ऐप इंस्टॉल करें या Docker (ऑल-इन-वन या Compose) के साथ CMS को स्वयं होस्ट करें
 - **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/configuration.md)** - अपना Intlayer कॉन्फ़िगरेशन प्राप्त करें और इसे CMS पर भेजें
 
 ### दस्तावेज़ प्रबंधन (Doc Management)
@@ -177,6 +181,7 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
 ```json fileName="package.json"
 "scripts": {
   "intlayer:init": "npx intlayer init",
+  "intlayer:infra": "npx intlayer init infra",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

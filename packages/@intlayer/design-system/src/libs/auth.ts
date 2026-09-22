@@ -1,5 +1,6 @@
 import { passkeyClient } from '@better-auth/passkey/client';
 import { ssoClient } from '@better-auth/sso/client';
+import { resolveInternalBackendUrl } from '@intlayer/api';
 import { editor } from '@intlayer/config/built';
 import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -11,9 +12,14 @@ import {
   twoFactorClient,
 } from 'better-auth/client/plugins';
 
+/**
+ * better-auth performs its own fetches, bypassing `@intlayer/api`'s fetcher,
+ * so the server-side `INTLAYER_BACKEND_INTERNAL_URL` override is applied here
+ * to the base URL. In the browser the URL passes through unchanged.
+ */
 const getAuthClient = (backendURL: string) =>
   createAuthClient({
-    baseURL: backendURL,
+    baseURL: resolveInternalBackendUrl(backendURL, backendURL),
     withCredentials: true, // makes fetch forward cookies
     plugins: [
       twoFactorClient({

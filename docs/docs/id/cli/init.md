@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-09-21
 title: Inisialisasi Intlayer
 description: Pelajari cara menginisialisasi Intlayer di proyek Anda.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "Menambahkan subperintah init infra"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Menambahkan opsi --no-gitignore"
@@ -124,6 +127,26 @@ bun x intlayer init --no-gitignore
 ```
 
 Ini akan menyiapkan semua file konfigurasi tetapi tidak akan memodifikasi `.gitignore` Anda.
+
+### Siapkan infrastruktur (aplikasi desktop atau self-hosting):
+
+```bash
+npx intlayer init infra
+```
+
+Mengunduh dan menjalankan penginstal yang dihosting (`https://intlayer.org/install.sh`, atau `install.ps1` di Windows), yang menanyakan cara Anda ingin menjalankan Intlayer:
+
+- **Aplikasi desktop** - menginstal dasbor native di komputer Anda, terhubung ke Intlayer Cloud.
+- **All-in-one Docker** - dasbor + API + MongoDB + Redis + MinIO dalam satu wadah.
+- **Docker Compose** - satu wadah per layanan, untuk self-hosting yang skalabel.
+
+Lewati menu dengan `--mode`:
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+Langkah yang sama ditawarkan oleh `npx intlayer init --interactive`. Lihat [referensi `init infra`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/infra.md) untuk pengaturan penginstal, dan [panduan self-hosting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md) untuk apa yang disiapkan oleh setiap mode.
 
 ## Contoh Output:
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-09-21
 title: Intlayer 초기화
 description: 프로젝트에서 Intlayer를 초기화하는 방법을 알아봅니다.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "init infra 하위 명령어 추가"
   - version: 8.6.4
     date: 2026-03-31
     changes: "--no-gitignore 옵션 추가"
@@ -124,6 +127,26 @@ bun x intlayer init --no-gitignore
 ```
 
 이 명령어는 모든 설정 파일을 구성하지만 `.gitignore`는 수정하지 않습니다.
+
+### 인프라 설정 (데스크톱 앱 또는 셀프 호스팅):
+
+```bash
+npx intlayer init infra
+```
+
+호스팅된 설치 프로그램(macOS / Linux의 `https://intlayer.org/install.sh`, Windows의 `install.ps1`)을 다운로드하고 실행하여 Intlayer 실행 방법을 선택하도록 안내합니다:
+
+- **데스크톱 앱** - Intlayer Cloud에 연결된 네이티브 대시보드를 로컬 머신에 설치합니다.
+- **올인원 Docker** - 단일 컨테이너 내에 대시보드 + API + MongoDB + Redis + MinIO가 모두 포함됩니다.
+- **Docker Compose** - 확장 가능한 셀프 호스팅을 위한 서비스당 하나의 컨테이너 구성입니다.
+
+`--mode` 옵션으로 메뉴를 건너뛸 수 있습니다:
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+`npx intlayer init --interactive`에서도 동일한 단계가 제공됩니다. 설치 프로그램 설정은 [`init infra` 레퍼런스](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/infra.md)를, 각 모드가 설정하는 세부 내용은 [셀프 호스팅 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)를 참조하세요.
 
 ## 출력 예시:
 

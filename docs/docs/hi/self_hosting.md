@@ -1,231 +1,472 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-06-30
-title: इंटलेयर को सेल्फ-होस्ट करना
-description: एक ही कमांड से अपने स्वयं के इंफ्रास्ट्रक्चर पर एक पूर्ण इंटलेयर इंस्टेंस चलाएँ। इंटलेयर क्लाउड अकाउंट की कोई आवश्यकता नहीं है।
+updatedAt: 2026-09-21
+title: Intlayer सेल्फ-होस्टिंग
+description: "अपने स्वयं के बुनियादी ढांचे पर Intlayer चलाएं: एक डेस्कटॉप ऐप, एकल ऑल-इन-वन Docker कंटेनर, या एक स्केलेबल Docker Compose स्टैक के रूप में। किसी Intlayer Cloud खाते की आवश्यकता नहीं है।"
 keywords:
-  - Self-Hosting
+  - सेल्फ-होस्टिंग
   - Docker
   - Docker Compose
+  - डेस्कटॉप ऐप
   - Intlayer
   - CMS
-  - Installation
-  - Infrastructure
+  - इंस्टॉलेशन
+  - इंफ्रास्ट्रक्चर
 slugs:
   - doc
   - self-hosting
 author: aymericzip
 ---
 
-# इंटलेयर को सेल्फ-होस्ट करना
+# Intlayer सेल्फ-होस्टिंग
 
-Intlayer आपके स्वयं के infrastructure पर चल सकता है। कोई Intlayer Cloud खाता आवश्यक नहीं है। एक single all-in-one Docker image dashboard, API, और स्थानीय datastores (Redis और MinIO) को bundle करता है जिसकी इसे आवश्यकता है, [s6-overlay](https://github.com/just-containers/s6-overlay) द्वारा supervised।
+Intlayer आपके अपने बुनियादी ढांचे पर चल सकता है, किसी Intlayer Cloud खाते की आवश्यकता नहीं है। तीन सेटअप उपलब्ध हैं, जो सभी एक ही इंस्टॉलर (`install.sh`, Windows पर `install.ps1`, या `npx intlayer init infra`) द्वारा प्रबंधित होते हैं:
 
-इंटलेयर पूरी तरह से आपके अपने इंफ्रास्ट्रक्चर पर चल सकता है - इसके लिए इंटलेयर क्लाउड खाते की आवश्यकता नहीं है। एक ही कमांड एक उत्पादन-तैयार स्टैक को बूट करता है:
+| Setup               | What it is                                                                       | Pick it for                                            |
+| ------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| **डेस्कटॉप ऐप**     | macOS, Linux और Windows के लिए नेटिव डैशबोर्ड                                    | एक स्थानीय क्लाइंट, कुछ भी होस्ट करने की आवश्यकता नहीं |
+| **ऑल-इन-वन Docker** | डैशबोर्ड, API, MongoDB, Redis और MinIO एक **एकल कंटेनर** में                     | परीक्षण और छोटे एकल-मशीन इंस्टॉलेशन                    |
+| **Docker Compose**  | **प्रति सेवा एक कंटेनर**, प्रत्येक डेटास्टोर को प्रबंधित सेवा से बदला जा सकता है | प्रोडक्शन, स्केलिंग, प्रबंधित डेटाबेस                  |
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
-इंस्टॉलर Docker की जांच करता है (इसे इंस्टॉल करने की पेशकश करते हुए), `intlayer.env` फ़ाइल लिखता है जिसमें आपके सीक्रेट पहले से ही जेनरेट हो चुके होते हैं, और इमेज को पुल करता है। फिर यह आपको अपनी क्रेडेंशियल भरने के लिए कहता है और `docker run` कमांड प्रिंट करता है — [क्विक स्टार्ट](#quick-start) देखें।
-
-इंस्टॉलर एक `docker-compose.yml` और एक `.env` डाउनलोड करता है, आवश्यक सीक्रेट्स को स्वतः जेनरेट करता है, और `docker compose up -d` के साथ सभी कंटेनरों को शुरू करता है।
-
-## विषय-सूची
+## Table of Contents
 
 <TOC/>
 
-## आर्किटेक्चर
+## प्रकाशित इमेज और पैकेज
+
+| Artifact             | Docker Hub                                                                | GHCR mirror                                | Contents                                                                         |
+| -------------------- | ------------------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- |
+| All-in-one container | [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all)           | `ghcr.io/aymericzip/intlayer/cms-all`      | app + backend + MongoDB 8 + Redis + MinIO + Chromium                             |
+| Dashboard (frontend) | [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend) | `ghcr.io/aymericzip/intlayer/cms-frontend` | TanStack Start dashboard on Bun                                                  |
+| API (backend)        | [`intlayer/cms-backend`](https://hub.docker.com/r/intlayer/cms-backend)   | `ghcr.io/aymericzip/intlayer/cms-backend`  | Fastify REST API on Bun + Chromium                                               |
+| Desktop app          | [GitHub releases](https://github.com/aymericzip/intlayer/releases/latest) | n/a                                        | `.dmg` (macOS), `.deb` / `.rpm` / `.AppImage` (Linux), `.exe` / `.msi` (Windows) |
+
+तीनों इमेज एक ही [`docker/selfhost/Dockerfile`](https://github.com/aymericzip/intlayer/tree/main/docker/selfhost) से बनाई गई हैं और प्रत्येक रिलीज़ पर प्रकाशित की जाती हैं। Compose स्टैक आधिकारिक `mongo:8`, `redis:8-alpine` और `quay.io/minio/minio` इमेज भी खींचता है।
+
+## सेटअप
+
+इंस्टॉलर पूछता है कि आप कौन सा सेटअप चाहते हैं, पूर्वापेक्षाओं की जाँच करता है (Docker स्थापित करने की पेशकश करता है), पहले से उत्पन्न रहस्यों के साथ पर्यावरण फ़ाइल लिखता है, और इमेज खींचता है। यह अपने आप कुछ भी शुरू नहीं करता है: Docker मोड को पहले मेलर की आवश्यकता होती है, इसलिए यह चलाने के लिए कमांड प्रिंट करके समाप्त होता है। इसे फिर से चलाना सुरक्षित है: मौजूदा पर्यावरण फ़ाइल कभी भी अधिलेखित नहीं होती है, जो इसे अपग्रेड पथ भी बनाती है।
+
+<Tabs group="mode">
+<Tab label="डेस्कटॉप ऐप" value="desktop">
+
+Tauri के साथ निर्मित एक नेटिव एप्लिकेशन के रूप में Intlayer डैशबोर्ड। यह Intlayer Cloud (`https://app.intlayer.org`) में साइन इन करता है, इसलिए कुछ भी होस्ट करने की आवश्यकता नहीं है। जब आप ब्राउज़र टैब के बजाय स्थानीय क्लाइंट चाहते हैं तो यह सही विकल्प है।
+
+### इंस्टॉल करें
+
+इंस्टॉलर आपके OS और CPU के लिए उपयुक्त पैकेज डाउनलोड करता है और उसे खोलता है (macOS), इंस्टॉल करता है (Linux पर `dpkg` / `rpm`), या सेटअप विज़ार्ड शुरू करता है (Windows)। आप इसे [रिलीज़ पेज](https://github.com/aymericzip/intlayer/releases/latest) से मैन्युअल रूप से भी डाउनलोड कर सकते हैं।
+
+<Tabs group="os">
+<Tab label="macOS / Linux" value="unix">
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode desktop
+```
+
+</Tab>
+<Tab label="Windows" value="windows">
+
+In PowerShell:
+
+```powershell
+$env:INTLAYER_MODE = "desktop"; irm https://intlayer.org/install.ps1 | iex
+```
+
+</Tab>
+<Tab label="Intlayer CLI" value="cli">
+
+```bash
+npx intlayer init infra --mode desktop
+```
+
+</Tab>
+</Tabs>
+
+### आवश्यकताएं
+
+- **Node.js**: ऐप डैशबोर्ड सर्वर को एम्बेड करता है और इसे मशीन के `node` बाइनरी के साथ शुरू करता है। यदि ऐप नहीं खुलता है तो इसे [nodejs.org](https://nodejs.org) से इंस्टॉल करें।
+
+> प्रकाशित डेस्कटॉप बिल्ड Intlayer Cloud बैकएंड से संचार करता है। इसे सेल्फ-होस्टेड बैकएंड पर इंगित करने के लिए ऐप को आपके API पर सेट `VITE_BACKEND_URL` के साथ फिर से बनाने की आवश्यकता होती है, [सीमाएँ](#limitations) देखें।
+
+</Tab>
+<Tab label="ऑल-इन-वन Docker" value="docker">
+
+सब कुछ एक ही `intlayer/cms-all` कंटेनर के अंदर चलता है, जिसकी देखरेख [s6-overlay](https://github.com/just-containers/s6-overlay) द्वारा की जाती है, जिसमें प्रत्येक डेटास्टोर एक ही वॉल्यूम पर बना रहता है।
 
 ```
                 ┌─────────────────────────────┐
  browser ──────▶ │  app  (TanStack Start)  :3000│ ──┐
-                └─────────────────────────────┘   │ VITE_BACKEND_URL
+ (localhost)    └─────────────────────────────┘   │ VITE_BACKEND_URL (baked at build)
                 ┌─────────────────────────────┐   │
                 │  backend (Fastify/Bun)  :3100│ ◀─┘
                 └──────────────┬──────────────┘
-          ┌──────────┬─────────┼──────────┬───────────┐
-          ▼          ▼         ▼          ▼           ▼
-     mongo:27017  redis:6379  minio:9000  mailpit:1025  Chromium
-     (1-node RS)             (S3 API)     (SMTP)        (in-image)
-                             minio:9001   mailpit:8025
-                             (console)    (web UI)
+          ┌──────────┬─────────┼──────────────┐
+          ▼          ▼         ▼               ▼
+      mongo:27017  redis:6379  minio:9000   Chromium
+      /data/mongo  /data/redis /data/minio  (in-image)
+      (1-node RS)              minio:9001
 ```
 
-क्रोमियम (Puppeteer स्क्रीनशॉट जनरेशन के लिए उपयोग किया जाता है) बैकएंड इमेज के अंदर बंडल किया गया है - किसी अलग कंटेनर की आवश्यकता नहीं है।
+| सेवा        | होस्ट पोर्ट                 | उद्देश्य                                            |
+| ----------- | --------------------------- | --------------------------------------------------- |
+| **app**     | `3000`                      | डैशबोर्ड (CMS UI)                                   |
+| **backend** | `3100`                      | REST API (`/health` एंडपॉइंट)                       |
+| **mongo**   | आंतरिक                      | MongoDB 8, एकल-नोड प्रतिकृति सेट `rs0`              |
+| **redis**   | आंतरिक                      | कार्य कतारें (BullMQ) और कैशिंग                     |
+| **minio**   | `9000` (S3), `9001` (कंसोल) | अवतार और स्क्रीनशॉट के लिए S3-संगत ऑब्जेक्ट स्टोरेज |
 
-## त्वरित शुरुआत
+बूट क्रम s6 निर्भरताओं द्वारा प्रबंधित किया जाता है (`mongod` → प्रतिकृति-सेट आरंभ, `minio` → बकेट निर्माण, फिर `backend`, फिर `app`), और सेवाएं समाप्त होने पर पुनरारंभ होती हैं, इसलिए पहला बूट स्वचालित रूप से ठीक हो जाता है।
 
-1.  जांचता है कि `docker` और `docker compose` मौजूद हैं या नहीं।
-2.  `docker-compose.yml` और `.env.example` को `./intlayer/` में डाउनलोड करता है।
-3.  यदि कोई `.env` मौजूद नहीं है, तो उदाहरण कॉपी करता है और `openssl rand` के माध्यम से `BETTER_AUTH_SECRET`, `S3_ACCESS_KEY_ID`, और `S3_SECRET_ACCESS_KEY` के लिए रैंडम सीक्रेट्स जेनरेट करता है।
-4.  `docker compose pull` + `docker compose up -d` चलाता है।
-5.  URL प्रिंट करता है: डैशबोर्ड `:3000`, API `:3100`, ईमेल UI `:8025`, MinIO कंसोल `:9001`।
+### पूर्वापेक्षाएँ
 
-स्टैक के चालू होने के बाद, **http://localhost:3000** खोलें और अपना पहला अकाउंट बनाएँ।
+- **Docker** ≥ 24: इंस्टॉलर इसे इंस्टॉल करने की पेशकश करता है (Linux पर [get.docker.com](https://get.docker.com) के माध्यम से, macOS पर Homebrew)। Windows पर, पहले [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) (WSL 2 बैकएंड) इंस्टॉल करें।
+- होस्ट पर पोर्ट `3000`, `3100`, `9000` और `9001` खाली होने चाहिए। MinIO `9000` ब्राउज़र द्वारा सुलभ रहना चाहिए क्योंकि संपत्तियां सीधे `S3_PUBLIC_URL` से लोड होती हैं।
+- एक मेलर: [Resend](https://resend.com) API कुंजी या एक SMTP रिले।
 
-## क्विक स्टार्ट
+### 1. इंस्टॉल करें
 
-### 1. इंस्टॉलर चलाएँ
+उत्पन्न `BETTER_AUTH_SECRET` और `S3_SECRET_ACCESS_KEY` के साथ `./intlayer.env` लिखता है और `intlayer/cms-all:latest` खींचता है।
+
+<Tabs group="os">
+<Tab label="macOS / Linux" value="unix">
 
 ```sh
-curl -fsSL https://intlayer.org/install.sh | sh
+curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode docker
 ```
 
-यह Docker इंस्टॉल है और चल रहा है, यह सत्यापित करता है, `./intlayer.env` को `BETTER_AUTH_SECRET` और `S3_SECRET_ACCESS_KEY` के साथ पहले से ही जेनरेट किए गए लिखता है, और इमेज को पुल करता है। यह कंटेनर शुरू नहीं करता है — बैकएंड आपके डेटाबेस क्रेडेंशियल्स के बिना बूट नहीं कर सकता।
+</Tab>
+<Tab label="Windows" value="windows">
 
-इंस्टॉलर को फिर से चलाना सुरक्षित है: एक मौजूदा `intlayer.env` को कभी भी ओवरराइट नहीं किया जाता है, इसलिए यह अपग्रेड पथ के रूप में दोहरी भूमिका निभाता है।
+In PowerShell:
 
-### 2. अपनी साख भरें
+```powershell
+$env:INTLAYER_MODE = "docker"; irm https://intlayer.org/install.ps1 | iex
+```
 
-`intlayer.env` खोलें और `TODO` से चिह्नित मानों को पूरा करें:
+</Tab>
+<Tab label="Intlayer CLI" value="cli">
+
+CLI इंस्टॉलर चलाता है जो अन्य टैब में दिखाए गए `docker run …` कमांड को प्रिंट करता है। मेलर को कॉन्फ़िगर करने के बाद इसे अपने टर्मिनल में पेस्ट करें।
+
+</Tab>
+</Tabs>
+
+### 2. मेलर कॉन्फ़िगर करें
+
+`intlayer.env` खोलें और Resend **या** SMTP भरें (विवरण के लिए [ग्लोबल मेलर](#global-mailer) देखें):
 
 ```sh fileName="intlayer.env"
-DB_ID=<atlas-user>
-DB_MDP=<atlas-password>
-DB_CLUSTER=<cluster>.xxxxx.mongodb.net
+# Option A: Resend
 RESEND_API_KEY=<your-resend-key>
+
+# Option B: SMTP (takes over from Resend as soon as MAIL_SMTP_HOST is set)
+MAIL_SMTP_HOST=smtp.example.com
+MAIL_SMTP_PORT=587
+MAIL_SMTP_USER=<user>
+MAIL_SMTP_PASSWORD=<password>
+MAIL_FROM=Intlayer <no-reply@example.com>
 ```
 
-फाइल में वैकल्पिक सुविधाओं के लिए comment किए गए ब्लॉक भी हैं — [SMTP mailer](#global-mailer), `OPENAI_API_KEY`, और OAuth providers। जो आपको चाहिए उसे uncomment करें।
+### 3. चलाएं
 
-> फाइल को `docker run --env-file` द्वारा पढ़ा जाता है, जो quotes को strip नहीं करता और `=` के बाद सब कुछ को मान के रूप में मानता है। bare values लिखें, और comments को उनकी अपनी lines पर रखें।
+यह इंस्टॉलर द्वारा प्रिंट किया गया रन कमांड है:
 
-### 3. कंटेनर शुरू करें
-
-यह वह कमांड है जो इंस्टॉलर समाप्त होने पर प्रिंट करता है:
+<Tabs group="os">
+<Tab label="macOS / Linux" value="unix">
 
 ```sh
 docker run -d --name intlayer \
   --restart unless-stopped \
-  -p 3000:3000 \
-  -p 3100:3100 \
-  -p 9000:9000 \
-  -p 9001:9001 \
+  -p 3000:3000 -p 3100:3100 -p 9000:9000 -p 9001:9001 \
   -v intlayer-data:/data \
   --env-file ./intlayer.env \
-  ghcr.io/aymericzip/intlayer-selfhost:latest
+  intlayer/cms-all:latest
 ```
 
-फिर **http://localhost:3000** खोलें। पहली बूट डेटास्टोर को initialize करती है, इसलिए इसे एक मिनट दें।
+</Tab>
+<Tab label="Windows" value="windows">
 
-> डैशबोर्ड `localhost` पर सर्व किया जाता है। [Limitations](#limitations) देखें — कस्टम डोमेन प्रकाशित image द्वारा समर्थित नहीं हैं।
+```powershell
+docker run -d --name intlayer `
+  --restart unless-stopped `
+  -p 3000:3000 -p 3100:3100 -p 9000:9000 -p 9001:9001 `
+  -v intlayer-data:/data `
+  --env-file ./intlayer.env `
+  intlayer/cms-all:latest
+```
+
+</Tab>
+<Tab label="Intlayer CLI" value="cli">
+
+CLI इंस्टॉलर चलाता है जो अन्य टैब में दिखाए गए `docker run …` कमांड को प्रिंट करता है। मेलर को कॉन्फ़िगर करने के बाद इसे अपने टर्मिनल में पेस्ट करें।
+
+</Tab>
+</Tabs>
+
+**http://localhost:3000** खोलें और [प्रथम-रन सेटअप](#first-run-setup) का पालन करें। पहला बूट प्रतिकृति सेट और बकेट को इनिशियलाइज़ करता है, इसलिए इसे एक मिनट का समय दें।
+
+### बैकअप और अपग्रेड
+
+सभी स्थिति `intlayer-data` वॉल्यूम (`/data/mongo`, `/data/redis`, `/data/minio`) में रखी जाती है।
+
+```sh
+# Backup (stop the container first so MongoDB's files are consistent)
+docker stop intlayer
+docker run --rm -v intlayer-data:/data -v "$(pwd)":/backup busybox tar czf /backup/intlayer-data.tar.gz /data
+docker start intlayer
+
+# Restore
+docker run --rm -v intlayer-data:/data -v "$(pwd)":/backup busybox tar xzf /backup/intlayer-data.tar.gz -C /
+```
+
+अपग्रेड करने के लिए, इंस्टॉलर को फिर से चलाएं (यह नवीनतम इमेज खींचता है और `intlayer.env` रखता है), फिर `docker rm -f intlayer` चलाएं और स्टार्ट कमांड को फिर से चलाएं। बंडल किए गए के बजाय प्रबंधित MongoDB का उपयोग करने के लिए, `intlayer.env` में `MONGODB_URI` सेट करें।
+
+</Tab>
+<Tab label="Docker Compose" value="compose">
+
+एक निजी Compose नेटवर्क पर प्रति सेवा एक कंटेनर। डैशबोर्ड और API प्रकाशित `intlayer/cms-frontend` और `intlayer/cms-backend` इमेज का उपयोग करते हैं; डेटास्टोर आधिकारिक `mongo`, `redis` और `minio` इमेज का उपयोग करते हैं।
+
+```
+                ┌───────────────────┐
+ browser ──────▶ │  app        :3000 │ ── SSR ──▶ http://backend:3100
+ (localhost)    └───────────────────┘
+                ┌───────────────────┐
+ browser ──────▶ │  backend    :3100 │
+ (localhost)    └─────────┬─────────┘
+          ┌───────────────┼───────────────┐
+          ▼               ▼               ▼
+     mongo:27017     redis:6379      minio:9000 ◀── browser (assets)
+     (1-node RS)                     minio:9001
+```
+
+| सेवा         | इमेज                    | भूमिका                                                                               |
+| ------------ | ----------------------- | ------------------------------------------------------------------------------------ |
+| `app`        | `intlayer/cms-frontend` | `:3000` पर डैशबोर्ड; बैकएंड के स्वस्थ होने की प्रतीक्षा करता है                      |
+| `backend`    | `intlayer/cms-backend`  | Chromium के साथ `:3100` पर API; Mongo, Redis और MinIO बकेट की प्रतीक्षा करता है      |
+| `mongo`      | `mongo:8`               | एकल-नोड प्रतिकृति सेट `rs0`, अपने स्वयं के स्वास्थ्य परीक्षण द्वारा प्रारंभ किया गया |
+| `redis`      | `redis:8-alpine`        | कतारें और कैशिंग, केवल-जोड़ें (append-only) दृढ़ता                                   |
+| `minio`      | `quay.io/minio/minio`   | `:9000` पर S3 स्टोरेज, `:9001` पर कंसोल                                              |
+| `minio-init` | `quay.io/minio/mc`      | वन-शॉट: बकेट और उसकी अज्ञात डाउनलोड नीति बनाता है                                    |
+
+डेटा `intlayer_mongo-data`, `intlayer_redis-data` और `intlayer_minio-data` वॉल्यूम में संग्रहीत किया जाता है। सेवा कनेक्शन (`MONGODB_URI`, `REDIS_URL`, `S3_ENDPOINT`, सर्वर-साइड रेंडरिंग के लिए आंतरिक बैकएंड URL) compose फ़ाइल में तय होते हैं और `.env` पर प्राथमिकता लेते हैं, जो केवल रहस्यों और वैकल्पिक एकीकरणों को रखता है।
+
+### पूर्वापेक्षाएँ
+
+- **Docker** ≥ 24 (Compose प्लगइन के साथ): इंस्टॉलर इसे Linux और macOS पर स्थापित करने की पेशकश करता है। Windows पर, पहले [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) (WSL 2 बैकएंड) स्थापित करें।
+- होस्ट पर पोर्ट `3000`, `3100`, `9000` और `9001` खाली होने चाहिए।
+- एक मेलर: [Resend](https://resend.com) API कुंजी या एक SMTP रिले।
+
+### 1. इंस्टॉल करें
+
+उत्पन्न रहस्यों के साथ `docker-compose.yml` और एक `.env` को `./intlayer/` में लिखता है और इमेज खींचता है।
+
+<Tabs group="os">
+<Tab label="macOS / Linux" value="unix">
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode compose
+```
+
+Or by hand:
+
+```sh
+mkdir intlayer && cd intlayer
+curl -fsSLO https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/docker-compose.yml
+curl -fsSL  https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/.env.template -o .env
+# fill in BETTER_AUTH_SECRET and S3_SECRET_ACCESS_KEY (openssl rand -hex 32)
+```
+
+</Tab>
+<Tab label="Windows" value="windows">
+
+In PowerShell:
+
+```powershell
+$env:INTLAYER_MODE = "compose"; irm https://intlayer.org/install.ps1 | iex
+```
+
+Or by hand:
+
+```powershell
+mkdir intlayer; cd intlayer
+irm https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/docker-compose.yml -OutFile docker-compose.yml
+irm https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/.env.template -OutFile .env
+# fill in BETTER_AUTH_SECRET and S3_SECRET_ACCESS_KEY
+```
+
+</Tab>
+<Tab label="Intlayer CLI" value="cli">
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+</Tab>
+</Tabs>
+
+### 2. मेलर कॉन्फ़िगर करें
+
+ऑल-इन-वन कंटेनर की तरह ही `intlayer/.env` में Resend **या** SMTP भरें ([ग्लोबल मेलर](#global-mailer) देखें)।
+
+### 3. चलाएं
+
+```sh
+cd intlayer && docker compose up -d
+```
+
+**http://localhost:3000** खोलें और [प्रथम-रन सेटअप](#first-run-setup) का पालन करें।
+
+### प्रबंधित डेटास्टोर
+
+आप जिस सेवा को बदल रहे हैं उसे compose फ़ाइल से (और `backend` पर इसकी `depends_on` प्रविष्टि) हटा दें, और संबंधित चर को ओवरराइड करें:
+
+```yaml fileName="docker-compose.yml"
+services:
+  backend:
+    environment:
+      MONGODB_URI: mongodb+srv://user:password@cluster0.xxxxx.mongodb.net/intlayer
+      REDIS_URL: rediss://default:password@redis.example.com:6380
+      S3_ENDPOINT: https://s3.eu-west-1.amazonaws.com
+      S3_PUBLIC_URL: https://intlayer-assets.s3.eu-west-1.amazonaws.com
+```
+
+`S3_ACCESS_KEY_ID` / `S3_SECRET_ACCESS_KEY` / `S3_BUCKET_NAME` किसी भी S3-संगत प्रदाता के खिलाफ काम करते हैं।
+
+### स्केलिंग
+
+`app` और `backend` स्टेटलेस हैं। लोड बैलेंसर के पीछे, निश्चित होस्ट पोर्ट मैपिंग को हटाने और सेवा नाम द्वारा प्रॉक्सी रूटिंग के साथ, `docker compose up -d --scale backend=3` काम करता है। पृष्ठभूमि कार्य Redis (BullMQ) के माध्यम से समन्वित होते हैं, इसलिए कई बैकएंड प्रतिकृतियां सुरक्षित रूप से कतारें साझा करती हैं।
+
+### स्रोत से निर्माण
+
+रिपॉजिटरी क्लोन से, एक ओवरराइड के साथ दो Intlayer सेवाओं को `image:` से `build:` पर स्विच करें:
+
+```sh
+cd docker/selfhost
+docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+```
+
+कस्टम डोमेन के लिए इमेज बनाते समय भी इसका उपयोग करें: निर्माण तर्क के रूप में `VITE_*` मान पास करें ([सीमाएँ](#limitations) देखें)।
+
+### बैकअप और अपग्रेड
+
+```sh
+# Backup one volume (repeat for intlayer_redis-data and intlayer_minio-data)
+docker compose stop
+docker run --rm -v intlayer_mongo-data:/data -v "$(pwd)":/backup busybox tar czf /backup/mongo-data.tar.gz /data
+docker start intlayer
+
+# Upgrade, volumes are kept
+docker compose pull && docker compose up -d
+```
+
+</Tab>
+</Tabs>
 
 ### इंस्टॉलर सेटिंग्स
 
-इंस्टॉलर कुछ environment variables को पढ़ता है। क्योंकि यह `sh` में piped है, उन्हें `curl` के बजाय shell में pass करें:
+`--mode` (या `INTLAYER_MODE`) के बिना, इंस्टॉलर एक मेनू का संकेत देता है: `desktop`, `docker` (ऑल-इन-वन) या `compose`। यह कुछ पर्यावरण चर भी पढ़ता है; इन्हें `curl` के बजाय शेल में पास करें क्योंकि यह पाइप किया गया है:
 
 ```sh
-curl -fsSL https://intlayer.org/install.sh | INTLAYER_ENV_FILE=./config/intlayer.env sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_COMPOSE_DIR=./cms sh -s -- --mode compose
 ```
 
-| Variable                  | Default                                       | Description                     |
-| ------------------------- | --------------------------------------------- | ------------------------------- |
-| `INTLAYER_IMAGE`          | `ghcr.io/aymericzip/intlayer-selfhost:latest` | खींचने के लिए Image             |
-| `INTLAYER_ENV_FILE`       | `./intlayer.env`                              | env file लिखने के लिए जगह       |
-| `INTLAYER_CONTAINER_NAME` | `intlayer`                                    | Container का नाम                |
-| `INTLAYER_DATA_VOLUME`    | `intlayer-data`                               | `/data` पर mounted named volume |
-| `INTLAYER_APP_PORT`       | `3000`                                        | dashboard के लिए Host port      |
-| `INTLAYER_API_PORT`       | `3100`                                        | API के लिए Host port            |
-| `INTLAYER_S3_PORT`        | `9000`                                        | MinIO S3 API के लिए Host port   |
-| `INTLAYER_CONSOLE_PORT`   | `9001`                                        | MinIO console के लिए Host port  |
+```powershell
+$env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https://intlayer.org/install.ps1 | iex
+```
 
-> चार port variables केवल `docker run` command में printed mapping के **host** side को बदलते हैं। प्रकाशित image में `http://localhost:3000`, `http://localhost:3100` और `http://localhost:9000` build time पर dashboard bundle में compiled हैं, इसलिए उन्हें remapping करने से browser पुराने ports की ओर इशारा करता है। जब तक आप अपना खुद का image बिल्ड नहीं कर रहे हैं, तब तक defaults को रखें — [Limitations](#limitations) देखें।
+| Variable                  | Default                   | Applies to | Description                                                |
+| ------------------------- | ------------------------- | ---------- | ---------------------------------------------------------- |
+| `INTLAYER_MODE`           | _(asked)_                 | all        | `desktop`, `docker` or `compose`, same as `--mode`         |
+| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`             | desktop    | Where the app installer is saved                           |
+| `INTLAYER_IMAGE`          | `intlayer/cms-all:latest` | docker     | All-in-one image to pull                                   |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`          | docker     | Where to write the environment file                        |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                | docker     | Container name                                             |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`           | docker     | Named volume mounted at `/data`                            |
+| `INTLAYER_APP_PORT`       | `3000`                    | docker     | Host port for the dashboard                                |
+| `INTLAYER_API_PORT`       | `3100`                    | docker     | Host port for the API                                      |
+| `INTLAYER_S3_PORT`        | `9000`                    | docker     | Host port for the MinIO S3 API                             |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
+| `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
+| `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
 
-## पहली बार सेटअप
+> पोर्ट चर मैपिंग के केवल **होस्ट** पक्ष को बदलते हैं। प्रकाशित इमेज में `http://localhost:3000`, `http://localhost:3100` और `http://localhost:9000` डैशबोर्ड बंडल में संकलित होते हैं, इसलिए जब तक आप अपनी खुद की इमेज नहीं बनाते, तब तक डिफ़ॉल्ट रखें, [सीमाएँ](#limitations) देखें।
 
-एक नए instance (खाली डेटाबेस) पर, डैशबोर्ड खोलने से आप **`/init`** पृष्ठ पर रीडायरेक्ट हो जाते हैं:
+## प्रथम-रन सेटअप
 
-1. पहला खाता बनाएँ। क्योंकि users collection खाली है, यह खाता स्वचालित रूप से **super admin** को प्रचारित किया जाता है।
-2. एक सत्यापन ईमेल भेजा जाता है (Resend के माध्यम से)। ईमेल सत्यापन **अनिवार्य** है — यही कारण है कि `RESEND_API_KEY` को शुरू करने से पहले सेट किया जाना चाहिए।
-3. ईमेल में लिंक पर क्लिक करें, फिर साइन इन करें।
+एक नए इंस्टेंस (खाली डेटाबेस) पर डैशबोर्ड खोलने पर स्वचालित रूप से **`/init`** पर पुनर्निर्देशित किया जाएगा:
 
-एक बार admin मौजूद हो जाने पर, `/init` मानक साइन-इन पृष्ठ पर रीडायरेक्ट करता है।
+1. पहला खाता बनाएं। चूंकि उपयोगकर्ता संग्रह खाली है, इसलिए यह खाता स्वचालित रूप से **सुपर एडमिन** में पदोन्नत हो जाता है।
+2. आपके Resend या SMTP रिले के माध्यम से एक सत्यापन ईमेल भेजा जाता है। ईमेल सत्यापन **अनिवार्य** है, यही कारण है कि शुरू करने से पहले एक मेलर कॉन्फ़िगर किया जाना चाहिए।
+3. ईमेल में दिए गए लिंक पर क्लिक करें और साइन इन करें।
 
-## सेवाएँ
+एक बार व्यवस्थापक मौजूद होने के बाद, `/init` सामान्य साइन-इन पृष्ठ पर पुनर्निर्देशित करता है।
 
-| सर्विस      | इमेज                                 | होस्ट पोर्ट(s)                 | उद्देश्य                                            |
-| ----------- | ------------------------------------ | ------------------------------ | --------------------------------------------------- |
-| **app**     | `apps/app/Dockerfile` से निर्मित     | `3000`                         | TanStack Start डैशबोर्ड (CMS UI)                    |
-| **backend** | `apps/backend/Dockerfile` से निर्मित | `3100`                         | Fastify REST API (`/health` एंडपॉइंट)               |
-| **mongo**   | `mongo:7`                            | आंतरिक                         | सिंगल-नोड रेप्लिका सेट (`rs0`)                      |
-| **redis**   | `redis:7-alpine`                     | आंतरिक                         | जॉब क्यू (BullMQ) और कैशिंग (ioredis)               |
-| **minio**   | `minio/minio`                        | `9000` (S3), `9001` (कंसोल)    | अवतार और स्क्रीनशॉट के लिए S3-संगत ऑब्जेक्ट स्टोरेज |
-| **mailpit** | `axllent/mailpit`                    | `1025` (SMTP), `8025` (वेब UI) | लोकल ट्रांजैक्शनल ईमेल सिंक                         |
+## पर्यावरण चर
 
-> MinIO पोर्ट `9000` ब्राउज़र द्वारा पहुँच योग्य होना चाहिए क्योंकि अपलोड किए गए एसेट (अवतार, स्क्रीनशॉट) सीधे `S3_PUBLIC_URL=http://localhost:9000/intlayer` से लोड होते हैं।
-
-## Environment variables
+दोनों Docker मोड [`docker/selfhost/.env.template`](https://github.com/aymericzip/intlayer/blob/main/docker/selfhost/.env.template) से उत्पन्न एक ही फ़ाइल (कंटेनर के लिए `intlayer.env`, Compose के लिए `.env`) पढ़ते हैं।
 
 ### आवश्यक
 
-| Variable               | Example                      | Description                                                                                                                                  |
-| ---------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `DB_ID`                | `intlayer`                   | MongoDB Atlas user                                                                                                                           |
-| `DB_MDP`               | _(your password)_            | MongoDB Atlas password                                                                                                                       |
-| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | MongoDB Atlas cluster host (used in the `mongodb+srv://` URI)                                                                                |
-| `BETTER_AUTH_SECRET`   | _(generated)_                | 32-byte secret for session signing                                                                                                           |
-| `S3_SECRET_ACCESS_KEY` | _(generated)_                | Secret for the bundled MinIO                                                                                                                 |
-| `RESEND_API_KEY`       | _(your key)_                 | Transactional email via Resend. Required for first-run setup unless you configure a global SMTP mailer (see [Global mailer](#global-mailer)) |
+| Variable               | Example       | Description                                                                                                                                   |
+| ---------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BETTER_AUTH_SECRET`   | _(generated)_ | 32-byte secret for session signing                                                                                                            |
+| `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
+| `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
 
-### आवश्यक (स्वतः जेनरेटेड या प्रॉम्प्टेड)
+### परिनियोजन द्वारा तय
 
-| वेरिएबल                | उदाहरण                                          | विवरण                                              |
-| ---------------------- | ----------------------------------------------- | -------------------------------------------------- |
-| `NODE_ENV`             | `production`                                    | रनटाइम एनवायरनमेंट                                 |
-| `PORT`                 | `3100`                                          | बैकएंड लिसनिंग पोर्ट                               |
-| `BACKEND_URL`          | `http://localhost:3100`                         | बैकएंड API का पब्लिक URL                           |
-| `APP_URL`              | `http://localhost:3000`                         | डैशबोर्ड का पब्लिक URL                             |
-| `DOMAIN`               | `localhost`                                     | कुकी डोमेन                                         |
-| `MONGODB_URI`          | `mongodb://mongo:27017/intlayer?replicaSet=rs0` | पूर्ण MongoDB कनेक्शन URI                          |
-| `REDIS_URL`            | `redis://redis:6379`                            | Redis कनेक्शन URL                                  |
-| `BETTER_AUTH_SECRET`   | _(जेनरेटेड)_                                    | सेशन साइनिंग के लिए 32-बाइट सीक्रेट                |
-| `MAIL_PROVIDER`        | `smtp`                                          | मेल ट्रांसपोर्ट: `smtp` या `resend`                |
-| `MAIL_SMTP_HOST`       | `mailpit`                                       | SMTP होस्टनेम (मेलपिट कंटेनर नाम)                  |
-| `MAIL_SMTP_PORT`       | `1025`                                          | SMTP पोर्ट                                         |
-| `MAIL_FROM`            | `Intlayer <no-reply@localhost>`                 | प्रेषक पता                                         |
-| `S3_ENDPOINT`          | `http://minio:9000`                             | S3-संगत एंडपॉइंट                                   |
-| `S3_PUBLIC_URL`        | `http://localhost:9000/intlayer`                | ब्राउज़र एसेट लोडिंग के लिए पब्लिक URL             |
-| `S3_BUCKET_NAME`       | `intlayer`                                      | बकेट नाम                                           |
-| `S3_ACCESS_KEY_ID`     | _(जेनरेटेड)_                                    | MinIO एक्सेस की                                    |
-| `S3_SECRET_ACCESS_KEY` | _(जेनरेटेड)_                                    | MinIO सीक्रेट की                                   |
-| `VITE_BACKEND_URL`     | `http://localhost:3100`                         | बिल्ड टाइम पर डैशबोर्ड में बेक किया गया बैकएंड URL |
-| `VITE_DOMAIN`          | `localhost`                                     | बिल्ड टाइम पर डैशबोर्ड में बेक किया गया डोमेन      |
+These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology.
 
-### Optional (features degrade gracefully when absent)
+| Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
+| ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
+| `PORT`             | `3100`                                              | `3100`                           | Backend listening port                                                        |
+| `APP_URL`          | `http://localhost:3000`                             | `http://localhost:3000`          | Public URL of the dashboard                                                   |
+| `BACKEND_URL`      | `http://localhost:3100`                             | `http://localhost:3100`          | Public URL of the backend API                                                 |
+| `DOMAIN`           | `localhost`                                         | `localhost`                      | Cookie domain                                                                 |
+| `SELF_HOSTED`      | `true`                                              | `true`                           | Disables the cloud-only API endpoints (billing, subscriptions, marketplace)   |
+| `MONGODB_URI`      | `mongodb://127.0.0.1:27017/intlayer?replicaSet=rs0` | `mongodb://mongo:27017/…`        | MongoDB connection string, any `mongodb://` or `mongodb+srv://` cluster works |
+| `REDIS_URL`        | `redis://127.0.0.1:6379`                            | `redis://redis:6379`             | Redis                                                                         |
+| `S3_ENDPOINT`      | `http://127.0.0.1:9000`                             | `http://minio:9000`              | MinIO (server-to-server)                                                      |
+| `S3_PUBLIC_URL`    | `http://localhost:9000/intlayer`                    | `http://localhost:9000/intlayer` | Public URL for browser asset loading                                          |
+| `S3_BUCKET_NAME`   | `intlayer`                                          | `intlayer`                       | Bucket name                                                                   |
+| `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
 
-| Variable                                                 | Feature                                   |
-| -------------------------------------------------------- | ----------------------------------------- |
-| `OPENAI_API_KEY`                                         | AI-assisted translation and content audit |
-| `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_*` | Billing and subscription management       |
-| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`               | GitHub OAuth login                        |
-| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`               | Google OAuth login                        |
-| `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`               | GitLab OAuth login                        |
-| `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth login                     |
+Compose `app` सेवा अतिरिक्त रूप से `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100` प्राप्त करती है: ब्राउज़र `localhost:3100` पर API तक पहुँचता है, लेकिन सर्वर-साइड रेंडरिंग Compose नेटवर्क के अंदर चलती है और इसलिए इसे सेवा नाम का उपयोग करना चाहिए।
 
-### वैकल्पिक (अनुपस्थिति में फीचर धीरे-धीरे खराब हो जाते हैं)
+### वैकल्पिक (अनुपस्थित होने पर सुविधाएं सुचारू रूप से कार्य करती हैं)
 
-डिफ़ॉल्ट रूप से, सभी transactional ईमेल `RESEND_API_KEY` का उपयोग करके Resend के माध्यम से भेजे जाते हैं। Self-hosted deployments इसके बजाय **प्रत्येक** ईमेल — non-organization ईमेल जैसे कि password resets और magic links सहित — को environment variables के साथ कॉन्फ़िगर किए गए global mailer के माध्यम से route कर सकते हैं।
+| Variable                                         | Feature                                   |
+| ------------------------------------------------ | ----------------------------------------- |
+| `OPENAI_API_KEY`                                 | AI-assisted translation and content audit |
+| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`       | GitHub OAuth login                        |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`       | Google OAuth login                        |
+| `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`       | GitLab OAuth login                        |
+| `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET` | Microsoft OAuth login                     |
 
-`MAIL_PROVIDER` को सेट करें इसे सक्रिय करने के लिए। जब यह सेट नहीं है, तो डिफ़ॉल्ट Resend mailer का उपयोग किया जाता है।
+### ग्लोबल मेलर
 
-| वेरिएबल                                                  | फीचर                                                                          |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `OPENAI_API_KEY`                                         | AI-सहायता प्राप्त अनुवाद और कंटेंट ऑडिट                                       |
-| `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_*` | बिलिंग और सब्सक्रिप्शन प्रबंधन                                                |
-| `RESEND_API_KEY`                                         | रीसेंड के माध्यम से ट्रांजैक्शनल ईमेल (सेट होने पर मेलपिट को ओवरराइड करता है) |
-| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`               | GitHub OAuth लॉगिन                                                            |
-| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`               | Google OAuth लॉगिन                                                            |
-| `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`               | GitLab OAuth लॉगिन                                                            |
-| `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth लॉगिन                                                         |
-| `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuth लॉगिन                                                          |
-| `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuth लॉगिन                                                         |
+पासवर्ड रीसेट और मैजिक लिंक जैसे गैर-संगठन ईमेल सहित सभी लेन-देन संबंधी ईमेल दो वैश्विक ट्रांसपोर्ट में से एक से होकर गुजरते हैं:
 
-> प्राधिकार: एक संगठन का अपना mailer (**Organization** dashboard से कॉन्फ़िगर किया गया) global mailer को प्राथमिकता देता है, जो बदले में default Resend key को प्राथमिकता देता है।
+- **Resend**: `RESEND_API_KEY` का उपयोग करके।
+- **SMTP**: `MAIL_SMTP_*` चरों का उपयोग करके। जैसे ही `MAIL_SMTP_HOST` सेट होता है, SMTP का उपयोग किया जाता है और `RESEND_API_KEY` को अनदेखा कर दिया जाता है।
 
-## अपने इंटलेयर प्रोजेक्ट को कनेक्ट करना
+`MAIL_PROVIDER` केवल तभी आवश्यक होता है जब दोनों कॉन्फ़िगर होने पर किसी एक ट्रांसपोर्ट को बाध्य करना हो (उदाहरण के लिए SMTP होस्ट मौजूद होने पर Resend रखने के लिए `MAIL_PROVIDER=resend`)।
 
-एक बार जब स्टैक चल रहा हो, तो अपने प्रोजेक्ट को `intlayer.org` के बजाय सेल्फ-होस्टेड बैकएंड और डैशबोर्ड पर पॉइंट करें।
+| Variable             | Example                        | Description                                                                  |
+| -------------------- | ------------------------------ | ---------------------------------------------------------------------------- |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Sender header for either transport. Accepts a bare address or `Name <email>` |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host. Setting it selects the SMTP transport                             |
+| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (defaults to `587`)                                                |
+| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Set `true` for port `465`                                      |
+| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP username (optional; omit for unauthenticated relays)                    |
+| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP password                                                                |
+| `MAIL_PROVIDER`      | `resend`                       | Optional override: `smtp` or `resend`. Leave unset to auto-select            |
+
+> प्राथमिकता क्रम: किसी संगठन का अपना मेलर (**संगठन** डैशबोर्ड से कॉन्फ़िगर किया गया) ग्लोबल मेलर को ओवरराइड करता है, और ग्लोबल मेलर डिफ़ॉल्ट Resend कुंजी को ओवरराइड करता है।
+
+## अपने Intlayer प्रोजेक्ट को कनेक्ट करना
+
+एक बार स्टैक चलने के बाद, अपने प्रोजेक्ट को `intlayer.org` के बजाय अपने सेल्फ-होस्टेड बैकएंड और डैशबोर्ड की ओर इंगित करने के लिए कॉन्फ़िगर करें।
 
 ### प्रोजेक्ट कॉन्फ़िगरेशन
 
@@ -238,23 +479,23 @@ const config: IntlayerConfig = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
 
     /**
-     * सेल्फ-होस्टेड CMS डैशबोर्ड का URL।
-     * डिफ़ॉल्ट: https://app.intlayer.org
+     * URL of the self-hosted CMS dashboard.
+     * Default: https://app.intlayer.org
      */
-    cmsURL: process.env.INTLAYER_CMS_URL, // उदाहरण के लिए http://localhost:3000
+    cmsURL: process.env.INTLAYER_CMS_URL, // e.g. http://localhost:3000
 
     /**
-     * सेल्फ-होस्टेड बैकएंड API का URL।
-     * डिफ़ॉल्ट: https://back.intlayer.org
+     * URL of the self-hosted backend API.
+     * Default: https://back.intlayer.org
      */
-    backendURL: process.env.INTLAYER_BACKEND_URL, // उदाहरण के लिए http://localhost:3100
+    backendURL: process.env.INTLAYER_BACKEND_URL, // e.g. http://localhost:3100
   },
 };
 
 export default config;
 ```
 
-अपने प्रोजेक्ट के `.env` में एनवायरनमेंट वेरिएबल सेट करें:
+Set the environment variables in your project's `.env`:
 
 ```sh
 INTLAYER_CMS_URL=http://localhost:3000
@@ -263,7 +504,7 @@ INTLAYER_CLIENT_ID=<your-client-id>
 INTLAYER_CLIENT_SECRET=<your-client-secret>
 ```
 
-अपने सेल्फ-होस्टेड डैशबोर्ड में `http://localhost:3000/projects` पर **प्रोजेक्ट्स → एक्सेस कीज़** के अंतर्गत एक्सेस क्रेडेंशियल बनाएँ।
+अपने सेल्फ-होस्टेड डैशबोर्ड में **प्रोजेक्ट्स → एक्सेस कुंजियाँ** (`http://localhost:3000/projects`) पर एक्सेस क्रेडेंशियल बनाएं।
 
 ### `@intlayer/api` SDK
 
@@ -284,58 +525,17 @@ const cms = createIntlayerCMS({
 const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 ```
 
-## अपग्रेड करना
+## सीमाएँ
 
-`./intlayer/` डायरेक्टरी के अंदर से मैन्युअल रूप से अपग्रेड करने के लिए:
+- **कोई कस्टम डोमेन और कोई पोर्ट रीमैपिंग नहीं।** सभी ब्राउज़र-सामना करने वाले `VITE_*` URL निर्माण के समय डैशबोर्ड में इनलाइन होते हैं, और प्रकाशित इमेज (और डेस्कटॉप ऐप) `localhost` / Intlayer Cloud मानों के साथ आते हैं। डैशबोर्ड को `http://localhost:3000` पर, API को `:3100` पर और MinIO को `:9000` पर एक्सेस किया जाना चाहिए। इसे सार्वजनिक डोमेन पर होस्ट करना, या डेस्कटॉप ऐप को सेल्फ-होस्टेड बैकएंड पर इंगित करना, लक्ष्य URL के साथ पुनर्निर्माण की आवश्यकता होती है (`docker/selfhost/Dockerfile` पर `--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…` के साथ, या `docker-compose.build.yml` के माध्यम से) और यह डिफ़ॉल्ट रूप से समर्थित नहीं है।
+- **ईमेल के लिए एक कार्यशील मेलर की आवश्यकता होती है।** प्रथम-रन सेटअप ईमेल सत्यापन लागू करता है, इसलिए या तो `RESEND_API_KEY` या [SMTP रिले](#global-mailer) (`MAIL_SMTP_*`) कॉन्फ़िगर किया जाना चाहिए। पहले एडमिन के साइन इन करने के बाद, प्रत्येक संगठन डैशबोर्ड से अपना स्वयं का SMTP या Resend मेलर भी कॉन्फ़िगर कर सकता है।
+- **डेस्कटॉप ऐप को अपने एम्बेडेड सर्वर को शुरू करने के लिए मशीन पर Node.js की आवश्यकता होती है।**
 
-```sh
-docker compose pull
-docker compose up -d
-```
+## उपयोगी लिंक्स
 
-## बैकअप और रीस्टोर
-
-सभी स्थायी डेटा तीन नामित डॉकर वॉल्यूम में रहते हैं।
-
-### बैकअप
-
-```sh
-docker run --rm \
-  -v intlayer_mongo-data:/data \
-  -v "$(pwd)":/backup \
-  busybox tar czf /backup/mongo-data.tar.gz /data
-
-docker run --rm \
-  -v intlayer_redis-data:/data \
-  -v "$(pwd)":/backup \
-  busybox tar czf /backup/redis-data.tar.gz /data
-
-docker run --rm \
-  -v intlayer_minio-data:/data \
-  -v "$(pwd)":/backup \
-  busybox tar czf /backup/minio-data.tar.gz /data
-```
-
-### रीस्टोर
-
-```sh
-docker run --rm \
-  -v intlayer_mongo-data:/data \
-  -v "$(pwd)":/backup \
-  busybox tar xzf /backup/mongo-data.tar.gz -C /
-
-# redis-data और minio-data के लिए दोहराएँ
-```
-
-## सीमाएं
-
-- **MongoDB बाहरी (Atlas) होना चाहिए।** बैकएंड केवल `mongodb+srv://` पर कनेक्ट करता है (जो `DB_ID` / `DB_MDP` / `DB_CLUSTER` से बनाया गया है), इसलिए एक सादा `mongodb://host:27017` — कंटेनर के अपने बंडल किए गए `mongod` सहित — का उपयोग नहीं किया जा सकता है। एक MongoDB Atlas क्लस्टर प्रदान करें।
-- **कोई कस्टम डोमेन नहीं।** सभी ब्राउज़र-सामने वाले `VITE_*` URLs बिल्ड टाइम पर ऐप में इनलाइन किए जाते हैं, और प्रकाशित इमेज `localhost` मानों के साथ आती है। डैशबोर्ड को `http://localhost:3000` पर एक्सेस किया जाना चाहिए; इसे एक सार्वजनिक डोमेन पर सर्व करने के लिए इमेज को लक्ष्य URLs के साथत: फिर से बनाने की आवश्यकता होगी और इसे तुरंत समर्थित नहीं किया जाता है।
-- **ईमेल को एक काम करने वाले मेलर की आवश्यकता है।** पहली बार सेटअप ईमेल सत्यापन को लागू करता है, इसलिए या तो `RESEND_API_KEY` या एक [global SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) को कॉन्फ़िगर किया जाना चाहिए। पहले एडमिन साइन इन करने के बाद, प्रत्येक संगठन डैशबोर्ड से अपना स्वयं का SMTP या Resend मेलर भी कॉन्फ़िगर कर सकता है।
-
-## उपयोगी लिंक
-
-- [इंटलेयर सीएमएस डॉक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+- [Intlayer CMS दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
 - [कॉन्फ़िगरेशन संदर्भ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
-- [सीएमएस SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
-- [Docker Image (intlayer/intlayer-selfhost)](https://hub.docker.com/r/intlayer/intlayer-selfhost)
+- [CMS SDK: `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
+- [डेस्कटॉप ऐप रिलीज़](https://github.com/aymericzip/intlayer/releases/latest)
+- Docker Hub: [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all), [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend), [`intlayer/cms-backend`](https://hub.docker.com/r/intlayer/cms-backend), GHCR मिरर: `ghcr.io/aymericzip/intlayer/`
+- [`docker/selfhost/`](https://github.com/aymericzip/intlayer/tree/main/docker/selfhost): Dockerfile, `docker-compose.yml`, `.env.template`

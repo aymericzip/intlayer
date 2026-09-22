@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-09-21
 title: Inicializar Intlayer
 description: Saiba como inicializar o Intlayer no seu projeto.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "Adicionar subcomando init infra"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Adicionar opção --no-gitignore"
@@ -124,6 +127,26 @@ bun x intlayer init --no-gitignore
 ```
 
 Isto configurará todos os ficheiros de configuração mas não modificará o seu `.gitignore`.
+
+### Configurar a infraestrutura (aplicativo desktop ou auto-hospedagem):
+
+```bash
+npx intlayer init infra
+```
+
+Baixa e executa o instalador hospedado (`https://intlayer.org/install.sh`, ou `install.ps1` no Windows), que pergunta como você deseja executar o Intlayer:
+
+- **Aplicativo desktop** - instala o painel nativo em sua máquina, conectado ao Intlayer Cloud.
+- **Docker tudo-em-um** - painel + API + MongoDB + Redis + MinIO em um único contêiner.
+- **Docker Compose** - um contêiner por serviço, para auto-hospedagem escalável.
+
+Pule o menu com `--mode`:
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+A mesma etapa é oferecida por `npx intlayer init --interactive`. Consulte a [referência do `init infra`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/infra.md) para as configurações do instalador, e o [guia de auto-hospedagem](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/self_hosting.md) para ver o que cada modo configura.
 
 ## Exemplo de saída:
 

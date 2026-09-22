@@ -2,7 +2,7 @@
 createdAt: 2026-06-30
 updatedAt: 2026-09-21
 title: Self-Hosting Intlayer
-description: Run Intlayer on your own infrastructure — as a desktop app, a single all-in-one Docker container, or a scalable Docker Compose stack. No Intlayer Cloud account required.
+description: "Run Intlayer on your own infrastructure: as a desktop app, a single all-in-one Docker container, or a scalable Docker Compose stack. No Intlayer Cloud account required."
 keywords:
   - Self-Hosting
   - Docker
@@ -20,33 +20,47 @@ author: aymericzip
 
 # Self-Hosting Intlayer
 
-Intlayer can run on your own infrastructure. No Intlayer Cloud account required. Three setups are available, all installed by the same one-line installer:
+Intlayer can run on your own infrastructure, no Intlayer Cloud account required. Three setups are available, all driven by the same installer (`install.sh`, `install.ps1` on Windows, or `npx intlayer init infra`):
 
-| Setup                                                                                                                                                  | What it is                                                                                   | Pick it for                             |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- | --------------------------------------- |
-| **Desktop app**                                                                                                                                        | Native dashboard for macOS, Linux and Windows, connected to the Intlayer Cloud               | A local client, nothing to host         |
-| **All-in-one Docker** — [`cms-all`](https://hub.docker.com/r/intlayer/cms-all)                                                                         | Dashboard, API, MongoDB, Redis and MinIO in a **single container**, supervised by s6-overlay | Trials and small single-box installs    |
-| **Docker Compose** — [`cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend) + [`cms-backend`](https://hub.docker.com/r/intlayer/cms-backend) | **One container per service**, each datastore replaceable by a managed offering              | Production, scaling, managed datastores |
+| Setup                 | What it is                                                                      | Pick it for                             |
+| --------------------- | ------------------------------------------------------------------------------- | --------------------------------------- |
+| **Desktop app**       | Native dashboard for macOS, Linux and Windows                                   | A local client, nothing to host         |
+| **All-in-one Docker** | Dashboard, API, MongoDB, Redis and MinIO in a **single container**              | Trials and small single-box installs    |
+| **Docker Compose**    | **One container per service**, each datastore replaceable by a managed offering | Production, scaling, managed datastores |
 
 ## Table of Contents
 
 <TOC/>
 
-## Install
+## Published images and packages
 
-The installer asks which setup you want, checks the prerequisites (offering to install Docker), writes the environment file with your secrets already generated, and pulls the images. It never starts anything on its own — the self-host modes need a mailer first, so it ends by printing the command to run.
+| Artifact             | Docker Hub                                                                | GHCR mirror                                | Contents                                                                         |
+| -------------------- | ------------------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- |
+| All-in-one container | [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all)           | `ghcr.io/aymericzip/intlayer/cms-all`      | app + backend + MongoDB 8 + Redis + MinIO + Chromium                             |
+| Dashboard (frontend) | [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend) | `ghcr.io/aymericzip/intlayer/cms-frontend` | TanStack Start dashboard on Bun                                                  |
+| API (backend)        | [`intlayer/cms-backend`](https://hub.docker.com/r/intlayer/cms-backend)   | `ghcr.io/aymericzip/intlayer/cms-backend`  | Fastify REST API on Bun + Chromium                                               |
+| Desktop app          | [GitHub releases](https://github.com/aymericzip/intlayer/releases/latest) | n/a                                        | `.dmg` (macOS), `.deb` / `.rpm` / `.AppImage` (Linux), `.exe` / `.msi` (Windows) |
+
+All three images are built from the same [`docker/selfhost/Dockerfile`](https://github.com/aymericzip/intlayer/tree/main/docker/selfhost) and published on every release. The Compose stack also pulls the official `mongo:8`, `redis:8-alpine` and `quay.io/minio/minio` images.
+
+## Setup
+
+The installer asks which setup you want, checks the prerequisites (offering to install Docker), writes the environment file with the secrets already generated, and pulls the images. It never starts anything on its own: the Docker modes need a mailer first, so it ends by printing the command to run. Re-running it is safe: an existing environment file is never overwritten, which makes it the upgrade path too.
+
+<Tabs group="mode">
+<Tab label="Desktop app" value="desktop">
+
+The Intlayer dashboard as a native application, built with Tauri. It signs in to the Intlayer Cloud (`https://app.intlayer.org`), so there is nothing to host. It is the right choice when you want a local client rather than a browser tab.
+
+### Install
+
+The installer downloads the package for your OS and CPU, then opens it (macOS), installs it (`dpkg` / `rpm` on Linux) or launches the setup wizard (Windows). You can also download it by hand from the [releases page](https://github.com/aymericzip/intlayer/releases/latest).
 
 <Tabs group="os">
 <Tab label="macOS / Linux" value="unix">
 
 ```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
-Skip the menu by passing the mode:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode compose
+curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode desktop
 ```
 
 </Tab>
@@ -55,100 +69,29 @@ curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode compose
 In PowerShell:
 
 ```powershell
-irm https://intlayer.org/install.ps1 | iex
+$env:INTLAYER_MODE = "desktop"; irm https://intlayer.org/install.ps1 | iex
 ```
-
-Skip the menu by setting the mode first:
-
-```powershell
-$env:INTLAYER_MODE = "compose"; irm https://intlayer.org/install.ps1 | iex
-```
-
-The self-host modes need [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) (WSL 2 backend).
 
 </Tab>
 <Tab label="Intlayer CLI" value="cli">
 
-The CLI downloads and runs the installer for your platform:
-
 ```bash
-npx intlayer init infra
-npx intlayer init infra --mode compose
+npx intlayer init infra --mode desktop
 ```
-
-The same step is offered by `npx intlayer init --interactive`.
 
 </Tab>
 </Tabs>
 
-Modes: `desktop`, `docker` (all-in-one) or `compose`. Re-running the installer is safe: an existing environment file is never overwritten, so it doubles as the upgrade path.
-
-### Installer settings
-
-The installer reads a few environment variables. Because it is piped into the shell, pass them to the shell rather than to `curl`:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | INTLAYER_COMPOSE_DIR=./cms sh -s -- --mode compose
-```
-
-| Variable                  | Default                   | Applies to | Description                                                |
-| ------------------------- | ------------------------- | ---------- | ---------------------------------------------------------- |
-| `INTLAYER_MODE`           | _(asked)_                 | all        | `desktop`, `docker` or `compose` — same as `--mode`        |
-| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`             | desktop    | Where the app installer is saved                           |
-| `INTLAYER_IMAGE`          | `intlayer/cms-all:latest` | docker     | All-in-one image to pull                                   |
-| `INTLAYER_ENV_FILE`       | `./intlayer.env`          | docker     | Where to write the environment file                        |
-| `INTLAYER_CONTAINER_NAME` | `intlayer`                | docker     | Container name                                             |
-| `INTLAYER_DATA_VOLUME`    | `intlayer-data`           | docker     | Named volume mounted at `/data`                            |
-| `INTLAYER_APP_PORT`       | `3000`                    | docker     | Host port for the dashboard                                |
-| `INTLAYER_API_PORT`       | `3100`                    | docker     | Host port for the API                                      |
-| `INTLAYER_S3_PORT`        | `9000`                    | docker     | Host port for the MinIO S3 API                             |
-| `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
-| `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
-| `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
-
-> The port variables only change the **host** side of the mapping. The published images have `http://localhost:3000`, `http://localhost:3100` and `http://localhost:9000` compiled into the dashboard bundle, so remapping them leaves the browser pointing at the old ports. Keep the defaults unless you build your own images — see [Limitations](#limitations).
-
-## Setup modes
-
-<Tabs group="mode">
-<Tab label="Desktop app" value="desktop">
-
-### What you get
-
-The Intlayer dashboard as a native application, built with Tauri and published on the [GitHub releases](https://github.com/aymericzip/intlayer/releases/latest) page:
-
-| Platform | Package                                |
-| -------- | -------------------------------------- |
-| macOS    | `.dmg` (Apple Silicon)                 |
-| Linux    | `.deb`, `.rpm` or `.AppImage` (x86_64) |
-| Windows  | `.exe` installer or `.msi` (x64)       |
-
-The app signs in to the Intlayer Cloud (`https://app.intlayer.org`) — there is nothing to host. It is the right choice when you want a local client rather than a browser tab.
-
-### Install
-
-The installer's **Desktop app** mode downloads the package for your OS and CPU and opens it (macOS), installs it (`dpkg` / `rpm` on Linux) or launches the setup wizard (Windows):
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode desktop
-```
-
-```powershell
-$env:INTLAYER_MODE = "desktop"; irm https://intlayer.org/install.ps1 | iex
-```
-
 ### Requirements
 
-- **Node.js** — the app embeds the dashboard's server and starts it with the machine's own `node` binary. Install it from [nodejs.org](https://nodejs.org) if the app does not start.
+- **Node.js**: the app embeds the dashboard's server and starts it with the machine's own `node` binary. Install it from [nodejs.org](https://nodejs.org) if the app does not start.
 
-> The desktop build talks to the Intlayer Cloud backend. Pointing it at a self-hosted backend requires rebuilding the app with `VITE_BACKEND_URL` set to your API — see [Limitations](#limitations).
+> The published desktop build talks to the Intlayer Cloud backend. Pointing it at a self-hosted backend requires rebuilding the app with `VITE_BACKEND_URL` set to your API, see [Limitations](#limitations).
 
 </Tab>
 <Tab label="All-in-one Docker" value="docker">
 
-### Architecture
-
-Everything runs inside one container, supervised by [s6-overlay](https://github.com/just-containers/s6-overlay). Every datastore is persisted under a single volume.
+Everything runs inside the single `intlayer/cms-all` container, supervised by [s6-overlay](https://github.com/just-containers/s6-overlay), with every datastore persisted under one volume.
 
 ```
                 ┌─────────────────────────────┐
@@ -164,65 +107,107 @@ Everything runs inside one container, supervised by [s6-overlay](https://github.
       (1-node RS)              minio:9001
 ```
 
-Boot order is enforced by s6 dependencies: `mongod` → replica-set init, `minio` → bucket creation, then `backend`, then `app`. Long-running services restart on exit, so the backend recovers if a datastore is briefly unavailable on first boot.
+| Service     | Host port(s)                  | Purpose                                                  |
+| ----------- | ----------------------------- | -------------------------------------------------------- |
+| **app**     | `3000`                        | Dashboard (CMS UI)                                       |
+| **backend** | `3100`                        | REST API (`/health` endpoint)                            |
+| **mongo**   | internal                      | MongoDB 8, single-node replica set `rs0`                 |
+| **redis**   | internal                      | Job queues (BullMQ) and caching                          |
+| **minio**   | `9000` (S3), `9001` (console) | S3-compatible object storage for avatars and screenshots |
+
+Boot order is enforced by s6 dependencies (`mongod` → replica-set init, `minio` → bucket creation, then `backend`, then `app`), and services restart on exit, so the first boot recovers on its own.
 
 ### Prerequisites
 
-- **Docker** ≥ 24. The installer offers to install it (via [get.docker.com](https://get.docker.com) on Linux, Homebrew on macOS).
-- Ports `3000`, `3100`, `9000` and `9001` available on the host.
+- **Docker** ≥ 24: the installer offers to install it (via [get.docker.com](https://get.docker.com) on Linux, Homebrew on macOS). On Windows, install [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) (WSL 2 backend) first.
+- Ports `3000`, `3100`, `9000` and `9001` free on the host. MinIO `9000` must stay reachable by the browser, which loads assets straight from `S3_PUBLIC_URL`.
 - A mailer: a [Resend](https://resend.com) API key or an SMTP relay.
 
-### Quick start
+### 1. Install
 
-1. Run the installer in **All-in-one Docker** mode. It writes `./intlayer.env` with `BETTER_AUTH_SECRET` and `S3_SECRET_ACCESS_KEY` generated, and pulls the image.
+Writes `./intlayer.env` with `BETTER_AUTH_SECRET` and `S3_SECRET_ACCESS_KEY` generated, and pulls `intlayer/cms-all:latest`.
 
-   ```sh
-   curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode docker
-   ```
+<Tabs group="os">
+<Tab label="macOS / Linux" value="unix">
 
-2. Open `intlayer.env` and configure a mailer — Resend **or** SMTP (see [Global mailer](#global-mailer)):
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode docker
+```
 
-   ```sh fileName="intlayer.env"
-   # Option A — Resend
-   RESEND_API_KEY=<your-resend-key>
+</Tab>
+<Tab label="Windows" value="windows">
 
-   # Option B — SMTP (takes over from Resend as soon as MAIL_SMTP_HOST is set)
-   MAIL_SMTP_HOST=smtp.example.com
-   MAIL_SMTP_PORT=587
-   MAIL_SMTP_USER=<user>
-   MAIL_SMTP_PASSWORD=<password>
-   MAIL_FROM=Intlayer <no-reply@example.com>
-   ```
+In PowerShell:
 
-3. Start the container — this is the command the installer prints:
+```powershell
+$env:INTLAYER_MODE = "docker"; irm https://intlayer.org/install.ps1 | iex
+```
 
-   ```sh
-   docker run -d --name intlayer \
-     --restart unless-stopped \
-     -p 3000:3000 \
-     -p 3100:3100 \
-     -p 9000:9000 \
-     -p 9001:9001 \
-     -v intlayer-data:/data \
-     --env-file ./intlayer.env \
-     intlayer/cms-all:latest
-   ```
+</Tab>
+<Tab label="Intlayer CLI" value="cli">
 
-Then open **http://localhost:3000** and follow [First-run setup](#first-run-setup). First boot initialises the replica set and the bucket, so give it a minute.
+```bash
+npx intlayer init infra --mode docker
+```
 
-### Services and ports
+</Tab>
+</Tabs>
 
-| Service     | Host port(s)                  | Purpose                                                  |
-| ----------- | ----------------------------- | -------------------------------------------------------- |
-| **app**     | `3000`                        | TanStack Start dashboard (CMS UI)                        |
-| **backend** | `3100`                        | Fastify REST API (`/health` endpoint)                    |
-| **mongo**   | internal                      | MongoDB 8, single-node replica set `rs0`                 |
-| **redis**   | internal                      | Job queues (BullMQ) and caching (ioredis)                |
-| **minio**   | `9000` (S3), `9001` (console) | S3-compatible object storage for avatars and screenshots |
+### 2. Configure a mailer
 
-> MinIO port `9000` must be reachable by the browser because uploaded assets are loaded directly from `S3_PUBLIC_URL=http://localhost:9000/intlayer`.
+Open `intlayer.env` and fill in Resend **or** SMTP (details in [Global mailer](#global-mailer)):
 
-### Data, backup and upgrade
+```sh fileName="intlayer.env"
+# Option A: Resend
+RESEND_API_KEY=<your-resend-key>
+
+# Option B: SMTP (takes over from Resend as soon as MAIL_SMTP_HOST is set)
+MAIL_SMTP_HOST=smtp.example.com
+MAIL_SMTP_PORT=587
+MAIL_SMTP_USER=<user>
+MAIL_SMTP_PASSWORD=<password>
+MAIL_FROM=Intlayer <no-reply@example.com>
+```
+
+### 3. Start
+
+This is the command the installer prints:
+
+<Tabs group="os">
+<Tab label="macOS / Linux" value="unix">
+
+```sh
+docker run -d --name intlayer \
+  --restart unless-stopped \
+  -p 3000:3000 -p 3100:3100 -p 9000:9000 -p 9001:9001 \
+  -v intlayer-data:/data \
+  --env-file ./intlayer.env \
+  intlayer/cms-all:latest
+```
+
+</Tab>
+<Tab label="Windows" value="windows">
+
+```powershell
+docker run -d --name intlayer `
+  --restart unless-stopped `
+  -p 3000:3000 -p 3100:3100 -p 9000:9000 -p 9001:9001 `
+  -v intlayer-data:/data `
+  --env-file ./intlayer.env `
+  intlayer/cms-all:latest
+```
+
+</Tab>
+<Tab label="Intlayer CLI" value="cli">
+
+The CLI runs the installer, which prints the `docker run …` command shown in the other tabs. Copy it into your terminal once the mailer is configured.
+
+</Tab>
+</Tabs>
+
+Open **http://localhost:3000** and follow [First-run setup](#first-run-setup). The first boot initialises the replica set and the bucket, so give it a minute.
+
+### Backup and upgrade
 
 All state lives in the `intlayer-data` volume (`/data/mongo`, `/data/redis`, `/data/minio`).
 
@@ -232,29 +217,16 @@ docker stop intlayer
 docker run --rm -v intlayer-data:/data -v "$(pwd)":/backup busybox tar czf /backup/intlayer-data.tar.gz /data
 docker start intlayer
 
-# Live MongoDB dump instead
-docker exec intlayer mongodump --archive > dump.archive
-
 # Restore
 docker run --rm -v intlayer-data:/data -v "$(pwd)":/backup busybox tar xzf /backup/intlayer-data.tar.gz -C /
 ```
 
-To upgrade, re-run the installer (it pulls the latest image and keeps `intlayer.env`), then recreate the container:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode docker
-docker rm -f intlayer
-# re-run the `docker run …` command from step 3
-```
-
-To use a managed MongoDB instead of the bundled one, set `MONGODB_URI` in `intlayer.env` (any `mongodb://` or `mongodb+srv://` string).
+To upgrade, re-run the installer (it pulls the latest image and keeps `intlayer.env`), then `docker rm -f intlayer` and run the start command again. To use a managed MongoDB instead of the bundled one, set `MONGODB_URI` in `intlayer.env`.
 
 </Tab>
 <Tab label="Docker Compose" value="compose">
 
-### Architecture
-
-One container per service, on a private Compose network. The dashboard and the API use the published `intlayer/cms-frontend` and `intlayer/cms-backend` images; the datastores use the official `mongo`, `redis` and `minio` images.
+One container per service on a private Compose network. The dashboard and the API use the published `intlayer/cms-frontend` and `intlayer/cms-backend` images; the datastores use the official `mongo`, `redis` and `minio` images.
 
 ```
                 ┌───────────────────┐
@@ -280,32 +252,71 @@ One container per service, on a private Compose network. The dashboard and the A
 
 Data is kept in the `intlayer_mongo-data`, `intlayer_redis-data` and `intlayer_minio-data` volumes. The service wiring (`MONGODB_URI`, `REDIS_URL`, `S3_ENDPOINT`, the internal backend URL used by server-side rendering) is fixed in the compose file and takes precedence over `.env`, which only carries secrets and optional integrations.
 
-### Quick start
+### Prerequisites
 
-1. Run the installer in **Docker Compose** mode. It writes `docker-compose.yml` and a `.env` with the secrets generated into `./intlayer/`, and pulls the images.
+- **Docker** ≥ 24 with the Compose plugin: the installer offers to install it on Linux and macOS. On Windows, install [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) (WSL 2 backend) first.
+- Ports `3000`, `3100`, `9000` and `9001` free on the host.
+- A mailer: a [Resend](https://resend.com) API key or an SMTP relay.
 
-   ```sh
-   curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode compose
-   ```
+### 1. Install
 
-   Or by hand:
+Writes `docker-compose.yml` and a `.env` with the secrets generated into `./intlayer/`, and pulls the images.
 
-   ```sh
-   mkdir intlayer && cd intlayer
-   curl -fsSLO https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/docker-compose.yml
-   curl -fsSL  https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/.env.template -o .env
-   # fill in BETTER_AUTH_SECRET and S3_SECRET_ACCESS_KEY (openssl rand -hex 32)
-   ```
+<Tabs group="os">
+<Tab label="macOS / Linux" value="unix">
 
-2. Configure a mailer in `.env` — Resend **or** SMTP, exactly as in the all-in-one setup (see [Global mailer](#global-mailer)).
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode compose
+```
 
-3. Start the stack:
+Or by hand:
 
-   ```sh
-   cd intlayer && docker compose up -d
-   ```
+```sh
+mkdir intlayer && cd intlayer
+curl -fsSLO https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/docker-compose.yml
+curl -fsSL  https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/.env.template -o .env
+# fill in BETTER_AUTH_SECRET and S3_SECRET_ACCESS_KEY (openssl rand -hex 32)
+```
 
-Then open **http://localhost:3000** and follow [First-run setup](#first-run-setup).
+</Tab>
+<Tab label="Windows" value="windows">
+
+In PowerShell:
+
+```powershell
+$env:INTLAYER_MODE = "compose"; irm https://intlayer.org/install.ps1 | iex
+```
+
+Or by hand:
+
+```powershell
+mkdir intlayer; cd intlayer
+irm https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/docker-compose.yml -OutFile docker-compose.yml
+irm https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/.env.template -OutFile .env
+# fill in BETTER_AUTH_SECRET and S3_SECRET_ACCESS_KEY
+```
+
+</Tab>
+<Tab label="Intlayer CLI" value="cli">
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+</Tab>
+</Tabs>
+
+### 2. Configure a mailer
+
+Fill in Resend **or** SMTP in `intlayer/.env`, exactly as for the all-in-one container (see [Global mailer](#global-mailer)).
+
+### 3. Start
+
+```sh
+cd intlayer && docker compose up -d
+```
+
+Open **http://localhost:3000** and follow [First-run setup](#first-run-setup).
 
 ### Managed datastores
 
@@ -336,7 +347,7 @@ cd docker/selfhost
 docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
 ```
 
-This is also how you produce images for a custom domain — pass the `VITE_*` values as build args (see [Limitations](#limitations)).
+This is also how you produce images for a custom domain: pass the `VITE_*` values as build args (see [Limitations](#limitations)).
 
 ### Backup and upgrade
 
@@ -346,26 +357,55 @@ docker compose stop
 docker run --rm -v intlayer_mongo-data:/data -v "$(pwd)":/backup busybox tar czf /backup/mongo-data.tar.gz /data
 docker compose start
 
-# Upgrade — volumes are kept
+# Upgrade, volumes are kept
 docker compose pull && docker compose up -d
 ```
 
 </Tab>
 </Tabs>
 
+### Installer settings
+
+Without `--mode` (or `INTLAYER_MODE`), the installer shows a menu: `desktop`, `docker` (all-in-one) or `compose`. It also reads a few environment variables. Because it is piped into the shell, pass them to the shell rather than to `curl`:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_COMPOSE_DIR=./cms sh -s -- --mode compose
+```
+
+```powershell
+$env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https://intlayer.org/install.ps1 | iex
+```
+
+| Variable                  | Default                   | Applies to | Description                                                |
+| ------------------------- | ------------------------- | ---------- | ---------------------------------------------------------- |
+| `INTLAYER_MODE`           | _(asked)_                 | all        | `desktop`, `docker` or `compose`, same as `--mode`         |
+| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`             | desktop    | Where the app installer is saved                           |
+| `INTLAYER_IMAGE`          | `intlayer/cms-all:latest` | docker     | All-in-one image to pull                                   |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`          | docker     | Where to write the environment file                        |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                | docker     | Container name                                             |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`           | docker     | Named volume mounted at `/data`                            |
+| `INTLAYER_APP_PORT`       | `3000`                    | docker     | Host port for the dashboard                                |
+| `INTLAYER_API_PORT`       | `3100`                    | docker     | Host port for the API                                      |
+| `INTLAYER_S3_PORT`        | `9000`                    | docker     | Host port for the MinIO S3 API                             |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
+| `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
+| `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
+
+> The port variables only change the **host** side of the mapping. The published images have `http://localhost:3000`, `http://localhost:3100` and `http://localhost:9000` compiled into the dashboard bundle, so remapping them leaves the browser pointing at the old ports. Keep the defaults unless you build your own images, see [Limitations](#limitations).
+
 ## First-run setup
 
 On a fresh instance (empty database), opening the dashboard redirects you to the **`/init`** page:
 
 1. Create the first account. Because the users collection is empty, this account is automatically promoted to **super admin**.
-2. A verification email is sent through Resend or your SMTP relay. Email verification is **mandatory** — this is why a mailer must be configured before you start.
+2. A verification email is sent through Resend or your SMTP relay. Email verification is **mandatory**, this is why a mailer must be configured before you start.
 3. Click the link in the email, then sign in.
 
 Once an admin exists, `/init` redirects to the standard sign-in page.
 
 ## Environment variables
 
-Both self-host modes read the same file (`intlayer.env` for the container, `.env` for Compose), generated from [`docker/selfhost/.env.template`](https://github.com/aymericzip/intlayer/blob/main/docker/selfhost/.env.template).
+Both Docker modes read the same file (`intlayer.env` for the container, `.env` for Compose), generated from [`docker/selfhost/.env.template`](https://github.com/aymericzip/intlayer/blob/main/docker/selfhost/.env.template).
 
 ### Required
 
@@ -379,21 +419,21 @@ Both self-host modes read the same file (`intlayer.env` for the container, `.env
 
 These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology.
 
-| Variable           | All-in-one                                          | Docker Compose                   | Description                                                                    |
-| ------------------ | --------------------------------------------------- | -------------------------------- | ------------------------------------------------------------------------------ |
-| `PORT`             | `3100`                                              | `3100`                           | Backend listening port                                                         |
-| `APP_URL`          | `http://localhost:3000`                             | `http://localhost:3000`          | Public URL of the dashboard                                                    |
-| `BACKEND_URL`      | `http://localhost:3100`                             | `http://localhost:3100`          | Public URL of the backend API                                                  |
-| `DOMAIN`           | `localhost`                                         | `localhost`                      | Cookie domain                                                                  |
-| `SELF_HOSTED`      | `true`                                              | `true`                           | Disables the cloud-only API endpoints (billing, subscriptions, marketplace)    |
-| `MONGODB_URI`      | `mongodb://127.0.0.1:27017/intlayer?replicaSet=rs0` | `mongodb://mongo:27017/…`        | MongoDB connection string — any `mongodb://` or `mongodb+srv://` cluster works |
-| `REDIS_URL`        | `redis://127.0.0.1:6379`                            | `redis://redis:6379`             | Redis                                                                          |
-| `S3_ENDPOINT`      | `http://127.0.0.1:9000`                             | `http://minio:9000`              | MinIO (server-to-server)                                                       |
-| `S3_PUBLIC_URL`    | `http://localhost:9000/intlayer`                    | `http://localhost:9000/intlayer` | Public URL for browser asset loading                                           |
-| `S3_BUCKET_NAME`   | `intlayer`                                          | `intlayer`                       | Bucket name                                                                    |
-| `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                               |
+| Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
+| ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
+| `PORT`             | `3100`                                              | `3100`                           | Backend listening port                                                        |
+| `APP_URL`          | `http://localhost:3000`                             | `http://localhost:3000`          | Public URL of the dashboard                                                   |
+| `BACKEND_URL`      | `http://localhost:3100`                             | `http://localhost:3100`          | Public URL of the backend API                                                 |
+| `DOMAIN`           | `localhost`                                         | `localhost`                      | Cookie domain                                                                 |
+| `SELF_HOSTED`      | `true`                                              | `true`                           | Disables the cloud-only API endpoints (billing, subscriptions, marketplace)   |
+| `MONGODB_URI`      | `mongodb://127.0.0.1:27017/intlayer?replicaSet=rs0` | `mongodb://mongo:27017/…`        | MongoDB connection string, any `mongodb://` or `mongodb+srv://` cluster works |
+| `REDIS_URL`        | `redis://127.0.0.1:6379`                            | `redis://redis:6379`             | Redis                                                                         |
+| `S3_ENDPOINT`      | `http://127.0.0.1:9000`                             | `http://minio:9000`              | MinIO (server-to-server)                                                      |
+| `S3_PUBLIC_URL`    | `http://localhost:9000/intlayer`                    | `http://localhost:9000/intlayer` | Public URL for browser asset loading                                          |
+| `S3_BUCKET_NAME`   | `intlayer`                                          | `intlayer`                       | Bucket name                                                                   |
+| `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
 
-The `app` service additionally receives `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: the browser reaches the API on `localhost:3100`, but server-side rendering runs inside the Compose network and must use the service name.
+The Compose `app` service additionally receives `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: the browser reaches the API on `localhost:3100`, but server-side rendering runs inside the Compose network and must use the service name.
 
 ### Optional (features degrade gracefully when absent)
 
@@ -407,7 +447,7 @@ The `app` service additionally receives `INTLAYER_BACKEND_INTERNAL_URL=http://ba
 
 ### Global mailer
 
-Every transactional email — including non-organization emails such as password resets and magic links — goes through one of two global transports:
+Every transactional email, including non-organization emails such as password resets and magic links, goes through one of two global transports:
 
 - **Resend**, using `RESEND_API_KEY`.
 - **SMTP**, using the `MAIL_SMTP_*` variables. As soon as `MAIL_SMTP_HOST` is set, SMTP is used and `RESEND_API_KEY` is ignored.
@@ -489,7 +529,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 ## Limitations
 
-- **No custom domain, and no port remapping.** All browser-facing `VITE_*` URLs are inlined into the dashboard at build time, and the published images (and the desktop app) ship with `localhost` / Intlayer Cloud values. The dashboard must be accessed at `http://localhost:3000`, the API at `:3100` and MinIO at `:9000`. Serving it on a public domain — or pointing the desktop app at a self-hosted backend — requires rebuilding with the target URLs baked in (`--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…` on `docker/selfhost/Dockerfile`, or through `docker-compose.build.yml`) and is not supported out of the box.
+- **No custom domain, and no port remapping.** All browser-facing `VITE_*` URLs are inlined into the dashboard at build time, and the published images (and the desktop app) ship with `localhost` / Intlayer Cloud values. The dashboard must be accessed at `http://localhost:3000`, the API at `:3100` and MinIO at `:9000`. Serving it on a public domain, or pointing the desktop app at a self-hosted backend, requires rebuilding with the target URLs baked in (`--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…` on `docker/selfhost/Dockerfile`, or through `docker-compose.build.yml`) and is not supported out of the box.
 - **Email requires a working mailer.** First-run setup enforces email verification, so either `RESEND_API_KEY` or an [SMTP relay](#global-mailer) (`MAIL_SMTP_*`) must be configured. After the first admin signs in, each organization can also configure its own SMTP or Resend mailer from the dashboard.
 - **The desktop app needs Node.js** on the machine to start its embedded server.
 
@@ -497,7 +537,7 @@ const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 
 - [Intlayer CMS documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 - [Configuration reference](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
-- [CMS SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
+- [CMS SDK: `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
 - [Desktop app releases](https://github.com/aymericzip/intlayer/releases/latest)
-- Docker Hub: [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all), [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend), [`intlayer/cms-backend`](https://hub.docker.com/r/intlayer/cms-backend) — mirrored on GHCR under `ghcr.io/aymericzip/intlayer/`
-- [`docker/selfhost/`](https://github.com/aymericzip/intlayer/tree/main/docker/selfhost) — Dockerfile, `docker-compose.yml` and `.env.template`
+- Docker Hub: [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all), [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend), [`intlayer/cms-backend`](https://hub.docker.com/r/intlayer/cms-backend), mirrored on GHCR under `ghcr.io/aymericzip/intlayer/`
+- [`docker/selfhost/`](https://github.com/aymericzip/intlayer/tree/main/docker/selfhost): Dockerfile, `docker-compose.yml` and `.env.template`

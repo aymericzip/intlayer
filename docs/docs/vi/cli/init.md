@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-09-21
 title: Khởi tạo Intlayer
 description: Tìm hiểu cách khởi tạo Intlayer trong dự án của bạn.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "Thêm lệnh con init infra"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Thêm tùy chọn --no-gitignore"
@@ -124,6 +127,26 @@ bun x intlayer init --no-gitignore
 ```
 
 Thao tác này sẽ thiết lập tất cả các tệp cấu hình nhưng sẽ không sửa đổi tệp `.gitignore` của bạn.
+
+### Thiết lập cơ sở hạ tầng (ứng dụng máy tính để bàn hoặc tự lưu trữ):
+
+```bash
+npx intlayer init infra
+```
+
+Tải xuống và chạy trình cài đặt được lưu trữ (`https://intlayer.org/install.sh`, hoặc `install.ps1` trên Windows), hỏi bạn cách muốn chạy Intlayer:
+
+- **Ứng dụng máy tính để bàn** - cài đặt bảng điều khiển gốc trên máy của bạn, kết nối với Intlayer Cloud.
+- **Docker tất cả trong một (All-in-one)** - bảng điều khiển + API + MongoDB + Redis + MinIO trong một vùng chứa duy nhất.
+- **Docker Compose** - một vùng chứa cho mỗi dịch vụ, để tự lưu trữ có thể mở rộng.
+
+Bỏ qua menu với `--mode`:
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+Bước tương tự cũng được cung cấp bởi `npx intlayer init --interactive`. Xem [tài liệu tham khảo `init infra`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/infra.md) để biết cài đặt của trình cài đặt và [hướng dẫn tự lưu trữ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md) để biết những gì mỗi chế độ thiết lập.
 
 ## Ví dụ đầu ra:
 

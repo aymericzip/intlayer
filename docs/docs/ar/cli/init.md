@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-09-21
 title: تهيئة Intlayer
 description: تعرف على كيفية تهيئة Intlayer في مشروعك.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "إضافة الأمر الفرعي init infra"
   - version: 8.6.4
     date: 2026-03-31
     changes: "إضافة خيار --no-gitignore"
@@ -124,6 +127,26 @@ bun x intlayer init --no-gitignore
 ```
 
 سيؤدي هذا إلى إعداد جميع ملفات التكوين ولكنه لن يعدل ملف `.gitignore` الخاص بك.
+
+### إعداد البنية التحتية (تطبيق سطح المكتب أو الاستضافة الذاتية):
+
+```bash
+npx intlayer init infra
+```
+
+يقوم بتنزيل وتشغيل أداة التثبيت المستضافة (`https://intlayer.org/install.sh`، أو `install.ps1` على Windows)، والتي تسألك عن كيفية تشغيل Intlayer:
+
+- **تطبيق سطح المكتب** - يقوم بتثبيت لوحة التحكم الأصلية على جهازك، المتصلة بـ Intlayer Cloud.
+- **Docker الكل في واحد** - لوحة التحكم + API + MongoDB + Redis + MinIO في حاوية واحدة.
+- **Docker Compose** - حاوية واحدة لكل خدمة، للاستضافة الذاتية القابلة للتوسع.
+
+تخطي القائمة باستخدام `--mode`:
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+يتم تقديم نفس الخطوة بواسطة `npx intlayer init --interactive`. راجع [مرجع `init infra`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/infra.md) لمعرفة إعدادات أداة التثبيت، و[دليل الاستضافة الذاتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md) لمعرفة ما يقوم كل وضع بإعداده.
 
 ## مثال على المخرجات:
 

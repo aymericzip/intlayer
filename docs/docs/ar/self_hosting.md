@@ -1,12 +1,13 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-06-30
-title: استضافة Intlayer ذاتياً
-description: قم بتشغيل نسخة كاملة من Intlayer على بنيتك التحتية الخاصة بأمر واحد. لا حاجة لحساب Intlayer Cloud.
+updatedAt: 2026-09-21
+title: استضافة Intlayer ذاتيًا (Self-Hosting)
+description: "قم بتشغيل Intlayer على بنيتك التحتية الخاصة: كتطبيق سطح مكتب، أو حاوية Docker واحدة شاملة (all-in-one)، أو حزمة Docker Compose قابلة للتطوير. لا يلزم وجود حساب على Intlayer Cloud."
 keywords:
-  - Self-Hosting
+  - استضافة ذاتية
   - Docker
   - Docker Compose
+  - تطبيق سطح المكتب
   - Intlayer
   - CMS
   - تثبيت
@@ -17,216 +18,457 @@ slugs:
 author: aymericzip
 ---
 
-# استضافة Intlayer ذاتياً
+# استضافة Intlayer ذاتيًا (Self-Hosting)
 
-يمكن تشغيل Intlayer بالكامل على بنيتك التحتية الخاصة — دون الحاجة إلى حساب Intlayer Cloud. يُشغّل أمر واحد مكدساً جاهزاً للإنتاج:
+يمكن تشغيل Intlayer على بنيتك التحتية الخاصة دون الحاجة إلى حساب Intlayer Cloud. تتوفر ثلاثة إعدادات، يتم إدارتها جميعًا من خلال نفس برنامج التثبيت (`install.sh`، أو `install.ps1` على نظام Windows، أو `npx intlayer init infra`):
 
-أمر واحد يثبت كل شيء:
+| Setup                        | What it is                                                                            | Pick it for                              |
+| ---------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------- |
+| **تطبيق سطح المكتب**         | لوحة تحكم أصلية لأنظمة macOS و Linux و Windows                                        | عميل محلي، لا يتطلب استضافة              |
+| **Docker شامل (All-in-one)** | لوحة التحكم وواجهة برمجة التطبيقات (API) و MongoDB و Redis و MinIO في **حاوية واحدة** | للتجارب والتركيبات الصغيرة على جهاز واحد |
+| **Docker Compose**           | **حاوية واحدة لكل خدمة**، مع إمكانية استبدال أي مخزن بيانات بخدمة مُدارة              | للإنتاج والتوسع وقواعد البيانات المُدارة |
 
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
-يقوم المثبّت بتنزيل ملف `docker-compose.yml` وملف `.env`، ويولّد الأسرار المطلوبة تلقائياً، ويبدأ تشغيل جميع الحاويات بـ `docker compose up -d`.
-
-الاعتماد الخارجي الوحيد هو **MongoDB**: يتصل الـ backend بـ cluster **Atlas** من MongoDB الذي توفره. كل شيء آخر يعمل داخل الحاوية.
-
-## جدول المحتويات
+## Table of Contents
 
 <TOC/>
 
-## البنية المعمارية
+## الصور والحزم المنشورة
+
+| Artifact             | Docker Hub                                                                | GHCR mirror                                | Contents                                                                         |
+| -------------------- | ------------------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------------------------------- |
+| All-in-one container | [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all)           | `ghcr.io/aymericzip/intlayer/cms-all`      | app + backend + MongoDB 8 + Redis + MinIO + Chromium                             |
+| Dashboard (frontend) | [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend) | `ghcr.io/aymericzip/intlayer/cms-frontend` | TanStack Start dashboard on Bun                                                  |
+| API (backend)        | [`intlayer/cms-backend`](https://hub.docker.com/r/intlayer/cms-backend)   | `ghcr.io/aymericzip/intlayer/cms-backend`  | Fastify REST API on Bun + Chromium                                               |
+| Desktop app          | [GitHub releases](https://github.com/aymericzip/intlayer/releases/latest) | n/a                                        | `.dmg` (macOS), `.deb` / `.rpm` / `.AppImage` (Linux), `.exe` / `.msi` (Windows) |
+
+يتم بناء جميع الصور الثلاث من نفس الملف [`docker/selfhost/Dockerfile`](https://github.com/aymericzip/intlayer/tree/main/docker/selfhost) ويتم نشرها مع كل إصدار. تقوم حزمة Compose أيضًا بسحب الصور الرسمية `mongo:8` و `redis:8-alpine` و `quay.io/minio/minio`.
+
+## الإعداد
+
+يسأل برنامج التثبيت عن الإعداد المطلوب، ويتحقق من المتطلبات الأساسية (مع عرض تثبيت Docker)، ويكتب ملف البيئة مع المفاتيح السرية المنشأة مسبقًا، ويسحب الصور. لا يبدأ أي شيء تلقائيًا: تتطلب أوضاع Docker إعداد برنامج بريد أولاً، لذا ينتهي البرنامج بطباعة الأمر المطلوب تشغيله. إعادة التشغيل آمنة: لا يتم استبدال ملف البيئة الحالي أبدًا، مما يجعله أيضًا مسارًا للترقية.
+
+<Tabs group="mode">
+<Tab label="تطبيق سطح المكتب" value="desktop">
+
+لوحة تحكم Intlayer كتطبيق أصلي تم إنشاؤه باستخدام Tauri. يسجل الدخول إلى Intlayer Cloud (`https://app.intlayer.org`)، لذلك لا توجد حاجة للاستضافة. إنه الخيار المناسب عندما تفضل عميلاً محلياً بدلاً من علامة تبويب في المتصفح.
+
+### التثبيت
+
+يقوم برنامج التثبيت بتنزيل الحزمة المناسبة لنظام التشغيل والمعالج لديك ثم يفتحها (macOS)، أو يثبتها (`dpkg` / `rpm` على Linux) أو يشغل معالج الإعداد (Windows). يمكنك أيضًا تنزيلها يدويًا من [صفحة الإصدارات](https://github.com/aymericzip/intlayer/releases/latest).
+
+<Tabs group="os">
+<Tab label="macOS / Linux" value="unix">
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode desktop
+```
+
+</Tab>
+<Tab label="Windows" value="windows">
+
+In PowerShell:
+
+```powershell
+$env:INTLAYER_MODE = "desktop"; irm https://intlayer.org/install.ps1 | iex
+```
+
+</Tab>
+<Tab label="Intlayer CLI" value="cli">
+
+```bash
+npx intlayer init infra --mode desktop
+```
+
+</Tab>
+</Tabs>
+
+### المتطلبات
+
+- **Node.js**: يدمج التطبيق خادم لوحة التحكم ويشغله باستخدام ملف `node` الثنائي على جهازك. قم بتثبيته من [nodejs.org](https://nodejs.org) إذا لم يفتح التطبيق.
+
+> يتصل إصدار سطح المكتب المنشور بالواجهة الخلفية لـ Intlayer Cloud. يتطلب توجيهه إلى واجهة خلفية مستضافة ذاتيًا إعادة بناء التطبيق مع تعيين `VITE_BACKEND_URL` للإشارة إلى واجهة برمجة التطبيقات الخاصة بك، راجع [القيود](#limitations).
+
+</Tab>
+<Tab label="Docker شامل (All-in-one)" value="docker">
+
+يعمل كل شيء داخل حاوية `intlayer/cms-all` واحدة، تحت إشراف [s6-overlay](https://github.com/just-containers/s6-overlay)، مع استمرار حفظ جميع مخازن البيانات على وحدة تخزين واحدة.
 
 ```
                 ┌─────────────────────────────┐
  browser ──────▶ │  app  (TanStack Start)  :3000│ ──┐
-                └─────────────────────────────┘   │ VITE_BACKEND_URL
+ (localhost)    └─────────────────────────────┘   │ VITE_BACKEND_URL (baked at build)
                 ┌─────────────────────────────┐   │
                 │  backend (Fastify/Bun)  :3100│ ◀─┘
                 └──────────────┬──────────────┘
-          ┌──────────┬─────────┼──────────┬───────────┐
-          ▼          ▼         ▼          ▼           ▼
-     mongo:27017  redis:6379  minio:9000  mailpit:1025  Chromium
-     (1-node RS)             (S3 API)     (SMTP)        (in-image)
-                             minio:9001   mailpit:8025
-                             (console)    (web UI)
+          ┌──────────┬─────────┼──────────────┐
+          ▼          ▼         ▼               ▼
+      mongo:27017  redis:6379  minio:9000   Chromium
+      /data/mongo  /data/redis /data/minio  (in-image)
+      (1-node RS)              minio:9001
 ```
 
-يتم تضمين Chromium (المستخدم لتوليد لقطات الشاشة عبر Puppeteer) داخل صورة الخادم الخلفي — لا حاجة لحاوية منفصلة.
+| الخدمة      | منفذ (منافذ) المضيف               | الغرض                                                 |
+| ----------- | --------------------------------- | ----------------------------------------------------- |
+| **app**     | `3000`                            | لوحة التحكم (واجهة مستخدم CMS)                        |
+| **backend** | `3100`                            | واجهة برمجة تطبيقات REST (نقطة نهاية `/health`)       |
+| **mongo**   | داخلي                             | MongoDB 8، مجموعة نسخ متماثلة بعقدة واحدة `rs0`       |
+| **redis**   | داخلي                             | قوائم انتظار المهام (BullMQ) والتخزين المؤقت          |
+| **minio**   | `9000` (S3)، `9001` (وحدة التحكم) | تخزين كائنات متوافق مع S3 للصور الرمزية ولقطات الشاشة |
 
-## المتطلبات الأساسية
+يتم إدارة ترتيب التمهيد من خلال تبعيات s6 (`mongod` ← تهيئة مجموعة النسخ، `minio` ← إنشاء الحاوية، ثم `backend`، ثم `app`)، وتتم إعادة تشغيل الخدمات عند الخروج، بحيث يتعافى التمهيد الأول ذاتيًا.
 
-- **Docker** ≥ 24 و**Docker Compose** ≥ v2. إذا كان أحدهما مفقوداً، يطبع المثبّت رابط التثبيت ويخرج.
-- المنافذ `3000`، `3100`، `8025`، `9000`، و`9001` متاحة على المضيف.
-- مضيف Linux أو macOS (أو WSL2 على Windows).
+### المتطلبات الأساسية
 
-كل شيء آخر — Bun و Redis و MinIO و Chromium — يتم شحنه داخل الصورة.
+- **Docker** ≥ 24: يعرض برنامج التثبيت تثبيته (عبر [get.docker.com](https://get.docker.com) على Linux، أو Homebrew على macOS). على نظام Windows، قم بتثبيت [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) (واجهة WSL 2 الخلفية) أولاً.
+- المنافذ `3000` و `3100` و `9000` و `9001` متاحة على المضيف. يجب أن يظل منفذ MinIO `9000` قابلاً للوصول من قبل المتصفح حيث يتم تحميل الأصول مباشرة من `S3_PUBLIC_URL`.
+- خادم بريد (mailer): مفتاح API لـ [Resend](https://resend.com) أو مرحّل SMTP.
 
-## البدء السريع
+### 1. التثبيت
 
-### 1. تشغيل المثبِّت
+يكتب `./intlayer.env` مع مفاتيح `BETTER_AUTH_SECRET` و `S3_SECRET_ACCESS_KEY` المنشأة مسبقًا، ويسحب `intlayer/cms-all:latest`.
+
+<Tabs group="os">
+<Tab label="macOS / Linux" value="unix">
 
 ```sh
-curl -fsSL https://intlayer.org/install.sh | sh
+curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode docker
 ```
 
-يتحقق من تثبيت Docker وتشغيله، ويكتب `./intlayer.env` مع `BETTER_AUTH_SECRET` و `S3_SECRET_ACCESS_KEY` التي تم إنشاؤها بالفعل، ويسحب الصورة. لا يبدأ الحاوية — لا يمكن للخادم الخلفي أن يبدأ بدون بيانات اعتماد قاعدة البيانات الخاصة بك.
+</Tab>
+<Tab label="Windows" value="windows">
 
-تشغيل المثبِّت مرة أخرى آمن: لن يتم استبدال `intlayer.env` الموجود أبدًا، لذا فهو يعمل أيضًا كمسار الترقية.
+In PowerShell:
 
-### 2. ملء بيانات اعتمادك
+```powershell
+$env:INTLAYER_MODE = "docker"; irm https://intlayer.org/install.ps1 | iex
+```
 
-افتح `intlayer.env` وأكمل القيم المشار إليها بـ `TODO`:
+</Tab>
+<Tab label="Intlayer CLI" value="cli">
+
+تقوم أداة CLI بتشغيل برنامج التثبيت الذي يطبع الأمر `docker run …` الموضح في علامات التبويب الأخرى. الصقه في جهازك الطرفي بعد تكوين خادم البريد.
+
+</Tab>
+</Tabs>
+
+### 2. تكوين خادم البريد
+
+افتح `intlayer.env` واملأ إعدادات Resend **أو** SMTP (انظر التفاصيل في [خادم البريد العام](#global-mailer)):
 
 ```sh fileName="intlayer.env"
-DB_ID=<atlas-user>
-DB_MDP=<atlas-password>
-DB_CLUSTER=<cluster>.xxxxx.mongodb.net
+# Option A: Resend
 RESEND_API_KEY=<your-resend-key>
+
+# Option B: SMTP (takes over from Resend as soon as MAIL_SMTP_HOST is set)
+MAIL_SMTP_HOST=smtp.example.com
+MAIL_SMTP_PORT=587
+MAIL_SMTP_USER=<user>
+MAIL_SMTP_PASSWORD=<password>
+MAIL_FROM=Intlayer <no-reply@example.com>
 ```
 
-يحتوي الملف أيضًا على كتل معلقة للميزات الاختيارية — [SMTP mailer](#global-mailer)، `OPENAI_API_KEY`، وموفري OAuth. قم بإلغاء التعليق عما تحتاجه.
+### 3. التشغيل
 
-> يتم قراءة الملف بواسطة `docker run --env-file`، والذي لا يزيل الاقتباسات ويعامل كل شيء بعد `=` كقيمة. اكتب القيم بدون اقتباسات، وأبقِ التعليقات على أسطرها الخاصة.
+هذا هو أمر التشغيل الذي يطبعه برنامج التثبيت:
 
-### 3. بدء الحاوية
-
-هذا هو الأمر الذي يطبعه المثبِّت عند انتهائه:
+<Tabs group="os">
+<Tab label="macOS / Linux" value="unix">
 
 ```sh
 docker run -d --name intlayer \
   --restart unless-stopped \
-  -p 3000:3000 \
-  -p 3100:3100 \
-  -p 9000:9000 \
-  -p 9001:9001 \
+  -p 3000:3000 -p 3100:3100 -p 9000:9000 -p 9001:9001 \
   -v intlayer-data:/data \
   --env-file ./intlayer.env \
-  ghcr.io/aymericzip/intlayer-selfhost:latest
+  intlayer/cms-all:latest
 ```
 
-ثم افتح **http://localhost:3000**. يقوم الإقلاع الأول بتهيئة مخازن البيانات، لذا امنحه دقيقة واحدة.
+</Tab>
+<Tab label="Windows" value="windows">
 
-> لوحة التحكم موجودة على `localhost`. انظر [القيود](#limitations) — النطاقات المخصصة غير مدعومة في الصورة المنشورة.
+```powershell
+docker run -d --name intlayer `
+  --restart unless-stopped `
+  -p 3000:3000 -p 3100:3100 -p 9000:9000 -p 9001:9001 `
+  -v intlayer-data:/data `
+  --env-file ./intlayer.env `
+  intlayer/cms-all:latest
+```
 
-### إعدادات المثبت
+</Tab>
+<Tab label="Intlayer CLI" value="cli">
 
-يقرأ المثبت بعض متغيرات البيئة. لأنه موجه إلى `sh`، مرر هذه المتغيرات إلى shell بدلاً من تمريرها إلى `curl`:
+تقوم أداة CLI بتشغيل برنامج التثبيت الذي يطبع الأمر `docker run …` الموضح في علامات التبويب الأخرى. الصقه في جهازك الطرفي بعد تكوين خادم البريد.
+
+</Tab>
+</Tabs>
+
+افتح **http://localhost:3000** واتبع [إعداد التشغيل الأول](#first-run-setup). يقوم التمهيد الأول بتهيئة مجموعة النسخ والحاوية، لذا امنحه دقيقة واحدة.
+
+### النسخ الاحتياطي والترقية
+
+يتم الاحتفاظ بجميع الحالات داخل وحدة التخزين `intlayer-data` (`/data/mongo`، `/data/redis`، `/data/minio`).
 
 ```sh
-curl -fsSL https://intlayer.org/install.sh | INTLAYER_ENV_FILE=./config/intlayer.env sh
+# Backup (stop the container first so MongoDB's files are consistent)
+docker stop intlayer
+docker run --rm -v intlayer-data:/data -v "$(pwd)":/backup busybox tar czf /backup/intlayer-data.tar.gz /data
+docker start intlayer
+
+# Restore
+docker run --rm -v intlayer-data:/data -v "$(pwd)":/backup busybox tar xzf /backup/intlayer-data.tar.gz -C /
 ```
 
-| المتغير                   | القيمة الافتراضية                             | الوصف                             |
-| ------------------------- | --------------------------------------------- | --------------------------------- |
-| `INTLAYER_IMAGE`          | `ghcr.io/aymericzip/intlayer-selfhost:latest` | الصورة المراد سحبها               |
-| `INTLAYER_ENV_FILE`       | `./intlayer.env`                              | حيث يتم كتابة ملف البيئة          |
-| `INTLAYER_CONTAINER_NAME` | `intlayer`                                    | اسم الحاوية                       |
-| `INTLAYER_DATA_VOLUME`    | `intlayer-data`                               | وحدة تخزين مسماة مثبتة في `/data` |
-| `INTLAYER_APP_PORT`       | `3000`                                        | منفذ المضيف لوحة التحكم           |
-| `INTLAYER_API_PORT`       | `3100`                                        | منفذ المضيف للـ API               |
-| `INTLAYER_S3_PORT`        | `9000`                                        | منفذ المضيف لـ MinIO S3 API       |
-| `INTLAYER_CONSOLE_PORT`   | `9001`                                        | منفذ المضيف لوحة MinIO            |
+للترقية، أعد تشغيل برنامج التثبيت (يقوم بسحب أحدث صورة والاحتفاظ بملف `intlayer.env`)، ثم قم بتشغيل `docker rm -f intlayer` وأعد تشغيل أمر البدء. لاستخدام قاعدة بيانات MongoDB مُدارة بدلاً من المضمنة، عيّن `MONGODB_URI` في `intlayer.env`.
 
-> متغيرات المنافذ الأربعة تغير فقط الجانب **المضيف** من التعيين المطبوع في أمر `docker run`. الصورة المنشورة لديها `http://localhost:3000` و `http://localhost:3100` و `http://localhost:9000` مدرجة في حزمة لوحة التحكم في وقت البناء، لذا فإن إعادة تعيينها تترك المتصفح يشير إلى المنافذ القديمة. احتفظ بالقيم الافتراضية إلا إذا كنت تقوم بإنشاء صورتك الخاصة — انظر [القيود](#limitations).
+</Tab>
+<Tab label="Docker Compose" value="compose">
+
+حاوية واحدة لكل خدمة على شبكة Compose خاصة. تستخدم لوحة التحكم وواجهة برمجة التطبيقات الصور المنشورة `intlayer/cms-frontend` و `intlayer/cms-backend`؛ وتستخدم مخازن البيانات صور `mongo` و `redis` و `minio` الرسمية.
+
+```
+                ┌───────────────────┐
+ browser ──────▶ │  app        :3000 │ ── SSR ──▶ http://backend:3100
+ (localhost)    └───────────────────┘
+                ┌───────────────────┐
+ browser ──────▶ │  backend    :3100 │
+ (localhost)    └─────────┬─────────┘
+          ┌───────────────┼───────────────┐
+          ▼               ▼               ▼
+     mongo:27017     redis:6379      minio:9000 ◀── browser (assets)
+     (1-node RS)                     minio:9001
+```
+
+| الخدمة       | الصورة                  | الدور                                                                                  |
+| ------------ | ----------------------- | -------------------------------------------------------------------------------------- |
+| `app`        | `intlayer/cms-frontend` | لوحة التحكم على المنفذ `:3000`؛ تنتظر حتى تكون الواجهة الخلفية جاهزة                   |
+| `backend`    | `intlayer/cms-backend`  | واجهة برمجة التطبيقات على المنفذ `:3100` مع Chromium؛ تنتظر Mongo و Redis وحاوية MinIO |
+| `mongo`      | `mongo:8`               | مجموعة نسخ بعقدة واحدة `rs0`، تتم تهيئتها بواسطة فحص الحالة الخاص بها                  |
+| `redis`      | `redis:8-alpine`        | قوائم الانتظار والتخزين المؤقت، واستمرارية الإلحاق فقط (append-only)                   |
+| `minio`      | `quay.io/minio/minio`   | تخزين S3 على المنفذ `:9000`، وحدة التحكم على `:9001`                                   |
+| `minio-init` | `quay.io/minio/mc`      | تشغيل لمرة واحدة: ينشئ الحاوية وسياسة التنزيل المجهول الخاصة بها                       |
+
+يتم حفظ البيانات في وحدات التخزين `intlayer_mongo-data` و `intlayer_redis-data` و `intlayer_minio-data`. تم تثبيت اتصالات الخدمة (`MONGODB_URI` و `REDIS_URL` و `S3_ENDPOINT` وعنوان URL الداخلي للواجهة الخلفية للعرض من جانب الخادم) في ملف compose ولها الأسبقية على `.env`، الذي يحتفظ فقط بالمفاتيح السرية والتكاملات الاختيارية.
+
+### المتطلبات الأساسية
+
+- **Docker** ≥ 24 مع ملحق Compose: يعرض برنامج التثبيت تثبيته على Linux و macOS. على نظام Windows، قم بتثبيت [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) (واجهة WSL 2 الخلفية) أولاً.
+- المنافذ `3000` و `3100` و `9000` و `9001` متاحة على المضيف.
+- خادم بريد: مفتاح API لـ [Resend](https://resend.com) أو مرحّل SMTP.
+
+### 1. التثبيت
+
+يكتب `docker-compose.yml` وملف `.env` مع المفاتيح السرية المنشأة في `./intlayer/` ويسحب الصور.
+
+<Tabs group="os">
+<Tab label="macOS / Linux" value="unix">
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh -s -- --mode compose
+```
+
+Or by hand:
+
+```sh
+mkdir intlayer && cd intlayer
+curl -fsSLO https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/docker-compose.yml
+curl -fsSL  https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/.env.template -o .env
+# fill in BETTER_AUTH_SECRET and S3_SECRET_ACCESS_KEY (openssl rand -hex 32)
+```
+
+</Tab>
+<Tab label="Windows" value="windows">
+
+In PowerShell:
+
+```powershell
+$env:INTLAYER_MODE = "compose"; irm https://intlayer.org/install.ps1 | iex
+```
+
+Or by hand:
+
+```powershell
+mkdir intlayer; cd intlayer
+irm https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/docker-compose.yml -OutFile docker-compose.yml
+irm https://raw.githubusercontent.com/aymericzip/intlayer/main/docker/selfhost/.env.template -OutFile .env
+# fill in BETTER_AUTH_SECRET and S3_SECRET_ACCESS_KEY
+```
+
+</Tab>
+<Tab label="Intlayer CLI" value="cli">
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+</Tab>
+</Tabs>
+
+### 2. تكوين خادم البريد
+
+املأ بيانات Resend **أو** SMTP في `intlayer/.env`، تمامًا كما في الحاوية الشاملة (انظر [خادم البريد العام](#global-mailer)).
+
+### 3. التشغيل
+
+```sh
+cd intlayer && docker compose up -d
+```
+
+افتح **http://localhost:3000** واتبع [إعداد التشغيل الأول](#first-run-setup).
+
+### مخازن البيانات المُدارة
+
+احذف الخدمة التي تستبدلها من ملف compose (بالإضافة إلى إدخال `depends_on` الخاص بها في `backend`)، وتجاوز المتغير المقابل:
+
+```yaml fileName="docker-compose.yml"
+services:
+  backend:
+    environment:
+      MONGODB_URI: mongodb+srv://user:password@cluster0.xxxxx.mongodb.net/intlayer
+      REDIS_URL: rediss://default:password@redis.example.com:6380
+      S3_ENDPOINT: https://s3.eu-west-1.amazonaws.com
+      S3_PUBLIC_URL: https://intlayer-assets.s3.eu-west-1.amazonaws.com
+```
+
+تعمل المتغيرات `S3_ACCESS_KEY_ID` / `S3_SECRET_ACCESS_KEY` / `S3_BUCKET_NAME` بشكل مباشر مع أي مزود متوافق مع S3.
+
+### التوسع
+
+الخدمتان `app` و `backend` عديمتا الحالة (stateless). خلف موازن التحميل، وبافتراض إزالة تعيينات منافذ المضيف الثابتة وتوجيه الوكيل حسب اسم الخدمة، سيعمل الأمر `docker compose up -d --scale backend=3`. يتم تنسيق المهام في الخلفية عبر Redis (BullMQ)، بحيث تشارك نسخ الواجهة الخلفية المتعددة قوائم الانتظار بأمان.
+
+### البناء من المصدر
+
+من استنساخ المستودع، قم بتبديل خدمتي Intlayer من `image:` إلى `build:` باستخدام ملف تجاوز:
+
+```sh
+cd docker/selfhost
+docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+```
+
+استخدم هذا أيضًا عند إنشاء صور لنطاق مخصص: مرر قيم `VITE_*` كوسائط بناء (انظر [القيود](#limitations)).
+
+### النسخ الاحتياطي والترقية
+
+```sh
+# Backup one volume (repeat for intlayer_redis-data and intlayer_minio-data)
+docker compose stop
+docker run --rm -v intlayer_mongo-data:/data -v "$(pwd)":/backup busybox tar czf /backup/mongo-data.tar.gz /data
+docker start intlayer
+
+# Upgrade, volumes are kept
+docker compose pull && docker compose up -d
+```
+
+</Tab>
+</Tabs>
+
+### إعدادات برنامج التثبيت
+
+بدون `--mode` (أو `INTLAYER_MODE`)، يعرض برنامج التثبيت قائمة: `desktop` أو `docker` (شامل) أو `compose`. كما يقرأ بعض متغيرات البيئة؛ قم بتمريرها إلى الصدفة بدلاً من `curl` لأن الأمر يتم توجيهه بالأنابيب:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | INTLAYER_COMPOSE_DIR=./cms sh -s -- --mode compose
+```
+
+```powershell
+$env:INTLAYER_MODE = "compose"; $env:INTLAYER_COMPOSE_DIR = ".\cms"; irm https://intlayer.org/install.ps1 | iex
+```
+
+| Variable                  | Default                   | Applies to | Description                                                |
+| ------------------------- | ------------------------- | ---------- | ---------------------------------------------------------- |
+| `INTLAYER_MODE`           | _(asked)_                 | all        | `desktop`, `docker` or `compose`, same as `--mode`         |
+| `INTLAYER_DOWNLOAD_DIR`   | `~/Downloads`             | desktop    | Where the app installer is saved                           |
+| `INTLAYER_IMAGE`          | `intlayer/cms-all:latest` | docker     | All-in-one image to pull                                   |
+| `INTLAYER_ENV_FILE`       | `./intlayer.env`          | docker     | Where to write the environment file                        |
+| `INTLAYER_CONTAINER_NAME` | `intlayer`                | docker     | Container name                                             |
+| `INTLAYER_DATA_VOLUME`    | `intlayer-data`           | docker     | Named volume mounted at `/data`                            |
+| `INTLAYER_APP_PORT`       | `3000`                    | docker     | Host port for the dashboard                                |
+| `INTLAYER_API_PORT`       | `3100`                    | docker     | Host port for the API                                      |
+| `INTLAYER_S3_PORT`        | `9000`                    | docker     | Host port for the MinIO S3 API                             |
+| `INTLAYER_CONSOLE_PORT`   | `9001`                    | docker     | Host port for the MinIO console                            |
+| `INTLAYER_COMPOSE_DIR`    | `./intlayer`              | compose    | Where `docker-compose.yml` and `.env` are written          |
+| `INTLAYER_SELFHOST_REF`   | `main`                    | both       | Git ref the compose file and env template are fetched from |
+
+> تغير متغيرات المنفذ جانب **المضيف** فقط من التعيين. تحتوي الصور المنشورة على `http://localhost:3000` و `http://localhost:3100` و `http://localhost:9000` المترجمة في حزمة لوحة التحكم، لذا احتفظ بالإعدادات الافتراضية ما لم تقم ببناء صورتك الخاصة، راجع [القيود](#limitations).
 
 ## إعداد التشغيل الأول
 
-على نسخة جديدة (قاعدة بيانات فارغة)، يعيد فتح لوحة التحكم توجيهك إلى صفحة **`/init`**:
+سيؤدي فتح لوحة التحكم على مثيل جديد (قاعدة بيانات فارغة) إلى إعادة التوجيه تلقائيًا إلى صفحة **`/init`**:
 
-1. أنشئ الحساب الأول. نظراً لأن مجموعة المستخدمين فارغة، يتم ترقية هذا الحساب تلقائياً إلى **super admin**.
-2. يتم إرسال بريد إلكتروني للتحقق (عبر Resend). التحقق من البريد الإلكتروني **إلزامي** — وهذا هو السبب في أنه يجب تعيين `RESEND_API_KEY` قبل أن تبدأ.
-3. انقر على الرابط في البريد الإلكتروني، ثم قم بتسجيل الدخول.
+1. أنشئ الحساب الأول. نظرًا لأن مجموعة المستخدمين فارغة، تتم ترقية هذا الحساب تلقائيًا إلى **مسؤول متميز**.
+2. يتم إرسال رسالة بريد إلكتروني للتحقق عبر Resend أو مرحّل SMTP الخاص بك. التحقق من البريد الإلكتروني **إلزامي**، ولهذا السبب يجب تكوين خادم البريد قبل البدء.
+3. انقر فوق الرابط الموجود في البريد الإلكتروني وقم بتسجيل الدخول.
 
-بمجرد وجود admin، يعيد `/init` التوجيه إلى صفحة تسجيل الدخول القياسية.
-
-## الخدمات
-
-| الخدمة      | الصورة                               | المنفذ (المضيف)                     | الغرض                                                  |
-| ----------- | ------------------------------------ | ----------------------------------- | ------------------------------------------------------ |
-| **app**     | built from `apps/app/Dockerfile`     | `3000`                              | لوحة تحكم TanStack Start (واجهة CMS)                   |
-| **backend** | built from `apps/backend/Dockerfile` | `3100`                              | واجهة Fastify REST API (نقطة نهاية `/health`)          |
-| **mongo**   | `mongo:7`                            | داخلي                               | مجموعة نسخ متماثلة أحادية العقدة (`rs0`)               |
-| **redis**   | `redis:7-alpine`                     | داخلي                               | قوائم انتظار المهام (BullMQ) والتخزين المؤقت (ioredis) |
-| **minio**   | `minio/minio`                        | `9000` (S3)، `9001` (وحدة التحكم)   | تخزين كائنات متوافق مع S3 للصور الرمزية ولقطات الشاشة  |
-| **mailpit** | `axllent/mailpit`                    | `1025` (SMTP)، `8025` (واجهة الويب) | مجمّع بريد إلكتروني تفاعلي محلي                        |
-
-> يجب أن يكون منفذ MinIO `9000` قابلاً للوصول من المتصفح لأن الأصول المرفوعة (الصور الرمزية، لقطات الشاشة) تُحمَّل مباشرة من `S3_PUBLIC_URL=http://localhost:9000/intlayer`.
+بمجرد وجود مسؤول، يعيد المسار `/init` التوجيه إلى صفحة تسجيل الدخول العادية.
 
 ## متغيرات البيئة
 
+يقرأ كلا وضعي Docker نفس الملف (`intlayer.env` للحاوية أو `.env` لـ Compose) الذي تم إنشاؤه من [`docker/selfhost/.env.template`](https://github.com/aymericzip/intlayer/blob/main/docker/selfhost/.env.template).
+
 ### مطلوب
 
-| المتغير                | مثال                         | الوصف                                                                                                                                         |
-| ---------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `DB_ID`                | `intlayer`                   | مستخدم MongoDB Atlas                                                                                                                          |
-| `DB_MDP`               | _(كلمة المرور الخاصة بك)_    | كلمة مرور MongoDB Atlas                                                                                                                       |
-| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | مضيف مجموعة MongoDB Atlas (المستخدم في URI `mongodb+srv://`)                                                                                  |
-| `BETTER_AUTH_SECRET`   | _(تم إنشاؤها)_               | سر بحجم 32 بايت لتوقيع الجلسة                                                                                                                 |
-| `S3_SECRET_ACCESS_KEY` | _(تم إنشاؤها)_               | السر الخاص بـ MinIO المضمن                                                                                                                    |
-| `RESEND_API_KEY`       | _(مفتاحك)_                   | البريد الإلكتروني المعاملاتي عبر Resend. مطلوب لإعداد التشغيل الأول إلا إذا قمت بتكوين mailer SMTP عام (انظر [Global mailer](#global-mailer)) |
+| Variable               | Example       | Description                                                                                                                                   |
+| ---------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BETTER_AUTH_SECRET`   | _(generated)_ | 32-byte secret for session signing                                                                                                            |
+| `S3_SECRET_ACCESS_KEY` | _(generated)_ | Secret for the bundled MinIO                                                                                                                  |
+| `RESEND_API_KEY`       | _(your key)_  | Transactional email via Resend. Required for first-run setup unless an SMTP relay is configured instead (see [Global mailer](#global-mailer)) |
 
-### المطلوبة (مولّدة تلقائياً أو مطلوبة)
+### محدد بواسطة النشر
 
-| المتغير                | مثال                                            | الوصف                                                     |
-| ---------------------- | ----------------------------------------------- | --------------------------------------------------------- |
-| `NODE_ENV`             | `production`                                    | بيئة وقت التشغيل                                          |
-| `PORT`                 | `3100`                                          | منفذ استماع الخادم الخلفي                                 |
-| `BACKEND_URL`          | `http://localhost:3100`                         | عنوان URL العام لواجهة برمجة تطبيقات الخادم الخلفي        |
-| `APP_URL`              | `http://localhost:3000`                         | عنوان URL العام للوحة التحكم                              |
-| `DOMAIN`               | `localhost`                                     | نطاق ملفات تعريف الارتباط                                 |
-| `MONGODB_URI`          | `mongodb://mongo:27017/intlayer?replicaSet=rs0` | عنوان URI الكامل لاتصال MongoDB                           |
-| `REDIS_URL`            | `redis://redis:6379`                            | عنوان URL لاتصال Redis                                    |
-| `BETTER_AUTH_SECRET`   | _(مولّد تلقائياً)_                              | سر من 32 بايت لتوقيع الجلسة                               |
-| `MAIL_PROVIDER`        | `smtp`                                          | بروتوكول البريد: `smtp` أو `resend`                       |
-| `MAIL_SMTP_HOST`       | `mailpit`                                       | اسم المضيف SMTP (اسم حاوية Mailpit)                       |
-| `MAIL_SMTP_PORT`       | `1025`                                          | منفذ SMTP                                                 |
-| `MAIL_FROM`            | `Intlayer <no-reply@localhost>`                 | عنوان المرسل                                              |
-| `S3_ENDPOINT`          | `http://minio:9000`                             | نقطة نهاية متوافقة مع S3                                  |
-| `S3_PUBLIC_URL`        | `http://localhost:9000/intlayer`                | عنوان URL العام لتحميل الأصول في المتصفح                  |
-| `S3_BUCKET_NAME`       | `intlayer`                                      | اسم الدلو (Bucket)                                        |
-| `S3_ACCESS_KEY_ID`     | _(مولّد تلقائياً)_                              | مفتاح وصول MinIO                                          |
-| `S3_SECRET_ACCESS_KEY` | _(مولّد تلقائياً)_                              | مفتاح سر MinIO                                            |
-| `VITE_BACKEND_URL`     | `http://localhost:3100`                         | عنوان URL الخادم الخلفي المضمّن في لوحة التحكم عند البناء |
-| `VITE_DOMAIN`          | `localhost`                                     | النطاق المضمّن في لوحة التحكم عند البناء                  |
+These are set by the image (all-in-one) or by the compose file, and only need overriding for a non-standard topology.
 
-### اختيارية (تتدهور الميزات بشكل سلس عند غيابها)
+| Variable           | All-in-one                                          | Docker Compose                   | Description                                                                   |
+| ------------------ | --------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
+| `PORT`             | `3100`                                              | `3100`                           | Backend listening port                                                        |
+| `APP_URL`          | `http://localhost:3000`                             | `http://localhost:3000`          | Public URL of the dashboard                                                   |
+| `BACKEND_URL`      | `http://localhost:3100`                             | `http://localhost:3100`          | Public URL of the backend API                                                 |
+| `DOMAIN`           | `localhost`                                         | `localhost`                      | Cookie domain                                                                 |
+| `SELF_HOSTED`      | `true`                                              | `true`                           | Disables the cloud-only API endpoints (billing, subscriptions, marketplace)   |
+| `MONGODB_URI`      | `mongodb://127.0.0.1:27017/intlayer?replicaSet=rs0` | `mongodb://mongo:27017/…`        | MongoDB connection string, any `mongodb://` or `mongodb+srv://` cluster works |
+| `REDIS_URL`        | `redis://127.0.0.1:6379`                            | `redis://redis:6379`             | Redis                                                                         |
+| `S3_ENDPOINT`      | `http://127.0.0.1:9000`                             | `http://minio:9000`              | MinIO (server-to-server)                                                      |
+| `S3_PUBLIC_URL`    | `http://localhost:9000/intlayer`                    | `http://localhost:9000/intlayer` | Public URL for browser asset loading                                          |
+| `S3_BUCKET_NAME`   | `intlayer`                                          | `intlayer`                       | Bucket name                                                                   |
+| `S3_ACCESS_KEY_ID` | `intlayer`                                          | `intlayer`                       | MinIO access key                                                              |
 
-| المتغير                                                  | الميزة                                                           |
-| -------------------------------------------------------- | ---------------------------------------------------------------- |
-| `OPENAI_API_KEY`                                         | الترجمة بمساعدة الذكاء الاصطناعي ومراجعة المحتوى                 |
-| `STRIPE_SECRET_KEY`، `STRIPE_WEBHOOK_SECRET`، `STRIPE_*` | إدارة الفواتير والاشتراكات                                       |
-| `RESEND_API_KEY`                                         | البريد الإلكتروني التفاعلي عبر Resend (يتجاوز Mailpit عند الضبط) |
-| `GITHUB_CLIENT_ID`، `GITHUB_CLIENT_SECRET`               | تسجيل الدخول عبر OAuth لـ GitHub                                 |
-| `GOOGLE_CLIENT_ID`، `GOOGLE_CLIENT_SECRET`               | تسجيل الدخول عبر OAuth لـ Google                                 |
-| `GITLAB_CLIENT_ID`، `GITLAB_CLIENT_SECRET`               | تسجيل الدخول عبر OAuth لـ GitLab                                 |
-| `MICROSOFT_CLIENT_ID`، `MICROSOFT_CLIENT_SECRET`         | تسجيل الدخول عبر OAuth لـ Microsoft                              |
-| `LINKEDIN_CLIENT_ID`، `LINKEDIN_CLIENT_SECRET`           | تسجيل الدخول عبر OAuth لـ LinkedIn                               |
-| `ATLASSIAN_CLIENT_ID`، `ATLASSIAN_CLIENT_SECRET`         | تسجيل الدخول عبر OAuth لـ Atlassian                              |
+تتلقى خدمة `app` في Compose أيضًا `INTLAYER_BACKEND_INTERNAL_URL=http://backend:3100`: يصل المتصفح إلى واجهة برمجة التطبيقات على `localhost:3100`، ولكن العرض من جانب الخادم يتم داخل شبكة Compose ولذلك يجب استخدام اسم الخدمة.
 
-### بريد عام
+### اختياري (تتراجع الميزات بسلاسة عند غيابها)
 
-بشكل افتراضي، يتم إرسال جميع رسائل البريد الإلكترونية للمعاملات عبر Resend باستخدام `RESEND_API_KEY`. يمكن للنشرات ذاتية الاستضافة بدلاً من ذلك توجيه **كل** بريد إلكتروني — بما في ذلك رسائل البريد الإلكترونية غير المتعلقة بالمنظمة مثل إعادة تعيين كلمات المرور والروابط السحرية — عبر بريد عام مُعد باستخدام متغيرات البيئة.
+| Variable                                         | Feature                                   |
+| ------------------------------------------------ | ----------------------------------------- |
+| `OPENAI_API_KEY`                                 | AI-assisted translation and content audit |
+| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`       | GitHub OAuth login                        |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`       | Google OAuth login                        |
+| `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`       | GitLab OAuth login                        |
+| `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET` | Microsoft OAuth login                     |
 
-عيّن `MAIL_PROVIDER` لتفعيله. عند عدم التعيين، يتم استخدام بريد Resend الافتراضي.
+### خادم البريد العام
 
-| المتغير              | مثال                           | الوصف                                                                          |
-| -------------------- | ------------------------------ | ------------------------------------------------------------------------------ |
-| `MAIL_PROVIDER`      | `smtp`                         | النقل العام: `smtp` أو `resend`. اترك بدون تعيين لاستخدام الإعدادات الافتراضية |
-| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | رأس المُرسل. يقبل عنوان مجرد أو تنسيق `Name <email>`                           |
-| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | مضيف SMTP (مطلوب عند `MAIL_PROVIDER=smtp`)                                     |
-| `MAIL_SMTP_PORT`     | `587`                          | منفذ SMTP (الافتراضي `587`)                                                    |
-| `MAIL_SMTP_SECURE`   | `false`                        | TLS ضمني. عيّن `true` للمنفذ `465`                                             |
-| `MAIL_SMTP_USER`     | _(اسم المستخدم الخاص بك)_      | اسم مستخدم SMTP (اختياري؛ تجاهل للمرحلات غير المصرح بها)                       |
-| `MAIL_SMTP_PASSWORD` | _(كلمة المرور الخاصة بك)_      | كلمة مرور SMTP                                                                 |
+تمر جميع رسائل البريد الإلكتروني الخاصة بالمعاملات، بما في ذلك رسائل البريد الإلكتروني غير التابعة للمؤسسة مثل عمليات إعادة تعيين كلمة المرور والروابط السحرية، عبر أحد وسيطي النقل العالميين:
 
-> الأولوية: بريد المنظمة الخاص بها (المُعد من لوحة المعلومات **Organization**) له الأولوية على البريد العام، والذي له بدوره الأولوية على مفتاح Resend الافتراضي.
+- **Resend**: باستخدام `RESEND_API_KEY`.
+- **SMTP**: باستخدام متغيرات `MAIL_SMTP_*`. بمجرد تعيين `MAIL_SMTP_HOST`، يتم استخدام SMTP وتجاهل `RESEND_API_KEY`.
 
-## ربط مشروعك بـ Intlayer
+يلزم استخدام `MAIL_PROVIDER` فقط لفرض وسيلة نقل معينة إذا تم تكوين كليهما (على سبيل المثال `MAIL_PROVIDER=resend` للاحتفاظ بـ Resend عند وجود مضيف SMTP).
 
-بمجرد تشغيل المكدس، وجّه مشروعك نحو الخادم الخلفي ولوحة التحكم المستضافَين ذاتياً بدلاً من `intlayer.org`.
+| Variable             | Example                        | Description                                                                  |
+| -------------------- | ------------------------------ | ---------------------------------------------------------------------------- |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Sender header for either transport. Accepts a bare address or `Name <email>` |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host. Setting it selects the SMTP transport                             |
+| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (defaults to `587`)                                                |
+| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Set `true` for port `465`                                      |
+| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP username (optional; omit for unauthenticated relays)                    |
+| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP password                                                                |
+| `MAIL_PROVIDER`      | `resend`                       | Optional override: `smtp` or `resend`. Leave unset to auto-select            |
 
-### تهيئة المشروع
+> ترتيب الأسبقية: يتجاوز خادم البريد الخاص بالمؤسسة (المكون من لوحة تحكم **المؤسسة**) خادم البريد العام، ويتجاوز خادم البريد العام مفتاح Resend الافتراضي.
+
+## ربط مشروع Intlayer الخاص بك
+
+بمجرد تشغيل الحزمة، قم بتكوين مشروعك للإشارة إلى الواجهة الخلفية ولوحة التحكم المستضافة ذاتيًا بدلاً من `intlayer.org`.
+
+### تكوين المشروع
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
@@ -237,14 +479,14 @@ const config: IntlayerConfig = {
     clientSecret: process.env.INTLAYER_CLIENT_SECRET,
 
     /**
-     * عنوان URL للوحة تحكم CMS المستضافة ذاتياً.
-     * الافتراضي: https://app.intlayer.org
+     * URL of the self-hosted CMS dashboard.
+     * Default: https://app.intlayer.org
      */
     cmsURL: process.env.INTLAYER_CMS_URL, // e.g. http://localhost:3000
 
     /**
-     * عنوان URL لواجهة برمجة تطبيقات الخادم الخلفي المستضافة ذاتياً.
-     * الافتراضي: https://back.intlayer.org
+     * URL of the self-hosted backend API.
+     * Default: https://back.intlayer.org
      */
     backendURL: process.env.INTLAYER_BACKEND_URL, // e.g. http://localhost:3100
   },
@@ -253,7 +495,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-اضبط متغيرات البيئة في ملف `.env` الخاص بمشروعك:
+Set the environment variables in your project's `.env`:
 
 ```sh
 INTLAYER_CMS_URL=http://localhost:3000
@@ -262,11 +504,11 @@ INTLAYER_CLIENT_ID=<your-client-id>
 INTLAYER_CLIENT_SECRET=<your-client-secret>
 ```
 
-أنشئ بيانات اعتماد الوصول في لوحة التحكم المستضافة ذاتياً ضمن **المشاريع ← مفاتيح الوصول** على `http://localhost:3000/projects`.
+أنشئ بيانات اعتماد الوصول في لوحة التحكم المستضافة ذاتيًا في **المشاريع ← مفاتيح الوصول** (`http://localhost:3000/projects`).
 
-### SDK الخاص بـ `@intlayer/api`
+### حزمة SDK `@intlayer/api`
 
-عند استخدام SDK الخاص بـ `@intlayer/api` برمجياً، مرّر `backendURL` بشكل صريح:
+عند استخدام حزمة SDK `@intlayer/api` برمجيًا، مرر `backendURL` بشكل صريح:
 
 ```typescript fileName="cms.ts" codeFormat="typescript"
 import { createIntlayerCMS } from "@intlayer/api";
@@ -283,58 +525,17 @@ const cms = createIntlayerCMS({
 const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
 ```
 
-## الترقية
-
-يجلب هذا الأمر أحدث الصور ويعيد تشغيل الحاويات باستخدام `docker compose pull && docker compose up -d`. يتم الاحتفاظ بالأحجام الموجودة (`mongo-data`، `redis-data`، `minio-data`) — دون فقدان للبيانات.
-
-```sh
-docker compose pull
-docker compose up -d
-```
-
-## النسخ الاحتياطي والاستعادة
-
-تعيش جميع البيانات الدائمة في ثلاثة أحجام Docker مسماة.
-
-### النسخ الاحتياطي
-
-```sh
-docker run --rm \
-  -v intlayer_mongo-data:/data \
-  -v "$(pwd)":/backup \
-  busybox tar czf /backup/mongo-data.tar.gz /data
-
-docker run --rm \
-  -v intlayer_redis-data:/data \
-  -v "$(pwd)":/backup \
-  busybox tar czf /backup/redis-data.tar.gz /data
-
-docker run --rm \
-  -v intlayer_minio-data:/data \
-  -v "$(pwd)":/backup \
-  busybox tar czf /backup/minio-data.tar.gz /data
-```
-
-### الاستعادة
-
-```sh
-docker run --rm \
-  -v intlayer_mongo-data:/data \
-  -v "$(pwd)":/backup \
-  busybox tar xzf /backup/mongo-data.tar.gz -C /
-
-# كرر لـ redis-data و minio-data
-```
-
 ## القيود
 
-- **MongoDB يجب أن يكون خارجياً (Atlas).** يتصل الخادم الخلفي فقط عبر `mongodb+srv://` (مبني من `DB_ID` / `DB_MDP` / `DB_CLUSTER`)، لذا لا يمكن استخدام `mongodb://host:27017` العادي — بما في ذلك `mongod` المدمج في الحاوية الخاصة — لا يمكن استخدامه. قدم مجموعة MongoDB Atlas.
-- **لا توجد نطاقات مخصصة.** جميع عناوين URL الموجهة للمتصفح `VITE_*` مدرجة مباشرة في التطبيق وقت البناء، والصورة المنشورة تأتي مع قيم `localhost`. يجب الوصول إلى لوحة التحكم على `http://localhost:3000`؛ تقديمها على نطاق عام سيتطلب إعادة بناء الصورة مع عناوين URL المستهدفة المدمجة فيها وليس مدعوماً بشكل افتراضي.
-- **البريد الإلكتروني يتطلب خادم بريد يعمل.** إعداد التشغيل الأول يفرض التحقق من البريد الإلكتروني، لذا يجب تكوين إما `RESEND_API_KEY` أو [خادم SMTP عام](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`). بعد دخول المسؤول الأول، يمكن لكل منظمة أيضاً تكوين خادم SMTP أو Resend الخاص بها من لوحة التحكم.
+- **النطاقات المخصصة وإعادة تعيين المنافذ غير مدعومة بعد.** يتم تضمين جميع عناوين URL الخاصة بـ `VITE_*` الموجهة للمتصفح في لوحة التحكم أثناء وقت البناء، وتأتي الصور المنشورة (وتطبيق سطح المكتب) مع قيم `localhost` / Intlayer Cloud. يجب الوصول إلى لوحة التحكم على `http://localhost:3000`، والواجهة الخلفية على `:3100`، و MinIO على `:9000`. تتطلب الاستضافة على نطاق عام، أو توجيه تطبيق سطح المكتب إلى واجهة خلفية مستضافة ذاتيًا، إعادة البناء مع تضمين عناوين URL المستهدفة (باستخدام `--build-arg VITE_BACKEND_URL=… VITE_SITE_URL=… VITE_DOMAIN=…` في `docker/selfhost/Dockerfile`، أو عبر `docker-compose.build.yml`) وهذا غير مدعوم افتراضيًا.
+- **يتطلب إرسال البريد الإلكتروني خادم بريد فعال.** يفرض إعداد التشغيل الأول التحقق من البريد الإلكتروني، لذلك يجب تكوين `RESEND_API_KEY` أو [مرحّل SMTP](#global-mailer) (`MAIL_SMTP_*`). بعد تسجيل دخول المسؤول الأول، يمكن لكل مؤسسة أيضًا تكوين خادم بريد SMTP أو Resend الخاص بها من لوحة التحكم.
+- **يحتاج تطبيق سطح المكتب إلى Node.js على الجهاز لبدء خادمه المدمج.**
 
 ## روابط مفيدة
 
 - [توثيق Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
-- [مرجع التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
-- [CMS SDK — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
-- [Docker Image (intlayer/intlayer-selfhost)](https://hub.docker.com/r/intlayer/intlayer-selfhost)
+- [مرجع التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
+- [CMS SDK: `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
+- [إصدارات تطبيق سطح المكتب](https://github.com/aymericzip/intlayer/releases/latest)
+- Docker Hub: [`intlayer/cms-all`](https://hub.docker.com/r/intlayer/cms-all)، [`intlayer/cms-frontend`](https://hub.docker.com/r/intlayer/cms-frontend)، [`intlayer/cms-backend`](https://hub.docker.com/r/intlayer/cms-backend)، مرآة GHCR: `ghcr.io/aymericzip/intlayer/`
+- [`docker/selfhost/`](https://github.com/aymericzip/intlayer/tree/main/docker/selfhost): ملف Dockerfile، و `docker-compose.yml`، و `.env.template`

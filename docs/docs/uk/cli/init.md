@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-09-21
 title: Ініціалізація Intlayer
 description: Дізнайтеся, як ініціалізувати Intlayer у вашому проєкті.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "Додати підкоманду init infra"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Додано опцію --no-gitignore"
@@ -124,6 +127,26 @@ bun x intlayer init --no-gitignore
 ```
 
 Це налаштує всі файли конфігурації, але не змінить ваш файл `.gitignore`.
+
+### Налаштування інфраструктури (десктопний застосунок або власний хостинг):
+
+```bash
+npx intlayer init infra
+```
+
+Завантажує та запускає інсталятор (`https://intlayer.org/install.sh`, або `install.ps1` на Windows), який запитує, як ви хочете запускати Intlayer:
+
+- **Десктопний застосунок** - встановлює нативну панель керування на ваш комп'ютер, підключену до Intlayer Cloud.
+- **All-in-one Docker** - панель керування + API + MongoDB + Redis + MinIO в одному контейнері.
+- **Docker Compose** - один контейнер на сервіс для масштабованого власного хостингу.
+
+Пропустіть меню за допомогою `--mode`:
+
+```bash
+npx intlayer init infra --mode compose
+```
+
+Цей же крок пропонується через `npx intlayer init --interactive`. Дивіться [довідку `init infra`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/infra.md) щодо налаштувань інсталятора та [посібник із власного хостингу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md) щодо того, що налаштовує кожен режим.
 
 ## Приклад виводу:
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-21
 title: CLI - Wszystkie polecenia Intlayer CLI dla Twojej wielojęzycznej strony
 description: Dowiedz się, jak używać Intlayer CLI do zarządzania wielojęzyczną stroną internetową. Postępuj zgodnie z krokami w tej dokumentacji online, aby skonfigurować swój projekt w kilka minut.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "Dodaj polecenie init infra"
   - version: 9.5.2
     date: 2026-09-12
     changes: "Zastąpienie polecenia `ci` flagą `--ci`"
@@ -151,6 +154,7 @@ Aby dowiedzieć się, jak skonfigurować dostępne języki lub inne parametry, z
 ### Konfiguracja
 
 - **[Zainicjuj Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/init.md)** - Skonfiguruj Intlayer w swoim projekcie za pomocą automatycznej konfiguracji
+- **[Skonfiguruj infrastrukturę](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/infra.md)** - Zainstaluj aplikację desktopową lub samodzielnie hostuj CMS za pomocą Dockera (all-in-one lub Compose)
 - **[Zarządzaj Konfiguracją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/configuration.md)** - Pobierz swoją konfigurację Intlayer i wyślij ją do CMS
 
 ### Zarządzanie Dokumentacją
@@ -177,6 +181,7 @@ Aby dowiedzieć się, jak skonfigurować dostępne języki lub inne parametry, z
 ```json fileName="package.json"
 "scripts": {
   "intlayer:init": "npx intlayer init",
+  "intlayer:infra": "npx intlayer init infra",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

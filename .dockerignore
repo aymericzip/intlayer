@@ -29,6 +29,8 @@ build/
 *.temp
 .cache/
 .turbo
+.fallow/
+___*
 
 # Intlayer
 **/.intlayer/

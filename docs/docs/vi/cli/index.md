@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-21
 title: CLI - Tất cả các lệnh CLI của Intlayer cho trang web đa ngôn ngữ của bạn
 description: Tìm hiểu cách sử dụng Intlayer CLI để quản lý trang web đa ngôn ngữ của bạn. Làm theo các bước trong tài liệu trực tuyến này để thiết lập dự án của bạn trong vài phút.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.6
+    date: 2026-09-21
+    changes: "Thêm lệnh init infra"
   - version: 9.5.2
     date: 2026-09-12
     changes: "Thay thế lệnh `ci` bằng cờ `--ci`"
@@ -151,6 +154,7 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình khác nhau:
 ### Cấu hình
 
 - **[Khởi tạo Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/init.md)** - Thiết lập Intlayer trong dự án của bạn với cấu hình tự động
+- **[Thiết lập cơ sở hạ tầng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/infra.md)** - Cài đặt ứng dụng máy tính để bàn hoặc tự lưu trữ CMS với Docker (tất cả trong một hoặc Compose)
 - **[Quản lý cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/configuration.md)** - Nhận cấu hình Intlayer của bạn và đẩy lên CMS
 
 ### Quản lý tài liệu
@@ -177,6 +181,7 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình khác nhau:
 ```json fileName="package.json"
 "scripts": {
   "intlayer:init": "npx intlayer init",
+  "intlayer:infra": "npx intlayer init infra",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
