@@ -446,6 +446,18 @@ const blogDataContent: Dictionary = {
         vi: 'So sánh',
       }),
       subSections: {
+        'next-intl-vs-intlayer': {
+          title: 'next-intl vs Intlayer',
+          default: getBlogMetadata('./blog/en/next-intl_vs_intlayer.md'),
+          frameworks: ['nextjs', 'react'],
+        },
+        'next-intl-vs-intlayer-next-intl': {
+          title: 'next-intl vs @intlayer/next-intl',
+          default: getBlogMetadata(
+            './blog/en/next-intl_vs_intlayer-next-intl.md'
+          ),
+          frameworks: ['nextjs', 'react'],
+        },
         'next-i18next-vs-next-intl-vs-intlayer': {
           title: 'next-i18next vs next-intl vs Intlayer',
           default: getBlogMetadata(
@@ -460,14 +472,14 @@ const blogDataContent: Dictionary = {
           ),
           frameworks: ['react'],
         },
-        'next-intl-vs-intlayer': {
-          title: 'next-intl vs Intlayer',
-          default: getBlogMetadata('./blog/en/next-intl_vs_intlayer.md'),
-          frameworks: ['nextjs', 'react'],
-        },
         'i18next-vs-intlayer': {
           title: 'i18next vs Intlayer',
           default: getBlogMetadata('./blog/en/i18next_vs_intlayer.md'),
+          frameworks: ['vanilla'],
+        },
+        'i18next-vs-intlayer-i18next': {
+          title: 'i18next vs @intlayer/i18next',
+          default: getBlogMetadata('./blog/en/i18next_vs_intlayer-i18next.md'),
           frameworks: ['vanilla'],
         },
         'lingui-vs-intlayer': {
@@ -475,9 +487,22 @@ const blogDataContent: Dictionary = {
           default: getBlogMetadata('./blog/en/lingui_vs_intlayer.md'),
           frameworks: ['react'],
         },
+        'lingui-vs-intlayer-lingui': {
+          title: 'Lingui vs @intlayer/lingui',
+          default: getBlogMetadata('./blog/en/lingui_vs_intlayer-lingui.md'),
+          frameworks: ['react'],
+        },
+
         'vue-i18n-vs-intlayer': {
           title: 'vue-i18n vs Intlayer',
           default: getBlogMetadata('./blog/en/vue-i18n_vs_intlayer.md'),
+          frameworks: ['vue'],
+        },
+        'vue-i18n-vs-intlayer-vue-i18n': {
+          title: 'vue-i18n vs @intlayer/vue-i18n',
+          default: getBlogMetadata(
+            './blog/en/vue-i18n_vs_intlayer-vue-i18n.md'
+          ),
           frameworks: ['vue'],
         },
         'vue-i18n-vs-intlayer-benchmark': {
@@ -850,30 +875,6 @@ const blogDataContent: Dictionary = {
           }),
           default: getBlogMetadata('./blog/en/intlayer_with_i18next.md'),
           frameworks: ['vanilla'],
-        },
-        'next-intl-vs-intlayer-next-intl': {
-          title: 'next-intl vs @intlayer/next-intl',
-          default: getBlogMetadata(
-            './blog/en/next-intl_vs_intlayer-next-intl.md'
-          ),
-          frameworks: ['nextjs', 'react'],
-        },
-        'i18next-vs-intlayer-i18next': {
-          title: 'i18next vs @intlayer/i18next',
-          default: getBlogMetadata('./blog/en/i18next_vs_intlayer-i18next.md'),
-          frameworks: ['vanilla'],
-        },
-        'lingui-vs-intlayer-lingui': {
-          title: 'Lingui vs @intlayer/lingui',
-          default: getBlogMetadata('./blog/en/lingui_vs_intlayer-lingui.md'),
-          frameworks: ['react'],
-        },
-        'vue-i18n-vs-intlayer-vue-i18n': {
-          title: 'vue-i18n vs @intlayer/vue-i18n',
-          default: getBlogMetadata(
-            './blog/en/vue-i18n_vs_intlayer-vue-i18n.md'
-          ),
-          frameworks: ['vue'],
         },
       },
     },
