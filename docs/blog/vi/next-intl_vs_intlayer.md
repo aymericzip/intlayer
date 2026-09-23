@@ -124,8 +124,6 @@ style="border:none;"
 
 `use-intl` là lõi độc lập với framework của `next-intl`. Cùng API, cùng định dạng tin nhắn. So sánh nó với `intlayer` trên TanStack Start sẽ loại bỏ các phần đặc thù của Next.js khỏi phép so sánh.
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Thư viện                           | Chiến lược     | Kích thước Lib (gz) | JS trang TB (gz) | Rò rỉ ngôn ngữ | Rò rỉ trang | TB component (gz) | Độ phản hồi E2E |
 | ---------------------------------- | -------------- | ------------------: | ---------------: | -------------: | ----------: | ----------------: | --------------: |
 | **Ứng dụng gốc** (không i18n)      | -              |              0.0 KB |         111.0 KB |           0.0% |        0.0% |            0.7 KB |          8.1 ms |

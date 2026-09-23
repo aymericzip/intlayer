@@ -138,8 +138,6 @@ style="border:none;"
 
 Next.js'e özgü yapılandırmaları dışarıda bırakmak adına TanStack Start üzerinde doğrudan `react-i18next` ile yapılan ölçümler:
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Kütüphane           | Strateji       | Lib size (gz) | Page JS avg (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Bileşen Ort. (gz) | E2E Tepki Süresi | Hydration |
 | ------------------- | -------------- | ------------: | ---------------: | ------------: | --------------: | ----------------: | ---------------: | --------: |
 | **base** (i18n yok) | -              |        0.0 KB |         111.0 KB |          0.0% |            0.0% |            0.7 KB |           8.1 ms |   21.6 ms |

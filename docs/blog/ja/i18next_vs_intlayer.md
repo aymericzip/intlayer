@@ -138,8 +138,6 @@ style="border:none;"
 
 Next.js特有のオーバーヘッドを排除するため、TanStack Start上で純粋な`react-i18next`を使用した比較です。
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | ライブラリ          | 戦略           | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) |  E2E応答性 | Hydration |
 | ------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | ---------: | --------: |
 | **base** (i18nなし) | -              |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |     8.1 ms |   21.6 ms |

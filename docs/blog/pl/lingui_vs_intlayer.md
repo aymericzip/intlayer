@@ -131,8 +131,6 @@ style="border:none;"
 
 ### Wyniki w TanStack Start
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Biblioteka                  | Strategia      | Rozmiar Lib (gz) | Średni JS strony (gz) | Wyciek języka | Wyciek strony | Śr. komponentu (gz) | Reaktywność E2E | Hydratacja |
 | --------------------------- | -------------- | ---------------: | --------------------: | ------------: | ------------: | ------------------: | --------------: | ---------: |
 | **base** (bez i18n)         | -              |           0.0 KB |              111.0 KB |          0.0% |          0.0% |              0.7 KB |          8.1 ms |    21.6 ms |

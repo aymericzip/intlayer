@@ -138,8 +138,6 @@ style="border:none;"
 
 Stessa applicazione di prova su TanStack Start con `react-i18next` puro, isolando la comparazione dalle specificità di Next.js.
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Libreria           | Strategia      | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | Reattività E2E | Hydration |
 | ------------------ | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
 | **base** (no i18n) | -              |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |

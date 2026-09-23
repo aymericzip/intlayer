@@ -138,8 +138,6 @@ style="border:none;"
 
 Next.js 특유의 구조적 차이를 배제하고 TanStack Start 환경에서 순수 `react-i18next`로 측정한 결과입니다.
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | 라이브러리           | 전략           | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E 반응성 | Hydration |
 | -------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | ---------: | --------: |
 | **base** (i18n 없음) | -              |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |     8.1 ms |   21.6 ms |

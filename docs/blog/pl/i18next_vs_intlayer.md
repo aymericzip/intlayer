@@ -138,8 +138,6 @@ style="border:none;"
 
 Ta sama aplikacja na TanStack Start z czystym `react-i18next`, co eliminuje specyfikę Next.js z testu porównawczego.
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Biblioteka          | Strategia      | Lib size (gz) | Page JS avg (gz) | Wyciek języka | Wyciek strony | Komponent śr. (gz) | Reaktywność E2E | Hydratacja |
 | ------------------- | -------------- | ------------: | ---------------: | ------------: | ------------: | -----------------: | --------------: | ---------: |
 | **base** (bez i18n) | -              |        0.0 KB |         111.0 KB |          0.0% |          0.0% |             0.7 KB |          8.1 ms |    21.6 ms |

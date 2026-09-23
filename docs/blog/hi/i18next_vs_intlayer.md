@@ -138,8 +138,6 @@ style="border:none;"
 
 Next.js की विशेषताओं को अलग करके TanStack Start पर शुद्ध `react-i18next` के साथ समान परीक्षण:
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | लाइब्रेरी            | रणनीति         | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E प्रतिक्रिया | Hydration |
 | -------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | --------------: | --------: |
 | **base** (बिना i18n) | -              |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |          8.1 ms |   21.6 ms |

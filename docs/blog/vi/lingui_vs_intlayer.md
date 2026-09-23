@@ -131,8 +131,6 @@ style="border:none;"
 
 ### Kết quả trên TanStack Start
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Thư viện                         | Chiến lược     | Kích thước Lib (gz) | JS trang TB (gz) | Rò rỉ ngôn ngữ | Rò rỉ trang | TB component (gz) | Độ phản hồi E2E | Hydrate |
 | -------------------------------- | -------------- | ------------------: | ---------------: | -------------: | ----------: | ----------------: | --------------: | ------: |
 | **base** (không i18n)            | -              |              0.0 KB |         111.0 KB |           0.0% |        0.0% |            0.7 KB |          8.1 ms | 21.6 ms |

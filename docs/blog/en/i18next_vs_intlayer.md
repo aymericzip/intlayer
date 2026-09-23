@@ -138,8 +138,6 @@ style="border:none;"
 
 Same test app on TanStack Start with plain `react-i18next`, which removes the Next.js-specific wiring from the comparison.
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Library            | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity | Hydration |
 | ------------------ | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | --------: |
 | **base** (no i18n) | -              |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |   21.6 ms |

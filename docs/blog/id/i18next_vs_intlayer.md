@@ -138,8 +138,6 @@ style="border:none;"
 
 Aplikasi yang sama pada TanStack Start dengan `react-i18next` murni untuk memisahkan faktor arsitektur Next.js:
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Library               | Strategi       | Lib size (gz) | Page JS avg (gz) | Kebocoran Bahasa | Kebocoran Halaman | Rata-rata Komp. (gz) | Reaktivitas E2E | Hydration |
 | --------------------- | -------------- | ------------: | ---------------: | ---------------: | ----------------: | -------------------: | --------------: | --------: |
 | **base** (tanpa i18n) | -              |        0.0 KB |         111.0 KB |             0.0% |              0.0% |               0.7 KB |          8.1 ms |   21.6 ms |

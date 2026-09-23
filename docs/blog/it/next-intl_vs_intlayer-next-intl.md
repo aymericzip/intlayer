@@ -148,8 +148,6 @@ style="border:none;"
 
 `use-intl` è il core framework-agnostico di `next-intl`. Il suo adapter, `@intlayer/use-intl`, segue lo stesso design con un plugin Vite (`@intlayer/use-intl/plugin`).
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Setup                    | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |   Hydration |
 | ------------------------ | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ----------: |
 | **base** (no i18n)       | -              |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |     21.6 ms |

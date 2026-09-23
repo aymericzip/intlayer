@@ -148,8 +148,6 @@ style="border:none;"
 
 `use-intl`은 `next-intl`의 framework-agnostic core입니다. 이의 adapter인 `@intlayer/use-intl`은 Vite plugin (`@intlayer/use-intl/plugin`)과 함께 동일한 design을 따릅니다.
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Setup                    | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |   Hydration |
 | ------------------------ | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ----------: |
 | **base** (no i18n)       | -              |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |     21.6 ms |

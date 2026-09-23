@@ -148,8 +148,6 @@ style="border:none;"
 
 `use-intl` `next-intl` का framework-agnostic core है। इसका adapter, `@intlayer/use-intl`, एक Vite plugin (`@intlayer/use-intl/plugin`) के साथ एक ही design का पालन करता है।
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | सेटअप                    | रणनीति         | लाइब साइज (gz) | पेज JS औसत (gz) | लोकेल लीक |  पेज लीक | घटक औसत (gz) | E2E प्रतिक्रियाशीलता |   हाइड्रेशन |
 | ------------------------ | -------------- | -------------: | --------------: | --------: | -------: | -----------: | -------------------: | ----------: |
 | **base** (कोई i18n नहीं) | -              |         0.0 KB |        111.0 KB |      0.0% |     0.0% |       0.7 KB |               8.1 ms |     21.6 ms |

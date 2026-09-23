@@ -131,8 +131,6 @@ style="border:none;"
 
 ### TanStack Start Sonuçları
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Kütüphane                   | Strateji       | Kütüphane Boyutu (gz) | Ort. Sayfa JS (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Ort. Bileşen (gz) | E2E Tepkisellik | Hidrasyon |
 | --------------------------- | -------------- | --------------------: | -----------------: | ------------: | --------------: | ----------------: | --------------: | --------: |
 | **base** (i18n yok)         | -              |                0.0 KB |           111.0 KB |          0.0% |            0.0% |            0.7 KB |          8.1 ms |   21.6 ms |

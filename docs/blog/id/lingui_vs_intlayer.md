@@ -131,8 +131,6 @@ style="border:none;"
 
 ### Hasil pada TanStack Start
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Pustaka                     | Strategi       | Ukuran Lib (gz) | Rata-rata JS Halaman (gz) | Bocor Lokal | Bocor Halaman | Rata-rata Komponen (gz) | Reaktivitas E2E | Hidrasi |
 | --------------------------- | -------------- | --------------: | ------------------------: | ----------: | ------------: | ----------------------: | --------------: | ------: |
 | **base** (tanpa i18n)       | -              |          0.0 KB |                  111.0 KB |        0.0% |          0.0% |                  0.7 KB |          8.1 ms | 21.6 ms |

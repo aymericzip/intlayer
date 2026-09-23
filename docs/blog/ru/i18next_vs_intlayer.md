@@ -138,8 +138,6 @@ style="border:none;"
 
 То же приложение на TanStack Start со стандартным `react-i18next`, что исключает специфику Next.js из сравнения.
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Библиотека          | Стратегия      | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E-реактивность | Гидратация |
 | ------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | ---------------: | ---------: |
 | **base** (без i18n) | -              |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |           8.1 ms |    21.6 ms |

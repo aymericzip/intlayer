@@ -138,8 +138,6 @@ style="border:none;"
 
 La même application de test sur TanStack Start avec `react-i18next` pur, ce qui isole les dépendances propres à Next.js.
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Bibliothèque        | Stratégie      | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | Réactivité E2E | Hydratation |
 | ------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: | ----------: |
 | **base** (pas i18n) | -              |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |     21.6 ms |

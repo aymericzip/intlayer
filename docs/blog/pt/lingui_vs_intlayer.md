@@ -131,8 +131,6 @@ style="border:none;"
 
 ### Resultados no TanStack Start
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Biblioteca                  | Estratégia     | Lib size (gz) | Page JS méd (gz) | Vazamento idioma | Vazamento página | Componente méd (gz) | Reatividade E2E | Hidratação |
 | --------------------------- | -------------- | ------------: | ---------------: | ---------------: | ---------------: | ------------------: | --------------: | ---------: |
 | **base** (sem i18n)         | -              |        0,0 KB |         111,0 KB |             0,0% |             0,0% |              0,7 KB |          8,1 ms |    21,6 ms |

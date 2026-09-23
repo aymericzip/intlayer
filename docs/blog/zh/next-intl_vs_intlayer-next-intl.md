@@ -148,8 +148,6 @@ style="border:none;"
 
 `use-intl` 是 `next-intl` 的框架无关核心。其 adapter `@intlayer/use-intl` 采用相同的设计，配合 Vite plugin（`@intlayer/use-intl/plugin`）。
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | 设置                     | 策略           | 库大小 (gz) | 页面 JS 平均 (gz) | 语言泄漏 | 页面泄漏 | 组件平均 (gz) | E2E 响应性 |        水合 |
 | ------------------------ | -------------- | ----------: | ----------------: | -------: | -------: | ------------: | ---------: | ----------: |
 | **base** (无 i18n)       | -              |      0.0 KB |          111.0 KB |     0.0% |     0.0% |        0.7 KB |     8.1 ms |     21.6 ms |

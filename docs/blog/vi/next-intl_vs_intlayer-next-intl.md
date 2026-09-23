@@ -148,8 +148,6 @@ style="border:none;"
 
 `use-intl` là core framework-agnostic của `next-intl`. Adapter của nó, `@intlayer/use-intl`, tuân theo cùng design với Vite plugin (`@intlayer/use-intl/plugin`).
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Thiết lập                | Chiến lược     | Kích thước Lib (gz) | Page JS trung bình (gz) | Rò rỉ Locale | Rò rỉ Page | Component trung bình (gz) | E2E reactivity |   Hydration |
 | ------------------------ | -------------- | ------------------: | ----------------------: | -----------: | ---------: | ------------------------: | -------------: | ----------: |
 | **base** (không i18n)    | -              |              0.0 KB |                111.0 KB |         0.0% |       0.0% |                    0.7 KB |         8.1 ms |     21.6 ms |

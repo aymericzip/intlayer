@@ -124,8 +124,6 @@ style="border:none;"
 
 `use-intl`, `next-intl`'in framework bağımsız çekirdeğidir. Aynı API, aynı mesaj formatı. TanStack Start üzerinde `intlayer` ile karşılaştırmak, denklemin Next.js'e özgü kısımlarını ortadan kaldırır.
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Kütüphane                     | Strateji       | Kütüphane Boyutu (gz) | Ort. Sayfa JS (gz) | Dil Sızıntısı | Sayfa Sızıntısı | Ort. Bileşen (gz) | E2E Tepkisellik |
 | ----------------------------- | -------------- | --------------------: | -----------------: | ------------: | --------------: | ----------------: | --------------: |
 | **Temel uygulama** (i18n yok) | -              |                0.0 KB |           111.0 KB |          0.0% |            0.0% |            0.7 KB |          8.1 ms |

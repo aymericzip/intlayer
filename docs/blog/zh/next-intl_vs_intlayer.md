@@ -135,8 +135,6 @@ style="border:none;"
 
 `use-intl` 是 `next-intl` 的框架无关核心。相同的 API，相同的消息格式。在 TanStack Start 上将其与 `intlayer` 进行比较，移除了方程的 Next.js 特定部分。
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Library                       | Strategy       | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | E2E reactivity |
 | ----------------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | -------------: |
 | **base** (no i18n)            | -              |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |         8.1 ms |

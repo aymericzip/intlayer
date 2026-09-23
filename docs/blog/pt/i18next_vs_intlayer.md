@@ -138,8 +138,6 @@ style="border:none;"
 
 A mesma aplicação no TanStack Start com `react-i18next` puro, isolando os efeitos específicos do Next.js.
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Biblioteca          | Estratégia     | Lib size (gz) | Page JS avg (gz) | Locale leak | Page leak | Component avg (gz) | Reatividade E2E | Hydration |
 | ------------------- | -------------- | ------------: | ---------------: | ----------: | --------: | -----------------: | --------------: | --------: |
 | **base** (sem i18n) | -              |        0.0 KB |         111.0 KB |        0.0% |      0.0% |             0.7 KB |          8.1 ms |   21.6 ms |

@@ -135,8 +135,6 @@ style="border:none;"
 
 `use-intl` è il core indipendente dal framework di `next-intl`. Stessa API, stesso formato di messaggio. Confrontarlo con `intlayer` su TanStack Start rimuove le parti specifiche di Next.js dall'equazione.
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Libreria                      | Strategia      | Dimensione lib (gz) | Media JS pagina (gz) | Locale leak | Page leak | Media componente (gz) | Reattività E2E |
 | ----------------------------- | -------------- | ------------------: | -------------------: | ----------: | --------: | --------------------: | -------------: |
 | **base** (no i18n)            | -              |              0.0 KB |             111.0 KB |        0.0% |      0.0% |                0.7 KB |         8.1 ms |

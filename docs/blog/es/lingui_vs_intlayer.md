@@ -131,8 +131,6 @@ style="border:none;"
 
 ### Resultados en TanStack Start
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Librería                    | Estrategia     | Tamaño Lib (gz) | JS por pág avg (gz) | Fuga locale | Fuga pág | Prom component (gz) | Reactividad E2E | Hidratación |
 | --------------------------- | -------------- | --------------: | ------------------: | ----------: | -------: | ------------------: | --------------: | ----------: |
 | **base** (sin i18n)         | -              |          0.0 KB |            111.0 KB |        0.0% |     0.0% |              0.7 KB |          8.1 ms |     21.6 ms |

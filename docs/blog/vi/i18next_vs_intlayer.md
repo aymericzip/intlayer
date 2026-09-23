@@ -138,8 +138,6 @@ style="border:none;"
 
 Cùng ứng dụng kiểm thử trên nền tảng TanStack Start sử dụng trực tiếp `react-i18next` nhằm loại bỏ các yếu tố can thiệp riêng của Next.js:
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Thư viện              | Chiến lược     | Dung lượng Lib (gz) | JS TB mỗi trang (gz) | Rò rỉ ngôn ngữ | Rò rỉ trang | Kích thước TB Comp (gz) | Phản hồi E2E | Thời gian Hydrate |
 | --------------------- | -------------- | ------------------: | -------------------: | -------------: | ----------: | ----------------------: | -----------: | ----------------: |
 | **base** (không i18n) | -              |              0.0 KB |             111.0 KB |           0.0% |        0.0% |                  0.7 KB |       8.1 ms |           21.6 ms |

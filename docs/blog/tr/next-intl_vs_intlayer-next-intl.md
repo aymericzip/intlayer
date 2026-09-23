@@ -148,8 +148,6 @@ style="border:none;"
 
 `use-intl`, `next-intl`'nin framework-agnostic çekirdeğidir. Adaptörü olan `@intlayer/use-intl`, Vite plugin'i (`@intlayer/use-intl/plugin`) ile aynı tasarımı takip eder.
 
-<I18nBenchmark framework="tanstack" vertical/>
-
 | Kurulum                  | Strateji       | Lib boyutu (gz) | Sayfa JS ort (gz) | Locale sızıntısı | Sayfa sızıntısı | Bileşen ort (gz) | E2E reaktivite |   Hidrasyon |
 | ------------------------ | -------------- | --------------: | ----------------: | ---------------: | --------------: | ---------------: | -------------: | ----------: |
 | **base** (i18n yok)      | -              |          0.0 KB |          111.0 KB |             0.0% |            0.0% |           0.7 KB |         8.1 ms |     21.6 ms |
