@@ -52,6 +52,8 @@ npx intlayer init mcp
 
 This writes the MCP configuration for your IDE (local `@intlayer/mcp` over stdio, or the hosted `https://mcp.intlayer.org`).
 
+A WebMCP is also available for the main website and documentation at `https://intlayer.org`.
+
 ## CI/CD
 
 Fill missing translations with AI on each change, and fail the build on missing ones:
