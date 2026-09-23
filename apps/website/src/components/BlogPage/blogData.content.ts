@@ -536,6 +536,32 @@ const blogDataContent: Dictionary = {
           default: getBlogMetadata('./blog/en/is_next-intl_outdated.md'),
           frameworks: ['nextjs', 'react'],
         },
+        'is-intlayer-lighter-than-paraglide': {
+          title: t({
+            en: 'Is Intlayer lighter than Paraglide?',
+            'en-GB': 'Is Intlayer lighter than Paraglide?',
+            fr: 'Intlayer est-il plus léger que Paraglide ?',
+            es: '¿Es Intlayer más ligero que Paraglide?',
+            de: 'Ist Intlayer leichter als Paraglide?',
+            ja: 'Intlayer は Paraglide より軽い？',
+            ko: 'Intlayer는 Paraglide보다 가벼운가요?',
+            zh: 'Intlayer 比 Paraglide 更轻量吗？',
+            it: 'Intlayer è più leggero di Paraglide?',
+            pt: 'O Intlayer é mais leve que o Paraglide?',
+            hi: 'क्या Intlayer, Paraglide से हल्का है?',
+            ar: 'هل Intlayer أخف من Paraglide؟',
+            ru: 'Intlayer легче, чем Paraglide?',
+            tr: "Intlayer, Paraglide'dan daha mı hafif?",
+            pl: 'Czy Intlayer jest lżejszy niż Paraglide?',
+            id: 'Apakah Intlayer lebih ringan dari Paraglide?',
+            vi: 'Intlayer có nhẹ hơn Paraglide không?',
+            uk: 'Чи легший Intlayer за Paraglide?',
+          }),
+          default: getBlogMetadata(
+            './blog/en/is_intlayer_lighter_than_paraglide.md'
+          ),
+          frameworks: ['react', 'nextjs', 'svelte'],
+        },
         'is-i18next-outdated': {
           title: t({
             en: 'Is i18next outdated?',
