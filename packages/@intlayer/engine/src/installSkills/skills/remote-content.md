@@ -1,5 +1,5 @@
 ---
-name: intlayer-cms
+name: intlayer-remote-content
 description: Manages remote content and server-side dictionaries using the Intlayer CMS. Use when the user asks to "fetch remote translations", "use Intlayer CMS", or "handle server-side content".
 metadata:
   author: Intlayer

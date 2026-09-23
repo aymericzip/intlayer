@@ -1,26 +1,16 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import {
-  type ContentStrategy,
   detectCompatI18nLibraries,
   type InitOptions,
   initIntlayer,
-  PLATFORMS,
-  type Platform,
   type RoutingMode,
   setupCmsCredentials,
 } from '@intlayer/engine/cli';
-import enquirer from 'enquirer';
 import { login } from './auth/login';
-import { initBuildOptimization } from './initBuildOptimization';
-import { initCompiler } from './initCompiler';
 import { initInfra } from './initInfra';
 import { initMCP } from './initMCP';
-import {
-  getDetectedPlatform,
-  initSkills,
-  PLATFORM_OPTIONS,
-} from './initSkills';
+import { initSkills } from './initSkills';
 import { loadPrompts } from './loadPrompts';
 
 export const findProjectRoot = (startDir: string) => {
@@ -42,79 +32,90 @@ export const findProjectRoot = (startDir: string) => {
 type InitStep =
   | 'packages'
   | 'githubActions'
-  | 'frameworkSetup'
+  | 'projectSetup'
   | 'vscodeExtension'
   | 'lsp'
   | 'eslint'
   | 'skills'
   | 'mcp'
-  | 'compiler'
-  | 'buildOptimization'
-  | 'infra';
+  | 'infra'
+  | 'cms';
 
-const BASE_INIT_STEP_OPTIONS: Array<{
+/** A checkbox entry of the interactive init flow. */
+type InitStepOption = {
   value: InitStep;
   label: string;
   hint: string;
-}> = [
-  {
-    value: 'packages',
-    label: 'Install & upgrade packages',
-    hint: 'install missing Intlayer dependencies and upgrade outdated ones',
-  },
-  {
-    value: 'githubActions',
-    label: 'CI/CD (GitHub Actions)',
-    hint: 'scaffold the fill and test workflows that run on every pull request (covers every project in a monorepo)',
-  },
-  {
-    value: 'frameworkSetup',
-    label: 'Framework setup',
-    hint: 'middleware/proxy and providers in layout/page',
-  },
-  {
-    value: 'vscodeExtension',
-    label: 'VS Code extension',
-    hint: 'recommend the Intlayer extension',
-  },
-  {
-    value: 'lsp',
-    label: 'Editor LSP',
-    hint: 'go-to-definition from keys to .content files',
-  },
-  {
-    value: 'eslint',
-    label: 'Lint rules (ESLint / oxlint)',
-    hint: 'flag hardcoded text and dynamic calls the compiler cannot optimize',
-  },
-  {
-    value: 'skills',
-    label: 'AI skills',
-    hint: 'install the Intlayer documentation as agent skills',
-  },
-  {
-    value: 'mcp',
-    label: 'MCP server',
-    hint: 'configure the Intlayer MCP server',
-  },
-];
+};
 
 /**
- * Steps that are opt-in: offered in the checkbox but not pre-selected. The
- * infrastructure installer touches the machine (downloads an app, pulls
- * Docker images) rather than the project, so it must be an explicit choice.
+ * Steps shown but not pre-selected. The infrastructure installer touches the
+ * machine (downloads an app, pulls Docker images) rather than the project, so
+ * it must be an explicit choice.
  */
-const OPT_IN_INIT_STEP_OPTIONS: Array<{
-  value: InitStep;
-  label: string;
-  hint: string;
-}> = [
-  {
-    value: 'infra',
-    label: 'Infrastructure (desktop app / self-hosting)',
-    hint: 'install the desktop app, or self-host with Docker (all-in-one or Compose)',
-  },
-];
+const OPT_IN_INIT_STEPS: InitStep[] = ['infra'];
+
+/** Grouped checkbox entries of the interactive init flow, in display order. */
+const INIT_STEP_GROUPS: Record<string, InitStepOption[]> = {
+  Codebase: [
+    {
+      value: 'packages',
+      label: 'Install & upgrade packages',
+      hint: 'install missing Intlayer dependencies and upgrade outdated ones',
+    },
+    {
+      value: 'projectSetup',
+      label: 'Project setup',
+      hint: 'intlayer config, tsconfig, bundler plugin, middleware/proxy and providers in layout/page',
+    },
+    {
+      value: 'githubActions',
+      label: 'CI/CD (GitHub Actions)',
+      hint: 'scaffold the fill and test workflows that run on every pull request (covers every project in a monorepo)',
+    },
+  ],
+  DevTools: [
+    {
+      value: 'vscodeExtension',
+      label: 'VS Code extension',
+      hint: 'recommend the Intlayer extension',
+    },
+    {
+      value: 'eslint',
+      label: 'Lint rules (ESLint / oxlint)',
+      hint: 'flag hardcoded text and dynamic calls the compiler cannot optimize',
+    },
+  ],
+  'Coding assistant': [
+    {
+      value: 'skills',
+      label: 'AI skills',
+      hint: 'install the Intlayer documentation as agent skills',
+    },
+    {
+      value: 'mcp',
+      label: 'MCP server',
+      hint: 'configure the Intlayer MCP server',
+    },
+    {
+      value: 'lsp',
+      label: 'Editor LSP',
+      hint: 'go-to-definition from keys to .content files',
+    },
+  ],
+  CMS: [
+    {
+      value: 'cms',
+      label: 'CMS',
+      hint: 'log in through your browser, then store the credentials in your .env',
+    },
+    {
+      value: 'infra',
+      label: 'Infrastructure (desktop app / self-hosting)',
+      hint: 'install the desktop app, or self-host with Docker (all-in-one or Compose)',
+    },
+  ],
+};
 
 /** Locale routing strategies offered by the interactive init flow. */
 const ROUTING_MODE_OPTIONS: Array<{
@@ -144,33 +145,6 @@ const ROUTING_MODE_OPTIONS: Array<{
   },
 ];
 
-/**
- * Content organization strategies offered by the interactive init flow.
- * Drives the `compiler.output` template (autogenerated content: compiler /
- * autofill / extract) or the injection of the syncJSON plugin.
- */
-const CONTENT_STRATEGY_OPTIONS: Array<{
-  value: ContentStrategy;
-  label: string;
-  hint: string;
-}> = [
-  {
-    value: 'per-component',
-    label: 'Per component (default)',
-    hint: 'multilingual .content files co-located with the components',
-  },
-  {
-    value: 'centralized',
-    label: 'Centralized folder',
-    hint: 'per-locale JSON dictionaries under /locales/{locale}/{key}.content.json',
-  },
-  {
-    value: 'json-namespaces',
-    label: 'JSON namespaces',
-    hint: 'plain /locales/{locale}/{namespace}.json files synced via @intlayer/sync-json-plugin',
-  },
-];
-
 /** Reads the merged dependencies of the project at `root`. */
 const getProjectDependencies = (root: string): Record<string, string> => {
   try {
@@ -184,14 +158,6 @@ const getProjectDependencies = (root: string): Record<string, string> => {
     return {};
   }
 };
-
-/** Returns true when the project at `root` depends on Next.js. */
-const isNextJsProject = (root: string): boolean =>
-  Boolean(getProjectDependencies(root).next);
-
-/** Returns true when the project at `root` depends on Vite. */
-const isViteProject = (root: string): boolean =>
-  Boolean(getProjectDependencies(root).vite);
 
 /**
  * Returns true when the project uses a URL-based router for which a locale
@@ -229,36 +195,13 @@ const runInteractiveInit = async (
 
   p.intro('Initialize Intlayer');
 
-  const stepOptions = [...BASE_INIT_STEP_OPTIONS];
-
-  const nextJsProject = isNextJsProject(root);
-
-  // The compiler is plugged in directly on Vite; on Next.js it needs a Babel
-  // config. Only offer the step when one of those frameworks is detected.
-  if (nextJsProject || isViteProject(root)) {
-    stepOptions.push({
-      value: 'compiler',
-      label: 'Compiler',
-      hint: nextJsProject
-        ? 'add the Babel compiler config to extract inline content (Next.js)'
-        : 'auto-extract inline content at build time (already plugged in on Vite)',
-    });
-  }
-
-  if (nextJsProject) {
-    stepOptions.push({
-      value: 'buildOptimization',
-      label: 'Bundle optimization',
-      hint: 'choose @intlayer/babel or @intlayer/swc for tree-shaking and minification (Next.js only)',
-    });
-  }
-
-  stepOptions.push(...OPT_IN_INIT_STEP_OPTIONS);
-
-  const selected = await p.multiselect<InitStep>({
+  const selected = await p.groupMultiselect<InitStep>({
     message: 'Select what you want to set up:',
-    options: stepOptions,
-    initialValues: BASE_INIT_STEP_OPTIONS.map((option) => option.value),
+    options: INIT_STEP_GROUPS,
+    initialValues: Object.values(INIT_STEP_GROUPS)
+      .flat()
+      .map((option) => option.value)
+      .filter((step) => !OPT_IN_INIT_STEPS.includes(step)),
     required: false,
   });
 
@@ -274,7 +217,7 @@ const runInteractiveInit = async (
   // skipped for apps without URL routing such as React Native / Expo.
   let routingMode: RoutingMode | undefined;
 
-  if (hasUrlRouting(root)) {
+  if (steps.includes('projectSetup') && hasUrlRouting(root)) {
     const selectedRoutingMode = await p.select<RoutingMode>({
       message: 'Which locale routing strategy do you want?',
       options: ROUTING_MODE_OPTIONS,
@@ -305,31 +248,9 @@ const runInteractiveInit = async (
     );
   }
 
-  // Content organization strategy → drives `compiler.output` (autogenerated
-  // content) or the syncJSON plugin injection. A compat library already
-  // dictates the catalog layout (its JSON/PO files are synced as-is), so the
-  // question is only asked when none is in play.
-  let contentStrategy: ContentStrategy | undefined;
-
-  if (!hasCompatLib) {
-    const selectedContentStrategy = await p.select<ContentStrategy>({
-      message: 'How do you want to organize your translated content?',
-      options: CONTENT_STRATEGY_OPTIONS,
-      initialValue: 'per-component',
-    });
-
-    if (p.isCancel(selectedContentStrategy)) {
-      p.cancel('Operation cancelled.');
-      return;
-    }
-
-    contentStrategy = selectedContentStrategy;
-  }
-
   const options: InitOptions = {
     ...baseOptions,
     routingMode,
-    contentStrategy,
     noInstallPackages: !steps.includes('packages'),
     // The `.gitignore` entry is never offered as a checkbox: in interactive
     // mode we always add `.intlayer` to `.gitignore`, only honoring an explicit
@@ -340,7 +261,7 @@ const runInteractiveInit = async (
     noGithubActions:
       baseOptions?.noGithubActions || !steps.includes('githubActions'),
     noFrameworkSetup:
-      baseOptions?.noFrameworkSetup || !steps.includes('frameworkSetup'),
+      baseOptions?.noFrameworkSetup || !steps.includes('projectSetup'),
     noVscodeExtension: !steps.includes('vscodeExtension'),
     noLsp: !steps.includes('lsp'),
     noEslint: !steps.includes('eslint'),
@@ -348,49 +269,13 @@ const runInteractiveInit = async (
 
   await initIntlayer(root, options);
 
-  const needsPlatform = steps.includes('skills') || steps.includes('mcp');
-
-  let sharedPlatform: Platform | undefined;
-
-  if (needsPlatform) {
-    const detectedPlatform = getDetectedPlatform();
-
-    try {
-      const response = await enquirer.prompt<{ platforms: Platform }>({
-        type: 'autocomplete',
-        name: 'platforms',
-        message: 'Which platform are you using? (Type to search)',
-        multiple: false,
-        initial: detectedPlatform
-          ? PLATFORMS.indexOf(detectedPlatform)
-          : undefined,
-        choices: PLATFORM_OPTIONS.map((opt) => ({
-          name: opt.value,
-          message: opt.label,
-          hint: opt.hint,
-        })),
-      });
-      sharedPlatform = response.platforms;
-    } catch {
-      p.cancel('Operation cancelled.');
-      return;
-    }
-  }
-
-  if (steps.includes('skills')) {
-    await initSkills(root, sharedPlatform);
-  }
+  // Skills ask for the platform after the skill selection; MCP reuses it.
+  const skillsPlatform = steps.includes('skills')
+    ? await initSkills(root)
+    : undefined;
 
   if (steps.includes('mcp')) {
-    await initMCP(root, sharedPlatform);
-  }
-
-  if (steps.includes('compiler')) {
-    await initCompiler(root);
-  }
-
-  if (steps.includes('buildOptimization')) {
-    await initBuildOptimization(root);
+    await initMCP(root, skillsPlatform);
   }
 
   // Delegated to the hosted install script, which owns its own menu.
@@ -398,21 +283,10 @@ const runInteractiveInit = async (
     await initInfra();
   }
 
-  // CMS / visual editor is the last step: an opt-in browser login that
-  // persists the access-key credentials to `.env` and enables the editor in the
-  // config file. Asked last so the browser flow does not interrupt setup.
-  const shouldSetUpCms = await p.confirm({
-    message:
-      'Set up the Intlayer CMS now? (opens your browser to log in, then stores the credentials in your .env)',
-    initialValue: false,
-  });
-
-  if (p.isCancel(shouldSetUpCms)) {
-    p.cancel('Operation cancelled.');
-    return;
-  }
-
-  if (shouldSetUpCms) {
+  // CMS / visual editor runs last: the browser login persists the access-key
+  // credentials to `.env` and enables the editor in the config file. Kept last
+  // so the browser flow does not interrupt setup.
+  if (steps.includes('cms')) {
     p.log.info('Opening your browser to log in to the Intlayer CMS...');
     // `exitAfter: false` keeps the process alive so the flow can finish; the
     // credentials are persisted to `.env` and the editor enabled in the config.

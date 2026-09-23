@@ -3,6 +3,7 @@ export * from './configManipulation';
 export * from './devScript';
 export * from './fileSystem';
 export * from './githubActions';
+export * from './intlayerDependencies';
 export * from './jsonParser';
 export * from './nextCompilerBabel';
 export * from './packageManager';

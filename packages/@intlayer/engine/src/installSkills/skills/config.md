@@ -18,7 +18,7 @@ Configure Intlayer project settings and environment variables. Check these files
 
 Supported configuration files:
 
-- `intlayer.config.{ts|js|json|json5|jsonc|cjs|mjs}`
+- `intlayer.config.{ts|js|cjs|mjs|json|json5|jsonc}`
 - `.intlayerrc`
 
 It acts as the central brain for your application's internationalization strategy. It is divided into several specialized sections that control everything from language support to AI-powered translations.
@@ -49,6 +49,20 @@ Manages how and where your translation files are handled.
 
 Settings for the visual workflow and internal plumbing.
 
+## Retrieving configuration into your app
+
+```ts
+import { defaultLocale, getConfiguration, locales } from "intlayer";
+
+console.log(locales); // ['en', 'fr', ...]
+console.log(defaultLocale); // 'en'
+
+// Other sections: internationalization, routing, editor, content, log
+const { routing } = getConfiguration();
+
+console.log(routing.mode); // 'prefix-no-default'
+```
+
 ## References
 
 - [Website](https://intlayer.org)
@@ -57,7 +71,3 @@ Settings for the visual workflow and internal plumbing.
 ### Concepts
 
 - [Configuration](https://intlayer.org/doc/concept/configuration.md)
-
-### Packages
-
-- [Intlayer getConfiguration](https://intlayer.org/doc/packages/intlayer/getConfiguration.md)

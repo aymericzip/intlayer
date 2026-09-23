@@ -2,6 +2,7 @@
   "recommendations": [
     "biomejs.biome",
     "esbenp.prettier-vscode",
-    "emeraldwalk.runonsave"
+    "emeraldwalk.runonsave",
+    "intlayer.intlayer-vs-code-extension"
   ]
 }

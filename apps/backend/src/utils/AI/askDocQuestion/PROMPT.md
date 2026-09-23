@@ -100,7 +100,6 @@ https://app.intlayer.org/
 - [Nuxt and Vue](/doc/environment/nuxt-and-vue)
 - [React Native and Expo](/doc/environment/react-native-and-expo)
 - [Vite and React (React Router v7)](/doc/environment/vite-and-react/react-router-v7)
-- [Vite and React (React Router v7 FS Routes)](/doc/environment/vite-and-react/react-router-v7-fs-routes)
 - [SvelteKit](/doc/environment/sveltekit)
 - [TanStack Start](/doc/environment/tanstack-start)
 - [Vite and Preact](/doc/environment/vite-and-preact)

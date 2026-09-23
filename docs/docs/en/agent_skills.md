@@ -99,7 +99,7 @@ npx skills add aymericzip/intlayer-skills
 
 - Teaches the agent to use Svelte stores and idiomatic syntax for reactive and type-safe localized content across Svelte and SvelteKit apps.
 
-**intlayer-cms**
+**intlayer-remote-content**
 
 - Allows the agent to integrate and manage remote content, enabling it to handle live-syncing and remote translation workflows via the Intlayer CMS.
 
@@ -114,3 +114,31 @@ npx skills add aymericzip/intlayer-skills
 **intlayer-compiler**
 
 - Simplifies the agent's workflow by enabling automatic content extraction, allowing it to write translatable strings directly in your code without manual dictionary files.
+
+**intlayer-lit**
+
+- Teaches the agent to translate Lit web components with the `useIntlayer` and `useLocale` ReactiveControllers.
+
+**intlayer-vanilla**
+
+- Enables the agent to localize plain JavaScript / TypeScript pages with `vanilla-intlayer`, with or without a bundler.
+
+**intlayer-remix**
+
+- Gives the agent the Remix 3 router middleware and the request-scoped `useIntlayer` / `useLocale` hooks.
+
+**intlayer-backend**
+
+- Equips the agent to translate server responses in Express, Fastify, Hono, NestJS, AdonisJS and Elysia through one shared middleware + `t` / `getIntlayer` pattern.
+
+**intlayer-dev-tools**
+
+- Lets the agent set up the Intlayer tooling around your code: ESLint rules for hardcoded strings, the Language Server, the VS Code and Chrome extensions, the MCP server and CI/CD translation checks.
+
+**intlayer-markdown**
+
+- Teaches the agent to declare Markdown content (`md()`, `.content.md` files, external files) and render it with MDX components, a global `MarkdownProvider`, Suspense and server-side parsing.
+
+**intlayer-compat**
+
+- Guides the agent through migrating from i18next, react-i18next, next-intl, next-i18next, react-intl, vue-i18n or Lingui with compat adapters that keep the original API, so translation calls don't need rewriting.

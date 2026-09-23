@@ -10,46 +10,127 @@ import { getMarkdownMetadata } from '@intlayer/core/markdown';
 export const SKILLS_METADATA = {
   Config: 'Intlayer configuration documentation',
   Content: 'Reference for all Intlayer content node types (t, enu, etc.)',
+  Markdown:
+    'Markdown / rich text content: md(), MDX components, MarkdownProvider, SSR',
   Usage: 'How to use Intlayer in your project',
   CLI: 'Intlayer CLI commands and usage',
   Compiler:
     'Intlayer Compiler setup and usage for automatic content extraction without .content files',
   RemoteContent: 'How to use Intlayer with Remote/CMS/Server-side content',
+  DevTools: 'ESLint, LSP, VS Code & Chrome extensions, MCP server and CI/CD',
+  Compat:
+    'Migrate from i18next, next-intl, react-intl, vue-i18n, Lingui… keeping their API',
   NextJS: 'Next.js-specific usage (Server & Client components)',
   React: 'React-specific syntax and hooks usage',
   Vue: 'Vue-specific composables and syntax',
   Svelte: 'Svelte-specific stores and syntax',
   Angular: 'Angular-specific syntax and Injectable Function usage',
   Preact: 'Preact-specific syntax and hooks usage',
-  Solid:
-    'Integrates Intlayer internationalization with SolidJS components. Use when the user asks to "setup SolidJS i18n", use the "useIntlayer" hook in Solid, or manage locales in a SolidJS application.',
-  Astro: 'Astro-specific usage and getIntlayer',
+  Solid: 'Solid-specific syntax and hooks usage',
+  Astro: 'Astro-specific usage, middleware and islands',
+  Lit: 'Lit-specific ReactiveController usage (useIntlayer, useLocale)',
+  Vanilla: 'Framework-less JavaScript usage (vanilla-intlayer)',
+  Remix: 'Remix 3 router middleware and request-scoped hooks',
+  Backend:
+    'Server-side usage for Express, Fastify, Hono, NestJS, AdonisJS and Elysia',
 } as const;
 
 export type Skill = keyof typeof SKILLS_METADATA;
 
 export const SKILLS = Object.keys(SKILLS_METADATA) as Skill[];
 
+/** Skills preselected for every project, whatever its stack. */
+const BASE_SKILLS: Skill[] = [
+  'Usage',
+  'Content',
+  'Config',
+  'CLI',
+  'Compiler',
+  'DevTools',
+];
+
+/**
+ * Packages whose presence in `package.json` preselects a framework skill.
+ * Both the framework itself and its Intlayer adapter are listed, so a skill is
+ * suggested before and after the adapter is installed.
+ */
+const SKILL_TRIGGER_PACKAGES: Partial<Record<Skill, string[]>> = {
+  NextJS: ['next', 'next-intlayer'],
+  React: [
+    'react',
+    'react-intlayer',
+    'react-native-intlayer',
+    'react-scripts-intlayer',
+    'lynx-intlayer',
+  ],
+  Preact: ['preact', 'preact-intlayer'],
+  Solid: ['solid-js', '@solidjs/start', 'solid-intlayer'],
+  Vue: ['vue', 'nuxt', 'vue-intlayer', 'nuxt-intlayer'],
+  Svelte: ['svelte', '@sveltejs/kit', 'svelte-intlayer'],
+  Angular: ['@angular/core', '@analogjs/platform', 'angular-intlayer'],
+  Astro: ['astro', 'astro-intlayer'],
+  Lit: ['lit', 'lit-intlayer'],
+  Vanilla: ['vanilla-intlayer'],
+  Remix: ['remix', 'remix-intlayer'],
+  Compat: [
+    'i18next',
+    'react-i18next',
+    'next-i18next',
+    'next-intl',
+    'use-intl',
+    'react-intl',
+    'vue-i18n',
+    '@lingui/core',
+    '@lingui/react',
+    '@nuxtjs/i18n',
+    '@ngx-translate/core',
+    '@jsverse/transloco',
+    'svelte-i18n',
+    'next-translate',
+    'node-polyglot',
+    'i18n-js',
+    '@intlayer/i18next',
+    '@intlayer/react-i18next',
+    '@intlayer/next-i18next',
+    '@intlayer/next-intl',
+    '@intlayer/use-intl',
+    '@intlayer/react-intl',
+    '@intlayer/vue-i18n',
+    '@intlayer/lingui',
+    '@intlayer/sync-json-plugin',
+    '@intlayer/sync-po-plugin',
+  ],
+  Backend: [
+    'express',
+    'fastify',
+    'hono',
+    'elysia',
+    '@nestjs/core',
+    '@adonisjs/core',
+    'express-intlayer',
+    'fastify-intlayer',
+    'hono-intlayer',
+    'elysia-intlayer',
+    'adonis-intlayer',
+  ],
+};
+
+/**
+ * Resolves the skills to preselect from the project's installed packages.
+ *
+ * @param dependencies - Merged `dependencies` and `devDependencies` of `package.json`.
+ * @returns The base skills plus every framework skill whose packages are installed.
+ */
 export const getInitialSkills = (
-  deps: Record<string, string>
-): (keyof typeof SKILLS_METADATA)[] => {
-  const skills: (keyof typeof SKILLS_METADATA)[] = [
-    'Usage',
-    'Content',
-    'Config',
-    'CLI',
-    'Compiler',
-  ];
+  dependencies: Record<string, string>
+): Skill[] => {
+  const detectedSkills = SKILLS.filter((skill) =>
+    SKILL_TRIGGER_PACKAGES[skill]?.some(
+      (packageName) => packageName in dependencies
+    )
+  );
 
-  if (deps.next) skills.push('NextJS');
-  if (deps.react || !deps.next) skills.push('React');
-  if (deps.preact) skills.push('Preact');
-  if (deps['solid-js']) skills.push('Solid');
-  if (deps.vue || deps.nuxt) skills.push('Vue');
-  if (deps.svelte || deps['@sveltejs/kit']) skills.push('Svelte');
-  if (deps.astro) skills.push('Astro');
-
-  return skills;
+  return [...BASE_SKILLS, ...detectedSkills];
 };
 
 export interface PlatformMetadata {
@@ -385,7 +466,11 @@ export const installSkills = async (
 
         // Determine filename from slugs or URL path
         if (Array.isArray(metadata.slugs)) {
-          fileName = metadata.slugs.filter((slug) => slug !== 'doc').join('_');
+          fileName = metadata.slugs
+            .filter((slug) => slug !== 'doc')
+            .join('_')
+            // Scoped package slugs (`@intlayer/babel`) must not create subfolders
+            .replaceAll('/', '_');
         } else {
           const urlPath = new URL(url).pathname;
           fileName = urlPath

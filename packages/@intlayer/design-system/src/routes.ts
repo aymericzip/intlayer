@@ -233,8 +233,6 @@ export const Website_Doc_Environment_ViteAndReact_Path =
   '/doc/environment/vite-and-react' as const;
 export const Website_Doc_Environment_ViteAndReact_ReactRouterV7_Path =
   '/doc/environment/vite-and-react/react-router-v7' as const;
-export const Website_Doc_Environment_ViteAndReact_ReactRouterV7_FSRoutes_Path =
-  '/doc/environment/vite-and-react/react-router-v7-fs-routes' as const;
 export const Website_Doc_Environment_Tanstack_Path =
   '/doc/environment/tanstack-start' as const;
 export const Website_Doc_Environment_Lit_Path =
@@ -379,8 +377,6 @@ export const Website_Doc_Environment_ViteAndReact =
   `${Website_Origin}${Website_Doc_Environment_ViteAndReact_Path}` as const;
 export const Website_Doc_Environment_ViteAndReact_ReactRouterV7 =
   `${Website_Origin}${Website_Doc_Environment_ViteAndReact_ReactRouterV7_Path}` as const;
-export const Website_Doc_Environment_ViteAndReact_ReactRouterV7_FSRoutes =
-  `${Website_Origin}${Website_Doc_Environment_ViteAndReact_ReactRouterV7_FSRoutes_Path}` as const;
 export const Website_Doc_Environment_Tanstack =
   `${Website_Origin}${Website_Doc_Environment_Tanstack_Path}` as const;
 export const Website_Doc_Environment_Lit =
@@ -474,8 +470,6 @@ export const Doc_Environment_ViteAndReact_Path =
   '/environment/vite-and-react' as const;
 export const Doc_Environment_ViteAndReact_ReactRouterV7_Path =
   '/environment/vite-and-react/react-router-v7' as const;
-export const Doc_Environment_ViteAndReact_ReactRouterV7_FSRoutes_Path =
-  '/environment/vite-and-react/react-router-v7-fs-routes' as const;
 export const Doc_Environment_Tanstack_Path =
   '/environment/tanstack-start' as const;
 export const Doc_Environment_Lit_Path = '/environment/vite-and-lit' as const;

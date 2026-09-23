@@ -93,6 +93,30 @@ export const login = async (options: LoginOptions = {}) => {
   const cmsUrl = options.cmsUrl ?? configuration.editor.cmsURL;
 
   return new Promise<void>((resolve) => {
+    /**
+     * Sends the success page, then shuts the callback server down. Open
+     * keep-alive sockets are dropped: `server.close` alone waits for the
+     * browser to release them, which would leave the login pending forever.
+     */
+    const completeLogin = (
+      response: http.ServerResponse,
+      message: string
+    ): void => {
+      response.writeHead(200, {
+        'Content-Type': 'text/html',
+        Connection: 'close',
+      });
+      response.end(buildSuccessHtml(message), () => {
+        server.close();
+        server.closeAllConnections();
+        resolve();
+
+        if (options.exitAfter !== false) {
+          process.exit(0);
+        }
+      });
+    };
+
     const server = http.createServer(async (req, res) => {
       const url = new URL(req.url ?? '', `http://${req.headers.host}`);
 
@@ -133,19 +157,17 @@ export const login = async (options: LoginOptions = {}) => {
             new Date(sessionExpiresAt)
           );
 
-          res.writeHead(200, { 'Content-Type': 'text/html' });
-          res.end(
-            buildSuccessHtml(
-              'Your 2h session token has been stored. You can now close this tab and return to your terminal.'
-            )
-          );
+          if (options.onCredentials) {
+            logger(
+              'A session token does not configure the CMS: run `intlayer login` again and pick an access key to store the credentials in your .env.',
+              { level: 'warn' }
+            );
+          }
 
-          server.close(() => {
-            resolve();
-            if (options.exitAfter !== false) {
-              process.exit(0);
-            }
-          });
+          completeLogin(
+            res,
+            'Your 2h session token has been stored. You can now close this tab and return to your terminal.'
+          );
           return;
         }
 
@@ -216,19 +238,10 @@ export const login = async (options: LoginOptions = {}) => {
             );
           }
 
-          res.writeHead(200, { 'Content-Type': 'text/html' });
-          res.end(
-            buildSuccessHtml(
-              'You have successfully logged in to Intlayer CLI. You can now close this tab and return to your terminal.'
-            )
+          completeLogin(
+            res,
+            'You have successfully logged in to Intlayer CLI. You can now close this tab and return to your terminal.'
           );
-
-          server.close(() => {
-            resolve();
-            if (options.exitAfter !== false) {
-              process.exit(0);
-            }
-          });
         } else {
           res.writeHead(400, { 'Content-Type': 'text/plain' });
           res.end('Missing parameters');

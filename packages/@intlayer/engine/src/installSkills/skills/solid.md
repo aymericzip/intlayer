@@ -1,5 +1,5 @@
 ---
-name: intlayer-solid-js
+name: intlayer-solid
 description: Integrates Intlayer internationalization with SolidJS components. Use when the user asks to "setup SolidJS i18n", create a new translated component, use the "useIntlayer" hook in Solid, or configure providers.
 metadata:
   author: Intlayer
@@ -51,6 +51,8 @@ export default content;
 ## Setup
 
 - [Vite and Solid](https://intlayer.org/doc/environment/vite-and-solid.md)
+- [SolidStart](https://intlayer.org/doc/environment/solid-start.md)
+- [TanStack Start and Solid](https://intlayer.org/doc/environment/tanstack-start/solid.md)
 
 ## useIntlayer Hook
 
@@ -76,6 +78,10 @@ const MyComponent = () => {
 };
 ```
 
+## Compiler
+
+The [Intlayer Compiler](https://intlayer.org/doc/compiler.md) can extract all your content keys from your components, using one CLI command (`npx intlayer extract`) or automatically at app build.
+
 ## References
 
 - [Website](https://intlayer.org)
@@ -84,7 +90,21 @@ const MyComponent = () => {
 ### Environments
 
 - [Vite and Solid](https://intlayer.org/doc/environment/vite-and-solid.md)
+- [SolidStart](https://intlayer.org/doc/environment/solid-start.md)
+- [TanStack Start and Solid](https://intlayer.org/doc/environment/tanstack-start/solid.md)
+
+### Concepts
+
+- [Variants](https://intlayer.org/doc/concept/variants.md)
+- [Collections](https://intlayer.org/doc/concept/collections.md)
+- [Compiler](https://intlayer.org/doc/compiler.md)
+- [Formatters (number, currency, date, …)](https://intlayer.org/doc/formatters.md)
 
 ### Packages
 
 - [Solid Intlayer Exports](https://intlayer.org/doc/packages/solid-intlayer/exports.md)
+- [solid-intlayer IntlayerProvider](https://intlayer.org/doc/packages/solid-intlayer/IntlayerProvider.md)
+- [solid-intlayer useIntlayer](https://intlayer.org/doc/packages/solid-intlayer/useIntlayer.md)
+- [solid-intlayer useLocale](https://intlayer.org/doc/packages/solid-intlayer/useLocale.md)
+- [solid-intlayer usePathname](https://intlayer.org/doc/packages/solid-intlayer/usePathname.md)
+- [solid-intlayer useRewriteURL](https://intlayer.org/doc/packages/solid-intlayer/useRewriteURL.md)

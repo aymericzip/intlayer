@@ -34,7 +34,7 @@ const content = t({
 
 Find locales to declare in config file. Supported configuration files:
 
-- `intlayer.config.{ts|js|json|json5|jsonc|cjs|mjs}`
+- `intlayer.config.{ts|js|cjs|mjs|json|json5|jsonc|md|mdx|yml|yaml}`
 - `.intlayerrc`
 
 ## Enumeration (`enu`)

@@ -2,12 +2,10 @@ import { resolve } from 'node:path';
 import {
   installMCP,
   type MCPTransport,
-  PLATFORMS,
   type Platform,
 } from '@intlayer/engine/cli';
-import enquirer from 'enquirer';
 import { findProjectRoot } from './init';
-import { getDetectedPlatform, PLATFORM_OPTIONS } from './initSkills';
+import { promptPlatform } from './initSkills';
 import { loadPrompts } from './loadPrompts';
 
 export const initMCP = async (
@@ -22,34 +20,7 @@ export const initMCP = async (
 
   p.intro('Initializing Intlayer MCP Server');
 
-  let platform: Platform;
-
-  if (preselectedPlatform) {
-    platform = preselectedPlatform;
-  } else {
-    const detectedPlatform = getDetectedPlatform();
-
-    try {
-      const response = await enquirer.prompt<{ platforms: Platform }>({
-        type: 'autocomplete',
-        name: 'platforms',
-        message: 'Which platform are you using? (Type to search)',
-        multiple: false,
-        initial: detectedPlatform
-          ? PLATFORMS.indexOf(detectedPlatform)
-          : undefined,
-        choices: PLATFORM_OPTIONS.map((opt) => ({
-          name: opt.value,
-          message: opt.label,
-          hint: opt.hint,
-        })),
-      });
-      platform = response.platforms;
-    } catch {
-      p.cancel('Operation cancelled.');
-      return;
-    }
-  }
+  const platform = preselectedPlatform ?? (await promptPlatform());
 
   if (!platform) {
     p.cancel('Operation cancelled. No platform selected.');

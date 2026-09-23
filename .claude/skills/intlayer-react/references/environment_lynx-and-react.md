@@ -1,0 +1,475 @@
+---
+createdAt: 2025-03-09
+updatedAt: 2026-05-31
+title: "Lynx + React i18n - Complete guide to translate your app"
+description: "No more i18next. The 2026 guide to building a multilingual (i18n) Lynx + React app. Translate with AI agents and optimize bundle size, SEO and performances."
+keywords:
+  - Internationalization
+  - Documentation
+  - Intlayer
+  - Vite
+  - React
+  - Lynx
+  - JavaScript
+slugs:
+  - doc
+  - environment
+  - lynx-and-react
+applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
+history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Add init command"
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: "Initial history"
+author: aymericzip
+---
+
+# Translate your Lynx and React mobile app website using Intlayer | Internationalization (i18n)
+
+See [Application Template](https://github.com/aymericzip/intlayer-lynx-template) on GitHub.
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-lynx-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+## Why Intlayer over alternatives?
+
+Compared to main solutions like `react-native-localize` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
+
+<AccordionGroup>
+<Accordion header="Full Lynx coverage">
+
+Intlayer is optimized to work perfectly with Lynx and React by offering **component-level content scoping**, **TypeScript support**, and all the features needed for scaling internationalization (i18n).
+
+</Accordion>
+<Accordion header="Bundle size">
+
+Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
+
+</Accordion>
+<Accordion header="Maintainability">
+
+Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
+
+</Accordion>
+<Accordion header="AI Agent">
+
+Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
+
+</Accordion>
+<Accordion header="Automation">
+
+Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
+
+</Accordion>
+<Accordion header="Performance">
+
+Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
+
+</Accordion>
+<Accordion header="Scaling with none-dev">
+
+More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+</Accordion>
+</AccordionGroup>
+
+<Steps>
+<Step number={1} title="Install Dependencies">
+
+From your Lynx project, install the following packages:
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer init --interactive
+```
+
+> the `--interactive` flag is optional. Use `intlayer-cli init` if you're an AI agent.
+
+> This command will detect your environment and install the required packages. For example:
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer lynx-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer lynx-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer lynx-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer lynx-intlayer
+```
+
+### Packages
+
+- **intlayer**  
+  The core i18n toolkit for configuration, dictionary content, types generation, and CLI commands.
+
+- **react-intlayer**  
+  React integration that provides the context providers and React hooks you’ll use in Lynx for obtaining and switching locales.
+
+- **lynx-intlayer**  
+  Lynx integration that provides the plugin for integrating Intlayer with the Lynx bundler.
+
+</Step>
+<Step number={2} title="Create an Intlayer Config">
+
+In your project root (or anywhere convenient), create an **Intlayer config** file. It might look like this:
+
+```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // ... Add any other locales you need
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+Within this config, you can:
+
+- Configure your **list of supported locales**.
+- Set a **default** locale.
+- Later, you may add more advanced options (e.g., logs, custom content directories, etc.).
+- See the [Intlayer configuration docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) for more.
+
+</Step>
+<Step number={3} title="Add the Intlayer plugin to the Lynx bundler">
+
+To use Intlayer with Lynx, you need to add the plugin to your `lynx.config.ts` file:
+
+```ts fileName="lynx.config.ts"
+import { defineConfig } from "@lynx-js/rspeedy";
+import { pluginIntlayerLynx } from "lynx-intlayer/plugin";
+
+export default defineConfig({
+  plugins: [
+    // ... other plugins
+    pluginIntlayerLynx(),
+  ],
+});
+```
+
+</Step>
+<Step number={4} title="Add the Intlayer provider">
+
+To keep synchronized the user language across your application, you need to wrap your root component with the `IntlayerProvider` component from `react-intlayer`.
+
+Also, you need to add the `intlayerPolyfill` function file to ensure that Intlayer can work properly.
+
+```tsx fileName="src/index.tsx"
+import { root } from "@lynx-js/react";
+
+import { App } from "./App.js";
+import { IntlayerProvider } from "react-intlayer";
+import { intlayerPolyfill } from "lynx-intlayer";
+
+intlayerPolyfill();
+
+root.render(
+  <IntlayerProvider>
+    <App />
+  </IntlayerProvider>
+);
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept();
+}
+```
+
+</Step>
+<Step number={5} title="Declare Your Content">
+
+Create **content declaration** files anywhere in your project (commonly within `src/`), using any of the extension formats that Intlayer supports:
+
+- `.content.json`
+- `.content.jsonc`
+- `.content.json5`
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.jsx`
+- `.content.mjs`
+- `.content.mjx`
+- `.content.cjs`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
+- etc.
+
+Example:
+
+```tsx fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const appContent = {
+  key: "app",
+  content: {
+    title: "React",
+    subtitle: t({
+      en: "on Lynx",
+      fr: "sur Lynx",
+      es: "en Lynx",
+    }),
+    description: t({
+      en: "Tap the logo and have fun!",
+      fr: "Appuyez sur le logo et amusez-vous!",
+      es: "¡Toca el logo y diviértete!",
+    }),
+    hint: [
+      t({
+        en: "Edit",
+        fr: "Modifier",
+        es: "Editar",
+      }),
+      " src/App.tsx ",
+      t({
+        en: "to see updates!",
+        fr: "pour voir les mises à jour!",
+        es: "para ver actualizaciones!",
+      }),
+    ],
+  },
+} satisfies Dictionary;
+
+export default appContent;
+```
+
+```json fileName="src/app.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "app",
+  "content": {
+    "title": "React",
+    "subtitle": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "on Lynx",
+        "fr": "sur Lynx",
+        "es": "en Lynx"
+      }
+    },
+    "description": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Tap the logo and have fun!",
+        "fr": "Appuyez sur le logo et amusez-vous!",
+        "es": "¡Toca el logo y diviértete!"
+      }
+    },
+    "hint": [
+      {
+        "nodeType": "translation",
+        "translation": {
+          "en": "Edit",
+          "fr": "Modifier",
+          "es": "Editar"
+        }
+      },
+      " src/App.tsx ",
+      {
+        "nodeType": "translation",
+        "translation": {
+          "en": "to see updates!",
+          "fr": "pour voir les mises à jour!",
+          "es": "para ver actualizaciones!"
+        }
+      }
+    ]
+  }
+}
+```
+
+> For details on content declarations, see [Intlayer’s content docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
+
+</Step>
+<Step number={6} title="Use Intlayer in Your Components">
+
+Use the `useIntlayer` hook in child components to get localized content.
+
+```tsx fileName="src/App.tsx"
+import { useCallback, useState } from "@lynx-js/react";
+import { useIntlayer } from "react-intlayer";
+
+import "./App.css";
+import arrow from "./assets/arrow.png";
+import lynxLogo from "./assets/lynx-logo.png";
+import reactLynxLogo from "./assets/react-logo.png";
+import { LocaleSwitcher } from "./components/LocaleSwitcher.jsx";
+
+export const App = () => {
+  const [alterLogo, setAlterLogo] = useState(false);
+  const { title, subtitle, description, hint } = useIntlayer("app");
+
+  const onTap = useCallback(() => {
+    "background only";
+    setAlterLogo(!alterLogo);
+  }, [alterLogo]);
+
+  return (
+    <view>
+      <view className="Background" />
+      <view className="App">
+        <view className="Banner">
+          <view className="Logo" bindtap={onTap}>
+            {alterLogo ? (
+              <image src={reactLynxLogo} className="Logo--react" />
+            ) : (
+              <image src={lynxLogo} className="Logo--lynx" />
+            )}
+          </view>
+          <text className="Title">{title}</text>
+          <text className="Subtitle">{subtitle}</text>
+        </view>
+        <view className="Content">
+          <image src={arrow} className="Arrow" />
+          <text className="Description">{description}</text>
+          <text className="Hint">
+            {hint[0]}
+            <text style={{ fontStyle: "italic" }}>{hint[1]}</text>
+            {hint[2]}
+          </text>
+        </view>
+        <LocaleSwitcher />
+        <view style={{ flex: 1 }}></view>
+      </view>
+    </view>
+  );
+};
+```
+
+> When using `content.someKey` in string-based props (e.g., a button’s `title` or a `Text` component’s `children`), **call `content.someKey.value`** to get the actual string.
+
+</Step>
+<Step number={7} title="Change the App Locale" isOptional={true}>
+
+To switch locales from within your components, you can use the `useLocale` hook’s `setLocale` method:
+
+```tsx fileName="src/components/LocaleSwitcher.tsx"
+import { type FC } from "react";
+import { getLocaleName } from "intlayer";
+import { useLocale } from "react-intlayer";
+
+export const LocaleSwitcher: FC = () => {
+  const { setLocale, availableLocales, locale } = useLocale();
+
+  return (
+    <view
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 10,
+      }}
+    >
+      {availableLocales.map((localeEl) => (
+        <text
+          key={localeEl}
+          style={{
+            color: localeEl === locale ? "#fff" : "#888",
+            fontSize: "12px",
+          }}
+          bindtap={() => setLocale(localeEl)}
+        >
+          {getLocaleName(localeEl)}
+        </text>
+      ))}
+    </view>
+  );
+};
+```
+
+This triggers a re-render of all components that use Intlayer content, now showing translations for the new locale.
+
+> See [`useLocale` docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) for more details.
+
+</Step>
+
+</Steps>
+
+## Configure TypeScript (if you use TypeScript)
+
+Intlayer generates type definitions in a hidden folder (by default `.intlayer`) to improve autocompletion and catch translation errors:
+
+```json5
+// tsconfig.json
+{
+  // ... your existing TS config
+  "include": [
+    "src", // your source code
+    ".intlayer/types/**/*.ts", // <-- ensure the auto-generated types are included
+    // ... anything else you already include
+  ],
+}
+```
+
+This is what enables features like:
+
+- **Autocompletion** for your dictionary keys.
+- **Type checking** that warns if you access a non-existent key or mismatch the type.
+
+## Git Configuration
+
+To avoid committing auto-generated files by Intlayer, add the following to your `.gitignore`:
+
+```bash
+# Ignore the files generated by Intlayer
+.intlayer
+```
+
+### VS Code Extension
+
+To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
+
+[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+This extension provides:
+
+- **Autocompletion** for translation keys.
+- **Real-time error detection** for missing translations.
+- **Inline previews** of translated content.
+- **Quick actions** to easily create and update translations.
+
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+
+## Go Further
+
+- **Visual Editor**: Use the [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) to manage translations visually.
+- **CMS Integration**: You can also externalize and fetch your dictionary content from a [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+- **CLI Commands**: Explore the [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) for tasks like **extracting translations** or **checking missing keys**.
+
+---

@@ -53,58 +53,31 @@ export default content;
 - [Next.js](https://intlayer.org/doc/environment/nextjs.md)
 - [Next.js 14](https://intlayer.org/doc/environment/nextjs/14.md)
 - [Next.js 15](https://intlayer.org/doc/environment/nextjs/15.md)
-- [No Locale Path](https://intlayer.org/doc/environment/nextjs/no-locale-path.md)
 - [Page Router](https://intlayer.org/doc/environment/nextjs/next-with-page-router.md)
 
-## Server Components
+## Provider
 
-To use Intlayer in Server Components, use `IntlayerServerProvider` to provide the locale and `useIntlayer` from `next-intlayer/server`.
+Mount one `IntlayerProvider` (from `next-intlayer/server`) in the `[locale]` layout. It serves both server and client components, so pages don't wrap themselves (see the [Next.js guide](https://intlayer.org/doc/environment/nextjs.md)).
 
-```tsx
-import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+## useIntlayer Hook
 
-const MyServerComponent = () => {
-  const content = useIntlayer("my-component");
-  return (
-    <div>
-      <h1>{content.text}</h1>
-    </div>
-  );
-};
-
-const Page = async ({ params }) => {
-  const { locale } = await params;
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <MyServerComponent />
-    </IntlayerServerProvider>
-  );
-};
-
-export default Page;
-```
-
-## Client Components
-
-For Client Components, add the `"use client"` directive and use `useIntlayer` from `next-intlayer`. Ensure the component is wrapped in an `IntlayerClientProvider`.
+`next-intlayer` is isomorphic: the same `useIntlayer` import works in Server Components and in `"use client"` components.
 
 ```tsx
-"use client";
-
 import { useIntlayer } from "next-intlayer";
 
-export const MyClientComponent = () => {
+export const MyComponent = () => {
   const content = useIntlayer("my-component");
 
-  return (
-    <div>
-      <h1>{content.text}</h1>
-    </div>
-  );
+  return <h1>{content.text}</h1>;
 };
 ```
 
 [Next.js package Documentation](https://intlayer.org/doc/packages/next-intlayer/exports.md)
+
+## Compiler
+
+The [Intlayer Compiler](https://intlayer.org/doc/compiler.md) can extract all your content keys from your components, using one CLI command (`npx intlayer extract`) or automatically at app build.
 
 ## References
 
@@ -116,8 +89,16 @@ export const MyClientComponent = () => {
 - [Next.js](https://intlayer.org/doc/environment/nextjs.md)
 - [Next.js 14](https://intlayer.org/doc/environment/nextjs/14.md)
 - [Next.js 15](https://intlayer.org/doc/environment/nextjs/15.md)
-- [Next.js No Locale Path](https://intlayer.org/doc/environment/nextjs/no-locale-path.md)
 - [Next.js with Page Router](https://intlayer.org/doc/environment/nextjs/next-with-page-router.md)
+- [Intlayer with next-intl](https://intlayer.org/doc/next-intl.md)
+- [Intlayer with next-i18next](https://intlayer.org/doc/next-i18next.md)
+
+### Concepts
+
+- [Variants](https://intlayer.org/doc/concept/variants.md)
+- [Collections](https://intlayer.org/doc/concept/collections.md)
+- [Compiler](https://intlayer.org/doc/compiler.md)
+- [Formatters (number, currency, date, …)](https://intlayer.org/doc/formatters.md)
 
 ### Packages
 
@@ -128,3 +109,5 @@ export const MyClientComponent = () => {
 - [Next Intlayer useDictionary](https://intlayer.org/doc/packages/next-intlayer/useDictionary.md)
 - [Next Intlayer useIntlayer](https://intlayer.org/doc/packages/next-intlayer/useIntlayer.md)
 - [Next Intlayer useLocale](https://intlayer.org/doc/packages/next-intlayer/useLocale.md)
+- [next-intlayer usePathname](https://intlayer.org/doc/packages/next-intlayer/usePathname.md)
+- [next-intlayer useRewriteURL](https://intlayer.org/doc/packages/next-intlayer/useRewriteURL.md)

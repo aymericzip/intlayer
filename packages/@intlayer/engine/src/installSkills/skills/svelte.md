@@ -73,12 +73,33 @@ In Svelte, `useIntlayer` returns a **store**. You must use the `$` prefix to acc
 </div>
 ```
 
+## Compiler
+
+The [Intlayer Compiler](https://intlayer.org/doc/compiler.md) can extract all your content keys from your components, using one CLI command (`npx intlayer extract`) or automatically at app build.
+
+It activates once `compiler.enabled` and `compiler.output` are set: `.svelte` files additionally require `@intlayer/svelte-compiler`.
+
 ## References
 
 - [Website](https://intlayer.org)
 - [Doc](https://intlayer.org/doc)
 
-- [Intlayer Exports](https://intlayer.org/doc/packages/intlayer/exports.md)
+### Environments
+
 - [Vite and Svelte](https://intlayer.org/doc/environment/vite-and-svelte.md)
 - [SvelteKit](https://intlayer.org/doc/environment/sveltekit.md)
+- [Astro and Svelte](https://intlayer.org/doc/environment/astro/svelte.md)
+
+### Concepts
+
+- [Variants](https://intlayer.org/doc/concept/variants.md)
+- [Collections](https://intlayer.org/doc/concept/collections.md)
+- [Compiler](https://intlayer.org/doc/compiler.md)
+- [Formatters (number, currency, date, …)](https://intlayer.org/doc/formatters.md)
+
+### Packages
+
+- [Intlayer Exports](https://intlayer.org/doc/packages/intlayer/exports.md)
 - [Svelte Intlayer Exports](https://intlayer.org/doc/packages/svelte-intlayer/exports.md)
+- [svelte-intlayer usePathname](https://intlayer.org/doc/packages/svelte-intlayer/usePathname.md)
+- [svelte-intlayer useRewriteURL](https://intlayer.org/doc/packages/svelte-intlayer/useRewriteURL.md)

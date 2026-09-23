@@ -51,19 +51,10 @@ export default content;
 ## Setup
 
 - [Angular](https://intlayer.org/doc/environment/angular.md)
+- [Angular 19](https://intlayer.org/doc/environment/angular/19.md)
+- [Analog](https://intlayer.org/doc/environment/analog.md)
 
-### Intlayer Provider
-
-To use Intlayer in your Angular application, you need to add the `provideIntlayer` provider to your application configuration.
-
-```typescript
-import { ApplicationConfig } from "@angular/core";
-import { provideIntlayer } from "angular-intlayer";
-
-export const appConfig: ApplicationConfig = {
-  providers: [provideIntlayer()],
-};
-```
+Register `provideIntlayer()` in the `providers` of your `ApplicationConfig` (see the [Angular guide](https://intlayer.org/doc/environment/angular.md)).
 
 ## useIntlayer Hook
 
@@ -90,70 +81,30 @@ export class MyComponent {
 }
 ```
 
-## Change language
+## Compiler
 
-To change the language, use the `setLocale` function from the `useLocale` hook.
-
-```typescript
-import { Component } from "@angular/core";
-import { useLocale } from "angular-intlayer";
-import { Locales } from "intlayer";
-
-@Component({
-  selector: "app-locale-switcher",
-  standalone: true,
-  template: `
-    <button (click)="setLocale(Locales.FRENCH)">
-      Change Language to French
-    </button>
-  `,
-})
-export class LocaleSwitcherComponent {
-  Locales = Locales;
-  private localeCtx = useLocale();
-  setLocale = this.localeCtx.setLocale;
-}
-```
-
-## Localized Link component
-
-Ensure your application's navigation respects the current locale by using a localized link. You can create a component or use a helper.
-
-```typescript
-import { Component, Input } from "@angular/core";
-import { RouterModule } from "@angular/router";
-import { useLocale } from "angular-intlayer";
-import { getLocalizedUrl } from "intlayer";
-
-@Component({
-  selector: "app-link",
-  standalone: true,
-  imports: [RouterModule],
-  template: `
-    <a [routerLink]="localizedHref()" [replaceUrl]="false">
-      <ng-content></ng-content>
-    </a>
-  `,
-})
-export class LinkComponent {
-  @Input() href: string = "";
-
-  private localeCtx = useLocale();
-  locale = this.localeCtx.locale;
-
-  localizedHref() {
-    return this.href.startsWith("http")
-      ? this.href
-      : getLocalizedUrl(this.href, this.locale());
-  }
-}
-```
+The [Intlayer Compiler](https://intlayer.org/doc/compiler.md) can extract all your content keys from your components, using one CLI command (`npx intlayer extract`) or automatically at app build.
 
 ## References
 
 - [Website](https://intlayer.org)
 - [Doc](https://intlayer.org/doc)
 
+### Environments
+
 - [Angular](https://intlayer.org/doc/environment/angular.md)
+- [Angular 19](https://intlayer.org/doc/environment/angular/19.md)
+- [Analog](https://intlayer.org/doc/environment/analog.md)
+
+### Concepts
+
+- [Variants](https://intlayer.org/doc/concept/variants.md)
+- [Collections](https://intlayer.org/doc/concept/collections.md)
+- [Compiler](https://intlayer.org/doc/compiler.md)
+- [Formatters (number, currency, date, …)](https://intlayer.org/doc/formatters.md)
+
+### Packages
+
 - [Angular Intlayer Exports](https://intlayer.org/doc/packages/angular-intlayer/exports.md)
 - [Intlayer Exports](https://intlayer.org/doc/packages/intlayer/exports.md)
+- [angular-intlayer usePathname](https://intlayer.org/doc/packages/angular-intlayer/usePathname.md)

@@ -1,0 +1,387 @@
+---
+createdAt: 2025-09-09
+updatedAt: 2026-09-08
+title: Intlayer Compiler | Automated Content Extraction for i18n
+description: Automate your internationalization process with the Intlayer Compiler. Extract content directly from your components for faster, more efficient i18n in Vite, Next.js, and more.
+keywords:
+  - Intlayer
+  - Compiler
+  - Internationalization
+  - i18n
+  - Automation
+  - Extraction
+  - Speed
+  - Vite
+  - Next.js
+  - React
+  - Vue
+  - Svelte
+slugs:
+  - doc
+  - compiler
+history:
+  - version: 9.0.0
+    date: 2026-06-24
+    changes: "Add change regarding Intlayer v9"
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: "Update compiler options, add FilePathPattern support"
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: "Update compiler options"
+  - version: 7.3.1
+    date: 2025-11-27
+    changes: "Release Compiler"
+author: aymericzip
+---
+
+# Intlayer Compiler | Automated Content Extraction for i18n
+
+## What is the Intlayer Compiler?
+
+The **Intlayer Compiler** is a powerful tool designed to automate the process of internationalization (i18n) in your applications. It scans your source code (JSX, TSX, Vue, Svelte) for content declarations, extracts them, and automatically generates the necessary dictionary files. This allows you to keep your content co-located with your components while Intlayer handles the management and synchronization of your dictionaries.
+
+## Why Use the Intlayer Compiler?
+
+- **Automation**: Eliminates manual copy-pasting of content into dictionaries.
+
+- **Speed**: Optimized content extraction ensuring your build process remains fast.
+
+- **Developer Experience**: Keep content declarations right where they are used, improving maintainability.
+
+- **Live Updates**: Supports Hot Module Replacement (HMR) for instant feedback during development.
+
+See the [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md) blog post for a deeper comparison.
+
+## Why not use the Intlayer Compiler?
+
+While the compiler offers an excellent "just works" experience, it also introduces some trade-offs you should be aware of:
+
+- **Heuristic ambiguity**: The compiler must guess what is user-facing content vs. application logic (e.g., `className="active"`, status codes, product IDs). In complex codebases, this can lead to false positives or missed strings that require manual annotations and exceptions.
+
+- **Static-only extraction**: Compiler-based extraction relies on static analysis. Strings that only exist at runtime (API error codes, CMS fields, etc.) cannot be discovered or translated by the compiler alone, so you still need a complementary runtime i18n strategy.
+
+For a deeper architectural comparison, see the blog post [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md).
+
+As an alternative, to automate your i18n process while keeping full control of your content, Intlayer also provides an auto-extraction command `intlayer extract` (see [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md)), or the `Intlayer: extract content to Dictionary` command from the Intlayer VS Code extension (see [VS Code extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)).
+
+## Usage
+
+> The quickest way to wire the compiler in is the interactive setup: run `npx intlayer init --interactive` and select **Compiler**. On Next.js and Vite, it activates automatically once `compiler.enabled` is set and a `compiler.output` path is configured.
+
+<Tabs>
+ <Tab value='vite'>
+
+### Vite
+
+For Vite-based applications (React, Vue, Svelte, etc.), the compiler is bundled directly into the main `intlayer()` plugin from the `vite-intlayer` package. There is no separate plugin to register.
+
+#### Installation
+
+```bash
+npm install vite-intlayer
+```
+
+#### Configuration
+
+The `intlayer()` plugin already includes the compiler. It activates automatically once `compiler.enabled` is set and a `compiler.output` path is configured in your `intlayer.config.ts` (see [Custom config](#custom-config) below):
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [intlayer()],
+});
+```
+
+> The standalone `intlayerCompiler()` plugin is still exported for advanced setups. Registering it alongside `intlayer()` is safe — the compiler deduplicates itself and runs only once.
+
+See complete tutorial: [Translate Vite and React with Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
+
+#### Framework Support
+
+The Vite plugin automatically detects and handles different file types:
+
+- **React / JSX / TSX**: Handled natively.
+
+- **Vue**: Requires `@intlayer/vue-compiler`.
+
+- **Svelte**: Requires `@intlayer/svelte-compiler`.
+
+Make sure to install the appropriate compiler package for your framework:
+
+```bash
+# For Vue
+npm install @intlayer/vue-compiler
+
+# For Svelte
+npm install @intlayer/svelte-compiler
+```
+
+ </Tab>
+ <Tab value='nextjs'>
+
+### Next.js
+
+On Next.js the compiler runs as a bundler loader, `next-intlayer/extractor-loader`. `withIntlayer` registers it for you on **both** Turbopack and webpack — there is no `babel.config.js` to write.
+
+#### Installation
+
+```bash
+npm install @intlayer/babel
+```
+
+#### Configuration
+
+Nothing to configure. As long as your `next.config.ts` goes through `withIntlayer`, installing `@intlayer/babel` is enough for the loader to be registered:
+
+```ts fileName="next.config.ts"
+import { withIntlayer } from "next-intlayer/server";
+
+export default withIntlayer({});
+```
+
+The loader runs on `.tsx` and `.jsx` files, ahead of `next-swc-loader`, so it reads your original JSX. Content declared in your components is extracted to `.content` files and built into `.intlayer` as the file is compiled.
+
+ </Tab>
+
+ <Tab value="Babel">
+
+### Babel
+
+For Webpack-based applications using Babel, you can configure the compiler using the `@intlayer/babel` plugin.
+
+#### Installation
+
+```bash
+npm install @intlayer/babel
+```
+
+#### Configuration
+
+Update your `babel.config.js` (or `babel.config.json`) to include the extraction plugin. We provide a helper `getExtractPluginOptions` to load your Intlayer configuration automatically.
+
+```js fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    // Extract content from components into dictionaries
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    // Optimize imports by replacing useIntlayer with direct dictionary imports
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
+This configuration ensures that content declared in your components is automatically extracted and used to generate dictionaries during your build process.
+
+ </Tab>
+</Tabs>
+
+### Custom config
+
+To customize the compiler behavior, you can update the `intlayer.config.ts` file in the root of your project.
+
+````ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     * Set to 'build-only' to skip the compiler during development and speed up start times.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path. Replaces `outputDir`.
+     *
+     * - `./` paths are resolved relative to the component directory.
+     * - `/` paths are resolved relative to the project root (`baseDir`).
+     *
+     * - Including the `{{locale}}` variable in the path will trigger the generation of separate dictionaries per locale.
+     *
+     * Example:
+     * ```ts
+     * {
+     *   // Create Multilingual .content.ts files close to the component
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Equivalent using template string
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Create centralize per-locale JSON at the root of the project
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using template string
+     * }
+     * ```
+     *
+     * Variable list:
+     *   - `fileName`: The name of the file.
+     *   - `key`: The key of the content.
+     *   - `locale`: The locale of the content.
+     *   - `extension`: The extension of the file.
+     *   - `componentFileName`: The name of the component file.
+     *   - `componentExtension`: The extension of the component file.
+     *   - `format`: The format of the dictionary.
+     *   - `componentFormat`: The format of the component dictionary.
+     *   - `componentDirPath`: The directory path of the component.
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     *
+     * - If `true`, the compiler will rewrite the component file in the disk. So the transformation will be permanent, and the compiler will skip the transformation for the next process. That way, the compiler can transform the app, and then it can be removed.
+     *
+     * - If `false`, the compiler will inject the `useIntlayer()` function call into the code in the build output only, and keep the base codebase intact. The transformation will be done only in memory.
+     */
+    saveComponents: false,
+
+    /**
+     * Inset only content into the generated file. Useful for per-locale i18next or ICU MessageFormat JSON outputs.
+     *
+     * - `output: ({ locale, key }) => `./locale/${locale}/${key}.json`,`
+     */
+    noMetadata: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Add an optional prefix for the extracted dictionary keys
+  },
+};
+
+export default config;
+````
+
+### Compiler Configuration Reference
+
+The following properties can be configured in the `compiler` block of your `intlayer.config.ts` file:
+
+- **enabled**:
+  - _Type_: `boolean | 'build-only'`
+  - _Default_: `true`
+  - _Description_: Indicates if the compiler should be enabled.
+
+- **dictionaryKeyPrefix**:
+  - _Type_: `string`
+  - _Default_: `''`
+  - _Description_: Prefix for the extracted dictionary keys.
+
+- **transformPattern**:
+  - _Type_: `string | string[]`
+  - _Default_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Description_: (Deprecated: use `build.traversePattern` instead) Patterns to traverse the code to optimize.
+
+- **excludePattern**:
+  - _Type_: `string | string[]`
+  - _Default_: `['**/node_modules/**']`
+  - _Description_: (Deprecated: use `build.traversePattern` instead) Patterns to exclude from the optimization.
+
+- **output**:
+  - _Type_: `FilePathPattern`
+  - _Default_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Description_: Defines the output files path. Replaces `outputDir`. Handles dynamic variables like `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Can be set as a string using `'my/{{var}}/path'` format, or as a function.
+  - _Note_: `./**/*` Path are resolved relatively to the component. `/**/*` path are resolved relatively to the Intlayer `baseDir`.
+  - _Note_: If locale is set in the path, it will generate per-locale dictionaries.
+  - _Example_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Indicates if the metadata should be saved in the file. If true, the compiler will not save the metadata of the dictionaries (key, content wrapper). Useful for per-locale i18next or ICU MessageFormat JSON outputs.
+  - _Note_: Useful if used with `loadJSON` plugin.
+  - _Example_:
+    If `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    If `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Indicates if the components should be saved after being transformed.
+    - If `true`, the compiler will rewrite the component file in the disk. The transformation will be permanent, and the compiler can then be removed.
+    - If `false`, the compiler will inject the `useIntlayer()` function call into the code in the build output only, and keep the base codebase intact. The transformation will be done only in memory.
+
+### Fill missing translation
+
+Intlayer provide a CLI tool to help you fill missing translations. You can use the `intlayer` command to test and fill missing translations from your code.
+
+```bash packageManager="npm"
+npx intlayer test         # Test if there is missing translations
+```
+
+```bash packageManager="yarn"
+yarn intlayer test         # Test if there is missing translations
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Test if there is missing translations
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Test if there is missing translations
+```
+
+```bash packageManager="npm"
+npx intlayer fill         # Fill missing translations
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Fill missing translations
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Fill missing translations
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Fill missing translations
+```
+
+### Extract
+
+Intlayer provide a CLI tool to extract content from your code. You can use the `intlayer extract` command to extract content from your code.
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+> For more details, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)

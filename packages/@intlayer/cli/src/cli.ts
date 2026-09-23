@@ -73,7 +73,7 @@ const extractKeysFromOptions = (options: object, keys: string[]) =>
  */
 const applyOptions = (command: Command, options: string[][]) => {
   options.forEach(([flag, description]) => {
-    command.option(flag, description);
+    command.option(flag!, description);
   });
   return command;
 };
@@ -308,7 +308,7 @@ export const setAPI = (): Command => {
     )
     .option(
       '--no-framework-setup',
-      'Do not scaffold framework middleware/proxy and providers in layout/page'
+      'Do not set up the project (Intlayer config, tsconfig, bundler plugin, middleware/proxy, providers in layout/page)'
     )
     .option(
       '-i, --interactive',
@@ -334,7 +334,7 @@ export const setAPI = (): Command => {
     .option('--project-root [projectRoot]', 'Project root directory')
     .action(async (options) => {
       const { initSkills } = await import('./initSkills');
-      return initSkills(options.projectRoot);
+      await initSkills(options.projectRoot);
     });
 
   initCmd
@@ -357,17 +357,6 @@ export const setAPI = (): Command => {
       return initInfra({
         mode: options.mode ? parseInfraMode(options.mode) : undefined,
       });
-    });
-
-  initCmd
-    .command('build-optimization')
-    .description(
-      'Configure build optimization for Next.js (@intlayer/swc or @intlayer/babel)'
-    )
-    .option('--project-root [projectRoot]', 'Project root directory')
-    .action(async (options) => {
-      const { initBuildOptimization } = await import('./initBuildOptimization');
-      return initBuildOptimization(options.projectRoot);
     });
 
   /**

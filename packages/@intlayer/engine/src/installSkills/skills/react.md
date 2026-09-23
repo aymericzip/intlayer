@@ -49,17 +49,15 @@ const content = {
 export default content;
 ```
 
-# Intlayer React Usage
-
 ## Setup
 
 - [Vite and React](https://intlayer.org/doc/environment/vite-and-react.md)
 - [Create React App](https://intlayer.org/doc/environment/create-react-app.md)
 - [React Router v7](https://intlayer.org/doc/environment/vite-and-react/react-router-v7.md)
-- [React Router v7 (fs routes)](https://intlayer.org/doc/environment/vite-and-react/react-router-v7-fs-routes.md)
 - [Tanstack Start](https://intlayer.org/doc/environment/tanstack-start.md)
 - [React Native and Expo](https://intlayer.org/doc/environment/react-native-and-expo.md)
 - [Lynx and React](https://intlayer.org/doc/environment/lynx-and-react.md)
+- [Storybook](https://intlayer.org/doc/storybook.md)
 
 ## useIntlayer Hook
 
@@ -80,6 +78,10 @@ const MyComponent = () => {
 };
 ```
 
+## Compiler
+
+The [Intlayer Compiler](https://intlayer.org/doc/compiler.md) can extract all your content keys from your components, using one CLI command (`npx intlayer extract`) or automatically at app build.
+
 ## References
 
 - [Website](https://intlayer.org)
@@ -90,7 +92,18 @@ const MyComponent = () => {
 - [Vite and React](https://intlayer.org/doc/environment/vite-and-react.md)
 - [Create React App](https://intlayer.org/doc/environment/create-react-app.md)
 - [Vite and React (React Router v7)](https://intlayer.org/doc/environment/vite-and-react/react-router-v7.md)
-- [Vite and React (React Router v7 FS Routes)](https://intlayer.org/doc/environment/vite-and-react/react-router-v7-fs-routes.md)
+- [Tanstack Start](https://intlayer.org/doc/environment/tanstack-start.md)
+- [React Native and Expo](https://intlayer.org/doc/environment/react-native-and-expo.md)
+- [Lynx and React](https://intlayer.org/doc/environment/lynx-and-react.md)
+- [Astro and React](https://intlayer.org/doc/environment/astro/react.md)
+- [Storybook](https://intlayer.org/doc/storybook.md)
+
+### Concepts
+
+- [Variants](https://intlayer.org/doc/concept/variants.md)
+- [Collections](https://intlayer.org/doc/concept/collections.md)
+- [Compiler](https://intlayer.org/doc/compiler.md)
+- [Formatters (number, currency, date, …)](https://intlayer.org/doc/formatters.md)
 
 ### Packages
 
@@ -103,3 +116,7 @@ const MyComponent = () => {
 - [React Intlayer useI18n](https://intlayer.org/doc/packages/react-intlayer/useI18n.md)
 - [React Intlayer useIntlayer](https://intlayer.org/doc/packages/react-intlayer/useIntlayer.md)
 - [React Intlayer useLocale](https://intlayer.org/doc/packages/react-intlayer/useLocale.md)
+- [lynx-intlayer Exports](https://intlayer.org/doc/packages/lynx-intlayer/exports.md)
+- [react-intlayer usePathname](https://intlayer.org/doc/packages/react-intlayer/usePathname.md)
+- [react-intlayer useRewriteURL](https://intlayer.org/doc/packages/react-intlayer/useRewriteURL.md)
+- [react-native-intlayer Exports](https://intlayer.org/doc/packages/react-native-intlayer/exports.md)

@@ -13,21 +13,24 @@ import {
   detectLinguiCatalogPattern,
   detectMissingIntlayerPackages,
   detectNextIntlMessagesPattern,
-  detectOutdatedIntlayerPackages,
   detectPackageManager,
   ensureDirectory,
   exists,
+  fetchLatestPackageVersion,
   findTsConfigFiles,
   getGithubWorkflows,
+  getIntlayerDependencyUpgrades,
   getMetroConfigTemplate,
   hasIntlayerVitePlugin,
   hasLintTooling,
   installPackages,
+  listIntlayerDependencies,
   parseJSONWithComments,
   readFileFromRoot,
   replaceViteConfigPluginImportSource,
   resolveDevScript,
   resolveGithubWorkflowsContext,
+  runPackageInstall,
   setupNextCompilerBabelConfig,
   updateAstroConfig,
   updateIntlayerConfigWithSyncPlugin,
@@ -40,8 +43,8 @@ import {
   updateNuxtConfigForNuxtjsI18n,
   updateViteConfig,
   updateViteConfigForCompatPlugin,
-  upgradePackages,
   writeFileToRoot,
+  writeIntlayerDependencyUpgrades,
 } from './utils';
 
 /**
@@ -56,13 +59,19 @@ const DocumentationRouter = {
   ViteAndReact: 'https://intlayer.org/doc/environment/vite-and-react.md',
   ViteAndReact_ReactRouterV7:
     'https://intlayer.org/doc/environment/vite-and-react/react-router-v7.md',
-  ViteAndReact_ReactRouterV7_FSRoutes:
-    'https://intlayer.org/doc/environment/vite-and-react/react-router-v7-fs-routes.md',
   ViteAndVue: 'https://intlayer.org/doc/environment/vite-and-vue.md',
   ViteAndSolid: 'https://intlayer.org/doc/environment/vite-and-solid.md',
   ViteAndSvelte: 'https://intlayer.org/doc/environment/vite-and-svelte.md',
   ViteAndPreact: 'https://intlayer.org/doc/environment/vite-and-preact.md',
+  ViteAndLit: 'https://intlayer.org/doc/environment/vite-and-lit.md',
+  ViteAndVanilla: 'https://intlayer.org/doc/environment/vite-and-vanilla.md',
+  Vanilla: 'https://intlayer.org/doc/environment/vanilla.md',
   TanStackRouter: 'https://intlayer.org/doc/environment/tanstack-start.md',
+  TanStackRouterAndSolid:
+    'https://intlayer.org/doc/environment/tanstack-start/solid.md',
+  SolidStart: 'https://intlayer.org/doc/environment/solid-start.md',
+  Analog: 'https://intlayer.org/doc/environment/analog.md',
+  Remix: 'https://intlayer.org/doc/environment/remix-3.md',
   NuxtAndVue: 'https://intlayer.org/doc/environment/nuxt-and-vue.md',
   Angular: 'https://intlayer.org/doc/environment/angular.md',
   SvelteKit: 'https://intlayer.org/doc/environment/sveltekit.md',
@@ -159,24 +168,25 @@ const getDocumentationUrl = (packageJson: any): string => {
   if (deps.nuxt) return DocumentationRouter.NuxtAndVue;
   if (deps.astro) return DocumentationRouter.Astro;
   if (deps['@sveltejs/kit']) return DocumentationRouter.SvelteKit;
+  if (deps['@analogjs/platform']) return DocumentationRouter.Analog;
+  if (deps['@solidjs/start']) return DocumentationRouter.SolidStart;
+  if (deps.remix || deps['remix-intlayer']) return DocumentationRouter.Remix;
 
   // Routers (TanStack & React Router v7)
   if (deps['@tanstack/react-router']) {
     return DocumentationRouter.TanStackRouter;
   }
+  if (deps['@tanstack/solid-router']) {
+    return DocumentationRouter.TanStackRouterAndSolid;
+  }
 
-  // Check for React Router v7
+  // Check for React Router v7 (the guide covers both config and FS routes)
   const reactRouterVersion = deps['react-router'];
-  if (reactRouterVersion && typeof reactRouterVersion === 'string') {
-    // Distinguish between standard v7 and v7 with FS routes
-    if (deps['@react-router/fs-routes']) {
-      return DocumentationRouter.ViteAndReact_ReactRouterV7_FSRoutes;
-    }
-
-    // Use Regex to ensure it is v7
-    if (isVersion(reactRouterVersion, 7)) {
-      return DocumentationRouter.ViteAndReact_ReactRouterV7;
-    }
+  if (
+    typeof reactRouterVersion === 'string' &&
+    (deps['@react-router/fs-routes'] || isVersion(reactRouterVersion, 7))
+  ) {
+    return DocumentationRouter.ViteAndReact_ReactRouterV7;
   }
 
   // Vite Ecosystem (General)
@@ -185,6 +195,8 @@ const getDocumentationUrl = (packageJson: any): string => {
     if (deps['solid-js']) return DocumentationRouter.ViteAndSolid;
     if (deps.svelte) return DocumentationRouter.ViteAndSvelte;
     if (deps.preact) return DocumentationRouter.ViteAndPreact;
+    if (deps.lit) return DocumentationRouter.ViteAndLit;
+    if (deps['vanilla-intlayer']) return DocumentationRouter.ViteAndVanilla;
 
     // Default to React if Vite is present but specific other frameworks aren't found
     return DocumentationRouter.ViteAndReact;
@@ -193,6 +205,8 @@ const getDocumentationUrl = (packageJson: any): string => {
   // Other Web Frameworks
   if (deps['react-scripts']) return DocumentationRouter.CRA;
   if (deps['@angular/core']) return DocumentationRouter.Angular;
+  if (deps.lit) return DocumentationRouter.ViteAndLit;
+  if (deps['vanilla-intlayer']) return DocumentationRouter.Vanilla;
 
   // Backend
   // NestJS first: it runs on top of Express (or Fastify), so both dependencies
@@ -259,7 +273,8 @@ export type InitOptions = {
   /** Skip scaffolding the `fill` and `test` GitHub Actions workflows. */
   noGithubActions?: boolean;
   /**
-   * Skip installing missing Intlayer dependencies and upgrading outdated ones.
+   * Skip installing missing Intlayer dependencies and upgrading the Intlayer
+   * packages of every `package.json` to their latest version.
    */
   noInstallPackages?: boolean;
   /** Skip adding the Intlayer extension to `.vscode/extensions.json`. */
@@ -269,14 +284,16 @@ export type InitOptions = {
   /** Skip enabling the Intlayer lint rules (ESLint / oxlint). */
   noEslint?: boolean;
   /**
-   * Skip framework-specific scaffolding (middleware/proxy, providers in
-   * layout/page, example content). Defaults to enabled.
+   * Skip the project setup: tsconfig types/aliases, the Intlayer config file,
+   * bundler/framework configs, the dev script and framework-specific
+   * scaffolding (middleware/proxy, providers in layout/page). Defaults to
+   * enabled.
    */
   noFrameworkSetup?: boolean;
   /**
-   * Version that outdated Intlayer packages should be upgraded to (typically the
-   * running CLI version). When omitted, installed packages are left untouched and
-   * only missing ones are installed.
+   * Version to install the missing Intlayer packages at (typically the running
+   * CLI version). Already declared Intlayer packages are upgraded to the latest
+   * published version instead.
    */
   upgradeToVersion?: string;
   /**
@@ -427,51 +444,72 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       }
     }
 
-    // UPGRADE OUTDATED INTLAYER DEPENDENCIES
-    // Only runs when a target version is provided (typically the running CLI
-    // version). Already up-to-date packages are skipped. Prod and dev
-    // dependencies are upgraded separately so their dependency type is kept.
-    if (options?.upgradeToVersion) {
-      const outdatedDependencies = detectOutdatedIntlayerPackages(
-        rootDir,
-        packageJson.dependencies ?? {},
-        options.upgradeToVersion
-      );
-      const outdatedDevDependencies = detectOutdatedIntlayerPackages(
-        rootDir,
-        packageJson.devDependencies ?? {},
-        options.upgradeToVersion
-      );
+    // UPGRADE INTLAYER DEPENDENCIES TO LATEST
+    // Lists the Intlayer packages of every `package.json` of the project
+    // (monorepo workspaces included), rewrites their ranges to the latest
+    // published version, then runs a single install from the root.
+    const packageJsonDependencies = await listIntlayerDependencies(rootDir);
 
-      const allOutdated = [...outdatedDependencies, ...outdatedDevDependencies];
-
-      if (allOutdated.length > 0) {
-        logger(
-          colorize(
-            `Upgrading outdated Intlayer dependencies to ${options.upgradeToVersion}...`,
-            ANSIColors.CYAN
+    if (packageJsonDependencies.length > 0) {
+      const packageNames = [
+        ...new Set(
+          packageJsonDependencies.flatMap(({ dependencies }) =>
+            dependencies.map(({ packageName }) => packageName)
           )
-        );
+        ),
+      ];
+
+      const latestVersions = new Map(
+        await Promise.all(
+          packageNames.map(
+            async (packageName) =>
+              [
+                packageName,
+                await fetchLatestPackageVersion(packageName),
+              ] as const
+          )
+        )
+      );
+
+      const upgrades = getIntlayerDependencyUpgrades(
+        packageJsonDependencies,
+        latestVersions
+      );
+
+      logger(colorize('Intlayer packages:', ANSIColors.CYAN));
+
+      for (const { packageJsonPath, dependencies } of packageJsonDependencies) {
+        logger(`  ${colorizePath(packageJsonPath)}`);
+
+        for (const { packageName, currentRange } of dependencies) {
+          const upgrade = upgrades.find(
+            (candidate) =>
+              candidate.packageJsonPath === packageJsonPath &&
+              candidate.packageName === packageName
+          );
+          const status = upgrade
+            ? `${currentRange} → ${colorize(upgrade.nextRange, ANSIColors.GREEN)}`
+            : latestVersions.get(packageName)
+              ? colorize(`${currentRange} (latest)`, ANSIColors.GREY)
+              : colorize(
+                  `${currentRange} (could not fetch the latest version)`,
+                  ANSIColors.YELLOW
+                );
+
+          logger(`    ${colorize(packageName, ANSIColors.MAGENTA)} ${status}`);
+        }
+      }
+
+      if (upgrades.length > 0) {
         try {
-          upgradePackages(
-            rootDir,
-            outdatedDependencies,
-            packageManager,
-            options.upgradeToVersion
-          );
-          upgradePackages(
-            rootDir,
-            outdatedDevDependencies,
-            packageManager,
-            options.upgradeToVersion,
-            true
-          );
+          await writeIntlayerDependencyUpgrades(rootDir, upgrades);
+          runPackageInstall(rootDir, packageManager);
           logger(
-            `${v} Upgraded: ${allOutdated.map((pkg) => colorize(pkg, ANSIColors.MAGENTA)).join(', ')}`
+            `${v} Upgraded ${upgrades.length} Intlayer ${upgrades.length > 1 ? 'dependencies' : 'dependency'} to latest`
           );
         } catch {
           logger(
-            `${x} Failed to upgrade packages. Please upgrade manually: ${allOutdated.join(' ')}`,
+            `${x} Failed to upgrade the Intlayer packages. Run ${colorize(`${packageManager} install`, ANSIColors.MAGENTA)} manually.`,
             { level: 'warn' }
           );
         }
@@ -725,638 +763,655 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     }
   }
 
-  // CHECK TSCONFIGS
-  const tsConfigFiles = await findTsConfigFiles(rootDir);
-  let hasTsConfig = false;
+  // PROJECT SETUP
+  // Everything below edits the project itself: tsconfig types and aliases, the
+  // Intlayer config file, bundler/framework configs, the dev script and the
+  // framework scaffolding. It only runs with the framework setup step, so
+  // picking e.g. only the CI or editor steps never creates project files.
+  if (!options?.noFrameworkSetup) {
+    // CHECK TSCONFIGS
+    const tsConfigFiles = await findTsConfigFiles(rootDir);
+    let hasTsConfig = false;
 
-  for (const fileName of tsConfigFiles) {
-    if (await exists(rootDir, fileName)) {
-      hasTsConfig = true;
-      try {
-        const fileContent = await readFileFromRoot(rootDir, fileName);
-        const config = parseJSONWithComments(fileContent);
-        const typeDefinition = './.intlayer/**/*.ts';
+    for (const fileName of tsConfigFiles) {
+      if (await exists(rootDir, fileName)) {
+        hasTsConfig = true;
+        try {
+          const fileContent = await readFileFromRoot(rootDir, fileName);
+          const config = parseJSONWithComments(fileContent);
+          const typeDefinition = './.intlayer/**/*.ts';
 
-        let updated = false;
+          let updated = false;
 
-        if (!config.include) {
-          // Skip if no include array (solution-style)
-        } else if (
-          Array.isArray(config.include) &&
-          !(config.include as string[]).some((pattern: string) =>
-            pattern.includes('.intlayer')
-          )
-        ) {
-          config.include.push(typeDefinition);
-          updated = true;
-        } else if (config.include.includes(typeDefinition)) {
+          if (!config.include) {
+            // Skip if no include array (solution-style)
+          } else if (
+            Array.isArray(config.include) &&
+            !(config.include as string[]).some((pattern: string) =>
+              pattern.includes('.intlayer')
+            )
+          ) {
+            config.include.push(typeDefinition);
+            updated = true;
+          } else if (config.include.includes(typeDefinition)) {
+            logger(
+              `${v} ${colorizePath(fileName)} already includes intlayer types`
+            );
+          }
+
+          if (updated) {
+            await writeFileToRoot(
+              rootDir,
+              fileName,
+              JSON.stringify(config, null, 2)
+            );
+            logger(
+              `${v} Updated ${colorizePath(fileName)} to include intlayer types`
+            );
+          }
+        } catch {
           logger(
-            `${v} ${colorizePath(fileName)} already includes intlayer types`
-          );
-        }
-
-        if (updated) {
-          await writeFileToRoot(
-            rootDir,
-            fileName,
-            JSON.stringify(config, null, 2)
-          );
-          logger(
-            `${v} Updated ${colorizePath(fileName)} to include intlayer types`
-          );
-        }
-      } catch {
-        logger(
-          `${x} Could not parse or update ${colorizePath(fileName)}. You may need to add ${colorizePath('.intlayer/types/**/*.ts')} manually.`,
-          { level: 'warn' }
-        );
-      }
-    }
-  }
-
-  // INITIALIZE CONFIG FILE
-  const format = hasTsConfig ? 'intlayer.config.ts' : 'intlayer.config.mjs';
-
-  // Detect the locale JSON file pattern already in the project so we can
-  // insert the matching locales into the config and produce the most
-  // accurate source template for compat libraries.
-  const detectedPattern = await detectJsonLocalePattern(rootDir);
-
-  await initConfig(format, rootDir, {
-    locales: detectedPattern?.locales,
-    applicationURL: getDefaultApplicationURL(allDeps),
-  });
-
-  // APPLY CONTENT STRATEGY — CENTRALIZED
-  // Point `compiler.output` at per-locale JSON dictionaries under `/locales/`
-  // instead of the per-component template default.
-  if (options?.contentStrategy === 'centralized') {
-    await setCompilerOutputInConfig(
-      rootDir,
-      '/locales/{{locale}}/{{key}}.content.json'
-    );
-  }
-
-  // INJECT SYNC-JSON PLUGIN FOR COMPAT LIBRARIES / JSON-NAMESPACES STRATEGY
-  const syncConfigToInject: CompatSyncConfig | undefined =
-    compatSyncConfig ??
-    (wantsJsonNamespaces
-      ? {
-          format: 'i18next',
-          sourceTemplate:
-            detectedPattern?.template ?? './locales/${locale}/${key}.json',
-        }
-      : undefined);
-
-  if (syncConfigToInject) {
-    // For next-intl / use-intl, the messages path is authoritatively declared
-    // in `i18n/request.ts` (e.g. `import(`../messages/${locale}.json`)`), so we
-    // read it directly. It usually resolves to a single file per locale (no
-    // `${key}` segment), whose first-level keys are namespaces — so the compat
-    // config carries `splitKeys: true` to emit one dictionary per namespace.
-    // Falls back to file-system globbing otherwise.
-    const nextIntlMessagesPattern =
-      allDeps['next-intl'] ||
-      allDeps['@intlayer/next-intl'] ||
-      allDeps['use-intl'] ||
-      allDeps['@intlayer/use-intl']
-        ? await detectNextIntlMessagesPattern(rootDir)
-        : null;
-
-    // lingui authoritatively resolves to `…/{locale}/messages.{po,json}`, where
-    // the `messages` filename becomes the dictionary key. Prefer it so a `.po`
-    // project gets `syncPO` (the generic JSON glob only sees `.json`).
-    const sourceTemplate =
-      linguiCatalog?.template ??
-      nextIntlMessagesPattern?.template ??
-      detectedPattern?.template;
-
-    const resolvedSyncConfig = {
-      ...syncConfigToInject,
-      ...(sourceTemplate ? { sourceTemplate } : {}),
-    };
-
-    const syncPluginPackage =
-      resolvedSyncConfig.plugin === 'po'
-        ? '@intlayer/sync-po-plugin'
-        : '@intlayer/sync-json-plugin';
-    const syncPluginName =
-      resolvedSyncConfig.plugin === 'po' ? 'syncPO' : 'syncJSON';
-
-    // `splitKeys` only makes sense for a single file holding several namespaces.
-    // If the resolved template addresses one namespace per file (`${key}`
-    // segment), each file is already a single namespace — drop the flag so
-    // syncJSON keeps one dictionary per file.
-    if (
-      resolvedSyncConfig.splitKeys &&
-      resolvedSyncConfig.sourceTemplate.includes('${key}')
-    ) {
-      resolvedSyncConfig.splitKeys = false;
-    }
-
-    const intlayerConfigCandidates = [
-      'intlayer.config.ts',
-      'intlayer.config.mjs',
-      'intlayer.config.js',
-      'intlayer.config.cjs',
-    ];
-
-    for (const configFile of intlayerConfigCandidates) {
-      if (await exists(rootDir, configFile)) {
-        const configContent = await readFileFromRoot(rootDir, configFile);
-
-        if (!configContent.includes(syncPluginPackage)) {
-          const extension = configFile.split('.').pop()!;
-          const updatedConfigContent = updateIntlayerConfigWithSyncPlugin(
-            configContent,
-            extension,
-            resolvedSyncConfig
-          );
-          await writeFileToRoot(rootDir, configFile, updatedConfigContent);
-          logger(
-            `${v} Updated ${colorizePath(configFile)} with ${syncPluginName} compat plugin`
-          );
-        } else {
-          logger(
-            `${v} ${colorizePath(configFile)} already includes ${syncPluginName} plugin`
-          );
-        }
-        break;
-      }
-    }
-  }
-
-  // APPLY ROUTING MODE
-  // When a routing strategy was chosen (interactive init), write it to
-  // `routing.mode` in the configuration file. Idempotent and comment-preserving.
-  if (options?.routingMode) {
-    await setRoutingModeInConfig(rootDir, options.routingMode);
-  }
-
-  let hasAliasConfiguration = false;
-
-  // CHECK VITE CONFIG
-  const viteConfigs = ['vite.config.ts', 'vite.config.js', 'vite.config.mjs'];
-
-  for (const file of viteConfigs) {
-    if (await exists(rootDir, file)) {
-      hasAliasConfiguration = true;
-      const content = await readFileFromRoot(rootDir, file);
-      const extension = file.split('.').pop()!;
-
-      if (compatVitePluginConfig) {
-        const { replacesVitePlugin } = compatVitePluginConfig;
-
-        if (content.includes(compatVitePluginConfig.pluginPackageSource)) {
-          logger(
-            `${v} ${colorizePath(file)} already includes ${compatVitePluginConfig.pluginPackageSource}`
-          );
-        } else if (
-          replacesVitePlugin &&
-          content.includes(replacesVitePlugin.fromPackageSource)
-        ) {
-          // Drop-in replacement: rewrite the original i18n vite plugin's import
-          // source, keeping its binding and call site (e.g. lingui).
-          const updatedContent = replaceViteConfigPluginImportSource(
-            content,
-            replacesVitePlugin.importName,
-            replacesVitePlugin.fromPackageSource,
-            compatVitePluginConfig.pluginPackageSource
-          );
-          await writeFileToRoot(rootDir, file, updatedContent);
-          logger(
-            `${v} Updated ${colorizePath(file)} to import ${replacesVitePlugin.importName} from ${compatVitePluginConfig.pluginPackageSource}`
-          );
-        } else {
-          const updatedContent = updateViteConfigForCompatPlugin(
-            content,
-            extension,
-            compatVitePluginConfig
-          );
-          await writeFileToRoot(rootDir, file, updatedContent);
-          logger(
-            `${v} Updated ${colorizePath(file)} to include ${compatVitePluginConfig.pluginFunctionName} compat plugin`
-          );
-        }
-      } else if (hasIntlayerVitePlugin(content)) {
-        // A compat adapter plugin (e.g. `reactI18nextVitePlugin`) already wraps
-        // `intlayer()` internally, so skip adding a redundant standalone plugin.
-        logger(
-          `${v} ${colorizePath(file)} already includes an Intlayer plugin`
-        );
-      } else {
-        const updatedContent = updateViteConfig(content, extension);
-        await writeFileToRoot(rootDir, file, updatedContent);
-        logger(`${v} Updated ${colorizePath(file)} to include Intlayer plugin`);
-      }
-      break;
-    }
-  }
-
-  // CHECK NEXT CONFIG
-  const nextConfigs = ['next.config.js', 'next.config.mjs', 'next.config.ts'];
-  let isNextJsProject = false;
-
-  for (const file of nextConfigs) {
-    if (await exists(rootDir, file)) {
-      isNextJsProject = true;
-      hasAliasConfiguration = true;
-      const content = await readFileFromRoot(rootDir, file);
-      const extension = file.split('.').pop()!;
-
-      if (allDeps['next-i18next']) {
-        if (!content.includes('@intlayer/next-i18next')) {
-          const updatedContent = updateNextConfigForNextI18next(
-            content,
-            extension
-          );
-          await writeFileToRoot(rootDir, file, updatedContent);
-          logger(
-            `${v} Updated ${colorizePath(file)} to include Intlayer next-i18next compat plugin`
-          );
-        } else {
-          logger(
-            `${v} ${colorizePath(file)} already includes @intlayer/next-i18next`
-          );
-        }
-      } else if (allDeps['next-intl']) {
-        if (!content.includes('@intlayer/next-intl/plugin')) {
-          const updatedContent = updateNextConfigForNextIntl(
-            content,
-            extension
-          );
-          await writeFileToRoot(rootDir, file, updatedContent);
-          logger(
-            `${v} Updated ${colorizePath(file)} to include Intlayer next-intl compat plugin`
-          );
-        } else {
-          logger(
-            `${v} ${colorizePath(file)} already includes @intlayer/next-intl/plugin`
-          );
-        }
-      } else if (allDeps['next-translate']) {
-        if (!content.includes('@intlayer/next-translate')) {
-          const updatedContent = updateNextConfigForNextTranslate(
-            content,
-            extension
-          );
-          await writeFileToRoot(rootDir, file, updatedContent);
-          logger(
-            `${v} Updated ${colorizePath(file)} to include Intlayer next-translate compat plugin`
-          );
-        } else {
-          logger(
-            `${v} ${colorizePath(file)} already includes @intlayer/next-translate`
-          );
-        }
-      } else if (!content.includes('next-intlayer')) {
-        const updatedContent = updateNextConfig(content, extension);
-        await writeFileToRoot(rootDir, file, updatedContent);
-        logger(`${v} Updated ${colorizePath(file)} to include Intlayer plugin`);
-      }
-      break;
-    }
-  }
-
-  // CHECK NEXT.JS COMPILER (BABEL)
-  // When a Next.js project already uses Babel, install @intlayer/babel and print
-  // the compiler + build-optimization plugins (extract, purge, minify, optimize)
-  // to add. SWC projects need no setup: withIntlayer injects @intlayer/swc.
-  if (isNextJsProject) {
-    await setupNextCompilerBabelConfig({
-      rootDir,
-      packageManager,
-      allDeps,
-      skipInstall: Boolean(options?.noInstallPackages),
-    });
-  }
-
-  // CHECK OTHER FRAMEWORKS CONFIG
-  const astroConfigs = [
-    'astro.config.mjs',
-    'astro.config.js',
-    'astro.config.ts',
-    'astro.config.cjs',
-  ];
-
-  for (const file of astroConfigs) {
-    if (await exists(rootDir, file)) {
-      hasAliasConfiguration = true;
-
-      if (file.startsWith('astro.config.')) {
-        const content = await readFileFromRoot(rootDir, file);
-
-        if (!content.includes('astro-intlayer')) {
-          const extension = file.split('.').pop()!;
-          const updatedContent = updateAstroConfig(content, extension);
-          await writeFileToRoot(rootDir, file, updatedContent);
-          logger(
-            `${v} Updated ${colorizePath(file)} to include Intlayer integration`
-          );
-        }
-      }
-      break;
-    }
-  }
-
-  const nuxtConfigs = ['nuxt.config.js', 'nuxt.config.ts'];
-  for (const file of nuxtConfigs) {
-    if (await exists(rootDir, file)) {
-      hasAliasConfiguration = true;
-
-      const content = await readFileFromRoot(rootDir, file);
-
-      if (allDeps['@nuxtjs/i18n']) {
-        if (!content.includes('@intlayer/nuxtjs-i18n')) {
-          const updatedContent = updateNuxtConfigForNuxtjsI18n(content);
-          await writeFileToRoot(rootDir, file, updatedContent);
-          logger(
-            `${v} Updated ${colorizePath(file)} to include @intlayer/nuxtjs-i18n module`
-          );
-        } else {
-          logger(
-            `${v} ${colorizePath(file)} already includes @intlayer/nuxtjs-i18n`
-          );
-        }
-      } else if (!content.includes('nuxt-intlayer')) {
-        const updatedContent = updateNuxtConfig(content);
-        await writeFileToRoot(rootDir, file, updatedContent);
-        logger(`${v} Updated ${colorizePath(file)} to include Intlayer module`);
-      }
-      break;
-    }
-  }
-
-  // CHECK METRO CONFIG (React Native / Expo)
-  // Metro is the React Native bundler. The Intlayer Metro plugin
-  // (`react-native-intlayer/metro`) handles dictionary aliasing and building.
-  // When no config exists we scaffold one; when one exists we safely wrap its
-  // exported config with `configMetroIntlayerSync`, leaving custom async
-  // (IIFE) configs untouched so existing setups are never broken.
-  const isReactNativeProject = Boolean(allDeps['react-native'] || allDeps.expo);
-
-  if (isReactNativeProject) {
-    // Metro resolves Intlayer aliases itself, so skip the alias fallback below.
-    hasAliasConfiguration = true;
-
-    const metroConfigs = [
-      'metro.config.js',
-      'metro.config.cjs',
-      'metro.config.mjs',
-      'metro.config.ts',
-    ];
-
-    let metroConfigFile: string | undefined;
-
-    for (const file of metroConfigs) {
-      if (await exists(rootDir, file)) {
-        metroConfigFile = file;
-        break;
-      }
-    }
-
-    if (metroConfigFile) {
-      const content = await readFileFromRoot(rootDir, metroConfigFile);
-
-      if (content.includes('react-native-intlayer')) {
-        logger(
-          `${v} ${colorizePath(metroConfigFile)} already includes the Intlayer Metro plugin`
-        );
-      } else {
-        const extension = metroConfigFile.split('.').pop()!;
-        const updatedContent = updateMetroConfig(content, extension);
-
-        if (updatedContent !== content) {
-          await writeFileToRoot(rootDir, metroConfigFile, updatedContent);
-          logger(
-            `${v} Updated ${colorizePath(metroConfigFile)} to include the Intlayer Metro plugin`
-          );
-        } else {
-          logger(
-            `${x} Could not automatically update ${colorizePath(metroConfigFile)}. Wrap your exported config with ${colorize('configMetroIntlayer', ANSIColors.MAGENTA)}: ${colorizePath(DocumentationRouter.ReactNativeAndExpo)}`,
+            `${x} Could not parse or update ${colorizePath(fileName)}. You may need to add ${colorizePath('.intlayer/types/**/*.ts')} manually.`,
             { level: 'warn' }
           );
         }
       }
-    } else {
-      const newMetroConfigFile = 'metro.config.js';
-      await writeFileToRoot(
-        rootDir,
-        newMetroConfigFile,
-        getMetroConfigTemplate(Boolean(allDeps.expo))
-      );
-      logger(
-        `${v} Created ${colorizePath(newMetroConfigFile)} with the Intlayer Metro plugin`
-      );
     }
-  }
 
-  // UPDATE PACKAGE.JSON DEV SCRIPT
-  // Only frameworks with no bundler plugin to host the content watcher get
-  // their dev server wrapped; a Next.js app is always left alone. See
-  // `resolveDevScript`.
-  const newDevScript = resolveDevScript({
-    devScript: packageJson.scripts?.dev,
-    allDeps,
-    isNextJsProject,
-  });
+    // INITIALIZE CONFIG FILE
+    const format = hasTsConfig ? 'intlayer.config.ts' : 'intlayer.config.mjs';
 
-  if (newDevScript) {
-    packageJson.scripts.dev = newDevScript;
+    // Detect the locale JSON file pattern already in the project so we can
+    // insert the matching locales into the config and produce the most
+    // accurate source template for compat libraries.
+    const detectedPattern = await detectJsonLocalePattern(rootDir);
 
-    await writeFileToRoot(
-      rootDir,
-      packageJsonPath,
-      JSON.stringify(packageJson, null, 2)
-    );
-
-    logger(
-      `${v} Updated ${colorizePath('package.json')} dev script to run intlayer watch`
-    );
-  }
-
-  // CHECK WEBPACK CONFIG
-  const webpackConfigs = [
-    'webpack.config.js',
-    'webpack.config.ts',
-    'webpack.config.mjs',
-    'webpack.config.cjs',
-  ];
-
-  for (const file of webpackConfigs) {
-    if (await exists(rootDir, file)) {
-      hasAliasConfiguration = true;
-      logger(
-        `${v} Found ${colorizePath(
-          file
-        )}. Make sure to configure aliases manually or use the Intlayer Webpack plugin.`
-      );
-      break;
-    }
-  }
-
-  // The server frameworks themselves, alongside their Intlayer packages: a
-  // project may be mid-setup and carry only one of the two.
-  const backendConfigPackages = [
-    'express',
-    'fastify',
-    '@adonisjs/core',
-    'hono',
-    'elysia',
-    ...BACKEND_INTLAYER_PACKAGES,
-  ];
-
-  if (backendConfigPackages.some((pkg) => allDeps[pkg])) {
-    hasAliasConfiguration = true;
-  }
-
-  if (!hasAliasConfiguration) {
-    const configuration = getConfiguration({ baseDir: rootDir });
-    // `tsconfig`/`jsconfig` `paths` and `package.json` `imports` both expect
-    // explicitly relative specifiers, so bare relative paths get a `./` prefix.
-    const aliases = getAlias({
-      configuration,
-      formatter: (value) =>
-        value.startsWith('./') || value.startsWith('../')
-          ? value
-          : `./${value}`,
+    await initConfig(format, rootDir, {
+      locales: detectedPattern?.locales,
+      applicationURL: getDefaultApplicationURL(allDeps),
     });
 
-    if (hasTsConfig && tsConfigFiles.length > 0) {
-      const tsConfigPath =
-        tsConfigFiles.find((file) => file === 'tsconfig.json') ||
-        tsConfigFiles[0];
+    // APPLY CONTENT STRATEGY — CENTRALIZED
+    // Point `compiler.output` at per-locale JSON dictionaries under `/locales/`
+    // instead of the per-component template default.
+    if (options?.contentStrategy === 'centralized') {
+      await setCompilerOutputInConfig(
+        rootDir,
+        '/locales/{{locale}}/{{key}}.content.json'
+      );
+    }
 
-      if (tsConfigPath) {
-        const tsConfigContent = await readFileFromRoot(rootDir, tsConfigPath);
-        const config = parseJSONWithComments(tsConfigContent);
-
-        config.compilerOptions ??= {};
-        config.compilerOptions.paths ??= {};
-
-        let updated = false;
-
-        Object.entries(aliases).forEach(([alias, path]) => {
-          if (!config.compilerOptions.paths[alias]) {
-            config.compilerOptions.paths[alias] = [path];
-            updated = true;
+    // INJECT SYNC-JSON PLUGIN FOR COMPAT LIBRARIES / JSON-NAMESPACES STRATEGY
+    const syncConfigToInject: CompatSyncConfig | undefined =
+      compatSyncConfig ??
+      (wantsJsonNamespaces
+        ? {
+            format: 'i18next',
+            sourceTemplate:
+              detectedPattern?.template ?? './locales/${locale}/${key}.json',
           }
-        });
+        : undefined);
 
-        if (updated) {
-          await writeFileToRoot(
-            rootDir,
-            tsConfigPath,
-            JSON.stringify(config, null, 2)
-          );
+    if (syncConfigToInject) {
+      // For next-intl / use-intl, the messages path is authoritatively declared
+      // in `i18n/request.ts` (e.g. `import(`../messages/${locale}.json`)`), so we
+      // read it directly. It usually resolves to a single file per locale (no
+      // `${key}` segment), whose first-level keys are namespaces — so the compat
+      // config carries `splitKeys: true` to emit one dictionary per namespace.
+      // Falls back to file-system globbing otherwise.
+      const nextIntlMessagesPattern =
+        allDeps['next-intl'] ||
+        allDeps['@intlayer/next-intl'] ||
+        allDeps['use-intl'] ||
+        allDeps['@intlayer/use-intl']
+          ? await detectNextIntlMessagesPattern(rootDir)
+          : null;
 
-          logger(
-            `${v} Updated ${colorizePath(
-              tsConfigPath
-            )} to include Intlayer aliases`
-          );
-        }
+      // lingui authoritatively resolves to `…/{locale}/messages.{po,json}`, where
+      // the `messages` filename becomes the dictionary key. Prefer it so a `.po`
+      // project gets `syncPO` (the generic JSON glob only sees `.json`).
+      const sourceTemplate =
+        linguiCatalog?.template ??
+        nextIntlMessagesPattern?.template ??
+        detectedPattern?.template;
+
+      const resolvedSyncConfig = {
+        ...syncConfigToInject,
+        ...(sourceTemplate ? { sourceTemplate } : {}),
+      };
+
+      const syncPluginPackage =
+        resolvedSyncConfig.plugin === 'po'
+          ? '@intlayer/sync-po-plugin'
+          : '@intlayer/sync-json-plugin';
+      const syncPluginName =
+        resolvedSyncConfig.plugin === 'po' ? 'syncPO' : 'syncJSON';
+
+      // `splitKeys` only makes sense for a single file holding several namespaces.
+      // If the resolved template addresses one namespace per file (`${key}`
+      // segment), each file is already a single namespace — drop the flag so
+      // syncJSON keeps one dictionary per file.
+      if (
+        resolvedSyncConfig.splitKeys &&
+        resolvedSyncConfig.sourceTemplate.includes('${key}')
+      ) {
+        resolvedSyncConfig.splitKeys = false;
       }
-    } else {
-      const jsConfigPath = 'jsconfig.json';
 
-      if (await exists(rootDir, jsConfigPath)) {
-        const jsConfigContent = await readFileFromRoot(rootDir, jsConfigPath);
-        const config = parseJSONWithComments(jsConfigContent);
+      const intlayerConfigCandidates = [
+        'intlayer.config.ts',
+        'intlayer.config.mjs',
+        'intlayer.config.js',
+        'intlayer.config.cjs',
+      ];
 
-        config.compilerOptions ??= {};
-        config.compilerOptions.paths ??= {};
+      for (const configFile of intlayerConfigCandidates) {
+        if (await exists(rootDir, configFile)) {
+          const configContent = await readFileFromRoot(rootDir, configFile);
 
-        let updated = false;
-
-        Object.entries(aliases).forEach(([alias, path]) => {
-          if (!config.compilerOptions.paths[alias]) {
-            config.compilerOptions.paths[alias] = [path];
-            updated = true;
+          if (!configContent.includes(syncPluginPackage)) {
+            const extension = configFile.split('.').pop()!;
+            const updatedConfigContent = updateIntlayerConfigWithSyncPlugin(
+              configContent,
+              extension,
+              resolvedSyncConfig
+            );
+            await writeFileToRoot(rootDir, configFile, updatedConfigContent);
+            logger(
+              `${v} Updated ${colorizePath(configFile)} with ${syncPluginName} compat plugin`
+            );
+          } else {
+            logger(
+              `${v} ${colorizePath(configFile)} already includes ${syncPluginName} plugin`
+            );
           }
-        });
-
-        if (updated) {
-          await writeFileToRoot(
-            rootDir,
-            jsConfigPath,
-            JSON.stringify(config, null, 2)
-          );
-          logger(
-            `${v} Updated ${colorizePath(
-              jsConfigPath
-            )} to include Intlayer aliases`
-          );
-        }
-      } else {
-        packageJson.imports ??= {};
-
-        let updated = false;
-
-        Object.entries(aliases).forEach(([alias, path]) => {
-          const importAlias = alias.replace('@', '#');
-
-          if (!packageJson.imports[importAlias]) {
-            packageJson.imports[importAlias] = path;
-            updated = true;
-          }
-        });
-
-        if (updated) {
-          await writeFileToRoot(
-            rootDir,
-            packageJsonPath,
-            JSON.stringify(packageJson, null, 2)
-          );
-          logger(
-            `${v} Updated ${colorizePath(
-              packageJsonPath
-            )} to include Intlayer imports`
-          );
+          break;
         }
       }
     }
-  }
 
-  // FRAMEWORK-SPECIFIC SCAFFOLDING
-  // Sets up middleware/proxy and wraps the layout/page with the Intlayer
-  // providers for the detected framework (Next.js App Router today). Idempotent
-  // and non-destructive: it never overwrites user code it cannot safely
-  // transform, skipping with guidance instead.
-  //
-  // Skipped entirely when a compat i18n library drives the app (i18next,
-  // next-intl, vue-i18n, …): the app already owns its routing, providers and
-  // layouts, and Intlayer only syncs its catalogs — restructuring routes or
-  // injecting providers would break the existing setup.
-  const hasCompatLibrary = Boolean(compatSyncConfig || compatVitePluginConfig);
+    // APPLY ROUTING MODE
+    // When a routing strategy was chosen (interactive init), write it to
+    // `routing.mode` in the configuration file. Idempotent and comment-preserving.
+    if (options?.routingMode) {
+      await setRoutingModeInConfig(rootDir, options.routingMode);
+    }
 
-  if (!options?.noFrameworkSetup && hasCompatLibrary) {
-    logger(
-      `${v} Compat i18n library detected — keeping the app structure untouched (no route restructure, no provider injection)`
-    );
-  }
+    let hasAliasConfiguration = false;
 
-  if (!options?.noFrameworkSetup && !hasCompatLibrary) {
-    try {
-      // Prefer the user's interactive choice, else the configured routing mode
-      // (which itself defaults to `prefix-no-default`). Drives whether the
-      // locale path segment is required (`prefix-all`) or optional.
-      const routingMode =
-        options?.routingMode ??
-        getConfiguration({ baseDir: rootDir }).routing.mode;
+    // CHECK VITE CONFIG
+    const viteConfigs = ['vite.config.ts', 'vite.config.js', 'vite.config.mjs'];
 
-      await setupFramework({
+    for (const file of viteConfigs) {
+      if (await exists(rootDir, file)) {
+        hasAliasConfiguration = true;
+        const content = await readFileFromRoot(rootDir, file);
+        const extension = file.split('.').pop()!;
+
+        if (compatVitePluginConfig) {
+          const { replacesVitePlugin } = compatVitePluginConfig;
+
+          if (content.includes(compatVitePluginConfig.pluginPackageSource)) {
+            logger(
+              `${v} ${colorizePath(file)} already includes ${compatVitePluginConfig.pluginPackageSource}`
+            );
+          } else if (
+            replacesVitePlugin &&
+            content.includes(replacesVitePlugin.fromPackageSource)
+          ) {
+            // Drop-in replacement: rewrite the original i18n vite plugin's import
+            // source, keeping its binding and call site (e.g. lingui).
+            const updatedContent = replaceViteConfigPluginImportSource(
+              content,
+              replacesVitePlugin.importName,
+              replacesVitePlugin.fromPackageSource,
+              compatVitePluginConfig.pluginPackageSource
+            );
+            await writeFileToRoot(rootDir, file, updatedContent);
+            logger(
+              `${v} Updated ${colorizePath(file)} to import ${replacesVitePlugin.importName} from ${compatVitePluginConfig.pluginPackageSource}`
+            );
+          } else {
+            const updatedContent = updateViteConfigForCompatPlugin(
+              content,
+              extension,
+              compatVitePluginConfig
+            );
+            await writeFileToRoot(rootDir, file, updatedContent);
+            logger(
+              `${v} Updated ${colorizePath(file)} to include ${compatVitePluginConfig.pluginFunctionName} compat plugin`
+            );
+          }
+        } else if (hasIntlayerVitePlugin(content)) {
+          // A compat adapter plugin (e.g. `reactI18nextVitePlugin`) already wraps
+          // `intlayer()` internally, so skip adding a redundant standalone plugin.
+          logger(
+            `${v} ${colorizePath(file)} already includes an Intlayer plugin`
+          );
+        } else {
+          const updatedContent = updateViteConfig(content, extension);
+          await writeFileToRoot(rootDir, file, updatedContent);
+          logger(
+            `${v} Updated ${colorizePath(file)} to include Intlayer plugin`
+          );
+        }
+        break;
+      }
+    }
+
+    // CHECK NEXT CONFIG
+    const nextConfigs = ['next.config.js', 'next.config.mjs', 'next.config.ts'];
+    let isNextJsProject = false;
+
+    for (const file of nextConfigs) {
+      if (await exists(rootDir, file)) {
+        isNextJsProject = true;
+        hasAliasConfiguration = true;
+        const content = await readFileFromRoot(rootDir, file);
+        const extension = file.split('.').pop()!;
+
+        if (allDeps['next-i18next']) {
+          if (!content.includes('@intlayer/next-i18next')) {
+            const updatedContent = updateNextConfigForNextI18next(
+              content,
+              extension
+            );
+            await writeFileToRoot(rootDir, file, updatedContent);
+            logger(
+              `${v} Updated ${colorizePath(file)} to include Intlayer next-i18next compat plugin`
+            );
+          } else {
+            logger(
+              `${v} ${colorizePath(file)} already includes @intlayer/next-i18next`
+            );
+          }
+        } else if (allDeps['next-intl']) {
+          if (!content.includes('@intlayer/next-intl/plugin')) {
+            const updatedContent = updateNextConfigForNextIntl(
+              content,
+              extension
+            );
+            await writeFileToRoot(rootDir, file, updatedContent);
+            logger(
+              `${v} Updated ${colorizePath(file)} to include Intlayer next-intl compat plugin`
+            );
+          } else {
+            logger(
+              `${v} ${colorizePath(file)} already includes @intlayer/next-intl/plugin`
+            );
+          }
+        } else if (allDeps['next-translate']) {
+          if (!content.includes('@intlayer/next-translate')) {
+            const updatedContent = updateNextConfigForNextTranslate(
+              content,
+              extension
+            );
+            await writeFileToRoot(rootDir, file, updatedContent);
+            logger(
+              `${v} Updated ${colorizePath(file)} to include Intlayer next-translate compat plugin`
+            );
+          } else {
+            logger(
+              `${v} ${colorizePath(file)} already includes @intlayer/next-translate`
+            );
+          }
+        } else if (!content.includes('next-intlayer')) {
+          const updatedContent = updateNextConfig(content, extension);
+          await writeFileToRoot(rootDir, file, updatedContent);
+          logger(
+            `${v} Updated ${colorizePath(file)} to include Intlayer plugin`
+          );
+        }
+        break;
+      }
+    }
+
+    // CHECK NEXT.JS COMPILER (BABEL)
+    // When a Next.js project already uses Babel, install @intlayer/babel and print
+    // the compiler + build-optimization plugins (extract, purge, minify, optimize)
+    // to add. SWC projects need no setup: withIntlayer injects @intlayer/swc.
+    if (isNextJsProject) {
+      await setupNextCompilerBabelConfig({
         rootDir,
-        allDeps,
         packageManager,
-        useTypeScript: hasTsConfig,
-        routingMode,
+        allDeps,
+        skipInstall: Boolean(options?.noInstallPackages),
       });
-    } catch {
-      logger(
-        `${x} Framework-specific scaffolding failed. Your existing files were left untouched; follow the documentation to finish the setup.`,
-        { level: 'warn' }
+    }
+
+    // CHECK OTHER FRAMEWORKS CONFIG
+    const astroConfigs = [
+      'astro.config.mjs',
+      'astro.config.js',
+      'astro.config.ts',
+      'astro.config.cjs',
+    ];
+
+    for (const file of astroConfigs) {
+      if (await exists(rootDir, file)) {
+        hasAliasConfiguration = true;
+
+        if (file.startsWith('astro.config.')) {
+          const content = await readFileFromRoot(rootDir, file);
+
+          if (!content.includes('astro-intlayer')) {
+            const extension = file.split('.').pop()!;
+            const updatedContent = updateAstroConfig(content, extension);
+            await writeFileToRoot(rootDir, file, updatedContent);
+            logger(
+              `${v} Updated ${colorizePath(file)} to include Intlayer integration`
+            );
+          }
+        }
+        break;
+      }
+    }
+
+    const nuxtConfigs = ['nuxt.config.js', 'nuxt.config.ts'];
+    for (const file of nuxtConfigs) {
+      if (await exists(rootDir, file)) {
+        hasAliasConfiguration = true;
+
+        const content = await readFileFromRoot(rootDir, file);
+
+        if (allDeps['@nuxtjs/i18n']) {
+          if (!content.includes('@intlayer/nuxtjs-i18n')) {
+            const updatedContent = updateNuxtConfigForNuxtjsI18n(content);
+            await writeFileToRoot(rootDir, file, updatedContent);
+            logger(
+              `${v} Updated ${colorizePath(file)} to include @intlayer/nuxtjs-i18n module`
+            );
+          } else {
+            logger(
+              `${v} ${colorizePath(file)} already includes @intlayer/nuxtjs-i18n`
+            );
+          }
+        } else if (!content.includes('nuxt-intlayer')) {
+          const updatedContent = updateNuxtConfig(content);
+          await writeFileToRoot(rootDir, file, updatedContent);
+          logger(
+            `${v} Updated ${colorizePath(file)} to include Intlayer module`
+          );
+        }
+        break;
+      }
+    }
+
+    // CHECK METRO CONFIG (React Native / Expo)
+    // Metro is the React Native bundler. The Intlayer Metro plugin
+    // (`react-native-intlayer/metro`) handles dictionary aliasing and building.
+    // When no config exists we scaffold one; when one exists we safely wrap its
+    // exported config with `configMetroIntlayerSync`, leaving custom async
+    // (IIFE) configs untouched so existing setups are never broken.
+    const isReactNativeProject = Boolean(
+      allDeps['react-native'] || allDeps.expo
+    );
+
+    if (isReactNativeProject) {
+      // Metro resolves Intlayer aliases itself, so skip the alias fallback below.
+      hasAliasConfiguration = true;
+
+      const metroConfigs = [
+        'metro.config.js',
+        'metro.config.cjs',
+        'metro.config.mjs',
+        'metro.config.ts',
+      ];
+
+      let metroConfigFile: string | undefined;
+
+      for (const file of metroConfigs) {
+        if (await exists(rootDir, file)) {
+          metroConfigFile = file;
+          break;
+        }
+      }
+
+      if (metroConfigFile) {
+        const content = await readFileFromRoot(rootDir, metroConfigFile);
+
+        if (content.includes('react-native-intlayer')) {
+          logger(
+            `${v} ${colorizePath(metroConfigFile)} already includes the Intlayer Metro plugin`
+          );
+        } else {
+          const extension = metroConfigFile.split('.').pop()!;
+          const updatedContent = updateMetroConfig(content, extension);
+
+          if (updatedContent !== content) {
+            await writeFileToRoot(rootDir, metroConfigFile, updatedContent);
+            logger(
+              `${v} Updated ${colorizePath(metroConfigFile)} to include the Intlayer Metro plugin`
+            );
+          } else {
+            logger(
+              `${x} Could not automatically update ${colorizePath(metroConfigFile)}. Wrap your exported config with ${colorize('configMetroIntlayer', ANSIColors.MAGENTA)}: ${colorizePath(DocumentationRouter.ReactNativeAndExpo)}`,
+              { level: 'warn' }
+            );
+          }
+        }
+      } else {
+        const newMetroConfigFile = 'metro.config.js';
+        await writeFileToRoot(
+          rootDir,
+          newMetroConfigFile,
+          getMetroConfigTemplate(Boolean(allDeps.expo))
+        );
+        logger(
+          `${v} Created ${colorizePath(newMetroConfigFile)} with the Intlayer Metro plugin`
+        );
+      }
+    }
+
+    // UPDATE PACKAGE.JSON DEV SCRIPT
+    // Only frameworks with no bundler plugin to host the content watcher get
+    // their dev server wrapped; a Next.js app is always left alone. See
+    // `resolveDevScript`.
+    const newDevScript = resolveDevScript({
+      devScript: packageJson.scripts?.dev,
+      allDeps,
+      isNextJsProject,
+    });
+
+    if (newDevScript) {
+      packageJson.scripts.dev = newDevScript;
+
+      await writeFileToRoot(
+        rootDir,
+        packageJsonPath,
+        JSON.stringify(packageJson, null, 2)
       );
+
+      logger(
+        `${v} Updated ${colorizePath('package.json')} dev script to run intlayer watch`
+      );
+    }
+
+    // CHECK WEBPACK CONFIG
+    const webpackConfigs = [
+      'webpack.config.js',
+      'webpack.config.ts',
+      'webpack.config.mjs',
+      'webpack.config.cjs',
+    ];
+
+    for (const file of webpackConfigs) {
+      if (await exists(rootDir, file)) {
+        hasAliasConfiguration = true;
+        logger(
+          `${v} Found ${colorizePath(
+            file
+          )}. Make sure to configure aliases manually or use the Intlayer Webpack plugin.`
+        );
+        break;
+      }
+    }
+
+    // The server frameworks themselves, alongside their Intlayer packages: a
+    // project may be mid-setup and carry only one of the two.
+    const backendConfigPackages = [
+      'express',
+      'fastify',
+      '@adonisjs/core',
+      'hono',
+      'elysia',
+      ...BACKEND_INTLAYER_PACKAGES,
+    ];
+
+    if (backendConfigPackages.some((pkg) => allDeps[pkg])) {
+      hasAliasConfiguration = true;
+    }
+
+    if (!hasAliasConfiguration) {
+      const configuration = getConfiguration({ baseDir: rootDir });
+      // `tsconfig`/`jsconfig` `paths` and `package.json` `imports` both expect
+      // explicitly relative specifiers, so bare relative paths get a `./` prefix.
+      const aliases = getAlias({
+        configuration,
+        formatter: (value) =>
+          value.startsWith('./') || value.startsWith('../')
+            ? value
+            : `./${value}`,
+      });
+
+      if (hasTsConfig && tsConfigFiles.length > 0) {
+        const tsConfigPath =
+          tsConfigFiles.find((file) => file === 'tsconfig.json') ||
+          tsConfigFiles[0];
+
+        if (tsConfigPath) {
+          const tsConfigContent = await readFileFromRoot(rootDir, tsConfigPath);
+          const config = parseJSONWithComments(tsConfigContent);
+
+          config.compilerOptions ??= {};
+          config.compilerOptions.paths ??= {};
+
+          let updated = false;
+
+          Object.entries(aliases).forEach(([alias, path]) => {
+            if (!config.compilerOptions.paths[alias]) {
+              config.compilerOptions.paths[alias] = [path];
+              updated = true;
+            }
+          });
+
+          if (updated) {
+            await writeFileToRoot(
+              rootDir,
+              tsConfigPath,
+              JSON.stringify(config, null, 2)
+            );
+
+            logger(
+              `${v} Updated ${colorizePath(
+                tsConfigPath
+              )} to include Intlayer aliases`
+            );
+          }
+        }
+      } else {
+        const jsConfigPath = 'jsconfig.json';
+
+        if (await exists(rootDir, jsConfigPath)) {
+          const jsConfigContent = await readFileFromRoot(rootDir, jsConfigPath);
+          const config = parseJSONWithComments(jsConfigContent);
+
+          config.compilerOptions ??= {};
+          config.compilerOptions.paths ??= {};
+
+          let updated = false;
+
+          Object.entries(aliases).forEach(([alias, path]) => {
+            if (!config.compilerOptions.paths[alias]) {
+              config.compilerOptions.paths[alias] = [path];
+              updated = true;
+            }
+          });
+
+          if (updated) {
+            await writeFileToRoot(
+              rootDir,
+              jsConfigPath,
+              JSON.stringify(config, null, 2)
+            );
+            logger(
+              `${v} Updated ${colorizePath(
+                jsConfigPath
+              )} to include Intlayer aliases`
+            );
+          }
+        } else {
+          packageJson.imports ??= {};
+
+          let updated = false;
+
+          Object.entries(aliases).forEach(([alias, path]) => {
+            const importAlias = alias.replace('@', '#');
+
+            if (!packageJson.imports[importAlias]) {
+              packageJson.imports[importAlias] = path;
+              updated = true;
+            }
+          });
+
+          if (updated) {
+            await writeFileToRoot(
+              rootDir,
+              packageJsonPath,
+              JSON.stringify(packageJson, null, 2)
+            );
+            logger(
+              `${v} Updated ${colorizePath(
+                packageJsonPath
+              )} to include Intlayer imports`
+            );
+          }
+        }
+      }
+    }
+
+    // FRAMEWORK-SPECIFIC SCAFFOLDING
+    // Sets up middleware/proxy and wraps the layout/page with the Intlayer
+    // providers for the detected framework (Next.js App Router today). Idempotent
+    // and non-destructive: it never overwrites user code it cannot safely
+    // transform, skipping with guidance instead.
+    //
+    // Skipped entirely when a compat i18n library drives the app (i18next,
+    // next-intl, vue-i18n, …): the app already owns its routing, providers and
+    // layouts, and Intlayer only syncs its catalogs — restructuring routes or
+    // injecting providers would break the existing setup.
+    const hasCompatLibrary = Boolean(
+      compatSyncConfig || compatVitePluginConfig
+    );
+
+    if (hasCompatLibrary) {
+      logger(
+        `${v} Compat i18n library detected — keeping the app structure untouched (no route restructure, no provider injection)`
+      );
+    }
+
+    if (!hasCompatLibrary) {
+      try {
+        // Prefer the user's interactive choice, else the configured routing mode
+        // (which itself defaults to `prefix-no-default`). Drives whether the
+        // locale path segment is required (`prefix-all`) or optional.
+        const routingMode =
+          options?.routingMode ??
+          getConfiguration({ baseDir: rootDir }).routing.mode;
+
+        await setupFramework({
+          rootDir,
+          allDeps,
+          packageManager,
+          useTypeScript: hasTsConfig,
+          routingMode,
+        });
+      } catch {
+        logger(
+          `${x} Framework-specific scaffolding failed. Your existing files were left untouched; follow the documentation to finish the setup.`,
+          { level: 'warn' }
+        );
+      }
     }
   }
 
@@ -1369,24 +1424,5 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       ANSIColors.GREY_LIGHT
     ),
     colorizePath(guideUrl),
-  ]);
-
-  // INTLAYER LSP — instruction for the AI agent running `intlayer init`.
-  // The Intlayer Language Server (`@intlayer/lsp`) provides Go-to-Definition
-  // from `useIntlayer` / `getIntlayer` keys to their `.content` files, for both
-  // IDEs and AI agents. Setup is editor-specific (VS Code, Cursor, Windsurf,
-  // Zed, Neovim, Claude Code, …), so we don't scaffold anything here — instead
-  // we point to the doc and ask the agent to confirm the target platform.
-  logger([
-    colorize('Intlayer LSP →', ANSIColors.MAGENTA),
-    colorize(
-      'The Intlayer Language Server is available via the `@intlayer/lsp` package. It lets IDEs and AI agents jump from `useIntlayer`/`getIntlayer` keys to their `.content` files.',
-      ANSIColors.GREY_LIGHT
-    ),
-    colorize(
-      'Ask the user which platform/editor they want to enable it on (VS Code, Cursor, Windsurf, Zed, Neovim, Claude Code, …), then follow the matching setup instructions:',
-      ANSIColors.GREY_LIGHT
-    ),
-    colorizePath(DocumentationRouter.LSP),
   ]);
 };

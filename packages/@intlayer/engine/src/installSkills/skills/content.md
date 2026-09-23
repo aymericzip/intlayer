@@ -34,12 +34,12 @@ const content = t({
 
 Find locales to declare in config file. Supported configuration files:
 
-- `intlayer.config.{ts|js|json|json5|jsonc|cjs|mjs}`
+- `intlayer.config.{ts|js|cjs|mjs|json|json5|jsonc|md|mdx|yml|yaml}`
 - `.intlayerrc`
 
 ## Enumeration (`enu`)
 
-Map content to specific keys, numbers, or ranges (useful for pluralization).
+Map content to custom numeric values or ranges (`<5`, `>=10`). For grammatical plural forms, use `plural` instead.
 
 [Doc](https://intlayer.org/doc/concept/content/enumeration.md)
 
@@ -53,6 +53,33 @@ const carCount = enu({
   fallback: "Unknown amount",
 });
 ```
+
+## Plural (`plural`)
+
+Select the grammatical plural form from a count, using the CLDR categories (`zero`, `one`, `two`, `few`, `many`, `other`) of the active locale. `other` is required and used as fallback.
+
+[Doc](https://intlayer.org/doc/concept/content/plural.md)
+
+```typescript
+import { plural, t } from "intlayer";
+
+const totalOpenings = t({
+  en: plural({
+    one: "{{count}} opening",
+    other: "{{count}} openings",
+  }),
+  ru: plural({
+    one: "{{count}} вакансия",
+    few: "{{count}} вакансии",
+    many: "{{count}} вакансий",
+    other: "{{count}} вакансий",
+  }),
+});
+
+// Usage: totalOpenings(3) or totalOpenings({ count: 3, name: "Alice" })
+```
+
+> `plural` must be the leaf: wrap it in `t()`, never put `t()` inside `plural()`.
 
 ## Condition (`cond`)
 
@@ -165,7 +192,37 @@ const greeting = gender({
 });
 ```
 
-### Example Directory Structure (react)
+## Select (`select`)
+
+Map any string value (status, plan, role…) to content: the equivalent of an ICU `select` or a `switch`. Without `fallback`, only the declared cases are type-accepted.
+
+[Doc](https://intlayer.org/doc/concept/content/select.md)
+
+```typescript
+import { select } from "intlayer";
+
+const publishStatus = select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  fallback: "Unknown status", // Optional
+});
+
+// Usage: publishStatus(post.status)
+```
+
+> Prefer `select()` over indexing a plain object (`content[status]`): dynamic property access prevents the compiler from pruning and minifying the content.
+
+### Choosing a node by discriminant
+
+| Discriminant             | Node       |
+| ------------------------ | ---------- |
+| A count (grammar)        | `plural()` |
+| A number / custom ranges | `enu()`    |
+| A boolean                | `cond()`   |
+| A gender                 | `gender()` |
+| Any other string value   | `select()` |
+
+## Example Directory Structure (react)
 
 ```
 src/
@@ -357,14 +414,14 @@ Core Metadata
 
 Content & Localization
 
-- locale: Specifies the language of the content for (per-locale file)[https://intlayer.org/doc/concept/per-locale-file.md]
+- locale: Specifies the language of the content for a [per-locale file](https://intlayer.org/doc/concept/per-locale-file.md)
 - contentAutoTransformation: A toggle to automatically convert raw strings into specialized formats like Markdown, HTML, or Insertions (variables).
 - fill: An instruction indicating whether the dictionary should be automatically populated by AI/automation tools.
 
 Behaviorals Settings
 
 - priority: A numeric value used to resolve conflicts during merge of dictionaries under a same key.
-- importMode: Defines how content is loaded (`static`, `dynamic`, or `live`). AI can recommend the best mode based on performance needs.
+- importMode: Defines how content is loaded (`static`, `dynamic`, or `fetch`). AI can recommend the best mode based on performance needs.
 - location: Controls CMS synchronization (`hybrid`, `remote`, `local`). AI can manage where the source of truth resides.
 - schema: string that use zod schema declared in config file to validate data
 
@@ -373,5 +430,22 @@ Behaviorals Settings
 - [Website](https://intlayer.org)
 - [Doc](https://intlayer.org/doc)
 
-- [Content Overview](https://intlayer.org/doc/concept/content.md)
+### Content Nodes
+
+- [Content File](https://intlayer.org/doc/concept/content.md)
+- [Translation](https://intlayer.org/doc/concept/content/translation.md)
+- [Enumeration](https://intlayer.org/doc/concept/content/enumeration.md)
+- [Plural](https://intlayer.org/doc/concept/content/plural.md)
+- [Condition](https://intlayer.org/doc/concept/content/condition.md)
+- [Gender](https://intlayer.org/doc/concept/content/gender.md)
+- [Select](https://intlayer.org/doc/concept/content/select.md)
+- [Insertion](https://intlayer.org/doc/concept/content/insertion.md)
+- [Markdown](https://intlayer.org/doc/concept/content/markdown.md)
+- [HTML](https://intlayer.org/doc/concept/content/html.md)
+- [Nesting](https://intlayer.org/doc/concept/content/nesting.md)
+- [File](https://intlayer.org/doc/concept/content/file.md)
+- [Function Fetching](https://intlayer.org/doc/concept/content/function-fetching.md)
+
+### Packages
+
 - [Exports intlayer package](https://intlayer.org/doc/packages/intlayer/exports.md)

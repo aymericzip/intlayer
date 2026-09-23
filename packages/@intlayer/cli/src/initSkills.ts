@@ -48,10 +48,44 @@ const getDependencies = (root: string): Record<string, string> => {
   }
 };
 
+/**
+ * Asks which AI platform the user is using, preselecting the detected one.
+ * Resolves to `undefined` when the prompt is cancelled.
+ */
+export const promptPlatform = async (): Promise<Platform | undefined> => {
+  const detectedPlatform = getDetectedPlatform();
+
+  try {
+    const response = await enquirer.prompt<{ platform: Platform }>({
+      type: 'autocomplete',
+      name: 'platform',
+      message: 'Which platform are you using? (Type to search)',
+      multiple: false,
+      initial: detectedPlatform
+        ? PLATFORMS.indexOf(detectedPlatform)
+        : undefined,
+      choices: PLATFORM_OPTIONS.map((option) => ({
+        name: option.value,
+        message: option.label,
+        hint: option.hint,
+      })),
+    });
+
+    return response.platform;
+  } catch {
+    return undefined;
+  }
+};
+
+/**
+ * Installs the Intlayer documentation skills. The skills are picked first, then
+ * the platform (unless preselected). Resolves to the platform used, so a
+ * following step (e.g. MCP) can reuse it without asking again.
+ */
 export const initSkills = async (
   projectRoot?: string,
   preselectedPlatform?: Platform
-) => {
+): Promise<Platform | undefined> => {
   const p = await loadPrompts();
 
   const root = findProjectRoot(
@@ -59,40 +93,6 @@ export const initSkills = async (
   );
 
   p.intro('Initializing Intlayer skills');
-
-  let platform: Platform;
-
-  if (preselectedPlatform) {
-    platform = preselectedPlatform;
-  } else {
-    const detectedPlatform = getDetectedPlatform();
-
-    try {
-      const response = await enquirer.prompt<{ platforms: Platform }>({
-        type: 'autocomplete',
-        name: 'platforms',
-        message: 'Which platforms are you using? (Type to search)',
-        multiple: false,
-        initial: detectedPlatform
-          ? PLATFORMS.indexOf(detectedPlatform)
-          : undefined,
-        choices: PLATFORM_OPTIONS.map((opt) => ({
-          name: opt.value,
-          message: opt.label,
-          hint: opt.hint,
-        })),
-      });
-      platform = response.platforms;
-    } catch {
-      p.cancel('Operation cancelled.');
-      return;
-    }
-  }
-
-  if (!platform) {
-    p.log.warn('No platform selected. Nothing to install.');
-    return;
-  }
 
   const dependencies = getDependencies(root);
   const initialValues = getInitialSkills(dependencies);
@@ -117,6 +117,13 @@ export const initSkills = async (
     return;
   }
 
+  const platform = preselectedPlatform ?? (await promptPlatform());
+
+  if (!platform) {
+    p.cancel('Operation cancelled. No platform selected.');
+    return;
+  }
+
   const s = p.spinner();
   s.start('Installing skills...');
 
@@ -132,4 +139,6 @@ export const initSkills = async (
   }
 
   p.outro('Intlayer skills initialization complete');
+
+  return platform;
 };

@@ -1,7 +1,6 @@
 import { execSync } from 'node:child_process';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { compareVersions } from '@intlayer/config/utils';
 
 /** Package managers supported for dependency installation. */
 export type PackageManager = 'bun' | 'pnpm' | 'yarn' | 'npm';
@@ -615,12 +614,14 @@ export const installPackages = (
  * Matches the core `intlayer` package, every scoped `@intlayer/*` package
  * (including compat adapters such as `@intlayer/next-intl`) and the framework
  * runtime integrations that follow the `<framework>-intlayer` convention
- * (e.g. `next-intlayer`, `react-intlayer`, `express-intlayer`).
+ * (e.g. `next-intlayer`, `react-intlayer`, `express-intlayer`), as well as the
+ * `intlayer-*` packages (e.g. `intlayer-editor`).
  */
 export const isIntlayerPackageName = (packageName: string): boolean =>
   packageName === 'intlayer' ||
   packageName.startsWith('@intlayer/') ||
-  /-intlayer$/.test(packageName);
+  packageName.startsWith('intlayer-') ||
+  packageName.endsWith('-intlayer');
 
 /**
  * Reduces a semver range or full version to its `major.minor.patch` core,
@@ -636,71 +637,13 @@ export const normalizeVersion = (version?: string): string | null => {
 };
 
 /**
- * Reads the installed version of a package from its `package.json` inside the
- * project's `node_modules`. Returns `null` when the package is not installed or
- * its manifest cannot be read.
+ * Runs the package manager install command synchronously, so edited
+ * `package.json` ranges are resolved and the lock file updated. Throws if the
+ * install process exits with a non-zero code.
  */
-export const getInstalledPackageVersion = (
+export const runPackageInstall = (
   rootDir: string,
-  packageName: string
-): string | null => {
-  try {
-    const manifestPath = join(
-      rootDir,
-      'node_modules',
-      packageName,
-      'package.json'
-    );
-    if (!existsSync(manifestPath)) return null;
-    const { version } = JSON.parse(readFileSync(manifestPath, 'utf-8'));
-    return typeof version === 'string' ? version : null;
-  } catch {
-    return null;
-  }
-};
-
-/**
- * Returns the Intlayer packages from `dependencies` whose installed version is
- * behind `targetVersion` (compared on `major.minor.patch`). Packages that are
- * not installed yet are ignored — those are handled by
- * {@link detectMissingIntlayerPackages}.
- */
-export const detectOutdatedIntlayerPackages = (
-  rootDir: string,
-  dependencies: Record<string, string>,
-  targetVersion: string
-): string[] => {
-  const normalizedTarget = normalizeVersion(targetVersion);
-  if (!normalizedTarget) return [];
-
-  return Object.keys(dependencies)
-    .filter(isIntlayerPackageName)
-    .filter((packageName) => {
-      const installedVersion = getInstalledPackageVersion(rootDir, packageName);
-      const normalizedInstalled = normalizeVersion(
-        installedVersion ?? undefined
-      );
-      if (!normalizedInstalled) return false;
-      return compareVersions(normalizedInstalled, '<', normalizedTarget);
-    });
-};
-
-/**
- * Upgrades the given packages to `targetVersion` synchronously, preserving the
- * dependency type via the `isDev` flag. Throws if the install process exits
- * with a non-zero code.
- */
-export const upgradePackages = (
-  rootDir: string,
-  packages: string[],
-  packageManager: PackageManager,
-  targetVersion: string,
-  isDev: boolean = false
+  packageManager: PackageManager
 ): void => {
-  if (packages.length === 0) return;
-  const versionedPackages = packages.map(
-    (packageName) => `${packageName}@${targetVersion}`
-  );
-  const command = buildInstallCommand(packageManager, versionedPackages, isDev);
-  execSync(command, { cwd: rootDir, stdio: 'inherit' });
+  execSync(`${packageManager} install`, { cwd: rootDir, stdio: 'inherit' });
 };

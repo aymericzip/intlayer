@@ -73,11 +73,29 @@ const MyComponent = () => {
 };
 ```
 
+## Compiler
+
+The [Intlayer Compiler](https://intlayer.org/doc/compiler.md) can extract all your content keys from your components, using one CLI command (`npx intlayer extract`) or automatically at app build.
+
 ## References
 
 - [Website](https://intlayer.org)
 - [Doc](https://intlayer.org/doc)
 
+### Environments
+
 - [Vite and Preact](https://intlayer.org/doc/environment/vite-and-preact.md)
+- [Astro and Preact](https://intlayer.org/doc/environment/astro/preact.md)
+
+### Concepts
+
+- [Variants](https://intlayer.org/doc/concept/variants.md)
+- [Collections](https://intlayer.org/doc/concept/collections.md)
+- [Compiler](https://intlayer.org/doc/compiler.md)
+- [Formatters (number, currency, date, …)](https://intlayer.org/doc/formatters.md)
+
+### Packages
+
 - [Intlayer Exports](https://intlayer.org/doc/packages/intlayer/exports.md)
 - [Preact Intlayer Exports](https://intlayer.org/doc/packages/preact-intlayer/exports.md)
+- [preact-intlayer usePathname](https://intlayer.org/doc/packages/preact-intlayer/usePathname.md)
