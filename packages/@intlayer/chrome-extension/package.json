@@ -44,7 +44,7 @@
     "test": "bun --bun vitest run",
     "test:watch": "bun --bun vitest",
     "typecheck": "tsc --noEmit",
-    "zip": "cd dist && zip -r ../intlayer-chrome-extension.zip ."
+    "zip": "cd dist && zip -r ../intlayer-chrome-extension.zip . -x '*/.*' '.*'"
   },
   "dependencies": {
     "react": "19.3.0",

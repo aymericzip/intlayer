@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-22
 title: Informacja o prywatności Intlayer
 description: Dowiedz się, jak Intlayer przetwarza informacje zbierane za pośrednictwem naszej strony internetowej i CMS. Przejdź przez dokumentację, aby zrozumieć różne formaty i przypadki użycia.
 keywords:
@@ -51,6 +51,14 @@ Podczas procesu uwierzytelniania zbieramy:
 
 Użytkownicy mogą również uzyskać dostęp do CMS za pomocą tokenów dostępu powiązanych z ich kontem. Tokeny te są powiązane z tymi samymi danymi uwierzytelniającymi.
 
+## Intlayer i18n Scanner (rozszerzenie Chrome)
+
+Rozszerzenie Chrome **Intlayer i18n Scanner** analizuje konfigurację internacjonalizacji strony otwartej w bieżącej karcie.
+
+- **Analiza lokalna:** Po otwarciu okna rozszerzenia odczytuje ono bieżącą stronę (atrybuty językowe, linki hreflang, tagi meta, zmienne globalne frameworka) bezpośrednio w Twojej przeglądarce. Ta zawartość nie jest wysyłana na nasze serwery.
+- **Audyt:** Wyłącznie po kliknięciu przycisku skanowania adres URL bieżącej strony jest wysyłany do API Intlayer (`back.intlayer.org`) w celu przeprowadzenia audytu. Przechowujemy jedynie **nazwę domeny** skanowanej strony, uzyskany **wynik** oraz **datę** skanowania, aby obliczać zbiorcze statystyki. Ten zapis nie jest powiązany z Twoją tożsamością ani z kontem Intlayer.
+- **Brak innego gromadzenia danych:** Rozszerzenie nie gromadzi danych osobowych, danych uwierzytelniających ani aktywności użytkownika, nie śledzi odwiedzanych przez Ciebie stron, nie używa plików cookie ani narzędzi analitycznych i nie uruchamia zdalnego kodu.
+
 ## Przechowywanie danych i bezpieczeństwo
 
 Dane uwierzytelniające użytkowników są przechowywane w **bazie danych MongoDB** hostowanej na **cloud.mongodb.com**:
@@ -78,5 +86,3 @@ W przypadku jakichkolwiek pytań dotyczących Twoich danych, skontaktuj się z n
 ## Zmiany w niniejszym zawiadomieniu
 
 Możemy od czasu do czasu aktualizować niniejsze zawiadomienie o prywatności. Zalecamy regularne sprawdzanie tej strony, aby być na bieżąco z wszelkimi zmianami.
-
-Daj znać, jeśli chciałbyś bardziej formalny ton, dodać wzmianki o RODO/CCPA lub dostosować to do strony prawnej na Twojej witrynie.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-22
 title: Aviso de Privacidade do Intlayer
 description: Descubra como o Intlayer lida com as informações coletadas através do nosso site e CMS. Siga a documentação para entender os diferentes formatos e casos de uso.
 keywords:
@@ -51,6 +51,14 @@ Durante o processo de autenticação, coletamos:
 
 Os usuários também podem acessar o CMS por meio de tokens de acesso vinculados à sua conta. Esses tokens estão ligados aos mesmos dados de autenticação.
 
+## Intlayer i18n Scanner (extensão do Chrome)
+
+A extensão do Chrome **Intlayer i18n Scanner** inspeciona a configuração de internacionalização da página aberta na aba atual.
+
+- **Análise local:** Quando você abre o popup da extensão, ela lê a página atual (atributos de idioma, links hreflang, meta tags, variáveis globais do framework) diretamente no seu navegador. Esse conteúdo não é enviado aos nossos servidores.
+- **Auditoria:** Somente quando você clica no botão de análise, a URL da página atual é enviada à API da Intlayer (`back.intlayer.org`) para realizar a auditoria. Armazenamos apenas o **nome de domínio** da página analisada, a **pontuação** obtida e a **data** da análise, para calcular estatísticas agregadas. Esse registro não está vinculado à sua identidade nem a uma conta Intlayer.
+- **Nenhuma outra coleta:** A extensão não coleta informações pessoais, dados de autenticação ou atividade do usuário, não rastreia as páginas que você visita, não utiliza cookies nem ferramentas de análise e não executa código remoto.
+
 ## Armazenamento e Segurança dos Dados
 
 Os dados de autenticação dos usuários são armazenados em um **banco de dados MongoDB** hospedado no **cloud.mongodb.com**:
@@ -78,5 +86,3 @@ Para qualquer solicitação relacionada aos seus dados, entre em contato conosco
 ## Alterações Neste Aviso
 
 Podemos atualizar este aviso de privacidade periodicamente. Recomendamos que os usuários verifiquem esta página regularmente para se manterem informados sobre quaisquer mudanças.
-
-Informe-nos se desejar um tom mais formal, incluir menções ao GDPR/CCPA ou adaptar este texto para uma página legal em seu site.

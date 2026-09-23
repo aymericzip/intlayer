@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-22
 title: Aviso de Privacidad de Intlayer
 description: Descubre cómo Intlayer maneja la información recopilada a través de nuestro sitio web y CMS. Sigue la documentación para entender los diferentes formatos y casos de uso.
 keywords:
@@ -51,6 +51,14 @@ Durante el proceso de autenticación, recopilamos:
 
 Los usuarios también pueden acceder al CMS mediante tokens de acceso vinculados a su cuenta. Estos tokens están asociados con los mismos datos de autenticación.
 
+## Intlayer i18n Scanner (extensión de Chrome)
+
+La extensión de Chrome **Intlayer i18n Scanner** inspecciona la configuración de internacionalización de la página abierta en la pestaña actual.
+
+- **Análisis local:** Cuando abre la ventana emergente de la extensión, esta lee la página actual (atributos de idioma, enlaces hreflang, etiquetas meta, variables globales del framework) directamente en su navegador. Este contenido no se envía a nuestros servidores.
+- **Auditoría:** Solo cuando hace clic en el botón de escaneo, la URL de la página actual se envía a la API de Intlayer (`back.intlayer.org`) para realizar la auditoría. Solo almacenamos el **nombre de dominio** de la página escaneada, la **puntuación** obtenida y la **fecha** del escaneo, para calcular estadísticas agregadas. Este registro no está vinculado a su identidad ni a una cuenta de Intlayer.
+- **Ninguna otra recopilación:** La extensión no recopila información personal, datos de autenticación ni actividad del usuario, no rastrea las páginas que visita, no utiliza cookies ni herramientas de análisis y no ejecuta código remoto.
+
 ## Almacenamiento y Seguridad de Datos
 
 Los datos de autenticación de los usuarios se almacenan en una **base de datos MongoDB** alojada en **cloud.mongodb.com**:
@@ -78,5 +86,3 @@ Para cualquier solicitud relacionada con sus datos, contáctenos en [contact@int
 ## Cambios en este Aviso
 
 Podemos actualizar este aviso de privacidad de vez en cuando. Se recomienda a los usuarios revisar esta página regularmente para mantenerse informados sobre cualquier cambio.
-
-Hágame saber si desea un tono más formal, agregar menciones de GDPR/CCPA o adaptarlo para una página legal en su sitio.

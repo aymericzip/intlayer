@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-22
 title: Pemberitahuan Privasi Intlayer
 description: Temukan bagaimana Intlayer menangani informasi yang dikumpulkan melalui situs web dan CMS kami. Ikuti dokumentasi untuk memahami berbagai format dan kasus penggunaan.
 keywords:
@@ -51,6 +51,14 @@ Selama proses autentikasi, kami mengumpulkan:
 
 Pengguna juga dapat mengakses CMS melalui token akses yang terkait dengan akun mereka. Token ini terikat pada data autentikasi yang sama.
 
+## Intlayer i18n Scanner (Ekstensi Chrome)
+
+Ekstensi Chrome **Intlayer i18n Scanner** memeriksa konfigurasi internasionalisasi halaman yang terbuka di tab saat ini.
+
+- **Analisis lokal:** Saat Anda membuka popup ekstensi, ekstensi membaca halaman saat ini (atribut bahasa, tautan hreflang, tag meta, variabel global framework) langsung di browser Anda. Konten halaman ini tidak dikirim ke server kami.
+- **Pemindaian audit:** Hanya ketika Anda mengklik tombol pindai, URL halaman saat ini dikirim ke API Intlayer (`back.intlayer.org`) untuk menjalankan audit. Kami hanya menyimpan **nama domain** halaman yang dipindai, **skor** yang dihasilkan, dan **tanggal** pemindaian, untuk menghitung statistik agregat. Catatan ini tidak terkait dengan identitas Anda atau akun Intlayer.
+- **Tidak ada pengumpulan lain:** Ekstensi tidak mengumpulkan informasi pribadi, data autentikasi, atau aktivitas pengguna, tidak melacak halaman yang Anda kunjungi, tidak menggunakan cookie atau analitik, dan tidak menjalankan kode jarak jauh.
+
 ## Penyimpanan Data dan Keamanan
 
 Data autentikasi pengguna disimpan dalam **database MongoDB** yang dihosting di **cloud.mongodb.com**:
@@ -78,5 +86,3 @@ Untuk setiap permintaan terkait data Anda, hubungi kami di [contact@intlayer.org
 ## Perubahan pada Pemberitahuan Ini
 
 Kami dapat memperbarui pemberitahuan privasi ini dari waktu ke waktu. Pengguna disarankan untuk secara rutin memeriksa halaman ini agar tetap mendapatkan informasi tentang setiap perubahan.
-
-Beritahu kami jika Anda menginginkan nada yang lebih formal, menambahkan penyebutan GDPR/CCPA, atau menyesuaikannya untuk halaman hukum di situs Anda.

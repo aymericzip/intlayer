@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-22
 title: Thông Báo Bảo Mật của Intlayer
 description: Tìm hiểu cách Intlayer xử lý thông tin thu thập qua trang web và CMS của chúng tôi. Theo dõi tài liệu để hiểu các định dạng và trường hợp sử dụng khác nhau.
 keywords:
@@ -51,6 +51,14 @@ Trong quá trình xác thực, chúng tôi thu thập:
 
 Người dùng cũng có thể truy cập CMS thông qua các token truy cập liên kết với tài khoản của họ. Các token này được gắn với cùng dữ liệu xác thực.
 
+## Intlayer i18n Scanner (Tiện ích Chrome)
+
+Tiện ích Chrome **Intlayer i18n Scanner** kiểm tra cấu hình quốc tế hóa của trang đang mở trong tab hiện tại.
+
+- **Phân tích cục bộ:** Khi bạn mở cửa sổ bật lên của tiện ích, tiện ích sẽ đọc trang hiện tại (thuộc tính ngôn ngữ, liên kết hreflang, thẻ meta, biến toàn cục của framework) trực tiếp trong trình duyệt của bạn. Nội dung trang này không được gửi đến máy chủ của chúng tôi.
+- **Quét kiểm tra:** Chỉ khi bạn nhấp vào nút quét, URL của trang hiện tại mới được gửi đến API Intlayer (`back.intlayer.org`) để thực hiện kiểm tra. Chúng tôi chỉ lưu **tên miền** của trang được quét, **điểm số** thu được và **ngày** quét, nhằm tính toán thống kê tổng hợp. Bản ghi này không liên kết với danh tính của bạn hoặc với tài khoản Intlayer.
+- **Không thu thập thêm:** Tiện ích không thu thập thông tin cá nhân, dữ liệu xác thực hoặc hoạt động người dùng, không theo dõi các trang bạn truy cập, không sử dụng cookie hay công cụ phân tích và không chạy mã từ xa.
+
 ## Lưu trữ và Bảo mật Dữ liệu
 
 Dữ liệu xác thực người dùng được lưu trữ trong **cơ sở dữ liệu MongoDB** được lưu trữ trên **cloud.mongodb.com**:
@@ -78,5 +86,3 @@ Là người dùng, bạn có quyền:
 ## Thay đổi về Thông báo này
 
 Chúng tôi có thể cập nhật thông báo bảo mật này theo thời gian. Người dùng được khuyến nghị thường xuyên kiểm tra trang này để cập nhật các thay đổi.
-
-Hãy cho chúng tôi biết nếu bạn muốn sử dụng giọng điệu trang trọng hơn, thêm các đề cập về GDPR/CCPA, hoặc điều chỉnh cho trang pháp lý trên trang web của bạn.

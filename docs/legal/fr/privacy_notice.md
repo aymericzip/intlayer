@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-22
 title: Avis de confidentialité Intlayer
 description: Découvrez comment Intlayer gère les informations collectées via notre site web et CMS. Suivez la documentation pour comprendre les différents formats et cas d'utilisation.
 keywords:
@@ -51,6 +51,14 @@ Lors du processus d'authentification, nous collectons :
 
 Les utilisateurs peuvent également accéder au CMS via des jetons d'accès liés à leur compte. Ces jetons sont associés aux mêmes données d'authentification.
 
+## Intlayer i18n Scanner (extension Chrome)
+
+L'extension Chrome **Intlayer i18n Scanner** inspecte la configuration d'internationalisation de la page ouverte dans l'onglet actif.
+
+- **Analyse locale :** Lorsque vous ouvrez la fenêtre de l'extension, celle-ci lit la page courante (attributs de langue, liens hreflang, balises meta, variables globales du framework) directement dans votre navigateur. Ce contenu n'est pas envoyé à nos serveurs.
+- **Audit :** Uniquement lorsque vous cliquez sur le bouton d'analyse, l'URL de la page courante est envoyée à l'API Intlayer (`back.intlayer.org`) pour réaliser l'audit. Nous conservons uniquement le **nom de domaine** de la page analysée, le **score** obtenu et la **date** de l'analyse, afin de calculer des statistiques agrégées. Cet enregistrement n'est lié ni à votre identité ni à un compte Intlayer.
+- **Aucune autre collecte :** L'extension ne collecte aucune information personnelle, donnée d'authentification ou activité utilisateur, ne suit pas les pages que vous visitez, n'utilise ni cookies ni outils d'analyse, et n'exécute aucun code distant.
+
 ## Stockage et sécurité des données
 
 Les données d'authentification des utilisateurs sont stockées dans une **base de données MongoDB** hébergée sur **cloud.mongodb.com** :
@@ -78,5 +86,3 @@ Pour toute demande concernant vos données, contactez-nous à [contact@intlayer.
 ## Modifications de cette notice
 
 Nous pouvons mettre à jour cette notice de confidentialité de temps à autre. Il est conseillé aux utilisateurs de consulter régulièrement cette page pour rester informés de toute modification.
-
-Faites-nous savoir si vous souhaitez un ton plus formel, ajouter des mentions GDPR/CCPA, ou l'adapter pour une page légale sur votre site.

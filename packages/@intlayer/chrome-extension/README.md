@@ -1,5 +1,7 @@
 # @intlayer/chrome-extension
 
+Chrome Web Store: <https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc>
+
 Chrome extension (Manifest V3) that inspects the i18n implementation of the
 currently visited website — Wappalyzer style — and can run a full Intlayer
 i18n/SEO audit through the backend.

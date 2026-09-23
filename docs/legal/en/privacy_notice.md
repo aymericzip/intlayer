@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-22
 title: Intlayer Privacy Notice
 description: Discover how Intlayer handles information collected through our website and CMS. Follow the documentation to understand the different formats and use cases.
 keywords:
@@ -16,6 +16,7 @@ keywords:
   - Meta (Facebook) Pixel
   - Authentication
   - User Data
+  - Chrome Extension
 slugs:
   - privacy-notice
 author: aymericzip
@@ -51,6 +52,14 @@ During the authentication process, we collect:
 
 Users may also access the CMS via access tokens linked to their account. These tokens are tied to the same authentication data.
 
+## Intlayer i18n Scanner (Chrome Extension)
+
+The **Intlayer i18n Scanner** Chrome extension inspects the internationalization setup of the page open in the current tab.
+
+- **Local analysis:** When you open the extension popup, it reads the current page (language attributes, hreflang links, meta tags, framework globals) directly in your browser. This page content is not sent to our servers.
+- **Audit scan:** Only when you click the scan button, the URL of the current page is sent to the Intlayer API (`back.intlayer.org`) to run the audit. We store only the **domain name** of the scanned page, the resulting **score** and the **date** of the scan, to compute aggregated statistics. This record is not linked to your identity or to an Intlayer account.
+- **No other collection:** The extension does not collect personal information, authentication data, or user activity, does not track the pages you visit, does not use cookies or analytics, and does not run remote code.
+
 ## Data Storage and Security
 
 User authentication data is stored in a **MongoDB database** hosted on **cloud.mongodb.com**:
@@ -78,5 +87,3 @@ For any request regarding your data, contact us at [contact@intlayer.org](mailto
 ## Changes to This Notice
 
 We may update this privacy notice from time to time. Users are advised to regularly check this page to stay informed of any changes.
-
-Let me know if you'd like a more formal tone, add GDPR/CCPA mentions, or adapt it for a legal page on your site.

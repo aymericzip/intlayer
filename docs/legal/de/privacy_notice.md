@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-22
 title: Intlayer Datenschutzhinweis
 description: Entdecken Sie, wie Intlayer Informationen verarbeitet, die über unsere Website und das CMS gesammelt werden. Folgen Sie der Dokumentation, um die verschiedenen Formate und Anwendungsfälle zu verstehen.
 keywords:
@@ -51,6 +51,14 @@ Während des Authentifizierungsprozesses erfassen wir:
 
 Benutzer können auch über Zugriffstoken, die mit ihrem Konto verknüpft sind, auf das CMS zugreifen. Diese Token sind an dieselben Authentifizierungsdaten gebunden.
 
+## Intlayer i18n Scanner (Chrome-Erweiterung)
+
+Die Chrome-Erweiterung **Intlayer i18n Scanner** untersucht die Internationalisierungs-Konfiguration der im aktuellen Tab geöffneten Seite.
+
+- **Lokale Analyse:** Wenn Sie das Popup der Erweiterung öffnen, liest sie die aktuelle Seite (Sprachattribute, hreflang-Links, Meta-Tags, globale Framework-Variablen) direkt in Ihrem Browser aus. Dieser Seiteninhalt wird nicht an unsere Server gesendet.
+- **Audit-Scan:** Nur wenn Sie auf die Scan-Schaltfläche klicken, wird die URL der aktuellen Seite an die Intlayer-API (`back.intlayer.org`) gesendet, um das Audit durchzuführen. Wir speichern ausschließlich den **Domainnamen** der gescannten Seite, den ermittelten **Score** und das **Datum** des Scans, um aggregierte Statistiken zu erstellen. Dieser Eintrag ist weder mit Ihrer Identität noch mit einem Intlayer-Konto verknüpft.
+- **Keine weitere Erhebung:** Die Erweiterung erhebt keine personenbezogenen Daten, Authentifizierungsdaten oder Nutzeraktivitäten, verfolgt nicht die von Ihnen besuchten Seiten, verwendet weder Cookies noch Analysetools und führt keinen Remote-Code aus.
+
 ## Datenspeicherung und Sicherheit
 
 Die Authentifizierungsdaten der Benutzer werden in einer **MongoDB-Datenbank** gespeichert, die auf **cloud.mongodb.com** gehostet wird:
@@ -78,5 +86,3 @@ Für Anfragen bezüglich Ihrer Daten kontaktieren Sie uns bitte unter [contact@i
 ## Änderungen dieser Mitteilung
 
 Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Nutzer werden empfohlen, diese Seite regelmäßig zu überprüfen, um über Änderungen informiert zu bleiben.
-
-Lassen Sie mich wissen, wenn Sie einen formelleren Ton wünschen, GDPR/CCPA-Erwähnungen hinzufügen möchten oder die Seite für eine rechtliche Seite auf Ihrer Website anpassen wollen.
