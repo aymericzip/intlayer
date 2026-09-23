@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026'da Svelte için En İyi i18n Çözümü - Benchmark Raporu
-description: svelte-i18n, Paraglide ve Intlayer gibi Svelte uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
+description: svelte-i18n, Paraglide, Tolgee ve Intlayer gibi Svelte uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Update benchmark results"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Benchmark sonuçları güncellendi"
@@ -67,6 +70,7 @@ Diğer etki geliştirici deneyimi (DX) üzerindedir: içeriği nasıl tanımlad�
 
 - **Intlayer**: En küçük ayak izine sahip en performans odaklı seçim (v9.5.6).
 - **Paraglide**: Tree-shaking için güçlü bir rakip ancak daha karmaşık bir geliştirici deneyimine ve reaktivite yüküne sahip.
+- **Tolgee**: Bağlam içi düzenleme özelliklerine sahip zengin özellikli çeviri platformu, ancak oldukça ağır (~13.0kb, Intlayer'ın yaklaşık 3.6 katı) ve statik kurulumlarda sayfalar arası belirgin sızıntı gösterir (%90 sayfa sızıntısı).
 - **svelte-i18n**: Svelte için kapsamlı ve standart, ancak çok daha büyük paket ağırlığı taşıyor (~4.5x Intlayer).
 
 ## Uygulamanızı test edin
@@ -101,6 +105,7 @@ Bu benchmark için aşağıdaki kütüphaneleri karşılaştırdık:
 - `Base App` (i18n kütüphanesi yok)
 - [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/svelte-intlayer/exports.md) (v9.5.6)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 Framework, **10 sayfa** ve **10 dilden** oluşan çok dilli bir uygulamaya sahip `Svelte`'dir.
@@ -145,7 +150,7 @@ Aynı çok dilli uygulamayı her stack için gerçek bir tarayıcıda çalışt�
 
 GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun vadeli alakasının güçlü bir göstergesidir. Teknik kalitenin doğrudan bir ölçüsü olmasa da, kaç geliştiricinin projeyi yararlı bulduğunu, ilerlemesini takip ettiğini ve benimseme olasılığını yansıtır. Bir projenin değerini tahmin etmek için yıldızlar, alternatifler arasındaki çekişi karşılaştırmaya yardımcı olur ve ekosistem büyümesi hakkında içgörüler sağlar.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## Detaylı sonuçlar
 
@@ -164,6 +169,16 @@ Kişisel olarak her push'tan önce JS dosyalarını yeniden oluşturmak zorunda 
 Son olarak, diğer çözümlerle karşılaştırıldığında Paraglide, içeriği işlemek için geçerli dili almak için bir store (örneğin Svelte store) kullanmaz. Ayrıştırılan her düğüm için localStorage / cookie vb.'den dili isteyecektir. Bu, bileşen reaktivitesini etkileyen gereksiz mantık yürütülmesine yol açar.
 
 > Paraglide üzerine not: çözüm, importlar için kod tabanınıza kod enjekte eder; sonuç olarak, benchmark raporundaki 'lib size' metriği neredeyse 0'dır. Kod üretimi iyi bir şeydir, çünkü kullanılan fonksiyon yalnızca gerekli mantığı (her yerde ön ek vs ön ek yok, çerez vs depolama vb.) içerecektir. Karşılaştırma yapıldığında, Intlayer bu filtrelemeyi mantığa bağlı olarak içeriği tree-shaking yapmaya zorlamak için build sırasında ortam değişkeni enjeksiyonları yoluyla gerçekleştirir. Bu sayede paraglide ve intlayer i18next veya next-intl'den 6 ila 10 kat daha hafif çözümler haline gelir.
+
+**(Tolgee)** (`@tolgee/svelte@7.2.1`):
+
+`Tolgee`, bağlam içi (in-context) düzenleme ve `@tolgee/svelte` aracılığıyla resmi Svelte entegrasyonu sunan hepsi bir arada bir yerelleştirme platformudur.
+
+Paket oldukça ağırdır (~13.0kb, `svelte-intlayer`'ın yaklaşık 3.6 katı).
+
+Svelte'te sayfa başına ayrıntılı bölme mekanizması olmadan, statik kurulumlarda tüm çeviriler başlangıçta belleğe yüklenir. Bu durum yüksek paket sızıntısına (%50.0 dil sızıntısı, %90.0 sayfa sızıntısı) ve ortalama ~100.7kb sayfa paketi boyutuna yol açar (Intlayer için ~59.0kb).
+
+Dil değiştirme reaktivitesi son derece hızlıdır (0.5ms), Svelte'in reaktif depolarından yararlanır; ancak hidrasyon ek yükü biraz daha yüksektir (Intlayer için ~5.5ms iken ~6.2ms).
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 

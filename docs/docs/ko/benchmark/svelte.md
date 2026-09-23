@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026년 Svelte를 위한 최고의 i18n 솔루션 - 벤치마크 리포트
-description: svelte-i18n, Paraglide, Intlayer와 같은 Svelte 국제화(i18n) 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
+description: svelte-i18n, Paraglide, Tolgee, Intlayer와 같은 Svelte 국제화(i18n) 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Update benchmark results"
   - version: 9.5.1
     date: 2026-09-11
     changes: "벤치마크 결과 업데이트"
@@ -67,6 +70,7 @@ style="border:none;"
 
 - **Intlayer**: 가장 성능 효율적인 선택(v9.5.6)으로, 발자국(footprint)이 가장 작습니다.
 - **Paraglide**: 트리 쉐이킹(tree-shaking)을 위한 강력한 후보이지만, 개발자 경험이 더 복잡하고 반응성 오버헤드가 있습니다.
+- **Tolgee**: 인컨텍스트 편집 기능을 갖춘 강력한 번역 플랫폼이지만, 다소 무겁고(~13.0kb, Intlayer의 약 3.6배), 정적 설정 시 페이지 간 번역 누수가 큽니다(90% 페이지 누수).
 - **svelte-i18n**: Svelte를 위한 표준적이고 기능이 완비된 솔루션이지만, 번들 무게가 훨씬 더 큽니다(Intlayer의 약 4.5배).
 
 ## 앱 테스트하기
@@ -101,6 +105,7 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 - `Base App` (i18n 라이브러리 없음)
 - [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/svelte-intlayer/exports.md) (v9.5.6)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 프레임워크는 `Svelte`이며 **10개의 페이지**와 **10개의 언어**를 가진 다국어 앱을 사용했습니다.
@@ -145,7 +150,7 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 
 GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 관련성을 나타내는 강력한 지표입니다. 기술적 품질을 직접적으로 측정하는 것은 아니지만, 얼마나 많은 개발자가 프로젝트가 유용하다고 생각하고 진행 상황을 팔로우하며 채택할 가능성이 있는지를 반영합니다. 프로젝트의 가치를 평가할 때 스타는 대안 간의 견인력을 비교하는 데 도움이 되며 생태계 성장에 대한 통찰력을 제공합니다.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## 결과 상세
 
@@ -164,6 +169,16 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 마지막으로 다른 솔루션과 비교하여 Paraglide는 콘텐츠를 렌더링하기 위한 현재 로케일을 가져오기 위해 스토어(예: Svelte store)를 사용하지 않습니다. 파싱되는 각 노드에 대해 localStorage / 쿠키 등에서 로케일을 요청합니다. 이는 컴포넌트 반응성에 영향을 미주는 불필요한 로직 실행을 초래합니다.
 
 > paraglide에 관한 참고: 이 솔루션은 임포트를 위해 코드베이스에 코드를 주입하므로, 벤치마크 리포트의 'lib size' 메트릭은 거의 0에 가깝습니다. 코드 생성(Code generation)은 사용되는 함수에 필요한 로직(모든 접두사 vs 접두사 없음, 쿠키 vs 스토리지 등)만 포함되므로 좋은 방식입니다. 이에 비해 Intlayer는 빌드 시 환경 변수 주입을 통해 이 필터링을 수행하여 번들러가 로직에 따라 콘텐츠를 트리 쉐이킹하도록 강제합니다. 덕분에 paraglide와 intlayer는 i18next나 next-intl보다 6~10배 더 가벼운 솔루션이 됩니다.
+
+**(Tolgee)** (`@tolgee/svelte@7.2.1`):
+
+`Tolgee`는 인컨텍스트(in-context) 편집 기능과 `@tolgee/svelte`를 통한 공식 Svelte 연동을 지원하는 올인원 현지화 플랫폼을 제공합니다.
+
+패키지 크기는 비교적 큽니다(~13.0kb, `svelte-intlayer`의 약 3.6배).
+
+Svelte에서 페이지별 세분화된 분할이 없어 정적 설정 시 시작할 때 모든 번역이 메모리에 로드됩니다. 이로 인해 상당한 번들 누수가 발생하며(로케일 누수 50.0%, 페이지 누수 90.0%), 평균 페이지 번들 크기는 ~100.7kb에 달합니다(Intlayer의 ~59.0kb 대비).
+
+언어 전환 반응성은 매우 빠르며(0.5ms), Svelte의 반응형 스토어 덕분에 신속하게 동작하지만, 하이드레이션 오버헤드는 다소 높습니다(Intlayer의 ~5.5ms 대비 ~6.2ms).
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 

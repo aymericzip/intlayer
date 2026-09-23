@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026 年 Svelte 最佳 i18n 解决方案 - 基准报告
-description: 比较 Svelte 国际化（i18n）库，如 svelte-i18n、Paraglide 和 Intlayer。关于Bundle 大小、泄漏和反应性的详细性能报告。
+description: 比较 Svelte 国际化（i18n）库，如 svelte-i18n、Paraglide、Tolgee 和 Intlayer。关于Bundle 大小、泄漏和反应性的详细性能报告。
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Update benchmark results"
   - version: 9.5.1
     date: 2026-09-11
     changes: "更新基准测试结果"
@@ -67,6 +70,7 @@ history:
 
 - **Intlayer**: 性能最高效的选择（v9.5.6），占用空间最小。
 - **Paraglide**: tree-shaking 的有力竞争者，但开发者体验更复杂，且有反应性开销。
+- **Tolgee**: 具备上下文内编辑功能的多功能翻译平台，但体积较重（约 13.0kb，约为 Intlayer 的 3.6 倍），且在静态配置下存在显著的页面间翻译泄露（90% 页面泄露）。
 - **svelte-i18n**: 功能完善且是 Svelte 的标准，但包重量大得多（约为 Intlayer 的 4.5 倍）。
 
 ## 测试您的应用
@@ -101,6 +105,7 @@ history:
 - `Base App`（无 i18n 库）
 - [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/svelte-intlayer/exports.md) (v9.5.6)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 框架是 `Svelte`，应用包含 **10 个页面** 和 **10 种语言**。
@@ -145,7 +150,7 @@ history:
 
 GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力指标。虽然星数不是技术质量的直接衡量标准，但它们反映了有多少开发人员发现该项目有用、关注其进展并可能采用它。在评估项目价值时，星数有助于比较不同方案的吸引力，并提供对生态系统增长的见解。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## 结果详情
 
@@ -164,6 +169,16 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 最后，与其他解决方案相比，Paraglide 不使用 store（例如 Svelte store）来检索当前语言以渲染内容。对于解析的每个节点，它都会从 localStorage / cookie 等请求语言。这导致执行不必要的逻辑，从而影响组件的反应性。
 
 > 关于 paraglide 的说明：该解决方案在您的代码库中注入代码进行导入，因此基准报告中的“库大小”指标几乎为 0。代码生成是一件好事，因为使用的函数将仅包含必要的逻辑（全局前缀 vs 无前缀、cookie vs 存储等）。相比之下，Intlayer 在构建期间通过注入环境变量来进行过滤，以迫使打包器根据逻辑对内容进行 tree-shake。得益于此，paraglide 和 intlayer 最终比 i18next 或 next-intl 轻 6 到 10 倍。
+
+**(Tolgee)** (`@tolgee/svelte@7.2.1`):
+
+`Tolgee` 提供了集上下文内编辑（in-context editing）于一体的本地化平台，并通过 `@tolgee/svelte` 提供官方 Svelte 支持。
+
+该包体积相对较重（约 13.0kb，约为 `svelte-intlayer` 的 3.6 倍）。
+
+由于在 Svelte 中缺乏细粒度的按页面拆分机制，在静态配置下所有翻译都会在启动时直接加载到内存中。这导致严重的包内容泄露（50.0% 语言泄露，90.0% 页面内容泄露），页面平均 JS 大小达到 ~100.7kb（相比之下 Intlayer 仅为 ~59.0kb）。
+
+得益于 Svelte 的响应式 store，语言切换响应极为迅速（0.5ms），不过注水（hydration）开销略高（~6.2ms 对比 Intlayer 的 ~5.5ms）。
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 

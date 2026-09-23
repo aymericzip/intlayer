@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Giải pháp i18n tốt nhất cho Svelte năm 2026 - Báo cáo Benchmark
-description: So sánh các thư viện quốc tế hóa (i18n) Svelte như svelte-i18n, Paraglide và Intlayer. Báo cáo hiệu suất chi tiết về kích thước bundle, rò rỉ và tính phản ứng.
+description: So sánh các thư viện quốc tế hóa (i18n) Svelte như svelte-i18n, Paraglide, Tolgee và Intlayer. Báo cáo hiệu suất chi tiết về kích thước bundle, rò rỉ và tính phản ứng.
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Update benchmark results"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Cập nhật kết quả benchmark"
@@ -67,6 +70,7 @@ Tác động khác là đối với trải nghiệm nhà phát triển (DX): cá
 
 - **Intlayer**: Lựa chọn hiệu quả nhất về hiệu suất (v9.5.6) với dấu chân (footprint) nhỏ nhất.
 - **Paraglide**: Đối thủ nặng ký cho tree-shaking nhưng có trải nghiệm nhà phát triển phức tạp hơn và overhead về tính phản ứng.
+- **Tolgee**: Nền tảng dịch thuật giàu tính năng với khả năng chỉnh sửa in-context, nhưng khá nặng (~13.0kb, gấp khoảng 3.6 lần Intlayer), và trong cấu hình tĩnh gây rò rỉ bản dịch đáng kể giữa các trang (90% rò rỉ trang).
 - **svelte-i18n**: Toàn diện và tiêu chuẩn cho Svelte, nhưng mang trọng lượng bundle lớn hơn nhiều (~4.5 lần Intlayer).
 
 ## Kiểm tra ứng dụng của bạn
@@ -101,6 +105,7 @@ Các cú pháp được xây dựng xung quanh `t('a.b.c')` rất tiện lợi n
 - `Base App` (Không có thư viện i18n)
 - [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/svelte-intlayer/exports.md) (v9.5.6)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 Framework là `Svelte` với một ứng dụng đa ngôn ngữ gồm **10 trang** và **10 ngôn ngữ**.
@@ -145,7 +150,7 @@ Tôi đã chạy cùng một ứng dụng đa ngôn ngữ trong trình duyệt t
 
 Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của dự án, sự tin tưởng của cộng đồng và mức độ phù hợp lâu dài. Mặc dù không phải là thước đo trực tiếp về chất lượng kỹ thuật, chúng phản ánh số lượng nhà phát triển thấy dự án hữu ích, theo dõi tiến trình của nó và có khả năng áp dụng nó. Để ước tính giá trị của một dự án, các ngôi sao giúp so sánh sức hút giữa các lựa chọn thay thế và cung cấp thông tin chi tiết về sự phát triển của hệ sinh thái.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## Kết quả chi tiết
 
@@ -164,6 +169,16 @@ Cá nhân tôi không thích việc phải tạo lại các file JS trước m�
 Cuối cùng, so với các giải pháp khác, Paraglide không sử dụng store (ví dụ: Svelte store) để truy xuất ngôn ngữ hiện tại để render nội dung. Đối với mỗi node được phân tích cú pháp, nó sẽ yêu cầu ngôn ngữ từ localStorage / cookie, v.v. Nó dẫn đến việc thực thi logic không cần thiết ảnh hưởng đến tính phản ứng của component.
 
 > Lưu ý về paraglide: giải pháp này đưa mã vào mã nguồn của bạn cho các import; do đó, chỉ số 'lib size' trong báo cáo benchmark gần như bằng 0. Việc tạo mã (Code generation) là một điều tốt, bởi vì hàm được sử dụng sẽ chỉ bao gồm logic cần thiết (prefix ở mọi nơi so với không prefix, cookie so với storage, v.v.). So với đó, Intlayer thực hiện việc lọc này thông qua việc đưa biến môi trường vào build để buộc bundler thực hiện tree-shaking nội dung tùy thuộc vào logic. Nhờ đó, paraglide và intlayer cuối cùng là các giải pháp nhẹ hơn từ 6 đến 10 lần so với i18next hoặc next-intl.
+
+**(Tolgee)** (`@tolgee/svelte@7.2.1`):
+
+`Tolgee` cung cấp một nền tảng bản địa hóa toàn diện với tính năng chỉnh sửa in-context và tích hợp chính thức cho Svelte thông qua `@tolgee/svelte`.
+
+Gói này tương đối nặng (~13.0kb, gấp khoảng 3.6 lần `svelte-intlayer`).
+
+Nếu không có cơ chế chia nhỏ theo từng trang trong Svelte, tất cả các bản dịch sẽ được tải vào bộ nhớ ngay từ đầu trong cấu hình tĩnh. Điều này gây ra hiện tượng rò rỉ bundle đáng kể (50.0% rò rỉ ngôn ngữ, 90.0% rò rỉ trang) và kích thước bundle trung bình mỗi trang là ~100.7kb (so với ~59.0kb của Intlayer).
+
+Khả năng phản ứng khi chuyển đổi ngôn ngữ rất nhanh (0.5ms), được hưởng lợi từ các store phản ứng của Svelte, mặc dù chi phí hydration cao hơn một chút (~6.2ms so với ~5.5ms của Intlayer).
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 

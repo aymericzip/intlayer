@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026年 Svelte向けの最高のi18nソリューション - ベンチマークレポート
-description: svelte-i18n、Paraglide、IntlayerなどのSvelte国際化（i18n）ライブラリを比較します。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
+description: svelte-i18n、Paraglide、Tolgee、IntlayerなどのSvelte国際化（i18n）ライブラリを比較します。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Update benchmark results"
   - version: 9.5.1
     date: 2026-09-11
     changes: "ベンチマーク結果を更新"
@@ -67,6 +70,7 @@ style="border:none;"
 
 - **Intlayer**: 最もパフォーマンス効率が高く、フットプリントが最も小さい選択肢（v9.5.6）。
 - **Paraglide**: ツリーシェイキング（tree-shaking）の強力な候補ですが、開発者エクスペリエンスがより複雑で、反応性のオーバーヘッドがあります。
+- **Tolgee**: インコンテキスト編集機能を備えた高機能な翻訳プラットフォームですが、やや重く（約13.0kb、Intlayerの約3.6倍）、静的構成ではページ間で大きな翻訳リークが発生します（90%のページリーク）。
 - **svelte-i18n**: Svelte向けの標準的で機能が充実したソリューションですが、バンドル重量が非常に大きくなります（Intlayerの約4.5倍）。
 
 ## アプリをテストする
@@ -101,6 +105,7 @@ i18nリークの問題を素早く特定するために、無料のスキャナ�
 - `Base App` (i18nライブラリなし)
 - [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/svelte-intlayer/exports.md) (v9.5.6)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 フレームワークは `Svelte` で、**10ページ**と**10言語**を持つ多言語アプリを使用しました。
@@ -145,7 +150,7 @@ i18nリークの問題を素早く特定するために、無料のスキャナ�
 
 GitHubのスターは、プロジェクトの普及度、コミュニティの信頼、および長期的な関連性を示す強力な指標です。技術的な品質を直接測定するものではありませんが、どれだけの開発者がプロジェクトを有用だと感じ、その進捗をフォローし、採用する可能性があるかを反映しています。プロジェクトの価値を見積もる際、スターは代替案との勢いの比較を助け、エコシステムの成長に関する洞察を提供します。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## 結果の詳細
 
@@ -164,6 +169,16 @@ GitHubのスターは、プロジェクトの普及度、コミュニティの�
 最後に、他のソリューションと比較して、Paraglide はコンテンツをレンダリングするための現在のロケールを取得するためにストア（例：Svelte store）を使用しません。パースされる各ノードに対して、localStorage / cookie などからロケールを要求します。これにより、コンポーネントの反応性に影響を与える不要なロジックの実行が発生します。
 
 > paraglideに関する注意：このソリューションはインポートのためにコードベースにコードを注入するため、ベンチマークレポートの「ライブラリサイズ（lib size）」メトリックはほぼ0になります。コード生成は、使用される関数に必要なロジック（接頭辞あり vs 接頭辞なし、クッキー vs ストレージなど）のみが含まれるため、良いことです。比較すると、Intlayer はビルド時に環境変数を注入することでこのフィルタリングを行い、ロジックに応じてコンテンツをツリーシェイクするようにバンドラーに強制します。このおかげで、paraglide と intlayer は i18next や next-intl よりも 6〜10倍軽量なソリューションとなります。
+
+**(Tolgee)** (`@tolgee/svelte@7.2.1`):
+
+`Tolgee` は、インコンテキスト編集機能と `@tolgee/svelte` による公式 Svelte 統合を備えたオールインワンのローカリゼーションプラットフォームを提供します。
+
+パッケージは比較的重いです（約13.0kb、これは `svelte-intlayer` の約3.6倍です）。
+
+Svelteにおけるページごとのきめ細かい分割がないため、静的設定では起動時にすべての翻訳がメモリに読み込まれます。これにより大幅なバンドルリークが発生し（ロケールリーク50.0%、ページリーク90.0%）、平均ページバンドルサイズは約100.7kbになります（Intlayerの約59.0kbと比較）。
+
+言語切り替えの反応性は非常に高速（0.5ms）であり、Svelteのリアクティブストアの恩恵を受けていますが、ハイドレーションのオーバーヘッドはやや高くなります（Intlayerの約5.5msに対して約6.2ms）。
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 

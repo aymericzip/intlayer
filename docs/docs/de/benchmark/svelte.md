@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Beste i18n-Lösung für Svelte im Jahr 2026 – Benchmark-Bericht
-description: Vergleichen Sie Svelte-Internationalisierungsbibliotheken (i18n) wie svelte-i18n, Paraglide und Intlayer. Detaillierter Leistungsbericht zu Bundle-Größe, Leakage und Reaktivität.
+description: Vergleichen Sie Svelte-Internationalisierungsbibliotheken (i18n) wie svelte-i18n, Paraglide, Tolgee und Intlayer. Detaillierter Leistungsbericht zu Bundle-Größe, Leakage und Reaktivität.
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Update benchmark results"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Benchmark-Ergebnisse aktualisiert"
@@ -67,6 +70,7 @@ Die andere Auswirkung betrifft die Entwicklererfahrung (DX): Wie Sie Inhalte dek
 
 - **Intlayer**: Die leistungseffizienteste Wahl (v9.5.6) mit dem kleinsten Fußabdruck.
 - **Paraglide**: Starker Kandidat für Tree-Shaking, hat aber eine komplexere Entwicklererfahrung und Overhead bei der Reaktivität.
+- **Tolgee**: Funktionsreiche Übersetzungsplattform mit In-Context-Bearbeitung, aber recht schwer (~13.0 KB, ca. 3.6× Intlayer), mit erheblichem Bundle-Leakage zwischen Seiten in statischen Setups (90% Seiten-Leak).
 - **svelte-i18n**: Umfassend und Standard für Svelte, bringt aber ein viel größeres Bundle-Gewicht mit sich (~4,5x Intlayer).
 
 ## Testen Sie Ihre App
@@ -101,6 +105,7 @@ Für diesen Benchmark haben wir die folgenden Bibliotheken verglichen:
 - `Base App` (Keine i18n-Bibliothek)
 - [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/svelte-intlayer/exports.md) (v9.5.6)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 Das Framework ist `Svelte` mit einer mehrsprachigen App aus **10 Seiten** und **10 Sprachen**.
@@ -145,7 +150,7 @@ Ich habe dieselbe mehrsprachige App in einem echten Browser für jeden Stack aus
 
 GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, das Vertrauen der Community und die langfristige Relevanz. Sie sind zwar kein direktes Maß für die technische Qualität, spiegeln jedoch wider, wie viele Entwickler das Projekt nützlich finden, seinen Fortschritt verfolgen und es wahrscheinlich übernehmen werden. Um den Wert eines Projekts einzuschätzen, helfen Sterne dabei, die Traktion verschiedener Alternativen zu vergleichen und Einblicke in das Wachstum des Ökosystems zu gewinnen.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## Ergebnisse im Detail
 
@@ -164,6 +169,16 @@ Persönlich gefällt mir nicht, dass JS-Dateien vor jedem Push neu generiert wer
 Schließlich verwendet Paraglide im Vergleich zu anderen Lösungen keinen Store (z. B. Svelte Store), um das aktuelle Gebietsschema zum Rendern des Inhalts abzurufen. Für jeden geparsten Knoten wird das Gebietsschema aus dem localStorage / Cookie usw. angefordert. Dies führt zur Ausführung unnötiger Logik, die sich auf die Reaktivität der Komponenten auswirkt.
 
 > Hinweis zu Paraglide: Die Lösung injiziert Code in Ihre Codebasis für Importe; daher ist die Metrik „lib size“ im Benchmark-Bericht fast 0. Codegenerierung ist eine gute Sache, da die verwendete Funktion nur die notwendige Logik enthält (Präfix überall vs. kein Präfix, Cookie vs. Speicher usw.). Im Vergleich dazu führt Intlayer diese Filterung über Injektionen von Umgebungsvariablen während des Builds durch, um den Bundler zu zwingen, den Inhalt je nach Logik zu tree-shaken. Dank dessen sind Paraglide und Intlayer am Ende 6- bis 10-mal leichtere Lösungen als i18next oder next-intl.
+
+**(Tolgee)** (`@tolgee/svelte@7.2.1`):
+
+`Tolgee` bietet eine All-in-One-Lokalisierungsplattform mit In-Context-Bearbeitung und offizieller Svelte-Integration über `@tolgee/svelte`.
+
+Das Paket ist relativ schwer (~13.0 KB, was etwa 3.6× `svelte-intlayer` entspricht).
+
+Ohne granulare Aufteilung pro Seite in Svelte werden in statischen Setups alle Übersetzungen direkt beim Start in den Speicher geladen. Dies führt zu erheblichem Bundle-Leakage (50.0% Locale-Leakage, 90.0% Seiten-Leakage) und durchschnittlichen Seiten-Bundle-Größen von ~100.7 KB (im Vergleich zu ~59.0 KB bei Intlayer).
+
+Die Reaktivität beim Sprachwechsel ist sehr schnell (0.5 ms), begünstigt durch die reaktiven Stores von Svelte, obwohl der Hydration-Overhead etwas höher ist (~6.2 ms gegenüber ~5.5 ms bei Intlayer).
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026 में Svelte के लिए सर्वश्रेष्ठ i18n समाधान - बेंचमार्क रिपोर्ट
-description: svelte-i18n, Paraglide, और Intlayer जैसे Svelte अंतर्राष्ट्रीयकरण (i18n) पुस्तकालयों की तुलना करें। बंडल आकार, लीकेज और प्रतिक्रियाशीलता पर विस्तृत प्रदर्शन रिपोर्ट।
+description: svelte-i18n, Paraglide, Tolgee, और Intlayer जैसे Svelte अंतर्राष्ट्रीयकरण (i18n) पुस्तकालयों की तुलना करें। बंडल आकार, लीकेज और प्रतिक्रियाशीलता पर विस्तृत प्रदर्शन रिपोर्ट।
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Update benchmark results"
   - version: 9.5.1
     date: 2026-09-11
     changes: "बेंचमार्क परिणाम अपडेट किए गए"
@@ -67,6 +70,7 @@ Svelte ऐप में अंतर्राष्ट्रीयकरण (Int
 
 - **Intlayer**: सबसे छोटे पदचिह्न (footprint) के साथ सबसे प्रदर्शन-कुशल विकल्प (v9.5.6)।
 - **Paraglide**: ट्री-शेकिंग (tree-shaking) के लिए मजबूत दावेदार लेकिन इसमें अधिक जटिल डेवलपर अनुभव और प्रतिक्रियाशीलता ओवरहेड है।
+- **Tolgee**: इन-कॉन्टेक्स्ट एडिटिंग के साथ सुविधाओं से भरपूर अनुवाद प्लेटफ़ॉर्म, लेकिन काफी भारी (~13.0kb, Intlayer से लगभग 3.6 गुना), और स्टैटिक सेटअप में पेजों के बीच महत्वपूर्ण अनुवाद रिसाव होता है (90% पेज रिसाव)।
 - **svelte-i18n**: Svelte के लिए व्यापक और मानक, लेकिन बहुत बड़े बंडल वजन (~4.5x Intlayer) के साथ आता है।
 
 ## अपने ऐप का परीक्षण करें
@@ -101,6 +105,7 @@ i18n लीकेज समस्याओं को तुरंत पहच�
 - `Base App` (कोई i18n पुस्तकालय नहीं)
 - [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/svelte-intlayer/exports.md) (v9.5.6)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 फ्रेमवर्क `Svelte` है जिसमें **10 पृष्ठों** और **10 भाषाओं** का एक बहुभाषी ऐप है।
@@ -145,7 +150,7 @@ i18n लीकेज समस्याओं को तुरंत पहच�
 
 GitHub सितारे किसी प्रोजेक्ट की लोकप्रियता, सामुदायिक विश्वास और दीर्घकालिक प्रासंगिकता का एक मजबूत संकेतक हैं। हालांकि यह तकनीकी गुणवत्ता का प्रत्यक्ष माप नहीं है, वे दर्शाते हैं कि कितने डेवलपर्स प्रोजेक्ट को उपयोगी पाते हैं, इसकी प्रगति का पालन करते हैं, और इसे अपनाने की संभावना रखते हैं। किसी प्रोजेक्ट के मूल्य का अनुमान लगाने के लिए, सितारे विकल्पों के बीच कर्षण की तुलना करने में मदद करते हैं और पारिस्थितिकी तंत्र के विकास में अंतर्दृष्टि प्रदान करते हैं।
 
-[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## विवरण में परिणाम
 
@@ -164,6 +169,16 @@ GitHub सितारे किसी प्रोजेक्ट की लो
 अंत में, अन्य समाधानों की तुलना में, Paraglide सामग्री रेंडर करने के लिए वर्तमान लोकेल को पुनः प्राप्त करने के लिए स्टोर (उदा. Svelte store) का उपयोग नहीं करता है। पार्स किए गए प्रत्येक नोड के लिए, यह localStorage / cookie आदि से लोकेल का अनुरोध करेगा। यह अनावश्यक तर्क के निष्पादन की ओर ले जाता है जो घटक प्रतिक्रियाशीलता को प्रभावित करता है।
 
 > Paraglide पर ध्यान दें: समाधान आयात के लिए आपके कोडबेस में कोड इंजेक्ट करता है; परिणामस्वरूप, बेंचमार्क रिपोर्ट में 'lib size' मीट्रिक लगभग 0 है। कोड जेनरेशन एक अच्छी बात है, क्योंकि उपयोग किए गए फ़ंक्शन में केवल आवश्यक तर्क शामिल होंगे (हर जगह प्रीफ़िक्स बनाम कोई प्रीफ़िक्स नहीं, कुकी बनाम स्टोरेज आदि)। तुलनात्मक रूप से, Intlayer तर्क के आधार पर सामग्री को ट्री-शेक करने के लिए बंडलर को मजबूर करने के लिए बिल्ड में पर्यावरण चर इंजेक्शन के माध्यम से यह फ़िल्टरिंग करता है। इसके कारण, paraglide और intlayer i18next या next-intl की तुलना में 6 से 10 गुना हल्के समाधान साबित होते हैं।
+
+**(Tolgee)** (`@tolgee/svelte@7.2.1`):
+
+`Tolgee` इन-कॉन्टेक्स्ट एडिटिंग और `@tolgee/svelte` के माध्यम से आधिकारिक Svelte एकीकरण के साथ एक ऑल-इन-वन स्थानीयकरण प्लेटफ़ॉर्म प्रदान करता है।
+
+यह पैकेज अपेक्षाकृत भारी है (~13.0kb, जो `svelte-intlayer` से लगभग 3.6 गुना अधिक है)।
+
+Svelte में प्रति-पेज विभाजन तंत्र के बिना, स्टैटिक सेटअप में सभी अनुवाद शुरुआत में ही मेमोरी में लोड हो जाते हैं। इससे भारी बंडल रिसाव (50.0% लोकेल रिसाव, 90.0% पेज रिसाव) होता है और औसत पेज बंडल आकार ~100.7kb तक पहुंच जाता है (Intlayer के ~59.0kb की तुलना में)।
+
+भाषा बदलने की प्रतिक्रियाशीलता बहुत तेज़ है (0.5ms), जो Svelte के प्रतिक्रियाशील स्टोर्स से लाभान्वित होती है, हालांकि हाइड्रेशन ओवरहेड थोड़ा अधिक है (Intlayer के ~5.5ms की तुलना में ~6.2ms)।
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 

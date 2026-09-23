@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: أفضل حل i18n لـ Svelte في عام 2026 - تقرير قياسي
-description: قارن بين مكتبات تدويل Svelte (i18n) مثل svelte-i18n وParaglide وIntlayer. تقرير أداء مفصل حول حجم الحزمة والتسرب والتفاعل.
+description: قارن بين مكتبات تدويل Svelte (i18n) مثل svelte-i18n وParaglide وTolgee وIntlayer. تقرير أداء مفصل حول حجم الحزمة والتسرب والتفاعل.
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Update benchmark results"
   - version: 9.5.1
     date: 2026-09-11
     changes: "تحديث نتائج المقارنة"
@@ -67,6 +70,7 @@ style="border:none;"
 
 - **Intlayer**: الخيار الأكثر كفاءة في الأداء (v9.5.6) مع أصغر بصمة (footprint).
 - **Paraglide**: منافس قوي للتخلص من الكود غير المستخدم (tree-shaking) ولكنه يمتلك تجربة مطور أكثر تعقيدًا وعبئًا في التفاعل.
+- **Tolgee**: منصة ترجمة غنية بالميزات مع إمكانات التحرير المباشر في السياق، ولكنها ثقيلة نسبيًا (~13.0 كيلوبايت، حوالي 3.6 أضعاف Intlayer)، وتظهر تسريبًا كبيرًا عبر الصفحات في الإعدادات الثابتة (90% تسريب للصفحات).
 - **svelte-i18n**: كامل ومعياري لـ Svelte، ولكنه يحمل وزن حزمة أكبر بكثير (~4.5 أضعاف Intlayer).
 
 ## اختبر تطبيقك
@@ -101,6 +105,7 @@ style="border:none;"
 - `Base App` (بدون مكتبة i18n)
 - [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/svelte-intlayer/exports.md) (v9.5.6)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
+- [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 الإطار هو `Svelte` مع تطبيق متعدد اللغات يتكون من **10 صفحات** و **10 لغات**.
@@ -145,7 +150,7 @@ style="border:none;"
 
 تعد نجوم GitHub مؤشرًا قويًا على شعبية المشروع وثقة المجتمع وأهميته على المدى الطويل. على الرغم من أنها ليست مقياسًا مباشرًا للجودة التقنية، إلا أنها تعكس عدد المطورين الذين يجدون المشروع مفيدًا ويتابعون تقدمه ومن المحتمل أن يتبنوه. لتقدير قيمة المشروع، تساعد النجوم في مقارنة الجاذبية عبر البدائل وتوفر رؤى حول نمو النظام البيئي.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## النتائج بالتفصيل
 
@@ -164,6 +169,16 @@ style="border:none;"
 أخيرًا، مقارنة بالحلول الأخرى، لا يستخدم Paraglide مخزنًا (مثل Svelte store) لاسترداد اللغة الحالية لريندر المحتوى. لكل عقدة يتم تحليلها، سيطلب اللغة من localStorage / cookie وما إلى ذلك. يؤدي هذا إلى تنفيذ منطق غير ضروري يؤثر على تفاعل المكونات.
 
 > ملاحظة حول paraglide: يقوم الحل بحقن الكود في قاعدة الكود الخاصة بك للاستيراد؛ ونتيجة لذلك، فإن مقياس "حجم المكتبة" في تقرير التقييم القياسي هو 0 تقريبًا. يعد إنشاء الكود (Code generation) أمرًا جيدًا، لأن الوظيفة المستخدمة ستتضمن فقط المنطق الضروري (بادئة في كل مكان مقابل لا بادئة، ملف تعريف ارتباط مقابل تخزين، إلخ). بالمقارنة، تقوم Intlayer بإجراء هذا التصفية عبر حقن متغيرات البيئة أثناء البناء لإجبار أداة التجميع على التخلص من الكود غير المستخدم للمحتوى اعتمادًا على المنطق. بفضل هذا، ينتهي الأمر بـ paraglide و intlayer كحلول أخف بـ 6 إلى 10 مرات من i18next أو next-intl.
+
+**(Tolgee)** (`@tolgee/svelte@7.2.1`):
+
+توفر `Tolgee` منصة شاملة للترجمة وإدارة المحتوى مع إمكانات التحرير في السياق (in-context editing) وتكامل رسمي لـ Svelte عبر `@tolgee/svelte`.
+
+الحزمة ثقيلة نسبيًا (~13.0 كيلوبايت، أي حوالي 3.6 أضعاف `svelte-intlayer`).
+
+بدون تقسيم دقيق حسب الصفحة في Svelte، يتم تحميل جميع الترجمات مسبقًا في الذاكرة في الإعدادات الثابتة. يؤدي هذا إلى تسريب كبير في الحزمة (50.0% تسريب للغات، و 90.0% تسريب للصفحات) ومتوسط حجم حزمة للصفحة يبلغ ~100.7 كيلوبايت (مقارنة بـ ~59.0 كيلوبايت لـ Intlayer).
+
+تعد استجابة تبديل اللغة سريعة للغاية (0.5 مللي ثانية)، مستفيدة من مخازن Svelte التفاعلية (reactive stores)، على الرغم من أن حمل الترطيب (hydration) أعلى قليلاً (~6.2 مللي ثانية مقابل ~5.5 مللي ثانية لـ Intlayer).
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 
