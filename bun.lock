@@ -34,7 +34,7 @@
     },
     "apps/app": {
       "name": "app",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@better-auth/sso": "1.7.5",
         "@electron-toolkit/utils": "4.0.0",
@@ -109,7 +109,7 @@
     },
     "apps/backend": {
       "name": "@intlayer/backend",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@aws-sdk/client-s3": "3.1138.0",
         "@better-auth/core": "1.7.5",
@@ -225,7 +225,7 @@
     },
     "apps/website": {
       "name": "website-tanstack",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@fontsource/geist-sans": "^5.3.0",
         "@intlayer/analytics": "workspace:*",
@@ -296,7 +296,7 @@
     },
     "compat/i18next": {
       "name": "@intlayer/i18next",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -329,7 +329,7 @@
     },
     "compat/lingui": {
       "name": "@intlayer/lingui",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -365,7 +365,7 @@
     },
     "compat/next-i18next": {
       "name": "@intlayer/next-i18next",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -401,7 +401,7 @@
     },
     "compat/next-intl": {
       "name": "@intlayer/next-intl",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -433,7 +433,7 @@
     },
     "compat/react-i18next": {
       "name": "@intlayer/react-i18next",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -470,7 +470,7 @@
     },
     "compat/react-intl": {
       "name": "@intlayer/react-intl",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -506,7 +506,7 @@
     },
     "compat/use-intl": {
       "name": "@intlayer/use-intl",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -541,7 +541,7 @@
     },
     "compat/vue-i18n": {
       "name": "@intlayer/vue-i18n",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -867,7 +867,7 @@
     },
     "examples/hono-app": {
       "name": "hono-app",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@hono/node-server": "2.0.6",
         "hono": "4.12.27",
@@ -881,7 +881,7 @@
     },
     "examples/htmx-app": {
       "name": "htmx-app",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "cookie-parser": "1.4.7",
         "express": "5.2.1",
@@ -1150,7 +1150,7 @@
     },
     "examples/remix-3-app": {
       "name": "remix-3-app",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "intlayer": "workspace:*",
         "remix": "^3.0.0-rc.2",
@@ -1421,7 +1421,7 @@
     },
     "packages/@intlayer/analytics": {
       "name": "@intlayer/analytics",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1741,7 +1741,7 @@
     },
     "packages/@intlayer/editor": {
       "name": "@intlayer/editor",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2245,7 +2245,7 @@
     },
     "packages/intlayer-cli": {
       "name": "intlayer-cli",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
@@ -2463,7 +2463,7 @@
     },
     "packages/react-intlayer": {
       "name": "react-intlayer",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2756,7 +2756,7 @@
     },
     "plugins/sync-json-plugin": {
       "name": "@intlayer/sync-json-plugin",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2777,7 +2777,7 @@
     },
     "plugins/sync-po-plugin": {
       "name": "@intlayer/sync-po-plugin",
-      "version": "9.5.6",
+      "version": "9.5.7",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",

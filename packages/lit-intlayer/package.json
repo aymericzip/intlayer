@@ -1,6 +1,6 @@
 {
   "name": "lit-intlayer",
-  "version": "9.5.6",
+  "version": "9.5.7",
   "private": false,
   "description": "Easily internationalize i18n your Lit applications with type-safe multilingual content management.",
   "keywords": [
