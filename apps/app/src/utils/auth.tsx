@@ -7,6 +7,7 @@ import {
 import type { QueryClient } from '@tanstack/react-query';
 import { redirect } from '@tanstack/react-router';
 import { createIsomorphicFn } from '@tanstack/react-start';
+import { getRequestHeaders } from '@tanstack/react-start/server';
 import {
   getLocalizedUrl,
   getPathWithoutLocale,
@@ -24,13 +25,35 @@ interface ValidateAuthProps {
   redirectionRoute?: string;
 }
 
+/**
+ * Incoming request headers relayed to the backend during SSR.
+ *
+ * Only an allowlist: forwarding everything sends the dashboard's own `Host`
+ * (`app.intlayer.org`) to `back.intlayer.org`, and the edge routes the call
+ * back to the dashboard — `getSession` gets a 307, resolves to `null`, and
+ * every hard load of a protected page (OAuth / passkey callback, refresh)
+ * redirects to the login page.
+ */
+const FORWARDED_REQUEST_HEADERS = [
+  'cookie',
+  'user-agent',
+  'accept-language',
+  'x-forwarded-for',
+] as const;
+
 const getSafeHeaders = createIsomorphicFn()
   .server(async () => {
     try {
-      const { getRequestHeaders } = await import(
-        '@tanstack/react-start/server'
-      );
-      return getRequestHeaders();
+      const requestHeaders = getRequestHeaders();
+      const forwardedHeaders = new Headers();
+
+      for (const headerName of FORWARDED_REQUEST_HEADERS) {
+        const headerValue = requestHeaders.get(headerName);
+
+        if (headerValue) forwardedHeaders.set(headerName, headerValue);
+      }
+
+      return forwardedHeaders;
     } catch {
       return undefined;
     }
