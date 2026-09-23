@@ -206,11 +206,57 @@ const getExtractorLoader = (
   }
 };
 
+/**
+ * Reports the compiler state once per command: enabled when `@intlayer/babel`
+ * can run the extraction, or a recommendation to install it otherwise.
+ *
+ * Only an enabled compiler is reported: disabling it is an explicit
+ * configuration choice, so announcing it on every run adds noise.
+ */
+const logCompilerStatus = (
+  intlayerConfig: IntlayerConfig,
+  isDevCommand: boolean
+): void => {
+  if (!getIsCompilerEnabled(intlayerConfig, isDevCommand)) return;
+
+  const logger = getAppLogger(intlayerConfig);
+
+  runOnce(
+    join(
+      intlayerConfig.system.baseDir,
+      '.intlayer',
+      'cache',
+      'intlayer-compiler-plugin-enabled.lock'
+    ),
+    () => {
+      if (getIsBabelExtractPluginAvailable(intlayerConfig)) {
+        logger('Intlayer compiler enabled');
+        return;
+      }
+
+      logger(
+        [
+          colorize('Recommended: Install', ANSIColors.GREY),
+          colorize('@intlayer/babel', ANSIColors.GREY_LIGHT),
+          colorize(
+            'package to enable the Intlayer compiler. See documentation:',
+            ANSIColors.GREY
+          ),
+          colorize('https://intlayer.org/doc/compiler', ANSIColors.GREY_LIGHT),
+        ],
+        { level: 'warn' }
+      );
+    },
+    {
+      cacheTimeoutMs: 1000 * 30, // 30 seconds
+    }
+  );
+};
+
 type GetPruneConfigParams = {
   intlayerConfig: IntlayerConfig;
   isBuildCommand: boolean;
   isTurbopackEnabled: boolean;
-  isDevCommand: boolean;
   isGteNext13: boolean;
   /** Whether the resolved Next.js version can load the Wasm plugin. */
   isSwcPluginSupported: boolean;
@@ -224,7 +270,6 @@ const getPruneConfig = ({
   intlayerConfig,
   isBuildCommand,
   isTurbopackEnabled,
-  isDevCommand,
   isGteNext13,
   isSwcPluginSupported,
   nextVersion,
@@ -316,37 +361,6 @@ const getPruneConfig = ({
             ANSIColors.GREY_LIGHT
           ),
         ]);
-      }
-    },
-    {
-      cacheTimeoutMs: 1000 * 30, // 30 seconds
-    }
-  );
-
-  runOnce(
-    join(
-      baseDir,
-      '.intlayer',
-      'cache',
-      'intlayer-compiler-plugin-enabled.lock'
-    ),
-    () => {
-      const isBabelExtractPluginAvailable =
-        getIsBabelExtractPluginAvailable(intlayerConfig);
-
-      if (isBabelExtractPluginAvailable) {
-        let isEnabled = intlayerConfig.compiler?.enabled ?? true;
-
-        if (isEnabled === 'build-only') {
-          isEnabled = !isDevCommand;
-        }
-
-        // Only the enabled state is reported: disabling the compiler is an
-        // explicit configuration choice, so announcing it on every build adds
-        // noise without telling the user anything they did not ask for.
-        if (isEnabled) {
-          logger('Intlayer compiler enabled');
-        }
       }
     },
     {
@@ -584,6 +598,8 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     isTurbopackEnabled ?? false,
     isDevCommand
   );
+
+  logCompilerStatus(intlayerConfig, isDevCommand);
 
   // Watches on both bundlers: Turbopack cannot run a webpack plugin, and on
   // webpack this replaces `IntlayerPlugin`, whose watcher took no ownership
@@ -828,7 +844,6 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     intlayerConfig,
     isBuildCommand,
     isTurbopackEnabled: isTurbopackEnabled ?? false,
-    isDevCommand,
     isGteNext13,
     isSwcPluginSupported,
     nextVersion,
