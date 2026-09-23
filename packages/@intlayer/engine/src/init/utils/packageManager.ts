@@ -1,6 +1,6 @@
 import { execSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { existsSync, readFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
 
 /** Package managers supported for dependency installation. */
 export type PackageManager = 'bun' | 'pnpm' | 'yarn' | 'npm';
@@ -89,24 +89,75 @@ export type IntlayerPackageAnalysis = {
   compatVitePluginConfig: CompatVitePluginConfig | undefined;
 };
 
+/** Lock files revealing the package manager, in detection priority order. */
+const LOCK_FILE_PACKAGE_MANAGERS: ReadonlyArray<
+  readonly [lockFile: string, packageManager: PackageManager]
+> = [
+  ['bun.lock', 'bun'],
+  ['bun.lockb', 'bun'],
+  ['pnpm-lock.yaml', 'pnpm'],
+  ['yarn.lock', 'yarn'],
+  ['package-lock.json', 'npm'],
+];
+
+/** Package managers accepted in the `packageManager` field of `package.json`. */
+const PACKAGE_MANAGERS: readonly PackageManager[] = [
+  'bun',
+  'pnpm',
+  'yarn',
+  'npm',
+];
+
+/**
+ * Reads the package manager pinned by the `packageManager` field of the
+ * `package.json` in `directory` (e.g. `"pnpm@9.0.0"`), if any.
+ */
+const readPackageManagerField = (directory: string): PackageManager | null => {
+  try {
+    const { packageManager } = JSON.parse(
+      readFileSync(join(directory, 'package.json'), 'utf8')
+    ) as { packageManager?: unknown };
+
+    if (typeof packageManager !== 'string') return null;
+
+    const name = packageManager.split('@')[0] as PackageManager;
+    return PACKAGE_MANAGERS.includes(name) ? name : null;
+  } catch {
+    return null;
+  }
+};
+
 /**
  * Detects the package manager in use by checking for lock files in the
- * project root. Falls back to npm when no lock file is found.
+ * project root, then the `packageManager` field of its `package.json`. Falls
+ * back to npm when neither is found.
  */
-export const detectPackageManager = (rootDir: string): PackageManager => {
-  if (
-    existsSync(join(rootDir, 'bun.lock')) ||
-    existsSync(join(rootDir, 'bun.lockb'))
-  ) {
-    return 'bun';
+export const detectPackageManager = (rootDir: string): PackageManager =>
+  LOCK_FILE_PACKAGE_MANAGERS.find(([lockFile]) =>
+    existsSync(join(rootDir, lockFile))
+  )?.[1] ??
+  readPackageManagerField(rootDir) ??
+  'npm';
+
+/**
+ * Walks up from `startDir` to the nearest directory holding a lock file — the
+ * workspace root an install must run from. Stops at the repository root
+ * (`.git`) and returns `null` when no lock file is found.
+ */
+export const findLockFileDir = (startDir: string): string | null => {
+  let currentDir = resolve(startDir);
+
+  while (true) {
+    const hasLockFile = LOCK_FILE_PACKAGE_MANAGERS.some(([lockFile]) =>
+      existsSync(join(currentDir, lockFile))
+    );
+    if (hasLockFile) return currentDir;
+    if (existsSync(join(currentDir, '.git'))) return null;
+
+    const parentDir = dirname(currentDir);
+    if (parentDir === currentDir) return null;
+    currentDir = parentDir;
   }
-  if (existsSync(join(rootDir, 'pnpm-lock.yaml'))) {
-    return 'pnpm';
-  }
-  if (existsSync(join(rootDir, 'yarn.lock'))) {
-    return 'yarn';
-  }
-  return 'npm';
 };
 
 /**

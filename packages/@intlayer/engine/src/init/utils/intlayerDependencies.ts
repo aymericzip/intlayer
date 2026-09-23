@@ -107,16 +107,20 @@ export const listIntlayerDependencies = async (
 };
 
 /**
- * Fetches the `latest` dist-tag of a package from the npm registry. Resolves to
- * `null` when the registry cannot be reached or the package is not published.
+ * Fetches the version a dist-tag (`latest` by default) of a package points to
+ * on the npm registry. Resolves to `null` when the registry cannot be reached,
+ * the package is not published or the dist-tag does not exist.
  */
 export const fetchLatestPackageVersion = async (
   packageName: string,
-  registryUrl: string = 'https://registry.npmjs.org'
+  {
+    distTag = 'latest',
+    registryUrl = 'https://registry.npmjs.org',
+  }: { distTag?: string; registryUrl?: string } = {}
 ): Promise<string | null> => {
   try {
     const response = await fetch(
-      `${registryUrl}/${packageName.replace('/', '%2F')}/latest`,
+      `${registryUrl}/${packageName.replace('/', '%2F')}/${encodeURIComponent(distTag)}`,
       { signal: AbortSignal.timeout(10_000) }
     );
     if (!response.ok) return null;

@@ -6,6 +6,7 @@ import { getAlias } from '@intlayer/config/utils';
 import { initConfig } from '../initConfig';
 import { setCompilerOutputInConfig, setRoutingModeInConfig } from './cms';
 import { setupFramework } from './frameworkSetup';
+import { upgradeIntlayerPackages } from './upgradeIntlayerPackages';
 import type { CompatSyncConfig, RoutingMode } from './utils';
 import {
   BACKEND_INTLAYER_PACKAGES,
@@ -16,21 +17,17 @@ import {
   detectPackageManager,
   ensureDirectory,
   exists,
-  fetchLatestPackageVersion,
   findTsConfigFiles,
   getGithubWorkflows,
-  getIntlayerDependencyUpgrades,
   getMetroConfigTemplate,
   hasIntlayerVitePlugin,
   hasLintTooling,
   installPackages,
-  listIntlayerDependencies,
   parseJSONWithComments,
   readFileFromRoot,
   replaceViteConfigPluginImportSource,
   resolveDevScript,
   resolveGithubWorkflowsContext,
-  runPackageInstall,
   setupNextCompilerBabelConfig,
   updateAstroConfig,
   updateIntlayerConfigWithSyncPlugin,
@@ -44,7 +41,6 @@ import {
   updateViteConfig,
   updateViteConfigForCompatPlugin,
   writeFileToRoot,
-  writeIntlayerDependencyUpgrades,
 } from './utils';
 
 /**
@@ -445,78 +441,7 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     }
 
     // UPGRADE INTLAYER DEPENDENCIES TO LATEST
-    // Lists the Intlayer packages of every `package.json` of the project
-    // (monorepo workspaces included), rewrites their ranges to the latest
-    // published version, then runs a single install from the root.
-    const packageJsonDependencies = await listIntlayerDependencies(rootDir);
-
-    if (packageJsonDependencies.length > 0) {
-      const packageNames = [
-        ...new Set(
-          packageJsonDependencies.flatMap(({ dependencies }) =>
-            dependencies.map(({ packageName }) => packageName)
-          )
-        ),
-      ];
-
-      const latestVersions = new Map(
-        await Promise.all(
-          packageNames.map(
-            async (packageName) =>
-              [
-                packageName,
-                await fetchLatestPackageVersion(packageName),
-              ] as const
-          )
-        )
-      );
-
-      const upgrades = getIntlayerDependencyUpgrades(
-        packageJsonDependencies,
-        latestVersions
-      );
-
-      logger(colorize('Intlayer packages:', ANSIColors.CYAN));
-
-      for (const { packageJsonPath, dependencies } of packageJsonDependencies) {
-        logger(`  ${colorizePath(packageJsonPath)}`);
-
-        for (const { packageName, currentRange } of dependencies) {
-          const upgrade = upgrades.find(
-            (candidate) =>
-              candidate.packageJsonPath === packageJsonPath &&
-              candidate.packageName === packageName
-          );
-          const status = upgrade
-            ? `${currentRange} → ${colorize(upgrade.nextRange, ANSIColors.GREEN)}`
-            : latestVersions.get(packageName)
-              ? colorize(`${currentRange} (latest)`, ANSIColors.GREY)
-              : colorize(
-                  `${currentRange} (could not fetch the latest version)`,
-                  ANSIColors.YELLOW
-                );
-
-          logger(`    ${colorize(packageName, ANSIColors.MAGENTA)} ${status}`);
-        }
-      }
-
-      if (upgrades.length > 0) {
-        try {
-          await writeIntlayerDependencyUpgrades(rootDir, upgrades);
-          runPackageInstall(rootDir, packageManager);
-          logger(
-            `${v} Upgraded ${upgrades.length} Intlayer ${upgrades.length > 1 ? 'dependencies' : 'dependency'} to latest`
-          );
-        } catch {
-          logger(
-            `${x} Failed to upgrade the Intlayer packages. Run ${colorize(`${packageManager} install`, ANSIColors.MAGENTA)} manually.`,
-            { level: 'warn' }
-          );
-        }
-      } else {
-        logger(`${v} Intlayer dependencies are up to date`);
-      }
-    }
+    await upgradeIntlayerPackages(rootDir);
   }
 
   // CHECK .GITIGNORE

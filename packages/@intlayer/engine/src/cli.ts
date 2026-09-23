@@ -7,6 +7,7 @@ export {
   writeCmsCredentialsToEnv,
 } from './init/cms';
 export * from './init/index';
+export * from './init/upgradeIntlayerPackages';
 export type { RoutingMode } from './init/utils';
 export { NEXT_INTLAYER_BABEL_CONFIG_CONTENT } from './init/utils/nextCompilerBabel';
 export {

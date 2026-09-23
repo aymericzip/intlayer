@@ -207,6 +207,10 @@ const docDataContent: Dictionary = {
               title: 'Infra',
               default: getDocMetadata('./docs/en/cli/infra.md'),
             },
+            upgrade: {
+              title: 'Upgrade',
+              default: getDocMetadata('./docs/en/cli/upgrade.md'),
+            },
           },
         },
         editor: {

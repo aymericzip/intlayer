@@ -1,8 +1,13 @@
-import { describe, expect, it } from 'vitest';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
   COMPAT_I18N_LIBRARIES,
   detectCompatI18nLibraries,
   detectMissingIntlayerPackages,
+  detectPackageManager,
+  findLockFileDir,
   hasLintTooling,
   isIntlayerPackageName,
   normalizeVersion,
@@ -359,5 +364,58 @@ describe('isIntlayerPackageName', () => {
     expect(isIntlayerPackageName('react')).toBe(false);
     expect(isIntlayerPackageName('next-intl')).toBe(false);
     expect(isIntlayerPackageName('intlayerx')).toBe(false);
+  });
+});
+
+describe('package manager detection', () => {
+  let rootDir: string;
+
+  beforeEach(async () => {
+    rootDir = await mkdtemp(join(tmpdir(), 'intlayer-package-manager-'));
+    // Bounds the lock file lookup to the temporary repository.
+    await mkdir(join(rootDir, '.git'));
+  });
+
+  afterEach(async () => {
+    await rm(rootDir, { recursive: true, force: true });
+  });
+
+  describe('detectPackageManager', () => {
+    it.each([
+      ['bun.lock', 'bun'],
+      ['bun.lockb', 'bun'],
+      ['pnpm-lock.yaml', 'pnpm'],
+      ['yarn.lock', 'yarn'],
+      ['package-lock.json', 'npm'],
+    ])('detects %s as %s', async (lockFile, packageManager) => {
+      await writeFile(join(rootDir, lockFile), '');
+      expect(detectPackageManager(rootDir)).toBe(packageManager);
+    });
+
+    it('falls back to the packageManager field of package.json', async () => {
+      await writeFile(
+        join(rootDir, 'package.json'),
+        JSON.stringify({ packageManager: 'bun@1.2.0' })
+      );
+      expect(detectPackageManager(rootDir)).toBe('bun');
+    });
+
+    it('falls back to npm without any signal', () => {
+      expect(detectPackageManager(rootDir)).toBe('npm');
+    });
+  });
+
+  describe('findLockFileDir', () => {
+    it('finds the workspace root lock file from a nested package', async () => {
+      const workspaceDir = join(rootDir, 'apps', 'web');
+      await mkdir(workspaceDir, { recursive: true });
+      await writeFile(join(rootDir, 'bun.lock'), '');
+
+      expect(findLockFileDir(workspaceDir)).toBe(rootDir);
+    });
+
+    it('stops at the repository root', async () => {
+      expect(findLockFileDir(rootDir)).toBeNull();
+    });
   });
 });

@@ -8,7 +8,7 @@ import {
 } from '@intlayer/config/node';
 import type { DiffMode, ListGitFilesOptions } from '@intlayer/engine/cli';
 import type { CustomIntlayerConfig } from '@intlayer/types/config';
-import { Command } from 'commander';
+import { Command, Option } from 'commander';
 import type { FillOptions } from './fill/fill';
 import { getParentPackageJSON } from './utils/getParentPackageJSON';
 
@@ -255,7 +255,22 @@ export const setAPI = (): Command => {
 
   const program = new Command();
 
-  program.version(packageJson.version!).description('Intlayer CLI');
+  program
+    .version(
+      packageJson.version!,
+      '-v, --version',
+      'Print the Intlayer CLI version'
+    )
+    .description('Intlayer CLI');
+
+  // Keep `-V` (commander's default short flag) working alongside `-v`
+  program.addOption(
+    new Option('-V', 'Print the Intlayer CLI version').hideHelp()
+  );
+  program.on('option:V', () => {
+    console.log(packageJson.version ?? 'unknown');
+    process.exit(0);
+  });
 
   // Explicit version subcommand for convenience: `npx intlayer version`
   program
@@ -356,6 +371,25 @@ export const setAPI = (): Command => {
       const { initInfra, parseInfraMode } = await import('./initInfra');
       return initInfra({
         mode: options.mode ? parseInfraMode(options.mode) : undefined,
+      });
+    });
+
+  /**
+   * UPGRADE
+   */
+  program
+    .command('upgrade')
+    .description(
+      'List the Intlayer packages of every package.json of the project and upgrade them to the latest version'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .option('--dry-run', 'List the packages and their target version only')
+    .option('--tag <tag>', 'npm dist-tag to upgrade to (e.g. canary)', 'latest')
+    .action(async (options) => {
+      const { upgrade } = await import('./upgrade');
+      return upgrade(options.projectRoot, {
+        dryRun: options.dryRun === true,
+        distTag: options.tag,
       });
     });
 

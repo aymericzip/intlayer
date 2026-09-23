@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-21
+updatedAt: 2026-09-23
 title: CLI - Wszystkie polecenia Intlayer CLI dla Twojej wielojęzycznej strony
 description: Dowiedz się, jak używać Intlayer CLI do zarządzania wielojęzyczną stroną internetową. Postępuj zgodnie z krokami w tej dokumentacji online, aby skonfigurować swój projekt w kilka minut.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.8
+    date: 2026-09-23
+    changes: "Dodaj polecenie upgrade"
   - version: 9.5.6
     date: 2026-09-21
     changes: "Dodaj polecenie init infra"
@@ -155,6 +158,7 @@ Aby dowiedzieć się, jak skonfigurować dostępne języki lub inne parametry, z
 
 - **[Zainicjuj Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/init.md)** - Skonfiguruj Intlayer w swoim projekcie za pomocą automatycznej konfiguracji
 - **[Skonfiguruj infrastrukturę](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/infra.md)** - Zainstaluj aplikację desktopową lub samodzielnie hostuj CMS za pomocą Dockera (all-in-one lub Compose)
+- **[Aktualizacja pakietów Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/upgrade.md)** - Wyświetl listę pakietów Intlayer w każdym `package.json` i zaktualizuj je do najnowszej wersji
 - **[Zarządzaj Konfiguracją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/configuration.md)** - Pobierz swoją konfigurację Intlayer i wyślij ją do CMS
 
 ### Zarządzanie Dokumentacją
@@ -182,6 +186,7 @@ Aby dowiedzieć się, jak skonfigurować dostępne języki lub inne parametry, z
 "scripts": {
   "intlayer:init": "npx intlayer init",
   "intlayer:infra": "npx intlayer init infra",
+  "intlayer:upgrade": "npx intlayer upgrade",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-21
+updatedAt: 2026-09-23
 title: CLI - جميع أوامر Intlayer CLI لموقعك متعدد اللغات
 description: اكتشف كيفية استخدام Intlayer CLI لإدارة موقعك متعدد اللغات. اتبع الخطوات الواردة في هذه الوثائق عبر الإنترنت لإعداد مشروعك في دقائق معدودة.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.8
+    date: 2026-09-23
+    changes: "إضافة أمر upgrade"
   - version: 9.5.6
     date: 2026-09-21
     changes: "إضافة أمر init infra"
@@ -155,6 +158,7 @@ bun add intlayer-cli -g
 
 - **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/init.md)** - إعداد Intlayer في مشروعك بتكوين تلقائي
 - **[إعداد البنية التحتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/infra.md)** - تثبيت تطبيق سطح المكتب أو الاستضافة الذاتية لـ CMS باستخدام Docker (الكل في واحد أو Compose)
+- **[ترقية حزم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/upgrade.md)** - سرد حزم Intlayer لكل `package.json` وترقيتها إلى أحدث إصدار
 - **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/configuration.md)** - الحصول على تكوين Intlayer الخاص بك وإرساله إلى CMS
 
 ### إدارة الوثائق
@@ -182,6 +186,7 @@ bun add intlayer-cli -g
 "scripts": {
   "intlayer:init": "npx intlayer init",
   "intlayer:infra": "npx intlayer init infra",
+  "intlayer:upgrade": "npx intlayer upgrade",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",

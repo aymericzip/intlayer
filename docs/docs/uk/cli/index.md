@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-21
+updatedAt: 2026-09-23
 title: CLI - Усі команди Intlayer CLI для вашого багатомовного вебсайту
 description: Дізнайтеся, як використовувати Intlayer CLI для керування вашим багатомовним вебсайтом. Дотримуйтесь кроків у цій онлайн-документації, щоб налаштувати свій проєкт за лічені хвилини.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 9.5.8
+    date: 2026-09-23
+    changes: "Додати команду upgrade"
   - version: 9.5.6
     date: 2026-09-21
     changes: "Додати команду init infra"
@@ -155,6 +158,7 @@ Intlayer приймає кілька форматів файлів конфіг�
 
 - **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/init.md)** - Налаштування Intlayer у вашому проєкті з автоматичною конфігурацією
 - **[Налаштування інфраструктури](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/infra.md)** - Встановіть десктопний застосунок або запустіть CMS на власній інфраструктурі за допомогою Docker (all-in-one або Compose)
+- **[Оновлення пакетів Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/upgrade.md)** - Скласти список пакетів Intlayer для кожного `package.json` та оновити їх до останньої версії
 - **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/configuration.md)** - Отримання вашої конфігурації Intlayer та її відправка в CMS
 
 ### Керування документацією
@@ -182,6 +186,7 @@ Intlayer приймає кілька форматів файлів конфіг�
 "scripts": {
   "intlayer:init": "npx intlayer init",
   "intlayer:infra": "npx intlayer init infra",
+  "intlayer:upgrade": "npx intlayer upgrade",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
