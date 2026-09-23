@@ -195,7 +195,28 @@ La maggior parte degli stack i18n (incluso **vue-i18n**) parte da **cataloghi ce
 
 Quella cartella continua a crescere, un namespace per funzionalità, in ogni lingua:
 
-![A locales folder with dozens of namespace files per language](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)
+```txt
+locales
+├── EN
+│   ├── blog.json
+│   ├── about.json
+│   ├── auth.json
+│   ├── blog.json
+│   ├── cart.json
+│   ├── categories.json
+│   ├── contact.json
+│   ├── dashboard.json
+│   ├── errors.json
+│   ├── faq.json
+│   ├── footer.json
+│   ├── form.json
+│   ├── home.json
+│   ├── language.json
+│   ├── navbar.json
+│   ├── ... 65 files
+│   └── validation.json
+└── ES
+```
 
 Questo spesso rallenta lo sviluppo man mano che le app crescono:
 
@@ -365,7 +386,7 @@ Il supporto nativo ICU è in fase di sviluppo. L'adattatore `@intlayer/vue-i18n`
 
 Le stelle di GitHub sono un forte indicatore della popolarità di un progetto, della fiducia della comunità e della rilevanza a lungo termine. Sebbene non siano una misura diretta della qualità tecnica, riflettono quanti sviluppatori trovano utile il progetto, ne seguono i progressi e sono propensi ad adottarlo. Per stimare il valore di un progetto, le stelle aiutano a confrontare l'attrazione tra le alternative e forniscono approfondimenti sulla crescita dell'ecosistema.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## Conclusione
 

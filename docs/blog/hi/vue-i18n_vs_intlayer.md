@@ -195,7 +195,28 @@ style="border:none;"
 
 वह फ़ोल्डर प्रत्येक भाषा में प्रति सुविधा एक नेमस्पेस के साथ बढ़ता रहता है:
 
-![A locales folder with dozens of namespace files per language](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)
+```txt
+locales
+├── EN
+│   ├── blog.json
+│   ├── about.json
+│   ├── auth.json
+│   ├── blog.json
+│   ├── cart.json
+│   ├── categories.json
+│   ├── contact.json
+│   ├── dashboard.json
+│   ├── errors.json
+│   ├── faq.json
+│   ├── footer.json
+│   ├── form.json
+│   ├── home.json
+│   ├── language.json
+│   ├── navbar.json
+│   ├── ... 65 files
+│   └── validation.json
+└── ES
+```
 
 जैसे-जैसे ऐप्स बढ़ते हैं, यह अक्सर विकास को धीमा कर देता है:
 
@@ -365,7 +386,7 @@ const { greeting } = useIntlayer("component-example");
 
 GitHub स्टार किसी प्रोजेक्ट की लोकप्रियता, सामुदायिक विश्वास और दीर्घकालिक प्रासंगिकता का एक मजबूत संकेतक हैं। यद्यपि वे तकनीकी गुणवत्ता का प्रत्यक्ष माप नहीं हैं, वे दर्शाते हैं कि कितने डेवलपर्स प्रोजेक्ट को उपयोगी पाते हैं, इसकी प्रगति का अनुसरण करते हैं, और इसे अपनाने की संभावना रखते हैं। किसी प्रोजेक्ट के मूल्य का अनुमान लगाने के लिए, स्टार विकल्पों में आकर्षण की तुलना करने में मदद करते हैं और पारिस्थितिकी तंत्र के विकास के बारे में अंतर्दृष्टि प्रदान करते हैं।
 
-[![Star History Chart](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## निष्कर्ष
 

@@ -195,7 +195,28 @@ Hầu hết các bộ công cụ i18n (bao gồm **vue-i18n**) bắt đầu từ
 
 Thư mục đó liên tục phình to, một namespace cho mỗi tính năng, ở mọi ngôn ngữ:
 
-![A locales folder with dozens of namespace files per language](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)
+```txt
+locales
+├── EN
+│   ├── blog.json
+│   ├── about.json
+│   ├── auth.json
+│   ├── blog.json
+│   ├── cart.json
+│   ├── categories.json
+│   ├── contact.json
+│   ├── dashboard.json
+│   ├── errors.json
+│   ├── faq.json
+│   ├── footer.json
+│   ├── form.json
+│   ├── home.json
+│   ├── language.json
+│   ├── navbar.json
+│   ├── ... 65 files
+│   └── validation.json
+└── ES
+```
 
 Điều này thường làm chậm phát triển khi ứng dụng ngày càng lớn:
 
@@ -365,7 +386,7 @@ Hỗ trợ ICU gốc đang được hoàn thiện. Adapter `@intlayer/vue-i18n` 
 
 Sao trên GitHub là một chỉ số mạnh mẽ về độ phổ biến của dự án, sự tin tưởng của cộng đồng và tính liên quan lâu dài. Mặc dù không phải là thước đo trực tiếp về chất lượng kỹ thuật, chúng phản ánh số lượng nhà phát triển thấy dự án hữu ích, theo dõi tiến trình của nó và có khả năng áp dụng nó. Để ước tính giá trị của một dự án, sao giúp so sánh mức độ thu hút giữa các lựa chọn thay thế và cung cấp cái nhìn sâu sắc về sự phát triển của hệ sinh thái.
 
-[![Biểu đồ Lịch sử Sao](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Biểu đồ Lịch sử Sao](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## Kết luận
 

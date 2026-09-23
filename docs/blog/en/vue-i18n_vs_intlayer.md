@@ -195,7 +195,28 @@ Most i18n stacks (including **vue-i18n**) start from **centralized catalogs**:
 
 That folder keeps growing, one namespace per feature, in every locale:
 
-![A locales folder with dozens of namespace files per language](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)
+```txt
+locales
+├── EN
+│   ├── blog.json
+│   ├── about.json
+│   ├── auth.json
+│   ├── blog.json
+│   ├── cart.json
+│   ├── categories.json
+│   ├── contact.json
+│   ├── dashboard.json
+│   ├── errors.json
+│   ├── faq.json
+│   ├── footer.json
+│   ├── form.json
+│   ├── home.json
+│   ├── language.json
+│   ├── navbar.json
+│   ├── ... 65 files
+│   └── validation.json
+└── ES
+```
 
 This often slows development as apps grow:
 
@@ -364,7 +385,7 @@ Native ICU support is a work in progress. The `@intlayer/vue-i18n` adapter resol
 
 GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## Conclusion
 

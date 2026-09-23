@@ -195,7 +195,28 @@ style="border:none;"
 
 Эта папка постоянно разрастается, по пространству имен на каждую функцию в каждой локали:
 
-![A locales folder with dozens of namespace files per language](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)
+```txt
+locales
+├── EN
+│   ├── blog.json
+│   ├── about.json
+│   ├── auth.json
+│   ├── blog.json
+│   ├── cart.json
+│   ├── categories.json
+│   ├── contact.json
+│   ├── dashboard.json
+│   ├── errors.json
+│   ├── faq.json
+│   ├── footer.json
+│   ├── form.json
+│   ├── home.json
+│   ├── language.json
+│   ├── navbar.json
+│   ├── ... 65 files
+│   └── validation.json
+└── ES
+```
 
 Это часто замедляет разработку по мере роста приложений:
 
@@ -365,7 +386,7 @@ Using `intlayer`, you can declare your content in the format of your favorite i1
 
 Звезды на GitHub являются надежным индикатором популярности проекта, доверия сообщества и долгосрочной актуальности. Хотя они не являются прямым показателем технического качества, они отражают, сколько разработчиков находят проект полезным, следят за его развитием и готовы внедрить его. Для оценки ценности проекта звезды помогают сравнить популярность альтернатив и дают представление о росте экосистемы.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## Заключение
 

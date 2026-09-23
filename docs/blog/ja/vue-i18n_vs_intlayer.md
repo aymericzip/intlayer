@@ -195,7 +195,28 @@ style="border:none;"
 
 各言語で機能ごとに名前空間が増え、そのフォルダーは肥大化し続けます：
 
-![A locales folder with dozens of namespace files per language](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)
+```txt
+locales
+├── EN
+│   ├── blog.json
+│   ├── about.json
+│   ├── auth.json
+│   ├── blog.json
+│   ├── cart.json
+│   ├── categories.json
+│   ├── contact.json
+│   ├── dashboard.json
+│   ├── errors.json
+│   ├── faq.json
+│   ├── footer.json
+│   ├── form.json
+│   ├── home.json
+│   ├── language.json
+│   ├── navbar.json
+│   ├── ... 65 files
+│   └── validation.json
+└── ES
+```
 
 アプリが成長するにつれて、これが開発の遅延を招くことがよくあります：
 
@@ -365,7 +386,7 @@ const { greeting } = useIntlayer("component-example");
 
 GitHub のスターは、プロジェクトの人気度、コミュニティの信頼、および長期的な関連性の強力な指標です。技術的品質の直接的な尺度ではありませんが、多くの開発者がプロジェクトを有用であると認識し、その進行状況をフォローし、採用する可能性があることを反映しています。プロジェクトの価値を見積もるために、スターは代替案間の牽引力を比較し、エコシステムの成長に関する洞察を提供するのに役立ちます。
 
-[![Star History Chart](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## 結論
 

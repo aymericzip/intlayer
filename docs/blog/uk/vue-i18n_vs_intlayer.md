@@ -195,7 +195,28 @@ style="border:none;"
 
 Ця папка постійно зростає, по простору імен для кожної функції в кожній локалі:
 
-![A locales folder with dozens of namespace files per language](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)
+```txt
+locales
+├── EN
+│   ├── blog.json
+│   ├── about.json
+│   ├── auth.json
+│   ├── blog.json
+│   ├── cart.json
+│   ├── categories.json
+│   ├── contact.json
+│   ├── dashboard.json
+│   ├── errors.json
+│   ├── faq.json
+│   ├── footer.json
+│   ├── form.json
+│   ├── home.json
+│   ├── language.json
+│   ├── navbar.json
+│   ├── ... 65 files
+│   └── validation.json
+└── ES
+```
 
 Це часто уповільнює розробку в міру зростання додатків:
 
@@ -365,7 +386,7 @@ const { greeting } = useIntlayer("component-example");
 
 GitHub-зірки, це вагомий індикатор популярності проєкту, довіри спільноти та його довгострокової релевантності. Хоча вони не є прямим показником технічної якості, вони відображають, скільки розробників вважають проєкт корисним, слідкують за його розвитком і, ймовірно, впровадять його. При оцінці вартості проєкту зірки допомагають порівняти динаміку прийняття між альтернативами та дають уявлення про зростання екосистеми.
 
-[![Графік історії зірок](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Графік історії зірок](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## Висновок
 

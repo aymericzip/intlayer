@@ -195,7 +195,28 @@ Sebagian besar stack i18n (termasuk **vue-i18n**) dimulai dari **katalog terpusa
 
 Folder tersebut terus berkembang, satu namespace per fitur, di setiap lokal:
 
-![A locales folder with dozens of namespace files per language](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)
+```txt
+locales
+├── EN
+│   ├── blog.json
+│   ├── about.json
+│   ├── auth.json
+│   ├── blog.json
+│   ├── cart.json
+│   ├── categories.json
+│   ├── contact.json
+│   ├── dashboard.json
+│   ├── errors.json
+│   ├── faq.json
+│   ├── footer.json
+│   ├── form.json
+│   ├── home.json
+│   ├── language.json
+│   ├── navbar.json
+│   ├── ... 65 files
+│   └── validation.json
+└── ES
+```
 
 Ini sering memperlambat pengembangan seiring pertumbuhan aplikasi:
 
@@ -365,7 +386,7 @@ Dukungan ICU bawaan sedang dalam pengerjaan. Adapter `@intlayer/vue-i18n` menyel
 
 Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komunitas, dan relevansi jangka panjang. Meskipun bukan ukuran langsung dari kualitas teknis, bintang mencerminkan berapa banyak pengembang yang menganggap proyek tersebut berguna, mengikuti perkembangannya, dan kemungkinan akan mengadopsinya. Untuk memperkirakan nilai sebuah proyek, bintang membantu membandingkan daya tarik di antara alternatif dan memberikan wawasan tentang pertumbuhan ekosistem.
 
-[![Grafik Riwayat Bintang](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+[![Grafik Riwayat Bintang](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## Kesimpulan
 
