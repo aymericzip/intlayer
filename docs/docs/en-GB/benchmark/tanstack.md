@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Best i18n solution for TanStack Start in 2026 - Benchmark Report
 description: Compare TanStack Start internationalisation libraries like react-i18next, use-intl, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Update benchmark results"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Update benchmark results"
@@ -200,7 +203,7 @@ The idea behind `Wuchale` is interesting but not yet a viable solution. I hit re
 
 `Tolgee` addresses many of the issues mentioned earlier. I found it harder to get started with than other tools with similar approaches. It does not provide type safety, which also makes catching missing keys at compile time much harder. I had to wrap Tolgee’s APIs with my own to add missing-key detection.
 
-The package is fairly heavy (~11.1kb, which is more than 2× `react-intlayer`).
+The package is fairly heavy (~13.8 kb, which is more than 2.9× `react-intlayer`).
 
 On TanStack Start I also had reactivity problems: on locale change I had to force the provider to rerender and subscribe to locale-change events so loading in another language behaved correctly.
 
@@ -234,7 +237,7 @@ The package is also heavy (~15.3kb, which is about 3× `react-intlayer`).
 
 This TanStack Start benchmark has no direct equivalent to `next-translate` (Next.js plugin + `getStaticProps`). For teams that really want a `t()` API with a mature ecosystem, `react-i18next` and `use-intl` remain “reasonable” choices, but expect to invest a lot of time optimising to avoid leakage.
 
-**(Intlayer)** (`react-intlayer@9.5.1`):
+**(Intlayer)** (`react-intlayer@9.5.6`):
 
 I will not personally judge `react-intlayer` for objectivity’s sake, since it is my own solution.
 

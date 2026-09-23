@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: La mejor solución i18n para Next.js en 2026 - Informe de Benchmark
 description: Compara librerías de internacionalización (i18n) para Next.js como next-intl, next-i18next e Intlayer. Informe detallado de rendimiento sobre tamaño del bundle, fugas y reactividad.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Actualización de los resultados del benchmark"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Actualización de los resultados del benchmark"
@@ -212,7 +215,7 @@ Finalmente, en comparación con otras soluciones, Paraglide no usa un almacén (
 
 **(Tolgee)** (`@tolgee/react@7.2.0`):
 
-`Tolgee` aborda muchos de los problemas mencionados anteriormente. Me resultó más difícil de adoptar que herramientas similares. No proporciona seguridad de tipos (type safety), lo que también dificulta detectar claves faltantes en tiempo de compilación (build time). Tuve que envolver las funciones de Tolgee con las mías propias para añadir la detección de claves faltantes.
+`Tolgee` aborda muchos de los problemas mencionados anteriormente. Me resultó más difícil de adoptar que herramientas similares. No proporciona seguridad de tipos (type safety), lo que también dificulta detectar claves faltantes en tiempo de compilación (build time). Tuve que envolver las funciones de Tolgee con las mías propias para añadir la detección de claves faltantes. El paquete también es relativamente pesado (~14.3kb, que es aproximadamente 2.8× `next-intlayer`).
 
 **(Next Intl)** (`next-intl@4.14.2`):
 
@@ -238,7 +241,7 @@ A menudo se elogia a `Lingui`. Personalmente, encontré el flujo de trabajo `lin
 
 `next-translate` es mi recomendación principal si te gusta una API de estilo `t()`. Es elegante a través de `next-translate-plugin`, cargando namespaces mediante `getStaticProps` con un cargador de Webpack / Turbopack. También es una de las opciones más ligeras aquí (~3.5kb). Para la segmentación por espacios de nombres, definirnamespaces por página o ruta en la configuración está bien pensado y es más fácil de mantener que las principales alternativas como **next-intl** o **next-i18next**. En la versión `3.1.2`, noté que el renderizado estático no funcionaba; Next.js recurría al renderizado dinámico.
 
-**(Intlayer)** (`next-intlayer@9.5.1`):
+**(Intlayer)** (`next-intlayer@9.5.6`):
 
 No seré yo quien juzgue personalmente a `next-intlayer` por objetividad, ya que es mi propia solución.
 

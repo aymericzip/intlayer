@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Beste i18n-Lösung für Next.js im Jahr 2026 - Benchmark-Bericht
 description: Vergleichen Sie Next.js Internationalisierungs-Software (i18n) wie next-intl, next-i18next und Intlayer. Detaillierter Performance-Bericht zu Bundle-Größe, Leakage und Reaktivität.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Benchmark-Ergebnisse aktualisiert"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Benchmark-Ergebnisse aktualisiert"
@@ -213,7 +216,7 @@ Schließlich nutzt Paraglide im Vergleich zu anderen Lösungen keinen Store (z. 
 
 **(Tolgee)** (`@tolgee/react@7.2.0`):
 
-`Tolgee` adressiert viele der oben genannten Probleme. Ich fand es schwieriger zu adoptieren als ähnliche Tools. Es bietet keine Typsicherheit, was es zudem erschwert, fehlende Schlüssel zur Kompilierzeit zu finden. Ich musste die Tolgee-Funktionen mit eigenen Funktionen umhüllen, um eine Erkennung fehlender Schlüssel hinzuzufügen.
+`Tolgee` adressiert viele der oben genannten Probleme. Ich fand es schwieriger zu adoptieren als ähnliche Tools. Es bietet keine Typsicherheit, was es zudem erschwert, fehlende Schlüssel zur Kompilierzeit zu finden. Ich musste die Tolgee-Funktionen mit eigenen Funktionen umhüllen, um eine Erkennung fehlender Schlüssel hinzuzufügen. Das Paket ist ebenfalls relativ schwer (~14,3 KB, was etwa 2,8× `next-intlayer` entspricht).
 
 **(Next Intl)** (`next-intl@4.14.2`):
 
@@ -239,7 +242,7 @@ Die Nachrichtenformate unterscheiden sich ebenfalls: `next-intl` verwendet ICU M
 
 `next-translate` ist meine Hauptempfehlung, wenn Sie eine API im `t()`-Stil bevorzugen. Es ist durch das `next-translate-plugin` elegant gelöst und lädt Namespaces über `getStaticProps` mit einem Webpack / Turbopack Loader. Es ist zudem eine der leichtesten Optionen hier (~3,5 KB). Für das Namespacing ist die Definition pro Seite oder Route in der Konfiguration gut durchdacht und einfacher zu warten als die Hauptalternativen wie **next-intl** oder **next-i18next**. In Version `3.1.2` stellte ich fest, dass das statische Rendering nicht funktionierte; Next.js fiel auf dynamisches Rendering zurück.
 
-**(Intlayer)** (`next-intlayer@9.5.1`):
+**(Intlayer)** (`next-intlayer@9.5.6`):
 
 Ich werde `next-intlayer` der Objektivität halber nicht persönlich bewerten, da es meine eigene Lösung ist.
 

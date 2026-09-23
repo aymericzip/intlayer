@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Best i18n solution for Vue in 2026 - Benchmark Report
-description: Compare Vue internationalization libraries like vue-i18n, fluent-vue, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
+description: Compare Vue internationalization libraries like vue-i18n, fluent-vue, Tolgee, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Update benchmark results and add Tolgee"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Update benchmark results"
@@ -66,6 +69,7 @@ The other impact is on developer experience: how you declare content, types, nam
 ## TL;DR
 
 - **Intlayer**: The most lightweight solution (v9.5.6) with built-in scoping and dynamic loading.
+- **Tolgee**: Effective dynamic loading with zero leakage in dynamic mode, but heavier (~3.7× Intlayer) and lacks built-in compile-time type safety.
 - **vue-i18n**: The industry standard with a rich ecosystem but can be significantly heavier and harder to optimize for code-splitting in large applications.
 - **fluent-vue**: Innovative message organization but lacks type safety and is extremely heavy.
 
@@ -103,6 +107,7 @@ For this benchmark, we compared the following libraries:
 - [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/vue-i18n.md) (v9.5.6)
 - [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
 - [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
+- [`@tolgee/vue`](https://github.com/tolgee/tolgee-js) (v7.2.0)
 
 The framework is `Vue` with a multilingual app of **10 pages** and **10 languages**.
 
@@ -146,7 +151,7 @@ I ran the same multilingual app in a real browser for every stack, then wrote do
 
 GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## Results in detail
 
@@ -156,18 +161,22 @@ GitHub stars are a strong indicator of a project's popularity, community trust, 
 
 ### 2 - Acceptable solutions
 
+**(Tolgee)** (`@tolgee/vue@7.2.0`):
+
+`Tolgee` addresses many of the issues mentioned earlier, offering dynamic loading that successfully eliminates locale and page leakage (dropping page JS down to ~58.8kb). However, it does not provide built-in compile-time type safety for keys out of the box, making catching missing keys harder. Additionally, the library footprint is relatively heavy (~13.8kb, which is about 3.7× `vue-intlayer`).
+
 **(vue-i18n)** (`vue-i18n@11.4.0`):
 
 - **vue-i18n** is without contestation the most used i18n library for vue, it has a lot of features and a huge ecosystem. but under the hood the solution is quite heavy. even if vue-i18n integrate lazy loading for messages, it miss a scoping feature. In the case of a classic Vue SPA app there is no issue, but for a nuxt app, using @nuxt/i18n, it leads to including the messages from all pages into a single one. For a big nuxt app including more than 10 pages, it can become really problematic.
 
-The package is very heavy (~24.3kb, which is about 6× `vue-intlayer`).
+The package is very heavy (~24.1kb, which is about 6.5× `vue-intlayer`).
 
 **(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue** offer one inovation attempt thought the .ftl format. the message organization is great, easier to get started. but in practice, the lack of typesafty increase the risk of error and can quickly become time consuming to debug. Moreever, that solution load the messages using a vite plugin that force the loading of all the content in all languages into each page. Additionally this is an extremely heavy solution (~29.7kb, which is about 7.5× `vue-intlayer`).
+- **fluent-vue** offer one inovation attempt thought the .ftl format. the message organization is great, easier to get started. but in practice, the lack of typesafty increase the risk of error and can quickly become time consuming to debug. Moreever, that solution load the messages using a vite plugin that force the loading of all the content in all languages into each page. Additionally this is an extremely heavy solution (~29.7kb, which is about 8× `vue-intlayer`).
 
 ### 3 - Recommendations
 
-**(Intlayer)** (`vue-intlayer@9.5.0`):
+**(Intlayer)** (`vue-intlayer@9.5.6`):
 
 I will not personally judge `vue-intlayer` for objectivity’s sake, since it is my own solution.

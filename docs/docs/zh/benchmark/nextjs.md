@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026 年 Next.js 最佳 i18n 解决方案 - 基准测试报告
 description: 对比 next-intl、next-i18next 和 Intlayer 等 Next.js 国际化 (i18n) 库。关于打包体积、泄漏和响应性的详细性能报告。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "更新基准测试结果"
   - version: 9.5.1
     date: 2026-09-11
     changes: "更新基准测试结果"
@@ -213,7 +216,7 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 **(Tolgee)** (`@tolgee/react@7.2.0`):
 
-`Tolgee` 解决了前面提到的许多问题。我发现它比类似的工具更难采用。它不提供类型安全，这增加了在编译时捕捉缺失键的难度。我不得不使用自己的函数封装 Tolgee 的函数，以添加缺失键检测。
+`Tolgee` 解决了前面提到的许多问题。我发现它比类似的工具更难采用。它不提供类型安全，这增加了在编译时捕捉缺失键的难度。我不得不使用自己的函数封装 Tolgee 的函数，以添加缺失键检测。 该软件包也相对较重（~14.3kb，约为 `next-intlayer` 的 2.8 倍）。
 
 **(Next Intl)** (`next-intl@4.14.2`):
 
@@ -239,7 +242,7 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 如果你喜欢 `t()` 风格的 API，`next-translate` 是我的主要推荐方案。它通过 `next-translate-plugin` 优雅运作，利用 Webpack / Turbopack loader 通过 `getStaticProps` 加载命名空间。它也是这些方案中最轻量的之一（约 3.5kb）。对于命名空间拆分，在配置中为每个页面或路由定义命名空间的设计非常周到，比 **next-intl** 或 **next-i18next** 等主要替代方案更易于维护。在版本 `3.1.2` 中，我注意到静态渲染无法工作，Next.js 会回退到动态渲染。
 
-**(Intlayer)** (`next-intlayer@9.5.1`):
+**(Intlayer)** (`next-intlayer@9.5.6`):
 
 出于客观性考量，我不会亲自评价 `next-intlayer`，因为这是我自己的解决方案。
 

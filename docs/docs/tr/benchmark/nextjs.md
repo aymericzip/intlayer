@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026'da Next.js için En İyi i18n Çözümü - Benchmark Raporu
 description: next-intl, next-i18next ve Intlayer gibi Next.js uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Benchmark sonuçları güncellendi"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Benchmark sonuçları güncellendi"
@@ -213,7 +216,7 @@ Son olarak, diğer çözümlerle karşılaştırıldığında Paraglide, içeri�
 
 **(Tolgee)** (`@tolgee/react@7.2.0`):
 
-`Tolgee` daha önce bahsedilen sorunların çoğunu ele alıyor. Benzer araçlara göre benimsenmesinin daha zor olduğunu gördüm. Tip güvenliği (type safety) sağlamıyor, bu da eksik anahtarların build zamanında yakalanmasını zorlaştırıyor. Eksik anahtar algılama özelliği eklemek için Tolgee'nin fonksiyonlarını kendi fonksiyonlarımla sarmak zorunda kaldım.
+`Tolgee` daha önce bahsedilen sorunların çoğunu ele alıyor. Benzer araçlara göre benimsenmesinin daha zor olduğunu gördüm. Tip güvenliği (type safety) sağlamıyor, bu da eksik anahtarların build zamanında yakalanmasını zorlaştırıyor. Eksik anahtar algılama özelliği eklemek için Tolgee'nin fonksiyonlarını kendi fonksiyonlarımla sarmak zorunda kaldım. Paket ayrıca nispeten ağırdır (~14.3kb, bu da `next-intlayer` boyutunun yaklaşık 2.8 katıdır).
 
 **(Next Intl)** (`next-intl@4.14.2`):
 
@@ -239,7 +242,7 @@ Mesaj formatları da farklıdır: `next-intl` ICU MessageFormat kullanırken, `i
 
 `t()` stili bir API seviyorsanız `next-translate` ana önerimdir. `next-translate-plugin` aracılığıyla zarif bir şekilde çalışır ve Webpack / Turbopack yükleyicisi ile `getStaticProps` üzerinden ad alanlarını yükler. Ayrıca buradaki en hafif seçeneklerden biridir (~3.5kb). Yapılandırmada sayfa veya rota başına ad alanı tanımlamak iyi düşünülmüştür ve **next-intl** veya **next-i18next** gibi ana alternatiflerden daha kolay bakımı yapılır. `3.1.2` sürümünde statik render'ın çalışmadığını ve Next.js'in dinamik render'a geri döndüğünü fark ettim.
 
-**(Intlayer)** (`next-intlayer@9.5.1`):
+**(Intlayer)** (`next-intlayer@9.5.6`):
 
 Nesnellik adına kendi çözümüm olan `next-intlayer` hakkında kişisel olarak yorum yapmayacağım.
 

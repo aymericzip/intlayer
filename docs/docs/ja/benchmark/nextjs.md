@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026年におけるNext.jsの最適なi18nソリューション - ベンチマークレポート
 description: next-intl、next-i18next、IntlayerなどのNext.js国際化（i18n）ライブラリを比較。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "ベンチマーク結果を更新"
   - version: 9.5.1
     date: 2026-09-11
     changes: "ベンチマーク結果を更新"
@@ -213,7 +216,7 @@ GitHubのスターは、プロジェクトの普及度、コミュニティの�
 
 **(Tolgee)** (`@tolgee/react@7.2.0`):
 
-`Tolgee`は前述の問題の多くに対処しています。しかし、同様のツールよりも導入が難しいと感じました。型安全性が提供されていないため、コンパイル時に紛失したキーを見つけることも困難です。キーの不備を検出するために、Tolgeeの関数を自前の関数でラップする必要がありました。
+`Tolgee`は前述の問題の多くに対処しています。しかし、同様のツールよりも導入が難しいと感じました。型安全性が提供されていないため、コンパイル時に紛失したキーを見つけることも困難です。キーの不備を検出するために、Tolgeeの関数を自前の関数でラップする必要がありました。 パッケージも比較的重いです（~14.3kb、これは`next-intlayer`の約2.8倍です）。
 
 **(Next Intl)** (`next-intl@4.14.2`):
 
@@ -239,7 +242,7 @@ GitHubのスターは、プロジェクトの普及度、コミュニティの�
 
 `t()`スタイルのAPIがお好みなら、`next-translate`が私の主な推奨事項です。`next-translate-plugin`を介して優雅に動作し、Webpack / Turbopackローダーを使用して`getStaticProps`経由でネームスペースをロードします。また、今回の中で最も軽量な選択肢の一つです（約3.5kb）。ネームスぺーシングについては、設定ファイルでページやルートごとにネームスペースを定義する方法がよく考えられており、**next-intl**や**next-i18next**のような主要な選択肢よりもメンテナンスが容易です。バージョン`3.1.2`では、静的レンダリングが機能せず、Next.jsが動的レンダリングにフォールバックすることに気づきました。
 
-**(Intlayer)** (`next-intlayer@9.5.1`):
+**(Intlayer)** (`next-intlayer@9.5.6`):
 
 客観性を保つため、自分自身のソリューションである`next-intlayer`については個人的な判断を控えさせていただきます。
 

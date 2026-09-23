@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: La mejor solución i18n para TanStack Start en 2026 - Informe de Benchmark
 description: Compara librerías de internacionalización para TanStack Start como react-i18next, use-intl e Intlayer. Informe detallado de rendimiento sobre tamaño del bundle, fugas y reactividad.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Actualización de los resultados del benchmark"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Actualización de los resultados del benchmark"
@@ -200,7 +203,7 @@ La idea detrás de `Wuchale` es interesante pero todavía no es una solución vi
 
 `Tolgee` aborda muchos de los problemas mencionados anteriormente. Me resultó más difícil empezar con ella que con otras herramientas con enfoques similares. No proporciona seguridad de tipos, lo que también dificulta mucho detectar claves faltantes en tiempo de compilación (build time). Tuve que envolver las API de Tolgee con las mías propias para añadir la detección de claves faltantes.
 
-El package es bastante pesado (~11.1kb, lo que es más de 2× `react-intlayer`).
+El package es bastante pesado (~13.8 kb, lo que es más de 2.9× `react-intlayer`).
 
 En TanStack Start también tuve problemas de reactividad: al cambiar de idioma, tuve que forzar el renderizado del proveedor y suscribirme a eventos de cambio de idioma para que la carga en otro idioma se comportara correctamente.
 
@@ -234,7 +237,7 @@ El package también es pesado (~15.3kb, lo que es aproximadamente 3× `react-int
 
 Este benchmark de TanStack Start no tiene un equivalente directo a `next-translate` (plugin de Next.js + `getStaticProps`). Para los equipos que realmente quieren una API `t()` con un ecosistema maduro, `react-i18next` y `use-intl` siguen siendo opciones "razonables", pero prepárate para invertir mucho tiempo optimizando para evitar fugas.
 
-**(Intlayer)** (`react-intlayer@9.5.1`):
+**(Intlayer)** (`react-intlayer@9.5.6`):
 
 No seré yo quien juzgue personalmente a `react-intlayer` por objetividad, ya que es mi propia solución.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026年におけるTanStack Startの最適なi18nソリューション - ベンチマークレポート
 description: react-i18next、use-intl、IntlayerなどのTanStack Start国際化ライブラリを比較。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "ベンチマーク結果を更新"
   - version: 9.5.1
     date: 2026-09-11
     changes: "ベンチマーク結果を更新"
@@ -234,7 +237,7 @@ TanStack Startでは、Next.js特有の罠（`setRequestLocale`、静的レン�
 
 このTanStack Startベンチマークには、`next-translate`（Next.jsプラグイン + `getStaticProps`）に直接相当するものはありません。成熟したエコシステムと`t()` APIを切望するチームにとって、`react-i18next`や`use-intl`は「妥当な」選択肢であり続けますが、リークを回避するための最適化には多くの時間を投資することを覚悟してください。
 
-**(Intlayer)** (`react-intlayer@9.5.1`):
+**(Intlayer)** (`react-intlayer@9.5.6`):
 
 客観性を保つため、自分自身のソリューションである`react-intlayer`については個人的な判断を控えさせていただきます。
 

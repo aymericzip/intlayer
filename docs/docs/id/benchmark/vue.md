@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Solusi i18n Terbaik untuk Vue di Tahun 2026 - Laporan Benchmark
-description: Bandingkan pustaka internasionalisasi (i18n) Vue seperti vue-i18n, fluent-vue, dan Intlayer. Laporan performa mendetail tentang ukuran bundle, kebocoran, dan reaktivitas.
+description: Bandingkan pustaka internasionalisasi (i18n) Vue seperti vue-i18n, fluent-vue, Tolgee, dan Intlayer. Laporan performa mendetail tentang ukuran bundle, kebocoran, dan reaktivitas.
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Pembaruan hasil benchmark dan penambahan Tolgee"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Pembaruan hasil benchmark"
@@ -66,6 +69,7 @@ Dampak lainnya adalah pada pengalaman pengembang (DX): bagaimana Anda mendeklara
 ## TL;DR
 
 - **Intlayer**: Solusi paling ringan (v9.5.6) dengan scoping bawaan dan pemuatan dinamis.
+- **Tolgee**: Pemuatan dinamis yang efektif tanpa kebocoran dalam mode dinamis, tetapi lebih berat (~3.7× Intlayer) dan tidak memiliki type safety bawaan saat waktu kompilasi.
 - **vue-i18n**: Standar industri dengan ekosistem yang kaya, tetapi bisa menjadi jauh lebih berat dan sulit dioptimalkan untuk code-splitting dalam aplikasi besar.
 - **fluent-vue**: Organisasi pesan yang inovatif tetapi kurang dalam keamanan tipe (type-safety) dan ternyata merupakan solusi yang sangat berat.
 
@@ -103,6 +107,7 @@ Untuk benchmark ini, kami membandingkan pustaka berikut:
 - [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md) (v9.5.6)
 - [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
 - [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
+- [`@tolgee/vue`](https://github.com/tolgee/tolgee-js) (v7.2.0)
 
 Framework yang digunakan adalah `Vue` dengan aplikasi multibahasa yang terdiri dari **10 halaman** dan **10 bahasa**.
 
@@ -146,7 +151,7 @@ Saya menjalankan aplikasi multibahasa yang sama di browser asli untuk setiap sta
 
 Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komunitas, dan relevansi jangka panjang. Meskipun bukan ukuran langsung dari kualitas teknis, bintang-bintang tersebut mencerminkan berapa banyak pengembang yang menganggap proyek tersebut berguna, mengikuti kemajuannya, dan kemungkinan akan mengadopsinya. Untuk memperkirakan nilai suatu proyek, bintang membantu membandingkan daya tarik di berbagai alternatif dan memberikan wawasan tentang pertumbuhan ekosistem.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## Hasil secara mendetail
 
@@ -156,18 +161,22 @@ Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komuni
 
 ### 2 - Solusi yang dapat diterima
 
+**(Tolgee)** (`@tolgee/vue@7.2.0`):
+
+`Tolgee` mengatasi banyak masalah yang disebutkan sebelumnya, menawarkan pemuatan dinamis yang berhasil menghilangkan kebocoran lokal dan halaman (mengurangi JS halaman menjadi sekitar 58.8kb). Namun, ia tidak menyediakan keamanan tipe bawaan saat waktu kompilasi untuk kunci, sehingga menyulitkan pendeteksian kunci yang hilang. Selain itu, ukuran pustaka relatif berat (~13.8kb, yaitu sekitar 3.7× `vue-intlayer`).
+
 **(vue-i18n)** (`vue-i18n@11.4.0`):
 
 - **vue-i18n** tanpa keraguan adalah pustaka i18n yang paling banyak digunakan untuk Vue, ia memiliki banyak fitur dan ekosistem yang besar. Namun di balik layar solusinya cukup berat. Meskipun vue-i18n mengintegrasikan lazy loading untuk pesan, ia melewatkan fitur scoping. Dalam kasus aplikasi Vue SPA klasik tidak ada masalah, tetapi untuk aplikasi Nuxt, menggunakan @nuxt/i18n, hal itu menyebabkan penyertaan pesan dari semua halaman ke dalam satu halaman. Untuk aplikasi Nuxt besar yang mencakup lebih dari 10 halaman, ini bisa menjadi sangat bermasalah.
 
-Paketnya sangat berat (~24.3kb, yang mana sekitar 6× `vue-intlayer`).
+Paketnya sangat berat (~24.1 kb, yang mana sekitar 6.5× `vue-intlayer`).
 
 **(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue** menawarkan satu upaya inovasi melalui format .ftl. Organisasi pesan sangat bagus, lebih mudah untuk memulai. Namun dalam praktiknya, kurangnya keamanan tipe meningkatkan risiko kesalahan dan dapat dengan cepat memakan waktu untuk proses debug. Selain itu, solusi tersebut memuat pesan menggunakan plugin vite yang memaksa pemuatan semua konten dalam semua bahasa ke setiap halaman. Selain itu, ini adalah solusi yang sangat berat (~29.7kb, yang mana sekitar 7.5× `vue-intlayer`).
+- **fluent-vue** menawarkan satu upaya inovasi melalui format .ftl. Organisasi pesan sangat bagus, lebih mudah untuk memulai. Namun dalam praktiknya, kurangnya keamanan tipe meningkatkan risiko kesalahan dan dapat dengan cepat memakan waktu untuk proses debug. Selain itu, solusi tersebut memuat pesan menggunakan plugin vite yang memaksa pemuatan semua konten dalam semua bahasa ke setiap halaman. Selain itu, ini adalah solusi yang sangat berat (~29.7kb, yang mana sekitar 8× `vue-intlayer`).
 
 ### 3 - Rekomendasi
 
-**(Intlayer)** (`vue-intlayer@9.5.0`):
+**(Intlayer)** (`vue-intlayer@9.5.6`):
 
 Saya tidak akan menilai `vue-intlayer` secara pribadi demi objektivitas, karena ini adalah solusi saya sendiri.

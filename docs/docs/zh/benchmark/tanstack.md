@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026 年 TanStack Start 最佳 i18n 解决方案 - 基准测试报告
 description: 对比 react-i18next、use-intl 和 Intlayer 等 TanStack Start 国际化库。关于打包体积、泄漏和响应性的详细性能报告。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "更新基准测试结果"
   - version: 9.5.1
     date: 2026-09-11
     changes: "更新基准测试结果"
@@ -234,7 +237,7 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 在本次 TanStack Start 基准测试中，没有与 `next-translate`（Next.js 插件 + `getStaticProps`）直接对应的方案。对于那些确实想要 `t()` API 且拥有成熟生态的团队，`react-i18next` 和 `use-intl` 仍是“合理”的选择，但要做好投入大量时间进行优化以避免泄漏的准备。
 
-**(Intlayer)** (`react-intlayer@9.5.1`):
+**(Intlayer)** (`react-intlayer@9.5.6`):
 
 出于客观性考量，我不会亲自评价 `react-intlayer`，因为这是我自己的解决方案。
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Solusi i18n terbaik untuk Next.js tahun 2026 - Laporan Benchmark
 description: Bandingkan library internasionalisasi (i18n) Next.js seperti next-intl, next-i18next, dan Intlayer. Laporan performa terperinci tentang ukuran bundle, kebocoran, dan reaktivitas.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Pembaruan hasil benchmark"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Pembaruan hasil benchmark"
@@ -213,7 +216,7 @@ Terakhir, dibandingkan dengan solusi lain, Paraglide tidak menggunakan store (mi
 
 **(Tolgee)** (`@tolgee/react@7.2.0`):
 
-`Tolgee` mengatasi banyak masalah yang disebutkan sebelumnya. Saya merasa lebih sulit untuk mengadopsinya daripada alat serupa. Ia tidak memberikan type safety, yang juga membuat pendeteksian kunci yang hilang saat compile time lebih sulit. Saya harus membungkus fungsi Tolgee dengan fungsi saya sendiri untuk menambahkan deteksi kunci yang hilang.
+`Tolgee` mengatasi banyak masalah yang disebutkan sebelumnya. Saya merasa lebih sulit untuk mengadopsinya daripada alat serupa. Ia tidak memberikan type safety, yang juga membuat pendeteksian kunci yang hilang saat compile time lebih sulit. Saya harus membungkus fungsi Tolgee dengan fungsi saya sendiri untuk menambahkan deteksi kunci yang hilang. Paket ini juga relatif berat (~14.3kb, yaitu sekitar 2.8× `next-intlayer`).
 
 **(Next Intl)** (`next-intl@4.14.2`):
 
@@ -239,7 +242,7 @@ Format pesan juga berbeda: `next-intl` menggunakan ICU MessageFormat, sementara 
 
 `next-translate` adalah rekomendasi utama saya jika Anda menyukai API bergaya `t()`. Ini elegan melalui `next-translate-plugin`, memuat namespace melalui `getStaticProps` dengan loader Webpack / Turbopack. Ini juga merupakan salah satu opsi teringan di sini (~3,5kb). Untuk namespacing, mendefinisikan namespace per halaman atau rute di config dipikirkan dengan matang dan lebih mudah dipelihara daripada alternatif utama seperti **next-intl** atau **next-i18next**. Di versi `3.1.2`, saya mencatat bahwa rendering statis tidak berfungsi; Next.js kembali ke rendering dinamis.
 
-**(Intlayer)** (`next-intlayer@9.5.1`):
+**(Intlayer)** (`next-intlayer@9.5.6`):
 
 Saya tidak akan secara pribadi menilai `next-intlayer` demi objektivitas, karena itu adalah solusi saya sendiri.
 

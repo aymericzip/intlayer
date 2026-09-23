@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: أفضل حل i18n لـ Vue في عام 2026 - تقرير قياسي
-description: قارن بين مكتبات تدويل Vue (i18n) مثل vue-i18n وfluent-vue وIntlayer. تقرير أداء مفصل حول حجم الحزمة والتسرب والتفاعل.
+description: قارن بين مكتبات تدويل Vue (i18n) مثل vue-i18n وfluent-vue, Tolgee وIntlayer. تقرير أداء مفصل حول حجم الحزمة والتسرب والتفاعل.
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "تحديث نتائج المقارنة وإضافة Tolgee"
   - version: 9.5.1
     date: 2026-09-11
     changes: "تحديث نتائج المقارنة"
@@ -66,6 +69,7 @@ style="border:none;"
 ## TL;DR
 
 - **Intlayer**: الحل الأخف وزنًا (v9.5.6) مع ميزة النطاق (scoping) والتحميل الديناميكي المدمجة.
+- **Tolgee**: تحميل ديناميكي فعال بدون أي تسريب في الوضع الديناميكي، ولكنه أثقل (~3.7× Intlayer) ويفتقر إلى أمان الأنواع المدمج في وقت التحويل البرمجي.
 - **vue-i18n**: المعيار الصناعي مع نظام بيئي غني، ولكنه قد يصبح أثقل بكثير ويصعب تحسينه لتقسيم الكود في التطبيقات الكبيرة.
 - **fluent-vue**: تنظيم مبتكر للرسائل ولكنه يفتقر إلى سلامة النوع (type-safety) ويعد حلاً ثقيلًا للغاية.
 
@@ -103,6 +107,7 @@ style="border:none;"
 - [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md) (v9.5.6)
 - [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
 - [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
+- [`@tolgee/vue`](https://github.com/tolgee/tolgee-js) (v7.2.0)
 
 الإطار هو `Vue` مع تطبيق متعدد اللغات يتكون من **10 صفحات** و **10 لغات**.
 
@@ -146,7 +151,7 @@ style="border:none;"
 
 تعد نجوم GitHub مؤشرًا قويًا على شعبية المشروع وثقة المجتمع وأهميته على المدى الطويل. على الرغم من أنها ليست مقياسًا مباشرًا للجودة التقنية، إلا أنها تعكس عدد المطورين الذين يجدون المشروع مفيدًا ويتابعون تقدمه ومن المحتمل أن يتبنوه. لتقدير قيمة المشروع، تساعد النجوم في مقارنة الجاذبية عبر البدائل وتوفر رؤى حول نمو النظام البيئي.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## النتائج بالتفصيل
 
@@ -156,11 +161,15 @@ style="border:none;"
 
 ### 2 - حلول مقبولة
 
+**(Tolgee)** (`@tolgee/vue@7.2.0`):
+
+يعالج `Tolgee` العديد من المشاكل المذكورة سابقاً، حيث يقدم تحميلاً ديناميكياً يقضي بنجاح على تسريب اللغات والصفحات (مما يقلل حجم JS للصفحة إلى حوالي 58.8 كيلوبايت). ومع ذلك، فإنه لا يوفر أمان الأنواع المدمج في وقت التحويل البرمجي للمفاتيح، مما يزيد من صعوبة اكتشاف المفاتيح المفقودة. بالإضافة إلى ذلك، فإن حجم المكتبة ثقيل نسبياً (~13.8 كيلوبايت، أي حوالي 3.7 أضعاف `vue-intlayer`).
+
 **(vue-i18n)** (`vue-i18n@11.4.0`):
 
 - **vue-i18n** هي بدون منازع مكتبة i18n الأكثر استخدامًا لـ Vue، فهي تحتوي على الكثير من الميزات ونظام بيئي ضخم. ولكن تحت الغطاء، الحل ثقيل نوعًا ما. حتى لو قامت vue-i18n بدمج التحميل الكسول للرسائل، فإنها تفتقر إلى ميزة النطاق (scoping). في حالة تطبيق Vue SPA كلاسيكي، لا توجد مشكلة، ولكن بالنسبة لتطبيق Nuxt، باستخدام @nuxt/i18n، فإنه يؤدي إلى تضمين الرسائل من جميع الصفحات في صفحة واحدة. بالنسبة لتطبيق Nuxt كبير يضم أكثر من 10 صفحات، يمكن أن يصبح الأمر إشكاليًا حقًا.
 
-الحزمة ثقيلة جدًا (~24.3kb، أي حوالي 6 أضعاف `vue-intlayer`).
+الحزمة ثقيلة جدًا (~24.1 kb، أي حوالي 6.5 أضعاف `vue-intlayer`).
 
 **(fluent-vue)** (`fluent-vue@3.8.2`):
 
@@ -168,6 +177,6 @@ style="border:none;"
 
 ### 3 - التوصيات
 
-**(Intlayer)** (`vue-intlayer@9.5.0`):
+**(Intlayer)** (`vue-intlayer@9.5.6`):
 
 لن أحكم شخصيًا على `vue-intlayer` من أجل الموضوعية، لأنه الحل الخاص بي.

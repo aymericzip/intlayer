@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026'da Vue için En İyi i18n Çözümü - Benchmark Raporu
-description: vue-i18n, fluent-vue ve Intlayer gibi Vue uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
+description: vue-i18n, fluent-vue, Tolgee ve Intlayer gibi Vue uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Benchmark sonuçları güncellendi ve Tolgee eklendi"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Benchmark sonuçları güncellendi"
@@ -66,6 +69,7 @@ Diğer etki geliştirici deneyimi (DX) üzerindedir: içeriği nasıl tanımlad�
 ## TL;DR
 
 - **Intlayer**: Yerel kapsam (scoping) ve dinamik yükleme ile en hafif çözüm (v9.5.6).
+- **Tolgee**: Dinamik modda sıfır sızıntı ile etkili dinamik yükleme, ancak daha ağır (~3.7× Intlayer) ve derleme zamanında yerleşik tip güvenliğinden yoksundur.
 - **vue-i18n**: Zengin bir ekosisteme sahip endüstri standardı, ancak büyük uygulamalarda önemli ölçüde ağırlaşabilir ve kod bölme (code-splitting) için optimize edilmesi zor olabilir.
 - **fluent-vue**: Yenilikçi mesaj organizasyonu ancak tip güvenliğinden yoksundur ve son derece ağır bir çözüm olduğu ortaya çıkmıştır.
 
@@ -103,6 +107,7 @@ Bu benchmark için aşağıdaki kütüphaneleri karşılaştırdık:
 - [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) (v9.5.6)
 - [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
 - [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
+- [`@tolgee/vue`](https://github.com/tolgee/tolgee-js) (v7.2.0)
 
 Framework, **10 sayfa** ve **10 dilden** oluşan çok dilli bir uygulamaya sahip `Vue`'dur.
 
@@ -146,7 +151,7 @@ Her yığın için gerçek bir tarayıcıda aynı çok dilli uygulamayı çalı�
 
 GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun vadeli alakasının güçlü bir göstergesidir. Teknik kalitenin doğrudan bir ölçüsü olmasa da, kaç geliştiricinin projeyi yararlı bulduğunu, ilerlemesini takip ettiğini ve benimseme olasılığını yansıtır. Bir projenin değerini tahmin etmek için yıldızlar, alternatifler arasındaki çekişi karşılaştırmaya yardımcı olur ve ekosistem büyümesi hakkında içgörüler sağlar.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## Detaylı sonuçlar
 
@@ -156,18 +161,22 @@ GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun
 
 ### 2 - Kabul edilebilir çözümler
 
+**(Tolgee)** (`@tolgee/vue@7.2.0`):
+
+`Tolgee`, daha önce bahsedilen sorunların çoğunu ele alarak dil ve sayfa sızıntısını başarıyla ortadan kaldıran dinamik yükleme sunar (sayfa JS boyutunu yaklaşık 58.8kb seviyesine düşürür). Ancak, anahtarlar için derleme zamanında yerleşik tip güvenliği sağlamaz, bu da eksik anahtarların yakalanmasını zorlaştırır. Ayrıca kütüphanenin boyutu nispeten ağırdır (~13.8kb, bu da `vue-intlayer` boyutunun yaklaşık 3.7 katıdır).
+
 **(vue-i18n)** (`vue-i18n@11.4.0`):
 
 - **vue-i18n** tartışmasız Vue için en çok kullanılan i18n kütüphanesidir, birçok özelliği ve devasa bir ekosistemi vardır. Ancak kaputun altında çözüm oldukça ağırdır. vue-i18n mesajlar için lazy loading entegre etse bile, kapsam (scoping) özelliği eksiktir. Klasik bir Vue SPA uygulaması durumunda sorun yoktur, ancak @nuxt/i18n kullanan bir nuxt uygulaması için, tüm sayfalardan gelen mesajların tek bir sayfaya dahil edilmesine yol açar. 10'dan fazla sayfa içeren büyük bir nuxt uygulaması için bu gerçekten sorunlu olabilir.
 
-Paket çok ağırdır (~24.3kb, bu da `vue-intlayer`'ın yaklaşık 6 katıdır).
+Paket çok ağırdır (~24.1 kb, bu da `vue-intlayer`'ın yaklaşık 6.5 katıdır).
 
 **(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue** .ftl formatı aracılığıyla yenilikçi bir girişim sunar. Mesaj organizasyonu harikadır, başlaması daha kolaydır. Ancak pratikte tip güvenliği eksikliği hata riskini artırır ve hata ayıklaması hızla zaman alıcı hale gelebilir. Dahası, bu çözüm mesajları her sayfada her dildeki tüm içeriğin yüklenmesini zorlayan bir vite eklentisi kullanarak yükler. Ek olarak, bu son derece ağır bir çözümdür (~29.7kb, bu da `vue-intlayer`'ın yaklaşık 7.5 katıdır).
+- **fluent-vue** .ftl formatı aracılığıyla yenilikçi bir girişim sunar. Mesaj organizasyonu harikadır, başlaması daha kolaydır. Ancak pratikte tip güvenliği eksikliği hata riskini artırır ve hata ayıklaması hızla zaman alıcı hale gelebilir. Dahası, bu çözüm mesajları her sayfada her dildeki tüm içeriğin yüklenmesini zorlayan bir vite eklentisi kullanarak yükler. Ek olarak, bu son derece ağır bir çözümdür (~29.7kb, bu da `vue-intlayer`'ın yaklaşık 8 katıdır).
 
 ### 3 - Öneriler
 
-**(Intlayer)** (`vue-intlayer@9.5.0`):
+**(Intlayer)** (`vue-intlayer@9.5.6`):
 
 Kendi çözümüm olduğu için tarafsızlık adına `vue-intlayer`'ı kişisel olarak yargılamayacağım.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026'da TanStack Start için En İyi i18n Çözümü - Benchmark Raporu
 description: react-i18next, use-intl ve Intlayer gibi TanStack Start uluslararasılaştırma kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Benchmark sonuçları güncellendi"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Benchmark sonuçları güncellendi"
@@ -200,7 +203,7 @@ Karşılaşılan sorunlar:
 
 `Tolgee` daha önce bahsedilen sorunların çoğunu ele alıyor. Benzer yaklaşımlara sahip diğer araçlara göre başlamasının daha zor olduğunu gördüm. Tip güvenliği sağlamıyor, bu da eksik anahtarların build zamanında yakalanmasını çok zorlaştırıyor. Eksik anahtar algılama özelliği eklemek için Tolgee'nin API'larını kendi API'larımla sarmak zorunda kaldım.
 
-Package oldukça ağır (~11.1kb, bu `react-intlayer`'ın 2× katından fazladır).
+Package oldukça ağır (~13.8 kb, bu `react-intlayer`'ın 2× katından fazladır).
 
 TanStack Start üzerinde de reaktivite problemlerim oldu: yerel ayar değiştiğinde, sağlayıcıyı yeniden render etmeye zorlamam ve yerel ayar değişikliği olaylarına abone olmam gerekiyordu, böylece başka bir dildeki yükleme düzgün davrandı.
 
@@ -234,7 +237,7 @@ Paket ayrıca ağırdır (~15.3kb, bu yaklaşık 3× `react-intlayer`).
 
 Bu TanStack Start benchmark'ının `next-translate` (Next.js eklentisi + `getStaticProps`) için doğrudan bir karşılığı yoktur. Gerçekten olgun bir ekosisteme sahip bir `t()` API'si isteyen ekipler için `react-i18next` ve `use-intl` "makul" seçenekler olmaya devam ediyor, ancak sızıntıyı önlemek için optimizasyon yapmaya çok zaman ayırmaya hazırlıklı olun.
 
-**(Intlayer)** (`react-intlayer@9.5.1`):
+**(Intlayer)** (`react-intlayer@9.5.6`):
 
 Nesnellik adına kendi çözümüm olan `react-intlayer` hakkında kişisel olarak yorum yapmayacağım.
 

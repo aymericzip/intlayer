@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Giải pháp i18n tốt nhất cho TanStack Start năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa cho TanStack Start như react-i18next, use-intl và Intlayer. Báo cáo hiệu năng chi tiết về kích thước bundle bundle, rò rỉ dữ liệu và tính phản ứng.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Cập nhật kết quả benchmark"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Cập nhật kết quả benchmark"
@@ -200,7 +203,7 @@ Các vấn đề gặp phải:
 
 `Tolgee` giải quyết được nhiều vấn đề đã đề cập trước đó. Tôi thấy việc bắt đầu với Tolgee khó khăn hơn so với các công cụ khác có phương pháp tiếp cận tương tự. Nó không cung cấp tính an toàn kiểu dữ liệu, điều này cũng khiến việc phát hiện các khóa bị thiếu tại thời điểm biên dịch trở nên khó khăn hơn nhiều. Tôi đã phải bao bọc các API của Tolgee bằng các API của riêng mình để thêm tính năng phát hiện khóa bị thiếu.
 
-Package này khá nặng (~11.1kb, gấp hơn 2× `react-intlayer`).
+Package này khá nặng (~13.8 kb, gấp hơn 2.9× `react-intlayer`).
 
 Trên TanStack Start, tôi cũng gặp vấn đề về tính phản ứng: khi ngôn ngữ thay đổi, tôi phải ép buộc provider render lại và đăng ký vào các sự kiện thay đổi ngôn ngữ để việc tải ở một ngôn ngữ khác hoạt động chính xác.
 
@@ -234,7 +237,7 @@ Package cũng khá nặng (~15.3kb, tức là khoảng 3× `react-intlayer`).
 
 Benchmark TanStack Start này không có đối trọng trực tiếp cho `next-translate` (Next.js plugin + `getStaticProps`). Đối với các nhóm thực sự muốn một API `t()` với một hệ sinh thái chín muồi, `react-i18next` và `use-intl` vẫn là những lựa chọn "hợp lý", nhưng hãy chuẩn bị đầu tư nhiều thời gian tối ưu hóa để tránh rò rỉ.
 
-**(Intlayer)** (`react-intlayer@9.5.1`):
+**(Intlayer)** (`react-intlayer@9.5.6`):
 
 Tôi sẽ không đích thân đánh giá `react-intlayer` vì tính khách quan, vì đây là giải pháp của riêng tôi.
 

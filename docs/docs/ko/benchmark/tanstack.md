@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026년 TanStack Start를 위한 최고의 i18n 솔루션 - 벤치마크 리포트
 description: react-i18next, use-intl, Intlayer와 같은 TanStack Start 국제화 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "벤치마크 결과 업데이트"
   - version: 9.5.1
     date: 2026-09-11
     changes: "벤치마크 결과 업데이트"
@@ -200,7 +203,7 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 
 `Tolgee`는 앞에서 언급한 많은 문제들을 해결합니다. 비슷한 접근 방식을 가진 다른 도구들보다 시작하기 더 어렵다고 느꼈습니다. 타입 안전성을 제공하지 않아 컴파일 시점에 누락된 키를 찾는 것도 매우 어렵습니다. 누락된 키 감지 기능을 추가하기 위해 Tolgee의 API를 나의 API로 래핑해야 했습니다.
 
-이 패키지는 상당히 무거운 편입니다 (~11.1kb, 이는 `react-intlayer`의 2배 이상입니다).
+이 패키지는 상당히 무거운 편입니다 (~13.8 kb, 이는 `react-intlayer`의 2.9배 이상입니다).
 
 TanStack Start에서도 반응성 문제가 있었습니다: 로케일 변경 시 프로바이더를 강제 재렌더링하고 로케일 변경 이벤트를 구독하여 다른 언어로의 로딩이 올바르게 작동하도록 해야 했습니다.
 
@@ -234,7 +237,7 @@ TanStack Start에서는 Next.js 전용 함정(`setRequestLocale`, 정적 렌더�
 
 이 TanStack Start 벤치마크에는 `next-translate`(Next.js 플러그인 + `getStaticProps`)에 상응하는 직접적인 대안이 없습니다. 성숙한 에코시스템과 `t()` API를 진정으로 원하는 팀에게는 `react-i18next`와 `use-intl`이 "합리적인" 선택으로 남겠지만, 누수를 피하기 위해 최적화하는 데 많은 시간을 투자할 것을 각오해야 합니다.
 
-**(Intlayer)** (`react-intlayer@9.5.1`):
+**(Intlayer)** (`react-intlayer@9.5.6`):
 
 객관성을 위해 나의 솔루션인 `react-intlayer`에 대해서는 직접 판단하지 않겠습니다.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Giải pháp i18n tốt nhất cho Next.js năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa (i18n) cho Next.js như next-intl, next-i18next và Intlayer. Báo cáo hiệu năng chi tiết về kích thước bundle bundle, rò rỉ dữ liệu và tính phản ứng.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Cập nhật kết quả benchmark"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Cập nhật kết quả benchmark"
@@ -213,7 +216,7 @@ Cuối cùng, so với các giải pháp khác, Paraglide không sử dụng sto
 
 **(Tolgee)** (`@tolgee/react@7.2.0`):
 
-`Tolgee` giải quyết được nhiều vấn đề đã đề cập trước đó. Tôi thấy việc áp dụng nó khó hơn so với các công cụ tương tự. Nó không cung cấp tính an toàn kiểu dữ liệu (type safety), điều này cũng khiến việc phát hiện các khóa bị thiếu tại thời điểm biên dịch trở nên khó khăn hơn. Tôi đã phải bao bọc các hàm của Tolgee bằng các hàm của riêng mình để thêm tính năng phát hiện khóa bị thiếu.
+`Tolgee` giải quyết được nhiều vấn đề đã đề cập trước đó. Tôi thấy việc áp dụng nó khó hơn so với các công cụ tương tự. Nó không cung cấp tính an toàn kiểu dữ liệu (type safety), điều này cũng khiến việc phát hiện các khóa bị thiếu tại thời điểm biên dịch trở nên khó khăn hơn. Tôi đã phải bao bọc các hàm của Tolgee bằng các hàm của riêng mình để thêm tính năng phát hiện khóa bị thiếu. Gói này cũng tương đối nặng (~14.3kb, gấp khoảng 2.8 lần `next-intlayer`).
 
 **(Next Intl)** (`next-intl@4.14.2`):
 
@@ -239,7 +242,7 @@ Các định dạng thông báo cũng khác nhau: `next-intl` sử dụng ICU Me
 
 `next-translate` là khuyến nghị chính của tôi nếu bạn thích một API theo kiểu `t()`. Nó vận hành thanh thoát thông qua `next-translate-plugin`, tải các namespace qua `getStaticProps` với một trình tải Webpack / Turbopack. Nó cũng là một trong những tùy chọn nhẹ nhất ở đây (~3.5kb). Đối với việc phân namespace, việc định nghĩa các namespace theo từng trang hoặc route trong cấu hình được cân nhắc kỹ lưỡng và dễ bảo trì hơn so với các lựa chọn thay thế chính như **next-intl** hay **next-i18next**. Ở phiên bản `3.1.2`, tôi nhận thấy rằng việc render tĩnh không hoạt động; Next.js đã quay trở lại việc render động.
 
-**(Intlayer)** (`next-intlayer@9.5.1`):
+**(Intlayer)** (`next-intlayer@9.5.6`):
 
 Tôi sẽ không đích thân đánh giá `next-intlayer` vì tính khách quan, vì đây là giải pháp của riêng tôi.
 

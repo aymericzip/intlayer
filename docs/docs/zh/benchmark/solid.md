@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026 年 Solid 最佳 i18n 解决方案 - 基准报告
-description: 比较 Solid 国际化（i18n）库，如 solid-primitives、solid-i18next 和 Intlayer。关于Bundle 大小、泄漏和反应性的详细性能报告。
+description: 比较 Solid 国际化（i18n）库，如 solid-primitives、solid-i18next、Tolgee 和 Intlayer。关于Bundle 大小、泄漏和反应性的详细性能报告。
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "更新基准测试结果"
   - version: 9.5.1
     date: 2026-09-11
     changes: "更新基准测试结果"
@@ -67,6 +70,7 @@ history:
 - **Intlayer**: 需要高级功能和优化的专业 Solid 应用的推荐选择（v9.5.6）。
 - **@solid-primitives/i18n**: 简单项目的绝佳轻量级替代方案，但缺乏延迟加载等高级功能。
 - **solid-i18next**: 标准但沉重的选项（约为 Intlayer 的 3.5 倍），具有与 React i18next 相同的缺点。
+- **Tolgee**: 功能丰富的翻译平台，但体积较重（约 12.7kb，约为 Intlayer 的 3.0 倍），缺乏原生 Solid 原语支持（依赖 @tolgee/web），且在静态配置下存在显著的页面间翻译泄露（90% 页面泄露）。
 - **Paraglide**: 创新的方法，但在某些设置中 DX 复杂且存在 tree-shaking 问题。
 
 ## 测试您的应用
@@ -102,6 +106,7 @@ history:
 - [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/exports.md) (v9.5.6)
 - [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
 - [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
+- [`@tolgee/web`](https://github.com/tolgee/tolgee-js) (v7.2.0)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 框架是 `Solid`，应用包含 **10 个页面** 和 **10 种语言**。
@@ -146,7 +151,7 @@ history:
 
 GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力指标。虽然星数不是技术质量的直接衡量标准，但它们反映了有多少开发人员发现该项目有用、关注其进展并可能采用它。在评估项目价值时，星数有助于比较不同方案的吸引力，并提供对生态系统增长的见解。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## 结果详情
 
@@ -169,6 +174,18 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 Solid primitive 非常轻量且高效，我推荐将其用于轻量级项目，但对于包含 cookie 管理、代理重定向、格式化器等在内的专业解决方案，它可能会迅速显现功能不足。
 它还缺乏延迟加载和分层命名空间以进行页面大小优化。
 
+**(Tolgee)** (`@tolgee/web@7.2.0`):
+
+`Tolgee` 提供了功能完善的翻译管理平台，并具备上下文内编辑（in-context editing）功能。
+
+在 Solid 上，目前还没有官方的原生适配器（例如 `@tolgee/solid`），需要开发者通过 `@tolgee/web` 结合自定义信号进行集成。
+
+该包体积相对较重（约 12.7kb，约为 `solid-intlayer` 的 3.0 倍）。
+
+由于在 Solid 中缺乏细粒度的按页面命名空间拆分机制，在静态配置下所有翻译都会在启动时加载到内存中。这导致严重的包内容泄露（44.5% 语言泄露，90.0% 页面内容泄露），页面平均 JS 大小达到 ~91.8kb（相比之下 Intlayer 仅为 ~35.8kb）。
+
+语言切换响应极为迅速（0.6ms），契合 Solid 的细粒度响应式系统，不过注水（hydration）开销略高（~5.6ms 对比 Intlayer 的 ~3.0ms）。
+
 **(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide` 提供了一种创新且深思熟虑的方法。尽管如此，在此基准测试中，他们宣传的 tree-shaking 在我的实现中没有按预期工作。工作流程和 DX 也比其他选项更复杂。
@@ -177,7 +194,7 @@ Solid primitive 非常轻量且高效，我推荐将其用于轻量级项目，�
 
 ### 3 - 建议
 
-**(Intlayer)** (`solid-intlayer@9.5.0`):
+**(Intlayer)** (`solid-intlayer@9.5.6`):
 
 出于客观性考虑，我个人不会对 `solid-intlayer` 做出评价，因为它是我的个人解决方案。
 

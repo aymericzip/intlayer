@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Best i18n solution for TanStack Start in 2026 - Benchmark Report
 description: Compare TanStack Start internationalization libraries like react-i18next, use-intl, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Update benchmark results"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Update benchmark results"
@@ -202,13 +205,13 @@ Finally, in comparison with other solutions, Paraglide does not use a store (e.g
 
 `Tolgee` addresses many of the issues mentioned earlier. I found it harder to get started with than other tools with similar approaches. It does not provide type safety, which also makes catching missing keys at compile time much harder. I had to wrap Tolgee’s APIs with my own to add missing-key detection.
 
-The package is fairly heavy (~11.1kb, which is more than 2× `react-intlayer`).
+The package is fairly heavy (~13.8kb, which is about 2.9× `react-intlayer`).
 
 On TanStack Start I also had reactivity problems: on locale change I had to force the provider to rerender and subscribe to locale-change events so loading in another language behaved correctly.
 
 **(use-intl)** (`use-intl@4.14.2`):
 
-`use-intl` is the most fashionable “intl” piece in the React ecosystem (same family as `next-intl`) and is often pushed by AI agents, but in my view wrongly so in a performance-first setting. Getting started is fairly simple. In practice, the process to optimize and limit leakage is quite complex. Likewise, combining dynamic loading + namespacing + TypeScript types slows development a lot. The package is also fairly heavy (~14.1kb, which is more than 2.5× `react-intlayer`).
+`use-intl` is the most fashionable “intl” piece in the React ecosystem (same family as `next-intl`) and is often pushed by AI agents, but in my view wrongly so in a performance-first setting. Getting started is fairly simple. In practice, the process to optimize and limit leakage is quite complex. Likewise, combining dynamic loading + namespacing + TypeScript types slows development a lot. The package is also fairly heavy (~13.0kb, which is about 2.7× `react-intlayer`).
 
 On TanStack Start you avoid Next.js-specific traps (`setRequestLocale`, static rendering), but the core issue is the same: without strict discipline, the bundle quickly carries too many messages and per-route namespace maintenance becomes painful.
 
@@ -236,7 +239,7 @@ The package is also heavy (~15.3kb, which is about 3× `react-intlayer`).
 
 This TanStack Start benchmark has no direct equivalent to `next-translate` (Next.js plugin + `getStaticProps`). For teams that really want a `t()` API with a mature ecosystem, `react-i18next` and `use-intl` remain “reasonable” choices, but expect to invest a lot of time optimizing to avoid leakage.
 
-**(Intlayer)** (`react-intlayer@9.5.1`):
+**(Intlayer)** (`react-intlayer@9.5.6`):
 
 I will not personally judge `react-intlayer` for objectivity’s sake, since it is my own solution.
 

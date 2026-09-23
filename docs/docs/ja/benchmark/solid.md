@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026年 Solid向けの最高のi18nソリューション - ベンチマークレポート
-description: solid-primitives、solid-i18next、IntlayerなどのSolid国際化（i18n）ライブラリを比較します。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
+description: solid-primitives、solid-i18next、Tolgee、IntlayerなどのSolid国際化（i18n）ライブラリを比較します。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "ベンチマーク結果を更新"
   - version: 9.5.1
     date: 2026-09-11
     changes: "ベンチマーク結果を更新"
@@ -68,6 +71,7 @@ style="border:none;"
 - **Intlayer**: 高度な機能と最適化を必要とするプロフェッショナルなSolidアプリケーションに推奨される選択肢（v9.5.6）。
 - **@solid-primitives/i18n**: シンプルなプロジェクトには優れた軽量な代替案ですが、遅延ロードなどの高度な機能に欠けます。
 - **solid-i18next**: 標準的ですが重い選択肢（Intlayerの約3.5倍）で、React i18nextと同じ欠点があります。
+- **Tolgee**: 機能豊富な翻訳プラットフォームですが、やや重く（約12.7kb、Intlayerの約3.0倍）、ネイティブなSolidプリミティブがなく（@tolgee/webに依存）、静的構成ではページ間で大きな翻訳リークが発生します（90%のページリーク）。
 - **Paraglide**: 革新的なアプローチですが、一部のセットアップではDXが複雑で、ツリーシェイキングの問題があります。
 
 ## アプリをテストする
@@ -103,6 +107,7 @@ i18nリークの問題を素早く特定するために、無料のスキャナ�
 - [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/solid-intlayer/exports.md) (v9.5.6)
 - [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
 - [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
+- [`@tolgee/web`](https://github.com/tolgee/tolgee-js) (v7.2.0)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 フレームワークは `Solid` で、**10ページ**と**10言語**を持つ多言語アプリを使用しました。
@@ -147,7 +152,7 @@ i18nリークの問題を素早く特定するために、無料のスキャナ�
 
 GitHubのスターは、プロジェクトの普及度、コミュニティの信頼、および長期的な関連性を示す強力な指標です。技術的な品質を直接測定するものではありませんが、どれだけの開発者がプロジェクトを有用だと感じ、その進捗をフォローし、採用する可能性があるかを反映しています。プロジェクトの価値を見積もる際、スターは代替案との勢いの比較を助け、エコシステムの成長に関する洞察を提供します。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## 結果の詳細
 
@@ -170,6 +175,18 @@ GitHubのスターは、プロジェクトの普及度、コミュニティの�
 Solid primitive は非常に軽量で効率的です。小規模なプロジェクトにはこのソリューションを推奨しますが、クッキー管理、プロキシリダイレクト、フォーマッタなどを含むプロフェッショナルなソリューションには機能が不足しがちです。
 また、ページサイズの最適化のための遅延ロードや名前空間のスコーピングも欠けています。
 
+**(Tolgee)** (`@tolgee/web@7.2.0`):
+
+`Tolgee` は、インコンテキスト編集機能を備えた包括的な翻訳管理プラットフォームを提供します。
+
+Solid向けには、現在公式のネイティブアダプター（`@tolgee/solid` など）が存在しないため、開発者はカスタムシグナルを使用して `@tolgee/web` 経由で統合する必要があります。
+
+パッケージは比較的重いです（約12.7kb、これは `solid-intlayer` の約3.0倍です）。
+
+Solidにおけるページごとのきめ細かい分割メカニズムがないため、静的設定では起動時にすべての翻訳がメモリに読み込まれます。これにより大幅なバンドルリークが発生し（ロケールリーク44.5%、ページリーク90.0%）、平均ページバンドルサイズは約91.8kbになります（Intlayerの約35.8kbと比較）。
+
+言語切り替えの反応性は非常に高速（0.6ms）であり、Solidのきめ細かいリアクティビティとよく調和していますが、ハイドレーションのオーバーヘッドはやや高くなります（Intlayerの約3.0msに対して約5.6ms）。
+
 **(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide` は革新的でよく考えられたアプローチを提供しています。それでも、このベンチマークでは、彼らが宣伝しているツリーシェイキングは私の実装では機能しませんでした。ワークフローとDXも他のオプションより複雑です。
@@ -178,7 +195,7 @@ Solid primitive は非常に軽量で効率的です。小規模なプロジェ�
 
 ### 3 - 推奨事項
 
-**(Intlayer)** (`solid-intlayer@9.5.0`):
+**(Intlayer)** (`solid-intlayer@9.5.6`):
 
 客観性を保つため、`solid-intlayer` については私自身のソリューションであるため、個人的な評価は控えます。
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: 2026년 Next.js를 위한 최고의 i18n 솔루션 - 벤치마크 리포트
 description: next-intl, next-i18next, Intlayer와 같은 Next.js 국제화(i18n) 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "벤치마크 결과 업데이트"
   - version: 9.5.1
     date: 2026-09-11
     changes: "벤치마크 결과 업데이트"
@@ -213,7 +216,7 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 
 **(Tolgee)** (`@tolgee/react@7.2.0`):
 
-`Tolgee`는 앞에서 언급한 많은 문제들을 해결합니다. 비슷한 도구들보다 채택하기 더 어렵다고 느꼈습니다. 타입 안전성을 제공하지 않아 컴파일 시점에 누락된 키를 찾는 것도 어렵습니다. 누락된 키 감지 기능을 추가하기 위해 Tolgee의 함수를 나의 함수로 래핑해야 했습니다.
+`Tolgee`는 앞에서 언급한 많은 문제들을 해결합니다. 비슷한 도구들보다 채택하기 더 어렵다고 느꼈습니다. 타입 안전성을 제공하지 않아 컴파일 시점에 누락된 키를 찾는 것도 어렵습니다. 누락된 키 감지 기능을 추가하기 위해 Tolgee의 함수를 나의 함수로 래핑해야 했습니다. 패키지 크기도 비교적 무겁습니다(~14.3kb, 이는 `next-intlayer`의 약 2.8배입니다).
 
 **(Next Intl)** (`next-intl@4.14.2`):
 
@@ -239,7 +242,7 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 
 `t()` 스타일의 API를 선호한다면 `next-translate`가 주요 추천 사항입니다. Webpack / Turbopack 로더를 통해 `getStaticProps`에서 네임스페이스를 로드하는 `next-translate-plugin`을 통해 우아하게 작동합니다. 또한 여기에서 가장 가벼운 옵션 중 하나입니다(약 3.5kb). 네임스페이싱의 경우 설정 파일에서 페이지 또는 경로별 네임스페이스를 정의하는 방식이 잘 생각되어 있으며 **next-intl**이나 **next-i18next**와 같은 주요 대안보다 유지 관리가 쉽습니다. 버전 `3.1.2`에서 정적 렌더링이 작동하지 않았고 Next.js가 동적 렌더링으로 폴백(fallback)되는 것을 확인했습니다.
 
-**(Intlayer)** (`next-intlayer@9.5.1`):
+**(Intlayer)** (`next-intlayer@9.5.6`):
 
 객관성을 위해 나의 솔루션인 `next-intlayer`에 대해서는 직접 판단하지 않겠습니다.
 

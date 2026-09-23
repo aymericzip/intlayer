@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Best i18n solution for Next.js in 2026 - Benchmark Report
 description: Compare Next.js internationalisation (i18n) libraries like next-intl, next-i18next, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Update benchmark results"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Update benchmark results"
@@ -214,7 +217,7 @@ Finally, in comparison of other solutions, Paraglide does not use store (e.g. Re
 
 **(Tolgee)** (`@tolgee/react@7.2.0`):
 
-`Tolgee` addresses many of the issues mentioned earlier. I found it harder to adopt than similar tools. It does not provide type safety, which also makes catching missing keys at compile time harder. I had to wrap Tolgee’s functions with my own to add missing-key detection.
+`Tolgee` addresses many of the issues mentioned earlier. I found it harder to adopt than similar tools. It does not provide type safety, which also makes catching missing keys at compile time harder. I had to wrap Tolgee’s functions with my own to add missing-key detection. The package is also relatively heavy (~14.3kb, which is about 2.8× `next-intlayer`).
 
 **(Next Intl)** (`next-intl@4.14.2`):
 
@@ -240,7 +243,7 @@ Message formats also differ: `next-intl` uses ICU MessageFormat, while `i18next`
 
 `next-translate` is my main recommendation if you like a `t()`-style API. It is elegant via `next-translate-plugin`, loading namespaces through `getStaticProps` with a Webpack / Turbopack loader. It is also one of the lightest options here (~3.5kb). For namespacing, defining namespaces per page or route in config is well thought out and easier to maintain than main alternatives like **next-intl** or **next-i18next**. In version `3.1.2`, I noted that static rendering did not work; Next.js fell back to dynamic rendering.
 
-**(Intlayer)** (`next-intlayer@9.5.1`):
+**(Intlayer)** (`next-intlayer@9.5.6`):
 
 I will not personally judge `next-intlayer` for objectivity’s sake, since it is my own solution.
 

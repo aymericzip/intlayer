@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Najlepsze rozwiązanie i18n dla Vue w 2026 r. - raport z benchmarku
-description: Porównaj biblioteki internacjonalizacji (i18n) dla Vue, takie jak vue-i18n, fluent-vue i Intlayer. Szczegółowy raport wydajności dotyczący rozmiaru paczki, wycieków i reaktywności.
+description: Porównaj biblioteki internacjonalizacji (i18n) dla Vue, takie jak vue-i18n, fluent-vue, Tolgee i Intlayer. Szczegółowy raport wydajności dotyczący rozmiaru paczki, wycieków i reaktywności.
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Aktualizacja wyników benchmarku i dodanie Tolgee"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Aktualizacja wyników benchmarku"
@@ -66,6 +69,7 @@ Innym skutkiem jest wpływ na doświadczenie programisty (DX): sposób deklarowa
 ## TL;DR
 
 - **Intlayer**: Najlżejsze rozwiązanie (v9.5.6) z natywnym scopingiem i dynamicznym ładowaniem.
+- **Tolgee**: Efektywne ładowanie dynamiczne z zerowym wyciekiem w trybie dynamicznym, ale cięższe (~3.7× Intlayer) i brak wbudowanego bezpieczeństwa typów w czasie kompilacji.
 - **vue-i18n**: Standard branżowy z bogatym ekosystemem, ale może być znacznie cięższy i trudniejszy do optymalizacji pod kątem code-splittingu w dużych aplikacjach.
 - **fluent-vue**: Innowacyjna organizacja komunikatów, ale brakuje jej bezpieczeństwa typów (type-safety) i okazuje się być ekstremalnie ciężkim rozwiązaniem.
 
@@ -103,6 +107,7 @@ W tym benchmarku porównaliśmy następujące biblioteki:
 - [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/vue-i18n.md) (v9.5.6)
 - [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
 - [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
+- [`@tolgee/vue`](https://github.com/tolgee/tolgee-js) (v7.2.0)
 
 Framework to `Vue` z aplikacją wielojęzyczną składającą się z **10 stron** i **10 języków**.
 
@@ -146,7 +151,7 @@ Uruchomiłem tę samą wielojęzyczną aplikację w prawdziwej przeglądarce dla
 
 Gwiazdki na GitHubie są silnym wskaźnikiem popularności projektu, zaufania społeczności i długoterminowego znaczenia. Choć nie są bezpośrednią miarą jakości technicznej, odzwierciedlają, ilu programistów uważa projekt za przydatny, śledzi jego postępy i prawdopodobnie go przyjmie. Przy szacowaniu wartości projektu gwiazdki pomagają porównać zainteresowanie alternatywami i dostarczają wglądu w rozwój ekosystemu.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## Wyniki szczegółowe
 
@@ -156,18 +161,22 @@ Gwiazdki na GitHubie są silnym wskaźnikiem popularności projektu, zaufania sp
 
 ### 2 - Rozwiązania akceptowalne
 
+**(Tolgee)** (`@tolgee/vue@7.2.0`):
+
+`Tolgee` rozwiązuje wiele z wymienionych wcześniej problemów, oferując dynamiczne ładowanie, które skutecznie eliminuje wycieki locale i stron (zmniejszając rozmiar JS strony do około 58.8kb). Nie zapewnia jednak wbudowanego bezpieczeństwa typów w czasie kompilacji dla kluczy, co utrudnia wykrywanie brakujących kluczy. Ponadto sama biblioteka jest stosunkowo ciężka (~13.8kb, czyli około 3.7× `vue-intlayer`).
+
 **(vue-i18n)** (`vue-i18n@11.4.0`):
 
 - **vue-i18n** jest bezsprzecznie najczęściej używaną biblioteką i18n dla Vue, ma wiele funkcji i ogromny ekosystem. Jednak pod maską rozwiązanie to jest dość ciężkie. Nawet jeśli vue-i18n integruje lazy loading dla komunikatów, brakuje mu funkcji scopingu. W przypadku klasycznej aplikacji Vue SPA nie ma problemu, ale dla aplikacji nuxt wykorzystującej @nuxt/i18n prowadzi to do włączania komunikatów ze wszystkich stron do jednej. W przypadku dużej aplikacji nuxt zawierającej ponad 10 stron może to stać się naprawdę problematyczne.
 
-Paczka jest bardzo ciężka (~24.3kb, co stanowi około 6x `vue-intlayer`).
+Paczka jest bardzo ciężka (~24.1 kb, co stanowi około 6.5× `vue-intlayer`).
 
 **(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue** oferuje próbę innowacji poprzez format .ftl. Organizacja komunikatów jest świetna, łatwiej zacząć. Ale w praktyce brak bezpieczeństwa typów zwiększa ryzyko błędu, a debugowanie może szybko stać się czasochłonne. Co więcej, to rozwiązanie ładuje komunikaty za pomocą wtyczki vite, która wymusza ładowanie całej treści we wszystkich językach na każdej stronie. Dodatkowo jest to ekstremalnie ciężkie rozwiązanie (~29.7kb, co stanowi około 7.5x `vue-intlayer`).
+- **fluent-vue** oferuje próbę innowacji poprzez format .ftl. Organizacja komunikatów jest świetna, łatwiej zacząć. Ale w praktyce brak bezpieczeństwa typów zwiększa ryzyko błędu, a debugowanie może szybko stać się czasochłonne. Co więcej, to rozwiązanie ładuje komunikaty za pomocą wtyczki vite, która wymusza ładowanie całej treści we wszystkich językach na każdej stronie. Dodatkowo jest to ekstremalnie ciężkie rozwiązanie (~29.7kb, co stanowi około 8× `vue-intlayer`).
 
 ### 3 - Rekomendacje
 
-**(Intlayer)** (`vue-intlayer@9.5.0`):
+**(Intlayer)** (`vue-intlayer@9.5.6`):
 
 Nie będę osobiście oceniać `vue-intlayer` ze względu na obiektywizm, ponieważ jest to moje własne rozwiązanie.

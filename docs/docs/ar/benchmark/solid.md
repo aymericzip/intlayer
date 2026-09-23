@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: أفضل حل i18n لـ Solid في عام 2026 - تقرير قياسي
-description: قارن بين مكتبات تدويل Solid (i18n) مثل solid-primitives وsolid-i18next وIntlayer. تقرير أداء مفصل حول حجم الحزمة والتسرب والتفاعل.
+description: قارن بين مكتبات تدويل Solid (i18n) مثل solid-primitives وsolid-i18next وTolgee وIntlayer. تقرير أداء مفصل حول حجم الحزمة والتسرب والتفاعل.
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "تحديث نتائج المقارنة"
   - version: 9.5.1
     date: 2026-09-11
     changes: "تحديث نتائج المقارنة"
@@ -68,6 +71,7 @@ style="border:none;"
 - **Intlayer**: الخيار الموصى به لتطبيقات Solid المهنية التي تحتاج إلى ميزات متقدمة وتحسين (v9.5.6).
 - **@solid-primitives/i18n**: بديل خفيف الوزن ممتاز للمشاريع البسيطة، على الرغم من افتقاره إلى ميزات متقدمة مثل التحميل الكسول (lazy loading).
 - **solid-i18next**: خيار معياري ولكنه ثقيل (~3.5 أضعاف Intlayer) مع نفس عيوب React i18next.
+- **Tolgee**: منصة ترجمة غنية بالميزات، ولكنها ثقيلة نسبيًا (~12.7 كيلوبايت، حوالي 3.0 أضعاف Intlayer)، وتفتقر إلى بدائيات Solid الأصلية (تعتمد على @tolgee/web)، وتظهر تسريبًا كبيرًا عبر الصفحات في الإعدادات الثابتة (90% تسريب للصفحات).
 - **Paraglide**: نهج مبتكر ولكن DX معقد ومشكلات في التخلص من الكود غير المستخدم (tree-shaking) في بعض الإعدادات.
 
 ## اختبر تطبيقك
@@ -103,6 +107,7 @@ style="border:none;"
 - [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/exports.md) (v9.5.6)
 - [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
 - [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
+- [`@tolgee/web`](https://github.com/tolgee/tolgee-js) (v7.2.0)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 الإطار هو `Solid` مع تطبيق متعدد اللغات يتكون من **10 صفحات** و **10 لغات**.
@@ -147,7 +152,7 @@ style="border:none;"
 
 تعد نجوم GitHub مؤشرًا قويًا على شعبية المشروع وثقة المجتمع وأهميته على المدى الطويل. على الرغم من أنها ليست مقياسًا مباشرًا للجودة التقنية، إلا أنها تعكس عدد المطورين الذين يجدون المشروع مفيدًا ويتابعون تقدمه ومن المحتمل أن يتبنوه. لتقدير قيمة المشروع، تساعد النجوم في مقارنة الجاذبية عبر البدائل وتوفر رؤى حول نمو النظام البيئي.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## النتائج بالتفصيل
 
@@ -170,6 +175,18 @@ style="border:none;"
 مكون Solid البدائي خفيف الوزن وفعال للغاية. أوصي بهذا الحل للمشاريع الخفيفة، ولكنه قد يفتقر بسرعة إلى الميزات للحلول المهنية بما في ذلك إدارة ملفات تعريف الارتباط، وإعادة توجيه الوكيل، والمنسقات وما إلى ذلك.
 كما يفتقد إلى التحميل الكسول وتقسيم فضاءات الأسماء لتحسين حجم الصفحة.
 
+**(Tolgee)** (`@tolgee/web@7.2.0`):
+
+توفر `Tolgee` منصة شاملة لإدارة الترجمة مع إمكانات التحرير المباشر في السياق (in-context editing).
+
+في بيئة Solid، لا يوجد حاليًا محول أصلي مخصص (مثل `@tolgee/solid`)، مما يتطلب من المطورين الدمج عبر `@tolgee/web` باستخدام إشارات مخصصة (custom signals).
+
+الحزمة ثقيلة نسبيًا (~12.7 كيلوبايت، أي حوالي 3.0 أضعاف `solid-intlayer`).
+
+بدون آلية تقسيم دقيقة حسب الصفحة في Solid، يتم تحميل جميع الترجمات في الذاكرة مسبقًا في الإعدادات الثابتة. يؤدي هذا إلى تسريب كبير في الحزمة (44.5% تسريب للغات، و 90.0% تسريب للصفحات) ومتوسط حجم حزمة للصفحة يبلغ ~91.8 كيلوبايت (مقارنة بـ ~35.8 كيلوبايت لـ Intlayer).
+
+تعد استجابة تبديل اللغة سريعة للغاية (0.6 مللي ثانية)، مما يتوافق مع تفاعلية Solid الدقيقة، على الرغم من أن الحمل الزائد للترطيب (hydration) أعلى قليلاً (~5.6 مللي ثانية مقابل ~3.0 مللي ثانية لـ Intlayer).
+
 **(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 يقدم `Paraglide` نهجًا مبتكرًا ومدروسًا جيدًا. ومع ذلك، في هذا التقييم القياسي، لم يعمل tree-shaking الذي تعلن عنه شركتهم مع التنفيذ الخاص بي. سير العمل و DX أيضًا أكثر تعقيدًا من الخيارات الأخرى.
@@ -178,7 +195,7 @@ style="border:none;"
 
 ### 3 - التوصيات
 
-**(Intlayer)** (`solid-intlayer@9.5.0`):
+**(Intlayer)** (`solid-intlayer@9.5.6`):
 
 لن أحكم شخصيًا على `solid-intlayer` من أجل الموضوعية، لأنه الحل الخاص بي.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Melhor solução i18n para TanStack Start em 2026 - Relatório de Benchmark
 description: Compare bibliotecas de internacionalização para TanStack Start como react-i18next, use-intl e Intlayer. Relatório detalhado de desempenho sobre tamanho do bundle, vazamento e reatividade.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Atualização dos resultados do benchmark"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Atualização dos resultados do benchmark"
@@ -200,7 +203,7 @@ O `Paraglide` oferece uma abordagem inovadora e bem pensada. Mesmo assim, neste 
 
 O `Tolgee` resolve muitos dos problemas mencionados anteriormente. Achei mais difícil de começar com ele do que com outras ferramentas com abordagens semelhantes. Ele não fornece segurança de tipos, o que também torna muito difícil encontrar chaves ausentes no momento da compilação. Tive que envolver as APIs do Tolgee com as minhas para adicionar a detecção de chaves ausentes.
 
-O package é bastante pesado (~11.1kb, o que é mais de 2× `react-intlayer`).
+O package é bastante pesado (~13.8 kb, o que é mais de 2.9× `react-intlayer`).
 
 No TanStack Start também tive problemas de reatividade: na mudança de localidade, tive que forçar o provedor a renderizar novamente e me inscrever em eventos de mudança de localidade para que o carregamento em outro idioma se comportasse corretamente.
 
@@ -234,7 +237,7 @@ O package também é pesado (~15.3kb, o que é cerca de 3× `react-intlayer`).
 
 Este benchmark do TanStack Start não possui um equivalente direto do `next-translate` (plugin Next.js + `getStaticProps`). Para as equipes que realmente desejam uma API `t()` com um ecossistema maduro, o `react-i18next` e o `use-intl` continuam sendo escolhas "razoáveis", mas espere investir muito tempo otimizando para evitar vazamentos.
 
-**(Intlayer)** (`react-intlayer@9.5.1`):
+**(Intlayer)** (`react-intlayer@9.5.6`):
 
 Não serei eu a julgar pessoalmente o `react-intlayer` por uma questão de objetividade, já que é a minha própria solução.
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-23
 title: Best i18n solution for Solid in 2026 - Benchmark Report
-description: Compare Solid internationalisation (i18n) libraries like solid-primitives, solid-i18next, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
+description: Compare Solid internationalisation (i18n) libraries like solid-primitives, solid-i18next, Tolgee, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
 keywords:
   - benchmark
   - i18n
@@ -17,6 +17,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.7
+    date: 2026-09-23
+    changes: "Update benchmark results"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Update benchmark results"
@@ -68,6 +71,7 @@ The other impact is on developer experience: how you declare content, types, nam
 - **Intlayer**: Recommended choice for professional Solid applications needing advanced features and optimisation (v9.5.6).
 - **@solid-primitives/i18n**: Excellent lightweight alternative for simple projects, though lacks advanced features like lazy loading.
 - **solid-i18next**: Standard but heavy option (~3.5× Intlayer) with same downsides as React i18next.
+- **Tolgee**: Feature-rich translation platform, but fairly heavy (~12.7kb, about 3.0× Intlayer), lacks dedicated Solid primitives (relies on @tolgee/web), and in static setups can leak translations across pages (90% page leak).
 - **Paraglide**: Innovative approach but complex DX and tree-shaking issues in some setups.
 
 ## Test your app
@@ -103,6 +107,7 @@ For this benchmark, we compared the following libraries:
 - [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/exports.md) (v9.5.6)
 - [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
 - [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
+- [`@tolgee/web`](https://github.com/tolgee/tolgee-js) (v7.2.0)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
 
 The framework is `Solid` with a multilingual app of **10 pages** and **10 languages**.
@@ -147,7 +152,7 @@ I ran the same multilingual app in a real browser for every stack, then wrote do
 
 GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## Results in detail
 
@@ -170,6 +175,18 @@ Still, it shares the same major downsides as stacks built on `t('a.b.c')`: optim
 Solid primitive is extremely light and efficient. I recommend that solution for light projects, but it can quickly become lacking features for professional solutions including cookie management, proxy redirection, formatters etc.
 It also misses lazy loading and scoping namespaces for page size optimisation.
 
+**(Tolgee)** (`@tolgee/web@7.2.0`):
+
+`Tolgee` provides a feature-rich internationalisation platform with in-context editing capabilities.
+
+On Solid, there is currently no dedicated official adapter (such as `@tolgee/solid`), requiring developers to integrate via `@tolgee/web` with custom signals.
+
+The package is fairly heavy (~12.7kb, which is about 3.0× `solid-intlayer`).
+
+Without a granular per-page splitting mechanism in Solid, all translations load into memory upfront in static setups. This leads to heavy bundle leakage (44.5% locale leakage, 90.0% page leakage) and average page bundle sizes of ~91.8kb (compared to ~35.8kb for Intlayer).
+
+Language switch responsiveness is very fast (0.6ms), matching Solid's fine-grained reactivity, though hydration overhead is higher (~5.6ms vs ~3.0ms for Intlayer).
+
 **(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
 `Paraglide` offers an innovative, well-thought-out approach. Even so, in this benchmark the tree-shaking their company advertises did not work for my implementation. The workflow and DX are also more complex than other options.
@@ -178,7 +195,7 @@ Finally, in comparison with other solutions, Paraglide does not use a store (e.g
 
 ### 3 - Recommendations
 
-**(Intlayer)** (`solid-intlayer@9.5.0`):
+**(Intlayer)** (`solid-intlayer@9.5.6`):
 
 I will not personally judge `solid-intlayer` for objectivity’s sake, since it is my own solution.
 
