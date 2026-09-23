@@ -31,13 +31,15 @@ Intlayer kullansın veya kullanmasın tüm web sitelerinde çalışır.
 
 ![Intlayer Chrome Uzantısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-Uzantı bağlantısı: [https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Uzantı bağlantısı](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
 
 ## Özellikler
 
 - **Teknoloji tespiti**: framework'ü (Next.js, Nuxt, Astro, SvelteKit, Angular, Vue.js, Qwik, React, Gatsby, WordPress) ve i18n kütüphanesini (Intlayer, i18next, Vue I18n, @nuxtjs/i18n, Angular @angular/localize, next-intl / next-i18next, Weglot, Localize, WPML, Polylang) tanımlar. Her tespit, bunu tetikleyen genel değişken, çerez veya DOM işareti gibi kanıtları gösterir.
 - **Diller (Locales)**: `lang` özniteliğinde, hreflang ve `og:locale` etiketlerinde, URL dil önekinde ve dil çerezlerinde veya depolama girdilerinde bulunan dilleri listeler.
 - **SEO i18n etiketleri**: `html lang`, `html dir`, standart (canonical) bağlantı, hreflang etiketleri, `x-default`, `og:locale` ve yerelleştirilmiş dahili bağlantıların oranını kontrol eder.
+- **Locale'ler arasında gezinme**: hreflang etiketlerine göre mevcut sayfayı tek tıkla yerelleştirilmiş sürümlerinden birine geçirir.
+- **Site haritasında arama**: sitenin site haritasında listelenen tüm sayfalarda arama yapar ve bunları mevcut sekmede açar.
 - **Tam denetim**: [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner) ile aynı denetimi çalıştırır ve canlı bir puan görüntüler.
 
 ## Kurulum
@@ -55,6 +57,14 @@ Bu uzantı Chrome'da ve Chrome Web Mağazası uzantılarını destekleyen tüm C
 3. Açılır pencere, geçerli sayfa için **Tespit edilen teknolojiler**, **Diller** ve **SEO i18n etiketleri** bölümlerini gösterir.
 
 Tespit işlemi tarayıcınızda yerel olarak ve yalnızca geçerli sekmede çalışır.
+
+### Locale'ler arasında gezinme
+
+![Intlayer Chrome Uzantısı gezinme](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension_navigation.png?raw=true)
+
+**Gezin** bölümü, mevcut sayfanın hreflang etiketlerinden okunan **Yerelleştirilmiş sürümlerini** listeler. Bir locale'e tıklayarak o sürümü mevcut sekmede açın.
+
+**Site haritası sayfaları** altında sitenin site haritasındaki URL'lerde arama yapın ve açmak için bir sonuca tıklayın.
 
 ### Tam denetim çalıştırma
 

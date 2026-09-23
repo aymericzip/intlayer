@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'preact/hooks';
 import { scanUrl } from '../scan/scanClient';
 import type { DomainData, MergedAuditData } from '../scan/types';
 
@@ -30,6 +30,8 @@ export type AuditScan = AuditScanState & {
   startScan: (url: string) => void;
   /** Aborts the in-flight audit, keeping the results received so far. */
   cancelScan: () => void;
+  /** Aborts the in-flight audit and clears every result. */
+  resetScan: () => void;
 };
 
 /**
@@ -44,6 +46,12 @@ export const useAuditScan = (): AuditScan => {
     abortControllerRef.current?.abort();
     abortControllerRef.current = null;
     setState((previous) => ({ ...previous, isScanning: false }));
+  }, []);
+
+  const resetScan = useCallback(() => {
+    abortControllerRef.current?.abort();
+    abortControllerRef.current = null;
+    setState(initialState);
   }, []);
 
   const startScan = useCallback((url: string) => {
@@ -109,5 +117,5 @@ export const useAuditScan = (): AuditScan => {
       });
   }, []);
 
-  return { ...state, startScan, cancelScan };
+  return { ...state, startScan, cancelScan, resetScan };
 };

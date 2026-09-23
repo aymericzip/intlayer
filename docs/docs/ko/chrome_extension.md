@@ -31,13 +31,15 @@ Intlayer 사용 여부와 상관없이 모든 웹사이트에서 작동합니다
 
 ![Intlayer Chrome 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-확장 프로그램 링크: [https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[확장 프로그램 링크](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
 
 ## 주요 기능
 
 - **기술 감지**: 프레임워크(Next.js, Nuxt, Astro, SvelteKit, Angular, Vue.js, Qwik, React, Gatsby, WordPress) 및 i18n 라이브러리(Intlayer, i18next, Vue I18n, @nuxtjs/i18n, Angular @angular/localize, next-intl / next-i18next, Weglot, Localize, WPML, Polylang)를 식별합니다. 각 감지 항목은 전역 변수, 쿠키, DOM 마커 등 이를 유발한 증거를 보여줍니다.
 - **로케일**: `lang` 속성, hreflang 및 `og:locale` 태그, URL 로케일 접두사, 로케일 쿠키 또는 스토리지 항목에서 찾은 로케일을 나열합니다.
 - **SEO i18n 태그**: `html lang`, `html dir`, 표준(canonical) 링크, hreflang 태그, `x-default`, `og:locale` 및 현지화된 내부 링크 비율을 검사합니다.
+- **로케일 간 이동**: hreflang 태그를 기반으로 현재 페이지를 클릭 한 번으로 현지화된 버전으로 전환합니다.
+- **사이트맵 검색**: 사이트의 사이트맵에 나열된 모든 페이지를 검색하고 현재 탭에서 엽니다.
 - **전체 감사**: [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner)와 동일한 감사를 실행하고 실시간 점수를 표시합니다.
 
 ## 설치
@@ -55,6 +57,14 @@ Chrome 웹 스토어에서 [**Intlayer i18n Scanner**](https://chromewebstore.go
 3. 팝업에 현재 페이지에 대한 **감지된 기술**, **로케일**, **SEO i18n 태그** 섹션이 표시됩니다.
 
 감지는 브라우저에서 로컬로 실행되며, 현재 활성 탭에서만 동작합니다.
+
+### 로케일 간 이동
+
+![Intlayer Chrome 확장 프로그램 탐색](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension_navigation.png?raw=true)
+
+**탐색** 섹션에는 현재 페이지의 hreflang 태그에서 읽은 **현지화된 버전**이 표시됩니다. 로케일을 클릭하면 해당 버전이 현재 탭에서 열립니다.
+
+**사이트맵 페이지**에서 사이트맵의 URL을 검색하고, 결과를 클릭해 해당 페이지를 엽니다.
 
 ### 전체 감사 실행
 

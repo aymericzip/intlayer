@@ -3,6 +3,7 @@
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
 import { ENGLISH } from '@intlayer/types/locales';
+import { cn } from '@utils/cn';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useCallback, useMemo, useRef, useState } from 'react';
@@ -19,6 +20,28 @@ export type LocaleSwitcherProps = {
   fullLocaleName?: boolean;
   setLocale: (locale: Locale) => void;
   panelProps?: Omit<PanelProps, 'identifier'>;
+  /** `sm` renders a compact pill, matching the `xs` `SwitchSelector`. */
+  size?: LocaleSwitcherSize;
+};
+
+export type LocaleSwitcherSize = 'sm' | 'md';
+
+const sizeClassNames: Record<
+  LocaleSwitcherSize,
+  { nav: string; trigger: string; label: string; icon: string }
+> = {
+  sm: {
+    nav: 'rounded-full border-[1.3px] border-text',
+    trigger: 'min-h-0 px-1.5 py-0.5 text-xs',
+    label: 'px-1',
+    icon: 'size-3',
+  },
+  md: {
+    nav: 'rounded-xl border border-text',
+    trigger: '',
+    label: 'px-2',
+    icon: 'w-5',
+  },
 };
 
 const DROPDOWN_IDENTIFIER = 'locale-switcher';
@@ -37,6 +60,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   fullLocaleName = true,
   setLocale,
   panelProps,
+  size = 'md',
 }) => {
   let localeName = 'Select a locale';
   const { switchTo, searchInput, languageListLabel, localeSwitcherLabel } =
@@ -99,14 +123,26 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
 
   return (
     <nav
-      className="rounded-xl border border-text"
+      className={sizeClassNames[size].nav}
       aria-label={localeSwitcherLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
-        <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER} color="text">
+        <DropDown.Trigger
+          identifier={DROPDOWN_IDENTIFIER}
+          // `text` color paints children with `text-opposite`, unreadable on
+          // the transparent `none` variant.
+          color="custom"
+          size={size === 'sm' ? 'custom' : 'md'}
+          roundedSize={size === 'sm' ? 'full' : 'md'}
+          className={cn('text-text', sizeClassNames[size].trigger)}
+        >
           <div className="flex w-full items-center justify-between">
-            <div className="text-nowrap px-2">{localeName}</div>
-            <MoveVertical className="w-5 self-center" />
+            <div className={cn('text-nowrap', sizeClassNames[size].label)}>
+              {localeName}
+            </div>
+            <MoveVertical
+              className={cn('self-center', sizeClassNames[size].icon)}
+            />
           </div>
         </DropDown.Trigger>
 

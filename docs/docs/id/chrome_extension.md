@@ -31,13 +31,15 @@ Ekstensi ini berfungsi di setiap situs web, baik yang menggunakan Intlayer maupu
 
 ![Ekstensi Chrome Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-Tautan ekstensi: [https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Tautan ekstensi](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
 
 ## Fitur
 
 - **Deteksi teknologi**: mengidentifikasi framework (Next.js, Nuxt, Astro, SvelteKit, Angular, Vue.js, Qwik, React, Gatsby, WordPress) dan pustaka i18n (Intlayer, i18next, Vue I18n, @nuxtjs/i18n, Angular @angular/localize, next-intl / next-i18next, Weglot, Localize, WPML, Polylang). Setiap deteksi menampilkan bukti yang memicunya, seperti variabel global, cookie, atau penanda DOM.
 - **Lokal (Locales)**: mencantumkan lokal yang ditemukan pada atribut `lang`, tag hreflang dan `og:locale`, awalan lokal URL, serta cookie atau entri penyimpanan lokal.
 - **Tag SEO i18n**: memeriksa `html lang`, `html dir`, tautan kanonikal, tag hreflang, `x-default`, `og:locale`, dan rasio tautan internal yang dilokalisasi.
+- **Navigasi antar locale**: mengalihkan halaman saat ini ke salah satu versi yang dilokalkan dengan satu klik, berdasarkan tag hreflang-nya.
+- **Pencarian di sitemap**: mencari semua halaman yang tercantum di sitemap situs dan membukanya di tab saat ini.
 - **Audit lengkap**: menjalankan audit yang sama dengan [Pemindai SEO i18n](https://intlayer.org/i18n-seo-scanner) dan menampilkan skor langsung.
 
 ## Instalasi
@@ -55,6 +57,14 @@ Ekstensi ini berfungsi di Chrome dan di peramban berbasis Chromium mana pun yang
 3. Popup akan menampilkan bagian **Teknologi yang terdeteksi**, **Lokal**, dan **Tag SEO i18n** untuk halaman saat ini.
 
 Deteksi berjalan secara lokal di peramban Anda, hanya pada tab yang sedang aktif.
+
+### Berpindah antar locale
+
+![Navigasi Ekstensi Chrome Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension_navigation.png?raw=true)
+
+Bagian **Navigasi** menampilkan **Versi yang dilokalkan** dari halaman saat ini, dibaca dari tag hreflang-nya. Klik sebuah locale untuk membuka versi tersebut di tab saat ini.
+
+Di **Halaman sitemap**, ketik untuk mencari URL dari sitemap situs, lalu klik hasil untuk membukanya.
 
 ### Menjalankan audit lengkap
 

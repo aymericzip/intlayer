@@ -1,38 +1,37 @@
-import type { FC } from 'react';
+import { Button } from '@intlayer/design-system/button';
+import type { FunctionComponent } from 'preact';
+import { useIntlayer } from 'preact-intlayer';
 import {
   baseCheckType,
-  checkLabel,
   checkSection,
+  fallbackCheckLabel,
 } from '../../scan/checkLabels';
 import type { MergedAuditData } from '../../scan/types';
 import type { AuditScan } from '../useAuditScan';
 import { ScoreRing } from './ScoreRing';
 import { StatusIcon } from './StatusIcon';
 
-const sectionTitles: Record<string, string> = {
-  domain: 'Domain',
-  page: 'Page',
-  robots: 'Robots.txt',
-  sitemap: 'Sitemap',
-};
-
 const sectionOrder = ['page', 'domain', 'robots', 'sitemap'] as const;
 
-const groupChecks = (mergedData: MergedAuditData) => {
-  const groups: Record<string, { type: string; label: string }[]> = {};
+/** Keeps one check type per section and base type, in streaming order. */
+const groupCheckTypes = (mergedData: MergedAuditData) => {
+  const groups: Partial<Record<(typeof sectionOrder)[number], string[]>> = {};
 
   for (const type of Object.keys(mergedData)) {
     const section = checkSection(baseCheckType(type));
-    groups[section] ??= [];
+    const sectionTypes = groups[section] ?? [];
+    groups[section] = sectionTypes;
+
     // The same base check can be streamed for several URLs — keep one row.
     if (
-      groups[section].some(
-        (entry) => baseCheckType(entry.type) === baseCheckType(type)
+      sectionTypes.some(
+        (existingType) => baseCheckType(existingType) === baseCheckType(type)
       )
     ) {
       continue;
     }
-    groups[section].push({ type, label: checkLabel(type) });
+
+    sectionTypes.push(type);
   }
 
   return groups;
@@ -42,76 +41,102 @@ const groupChecks = (mergedData: MergedAuditData) => {
  * Backend audit results: run button, live progress, score ring and the
  * streamed checks grouped by section.
  */
-export const AuditSection: FC<{ scan: AuditScan; tabUrl: string | null }> = ({
-  scan,
-  tabUrl,
-}) => {
+export const AuditSection: FunctionComponent<{
+  scan: AuditScan;
+  tabUrl: string | null;
+}> = ({ scan, tabUrl }) => {
+  const {
+    runAudit,
+    runAgain,
+    cancel,
+    scoreTitle,
+    localesDiscovered,
+    sectionTitles,
+    checkLabels,
+  } = useIntlayer('audit-section');
   const hasResults = Object.keys(scan.mergedData).length > 0;
-  const groups = groupChecks(scan.mergedData);
+  const groups = groupCheckTypes(scan.mergedData);
+  const discoveredLocaleCount = scan.domainData?.discoveredLocales?.length ?? 0;
+
+  const getCheckLabel = (type: string) => {
+    const base = baseCheckType(type);
+
+    return base in checkLabels
+      ? checkLabels[base as keyof typeof checkLabels]
+      : fallbackCheckLabel(type);
+  };
+
+  const runButtonLabel = hasResults ? runAgain : runAudit;
 
   return (
     <div>
       {!scan.isScanning && (
-        <button
-          type="button"
-          className="primary-button"
+        <Button
+          label={runButtonLabel.value}
+          isFullWidth
           disabled={!tabUrl}
           onClick={() => tabUrl && scan.startScan(tabUrl)}
         >
-          {hasResults ? 'Run audit again' : 'Run full i18n audit'}
-        </button>
+          {runButtonLabel}
+        </Button>
       )}
 
       {scan.isScanning && (
-        <div className="scan-progress">
-          <div className="progress-track">
+        <div className="flex flex-col gap-1.5">
+          <div className="h-1.5 overflow-hidden rounded-full bg-text/10">
             <div
-              className="progress-value"
+              className="h-full rounded-full bg-text transition-[width] duration-300"
               style={{ width: `${scan.progress}%` }}
             />
           </div>
-          <div className="scan-progress-footer">
-            <span className="scan-step">{scan.stepMessage}</span>
-            <button
-              type="button"
-              className="ghost-button"
+          <div className="flex items-center justify-between gap-2">
+            <span className="truncate text-neutral text-xs">
+              {scan.stepMessage}
+            </span>
+            <Button
+              label={cancel.value}
+              variant="link"
+              color="neutral"
+              size="sm"
               onClick={scan.cancelScan}
             >
-              Cancel
-            </button>
+              {cancel}
+            </Button>
           </div>
         </div>
       )}
 
-      {scan.error && <p className="scan-error">{scan.error}</p>}
+      {scan.error && <p className="mt-2 mb-0 text-error">{scan.error}</p>}
 
       {hasResults && (
-        <div className="audit-results">
-          <div className="audit-score">
+        <div className="mt-3 flex flex-col gap-2.5">
+          <div className="flex items-center gap-3">
             <ScoreRing score={scan.score} />
             <div>
-              <div className="audit-score-title">i18n / SEO score</div>
-              {scan.domainData?.discoveredLocales &&
-                scan.domainData.discoveredLocales.length > 0 && (
-                  <div className="audit-score-subtitle">
-                    {scan.domainData.discoveredLocales.length} locales
-                    discovered
-                  </div>
-                )}
+              <div className="font-semibold">{scoreTitle}</div>
+              {discoveredLocaleCount > 0 && (
+                <div className="text-neutral text-xs">
+                  {localesDiscovered({ count: discoveredLocaleCount })}
+                </div>
+              )}
             </div>
           </div>
 
           {sectionOrder.map((section) => {
-            const checks = groups[section];
-            if (!checks || checks.length === 0) return null;
+            const checkTypes = groups[section];
+
+            if (!checkTypes || checkTypes.length === 0) return null;
+
             return (
-              <div key={section} className="audit-group">
-                <h3 className="audit-group-title">{sectionTitles[section]}</h3>
-                <ul className="check-list">
-                  {checks.map(({ type, label }) => (
-                    <li key={type} className="check-row">
+              <div key={section}>
+                <h3 className="mt-0 mb-1.5 font-semibold text-neutral text-xs">
+                  {sectionTitles[section]}
+                </h3>
+                <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
+                  {checkTypes.map((type) => (
+                    <li key={type} className="flex items-baseline gap-2">
                       <StatusIcon status={scan.mergedData[type]?.status} />
-                      <span>{label}</span>
+                      <span>{getCheckLabel(type)}</span>
                     </li>
                   ))}
                 </ul>

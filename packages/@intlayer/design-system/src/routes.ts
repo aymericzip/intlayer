@@ -285,6 +285,8 @@ export const Website_Benchmark_Tanstack_Path =
   '/doc/benchmark/tanstack' as const;
 
 export const Website_Doc_MCP_Path = '/doc/mcp-server' as const;
+export const Website_Doc_ChromeExtension_Path =
+  '/doc/chrome-extension' as const;
 
 export const Website_Blog_Root_Path = '/blog' as const;
 export const Website_Blog_Path = '/blog' as const;
@@ -427,6 +429,8 @@ export const Website_Doc_CLI_Review =
 
 export const Website_Doc_MCP =
   `${Website_Origin}${Website_Doc_MCP_Path}` as const;
+export const Website_Doc_ChromeExtension =
+  `${Website_Origin}${Website_Doc_ChromeExtension_Path}` as const;
 
 export const Website_Blog_Root =
   `${Website_Origin}${Website_Blog_Root_Path}` as const;

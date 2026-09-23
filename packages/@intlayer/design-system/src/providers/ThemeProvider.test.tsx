@@ -186,6 +186,19 @@ describe('ThemeProvider', () => {
     expect(container.querySelectorAll('script')).toHaveLength(1);
   });
 
+  test('omits the bootstrap script when disabled, still applying the theme', () => {
+    localStorage.setItem('theme', 'dark');
+
+    const { container } = render(
+      <ThemeProvider hasBootstrapScript={false}>
+        <ThemeProbe />
+      </ThemeProvider>
+    );
+
+    expect(container.querySelector('script')).toBeNull();
+    expect(getAppliedTheme()).toBe('dark');
+  });
+
   test('drops the CSP nonce from the hydrated markup', () => {
     const { container } = render(
       <ThemeProvider nonce="test-nonce">

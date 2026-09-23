@@ -31,13 +31,15 @@ Funziona su qualsiasi sito web, indipendentemente dal fatto che utilizzi o meno 
 
 ![Estensione Chrome Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-Link all'estensione: [https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Link all'estensione](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
 
 ## Funzionalità
 
 - **Rilevamento delle tecnologie**: identifica il framework (Next.js, Nuxt, Astro, SvelteKit, Angular, Vue.js, Qwik, React, Gatsby, WordPress) e la libreria i18n (Intlayer, i18next, Vue I18n, @nuxtjs/i18n, Angular @angular/localize, next-intl / next-i18next, Weglot, Localize, WPML, Polylang). Ogni rilevamento mostra gli elementi che lo hanno attivato, come una variabile globale, un cookie o un marcatore DOM.
 - **Lingue**: elenca le lingue trovate nell'attributo `lang`, nei tag hreflang e `og:locale`, nel prefisso di lingua dell'URL e nei cookie o voci di memorizzazione della lingua.
 - **Tag SEO i18n**: controlla `html lang`, `html dir`, il link canonico, i tag hreflang, `x-default`, `og:locale` e la percentuale di link interni localizzati.
+- **Navigazione tra le locale**: passa con un clic dalla pagina corrente a una delle sue versioni localizzate, in base ai suoi tag hreflang.
+- **Ricerca nella sitemap**: cerca tra tutte le pagine elencate nella sitemap del sito e le apre nella scheda corrente.
 - **Audit completo**: esegue lo stesso audit dello [Scanner SEO i18n](https://intlayer.org/i18n-seo-scanner) e mostra un punteggio in tempo reale.
 
 ## Installazione
@@ -55,6 +57,14 @@ L'estensione funziona su Chrome e su qualsiasi browser basato su Chromium che su
 3. Il popup mostra le sezioni **Tecnologie rilevate**, **Lingue** e **Tag SEO i18n** per la pagina corrente.
 
 Il rilevamento viene eseguito localmente nel browser, solo sulla scheda attiva.
+
+### Navigare tra le locale
+
+![Navigazione dell'estensione Chrome Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension_navigation.png?raw=true)
+
+La sezione **Naviga** elenca le **Versioni localizzate** della pagina corrente, lette dai suoi tag hreflang. Clicca su una locale per aprire quella versione nella scheda corrente.
+
+In **Pagine della sitemap**, digita per cercare tra gli URL della sitemap del sito, poi clicca su un risultato per aprirlo.
 
 ### Eseguire un audit completo
 

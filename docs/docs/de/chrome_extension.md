@@ -31,13 +31,15 @@ Sie funktioniert auf jeder Website, unabhängig davon, ob sie Intlayer verwendet
 
 ![Intlayer Chrome-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-Erweiterungslink: [https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Erweiterungslink](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
 
 ## Funktionen
 
 - **Technologieerkennung**: identifiziert das Framework (Next.js, Nuxt, Astro, SvelteKit, Angular, Vue.js, Qwik, React, Gatsby, WordPress) und die i18n-Bibliothek (Intlayer, i18next, Vue I18n, @nuxtjs/i18n, Angular @angular/localize, next-intl / next-i18next, Weglot, Localize, WPML, Polylang). Jede Erkennung zeigt die Hinweise an, die sie ausgelöst haben, wie z. B. eine globale Variable, ein Cookie oder einen DOM-Marker.
 - **Locales**: listet die im `lang`-Attribut gefundenen Locales, Hreflang- und `og:locale`-Tags, den URL-Locale-Präfix sowie Locale-Cookies oder Storage-Einträge auf.
 - **SEO-i18n-Tags**: prüft `html lang`, `html dir`, den kanonischen Link, Hreflang-Tags, `x-default`, `og:locale` und das Verhältnis lokalisierter interner Links.
+- **Navigation zwischen Locales**: wechselt die aktuelle Seite mit einem Klick zu einer ihrer lokalisierten Versionen, basierend auf ihren hreflang-Tags.
+- **Suche in der Sitemap**: durchsucht alle in der Sitemap der Website aufgeführten Seiten und öffnet sie im aktuellen Tab.
 - **Vollständiges Audit**: führt dasselbe Audit wie der [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner) aus und zeigt eine Live-Bewertung an.
 
 ## Installation
@@ -55,6 +57,14 @@ Die Erweiterung funktioniert in Chrome und in jedem auf Chromium basierenden Bro
 3. Das Popup zeigt die Abschnitte **Erkannte Technologien**, **Locales** und **SEO-i18n-Tags** für die aktuelle Seite.
 
 Die Erkennung läuft lokal in Ihrem Browser und nur auf dem aktuellen Tab.
+
+### Zwischen Locales navigieren
+
+![Navigation der Intlayer Chrome-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension_navigation.png?raw=true)
+
+Der Abschnitt **Navigieren** listet die **Lokalisierten Versionen** der aktuellen Seite auf, ausgelesen aus ihren hreflang-Tags. Klicken Sie auf eine Locale, um diese Version im aktuellen Tab zu öffnen.
+
+Unter **Sitemap-Seiten** durchsuchen Sie die URLs der Sitemap der Website und öffnen ein Ergebnis per Klick.
 
 ### Ein vollständiges Audit durchführen
 

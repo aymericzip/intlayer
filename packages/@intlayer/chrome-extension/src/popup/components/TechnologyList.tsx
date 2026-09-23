@@ -1,41 +1,41 @@
-import type { FC } from 'react';
-import type {
-  DetectedTechnology,
-  TechnologyCategory,
-} from '../../detector/types';
-
-const categoryLabels: Record<TechnologyCategory, string> = {
-  framework: 'Framework',
-  'i18n-library': 'i18n',
-  cms: 'CMS',
-};
+import { cn } from '@intlayer/design-system/utils';
+import type { FunctionComponent } from 'preact';
+import { useIntlayer } from 'preact-intlayer';
+import type { DetectedTechnology } from '../../detector/types';
 
 /** Wappalyzer-style list of detected technologies, with version + evidence. */
-export const TechnologyList: FC<{ technologies: DetectedTechnology[] }> = ({
-  technologies,
-}) => {
+export const TechnologyList: FunctionComponent<{
+  technologies: DetectedTechnology[];
+}> = ({ technologies }) => {
+  const { empty, categories } = useIntlayer('technology-list');
+
   if (technologies.length === 0) {
-    return (
-      <p className="empty-hint">
-        No framework or i18n library detected on this page.
-      </p>
-    );
+    return <p className="m-0 text-neutral">{empty}</p>;
   }
 
   return (
-    <ul className="technology-list">
+    <ul className="m-0 flex list-none flex-col gap-2 p-0">
       {technologies.map((technology) => (
-        <li key={technology.id} className="technology-row">
-          <div className="technology-main">
-            <span className="technology-name">{technology.name}</span>
+        <li key={technology.id}>
+          <div className="flex items-center gap-1.5">
+            <span className="font-semibold">{technology.name}</span>
             {technology.version && (
-              <span className="technology-version">{technology.version}</span>
+              <span className="text-neutral text-xs">{technology.version}</span>
             )}
-            <span className={`category-badge category-${technology.category}`}>
-              {categoryLabels[technology.category]}
+            <span
+              className={cn(
+                'ml-auto rounded-full border px-1.5 py-0.5 font-semibold text-[10px] uppercase tracking-wide',
+                technology.category === 'i18n-library'
+                  ? 'border-text text-text'
+                  : 'border-neutral/40 text-neutral'
+              )}
+            >
+              {categories[technology.category]}
             </span>
           </div>
-          <div className="technology-evidence">{technology.evidence}</div>
+          <div className="wrap-anywhere font-mono text-[11px] text-neutral">
+            {technology.evidence}
+          </div>
         </li>
       ))}
     </ul>

@@ -31,13 +31,15 @@ Intlayerを使用しているかどうかにかかわらず、すべてのWebサ
 
 ![Intlayer Chrome拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-拡張機能リンク: [https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[拡張機能リンク](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
 
 ## 機能
 
 - **技術検出**: フレームワーク（Next.js、Nuxt、Astro、SvelteKit、Angular、Vue.js、Qwik、React、Gatsby、WordPress）およびi18nライブラリ（Intlayer、i18next、Vue I18n、@nuxtjs/i18n、Angular @angular/localize、next-intl / next-i18next、Weglot、Localize、WPML、Polylang）を特定します。検出ごとに、グローバル変数、cookie、DOMマーカーなど、トリガーとなった証拠が表示されます。
 - **ロケール**: `lang` 属性、hreflang、`og:locale` タグ、URLのロケールプレフィックス、ロケールcookieやストレージエントリから検出されたロケールを一覧表示します。
 - **SEO i18nタグ**: `html lang`、`html dir`、カノニカルリンク、hreflangタグ、`x-default`、`og:locale`、ローカライズされた内部リンクの比率をチェックします。
+- **ロケール間の移動**: hreflang タグをもとに、現在のページをワンクリックで各ローカライズ版に切り替えます。
+- **サイトマップ内検索**: サイトのサイトマップに記載されたすべてのページを検索し、現在のタブで開きます。
 - **完全監査**: [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner) と同じ監査を実行し、ライブスコアを表示します。
 
 ## インストール
@@ -55,6 +57,14 @@ Chrome ウェブストアから [**Intlayer i18n Scanner**](https://chromewebsto
 3. ポップアップに、現在のページの **検出された技術**、**ロケール**、**SEO i18nタグ** セクションが表示されます。
 
 検出はブラウザ内でローカルに実行され、現在のタブでのみ動作します。
+
+### ロケール間を移動する
+
+![Intlayer Chrome拡張機能 ナビゲーション](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension_navigation.png?raw=true)
+
+**ナビゲート** セクションには、現在のページの hreflang タグから読み取った **ローカライズ版** が一覧表示されます。ロケールをクリックすると、そのバージョンが現在のタブで開きます。
+
+**サイトマップのページ** では、サイトのサイトマップに含まれる URL を検索し、結果をクリックして開けます。
 
 ### 完全な監査を実行する
 

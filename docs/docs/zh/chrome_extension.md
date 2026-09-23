@@ -31,13 +31,15 @@ author: aymericzip
 
 ![Intlayer Chrome 扩展](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-扩展链接: [https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[扩展链接](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
 
 ## 功能特性
 
 - **技术检测**：识别框架（Next.js、Nuxt、Astro、SvelteKit、Angular、Vue.js、Qwik、React、Gatsby、WordPress）和 i18n 库（Intlayer、i18next、Vue I18n、@nuxtjs/i18n、Angular @angular/localize、next-intl / next-i18next、Weglot、Localize、WPML、Polylang）。每次检测都会显示触发它的依据，例如全局变量、cookie 或 DOM 标记。
 - **语言区域**：列出在 `lang` 属性、hreflang 和 `og:locale` 标签、URL 语言前缀以及语言 cookie 或本地存储中发现的语言区域。
 - **SEO i18n 标签**：检查 `html lang`、`html dir`、规范链接（canonical）、hreflang 标签、`x-default`、`og:locale` 以及本地化内部链接的比例。
+- **跨语言环境导航**：根据 hreflang 标签，一键将当前页面切换到任一本地化版本。
+- **站点地图搜索**：搜索网站站点地图中列出的所有页面，并在当前标签页中打开。
 - **完整审计**：运行与 [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner) 相同的审计，并显示实时评分。
 
 ## 安装
@@ -55,6 +57,14 @@ author: aymericzip
 3. 弹出窗口将显示当前页面的 **检测到的技术**、**语言区域** 和 **SEO i18n 标签** 部分。
 
 检测完全在您的浏览器本地运行，仅针对当前标签页。
+
+### 在语言环境之间切换
+
+![Intlayer Chrome 扩展导航](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension_navigation.png?raw=true)
+
+**导航** 部分列出当前页面的 **本地化版本**，数据来自其 hreflang 标签。点击某个语言环境，即可在当前标签页中打开该版本。
+
+在 **站点地图页面** 中，输入关键词搜索网站站点地图中的 URL，然后点击结果即可打开。
 
 ### 运行完整审计
 

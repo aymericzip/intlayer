@@ -31,13 +31,15 @@ Tiện ích hoạt động trên mọi trang web, cho dù trang web đó có s�
 
 ![Tiện ích mở rộng Intlayer cho Chrome](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-Liên kết tiện ích: [https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Liên kết tiện ích](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
 
 ## Tính năng
 
 - **Phát hiện công nghệ**: nhận diện framework (Next.js, Nuxt, Astro, SvelteKit, Angular, Vue.js, Qwik, React, Gatsby, WordPress) và thư viện i18n (Intlayer, i18next, Vue I18n, @nuxtjs/i18n, Angular @angular/localize, next-intl / next-i18next, Weglot, Localize, WPML, Polylang). Mỗi phát hiện sẽ hiển thị bằng chứng kích hoạt nó, chẳng hạn như biến toàn cục (global variable), cookie hoặc dấu hiệu DOM.
 - **Ngôn ngữ (Locales)**: liệt kê các ngôn ngữ được tìm thấy trong thuộc tính `lang`, thẻ hreflang và `og:locale`, tiền tố ngôn ngữ trên URL, cùng với cookie hoặc mục lưu trữ ngôn ngữ.
 - **Thẻ SEO i18n**: kiểm tra `html lang`, `html dir`, liên kết chuẩn (canonical), thẻ hreflang, `x-default`, `og:locale` và tỷ lệ các liên kết nội bộ được bản địa hóa.
+- **Điều hướng giữa các locale**: chuyển trang hiện tại sang bất kỳ phiên bản bản địa hóa nào chỉ với một cú nhấp, dựa trên các thẻ hreflang.
+- **Tìm kiếm trong sitemap**: tìm kiếm mọi trang được liệt kê trong sitemap của trang web và mở trang đó trong tab hiện tại.
 - **Kiểm tra toàn diện**: chạy cùng một quy trình kiểm tra như [Trình quét SEO i18n](https://intlayer.org/i18n-seo-scanner) và hiển thị điểm số trực tiếp.
 
 ## Cài đặt
@@ -55,6 +57,14 @@ Tiện ích mở rộng hoạt động trên Chrome và bất kỳ trình duyệ
 3. Cửa sổ bật lên sẽ hiển thị các phần **Công nghệ được phát hiện**, **Ngôn ngữ** và **Thẻ SEO i18n** cho trang hiện tại.
 
 Quá trình phát hiện chạy cục bộ trong trình duyệt của bạn và chỉ trên tab hiện tại.
+
+### Điều hướng giữa các locale
+
+![Điều hướng của tiện ích mở rộng Intlayer cho Chrome](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension_navigation.png?raw=true)
+
+Phần **Điều hướng** liệt kê các **Phiên bản bản địa hóa** của trang hiện tại, được đọc từ các thẻ hreflang của trang. Nhấp vào một locale để mở phiên bản đó trong tab hiện tại.
+
+Trong **Các trang trong sitemap**, nhập để tìm kiếm các URL trong sitemap của trang web, rồi nhấp vào một kết quả để mở.
 
 ### Chạy kiểm tra toàn diện
 

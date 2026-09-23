@@ -31,13 +31,15 @@ author: aymericzip
 
 ![إضافة Intlayer لـ Chrome](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-رابط الإضافة: [https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[رابط الإضافة](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
 
 ## الميزات
 
 - **اكتشاف التقنيات**: تحديد إطار العمل (Next.js, Nuxt, Astro, SvelteKit, Angular, Vue.js, Qwik, React, Gatsby, WordPress) ومكتبة i18n (Intlayer, i18next, Vue I18n, @nuxtjs/i18n, Angular @angular/localize, next-intl / next-i18next, Weglot, Localize, WPML, Polylang). تُظهر كل عملية اكتشاف الأدلة التي أدت إليها، مثل متغير عام أو ملف تعريف ارتباط (cookie) أو علامة DOM.
 - **اللغات (Locales)**: عرض قائمة اللغات الموجودة في سمة `lang`، وعلامات hreflang و `og:locale`، والبادئة اللغوية في عنوان URL، وملفات تعريف الارتباط أو مدخلات التخزين الخاصة باللغة.
 - **علامات SEO i18n**: فحص `html lang` و `html dir`، والرابط الأساسي (canonical)، وعلامات hreflang، و `x-default`، و `og:locale`، ونسبة الروابط الداخلية المترجمة.
+- **التنقل بين اللغات**: ينقل الصفحة الحالية بنقرة واحدة إلى أي من نسخها المترجمة، استنادًا إلى وسوم hreflang الخاصة بها.
+- **البحث في خريطة الموقع**: يبحث في جميع الصفحات المدرجة في خريطة الموقع ويفتحها في علامة التبويب الحالية.
 - **تدقيق كامل**: تشغيل نفس التدقيق المتاح في [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner) وعرض النتيجة بشكل مباشر.
 
 ## التثبيت
@@ -55,6 +57,14 @@ author: aymericzip
 3. تعرض النافذة المنبثقة أقسام **التقنيات المكتشفة** و **اللغات** و **علامات SEO i18n** للصفحة الحالية.
 
 يعمل الاكتشاف محلياً في متصفحك، وعلى علامة التبويب الحالية فقط.
+
+### التنقل بين اللغات
+
+![التنقل في إضافة Intlayer لـ Chrome](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension_navigation.png?raw=true)
+
+يعرض قسم **التنقل** **النسخ المترجمة** من الصفحة الحالية، المقروءة من وسوم hreflang الخاصة بها. انقر على لغة لفتح تلك النسخة في علامة التبويب الحالية.
+
+في **صفحات خريطة الموقع**، اكتب للبحث في عناوين URL الموجودة في خريطة الموقع، ثم انقر على نتيجة لفتحها.
 
 ### تشغيل تدقيق كامل
 

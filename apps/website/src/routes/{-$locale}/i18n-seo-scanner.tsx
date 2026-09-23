@@ -1,5 +1,6 @@
 import {
   External_Github,
+  Website_Doc_ChromeExtension_Path,
   Website_Home,
   Website_Scanner,
 } from '@intlayer/design-system/routes';
@@ -8,6 +9,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayerAsync } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
+import { Link } from '~/components/Link/Link';
 import { LocalizationAnalyzer } from '~/components/ScannerPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
@@ -100,7 +102,7 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
 });
 
 function AuditContent() {
-  const { title, description } = useIntlayer('audit-page');
+  const { title, description, chromeExtension } = useIntlayer('audit-page');
 
   return (
     <div className="relative flex size-full flex-1 flex-col">
@@ -113,6 +115,14 @@ function AuditContent() {
           {description}
         </p>
         <LocalizationAnalyzer />
+        <Link
+          to={Website_Doc_ChromeExtension_Path}
+          label={chromeExtension.label.value}
+          color="neutral"
+          className="pb-10 text-sm"
+        >
+          {chromeExtension.text}
+        </Link>
       </main>
     </div>
   );

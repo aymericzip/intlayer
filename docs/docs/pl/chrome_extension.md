@@ -31,13 +31,15 @@ Działa na każdej stronie internetowej, niezależnie od tego, czy używa Intlay
 
 ![Rozszerzenie Chrome Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-Link do rozszerzenia: [https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Link do rozszerzenia](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
 
 ## Funkcje
 
 - **Wykrywanie technologii**: identyfikuje framework (Next.js, Nuxt, Astro, SvelteKit, Angular, Vue.js, Qwik, React, Gatsby, WordPress) oraz bibliotekę i18n (Intlayer, i18next, Vue I18n, @nuxtjs/i18n, Angular @angular/localize, next-intl / next-i18next, Weglot, Localize, WPML, Polylang). Każde wykrycie pokazuje dowody, które je wywołały, takie jak zmienna globalna, plik cookie lub znacznik DOM.
 - **Wersje językowe (Locales)**: wyświetla listę wersji językowych znalezionych w atrybucie `lang`, tagach hreflang i `og:locale`, prefiksie URL oraz plikach cookie lub pamięci lokalnej.
 - **Tagi SEO i18n**: sprawdza `html lang`, `html dir`, link kanoniczny, tagi hreflang, `x-default`, `og:locale` oraz stosunek zlokalizowanych linków wewnętrznych.
+- **Przechodzenie między lokalizacjami**: jednym kliknięciem przełącza bieżącą stronę na dowolną z jej wersji zlokalizowanych, na podstawie tagów hreflang.
+- **Wyszukiwanie w mapie witryny**: przeszukuje wszystkie strony wymienione w mapie witryny i otwiera je w bieżącej karcie.
 - **Pełny audyt**: przeprowadza ten sam audyt, co [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner), i wyświetla wynik na żywo.
 
 ## Instalacja
@@ -55,6 +57,14 @@ Rozszerzenie działa w przeglądarce Chrome oraz we wszystkich przeglądarkach o
 3. W wyskakującym okienku pojawią się sekcje **Wykryte technologie**, **Locales** oraz **Tagi SEO i18n** dla bieżącej strony.
 
 Wykrywanie działa lokalnie w Twojej przeglądarce, tylko na aktywnej karcie.
+
+### Przechodzenie między lokalizacjami
+
+![Nawigacja rozszerzenia Chrome Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension_navigation.png?raw=true)
+
+Sekcja **Nawigacja** wyświetla **Wersje zlokalizowane** bieżącej strony, odczytane z jej tagów hreflang. Kliknij lokalizację, aby otworzyć tę wersję w bieżącej karcie.
+
+W **Strony z mapy witryny** wpisz frazę, aby przeszukać adresy URL z mapy witryny, a następnie kliknij wynik, aby go otworzyć.
 
 ### Przeprowadzanie pełnego audytu
 

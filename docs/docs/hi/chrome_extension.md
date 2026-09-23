@@ -31,13 +31,15 @@ author: aymericzip
 
 ![Intlayer Chrome एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-एक्सटेंशन लिंक: [https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[एक्सटेंशन लिंक](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
 
 ## विशेषताएँ
 
 - **प्रौद्योगिकी पहचान (Technology detection)**: फ़्रेमवर्क (Next.js, Nuxt, Astro, SvelteKit, Angular, Vue.js, Qwik, React, Gatsby, WordPress) और i18n लाइब्रेरी (Intlayer, i18next, Vue I18n, @nuxtjs/i18n, Angular @angular/localize, next-intl / next-i18next, Weglot, Localize, WPML, Polylang) की पहचान करता है। प्रत्येक पहचान उन साक्ष्यों को दिखाती है जिन्होंने इसे ट्रिगर किया, जैसे कि एक ग्लोबल वेरिएबल, कुकी या DOM मार्कर।
 - **लोकेल्स (Locales)**: `lang` एट्रिब्यूट, hreflang और `og:locale` टैग्स, URL लोकेल प्रीफ़िक्स, और लोकेल कुकीज़ या स्टोरेज प्रविष्टियों में पाए गए लोकेल्स को सूचीबद्ध करता है।
 - **SEO i18n टैग्स**: `html lang`, `html dir`, विहित (canonical) लिंक, hreflang टैग्स, `x-default`, `og:locale` और स्थानीयकृत आंतरिक लिंक के अनुपात की जांच करता है।
+- **Locales के बीच नेविगेशन**: hreflang टैग्स के आधार पर, वर्तमान पेज को एक क्लिक में उसके किसी भी स्थानीयकृत संस्करण पर ले जाता है।
+- **Sitemap में खोज**: साइट के sitemap में सूचीबद्ध सभी पेज खोजता है और उन्हें वर्तमान टैब में खोलता है।
 - **पूर्ण ऑडिट**: [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner) के समान ऑडिट चलाता है और लाइव स्कोर दिखाता है।
 
 ## इंस्टॉलेशन
@@ -55,6 +57,14 @@ Chrome वेब स्टोर से [**Intlayer i18n Scanner**](https://chro
 3. पॉपअप वर्तमान पेज के लिए **पहचानी गई प्रौद्योगिकियां**, **लोकेल्स** और **SEO i18n टैग्स** अनुभाग दिखाता है।
 
 पहचान प्रक्रिया आपके ब्राउज़र में स्थानीय रूप से, केवल वर्तमान टैब पर चलती है।
+
+### Locales के बीच नेविगेट करना
+
+![Intlayer Chrome एक्सटेंशन नेविगेशन](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension_navigation.png?raw=true)
+
+**नेविगेट करें** सेक्शन वर्तमान पेज के hreflang टैग्स से पढ़े गए **स्थानीयकृत संस्करण** दिखाता है। किसी locale पर क्लिक करके उस संस्करण को वर्तमान टैब में खोलें।
+
+**साइटमैप पेज** में, साइट के sitemap के URLs खोजें और किसी परिणाम पर क्लिक करके उसे खोलें।
 
 ### पूर्ण ऑडिट चलाना
 

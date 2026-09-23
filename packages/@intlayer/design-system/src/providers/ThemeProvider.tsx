@@ -139,11 +139,19 @@ export type ThemeProviderProps = {
   storageKey?: string;
   /** CSP nonce, required when the page forbids unsafe inline scripts. */
   nonce?: string;
+  /**
+   * Renders the inline bootstrap applying the theme before hydration.
+   * Disable it on client-only pages whose CSP forbids inline scripts (browser
+   * extensions): Preact executes client-created scripts, unlike React.
+   * Defaults to `true`.
+   */
+  hasBootstrapScript?: boolean;
 };
 
 const Theme: FC<PropsWithChildren<ThemeProviderProps>> = ({
   storageKey = 'theme',
   nonce,
+  hasBootstrapScript = true,
   children,
 }) => {
   // Both the server render and the first client one start from `system`, so
@@ -218,15 +226,17 @@ const Theme: FC<PropsWithChildren<ThemeProviderProps>> = ({
 
   return (
     <ThemeContext.Provider value={value}>
-      <script
-        // Browsers hide the nonce value from the DOM API, so echoing it while
-        // hydrating would mismatch the server markup — hence the suppression.
-        // The script has already run by then; React never patches it.
-        suppressHydrationWarning
-        nonce={isServer ? nonce : ''}
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: the bootstrap has to run before hydration, and its content is built from literals
-        dangerouslySetInnerHTML={{ __html: buildBootstrap(storageKey) }}
-      />
+      {hasBootstrapScript && (
+        <script
+          // Browsers hide the nonce value from the DOM API, so echoing it while
+          // hydrating would mismatch the server markup — hence the suppression.
+          // The script has already run by then; React never patches it.
+          suppressHydrationWarning
+          nonce={isServer ? nonce : ''}
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: the bootstrap has to run before hydration, and its content is built from literals
+          dangerouslySetInnerHTML={{ __html: buildBootstrap(storageKey) }}
+        />
+      )}
       {children}
     </ThemeContext.Provider>
   );

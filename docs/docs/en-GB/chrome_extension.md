@@ -31,13 +31,15 @@ It works on every website, whether or not it uses Intlayer.
 
 ![Intlayer Chrome Extension](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-Extension link: [https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Extension link](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
 
 ## Features
 
 - **Technology detection**: identifies the framework (Next.js, Nuxt, Astro, SvelteKit, Angular, Vue.js, Qwik, React, Gatsby, WordPress) and the i18n library (Intlayer, i18next, Vue I18n, @nuxtjs/i18n, Angular @angular/localize, next-intl / next-i18next, Weglot, Localize, WPML, Polylang). Each detection shows the evidence that triggered it, such as a global variable, a cookie or a DOM marker.
 - **Locales**: lists the locales found in the `lang` attribute, hreflang and `og:locale` tags, the URL locale prefix, and locale cookies or storage entries.
 - **SEO i18n tags**: checks `html lang`, `html dir`, the canonical link, hreflang tags, `x-default`, `og:locale` and the ratio of localised internal links.
+- **Navigate across locales**: switches the current page to any of its localised versions in one click, based on its hreflang tags.
+- **Search in sitemap**: searches every page listed in the site's sitemap and opens it in the current tab.
 - **Full audit**: runs the same audit as the [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner) and shows a live score.
 
 ## Installation
@@ -55,6 +57,14 @@ The extension works in Chrome and in any Chromium based browser that supports Ch
 3. The popup shows the **Detected technologies**, **Locales** and **SEO i18n tags** sections for the current page.
 
 Detection runs locally in your browser, on the current tab only.
+
+### Navigate between locales
+
+![Intlayer Chrome Extension navigation](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension_navigation.png?raw=true)
+
+The **Navigate** section lists the **Localised versions** of the current page, read from its hreflang tags. Click a locale to open that version in the current tab.
+
+Under **Sitemap pages**, type to search the URLs of the site's sitemap, then click a result to open it.
 
 ### Run a full audit
 

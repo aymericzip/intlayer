@@ -31,13 +31,15 @@ author: aymericzip
 
 ![Розширення Intlayer для Chrome](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-Посилання на розширення: [https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Посилання на розширення](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
 
 ## Можливості
 
 - **Визначення технологій**: визначає фреймворк (Next.js, Nuxt, Astro, SvelteKit, Angular, Vue.js, Qwik, React, Gatsby, WordPress) та бібліотеку i18n (Intlayer, i18next, Vue I18n, @nuxtjs/i18n, Angular @angular/localize, next-intl / next-i18next, Weglot, Localize, WPML, Polylang). Кожне визначення показує ознаки, що його викликали, такі як глобальна змінна, cookie або маркер DOM.
 - **Локалі**: перелічує локалі, знайдені в атрибуті `lang`, тегах hreflang та `og:locale`, префіксі локалі в URL, а також cookie або записах сховища.
 - **SEO-теги i18n**: перевіряє `html lang`, `html dir`, канонічне посилання, теги hreflang, `x-default`, `og:locale` та співвідношення локалізованих внутрішніх посилань.
+- **Перехід між локалями**: перемикає поточну сторінку на будь-яку з її локалізованих версій в один клік, на основі тегів hreflang.
+- **Пошук у sitemap**: шукає серед усіх сторінок із sitemap сайту та відкриває їх у поточній вкладці.
 - **Повний аудит**: запускає той самий аудит, що й [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner), і відображає оцінку в реальному часі.
 
 ## Встановлення
@@ -55,6 +57,14 @@ author: aymericzip
 3. У спливаючому вікні відобразяться розділи **Виявлені технології**, **Локалі** та **SEO-теги i18n** для поточної сторінки.
 
 Визначення виконується локально у вашому браузері, лише на активній вкладці.
+
+### Перехід між локалями
+
+![Навігація в розширенні Intlayer для Chrome](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension_navigation.png?raw=true)
+
+Розділ **Навігація** показує **Локалізовані версії** поточної сторінки, отримані з її тегів hreflang. Натисніть на локаль, щоб відкрити цю версію в поточній вкладці.
+
+У блоці **Сторінки з sitemap** введіть запит для пошуку за URL із sitemap сайту та натисніть на результат, щоб відкрити його.
 
 ### Запуск повного аудиту
 
