@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
-title: Estensione Chrome, Scanner i18n & SEO
+title: Estensione Chrome & Firefox, Scanner i18n & SEO
 description: Ispeziona la configurazione i18n di qualsiasi sito web con l'estensione Chrome di Intlayer. Rileva framework, libreria i18n, lingue, tag hreflang e SEO ed esegui un audit SEO i18n completo.
 keywords:
   - Estensione Chrome
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Estensione Chrome: Scanner i18n & SEO
+# Estensione Chrome & Firefox: Scanner i18n & SEO
 
 ## Panoramica
 
@@ -31,7 +31,9 @@ Funziona su qualsiasi sito web, indipendentemente dal fatto che utilizzi o meno 
 
 ![Estensione Chrome Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-[Link all'estensione](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Link all'estensione per Chrome](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+
+[Link al componente aggiuntivo per Firefox](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/)
 
 ## Funzionalità
 
@@ -44,9 +46,20 @@ Funziona su qualsiasi sito web, indipendentemente dal fatto che utilizzi o meno 
 
 ## Installazione
 
+<Tabs group="browser">
+  <Tab label="Chrome" value="chrome">
+
 Installa [**Intlayer i18n Scanner**](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc) dal Chrome Web Store, quindi fissala sulla barra degli strumenti.
 
 L'estensione funziona su Chrome e su qualsiasi browser basato su Chromium che supporta le estensioni del Chrome Web Store (Edge, Brave, Arc, Opera).
+
+  </Tab>
+  <Tab label="Firefox" value="firefox">
+
+Installa [**Intlayer i18n Scanner**](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/) dai componenti aggiuntivi di Firefox, quindi fissala sulla barra degli strumenti.
+
+  </Tab>
+</Tabs>
 
 ## Utilizzo
 

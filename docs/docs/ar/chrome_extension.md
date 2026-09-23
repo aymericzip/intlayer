@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
-title: إضافة Chrome، ماسح i18n و SEO
+title: إضافة Chrome و Firefox، ماسح i18n و SEO
 description: افحص إعداد i18n لأي موقع ويب باستخدام إضافة Chrome من Intlayer. اكتشف إطار العمل ومكتبة i18n واللغات وعلامات hreflang و SEO، وقم بإجراء تدقيق كامل لـ i18n SEO.
 keywords:
   - إضافة Chrome
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# إضافة Chrome: ماسح i18n و SEO
+# إضافة Chrome و Firefox: ماسح i18n و SEO
 
 ## نظرة عامة
 
@@ -31,7 +31,9 @@ author: aymericzip
 
 ![إضافة Intlayer لـ Chrome](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-[رابط الإضافة](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[رابط إضافة Chrome](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+
+[رابط إضافة Firefox](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/)
 
 ## الميزات
 
@@ -44,9 +46,20 @@ author: aymericzip
 
 ## التثبيت
 
+<Tabs group="browser">
+  <Tab label="Chrome" value="chrome">
+
 قم بتثبيت [**Intlayer i18n Scanner**](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc) من سوق Chrome الإلكتروني، ثم قم بتثبيتها في شريط الأدوات الخاص بك.
 
 تعمل الإضافة في متصفح Chrome وفي أي متصفح يعتمد على Chromium ويدعم إضافات سوق Chrome الإلكتروني (مثل Edge و Brave و Arc و Opera).
+
+  </Tab>
+  <Tab label="Firefox" value="firefox">
+
+قم بتثبيت [**Intlayer i18n Scanner**](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/) من متجر إضافات Firefox، ثم قم بتثبيتها في شريط الأدوات الخاص بك.
+
+  </Tab>
+</Tabs>
 
 ## الاستخدام
 

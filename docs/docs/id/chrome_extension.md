@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
-title: Ekstensi Chrome, Pemindai i18n & SEO
+title: Ekstensi Chrome & Firefox, Pemindai i18n & SEO
 description: Periksa konfigurasi i18n dari situs web mana pun dengan ekstensi Chrome Intlayer. Deteksi framework, pustaka i18n, lokal, tag hreflang dan SEO, serta jalankan audit SEO i18n lengkap.
 keywords:
   - Ekstensi Chrome
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Ekstensi Chrome: Pemindai i18n & SEO
+# Ekstensi Chrome & Firefox: Pemindai i18n & SEO
 
 ## Ikhtisar
 
@@ -31,7 +31,9 @@ Ekstensi ini berfungsi di setiap situs web, baik yang menggunakan Intlayer maupu
 
 ![Ekstensi Chrome Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-[Tautan ekstensi](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Tautan ekstensi Chrome](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+
+[Tautan add-on Firefox](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/)
 
 ## Fitur
 
@@ -44,9 +46,20 @@ Ekstensi ini berfungsi di setiap situs web, baik yang menggunakan Intlayer maupu
 
 ## Instalasi
 
+<Tabs group="browser">
+  <Tab label="Chrome" value="chrome">
+
 Pasang [**Intlayer i18n Scanner**](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc) dari Chrome Web Store, lalu sematkan ke toolbar Anda.
 
 Ekstensi ini berfungsi di Chrome dan di peramban berbasis Chromium mana pun yang mendukung ekstensi Chrome Web Store (Edge, Brave, Arc, Opera).
+
+  </Tab>
+  <Tab label="Firefox" value="firefox">
+
+Pasang [**Intlayer i18n Scanner**](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/) dari Firefox Add-ons, lalu sematkan ke toolbar Anda.
+
+  </Tab>
+</Tabs>
 
 ## Penggunaan
 

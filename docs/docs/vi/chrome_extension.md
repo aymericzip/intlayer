@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
-title: Tiện ích mở rộng Chrome, Trình quét i18n & SEO
+title: Tiện ích mở rộng Chrome & Firefox, Trình quét i18n & SEO
 description: Kiểm tra cấu hình i18n của bất kỳ trang web nào bằng tiện ích mở rộng Intlayer cho Chrome. Phát hiện framework, thư viện i18n, ngôn ngữ, thẻ hreflang và SEO, đồng thời chạy kiểm tra toàn diện i18n SEO.
 keywords:
   - Tiện ích mở rộng Chrome
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Tiện ích mở rộng Chrome: Trình quét i18n & SEO
+# Tiện ích mở rộng Chrome & Firefox: Trình quét i18n & SEO
 
 ## Tổng quan
 
@@ -31,7 +31,9 @@ Tiện ích hoạt động trên mọi trang web, cho dù trang web đó có s�
 
 ![Tiện ích mở rộng Intlayer cho Chrome](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-[Liên kết tiện ích](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Liên kết tiện ích Chrome](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+
+[Liên kết tiện ích Firefox](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/)
 
 ## Tính năng
 
@@ -44,9 +46,20 @@ Tiện ích hoạt động trên mọi trang web, cho dù trang web đó có s�
 
 ## Cài đặt
 
+<Tabs group="browser">
+  <Tab label="Chrome" value="chrome">
+
 Cài đặt [**Intlayer i18n Scanner**](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc) từ Chrome Web Store, sau đó ghim tiện ích vào thanh công cụ của bạn.
 
 Tiện ích mở rộng hoạt động trên Chrome và bất kỳ trình duyệt dựa trên Chromium nào hỗ trợ các tiện ích mở rộng của Chrome Web Store (Edge, Brave, Arc, Opera).
+
+  </Tab>
+  <Tab label="Firefox" value="firefox">
+
+Cài đặt [**Intlayer i18n Scanner**](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/) từ Firefox Add-ons, sau đó ghim tiện ích vào thanh công cụ của bạn.
+
+  </Tab>
+</Tabs>
 
 ## Sử dụng
 

@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
-title: Chrome एक्सटेंशन, i18n और SEO स्कैनर
+title: Chrome और Firefox एक्सटेंशन, i18n और SEO स्कैनर
 description: Intlayer Chrome एक्सटेंशन के साथ किसी भी वेबसाइट के i18n सेटअप का निरीक्षण करें। फ़्रेमवर्क, i18n लाइब्रेरी, लोकेल्स, hreflang और SEO टैग्स का पता लगाएं, और एक पूर्ण i18n SEO ऑडिट चलाएं।
 keywords:
   - Chrome एक्सटेंशन
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Chrome एक्सटेंशन: i18n और SEO स्कैनर
+# Chrome और Firefox एक्सटेंशन: i18n और SEO स्कैनर
 
 ## अवलोकन
 
@@ -31,7 +31,9 @@ author: aymericzip
 
 ![Intlayer Chrome एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-[एक्सटेंशन लिंक](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Chrome एक्सटेंशन लिंक](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+
+[Firefox ऐड-ऑन लिंक](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/)
 
 ## विशेषताएँ
 
@@ -44,9 +46,20 @@ author: aymericzip
 
 ## इंस्टॉलेशन
 
+<Tabs group="browser">
+  <Tab label="Chrome" value="chrome">
+
 Chrome वेब स्टोर से [**Intlayer i18n Scanner**](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc) इंस्टॉल करें, फिर इसे अपने टूलबार में पिन करें।
 
 यह एक्सटेंशन Chrome और Chrome वेब स्टोर एक्सटेंशन का समर्थन करने वाले किसी भी Chromium आधारित ब्राउज़र (Edge, Brave, Arc, Opera) में काम करता है।
+
+  </Tab>
+  <Tab label="Firefox" value="firefox">
+
+Firefox ऐड-ऑन से [**Intlayer i18n Scanner**](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/) इंस्टॉल करें, फिर इसे अपने टूलबार में पिन करें।
+
+  </Tab>
+</Tabs>
 
 ## उपयोग
 

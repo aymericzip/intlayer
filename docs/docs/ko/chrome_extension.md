@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
-title: Chrome 확장 프로그램, i18n & SEO 스캐너
+title: Chrome & Firefox 확장 프로그램, i18n & SEO 스캐너
 description: Intlayer Chrome 확장 프로그램을 사용하여 모든 웹사이트의 i18n 설정을 검사하세요. 프레임워크, i18n 라이브러리, 로케일, hreflang 및 SEO 태그를 감지하고 전체 i18n SEO 감사를 실행합니다.
 keywords:
   - Chrome 확장 프로그램
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Chrome 확장 프로그램: i18n & SEO 스캐너
+# Chrome & Firefox 확장 프로그램: i18n & SEO 스캐너
 
 ## 개요
 
@@ -31,7 +31,9 @@ Intlayer 사용 여부와 상관없이 모든 웹사이트에서 작동합니다
 
 ![Intlayer Chrome 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-[확장 프로그램 링크](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Chrome 확장 프로그램 링크](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+
+[Firefox 부가 기능 링크](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/)
 
 ## 주요 기능
 
@@ -44,9 +46,20 @@ Intlayer 사용 여부와 상관없이 모든 웹사이트에서 작동합니다
 
 ## 설치
 
+<Tabs group="browser">
+  <Tab label="Chrome" value="chrome">
+
 Chrome 웹 스토어에서 [**Intlayer i18n Scanner**](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)를 설치한 후 툴바에 고정하세요.
 
 이 확장 프로그램은 Chrome 및 Chrome 웹 스토어 확장을 지원하는 모든 Chromium 기반 브라우저(Edge, Brave, Arc, Opera)에서 작동합니다.
+
+  </Tab>
+  <Tab label="Firefox" value="firefox">
+
+Firefox 부가 기능에서 [**Intlayer i18n Scanner**](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/)를 설치한 후 툴바에 고정하세요.
+
+  </Tab>
+</Tabs>
 
 ## 사용법
 

@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
-title: Rozszerzenie Chrome, skaner i18n i SEO
+title: Rozszerzenie Chrome i Firefox, skaner i18n i SEO
 description: Sprawdź konfigurację i18n dowolnej witryny za pomocą rozszerzenia Intlayer dla Chrome. Wykrywaj framework, bibliotekę i18n, ustawienia regionalne, tagi hreflang i SEO oraz przeprowadzaj pełny audyt i18n SEO.
 keywords:
   - Rozszerzenie Chrome
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Rozszerzenie Chrome: skaner i18n i SEO
+# Rozszerzenie Chrome i Firefox: skaner i18n i SEO
 
 ## Przegląd
 
@@ -31,7 +31,9 @@ Działa na każdej stronie internetowej, niezależnie od tego, czy używa Intlay
 
 ![Rozszerzenie Chrome Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-[Link do rozszerzenia](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Link do rozszerzenia dla Chrome](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+
+[Link do dodatku dla Firefoksa](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/)
 
 ## Funkcje
 
@@ -44,9 +46,20 @@ Działa na każdej stronie internetowej, niezależnie od tego, czy używa Intlay
 
 ## Instalacja
 
+<Tabs group="browser">
+  <Tab label="Chrome" value="chrome">
+
 Zainstaluj [**Intlayer i18n Scanner**](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc) z Chrome Web Store, a następnie przypnij go do paska narzędzi.
 
 Rozszerzenie działa w przeglądarce Chrome oraz we wszystkich przeglądarkach opartych na Chromium, które obsługują rozszerzenia z Chrome Web Store (Edge, Brave, Arc, Opera).
+
+  </Tab>
+  <Tab label="Firefox" value="firefox">
+
+Zainstaluj [**Intlayer i18n Scanner**](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/) z serwisu Dodatki do Firefoksa, a następnie przypnij go do paska narzędzi.
+
+  </Tab>
+</Tabs>
 
 ## Użycie
 

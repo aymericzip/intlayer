@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
-title: Chrome Uzantısı, i18n & SEO Tarayıcısı
+title: Chrome ve Firefox Uzantısı, i18n & SEO Tarayıcısı
 description: Intlayer Chrome uzantısı ile herhangi bir web sitesinin i18n yapılandırmasını inceleyin. Framework'ü, i18n kütüphanesini, dilleri, hreflang ve SEO etiketlerini tespit edin ve tam bir i18n SEO denetimi gerçekleştirin.
 keywords:
   - Chrome Uzantısı
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Chrome Uzantısı: i18n & SEO Tarayıcısı
+# Chrome ve Firefox Uzantısı: i18n & SEO Tarayıcısı
 
 ## Genel Bakış
 
@@ -31,7 +31,9 @@ Intlayer kullansın veya kullanmasın tüm web sitelerinde çalışır.
 
 ![Intlayer Chrome Uzantısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-[Uzantı bağlantısı](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Chrome uzantısı bağlantısı](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+
+[Firefox eklentisi bağlantısı](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/)
 
 ## Özellikler
 
@@ -44,9 +46,20 @@ Intlayer kullansın veya kullanmasın tüm web sitelerinde çalışır.
 
 ## Kurulum
 
+<Tabs group="browser">
+  <Tab label="Chrome" value="chrome">
+
 Chrome Web Mağazası'ndan [**Intlayer i18n Scanner**](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc) eklentisini yükleyin ve ardından araç çubuğunuza sabitleyin.
 
 Bu uzantı Chrome'da ve Chrome Web Mağazası uzantılarını destekleyen tüm Chromium tabanlı tarayıcılarda (Edge, Brave, Arc, Opera) çalışır.
+
+  </Tab>
+  <Tab label="Firefox" value="firefox">
+
+Firefox Eklentileri'nden [**Intlayer i18n Scanner**](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/) eklentisini yükleyin ve ardından araç çubuğunuza sabitleyin.
+
+  </Tab>
+</Tabs>
 
 ## Kullanım
 

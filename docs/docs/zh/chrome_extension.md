@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
-title: Chrome 扩展，i18n 与 SEO 扫描器
+title: Chrome 与 Firefox 扩展，i18n 与 SEO 扫描器
 description: 使用 Intlayer Chrome 扩展检查任何网站的 i18n 配置。检测框架、i18n 库、语言区域、hreflang 和 SEO 标签，并运行完整的 i18n SEO 审计。
 keywords:
   - Chrome 扩展
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Chrome 扩展：i18n 与 SEO 扫描器
+# Chrome 与 Firefox 扩展：i18n 与 SEO 扫描器
 
 ## 概述
 
@@ -31,7 +31,9 @@ author: aymericzip
 
 ![Intlayer Chrome 扩展](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-[扩展链接](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Chrome 扩展链接](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+
+[Firefox 附加组件链接](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/)
 
 ## 功能特性
 
@@ -44,9 +46,20 @@ author: aymericzip
 
 ## 安装
 
+<Tabs group="browser">
+  <Tab label="Chrome" value="chrome">
+
 从 Chrome 网上应用店安装 [**Intlayer i18n Scanner**](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)，然后将其固定到工具栏。
 
 该扩展适用于 Chrome 以及任何支持 Chrome 网上应用店扩展的 Chromium 内核浏览器（Edge、Brave、Arc、Opera）。
+
+  </Tab>
+  <Tab label="Firefox" value="firefox">
+
+从 Firefox 附加组件商店安装 [**Intlayer i18n Scanner**](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/)，然后将其固定到工具栏。
+
+  </Tab>
+</Tabs>
 
 ## 使用方法
 

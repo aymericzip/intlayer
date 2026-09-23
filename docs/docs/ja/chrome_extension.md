@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
-title: Chrome拡張機能、i18n & SEOスキャナー
+title: Chrome & Firefox拡張機能、i18n & SEOスキャナー
 description: Intlayer Chrome拡張機能を使用して、あらゆるWebサイトのi18n設定を検査します。フレームワーク、i18nライブラリ、ロケール、hreflangおよびSEOタグを検出し、完全なi18n SEO監査を実行します。
 keywords:
   - Chrome拡張機能
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Chrome拡張機能: i18n & SEOスキャナー
+# Chrome & Firefox拡張機能: i18n & SEOスキャナー
 
 ## 概要
 
@@ -31,7 +31,9 @@ Intlayerを使用しているかどうかにかかわらず、すべてのWebサ
 
 ![Intlayer Chrome拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-[拡張機能リンク](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Chrome 拡張機能リンク](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+
+[Firefox アドオンリンク](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/)
 
 ## 機能
 
@@ -44,9 +46,20 @@ Intlayerを使用しているかどうかにかかわらず、すべてのWebサ
 
 ## インストール
 
+<Tabs group="browser">
+  <Tab label="Chrome" value="chrome">
+
 Chrome ウェブストアから [**Intlayer i18n Scanner**](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc) をインストールし、ツールバーに固定します。
 
 この拡張機能は、ChromeおよびChrome ウェブストアの拡張機能をサポートするすべてのChromiumベースのブラウザ（Edge、Brave、Arc、Opera）で動作します。
+
+  </Tab>
+  <Tab label="Firefox" value="firefox">
+
+Firefox Add-ons から [**Intlayer i18n Scanner**](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/) をインストールし、ツールバーに固定します。
+
+  </Tab>
+</Tabs>
 
 ## 使い方
 

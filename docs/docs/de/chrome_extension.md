@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
-title: Chrome-Erweiterung, i18n & SEO Scanner
+title: Chrome- & Firefox-Erweiterung, i18n & SEO Scanner
 description: Untersuchen Sie das i18n-Setup einer beliebigen Website mit der Intlayer Chrome-Erweiterung. Erkennen Sie Framework, i18n-Bibliothek, Locales, Hreflang- und SEO-Tags und führen Sie ein vollständiges i18n-SEO-Audit durch.
 keywords:
   - Chrome-Erweiterung
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Chrome-Erweiterung: i18n & SEO Scanner
+# Chrome- & Firefox-Erweiterung: i18n & SEO Scanner
 
 ## Übersicht
 
@@ -31,7 +31,9 @@ Sie funktioniert auf jeder Website, unabhängig davon, ob sie Intlayer verwendet
 
 ![Intlayer Chrome-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/chrome_extension.png?raw=true)
 
-[Erweiterungslink](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+[Link zur Chrome-Erweiterung](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc)
+
+[Link zum Firefox-Add-on](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/)
 
 ## Funktionen
 
@@ -44,9 +46,20 @@ Sie funktioniert auf jeder Website, unabhängig davon, ob sie Intlayer verwendet
 
 ## Installation
 
+<Tabs group="browser">
+  <Tab label="Chrome" value="chrome">
+
 Installieren Sie [**Intlayer i18n Scanner**](https://chromewebstore.google.com/detail/intlayer_i18n_scanner/pmlehcgmjmfimmjnembihbakhnheiabc) aus dem Chrome Web Store und pinnen Sie die Erweiterung an Ihre Symbolleiste.
 
 Die Erweiterung funktioniert in Chrome und in jedem auf Chromium basierenden Browser, der Chrome Web Store-Erweiterungen unterstützt (Edge, Brave, Arc, Opera).
+
+  </Tab>
+  <Tab label="Firefox" value="firefox">
+
+Installieren Sie [**Intlayer i18n Scanner**](https://addons.mozilla.org/en-US/firefox/addon/intlayer-i18n-scanner/) über Firefox Add-ons und pinnen Sie die Erweiterung anschließend an Ihre Symbolleiste.
+
+  </Tab>
+</Tabs>
 
 ## Verwendung
 
