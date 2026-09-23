@@ -40,11 +40,13 @@
     "format": "bun --bun biome format . --check",
     "format:fix": "bun --bun biome format --write .",
     "lint": "bun --bun biome lint .",
+    "lint:firefox": "npx -y web-ext@latest lint --source-dir dist",
     "lint:fix": "bun --bun biome lint --write .",
     "test": "bun --bun vitest run",
     "test:watch": "bun --bun vitest",
     "typecheck": "tsc --noEmit",
-    "zip": "cd dist && zip -r ../intlayer-chrome-extension.zip . -x '*/.*' '.*'"
+    "zip": "cd dist && zip -r ../intlayer-chrome-extension.zip . -x '*/.*' '.*'",
+    "zip:source": "git -C ../../.. archive --format=zip -o packages/@intlayer/chrome-extension/intlayer-extension-source.zip HEAD"
   },
   "dependencies": {
     "@intlayer/core": "workspace:*",
