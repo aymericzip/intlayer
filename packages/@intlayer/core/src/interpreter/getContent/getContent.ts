@@ -16,6 +16,7 @@ import {
   type NodeProps,
   nestedPlugin,
   type Plugins,
+  pluralPlugin,
   selectPlugin,
   translationPlugin,
 } from './plugins';
@@ -30,6 +31,7 @@ export const getBasePlugins = (
       fallback ? internationalization.defaultLocale : undefined
     ),
     enumerationPlugin,
+    pluralPlugin(locale ?? internationalization.defaultLocale),
     conditionPlugin,
     insertionPlugin,
     nestedPlugin(locale ?? internationalization.defaultLocale),

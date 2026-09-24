@@ -129,4 +129,25 @@ describe('getDictionary memoization', () => {
 
     expect(transform).toHaveBeenCalledTimes(1);
   });
+
+  it('resolves plural nodes with default base plugins', () => {
+    const dictionary = {
+      key: 'plural-dict',
+      content: {
+        total: {
+          nodeType: 'plural',
+          plural: {
+            one: '{{count}} item',
+            other: '{{count}} items',
+          },
+        },
+      },
+    } as unknown as Dictionary;
+
+    const dict = getDictionary(dictionary, 'en');
+
+    expect(typeof dict.total).toBe('function');
+    expect(dict.total(1)).toBe('1 item');
+    expect(dict.total(5)).toBe('5 items');
+  });
 });
