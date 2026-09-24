@@ -63,11 +63,52 @@ const getDistTagFromVersion = (version) => {
 
 const distTag = options.tag ?? getDistTagFromVersion(packageJson.version);
 
-/** Messages npm prints when the version is already on the registry. */
+/** Messages npm prints when the version is already on the registry or currently staged. */
 const republishPatterns = [
+  /cannot publish over previously staged version/i,
   /cannot publish over the previously published versions/i,
-  /EPUBLISHCONFLICT/,
+  /cannot publish over previously published version/i,
+  /previously staged version/i,
+  /previously published version/i,
+  /EPUBLISHCONFLICT/i,
+  /code E409/i,
+  /409 Conflict/i,
 ];
+
+/** Non-retryable fatal errors where retrying will not help. */
+const fatalPatterns = [
+  /401 Unauthorized/i,
+  /403 Forbidden/i,
+  /400 Bad Request/i,
+  /ENEEDAUTH/i,
+];
+
+/**
+ * Checks if the given package version is already published on the registry.
+ * @param {string} name
+ * @param {string} version
+ * @returns {Promise<boolean>}
+ */
+const isAlreadyPublished = async (name, version) => {
+  try {
+    const registry = (
+      process.env.npm_config_registry || 'https://registry.npmjs.org'
+    ).replace(/\/$/, '');
+    const encodedName = name.startsWith('@')
+      ? `@${encodeURIComponent(name.slice(1))}`
+      : encodeURIComponent(name);
+    const url = `${registry}/${encodedName}/${version}`;
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'intlayer-publish-script',
+        Accept: 'application/json',
+      },
+    });
+    return response.status === 200;
+  } catch {
+    return false;
+  }
+};
 
 /**
  * Runs a command, streaming its output (unless `silent`) while keeping a copy
@@ -134,7 +175,7 @@ const toExitCode = ({ status, output }) => {
   }
 
   if (republishPatterns.some((pattern) => pattern.test(output))) {
-    console.warn(`⚠️  ${packageLabel} is already published, skipping`);
+    console.warn(`⚠️  ${packageLabel} is already published or staged, skipping`);
     return 0;
   }
 
@@ -149,6 +190,15 @@ if (packageJson.private) {
 }
 
 console.log(`📦 ${packageLabel} → tag "${distTag}"`);
+
+// Pre-check the npm registry: if already published, skip packing and publishing immediately
+if (
+  !isDryRun &&
+  (await isAlreadyPublished(packageJson.name, packageJson.version))
+) {
+  console.warn(`⚠️  ${packageLabel} is already published, skipping`);
+  process.exit(0);
+}
 
 // Fail fast when the workflow lacks `permissions: id-token: write` or turbo
 // strips the OIDC variables: npm would otherwise fail later with a 404.
@@ -181,9 +231,9 @@ const tarballDirectory = mkdtempSync(join(tmpdir(), 'intlayer-publish-'));
 /**
  * Packs the package with bun (resolving `workspace:*`), then publishes the
  * tarball with npm so the OIDC exchange happens.
- * @returns {number} exit code
+ * @returns {Promise<number>} exit code
  */
-const publish = () => {
+const publish = async () => {
   const packResult = run('bun', [
     'pm',
     'pack',
@@ -216,37 +266,83 @@ const publish = () => {
     '--ignore-scripts',
   ];
 
-  if (!isDryRun) {
-    return toExitCode(run('npm', publishArguments));
+  if (isDryRun) {
+    // npm performs the OIDC exchange even in dry-run mode, so a dry run is the
+    // way to validate the trusted-publisher setup: run verbose and only report
+    // the OIDC outcome instead of the whole trace.
+    const dryRunResult = run(
+      'npm',
+      [...publishArguments, '--dry-run', '--loglevel=verbose'],
+      { silent: true }
+    );
+    const oidcLines = dryRunResult.output
+      .split('\n')
+      .filter((line) => /oidc/i.test(line));
+
+    console.log(
+      oidcLines.length > 0
+        ? oidcLines.map((line) => `    ${line}`).join('\n')
+        : '    (no OIDC trace: not running on a supported CI)'
+    );
+
+    if (dryRunResult.status !== 0) {
+      process.stderr.write(dryRunResult.output);
+    }
+
+    return toExitCode(dryRunResult);
   }
 
-  // npm performs the OIDC exchange even in dry-run mode, so a dry run is the
-  // way to validate the trusted-publisher setup: run verbose and only report
-  // the OIDC outcome instead of the whole trace.
-  const dryRunResult = run(
-    'npm',
-    [...publishArguments, '--dry-run', '--loglevel=verbose'],
-    { silent: true }
-  );
-  const oidcLines = dryRunResult.output
-    .split('\n')
-    .filter((line) => /oidc/i.test(line));
+  const maxAttempts = 3;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const publishResult = run('npm', publishArguments);
 
-  console.log(
-    oidcLines.length > 0
-      ? oidcLines.map((line) => `    ${line}`).join('\n')
-      : '    (no OIDC trace: not running on a supported CI)'
-  );
+    if (publishResult.status === 0) {
+      return 0;
+    }
 
-  if (dryRunResult.status !== 0) {
-    process.stderr.write(dryRunResult.output);
+    if (
+      republishPatterns.some((pattern) => pattern.test(publishResult.output))
+    ) {
+      console.warn(
+        `⚠️  ${packageLabel} is already published or staged on registry, skipping`
+      );
+      return 0;
+    }
+
+    if (attempt < maxAttempts) {
+      console.warn(
+        `⚠️  Publish attempt ${attempt} failed for ${packageLabel}. Checking registry...`
+      );
+      await new Promise((resolve) => setTimeout(resolve, 3000 * attempt));
+
+      if (await isAlreadyPublished(packageJson.name, packageJson.version)) {
+        console.warn(
+          `⚠️  ${packageLabel} is now detected on registry, skipping`
+        );
+        return 0;
+      }
+
+      if (fatalPatterns.some((pattern) => pattern.test(publishResult.output))) {
+        console.error(`❌ Non-retryable error encountered for ${packageLabel}`);
+        break;
+      }
+
+      console.warn(
+        `⚠️  Retrying publish for ${packageLabel} (${attempt + 1}/${maxAttempts})...`
+      );
+      continue;
+    }
+
+    console.error(`❌ Failed to publish ${packageLabel}`);
+    printOidcDiagnostics(publishResult.output);
+    return publishResult.status ?? 1;
   }
 
-  return toExitCode(dryRunResult);
+  return 1;
 };
 
 try {
-  process.exitCode = publish();
+  process.exitCode = await publish();
 } finally {
   rmSync(tarballDirectory, { recursive: true, force: true });
 }
