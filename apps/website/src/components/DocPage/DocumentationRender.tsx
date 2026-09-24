@@ -117,7 +117,10 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
         wrapper={(props) => (
           <>
             <SectionScroller />
-            <div className="flex flex-col gap-8 py-10" {...props} />
+            <div
+              className="flex flex-col gap-8 py-10 text-text/80"
+              {...props}
+            />
           </>
         )}
       >

@@ -60,7 +60,7 @@ export const linkVariants = cva(
           'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current! px-6 text-center font-medium text-sm text-text ring-0 *:text-text hover:bg-current/30! hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
         hoverable:
-          'block rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/10 aria-[current]:bg-current/5',
+          'block rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/5 aria-[current]:bg-current/3',
       },
       roundedSize: {
         none: 'rounded-none',

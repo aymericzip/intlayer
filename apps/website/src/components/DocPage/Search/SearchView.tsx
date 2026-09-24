@@ -201,11 +201,12 @@ const SearchViewContent: FC<{
         <Search />
         <Input
           type="search"
+          name="search"
           placeholder={searchInput.placeholder.value}
           aria-label={searchInput.label.value}
           onChange={(e) => setSearch(e.target.value)}
           defaultValue={searchQueryParam ?? ''}
-          className="m-3 bg-text-opposite"
+          className="m-3 border bg-text-opposite"
           ref={inputRef}
         />
       </div>

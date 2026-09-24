@@ -52,7 +52,7 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({
           color="custom"
           onClick={() => setIsModalOpen(true)}
           isFullWidth={false}
-          className="mb-1 bg-text-opposite pr-1.5"
+          className="mb-1 border bg-text-opposite pr-1.5"
         >
           <span className="flex w-full items-center gap-2">
             {searchButton.text}

@@ -98,72 +98,111 @@ export const DocHeader: FC<DocHeaderProps> = ({
   return (
     <>
       <header className="z-10 mx-auto mt-5 flex flex-col gap-2 px-4 py-2 text-xs">
-        {author && (
-          <span className="flex items-center gap-2">
-            {authorLabel}:{' '}
-            {author.socialMedias && author.socialMedias.length > 0 ? (
-              <PopoverStatic identifier="author-social-medias">
-                {author.github ? (
-                  <Link
-                    label={authorGithubLabel({ author: author.name })}
-                    href={`https://github.com/${author.github}`}
-                    className="flex items-center gap-2 text-muted-foreground"
+        <div className="flex items-start justify-between">
+          {author && (
+            <span className="flex items-center gap-2">
+              {authorLabel}:{' '}
+              {author.socialMedias && author.socialMedias.length > 0 ? (
+                <PopoverStatic identifier="author-social-medias">
+                  {author.github ? (
+                    <Link
+                      label={authorGithubLabel({ author: author.name })}
+                      href={`https://github.com/${author.github}`}
+                      className="flex items-center gap-2 text-muted-foreground"
+                    >
+                      <Avatar
+                        src={authorImageUrl}
+                        alt={authorAvatarAlt({ author: author.name })}
+                        size="sm"
+                        className="scale-70"
+                      />
+                      {author.name}
+                    </Link>
+                  ) : (
+                    <span className="text-muted-foreground">{author.name}</span>
+                  )}
+                  <PopoverStatic.Detail
+                    identifier="author-social-medias"
+                    xAlign="start"
+                    yAlign="below"
+                    className="flex w-auto min-w-0 flex-row gap-2 p-2 delay-200 group-hover/popover:delay-100"
                   >
-                    <Avatar
-                      src={authorImageUrl}
-                      alt={authorAvatarAlt({ author: author.name })}
-                      size="sm"
-                      className="scale-70"
-                    />
-                    {author.name}
-                  </Link>
-                ) : (
-                  <span className="text-muted-foreground">{author.name}</span>
-                )}
-                <PopoverStatic.Detail
-                  identifier="author-social-medias"
-                  xAlign="start"
-                  yAlign="below"
-                  className="flex w-auto min-w-0 flex-row gap-2 p-2 delay-200 group-hover/popover:delay-100"
+                    {author.socialMedias.map((url) => {
+                      const icon = getSocialIcon(
+                        url,
+                        'h-auto max-h-full max-w-full'
+                      );
+                      if (!icon) return null;
+                      return (
+                        <Link
+                          key={url}
+                          href={url}
+                          label={`Go to ${url}`}
+                          className="max-h-5 max-w-5 shrink-0 transition-colors hover:text-primary"
+                        >
+                          {icon}
+                        </Link>
+                      );
+                    })}
+                  </PopoverStatic.Detail>
+                </PopoverStatic>
+              ) : author.github ? (
+                <Link
+                  label={authorGithubLabel({ author: author.name })}
+                  href={`https://github.com/${author.github}`}
+                  className="flex items-center gap-2 text-muted-foreground"
                 >
-                  {author.socialMedias.map((url) => {
-                    const icon = getSocialIcon(
-                      url,
-                      'h-auto max-h-full max-w-full'
-                    );
-                    if (!icon) return null;
-                    return (
-                      <Link
-                        key={url}
-                        href={url}
-                        label={`Go to ${url}`}
-                        className="max-h-5 max-w-5 shrink-0 transition-colors hover:text-primary"
-                      >
-                        {icon}
-                      </Link>
-                    );
-                  })}
-                </PopoverStatic.Detail>
-              </PopoverStatic>
-            ) : author.github ? (
-              <Link
-                label={authorGithubLabel({ author: author.name })}
-                href={`https://github.com/${author.github}`}
-                className="flex items-center gap-2 text-muted-foreground"
-              >
-                <Avatar
-                  src={authorImageUrl}
-                  alt={authorAvatarAlt({ author: author.name })}
-                  size="sm"
-                  className="scale-70"
-                />
-                {author.name}
-              </Link>
-            ) : (
-              <span className="text-muted-foreground">{author.name}</span>
+                  <Avatar
+                    src={authorImageUrl}
+                    alt={authorAvatarAlt({ author: author.name })}
+                    size="sm"
+                    className="scale-70"
+                  />
+                  {author.name}
+                </Link>
+              ) : (
+                <span className="text-muted-foreground">{author.name}</span>
+              )}
+            </span>
+          )}
+          <div className="flex justify-end">
+            {applicationTemplate && (
+              <ApplicationTemplateMessage
+                applicationTemplateUrl={applicationTemplate.replace(
+                  'github.com',
+                  'github.dev'
+                )}
+              />
             )}
-          </span>
-        )}
+
+            {applicationShowcase && (
+              <ApplicationShowcaseMessage
+                applicationShowcaseUrl={applicationShowcase}
+              />
+            )}
+
+            {youtubeVideo && (
+              <YoutubeVideoMessage youtubeVideoUrl={youtubeVideo} />
+            )}
+
+            <SummarizeAI url={url} />
+
+            <MCPMessage />
+
+            <History
+              pageUrl={relativeUrl}
+              updatedAt={updatedAt as string}
+              baseUpdatedAt={baseUpdatedAt as string}
+              history={history}
+            />
+
+            <TranslatedContentMessage pageUrl={relativeUrl} />
+
+            <ContributionMessage
+              githubUrl={githubUrl.replace('/en/', `/${locale}/`)}
+            />
+          </div>
+        </div>
         <div className="flex w-full flex-row justify-between gap-4 py-2">
           {createdAt && (
             <span className="block">
@@ -182,48 +221,9 @@ export const DocHeader: FC<DocHeaderProps> = ({
       <Container className="sticky top-10 z-10 mx-auto mt-5 flex max-w-3xl flex-col gap-2 border px-4 py-2 max-md:overflow-x-auto">
         <div className="flex w-full flex-row justify-between gap-4">
           <div className="flex w-full shrink flex-row items-center justify-start gap-4">
-            {!isMobile && applicationTemplate && (
-              <ApplicationTemplateMessage
-                applicationTemplateUrl={applicationTemplate.replace(
-                  'github.com',
-                  'github.dev'
-                )}
-              />
-            )}
-
-            {!isMobile && applicationShowcase && (
-              <ApplicationShowcaseMessage
-                applicationShowcaseUrl={applicationShowcase}
-              />
-            )}
-
-            {youtubeVideo && (
-              <YoutubeVideoMessage youtubeVideoUrl={youtubeVideo} />
-            )}
-
-            {!isMobile && <SummarizeAI url={url} />}
-
-            {!isMobile && <MCPMessage />}
-
             <ScrollWellAndTitle />
           </div>
           <div className="flex shrink-0 flex-row items-center justify-end gap-4">
-            {!isMobile && (
-              <History
-                pageUrl={relativeUrl}
-                updatedAt={updatedAt as string}
-                baseUpdatedAt={baseUpdatedAt as string}
-                history={history}
-              />
-            )}
-            {!isMobile && <TranslatedContentMessage pageUrl={relativeUrl} />}
-
-            {!isMobile && (
-              <ContributionMessage
-                githubUrl={githubUrl.replace('/en/', `/${locale}/`)}
-              />
-            )}
-
             <CopyMarkdownMessage
               markdownUrl={`${getLocalizedUrl(relativeUrl, locale)}.md`}
             />

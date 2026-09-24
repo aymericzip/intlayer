@@ -2,7 +2,7 @@ import { Accordion } from '@intlayer/design-system/accordion';
 import { Button } from '@intlayer/design-system/button';
 import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
 import { Container } from '@intlayer/design-system/container';
-import { useDevice } from '@intlayer/design-system/hooks';
+import { useDevice, usePersistedStore } from '@intlayer/design-system/hooks';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import {
@@ -10,8 +10,15 @@ import {
   Website_Doc_Chat_Path,
 } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
-import { ArrowLeftToLine, Bot } from 'lucide-react';
-import { type ComponentProps, type FC, useEffect, useState } from 'react';
+import { ArrowLeftToLine, Bot, type LucideIcon } from 'lucide-react';
+import {
+  type ComponentProps,
+  type FC,
+  type ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { SearchTrigger } from '~/components/DocPage/Search/SearchTrigger';
 import { Link } from '~/components/Link/Link';
@@ -22,10 +29,14 @@ import {
   useFrameworkFilter,
 } from './FrameworkFilter';
 import { filterSectionByFramework } from './FrameworkFilter/filterSectionByFramework';
-import type { NavSection } from './types';
+import type { NavCategorizedDoc, NavSection } from './types';
 
-type OptionalLinkProps = ComponentProps<typeof Link> & {
+type OptionalLinkProps = Omit<ComponentProps<typeof Link>, 'to'> & {
+  to?: string;
   frameworks?: string[];
+  inAccordion?: boolean;
+  Icon?: LucideIcon;
+  isLevel1?: boolean;
 };
 
 export const OptionalLink: FC<OptionalLinkProps> = ({
@@ -34,31 +45,51 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
   className,
   frameworks,
   children,
+  inAccordion = false,
+  Icon,
+  isLevel1 = false,
   ...props
 }) => {
+  const hasLeftIcon = Boolean((frameworks && frameworks.length > 0) || Icon);
+
   const content = (
-    <span className="flex items-center gap-1.5 opacity-60">
+    <span
+      className={cn(
+        'flex w-full items-center',
+        hasLeftIcon ? 'gap-3' : 'gap-2'
+      )}
+    >
+      {Icon && <Icon className="size-4 shrink-0" />}
       {frameworks && frameworks.length > 0 && (
-        <span className="mr-1 flex items-center">
+        <span className="flex shrink-0 items-center">
           {frameworks.slice(0, 1).map((framework, index) => (
             <FrameworkLogo
               key={framework}
               logoKey={framework as any}
-              className={cn('size-3.5')}
+              className="size-3.5 shrink-0"
               style={{ zIndex: index }}
             />
           ))}
         </span>
       )}
-      {children}
+      <span className="flex flex-1 items-center gap-3 truncate whitespace-nowrap">
+        {children}
+      </span>
     </span>
   );
 
-  if (!to)
+  if (!to || inAccordion) {
     return (
       <span
         className={cn(
-          'flex w-full truncate text-nowrap p-2 text-left font-semibold text-muted-foreground transition-color',
+          inAccordion
+            ? 'flex flex-1 items-center truncate text-nowrap text-left font-medium text-sm'
+            : cn(
+                'flex w-full items-center truncate text-nowrap px-2.5 py-1.5 text-left text-sm',
+                isLevel1
+                  ? 'font-medium text-text'
+                  : 'font-medium text-foreground'
+              ),
           className
         )}
         {...props}
@@ -66,23 +97,206 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
         {content}
       </span>
     );
+  }
 
   return (
     <Link
       to={to}
       variant="hoverable"
       color="text"
-      roundedSize="lg"
       isActive={isActive}
       className={cn(
-        'flex w-full truncate text-nowrap p-2 text-left font-semibold transition-color',
+        'block w-full truncate text-nowrap px-2.5 py-1.5 text-left text-sm',
+        isLevel1 ? 'font-medium text-text' : 'text-muted-foreground',
+        isActive && 'font-medium text-foreground',
         className
       )}
-      onClick={(e) => e.stopPropagation()}
       {...props}
     >
       {content}
     </Link>
+  );
+};
+
+type NavAccordionProps = {
+  label: string;
+  identifier?: string;
+  title: ReactNode;
+  isActive: boolean;
+  isSelfActive: boolean;
+  isSubSectionActive: boolean;
+  defaultIsOpen?: boolean;
+  frameworks?: string[];
+  children: ReactNode;
+  isLevel1?: boolean;
+  headerClassName?: string;
+};
+
+export const NavAccordion: FC<NavAccordionProps> = ({
+  label,
+  identifier,
+  title,
+  isActive,
+  isSelfActive,
+  isSubSectionActive,
+  defaultIsOpen = false,
+  frameworks,
+  children,
+  isLevel1 = false,
+  headerClassName,
+}) => {
+  const storeKey = identifier ?? `nav-section-${label}`;
+  const [isOpen, setIsOpen] = usePersistedStore<boolean>(
+    storeKey,
+    defaultIsOpen || isActive
+  );
+
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (isActive) {
+      setIsOpen(true);
+    }
+  }, [isActive, setIsOpen]);
+
+  return (
+    <Accordion
+      label={label}
+      isOpen={isOpen}
+      onToggle={setIsOpen}
+      size="custom"
+      variant="hoverable"
+      color="text"
+      header={
+        <OptionalLink label={label} frameworks={frameworks} inAccordion>
+          {title}
+        </OptionalLink>
+      }
+      headerClassName={cn(
+        'group flex w-full items-center justify-between px-2.5 py-1.5 text-left font-medium text-sm',
+        isSubSectionActive || isLevel1 ? 'text-text' : 'text-muted-foreground',
+        headerClassName
+      )}
+      iconClassName="size-3 text-muted-foreground/70 transition-transform duration-300 group-hover:text-foreground"
+      isActive={isSelfActive && !isSubSectionActive}
+    >
+      {children}
+    </Accordion>
+  );
+};
+
+const isSectionSelfActive = (
+  section: NavCategorizedDoc,
+  activeSlugs: string[]
+): boolean => {
+  const slugs = section.default?.slugs ?? [];
+  return (
+    slugs.length > 0 &&
+    slugs.length === activeSlugs.length &&
+    slugs.every((segment, index) => segment === activeSlugs[index])
+  );
+};
+
+const hasActiveChild = (
+  section: NavCategorizedDoc,
+  activeSlugs: string[]
+): boolean => {
+  if (!section.subSections) return false;
+  return Object.values(section.subSections).some(
+    (subSection) =>
+      isSectionSelfActive(subSection, activeSlugs) ||
+      hasActiveChild(subSection, activeSlugs)
+  );
+};
+
+type NavSectionItemProps = {
+  sectionKey: string;
+  sectionData: NavCategorizedDoc;
+  activeSlugs: string[];
+  level: number;
+  parentPath?: string;
+  overviewText?: string;
+};
+
+export const NavSectionItem: FC<NavSectionItemProps> = ({
+  sectionKey,
+  sectionData,
+  activeSlugs,
+  level,
+  parentPath,
+  overviewText = 'Overview',
+}) => {
+  const sectionDefault = sectionData.default;
+  const subSections = sectionData.subSections;
+  const hasSubSections = Boolean(
+    subSections && Object.keys(subSections).length > 0
+  );
+
+  const isSelfActive = isSectionSelfActive(sectionData, activeSlugs);
+  const isSubSectionActive = hasActiveChild(sectionData, activeSlugs);
+  const isActive = isSelfActive || isSubSectionActive;
+  const isDeployed = sectionData.deployed !== false;
+  const pathKey = parentPath
+    ? `${parentPath}-${sectionKey}`
+    : `doc-nav-${sectionKey}`;
+
+  if (!hasSubSections) {
+    return (
+      <OptionalLink
+        to={sectionDefault?.relativeUrl ?? ''}
+        label={sectionKey}
+        isActive={isSelfActive && !isSubSectionActive}
+        frameworks={sectionData.frameworks}
+        isLevel1={level === 1}
+      >
+        {sectionData.title}
+      </OptionalLink>
+    );
+  }
+
+  return (
+    <NavAccordion
+      label={sectionKey}
+      identifier={pathKey}
+      title={sectionData.title}
+      isActive={isActive}
+      isSelfActive={isSelfActive}
+      isSubSectionActive={isSubSectionActive}
+      defaultIsOpen={level === 1 ? isDeployed : false}
+      frameworks={sectionData.frameworks}
+      isLevel1={level === 1}
+    >
+      <ul className="m-0 mt-1.5 ml-3 flex list-none flex-col gap-y-2 border-border/60 border-l p-0 pl-2 text-sm">
+        {sectionDefault?.relativeUrl && (
+          <li>
+            <OptionalLink
+              to={sectionDefault.relativeUrl}
+              label={`${sectionKey}-overview`}
+              isActive={isSelfActive}
+              frameworks={sectionData.frameworks}
+            >
+              {overviewText}
+            </OptionalLink>
+          </li>
+        )}
+        {Object.entries(subSections!).map(([subKey, subData]) => (
+          <li key={subKey}>
+            <NavSectionItem
+              sectionKey={subKey}
+              sectionData={subData}
+              activeSlugs={activeSlugs}
+              level={level + 1}
+              parentPath={pathKey}
+              overviewText={overviewText}
+            />
+          </li>
+        ))}
+      </ul>
+    </NavAccordion>
   );
 };
 
@@ -101,7 +315,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
   activeSlugs,
   selectedFramework,
 }) => {
-  const { blogButton, chatBotButton, documentationSections } =
+  const { blogButton, chatBotButton, documentationSections, overview } =
     useIntlayer('doc-nav-list');
   const navRef = useScrollPositionPersistence<HTMLElement>(
     'doc-nav-scroll-position'
@@ -113,204 +327,29 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
     <nav
       ref={navRef}
       aria-label={documentationSections.value}
-      className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pt-8 pb-20"
+      className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-y-4 overflow-auto px-2 pt-6 pb-20"
     >
-      {Object.keys(filteredDocData).map((key1) => {
-        const section1Data = filteredDocData[key1];
-        const sectionDefault = section1Data.default;
-        const subSections = section1Data.subSections;
-        const slugs = sectionDefault?.slugs ?? [];
+      {Object.entries(filteredDocData).map(([key1, section1Data]) => (
+        <div key={key1} className="w-full">
+          <NavSectionItem
+            sectionKey={key1}
+            sectionData={section1Data}
+            activeSlugs={activeSlugs}
+            level={1}
+            overviewText={overview.value}
+          />
+        </div>
+      ))}
 
-        // Check if this section's own slugs match
-        const isSelfActive =
-          slugs.length > 0 &&
-          slugs.every((segment, index) => segment === activeSlugs[index]);
-
-        // Check if any subsection at any level matches
-        const isSubSectionActive = Object.values(subSections ?? {}).some(
-          (subSection2) => {
-            const subSlugs2 = subSection2.default?.slugs ?? [];
-            const isLevel2Active =
-              subSlugs2.length > 0 &&
-              subSlugs2.every(
-                (segment, index) => segment === activeSlugs[index]
-              );
-
-            // Check level 3 subsections
-            const isLevel3Active = Object.values(
-              subSection2.subSections ?? {}
-            ).some((subSection3) => {
-              const subSlugs3 = subSection3.default?.slugs ?? [];
-              return (
-                subSlugs3.length > 0 &&
-                subSlugs3.every(
-                  (segment, index) => segment === activeSlugs[index]
-                )
-              );
-            });
-
-            return isLevel2Active || isLevel3Active;
-          }
-        );
-
-        const hasSubSections =
-          subSections && Object.keys(subSections).length > 0;
-        const isActive = isSelfActive || isSubSectionActive;
-        // `deployed: false` renders the section rolled (collapsed); default unrolled.
-        const isDeployed = section1Data.deployed !== false;
-
-        if (!hasSubSections) {
-          return (
-            <div key={key1}>
-              <OptionalLink
-                to={sectionDefault?.relativeUrl ?? ''}
-                label={key1}
-                isActive={isSelfActive && !isSubSectionActive}
-                frameworks={section1Data.frameworks}
-              >
-                {section1Data.title}
-              </OptionalLink>
-            </div>
-          );
-        }
-
-        return (
-          <div key={key1}>
-            <Accordion
-              header={
-                <OptionalLink
-                  to={sectionDefault?.relativeUrl ?? ''}
-                  label={key1}
-                  isActive={isSelfActive && !isSubSectionActive}
-                  frameworks={section1Data.frameworks}
-                >
-                  {section1Data.title}
-                </OptionalLink>
-              }
-              label={key1}
-              isOpen={isActive ? true : undefined}
-              defaultIsOpen={isDeployed}
-              headerClassName="py-1.5 pl-0!"
-              isActive={isSubSectionActive}
-            >
-              <ul className="mt-4 flex flex-col gap-4 border-neutral border-l-[0.5px] p-1 text-base">
-                {Object.keys(subSections).map((key2) => {
-                  const section2Data = subSections[key2];
-                  const sectionDefault = section2Data.default;
-                  const subSections2 = section2Data.subSections;
-                  const hasSubsections =
-                    subSections2 && Object.keys(subSections2).length > 0;
-                  const slugs = sectionDefault?.slugs ?? [];
-
-                  // Check if this section's own slugs match
-                  const isSelfActive =
-                    slugs.length > 0 &&
-                    slugs.every(
-                      (segment, index) => segment === activeSlugs[index]
-                    );
-
-                  // Check if any subsection's slugs match (level 3)
-                  const isSubSectionActive = Object.values(
-                    subSections2 ?? {}
-                  ).some((subSection) => {
-                    const subSlugs = subSection.default?.slugs ?? [];
-                    return (
-                      subSlugs.length > 0 &&
-                      subSlugs.every(
-                        (segment, index) => segment === activeSlugs[index]
-                      )
-                    );
-                  });
-
-                  const isActive = isSelfActive || isSubSectionActive;
-
-                  return (
-                    <li key={key2}>
-                      {hasSubsections ? (
-                        <Accordion
-                          header={
-                            <OptionalLink
-                              label={key2}
-                              to={sectionDefault?.relativeUrl ?? ''}
-                              isActive={isSelfActive && !isSubSectionActive}
-                              className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-foreground"
-                              frameworks={section2Data?.frameworks}
-                            >
-                              {section2Data?.title}
-                            </OptionalLink>
-                          }
-                          label={key2}
-                          isOpen={isActive ? true : undefined}
-                          headerClassName="py-1.5 pl-0!"
-                          isActive={isSubSectionActive}
-                        >
-                          <div className="pl-3 text-sm">
-                            {subSections2 &&
-                              Object.keys(subSections2).length > 0 && (
-                                <div className="flex flex-col items-start gap-2 p-1 text-muted-foreground transition-colors hover:text-foreground">
-                                  {Object.keys(subSections2).map((key3) => {
-                                    const section3Data = subSections2[key3];
-                                    const slugs =
-                                      section3Data.default?.slugs ?? [];
-                                    const isActive =
-                                      slugs.length > 0 &&
-                                      slugs.every(
-                                        (segment, index) =>
-                                          segment === activeSlugs[index]
-                                      );
-
-                                    return (
-                                      <OptionalLink
-                                        key={key3}
-                                        label={key3}
-                                        to={
-                                          section3Data.default?.relativeUrl ??
-                                          ''
-                                        }
-                                        isActive={isActive}
-                                        className="block w-full flex-row items-center text-nowrap p-2 text-left text-xs transition-colors hover:text-foreground"
-                                        frameworks={section3Data.frameworks}
-                                      >
-                                        {section3Data.title}
-                                      </OptionalLink>
-                                    );
-                                  })}
-                                </div>
-                              )}
-                          </div>
-                        </Accordion>
-                      ) : (
-                        <OptionalLink
-                          to={sectionDefault?.relativeUrl ?? ''}
-                          className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-foreground"
-                          label={key2}
-                          isActive={isActive}
-                          frameworks={section2Data?.frameworks}
-                        >
-                          {section2Data?.title}
-                        </OptionalLink>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </Accordion>
-          </div>
-        );
-      })}
-
-      <div>
+      <div className="mt-3 flex flex-col gap-y-2 border-border/60 border-t pt-2">
         <OptionalLink to={Website_Blog_Path} label={blogButton.label.value}>
           {blogButton?.text}
         </OptionalLink>
-      </div>
-      <div>
         <OptionalLink
           to={Website_Doc_Chat_Path}
           label={chatBotButton.label.value}
-          className="flex items-center"
+          Icon={Bot}
         >
-          <Bot />
           {chatBotButton?.text}
         </OptionalLink>
       </div>
@@ -412,7 +451,7 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
               aria-hidden={isHidden === true}
               inert={isHidden === true ? true : undefined}
             >
-              <div className="relative h-full w-80 overflow-hidden">
+              <div className="relative h-full w-80 overflow-hidden max-md:mt-17">
                 <Container
                   transparency="xs"
                   className="z-10 m-auto pt-1 lg:pt-4"
@@ -433,7 +472,6 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
                         label={collapseButton.label.value}
                         aria-expanded={!isHidden}
                         aria-controls="doc-nav-content"
-                        className="transition-transform"
                         onClick={() => setIsHidden(true)}
                       />
                       <PopoverStatic.Detail identifier="doc-nav-collapse">

@@ -87,6 +87,7 @@ export const Accordion: FC<AccordionProps> = ({
   contentId,
   'aria-label': ariaLabel,
   className,
+  iconClassName,
   ...props
 }) => {
   // Determine if we're in controlled or uncontrolled mode
@@ -133,14 +134,12 @@ export const Accordion: FC<AccordionProps> = ({
         onKeyDown={handleKeyDown}
         disabled={disabled}
         isFullWidth
-        className={cn(
-          'flex items-center justify-between gap-2',
-          headerClassName
-        )}
+        className={cn('flex items-center justify-between', headerClassName)}
         IconRight={ChevronDown}
         iconClassName={cn(
-          'transform transition-transform duration-500 ease-in-out',
-          isExpandedState ? 'rotate-0' : '-rotate-180'
+          'size-3.5 transform transition-transform duration-300 ease-in-out',
+          isExpandedState ? 'rotate-0' : '-rotate-180',
+          iconClassName
         )}
         aria-expanded={isExpandedState}
         aria-controls={generatedContentId}
