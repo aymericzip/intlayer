@@ -59,7 +59,7 @@ export const App: FunctionComponent = () => {
   const hostname = tabUrl ? new URL(tabUrl).hostname : null;
 
   return (
-    <main className="flex max-h-[560px] flex-col gap-3 overflow-y-auto p-3.5">
+    <main className="flex max-h-140 flex-col gap-3 overflow-y-auto p-3.5">
       <header className="flex items-center gap-2.5">
         <Logo className="size-5 shrink-0" aria-hidden="true" />
         <div className="min-w-0 flex-1">
