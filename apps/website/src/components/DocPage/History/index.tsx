@@ -1,5 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
-import { Popover } from '@intlayer/design-system/popover';
+import { Popover, type PopoverXAlign } from '@intlayer/design-system/popover';
 import { cn } from '@intlayer/design-system/utils';
 import { getLocalizedUrl } from 'intlayer';
 import { Clock } from 'lucide-react';
@@ -27,6 +27,7 @@ type HistoryProps = {
     date: string;
     changes: string;
   }[];
+  xAlign?: PopoverXAlign;
 };
 
 export const History: FC<HistoryProps> = ({
@@ -34,6 +35,7 @@ export const History: FC<HistoryProps> = ({
   updatedAt,
   baseUpdatedAt,
   history = [],
+  xAlign = 'end',
 }) => {
   const formatDate = useDate();
   const { defaultLocale, setLocale } = useLocale();
@@ -57,7 +59,7 @@ export const History: FC<HistoryProps> = ({
       <Popover.Detail
         identifier="outdated-translation"
         className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-muted-foreground text-sm"
-        xAlign="end"
+        xAlign={xAlign}
       >
         {isOutdated && (
           <>
@@ -96,10 +98,10 @@ export const History: FC<HistoryProps> = ({
             {versionHistory.title}
           </h4>
           <ol className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
-            {history.map(({ version, date, changes }, index) => (
+            {history.map(({ version, date, changes }) => (
               <li
                 className="flex flex-row items-center justify-between gap-3 px-2 py-1 pr-1.5"
-                key={`${index}-${version}-${date}`}
+                key={`${version}-${date}-${changes}`}
               >
                 <span className="mt-1 text-foreground text-xs">{changes}</span>
                 <div className="flex flex-col items-end justify-between gap-1 px-2 py-1 text-muted-foreground text-sm">

@@ -88,6 +88,7 @@ export const Accordion: FC<AccordionProps> = ({
   'aria-label': ariaLabel,
   className,
   iconClassName,
+  color = 'text',
   ...props
 }) => {
   // Determine if we're in controlled or uncontrolled mode
@@ -129,7 +130,7 @@ export const Accordion: FC<AccordionProps> = ({
     <div className={cn('w-full', className)}>
       <Button
         variant="hoverable"
-        color="text"
+        color={color}
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
         disabled={disabled}

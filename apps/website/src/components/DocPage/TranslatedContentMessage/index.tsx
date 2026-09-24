@@ -1,4 +1,4 @@
-import { Popover } from '@intlayer/design-system/popover';
+import { Popover, type PopoverXAlign } from '@intlayer/design-system/popover';
 import { getLocalizedUrl } from 'intlayer';
 import { Languages } from 'lucide-react';
 import type { FC } from 'react';
@@ -7,10 +7,12 @@ import { Link } from '~/components/Link/Link';
 
 type TranslatedContentMessageProps = {
   pageUrl: string;
+  xAlign?: PopoverXAlign;
 };
 
 export const TranslatedContentMessage: FC<TranslatedContentMessageProps> = ({
   pageUrl,
+  xAlign = 'end',
 }) => {
   const { setLocale } = useLocaleStorage();
   const { locale, defaultLocale } = useLocale();
@@ -27,7 +29,7 @@ export const TranslatedContentMessage: FC<TranslatedContentMessageProps> = ({
       <Popover.Detail
         identifier="language"
         className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-muted-foreground text-sm"
-        xAlign="end"
+        xAlign={xAlign}
       >
         <p>{message}</p>
         <Link

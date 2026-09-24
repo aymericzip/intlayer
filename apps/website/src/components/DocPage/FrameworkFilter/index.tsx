@@ -29,6 +29,7 @@ export type FrameworkLogoKey =
   | 'adonis'
   | 'lit'
   | 'vanilla'
+  | 'js'
   | 'htmx'
   | 'remix'
   | 'node';
@@ -93,6 +94,7 @@ const logoMap: Record<FrameworkLogoKey, TechLogoName> = {
   adonis: 'adonis',
   lit: 'lit',
   vanilla: 'vanilla',
+  js: 'vanilla',
   htmx: 'htmx',
   node: 'node',
   elysia: 'elysia',

@@ -1,6 +1,5 @@
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Container } from '@intlayer/design-system/container';
-import { useDevice } from '@intlayer/design-system/hooks';
 import { Link } from '@intlayer/design-system/link';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import {
@@ -74,7 +73,6 @@ export const DocHeader: FC<DocHeaderProps> = ({
   baseUpdatedAt,
   history,
 }) => {
-  const { isMobile } = useDevice();
   const { locale } = useLocale();
   const {
     authorLabel,
@@ -172,34 +170,41 @@ export const DocHeader: FC<DocHeaderProps> = ({
                   'github.com',
                   'github.dev'
                 )}
+                xAlign="end"
               />
             )}
 
             {applicationShowcase && (
               <ApplicationShowcaseMessage
                 applicationShowcaseUrl={applicationShowcase}
+                xAlign="end"
               />
             )}
 
             {youtubeVideo && (
-              <YoutubeVideoMessage youtubeVideoUrl={youtubeVideo} />
+              <YoutubeVideoMessage
+                youtubeVideoUrl={youtubeVideo}
+                xAlign="end"
+              />
             )}
 
-            <SummarizeAI url={url} />
+            <SummarizeAI url={url} xAlign="end" />
 
-            <MCPMessage />
+            <MCPMessage xAlign="end" />
 
             <History
               pageUrl={relativeUrl}
               updatedAt={updatedAt as string}
               baseUpdatedAt={baseUpdatedAt as string}
               history={history}
+              xAlign="end"
             />
 
-            <TranslatedContentMessage pageUrl={relativeUrl} />
+            <TranslatedContentMessage pageUrl={relativeUrl} xAlign="end" />
 
             <ContributionMessage
               githubUrl={githubUrl.replace('/en/', `/${locale}/`)}
+              xAlign="end"
             />
           </div>
         </div>

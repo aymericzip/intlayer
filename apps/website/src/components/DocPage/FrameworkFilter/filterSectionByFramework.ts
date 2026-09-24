@@ -29,12 +29,15 @@ export const filterSectionByFramework = <
 ): Record<string, Node> => {
   if (!filter) return section;
 
-  const entries = Object.entries(section).flatMap(
+  const resolvedEntries = Object.entries(section).flatMap(
     ([key, data]): [string, Node][] => {
       const sectionHasTags = !!data.frameworks;
+      const matchesAll = data.frameworks?.includes('all') ?? false;
       const matchesExplicitly =
         filter?.every((f) => data.frameworks?.includes(f)) ?? false;
-      const matches = sectionHasTags ? matchesExplicitly : parentMatches;
+      const matches = sectionHasTags
+        ? matchesExplicitly || matchesAll
+        : parentMatches;
 
       // Determine the framework tags to use (original or inherited)
       const currentFrameworks = sectionHasTags
@@ -79,33 +82,42 @@ export const filterSectionByFramework = <
         subSections: filteredSubSections,
       };
 
-      // 3. Apply flattening and unwrapping
-      // We skip these rules for root categories (depth 0) to maintain top-level structure
-      if (depth > 0) {
-        // Rule A: Flatten categories with no content (promote matching children)
-        // We only flatten if there is exactly ONE sub-section to avoid breaking multiple-item groups (like Releases)
-        if (
-          !data.default &&
-          filteredSubSections &&
-          Object.keys(filteredSubSections).length === 1
-        ) {
-          return Object.entries(filteredSubSections);
-        }
-
-        // Rule B: If this section explicitly matches the framework, unwrap its subsections as siblings
-        // We do this to provide a flat list of pages for the selected framework context
-        if (matchesExplicitly && filteredSubSections) {
-          return [
-            [key, { ...dataWithFrameworks, subSections: undefined }],
-            ...Object.entries(filteredSubSections),
-          ];
-        }
+      // Rule A: Flatten categories with no content (promote matching children)
+      // We only flatten if there is exactly ONE sub-section to avoid breaking multiple-item groups (like Releases)
+      if (
+        depth > 0 &&
+        !data.default &&
+        filteredSubSections &&
+        Object.keys(filteredSubSections).length === 1
+      ) {
+        return Object.entries(filteredSubSections);
       }
 
-      // Default: Keep the section and its (already populated) sub-sections
       return [[key, dataWithFrameworks]];
     }
   );
 
-  return Object.fromEntries(entries);
+  // Apply Rule B: If this section explicitly matches the framework, unwrap its subsections as siblings
+  // We only move subsections to top level if it's the ONLY item showed in the category
+  const isOnlyItemShown = resolvedEntries.length === 1;
+
+  if (depth > 0 && isOnlyItemShown) {
+    const finalEntries = resolvedEntries.flatMap(([key, data]) => {
+      const matchesExplicitly =
+        filter?.every((f) => data.frameworks?.includes(f)) ?? false;
+
+      if (matchesExplicitly && data.subSections) {
+        return [
+          [key, { ...data, subSections: undefined }],
+          ...Object.entries(data.subSections),
+        ];
+      }
+
+      return [[key, data]];
+    });
+
+    return Object.fromEntries(finalEntries);
+  }
+
+  return Object.fromEntries(resolvedEntries);
 };

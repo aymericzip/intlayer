@@ -1,12 +1,16 @@
-import { PopoverStatic } from '@intlayer/design-system/popover';
+import {
+  PopoverStatic,
+  type PopoverXAlign,
+} from '@intlayer/design-system/popover';
 import { Edit } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 
-export const ContributionMessage: FC<{ githubUrl: string }> = ({
-  githubUrl,
-}) => {
+export const ContributionMessage: FC<{
+  githubUrl: string;
+  xAlign?: PopoverXAlign;
+}> = ({ githubUrl, xAlign = 'end' }) => {
   const { contribution } = useIntlayer('contribution-message');
 
   return (
@@ -23,7 +27,7 @@ export const ContributionMessage: FC<{ githubUrl: string }> = ({
       <PopoverStatic.Detail
         identifier="contribute"
         className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-sm"
-        xAlign="end"
+        xAlign={xAlign}
       >
         <strong>{contribution.title}</strong>
         <p className="text-muted-foreground">{contribution.text}</p>

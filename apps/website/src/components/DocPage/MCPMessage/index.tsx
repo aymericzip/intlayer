@@ -1,4 +1,7 @@
-import { PopoverStatic } from '@intlayer/design-system/popover';
+import {
+  PopoverStatic,
+  type PopoverXAlign,
+} from '@intlayer/design-system/popover';
 import { Website_Doc, Website_Doc_MCP } from '@intlayer/design-system/routes';
 import { useLocation } from '@tanstack/react-router';
 import type { FC } from 'react';
@@ -6,7 +9,11 @@ import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import { McpLogo } from './McpLogo';
 
-export const MCPMessage: FC = () => {
+type MCPMessageProps = {
+  xAlign?: PopoverXAlign;
+};
+
+export const MCPMessage: FC<MCPMessageProps> = ({ xAlign = 'end' }) => {
   const { title, description, link } = useIntlayer('mcp-message');
   const pathname = useLocation().pathname;
 
@@ -26,6 +33,7 @@ export const MCPMessage: FC = () => {
       <PopoverStatic.Detail
         identifier="mcp"
         className="flex min-w-64 flex-col gap-3 p-3 text-sm"
+        xAlign={xAlign}
       >
         <strong>{title}</strong>
         <p className="text-muted-foreground">{description}</p>

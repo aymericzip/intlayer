@@ -4,8 +4,8 @@ import {
   type BreadcrumbLink,
 } from '@intlayer/design-system/breadcrumb';
 import { useSearch } from '@intlayer/design-system/hooks';
-import { Input } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
+import { AutoSizedTextArea } from '@intlayer/design-system/text-area';
 import type { DocMetadata } from '@intlayer/docs';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from '@tanstack/react-router';
@@ -78,7 +78,7 @@ const SearchViewContent: FC<{
   onClickLink?: () => void;
   isOpen?: boolean;
 }> = ({ onClickLink = () => {}, isOpen = false }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
   const searchQueryParam = new URLSearchParams(location.search).get('search');
@@ -199,8 +199,7 @@ const SearchViewContent: FC<{
     <>
       <div className="relative flex w-full items-center gap-1">
         <Search />
-        <Input
-          type="search"
+        <AutoSizedTextArea
           name="search"
           placeholder={searchInput.placeholder.value}
           aria-label={searchInput.label.value}
@@ -208,6 +207,7 @@ const SearchViewContent: FC<{
           defaultValue={searchQueryParam ?? ''}
           className="m-3 border bg-text-opposite"
           ref={inputRef}
+          rows={1}
         />
       </div>
       <div className="mt-8 flex flex-1 flex-col overflow-y-auto">

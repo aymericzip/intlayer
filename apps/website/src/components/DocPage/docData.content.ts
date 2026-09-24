@@ -759,6 +759,7 @@ const docDataContent: Dictionary = {
             intlayer: {
               title: 'intlayer',
               default: getDocMetadata('./docs/en/packages/intlayer/exports.md'),
+              frameworks: ['all', 'js'],
               subSections: {
                 getIntlayer: {
                   title: 'getIntlayer',
@@ -1319,12 +1320,14 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/packages/intlayer-cli/exports.md'
               ),
+              frameworks: ['all', 'js'],
             },
             '@intlayer/babel': {
               title: '@intlayer/babel',
               default: getDocMetadata(
                 './docs/en/packages/@intlayer_babel/export.md'
               ),
+              frameworks: ['all', 'js'],
             },
           },
         },

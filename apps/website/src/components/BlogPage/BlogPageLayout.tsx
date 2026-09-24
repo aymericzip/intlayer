@@ -1,7 +1,6 @@
 import type { LocalesValues } from 'intlayer';
 import { type FC, type ReactNode, Suspense } from 'react';
-import { AsideNavigation } from '~/components/DocPage/AsideNavigation/AsideNavigation';
-import { TOCProgressBar } from '~/components/DocPage/TOCProgressBar/TOCProgressBar';
+import { DocPageLayoutShell } from '~/components/DocPage/DocPageLayoutShell';
 import { BlogBreadCrumb } from './BlogBreadCrumb';
 import { BlogCommentSection } from './BlogCommentSection';
 import { BlogNavList } from './BlogNavList';
@@ -35,33 +34,28 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
   trailingContent,
 }) => {
   const { blog: allBlogs } = getBlogSection(blogData);
-
   const blogSlug = activeSlugs.join('/');
 
   return (
-    <div className="flex w-full bg-card max-md:flex-col md:h-[calc(100dvh-3.5rem)] lg:pl-2">
-      <aside className="z-40 flex-none">
+    <DocPageLayoutShell
+      nav={
         <BlogNavList
           blogData={blogData}
           activeSlugs={['blog', ...activeSlugs]}
         />
-      </aside>
-      <div className="mx-1 mb-3 flex min-h-0 min-w-0 flex-1 flex-row rounded-2xl border border-neutral/40 bg-background lg:my-3 lg:mr-2 lg:ml-0">
-        <article
-          className="no-scrollbar relative mb-3 h-full max-h-[calc(100vh-4.5rem)] w-auto flex-1 grow overflow-auto px-4 pb-24 max-md:pl-10 md:px-10"
-          id="content"
-        >
-          <div className="m-auto max-w-3xl">
-            <BlogBreadCrumb
-              activeSections={activeSlugs}
-              blogData={blogData}
-              locale={locale}
-            />
-            {children}
-
-            {currentBlogDocKey && <BlogCommentSection blogSlug={blogSlug} />}
-          </div>
-
+      }
+      breadcrumb={
+        <BlogBreadCrumb
+          activeSections={activeSlugs}
+          blogData={blogData}
+          locale={locale}
+        />
+      }
+      innerTrailingContent={
+        currentBlogDocKey ? <BlogCommentSection blogSlug={blogSlug} /> : null
+      }
+      trailingContent={
+        <>
           {currentBlogDocKey && allBlogs.length > 1 && (
             <Suspense>
               <RelatedPosts
@@ -83,15 +77,11 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
           )}
 
           {trailingContent}
-        </article>
-
-        {displayAsideNavigation && (
-          <aside className="flex flex-none flex-row max-lg:hidden">
-            <TOCProgressBar />
-            <AsideNavigation />
-          </aside>
-        )}
-      </div>
-    </div>
+        </>
+      }
+      displayAsideNavigation={displayAsideNavigation}
+    >
+      {children}
+    </DocPageLayoutShell>
   );
 };

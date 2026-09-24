@@ -1,4 +1,7 @@
-import { PopoverStatic } from '@intlayer/design-system/popover';
+import {
+  PopoverStatic,
+  type PopoverXAlign,
+} from '@intlayer/design-system/popover';
 import { Globe } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -6,11 +9,12 @@ import { Link } from '~/components/Link/Link';
 
 type ApplicationShowcaseMessageProps = {
   applicationShowcaseUrl: string;
+  xAlign?: PopoverXAlign;
 };
 
 export const ApplicationShowcaseMessage: FC<
   ApplicationShowcaseMessageProps
-> = ({ applicationShowcaseUrl }) => {
+> = ({ applicationShowcaseUrl, xAlign = 'end' }) => {
   const { title, description, label } = useIntlayer(
     'application-showcase-message'
   );
@@ -29,6 +33,7 @@ export const ApplicationShowcaseMessage: FC<
       <PopoverStatic.Detail
         identifier="application-showcase"
         className="flex min-w-64 flex-col gap-3 p-3 text-sm"
+        xAlign={xAlign}
       >
         <strong>{title}</strong>
         <p className="text-muted-foreground">{description}</p>

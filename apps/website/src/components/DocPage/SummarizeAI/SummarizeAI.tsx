@@ -1,12 +1,13 @@
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { Link } from '@intlayer/design-system/link';
-import { Popover } from '@intlayer/design-system/popover';
+import { Popover, type PopoverXAlign } from '@intlayer/design-system/popover';
 import { TechLogo } from '@intlayer/design-system/tech-logo';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
 type SummarizeAIProps = {
   url: string;
+  xAlign?: PopoverXAlign;
 };
 
 type Provider = {
@@ -60,7 +61,7 @@ const getProviders = (message: string): Provider[] => [
   },
 ];
 
-export const SummarizeAI: FC<SummarizeAIProps> = ({ url }) => {
+export const SummarizeAI: FC<SummarizeAIProps> = ({ url, xAlign = 'end' }) => {
   const { title, description, summarizeLabel, summarizeMessage } =
     useIntlayer('summarize-ai');
 
@@ -92,6 +93,7 @@ export const SummarizeAI: FC<SummarizeAIProps> = ({ url }) => {
       <Popover.Detail
         identifier="summarize"
         className="flex min-w-50 flex-col gap-3 p-3 text-sm"
+        xAlign={xAlign}
       >
         <strong>{title}</strong>
 

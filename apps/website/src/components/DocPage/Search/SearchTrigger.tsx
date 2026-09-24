@@ -73,6 +73,9 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({
         size="lg"
         padding="md"
         isScrollable
+        border
+        borderColor="neutral"
+        roundedSize="3xl"
       >
         {isModalOpen && (
           <SearchView
