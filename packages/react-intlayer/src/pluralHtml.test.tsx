@@ -144,3 +144,43 @@ describe('insert() wrapping md() – value interpolation', () => {
     expect(node.value).not.toContain('{{name}}');
   });
 });
+
+/**
+ * Regression: with `contentAutoTransformation.insertion` enabled, each
+ * `plural()` branch is compiled into an `insertion` node. The plural string
+ * plugin leaked into the insertion's inner transform and turned the template
+ * into a function → `template.replace is not a function`.
+ */
+describe('plural() wrapping insertion nodes – auto-transformed {{count}}', () => {
+  const insertion = (content: string) => ({
+    fields: ['count'],
+    nodeType: NodeTypes.INSERTION,
+    [NodeTypes.INSERTION]: content,
+  });
+
+  const dict = {
+    key: 'plural-insertion' as const,
+    content: {
+      total: {
+        nodeType: NodeTypes.PLURAL,
+        [NodeTypes.PLURAL]: {
+          one: insertion('{{count}} item'),
+          other: insertion('{{count}} items'),
+        },
+      },
+    },
+  };
+
+  it('renders the plural branch with a single call', () => {
+    const result = getDictionary(dict as any, 'en');
+
+    expect(String(result.total(1))).toBe('1 item');
+    expect(String(result.total(5))).toBe('5 items');
+  });
+
+  it('accepts the { count } object form', () => {
+    const result = getDictionary(dict as any, 'en');
+
+    expect(String(result.total({ count: 3 }))).toBe('3 items');
+  });
+});

@@ -195,6 +195,18 @@ export const enumerationPlugin: Plugins =
  * PLURAL PLUGIN
  * --------------------------------------------- */
 
+/**
+ * A plural branch wrapped in an `insertion` node (auto-transformed
+ * `{{count}}`) resolves to its inner content: the plural applies the values.
+ */
+type PluralBranch<Branch> = Branch extends {
+  nodeType: NodeType | string;
+  [NodeTypes.INSERTION]: infer InsertionContent;
+  fields: readonly string[];
+}
+  ? InsertionContent
+  : Branch;
+
 export type PluralCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
   [NodeTypes.PLURAL]: object;
@@ -202,7 +214,9 @@ export type PluralCond<T, S, _L> = T extends {
   ? (
       arg: number | { count: number; [key: string]: unknown }
     ) => DeepTransformContent<
-      T[typeof NodeTypes.PLURAL][keyof T[typeof NodeTypes.PLURAL]],
+      PluralBranch<
+        T[typeof NodeTypes.PLURAL][keyof T[typeof NodeTypes.PLURAL]]
+      >,
       S
     >
   : never;
@@ -224,6 +238,11 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
         transform: (node: PluralContent, props, deepTransformNode) => {
           const original = node[NodeTypes.PLURAL];
           const result: Record<string, any> = {};
+          // The plural interpolates its own branches. A string plugin from an
+          // enclosing `insert()` would turn them into functions first.
+          const branchPlugins = (props.plugins ?? []).filter(
+            (plugin) => plugin.id !== 'insertion-string-plugin'
+          );
 
           /** String plugin for plural. Replaces string node with a component that renders the insertion. */
           const pluralStringPlugin: Plugins = {
@@ -231,6 +250,22 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
             canHandle: (node) =>
               typeof node === 'string' || isInterpolableWrapperNode(node),
             transform: (node, subProps, deepTransformNode) => {
+              // An `insertion` node below the plural (e.g. auto-transformed
+              // `{{count}}` branches) already returns `(values) => …`. Leave its
+              // strings untouched, or its template would become a function.
+              const isInsideInsertion = subProps.keyPath
+                .slice(props.keyPath.length)
+                .some((keyPath) => keyPath.type === NodeTypes.INSERTION);
+
+              if (isInsideInsertion) {
+                return deepTransformNode(node, {
+                  ...subProps,
+                  plugins: subProps.plugins?.filter(
+                    (plugin) => plugin.id !== 'plural-string-plugin'
+                  ),
+                });
+              }
+
               // `html()`/`markdown()` nodes carry their `{{count}}` placeholders
               // inside a raw string. Interpolate into that string, then re-run
               // the transform so the html/markdown renderer applies afterwards.
@@ -240,7 +275,7 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
                     node,
                     values,
                     subProps,
-                    props.plugins,
+                    branchPlugins,
                     deepTransformNode
                   );
               }
@@ -249,7 +284,7 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
                 ...subProps,
                 children: node,
                 plugins: [
-                  ...(props.plugins ?? ([] as Plugins[])).filter(
+                  ...branchPlugins.filter(
                     (plugin) => plugin.id !== 'intlayer-node-plugin'
                   ),
                 ],
@@ -260,7 +295,7 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
 
                 return deepTransformNode(children, {
                   ...subProps,
-                  plugins: props.plugins,
+                  plugins: branchPlugins,
                   children,
                 });
               };
@@ -276,7 +311,7 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
                 ...props.keyPath,
                 { type: NodeTypes.PLURAL, key } as KeyPath,
               ],
-              plugins: [pluralStringPlugin, ...(props.plugins ?? [])],
+              plugins: [pluralStringPlugin, ...branchPlugins],
             };
             result[key] = deepTransformNode(child, childProps);
           }
@@ -445,14 +480,108 @@ export const insertionPlugin: Plugins =
             },
           };
 
-          return deepTransformNode(children, {
+          const result = deepTransformNode(children, {
             ...props,
             children,
             keyPath: newKeyPath,
             plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
           });
+
+          return resolveInsertedSelector(children, result);
         },
       };
+
+/** Container nodes resolved by a selector call: `enu(3)`, `cond(true)`, … */
+const selectorNodeTypes: string[] = [
+  NodeTypes.ENUMERATION,
+  NodeTypes.CONDITION,
+  NodeTypes.PLURAL,
+  NodeTypes.GENDER,
+  NodeTypes.SELECT,
+];
+
+/** Whether `insert()` wraps a selector node that resolved to a function. */
+const isInsertedSelector = (
+  children: unknown,
+  result: unknown
+): result is (selector: unknown) => unknown => {
+  const nodeType =
+    typeof children === 'object' && children !== null
+      ? (children as { nodeType?: unknown }).nodeType
+      : undefined;
+
+  return (
+    typeof result === 'function' &&
+    typeof nodeType === 'string' &&
+    selectorNodeTypes.includes(nodeType)
+  );
+};
+
+/**
+ * Binds the values of an `insert()` to the selector node it wraps, returning
+ * `(selector) => content`. Any other child result is returned unchanged.
+ *
+ * `areBranchesInterpolated` is set by frameworks that interpolate the branch
+ * strings as soon as the values are known: the selected branch is then final
+ * content and is never called with the values.
+ */
+export const bindInsertedValues = (
+  children: unknown,
+  result: unknown,
+  values: Record<string, unknown>,
+  areBranchesInterpolated = false
+): unknown => {
+  if (!isInsertedSelector(children, result)) {
+    return result;
+  }
+
+  const isPlural =
+    (children as { nodeType: string }).nodeType === NodeTypes.PLURAL;
+  const isEnumeration =
+    (children as { nodeType: string }).nodeType === NodeTypes.ENUMERATION;
+
+  return (selector: unknown) => {
+    // Object selectors (`{ count }`, `{ value }`) carry the values along.
+    if (typeof selector === 'object' && selector !== null) {
+      return result({ ...values, ...selector });
+    }
+
+    // Plural interpolates its own branches, `{{count}}` included.
+    if (isPlural) {
+      return result({ ...values, count: selector });
+    }
+
+    // Enumeration selector is a numeric count (or count range)
+    if (isEnumeration && typeof selector === 'number') {
+      const mergedValues = { count: selector, ...values };
+      const selected = result(mergedValues);
+
+      return !areBranchesInterpolated && typeof selected === 'function'
+        ? selected(mergedValues)
+        : selected;
+    }
+
+    const selected = result(selector);
+
+    return !areBranchesInterpolated && typeof selected === 'function'
+      ? selected(values)
+      : selected;
+  };
+};
+
+/**
+ * Shapes the result of `insert()` wrapping a selector node as
+ * `(values) => (selector) => content`, so the values reach the selected
+ * branch. Any other child result is returned unchanged.
+ */
+export const resolveInsertedSelector = (
+  children: unknown,
+  result: unknown
+): unknown =>
+  isInsertedSelector(children, result)
+    ? (values: Record<string, unknown>) =>
+        bindInsertedValues(children, result, values)
+    : result;
 
 /** ---------------------------------------------
  * GENDER PLUGIN

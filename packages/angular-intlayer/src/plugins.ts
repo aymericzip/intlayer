@@ -1,12 +1,14 @@
 import { signal, untracked } from '@angular/core';
 import { editor, internationalization } from '@intlayer/config/built';
 import {
+  bindInsertedValues,
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
   enumerationPlugin,
   fallbackPlugin,
   filePlugin,
   genderPlugin,
+  getInsertion,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   isInterpolableWrapperNode,
   nestedPlugin,
@@ -408,11 +410,15 @@ export const htmlPlugin: Plugins =
 /**
  * Insertion conditional type.
  */
-export type InsertionPluginCond<T> = T extends {
+export type InsertionPluginCond<T, S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
-  [NodeTypes.INSERTION]: infer _I;
+  [NodeTypes.INSERTION]: infer Content;
 }
-  ? (args: Record<string, string | number>) => string
+  ? (
+      args: Record<string, string | number>
+    ) => Content extends string
+      ? string
+      : DeepTransformContentCore<Content, S, L>
   : never;
 
 export const insertionPlugin: Plugins =
@@ -426,6 +432,13 @@ export const insertionPlugin: Plugins =
           const { plugins, ...rest } = props;
           const content = node[NodeTypes.INSERTION];
 
+          const newKeyPath: KeyPath[] = [
+            ...props.keyPath,
+            {
+              type: NodeTypes.INSERTION,
+            },
+          ];
+
           // `html()`/`markdown()` nodes carry their `{{ … }}` placeholders
           // inside a raw string. Interpolate into that string, then re-run the
           // transform so the html/markdown renderer applies afterwards.
@@ -434,10 +447,52 @@ export const insertionPlugin: Plugins =
               transformInterpolableNode(
                 content,
                 args,
-                props,
+                { ...props, keyPath: newKeyPath },
                 props.plugins,
                 deepTransformNode
               );
+          }
+
+          // Container content (`insert(enu(…))`, `insert(plural(…))`, …):
+          // interpolate every branch string, then bind the values to the
+          // selector so the call reads `(values) => (selector) => content`.
+          if (typeof content === 'object' && content !== null) {
+            return (args: Record<string, string | number> = {}) => {
+              const insertionStringPlugin: Plugins = {
+                id: 'insertion-string-plugin',
+                canHandle: (branch) =>
+                  typeof branch === 'string' ||
+                  isInterpolableWrapperNode(branch),
+                transform: (branch, subProps, deepTransformBranch) => {
+                  if (isInterpolableWrapperNode(branch)) {
+                    return transformInterpolableNode(
+                      branch,
+                      args,
+                      subProps,
+                      plugins,
+                      deepTransformBranch
+                    );
+                  }
+
+                  const interpolated = getInsertion(branch, args);
+
+                  return deepTransformBranch(interpolated, {
+                    ...subProps,
+                    children: interpolated,
+                    plugins,
+                  });
+                },
+              };
+
+              const result = deepTransformNode(content, {
+                ...props,
+                children: content,
+                keyPath: [...props.keyPath, { type: NodeTypes.INSERTION }],
+                plugins: [insertionStringPlugin, ...(plugins ?? [])],
+              });
+
+              return bindInsertedValues(content, result, args, true);
+            };
           }
 
           // Return a function that performs the interpolation
@@ -466,7 +521,7 @@ export interface IInterpreterPluginAngular<T, S, L extends LocalesValues> {
   angularIntlayerNode: IntlayerNodeCond<T>;
   angularMarkdown: MarkdownCond<T, S, L>;
   angularHtml: HTMLPluginCond<T, S, L>;
-  angularInsertion: InsertionPluginCond<T>;
+  angularInsertion: InsertionPluginCond<T, S, L>;
 }
 
 /**

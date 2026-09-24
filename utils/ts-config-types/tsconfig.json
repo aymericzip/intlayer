@@ -8,6 +8,7 @@
     "build",
     "storybook-static",
     "**/*.test.*",
+    "**/*.test-d.*",
     "**/*.spec.*",
     "**/__tests__/**"
   ],

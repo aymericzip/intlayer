@@ -11,6 +11,7 @@ import {
   nestedPlugin,
   type Plugins,
   pluralPlugin,
+  resolveInsertedSelector,
   selectPlugin,
   splitInsertionTemplate,
   transformInterpolableNode,
@@ -284,28 +285,7 @@ export const insertionPlugin: Plugins =
             plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
           });
 
-          if (
-            typeof children === 'object' &&
-            children !== null &&
-            'nodeType' in children &&
-            [NodeTypes.ENUMERATION, NodeTypes.CONDITION].includes(
-              children.nodeType as
-                | typeof NodeTypes.ENUMERATION
-                | typeof NodeTypes.CONDITION
-            )
-          ) {
-            return (values: any) => (arg: any) => {
-              const func = result as Function;
-              const inner = func(arg);
-
-              if (typeof inner === 'function') {
-                return inner(values);
-              }
-              return inner;
-            };
-          }
-
-          return result;
+          return resolveInsertedSelector(children, result);
         },
       };
 

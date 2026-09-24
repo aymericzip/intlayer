@@ -42,6 +42,7 @@ export const commonOptions = {
   entry: [
     'src/**/*.{ts,tsx,js,jsx,mts,cts,vue,svelte,astro}',
     '!src/**/*.test.*',
+    '!src/**/*.test-d.*',
     '!src/**/*.stories.*',
     '!src/**/_*',
     '!src/**/*.spec.*',

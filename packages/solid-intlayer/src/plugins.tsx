@@ -1,5 +1,6 @@
 import { editor, internationalization } from '@intlayer/config/built';
 import {
+  bindInsertedValues,
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
   enumerationPlugin,
@@ -276,12 +277,16 @@ export const insertionPlugin: Plugins =
             };
 
             // Process the child nodes (strings or enumerations) with the string plugin active
-            return deepTransformNode(children, {
+            const result = deepTransformNode(children, {
               ...props,
               children,
               keyPath: newKeyPath,
               plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
             });
+
+            // Branch strings are interpolated above; a plural still needs the
+            // values merged with its count.
+            return bindInsertedValues(children, result, values, true);
           };
         },
       };

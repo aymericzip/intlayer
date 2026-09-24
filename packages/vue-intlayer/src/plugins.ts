@@ -11,6 +11,7 @@ import {
   nestedPlugin,
   type Plugins,
   pluralPlugin,
+  resolveInsertedSelector,
   selectPlugin,
   splitInsertionTemplate,
   transformInterpolableNode,
@@ -320,12 +321,14 @@ export const insertionPlugin: Plugins =
             },
           };
 
-          return deepTransformNode(children, {
+          const result = deepTransformNode(children, {
             ...props,
             children,
             keyPath: newKeyPath,
             plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
           });
+
+          return resolveInsertedSelector(children, result);
         },
       };
 
