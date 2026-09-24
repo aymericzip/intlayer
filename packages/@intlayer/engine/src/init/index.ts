@@ -23,6 +23,8 @@ import {
   hasIntlayerVitePlugin,
   hasLintTooling,
   installPackages,
+  isIntlayerPackageName,
+  moveCompatPackagesToDevDependencies,
   parseJSONWithComments,
   readFileFromRoot,
   replaceViteConfigPluginImportSource,
@@ -342,6 +344,23 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     ...(packageJson.devDependencies ?? {}),
   };
 
+  // MOVE COMPAT PACKAGES (e.g. next-intl) REPLACED BY @INTLAYER/* TO DEVDEPENDENCIES
+  const movedPackages = moveCompatPackagesToDevDependencies(packageJson);
+  if (movedPackages.length > 0) {
+    const indentation = packageJsonContent.match(/^[ \t]+(?=")/m)?.[0] ?? 2;
+    const trailingNewline = packageJsonContent.endsWith('\n') ? '\n' : '';
+    await writeFileToRoot(
+      rootDir,
+      packageJsonPath,
+      `${JSON.stringify(packageJson, null, indentation)}${trailingNewline}`
+    );
+    for (const pkg of movedPackages) {
+      logger(
+        `${v} Moved ${colorize(pkg, ANSIColors.MAGENTA)} from dependencies to devDependencies`
+      );
+    }
+  }
+
   // INSTALL MISSING INTLAYER DEPENDENCIES
   const packageManager = detectPackageManager(rootDir);
 
@@ -371,6 +390,8 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     compatVitePluginConfig,
   } = detectMissingIntlayerPackages(allDeps, {
     linguiCatalogFormat,
+    dependencies: packageJson.dependencies,
+    devDependencies: packageJson.devDependencies,
   });
 
   // The `json-namespaces` content strategy uses the same syncJSON pipeline as
@@ -391,7 +412,11 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   if (!options?.noInstallPackages) {
     const withVersion = (packages: string[]): string[] =>
       options?.upgradeToVersion
-        ? packages.map((pkg) => `${pkg}@${options.upgradeToVersion}`)
+        ? packages.map((pkg) =>
+            isIntlayerPackageName(pkg)
+              ? `${pkg}@${options.upgradeToVersion}`
+              : pkg
+          )
         : packages;
 
     if (packagesToInstall.length > 0) {
@@ -935,7 +960,7 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
         const content = await readFileFromRoot(rootDir, file);
         const extension = file.split('.').pop()!;
 
-        if (allDeps['next-i18next']) {
+        if (allDeps['next-i18next'] || allDeps['@intlayer/next-i18next']) {
           if (!content.includes('@intlayer/next-i18next')) {
             const updatedContent = updateNextConfigForNextI18next(
               content,
@@ -950,7 +975,7 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
               `${v} ${colorizePath(file)} already includes @intlayer/next-i18next`
             );
           }
-        } else if (allDeps['next-intl']) {
+        } else if (allDeps['next-intl'] || allDeps['@intlayer/next-intl']) {
           if (!content.includes('@intlayer/next-intl/plugin')) {
             const updatedContent = updateNextConfigForNextIntl(
               content,
@@ -965,7 +990,10 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
               `${v} ${colorizePath(file)} already includes @intlayer/next-intl/plugin`
             );
           }
-        } else if (allDeps['next-translate']) {
+        } else if (
+          allDeps['next-translate'] ||
+          allDeps['@intlayer/next-translate']
+        ) {
           if (!content.includes('@intlayer/next-translate')) {
             const updatedContent = updateNextConfigForNextTranslate(
               content,

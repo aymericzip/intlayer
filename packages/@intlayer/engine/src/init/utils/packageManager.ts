@@ -75,6 +75,8 @@ export type IntlayerPackageAnalysis = {
   packagesToInstall: string[];
   /** Intlayer dev packages that are referenced but not yet installed. */
   devPackagesToInstall: string[];
+  /** Compat packages in dependencies that got replaced and should be moved to devDependencies. */
+  packagesToMoveToDev: string[];
   /**
    * syncJSON plugin configuration to inject when a compat i18n library is
    * detected. Undefined when no compat library is present or format is not
@@ -194,6 +196,16 @@ export type DetectMissingPackagesOptions = {
    * dependency the lingui compat setup uses.
    */
   linguiCatalogFormat?: 'po' | 'json' | null;
+  /**
+   * The project's runtime dependencies (from `package.json` `dependencies`).
+   * When provided, compat packages found here that are replaced by `@intlayer/*`
+   * are reported in `packagesToMoveToDev`.
+   */
+  dependencies?: Record<string, string>;
+  /**
+   * The project's development dependencies (from `package.json` `devDependencies`).
+   */
+  devDependencies?: Record<string, string>;
 };
 
 /** An existing i18n library Intlayer ships a compat adapter for. */
@@ -206,6 +218,11 @@ export type CompatI18nLibrary = {
    * recognized.
    */
   packages: readonly string[];
+  /**
+   * Upstream third-party packages replaced by Intlayer compat adapters at runtime,
+   * mapped to their adapter package name.
+   */
+  replacements: Record<string, string>;
 };
 
 /**
@@ -223,6 +240,10 @@ export const COMPAT_I18N_LIBRARIES: readonly CompatI18nLibrary[] = [
       '@intlayer/i18next',
       '@intlayer/react-i18next',
     ],
+    replacements: {
+      i18next: '@intlayer/i18next',
+      'react-i18next': '@intlayer/react-i18next',
+    },
   },
   {
     label: 'next-intl / use-intl',
@@ -232,52 +253,130 @@ export const COMPAT_I18N_LIBRARIES: readonly CompatI18nLibrary[] = [
       '@intlayer/next-intl',
       '@intlayer/use-intl',
     ],
+    replacements: {
+      'next-intl': '@intlayer/next-intl',
+      'use-intl': '@intlayer/use-intl',
+    },
   },
   {
     label: 'vue-i18n',
     packages: ['vue-i18n', '@intlayer/vue-i18n'],
+    replacements: {
+      'vue-i18n': '@intlayer/vue-i18n',
+    },
   },
   {
     label: '@nuxtjs/i18n',
     packages: ['@nuxtjs/i18n', '@intlayer/nuxtjs-i18n'],
+    replacements: {
+      '@nuxtjs/i18n': '@intlayer/nuxtjs-i18n',
+    },
   },
   {
     label: 'next-i18next',
     packages: ['next-i18next', '@intlayer/next-i18next'],
+    replacements: {
+      'next-i18next': '@intlayer/next-i18next',
+    },
   },
   {
     label: 'next-translate',
     packages: ['next-translate', '@intlayer/next-translate'],
+    replacements: {
+      'next-translate': '@intlayer/next-translate',
+    },
   },
   {
     label: 'react-intl',
     packages: ['react-intl', '@intlayer/react-intl'],
+    replacements: {
+      'react-intl': '@intlayer/react-intl',
+    },
   },
   {
     label: 'Lingui',
     packages: ['@lingui/core', '@lingui/react', '@intlayer/lingui'],
+    replacements: {
+      '@lingui/core': '@intlayer/lingui',
+      '@lingui/react': '@intlayer/lingui',
+    },
   },
   {
     label: 'svelte-i18n',
     packages: ['svelte-i18n', '@intlayer/svelte-i18n'],
+    replacements: {
+      'svelte-i18n': '@intlayer/svelte-i18n',
+    },
   },
   {
     label: '@ngneat/transloco',
     packages: ['@ngneat/transloco', '@intlayer/transloco'],
+    replacements: {
+      '@ngneat/transloco': '@intlayer/transloco',
+    },
   },
   {
     label: '@ngx-translate/core',
     packages: ['@ngx-translate/core', '@intlayer/ngx-translate'],
+    replacements: {
+      '@ngx-translate/core': '@intlayer/ngx-translate',
+    },
   },
   {
     label: 'node-polyglot',
     packages: ['node-polyglot', '@intlayer/polyglot'],
+    replacements: {
+      'node-polyglot': '@intlayer/polyglot',
+    },
   },
   {
     label: 'i18n-js',
     packages: ['i18n-js', '@intlayer/i18n-js'],
+    replacements: {
+      'i18n-js': '@intlayer/i18n-js',
+    },
   },
 ];
+
+/**
+ * Maps third-party i18n libraries to the Intlayer compat adapter that replaces
+ * them at runtime, derived from {@link COMPAT_I18N_LIBRARIES}.
+ */
+export const COMPAT_PACKAGE_REPLACEMENTS: Record<string, string> =
+  Object.fromEntries(
+    COMPAT_I18N_LIBRARIES.flatMap((library) =>
+      Object.entries(library.replacements)
+    )
+  );
+
+/**
+ * When a project uses a compat i18n package (such as `next-intl`) that gets
+ * replaced by an `@intlayer/*` adapter (e.g. `@intlayer/next-intl`), moves the
+ * original package from `dependencies` to `devDependencies` in `package.json`.
+ *
+ * Returns the list of package names that were moved.
+ */
+export const moveCompatPackagesToDevDependencies = (
+  packageJson: Record<string, any>
+): string[] => {
+  const movedPackages: string[] = [];
+  if (!packageJson.dependencies) return movedPackages;
+
+  for (const compatPackage of Object.keys(COMPAT_PACKAGE_REPLACEMENTS)) {
+    if (packageJson.dependencies[compatPackage]) {
+      const version = packageJson.dependencies[compatPackage];
+      delete packageJson.dependencies[compatPackage];
+
+      packageJson.devDependencies = packageJson.devDependencies ?? {};
+      if (!packageJson.devDependencies[compatPackage]) {
+        packageJson.devDependencies[compatPackage] = version;
+      }
+      movedPackages.push(compatPackage);
+    }
+  }
+
+  return movedPackages;
+};
 
 /**
  * Returns the labels of the compat i18n libraries present in `dependencies`.
@@ -315,6 +414,8 @@ export const detectMissingIntlayerPackages = (
 ): IntlayerPackageAnalysis => {
   const packagesToInstall: string[] = [];
   const devPackagesToInstall: string[] = [];
+  const packagesToMoveToDev: string[] = [];
+
   let compatSyncConfig: CompatSyncConfig | undefined;
   let compatVitePluginConfig: CompatVitePluginConfig | undefined;
 
@@ -330,6 +431,27 @@ export const detectMissingIntlayerPackages = (
   const addDevIfMissing = (packageName: string): void => {
     if (!isInstalled(packageName)) {
       devPackagesToInstall.push(packageName);
+    }
+  };
+
+  const markCompatReplacement = (
+    originalPackage: string,
+    adapterPackage: string
+  ): void => {
+    addIfMissing(adapterPackage);
+    addDevIfMissing(originalPackage);
+
+    const isExplicitDev = Boolean(options.devDependencies?.[originalPackage]);
+    const isExplicitProd = Boolean(options.dependencies?.[originalPackage]);
+    const isImplicitProd =
+      !options.dependencies &&
+      !options.devDependencies &&
+      Boolean(allDependencies[originalPackage]);
+
+    if ((isExplicitProd || isImplicitProd) && !isExplicitDev) {
+      if (!packagesToMoveToDev.includes(originalPackage)) {
+        packagesToMoveToDev.push(originalPackage);
+      }
     }
   };
 
@@ -390,8 +512,7 @@ export const detectMissingIntlayerPackages = (
   // top-level key into its own dictionary. The exact path is refined from
   // `i18n/request.ts` in init/index.ts when present.
   if (isInstalled('next-intl') || isInstalled('@intlayer/next-intl')) {
-    addIfMissing('@intlayer/next-intl');
-    addIfMissing('next-intl');
+    markCompatReplacement('next-intl', '@intlayer/next-intl');
     compatSyncConfig ??= {
       format: 'icu',
       sourceTemplate: './messages/${locale}.json',
@@ -403,8 +524,7 @@ export const detectMissingIntlayerPackages = (
 
   // next-i18next — next.js only, i18next JSON format
   if (isInstalled('next-i18next') || isInstalled('@intlayer/next-i18next')) {
-    addIfMissing('@intlayer/next-i18next');
-    addIfMissing('next-i18next');
+    markCompatReplacement('next-i18next', '@intlayer/next-i18next');
     compatSyncConfig ??= {
       format: 'i18next',
       sourceTemplate: './src/locales/${locale}/${key}.json',
@@ -417,8 +537,7 @@ export const detectMissingIntlayerPackages = (
     isInstalled('next-translate') ||
     isInstalled('@intlayer/next-translate')
   ) {
-    addIfMissing('@intlayer/next-translate');
-    addIfMissing('next-translate');
+    markCompatReplacement('next-translate', '@intlayer/next-translate');
     compatSyncConfig ??= {
       format: 'i18next',
       sourceTemplate: './locales/${locale}/${key}.json',
@@ -429,9 +548,7 @@ export const detectMissingIntlayerPackages = (
   // i18next — vite alias injection (`i18next` → `@intlayer/i18next`) so existing
   // `import … from 'i18next'` is served by Intlayer without touching call sites.
   if (isInstalled('i18next') || isInstalled('@intlayer/i18next')) {
-    addIfMissing('@intlayer/i18next');
-    // Ensure the required peer dependency is installed
-    addIfMissing('i18next');
+    markCompatReplacement('i18next', '@intlayer/i18next');
     compatSyncConfig ??= {
       format: 'i18next',
       sourceTemplate: './src/locales/${locale}/${key}.json',
@@ -454,9 +571,7 @@ export const detectMissingIntlayerPackages = (
   // and `i18next` → `@intlayer/i18next`) so components keep importing from
   // `react-i18next` unchanged.
   if (isInstalled('react-i18next') || isInstalled('@intlayer/react-i18next')) {
-    addIfMissing('@intlayer/react-i18next');
-    // Ensure the required peer dependency is installed
-    addIfMissing('react-i18next');
+    markCompatReplacement('react-i18next', '@intlayer/react-i18next');
     compatSyncConfig ??= {
       format: 'i18next',
       sourceTemplate: './src/locales/${locale}/${key}.json',
@@ -469,8 +584,7 @@ export const detectMissingIntlayerPackages = (
 
   // vue-i18n — vite alias injection required
   if (isInstalled('vue-i18n') || isInstalled('@intlayer/vue-i18n')) {
-    addIfMissing('@intlayer/vue-i18n');
-    addIfMissing('vue-i18n');
+    markCompatReplacement('vue-i18n', '@intlayer/vue-i18n');
     compatSyncConfig ??= {
       format: 'vue-i18n',
       sourceTemplate: './locales/${locale}/${key}.json',
@@ -486,8 +600,7 @@ export const detectMissingIntlayerPackages = (
   // file whose top-level keys are namespaces, handled by syncJSON `splitKeys`
   // auto-detection (no `${key}` segment in the source template).
   if (isInstalled('use-intl') || isInstalled('@intlayer/use-intl')) {
-    addIfMissing('@intlayer/use-intl');
-    addIfMissing('use-intl');
+    markCompatReplacement('use-intl', '@intlayer/use-intl');
     compatSyncConfig ??= {
       format: 'icu',
       sourceTemplate: './messages/${locale}.json',
@@ -502,8 +615,7 @@ export const detectMissingIntlayerPackages = (
 
   // react-intl — vite alias injection required, ICU format
   if (isInstalled('react-intl') || isInstalled('@intlayer/react-intl')) {
-    addIfMissing('@intlayer/react-intl');
-    addIfMissing('react-intl');
+    markCompatReplacement('react-intl', '@intlayer/react-intl');
     compatSyncConfig ??= {
       format: 'icu',
       sourceTemplate: './src/i18n/${locale}.json',
@@ -517,8 +629,7 @@ export const detectMissingIntlayerPackages = (
   // @ngneat/transloco — vite alias injection required
   // @todo syncJSON format not yet implemented for transloco
   if (isInstalled('@ngneat/transloco') || isInstalled('@intlayer/transloco')) {
-    addIfMissing('@intlayer/transloco');
-    addIfMissing('@ngneat/transloco');
+    markCompatReplacement('@ngneat/transloco', '@intlayer/transloco');
     compatVitePluginConfig ??= {
       pluginFunctionName: 'translocoVitePlugin',
       pluginPackageSource: '@intlayer/transloco/plugin',
@@ -527,8 +638,7 @@ export const detectMissingIntlayerPackages = (
 
   // svelte-i18n — vite alias injection required, flat JSON (i18next-compatible)
   if (isInstalled('svelte-i18n') || isInstalled('@intlayer/svelte-i18n')) {
-    addIfMissing('@intlayer/svelte-i18n');
-    addIfMissing('svelte-i18n');
+    markCompatReplacement('svelte-i18n', '@intlayer/svelte-i18n');
     compatSyncConfig ??= {
       format: 'i18next',
       sourceTemplate: './src/locales/${locale}.json',
@@ -542,8 +652,7 @@ export const detectMissingIntlayerPackages = (
   // node-polyglot — vite alias injection required
   // @todo syncJSON format not yet implemented for polyglot
   if (isInstalled('node-polyglot') || isInstalled('@intlayer/polyglot')) {
-    addIfMissing('@intlayer/polyglot');
-    addIfMissing('node-polyglot');
+    markCompatReplacement('node-polyglot', '@intlayer/polyglot');
     compatVitePluginConfig ??= {
       pluginFunctionName: 'polyglotVitePlugin',
       pluginPackageSource: '@intlayer/polyglot/plugin',
@@ -552,8 +661,7 @@ export const detectMissingIntlayerPackages = (
 
   // @nuxtjs/i18n — nuxt module (no vite plugin), vue-i18n JSON format
   if (isInstalled('@nuxtjs/i18n') || isInstalled('@intlayer/nuxtjs-i18n')) {
-    addIfMissing('@intlayer/nuxtjs-i18n');
-    addIfMissing('@nuxtjs/i18n');
+    markCompatReplacement('@nuxtjs/i18n', '@intlayer/nuxtjs-i18n');
     compatSyncConfig ??= {
       format: 'vue-i18n',
       sourceTemplate: './locales/${locale}/${key}.json',
@@ -566,8 +674,7 @@ export const detectMissingIntlayerPackages = (
     isInstalled('@ngx-translate/core') ||
     isInstalled('@intlayer/ngx-translate')
   ) {
-    addIfMissing('@intlayer/ngx-translate');
-    addIfMissing('@ngx-translate/core');
+    markCompatReplacement('@ngx-translate/core', '@intlayer/ngx-translate');
     compatSyncConfig ??= {
       format: 'i18next',
       sourceTemplate: './assets/i18n/${locale}.json',
@@ -588,8 +695,11 @@ export const detectMissingIntlayerPackages = (
     isInstalled('@lingui/react') ||
     isInstalled('@intlayer/lingui')
   ) {
-    addIfMissing('@intlayer/lingui');
-    addIfMissing('@lingui/core');
+    markCompatReplacement('@lingui/core', '@intlayer/lingui');
+
+    if (isInstalled('@lingui/react')) {
+      markCompatReplacement('@lingui/react', '@intlayer/lingui');
+    }
 
     const linguiUsesPo = options.linguiCatalogFormat === 'po';
     compatSyncConfig ??= linguiUsesPo
@@ -621,8 +731,7 @@ export const detectMissingIntlayerPackages = (
   // i18n-js — vite alias injection required
   // @todo syncJSON format not yet implemented for i18n-js
   if (isInstalled('i18n-js') || isInstalled('@intlayer/i18n-js')) {
-    addIfMissing('@intlayer/i18n-js');
-    addIfMissing('i18n-js');
+    markCompatReplacement('i18n-js', '@intlayer/i18n-js');
     compatVitePluginConfig ??= {
       pluginFunctionName: 'i18nJsVitePlugin',
       pluginPackageSource: '@intlayer/i18n-js/plugin',
@@ -640,6 +749,7 @@ export const detectMissingIntlayerPackages = (
   return {
     packagesToInstall,
     devPackagesToInstall,
+    packagesToMoveToDev,
     compatSyncConfig,
     compatVitePluginConfig,
   };
@@ -683,7 +793,9 @@ export const isIntlayerPackageName = (packageName: string): boolean =>
  */
 export const normalizeVersion = (version?: string): string | null => {
   if (!version || typeof version !== 'string') return null;
+
   const match = version.match(/(\d+)\.(\d+)\.(\d+)/);
+
   return match ? `${match[1]}.${match[2]}.${match[3]}` : null;
 };
 

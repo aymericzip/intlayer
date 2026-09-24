@@ -10,6 +10,7 @@ import {
   findLockFileDir,
   hasLintTooling,
   isIntlayerPackageName,
+  moveCompatPackagesToDevDependencies,
   normalizeVersion,
 } from './packageManager';
 
@@ -205,6 +206,44 @@ describe('detectMissingIntlayerPackages', () => {
       });
 
       expect(result.compatSyncConfig?.splitKeys).toBeUndefined();
+    });
+
+    it('marks next-intl to be moved to devDependencies when in dependencies', () => {
+      const result = detectMissingIntlayerPackages({
+        next: '^15.0.0',
+        'next-intl': '^4.0.0',
+      });
+
+      expect(result.packagesToInstall).toContain('@intlayer/next-intl');
+      expect(result.packagesToInstall).not.toContain('next-intl');
+      expect(result.packagesToMoveToDev).toContain('next-intl');
+    });
+
+    it('does not mark next-intl to move when already in devDependencies', () => {
+      const result = detectMissingIntlayerPackages(
+        {
+          next: '^15.0.0',
+          'next-intl': '^4.0.0',
+        },
+        {
+          dependencies: { next: '^15.0.0' },
+          devDependencies: { 'next-intl': '^4.0.0' },
+        }
+      );
+
+      expect(result.packagesToMoveToDev).not.toContain('next-intl');
+      expect(result.packagesToInstall).toContain('@intlayer/next-intl');
+      expect(result.packagesToInstall).not.toContain('next-intl');
+    });
+
+    it('installs next-intl as devPackage when missing but @intlayer/next-intl is present', () => {
+      const result = detectMissingIntlayerPackages({
+        next: '^15.0.0',
+        '@intlayer/next-intl': '^9.0.0',
+      });
+
+      expect(result.packagesToInstall).not.toContain('next-intl');
+      expect(result.devPackagesToInstall).toContain('next-intl');
     });
   });
 
@@ -416,6 +455,66 @@ describe('package manager detection', () => {
 
     it('stops at the repository root', async () => {
       expect(findLockFileDir(rootDir)).toBeNull();
+    });
+  });
+
+  describe('moveCompatPackagesToDevDependencies', () => {
+    it('moves next-intl from dependencies to devDependencies', () => {
+      const packageJson = {
+        name: 'my-app',
+        dependencies: {
+          next: '^15.0.0',
+          'next-intl': '^3.26.0',
+          react: '^19.0.0',
+        },
+        devDependencies: {
+          typescript: '^5.0.0',
+        },
+      };
+
+      const moved = moveCompatPackagesToDevDependencies(packageJson);
+
+      expect(moved).toEqual(['next-intl']);
+      expect(packageJson.dependencies['next-intl']).toBeUndefined();
+      expect(packageJson.devDependencies['next-intl']).toBe('^3.26.0');
+      expect(packageJson.devDependencies.typescript).toBe('^5.0.0');
+    });
+
+    it('does not touch already separated dependencies', () => {
+      const packageJson = {
+        dependencies: {
+          next: '^15.0.0',
+          react: '^19.0.0',
+        },
+        devDependencies: {
+          'next-intl': '^3.26.0',
+        },
+      };
+
+      const moved = moveCompatPackagesToDevDependencies(packageJson);
+
+      expect(moved).toEqual([]);
+      expect(packageJson.devDependencies['next-intl']).toBe('^3.26.0');
+    });
+
+    it('handles multiple compat packages', () => {
+      const packageJson = {
+        dependencies: {
+          i18next: '^23.0.0',
+          'react-i18next': '^14.0.0',
+          react: '^19.0.0',
+        },
+        devDependencies: {},
+      };
+
+      const moved = moveCompatPackagesToDevDependencies(packageJson);
+
+      expect(moved).toContain('i18next');
+      expect(moved).toContain('react-i18next');
+      expect(packageJson.dependencies.i18next).toBeUndefined();
+      expect(packageJson.dependencies['react-i18next']).toBeUndefined();
+      expect(packageJson.devDependencies.i18next).toBe('^23.0.0');
+      expect(packageJson.devDependencies['react-i18next']).toBe('^14.0.0');
     });
   });
 });
