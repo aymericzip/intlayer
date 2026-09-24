@@ -500,23 +500,6 @@ const selectorNodeTypes: string[] = [
   NodeTypes.SELECT,
 ];
 
-/** Whether `insert()` wraps a selector node that resolved to a function. */
-const isInsertedSelector = (
-  children: unknown,
-  result: unknown
-): result is (selector: unknown) => unknown => {
-  const nodeType =
-    typeof children === 'object' && children !== null
-      ? (children as { nodeType?: unknown }).nodeType
-      : undefined;
-
-  return (
-    typeof result === 'function' &&
-    typeof nodeType === 'string' &&
-    selectorNodeTypes.includes(nodeType)
-  );
-};
-
 /**
  * Binds the values of an `insert()` to the selector node it wraps, returning
  * `(selector) => content`. Any other child result is returned unchanged.
@@ -531,14 +514,17 @@ export const bindInsertedValues = (
   values: Record<string, unknown>,
   areBranchesInterpolated = false
 ): unknown => {
-  if (!isInsertedSelector(children, result)) {
+  const nodeType = (children as { nodeType?: string })?.nodeType;
+  if (
+    typeof result !== 'function' ||
+    !nodeType ||
+    !selectorNodeTypes.includes(nodeType)
+  ) {
     return result;
   }
 
-  const isPlural =
-    (children as { nodeType: string }).nodeType === NodeTypes.PLURAL;
-  const isEnumeration =
-    (children as { nodeType: string }).nodeType === NodeTypes.ENUMERATION;
+  const isPlural = nodeType === NodeTypes.PLURAL;
+  const isEnumeration = nodeType === NodeTypes.ENUMERATION;
 
   return (selector: unknown) => {
     // Object selectors (`{ count }`, `{ value }`) carry the values along.
@@ -578,7 +564,10 @@ export const resolveInsertedSelector = (
   children: unknown,
   result: unknown
 ): unknown =>
-  isInsertedSelector(children, result)
+  typeof result === 'function' &&
+  selectorNodeTypes.includes(
+    (children as { nodeType?: string })?.nodeType ?? ''
+  )
     ? (values: Record<string, unknown>) =>
         bindInsertedValues(children, result, values)
     : result;
