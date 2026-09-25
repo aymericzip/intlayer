@@ -1,5 +1,6 @@
 import {
   ATTR_EXTRACTOR_R,
+  ATTRIBUTE_NAME_START_R,
   ATTRIBUTE_TO_NODE_PROP_MAP,
   BLOCK_END_R,
   BLOCKQUOTE_ALERT_R,
@@ -1541,7 +1542,9 @@ const createDocumentRules = (
             options
           ).ast;
         }
-      } else if (raw !== 'style') {
+      } else if (raw !== 'style' && ATTRIBUTE_NAME_START_R.test(raw)) {
+        // Skips tokens that cannot name an attribute, such as the `3` or
+        // `3-5` a fence's `{3,3-5}` line-highlight meta splits into.
         map[ATTRIBUTE_TO_NODE_PROP_MAP[raw] ?? raw] = true;
       }
 

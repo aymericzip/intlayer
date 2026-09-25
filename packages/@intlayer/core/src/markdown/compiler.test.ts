@@ -192,6 +192,16 @@ describe('Markdown Core Compiler', () => {
     expect(html).toContain('line```\nrest\n');
   });
 
+  it('should not turn a fence line-highlight meta into attributes', () => {
+    const result = compile(
+      '```tsx {1,3-5} fileName="a.tsx"\ncode\n```\n',
+      ctx
+    ) as any;
+    const codeProps = result.children[0].props;
+
+    expect(codeProps).toEqual({ fileName: 'a.tsx', className: 'lang-tsx' });
+  });
+
   it('should close a fenced code block left unterminated at the end of the source', () => {
     const html = (compile('```js\nconst a = 1;', ctx) as any).toString();
 
