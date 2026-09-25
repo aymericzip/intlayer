@@ -28,6 +28,7 @@ import type {
   InsertionContent,
   MarkdownContent,
 } from '@intlayer/core/transpiler';
+import { getIntlayerNodePrototype } from '@intlayer/core/utils';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
   DeclaredLocales,
@@ -56,7 +57,7 @@ const compileMarkdown = (markdown = '', options: CompileOptions = {}): string =>
 /**
  * Creates a Lit-renderable node for raw HTML/compiled markdown.
  *
- * The returned object is a Proxy over an `unsafeHTML` DirectiveResult or TemplateResult
+ * The returned object is a copy of an `unsafeHTML` DirectiveResult or TemplateResult
  * so that Lit's template engine renders it as HTML, while string
  * coercion (`.toString()`, `String(node)`) still returns the raw source string
  * for editor tooling and serialization.
@@ -73,22 +74,28 @@ const createLitHTMLNode = (
         ? content
         : content;
 
-  return new Proxy(result as any, {
-    get(target, prop, receiver) {
-      if (prop === 'value' || prop === 'raw') return rawStr;
-      if (prop === 'toString') return () => rawStr;
-      if (prop === Symbol.toPrimitive) return () => rawStr;
-      if (prop === Symbol.iterator) return undefined;
-      if (prop === '__update') return () => {};
-      if (prop === 'isJSX') return true;
+  const isArrayResult = Array.isArray(result);
+  const node = Object.assign(
+    isArrayResult ? [...result] : { ...result },
+    additionalProps,
+    {
+      value: rawStr,
+      raw: rawStr,
+      [Symbol.iterator]: undefined,
+      __update: () => {},
+      isJSX: true,
+    }
+  );
 
-      if (prop in additionalProps) {
-        return (additionalProps as any)[prop];
-      }
-
-      return Reflect.get(target, prop, receiver);
-    },
-  });
+  // Serves `${node}` and the string members from the raw source, after the
+  // assignments above so they never walk a Proxy in the prototype chain
+  return Object.setPrototypeOf(
+    node,
+    getIntlayerNodePrototype(
+      rawStr,
+      isArrayResult ? Array.prototype : Object.prototype
+    )
+  );
 };
 
 /** ---------------------------------------------

@@ -1,5 +1,5 @@
 // import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
-import { delegateNativeMethods } from '@intlayer/core/utils';
+import { getIntlayerNodePrototype } from '@intlayer/core/utils';
 import IntlayerNodeWrapper from './IntlayerNodeWrapper.svelte';
 
 type IntlayerNodeProps = {
@@ -24,18 +24,19 @@ export const renderIntlayerNode = <T, AdditionalProps = Record<string, any>>(
   let Node: any;
 
   if (isClassComponent) {
-    Node = class extends (IntlayerNodeWrapper as any) {
-      constructor(options: any) {
-        super({
-          ...options,
-          props: {
-            ...options.props,
-            Renderer: args.component,
-            rendererProps: args.props,
-            value: args.value,
-          },
-        });
-      }
+    // A constructor function returning the instance rather than a subclass:
+    // `super()` resolves through the constructor's prototype, which is
+    // replaced below
+    Node = function IntlayerNode(options: any) {
+      return new (IntlayerNodeWrapper as any)({
+        ...options,
+        props: {
+          ...options.props,
+          Renderer: args.component,
+          rendererProps: args.props,
+          value: args.value,
+        },
+      });
     };
   } else {
     // Functional component (Svelte 5)
@@ -54,27 +55,16 @@ export const renderIntlayerNode = <T, AdditionalProps = Record<string, any>>(
     configurable: true,
   });
 
-  Object.defineProperty(Node, 'toString', {
-    value: () => String(args.value ?? ''),
-    writable: true,
-    configurable: true,
-  });
-
-  Object.defineProperty(Node, 'valueOf', {
-    value: () => args.value,
-    writable: true,
-    configurable: true,
-  });
-
-  Object.defineProperty(Node, Symbol.toPrimitive, {
-    value: () => args.value ?? '',
-    writable: true,
-    configurable: true,
-  });
-
   if (args.additionalProps) {
     Object.assign(Node, args.additionalProps);
   }
 
-  return delegateNativeMethods(Node, () => args.value);
+  // Serves the value's members (`node.toUpperCase()`), after the assignments
+  // above so they never walk a Proxy in the prototype chain
+  Object.setPrototypeOf(
+    Node,
+    getIntlayerNodePrototype(args.value, Function.prototype)
+  );
+
+  return Node;
 };

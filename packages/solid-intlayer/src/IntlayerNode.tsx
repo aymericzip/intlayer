@@ -1,7 +1,7 @@
 import type { NodeProps } from '@intlayer/core/interpreter';
+import { getIntlayerNodePrototype } from '@intlayer/core/utils';
 import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import type { JSX, ParentProps } from 'solid-js';
-import { isArrayIndexProperty, PROXY_RESERVED_KEYS } from './proxyKeys';
 
 export type IntlayerNode<
   T = NodeProps['children'],
@@ -38,45 +38,12 @@ export const renderIntlayerNode = <T,>({
     }
   }
 
-  // Proxy so `.value`, coercion hooks, etc. resolve to the content while the
-  // target stays a renderable array.
-  return new Proxy(target, {
-    get(target, prop, receiver) {
-      if (prop === PROXY_RESERVED_KEYS.value) {
-        return value;
-      }
+  // Serves the value's members (`node.toUpperCase()`, `${node}`) while the
+  // node stays a renderable array: array members come first
+  Object.setPrototypeOf(
+    target,
+    getIntlayerNodePrototype(value, Array.prototype)
+  );
 
-      if (prop === Symbol.toPrimitive)
-        return (hint: string) => {
-          if (hint === 'number') return Number(value);
-          return value ?? '';
-        };
-      if (prop === PROXY_RESERVED_KEYS.toString)
-        return () => String(value ?? '');
-      if (prop === PROXY_RESERVED_KEYS.valueOf) return () => value;
-
-      // Solid's server renderer calls Array#slice on renderable arrays. Keep
-      // that operation bound to the wrapper [children] array.
-      if (prop === PROXY_RESERVED_KEYS.slice) {
-        return Reflect.get(target, prop, receiver);
-      }
-
-      if (
-        value !== null &&
-        value !== undefined &&
-        typeof prop === 'string' &&
-        prop !== PROXY_RESERVED_KEYS.constructor &&
-        prop !== PROXY_RESERVED_KEYS.length &&
-        !isArrayIndexProperty(prop)
-      ) {
-        const valObj = Object(value);
-        if (prop in valObj) {
-          const valProp = Reflect.get(valObj, prop);
-          return typeof valProp === 'function' ? valProp.bind(value) : valProp;
-        }
-      }
-
-      return Reflect.get(target, prop, receiver);
-    },
-  }) as unknown as IntlayerNode<T>;
+  return target as unknown as IntlayerNode<T>;
 };

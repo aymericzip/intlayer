@@ -1,4 +1,4 @@
-import { delegateNativeMethods } from '@intlayer/core/utils';
+import { getIntlayerNodePrototype } from '@intlayer/core/utils';
 import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import { markRaw, ref, type VNodeChild } from 'vue';
 
@@ -99,5 +99,12 @@ export const renderIntlayerNode = <
   });
 
   /* make sure Vue never tries to proxy the component object itself */
-  return markRaw(delegateNativeMethods(node, () => rawRef.value));
+  /* serve the value's members (`node.toUpperCase()`), after the assignments */
+  /* above so they never walk a Proxy in the prototype chain              */
+  Object.setPrototypeOf(
+    node,
+    getIntlayerNodePrototype(value, Function.prototype)
+  );
+
+  return markRaw(node);
 };

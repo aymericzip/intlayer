@@ -410,27 +410,11 @@ export const markdownStringPlugin: Plugins =
                 ),
               additionalProps: {
                 metadata: metadataNodes,
+                use: render,
               },
             });
 
-          const element = render() as any;
-
-          return new Proxy(element, {
-            get(target, prop, receiver) {
-              if (prop === 'value') return node;
-              if (prop === Symbol.toPrimitive) return () => node;
-              if (prop === 'toString') return () => node;
-              if (prop === 'valueOf') return () => node;
-              if (typeof prop === 'string' && prop !== 'constructor') {
-                const method = (String.prototype as any)[prop];
-                if (typeof method === 'function') return method.bind(node);
-              }
-              if (prop === 'metadata') return metadataNodes;
-              if (prop === 'use')
-                return (components?: HTMLComponents) => render(components);
-              return Reflect.get(target, prop, receiver);
-            },
-          });
+          return render() as any;
         },
       };
 
@@ -537,27 +521,10 @@ export const htmlPlugin: Plugins =
                     components={userComponents}
                   />
                 ),
+              additionalProps: { use: render },
             });
 
-          const element = render() as any;
-          const target = [element];
-
-          return new Proxy(target as any, {
-            get(target, prop, receiver) {
-              if (prop === 'value') return html;
-              if (prop === Symbol.toPrimitive) return () => html;
-              if (prop === 'toString') return () => html;
-              if (prop === 'valueOf') return () => html;
-              if (typeof prop === 'string' && prop !== 'constructor') {
-                const method = (String.prototype as any)[prop];
-                if (typeof method === 'function') return method.bind(html);
-              }
-              if (prop === 'use')
-                return (userComponents?: HTMLComponents) =>
-                  render(userComponents);
-              return Reflect.get(target, prop, receiver);
-            },
-          });
+          return render();
         },
       };
 

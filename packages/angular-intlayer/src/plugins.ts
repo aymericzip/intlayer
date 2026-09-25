@@ -207,8 +207,10 @@ export const markdownStringPlugin: Plugins =
               ?.useMarkdown()
               .renderMarkdown(node, components) ?? node;
 
-          const render = (components?: any) =>
-            renderIntlayerNode({
+          const render = (components?: any): any => {
+            const toHtml = () => compileToHtml(node, components);
+
+            return renderIntlayerNode({
               ...rest,
               value: node,
               children:
@@ -226,41 +228,15 @@ export const markdownStringPlugin: Plugins =
                     }),
               additionalProps: {
                 metadata: metadataNodes,
+                toString: toHtml,
+                [Symbol.toPrimitive]: toHtml,
+                use: (newComponents?: any) =>
+                  render({ ...components, ...newComponents }),
               },
             });
+          };
 
-          const createProxy = (element: any, components?: any) =>
-            new Proxy(element, {
-              get(target, prop, receiver) {
-                if (prop === 'value') {
-                  return node;
-                }
-                if (prop === 'metadata') {
-                  return metadataNodes;
-                }
-
-                if (prop === 'toString' || prop === Symbol.toPrimitive) {
-                  return () => compileToHtml(node, components);
-                }
-
-                if (prop === 'use') {
-                  return (newComponents?: any) => {
-                    const mergedComponents = {
-                      ...components,
-                      ...newComponents,
-                    };
-                    return createProxy(
-                      render(mergedComponents),
-                      mergedComponents
-                    );
-                  };
-                }
-
-                return Reflect.get(target, prop, receiver);
-              },
-            }) as any;
-
-          return createProxy(render() as any);
+          return render();
         },
       };
 
@@ -342,8 +318,14 @@ export const htmlPlugin: Plugins =
           const { plugins, ...rest } = props;
 
           // Type-safe render function that accepts properly typed components
-          const render = (userComponents?: any) =>
-            renderIntlayerNode({
+          const render = (userComponents?: any): any => {
+            // Without component overrides the source is already HTML
+            const toHtml = () =>
+              !userComponents || Object.keys(userComponents).length === 0
+                ? String(html)
+                : compileToHtml(String(html), userComponents);
+
+            return renderIntlayerNode({
               ...rest,
               value: html,
               children:
@@ -359,45 +341,16 @@ export const htmlPlugin: Plugins =
                       },
                       children: html,
                     }),
-            });
-
-          const createProxy = (element: any, components?: any) =>
-            new Proxy(element, {
-              get(target, prop, receiver) {
-                if (prop === 'value') {
-                  return html;
-                }
-
-                if (prop === 'toString' || prop === Symbol.toPrimitive) {
-                  return () => {
-                    // Without component overrides the source is already HTML.
-                    if (!components || Object.keys(components).length === 0) {
-                      return String(html);
-                    }
-
-                    return compileToHtml(String(html), components);
-                  };
-                }
-
-                if (prop === 'use') {
-                  // Return a properly typed function based on custom components
-                  return (userComponents?: any) => {
-                    const mergedComponents = {
-                      ...components,
-                      ...userComponents,
-                    };
-                    return createProxy(
-                      render(mergedComponents),
-                      mergedComponents
-                    );
-                  };
-                }
-
-                return Reflect.get(target, prop, receiver);
+              additionalProps: {
+                toString: toHtml,
+                [Symbol.toPrimitive]: toHtml,
+                use: (newComponents?: any) =>
+                  render({ ...userComponents, ...newComponents }),
               },
-            }) as any;
+            });
+          };
 
-          return createProxy(render() as any);
+          return render();
         },
       };
 

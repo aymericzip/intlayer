@@ -1,4 +1,4 @@
-import { delegateNativeMethods } from '@intlayer/core/utils';
+import { getIntlayerNodePrototype } from '@intlayer/core/utils';
 import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 
 export type IntlayerNode<T = string> = ResolvedEditor<
@@ -35,6 +35,9 @@ export const renderIntlayerNode = <
   let _value = value;
 
   const node = {
+    // Serves the value's members: `node.toUpperCase()`, `'trim' in node`
+    __proto__: getIntlayerNodePrototype(value),
+
     toString: () => String(_value ?? ''),
     valueOf: () => _value,
     [Symbol.toPrimitive]: () => _value,
@@ -66,8 +69,5 @@ export const renderIntlayerNode = <
     ...additionalProps,
   };
 
-  return delegateNativeMethods(
-    node,
-    () => _value
-  ) as unknown as IntlayerNode<T>;
+  return node as unknown as IntlayerNode<T>;
 };

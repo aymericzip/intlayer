@@ -36,11 +36,13 @@ export const renderIntlayerNode = <
   value,
   additionalProps,
 }: RenderIntlayerNodeProps<T>): IntlayerNode<T> =>
-  // A literal defines its fields directly: assignments would first look for
-  // setters along the prototype chain, through its Proxy
-  ({
-    __proto__: getIntlayerNodePrototype(value),
-    ...(isValidElement(children) ? children : <>{children}</>),
-    value,
-    ...additionalProps,
-  }) as unknown as IntlayerNode<T>;
+  // Fields first, prototype last: set the other way round, each field would
+  // first look for a setter along the prototype chain, through its Proxy
+  Object.setPrototypeOf(
+    {
+      ...(isValidElement(children) ? children : <>{children}</>),
+      value,
+      ...additionalProps,
+    },
+    getIntlayerNodePrototype(value)
+  );

@@ -421,8 +421,8 @@ export const markdownStringPlugin: Plugins =
               keyPath: [],
             }) ?? {};
 
-          const render = (components?: any) => {
-            const nodeResult = renderIntlayerNode({
+          const render = (components?: any): any =>
+            renderIntlayerNode({
               value: node,
               component: resolveMarkdownRenderer(),
               props: {
@@ -432,35 +432,15 @@ export const markdownStringPlugin: Plugins =
               },
               additionalProps: {
                 metadata: metadataNodes,
+                use: render,
+                toString: () =>
+                  _compile?.(
+                    node,
+                    { runtime: _svelteHtmlRuntime, components: components },
+                    {}
+                  ) ?? node,
               },
             });
-
-            return new Proxy(nodeResult as any, {
-              get(target, prop, receiver) {
-                if (prop === 'value') {
-                  return node;
-                }
-                if (prop === 'metadata') {
-                  return metadataNodes;
-                }
-
-                if (prop === 'use') {
-                  return (newComponents?: any) => render(newComponents);
-                }
-
-                if (prop === 'toString') {
-                  return () =>
-                    _compile?.(
-                      node,
-                      { runtime: _svelteHtmlRuntime, components: components },
-                      {}
-                    ) ?? node;
-                }
-
-                return Reflect.get(target, prop, receiver);
-              },
-            });
-          };
 
           return render();
         },
