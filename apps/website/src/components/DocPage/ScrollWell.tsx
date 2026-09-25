@@ -83,6 +83,7 @@ const Title: FC = () => {
           exit={{ opacity: 0, y: 2 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
           className="block truncate text-muted-foreground text-xs leading-tight"
+          title={firstTitle}
         >
           {firstTitle ?? ''}
         </m.span>
@@ -96,7 +97,7 @@ const Title: FC = () => {
             animate={{ opacity: 1, height: 'auto', y: 0 }}
             exit={{ opacity: 0, height: 0, y: -3 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="overflow-hidden"
+            className="w-full min-w-0 overflow-hidden"
           >
             <AnimatePresence mode="wait" initial={false}>
               <m.span
@@ -106,6 +107,7 @@ const Title: FC = () => {
                 exit={{ opacity: 0, y: 2 }}
                 transition={{ duration: 0.15, ease: 'easeOut' }}
                 className="block truncate text-[10px] text-muted-foreground/60 leading-tight"
+                title={secondTitle}
               >
                 {secondTitle}
               </m.span>

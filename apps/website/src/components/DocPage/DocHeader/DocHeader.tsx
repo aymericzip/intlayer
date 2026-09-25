@@ -225,10 +225,10 @@ export const DocHeader: FC<DocHeaderProps> = ({
       </header>
       <Container
         roundedSize="4xl"
-        className="sticky top-10 z-10 mx-auto mt-5 flex max-w-3xl flex-col gap-2 border px-4 py-2 max-md:overflow-x-auto"
+        className="sticky top-10 z-10 mx-auto mt-5 flex max-w-3xl flex-col gap-2 border px-4 py-2"
       >
-        <div className="flex w-full flex-row justify-between gap-4">
-          <div className="flex w-full shrink flex-row items-center justify-start gap-4">
+        <div className="flex w-full min-w-0 flex-row items-center justify-between gap-4">
+          <div className="flex min-w-0 flex-1 flex-row items-center justify-start">
             <ScrollWellAndTitle />
           </div>
           <div className="flex shrink-0 flex-row items-center justify-end gap-4">
