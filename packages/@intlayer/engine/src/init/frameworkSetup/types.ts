@@ -21,6 +21,12 @@ export type FrameworkSetupContext = {
    * (`prefix-no-default` → `{-$locale}`).
    */
   routingMode: RoutingMode;
+  /**
+   * Whether locale routing goes through the Intlayer proxy (middleware), i.e.
+   * the effective `routing.enableProxy`. When `false`, adapters scaffold no
+   * proxy file and no locale route segment.
+   */
+  enableProxy: boolean;
 };
 
 /**

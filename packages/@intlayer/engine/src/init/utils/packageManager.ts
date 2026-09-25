@@ -490,6 +490,31 @@ export const detectMissingIntlayerPackages = (
     addIfMissing('vite-intlayer');
   }
 
+  // Server frameworks. NestJS runs on Express unless the Fastify platform is
+  // installed, so it gets the matching adapter.
+  const isNestJsProject = isInstalled('@nestjs/core');
+  const isNestJsOnFastify = isInstalled('@nestjs/platform-fastify');
+
+  if (isInstalled('express') || (isNestJsProject && !isNestJsOnFastify)) {
+    addIfMissing('express-intlayer');
+  }
+
+  if (isInstalled('fastify') || isNestJsOnFastify) {
+    addIfMissing('fastify-intlayer');
+  }
+
+  if (isInstalled('hono')) {
+    addIfMissing('hono-intlayer');
+  }
+
+  if (isInstalled('elysia')) {
+    addIfMissing('elysia-intlayer');
+  }
+
+  if (isInstalled('@adonisjs/core')) {
+    addIfMissing('adonis-intlayer');
+  }
+
   // Lint rules — only when the project already lints.
   if (hasLintTooling(allDependencies)) {
     addDevIfMissing('eslint-plugin-intlayer');

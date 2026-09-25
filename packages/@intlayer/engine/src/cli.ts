@@ -18,6 +18,7 @@ export {
   installPackages,
   type PackageManager,
 } from './init/utils/packageManager';
+export { hasUrlRoutingFramework } from './init/utils/urlRoutingFramework';
 export * from './installLSP';
 export * from './installMCP/installMCP';
 export * from './installSkills/index';

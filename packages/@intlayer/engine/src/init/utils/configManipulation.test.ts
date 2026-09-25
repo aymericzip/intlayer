@@ -5,7 +5,9 @@ import {
   hasIntlayerVitePlugin,
   replaceViteConfigPluginImportSource,
   setIntlayerConfigCompilerOutput,
+  setIntlayerConfigEnableProxy,
   setIntlayerConfigRoutingMode,
+  setIntlayerConfigRoutingStorageOnly,
   updateAstroConfig,
   updateIntlayerConfigWithSyncPlugin,
   updateMetroConfig,
@@ -674,6 +676,61 @@ export default config;
       );
       expect(updated).toContain('/** Locale routing strategy. */');
       expect(updated).toContain('mode: "prefix-all"');
+    });
+  });
+
+  describe('setIntlayerConfigEnableProxy', () => {
+    it('should replace routing.enableProxy in a ts config', () => {
+      const updated = setIntlayerConfigEnableProxy(TS_CONFIG, 'ts', false);
+      expect(updated).toContain('enableProxy: false');
+      expect(updated).not.toContain('enableProxy: true');
+    });
+
+    it('should add routing.enableProxy when absent', () => {
+      const updated = setIntlayerConfigEnableProxy(
+        setIntlayerConfigRoutingStorageOnly(TS_CONFIG, 'ts'),
+        'ts',
+        true
+      );
+      expect(updated).toContain('enableProxy: true');
+    });
+
+    it('should replace routing.enableProxy in a commented json config', () => {
+      const jsonConfig = `{
+  "routing": {
+    /** Proxy. */
+    "enableProxy": false
+  }
+}`;
+      const updated = setIntlayerConfigEnableProxy(jsonConfig, 'json', true);
+      expect(updated).toContain('"enableProxy": true');
+      expect(updated).toContain('/** Proxy. */');
+    });
+
+    it('should be idempotent', () => {
+      const once = setIntlayerConfigEnableProxy(TS_CONFIG, 'ts', false);
+      expect(setIntlayerConfigEnableProxy(once, 'ts', false)).toBe(once);
+    });
+  });
+
+  describe('setIntlayerConfigRoutingStorageOnly', () => {
+    it('should keep only a default routing.storage', () => {
+      const updated = setIntlayerConfigRoutingStorageOnly(TS_CONFIG, 'ts');
+      expect(updated).toContain('storage: ["cookie", "header"]');
+      expect(updated).not.toContain('prefix-no-default');
+      expect(updated).not.toContain('enableProxy');
+      // Other sections are untouched
+      expect(updated).toContain("applicationURL: 'http://localhost:3000'");
+    });
+
+    it('should keep an existing routing.storage value', () => {
+      const withStorage = TS_CONFIG.replace(
+        "mode: 'prefix-no-default',",
+        "mode: 'prefix-no-default',\n    storage: ['localStorage'],"
+      );
+      const updated = setIntlayerConfigRoutingStorageOnly(withStorage, 'ts');
+      expect(updated).toContain("storage: ['localStorage']");
+      expect(updated).not.toContain('mode:');
     });
   });
 

@@ -1,3 +1,4 @@
+import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, colorizePath, logger, v, x } from '@intlayer/config/logger';
@@ -7,9 +8,10 @@ import {
   readFileFromRoot,
   writeFileToRoot,
 } from '../../utils/fileSystem';
+import { usesLocalePathSegment } from '../localeRouting';
 import type { FrameworkAdapter, FrameworkSetupContext } from '../types';
 import { detectNextAppDir, findAppFile, isVersionAtLeast } from './detect';
-import { restructureAppIntoLocale } from './restructure';
+import { isLocaleSegment, restructureAppIntoLocale } from './restructure';
 import {
   LOCALE_LAYOUT_TEMPLATE_JS,
   LOCALE_LAYOUT_TEMPLATE_TS,
@@ -19,6 +21,9 @@ import {
   PROXY_TEMPLATE,
   ROOT_LAYOUT_TEMPLATE_JS,
   ROOT_LAYOUT_TEMPLATE_TS,
+  UNPREFIXED_PAGE_TEMPLATE,
+  UNPREFIXED_ROOT_LAYOUT_TEMPLATE_JS,
+  UNPREFIXED_ROOT_LAYOUT_TEMPLATE_TS,
 } from './templates';
 import { type TransformResult, wrapLayoutWithProvider } from './transforms';
 
@@ -115,11 +120,60 @@ const createIfMissing = async (
 };
 
 /**
- * Next.js App Router adapter. Scaffolds the locale proxy/middleware, restructures
- * the app into a `[locale]` segment, and wraps the layout with the unified
- * Intlayer provider — all idempotently and without overwriting recognizable
- * user code. Pages are never wrapped: `IntlayerProvider` in the locale layout
- * covers them.
+ * Wires an app whose URLs carry no locale segment (`no-prefix`,
+ * `search-params`, or no proxy): routes stay at the app root and the root
+ * layout provides the locale resolved by `getLocale()`. An app already nested
+ * under a locale segment is left untouched, with guidance.
+ */
+const setupUnprefixedApp = async (
+  rootDir: string,
+  appDir: string,
+  useTypeScript: boolean
+): Promise<void> => {
+  const scriptExtension = useTypeScript ? 'tsx' : 'jsx';
+
+  const entries = await readdir(join(rootDir, appDir));
+  const existingLocaleSegment = entries.find(isLocaleSegment);
+  if (existingLocaleSegment) {
+    logger(
+      `${x} Routes live under ${colorizePath(join(appDir, existingLocaleSegment))} but the chosen routing has no locale in the URL — move them back to ${colorizePath(appDir)} manually.`,
+      { level: 'warn' }
+    );
+    return;
+  }
+
+  const existingLayout = await findAppFile(rootDir, appDir, 'layout');
+  if (existingLayout) {
+    await transformExistingFile(rootDir, existingLayout, (code) =>
+      wrapLayoutWithProvider(code, { exportStaticParams: false })
+    );
+  } else {
+    await createIfMissing(
+      rootDir,
+      join(appDir, `layout.${scriptExtension}`),
+      useTypeScript
+        ? UNPREFIXED_ROOT_LAYOUT_TEMPLATE_TS
+        : UNPREFIXED_ROOT_LAYOUT_TEMPLATE_JS,
+      'root layout'
+    );
+  }
+
+  if (!(await findAppFile(rootDir, appDir, 'page'))) {
+    await createIfMissing(
+      rootDir,
+      join(appDir, `page.${scriptExtension}`),
+      UNPREFIXED_PAGE_TEMPLATE,
+      'page'
+    );
+  }
+};
+
+/**
+ * Next.js App Router adapter. Scaffolds the locale proxy/middleware (when the
+ * proxy is enabled), restructures the app into a `[locale]` segment (prefix
+ * routing modes only), and wraps the layout with the unified Intlayer provider
+ * — all idempotently and without overwriting recognizable user code. Pages are
+ * never wrapped: `IntlayerProvider` in the layout covers them.
  */
 export const nextAppRouterAdapter: FrameworkAdapter = {
   name: 'Next.js App Router',
@@ -129,7 +183,13 @@ export const nextAppRouterAdapter: FrameworkAdapter = {
     return (await detectNextAppDir(rootDir)) !== null;
   },
 
-  setup: async ({ rootDir, allDeps, useTypeScript }: FrameworkSetupContext) => {
+  setup: async ({
+    rootDir,
+    allDeps,
+    useTypeScript,
+    routingMode,
+    enableProxy,
+  }: FrameworkSetupContext) => {
     const appDirInfo = await detectNextAppDir(rootDir);
     if (!appDirInfo) return;
 
@@ -142,7 +202,15 @@ export const nextAppRouterAdapter: FrameworkAdapter = {
     );
 
     // 1. Locale detection proxy / middleware (create only when absent).
-    await ensureProxyOrMiddleware(rootDir, srcDir, isNext16);
+    if (enableProxy) {
+      await ensureProxyOrMiddleware(rootDir, srcDir, isNext16);
+    }
+
+    // Without a locale path segment, routes stay where they are.
+    if (!usesLocalePathSegment({ routingMode, enableProxy })) {
+      await setupUnprefixedApp(rootDir, appDir, useTypeScript);
+      return;
+    }
 
     // 2. Move routable files under a `[locale]` segment (idempotent).
     const restructureResult = await restructureAppIntoLocale(rootDir, appDir);

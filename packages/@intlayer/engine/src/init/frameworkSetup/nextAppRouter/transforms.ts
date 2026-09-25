@@ -182,6 +182,16 @@ const setHtmlLang = (ast: any): void => {
   });
 };
 
+/** Options of {@link wrapLayoutWithProvider}. */
+export type WrapLayoutOptions = {
+  /**
+   * Re-export `generateStaticParams` from `next-intlayer`. Only meaningful for a
+   * layout under a `[locale]` segment; a root layout of an unprefixed app has
+   * no locale param to pre-render. Default: `true`.
+   */
+  exportStaticParams?: boolean;
+};
+
 /**
  * Wraps the `{children}` of a Next.js App Router **layout** with the unified
  * `IntlayerProvider`, deriving the locale via `getLocale()`. Safe and
@@ -193,7 +203,10 @@ const setHtmlLang = (ast: any): void => {
  * pages below the locale layout read locale/variant from it without wrapping
  * themselves individually (see the removed `wrapPageWithProvider`).
  */
-export const wrapLayoutWithProvider = (code: string): TransformResult => {
+export const wrapLayoutWithProvider = (
+  code: string,
+  { exportStaticParams = true }: WrapLayoutOptions = {}
+): TransformResult => {
   const ast = parseTsx(code);
 
   if (isClientComponent(ast)) return { code, status: 'skipped-client' };
@@ -220,7 +233,9 @@ export const wrapLayoutWithProvider = (code: string): TransformResult => {
 
   ensureNamedImport(ast, 'IntlayerProvider', 'next-intlayer/server');
   ensureNamedImport(ast, 'getLocale', 'next-intlayer/server');
-  ensureExportFrom(ast, 'generateStaticParams', 'next-intlayer');
+  if (exportStaticParams) {
+    ensureExportFrom(ast, 'generateStaticParams', 'next-intlayer');
+  }
   ensureAwaitedLocale(funcNode);
   setHtmlLang(ast);
 

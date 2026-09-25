@@ -5,7 +5,9 @@ import {
   enableIntlayerEditorConfig,
   type RoutingMode,
   setIntlayerConfigCompilerOutput,
+  setIntlayerConfigEnableProxy,
   setIntlayerConfigRoutingMode,
+  setIntlayerConfigRoutingStorageOnly,
 } from './utils/configManipulation';
 import { exists, readFileFromRoot, writeFileToRoot } from './utils/fileSystem';
 
@@ -193,6 +195,65 @@ export const setRoutingModeInConfig = async (
     await writeFileToRoot(rootDir, configFile, updatedContent);
     logger(
       `${v} Set ${colorize(`routing.mode = '${mode}'`, ANSIColors.GREY_LIGHT)} in ${colorizePath(configFile)}`
+    );
+  }
+
+  return configFile;
+};
+
+/**
+ * Sets `routing.enableProxy` in the project's Intlayer configuration file.
+ * Returns the config file that was updated, or `undefined` when none was found.
+ */
+export const setEnableProxyInConfig = async (
+  rootDir: string,
+  enableProxy: boolean
+): Promise<string | undefined> => {
+  const configFile = await findIntlayerConfigFile(rootDir);
+
+  if (!configFile) return undefined;
+
+  const extension = configFile.split('.').pop()!;
+  const content = await readFileFromRoot(rootDir, configFile);
+  const updatedContent = setIntlayerConfigEnableProxy(
+    content,
+    extension,
+    enableProxy
+  );
+
+  if (updatedContent !== content) {
+    await writeFileToRoot(rootDir, configFile, updatedContent);
+    logger(
+      `${v} Set ${colorize(`routing.enableProxy = ${enableProxy}`, ANSIColors.GREY_LIGHT)} in ${colorizePath(configFile)}`
+    );
+  }
+
+  return configFile;
+};
+
+/**
+ * Reduces `routing` in the project's Intlayer configuration file to its
+ * `storage` entry. Returns the config file that was updated, or `undefined`
+ * when none was found.
+ */
+export const setRoutingStorageOnlyInConfig = async (
+  rootDir: string
+): Promise<string | undefined> => {
+  const configFile = await findIntlayerConfigFile(rootDir);
+
+  if (!configFile) return undefined;
+
+  const extension = configFile.split('.').pop()!;
+  const content = await readFileFromRoot(rootDir, configFile);
+  const updatedContent = setIntlayerConfigRoutingStorageOnly(
+    content,
+    extension
+  );
+
+  if (updatedContent !== content) {
+    await writeFileToRoot(rootDir, configFile, updatedContent);
+    logger(
+      `${v} Kept only ${colorize('routing.storage', ANSIColors.GREY_LIGHT)} in ${colorizePath(configFile)} (no URL routing in this project)`
     );
   }
 

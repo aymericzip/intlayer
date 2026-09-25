@@ -81,6 +81,41 @@ describe('hasLintTooling', () => {
 });
 
 describe('detectMissingIntlayerPackages', () => {
+  describe('server frameworks', () => {
+    it.each([
+      ['express', 'express-intlayer'],
+      ['fastify', 'fastify-intlayer'],
+      ['hono', 'hono-intlayer'],
+      ['elysia', 'elysia-intlayer'],
+      ['@adonisjs/core', 'adonis-intlayer'],
+    ])('installs the %s adapter', (frameworkPackage, adapterPackage) => {
+      const result = detectMissingIntlayerPackages({
+        [frameworkPackage]: '^1.0.0',
+      });
+
+      expect(result.packagesToInstall).toContain(adapterPackage);
+    });
+
+    it('installs the Express adapter for NestJS', () => {
+      const result = detectMissingIntlayerPackages({
+        '@nestjs/core': '^11.0.0',
+      });
+
+      expect(result.packagesToInstall).toContain('express-intlayer');
+      expect(result.packagesToInstall).not.toContain('fastify-intlayer');
+    });
+
+    it('installs the Fastify adapter for NestJS on the Fastify platform', () => {
+      const result = detectMissingIntlayerPackages({
+        '@nestjs/core': '^11.0.0',
+        '@nestjs/platform-fastify': '^11.0.0',
+      });
+
+      expect(result.packagesToInstall).toContain('fastify-intlayer');
+      expect(result.packagesToInstall).not.toContain('express-intlayer');
+    });
+  });
+
   describe('lint plugin', () => {
     it('installs the lint plugin when the project uses ESLint', () => {
       const result = detectMissingIntlayerPackages({

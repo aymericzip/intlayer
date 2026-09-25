@@ -1,3 +1,4 @@
+import { backendAdapters } from './backend';
 import { nextAppRouterAdapter } from './nextAppRouter';
 import { tanStackStartAdapter } from './tanstackStart';
 import type { FrameworkAdapter, FrameworkSetupContext } from './types';
@@ -6,12 +7,14 @@ export type { FrameworkAdapter, FrameworkSetupContext } from './types';
 
 /**
  * Registered framework adapters, tried in order. The first one whose `detect`
- * returns true handles the project. Add new adapters (Nuxt, Vite + React, …)
- * here as they are implemented.
+ * returns true handles the project. Frontend adapters come first, so an app
+ * with its own server keeps its frontend scaffolding. Add new adapters (Nuxt,
+ * Vite + React, …) here as they are implemented.
  */
 const adapters: FrameworkAdapter[] = [
   nextAppRouterAdapter,
   tanStackStartAdapter,
+  ...backendAdapters,
 ];
 
 /**

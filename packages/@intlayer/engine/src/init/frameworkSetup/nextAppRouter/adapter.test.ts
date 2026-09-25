@@ -40,6 +40,7 @@ describe('nextAppRouterAdapter', () => {
     packageManager: 'npm',
     useTypeScript: true,
     routingMode: 'prefix-no-default',
+    enableProxy: true,
   });
 
   it('detects a Next.js App Router project', async () => {
@@ -164,5 +165,79 @@ export default function RootLayout({ children }: any) {
     // Left untouched (no provider injected into a client component)
     expect(localeLayout).toContain('"use client"');
     expect(localeLayout).not.toContain('IntlayerProvider');
+  });
+
+  const CREATE_NEXT_APP_LAYOUT = `import "./globals.css";
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}`;
+
+  it('keeps routes at the app root for no-prefix routing', async () => {
+    await writeFileAt('src/app/layout.tsx', CREATE_NEXT_APP_LAYOUT);
+    await writeFileAt(
+      'src/app/page.tsx',
+      'export default function Home() { return <main/>; }'
+    );
+
+    await nextAppRouterAdapter.setup({
+      ...context(),
+      routingMode: 'no-prefix',
+    });
+
+    // The proxy still resolves the locale from cookie / header
+    expect(await exists('src/proxy.ts')).toBe(true);
+
+    // No locale segment
+    expect(await exists('src/app/[locale]')).toBe(false);
+    expect(await exists('src/app/[locale]/page.tsx')).toBe(false);
+
+    // Root layout wrapped in place, without a locale param to pre-render
+    const rootLayout = await readFileAt('src/app/layout.tsx');
+    expect(rootLayout).toContain('IntlayerProvider');
+    expect(rootLayout).toContain('const locale = await getLocale();');
+    expect(rootLayout).not.toContain('generateStaticParams');
+  });
+
+  it('creates neither proxy nor locale segment when routing is disabled', async () => {
+    await writeFileAt(
+      'src/app/page.tsx',
+      'export default function Home() { return <main/>; }'
+    );
+
+    await nextAppRouterAdapter.setup({
+      ...context(),
+      routingMode: 'prefix-no-default',
+      enableProxy: false,
+    });
+
+    expect(await exists('src/proxy.ts')).toBe(false);
+    expect(await exists('src/app/[locale]/page.tsx')).toBe(false);
+
+    // A root layout owning <html> is scaffolded
+    const rootLayout = await readFileAt('src/app/layout.tsx');
+    expect(rootLayout).toContain('<html lang={locale}');
+    expect(rootLayout).toContain('await getLocale()');
+  });
+
+  it('leaves an existing [locale] tree untouched for unprefixed routing', async () => {
+    await writeFileAt(
+      'src/app/[locale]/page.tsx',
+      'export default function Home() { return <main/>; }'
+    );
+
+    await nextAppRouterAdapter.setup({
+      ...context(),
+      routingMode: 'search-params',
+    });
+
+    expect(await exists('src/app/[locale]/page.tsx')).toBe(true);
+    expect(await exists('src/app/layout.tsx')).toBe(false);
   });
 });

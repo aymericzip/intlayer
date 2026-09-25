@@ -35,13 +35,15 @@ describe('tanStackStartAdapter', () => {
   };
 
   const context = (
-    routingMode: FrameworkSetupContext['routingMode'] = 'prefix-no-default'
+    routingMode: FrameworkSetupContext['routingMode'] = 'prefix-no-default',
+    enableProxy = true
   ): FrameworkSetupContext => ({
     rootDir,
     allDeps: { '@tanstack/react-start': '^1.0.0', 'react-intlayer': '^7.0.0' },
     packageManager: 'npm',
     useTypeScript: true,
     routingMode,
+    enableProxy,
   });
 
   it('detects a TanStack Start project', async () => {
@@ -439,5 +441,84 @@ function RootDocument({ children }) {
 
     // Root already wraps the provider → untouched.
     expect(after).toBe(before);
+  });
+
+  it('keeps routes in place and scaffolds a request-locale root for no-prefix routing', async () => {
+    await writeFileAt('src/routes/index.tsx', 'export const Route = null;\n');
+
+    await tanStackStartAdapter.setup(context('no-prefix'));
+
+    // No locale segment
+    expect(await exists('src/routes/index.tsx')).toBe(true);
+    expect(await exists('src/routes/{-$locale}/index.tsx')).toBe(false);
+    expect(await exists('src/routes/{-$locale}/route.tsx')).toBe(false);
+
+    // Root resolves the locale per request through the root loader
+    const root = await readFileAt('src/routes/__root.tsx');
+    expect(root).toContain('loader: () => getRequestLocale()');
+    expect(root).toContain('const locale = Route.useLoaderData();');
+    expect(root).not.toContain('getRouteApi');
+  });
+
+  it('adds a request-locale loader to an existing root when routing is disabled', async () => {
+    await writeFileAt(
+      'src/routes/__root.tsx',
+      `import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+
+export const Route = createRootRoute({
+  shellComponent: RootDocument,
+});
+
+function RootDocument({ children }) {
+  return (
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+`
+    );
+    await writeFileAt('src/routes/index.tsx', 'export const Route = null;\n');
+
+    await tanStackStartAdapter.setup(context('prefix-no-default', false));
+
+    expect(await exists('src/routes/{-$locale}/index.tsx')).toBe(false);
+
+    const root = await readFileAt('src/routes/__root.tsx');
+    expect(root).toContain('const getRequestLocale = createServerFn()');
+    expect(root).toContain('loader: () => getRequestLocale()');
+    expect(root).toContain('const locale = Route.useLoaderData();');
+    expect(root).toContain(
+      '<IntlayerProvider locale={locale}>{children}</IntlayerProvider>'
+    );
+    expect(root).toContain('lang={locale}');
+    expect(root).toMatch(
+      /import \{ createServerFn \} from ["']@tanstack\/react-start["']/
+    );
+  });
+
+  it('skips a root that already declares a loader', async () => {
+    const source = `import { createRootRoute } from "@tanstack/react-router";
+
+export const Route = createRootRoute({
+  loader: () => ({}),
+  shellComponent: RootDocument,
+});
+
+function RootDocument({ children }) {
+  return <html><body>{children}</body></html>;
+}
+`;
+    await writeFileAt('src/routes/__root.tsx', source);
+
+    await tanStackStartAdapter.setup(context('no-prefix'));
+
+    expect(await readFileAt('src/routes/__root.tsx')).toBe(source);
   });
 });

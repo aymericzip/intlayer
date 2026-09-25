@@ -107,3 +107,66 @@ function RootDocument({ children }) {
   );
 }
 `;
+
+/**
+ * Module-scope server function resolving the request locale from the locale
+ * cookie / headers (`Accept-Language` fallback). Shared by the unprefixed root
+ * template and the root transform.
+ */
+export const REQUEST_LOCALE_SERVER_FUNCTION = `const getRequestLocale = createServerFn().handler(() =>
+  getLocale({
+    getCookie: (name) => getCookie(name, getRequestHeader("cookie")),
+    getHeader: (name) => getRequestHeader(name),
+  })
+);`;
+
+/**
+ * Root route document (`routes/__root.tsx`) for routing modes without a locale
+ * path segment (`no-prefix`, `search-params`, or no proxy). The locale is
+ * resolved on the server per request and exposed through the root loader, so
+ * server and client render the same locale. Identical for TypeScript and
+ * JavaScript projects apart from the `children` prop type.
+ */
+const buildUnprefixedRootTemplate = (
+  childrenPropType: string
+): string => `import {
+  createRootRoute,
+  HeadContent,
+  Scripts,
+} from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
+import { getRequestHeader } from "@tanstack/react-start/server";
+import { getCookie, getHTMLTextDir, getLocale } from "intlayer";${childrenPropType ? '\nimport type { ReactNode } from "react";' : ''}
+import { IntlayerProvider } from "react-intlayer";
+
+${REQUEST_LOCALE_SERVER_FUNCTION}
+
+export const Route = createRootRoute({
+  loader: () => getRequestLocale(),
+  shellComponent: RootDocument,
+});
+
+function RootDocument({ children }${childrenPropType}) {
+  const locale = Route.useLoaderData();
+
+  return (
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+`;
+
+/** {@link buildUnprefixedRootTemplate} for TypeScript projects. */
+export const UNPREFIXED_ROOT_TEMPLATE_TS = buildUnprefixedRootTemplate(
+  ': { children: ReactNode }'
+);
+
+/** {@link buildUnprefixedRootTemplate} for JavaScript projects. */
+export const UNPREFIXED_ROOT_TEMPLATE_JS = buildUnprefixedRootTemplate('');

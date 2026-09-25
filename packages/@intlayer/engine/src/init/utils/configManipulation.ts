@@ -138,6 +138,101 @@ export const setIntlayerConfigRoutingMode = (
 };
 
 /**
+ * Sets `routing.enableProxy` in an Intlayer configuration file. Idempotent and
+ * comment-preserving: an existing property only has its value swapped. Supports
+ * `.ts`, `.mjs`, `.js`, `.cjs` and `.json` configs.
+ */
+export const setIntlayerConfigEnableProxy = (
+  content: string,
+  extension: string,
+  enableProxy: boolean
+): string => {
+  // The JSON template carries comments, so a scoped replacement is used rather
+  // than `JSON.parse`.
+  if (extension === 'json') {
+    return content.replace(
+      /("enableProxy"\s*:\s*)(?:true|false)/,
+      `$1${enableProxy}`
+    );
+  }
+
+  const ast = recast.parse(content, {
+    parser: typescriptParser,
+  });
+
+  genericRecastVisit(ast, (objExpr) => {
+    if (!isObjectExpression(objExpr)) return;
+
+    const routingProperty = ensureObjectProperty(
+      objExpr,
+      'routing',
+      b.objectExpression([])
+    );
+
+    if (!isObjectExpression(routingProperty.value)) return;
+
+    setObjectPropertyValue(
+      routingProperty.value,
+      'enableProxy',
+      b.booleanLiteral(enableProxy)
+    );
+  });
+
+  return recast.print(ast).code;
+};
+
+/** Default `routing.storage` written when the routing section is reduced. */
+const DEFAULT_ROUTING_STORAGE = ['cookie', 'header'] as const;
+
+/**
+ * Reduces `routing` in an Intlayer configuration file to its `storage` entry,
+ * for projects without URL routing (backend-only, React Native…) where the
+ * routing mode and the locale proxy have no effect. An existing `storage`
+ * value is kept; otherwise `['cookie', 'header']` is written. JSON configs are
+ * returned unchanged.
+ */
+export const setIntlayerConfigRoutingStorageOnly = (
+  content: string,
+  extension: string
+): string => {
+  if (extension === 'json') return content;
+
+  const ast = recast.parse(content, {
+    parser: typescriptParser,
+  });
+
+  genericRecastVisit(ast, (objExpr) => {
+    if (!isObjectExpression(objExpr)) return;
+
+    const routingProperty = ensureObjectProperty(
+      objExpr,
+      'routing',
+      b.objectExpression([])
+    );
+
+    if (!isObjectExpression(routingProperty.value)) return;
+
+    const existingStorageProperty = (
+      routingProperty.value.properties as any[]
+    ).find((prop: any) => (prop?.key?.name ?? prop?.key?.value) === 'storage');
+
+    const storageProperty =
+      existingStorageProperty ??
+      b.property(
+        'init',
+        b.identifier('storage'),
+        b.arrayExpression(
+          DEFAULT_ROUTING_STORAGE.map((storage) => b.stringLiteral(storage))
+        )
+      );
+
+    routingProperty.value.properties = [storageProperty];
+  });
+
+  return recast.print(ast, { tabWidth: 2 }).code;
+};
+
+/**
  * Sets `compiler.output` in an Intlayer configuration file to the given path
  * template (the `{{variable}}` string form, e.g.
  * `/locales/{{locale}}/{{key}}.content.json`). Idempotent: re-running with the

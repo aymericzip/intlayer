@@ -329,8 +329,13 @@ export const setAPI = (): Command => {
       '-i, --interactive',
       'Interactively choose what to set up (packages, skills, MCP, VS Code extension, LSP, …)'
     )
+    .option(
+      '--routing <routing>',
+      'Locale routing: prefix-no-default | prefix-all | no-prefix | search-params | none'
+    )
     .action(async (options) => {
-      const { init } = await import('./init');
+      const { init, parseLocaleRoutingChoice, getRoutingInitOptions } =
+        await import('./init');
       return init(
         options.projectRoot,
         {
@@ -338,6 +343,9 @@ export const setAPI = (): Command => {
           noGithubActions: options.githubActions === false,
           noFrameworkSetup: options.frameworkSetup === false,
           upgradeToVersion: packageJson.version,
+          ...(options.routing
+            ? getRoutingInitOptions(parseLocaleRoutingChoice(options.routing))
+            : {}),
         },
         options.interactive === true
       );

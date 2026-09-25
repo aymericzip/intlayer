@@ -8,4 +8,5 @@ export * from './jsonParser';
 export * from './nextCompilerBabel';
 export * from './packageManager';
 export * from './tsConfig';
+export * from './urlRoutingFramework';
 export * from './version';

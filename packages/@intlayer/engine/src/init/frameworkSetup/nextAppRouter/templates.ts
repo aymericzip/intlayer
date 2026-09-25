@@ -116,3 +116,59 @@ export const LOCALE_PAGE_TEMPLATE_JS = `const Page = async ({ params }) => {
 
 export default Page;
 `;
+
+/**
+ * Root layout (`app/layout.tsx`) for routing modes without a locale path
+ * segment (`no-prefix`, `search-params`, or no proxy at all). Owns `<html>` and
+ * resolves the locale from the request (cookie / header) via `getLocale()`.
+ */
+export const UNPREFIXED_ROOT_LAYOUT_TEMPLATE_TS = `import type { PropsWithChildren } from "react";
+import { getHTMLTextDir } from "intlayer";
+import { getLocale, IntlayerProvider } from "next-intlayer/server";
+
+const RootLayout = async ({ children }: PropsWithChildren) => {
+  const locale = await getLocale();
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+      </body>
+    </html>
+  );
+};
+
+export default RootLayout;
+`;
+
+export const UNPREFIXED_ROOT_LAYOUT_TEMPLATE_JS = `import { getHTMLTextDir } from "intlayer";
+import { getLocale, IntlayerProvider } from "next-intlayer/server";
+
+const RootLayout = async ({ children }) => {
+  const locale = await getLocale();
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+      </body>
+    </html>
+  );
+};
+
+export default RootLayout;
+`;
+
+/**
+ * Home page (`app/page.tsx`) for routing modes without a locale path segment.
+ * Identical for TypeScript and JavaScript projects.
+ */
+export const UNPREFIXED_PAGE_TEMPLATE = `const Page = () => (
+  <main>
+    <h1>Hello</h1>
+    <p>Get started by editing this page.</p>
+  </main>
+);
+
+export default Page;
+`;

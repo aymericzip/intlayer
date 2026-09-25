@@ -40,12 +40,14 @@ export type InitConfigOptions = {
 /**
  * Initialize the Intlayer configuration file. No-ops when a configuration file
  * already exists at `baseDir`.
+ *
+ * @returns `true` when the file was created, `false` when one already existed.
  */
 export const initConfig = async (
   format: (typeof configurationFilesCandidates)[number],
   baseDir: string,
   options?: InitConfigOptions
-) => {
+): Promise<boolean> => {
   //   Search for configuration file
   const { configurationFilePath } = searchConfigurationFile(baseDir);
 
@@ -53,7 +55,7 @@ export const initConfig = async (
   if (configurationFilePath) {
     const relativePath = relative(baseDir, configurationFilePath);
     logger(`${v} ${colorizePath(relativePath)} already exists`);
-    return;
+    return false;
   }
 
   // Extract the format from the filename (e.g. 'intlayer.config.ts' -> 'ts')
@@ -83,4 +85,5 @@ export const initConfig = async (
 
   await writeFile(join(baseDir, format), configContent, 'utf8');
   logger(`${v} Created ${colorizePath(format)}`);
+  return true;
 };

@@ -1,15 +1,22 @@
 import { join } from 'node:path';
 import * as ANSIColors from '@intlayer/config/colors';
+import { ROUTING_MODE } from '@intlayer/config/defaultValues';
 import { colorize, colorizePath, logger, v, x } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
 import { initConfig } from '../initConfig';
-import { setCompilerOutputInConfig, setRoutingModeInConfig } from './cms';
+import {
+  setCompilerOutputInConfig,
+  setEnableProxyInConfig,
+  setRoutingModeInConfig,
+  setRoutingStorageOnlyInConfig,
+} from './cms';
 import { setupFramework } from './frameworkSetup';
 import { upgradeIntlayerPackages } from './upgradeIntlayerPackages';
 import type { CompatSyncConfig, RoutingMode } from './utils';
 import {
   BACKEND_INTLAYER_PACKAGES,
+  detectCompatI18nLibraries,
   detectJsonLocalePattern,
   detectLinguiCatalogPattern,
   detectMissingIntlayerPackages,
@@ -22,6 +29,7 @@ import {
   getMetroConfigTemplate,
   hasIntlayerVitePlugin,
   hasLintTooling,
+  hasUrlRoutingFramework,
   installPackages,
   isIntlayerPackageName,
   moveCompatPackagesToDevDependencies,
@@ -300,6 +308,13 @@ export type InitOptions = {
    * (`prefix-no-default`) is kept.
    */
   routingMode?: RoutingMode;
+  /**
+   * Whether the app routes by locale through the Intlayer proxy (middleware).
+   * Written to `routing.enableProxy` in the configuration file and drives the
+   * framework scaffolding: `false` skips the proxy file and any locale route
+   * segment. When omitted, the configured value is kept (unset means enabled).
+   */
+  enableProxy?: boolean;
   /**
    * Content organization strategy chosen by the interactive init prompt. Drives
    * the `compiler.output` template (`centralized`) or the injection of the
@@ -776,7 +791,7 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     // accurate source template for compat libraries.
     const detectedPattern = await detectJsonLocalePattern(rootDir);
 
-    await initConfig(format, rootDir, {
+    const isConfigCreated = await initConfig(format, rootDir, {
       locales: detectedPattern?.locales,
       applicationURL: getDefaultApplicationURL(allDeps),
     });
@@ -880,11 +895,39 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       }
     }
 
-    // APPLY ROUTING MODE
-    // When a routing strategy was chosen (interactive init), write it to
-    // `routing.mode` in the configuration file. Idempotent and comment-preserving.
-    if (options?.routingMode) {
-      await setRoutingModeInConfig(rootDir, options.routingMode);
+    // APPLY ROUTING
+    // An explicit choice (interactive prompt / `--routing`) is written to
+    // `routing.mode` + `routing.enableProxy`. Without one, a freshly created
+    // config is adapted to the project: frontends get prefix routing through
+    // the proxy (the template ships it disabled), projects without URL routing
+    // (backend, React Native…) keep only `routing.storage`. An existing config
+    // is never rewritten without an explicit choice. A compat i18n library
+    // owns the app routing, so its config keeps the template's disabled proxy:
+    // compat bundler plugins wrap `intlayer()`, which would register it.
+    const hasUrlRouting = hasUrlRoutingFramework(allDeps);
+    const hasCompatI18nLibrary = detectCompatI18nLibraries(allDeps).length > 0;
+    const shouldApplyDefaultRouting =
+      isConfigCreated &&
+      options?.routingMode === undefined &&
+      !hasCompatI18nLibrary;
+
+    if (shouldApplyDefaultRouting && !hasUrlRouting) {
+      await setRoutingStorageOnlyInConfig(rootDir);
+    }
+
+    const routingMode =
+      options?.routingMode ??
+      (shouldApplyDefaultRouting && hasUrlRouting ? ROUTING_MODE : undefined);
+    const enableProxy =
+      options?.enableProxy ??
+      (shouldApplyDefaultRouting && hasUrlRouting ? true : undefined);
+
+    if (routingMode) {
+      await setRoutingModeInConfig(rootDir, routingMode);
+    }
+
+    if (enableProxy !== undefined) {
+      await setEnableProxyInConfig(rootDir, enableProxy);
     }
 
     let hasAliasConfiguration = false;
@@ -1345,19 +1388,18 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
 
     if (!hasCompatLibrary) {
       try {
-        // Prefer the user's interactive choice, else the configured routing mode
-        // (which itself defaults to `prefix-no-default`). Drives whether the
-        // locale path segment is required (`prefix-all`) or optional.
-        const routingMode =
-          options?.routingMode ??
-          getConfiguration({ baseDir: rootDir }).routing.mode;
+        // Prefer the user's choices, else the configured routing (mode defaults
+        // to `prefix-no-default`, an unset `enableProxy` means enabled). Drives
+        // the proxy file and the locale route segment the adapters scaffold.
+        const { routing } = getConfiguration({ baseDir: rootDir });
 
         await setupFramework({
           rootDir,
           allDeps,
           packageManager,
           useTypeScript: hasTsConfig,
-          routingMode,
+          routingMode: routingMode ?? routing.mode,
+          enableProxy: enableProxy ?? routing.enableProxy !== false,
         });
       } catch {
         logger(

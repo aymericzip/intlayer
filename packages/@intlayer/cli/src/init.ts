@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import {
   detectCompatI18nLibraries,
+  hasUrlRoutingFramework,
   type InitOptions,
   initIntlayer,
   type RoutingMode,
@@ -117,9 +118,15 @@ const INIT_STEP_GROUPS: Record<string, InitStepOption[]> = {
   ],
 };
 
+/**
+ * Locale routing choice: a `routing.mode` served through the locale proxy, or
+ * `none` to leave routing to the app (`no-prefix` with the proxy disabled).
+ */
+export type LocaleRoutingChoice = RoutingMode | 'none';
+
 /** Locale routing strategies offered by the interactive init flow. */
-const ROUTING_MODE_OPTIONS: Array<{
-  value: RoutingMode;
+const ROUTING_OPTIONS: Array<{
+  value: LocaleRoutingChoice;
   label: string;
   hint: string;
 }> = [
@@ -143,7 +150,40 @@ const ROUTING_MODE_OPTIONS: Array<{
     label: 'Use a search parameter',
     hint: '/about?locale=fr',
   },
+  {
+    value: 'none',
+    label: 'No locale routing',
+    hint: 'no proxy, no locale route segment — handle the locale yourself',
+  },
 ];
+
+/** Locale routing choices accepted by `--routing`. */
+export const LOCALE_ROUTING_CHOICES = ROUTING_OPTIONS.map(
+  (option) => option.value
+);
+
+/** Validates a `--routing` value, throwing on an unknown choice. */
+export const parseLocaleRoutingChoice = (
+  value: string
+): LocaleRoutingChoice => {
+  const choice = LOCALE_ROUTING_CHOICES.find((routing) => routing === value);
+
+  if (!choice) {
+    throw new Error(
+      `Invalid --routing value "${value}". Expected one of: ${LOCALE_ROUTING_CHOICES.join(', ')}.`
+    );
+  }
+
+  return choice;
+};
+
+/** Maps a routing choice to the init options it sets. */
+export const getRoutingInitOptions = (
+  choice: LocaleRoutingChoice
+): Pick<InitOptions, 'routingMode' | 'enableProxy'> =>
+  choice === 'none'
+    ? { routingMode: 'no-prefix', enableProxy: false }
+    : { routingMode: choice, enableProxy: true };
 
 /** Reads the merged dependencies of the project at `root`. */
 const getProjectDependencies = (root: string): Record<string, string> => {
@@ -157,27 +197,6 @@ const getProjectDependencies = (root: string): Record<string, string> => {
   } catch {
     return {};
   }
-};
-
-/**
- * Returns true when the project uses a URL-based router for which a locale
- * routing strategy is meaningful: Next.js, React Router, or TanStack Router.
- * Apps without URL routing (e.g. React Native / Expo) are excluded, since
- * `routing.mode` has no effect there.
- */
-const hasUrlRouting = (root: string): boolean => {
-  const deps = getProjectDependencies(root);
-
-  // React Native / Expo apps have no URL routing — never ask for a strategy.
-  if (deps['react-native'] || deps.expo) return false;
-
-  return Boolean(
-    deps.next ||
-      deps['react-router'] ||
-      deps['react-router-dom'] ||
-      deps['@tanstack/react-router'] ||
-      deps['@tanstack/react-start']
-  );
 };
 
 /**
@@ -212,26 +231,6 @@ const runInteractiveInit = async (
 
   const steps = selected as InitStep[];
 
-  // Locale routing strategy → written to `routing.mode` in the config file.
-  // Only relevant for URL-based routers (Next.js, React Router, TanStack);
-  // skipped for apps without URL routing such as React Native / Expo.
-  let routingMode: RoutingMode | undefined;
-
-  if (steps.includes('projectSetup') && hasUrlRouting(root)) {
-    const selectedRoutingMode = await p.select<RoutingMode>({
-      message: 'Which locale routing strategy do you want?',
-      options: ROUTING_MODE_OPTIONS,
-      initialValue: 'prefix-no-default',
-    });
-
-    if (p.isCancel(selectedRoutingMode)) {
-      p.cancel('Operation cancelled.');
-      return;
-    }
-
-    routingMode = selectedRoutingMode;
-  }
-
   // Compat i18n library detection — never asked, always derived from the
   // installed packages. `detectMissingIntlayerPackages` reads the very same
   // dependency map to schedule the compat adapter, the sync plugin and the
@@ -248,9 +247,36 @@ const runInteractiveInit = async (
     );
   }
 
+  // Locale routing → `routing.mode` + `routing.enableProxy` in the config, and
+  // the route segment the framework scaffolding creates. Only asked for web
+  // frontends; projects without URL routing (backend, React Native / Expo) keep
+  // only `routing.storage` in a freshly created config. Skipped for compat
+  // i18n libraries, which keep their own routing.
+  let routingOptions: Pick<InitOptions, 'routingMode' | 'enableProxy'> = {};
+
+  if (
+    steps.includes('projectSetup') &&
+    baseOptions?.routingMode === undefined &&
+    !hasCompatLib &&
+    hasUrlRoutingFramework(getProjectDependencies(root))
+  ) {
+    const selectedRouting = await p.select<LocaleRoutingChoice>({
+      message: 'How should the locale appear in your URLs?',
+      options: ROUTING_OPTIONS,
+      initialValue: 'prefix-no-default',
+    });
+
+    if (p.isCancel(selectedRouting)) {
+      p.cancel('Operation cancelled.');
+      return;
+    }
+
+    routingOptions = getRoutingInitOptions(selectedRouting);
+  }
+
   const options: InitOptions = {
     ...baseOptions,
-    routingMode,
+    ...routingOptions,
     noInstallPackages: !steps.includes('packages'),
     // The `.gitignore` entry is never offered as a checkbox: in interactive
     // mode we always add `.intlayer` to `.gitignore`, only honoring an explicit

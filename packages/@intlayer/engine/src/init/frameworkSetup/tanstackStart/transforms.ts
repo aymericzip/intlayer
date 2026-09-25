@@ -5,6 +5,7 @@ import {
   firstInsertIndex,
   isModuleScopeBinding,
 } from '../../utils/astImports';
+import { REQUEST_LOCALE_SERVER_FUNCTION } from './templates';
 
 const { builders: b, namedTypes: n } = recast.types;
 
@@ -204,6 +205,167 @@ const setHtmlLangAndDir = (ast: any): void => {
 };
 
 /**
+ * Wraps the first `{children}` expression inside `funcNode` with
+ * `<IntlayerProvider locale={locale}>`. Returns whether a wrap happened.
+ */
+const wrapChildrenWithProvider = (funcNode: any): boolean => {
+  let wrapped = false;
+  recast.visit(funcNode, {
+    visitJSXExpressionContainer(path) {
+      if (wrapped) return false;
+      const expression = path.node.expression;
+      if (expression?.type === 'Identifier' && expression.name === 'children') {
+        const template = parseTsx(
+          'const __wrap = <IntlayerProvider locale={locale}>{__child__}</IntlayerProvider>;'
+        );
+        const providerElement = template.program.body[0].declarations[0].init;
+        providerElement.children = [path.node];
+        path.replace(providerElement);
+        wrapped = true;
+        return false;
+      }
+      this.traverse(path);
+    },
+  });
+  return wrapped;
+};
+
+/** Whether `funcNode` already binds `locale` in its body or parameters. */
+const bindsLocale = (funcNode: any): boolean =>
+  (funcNode.body?.type === 'BlockStatement' &&
+    funcNode.body.body.some(
+      (stmt: any) =>
+        stmt.type === 'VariableDeclaration' &&
+        stmt.declarations.some((d: any) => patternBindsName(d.id, 'locale'))
+    )) ||
+  (funcNode.params ?? []).some((param: any) =>
+    patternBindsName(param, 'locale')
+  );
+
+/**
+ * Finds the options object of the root route declaration —
+ * `createRootRoute({…})` or `createRootRouteWithContext<…>()({…})`. Returns
+ * `null` when absent or not an object literal.
+ */
+const findRootRouteOptions = (ast: any): any => {
+  let options: any = null;
+
+  recast.visit(ast, {
+    visitCallExpression(path) {
+      const { callee, arguments: args } = path.node as any;
+      const isCreateRootRoute =
+        callee.type === 'Identifier' && callee.name === 'createRootRoute';
+      const isCreateRootRouteWithContext =
+        callee.type === 'CallExpression' &&
+        callee.callee?.type === 'Identifier' &&
+        callee.callee.name === 'createRootRouteWithContext';
+
+      if (
+        (isCreateRootRoute || isCreateRootRouteWithContext) &&
+        args[0]?.type === 'ObjectExpression'
+      ) {
+        options = args[0];
+        return false;
+      }
+      this.traverse(path);
+    },
+  });
+
+  return options;
+};
+
+/** Module-scope identifier of the injected request-locale server function. */
+const REQUEST_LOCALE_FUNCTION_NAME = 'getRequestLocale';
+
+/**
+ * Wraps the `{children}` of a TanStack Start root document with
+ * `IntlayerProvider` for routing modes without a locale path segment. The
+ * locale is resolved per request by a server function exposed through the root
+ * `loader`, and read with `Route.useLoaderData()`. Safe and idempotent: bails
+ * when the provider is already present, when no `<html>` document or
+ * `{children}` is found, or when the root route cannot safely take a loader
+ * (no `Route` binding, no options object, or an existing `loader`).
+ *
+ * @param code Source of the project's `__root` document.
+ */
+export const wrapRootWithRequestLocaleProvider = (
+  code: string
+): TransformResult => {
+  if (code.includes('IntlayerProvider')) return { code, status: 'already' };
+
+  const ast = parseTsx(code);
+
+  const funcNode = findHtmlDocumentFunction(ast);
+  const rootRouteOptions = findRootRouteOptions(ast);
+  const hasLoader = rootRouteOptions?.properties.some(
+    (property: any) => (property.key?.name ?? property.key?.value) === 'loader'
+  );
+  if (
+    !funcNode ||
+    !rootRouteOptions ||
+    hasLoader ||
+    !isModuleScopeBinding(ast, 'Route')
+  ) {
+    return { code, status: 'skipped' };
+  }
+
+  if (!wrapChildrenWithProvider(funcNode)) return { code, status: 'skipped' };
+
+  if (!bindsLocale(funcNode)) {
+    if (funcNode.body?.type !== 'BlockStatement') {
+      funcNode.body = b.blockStatement([b.returnStatement(funcNode.body)]);
+    }
+    funcNode.body.body.unshift(
+      parseTsx('const locale = Route.useLoaderData();').program.body[0]
+    );
+  }
+
+  rootRouteOptions.properties.unshift(
+    b.property(
+      'init',
+      b.identifier('loader'),
+      b.arrowFunctionExpression(
+        [],
+        b.callExpression(b.identifier(REQUEST_LOCALE_FUNCTION_NAME), [])
+      )
+    )
+  );
+
+  const insertsServerFunction = !isModuleScopeBinding(
+    ast,
+    REQUEST_LOCALE_FUNCTION_NAME
+  );
+  if (insertsServerFunction) {
+    ast.program.body.splice(
+      firstInsertIndex(ast),
+      0,
+      parseTsx(REQUEST_LOCALE_SERVER_FUNCTION).program.body[0]
+    );
+  }
+
+  ensureNamedImport(ast, 'IntlayerProvider', 'react-intlayer');
+  ensureNamedImport(ast, 'createServerFn', '@tanstack/react-start');
+  ensureNamedImport(ast, 'getRequestHeader', '@tanstack/react-start/server');
+  ensureNamedImport(ast, 'getCookie', 'intlayer');
+  ensureNamedImport(ast, 'getLocale', 'intlayer');
+  ensureNamedImport(ast, 'getHTMLTextDir', 'intlayer');
+  setHtmlLangAndDir(ast);
+
+  const printedCode = recast.print(ast).code;
+
+  return {
+    // recast prints the spliced declaration flush against the imports.
+    code: insertsServerFunction
+      ? printedCode.replace(
+          new RegExp(`([^\\n])\\n(const ${REQUEST_LOCALE_FUNCTION_NAME} = )`),
+          '$1\n\n$2'
+        )
+      : printedCode,
+    status: 'wrapped',
+  };
+};
+
+/**
  * Wraps the `{children}` of a TanStack Start root document with
  * `IntlayerProvider`, deriving the locale from the locale segment route params.
  * Safe and idempotent: bails (returns the original code) when the provider is
@@ -225,26 +387,7 @@ export const wrapRootWithProvider = (
   const funcNode = findHtmlDocumentFunction(ast);
   if (!funcNode) return { code, status: 'skipped' };
 
-  let wrapped = false;
-  recast.visit(funcNode, {
-    visitJSXExpressionContainer(path) {
-      if (wrapped) return false;
-      const expression = path.node.expression;
-      if (expression?.type === 'Identifier' && expression.name === 'children') {
-        const template = parseTsx(
-          'const __wrap = <IntlayerProvider locale={locale}>{__child__}</IntlayerProvider>;'
-        );
-        const providerElement = template.program.body[0].declarations[0].init;
-        providerElement.children = [path.node];
-        path.replace(providerElement);
-        wrapped = true;
-        return false;
-      }
-      this.traverse(path);
-    },
-  });
-
-  if (!wrapped) return { code, status: 'skipped' };
+  if (!wrapChildrenWithProvider(funcNode)) return { code, status: 'skipped' };
 
   const injectedLocaleDeclaration = ensureLocaleFromParams(funcNode);
 

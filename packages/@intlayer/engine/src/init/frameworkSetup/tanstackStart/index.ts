@@ -1,3 +1,4 @@
+import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, colorizePath, logger, v, x } from '@intlayer/config/logger';
@@ -7,16 +8,27 @@ import {
   readFileFromRoot,
   writeFileToRoot,
 } from '../../utils/fileSystem';
+import { usesLocalePathSegment } from '../localeRouting';
 import { findAppFile } from '../nextAppRouter/detect';
 import type { FrameworkAdapter, FrameworkSetupContext } from '../types';
 import { detectTanStackRoutesDir, hasTanStackStartDeps } from './detect';
-import { getLocaleSegment, restructureRoutesIntoLocale } from './restructure';
+import {
+  getLocaleSegment,
+  isLocaleSegment,
+  restructureRoutesIntoLocale,
+} from './restructure';
 import {
   buildLocaleRouteTemplate,
   buildRootTemplateJs,
   buildRootTemplateTs,
+  UNPREFIXED_ROOT_TEMPLATE_JS,
+  UNPREFIXED_ROOT_TEMPLATE_TS,
 } from './templates';
-import { type TransformResult, wrapRootWithProvider } from './transforms';
+import {
+  type TransformResult,
+  wrapRootWithProvider,
+  wrapRootWithRequestLocaleProvider,
+} from './transforms';
 
 /** Logs the outcome of the root-document provider-wrap transform. */
 const logTransformOutcome = (
@@ -69,8 +81,48 @@ const createIfMissing = async (
 };
 
 /**
- * TanStack Start adapter. Restructures the file-based routes under a `{-$locale}`
- * segment, scaffolds the locale segment route, and wraps the root document with
+ * Wires routes whose URLs carry no locale segment (`no-prefix`,
+ * `search-params`, or no proxy): routes stay in place and the root document
+ * provides the locale resolved per request. Routes already nested under a
+ * locale segment are left untouched, with guidance.
+ */
+const setupUnprefixedRoutes = async (
+  rootDir: string,
+  routesDir: string,
+  useTypeScript: boolean
+): Promise<void> => {
+  const entries = await readdir(join(rootDir, routesDir));
+  const existingLocaleSegment = entries.find(isLocaleSegment);
+  if (existingLocaleSegment) {
+    logger(
+      `${x} Routes live under ${colorizePath(join(routesDir, existingLocaleSegment))} but the chosen routing has no locale in the URL — move them back to ${colorizePath(routesDir)} manually.`,
+      { level: 'warn' }
+    );
+    return;
+  }
+
+  const existingRoot = await findAppFile(rootDir, routesDir, '__root');
+  if (existingRoot) {
+    await transformExistingFile(
+      rootDir,
+      existingRoot,
+      wrapRootWithRequestLocaleProvider
+    );
+    return;
+  }
+
+  await createIfMissing(
+    rootDir,
+    join(routesDir, `__root.${useTypeScript ? 'tsx' : 'jsx'}`),
+    useTypeScript ? UNPREFIXED_ROOT_TEMPLATE_TS : UNPREFIXED_ROOT_TEMPLATE_JS,
+    'root document'
+  );
+};
+
+/**
+ * TanStack Start adapter. For prefix routing modes, restructures the file-based
+ * routes under a `{-$locale}` / `$locale` segment and scaffolds the locale
+ * segment route; for the others, keeps routes in place. Wraps the root document with
  * the Intlayer provider — all idempotently and without overwriting user code it
  * cannot confidently transform.
  */
@@ -86,6 +138,7 @@ export const tanStackStartAdapter: FrameworkAdapter = {
     rootDir,
     useTypeScript,
     routingMode,
+    enableProxy,
   }: FrameworkSetupContext) => {
     const routesInfo = await detectTanStackRoutesDir(rootDir);
     if (!routesInfo) return;
@@ -100,6 +153,11 @@ export const tanStackStartAdapter: FrameworkAdapter = {
     logger(
       colorize('Setting up TanStack Start integration...', ANSIColors.CYAN)
     );
+
+    if (!usesLocalePathSegment({ routingMode, enableProxy })) {
+      await setupUnprefixedRoutes(rootDir, routesDir, useTypeScript);
+      return;
+    }
 
     // 1. Move routable route entries under the locale segment (idempotent).
     const restructureResult = await restructureRoutesIntoLocale(
