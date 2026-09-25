@@ -49,10 +49,14 @@ export const useIntlayer = <
   withInertOnChange(
     getIntlayer<T, A>(
       key,
-      resolveDictionaryArgument({
-        localeOrSelector,
-        contextLocale: getRequestLocale(),
-        dictionaryKey: key as string,
-      }) as A
+      // Selectors disabled project-wide (build-time flag) ⇒ the argument can
+      // only be a locale, so the merge is dropped by the bundler.
+      (process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+        ? resolveDictionaryArgument({
+            localeOrSelector,
+            contextLocale: getRequestLocale(),
+            dictionaryKey: key as string,
+          })
+        : (localeOrSelector ?? getRequestLocale())) as A
     )
   );

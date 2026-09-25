@@ -49,14 +49,24 @@ export const getDictionary = <
   IInterpreterPluginState,
   ExtractSelectorLocale<A>
 > => {
-  const { locale, selector } = parseDictionarySelector(localeOrSelector);
+  // The selector checks stay inline so bundlers can drop the whole
+  // qualified-dictionary module when no dictionary declares a qualifier.
+  const { locale, selector } =
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+      ? parseDictionarySelector(localeOrSelector)
+      : {
+          locale: localeOrSelector as LocalesValues | undefined,
+          selector: undefined,
+        };
 
   // The base plugins are rebuilt on every call, so they cannot identify
   // themselves — but they are fully determined by the locale, which the key
   // already carries. Only an explicitly passed array needs its own identity.
   const cacheKey = getDictionaryTransformCacheKey(
     locale ?? internationalization.defaultLocale,
-    getDictionarySelectorCacheKey(selector),
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+      ? getDictionarySelectorCacheKey(selector)
+      : '',
     plugins
   );
 
@@ -65,7 +75,10 @@ export const getDictionary = <
 
   const appliedPlugins = plugins ?? getBasePlugins(locale);
 
-  const resolved = resolveQualifiedDictionary(dictionary, selector);
+  const resolved =
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+      ? resolveQualifiedDictionary(dictionary, selector)
+      : (dictionary as Dictionary);
 
   const transformDictionary = (resolvedDictionary: Dictionary) => {
     const props: NodeProps = {
@@ -82,7 +95,8 @@ export const getDictionary = <
     return getContent(resolvedDictionary.content, props, appliedPlugins);
   };
 
-  if (resolved === null) return writeTransformCache(dictionary, cacheKey, null);
+  if (resolved === null)
+    return writeTransformCache(dictionary, cacheKey, null)!;
 
   if (Array.isArray(resolved)) {
     return writeTransformCache(

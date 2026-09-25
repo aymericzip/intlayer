@@ -1,5 +1,5 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { Plugins } from './getContent';
 import { getDictionary } from './getDictionary';
 
@@ -149,5 +149,26 @@ describe('getDictionary memoization', () => {
     expect(typeof dict.total).toBe('function');
     expect(dict.total(1)).toBe('1 item');
     expect(dict.total(5)).toBe('5 items');
+  });
+});
+
+/**
+ * With no qualified dictionary in the build, `INTLAYER_DICTIONARY_SELECTOR` is
+ * `"false"` and the selector resolution is compiled out.
+ */
+describe('getDictionary without dictionary selectors', () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('resolves a plain dictionary by locale', () => {
+    vi.stubEnv('INTLAYER_DICTIONARY_SELECTOR', 'false');
+    const dictionary = createDictionary('selector-disabled');
+
+    expect(String(getDictionary(dictionary, 'fr').title)).toBe('Bonjour');
+    expect(String(getDictionary(dictionary).title)).toBe('Hello');
+    expect(getDictionary(dictionary, 'fr')).toBe(
+      getDictionary(dictionary, 'fr')
+    );
   });
 });

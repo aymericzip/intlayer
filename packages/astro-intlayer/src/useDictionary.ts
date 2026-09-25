@@ -57,10 +57,14 @@ export const useDictionary = <
   withInertOnChange(
     getDictionary<T, A>(
       dictionary,
-      resolveDictionaryArgument({
-        localeOrSelector,
-        contextLocale: getRequestLocale(),
-        dictionaryKey: dictionary.key,
-      }) as A
+      // Selectors disabled project-wide (build-time flag) ⇒ the argument can
+      // only be a locale, so the merge is dropped by the bundler.
+      (process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+        ? resolveDictionaryArgument({
+            localeOrSelector,
+            contextLocale: getRequestLocale(),
+            dictionaryKey: dictionary.key,
+          })
+        : (localeOrSelector ?? getRequestLocale())) as A
     )
   );

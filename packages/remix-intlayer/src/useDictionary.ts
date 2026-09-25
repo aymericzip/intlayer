@@ -51,12 +51,20 @@ export const useDictionary = <
   ResolveQualifiedDictionaryContent<T, A>,
   ExtractSelectorLocale<A>
 > => {
-  const argument = resolveDictionaryArgument({
-    localeOrSelector,
-    contextLocale: getRequestLocale(),
-    dictionaryKey: dictionary.key,
-  });
-  const { locale } = parseDictionarySelector(argument);
+  // Selectors disabled project-wide (build-time flag) ⇒ the argument can only
+  // be a locale, so the selector resolution is dropped by the bundler.
+  const argument =
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+      ? resolveDictionaryArgument({
+          localeOrSelector,
+          contextLocale: getRequestLocale(),
+          dictionaryKey: dictionary.key,
+        })
+      : (localeOrSelector ?? getRequestLocale());
+  const locale =
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+      ? parseDictionarySelector(argument).locale
+      : (argument as LocalesValues | undefined);
 
   return getDictionary<T, A>(
     dictionary,

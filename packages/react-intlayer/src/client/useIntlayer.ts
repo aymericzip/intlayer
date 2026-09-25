@@ -69,7 +69,9 @@ export const useIntlayer = <
   // variant is often a fresh object literal on every render, so the dependency
   // has to be its serialization, never its reference.
   const argumentIdentity =
-    typeof argument === 'object' && argument !== null
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
+    typeof argument === 'object' &&
+    argument !== null
       ? `${argument.locale ?? ''}|${getDictionarySelectorCacheKey(argument)}`
       : argument;
 
