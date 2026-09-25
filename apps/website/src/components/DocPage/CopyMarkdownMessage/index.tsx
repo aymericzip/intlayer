@@ -38,7 +38,8 @@ export const CopyMarkdownMessage: FC<CopyMarkdownMessageProps> = ({
         onPointerEnter={loadMarkdown}
         onFocus={loadMarkdown}
         size="icon-md"
-        className="p-2"
+        className="p-2 text-text/70 transition-colors hover:text-text"
+        iconClassName="size-3.5"
       />
       <PopoverStatic.Detail
         identifier="copy"

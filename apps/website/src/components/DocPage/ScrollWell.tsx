@@ -74,7 +74,7 @@ const Title: FC = () => {
       : undefined;
 
   return (
-    <div className="ml-3 flex min-w-0 flex-1 flex-col justify-center overflow-hidden">
+    <div className="ml-5 flex min-w-0 flex-1 flex-col justify-center overflow-hidden">
       <AnimatePresence mode="wait" initial={false}>
         <m.span
           key={firstTitle ?? 'empty-parent'}

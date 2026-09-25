@@ -217,7 +217,7 @@ const FrameworkFilterUI: FC<FrameworkFilterUIProps> = ({
         hasCloseButton
         className="max-h-[95vh]"
         border
-        ButtonColor="neutral"
+        closeButtonColor="neutral"
       >
         <div className="flex flex-col gap-3">
           <Button

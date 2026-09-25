@@ -7,7 +7,7 @@ import { motion as m } from 'framer-motion';
 import { X } from 'lucide-react';
 import { type FC, type ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Button } from '../Button';
+import { Button, type ButtonColor } from '../Button';
 import { Container, type ContainerProps } from '../Container';
 import { H3 } from '../Headers';
 
@@ -23,6 +23,10 @@ type ModalProps = {
   container?: HTMLElement;
   disableScroll?: boolean;
   hasCloseButton?: boolean;
+  /**
+   * Color of the close button.
+   */
+  closeButtonColor?: ButtonColor;
   title?: ReactNode;
   size?: ModalSize | `${ModalSize}`;
   /**
@@ -147,6 +151,7 @@ export const Modal: FC<ModalProps> = ({
   container,
   onClose,
   hasCloseButton = false,
+  closeButtonColor = 'text',
   title,
   size = 'md',
   className,
@@ -236,7 +241,7 @@ export const Modal: FC<ModalProps> = ({
           {hasCloseButton && (
             <Button
               variant="hoverable"
-              color="text"
+              color={closeButtonColor}
               label="Close modal"
               className="ml-auto"
               onClick={(e) => {
