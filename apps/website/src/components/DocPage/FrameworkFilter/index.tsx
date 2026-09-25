@@ -213,8 +213,11 @@ const FrameworkFilterUI: FC<FrameworkFilterUIProps> = ({
         title={title}
         size="sm"
         padding="md"
+        roundedSize="3xl"
         hasCloseButton
         className="max-h-[95vh]"
+        border
+        ButtonColor="neutral"
       >
         <div className="flex flex-col gap-3">
           <Button
