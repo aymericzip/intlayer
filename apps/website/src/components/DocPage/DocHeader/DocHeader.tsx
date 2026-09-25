@@ -96,7 +96,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
   return (
     <>
       <header className="z-10 mx-auto mt-5 flex flex-col gap-2 px-4 py-2 text-xs">
-        <div className="flex items-start justify-between">
+        <div className="flex items-center justify-between">
           {author && (
             <span className="flex items-center gap-2">
               {authorLabel}:{' '}
