@@ -9,6 +9,7 @@ const mockConfig = vi.hoisted(() => ({
 
 vi.mock('./useLocaleStorage', () => ({
   localeInStorage: undefined,
+  getLocaleInStorage: () => undefined,
   setLocaleInStorage: () => undefined,
 }));
 

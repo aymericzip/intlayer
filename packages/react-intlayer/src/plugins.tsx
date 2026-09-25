@@ -569,7 +569,10 @@ export const getPlugins = (
     htmlPlugin,
   ] as Plugins[];
 
-  pluginsCache.set(cacheKey, plugins);
+  // Plugins disabled at build time never match: skip them on every node
+  const enabledPlugins = plugins.filter((plugin) => plugin !== fallbackPlugin);
 
-  return plugins;
+  pluginsCache.set(cacheKey, enabledPlugins);
+
+  return enabledPlugins;
 };

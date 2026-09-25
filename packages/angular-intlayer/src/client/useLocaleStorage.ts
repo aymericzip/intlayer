@@ -8,11 +8,12 @@ import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 /**
  * Get the locale cookie
+ *
+ * Read once at import time; marked pure so bundlers drop the read when nothing
+ * imports it.
  */
-/**
- * Get the locale cookie
- */
-export const localeInStorage = getLocaleFromStorageClient(localeStorageOptions);
+export const localeInStorage =
+  /* @__PURE__ */ getLocaleFromStorageClient(localeStorageOptions);
 /**
  * @deprecated Use localeInStorage instead
  *

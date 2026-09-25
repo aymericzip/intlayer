@@ -38,19 +38,26 @@ const deepMerge = (target: any, source: any): any => {
   let result = target;
 
   for (const key of Object.keys(source)) {
+    const sourceValue = source[key];
+
     if (
       key === '__proto__' ||
       key === 'constructor' ||
-      source[key] === undefined
+      sourceValue === undefined
     )
       continue;
 
-    const merged =
-      target[key] !== undefined
-        ? deepMerge(target[key], source[key])
-        : source[key];
+    const targetValue = target[key];
 
-    if (merged === target[key]) continue;
+    // Only objects need a recursive merge: a primitive the target holds wins
+    const merged =
+      targetValue === undefined
+        ? sourceValue
+        : typeof targetValue === 'object'
+          ? deepMerge(targetValue, sourceValue)
+          : targetValue;
+
+    if (merged === targetValue) continue;
 
     if (result === target) result = { ...target };
     result[key] = merged;
@@ -95,29 +102,25 @@ export const getTranslation = <const Content = string>(
   const exactMatch = get(locale);
   if (typeof exactMatch === 'string') return exactMatch;
 
-  // Build priority-ordered locale candidates (most specific first), deduped
-  const seen = new Set<string>();
-  const locales: string[] = [];
+  // Priority-ordered locale candidates, most specific first
+  const candidates = [
+    locale,
+    locale.split('-')[0],
+    fallback,
+    fallback?.split('-')[0],
+  ];
 
-  const addLocale = (localeEl: string | undefined) => {
-    if (localeEl && !seen.has(localeEl)) {
-      seen.add(localeEl);
-      locales.push(localeEl);
-    }
-  };
-
-  addLocale(locale);
-  if (locale.includes('-')) addLocale(locale.split('-')[0]);
-
-  addLocale(fallback);
-  if (fallback?.includes('-')) addLocale(fallback.split('-')[0]);
-
-  // Collect results: strings exit early (if no higher-priority object was found),
-  // objects are accumulated for deep merging.
+  // Strings exit early (unless a higher-priority object was found), objects
+  // are accumulated for deep merging
   const results: Content[] = [];
 
-  for (const localeEl of locales) {
-    const value = get(localeEl);
+  for (let index = 0; index < candidates.length; index++) {
+    const candidate = candidates[index];
+
+    // Skip empty and repeated candidates
+    if (!candidate || candidates.indexOf(candidate) < index) continue;
+
+    const value = get(candidate);
 
     if (value === undefined) continue;
     if (typeof value === 'string') {

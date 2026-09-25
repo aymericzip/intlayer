@@ -19,7 +19,7 @@ import {
 } from 'react';
 import { AnalyticsProvider } from '../analytics/AnalyticsProvider';
 import { EditorProvider } from '../editor/EditorProvider';
-import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
+import { getLocaleInStorage, setLocaleInStorage } from './useLocaleStorage';
 
 type IntlayerValue = {
   locale: LocalesValues;
@@ -37,7 +37,10 @@ type IntlayerValue = {
  * Context that stores the current locale on the client side.
  */
 export const IntlayerClientContext = createContext<IntlayerValue>({
-  locale: localeInStorage ?? internationalization?.defaultLocale,
+  // Read on demand: only a tree rendered without a provider needs it
+  get locale() {
+    return getLocaleInStorage() ?? internationalization?.defaultLocale;
+  },
   setLocale: () => null,
   isCookieEnabled: true,
 });
@@ -114,11 +117,14 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   const { locales: availableLocales, defaultLocale: defaultLocaleConfig } =
     internationalization ?? {};
 
-  const initialLocale =
-    localeProp ?? localeInStorage ?? defaultLocaleProp ?? defaultLocaleConfig;
-
-  const [currentLocale, setCurrentLocale] =
-    useState<LocalesValues>(initialLocale);
+  // Storage is only read when no locale is passed, and only on mount
+  const [currentLocale, setCurrentLocale] = useState<LocalesValues>(
+    () =>
+      localeProp ??
+      getLocaleInStorage() ??
+      defaultLocaleProp ??
+      defaultLocaleConfig
+  );
   const [adoptedLocaleProp, setAdoptedLocaleProp] = useState(localeProp);
 
   // Adopt a new `locale` prop during render rather than in an effect: an
@@ -199,8 +205,11 @@ export const IntlayerProvider: FC<IntlayerProviderProps> = ({
   ...props
 }) => (
   <IntlayerProviderContent {...props}>
-    <EditorProvider />
-    <AnalyticsProvider />
+    {/* Build flags drop these, and their modules, when the feature is off */}
+    {process.env.INTLAYER_EDITOR_ENABLED !== 'false' && <EditorProvider />}
+    {process.env.INTLAYER_ANALYTICS_ENABLED !== 'false' && (
+      <AnalyticsProvider />
+    )}
     {children}
   </IntlayerProviderContent>
 );

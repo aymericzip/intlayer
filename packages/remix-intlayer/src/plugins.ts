@@ -1,6 +1,7 @@
 import { internationalization } from '@intlayer/config/built';
 import {
   type DeepTransformContent as DeepTransformContentCore,
+  fallbackPlugin,
   getBasePlugins,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   type Plugins,
@@ -48,7 +49,10 @@ export const getPlugins = (
     ...getBasePlugins(locale, fallback),
     markdownPlugin,
     htmlPlugin,
-  ];
+  ].filter(
+    // Plugins disabled at build time never match: skip them on every node
+    (plugin) => plugin !== fallbackPlugin
+  );
 
   pluginsCache.set(cacheKey, plugins);
 

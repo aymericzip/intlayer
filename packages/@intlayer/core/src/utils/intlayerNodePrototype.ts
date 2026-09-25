@@ -1,8 +1,11 @@
 /** A node exposing its underlying value, as every framework's node does. */
 type ValueNode = { value: unknown };
 
-/** Built prototypes, per base prototype, then per value prototype. */
-const prototypeCache = new Map<object, Map<object | null, object>>();
+/**
+ * Built prototypes, per base prototype, then per value type (`'string'`…) or,
+ * for objects, per value prototype.
+ */
+const prototypeCache = new Map<object, Map<unknown, object>>();
 
 /**
  * Creates the prototype of every node sharing a base and a value type.
@@ -77,10 +80,14 @@ export const getIntlayerNodePrototype = (
   value: unknown,
   basePrototype: object = Object.prototype
 ): object => {
-  const valuePrototype =
+  // Primitives are keyed by type, so a leaf never boxes its value
+  const valueType = typeof value;
+  const valueKey =
     value === null || value === undefined
       ? null
-      : Object.getPrototypeOf(Object(value));
+      : valueType === 'object' || valueType === 'function'
+        ? Object.getPrototypeOf(value)
+        : valueType;
 
   let prototypes = prototypeCache.get(basePrototype);
 
@@ -89,11 +96,14 @@ export const getIntlayerNodePrototype = (
     prototypeCache.set(basePrototype, prototypes);
   }
 
-  let prototype = prototypes.get(valuePrototype);
+  let prototype = prototypes.get(valueKey);
 
   if (!prototype) {
-    prototype = createIntlayerNodePrototype(basePrototype, valuePrototype);
-    prototypes.set(valuePrototype, prototype);
+    prototype = createIntlayerNodePrototype(
+      basePrototype,
+      valueKey === null ? null : Object.getPrototypeOf(Object(value))
+    );
+    prototypes.set(valueKey, prototype);
   }
 
   return prototype;

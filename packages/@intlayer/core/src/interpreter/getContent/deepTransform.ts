@@ -2,79 +2,80 @@ import type { KeyPath } from '@intlayer/types/keyPath';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import type { NodeProps } from './plugins';
 
+/** Props of a child node: same context, one more key path segment. */
+const getChildProps = (
+  props: NodeProps,
+  children: unknown,
+  keyPathSegment: KeyPath
+): NodeProps => ({
+  ...props,
+  children,
+  keyPath: [...props.keyPath, keyPathSegment],
+});
+
 /**
  * Recursively traverses a node (object/array/primitive).
  * Applies the *first* plugin that can transform a node, then stops descending further.
  * If no plugin transforms it, it recurses into its children.
  */
 export const deepTransformNode = (node: any, props: NodeProps): any => {
-  // Otherwise, if it's an object, check if any plugin can handle it:
   for (const plugin of props.plugins ?? []) {
     if (plugin.canHandle(node)) {
       // Return the transformed node => do NOT recurse further
-      return plugin.transform(node, props, (node: any, props: any) =>
-        deepTransformNode(node, props)
-      );
+      return plugin.transform(node, props, deepTransformNode);
     }
   }
 
-  // If it's null/undefined or not an object, just return it directly:
+  // Primitives, and functions such as html/markdown node renderers
   if (node === null || typeof node !== 'object') {
     return node;
   }
 
-  // If it's a framework-specific virtual node or already a transformed Proxy,
-  // return it directly to avoid re-transforming its internal properties.
+  // Framework virtual nodes and already-transformed nodes are final
   if (
-    (node as any).$$typeof !== undefined ||
-    (node as any).__v_isVNode !== undefined ||
-    (node as any)._isVNode !== undefined ||
-    (node as any).isJSX !== undefined ||
-    typeof node === 'function' // Proxies for html/markdown are functions
+    node.$$typeof !== undefined ||
+    node.__v_isVNode !== undefined ||
+    node._isVNode !== undefined ||
+    node.isJSX !== undefined
   ) {
     return node;
   }
 
-  // If it's an array, transform each element:
   if (Array.isArray(node)) {
-    return node.map((child, index) => {
-      const childProps = {
-        ...props,
-        children: child,
-        keyPath: [
-          ...props.keyPath,
-          { type: NodeTypes.ARRAY, key: index } as KeyPath,
-        ],
-      };
-      return deepTransformNode(child, childProps);
-    });
+    return node.map((child, index) =>
+      deepTransformNode(
+        child,
+        getChildProps(props, child, {
+          type: NodeTypes.ARRAY,
+          key: index,
+        } as KeyPath)
+      )
+    );
   }
 
-  // If no plugin transforms it, we keep traversing its properties.
   const result: Record<string, any> = {};
+
   for (const key in node) {
-    // Built on demand so unread keys cost no allocation
-    const getChildProps = (): NodeProps => ({
-      ...props,
-      children: node[key],
-      keyPath: [...props.keyPath, { type: NodeTypes.OBJECT, key } as KeyPath],
-    });
+    const keyPathSegment = { type: NodeTypes.OBJECT, key } as KeyPath;
 
     if (props.eager) {
-      // Eager mode: recurse immediately so plugins fire on every node, even
-      // when the caller discards the returned tree (e.g. side-effect-only
-      // plugins like missing-locale detection).
-      result[key] = deepTransformNode(node[key], getChildProps());
+      result[key] = deepTransformNode(
+        node[key],
+        getChildProps(props, node[key], keyPathSegment)
+      );
       continue;
     }
 
+    // Lazy mode: transform on first read, then memoize onto the property
     Object.defineProperty(result, key, {
       enumerable: true,
       configurable: true,
       get: function () {
-        const transformed = deepTransformNode(node[key], getChildProps());
+        const transformed = deepTransformNode(
+          node[key],
+          getChildProps(props, node[key], keyPathSegment)
+        );
 
-        // Memoize the result onto the property to avoid re-calculating on next read
         Object.defineProperty(this, key, {
           value: transformed,
           enumerable: true,

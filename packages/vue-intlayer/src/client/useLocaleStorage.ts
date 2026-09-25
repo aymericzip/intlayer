@@ -9,8 +9,12 @@ import { computed } from 'vue';
 
 /**
  * Get the locale cookie
+ *
+ * Read once at import time; marked pure so bundlers drop the read when nothing
+ * imports it.
  */
-export const localeInStorage = getLocaleFromStorageClient(localeStorageOptions);
+export const localeInStorage =
+  /* @__PURE__ */ getLocaleFromStorageClient(localeStorageOptions);
 /**
  * @deprecated Use localeInStorage instead
  *

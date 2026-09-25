@@ -9,6 +9,7 @@ import {
   conditionPlugin,
   type DeepTransformContent,
   enumerationPlugin,
+  fallbackPlugin,
   filePlugin,
   genderPlugin,
   type IInterpreterPluginState,
@@ -38,7 +39,10 @@ export const getBasePlugins = (
     filePlugin,
     genderPlugin,
     selectPlugin,
-  ] as Plugins[];
+  ].filter(
+    // Plugins disabled at build time never match: skip them on every node
+    (plugin) => plugin !== fallbackPlugin
+  ) as Plugins[];
 
 /**
  * Transforms a node in a single pass, applying each plugin as needed.

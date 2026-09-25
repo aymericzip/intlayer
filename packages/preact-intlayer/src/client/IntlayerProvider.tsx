@@ -19,7 +19,7 @@ import {
 } from 'preact/hooks';
 import { AnalyticsProvider } from '../analytics/AnalyticsProvider';
 import { EditorProvider } from '../editor/EditorProvider';
-import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
+import { getLocaleInStorage, setLocaleInStorage } from './useLocaleStorage';
 
 type IntlayerValue = {
   locale: LocalesValues;
@@ -36,7 +36,10 @@ type IntlayerValue = {
  * Context that store the current locale on the client side
  */
 export const IntlayerClientContext = createContext<IntlayerValue>({
-  locale: localeInStorage ?? internationalization?.defaultLocale,
+  // Read on demand: only a tree rendered without a provider needs it
+  get locale() {
+    return getLocaleInStorage() ?? internationalization?.defaultLocale;
+  },
   setLocale: () => null,
 });
 
@@ -87,11 +90,13 @@ export const IntlayerProviderContent: FunctionComponent<
   const { defaultLocale: defaultLocaleConfig, locales: availableLocales } =
     internationalization ?? {};
 
-  const defaultLocale =
-    localeProp ?? localeInStorage ?? defaultLocaleProp ?? defaultLocaleConfig;
-
+  // Storage is only read when no locale is passed, and only on mount
   const [currentLocale, setCurrentLocale] = useState<LocalesValues>(
-    defaultLocale as LocalesValues
+    () =>
+      (localeProp ??
+        getLocaleInStorage() ??
+        defaultLocaleProp ??
+        defaultLocaleConfig) as LocalesValues
   );
 
   useEffect(() => {
@@ -164,8 +169,11 @@ export const IntlayerProvider: FunctionComponent<IntlayerProviderProps> = ({
   ...props
 }) => (
   <IntlayerProviderContent {...props}>
-    <EditorProvider />
-    <AnalyticsProvider />
+    {/* Build flags drop these, and their modules, when the feature is off */}
+    {process.env.INTLAYER_EDITOR_ENABLED !== 'false' && <EditorProvider />}
+    {process.env.INTLAYER_ANALYTICS_ENABLED !== 'false' && (
+      <AnalyticsProvider />
+    )}
     {children}
   </IntlayerProviderContent>
 );

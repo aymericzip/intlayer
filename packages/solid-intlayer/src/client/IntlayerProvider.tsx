@@ -19,7 +19,7 @@ import {
   untrack,
   useContext,
 } from 'solid-js';
-import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
+import { getLocaleInStorage, setLocaleInStorage } from './useLocaleStorage';
 
 const LazyEditorProvider =
   process.env.INTLAYER_EDITOR_ENABLED !== 'false'
@@ -56,7 +56,7 @@ export type IntlayerValue = {
  * Context that store the current locale on the client side
  */
 export const IntlayerClientContext = createContext<IntlayerValue>({
-  locale: () => localeInStorage ?? internationalization?.defaultLocale,
+  locale: () => getLocaleInStorage() ?? internationalization?.defaultLocale,
   setLocale: () => null,
 });
 
@@ -99,9 +99,10 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
   const { defaultLocale: defaultLocaleConfig, locales: availableLocales } =
     internationalization ?? {};
 
+  // Storage is only read when no locale is passed
   const defaultLocale =
     props.locale ??
-    localeInStorage ??
+    getLocaleInStorage() ??
     props.defaultLocale ??
     defaultLocaleConfig;
 

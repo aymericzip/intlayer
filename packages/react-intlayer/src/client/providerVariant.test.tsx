@@ -21,6 +21,7 @@ const mockConfig = vi.hoisted(() => ({
 // under test is independent of it, so it is stubbed out entirely.
 vi.mock('./useLocaleStorage', () => ({
   localeInStorage: undefined,
+  getLocaleInStorage: () => undefined,
   setLocaleInStorage: () => undefined,
 }));
 
