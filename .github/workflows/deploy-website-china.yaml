@@ -1,0 +1,142 @@
+name: 🇨🇳 Deploy Website (China VPS)
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_clean:
+        description: 'Force remove old .output before untarring'
+        type: boolean
+        default: true
+        required: false
+  # Optional: Uncomment if you want automatic deployments on push to main
+  # push:
+  #   branches:
+  #     - 'main'
+  #   paths:
+  #     - 'apps/website/**'
+  #     - 'packages/**'
+  #     - 'docs/**'
+  #     - '.github/workflows/deploy-website-china.yaml'
+
+concurrency:
+  group: deploy-website-china
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🥡 Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          version: 1.4.2
+          run_install: false
+
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: 🔆 Cache Bun Modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-store-${{ hashFiles('**/bun.lock*') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-store-
+
+      - name: 🧩 Install Monorepo Dependencies
+        run: bun install
+
+      - name: 🏗️ Build Workspace Dependencies
+        run: bun x turbo run build:ci --filter=website-tanstack^... --filter=./docs
+
+      - name: 📝 Configure Production Environment for China
+        run: |
+          cat << 'EOF' > apps/website/.env.production.local
+          VITE_DOMAIN=${{ secrets.VITE_DOMAIN || 'intlayer.cn' }}
+          VITE_URL=${{ secrets.VITE_URL || 'https://intlayer.cn' }}
+          VITE_EDITOR_URL=${{ secrets.VITE_EDITOR_URL || 'https://intlayer.cn' }}
+          VITE_CMS_URL=${{ secrets.VITE_CMS_URL || 'https://app.intlayer.org' }}
+          VITE_BACKEND_DOMAIN=${{ secrets.VITE_BACKEND_DOMAIN || 'back.intlayer.org' }}
+          VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL || 'https://back.intlayer.org' }}
+          VITE_ENABLE_SERVICE_WORKER=true
+          VITE_BAIDU_PUSH_TOKEN=${{ secrets.VITE_BAIDU_PUSH_TOKEN || 'igBZ4IS2CwB7KRmZ' }}
+          INTLAYER_BACKEND_URL=${{ secrets.INTLAYER_BACKEND_URL || 'https://back.intlayer.org' }}
+          EOF
+
+      - name: 🚀 Build Website
+        working-directory: apps/website
+        env:
+          NODE_ENV: production
+          NODE_OPTIONS: '--max_old_space_size=8192'
+        run: |
+          bun run build
+
+      - name: 📦 Bundle Runtime & Archive (.output + @intlayer/docs)
+        run: |
+          # docs.entry.mjs reads docs markdown files from filesystem at runtime
+          mkdir -p apps/website/.output/server/node_modules/@intlayer
+          cp -r docs apps/website/.output/server/node_modules/@intlayer/docs
+
+          # Create compressed archive
+          tar -czf output.tar.gz -C apps/website .output
+
+          echo "Archive generated successfully:"
+          ls -lh output.tar.gz
+
+      - name: 💾 Save Archive to GitHub Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-output-china
+          path: output.tar.gz
+          retention-days: 7
+
+      - name: 📤 Copy Archive to VPS via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_CHINA_HOST }}
+          username: ${{ secrets.VPS_USER || 'root' }}
+          password: ${{ secrets.VPS_CHINA_PASSWORD }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          source: 'output.tar.gz'
+          target: ${{ secrets.VPS_DIR || '/opt/website-tanstack' }}
+          strip_components: 0
+
+      - name: 🔄 Extract and Restart Server on VPS
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_CHINA_HOST }}
+          username: ${{ secrets.VPS_USER || 'root' }}
+          password: ${{ secrets.VPS_CHINA_PASSWORD }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          script: |
+            set -e
+            TARGET_DIR="${{ secrets.VPS_DIR || '/opt/website-tanstack' }}"
+            BUN_BIN="${{ secrets.VPS_BUN_PATH || '/root/.bun/bin/bun' }}"
+
+            mkdir -p "$TARGET_DIR"
+            cd "$TARGET_DIR"
+
+            if [ ! -f "output.tar.gz" ]; then
+              echo "❌ Error: output.tar.gz not found in $TARGET_DIR"
+              exit 1
+            fi
+
+            echo "📦 Extracting new build..."
+            rm -rf .output/
+            tar -xzf output.tar.gz
+            rm -f output.tar.gz
+
+            echo "🔄 Restarting application..."
+            pkill -9 -f ".output/server/index.mjs" || true
+            nohup "$BUN_BIN" run .output/server/index.mjs > server.log 2>&1 &
+
+            sleep 3
+            echo "📄 Server log output:"
+            cat server.log | tail -n 25
