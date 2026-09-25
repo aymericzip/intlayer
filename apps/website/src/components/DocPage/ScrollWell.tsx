@@ -74,7 +74,7 @@ const Title: FC = () => {
     <m.div
       layout
       transition={{ duration: 0.2, ease: 'easeInOut' }}
-      className="ml-2 flex min-w-0 flex-1 flex-col justify-center overflow-hidden"
+      className="ml-4 flex min-w-0 flex-1 flex-col justify-center overflow-hidden"
     >
       <m.span
         layout="position"
