@@ -154,4 +154,61 @@ describe('NavAccordion and NavSectionItem', () => {
 
     expect(mockNavigate).not.toHaveBeenCalled();
   });
+
+  it('does not navigate on toggle when hasDefaultSection is true, but clicking title navigates', () => {
+    renderToStaticMarkup(
+      <NavAccordion
+        label="cli"
+        title="CLI"
+        to="/doc/concept/cli"
+        isActive={false}
+        isSelfActive={false}
+        isSubSectionActive={false}
+        hasDefaultSection={true}
+      >
+        <div>Content</div>
+      </NavAccordion>
+    );
+
+    expect(lastAccordionProps).toBeTruthy();
+
+    // Trigger toggle (simulating click on chevron)
+    lastAccordionProps.onToggle(true);
+
+    expect(mockNavigate).not.toHaveBeenCalled();
+
+    // Trigger title click
+    const stopPropagation = vi.fn();
+    lastAccordionProps.header.props.onClick({ stopPropagation });
+
+    expect(stopPropagation).toHaveBeenCalled();
+    expect(mockNavigate).toHaveBeenCalledWith({ to: '/doc/concept/cli' });
+  });
+
+  it('collapses when clicking on the title if it is already selected', () => {
+    renderToStaticMarkup(
+      <NavAccordion
+        label="cli-selected"
+        title="CLI Selected"
+        to="/doc/concept/cli"
+        isActive={true}
+        isSelfActive={true}
+        isSubSectionActive={false}
+        defaultIsOpen={true}
+        hasDefaultSection={true}
+      >
+        <div>Content</div>
+      </NavAccordion>
+    );
+
+    expect(lastAccordionProps).toBeTruthy();
+    expect(lastAccordionProps.isOpen).toBe(true);
+
+    // Trigger title click when already selected
+    const stopPropagation = vi.fn();
+    lastAccordionProps.header.props.onClick({ stopPropagation });
+
+    expect(stopPropagation).toHaveBeenCalled();
+    expect(mockNavigate).not.toHaveBeenCalled();
+  });
 });

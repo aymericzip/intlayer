@@ -5,6 +5,7 @@ import type { LucideIcon } from 'lucide-react';
 import {
   type ComponentProps,
   type FC,
+  type MouseEvent,
   type ReactNode,
   useEffect,
   useRef,
@@ -113,6 +114,7 @@ type NavAccordionProps = {
   children: ReactNode;
   isLevel1?: boolean;
   headerClassName?: string;
+  hasDefaultSection?: boolean;
 };
 
 export const NavAccordion: FC<NavAccordionProps> = ({
@@ -128,6 +130,7 @@ export const NavAccordion: FC<NavAccordionProps> = ({
   children,
   isLevel1 = false,
   headerClassName,
+  hasDefaultSection = false,
 }) => {
   const navigate = useLocalizedNavigate();
   const pathname = usePathname();
@@ -152,6 +155,11 @@ export const NavAccordion: FC<NavAccordionProps> = ({
   }, [isActive, setIsOpen]);
 
   const handleToggle = (nextIsOpen: boolean) => {
+    if (hasDefaultSection) {
+      setIsOpen(nextIsOpen);
+      return;
+    }
+
     if (isOpen || !nextIsOpen) {
       setIsOpen(false);
     } else if (to && !isSelfActive) {
@@ -160,6 +168,19 @@ export const NavAccordion: FC<NavAccordionProps> = ({
     } else {
       setIsOpen(nextIsOpen);
     }
+  };
+
+  const handleTitleClick = (e: MouseEvent<HTMLSpanElement>) => {
+    if (!hasDefaultSection) return;
+    e.stopPropagation();
+    if (isSelfActive) {
+      setIsOpen(!isOpen);
+      return;
+    }
+    if (to) {
+      navigate(to);
+    }
+    setIsOpen(true);
   };
 
   const isDeployed = isLevel1 || isOpen;
@@ -173,7 +194,12 @@ export const NavAccordion: FC<NavAccordionProps> = ({
       variant="hoverable"
       color={isDeployed ? 'text' : 'neutral'}
       header={
-        <OptionalLink label={label} frameworks={frameworks} inAccordion>
+        <OptionalLink
+          label={label}
+          frameworks={frameworks}
+          inAccordion
+          onClick={handleTitleClick}
+        >
           {title}
         </OptionalLink>
       }
@@ -288,6 +314,7 @@ export const NavSectionItem: FC<NavSectionItemProps> = ({
       defaultIsOpen={level === 1 ? isDefaultDeployed : false}
       frameworks={sectionData.frameworks}
       isLevel1={level === 1}
+      hasDefaultSection={isDefaultShowed}
     >
       <ul className="m-0 mt-1.5 ml-3 flex list-none flex-col gap-y-2 border-border/60 border-l p-0 pl-2 text-sm">
         {sectionDefault?.relativeUrl && (
