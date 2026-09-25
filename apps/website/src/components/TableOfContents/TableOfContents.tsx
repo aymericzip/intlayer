@@ -64,6 +64,17 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
               label={`${linkLabel.value}: ${title}`}
               color="text"
               variant="hoverable"
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById(id);
+                if (element) {
+                  element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                  });
+                }
+                window.history.pushState(null, '', `#${id}`);
+              }}
               className={cn(
                 'flex flex-1 items-center justify-between text-wrap p-2 pr-4 text-base transition-colors',
                 depth === 1 && 'text-muted-foreground/75 text-sm',
@@ -77,13 +88,15 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
               {title}
             </Link>
             {hasChildren && (
-              <NavTitlesChildren
-                headings={subChildren}
-                childrenMap={childrenMap}
-                headingTexts={headingTexts}
-                depth={depth + 1}
-                maxDepth={maxDepth}
-              />
+              <div className="border-neutral/20 border-l">
+                <NavTitlesChildren
+                  headings={subChildren}
+                  childrenMap={childrenMap}
+                  headingTexts={headingTexts}
+                  depth={depth + 1}
+                  maxDepth={maxDepth}
+                />
+              </div>
             )}
           </li>
         );
@@ -128,6 +141,17 @@ export const TableOfContents: FC<TableOfContentsProps> = ({
                 color="text"
                 isPageSection
                 variant="hoverable"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.getElementById(id);
+                  if (element) {
+                    element.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                    });
+                  }
+                  window.history.pushState(null, '', `#${id}`);
+                }}
                 className="flex w-full items-center justify-between text-wrap p-2 pr-4 text-base text-muted-foreground transition-colors"
               >
                 {title}
