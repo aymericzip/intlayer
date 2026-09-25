@@ -91,6 +91,21 @@ describe('resolveFallbackLocale', () => {
     expect(getLocaleMock).not.toHaveBeenCalled();
   });
 
+  it('waits for a concurrently rendering provider before reading storage', async () => {
+    let seededLocale: string | undefined;
+    getServerContextMock.mockImplementation(() => seededLocale);
+
+    // The layout's provider seeds the context after the page first reads it
+    setTimeout(() => {
+      seededLocale = 'fr';
+    }, 0);
+
+    await expect(
+      renderWithSuspense(() => resolveFallbackLocale())
+    ).resolves.toBeUndefined();
+    expect(getLocaleMock).not.toHaveBeenCalled();
+  });
+
   it('suspends on a context miss and resolves from request storage', async () => {
     getServerContextMock.mockReturnValue(undefined);
     getLocaleMock.mockResolvedValue('es');
@@ -128,5 +143,17 @@ describe('getFallbackLocale', () => {
     await expect(getFallbackLocale()).resolves.toBeUndefined();
     await expect(getFallbackLocale('en')).resolves.toBeUndefined();
     expect(getLocaleMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('waits for a concurrently rendering provider before reading storage', async () => {
+    let seededLocale: string | undefined;
+    getServerContextMock.mockImplementation(() => seededLocale);
+
+    setTimeout(() => {
+      seededLocale = 'fr';
+    }, 0);
+
+    await expect(getFallbackLocale()).resolves.toBeUndefined();
+    expect(getLocaleMock).not.toHaveBeenCalled();
   });
 });

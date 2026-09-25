@@ -37,6 +37,20 @@ const needsRequestLocale = (localeOrSelector?: unknown): boolean =>
 const readStoredLocale = createSuspendingReader<Locale>(getLocale);
 
 /**
+ * Resolves after one macrotask.
+ *
+ * Next.js renders a page concurrently with its layout, and the layout usually
+ * awaits `params` before `IntlayerProvider` renders and seeds the server
+ * context. A synchronous page therefore reads the context before it is seeded.
+ * Yielding once lets the provider run first, so a full render (including the
+ * build-time prerender) never reaches request storage and stays static.
+ */
+const yieldToProvider = (): Promise<true> =>
+  new Promise((resolve) => setTimeout(() => resolve(true), 0));
+
+const waitForProvider = createSuspendingReader<true>(yieldToProvider);
+
+/**
  * Fallback locale for the synchronous server hooks, so a page does not need a
  * provider of its own. Not a React hook despite suspending — it holds no
  * positional state, which is what lets it run conditionally (see
@@ -44,13 +58,20 @@ const readStoredLocale = createSuspendingReader<Locale>(getLocale);
  * page segment, the layout — and with it `IntlayerProvider` — does not re-run,
  * and the locale carried by the request takes over.
  *
- * Suspends until the request storage resolves. Returns `undefined` when the
- * call site or the server context already carries the locale.
+ * On a context miss, first suspends once so a concurrently rendering provider
+ * can seed the context, then suspends until the request storage resolves.
+ * Returns `undefined` when the call site or the server context already carries
+ * the locale.
  */
 export const resolveFallbackLocale = (
   localeOrSelector?: unknown
-): Locale | undefined =>
-  needsRequestLocale(localeOrSelector) ? readStoredLocale() : undefined;
+): Locale | undefined => {
+  if (!needsRequestLocale(localeOrSelector)) return undefined;
+
+  waitForProvider();
+
+  return needsRequestLocale(localeOrSelector) ? readStoredLocale() : undefined;
+};
 
 /**
  * Asynchronous twin of {@link resolveFallbackLocale}, for the hooks that are
@@ -58,8 +79,13 @@ export const resolveFallbackLocale = (
  */
 export const getFallbackLocale = async (
   localeOrSelector?: unknown
-): Promise<Locale | undefined> =>
-  needsRequestLocale(localeOrSelector) ? await getLocale() : undefined;
+): Promise<Locale | undefined> => {
+  if (!needsRequestLocale(localeOrSelector)) return undefined;
+
+  await yieldToProvider();
+
+  return needsRequestLocale(localeOrSelector) ? await getLocale() : undefined;
+};
 
 /**
  * Full ambient locale for the server APIs that take a plain locale argument
