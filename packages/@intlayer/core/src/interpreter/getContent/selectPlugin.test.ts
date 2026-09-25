@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { enu, select } from '../../transpiler';
 import { deepTransformNode } from './deepTransform';
-import { enumerationPlugin, type NodeProps, selectPlugin } from './plugins';
+import {
+  enumerationPlugin,
+  type NodeProps,
+  type Plugins,
+  selectPlugin,
+} from './plugins';
 
 const nodeProps: NodeProps = {
   dictionaryKey: 'test',
@@ -53,5 +58,37 @@ describe('enumerationPlugin', () => {
     expect(resolve(0)).toBe('No items');
     expect(resolve(5)).toBe('Many items');
     expect(resolve({ count: 1 })).toBe('One item');
+  });
+});
+
+/**
+ * Some renderers (Svelte components, Angular proxies) turn text into callable
+ * nodes exposing `.value`. Object selectors must return such a node as is,
+ * not call it with the selector values.
+ */
+describe('callable rendered nodes', () => {
+  const renderedNode = Object.assign(() => 'called', { value: 'Many items' });
+  const callableNodePlugin: Plugins = {
+    id: 'callable-node-plugin',
+    canHandle: (node) => typeof node === 'string',
+    transform: () => renderedNode,
+  };
+
+  it('should return the node for an enumeration object selector', () => {
+    const resolve = transform(enu({ '>1': 'Many items' }), [
+      enumerationPlugin,
+      callableNodePlugin,
+    ]);
+
+    expect(resolve({ count: 5 })).toBe(renderedNode);
+  });
+
+  it('should return the node for a select object selector', () => {
+    const resolve = transform(select({ a: 'A', fallback: 'F' }), [
+      selectPlugin,
+      callableNodePlugin,
+    ]);
+
+    expect(resolve({ value: 'a' })).toBe(renderedNode);
   });
 });

@@ -3105,7 +3105,9 @@ describe('options.slugify', () => {
   it('should use the default function if unset', () => {
     renderFn(compileMarkdown('# 中文'));
 
-    expect(container.innerHTML).toMatchInlineSnapshot(`"<h1 id="">中文</h1>"`);
+    expect(container.innerHTML).toMatchInlineSnapshot(
+      `"<h1 id="中文">中文</h1>"`
+    );
   });
 
   it('should throw error if invalid', () => {

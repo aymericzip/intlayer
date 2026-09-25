@@ -1,8 +1,9 @@
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
-import { insert, plural } from '../../transpiler';
+import { enu, insert, plural } from '../../transpiler';
 import { deepTransformNode } from './deepTransform';
 import {
+  enumerationPlugin,
   insertionPlugin,
   type NodeProps,
   pluralPlugin,
@@ -17,7 +18,7 @@ const nodeProps: NodeProps = {
 const transform = (node: unknown) =>
   deepTransformNode(node, {
     ...nodeProps,
-    plugins: [pluralPlugin('en'), insertionPlugin],
+    plugins: [pluralPlugin('en'), enumerationPlugin, insertionPlugin],
   });
 
 describe('pluralPlugin', () => {
@@ -105,5 +106,27 @@ describe('resolveInsertedSelector', () => {
     ) as (values: object) => (selector: unknown) => unknown;
 
     expect(resolve({ name: 'Bo' })(5)).toEqual({ name: 'Bo', count: 5 });
+  });
+
+  it.each([NodeTypes.PLURAL, NodeTypes.ENUMERATION])(
+    'should let the %s selector win over a count in the values',
+    (nodeType) => {
+      const resolve = resolveInsertedSelector({ nodeType }, echoSelector) as (
+        values: object
+      ) => (selector: unknown) => unknown;
+
+      expect(resolve({ count: 1, name: 'Bo' })(5)).toEqual({
+        name: 'Bo',
+        count: 5,
+      });
+    }
+  );
+
+  it('should select and interpolate an inserted enumeration by its count', () => {
+    const resolve = transform(
+      insert(enu({ '1': '{{count}} item', '>1': '{{count}} items' }))
+    ) as (values: object) => (selector: number) => unknown;
+
+    expect(resolve({ count: 1 })(5)).toBe('5 items');
   });
 });

@@ -71,6 +71,24 @@ export const fallbackPlugin: Plugins = {
   transform: (node) => node,
 };
 
+/**
+ * Whether a resolved branch still expects insertion values.
+ *
+ * Some renderers return callable nodes (Svelte components, Angular proxies)
+ * exposing their content on `.value`: those are final and must not be called
+ * with the values. A pending insertion either has no `.value` or a function
+ * one.
+ */
+const isAwaitingValues = (
+  branch: unknown
+): branch is (values: Record<string, unknown>) => unknown => {
+  if (typeof branch !== 'function') return false;
+
+  const { value } = branch as { value?: unknown };
+
+  return value === undefined || typeof value === 'function';
+};
+
 /** ---------------------------------------------
  * TRANSLATION PLUGIN
  * --------------------------------------------- */
@@ -182,7 +200,7 @@ export const enumerationPlugin: Plugins =
             const quantity = typeof arg === 'number' ? arg : arg.count;
             const subResult = getEnumeration(result, quantity);
 
-            if (typeof subResult === 'function' && typeof arg === 'object') {
+            if (isAwaitingValues(subResult) && typeof arg === 'object') {
               return subResult(arg);
             }
 
@@ -331,7 +349,7 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
               effectiveLocale
             );
 
-            if (typeof subResult === 'function') {
+            if (isAwaitingValues(subResult)) {
               return (subResult as SubResultFunction)(values);
             }
 
@@ -385,7 +403,7 @@ export const conditionPlugin: Plugins =
             const value = typeof arg === 'boolean' ? arg : arg.value;
             const subResult = getCondition(result as any, value);
 
-            if (typeof subResult === 'function' && typeof arg === 'object') {
+            if (isAwaitingValues(subResult) && typeof arg === 'object') {
               return subResult(arg);
             }
 
@@ -523,8 +541,8 @@ export const bindInsertedValues = (
     return result;
   }
 
-  const isPlural = nodeType === NodeTypes.PLURAL;
-  const isEnumeration = nodeType === NodeTypes.ENUMERATION;
+  const isCountSelector =
+    nodeType === NodeTypes.PLURAL || nodeType === NodeTypes.ENUMERATION;
 
   return (selector: unknown) => {
     // Object selectors (`{ count }`, `{ value }`) carry the values along.
@@ -532,24 +550,15 @@ export const bindInsertedValues = (
       return result({ ...values, ...selector });
     }
 
-    // Plural interpolates its own branches, `{{count}}` included.
-    if (isPlural) {
+    // The count both selects the branch and fills `{{count}}`: the selector
+    // wins over a `count` passed with the values.
+    if (isCountSelector) {
       return result({ ...values, count: selector });
-    }
-
-    // Enumeration selector is a numeric count (or count range)
-    if (isEnumeration && typeof selector === 'number') {
-      const mergedValues = { count: selector, ...values };
-      const selected = result(mergedValues);
-
-      return !areBranchesInterpolated && typeof selected === 'function'
-        ? selected(mergedValues)
-        : selected;
     }
 
     const selected = result(selector);
 
-    return !areBranchesInterpolated && typeof selected === 'function'
+    return !areBranchesInterpolated && isAwaitingValues(selected)
       ? selected(values)
       : selected;
   };
@@ -675,7 +684,7 @@ export const selectPlugin: Plugins =
             const value = typeof arg === 'string' ? arg : arg?.value;
             const subResult = getSelect(result, value);
 
-            if (typeof subResult === 'function' && typeof arg === 'object') {
+            if (isAwaitingValues(subResult) && typeof arg === 'object') {
               return subResult(arg);
             }
 
