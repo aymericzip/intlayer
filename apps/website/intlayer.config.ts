@@ -3,27 +3,35 @@ import type { CustomIntlayerConfig } from '@intlayer/types/config';
 import * as Locales from '@intlayer/types/locales';
 import { tanstackRouterRewrite } from 'intlayer/routing';
 
-export const locales: Locale[] = [
-  Locales.ENGLISH,
-  Locales.FRENCH,
-  Locales.RUSSIAN,
-  Locales.JAPANESE,
-  Locales.KOREAN,
-  Locales.CHINESE,
-  Locales.SPANISH,
-  Locales.GERMAN,
-  Locales.ARABIC,
-  Locales.ITALIAN,
-  Locales.ENGLISH_UNITED_KINGDOM,
-  Locales.PORTUGUESE,
-  Locales.HINDI,
-  Locales.TURKISH,
-  Locales.POLISH,
-  Locales.INDONESIAN,
-  Locales.VIETNAMESE,
-  Locales.UKRAINIAN,
-];
-export const defaultLocale = Locales.ENGLISH;
+const isChina =
+  process.env.IS_CHINA === 'true' ||
+  process.env.VITE_DOMAIN === 'intlayer.cn' ||
+  import.meta.env?.VITE_DOMAIN === 'intlayer.cn';
+
+export const locales: Locale[] = isChina
+  ? [Locales.CHINESE, Locales.ENGLISH]
+  : [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.RUSSIAN,
+      Locales.JAPANESE,
+      Locales.KOREAN,
+      Locales.CHINESE,
+      Locales.SPANISH,
+      Locales.GERMAN,
+      Locales.ARABIC,
+      Locales.ITALIAN,
+      Locales.ENGLISH_UNITED_KINGDOM,
+      Locales.PORTUGUESE,
+      Locales.HINDI,
+      Locales.TURKISH,
+      Locales.POLISH,
+      Locales.INDONESIAN,
+      Locales.VIETNAMESE,
+      Locales.UKRAINIAN,
+    ];
+
+export const defaultLocale = isChina ? Locales.CHINESE : Locales.ENGLISH;
 
 const config: CustomIntlayerConfig = {
   internationalization: {

@@ -57,6 +57,7 @@ jobs:
       - name: 📝 Configure Production Environment for China
         run: |
           cat << 'EOF' > apps/website/.env.production.local
+          IS_CHINA=true
           VITE_DOMAIN=${{ secrets.VITE_DOMAIN || 'intlayer.cn' }}
           VITE_URL=${{ secrets.VITE_URL || 'https://intlayer.cn' }}
           VITE_EDITOR_URL=${{ secrets.VITE_EDITOR_URL || 'https://intlayer.cn' }}
@@ -71,6 +72,7 @@ jobs:
       - name: 🚀 Build Website
         working-directory: apps/website
         env:
+          IS_CHINA: 'true'
           NODE_ENV: production
           NODE_OPTIONS: '--max_old_space_size=8192'
         run: |
