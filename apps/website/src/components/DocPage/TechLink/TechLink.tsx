@@ -602,7 +602,7 @@ export const TechLink: FC<TechLinkProps> = ({
         to={resolvedHref}
         variant="invisible-link"
         underlined={false}
-        className="group not-prose block min-w-60 flex-1 no-underline max-sm:min-w-full"
+        className="group not-prose block min-w-60 flex-1 p-0 no-underline max-sm:min-w-full"
         label={
           typeof displayTitle === 'string' && displayTitle
             ? displayTitle

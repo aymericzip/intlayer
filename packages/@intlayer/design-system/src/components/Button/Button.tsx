@@ -137,7 +137,7 @@ export const buttonVariants = cva(
         link: 'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 *:text-current! hover:bg-transparent hover:underline',
 
         'invisible-link':
-          'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 *:text-current! hover:bg-transparent',
+          'h-auto justify-start border-inherit bg-transparent underline-offset-4 *:text-current! hover:bg-transparent',
 
         hoverable:
           'rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/5 aria-[current]:bg-current/3',
