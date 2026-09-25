@@ -10,7 +10,13 @@ import {
   createContext,
   type FunctionComponent,
 } from 'preact';
-import { useContext, useEffect, useState } from 'preact/hooks';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'preact/hooks';
 import { AnalyticsProvider } from '../analytics/AnalyticsProvider';
 import { EditorProvider } from '../editor/EditorProvider';
 import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
@@ -89,40 +95,45 @@ export const IntlayerProviderContent: FunctionComponent<
   );
 
   useEffect(() => {
-    if (localeProp && localeProp !== currentLocale) {
-      setCurrentLocale(localeProp);
-    }
-  }, [localeProp, currentLocale, setCurrentLocale]);
-
-  useEffect(() => {
     setIntlayerIdentifier();
   }, []);
 
-  const setLocaleBase = (newLocale: LocalesValues) => {
-    if (currentLocale.toString() === newLocale.toString()) return;
+  // The prop wins over the state. It is read directly instead of being mirrored
+  // into state by an effect, which re-rendered the subtree after every change.
+  const activeLocale = localeProp ?? currentLocale;
 
-    if (!availableLocales?.map(String).includes(newLocale)) {
-      console.error(`Locale ${newLocale} is not available`);
-      return;
-    }
+  const setLocaleBase = useCallback(
+    (newLocale: LocalesValues) => {
+      if (activeLocale.toString() === newLocale.toString()) return;
 
-    setCurrentLocale(newLocale); // Update state
-    setLocaleInStorage(newLocale, isCookieEnabled ?? true); // Optionally set cookie for persistence
-  };
+      if (!availableLocales?.map(String).includes(newLocale)) {
+        console.error(`Locale ${newLocale} is not available`);
+        return;
+      }
+
+      setCurrentLocale(newLocale); // Update state
+      setLocaleInStorage(newLocale, isCookieEnabled ?? true); // Optionally set cookie for persistence
+    },
+    [activeLocale, availableLocales, isCookieEnabled]
+  );
 
   const setLocale = setLocaleProp ?? setLocaleBase;
 
-  const resolvedLocale = localeResolver(localeProp ?? currentLocale);
+  const resolvedLocale = localeResolver(activeLocale);
+
+  // Stable value so a parent re-render does not re-render every consumer
+  const contextValue = useMemo<IntlayerValue>(
+    () => ({
+      locale: resolvedLocale,
+      setLocale,
+      variant,
+      isCookieEnabled,
+    }),
+    [resolvedLocale, setLocale, variant, isCookieEnabled]
+  );
 
   return (
-    <IntlayerClientContext.Provider
-      value={{
-        locale: resolvedLocale,
-        setLocale,
-        variant,
-        isCookieEnabled,
-      }}
-    >
+    <IntlayerClientContext.Provider value={contextValue}>
       {children}
     </IntlayerClientContext.Provider>
   );

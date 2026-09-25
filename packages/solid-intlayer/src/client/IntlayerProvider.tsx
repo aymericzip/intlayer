@@ -7,8 +7,8 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import {
   type Component,
+  createComputed,
   createContext,
-  createEffect,
   createMemo,
   createSignal,
   lazy,
@@ -124,7 +124,9 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
   // Use createMemo for derived reactive values
   const locale = createMemo(() => localeResolver(currentLocale()));
 
-  createEffect(
+  // Computed, not effect: it applies the prop in the same propagation as the
+  // render effects, so nothing renders against the previous locale first.
+  createComputed(
     on(
       () => props.locale,
       (newPropLocale) => {
