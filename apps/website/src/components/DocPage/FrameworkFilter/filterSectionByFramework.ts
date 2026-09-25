@@ -110,8 +110,9 @@ export const filterSectionByFramework = <
     }
   );
 
-  // Apply Rule C: If this section explicitly matches the framework, unwrap its subsections as siblings
-  // We only move subsections to top level if it's the ONLY item showed in the category
+  // Apply Rule C: If this section is the ONLY item shown in the category, unwrap its subsections to the top level:
+  // - If it has no default content (like Backend), promote its subsections directly as siblings
+  // - If it explicitly matches the framework and has default content, unwrap its subsections as siblings alongside itself
   const isOnlyItemShown = resolvedEntries.length === 1;
 
   if (depth > 0 && isOnlyItemShown) {
@@ -119,11 +120,17 @@ export const filterSectionByFramework = <
       const matchesExplicitly =
         filter?.every((f) => data.frameworks?.includes(f)) ?? false;
 
-      if (matchesExplicitly && data.subSections) {
-        return [
-          [key, { ...data, subSections: undefined }],
-          ...Object.entries(data.subSections),
-        ];
+      if (data.subSections) {
+        if (!data.default) {
+          return Object.entries(data.subSections);
+        }
+
+        if (matchesExplicitly) {
+          return [
+            [key, { ...data, subSections: undefined }],
+            ...Object.entries(data.subSections),
+          ];
+        }
       }
 
       return [[key, data]];

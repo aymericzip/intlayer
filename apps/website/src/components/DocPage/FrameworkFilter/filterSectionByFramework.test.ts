@@ -250,4 +250,46 @@ describe('filterSectionByFramework', () => {
       't',
     ]);
   });
+
+  it('moves all subsections to top level when a category without default is the only item shown', () => {
+    const tree: Record<string, Node> = {
+      environment: {
+        title: 'Environment',
+        subSections: {
+          react: {
+            title: 'React',
+            default: {},
+            frameworks: ['react'],
+          },
+          node: {
+            title: 'Backend',
+            subSections: {
+              express: {
+                title: 'Express.js',
+                default: {},
+                frameworks: ['express', 'node'],
+              },
+              nest: {
+                title: 'NestJS',
+                default: {},
+                frameworks: ['nest', 'node'],
+              },
+              fastify: {
+                title: 'Fastify',
+                default: {},
+                frameworks: ['fastify', 'node'],
+              },
+            },
+          },
+        },
+      },
+    };
+
+    const filtered = filterSectionByFramework(tree, ['node']);
+    expect(keysOf(filtered.environment.subSections!)).toEqual([
+      'express',
+      'nest',
+      'fastify',
+    ]);
+  });
 });
