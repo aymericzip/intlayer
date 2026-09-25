@@ -145,7 +145,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // Corresponde à sintaxe de espaço reservado do vue-i18n: {name}
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),
@@ -155,7 +155,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`** mapeia um locale para o caminho de seu arquivo JSON correspondente. **`location`** diz ao observador (watcher) do Intlayer qual pasta monitorar para alterações. A opção `format: 'icu'` garante que espaços reservados do `vue-i18n` sejam analisados corretamente.
+> **`source`** mapeia um locale para o caminho de seu arquivo JSON correspondente. **`location`** diz ao observador (watcher) do Intlayer qual pasta monitorar para alterações. A opção `format: 'vue-i18n'` garante que espaços reservados do `vue-i18n` sejam analisados corretamente.
 
 </Step>
 <Step number={3} title="Adicione os plugins do Intlayer ao seu bundler">
@@ -265,7 +265,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),

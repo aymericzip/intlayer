@@ -52,6 +52,10 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
+```bash packageManager="bun"
+bun add --dev eslint-plugin-intlayer
+```
+
 ESLint 9 이상(Flat config)이 필요합니다. ESLint 10을 지원합니다.
 
 ## 사용법

@@ -145,7 +145,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // khớp với cú pháp placeholder vue-i18n: {name}
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),
@@ -155,7 +155,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`** ánh xạ một locale tới đường dẫn tệp JSON của nó. **`location`** cho Intlayer watcher biết thư mục nào để theo dõi các thay đổi. Tùy chọn `format: 'icu'` đảm bảo rằng các placeholder được phân tích cú pháp chính xác cho `vue-i18n`.
+> **`source`** ánh xạ một locale tới đường dẫn tệp JSON của nó. **`location`** cho Intlayer watcher biết thư mục nào để theo dõi các thay đổi. Tùy chọn `format: 'vue-i18n'` đảm bảo rằng các placeholder được phân tích cú pháp chính xác cho `vue-i18n`.
 
 </Step>
 <Step number={3} title="Thêm plugin Intlayer vào Bundler của bạn">
@@ -265,7 +265,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),

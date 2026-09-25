@@ -8,10 +8,12 @@ import {
   detectMissingIntlayerPackages,
   detectPackageManager,
   findLockFileDir,
+  hasLegacyEslint,
   hasLintTooling,
   isIntlayerPackageName,
   moveCompatPackagesToDevDependencies,
   normalizeVersion,
+  PENDING_COMPAT_ADAPTERS,
 } from './packageManager';
 
 describe('detectCompatI18nLibraries', () => {
@@ -49,14 +51,19 @@ describe('detectCompatI18nLibraries', () => {
   it('only lists packages compat detection actually wires an adapter for', () => {
     for (const library of COMPAT_I18N_LIBRARIES) {
       for (const packageName of library.packages) {
-        const { packagesToInstall, devPackagesToInstall } =
-          detectMissingIntlayerPackages({ [packageName]: '*' });
+        const {
+          packagesToInstall,
+          devPackagesToInstall,
+          pendingCompatAdapters,
+        } = detectMissingIntlayerPackages({ [packageName]: '*' });
 
-        // Anything beyond the always-required `intlayer` package means the
-        // compat branch of the detection recognized the dependency.
+        // Anything beyond the always-required `intlayer` package — or an
+        // adapter reported as not released yet — means the compat branch of
+        // the detection recognized the dependency.
         const compatScheduled = [
           ...packagesToInstall,
           ...devPackagesToInstall,
+          ...pendingCompatAdapters,
         ].filter((scheduled) => scheduled !== 'intlayer');
 
         expect(
@@ -74,13 +81,111 @@ describe('hasLintTooling', () => {
     expect(hasLintTooling({ oxlint: '^1.0.0' })).toBe(true);
   });
 
+  it('assumes a current ESLint for ranges without a version number', () => {
+    expect(hasLintTooling({ eslint: 'latest' })).toBe(true);
+    expect(hasLintTooling({ eslint: 'catalog:' })).toBe(true);
+  });
+
+  it('is false with ESLint 8, even alongside oxlint', () => {
+    expect(hasLintTooling({ eslint: '^8.57.0' })).toBe(false);
+    expect(hasLintTooling({ eslint: '^8.57.0', oxlint: '^1.0.0' })).toBe(false);
+  });
+
   it('is false for a project that does not lint', () => {
     expect(hasLintTooling({})).toBe(false);
     expect(hasLintTooling({ react: '^19.0.0', vite: '^6.0.0' })).toBe(false);
   });
 });
 
+describe('hasLegacyEslint', () => {
+  it('flags ESLint below 9 only', () => {
+    expect(hasLegacyEslint({ eslint: '^8.57.0' })).toBe(true);
+    expect(hasLegacyEslint({ eslint: '~7.32.0' })).toBe(true);
+    expect(hasLegacyEslint({ eslint: '^9.0.0' })).toBe(false);
+    expect(hasLegacyEslint({ eslint: '^10.0.0' })).toBe(false);
+    expect(hasLegacyEslint({ eslint: 'latest' })).toBe(false);
+    expect(hasLegacyEslint({})).toBe(false);
+  });
+});
+
 describe('detectMissingIntlayerPackages', () => {
+  it('skips the lint plugin with ESLint 8', () => {
+    const result = detectMissingIntlayerPackages({ eslint: '^8.57.0' });
+
+    expect(result.devPackagesToInstall).not.toContain('eslint-plugin-intlayer');
+  });
+
+  describe('meta-framework integrations', () => {
+    it('installs nuxt-intlayer for Nuxt', () => {
+      const result = detectMissingIntlayerPackages({ nuxt: '^4.0.0' });
+
+      expect(result.packagesToInstall).toContain('nuxt-intlayer');
+    });
+
+    it('does not install nuxt-intlayer next to @nuxtjs/i18n', () => {
+      const result = detectMissingIntlayerPackages({
+        nuxt: '^4.0.0',
+        '@nuxtjs/i18n': '^10.0.0',
+      });
+
+      expect(result.packagesToInstall).not.toContain('nuxt-intlayer');
+    });
+
+    it('installs astro-intlayer for Astro', () => {
+      const result = detectMissingIntlayerPackages({ astro: '^5.0.0' });
+
+      expect(result.packagesToInstall).toContain('astro-intlayer');
+    });
+  });
+
+  describe('pending compat adapters', () => {
+    it.each([...PENDING_COMPAT_ADAPTERS])(
+      'never installs the unreleased %s',
+      (adapterPackage) => {
+        const library = COMPAT_I18N_LIBRARIES.find((compatLibrary) =>
+          Object.values(compatLibrary.replacements).includes(adapterPackage)
+        );
+        const originalPackage = Object.keys(library?.replacements ?? {}).find(
+          (packageName) => library?.replacements[packageName] === adapterPackage
+        );
+        expect(originalPackage).toBeDefined();
+
+        const result = detectMissingIntlayerPackages(
+          { [originalPackage as string]: '^1.0.0' },
+          { dependencies: { [originalPackage as string]: '^1.0.0' } }
+        );
+
+        expect(result.packagesToInstall).not.toContain(adapterPackage);
+        expect(result.packagesToMoveToDev).not.toContain(originalPackage);
+        expect(result.pendingCompatAdapters).toContain(adapterPackage);
+        expect(result.compatVitePluginConfig?.pluginPackageSource).not.toBe(
+          `${adapterPackage}/plugin`
+        );
+      }
+    );
+
+    it('keeps syncing the catalogs of a library without a released adapter', () => {
+      const result = detectMissingIntlayerPackages({ 'svelte-i18n': '^4.0.0' });
+
+      expect(result.compatSyncConfig).toBeDefined();
+      expect(result.devPackagesToInstall).toContain(
+        '@intlayer/sync-json-plugin'
+      );
+    });
+
+    it('uses an unreleased adapter the project already installed', () => {
+      const result = detectMissingIntlayerPackages({
+        'svelte-i18n': '^4.0.0',
+        '@intlayer/svelte-i18n': 'file:../svelte-i18n',
+      });
+
+      expect(result.pendingCompatAdapters).toEqual([]);
+      expect(result.compatVitePluginConfig?.pluginPackageSource).toBe(
+        '@intlayer/svelte-i18n/plugin'
+      );
+    });
+  });
+
   describe('server frameworks', () => {
     it.each([
       ['express', 'express-intlayer'],

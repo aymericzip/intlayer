@@ -145,7 +145,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // 匹配 vue-i18n 占位符语法：{name}
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),
@@ -155,7 +155,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`** 将 locale 映射到其 JSON 文件路径。**`location`** 告诉 Intlayer watcher 监视哪个文件夹以获取更改。`format: 'icu'` 选项确保正确解析 `vue-i18n` 的占位符。
+> **`source`** 将 locale 映射到其 JSON 文件路径。**`location`** 告诉 Intlayer watcher 监视哪个文件夹以获取更改。`format: 'vue-i18n'` 选项确保正确解析 `vue-i18n` 的占位符。
 
 </Step>
 <Step number={3} title="将 Intlayer Plugin 添加到您的 Bundler">
@@ -265,7 +265,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),

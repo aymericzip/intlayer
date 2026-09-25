@@ -146,7 +146,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // 匹配 vue-i18n 占位符语法：{name}
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),
@@ -156,7 +156,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`** 将语言环境映射到其 JSON 文件路径。**`location`** 告诉 Intlayer 观察器监控哪个文件夹以查找更改。`format: 'icu'` 选项确保占位符被正确解析以供 `vue-i18n` 使用。
+> **`source`** 将语言环境映射到其 JSON 文件路径。**`location`** 告诉 Intlayer 观察器监控哪个文件夹以查找更改。`format: 'vue-i18n'` 选项确保占位符被正确解析以供 `vue-i18n` 使用。
 
 </Step>
 <Step number={3} title="更新 Nuxt 配置">
@@ -234,7 +234,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),

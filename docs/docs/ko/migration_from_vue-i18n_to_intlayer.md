@@ -145,7 +145,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // vue-i18n 플레이스홀더 구문인 {name}과 일치시킵니다.
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),
@@ -155,7 +155,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`**는 로케일을 해당 JSON 파일 경로로 매핑합니다. **`location`**은 Intlayer 관찰자(Watcher)에게 변경 사항을 모니터링할 폴더를 알려줍니다. `format: 'icu'` 옵션은 `vue-i18n`의 플레이스홀더가 올바르게 분석되도록 보장합니다.
+> **`source`**는 로케일을 해당 JSON 파일 경로로 매핑합니다. **`location`**은 Intlayer 관찰자(Watcher)에게 변경 사항을 모니터링할 폴더를 알려줍니다. `format: 'vue-i18n'` 옵션은 `vue-i18n`의 플레이스홀더가 올바르게 분석되도록 보장합니다.
 
 </Step>
 <Step number={3} title="번들러에 Intlayer 플러그인 추가하기">
@@ -265,7 +265,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),

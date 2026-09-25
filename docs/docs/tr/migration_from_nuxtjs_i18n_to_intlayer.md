@@ -147,7 +147,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // vue-i18n yer tutucu sentaksıyla eşleşir: {name}
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),
@@ -157,7 +157,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`**, bir dili JSON dosya yolunuza eşler. **`location`**, Intlayer izleyicisine (watcher) değişiklikler için hangi klasörü izlemesi gerektiğini söyler. `format: 'icu'` seçeneği, `vue-i18n` yer tutucularının (placeholder) doğru bir şekilde çözümlenmesini garanti eder.
+> **`source`**, bir dili JSON dosya yolunuza eşler. **`location`**, Intlayer izleyicisine (watcher) değişiklikler için hangi klasörü izlemesi gerektiğini söyler. `format: 'vue-i18n'` seçeneği, `vue-i18n` yer tutucularının (placeholder) doğru bir şekilde çözümlenmesini garanti eder.
 
 </Step>
 <Step number={3} title="Nuxt Yapılandırmasını Güncelleyin">
@@ -235,7 +235,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),

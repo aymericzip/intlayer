@@ -146,7 +146,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // vue-i18nのプレースホルダー構文 {name} に一致させます
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),
@@ -156,7 +156,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`**はロケールをそのJSONファイルのパスにマッピングします。**`location`**はIntlayerウォッチャーに監視するフォルダを指示します。`format: 'icu'`オプションは、`vue-i18n`のプレースホルダーが正しく解析されることを保証します。
+> **`source`**はロケールをそのJSONファイルのパスにマッピングします。**`location`**はIntlayerウォッチャーに監視するフォルダを指示します。`format: 'vue-i18n'`オプションは、`vue-i18n`のプレースホルダーが正しく解析されることを保証します。
 
 </Step>
 <Step number={3} title="Nuxt設定の更新">
@@ -234,7 +234,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),

@@ -52,6 +52,10 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
+```bash packageManager="bun"
+bun add --dev eslint-plugin-intlayer
+```
+
 ESLint 9 veya üzerini gerektirir (flat config). ESLint 10 desteklenir.
 
 ## Kullanım

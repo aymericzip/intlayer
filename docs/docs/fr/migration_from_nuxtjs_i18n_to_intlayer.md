@@ -146,7 +146,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // correspond à la syntaxe d'espace réservé vue-i18n : {name}
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),
@@ -156,7 +156,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`** mappe un paramètre régional à son chemin de fichier JSON. **`location`** indique à l'observateur Intlayer quel dossier surveiller pour les modifications. L'option `format: 'icu'` garantit que les espaces réservés sont analysés correctement pour `vue-i18n`.
+> **`source`** mappe un paramètre régional à son chemin de fichier JSON. **`location`** indique à l'observateur Intlayer quel dossier surveiller pour les modifications. L'option `format: 'vue-i18n'` garantit que les espaces réservés sont analysés correctement pour `vue-i18n`.
 
 </Step>
 <Step number={3} title="Mettre à jour la Configuration Nuxt">
@@ -234,7 +234,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),

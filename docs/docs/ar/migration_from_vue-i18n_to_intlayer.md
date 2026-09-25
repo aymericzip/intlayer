@@ -145,7 +145,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // يطابق صيغة ملاصقات vue-i18n: {name}
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),
@@ -155,7 +155,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`** يعيّن بيئة محلية إلى مسار ملف JSON الخاص بها. **`location`** يخبر مراقب Intlayer أي مجلد للبحث عن التغييرات. يضمن الخيار `format: 'icu'` أن الملاصقات يتم تحليلها بشكل صحيح لـ `vue-i18n`.
+> **`source`** يعيّن بيئة محلية إلى مسار ملف JSON الخاص بها. **`location`** يخبر مراقب Intlayer أي مجلد للبحث عن التغييرات. يضمن الخيار `format: 'vue-i18n'` أن الملاصقات يتم تحليلها بشكل صحيح لـ `vue-i18n`.
 
 </Step>
 <Step number={3} title="إضافة مكوّن Intlayer إلى Bundler الخاص بك">
@@ -265,7 +265,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),

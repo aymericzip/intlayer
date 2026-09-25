@@ -146,7 +146,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // відповідає синтаксису заповнювачів vue-i18n: {name}
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),
@@ -156,7 +156,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`** відображає локаль на шлях її JSON-файлу. **`location`** повідомляє спостерігачу Intlayer, яку папку моніторити на предмет змін. Опція `format: 'icu'` гарантує, що заповнювачі правильно розпарсюються для `vue-i18n`.
+> **`source`** відображає локаль на шлях її JSON-файлу. **`location`** повідомляє спостерігачу Intlayer, яку папку моніторити на предмет змін. Опція `format: 'vue-i18n'` гарантує, що заповнювачі правильно розпарсюються для `vue-i18n`.
 
 </Step>
 <Step number={3} title="Оновлення конфігурації Nuxt">
@@ -234,7 +234,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),

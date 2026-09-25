@@ -5,6 +5,7 @@ export * from './fileSystem';
 export * from './githubActions';
 export * from './intlayerDependencies';
 export * from './jsonParser';
+export * from './lintConfig';
 export * from './nextCompilerBabel';
 export * from './packageManager';
 export * from './tsConfig';

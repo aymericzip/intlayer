@@ -1,6 +1,7 @@
 import { execSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
+import { isVersionAtLeast } from './version';
 
 /** Package managers supported for dependency installation. */
 export type PackageManager = 'bun' | 'pnpm' | 'yarn' | 'npm';
@@ -89,7 +90,25 @@ export type IntlayerPackageAnalysis = {
    * library requires alias injection.
    */
   compatVitePluginConfig: CompatVitePluginConfig | undefined;
+  /**
+   * Compat adapters the project would need but that are not published yet
+   * (see {@link PENDING_COMPAT_ADAPTERS}). The original library is kept as is;
+   * only its catalogs are synced.
+   */
+  pendingCompatAdapters: string[];
 };
+
+/**
+ * Compat adapters that live in `compat-comming/` and are not published to npm
+ * yet. Installing one fails the whole install command, so init keeps the
+ * original library, skips the adapter and its bundler / framework wiring, and
+ * only syncs the catalogs. Remove an entry once its package is released.
+ */
+export const PENDING_COMPAT_ADAPTERS: ReadonlySet<string> = new Set([
+  '@intlayer/nuxtjs-i18n',
+  '@intlayer/svelte-i18n',
+  '@intlayer/ngx-translate',
+]);
 
 /** Lock files revealing the package manager, in detection priority order. */
 const LOCK_FILE_PACKAGE_MANAGERS: ReadonlyArray<
@@ -394,19 +413,38 @@ export const detectCompatI18nLibraries = (
     library.packages.some((packageName) => Boolean(dependencies[packageName]))
   ).map((library) => library.label);
 
+/** Lowest ESLint major `eslint-plugin-intlayer` supports (flat config). */
+export const MINIMUM_ESLINT_MAJOR = 9;
+
 /**
- * True when the project already lints, and so has something to plug the
- * Intlayer lint rules into.
+ * True when the project pins ESLint below {@link MINIMUM_ESLINT_MAJOR}.
+ * Installing the plugin there fails on its `eslint` peer range (and takes the
+ * whole install command down with it). Ranges without a version number
+ * (`latest`, `*`, `catalog:`) are assumed current.
  *
- * `eslint-plugin-intlayer` loads in both ESLint and oxlint, so either linter is
- * enough. Shared with the init flow so that installing the plugin and wiring up
- * its configuration are gated on exactly the same condition — a project that
- * does not lint is left alone entirely.
+ * @param dependencies - Merged dependencies of the target project.
+ */
+export const hasLegacyEslint = (
+  dependencies: Record<string, string>
+): boolean => {
+  const eslintVersion = dependencies.eslint;
+  if (!eslintVersion || !/\d/.test(eslintVersion)) return false;
+  return !isVersionAtLeast(eslintVersion, MINIMUM_ESLINT_MAJOR);
+};
+
+/**
+ * True when the project already lints with a linter the Intlayer rules can
+ * plug into: oxlint, or ESLint 9+.
+ *
+ * Shared with the init flow so that installing the plugin and wiring up its
+ * configuration are gated on exactly the same condition — a project that does
+ * not lint, or lints with ESLint 8, is left alone.
  *
  * @param dependencies - Merged dependencies of the target project.
  */
 export const hasLintTooling = (dependencies: Record<string, string>): boolean =>
-  Boolean(dependencies.eslint) || Boolean(dependencies.oxlint);
+  !hasLegacyEslint(dependencies) &&
+  (Boolean(dependencies.eslint) || Boolean(dependencies.oxlint));
 
 export const detectMissingIntlayerPackages = (
   allDependencies: Record<string, string>,
@@ -415,6 +453,7 @@ export const detectMissingIntlayerPackages = (
   const packagesToInstall: string[] = [];
   const devPackagesToInstall: string[] = [];
   const packagesToMoveToDev: string[] = [];
+  const pendingCompatAdapters: string[] = [];
 
   let compatSyncConfig: CompatSyncConfig | undefined;
   let compatVitePluginConfig: CompatVitePluginConfig | undefined;
@@ -434,10 +473,24 @@ export const detectMissingIntlayerPackages = (
     }
   };
 
+  /**
+   * Whether an adapter can be used: published, or already installed by the
+   * user (e.g. a local build).
+   */
+  const isAdapterAvailable = (adapterPackage: string): boolean =>
+    !PENDING_COMPAT_ADAPTERS.has(adapterPackage) || isInstalled(adapterPackage);
+
   const markCompatReplacement = (
     originalPackage: string,
     adapterPackage: string
   ): void => {
+    if (!isAdapterAvailable(adapterPackage)) {
+      if (!pendingCompatAdapters.includes(adapterPackage)) {
+        pendingCompatAdapters.push(adapterPackage);
+      }
+      return;
+    }
+
     addIfMissing(adapterPackage);
     addDevIfMissing(originalPackage);
 
@@ -488,6 +541,16 @@ export const detectMissingIntlayerPackages = (
 
   if (isInstalled('vite')) {
     addIfMissing('vite-intlayer');
+  }
+
+  // Meta-frameworks whose config init wires the Intlayer module /
+  // integration into. A `@nuxtjs/i18n` app keeps its own module instead.
+  if (isInstalled('nuxt') && !isInstalled('@nuxtjs/i18n')) {
+    addIfMissing('nuxt-intlayer');
+  }
+
+  if (isInstalled('astro')) {
+    addIfMissing('astro-intlayer');
   }
 
   // Server frameworks. NestJS runs on Express unless the Fastify platform is
@@ -655,10 +718,12 @@ export const detectMissingIntlayerPackages = (
   // @todo syncJSON format not yet implemented for transloco
   if (isInstalled('@ngneat/transloco') || isInstalled('@intlayer/transloco')) {
     markCompatReplacement('@ngneat/transloco', '@intlayer/transloco');
-    compatVitePluginConfig ??= {
-      pluginFunctionName: 'translocoVitePlugin',
-      pluginPackageSource: '@intlayer/transloco/plugin',
-    };
+    if (isAdapterAvailable('@intlayer/transloco')) {
+      compatVitePluginConfig ??= {
+        pluginFunctionName: 'translocoVitePlugin',
+        pluginPackageSource: '@intlayer/transloco/plugin',
+      };
+    }
   }
 
   // svelte-i18n — vite alias injection required, flat JSON (i18next-compatible)
@@ -668,20 +733,24 @@ export const detectMissingIntlayerPackages = (
       format: 'i18next',
       sourceTemplate: './src/locales/${locale}.json',
     };
-    compatVitePluginConfig ??= {
-      pluginFunctionName: 'svelteI18nVitePlugin',
-      pluginPackageSource: '@intlayer/svelte-i18n/plugin',
-    };
+    if (isAdapterAvailable('@intlayer/svelte-i18n')) {
+      compatVitePluginConfig ??= {
+        pluginFunctionName: 'svelteI18nVitePlugin',
+        pluginPackageSource: '@intlayer/svelte-i18n/plugin',
+      };
+    }
   }
 
   // node-polyglot — vite alias injection required
   // @todo syncJSON format not yet implemented for polyglot
   if (isInstalled('node-polyglot') || isInstalled('@intlayer/polyglot')) {
     markCompatReplacement('node-polyglot', '@intlayer/polyglot');
-    compatVitePluginConfig ??= {
-      pluginFunctionName: 'polyglotVitePlugin',
-      pluginPackageSource: '@intlayer/polyglot/plugin',
-    };
+    if (isAdapterAvailable('@intlayer/polyglot')) {
+      compatVitePluginConfig ??= {
+        pluginFunctionName: 'polyglotVitePlugin',
+        pluginPackageSource: '@intlayer/polyglot/plugin',
+      };
+    }
   }
 
   // @nuxtjs/i18n — nuxt module (no vite plugin), vue-i18n JSON format
@@ -704,10 +773,12 @@ export const detectMissingIntlayerPackages = (
       format: 'i18next',
       sourceTemplate: './assets/i18n/${locale}.json',
     };
-    compatVitePluginConfig ??= {
-      pluginFunctionName: 'ngxTranslateVitePlugin',
-      pluginPackageSource: '@intlayer/ngx-translate/plugin',
-    };
+    if (isAdapterAvailable('@intlayer/ngx-translate')) {
+      compatVitePluginConfig ??= {
+        pluginFunctionName: 'ngxTranslateVitePlugin',
+        pluginPackageSource: '@intlayer/ngx-translate/plugin',
+      };
+    }
   }
 
   // @lingui/core — vite alias injection required.
@@ -757,10 +828,12 @@ export const detectMissingIntlayerPackages = (
   // @todo syncJSON format not yet implemented for i18n-js
   if (isInstalled('i18n-js') || isInstalled('@intlayer/i18n-js')) {
     markCompatReplacement('i18n-js', '@intlayer/i18n-js');
-    compatVitePluginConfig ??= {
-      pluginFunctionName: 'i18nJsVitePlugin',
-      pluginPackageSource: '@intlayer/i18n-js/plugin',
-    };
+    if (isAdapterAvailable('@intlayer/i18n-js')) {
+      compatVitePluginConfig ??= {
+        pluginFunctionName: 'i18nJsVitePlugin',
+        pluginPackageSource: '@intlayer/i18n-js/plugin',
+      };
+    }
   }
 
   if (compatSyncConfig) {
@@ -777,6 +850,7 @@ export const detectMissingIntlayerPackages = (
     packagesToMoveToDev,
     compatSyncConfig,
     compatVitePluginConfig,
+    pendingCompatAdapters,
   };
 };
 

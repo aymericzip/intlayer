@@ -15,6 +15,7 @@ import { setupFramework } from './frameworkSetup';
 import { upgradeIntlayerPackages } from './upgradeIntlayerPackages';
 import type { CompatSyncConfig, RoutingMode } from './utils';
 import {
+  addIntlayerRulesToOxlintConfig,
   BACKEND_INTLAYER_PACKAGES,
   detectCompatI18nLibraries,
   detectJsonLocalePattern,
@@ -28,11 +29,15 @@ import {
   getGithubWorkflows,
   getMetroConfigTemplate,
   hasIntlayerVitePlugin,
+  hasLegacyEslint,
   hasLintTooling,
   hasUrlRoutingFramework,
   installPackages,
   isIntlayerPackageName,
+  LINT_PLUGIN_PACKAGE_NAME,
+  MINIMUM_ESLINT_MAJOR,
   moveCompatPackagesToDevDependencies,
+  type OxlintConfig,
   parseJSONWithComments,
   readFileFromRoot,
   replaceViteConfigPluginImportSource,
@@ -105,29 +110,6 @@ const DocumentationRouter = {
   NextI18Next: 'https://intlayer.org/blog/intlayer-with-next-i18next.md',
   VueI18n: 'https://intlayer.org/blog/intlayer-with-vue-i18n.md',
 };
-
-/**
- * The Intlayer lint setup, as `intlayer init` writes it into `.oxlintrc.json`.
- *
- * Declared locally on purpose: `@intlayer/engine` is installed by every Intlayer
- * user, so it must not depend on a lint plugin to write a handful of strings
- * into a JSON file. oxlint resolves a plugin's *rules* but not its shipped
- * *configs*, so the preset cannot be referenced by name there either.
- *
- * Mirrors the `recommended` preset of `eslint-plugin-intlayer`; keep in sync
- * when a rule is enabled by default there.
- */
-const LINT_PLUGIN_PACKAGE_NAME = 'eslint-plugin-intlayer';
-
-/** Intlayer's generated output — never source, never worth linting. */
-const GENERATED_OUTPUT_GLOBS = ['**/.intlayer/**'];
-
-/** Rules of the `recommended` preset, prefixed by the plugin namespace. */
-const getRecommendedRules = (): Record<string, string> => ({
-  'intlayer/no-raw-text': 'warn',
-  'intlayer/static-dictionary-key': 'error',
-  'intlayer/no-dynamic-field-access': 'error',
-});
 
 /**
  * Helper: Detects the environment and returns the doc URL
@@ -403,11 +385,27 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     devPackagesToInstall,
     compatSyncConfig,
     compatVitePluginConfig,
+    pendingCompatAdapters,
   } = detectMissingIntlayerPackages(allDeps, {
     linguiCatalogFormat,
     dependencies: packageJson.dependencies,
     devDependencies: packageJson.devDependencies,
   });
+
+  /** Whether the compat adapter for a library is not released yet. */
+  const isCompatAdapterPending = (adapterPackage: string): boolean =>
+    pendingCompatAdapters.includes(adapterPackage);
+
+  if (pendingCompatAdapters.length > 0) {
+    logger(
+      `${x} No released Intlayer adapter yet for ${pendingCompatAdapters
+        .map((adapterPackage) => colorize(adapterPackage, ANSIColors.MAGENTA))
+        .join(
+          ', '
+        )} — keeping your current i18n library and only syncing its catalogs with Intlayer.`,
+      { level: 'warn' }
+    );
+  }
 
   // The `json-namespaces` content strategy uses the same syncJSON pipeline as
   // the compat libraries: plain per-locale JSON namespace files synced through
@@ -650,55 +648,37 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   // safe to edit, whereas an ESLint flat config is arbitrary JavaScript that
   // cannot be rewritten reliably — that one is left to the user, with the
   // snippet printed below.
+  if (!options?.noEslint && hasLegacyEslint(allDeps)) {
+    logger(
+      `${x} ${colorize(LINT_PLUGIN_PACKAGE_NAME, ANSIColors.MAGENTA)} needs ESLint ${MINIMUM_ESLINT_MAJOR}+ (flat config) — skipped the Intlayer lint rules. Upgrade ESLint to enable them: ${colorizePath(DocumentationRouter.ESLint)}`,
+      { level: 'warn' }
+    );
+  }
+
   if (!options?.noEslint && hasLintTooling(allDeps)) {
     const oxlintConfigPath = '.oxlintrc.json';
     const hasOxlintConfig = await exists(rootDir, oxlintConfigPath);
+    // An oxlint-only project without a config gets one; with ESLint around,
+    // the rules go into the ESLint config instead.
+    const shouldCreateOxlintConfig =
+      !hasOxlintConfig && Boolean(allDeps.oxlint) && !allDeps.eslint;
 
-    if (hasOxlintConfig) {
+    if (hasOxlintConfig || shouldCreateOxlintConfig) {
       try {
-        const content = await readFileFromRoot(rootDir, oxlintConfigPath);
-        const oxlintConfig: {
-          jsPlugins?: string[];
-          rules?: Record<string, unknown>;
-          ignorePatterns?: string[];
-        } = parseJSONWithComments(content);
+        const oxlintConfig: OxlintConfig = hasOxlintConfig
+          ? parseJSONWithComments(
+              await readFileFromRoot(rootDir, oxlintConfigPath)
+            )
+          : {};
 
-        oxlintConfig.jsPlugins ??= [];
-        oxlintConfig.rules ??= {};
-        oxlintConfig.ignorePatterns ??= [];
-
-        let oxlintUpdated = false;
-
-        // Generated dictionaries are not source; linting them is wasted work.
-        for (const glob of GENERATED_OUTPUT_GLOBS) {
-          if (!oxlintConfig.ignorePatterns.includes(glob)) {
-            oxlintConfig.ignorePatterns.push(glob);
-            oxlintUpdated = true;
-          }
-        }
-
-        if (!oxlintConfig.jsPlugins.includes(LINT_PLUGIN_PACKAGE_NAME)) {
-          oxlintConfig.jsPlugins.push(LINT_PLUGIN_PACKAGE_NAME);
-          oxlintUpdated = true;
-        }
-
-        for (const [ruleName, severity] of Object.entries(
-          getRecommendedRules()
-        )) {
-          if (!oxlintConfig.rules[ruleName]) {
-            oxlintConfig.rules[ruleName] = severity;
-            oxlintUpdated = true;
-          }
-        }
-
-        if (oxlintUpdated) {
+        if (addIntlayerRulesToOxlintConfig(oxlintConfig)) {
           await writeFileToRoot(
             rootDir,
             oxlintConfigPath,
             JSON.stringify(oxlintConfig, null, 2)
           );
           logger(
-            `${v} Added the Intlayer lint rules to ${colorizePath(oxlintConfigPath)}`
+            `${v} ${hasOxlintConfig ? 'Added the Intlayer lint rules to' : 'Created'} ${colorizePath(oxlintConfigPath)}`
           );
         } else {
           logger(
@@ -716,11 +696,11 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       logger([
         colorize('Intlayer lint rules →', ANSIColors.MAGENTA),
         colorize(
-          `Add ${LINT_PLUGIN_PACKAGE_NAME} to your ESLint flat config to catch hardcoded text and dynamic calls the compiler cannot optimize:`,
+          `Add the ${LINT_PLUGIN_PACKAGE_NAME} preset to the array your ESLint flat config exports, to catch hardcoded text and dynamic calls the compiler cannot optimize:`,
           ANSIColors.GREY_LIGHT
         ),
         colorize(
-          `  import intlayer from '${LINT_PLUGIN_PACKAGE_NAME}';\n  export default [...intlayer.configs.recommended];`,
+          `  import intlayer from '${LINT_PLUGIN_PACKAGE_NAME}';\n\n  export default [\n    // ...your existing config\n    ...intlayer.configs.recommended,\n  ];`,
           ANSIColors.GREY_LIGHT
         ),
         colorizePath(DocumentationRouter.ESLint),
@@ -1033,6 +1013,10 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
               `${v} ${colorizePath(file)} already includes @intlayer/next-intl/plugin`
             );
           }
+        } else if (isCompatAdapterPending('@intlayer/next-translate')) {
+          logger(
+            `${v} Kept ${colorizePath(file)} untouched (next-translate stays in charge)`
+          );
         } else if (
           allDeps['next-translate'] ||
           allDeps['@intlayer/next-translate']
@@ -1110,7 +1094,11 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
 
         const content = await readFileFromRoot(rootDir, file);
 
-        if (allDeps['@nuxtjs/i18n']) {
+        if (isCompatAdapterPending('@intlayer/nuxtjs-i18n')) {
+          logger(
+            `${v} Kept ${colorizePath(file)} untouched (@nuxtjs/i18n stays in charge)`
+          );
+        } else if (allDeps['@nuxtjs/i18n']) {
           if (!content.includes('@intlayer/nuxtjs-i18n')) {
             const updatedContent = updateNuxtConfigForNuxtjsI18n(content);
             await writeFileToRoot(rootDir, file, updatedContent);

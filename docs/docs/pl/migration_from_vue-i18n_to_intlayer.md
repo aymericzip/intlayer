@@ -145,7 +145,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // pasuje do składni placeholdera vue-i18n: {name}
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),
@@ -155,7 +155,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`** mapuje ustawienie regionalne na ścieżkę pliku JSON. **`location`** informuje obserwatora Intlayer, które foldery monitorować w poszukiwaniu zmian. Opcja `format: 'icu'` zapewnia, że symbole zastępcze są analizowane poprawnie dla `vue-i18n`.
+> **`source`** mapuje ustawienie regionalne na ścieżkę pliku JSON. **`location`** informuje obserwatora Intlayer, które foldery monitorować w poszukiwaniu zmian. Opcja `format: 'vue-i18n'` zapewnia, że symbole zastępcze są analizowane poprawnie dla `vue-i18n`.
 
 </Step>
 <Step number={3} title="Dodaj wtyczkę Intlayer do swojego bundlera">
@@ -265,7 +265,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),

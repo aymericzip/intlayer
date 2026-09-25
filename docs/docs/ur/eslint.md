@@ -52,6 +52,10 @@ pnpm add --save-dev eslint-plugin-intlayer
 yarn add --dev eslint-plugin-intlayer
 ```
 
+```bash packageManager="bun"
+bun add --dev eslint-plugin-intlayer
+```
+
 ESLint 9 یا اس سے نیا ورژن (flat config) درکار ہے۔ ESLint 10 معاون ہے۔
 
 ## استعمال

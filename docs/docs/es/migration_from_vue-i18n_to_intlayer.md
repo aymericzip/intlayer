@@ -145,7 +145,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // coincide con la sintaxis de marcador de posición vue-i18n: {name}
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),
@@ -155,7 +155,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`** asigna un idioma a su ruta de archivo JSON. **`location`** le indica al observador de Intlayer qué carpeta monitorear en busca de cambios. La opción `format: 'icu'` asegura que los marcadores de posición se analicen correctamente para `vue-i18n`.
+> **`source`** asigna un idioma a su ruta de archivo JSON. **`location`** le indica al observador de Intlayer qué carpeta monitorear en busca de cambios. La opción `format: 'vue-i18n'` asegura que los marcadores de posición se analicen correctamente para `vue-i18n`.
 
 </Step>
 <Step number={3} title="Añadir el Plugin de Intlayer a tu Bundler">
@@ -265,7 +265,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),

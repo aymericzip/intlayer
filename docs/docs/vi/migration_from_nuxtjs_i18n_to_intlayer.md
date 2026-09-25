@@ -146,7 +146,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // khớp với cú pháp placeholder vue-i18n: {name}
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),
@@ -156,7 +156,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`** ánh xạ một locale vào đường dẫn tệp JSON của nó. **`location`** cho trình quan sát Intlayer biết thư mục nào để giám sát những thay đổi. Tùy chọn `format: 'icu'` đảm bảo rằng các placeholder được phân tích chính xác cho `vue-i18n`.
+> **`source`** ánh xạ một locale vào đường dẫn tệp JSON của nó. **`location`** cho trình quan sát Intlayer biết thư mục nào để giám sát những thay đổi. Tùy chọn `format: 'vue-i18n'` đảm bảo rằng các placeholder được phân tích chính xác cho `vue-i18n`.
 
 </Step>
 <Step number={3} title="Cập nhật Cấu hình Nuxt">
@@ -234,7 +234,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),

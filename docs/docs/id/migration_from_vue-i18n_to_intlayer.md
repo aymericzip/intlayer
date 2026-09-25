@@ -145,7 +145,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // cocok dengan sintaks placeholder vue-i18n: {name}
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),
@@ -155,7 +155,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`** memetakan locale ke jalur file JSON-nya. **`location`** memberi tahu watcher Intlayer folder mana yang harus dipantau untuk perubahan. Opsi `format: 'icu'` memastikan bahwa placeholder diurai dengan benar untuk `vue-i18n`.
+> **`source`** memetakan locale ke jalur file JSON-nya. **`location`** memberi tahu watcher Intlayer folder mana yang harus dipantau untuk perubahan. Opsi `format: 'vue-i18n'` memastikan bahwa placeholder diurai dengan benar untuk `vue-i18n`.
 
 </Step>
 <Step number={3} title="Add the Intlayer Plugin to your Bundler">
@@ -265,7 +265,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./src/locales/${locale}.json`,
       location: "src/locales",
     }),

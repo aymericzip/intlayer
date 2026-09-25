@@ -146,7 +146,7 @@ const config: IntlayerConfig = {
   plugins: [
     syncJSON({
       // pasuje do składni placeholdera vue-i18n: {name}
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),
@@ -156,7 +156,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> **`source`** mapuje lokalizację na ścieżkę pliku JSON. **`location`** mówi obserwatorowi Intlayer, który folder monitorować pod kątem zmian. Opcja `format: 'icu'` zapewnia, że placeholdery są poprawnie analizowane dla `vue-i18n`.
+> **`source`** mapuje lokalizację na ścieżkę pliku JSON. **`location`** mówi obserwatorowi Intlayer, który folder monitorować pod kątem zmian. Opcja `format: 'vue-i18n'` zapewnia, że placeholdery są poprawnie analizowane dla `vue-i18n`.
 
 </Step>
 <Step number={3} title="Aktualizacja konfiguracji Nuxt">
@@ -234,7 +234,7 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "icu",
+      format: "vue-i18n",
       source: ({ locale }) => `./locales/${locale}.json`,
       location: "locales",
     }),
