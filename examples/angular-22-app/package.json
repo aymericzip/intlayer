@@ -33,6 +33,6 @@
     "prettier": "3.9.8",
     "tailwindcss": "4.3.3",
     "typescript": "~6.0.3",
-    "vitest": "5.0.1"
+    "vitest": "5.0.2"
   }
 }

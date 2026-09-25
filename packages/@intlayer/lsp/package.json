@@ -92,8 +92,8 @@
     "@intlayer/engine": "workspace:*",
     "@intlayer/types": "workspace:*",
     "oxc-parser": "0.151.0",
-    "vscode-languageserver": "10.1.1",
-    "vscode-languageserver-textdocument": "1.0.14"
+    "vscode-languageserver": "10.1.2",
+    "vscode-languageserver-textdocument": "1.0.15"
   },
   "devDependencies": {
     "@types/node": "^22",
@@ -103,7 +103,7 @@
     "rimraf": "6.1.3",
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
-    "vitest": "5.0.1"
+    "vitest": "5.0.2"
   },
   "engines": {
     "node": ">=14.18"

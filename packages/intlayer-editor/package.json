@@ -113,11 +113,11 @@
     "@utils/ts-config": "workspace:*",
     "@vitejs/plugin-react": "6.1.1",
     "autoprefixer": "10.6.0",
-    "framer-motion": "13.4.2",
+    "framer-motion": "13.4.4",
     "fuse.js": "7.5.0",
     "globals": "17.12.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.47.0",
+    "lucide-react": "1.48.0",
     "oxc-transform-react": "^0.150.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
@@ -126,9 +126,9 @@
     "tailwindcss": "4.3.3",
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
-    "vite": "8.3.0",
+    "vite": "8.3.1",
     "vite-intlayer": "workspace:*",
-    "vitest": "5.0.1"
+    "vitest": "5.0.2"
   },
   "engines": {
     "node": ">=18.0.0"

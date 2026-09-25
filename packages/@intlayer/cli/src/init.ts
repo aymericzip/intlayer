@@ -6,6 +6,7 @@ import {
   hasUrlRoutingFramework,
   type InitOptions,
   initIntlayer,
+  logInitSuccessMessage,
   type RoutingMode,
   setupCmsCredentials,
 } from '@intlayer/engine/cli';
@@ -342,10 +343,8 @@ const runInteractiveInit = async (
     ...baseOptions,
     ...routingOptions,
     noInstallPackages: !steps.includes('packages'),
-    // The `.gitignore` entry is never offered as a checkbox: in interactive
-    // mode we always add `.intlayer` to `.gitignore`, only honoring an explicit
-    // `--no-gitignore` flag from the command line.
-    noGitignore: baseOptions?.noGitignore,
+    // The `.gitignore` entry is tied to project setup.
+    noGitignore: baseOptions?.noGitignore || !steps.includes('projectSetup'),
     // Respect explicit `--no-*` flags from the command line even when the
     // corresponding step is selected in the checkbox.
     noGithubActions:
@@ -355,9 +354,10 @@ const runInteractiveInit = async (
     noVscodeExtension: !steps.includes('vscodeExtension'),
     noLsp: !steps.includes('lsp'),
     noEslint: !steps.includes('eslint'),
+    skipFinalMessage: true,
   };
 
-  await initIntlayer(root, options);
+  const { guideUrl } = await initIntlayer(root, options);
 
   // Skills ask for the platform after the skill selection; MCP reuses it.
   const skillsPlatform = steps.includes('skills')
@@ -391,6 +391,10 @@ const runInteractiveInit = async (
   }
 
   p.outro('Intlayer initialization complete');
+
+  if (guideUrl) {
+    logInitSuccessMessage(guideUrl);
+  }
 };
 
 export const init = async (

@@ -108,8 +108,8 @@
     "tsdown": "0.23.0",
     "typescript": "7.0.2",
     "use-intl": "4.14.5",
-    "vite": "8.3.0",
-    "vitest": "5.0.1"
+    "vite": "8.3.1",
+    "vitest": "5.0.2"
   },
   "peerDependencies": {
     "react": ">=16.0.0",
