@@ -1,4 +1,5 @@
 export * from './checkIsURLAbsolute';
+export * from './delegateNativeMethods';
 export * from './getCookie';
 export * from './intl';
 export * from './isSameKeyPath';

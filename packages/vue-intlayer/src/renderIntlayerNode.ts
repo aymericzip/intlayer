@@ -1,3 +1,4 @@
+import { delegateNativeMethods } from '@intlayer/core/utils';
 import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import { markRaw, ref, type VNodeChild } from 'vue';
 
@@ -97,23 +98,6 @@ export const renderIntlayerNode = <
     ...additionalProps,
   });
 
-  // Delegate native methods from the underlying value (any type) to node.
-  if (value !== null && value !== undefined) {
-    const valObj = Object(value); // Safely boxes primitives (e.g., 50 -> Number object)
-    const proto = Object.getPrototypeOf(valObj);
-    for (const prop of Object.getOwnPropertyNames(proto)) {
-      if (prop === 'constructor' || prop in node) continue;
-      const valProp = valObj[prop]; // read from instance so index/length values are correct
-      if (typeof valProp === 'function') {
-        Object.defineProperty(node, prop, {
-          value: valProp.bind(value),
-          writable: true,
-          configurable: true,
-        });
-      }
-    }
-  }
-
   /* make sure Vue never tries to proxy the component object itself */
-  return markRaw(node);
+  return markRaw(delegateNativeMethods(node, () => rawRef.value));
 };
