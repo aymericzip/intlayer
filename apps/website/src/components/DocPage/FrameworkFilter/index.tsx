@@ -151,6 +151,9 @@ const FrameworkFilterUI: FC<FrameworkFilterUIProps> = ({
       if (isAlreadySelected) {
         const nextSelected = selected?.filter((i) => i !== id) ?? [];
         onSelect(nextSelected.length > 0 ? nextSelected : null);
+      } else if ((selected?.length ?? 0) >= 2) {
+        // When clicking a 3rd item, replace the 2nd one and keep the 1st (primary)
+        onSelect([selected![0], id]);
       } else {
         onSelect([...(selected ?? []), id]);
       }
