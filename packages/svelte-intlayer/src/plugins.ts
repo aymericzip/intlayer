@@ -167,25 +167,34 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'bigint' ||
     typeof node === 'string' ||
     typeof node === 'number',
-  transform: (node, { children, ...rest }) => {
+  transform: (node, props) => {
     // Node-level analytics: record which content is resolved for display.
     // No-op (and dead-code-eliminated) when analytics is disabled.
     if (process.env.INTLAYER_ANALYTICS_ENABLED !== 'false') {
       reportExposure({
-        dictionaryKey: rest.dictionaryKey,
-        keyPath: rest.keyPath,
-        locale: rest.locale,
+        dictionaryKey: props.dictionaryKey,
+        keyPath: props.keyPath,
+        locale: props.locale,
         nodeType: 'text',
       });
     }
 
+    // Props are only forwarded to the editor selector: copying them for every
+    // leaf would cost an allocation per rendered string
+    if (process.env.INTLAYER_EDITOR_ENABLED !== 'false' && editor.enabled) {
+      const { children, ...rest } = props;
+
+      return renderIntlayerNode({
+        value: children ?? node,
+        component: ContentSelector,
+        props: rest,
+      });
+    }
+
     return renderIntlayerNode({
-      value: children ?? node,
-      component:
-        process.env.INTLAYER_EDITOR_ENABLED !== 'false' && editor.enabled
-          ? ContentSelector
-          : undefined,
-      props: rest,
+      value: props.children ?? node,
+      component: undefined,
+      props: {},
     });
   },
 };
@@ -570,6 +579,8 @@ export const getPlugins = (
   }
 
   const plugins = [
+    // First: most nodes are plain strings, which every other plugin rejects
+    intlayerNodePlugins,
     translationPlugin(
       locale ?? internationalization.defaultLocale,
       fallback ? internationalization.defaultLocale : undefined
@@ -581,7 +592,6 @@ export const getPlugins = (
     filePlugin,
     genderPlugin,
     selectPlugin,
-    intlayerNodePlugins,
     svelteNodePlugins,
     insertionPlugin,
     markdownPlugin,

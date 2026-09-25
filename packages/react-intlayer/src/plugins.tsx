@@ -78,33 +78,35 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'bigint' ||
     typeof node === 'string' ||
     typeof node === 'number',
-  transform: (
-    _node,
-    {
-      plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
-      ...rest
-    }
-  ) => {
+  transform: (_node, props) => {
     // Node-level analytics: record which content is resolved for display.
     // No-op (and dead-code-eliminated) when analytics is disabled.
     if (process.env.INTLAYER_ANALYTICS_ENABLED !== 'false') {
       reportExposure({
-        dictionaryKey: rest.dictionaryKey,
-        keyPath: rest.keyPath,
-        locale: rest.locale,
+        dictionaryKey: props.dictionaryKey,
+        keyPath: props.keyPath,
+        locale: props.locale,
         nodeType: 'text',
       });
     }
 
+    // Props are only forwarded to the editor selector: copying them for every
+    // leaf would cost an allocation per rendered string
+    if (process.env.INTLAYER_EDITOR_ENABLED !== 'false' && editor.enabled) {
+      const {
+        plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
+        ...rest
+      } = props;
+
+      return renderIntlayerNode({
+        value: rest.children,
+        children: <ContentSelector {...rest}>{rest.children}</ContentSelector>,
+      });
+    }
+
     return renderIntlayerNode({
-      ...rest,
-      value: rest.children,
-      children:
-        process.env.INTLAYER_EDITOR_ENABLED !== 'false' && editor.enabled ? (
-          <ContentSelector {...rest}>{rest.children}</ContentSelector>
-        ) : (
-          rest.children
-        ),
+      value: props.children,
+      children: props.children,
     });
   },
 };
@@ -583,6 +585,8 @@ export const getPlugins = (
   }
 
   const plugins = [
+    // First: most nodes are plain strings, which every other plugin rejects
+    intlayerNodePlugins,
     // Env var allows the bundler to to remove the plugin if not used to make the bundle smaller
     translationPlugin(
       locale ?? internationalization.defaultLocale,
@@ -596,8 +600,7 @@ export const getPlugins = (
     filePlugin,
     genderPlugin,
     selectPlugin,
-    // Always include: handle plain strings/numbers and React elements
-    intlayerNodePlugins,
+    // Always include: handle React elements
     reactNodePlugins,
     insertionPlugin,
     markdownPlugin,

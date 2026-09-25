@@ -90,6 +90,26 @@ describe('translationPlugin', () => {
     expect(visitedLeaves.sort()).toEqual(['Label', 'Subtitle', 'Titre']);
   });
 
+  it('should not transform the fallback when the locale is complete', () => {
+    const { visitedLeaves, recorderPlugin } = createLeafRecorder();
+
+    const result = transform(content, 'de', 'en', [recorderPlugin]);
+    JSON.stringify(result);
+
+    expect(visitedLeaves).not.toContain('Title');
+  });
+
+  it('should still merge nested translations of a complete locale', () => {
+    const nestedContent = t({
+      en: { section: t({ en: { a: 'A', b: 'B' } }) },
+      fr: { section: t({ fr: { a: 'A-fr' } }) },
+    });
+
+    expect(transform(nestedContent, 'fr', 'en')).toEqual({
+      section: { a: 'A-fr', b: 'B' },
+    });
+  });
+
   it('should not transform the fallback when the locale value is final', () => {
     const { visitedLeaves, recorderPlugin } = createLeafRecorder();
 

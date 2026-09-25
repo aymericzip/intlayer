@@ -7,10 +7,9 @@ import type {
  * Check if a value is a plain object that can be safely merged.
  * Returns false for Promises, React elements, class instances, etc.
  */
-export const isMergeableTranslation = (value: unknown): boolean => {
+const isPlainObject = (value: unknown): boolean => {
   if (value === null || typeof value !== 'object') return false;
-  // Framework nodes first: rendered leaves are often Proxies, and each probe
-  // goes through their `get` trap
+  if (typeof (value as any).then === 'function') return false;
   if (
     (value as any).$$typeof !== undefined ||
     (value as any).__v_isVNode !== undefined ||
@@ -19,82 +18,36 @@ export const isMergeableTranslation = (value: unknown): boolean => {
   ) {
     return false;
   }
-  if (typeof (value as any).then === 'function') return false;
   const proto = Object.getPrototypeOf(value);
   return proto === Object.prototype || proto === null || Array.isArray(value);
 };
 
 /**
- * Whether a higher-priority value still needs the lower-priority one: only a
- * missing value or a plain (non-array) object gets complemented.
- */
-const needsComplement = (value: unknown): boolean =>
-  value === undefined ||
-  (!Array.isArray(value) && isMergeableTranslation(value));
-
-/**
- * Recursively merges two objects. First argument takes precedence. Arrays
- * replace rather than merge.
- *
- * Keys resolve on first read: the values are often lazily transformed
- * dictionary nodes, and reading them up front would transform every leaf of
- * the fallback locale even when the target locale already covers it.
+ * Recursively merges two objects, skipping undefined source values.
+ * First argument takes precedence. Arrays replace rather than merge.
  */
 const deepMerge = (target: any, source: any): any => {
   if (target === undefined) return source;
-  if (source === undefined || !needsComplement(target)) return target;
-  if (!isMergeableTranslation(source)) return target;
+  if (source === undefined) return target;
+  if (Array.isArray(target)) return target;
+  if (isPlainObject(target) && isPlainObject(source)) {
+    const result = { ...target };
 
-  const result: Record<string, any> = {};
-  const keys = new Set([...Object.keys(target), ...Object.keys(source)]);
-
-  for (const key of keys) {
-    if (key === '__proto__' || key === 'constructor') continue;
-
-    Object.defineProperty(result, key, {
-      enumerable: true,
-      configurable: true,
-      get() {
-        const targetValue = target[key];
-        const value = needsComplement(targetValue)
-          ? deepMerge(targetValue, source[key])
-          : targetValue;
-
-        Object.defineProperty(this, key, {
-          value,
-          enumerable: true,
-          configurable: true,
-          writable: true,
-        });
-
-        return value;
-      },
-    });
+    for (const key of Object.keys(source)) {
+      if (
+        key === '__proto__' ||
+        key === 'constructor' ||
+        source[key] === undefined
+      )
+        continue;
+      result[key] =
+        target[key] !== undefined
+          ? deepMerge(target[key], source[key])
+          : source[key];
+    }
+    return result;
   }
-
-  return result;
-};
-
-/**
- * Locales read by `getTranslation`, most specific first and deduplicated:
- * the locale, its base language, the fallback, and the fallback's base.
- */
-export const getTranslationLocaleCandidates = (
-  locale: LocalesValues,
-  fallback?: LocalesValues
-): string[] => {
-  const locales: string[] = [];
-  const addLocale = (candidate: string | undefined) => {
-    if (candidate && !locales.includes(candidate)) locales.push(candidate);
-  };
-
-  addLocale(locale);
-  if (locale.includes('-')) addLocale(locale.split('-')[0]);
-
-  addLocale(fallback);
-  if (fallback?.includes('-')) addLocale(fallback.split('-')[0]);
-
-  return locales;
+  return target;
 };
 
 /**
@@ -128,7 +81,22 @@ export const getTranslation = <const Content = string>(
   const get = (loc: string): Content | undefined =>
     languageContent[loc as keyof typeof languageContent];
 
-  const locales = getTranslationLocaleCandidates(locale, fallback);
+  // Build priority-ordered locale candidates (most specific first), deduped
+  const seen = new Set<string>();
+  const locales: string[] = [];
+
+  const addLocale = (localeEl: string | undefined) => {
+    if (localeEl && !seen.has(localeEl)) {
+      seen.add(localeEl);
+      locales.push(localeEl);
+    }
+  };
+
+  addLocale(locale);
+  if (locale.includes('-')) addLocale(locale.split('-')[0]);
+
+  addLocale(fallback);
+  if (fallback?.includes('-')) addLocale(fallback.split('-')[0]);
 
   // Collect results: strings exit early (if no higher-priority object was found),
   // objects are accumulated for deep merging.

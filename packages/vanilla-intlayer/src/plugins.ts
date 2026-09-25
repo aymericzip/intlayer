@@ -62,7 +62,7 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'bigint' ||
     typeof node === 'string' ||
     typeof node === 'number',
-  transform: (_node, { children, keyPath, dictionaryKey, ...rest }) => {
+  transform: (_node, { children, keyPath, dictionaryKey }) => {
     if (process.env.INTLAYER_EDITOR_ENABLED !== 'false' && editor.enabled) {
       const rawStr = String(children ?? '');
       const keyPathJson = JSON.stringify(keyPath ?? []);
@@ -76,7 +76,6 @@ export const intlayerNodePlugins: Plugins = {
       const htmlStr = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(keyPathJson)}" dictionary-key="${escapeHtmlAttr(dictKey)}">${escapeHtmlText(rawStr)}</intlayer-content-selector-wrapper>`;
 
       return renderIntlayerNode({
-        ...rest,
         value: children as string,
         children: htmlStr,
         keyPath,
@@ -96,7 +95,6 @@ export const intlayerNodePlugins: Plugins = {
     }
 
     return renderIntlayerNode({
-      ...rest,
       value: children as string,
       children,
     });
@@ -477,6 +475,8 @@ export const getPlugins = (
   }
 
   const plugins = [
+    // First: most nodes are plain strings, which every other plugin rejects
+    intlayerNodePlugins,
     translationPlugin(
       locale ?? internationalization.defaultLocale,
       fallback ? internationalization.defaultLocale : undefined
@@ -488,7 +488,6 @@ export const getPlugins = (
     filePlugin,
     genderPlugin,
     selectPlugin,
-    intlayerNodePlugins,
     insertionPlugin,
     markdownPlugin,
     htmlPlugin,

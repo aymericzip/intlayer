@@ -129,30 +129,28 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'bigint' ||
     typeof node === 'string' ||
     typeof node === 'number',
-  transform: (_node, { children, ...rest }) => {
+  transform: (_node, props) => {
+    const { children, dictionaryKey, keyPath } = props;
+
     // Node-level analytics: record which content is resolved for display.
     // No-op (and dead-code-eliminated) when analytics is disabled.
     if (process.env.INTLAYER_ANALYTICS_ENABLED !== 'false') {
       reportExposure({
-        dictionaryKey: rest.dictionaryKey,
-        keyPath: rest.keyPath,
-        locale: rest.locale,
+        dictionaryKey,
+        keyPath,
+        locale: props.locale,
         nodeType: 'text',
       });
     }
 
     return renderIntlayerNode({
-      ...rest,
       value: children,
       children: () => ({
         component:
           process.env.INTLAYER_EDITOR_ENABLED === 'false' || !editor.enabled
             ? children
             : ContentSelectorWrapperComponent,
-        props: {
-          dictionaryKey: rest.dictionaryKey,
-          keyPath: rest.keyPath,
-        },
+        props: { dictionaryKey, keyPath },
         children: children,
       }),
     });
@@ -569,6 +567,8 @@ export const getPlugins = (
   }
 
   const plugins = [
+    // First: most nodes are plain strings, which every other plugin rejects
+    intlayerNodePlugins,
     translationPlugin(
       locale ?? internationalization.defaultLocale,
       fallback ? internationalization.defaultLocale : undefined
@@ -580,7 +580,6 @@ export const getPlugins = (
     filePlugin,
     genderPlugin,
     selectPlugin,
-    intlayerNodePlugins,
     markdownPlugin,
     htmlPlugin,
     insertionPlugin,

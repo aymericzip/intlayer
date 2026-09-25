@@ -28,11 +28,7 @@ import { type GetNestingResult, getNesting } from '../getNesting';
 import { getNesting as getNestingOptimized } from '../getNesting.optimized';
 import { getPlural } from '../getPlural';
 import { getSelect } from '../getSelect';
-import {
-  getTranslation,
-  getTranslationLocaleCandidates,
-  isMergeableTranslation,
-} from '../getTranslation';
+import { getTranslation } from '../getTranslation';
 import {
   isInterpolableWrapperNode,
   transformInterpolableNode,
@@ -137,33 +133,22 @@ export const translationPlugin = (
         canHandle: (node) =>
           typeof node === 'object' && node?.nodeType === NodeTypes.TRANSLATION,
         transform: (node: TranslationContent, props, deepTransformNode) => {
-          const original: Record<string, any> =
-            node[NodeTypes.TRANSLATION] ?? {};
-          const result: Record<string, any> = {};
+          // Resolve on the raw content first: only the displayed locale (and
+          // the fallback keys it lacks) is ever transformed
+          const content = getTranslation(
+            node[NodeTypes.TRANSLATION] ?? {},
+            locale,
+            fallback
+          );
 
-          // Only the locales `getTranslation` reads are transformed: the other
-          // locales of the node would never be displayed.
-          for (const key of getTranslationLocaleCandidates(locale, fallback)) {
-            const child = original[key];
-
-            if (child === undefined) continue;
-
-            const isFirstMatch = Object.keys(result).length === 0;
-
-            result[key] = deepTransformNode(child, {
-              ...props,
-              children: child,
-              keyPath: [
-                ...props.keyPath,
-                { type: NodeTypes.TRANSLATION, key } as KeyPath,
-              ],
-            });
-
-            // Lower-priority locales only complement a plain object
-            if (isFirstMatch && !isMergeableTranslation(result[key])) break;
-          }
-
-          return getTranslation(result, locale, fallback);
+          return deepTransformNode(content, {
+            ...props,
+            children: content,
+            keyPath: [
+              ...props.keyPath,
+              { type: NodeTypes.TRANSLATION, key: locale } as KeyPath,
+            ],
+          });
         },
       };
 
