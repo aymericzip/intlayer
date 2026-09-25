@@ -495,12 +495,15 @@ export const GET: APIRoute = ({ site }) => {
 
 अपनी पसंद के फ्रेमवर्क का उपयोग करके अपना एप्लिकेशन बनाना जारी रखें।
 
-- Intlayer + React: [React के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_react.md)
-- Intlayer + Vue: [Vue के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_vue.md)
-- Intlayer + Svelte: [Svelte के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_svelte.md)
-- Intlayer + Solid: [Solid के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_solid.md)
-- Intlayer + Preact: [Preact के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_preact.md)
-- Intlayer + Lit: [Intlayer के साथ Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_lit.md)
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_react" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_vue" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_svelte" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_solid" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_preact" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_astro_lit" />
+</TechGrid>
+
 </Step>
 
 <Step number={15} title="अपने घटकों की सामग्री निकालें" isOptional={true}>

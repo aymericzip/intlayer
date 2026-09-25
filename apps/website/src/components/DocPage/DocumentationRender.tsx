@@ -16,6 +16,7 @@ import { Accordion, AccordionGroup } from './AccordionGroup';
 import { ClickToOpenIframe } from './ClickToOpenIframe';
 import { FAQ, Question } from './FAQ';
 import { SectionScroller } from './SectionScroller';
+import { TechGrid, TechLink } from './TechLink';
 
 export const preloadI18nBenchmark = () => import('~/components/I18nBenchmark');
 
@@ -113,12 +114,17 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
           AccordionGroup,
           FAQ,
           Question,
+          TechLink,
+          TechCard: TechLink,
+          TechGrid,
+          TechList: TechGrid,
+          TechLinks: TechGrid,
         }}
         wrapper={(props) => (
           <>
             <SectionScroller />
             <div
-              className="flex flex-col gap-8 py-10 text-text/80"
+              className="flex flex-col gap-8 py-10 text-text/65"
               {...props}
             />
           </>

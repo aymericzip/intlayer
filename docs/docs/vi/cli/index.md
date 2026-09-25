@@ -130,55 +130,73 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình khác nhau:
 
 ### Xác thực
 
-- **[Đăng nhập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/login.md)** - Xác thực với Intlayer CMS và nhận thông tin xác thực truy cập
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/login" />
+</TechGrid>
 
 > `intlayer login` cấp một **access key** (`clientId` / `clientSecret`) mà mọi lệnh có xác thực đều sử dụng. Secret là một thông tin xác thực phía server và không bao giờ được gửi tới client bundle của bạn — xem [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/login.md#keeping-the-access-key-safe).
 
 ### Các lệnh cốt lõi
 
-- **[Xây dựng từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/build.md)** - Xây dựng từ điển của bạn từ các tệp khai báo nội dung
-- **[Theo dõi từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/watch.md)** - Theo dõi các thay đổi và tự động xây dựng lại từ điển
-- **[Tạo gói đóng gói độc lập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/standalone.md)** - Tạo một bản đóng gói JavaScript độc lập chứa Intlayer và các gói được chỉ định
-- **[Kiểm tra phiên bản CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/version.md)** - Kiểm tra phiên bản Intlayer CLI đã cài đặt
-- **[Liệt kê dự án](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/list_projects.md)** - Liệt kê tất cả các dự án Intlayer trong một thư mục hoặc kho lưu trữ git
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/build" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/watch" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/standalone" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/version" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/list_projects" />
+</TechGrid>
 
 ### Quản lý từ điển
 
-- **[Đẩy từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/push.md)** - Đẩy các từ điển lên Trình chỉnh sửa Intlayer và CMS
-- **[Kéo từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/pull.md)** - Kéo các từ điển từ Trình chỉnh sửa Intlayer và CMS
-- **[Điền từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md)** - Điền, kiểm tra và dịch các từ điển bằng AI
-- **[Kiểm tra bản dịch còn thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/test.md)** - Kiểm tra và xác định các bản dịch còn thiếu
-- **[Liệt kê tệp khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/list.md)** - Liệt kê tất cả các tệp khai báo nội dung trong dự án của bạn
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/push" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/pull" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/test" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/list" />
+</TechGrid>
 
 ### Quản lý thành phần
 
-- **[Trích xuất chuỗi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md)** - Trích xuất chuỗi từ các thành phần vào tệp .content nằm gần thành phần đó
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract" />
+</TechGrid>
 
 ### Cấu hình
 
-- **[Khởi tạo Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/init.md)** - Thiết lập Intlayer trong dự án của bạn với cấu hình tự động
-- **[Thiết lập cơ sở hạ tầng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/infra.md)** - Cài đặt ứng dụng máy tính để bàn hoặc tự lưu trữ CMS với Docker (tất cả trong một hoặc Compose)
-- **[Nâng cấp các gói Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/upgrade.md)** - Liệt kê các gói Intlayer trong mỗi `package.json` và nâng cấp chúng lên phiên bản mới nhất
-- **[Quản lý cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/configuration.md)** - Nhận cấu hình Intlayer của bạn và đẩy lên CMS
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/init" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/infra" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/upgrade" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/configuration" />
+</TechGrid>
 
 ### Quản lý tài liệu
 
-- **[Dịch tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/doc-translate.md)** - Tự động dịch các tệp tài liệu bằng AI
-- **[Đánh giá tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/doc-review.md)** - Đánh giá tệp tài liệu để đảm bảo chất lượng và tính nhất quán
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/doc-translate" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/doc-review" />
+</TechGrid>
 
 ### Trình chỉnh sửa và Đồng bộ trực tiếp (Live Sync)
 
-- **[Các lệnh trình chỉnh sửa](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/editor.md)** - Sử dụng các lệnh của Trình chỉnh sửa Intlayer
-- **[Các lệnh đồng bộ trực tiếp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/live.md)** - Sử dụng Live Sync để áp dụng các thay đổi nội dung từ CMS trong thời gian thực
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/editor" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/live" />
+</TechGrid>
 
 ### Kiểm toán & Chẩn đoán
 
-- **[Quét trang web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/scan.md)** - Đo lường kích thước trang và kiểm toán sức khỏe i18n/SEO của bất kỳ URL công khai nào
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/scan" />
+</TechGrid>
 
 ### Công cụ dành cho nhà phát triển
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/sdk.md)** - Sử dụng Intlayer CLI SDK trong mã của riêng bạn
-- **[Lệnh gỡ lỗi Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/debug.md)** - Gỡ lỗi và giải quyết các vấn đề với Intlayer CLI
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/sdk" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/debug" />
+</TechGrid>
 
 ## Sử dụng các lệnh Intlayer trong tệp `package.json` của bạn
 

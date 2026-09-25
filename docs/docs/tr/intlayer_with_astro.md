@@ -495,12 +495,15 @@ export const GET: APIRoute = ({ site }) => {
 
 Seçtiğiniz framework'ü kullanarak uygulamanızı oluşturmaya devam edin.
 
-- Intlayer + React: [React ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_react.md)
-- Intlayer + Vue: [Vue ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_vue.md)
-- Intlayer + Svelte: [Svelte ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_svelte.md)
-- Intlayer + Solid: [Solid ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_solid.md)
-- Intlayer + Preact: [Preact ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_preact.md)
-- Intlayer + Lit: [Lit ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_lit.md)
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_react" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_vue" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_svelte" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_solid" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_preact" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_lit" />
+</TechGrid>
+
 </Step>
 
 <Step number={15} title="Bağımlılıkları Yükleyin">

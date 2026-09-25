@@ -229,7 +229,10 @@ function DocumentationPage() {
         baseUpdatedAt={defaultDocData.updatedAt}
         history={docData.history ?? []}
       />
-      <DocumentationRender codeStyleSheet={codeStyleSheet}>
+      <DocumentationRender
+        key={Array.isArray(slugs) ? slugs.join('/') : (slugs ?? docData.url)}
+        codeStyleSheet={codeStyleSheet}
+      >
         {docParsed}
       </DocumentationRender>
       <DocPageNavigation nextDoc={nextDoc} prevDoc={prevDoc} />

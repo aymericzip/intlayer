@@ -495,12 +495,15 @@ export const GET: APIRoute = ({ site }) => {
 
 Tiếp tục xây dựng ứng dụng của bạn bằng cách sử dụng framework mà bạn chọn.
 
-- Intlayer + React: [Intlayer với React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_react.md)
-- Intlayer + Vue: [Intlayer với Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_vue.md)
-- Intlayer + Svelte: [Intlayer với Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_svelte.md)
-- Intlayer + Solid: [Intlayer với Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_solid.md)
-- Intlayer + Preact: [Intlayer với Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_preact.md)
-- Intlayer + Lit: [Intlayer với Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_lit.md)
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_react" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_vue" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_svelte" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_solid" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_preact" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_lit" />
+</TechGrid>
+
 </Step>
 
 <Step number={15} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>

@@ -62,18 +62,31 @@ const Title: FC = () => {
     headings: topLevelHeadings,
     headingMap,
   });
-  const activeHeading = activeChild ?? activeParent;
+
+  const parentTitle = activeParent ? headingTexts.get(activeParent) : undefined;
+  const childTitle = activeChild ? headingTexts.get(activeChild) : undefined;
+
+  const firstTitle = parentTitle ?? childTitle;
+  const secondTitle = parentTitle && childTitle ? childTitle : undefined;
+
   return (
-    <span className="w-full flex-1 truncate text-muted-foreground text-xs">
-      {(activeHeading && headingTexts.get(activeHeading)) ?? ''}
-    </span>
+    <div className="flex min-w-0 flex-1 flex-col justify-center">
+      <span className="truncate text-muted-foreground text-xs leading-tight">
+        {firstTitle ?? ''}
+      </span>
+      {secondTitle && (
+        <span className="truncate text-[10px] text-muted-foreground/60 leading-tight">
+          {secondTitle}
+        </span>
+      )}
+    </div>
   );
 };
 
 export const ScrollWellAndTitle: FC = () => {
   return (
-    <div className="flex size-5 h-8 flex-1 flex-row items-center justify-between gap-5 p-2">
-      <ScrollWell className="block h-full shrink-0" />
+    <div className="flex h-8 min-w-0 flex-1 flex-row items-center gap-3">
+      <ScrollWell className="block size-4 shrink-0" />
       <Title />
     </div>
   );

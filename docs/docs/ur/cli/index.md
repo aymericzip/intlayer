@@ -124,51 +124,69 @@ Intlayer کئی کنفیگریشن فائل فارمیٹس قبول کرتا ہ�
 
 ### توثیق (Authentication)
 
-- **[لاگ ان](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/login.md)** - Intlayer CMS سے توثیق کریں اور رسائی کی اسناد حاصل کریں
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/login" />
+</TechGrid>
 
 ### بنیادی کمانڈز
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/build.md)** - اپنے مواد کے اعلان والی فائلوں سے اپنی لغات بنائیں
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/watch.md)** - تبدیلیوں کی نگرانی کریں اور لغات کو خود بخود دوبارہ بنائیں
-- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/standalone.md)** - Intlayer اور متعین پیکیجز پر مشتمل ایک اسٹینڈ اکیلے JavaScript بنڈل تیار کریں
-- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/version.md)** - نصب شدہ Intlayer CLI ورژن چیک کریں
-- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/list_projects.md)** - ڈائریکٹری یا گٹ ریپوزٹری میں موجود تمام Intlayer پروجیکٹس کی فہرست دیکھیں
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/build" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/watch" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/standalone" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/version" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/list_projects" />
+</TechGrid>
 
 ### لغت کا انتظام
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/push.md)** - لغات کو Intlayer ایڈیٹر اور CMS پر بھیجیں
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/pull.md)** - Intlayer ایڈیٹر اور CMS سے لغات لائیں (fetch)
-- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/fill.md)** - AI کا استعمال کرتے ہوئے لغات کو پُر کریں، آڈٹ کریں اور ترجمہ کریں
-- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/test.md)** - لاپتہ تراجم کی جانچ اور نشاندہی کریں
-- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/list.md)** - اپنے پروجیکٹ میں مواد کے اعلان والی تمام فائلوں کی فہرست دیکھیں
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/push" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/pull" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/fill" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/test" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/list" />
+</TechGrid>
 
 ### جزو کا انتظام (Component Management)
 
-- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/extract.md)** - جزو کے قریب ایک .content فائل میں اجزاء سے اسٹرنگز نکالیں
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/extract" />
+</TechGrid>
 
 ### کنفیگریشن
 
-- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/init.md)** - خودکار کنفیگریشن کے ساتھ اپنے پروجیکٹ میں Intlayer ترتیب دیں
-- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/configuration.md)** - اپنی Intlayer کنفیگریشن حاصل کریں اور اسے CMS پر بھیجیں
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/init" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/configuration" />
+</TechGrid>
 
 ### دستاویز کا انتظام (Doc Management)
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/doc-translate.md)** - AI کا استعمال کرتے ہوئے دستاویزات کی فائلوں کا خودکار ترجمہ کریں
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/doc-review.md)** - معیار اور مطابقت کے لیے دستاویزات کی فائلوں کا جائزہ لیں
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/doc-translate" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/doc-review" />
+</TechGrid>
 
 ### ایڈیٹر اور لائیو سنک (Live Sync)
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/editor.md)** - Intlayer ایڈیٹر کمانڈز استعمال کریں
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/live.md)** - CMS سے مواد کی تبدیلیوں کو ریئل ٹائم میں لاگو کرنے کے لیے لائیو سنک کا استعمال کریں
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/editor" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/live" />
+</TechGrid>
 
 ### آڈٹ اور تشخیصی عمل
 
-- **[ویب سائٹ اسکین کریں](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/scan.md)** - کسی بھی پبلک URL کے پیج سائز کی پیمائش کریں اور i18n/SEO صحت کا آڈٹ کریں
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/scan" />
+</TechGrid>
 
 ### ڈویلپر ٹولز
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/sdk.md)** - اپنے کوڈ میں Intlayer CLI SDK استعمال کریں
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/debug.md)** - Intlayer CLI کے مسائل کوڈیبگ کریں اور حل کریں
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/sdk" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/debug" />
+</TechGrid>
 
 ## اپنی `package.json` فائل میں intlayer کمانڈز استعمال کریں
 

@@ -35,17 +35,19 @@ Par exemple, un développeur remplace `import { useTranslation } from 'react-i18
 
 Choisissez votre librairie existante ci-dessous pour voir comment migrer sans friction :
 
-- [Vue I18n](./vue-i18n.md)
-- [Transloco](./transloco.md)
-- [React Intl](./react-intl.md)
-- [Svelte I18n](./svelte-i18n.md)
-- [React i18next](./react-i18next.md)
-- [Polyglot.js](./polyglot.md)
-- [NuxtJS I18n](./nuxtjs-i18n.md)
-- [NGX Translate](./ngx-translate.md)
-- [Next Translate](./next-translate.md)
-- [Next Intl](./next-intl.md)
-- [Next i18next](./next-i18next.md)
-- [i18next](./i18next.md)
-- [Lingui](./lingui.md)
-- [I18n-js](./i18n-js.md)
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/vue-i18n" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/transloco" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/react-intl" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/svelte-i18n" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/react-i18next" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/polyglot" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/nuxtjs-i18n" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/ngx-translate" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/next-translate" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/next-intl" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/next-i18next" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/i18next" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/lingui" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/i18n-js" />
+</TechGrid>

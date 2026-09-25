@@ -130,55 +130,73 @@ Intlayer 接受多种配置文件格式：
 
 ### 身份验证
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/login.md)** - 在 Intlayer CMS 中进行身份验证并获取访问凭据
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/login" />
+</TechGrid>
 
 > `intlayer login` 生成一个**访问密钥** (`clientId` / `clientSecret`)，每个需要凭证的命令都会使用它。该密钥是服务器端凭证，永远不会到达您的客户端 bundle — 请参阅[保持访问密钥安全](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/login.md#keeping-the-access-key-safe)。
 
 ### 核心命令
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/build.md)** - 从内容声明文件构建字典
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/watch.md)** - 监听更改并自动重新构建字典
-- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/standalone.md)** - 创建包含 Intlayer 和指定包的独立 JavaScript bundle
-- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/version.md)** - 检查已安装的 Intlayer CLI 版本
-- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/list_projects.md)** - 列出目录或 git 仓库中的所有 Intlayer 项目
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/build" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/watch" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/standalone" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/version" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/list_projects" />
+</TechGrid>
 
 ### 字典管理
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/push.md)** - 将字典发送到 Intlayer 编辑器和 CMS
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/pull.md)** - 从 Intlayer 编辑器和 CMS 获取字典
-- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md)** - 使用 AI 填充、审核并翻译字典
-- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/test.md)** - 测试并识别缺失的翻译
-- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/list.md)** - 列出项目中的所有内容声明文件
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/push" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/pull" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/test" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/list" />
+</TechGrid>
 
 ### 组件管理
 
-- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)** - 从组件中提取字符串到组件附近的 .content 文件中
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract" />
+</TechGrid>
 
 ### 配置
 
-- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/init.md)** - 使用自动配置在您的项目中设置 Intlayer
-- **[配置基础设施](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/infra.md)** - 安装桌面应用或使用 Docker（多合一或 Compose）自行托管 CMS
-- **[升级 Intlayer 软件包](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/upgrade.md)** - 列出每个 `package.json` 中的 Intlayer 软件包并将其升级到最新版本
-- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/configuration.md)** - 获取您的 Intlayer 配置并将其发送到 CMS
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/init" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/infra" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/upgrade" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/configuration" />
+</TechGrid>
 
 ### 文档管理
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/doc-translate.md)** - 使用 AI 自动翻译文档文件
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/doc-review.md)** - 审核文档文件的质量和一致性
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/doc-translate" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/doc-review" />
+</TechGrid>
 
 ### 编辑器与实时同步 (Live Sync)
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/editor.md)** - 使用 Intlayer 编辑器命令
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/live.md)** - 使用 Live Sync 在运行时应用来自 CMS 的内容更改
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/editor" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/live" />
+</TechGrid>
 
 ### 审计与诊断
 
-- **[扫描网站](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/scan.md)** - 测量页面大小并审计任何公开 URL 的 i18n/SEO 健康状况
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/scan" />
+</TechGrid>
 
 ### 开发工具
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/sdk.md)** - 在您自己的代码中使用 Intlayer CLI SDK
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/debug.md)** - 调试并修复 Intlayer CLI 的问题
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/sdk" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/debug" />
+</TechGrid>
 
 ## 在 `package.json` 中使用 intlayer 命令
 

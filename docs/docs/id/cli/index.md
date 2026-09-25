@@ -130,55 +130,73 @@ Untuk mempelajari cara mengonfigurasi bahasa yang tersedia atau parameter lainny
 
 ### Autentikasi
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/login.md)** - Autentikasi dengan Intlayer CMS dan dapatkan kredensial akses
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/login" />
+</TechGrid>
 
 > `intlayer login` mengeluarkan sebuah **access key** (`clientId` / `clientSecret`) yang digunakan oleh setiap perintah yang memerlukan kredensial. Secret adalah kredensial sisi server dan tidak pernah mencapai client bundle Anda — lihat [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/login.md#keeping-the-access-key-safe).
 
 ### Perintah Utama
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/build.md)** - Bangun kamus Anda dari file deklarasi konten
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/watch.md)** - Pantau perubahan dan bangun kembali kamus secara otomatis
-- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/standalone.md)** - Buat bundel JavaScript mandiri yang berisi Intlayer dan paket yang ditentukan
-- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/version.md)** - Periksa versi Intlayer CLI yang terinstal
-- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/list_projects.md)** - Daftar semua proyek Intlayer dalam direktori atau repositori git
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/build" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/watch" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/standalone" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/version" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/list_projects" />
+</TechGrid>
 
 ### Manajemen Kamus
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/push.md)** - Kirim kamus ke Editor Intlayer dan CMS
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/pull.md)** - Ambil kamus dari Editor Intlayer dan CMS
-- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill.md)** - Isi, audit, dan terjemahkan kamus menggunakan AI
-- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/test.md)** - Uji dan identifikasi terjemahan yang hilang
-- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/list.md)** - Daftar semua file deklarasi konten dalam proyek Anda
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/push" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/pull" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/test" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/list" />
+</TechGrid>
 
 ### Manajemen Komponen
 
-- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md)** - Ekstrak string dari komponen ke file .content di dekat komponen
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract" />
+</TechGrid>
 
 ### Konfigurasi
 
-- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/init.md)** - Siapkan Intlayer di proyek Anda dengan konfigurasi otomatis
-- **[Menyiapkan Infrastruktur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/infra.md)** - Instal aplikasi desktop atau self-host CMS dengan Docker (all-in-one atau Compose)
-- **[Tingkatkan Paket Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/upgrade.md)** - Cantumkan paket Intlayer dari setiap `package.json` dan tingkatkan ke versi terbaru
-- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/configuration.md)** - Dapatkan konfigurasi Intlayer Anda dan kirimkan ke CMS
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/init" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/infra" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/upgrade" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/configuration" />
+</TechGrid>
 
 ### Manajemen Dokumen
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/doc-translate.md)** - Terjemahkan file dokumen secara otomatis menggunakan AI
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/doc-review.md)** - Tinjau file dokumen untuk kualitas dan konsistensi
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/doc-translate" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/doc-review" />
+</TechGrid>
 
 ### Editor dan Live Sync
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/editor.md)** - Gunakan perintah editor Intlayer
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live.md)** - Gunakan Live Sync untuk menerapkan perubahan konten dari CMS saat runtime
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/editor" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live" />
+</TechGrid>
 
 ### Audit & Diagnostik
 
-- **[Scan Website](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/scan.md)** - Ukur ukuran halaman dan audit kesehatan i18n/SEO dari URL publik mana pun
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/scan" />
+</TechGrid>
 
 ### Alat Pengembang
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/sdk.md)** - Gunakan Intlayer CLI SDK di kode Anda sendiri
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/debug.md)** - Debug dan selesaikan masalah dengan Intlayer CLI
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/sdk" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/debug" />
+</TechGrid>
 
 ## Gunakan perintah intlayer di `package.json` Anda
 

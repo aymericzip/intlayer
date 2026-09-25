@@ -124,51 +124,69 @@ Intlayer একাধিক কনফিগারেশন ফাইল ফর�
 
 ### প্রমাণীকরণ (Authentication)
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/login.md)** - Intlayer CMS-এর মাধ্যমে প্রমাণীকরণ করুন এবং অ্যাক্সেস ক্রেডেনশিয়াল পান।
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/login" />
+</TechGrid>
 
 ### কোর কমান্ড (Core Commands)
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/build.md)** - আপনার বিষয়বস্তু ঘোষণা ফাইলগুলো থেকে আপনার ডিকশনারিগুলো বিল্ড করুন।
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/watch.md)** - পরিবর্তনগুলো পর্যবেক্ষণ করুন এবং স্বয়ংক্রিয়ভাবে ডিকশনারিগুলো পুনরায় বিল্ড করুন।
-- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/standalone.md)** - Intlayer এবং নির্দিষ্ট প্যাকেজ সম্বলিত একটি স্ট্যান্ডঅলোন JavaScript বান্ডল তৈরি করুন।
-- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/version.md)** - ইনস্টল করা Intlayer CLI ভার্সন পরীক্ষা করুন।
-- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/list_projects.md)** - একটি ডিরেক্টরি বা গিট রিপোজিটরিতে সমস্ত Intlayer প্রজেক্টের তালিকা দেখুন।
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/build" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/watch" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/standalone" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/version" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/list_projects" />
+</TechGrid>
 
 ### ডিকশনারি ম্যানেজমেন্ট (Dictionary Management)
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/push.md)** - ডিকশনারিগুলো Intlayer এডিটর এবং CMS-এ পাঠান।
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/pull.md)** - Intlayer এডিটর এবং CMS থেকে ডিকশনারিগুলো আনুন (fetch)।
-- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/fill.md)** - AI ব্যবহার করে ডিকশনারিগুলো পূরণ, অডিট এবং অনুবাদ করুন।
-- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/test.md)** - অনুপস্থিত অনুবাদগুলো পরীক্ষা করুন এবং শনাক্ত করুন।
-- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/list.md)** - আপনার প্রজেক্টের সমস্ত বিষয়বস্তু ঘোষণা ফাইলের তালিকা দেখুন।
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/push" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/pull" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/fill" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/test" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/list" />
+</TechGrid>
 
 ### উপাদান ম্যানেজমেন্ট (Component Management)
 
-- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/extract.md)** - উপাদানের কাছাকাছি একটি .content ফাইলে উপাদানগুলো থেকে স্ট্রিংগুলো এক্সট্র্যাক্ট করুন।
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/extract" />
+</TechGrid>
 
 ### কনফিগারেশন
 
-- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/init.md)** - স্বয়ংক্রিয় কনফিগারেশন সহ আপনার প্রজেক্টে Intlayer সেট আপ করুন।
-- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/configuration.md)** - আপনার Intlayer কনফিগারেশন পান এবং এটি CMS-এ পাঠান।
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/init" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/configuration" />
+</TechGrid>
 
 ### ডকুমেন্ট ম্যানেজমেন্ট (Doc Management)
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/doc-translate.md)** - AI ব্যবহার করে ডকুমেন্ট ফাইলগুলো স্বয়ংক্রিয়ভাবে অনুবাদ করুন।
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/doc-review.md)** - গুণমান এবং সামঞ্জস্যের জন্য ডকুমেন্ট ফাইলগুলো পর্যালোচনা করুন।
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/doc-translate" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/doc-review" />
+</TechGrid>
 
 ### এডিটর এবং লাইভ সিঙ্ক (Editor and Live Sync)
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/editor.md)** - Intlayer এডিটর কমান্ড ব্যবহার করুন।
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/live.md)** - রানটাইমে CMS থেকে বিষয়বস্তুর পরিবর্তনগুলো প্রয়োগ করতে লাইভ সিঙ্ক ব্যবহার করুন।
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/editor" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/live" />
+</TechGrid>
 
 ### অডিটিং এবং ডায়াগনস্টিকস
 
-- **[ওয়েবসাইট স্ক্যান করুন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/scan.md)** - যেকোনো পাবলিক URL-এর পেজ সাইজ পরিমাপ করুন এবং i18n/SEO অবস্থা অডিট করুন
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/scan" />
+</TechGrid>
 
 ### ডেভেলপার সরঞ্জাম (Developer Tools)
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/sdk.md)** - আপনার নিজস্ব কোডে Intlayer CLI SDK ব্যবহার করুন
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/debug.md)** - Intlayer CLI-এর সমস্যাগুলো ডিবাগ করুন এবং সমাধান করুন।
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/sdk" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/cli/debug" />
+</TechGrid>
 
 ## আপনার `package.json` ফাইলে intlayer কমান্ড ব্যবহার করুন
 

@@ -35,17 +35,19 @@ compat アダプターを使用する場合、アプリケーションのイン�
 
 以下から既存のライブラリを選択して、シームレスに移行する方法を確認してください：
 
-- [Vue I18n](./vue-i18n.md)
-- [Transloco](./transloco.md)
-- [React Intl](./react-intl.md)
-- [Svelte I18n](./svelte-i18n.md)
-- [React i18next](./react-i18next.md)
-- [Polyglot.js](./polyglot.md)
-- [NuxtJS I18n](./nuxtjs-i18n.md)
-- [NGX Translate](./ngx-translate.md)
-- [Next Translate](./next-translate.md)
-- [Next Intl](./next-intl.md)
-- [Next i18next](./next-i18next.md)
-- [i18next](./i18next.md)
-- [Lingui](./lingui.md)
-- [I18n-js](./i18n-js.md)
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/vue-i18n" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/transloco" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-intl" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/svelte-i18n" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-i18next" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/polyglot" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/nuxtjs-i18n" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/ngx-translate" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-translate" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-intl" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-i18next" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18next" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18n-js" />
+</TechGrid>

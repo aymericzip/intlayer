@@ -124,51 +124,69 @@ Om te zien hoe u beschikbare talen of andere parameters configureert, raadpleegt
 
 ### Authenticatie
 
-- **[Inloggen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/login.md)** - Authenticeren bij het Intlayer CMS en inloggegevens verkrijgen
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/login" />
+</TechGrid>
 
 ### Kerncommando's
 
-- **[Woordenboeken Bouwen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/build.md)** - Bouw uw woordenboeken vanuit inhoudsdeclaratiebestanden
-- **[Woordenboeken Controleren (Watch)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/watch.md)** - Controleer op wijzigingen en bouw woordenboeken automatisch opnieuw
-- **[Standalone Bundel Maken](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/standalone.md)** - Maak een zelfstandige JavaScript-bundel met Intlayer en gespecificeerde pakketten
-- **[CLI-versie Controleren](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/version.md)** - Controleer de geïnstalleerde Intlayer CLI-versie
-- **[Projecten Schatten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/list_projects.md)** - Lijst van alle Intlayer-projecten in een map of git-repository
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/build" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/watch" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/standalone" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/version" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/list_projects" />
+</TechGrid>
 
 ### Woordenboekbeheer
 
-- **[Woordenboeken Pushen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/push.md)** - Stuur woordenboeken naar de Intlayer-editor en het CMS
-- **[Woordenboeken Pulleren](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/pull.md)** - Haal woordenboeken op uit de Intlayer-editor en het CMS
-- **[Woordenboeken Invullen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/fill.md)** - Woordenboeken invullen, auditen en vertalen met behulp van AI
-- **[Ontbrekende Vertalingen Testen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/test.md)** - Ontbrekende vertalingen testen en identificeren
-- **[Inhoudsdeclaratiebestanden Schatten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/list.md)** - Lijst van alle inhoudsdeclaratiebestanden in uw project
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/push" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/pull" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/fill" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/test" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/list" />
+</TechGrid>
 
 ### Componentbeheer
 
-- **[Strings Extraheren](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/extract.md)** - Extraheer strings uit componenten naar een .content bestand in de buurt van de component
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/extract" />
+</TechGrid>
 
 ### Configuratie
 
-- **[Intlayer Initialiseren](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/init.md)** - Stel Intlayer in uw project in met automatische configuratie
-- **[Configuratie Beheren](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/configuration.md)** - Haal uw Intlayer-configuratie op en stuur deze naar het CMS
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/init" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/configuration" />
+</TechGrid>
 
 ### Documentbeheer
 
-- **[Document Vertalen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/doc-translate.md)** - Vertaal documentatiebestanden automatisch met behulp van AI
-- **[Document Beoordelen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/doc-review.md)** - Bekijk documentatiebestanden voor kwaliteit en consistentie
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/doc-translate" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/doc-review" />
+</TechGrid>
 
 ### Editor & Live Sync
 
-- **[Editor-commando's](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/editor.md)** - Gebruik de Intlayer editor-commando's
-- **[Live Sync-commando's](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/live.md)** - Gebruik Live Sync om inhoudswijzigingen vanuit het CMS tijdens runtime toe te passen
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/editor" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/live" />
+</TechGrid>
 
 ### Audit & Diagnostiek
 
-- **[Website Scannen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/scan.md)** - Meet de paginagrootte en controleer de i18n/SEO-status van elke openbare URL
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/scan" />
+</TechGrid>
 
 ### Ontwikkelingstools
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/sdk.md)** - Gebruik de Intlayer CLI SDK in uw eigen code
-- **[Debug Intlayer-commando](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/debug.md)** - Debug en los problemen met de Intlayer CLI op
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/sdk" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/debug" />
+</TechGrid>
 
 ## Gebruik intlayer commando's in uw `package.json`
 

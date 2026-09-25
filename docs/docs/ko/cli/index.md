@@ -130,55 +130,73 @@ Intlayer는 여러 설정 파일 형식을 허용합니다:
 
 ### 인증
 
-- **[로그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/login.md)** - Intlayer CMS에 인증하고 액세스 자격 증명을 가져옵니다.
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/login" />
+</TechGrid>
 
 > `intlayer login`은 모든 자격 있는 명령어가 사용하는 **액세스 키**(`clientId` / `clientSecret`)를 발급합니다. 시크릿은 서버 측 자격증명이며 클라이언트 번들에 도달하지 않습니다 — [액세스 키 안전 유지](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/login.md#keeping-the-access-key-safe)를 참조하세요.
 
 ### 핵심 명령어
 
-- **[딕셔너리 빌드 (Build)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/build.md)** - 콘텐츠 선언 파일에서 딕셔너리를 빌드합니다.
-- **[딕셔너리 감시 (Watch)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/watch.md)** - 변경 사항을 감시하고 딕셔너리를 자동으로 빌드합니다.
-- **[독립 실행형 번들 생성 (Standalone)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/standalone.md)** - Intlayer 및 지정된 패키지를 포함하는 독립 실행형 JavaScript 번들을 생성합니다.
-- **[CLI 버전 확인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/version.md)** - 설치된 Intlayer CLI 버전을 확인합니다.
-- **[프로젝트 목록 (List Projects)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/list_projects.md)** - 디렉토리 또는 git 저장소의 모든 Intlayer 프로젝트를 나열합니다.
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/build" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/watch" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/standalone" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/version" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/list_projects" />
+</TechGrid>
 
 ### 딕셔너리 관리
 
-- **[딕셔너리 푸시 (Push)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/push.md)** - 딕셔너리를 Intlayer 에디터 및 CMS로 전송합니다.
-- **[딕셔너리 풀 (Pull)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/pull.md)** - Intlayer 에디터 및 CMS에서 딕셔너리를 가져옵니다.
-- **[딕셔너리 채우기 (Fill)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md)** - AI를 사용하여 딕셔너리를 채우고 감사하며 번역합니다.
-- **[누락된 번역 테스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/test.md)** - 누락된 번역을 테스트하고 식별합니다.
-- **[콘텐츠 선언 파일 목록](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/list.md)** - 프로젝트의 모든 콘텐츠 선언 파일을 나열합니다.
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/push" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/pull" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/test" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/list" />
+</TechGrid>
 
 ### 컴포넌트 관리
 
-- **[문자열 추출 (Extract)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)** - 컴포넌트 근처의 .content 파일로 컴포넌트에서 문자열을 추출합니다.
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract" />
+</TechGrid>
 
 ### 구성
 
-- **[Intlayer 초기화 (Init)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/init.md)** - 자동 구성을 사용하여 프로젝트에 Intlayer를 설정합니다.
-- **[인프라 설정 (Set Up Infrastructure)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/infra.md)** - 데스크톱 앱을 설치하거나 Docker(올인원 또는 Compose)로 CMS를 셀프 호스팅합니다
-- **[Intlayer 패키지 업그레이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/upgrade.md)** - 모든 `package.json`의 Intlayer 패키지를 나열하고 최신 버전으로 업그레이드합니다
-- **[구성 관리](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/configuration.md)** - Intlayer 구성을 가져오고 CMS로 전송합니다.
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/init" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/infra" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/upgrade" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/configuration" />
+</TechGrid>
 
 ### 문서 관리
 
-- **[문서 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/doc-translate.md)** - AI를 사용하여 문서 파일을 자동으로 번역합니다.
-- **[문서 검토](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/doc-review.md)** - 품질과 일관성을 위해 문서 파일을 검토합니다.
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/doc-translate" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/doc-review" />
+</TechGrid>
 
 ### 에디터 및 라이브 동기화 (Live Sync)
 
-- **[에디터 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/editor.md)** - Intlayer 에디터 명령어를 사용합니다.
-- **[라이브 동기화 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/live.md)** - 라이브 동기화를 사용하여 런타임에 CMS의 콘텐츠 변경 사항을 반영합니다.
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/editor" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/live" />
+</TechGrid>
 
 ### 감사 및 진단
 
-- **[웹사이트 스캔](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/scan.md)** - 공개 URL의 페이지 크기를 측정하고 i18n/SEO 상태를 감사하게 해줍니다.
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/scan" />
+</TechGrid>
 
 ### 개발 도구
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/sdk.md)** - 자체 코드에서 Intlayer CLI SDK를 사용합니다.
-- **[Intlayer 명령어 디버그](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/debug.md)** - Intlayer CLI 문제를 디버그하고 해결합니다.
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/sdk" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/debug" />
+</TechGrid>
 
 ## `package.json`에서 Intlayer 명령어 사용하기
 

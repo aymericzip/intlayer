@@ -130,55 +130,73 @@ Mevcut dillerin veya diğer parametrelerin nasıl yapılandırılacağını öğ
 
 ### Kimlik Doğrulama
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/login.md)** - Intlayer CMS ile kimlik doğrulaması yapın ve erişim kimlik bilgilerini alın
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/login" />
+</TechGrid>
 
 > `intlayer login` bir **erişim anahtarı** (`clientId` / `clientSecret`) verir ve her kimlik bilgili komut bu anahtarı kullanır. Gizli anahtar, sunucu tarafı bir kimlik bilgisidir ve hiçbir zaman istemci paketinize ulaşmaz — [Erişim anahtarını güvenli tutma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/login.md#keeping-the-access-key-safe) bölümüne bakın.
 
 ### Temel Komutlar
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/build.md)** - İçerik bildirimi dosyalarından sözlüklerinizi oluşturun
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/watch.md)** - Değişiklikleri izleyin ve sözlükleri otomatik olarak yeniden oluşturun
-- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/standalone.md)** - Intlayer ve belirtilen paketleri içeren bağımsız bir JavaScript paketi oluşturun
-- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/version.md)** - Kurulu Intlayer CLI sürümünü kontrol edin
-- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/list_projects.md)** - Bir dizindeki veya git deposundaki tüm Intlayer projelerini listeleyin
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/build" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/watch" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/standalone" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/version" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/list_projects" />
+</TechGrid>
 
 ### Sözlük Yönetimi
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/push.md)** - Sözlükleri Intlayer düzenleyicisine ve CMS'ye gönderin
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/pull.md)** - Intlayer düzenleyicisinden ve CMS'den sözlükleri alın
-- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md)** - Yapay zeka kullanarak sözlükleri doldurun, denetleyin ve çevirin
-- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/test.md)** - Eksik çevirileri test edin ve belirleyin
-- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/list.md)** - Projenizdeki tüm içerik bildirimi dosyalarını listeleyin
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/push" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/pull" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/test" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/list" />
+</TechGrid>
 
 ### Bileşen Yönetimi
 
-- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)** - Bileşenlerden dizeleri bileşenin yanındaki bir .content dosyasına çıkarın
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract" />
+</TechGrid>
 
 ### Yapılandırma
 
-- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/init.md)** - Otomatik yapılandırma ile projenizde Intlayer'ı kurun
-- **[Altyapıyı Kur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/infra.md)** - Masaüstü uygulamasını yükleyin veya Docker (hepsi bir arada veya Compose) ile CMS'yi kendi sunucunuzda barındırın
-- **[Intlayer Paketlerini Yükseltme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/upgrade.md)** - Her `package.json` dosyasındaki Intlayer paketlerini listeleyin ve bunları en son sürüme yükseltin
-- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/configuration.md)** - Intlayer yapılandırmanızı alın ve CMS'ye gönderin
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/init" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/infra" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/upgrade" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/configuration" />
+</TechGrid>
 
 ### Belge Yönetimi
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/doc-translate.md)** - Yapay zeka kullanarak belge dosyalarını otomatik olarak çevirin
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/doc-review.md)** - Belge dosyalarını kalite ve tutarlılık açısından inceleyin
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/doc-translate" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/doc-review" />
+</TechGrid>
 
 ### Düzenleyici ve Canlı Senkronizasyon (Live Sync)
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/editor.md)** - Intlayer düzenleyici komutlarını kullanın
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md)** - CMS'den gelen içerik değişikliklerini çalışma zamanında uygulamak için Live Sync'i kullanın
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/editor" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live" />
+</TechGrid>
 
 ### Denetim & Teşhis
 
-- **[Web Sitesini Tara](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/scan.md)** - Herhangi bir genel URL'nin sayfa boyutunu ölçün ve i18n/SEO durumunu denetleyin
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/scan" />
+</TechGrid>
 
 ### Geliştirici Araçları
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/sdk.md)** - Kendi kodunuzda Intlayer CLI SDK'sını kullanın
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/debug.md)** - Intlayer CLI sorunlarını ayıklayın ve düzeltin
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/sdk" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/debug" />
+</TechGrid>
 
 ## `package.json` dosyanızda intlayer komutlarını kullanın
 

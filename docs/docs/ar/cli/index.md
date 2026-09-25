@@ -130,55 +130,73 @@ bun add intlayer-cli -g
 
 ### المصادقة
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/login.md)** - المصادقة مع Intlayer CMS والحصول على أوراق اعتماد الوصول
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/login" />
+</TechGrid>
 
 > أمر `intlayer login` يصدر **مفتاح وصول** (`clientId` / `clientSecret`) يستخدمه كل أمر معتمد. السر هو بيانات اعتماد من جانب الخادم ولا يصل أبداً إلى حزمة العميل الخاصة بك — انظر [الحفاظ على مفتاح الوصول آمناً](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/login.md#keeping-the-access-key-safe).
 
 ### الأوامر الأساسية
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/build.md)** - بناء القواميس الخاصة بك من ملفات تصريح المحتوى
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/watch.md)** - مراقبة التغييرات وإعادة بناء القواميس تلقائيًا
-- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/standalone.md)** - إنشاء حزمة JavaScript مستقلة تحتوي على Intlayer والحزم المحددة
-- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/version.md)** - التحقق من إصدار Intlayer CLI المثبت
-- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/list_projects.md)** - سرد جميع مشاريع Intlayer في دليل أو مستودع git
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/build" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/watch" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/standalone" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/version" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/list_projects" />
+</TechGrid>
 
 ### إدارة القواميس
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/push.md)** - إرسال القواميس إلى محرر Intlayer و CMS
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/pull.md)** - جلب القواميس من محرر Intlayer و CMS
-- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md)** - ملء القواميس ومراجعتها وترجمتها باستخدام الذكاء الاصطناعي
-- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/test.md)** - اختبار وتحديد الترجمات المفقودة
-- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/list.md)** - سرد جميع ملفات تصريح المحتوى في مشروعك
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/push" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/pull" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/test" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/list" />
+</TechGrid>
 
 ### إدارة المكونات
 
-- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)** - استخراج السلاسل من المكونات إلى ملف .content بالقرب من المكون
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract" />
+</TechGrid>
 
 ### التكوين
 
-- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/init.md)** - إعداد Intlayer في مشروعك بتكوين تلقائي
-- **[إعداد البنية التحتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/infra.md)** - تثبيت تطبيق سطح المكتب أو الاستضافة الذاتية لـ CMS باستخدام Docker (الكل في واحد أو Compose)
-- **[ترقية حزم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/upgrade.md)** - سرد حزم Intlayer لكل `package.json` وترقيتها إلى أحدث إصدار
-- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/configuration.md)** - الحصول على تكوين Intlayer الخاص بك وإرساله إلى CMS
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/init" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/infra" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/upgrade" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/configuration" />
+</TechGrid>
 
 ### إدارة الوثائق
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/doc-translate.md)** - ترجمة ملفات الوثائق تلقائيًا باستخدام الذكاء الاصطناعي
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/doc-review.md)** - مراجعة ملفات الوثائق للجودة والاتساق
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/doc-translate" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/doc-review" />
+</TechGrid>
 
 ### المحرر والمزامنة المباشرة (Live Sync)
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/editor.md)** - استخدام أوامر محرر Intlayer
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/live.md)** - استخدام المزامنة المباشرة لتطبيق تغييرات المحتوى من CMS في وقت التشغيل
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/editor" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/live" />
+</TechGrid>
 
 ### التدقيق والتشخيص
 
-- **[مسح موقع الويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/scan.md)** - قياس حجم الصفحة وتدقيق صحة i18n/SEO لأي عنوان URL عام
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/scan" />
+</TechGrid>
 
 ### أدوات التطوير
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/sdk.md)** - استخدام Intlayer CLI SDK في الكود الخاص بك
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/debug.md)** - تصحيح أخطاء وحل مشكلات Intlayer CLI
+<TechGrid>
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/sdk" />
+  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/debug" />
+</TechGrid>
 
 ## استخدم أوامر intlayer في ملف `package.json` الخاص بك
 
