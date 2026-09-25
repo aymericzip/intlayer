@@ -9,6 +9,7 @@ export * from './editor';
 export * from './extract';
 export * from './fill/fill';
 export * from './init';
+export * from './initChromeExtension';
 export * from './initInfra';
 export * from './initSkills';
 export * from './listContentDeclaration';

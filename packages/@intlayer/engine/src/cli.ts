@@ -15,6 +15,7 @@ export {
   type CompatI18nLibrary,
   detectCompatI18nLibraries,
   detectPackageManager,
+  hasLintTooling,
   installPackages,
   type PackageManager,
 } from './init/utils/packageManager';

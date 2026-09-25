@@ -382,6 +382,17 @@ export const setAPI = (): Command => {
       });
     });
 
+  initCmd
+    .command('extension')
+    .alias('chrome-extension')
+    .description(
+      'Install the Intlayer Chrome extension or Firefox add-on in your browser'
+    )
+    .action(async () => {
+      const { initChromeExtension } = await import('./initChromeExtension');
+      return initChromeExtension();
+    });
+
   /**
    * UPGRADE
    */

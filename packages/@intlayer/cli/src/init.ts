@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import {
   detectCompatI18nLibraries,
+  hasLintTooling,
   hasUrlRoutingFramework,
   type InitOptions,
   initIntlayer,
@@ -9,6 +10,7 @@ import {
   setupCmsCredentials,
 } from '@intlayer/engine/cli';
 import { login } from './auth/login';
+import { initChromeExtension } from './initChromeExtension';
 import { initInfra } from './initInfra';
 import { initMCP } from './initMCP';
 import { initSkills } from './initSkills';
@@ -30,7 +32,7 @@ export const findProjectRoot = (startDir: string) => {
 };
 
 /** Individually selectable setup steps exposed by the interactive init flow. */
-type InitStep =
+export type InitStep =
   | 'packages'
   | 'githubActions'
   | 'projectSetup'
@@ -40,10 +42,11 @@ type InitStep =
   | 'skills'
   | 'mcp'
   | 'infra'
-  | 'cms';
+  | 'cms'
+  | 'chromeExtension';
 
 /** A checkbox entry of the interactive init flow. */
-type InitStepOption = {
+export type InitStepOption = {
   value: InitStep;
   label: string;
   hint: string;
@@ -51,13 +54,13 @@ type InitStepOption = {
 
 /**
  * Steps shown but not pre-selected. The infrastructure installer touches the
- * machine (downloads an app, pulls Docker images) rather than the project, so
- * it must be an explicit choice.
+ * machine (downloads an app, pulls Docker images) and browser extensions open external URLs
+ * rather than modifying the project, so they must be an explicit choice.
  */
-const OPT_IN_INIT_STEPS: InitStep[] = ['infra'];
+export const OPT_IN_INIT_STEPS: InitStep[] = ['infra', 'chromeExtension'];
 
 /** Grouped checkbox entries of the interactive init flow, in display order. */
-const INIT_STEP_GROUPS: Record<string, InitStepOption[]> = {
+export const INIT_STEP_GROUPS: Record<string, InitStepOption[]> = {
   Codebase: [
     {
       value: 'packages',
@@ -85,6 +88,11 @@ const INIT_STEP_GROUPS: Record<string, InitStepOption[]> = {
       value: 'eslint',
       label: 'Lint rules (ESLint / oxlint)',
       hint: 'flag hardcoded text and dynamic calls the compiler cannot optimize',
+    },
+    {
+      value: 'chromeExtension',
+      label: 'Chrome extension',
+      hint: 'for audit, debug and analysis purpose',
     },
   ],
   'Coding assistant': [
@@ -185,8 +193,66 @@ export const getRoutingInitOptions = (
     ? { routingMode: 'no-prefix', enableProxy: false }
     : { routingMode: choice, enableProxy: true };
 
+/** Known ESLint and oxlint configuration file names. */
+export const ESLINT_CONFIG_FILES = [
+  'eslint.config.js',
+  'eslint.config.mjs',
+  'eslint.config.cjs',
+  'eslint.config.ts',
+  'eslint.config.mts',
+  'eslint.config.cts',
+  '.eslintrc.js',
+  '.eslintrc.cjs',
+  '.eslintrc.yaml',
+  '.eslintrc.yml',
+  '.eslintrc.json',
+  '.eslintrc',
+  '.oxlintrc.json',
+];
+
+/**
+ * Checks whether ESLint or a compatible linter (oxlint) is installed or
+ * configured in the project.
+ */
+export const isEslintInstalled = (
+  dependencies: Record<string, string>,
+  root?: string
+): boolean => {
+  if (hasLintTooling(dependencies)) return true;
+  if (dependencies.eslint || dependencies.oxlint) return true;
+
+  if (root) {
+    return ESLINT_CONFIG_FILES.some((file) => existsSync(join(root, file)));
+  }
+
+  return false;
+};
+
+/**
+ * Computes the initial setup steps selected by default in the interactive prompt.
+ * Steps like infrastructure and browser extension require opt-in, while
+ * eslint is preselected only if installed on the project.
+ */
+export const getInitialInitSteps = (
+  dependencies: Record<string, string>,
+  root?: string
+): InitStep[] => {
+  const isEslintPresent = isEslintInstalled(dependencies, root);
+
+  return Object.values(INIT_STEP_GROUPS)
+    .flat()
+    .map((option) => option.value)
+    .filter((step) => {
+      if (OPT_IN_INIT_STEPS.includes(step)) return false;
+      if (step === 'eslint' && !isEslintPresent) return false;
+      return true;
+    });
+};
+
 /** Reads the merged dependencies of the project at `root`. */
-const getProjectDependencies = (root: string): Record<string, string> => {
+export const getProjectDependencies = (
+  root: string
+): Record<string, string> => {
   try {
     const packageJsonPath = join(root, 'package.json');
     if (!existsSync(packageJsonPath)) return {};
@@ -214,13 +280,12 @@ const runInteractiveInit = async (
 
   p.intro('Initialize Intlayer');
 
+  const projectDependencies = getProjectDependencies(root);
+
   const selected = await p.groupMultiselect<InitStep>({
     message: 'Select what you want to set up:',
     options: INIT_STEP_GROUPS,
-    initialValues: Object.values(INIT_STEP_GROUPS)
-      .flat()
-      .map((option) => option.value)
-      .filter((step) => !OPT_IN_INIT_STEPS.includes(step)),
+    initialValues: getInitialInitSteps(projectDependencies, root),
     required: false,
   });
 
@@ -236,9 +301,8 @@ const runInteractiveInit = async (
   // dependency map to schedule the compat adapter, the sync plugin and the
   // catalog template, so a project without any of those packages is simply set
   // up on Intlayer alone.
-  const detectedCompatLibraries = detectCompatI18nLibraries(
-    getProjectDependencies(root)
-  );
+  const detectedCompatLibraries =
+    detectCompatI18nLibraries(projectDependencies);
   const hasCompatLib = detectedCompatLibraries.length > 0;
 
   if (hasCompatLib) {
@@ -258,7 +322,7 @@ const runInteractiveInit = async (
     steps.includes('projectSetup') &&
     baseOptions?.routingMode === undefined &&
     !hasCompatLib &&
-    hasUrlRoutingFramework(getProjectDependencies(root))
+    hasUrlRoutingFramework(projectDependencies)
   ) {
     const selectedRouting = await p.select<LocaleRoutingChoice>({
       message: 'How should the locale appear in your URLs?',
@@ -307,6 +371,10 @@ const runInteractiveInit = async (
   // Delegated to the hosted install script, which owns its own menu.
   if (steps.includes('infra')) {
     await initInfra();
+  }
+
+  if (steps.includes('chromeExtension')) {
+    await initChromeExtension();
   }
 
   // CMS / visual editor runs last: the browser login persists the access-key
