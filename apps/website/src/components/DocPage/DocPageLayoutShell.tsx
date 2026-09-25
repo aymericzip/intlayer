@@ -35,7 +35,7 @@ export const DocPageLayoutShell: FC<DocPageLayoutShellProps> = ({
         className="no-scrollbar relative mb-3 h-full max-h-[calc(100vh-4.5rem)] w-auto flex-1 grow scroll-pt-6 overflow-y-auto scroll-smooth px-4 pb-24 max-md:pl-10 md:px-10"
         id="content"
       >
-        <div className="m-auto max-w-5xl">
+        <div className="m-auto max-w-2xl">
           {breadcrumb}
           {children}
           {innerTrailingContent}
