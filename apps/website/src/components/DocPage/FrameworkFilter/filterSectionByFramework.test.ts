@@ -135,6 +135,7 @@ describe('filterSectionByFramework', () => {
             frameworks: ['all', 'js'],
             subSections: {
               getIntlayer: { title: 'getIntlayer', default: {} },
+              getDictionary: { title: 'getDictionary', default: {} },
             },
           },
           reactIntlayer: {
@@ -166,6 +167,52 @@ describe('filterSectionByFramework', () => {
     expect(
       keysOf(filtered.packages.subSections!.reactIntlayer.subSections!)
     ).toEqual(['useIntlayer', 't']);
+    expect(
+      keysOf(filtered.packages.subSections!.intlayer.subSections!)
+    ).toEqual(['getIntlayer', 'getDictionary']);
+  });
+
+  it('keeps both at top level when there is only the default and another single section', () => {
+    const tree: Record<string, Node> = {
+      environment: {
+        title: 'Environment',
+        subSections: {
+          'vite-and-vue': {
+            title: 'Vite and Vue',
+            default: {},
+            frameworks: ['vue', 'vite'],
+            subSections: {
+              'nuxt-and-vue': {
+                title: 'Nuxt and Vue',
+                default: {},
+                frameworks: ['nuxt', 'vue', 'vite'],
+              },
+            },
+          },
+          astro: {
+            title: 'Astro',
+            frameworks: ['astro'],
+            subSections: {
+              'astro-and-vue': {
+                title: 'Astro and Vue',
+                default: {},
+                frameworks: ['vue', 'astro'],
+              },
+            },
+          },
+        },
+      },
+    };
+
+    const filtered = filterSectionByFramework(tree, ['vue']);
+    expect(keysOf(filtered.environment.subSections!)).toEqual([
+      'vite-and-vue',
+      'nuxt-and-vue',
+      'astro-and-vue',
+    ]);
+    expect(
+      filtered.environment.subSections!['vite-and-vue'].subSections
+    ).toBeUndefined();
   });
 
   it('moves subsections to top level if it is the only item shown in the category', () => {

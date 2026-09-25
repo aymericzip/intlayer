@@ -93,11 +93,24 @@ export const filterSectionByFramework = <
         return Object.entries(filteredSubSections);
       }
 
+      // Rule B: When there is only the default and another single section, keep both at top level
+      if (
+        depth > 0 &&
+        data.default &&
+        filteredSubSections &&
+        Object.keys(filteredSubSections).length === 1
+      ) {
+        return [
+          [key, { ...dataWithFrameworks, subSections: undefined }],
+          ...Object.entries(filteredSubSections),
+        ];
+      }
+
       return [[key, dataWithFrameworks]];
     }
   );
 
-  // Apply Rule B: If this section explicitly matches the framework, unwrap its subsections as siblings
+  // Apply Rule C: If this section explicitly matches the framework, unwrap its subsections as siblings
   // We only move subsections to top level if it's the ONLY item showed in the category
   const isOnlyItemShown = resolvedEntries.length === 1;
 
