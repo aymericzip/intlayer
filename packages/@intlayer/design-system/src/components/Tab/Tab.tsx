@@ -161,14 +161,48 @@ const TabComponent = ({
   }));
 
   const firstTabValue = tabItems[0]?.value;
+  const isDefaultTabValid =
+    defaultTab !== undefined &&
+    tabItems.some((tab) => tab.value === defaultTab);
+  const fallbackTabValue = isDefaultTabValid ? defaultTab : firstTabValue;
+
   const { tabsValues, setTabsValues } = useTabContext();
   const [activeTab, setActiveTab] = useState(defaultTab ?? firstTabValue ?? '');
-  const hasGroup = group && typeof tabsValues === 'object';
-  const currentTabValue =
-    (hasGroup ? tabsValues?.[group] : activeTab) ?? defaultTab ?? firstTabValue;
-  const activeTabIndex = tabItems.findIndex(
-    (tab) => tab.value === currentTabValue
+  const [prevDefaultTab, setPrevDefaultTab] = useState(defaultTab);
+
+  if (defaultTab !== prevDefaultTab) {
+    setPrevDefaultTab(defaultTab);
+    if (isDefaultTabValid) {
+      setActiveTab(defaultTab);
+    }
+  }
+
+  const hasGroup = Boolean(group && typeof tabsValues === 'object');
+  const preferredTab = hasGroup ? tabsValues?.[group] : activeTab;
+  const isPreferredTabValid = tabItems.some(
+    (tab) => tab.value === preferredTab
   );
+
+  if (
+    !hasGroup &&
+    !isPreferredTabValid &&
+    fallbackTabValue !== undefined &&
+    activeTab !== fallbackTabValue
+  ) {
+    setActiveTab(fallbackTabValue);
+  }
+
+  const currentTabValue = isPreferredTabValid
+    ? preferredTab
+    : (fallbackTabValue ?? defaultTab ?? firstTabValue ?? '');
+
+  const activeTabIndex =
+    tabItems.length === 0
+      ? -1
+      : Math.max(
+          0,
+          tabItems.findIndex((tab) => tab.value === currentTabValue)
+        );
 
   const tabsCount = tabItems.length;
   const idFragments = toIdFragments(tabItems.map(({ value }) => value));
@@ -191,13 +225,13 @@ const TabComponent = ({
   const handleSetActiveTab = (tab: string) => {
     setActiveTab(tab);
 
-    if (typeof setTabsValues === 'function') {
-      setTabsValues((prev) => ({ ...prev, [group!]: tab }));
+    if (group && typeof setTabsValues === 'function') {
+      setTabsValues((prev) => ({ ...prev, [group]: tab }));
     }
   };
 
   const contextValue: TabContextType = {
-    activeTab: activeTab ?? firstTabValue ?? '',
+    activeTab: currentTabValue ?? '',
     setActiveTab: handleSetActiveTab,
   };
 

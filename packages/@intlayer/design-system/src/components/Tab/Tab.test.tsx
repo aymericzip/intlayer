@@ -69,4 +69,67 @@ describe('Tab', () => {
       'tabpanel-Extract-command'
     );
   });
+
+  test('updates active tab when tab items change and previous active tab is no longer present', () => {
+    const { rerender, getByRole } = render(
+      <Tab>
+        <Tab.Item label="Tab A" value="a">
+          Content A
+        </Tab.Item>
+        <Tab.Item label="Tab B" value="b">
+          Content B
+        </Tab.Item>
+      </Tab>
+    );
+
+    expect(
+      getByRole('tab', { name: 'Tab A' }).getAttribute('aria-selected')
+    ).toBe('true');
+
+    rerender(
+      <Tab>
+        <Tab.Item label="Tab C" value="c">
+          Content C
+        </Tab.Item>
+        <Tab.Item label="Tab D" value="d">
+          Content D
+        </Tab.Item>
+      </Tab>
+    );
+
+    const tabC = getByRole('tab', { name: 'Tab C' });
+    expect(tabC.getAttribute('aria-selected')).toBe('true');
+  });
+
+  test('updates active tab when defaultTab prop changes', () => {
+    const { rerender, getByRole } = render(
+      <Tab defaultTab="a">
+        <Tab.Item label="Tab A" value="a">
+          Content A
+        </Tab.Item>
+        <Tab.Item label="Tab B" value="b">
+          Content B
+        </Tab.Item>
+      </Tab>
+    );
+
+    expect(
+      getByRole('tab', { name: 'Tab A' }).getAttribute('aria-selected')
+    ).toBe('true');
+
+    rerender(
+      <Tab defaultTab="b">
+        <Tab.Item label="Tab A" value="a">
+          Content A
+        </Tab.Item>
+        <Tab.Item label="Tab B" value="b">
+          Content B
+        </Tab.Item>
+      </Tab>
+    );
+
+    expect(
+      getByRole('tab', { name: 'Tab B' }).getAttribute('aria-selected')
+    ).toBe('true');
+  });
 });
