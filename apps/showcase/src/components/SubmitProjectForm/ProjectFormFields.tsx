@@ -25,6 +25,7 @@ export const ProjectFormFields = () => {
         label={content.projectNameInput.label}
         placeholder={content.projectNameInput.placeholder.value}
         maxLength={255}
+        className="border"
         isRequired
       />
 
@@ -33,6 +34,7 @@ export const ProjectFormFields = () => {
         label={content.projectUrlInput.label}
         placeholder={content.projectUrlInput.placeholder.value}
         type="url"
+        className="border"
         isRequired
       />
 
@@ -41,6 +43,7 @@ export const ProjectFormFields = () => {
         label={content.githubUrlInput.label}
         placeholder={content.githubUrlInput.placeholder.value}
         type="url"
+        className="border"
       />
 
       <FormMultiSelect

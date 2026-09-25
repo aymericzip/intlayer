@@ -88,7 +88,9 @@ export const SubmitProjectForm: FC = () => {
         className="mt-8 min-h-100"
         roundedSize="3xl"
         padding="lg"
-        transparency="none"
+        border
+        borderColor="neutral"
+        transparency="md"
       >
         <Loader isLoading={!isHydrated}>
           <Form
