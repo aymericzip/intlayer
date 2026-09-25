@@ -1,0 +1,142 @@
+name: 🧩 Publish Browser Extensions (Chrome & Firefox)
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Target browser(s) to publish'
+        type: choice
+        options:
+          - all
+          - chrome
+          - firefox
+        default: all
+      auto_publish_chrome:
+        description: 'Auto publish to Chrome Web Store after upload'
+        type: boolean
+        default: true
+        required: false
+  release:
+    types: [published]
+
+jobs:
+  publish-chrome:
+    name: 🌐 Chrome Web Store
+    if: ${{ github.event_name == 'release' || github.event.inputs.target == 'all' || github.event.inputs.target == 'chrome' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🥡 Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          version: 1.4.2
+          run_install: false
+
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: 🔆 Cache Bun Modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-store-${{ hashFiles('**/bun.lock*') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-store-
+
+      - name: 🧩 Install dependencies
+        run: bun install
+
+      - name: 🏗️ Build extension & workspace dependencies
+        run: bun x turbo run build:ci --filter=@intlayer/chrome-extension...
+
+      - name: 📦 Zip extension
+        run: |
+          cd packages/@intlayer/chrome-extension/dist
+          zip -r ../../../extension-chrome.zip . -x '*/.*' '.*'
+          cd ../../..
+          echo "Zip created at extension-chrome.zip:"
+          ls -lh extension-chrome.zip
+
+      - name: 💾 Save Zip to GitHub Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: intlayer-chrome-extension
+          path: extension-chrome.zip
+          retention-days: 14
+
+      - name: 🚀 Upload and Publish to Chrome Web Store
+        run: |
+          if [ "${{ github.event.inputs.auto_publish_chrome }}" = "false" ]; then
+            bunx chrome-webstore-upload-cli@3 upload --source extension-chrome.zip
+          else
+            bunx chrome-webstore-upload-cli@3 upload --source extension-chrome.zip --auto-publish
+          fi
+        env:
+          EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
+          CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+
+  publish-firefox:
+    name: 🦊 Mozilla AMO (Firefox)
+    if: ${{ github.event_name == 'release' || github.event.inputs.target == 'all' || github.event.inputs.target == 'firefox' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🥡 Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          version: 1.4.2
+          run_install: false
+
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: 🔆 Cache Bun Modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-store-${{ hashFiles('**/bun.lock*') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-store-
+
+      - name: 🧩 Install dependencies
+        run: bun install
+
+      - name: 🏗️ Build extension & workspace dependencies
+        run: bun x turbo run build:ci --filter=@intlayer/chrome-extension...
+
+      - name: 📦 Zip extension
+        run: |
+          cd packages/@intlayer/chrome-extension/dist
+          zip -r ../../../extension-firefox.zip . -x '*/.*' '.*'
+          cd ../../..
+          echo "Zip created at extension-firefox.zip:"
+          ls -lh extension-firefox.zip
+
+      - name: 💾 Save Zip to GitHub Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: intlayer-firefox-extension
+          path: extension-firefox.zip
+          retention-days: 14
+
+      - name: 🦊 Upload and Publish to Mozilla AMO
+        uses: wdzeng/firefox-addon@v1
+        env:
+          FIREFOX_EXTENSION_ID: 'i18n-scanner@intlayer.org'
+        with:
+          addon-guid: ${{ env.FIREFOX_EXTENSION_ID }}
+          xpi-path: extension-firefox.zip
+          jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
