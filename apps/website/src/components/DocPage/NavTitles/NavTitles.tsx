@@ -10,13 +10,13 @@ import { useTitlesTree } from '../useTitlesTree';
 type NavTitles2Props = {
   title2: HTMLElement[];
   headingTexts: Map<HTMLElement, string>;
-  activeSectionsId: string | null;
+  activeChild: HTMLElement | null;
 };
 
 const NavTitles2: FC<NavTitles2Props> = ({
   title2,
   headingTexts,
-  activeSectionsId,
+  activeChild,
 }) => {
   const { linkLabel } = useIntlayer('nav-titles');
   const { pathname } = useLocation();
@@ -26,7 +26,7 @@ const NavTitles2: FC<NavTitles2Props> = ({
       {title2.map((h3) => {
         const { id } = h3;
         const title = headingTexts.get(h3) ?? '';
-        const isActive = activeSectionsId === id;
+        const isActive = activeChild === h3;
 
         return (
           <li key={id}>
@@ -131,7 +131,8 @@ export const NavTitles: FC = () => {
           const title = headingTexts.get(h2) ?? '';
           const h3List = headingMap.get(h2);
           const hasH3List = h3List && h3List.length > 0;
-          const isActive = activeParent?.id === id;
+          const isParentActive = activeParent === h2;
+          const isCurrent = isParentActive && !activeChild;
 
           return (
             <li key={id}>
@@ -141,7 +142,7 @@ export const NavTitles: FC = () => {
                 color="text"
                 roundedSize="lg"
                 variant="invisible-link"
-                aria-current={isActive ? 'location' : undefined}
+                aria-current={isCurrent ? 'location' : undefined}
                 className="flex text-wrap p-2 text-foreground/80 text-sm transition-[font-weight] duration-300 hover:font-semibold aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-foreground"
                 onClick={(e) => {
                   e.preventDefault();
@@ -161,7 +162,7 @@ export const NavTitles: FC = () => {
                 <NavTitles2
                   title2={h3List}
                   headingTexts={headingTexts}
-                  activeSectionsId={(isActive ? activeChild?.id : null) ?? null}
+                  activeChild={isParentActive ? activeChild : null}
                 />
               )}
             </li>

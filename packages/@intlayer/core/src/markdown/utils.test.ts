@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { trimLeadingWhitespaceOutsideFences } from './utils';
+import { slugify, trimLeadingWhitespaceOutsideFences } from './utils';
 
 describe('trimLeadingWhitespaceOutsideFences', () => {
   it('should strip the structural indentation outside of fences', () => {
@@ -104,5 +104,32 @@ describe('trimLeadingWhitespaceOutsideFences', () => {
     );
 
     expect(trimLeadingWhitespaceOutsideFences(text, '')).toBe(text);
+  });
+});
+
+describe('slugify', () => {
+  it('should handle standard English slugs', () => {
+    expect(slugify('Table of Contents')).toBe('table-of-contents');
+    expect(slugify('Install Package')).toBe('install-package');
+    expect(slugify('intlayer-cli package')).toBe('intlayer-cli-package');
+    expect(slugify('Editor & Live Sync')).toBe('editor--live-sync');
+  });
+
+  it('should handle Chinese and CJK characters properly', () => {
+    expect(slugify('目录')).toBe('目录');
+    expect(slugify('安装包')).toBe('安装包');
+    expect(slugify('intlayer-cli 包')).toBe('intlayer-cli-包');
+    expect(slugify('执行 Intlayer 命令')).toBe('执行-intlayer-命令');
+    expect(slugify('编辑器与实时同步 (Live Sync)')).toBe(
+      '编辑器与实时同步-live-sync'
+    );
+    expect(slugify('在 package.json 中使用 intlayer 命令')).toBe(
+      '在-packagejson-中使用-intlayer-命令'
+    );
+  });
+
+  it('should handle French and other accented Latin characters', () => {
+    expect(slugify('Éditeur')).toBe('editeur');
+    expect(slugify('Déjà vu')).toBe('deja-vu');
   });
 });

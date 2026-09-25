@@ -290,6 +290,7 @@ const createElementFactory = (
 type DocumentScope = {
   footnotes: FootnoteDef[];
   references: MarkdownReferences;
+  slugCounts?: Map<string, number>;
 };
 
 type DocumentScopeRef = { current: DocumentScope };
@@ -297,6 +298,7 @@ type DocumentScopeRef = { current: DocumentScope };
 const createDocumentScope = (): DocumentScope => ({
   footnotes: [],
   references: {},
+  slugCounts: new Map(),
 });
 
 /**
@@ -870,9 +872,21 @@ const createRules = (
       _order: Priority.HIGH,
       _parse(capture, parse, state) {
         const text = capture[2] ?? '';
+        const baseSlug = slug(text) || 'section';
+        const counts = scope.current.slugCounts;
+        let id = baseSlug;
+
+        if (counts) {
+          const count = counts.get(baseSlug) ?? 0;
+          counts.set(baseSlug, count + 1);
+          if (count > 0) {
+            id = `${baseSlug}-${count}`;
+          }
+        }
+
         return {
           children: parseInline(parse, text, state),
-          id: slug(text),
+          id,
           level: (capture[1]?.length ?? 1) as HeadingNode['level'],
         };
       },

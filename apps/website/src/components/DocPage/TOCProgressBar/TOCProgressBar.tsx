@@ -32,8 +32,8 @@ export const TOCProgressBar: FC = () => {
 
   if (flatHeadings.length === 0) return null;
 
-  // Determine active heading ID
-  const activeId = activeChild?.id ?? activeParent?.id ?? null;
+  // Determine active heading
+  const activeHeading = activeChild ?? activeParent;
 
   const handleScrollTo = (id: string) => {
     const element = document.getElementById(id);
@@ -51,7 +51,7 @@ export const TOCProgressBar: FC = () => {
       {flatHeadings.map((heading) => {
         const { id } = heading;
         const title = headingTexts.get(heading) ?? '';
-        const isActive = id === activeId;
+        const isActive = heading === activeHeading;
 
         return (
           <button

@@ -108,7 +108,7 @@ const SLUGIFY_REPLACEMENTS: [pattern: RegExp, replacement: string][] = [
   [/[ŸÿÝý]/g, 'y'],
 ];
 const NON_ASCII_R = /[\u0080-\uffff]/;
-const SLUGIFY_STRIP_R = /[^a-z0-9- ]/gi;
+const SLUGIFY_STRIP_R = /[^\p{L}\p{N}\p{M} -]/gu;
 const SLUGIFY_SPACE_R = / /g;
 
 export const slugify = (str: string): string => {

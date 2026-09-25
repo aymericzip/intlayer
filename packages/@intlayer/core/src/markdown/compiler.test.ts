@@ -52,6 +52,18 @@ describe('Markdown Core Compiler', () => {
     expect(result.toString()).toBe('<h1 id="heading-1" key="0">Heading 1</h1>');
   });
 
+  it('should handle Chinese headings and deduplicate identical headings', () => {
+    const markdown = ['## 安装包', '### 核心命令', '### 核心命令'].join('\n\n');
+    const result = compile(markdown, ctx) as any;
+    expect(result.toString()).toContain('<h2 id="安装包" key="0">安装包</h2>');
+    expect(result.toString()).toContain(
+      '<h3 id="核心命令" key="1">核心命令</h3>'
+    );
+    expect(result.toString()).toContain(
+      '<h3 id="核心命令-1" key="2">核心命令</h3>'
+    );
+  });
+
   it('should handle links', () => {
     const result = compile('[Google](https://google.com)', ctx) as any;
     expect(result.toString()).toBe(

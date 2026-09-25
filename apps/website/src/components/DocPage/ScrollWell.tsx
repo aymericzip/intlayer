@@ -57,14 +57,15 @@ const Title: FC = () => {
   });
 
   const contentElement = useGetElementById('content');
-  const { activeParent } = useActiveSection({
+  const { activeParent, activeChild } = useActiveSection({
     contentElement,
     headings: topLevelHeadings,
     headingMap,
   });
+  const activeHeading = activeChild ?? activeParent;
   return (
     <span className="w-full flex-1 truncate text-muted-foreground text-xs">
-      {(activeParent && headingTexts.get(activeParent)) ?? ''}
+      {(activeHeading && headingTexts.get(activeHeading)) ?? ''}
     </span>
   );
 };
