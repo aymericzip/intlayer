@@ -134,8 +134,23 @@ jobs:
             rm -f output.tar.gz
 
             echo "🔄 Restarting application..."
-            pkill -9 -f ".output/server/index.mjs" || true
-            nohup "$BUN_BIN" run .output/server/index.mjs > server.log 2>&1 &
+            # Stop previous process via pidfile if available
+            if [ -f app.pid ]; then
+              kill -9 $(cat app.pid) 2>/dev/null || true
+              rm -f app.pid
+            fi
+
+            # Safely stop any running bun server process (excluding the current SSH shell)
+            for pid in $(pgrep -f '[b]un.*\.output/server/index\.mjs' 2>/dev/null || true); do
+              if [ "$pid" != "$$" ] && [ "$pid" != "$PPID" ]; then
+                echo "Stopping old instance (PID: $pid)..."
+                kill -9 "$pid" 2>/dev/null || true
+              fi
+            done
+
+            # Launch server in background detached from SSH terminal
+            nohup env PORT=3000 HOSTNAME=0.0.0.0 NODE_ENV=production "$BUN_BIN" run .output/server/index.mjs </dev/null > server.log 2>&1 &
+            echo $! > app.pid
 
             sleep 3
             echo "📄 Server log output:"
