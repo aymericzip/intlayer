@@ -68,42 +68,50 @@ const Title: FC = () => {
   const childTitle = activeChild ? headingTexts.get(activeChild) : undefined;
 
   const firstTitle = parentTitle ?? childTitle;
-  const secondTitle = parentTitle && childTitle ? childTitle : undefined;
+  const secondTitle =
+    parentTitle && childTitle && parentTitle !== childTitle
+      ? childTitle
+      : undefined;
 
   return (
     <m.div
       layout
       transition={{ duration: 0.2, ease: 'easeInOut' }}
-      className="ml-4 flex min-w-0 flex-1 flex-col justify-center overflow-hidden"
+      className="ml-3 flex min-w-0 flex-1 flex-wrap items-center overflow-hidden"
     >
-      <m.span
-        layout="position"
-        transition={{ duration: 0.2, ease: 'easeInOut' }}
-        className="block truncate text-muted-foreground text-xs leading-tight"
-      >
-        {firstTitle ?? ''}
-      </m.span>
-      <AnimatePresence initial={false}>
-        {secondTitle && (
-          <m.span
-            key="second-title"
-            initial={{ opacity: 0, height: 0, y: -2 }}
-            animate={{ opacity: 1, height: 'auto', y: 0 }}
-            exit={{ opacity: 0, height: 0, y: -2 }}
-            transition={{ duration: 0.2, ease: 'easeInOut' }}
-            className="block truncate text-[10px] text-muted-foreground/60 leading-tight"
-          >
-            {secondTitle}
-          </m.span>
-        )}
-      </AnimatePresence>
+      <span className="line-clamp-2 text-muted-foreground text-xs leading-snug">
+        <m.span
+          layout="position"
+          transition={{ duration: 0.2, ease: 'easeInOut' }}
+          className={
+            secondTitle ? 'text-muted-foreground/70' : 'text-muted-foreground'
+          }
+        >
+          {firstTitle ?? ''}
+        </m.span>
+        <AnimatePresence initial={false}>
+          {secondTitle && (
+            <m.span
+              key="second-title"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
+              className="text-muted-foreground"
+            >
+              <span className="mx-1 text-muted-foreground/40">/</span>
+              {secondTitle}
+            </m.span>
+          )}
+        </AnimatePresence>
+      </span>
     </m.div>
   );
 };
 
 export const ScrollWellAndTitle: FC = () => {
   return (
-    <div className="flex h-8 min-w-0 flex-1 flex-row items-center">
+    <div className="flex min-h-8 min-w-0 flex-1 flex-row items-center py-0.5">
       <ScrollWell className="block size-4 shrink-0" />
       <Title />
     </div>

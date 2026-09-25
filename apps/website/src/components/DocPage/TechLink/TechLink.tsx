@@ -469,7 +469,7 @@ export const TechLink: FC<TechLinkProps> = ({
       transparency="md"
       padding="md"
       className={cn(
-        'group/tech-link flex h-full w-full min-w-32 flex-row items-center gap-4 transition-all duration-200 hover:border-neutral-focus hover:shadow-xs max-sm:min-w-full',
+        'group/tech-link flex h-full w-full min-w-60 flex-row items-center gap-4 transition-all duration-200 hover:border-neutral-focus hover:shadow-xs max-sm:min-w-full',
         className
       )}
     >
@@ -506,7 +506,7 @@ export const TechLink: FC<TechLinkProps> = ({
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="line-clamp-1 font-semibold text-foreground text-sm transition-colors group-hover/tech-link:text-primary md:text-base">
+        <span className="line-clamp-2 font-semibold text-foreground text-sm leading-snug transition-colors group-hover/tech-link:text-primary md:text-base">
           {displayTitle}
         </span>
         {displayDescription && (
@@ -550,7 +550,7 @@ export type TechGridProps = PropsWithChildren<{
 
 export const TechGrid: FC<TechGridProps> = ({ children, className, items }) => (
   <div
-    className={cn('not-prose my-4 flex flex-wrap gap-x-2 gap-y-3', className)}
+    className={cn('not-prose my-4 flex flex-wrap gap-x-3 gap-y-2', className)}
   >
     {items
       ? items.map((item, idx) => (
