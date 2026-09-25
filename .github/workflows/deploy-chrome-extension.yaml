@@ -56,9 +56,7 @@ jobs:
 
       - name: 📦 Zip extension
         run: |
-          cd packages/@intlayer/chrome-extension/dist
-          zip -r ../../../extension-chrome.zip . -x '*/.*' '.*'
-          cd ../../..
+          (cd packages/@intlayer/chrome-extension/dist && zip -r "${GITHUB_WORKSPACE:-$PWD}/extension-chrome.zip" . -x '*/.*' '.*')
           echo "Zip created at extension-chrome.zip:"
           ls -lh extension-chrome.zip
 
@@ -118,9 +116,7 @@ jobs:
 
       - name: 📦 Zip extension
         run: |
-          cd packages/@intlayer/chrome-extension/dist
-          zip -r ../../../extension-firefox.zip . -x '*/.*' '.*'
-          cd ../../..
+          (cd packages/@intlayer/chrome-extension/dist && zip -r "${GITHUB_WORKSPACE:-$PWD}/extension-firefox.zip" . -x '*/.*' '.*')
           echo "Zip created at extension-firefox.zip:"
           ls -lh extension-firefox.zip
 
