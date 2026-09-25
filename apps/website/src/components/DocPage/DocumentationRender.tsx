@@ -65,6 +65,9 @@ const isDocOrBlogLink = (url: string | undefined): boolean => {
     url.includes('github.com/aymericzip/intlayer/blob/main/docs') ||
     url.startsWith('/doc') ||
     url.startsWith('/blog') ||
+    url.startsWith('./') ||
+    url.startsWith('../') ||
+    /\.mdx?($|[?#])/i.test(url) ||
     /^\/([a-z]{2}(-[A-Z]{2})?)\/(doc|blog)/.test(url) ||
     /https?:\/\/(localhost(:\d+)?|127\.0\.0\.1(:\d+)?|(www\.)?intlayer\.org)(\/([a-z]{2}(-[A-Z]{2})?))?\/(doc|blog)/.test(
       url

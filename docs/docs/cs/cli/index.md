@@ -124,69 +124,51 @@ Chcete-li se dozvědět, jak nakonfigurovat dostupné jazyky nebo jiné parametr
 
 ### Autentizace
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/login" />
-</TechGrid>
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/login.md)** - Autentizujte se v Intlayer CMS a získejte přístupové údaje
 
 ### Základní příkazy
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/build" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/watch" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/standalone" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/version" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/list_projects" />
-</TechGrid>
+- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/build.md)** - Sestavte své slovníky ze souborů s deklarací obsahu
+- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/watch.md)** - Sledujte změny a automaticky znovu sestavujte slovníky
+- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/standalone.md)** - Vytvořte samostatný balíček JavaScriptu obsahující Intlayer a specifikované balíčky.
+- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/version.md)** - Zkontrolujte nainstalovanou verzi Intlayer CLI
+- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/list_projects.md)** - Vypište všechny projekty Intlayer v adresáři nebo git repositáři
 
 ### Správa slovníků
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/push" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/pull" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/fill" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/test" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/list" />
-</TechGrid>
+- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/push.md)** - Odešlete slovníky do editoru a CMS Intlayer
+- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/pull.md)** - Stáhněte slovníky z editoru a CMS Intlayer
+- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/fill.md)** - Doplňte, auditujte a překládejte slovníky pomocí AI
+- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/test.md)** - Otestujte a identifikujte chybějící překlady
+- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/list.md)** - Vypište všechny soubory s deklarací obsahu ve vašem projektu
 
 ### Správa komponent
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/extract" />
-</TechGrid>
+- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/extract.md)** - Extrahuje řetězce z komponent do souboru .content poblíž komponenty
 
 ### Konfigurace
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/init" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/configuration" />
-</TechGrid>
+- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/init.md)** - Nastavte Intlayer ve vašem projektu s automatickou konfigurací
+- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/configuration.md)** - Získejte svou konfiguraci Intlayer a odešlete ji do CMS
 
 ### Správa dokumentů
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/doc-translate" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/doc-review" />
-</TechGrid>
+- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/doc-translate.md)** - Automaticky překládejte soubory dokumentace pomocí AI
+- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/doc-review.md)** - Zkontrolujte kvalitu a konzistenci souborů dokumentace
 
 ### Editor a Live Sync
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/editor" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/live" />
-</TechGrid>
+- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/editor.md)** - Používejte příkazy editoru Intlayer
+- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/live.md)** - Používejte Live Sync k aplikování změn obsahu z CMS v reálném čase
 
 ### Audit a diagnostika
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/scan" />
-</TechGrid>
+- **[Scan Website](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/scan.md)** - Změřte velikost stránky a auditujte i18n/SEO zdraví jakékoli veřejné URL
 
 ### Vývojářské nástroje
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/sdk" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/debug" />
-</TechGrid>
+- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/sdk.md)** - Používejte Intlayer CLI SDK ve svém vlastním kódu
+- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/debug.md)** - Ladění a řešení problémů s Intlayer CLI
 
 ## Používejte příkazy intlayer ve svém souboru `package.json`
 

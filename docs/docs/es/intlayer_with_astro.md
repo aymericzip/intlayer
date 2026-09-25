@@ -494,15 +494,12 @@ export const GET: APIRoute = ({ site }) => {
 
 Sigue construyendo tu aplicación con el framework que prefieras.
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_react" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_vue" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_svelte" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_solid" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_preact" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_lit" />
-</TechGrid>
-
+- Intlayer + React: [Intlayer con React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_react.md)
+- Intlayer + Vue: [Intlayer con Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_vue.md)
+- Intlayer + Svelte: [Intlayer con Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_svelte.md)
+- Intlayer + Solid: [Intlayer con Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_solid.md)
+- Intlayer + Preact: [Intlayer con Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_preact.md)
+- Intlayer + Lit: [Intlayer con Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="Extraer el contenido de tus componentes" isOptional={true}>

@@ -130,73 +130,55 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
 
 ### प्रमाणीकरण (Authentication)
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/login" />
-</TechGrid>
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/login.md)** - Intlayer CMS के साथ प्रमाणित हों और एक्सेस क्रेडेंशियल प्राप्त करें
 
 > `intlayer login` एक **access key** (`clientId` / `clientSecret`) जारी करता है जिसका उपयोग हर credentialed command करता है। secret एक server-side credential है और कभी भी आपके client bundle तक नहीं पहुंचता — [Keeping the access key safe](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/login.md#keeping-the-access-key-safe) देखें।
 
 ### मुख्य कमांड (Core Commands)
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/build" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/watch" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/standalone" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/version" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/list_projects" />
-</TechGrid>
+- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/build.md)** - अपनी सामग्री घोषणा फ़ाइलों से अपने शब्दकोश बनाएँ
+- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/watch.md)** - परिवर्तनों पर नज़र रखें और शब्दकोशों को स्वचालित रूप से फिर से बनाएँ
+- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/standalone.md)** - Intlayer और निर्दिष्ट पैकेजों वाला एक स्टैंडअलोन JavaScript बंडल बनाएँ
+- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/version.md)** - स्थापित Intlayer CLI संस्करण की जाँच करें
+- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/list_projects.md)** - एक निर्देशिका या git रिपॉजिटरी में सभी Intlayer प्रोजेक्ट्स सूचीबद्ध करें
 
 ### शब्दकोश प्रबंधन (Dictionary Management)
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/push" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/pull" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/test" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/list" />
-</TechGrid>
+- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/push.md)** - शब्दकोशों को Intlayer संपादक और CMS पर भेजें
+- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/pull.md)** - Intlayer संपादक और CMS से शब्दकोश प्राप्त करें
+- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md)** - AI का उपयोग करके शब्दकोशों को भरें, ऑडिट करें और अनुवाद करें
+- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/test.md)** - गुम अनुवादों का परीक्षण करें और उनकी पहचान करें
+- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/list.md)** - अपने प्रोजेक्ट की सभी सामग्री घोषणा फ़ाइलों को सूचीबद्ध करें
 
 ### घटक प्रबंधन (Component Management)
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract" />
-</TechGrid>
+- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md)** - घटकों से स्ट्रिंग्स को घटक के पास स्थित .content फ़ाइल में निकालें
 
 ### कॉन्फ़िगरेशन
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/init" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/infra" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/upgrade" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/configuration" />
-</TechGrid>
+- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/init.md)** - स्वचालित कॉन्फ़िगरेशन के साथ अपने प्रोजेक्ट में Intlayer सेट करें
+- **[इन्फ्रास्ट्रक्चर सेट करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/infra.md)** - डेस्कटॉप ऐप इंस्टॉल करें या Docker (ऑल-इन-वन या Compose) के साथ CMS को स्वयं होस्ट करें
+- **[Intlayer पैकेज अपग्रेड करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/upgrade.md)** - प्रत्येक `package.json` के Intlayer पैकेजों को सूचीबद्ध करें और उन्हें नवीनतम संस्करण में अपग्रेड करें
+- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/configuration.md)** - अपना Intlayer कॉन्फ़िगरेशन प्राप्त करें और इसे CMS पर भेजें
 
 ### दस्तावेज़ प्रबंधन (Doc Management)
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/doc-translate" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/doc-review" />
-</TechGrid>
+- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/doc-translate.md)** - AI का उपयोग करके दस्तावेज़ फ़ाइलों का स्वचालित रूप से अनुवाद करें
+- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/doc-review.md)** - गुणवत्ता और स्थिरता के लिए दस्तावेज़ फ़ाइलों की समीक्षा करें
 
 ### संपादक और लाइव सिंक (Editor and Live Sync)
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/editor" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/live" />
-</TechGrid>
+- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/editor.md)** - Intlayer संपादक कमांड का उपयोग करें
+- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/live.md)** - रनटाइम पर CMS से सामग्री परिवर्तनों को लागू करने के लिए लाइव सिंक का उपयोग करें
 
 ### ऑडिटिंग और डायग्नोस्टिक्स
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/scan" />
-</TechGrid>
+- **[वेबसाइट स्कैन करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/scan.md)** - किसी भी सार्वजनिक URL के पेज आकार को मापें और i18n/SEO स्वास्थ्य का ऑडिट करें
 
 ### विकास उपकरण (Developer Tools)
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/sdk" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/debug" />
-</TechGrid>
+- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/sdk.md)** - अपने स्वयं के कोड में Intlayer CLI SDK का उपयोग करें
+- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/debug.md)** - Intlayer CLI के साथ समस्याओं को डीबग और हल करें
 
 ## अपनी `package.json` फ़ाइल में intlayer कमांड का उपयोग करें
 

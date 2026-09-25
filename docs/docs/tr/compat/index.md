@@ -35,19 +35,17 @@ Bir uyumluluk adaptörü kullandığınızda, uygulamanızın importlarını yen
 
 Mevcut kütüphanenizi seçin ve sorunsuzca nasıl geçiş yapacağınızı öğrenin:
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/transloco" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-intl" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/svelte-i18n" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-i18next" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/polyglot" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/ngx-translate" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-translate" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-intl" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18next" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18n-js" />
-</TechGrid>
+- [Vue I18n](./vue-i18n.md)
+- [Transloco](./transloco.md)
+- [React Intl](./react-intl.md)
+- [Svelte I18n](./svelte-i18n.md)
+- [React i18next](./react-i18next.md)
+- [Polyglot.js](./polyglot.md)
+- [NuxtJS I18n](./nuxtjs-i18n.md)
+- [NGX Translate](./ngx-translate.md)
+- [Next Translate](./next-translate.md)
+- [Next Intl](./next-intl.md)
+- [Next i18next](./next-i18next.md)
+- [i18next](./i18next.md)
+- [Lingui](./lingui.md)
+- [I18n-js](./i18n-js.md)

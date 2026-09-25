@@ -35,19 +35,17 @@ author: aymericzip
 
 在下方选择您现有的库，了解如何无缝迁移：
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/transloco" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-intl" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/svelte-i18n" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-i18next" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/polyglot" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/ngx-translate" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-translate" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-intl" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-i18next" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/i18next" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/i18n-js" />
-</TechGrid>
+- [Vue I18n](./vue-i18n.md)
+- [Transloco](./transloco.md)
+- [React Intl](./react-intl.md)
+- [Svelte I18n](./svelte-i18n.md)
+- [React i18next](./react-i18next.md)
+- [Polyglot.js](./polyglot.md)
+- [NuxtJS I18n](./nuxtjs-i18n.md)
+- [NGX Translate](./ngx-translate.md)
+- [Next Translate](./next-translate.md)
+- [Next Intl](./next-intl.md)
+- [Next i18next](./next-i18next.md)
+- [i18next](./i18next.md)
+- [Lingui](./lingui.md)
+- [I18n-js](./i18n-js.md)

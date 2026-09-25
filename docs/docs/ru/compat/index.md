@@ -35,19 +35,17 @@ author: aymericzip
 
 Выберите вашу существующую библиотеку ниже, чтобы увидеть, как перейти на него легко:
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/vue-i18n" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/transloco" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/react-intl" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/svelte-i18n" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/react-i18next" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/polyglot" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/nuxtjs-i18n" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/ngx-translate" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-translate" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-intl" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-i18next" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/i18next" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/lingui" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/i18n-js" />
-</TechGrid>
+- [Vue I18n](./vue-i18n.md)
+- [Transloco](./transloco.md)
+- [React Intl](./react-intl.md)
+- [Svelte I18n](./svelte-i18n.md)
+- [React i18next](./react-i18next.md)
+- [Polyglot.js](./polyglot.md)
+- [NuxtJS I18n](./nuxtjs-i18n.md)
+- [NGX Translate](./ngx-translate.md)
+- [Next Translate](./next-translate.md)
+- [Next Intl](./next-intl.md)
+- [Next i18next](./next-i18next.md)
+- [i18next](./i18next.md)
+- [Lingui](./lingui.md)
+- [I18n-js](./i18n-js.md)

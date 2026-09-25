@@ -130,73 +130,55 @@ Intlayerは、複数の設定ファイル形式をサポートしています：
 
 ### 認証
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/login" />
-</TechGrid>
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/login.md)** - Intlayer CMSで認証し、アクセス資格情報を取得します。
 
 > `intlayer login` は、すべての認証されたコマンドが使用する **access key** (`clientId` / `clientSecret`) を発行します。シークレットはサーバー側の認証情報であり、クライアント bundle に到達することはありません — [access key の安全な保管](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/login.md#access-key-の安全な保管)を参照してください。
 
 ### コアコマンド
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/build" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/watch" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/standalone" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/version" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/list_projects" />
-</TechGrid>
+- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/build.md)** - コンテンツ宣言ファイルからディクショナリをビルドします。
+- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/watch.md)** - 変更を監視し、ディクショナリを自動的に再ビルドします。
+- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/standalone.md)** - Intlayerと指定したパッケージを含むスタンドアロンJavaScriptバンドルを作成します。
+- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/version.md)** - インストールされているIntlayer CLIのバージョンを確認します。
+- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/list_projects.md)** - ディレクトリまたはGitリポジトリ内のすべてのIntlayerプロジェクトを一覧表示します。
 
 ### ディクショナリ管理
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/push" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/pull" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/test" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/list" />
-</TechGrid>
+- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/push.md)** - ディクショナリをIntlayerエディターおよびCMSに送信します。
+- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/pull.md)** - IntlayerエディターおよびCMSからディクショナリを取得します。
+- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)** - AIを使用してディクショナリを埋め、監査し、翻訳します。
+- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/test.md)** - 翻訳の欠落をテストして特定します。
+- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/list.md)** - プロジェクト内のすべてのコンテンツ宣言ファイルを一覧表示します。
 
 ### コンポーネント管理
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract" />
-</TechGrid>
+- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)** - コンポーネントから文字列を抽出し、コンポーネントの近くの .content ファイルに保存します。
 
 ### 設定
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/init" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/infra" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/upgrade" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/configuration" />
-</TechGrid>
+- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/init.md)** - 自動設定を使用してプロジェクトでIntlayerをセットアップします。
+- **[インフラストラクチャの設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/infra.md)** - デスクトップアプリのインストールまたはDocker（オールインワンまたはCompose）によるCMSのセルフホスト
+- **[Intlayerパッケージのアップグレード](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/upgrade.md)** - すべての `package.json` のIntlayerパッケージを一覧表示し、最新バージョンにアップグレードします
+- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/configuration.md)** - Intlayer設定を取得し、CMSに送信します。
 
 ### ドキュメント管理
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/doc-translate" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/doc-review" />
-</TechGrid>
+- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/doc-translate.md)** - AIを使用してドキュメントファイルを自動的に翻訳します。
+- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/doc-review.md)** - ドキュメントファイルの品質と一貫性をレビューします。
 
 ### エディターとライブ同期
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/editor" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live" />
-</TechGrid>
+- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/editor.md)** - Intlayerエディターのコマンドを使用します。
+- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)** - Live Syncを使用して、CMSからのコンテンツ変更を実行時に反映させます。
 
 ### 監査と診断
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/scan" />
-</TechGrid>
+- **[ウェブサイトのスキャン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/scan.md)** - 任意の公開URLのページサイズを測定し、i18n/SEOの状態を監査します
 
 ### 開発ツール
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/sdk" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/debug" />
-</TechGrid>
+- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/sdk.md)** - 独自のコード内でIntlayer CLI SDKを使用します。
+- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/debug.md)** - Intlayer CLIの問題をデバッグして修正します。
 
 ## `package.json` での Intlayer コマンドの使用
 

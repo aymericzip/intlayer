@@ -130,73 +130,55 @@ Para ver como configurar os idiomas disponíveis ou outros parâmetros, consulte
 
 ### Autenticação
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/login" />
-</TechGrid>
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/login.md)** - Autentique-se no Intlayer CMS e obtenha credenciais de acesso
 
 > `intlayer login` emite uma **chave de acesso** (`clientId` / `clientSecret`) que todo comando autenticado usa. O segredo é uma credencial do lado do servidor e nunca chega ao seu pacote cliente — veja [Mantendo a chave de acesso segura](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/login.md#mantendo-a-chave-de-acesso-segura).
 
 ### Comandos Principais
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/build" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/watch" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/standalone" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/version" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/list_projects" />
-</TechGrid>
+- **[Build de Dicionários](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/build.md)** - Construa os seus dicionários a partir de ficheiros de declaração de conteúdo
+- **[Watch de Dicionários](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/watch.md)** - Monitorize alterações e construa dicionários automaticamente
+- **[Criar Bundle Standalone](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/standalone.md)** - Crie um bundle JavaScript autónomo contendo o Intlayer e os pacotes especificados
+- **[Verificar Versão do CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/version.md)** - Verifique a versão instalada do CLI do Intlayer
+- **[Listar Projetos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/list_projects.md)** - Liste todos os projetos Intlayer num diretório ou repositório git
 
 ### Gestão de Dicionários
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/push" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/pull" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/fill" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/test" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/list" />
-</TechGrid>
+- **[Push de Dicionários](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/push.md)** - Envie dicionários para o editor e CMS do Intlayer
+- **[Pull de Dicionários](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/pull.md)** - Obtenha dicionários do editor e CMS do Intlayer
+- **[Fill de Dicionários](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/fill.md)** - Preencha, audite e traduza dicionários utilizando IA
+- **[Testar Traduções em Falta](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/test.md)** - Teste e identifique traduções em falta
+- **[Listar Ficheiros de Declaração de Conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/list.md)** - Liste todos os ficheiros de declaração de conteúdo no seu projeto
 
 ### Gestão de Componentes
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract" />
-</TechGrid>
+- **[Extrair Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md)** - Extraia strings de componentes para um ficheiro .content próximo do componente
 
 ### Configuração
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/init" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/infra" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/upgrade" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/configuration" />
-</TechGrid>
+- **[Inicializar Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/init.md)** - Configure o Intlayer no seu projeto com configuração automática
+- **[Configurar Infraestrutura](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/infra.md)** - Instale o aplicativo desktop ou faça auto-hospedagem do CMS com Docker (tudo-em-um ou Compose)
+- **[Atualizar Pacotes Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/upgrade.md)** - Liste os pacotes Intlayer de cada `package.json` e atualize-os para a versão mais recente
+- **[Gerir Configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/configuration.md)** - Obtenha e envie a sua configuração do Intlayer para o CMS
 
 ### Gestão de Documentação
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/doc-translate" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/doc-review" />
-</TechGrid>
+- **[Traduzir Documento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/doc-translate.md)** - Traduza automaticamente ficheiros de documentação utilizando IA
+- **[Rever Documento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/doc-review.md)** - Reveja ficheiros de documentação para qualidade e consistência
 
 ### Editor & Sincronização ao Vivo
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/editor" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/live" />
-</TechGrid>
+- **[Comandos do Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/editor.md)** - Utilize os comandos do editor do Intlayer
+- **[Comandos de Sincronização ao Vivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/live.md)** - Utilize o Live Sync para refletir alterações de conteúdo do CMS em tempo de execução
 
 ### Auditoria & Diagnósticos
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/scan" />
-</TechGrid>
+- **[Escanear Website](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/scan.md)** - Meça o tamanho da página e audite a saúde de i18n/SEO de qualquer URL pública
 
 ### Ferramentas de Desenvolvimento
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/sdk" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/debug" />
-</TechGrid>
+- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/sdk.md)** - Utilize o SDK do CLI do Intlayer no seu próprio código
+- **[Comando de Debug do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/debug.md)** - Faça debug e resolva problemas do CLI do Intlayer
 
 ## Utilizar comandos intlayer no seu `package.json`
 

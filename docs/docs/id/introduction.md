@@ -140,66 +140,78 @@ Intlayer menawarkan berbagai fitur yang disesuaikan untuk memenuhi kebutuhan pen
 
 Atur konten multibahasa Anda di dekat kode Anda untuk menjaga semuanya tetap konsisten dan mudah dikelola.
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/condition" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/function_fetching" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nesting" />
-</TechGrid>
+- **[Memulai](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md)**  
+  Pelajari dasar-dasar deklarasi konten Anda di Intlayer.
+
+- **[Terjemahan (Translation)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md)**  
+  Pahami bagaimana terjemahan dihasilkan, disimpan, dan digunakan dalam aplikasi Anda.
+
+- **[Pencacahan (Enumeration)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md)**  
+  Kelola kumpulan data yang berulang atau tetap dengan mudah di berbagai bahasa.
+
+- **[Kondisi (Condition)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/condition.md)**  
+  Pelajari cara menggunakan logika kondisional di Intlayer untuk membuat konten dinamis.
+
+- **[Penyisipan (Insertion)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md)**  
+  Temukan cara menyisipkan nilai ke dalam string menggunakan tempat penampung (placeholder) penyisipan.
+
+- **[Pengambilan Fungsi (Function Fetching)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/function_fetching.md)**  
+  Lihat cara mengambil konten secara dinamis dengan logika khusus agar sesuai dengan alur kerja proyek Anda.
+
+- **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md)**  
+  Pelajari cara menggunakan Markdown di Intlayer untuk membuat konten yang kaya.
+
+- **[Penyematan File (File Embeddings)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file.md)**  
+  Temukan cara menyematkan file eksternal di Intlayer untuk menggunakannya di editor konten.
+
+- **[Bersarang (Nesting)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nesting.md)**  
+  Pahami cara menyusun konten bersarang di Intlayer untuk membuat struktur yang kompleks.
 
 ### Lingkungan & Integrasi
 
 Kami membangun Intlayer dengan mempertimbangkan fleksibilitas, menawarkan integrasi yang mulus di berbagai framework dan alat build populer:
 
-<TechGrid>
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_15" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_14" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_page_router" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack+solid" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_router_v7" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_remix_3" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_create_react_app" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_native+expo" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_lynx+react" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_react" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_vue" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_svelte" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_solid" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_preact" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_lit" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+svelte" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_svelte_kit" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+solid" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_solid_start" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+preact" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_angular_21" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_angular_19" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_analog" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+lit" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vanilla" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vanilla" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_htmx" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_express" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nestjs" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_fastify" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_hono" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_adonisjs" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_elysia" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_storybook" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_next-intl" />
-  <TechLink href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_next-i18next" />
-</TechGrid>
+- **[Intlayer dengan Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)**
+- **[Intlayer dengan Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_15.md)**
+- **[Intlayer dengan Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_14.md)**
+- **[Intlayer dengan Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_page_router.md)**
+- **[Intlayer dengan Tanstack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)**
+- **[Intlayer dengan Tanstack Start + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack+solid.md)**
+- **[Intlayer dengan Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md)**
+- **[Intlayer dengan React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_router_v7.md)**
+- **[Intlayer dengan React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_create_react_app.md)**
+- **[Intlayer dengan React Native dan Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_native+expo.md)**
+- **[Intlayer dengan Lynx dan React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_lynx+react.md)**
+- **[Intlayer dengan Astro](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro.md)**
+- **[Intlayer dengan Astro + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_react.md)**
+- **[Intlayer dengan Astro + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_vue.md)**
+- **[Intlayer dengan Astro + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_svelte.md)**
+- **[Intlayer dengan Astro + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_solid.md)**
+- **[Intlayer dengan Astro + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_preact.md)**
+- **[Intlayer dengan Astro + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_lit.md)**
+- **[Intlayer dengan Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue.md)**
+- **[Intlayer dengan Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md)**
+- **[Intlayer dengan Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+svelte.md)**
+- **[Intlayer dengan SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_svelte_kit.md)**
+- **[Intlayer dengan Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+solid.md)**
+- **[Intlayer dengan SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_solid_start.md)**
+- **[Intlayer dengan Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+preact.md)**
+- **[Intlayer dengan Angular 22](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_angular_21.md)**
+- **[Intlayer dengan Angular 19](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_angular_19.md)**
+- **[Intlayer dengan Analog](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_analog.md)**
+- **[Intlayer dengan Vite + Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+lit.md)**
+- **[Intlayer dengan Vite + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vanilla.md)**
+- **[Intlayer dengan Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vanilla.md)**
+- **[Intlayer dengan htmx](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_htmx.md)**
+- **[Intlayer dengan Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_express.md)**
+- **[Intlayer dengan NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nestjs.md)**
+- **[Intlayer dengan Fastify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_fastify.md)**
+- **[Intlayer dengan Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_hono.md)**
+- **[Intlayer dengan AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_adonisjs.md)**
+- **[Intlayer dengan Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_elysia.md)**
+- **[Intlayer dengan Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_storybook.md)**
+- **[Intlayer dengan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_next-intl.md)**
+- **[Intlayer dengan next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_next-i18next.md)**
 
 Setiap panduan integrasi mencakup praktik terbaik untuk menggunakan fitur Intlayer, seperti **perenderan sisi server (SSR)**, **perutean dinamis**, atau **perenderan sisi klien**, sehingga Anda dapat mempertahankan aplikasi yang cepat, ramah SEO, dan sangat skalabel.
 
