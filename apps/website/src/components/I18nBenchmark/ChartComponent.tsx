@@ -10,8 +10,12 @@ import {
   Tooltip,
 } from 'chart.js';
 import { type FC, useEffect, useRef } from 'react';
-import type { ChartItem, StaticImport } from './constants';
-import { isIntlayerLib, LIB_LOGOS } from './constants';
+import {
+  type ChartItem,
+  getLibLogoUrl,
+  isIntlayerLib,
+  LOGO_URLS,
+} from './constants';
 
 Chart.register(
   BarController,
@@ -22,36 +26,31 @@ Chart.register(
   Legend
 );
 
-export const useLogoImages = () => {
-  return useQuery({
+/** Preloads every library logo so the chart plugin can draw them on canvas. */
+export const useLogoImages = () =>
+  useQuery({
     queryKey: ['logoImages'],
     queryFn: async () => {
-      const entries: Array<[string, string]> = Object.entries(
-        LIB_LOGOS
-      ).flatMap(([id, logo]) => {
-        if (!logo) return [[id, '/logo.svg']] as [string, string][];
-        const src = (logo as StaticImport).src;
-        return src ? ([[id, src]] as [string, string][]) : [];
-      });
+      const imagesByUrl: Record<string, HTMLImageElement> = {};
 
-      const map: Record<string, HTMLImageElement> = {};
       await Promise.all(
-        entries.map(([id, src]) => {
-          return new Promise<void>((resolve) => {
-            const img = new window.Image();
-            img.onload = img.onerror = () => {
-              map[id] = img;
-              resolve();
-            };
-            img.src = src;
-          });
-        })
+        LOGO_URLS.map(
+          (logoUrl) =>
+            new Promise<void>((resolve) => {
+              const image = new window.Image();
+              image.onload = image.onerror = () => {
+                imagesByUrl[logoUrl] = image;
+                resolve();
+              };
+              image.src = logoUrl;
+            })
+        )
       );
-      return map;
+
+      return imagesByUrl;
     },
     staleTime: Infinity,
   });
-};
 
 export const ChartComponent: FC<{
   data: ChartItem[];
@@ -90,9 +89,8 @@ export const ChartComponent: FC<{
             : (tick.label as string);
           const item = data.find((d) => d.label === label);
           if (!item) return;
-          const img =
-            logoImages[item.libId] ||
-            (isIntlayerLib(item.libId) ? logoImages['intlayer'] : undefined);
+          const logoUrl = getLibLogoUrl(item.libId);
+          const img = logoUrl ? logoImages[logoUrl] : undefined;
           if (!img?.complete || !img.naturalWidth) return;
 
           const y = yAxis.getPixelForTick(i);

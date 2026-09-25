@@ -2,7 +2,7 @@ import { Button } from '@intlayer/design-system/button';
 import type { FC } from 'react';
 import { useTheme } from '~/providers/ThemeProvider';
 import type { LibInfo } from './constants';
-import { getLibColors } from './constants';
+import { getLibColor } from './constants';
 import { LibLogo } from './LibLogo';
 
 export const LibCard: FC<{
@@ -12,7 +12,7 @@ export const LibCard: FC<{
 }> = ({ lib, isActive, onToggle }) => {
   const { resolvedTheme } = useTheme();
   const isDarkMode = resolvedTheme === 'dark';
-  const colors = getLibColors(isDarkMode);
+  const color = getLibColor(lib.id, isDarkMode);
 
   return (
     <Button
@@ -30,24 +30,18 @@ export const LibCard: FC<{
           name={lib.id}
           checked={isActive}
           onChange={onToggle}
-          onClick={(e) => e.stopPropagation()}
+          onClick={(event) => event.stopPropagation()}
           aria-label={lib.name}
           hidden
         />
-        {colors[lib.id] && (
-          <div className="justify-left flex h-5 w-5 shrink-0 items-center">
-            <span
-              className="size-2.5 rounded-full"
-              style={
-                isActive
-                  ? {
-                      backgroundColor: colors[lib.id],
-                    }
-                  : { border: 'solid 1px' }
-              }
-            />
-          </div>
-        )}
+        <div className="justify-left flex h-5 w-5 shrink-0 items-center">
+          <span
+            className="size-2.5 rounded-full"
+            style={
+              isActive ? { backgroundColor: color } : { border: 'solid 1px' }
+            }
+          />
+        </div>
 
         {/* Logo container */}
         <div className="flex h-5 min-w-0 max-w-12 flex-1 shrink items-center justify-center sm:max-w-16 md:max-w-20">

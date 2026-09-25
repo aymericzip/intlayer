@@ -8,7 +8,8 @@ import { useSwitchSelector } from './useSwitchSelector';
 export type SwitchSelectorChoice<T = boolean> = {
   content: ReactNode;
   value: T;
-} & HTMLAttributes<HTMLButtonElement>;
+  // `content` is also a (string) HTML attribute; the choice label wins.
+} & Omit<HTMLAttributes<HTMLButtonElement>, 'content'>;
 export type SwitchSelectorChoices<T> = SwitchSelectorChoice<T>[];
 
 export const defaultChoices: SwitchSelectorChoices<boolean> = [

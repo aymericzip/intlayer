@@ -7,169 +7,90 @@ import {
   External_Github_i18n_benchmark,
   Website_Benchmark_Path,
 } from '@intlayer/design-system/routes';
-import {
-  SwitchSelector,
-  VerticalSwitchSelector,
-} from '@intlayer/design-system/switch-selector';
-import { SmartTable } from '@intlayer/design-system/table';
-import { TechLogo } from '@intlayer/design-system/tech-logo';
+import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { cn } from '@intlayer/design-system/utils';
 import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { type FC, type ReactNode, useMemo, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import { useTheme } from '~/providers/ThemeProvider';
+import { BenchmarkTable } from './BenchmarkTable';
 import { fetchBenchmarkData } from './benchmarkData';
+import { BENCHMARK_METRICS, type MetricId } from './benchmarkMetrics';
+import { buildChartData, buildLibraries } from './benchmarkUtils';
 import { ChartComponent, useLogoImages } from './ChartComponent';
-import {
-  type ChartItem,
-  type FrameworkKey,
-  getLibColors,
-  isIntlayerLib,
-  type LibInfo,
-  type MetricData,
-  type MetricDef,
-} from './constants';
+import type { BenchmarkCategory, FrameworkKey } from './constants';
+import { FrameworkSelector } from './FrameworkSelector';
 import { LibCard } from './LibCard';
-import { LibLogo } from './LibLogo';
-import { useBenchmarkMetrics } from './useBenchmarkMetrics';
-
-export const getDisplayName = (id: string, baseAppLabel?: string): string => {
-  if (id === 'base') return baseAppLabel ?? 'Base App';
-
-  const cleanedId = id
-    .replace(/-app-nextjs$/, '')
-    .replace(/-app-tanstack$/, '')
-    .replace(/-app-vite-vue$/, '')
-    .replace(/-app-vite-solid$/, '')
-    .replace(/-app-vite-svelte$/, '');
-
-  if (cleanedId === 'intlayer') return 'Intlayer';
-  if (cleanedId === 'next-intlayer') return 'next-intlayer';
-
-  if (cleanedId.startsWith('intlayer-compat-')) {
-    return cleanedId.replace(/^intlayer-compat-/, '@intlayer/');
-  }
-
-  return cleanedId;
-};
-
-const POPULARITY_SCORES: Record<string, number> = {
-  base: 1000,
-  intlayer: 900,
-  'next-intlayer': 900,
-  'react-i18next': 140,
-  'react-intl': 130,
-  'next-i18next': 120,
-  'next-intl': 110,
-  lingui: 100,
-  'next-translate': 90,
-  'use-intl': 80,
-  'next-international': 70,
-  tolgee: 60,
-  paraglide: 50,
-  'paraglide-next': 50,
-  'lingo.dev': 30,
-  'gt-next': 20,
-  'gt-react': 20,
-  wuchale: 10,
-};
-
-const getPopularityScore = (id: string): number => {
-  if (POPULARITY_SCORES[id] !== undefined) return POPULARITY_SCORES[id];
-  if (isIntlayerLib(id)) return 890;
-  return 50;
-};
-
-const CATEGORY_FALLBACKS: Record<string, string[]> = {
-  'scoped-dynamic': ['dynamic', 'scoped-static', 'static'],
-  dynamic: ['static'],
-  'scoped-static': ['static'],
-  static: [],
-};
-
-const resolveCategoryData = (libData: any, category: string): any => {
-  if (libData?.[category]) return libData[category];
-  for (const fallback of CATEGORY_FALLBACKS[category] ?? []) {
-    if (libData?.[fallback]) return libData[fallback];
-  }
-  return null;
-};
-
-const getMetricValue = (
-  libraryData: any,
-  metric: MetricDef,
-  categories: string[]
-): MetricData | null => {
-  const availableCategories = categories
-    .map((category) => resolveCategoryData(libraryData, category))
-    .filter(Boolean);
-  if (availableCategories.length === 0) return null;
-
-  const values = availableCategories
-    .map((categoryData) => metric.extract(categoryData, libraryData))
-    .filter((value): value is MetricData => value !== null);
-
-  if (values.length === 0) return null;
-
-  const average =
-    values.reduce((sum, current) => sum + current.avg, 0) / values.length;
-  const minimum = Math.min(...values.map((current) => current.min));
-  const maximum = Math.max(...values.map((current) => current.max));
-
-  return { avg: average, min: minimum, max: maximum };
-};
-
-const buildChartData = (
-  selectedMetric: MetricDef,
-  currentFrameworkData: any,
-  allLibs: LibInfo[],
-  activeLibs: Record<string, boolean>,
-  activeCategories: string[],
-  isDarkMode: boolean
-): ChartItem[] => {
-  if (!selectedMetric || !currentFrameworkData?.libs) return [];
-
-  return allLibs
-    .filter((lib) => activeLibs[lib.id])
-    .map((lib) => {
-      const rawMetric = getMetricValue(
-        currentFrameworkData.libs[lib.id],
-        selectedMetric,
-        activeCategories
-      );
-
-      if (!rawMetric) return null;
-
-      return {
-        label: lib.name,
-        libId: lib.logoId ?? lib.id,
-        value: selectedMetric.transform(rawMetric.avg),
-        min: selectedMetric.transform(rawMetric.min),
-        max: selectedMetric.transform(rawMetric.max),
-        color:
-          getLibColors(isDarkMode)[lib.logoId ?? lib.id] ||
-          getLibColors(isDarkMode)[lib.id] ||
-          '#94a3b8',
-        version: lib.version,
-      };
-    })
-    .filter((d): d is ChartItem => d !== null)
-    .sort((a, b) => (a?.value ?? 0) - (b?.value ?? 0));
-};
 
 export type { FrameworkKey };
 
-export const I18nBenchmark = ({
+type RenderMode = 'graph' | 'table' | 'json';
+
+const BENCHMARK_STALE_TIME_MS = 60 * 60 * 1000;
+
+/** Metric tabs per row: bundle metrics first, then runtime metrics. */
+const METRICS_PER_ROW = 4;
+
+const METRIC_ROWS = [
+  BENCHMARK_METRICS.slice(0, METRICS_PER_ROW),
+  BENCHMARK_METRICS.slice(METRICS_PER_ROW),
+];
+
+/** Keys of invisible flex items keeping the last library row from stretching. */
+const LIB_GRID_FILLER_KEYS = Array.from(
+  { length: 6 },
+  (_, fillerIndex) => `filler-${fillerIndex}`
+);
+
+const getCategory = (
+  isDynamicEnabled: boolean,
+  isScopedEnabled: boolean
+): BenchmarkCategory => {
+  if (isDynamicEnabled && isScopedEnabled) return 'scoped-dynamic';
+  if (isDynamicEnabled) return 'dynamic';
+  if (isScopedEnabled) return 'scoped-static';
+  return 'static';
+};
+
+type CategoryToggleProps = {
+  label: ReactNode;
+  description: ReactNode;
+  value: boolean;
+  onChange: (value: boolean) => void;
+};
+
+const CategoryToggle: FC<CategoryToggleProps> = ({
+  label,
+  description,
+  value,
+  onChange,
+}) => (
+  <div className="flex items-start justify-between gap-4">
+    <div>
+      <p className="font-bold text-lg">{label}</p>
+      <p className="text-muted-foreground text-sm leading-snug">
+        {description}
+      </p>
+    </div>
+    <SwitchSelector size="sm" value={value} onChange={onChange} color="text" />
+  </div>
+);
+
+type I18nBenchmarkProps = {
+  /** Locks the benchmark to one framework and hides the framework selector. */
+  initialFramework?: FrameworkKey;
+  vertical?: boolean;
+  /** Hides the loading strategy toggles and the render mode selector. */
+  hideControls?: boolean;
+};
+
+export const I18nBenchmark: FC<I18nBenchmarkProps> = ({
   initialFramework,
   vertical = true,
   hideControls = false,
-}: {
-  initialFramework?: FrameworkKey;
-  vertical?: boolean;
-  hideControls?: boolean;
 }) => {
   const {
     title,
@@ -194,107 +115,128 @@ export const I18nBenchmark = ({
     range,
     version,
     baseApp,
-    nextjs: nextjsLabel,
-    tanstack: tanstackLabel,
-    vite_vue: vueLabel,
-    vite_solid: solidLabel,
-    vite_svelte: svelteLabel,
+    nextjs,
+    tanstack,
+    vite_vue,
+    vite_solid,
+    vite_svelte,
   } = useIntlayer('i18n-benchmark');
 
   const { resolvedTheme } = useTheme();
   const isDarkMode = resolvedTheme === 'dark';
 
-  const METRICS = useBenchmarkMetrics(metricsContent);
-
   const [framework, setFramework] = useState<FrameworkKey>(
     initialFramework ?? 'nextjs'
   );
-  const [selectedMetricIndex, setSelectedMetricIndex] = useState(0);
+  const [selectedMetricId, setSelectedMetricId] =
+    useState<MetricId>('lib-size');
+  // Only explicit toggles are stored; a library missing here is active.
   const [activeLibs, setActiveLibs] = useState<Record<string, boolean>>({});
-  const [dynamicEnabled, setDynamicEnabled] = useState(false);
-  const [scopedEnabled, setScopedEnabled] = useState(false);
-  const [renderMode, setRenderMode] = useState<'graph' | 'table' | 'json'>(
-    'graph'
-  );
+  const [isDynamicEnabled, setIsDynamicEnabled] = useState(false);
+  const [isScopedEnabled, setIsScopedEnabled] = useState(false);
+  const [renderMode, setRenderMode] = useState<RenderMode>('graph');
 
-  const activeCategories = useMemo(() => {
-    if (dynamicEnabled && scopedEnabled) return ['scoped-dynamic'];
-    if (dynamicEnabled) return ['dynamic'];
-    if (scopedEnabled) return ['scoped-static'];
-    return ['static'];
-  }, [dynamicEnabled, scopedEnabled]);
+  const category = getCategory(isDynamicEnabled, isScopedEnabled);
 
-  const category = activeCategories[0];
   const {
-    data: currentFrameworkData,
+    data: summary,
     isLoading: isBenchmarkLoading,
     isError,
   } = useQuery({
     queryKey: ['benchmarkData', framework, category],
-    queryFn: () => fetchBenchmarkData(framework, category as any),
-    staleTime: 1000 * 60 * 60, // 1 hour
+    queryFn: () => fetchBenchmarkData(framework, category),
+    staleTime: BENCHMARK_STALE_TIME_MS,
   });
 
-  const allLibs = useMemo<LibInfo[]>(() => {
-    if (!currentFrameworkData?.libs) return [];
-    return Object.keys(currentFrameworkData.libs)
-      .map((id) => ({
-        id,
-        logoId: id === 'i18n' || id === 'i18next' ? `${framework}-${id}` : id,
-        name: getDisplayName(id, baseApp.value),
-        version: currentFrameworkData.libs[id].global?.version ?? null,
-      }))
-      .sort((a, b) => {
-        const scoreA = getPopularityScore(a.id);
-        const scoreB = getPopularityScore(b.id);
-        return scoreB - scoreA;
-      });
-  }, [currentFrameworkData, baseApp.value, framework]);
-
-  useEffect(() => {
-    setActiveLibs((previousActiveLibs) => {
-      const libIds = allLibs.map((lib) => lib.id);
-      const isUnchanged =
-        libIds.length === Object.keys(previousActiveLibs).length &&
-        libIds.every((libId) => libId in previousActiveLibs);
-
-      if (isUnchanged) return previousActiveLibs;
-
-      return Object.fromEntries(
-        libIds.map((libId) => [libId, previousActiveLibs[libId] ?? true])
-      );
-    });
-  }, [allLibs]);
-
-  const toggleLib = (id: string) =>
-    setActiveLibs((prev) => ({ ...prev, [id]: !prev[id] }));
-
-  const { data: logoImagesReady = {}, isLoading: isLogosLoading } =
-    useLogoImages();
+  const { data: logoImages = {}, isLoading: isLogosLoading } = useLogoImages();
 
   const isLoading = isBenchmarkLoading || isLogosLoading;
 
-  const selectedMetric = METRICS[selectedMetricIndex];
+  const selectedMetric =
+    BENCHMARK_METRICS.find((metric) => metric.id === selectedMetricId) ??
+    BENCHMARK_METRICS[0];
+  const selectedMetricContent = metricsContent[selectedMetric.id];
 
-  const chartData = useMemo<ChartItem[]>(
-    () =>
-      buildChartData(
-        selectedMetric,
-        currentFrameworkData,
-        allLibs,
-        activeLibs,
-        activeCategories,
-        isDarkMode
-      ),
-    [
-      allLibs,
-      activeLibs,
-      selectedMetric,
-      currentFrameworkData,
-      activeCategories,
-      isDarkMode,
-    ]
+  // Dictionary nodes are rebuilt on every render: depend on `.value` only.
+  const baseAppLabel = baseApp.value;
+
+  const libraries = useMemo(
+    () => buildLibraries(summary, baseAppLabel),
+    [summary, baseAppLabel]
   );
+
+  const chartData = useMemo(
+    () =>
+      buildChartData({
+        metric: selectedMetric,
+        summary,
+        libraries,
+        activeLibs,
+        category,
+        isDarkMode,
+      }),
+    [selectedMetric, summary, libraries, activeLibs, category, isDarkMode]
+  );
+
+  const toggleLib = (libId: string) =>
+    setActiveLibs((previousActiveLibs) => ({
+      ...previousActiveLibs,
+      [libId]: !(previousActiveLibs[libId] ?? true),
+    }));
+
+  const renderChartContent = () => {
+    if (isLoading) return <Loader className="h-full min-h-40" />;
+
+    if (isError) {
+      return (
+        <div className="flex h-full items-center justify-center text-error text-sm">
+          {errorLoadingData}
+        </div>
+      );
+    }
+
+    if (chartData.length === 0) {
+      return (
+        <div className="flex h-full items-center justify-center text-muted-foreground text-sm">
+          {noData}
+        </div>
+      );
+    }
+
+    if (renderMode === 'table') {
+      return (
+        <BenchmarkTable
+          data={chartData}
+          unit={selectedMetric.unit}
+          headers={{
+            library: library.value,
+            value: value.value,
+            range: range.value,
+            version: version.value,
+          }}
+        />
+      );
+    }
+
+    if (renderMode === 'json') {
+      return (
+        <div className="size-full overflow-auto">
+          <CodeBlock lang="json" className="h-full text-xs">
+            {JSON.stringify(chartData, null, 2)}
+          </CodeBlock>
+        </div>
+      );
+    }
+
+    return (
+      <ChartComponent
+        data={chartData}
+        unit={selectedMetric.unit}
+        logoImages={logoImages}
+        isDarkMode={isDarkMode}
+      />
+    );
+  };
 
   return (
     <>
@@ -304,112 +246,46 @@ export const I18nBenchmark = ({
           vertical ? 'flex-col' : 'lg:flex-row'
         )}
       >
-        {/* ── Left Sidebar ── */}
+        {/* Left sidebar */}
         <div className="flex h-auto flex-1 flex-col justify-between gap-10 lg:max-w-64">
           <div className="w-full shrink-0 space-y-6">
-            {/* Framework selector */}
             {!initialFramework && (
               <div>
                 <p className="mb-10 font-bold text-base text-muted-foreground">
                   {frameworkLabel}
                 </p>
-                <VerticalSwitchSelector
-                  size="sm"
-                  choices={[
-                    {
-                      content: (
-                        <span className="flex items-center justify-center gap-1.5 px-1">
-                          <TechLogo name="nextjs" className="size-3.5" />
-                          {nextjsLabel}
-                        </span>
-                      ) as any,
-                      value: 'nextjs',
-                    },
-                    {
-                      content: (
-                        <span className="flex items-center justify-center gap-1.5 px-1">
-                          <TechLogo name="tanstack" className="size-3.5" />
-                          {tanstackLabel}
-                        </span>
-                      ) as any,
-                      value: 'tanstack',
-                    },
-                    {
-                      content: (
-                        <span className="flex items-center justify-center gap-1.5 px-1">
-                          <TechLogo name="vue" className="size-3.5" />
-                          {vueLabel}
-                        </span>
-                      ) as any,
-                      value: 'vite-vue',
-                    },
-                    {
-                      content: (
-                        <span className="flex items-center justify-center gap-1.5 px-1">
-                          <TechLogo name="solid" className="size-3.5" />
-                          {solidLabel}
-                        </span>
-                      ) as any,
-                      value: 'vite-solid',
-                    },
-                    {
-                      content: (
-                        <span className="flex items-center justify-center gap-1.5 px-1">
-                          <TechLogo name="svelte" className="size-3.5" />
-                          {svelteLabel}
-                        </span>
-                      ) as any,
-                      value: 'vite-svelte',
-                    },
-                  ]}
+                <FrameworkSelector
                   value={framework}
-                  onChange={(value) => setFramework(value as FrameworkKey)}
-                  className="w-full"
-                  color="text"
+                  onChange={setFramework}
+                  labels={{
+                    nextjs,
+                    tanstack,
+                    'vite-vue': vite_vue,
+                    'vite-solid': vite_solid,
+                    'vite-svelte': vite_svelte,
+                  }}
                 />
               </div>
             )}
 
-            {/* Category toggles */}
             {!hideControls && (
               <div className="mt-20 space-y-4">
-                {[
-                  {
-                    id: 'dynamic',
-                    label: dynamicLoading,
-                    desc: dynamicLoadingDesc,
-                    value: dynamicEnabled,
-                    onChange: setDynamicEnabled,
-                  },
-                  {
-                    id: 'scoped',
-                    label: scopedNamespacing,
-                    desc: scopedNamespacingDesc,
-                    value: scopedEnabled,
-                    onChange: setScopedEnabled,
-                  },
-                ].map(({ id, label, desc, value, onChange }) => (
-                  <div
-                    key={id}
-                    className="flex items-start justify-between gap-4"
-                  >
-                    <div>
-                      <p className="font-bold text-lg">{label}</p>
-                      <p className="text-muted-foreground text-sm leading-snug">
-                        {desc}
-                      </p>
-                    </div>
-                    <SwitchSelector
-                      size="sm"
-                      value={value}
-                      onChange={onChange}
-                      color="text"
-                    />
-                  </div>
-                ))}
+                <CategoryToggle
+                  label={dynamicLoading}
+                  description={dynamicLoadingDesc}
+                  value={isDynamicEnabled}
+                  onChange={setIsDynamicEnabled}
+                />
+                <CategoryToggle
+                  label={scopedNamespacing}
+                  description={scopedNamespacingDesc}
+                  value={isScopedEnabled}
+                  onChange={setIsScopedEnabled}
+                />
               </div>
             )}
           </div>
+
           {!vertical && (
             <div className="flex flex-col gap-4">
               <Link
@@ -439,30 +315,10 @@ export const I18nBenchmark = ({
           )}
         </div>
 
-        {/* ── Main Content ── */}
+        {/* Main content */}
         <div className="flex min-w-0 flex-1 flex-col gap-5">
           <H2>{title}</H2>
 
-          {/* Metric tabs */}
-          <div className="flex w-full flex-wrap justify-center gap-1.5">
-            {METRICS.map((metric, index) => (
-              <Button
-                label={metric.label}
-                key={metric.id}
-                color="text"
-                variant="hoverable"
-                onClick={() => {
-                  setSelectedMetricIndex(index);
-                }}
-                className="cursor-pointer rounded-full px-3 py-1 font-semibold text-xs transition"
-                isActive={selectedMetricIndex === index}
-              >
-                {metric.label}
-              </Button>
-            ))}
-          </div>
-
-          {/* Chart + insight panel */}
           <Container
             padding="md"
             roundedSize="2xl"
@@ -474,88 +330,17 @@ export const I18nBenchmark = ({
               vertical ? 'flex-col' : 'flex-col md:flex-row'
             )}
           >
-            {/* Chart */}
             <div className="min-w-0 flex-1">
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={`${framework}-${selectedMetricIndex}-${activeCategories.join(',')}`}
+                  key={`${framework}-${selectedMetric.id}-${category}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.12 }}
                   className="size-full"
                 >
-                  {isLoading ? (
-                    <Loader className="h-full min-h-40" />
-                  ) : isError ? (
-                    <div className="flex h-full items-center justify-center text-error text-sm">
-                      {errorLoadingData}
-                    </div>
-                  ) : chartData.length === 0 ? (
-                    <div className="flex h-full items-center justify-center text-muted-foreground text-sm">
-                      {noData}
-                    </div>
-                  ) : renderMode === 'graph' ? (
-                    <ChartComponent
-                      data={chartData}
-                      unit={selectedMetric?.unit}
-                      logoImages={logoImagesReady}
-                      isDarkMode={isDarkMode}
-                    />
-                  ) : renderMode === 'table' ? (
-                    <div className="size-full overflow-auto text-sm">
-                      <SmartTable isInteractive displayModal>
-                        <thead>
-                          <tr>
-                            <th className="px-4 py-2 font-semibold">
-                              {library.value}
-                            </th>
-                            <th className="px-4 py-2 text-right font-semibold">
-                              {value.value} ({selectedMetric?.unit})
-                            </th>
-                            <th className="px-4 py-2 text-right font-semibold">
-                              {range.value}
-                            </th>
-                            <th className="px-4 py-2 font-semibold">
-                              {version.value}
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {chartData.map((data) => (
-                            <tr key={data.libId}>
-                              <td className="flex items-center gap-2 px-4 py-2">
-                                <LibLogo
-                                  id={data.libId}
-                                  className="h-4 w-auto max-w-15"
-                                />
-                                <span className="font-medium text-neutral-800 dark:text-neutral-200">
-                                  {data.label}
-                                </span>
-                              </td>
-                              <td className="px-4 py-2 text-right text-neutral-800 dark:text-neutral-200">
-                                {data.value.toFixed(1)}
-                              </td>
-                              <td className="px-4 py-2 text-right text-neutral-800 dark:text-neutral-200">
-                                {data.min !== data.max
-                                  ? `${data.min.toFixed(1)} - ${data.max.toFixed(1)}`
-                                  : '-'}
-                              </td>
-                              <td className="px-4 py-2 text-muted-foreground text-xs">
-                                {data.version ? `v${data.version}` : '-'}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </SmartTable>
-                    </div>
-                  ) : (
-                    <div className="size-full overflow-auto">
-                      <CodeBlock lang="json" className="h-full text-xs">
-                        {JSON.stringify(chartData, null, 2)}
-                      </CodeBlock>
-                    </div>
-                  )}
+                  {renderChartContent()}
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -571,7 +356,7 @@ export const I18nBenchmark = ({
             >
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={selectedMetricIndex}
+                  key={selectedMetric.id}
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -10 }}
@@ -582,21 +367,22 @@ export const I18nBenchmark = ({
                     <div className="flex flex-col gap-2">
                       <p className="font-bold text-lg">{whatIsThisMetric}</p>
                       <p className="text-neutral-500 text-xs leading-relaxed dark:text-muted-foreground">
-                        {selectedMetric?.whatIsIt}
+                        {selectedMetricContent.whatIsIt}
                       </p>
                     </div>
 
                     <div className="flex flex-col gap-2">
                       <p className="font-bold text-lg">{whyItsImportant}</p>
                       <p className="text-neutral-500 text-xs leading-relaxed dark:text-muted-foreground">
-                        {selectedMetric?.whyItsImportant}
+                        {selectedMetricContent.whyItsImportant}
                       </p>
                     </div>
                   </div>
+
                   {!hideControls && (
                     <div className="mt-6 flex flex-col gap-2 border-neutral/20 border-t pt-2 dark:border-neutral/10">
                       <p className="font-semibold text-sm">{renderLabel}</p>
-                      <SwitchSelector
+                      <SwitchSelector<RenderMode>
                         size="sm"
                         choices={[
                           { content: renderGraph.value, value: 'graph' },
@@ -604,7 +390,7 @@ export const I18nBenchmark = ({
                           { content: renderJson.value, value: 'json' },
                         ]}
                         value={renderMode}
-                        onChange={(value) => setRenderMode(value as any)}
+                        onChange={setRenderMode}
                         className="w-full"
                         color="text"
                       />
@@ -614,31 +400,57 @@ export const I18nBenchmark = ({
               </AnimatePresence>
             </div>
           </Container>
+
+          <div className="flex w-full flex-col items-center gap-1.5">
+            {METRIC_ROWS.map((metricRow) => (
+              <div
+                key={metricRow[0].id}
+                className="flex flex-wrap justify-center gap-1.5"
+              >
+                {metricRow.map((metric) => {
+                  const metricLabel = metricsContent[metric.id].label.value;
+
+                  return (
+                    <Button
+                      key={metric.id}
+                      label={metricLabel}
+                      color="text"
+                      variant="hoverable"
+                      onClick={() => setSelectedMetricId(metric.id)}
+                      className="cursor-pointer rounded-full px-3 py-1 font-semibold text-xs transition"
+                      isActive={selectedMetric.id === metric.id}
+                    >
+                      {metricLabel}
+                    </Button>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Library selector — grid layout */}
+      {/* Library selector */}
       <div className="max-h-60 overflow-y-auto rounded-lg border">
         <div className="flex flex-wrap">
-          {allLibs.map((lib, index) => (
+          {libraries.map((libraryInfo, index) => (
             <div
-              key={lib.id}
+              key={libraryInfo.id}
               className={cn(
                 'min-w-max border-border border-r border-b border-dashed p-2',
                 index < 2 ? 'flex-[2_2_16rem]' : 'flex-[1_1_10rem]'
               )}
             >
               <LibCard
-                lib={lib}
-                isActive={activeLibs[lib.id] ?? true}
-                onToggle={() => toggleLib(lib.id)}
+                lib={libraryInfo}
+                isActive={activeLibs[libraryInfo.id] ?? true}
+                onToggle={() => toggleLib(libraryInfo.id)}
               />
             </div>
           ))}
-          {/* Invisible filler divs to prevent the last flex row from massively stretching */}
-          {[1, 2, 3, 4, 5, 6].map((i) => (
+          {LIB_GRID_FILLER_KEYS.map((fillerKey) => (
             <div
-              key={`filler-${i}`}
+              key={fillerKey}
               className="m-0 h-0 flex-[1_1_10rem] border-0 p-0"
               aria-hidden="true"
             />

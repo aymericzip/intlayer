@@ -1,34 +1,27 @@
-import type { FrameworkKey } from './constants';
+import type {
+  BenchmarkCategory,
+  BenchmarkSummary,
+  FrameworkKey,
+} from './constants';
 
 const GITHUB_RAW_BASE_URL =
   'https://raw.githubusercontent.com/intlayer-org/benchmark-i18n/main/report/scripts';
 
+/** Framework segment used in the report file names. */
+const REPORT_FRAMEWORK_NAMES: Record<FrameworkKey, string> = {
+  nextjs: 'nextjs',
+  tanstack: 'tanstack',
+  'vite-vue': 'vite_vue',
+  'vite-solid': 'vite_solid',
+  'vite-svelte': 'vite_svelte',
+};
+
+/** Fetches the published benchmark summary of one framework and category. */
 export const fetchBenchmarkData = async (
   framework: FrameworkKey,
-  category: 'static' | 'dynamic' | 'scoped-static' | 'scoped-dynamic'
-) => {
-  let mappedFramework: string;
-
-  switch (framework) {
-    case 'tanstack':
-      mappedFramework = 'tanstack';
-      break;
-    case 'vite-vue':
-      mappedFramework = 'vite_vue';
-      break;
-    case 'vite-solid':
-      mappedFramework = 'vite_solid';
-      break;
-    case 'vite-svelte':
-      mappedFramework = 'vite_svelte';
-      break;
-    case 'nextjs':
-    default:
-      mappedFramework = 'nextjs';
-      break;
-  }
-
-  const url = `${GITHUB_RAW_BASE_URL}/summarize-${mappedFramework}-${category}.json`;
+  category: BenchmarkCategory
+): Promise<BenchmarkSummary> => {
+  const url = `${GITHUB_RAW_BASE_URL}/summarize-${REPORT_FRAMEWORK_NAMES[framework]}-${category}.json`;
 
   const response = await fetch(url);
 

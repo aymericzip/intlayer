@@ -1,7 +1,7 @@
 import { Logo } from '@intlayer/design-system/logo';
 import { cn } from '@intlayer/design-system/utils';
 import type { FC } from 'react';
-import { isIntlayerLib, LIB_LOGOS, type StaticImport } from './constants';
+import { getLibLogoUrl, isIntlayerLib } from './constants';
 
 export const LibLogo: FC<{ id: string; className?: string }> = ({
   id,
@@ -15,22 +15,11 @@ export const LibLogo: FC<{ id: string; className?: string }> = ({
     );
   }
 
-  const logo = LIB_LOGOS[id];
+  const logoUrl = getLibLogoUrl(id);
 
-  if (logo) {
-    return (
-      <img
-        src={typeof logo === 'string' ? logo : (logo as StaticImport).src}
-        alt={id}
-        className={className}
-        width={
-          typeof logo === 'string' ? 120 : ((logo as StaticImport).width ?? 120)
-        }
-        height={
-          typeof logo === 'string' ? 20 : ((logo as StaticImport).height ?? 20)
-        }
-      />
-    );
-  }
-  return <></>;
+  if (!logoUrl) return null;
+
+  return (
+    <img src={logoUrl} alt={id} className={className} width={120} height={20} />
+  );
 };
