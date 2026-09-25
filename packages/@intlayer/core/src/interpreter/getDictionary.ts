@@ -29,6 +29,13 @@ import type {
 import { getBasePlugins, getContent } from './getContent/getContent';
 
 /**
+ * Dictionaries whose transform is running. Content is transformed eagerly, so a
+ * dictionary reached again through a `nest()` cycle is transformed lazily
+ * instead: its nodes then resolve on read, and the cycle unwinds.
+ */
+const transformsInProgress = new WeakSet<object>();
+
+/**
  * Transforms a dictionary in a single pass, applying each plugin as needed.
  *
  * @param dictionary The dictionary (or qualified dictionary group) to transform.
@@ -90,9 +97,16 @@ export const getDictionary = <
       // global registry. Undefined in unoptimized builds, where the
       // registry-based resolver is used instead.
       nestedDictionaries: resolvedDictionary.nestedDictionaries,
+      eager: !transformsInProgress.has(resolvedDictionary),
     };
 
-    return getContent(resolvedDictionary.content, props, appliedPlugins);
+    transformsInProgress.add(resolvedDictionary);
+
+    try {
+      return getContent(resolvedDictionary.content, props, appliedPlugins);
+    } finally {
+      if (props.eager) transformsInProgress.delete(resolvedDictionary);
+    }
   };
 
   if (resolved === null)

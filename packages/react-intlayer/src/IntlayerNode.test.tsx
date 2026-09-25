@@ -1,4 +1,5 @@
-import { createElement, Fragment } from 'react';
+import { createElement, Fragment, isValidElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.hoisted(() => {
@@ -94,6 +95,32 @@ describe('renderIntlayerNode', () => {
       additionalProps: { 'data-custom': 'bar' },
     });
     expect(node['data-custom']).toBe('bar');
+  });
+});
+
+describe('renderIntlayerNode – value behaviour', () => {
+  it('is a plain element, not a Proxy, and behaves like its value', () => {
+    const node = renderIntlayerNode({ children: 'Hello', value: 'Hello' });
+
+    expect(isValidElement(node)).toBe(true);
+    expect(node.toUpperCase()).toBe('HELLO');
+    expect('toUpperCase' in node).toBe(true);
+    expect(node.length).toBe(5);
+    expect(`${node}!`).toBe('Hello!');
+  });
+
+  it('renders its value', () => {
+    expect(
+      renderToStaticMarkup(
+        createElement(
+          'p',
+          null,
+          renderIntlayerNode({ children: 'Hi', value: 'Hi' }),
+          ' ',
+          renderIntlayerNode({ children: 3, value: 3 })
+        )
+      )
+    ).toBe('<p>Hi 3</p>');
   });
 });
 

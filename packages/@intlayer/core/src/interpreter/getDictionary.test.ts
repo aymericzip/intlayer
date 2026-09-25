@@ -15,6 +15,13 @@ vi.mock('@intlayer/config/built', () => {
   return { ...config, default: config };
 });
 
+/** Registry `nest()` resolves from in unoptimized builds. */
+const dictionaryRegistry = vi.hoisted(() => ({}) as Record<string, Dictionary>);
+
+vi.mock('@intlayer/dictionaries-entry', () => ({
+  getDictionaries: () => dictionaryRegistry,
+}));
+
 /** A fresh dictionary per test, so one test never reads another's memo. */
 const createDictionary = (key: string): Dictionary =>
   ({
@@ -156,6 +163,45 @@ describe('getDictionary memoization', () => {
  * With no qualified dictionary in the build, `INTLAYER_DICTIONARY_SELECTOR` is
  * `"false"` and the selector resolution is compiled out.
  */
+describe('getDictionary eager transform', () => {
+  it('transforms every node upfront, without property getters', () => {
+    const content = getDictionary(
+      {
+        key: 'eager',
+        content: { section: { title: 'Hello', subtitle: 'World' } },
+      } as unknown as Dictionary,
+      'en'
+    );
+    const section = Object.getOwnPropertyDescriptor(content, 'section')?.value;
+
+    expect(section).toEqual({ title: 'Hello', subtitle: 'World' });
+    expect(Object.getOwnPropertyDescriptor(section, 'title')?.get).toBe(
+      undefined
+    );
+  });
+
+  it('resolves two dictionaries nesting each other without recursing', () => {
+    const nest = (dictionaryKey: string, path: string) => ({
+      nodeType: 'nested',
+      nested: { dictionaryKey, path },
+    });
+
+    dictionaryRegistry.cycleA = {
+      key: 'cycleA',
+      content: { title: 'Title A', fromB: nest('cycleB', 'title') },
+    } as unknown as Dictionary;
+    dictionaryRegistry.cycleB = {
+      key: 'cycleB',
+      content: { title: 'Title B', fromA: nest('cycleA', 'title') },
+    } as unknown as Dictionary;
+
+    const content = getDictionary(dictionaryRegistry.cycleA, 'en') as any;
+
+    expect(content.fromB).toBe('Title B');
+    expect(content.title).toBe('Title A');
+  });
+});
+
 describe('getDictionary without dictionary selectors', () => {
   afterEach(() => {
     vi.unstubAllEnvs();

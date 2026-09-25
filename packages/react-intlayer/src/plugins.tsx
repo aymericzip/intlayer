@@ -30,13 +30,7 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
-import {
-  createElement,
-  type FC,
-  Fragment,
-  type ReactElement,
-  type ReactNode,
-} from 'react';
+import { createElement, type FC, Fragment, type ReactNode } from 'react';
 import { reportExposure } from './analytics/exposureSink';
 import { useLoadDynamic } from './client/useLoadDynamic';
 import { ContentSelector } from './editor/ContentSelector';
@@ -378,27 +372,11 @@ export const markdownStringPlugin: Plugins =
                 ),
               additionalProps: {
                 metadata: metadataNodes,
+                use: render,
               },
             });
 
-          const element = render() as unknown as ReactElement;
-
-          return new Proxy(element, {
-            get(target, prop, receiver) {
-              if (prop === 'value') return node;
-              if (prop === Symbol.toPrimitive) return () => node;
-              if (prop === 'toString') return () => node;
-              if (prop === 'valueOf') return () => node;
-              if (typeof prop === 'string' && prop !== 'constructor') {
-                const method = (String.prototype as any)[prop];
-                if (typeof method === 'function') return method.bind(node);
-              }
-              if (prop === 'metadata') return metadataNodes;
-              if (prop === 'use')
-                return (components?: HTMLComponents) => render(components);
-              return Reflect.get(target, prop, receiver);
-            },
-          }) as any;
+          return render();
         },
       };
 
@@ -511,26 +489,10 @@ export const htmlPlugin: Plugins =
                     userComponents={userComponents}
                   />
                 ),
+              additionalProps: { use: render },
             });
 
-          const element = render() as unknown as ReactElement;
-
-          return new Proxy(element, {
-            get(target, prop, receiver) {
-              if (prop === 'value') return html;
-              if (prop === Symbol.toPrimitive) return () => html;
-              if (prop === 'toString') return () => html;
-              if (prop === 'valueOf') return () => html;
-              if (typeof prop === 'string' && prop !== 'constructor') {
-                const method = (String.prototype as any)[prop];
-                if (typeof method === 'function') return method.bind(html);
-              }
-              if (prop === 'use')
-                return (userComponents?: HTMLComponents) =>
-                  render(userComponents);
-              return Reflect.get(target, prop, receiver);
-            },
-          }) as any;
+          return render();
         },
       };
 

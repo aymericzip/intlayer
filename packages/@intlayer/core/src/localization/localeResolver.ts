@@ -13,6 +13,11 @@ export const localeResolver = (
   locales: LocalesValues[] = internationalization?.locales,
   defaultLocale: LocalesValues = internationalization?.defaultLocale
 ): DeclaredLocales => {
+  // Fast path: an already-declared locale needs no normalization
+  if (locales?.includes(selectedLocale as LocalesValues)) {
+    return selectedLocale as DeclaredLocales;
+  }
+
   // Ensure we can handle both a single locale or an array of locales uniformly
   const requestedLocales = [selectedLocale].flat();
 

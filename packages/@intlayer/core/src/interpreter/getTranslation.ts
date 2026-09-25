@@ -25,29 +25,38 @@ const isPlainObject = (value: unknown): boolean => {
 /**
  * Recursively merges two objects, skipping undefined source values.
  * First argument takes precedence. Arrays replace rather than merge.
+ *
+ * Copy-on-write: an object the source adds nothing to is returned as-is, so a
+ * complete translation costs a read-only walk instead of a full copy.
  */
 const deepMerge = (target: any, source: any): any => {
   if (target === undefined) return source;
   if (source === undefined) return target;
   if (Array.isArray(target)) return target;
-  if (isPlainObject(target) && isPlainObject(source)) {
-    const result = { ...target };
+  if (!isPlainObject(target) || !isPlainObject(source)) return target;
 
-    for (const key of Object.keys(source)) {
-      if (
-        key === '__proto__' ||
-        key === 'constructor' ||
-        source[key] === undefined
-      )
-        continue;
-      result[key] =
-        target[key] !== undefined
-          ? deepMerge(target[key], source[key])
-          : source[key];
-    }
-    return result;
+  let result = target;
+
+  for (const key of Object.keys(source)) {
+    if (
+      key === '__proto__' ||
+      key === 'constructor' ||
+      source[key] === undefined
+    )
+      continue;
+
+    const merged =
+      target[key] !== undefined
+        ? deepMerge(target[key], source[key])
+        : source[key];
+
+    if (merged === target[key]) continue;
+
+    if (result === target) result = { ...target };
+    result[key] = merged;
   }
-  return target;
+
+  return result;
 };
 
 /**
