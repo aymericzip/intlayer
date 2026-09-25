@@ -10,7 +10,5 @@ export * from './analytics';
 export * from './client';
 export * from './editor/useEditor';
 export * from './getDictionary';
-export * from './getDictionary';
-export * from './getIntlayer';
 export * from './getIntlayer';
 export * from './plugins';

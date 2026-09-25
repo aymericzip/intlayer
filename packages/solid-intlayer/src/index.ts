@@ -35,6 +35,7 @@ export {
   useLocaleBase,
   useLocaleCookie,
   useLocaleStorage,
+  usePathname,
   useRewriteURL,
 } from './client/index';
 export { getDictionary } from './getDictionary';

@@ -33,6 +33,7 @@ export {
   useLocaleBase,
   useLocaleCookie,
   useLocaleStorage,
+  usePathname,
 } from './client/index';
 export { getDictionary } from './getDictionary';
 export { getIntlayer } from './getIntlayer';

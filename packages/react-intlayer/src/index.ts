@@ -42,6 +42,7 @@ export {
   useLocaleCookie,
   useLocaleStorage,
 } from './client/useLocaleStorage';
+export { usePathname } from './client/usePathname';
 export { useRewriteURL } from './client/useRewriteURL';
 export { getDictionary } from './getDictionary';
 export { getIntlayer } from './getIntlayer';

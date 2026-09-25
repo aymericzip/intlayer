@@ -1,14 +1,26 @@
 import { useNavigate } from '@tanstack/react-router';
-import { getPrefix } from 'intlayer';
+import { getPathWithoutLocale, getPrefix } from 'intlayer';
 import { useLocale } from 'react-intlayer';
 import type { FileRouteTypes } from '#/routeTree.gen';
 import { LOCALE_ROUTE, type StripLocalePrefix } from '#components/Link/Link';
 
-type LocalizedTo = StripLocalePrefix<FileRouteTypes['to']>;
+type LocalizedTo = StripLocalePrefix<FileRouteTypes['to']> | (string & {});
 
 type LocalizedNavigate = (
-  args: ({ to: LocalizedTo } & Record<string, unknown>) | LocalizedTo
+  args: ({ to?: LocalizedTo } & Record<string, unknown>) | LocalizedTo
 ) => ReturnType<ReturnType<typeof useNavigate>>;
+
+const getLocalizedTo = (path: string): string => {
+  const withoutLocaleRoute = path.startsWith(`/${LOCALE_ROUTE}`)
+    ? path.replace(`/${LOCALE_ROUTE}`, '') || '/'
+    : path;
+
+  const cleanPath = getPathWithoutLocale(withoutLocaleRoute);
+
+  return cleanPath === '/' || cleanPath === ''
+    ? `/${LOCALE_ROUTE}`
+    : `/${LOCALE_ROUTE}${cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`}`;
+};
 
 export const useLocalizedNavigate = () => {
   const navigate = useNavigate();
@@ -19,13 +31,13 @@ export const useLocalizedNavigate = () => {
     if (typeof args === 'string') {
       return navigate({
         params: { locale: getPrefix(locale).localePrefix },
-        to: `/${LOCALE_ROUTE}${args}`,
+        to: getLocalizedTo(args) as any,
       });
     }
 
     const { params: existingParams, to, ...rest } = args;
 
-    const localizedTo = `/${LOCALE_ROUTE}${to}`;
+    const localizedTo = typeof to === 'string' ? getLocalizedTo(to) : to;
 
     return navigate({
       ...rest,
@@ -33,7 +45,7 @@ export const useLocalizedNavigate = () => {
         locale: getPrefix(locale).localePrefix,
         ...(existingParams ?? {}),
       },
-      to: localizedTo,
+      ...(localizedTo ? { to: localizedTo as any } : {}),
     });
   };
 

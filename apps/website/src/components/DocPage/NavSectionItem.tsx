@@ -9,7 +9,9 @@ import {
   useEffect,
   useRef,
 } from 'react';
+import { usePathname } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
+import { useLocalizedNavigate } from '~/hooks/useLocalizedNavigate';
 import { FrameworkLogo } from './FrameworkFilter';
 
 type OptionalLinkProps = Omit<ComponentProps<typeof Link>, 'to'> & {
@@ -102,6 +104,7 @@ type NavAccordionProps = {
   label: string;
   identifier?: string;
   title: ReactNode;
+  to?: string;
   isActive: boolean;
   isSelfActive: boolean;
   isSubSectionActive: boolean;
@@ -116,8 +119,9 @@ export const NavAccordion: FC<NavAccordionProps> = ({
   label,
   identifier,
   title,
+  to,
   isActive,
-  isSelfActive,
+  isSelfActive: isSelfActiveProp,
   isSubSectionActive,
   defaultIsOpen = false,
   frameworks,
@@ -125,6 +129,10 @@ export const NavAccordion: FC<NavAccordionProps> = ({
   isLevel1 = false,
   headerClassName,
 }) => {
+  const navigate = useLocalizedNavigate();
+  const pathname = usePathname();
+  const isSelfActive = isSelfActiveProp || (to ? pathname === to : false);
+
   const storeKey = identifier ?? `nav-section-${label}`;
   const [isOpen, setIsOpen] = usePersistedStore<boolean>(
     storeKey,
@@ -143,13 +151,22 @@ export const NavAccordion: FC<NavAccordionProps> = ({
     }
   }, [isActive, setIsOpen]);
 
+  const handleToggle = (nextIsOpen: boolean) => {
+    if (to && !isSelfActive) {
+      navigate(to);
+      setIsOpen(true);
+    } else {
+      setIsOpen(nextIsOpen);
+    }
+  };
+
   const isDeployed = isLevel1 || isOpen;
 
   return (
     <Accordion
       label={label}
       isOpen={isOpen}
-      onToggle={setIsOpen}
+      onToggle={handleToggle}
       size="custom"
       variant="hoverable"
       color={isDeployed ? 'text' : 'neutral'}
@@ -262,6 +279,7 @@ export const NavSectionItem: FC<NavSectionItemProps> = ({
       label={sectionKey}
       identifier={pathKey}
       title={sectionData.title}
+      to={sectionDefault?.relativeUrl ?? sectionDefault?.url}
       isActive={isActive}
       isSelfActive={isSelfActive}
       isSubSectionActive={isSubSectionActive}
