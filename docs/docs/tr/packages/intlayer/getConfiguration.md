@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-25
 title: getConfiguration Fonksiyonu Dokümantasyonu | intlayer
 description: intlayer paketinde getConfiguration fonksiyonunun nasıl kullanılacağını görün
 keywords:
@@ -19,13 +19,23 @@ slugs:
   - intlayer
   - getConfiguration
 history:
+  - version: 9.5.9
+    date: 2026-09-25
+    changes: "getConfiguration yerine intlayer üzerinden doğrudan içe aktarmalar önerildi"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Geçmiş başlatıldı"
 author: aymericzip
 ---
 
-# Dokümantasyon: `intlayer` Paketinde `getConfiguration` Fonksiyonu
+# Dokümantasyon: `intlayer` Paketinde `getConfiguration` Fonksiyonu (Kullanım Dışı)
+
+> [!WARNING]
+> **Kullanım Dışı (Deprecated)**: `getConfiguration` fonksiyonu artık kullanılmamaktadır. Yeni önerilen yöntem, `{ availableLocale, defaultLocales, internationalization, routing, ... }` (örneğin `defaultLocale`, `locales`, `requiredLocales` veya `editor`) doğrudan `'intlayer'` üzerinden içe aktarmaktır:
+>
+> ```typescript
+> import { defaultLocale, locales, requiredLocales, editor } from "intlayer";
+> ```
 
 ## Açıklama
 
@@ -65,6 +75,13 @@ console.log(config);
 ```
 
 ### `availableLocales` ve `defaultLocale` Çıkarma
+
+> [!TIP]
+> **Önerilen Yöntem**: Yerel ayarları `getConfiguration()` üzerinden çıkarmak yerine, doğrudan `'intlayer'` üzerinden içe aktarın:
+>
+> ```typescript
+> import { defaultLocale, locales } from "intlayer";
+> ```
 
 Yapılandırmanın `internationalization` bölümü, `locales` (kullanılabilir yerel ayarlar) ve `defaultLocale` (varsayılan dil) gibi yerel ayarlarla ilgili ayarları sağlar.
 

@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-23
+    changes: "Документирование getIntlayer, getIntlayerAsync, getDictionary и getDictionaryAsync"
   - version: 9.0.0
     date: 2026-06-23
     changes: "Добавлена утилита comparePaths"
@@ -89,19 +92,21 @@ import "intlayer";
 import "intlayer";
 ```
 
-| Функция                  | Тип        | Описание                                                                                                            | Связанный документ                                                                                     |
-| ------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `t` / `getTranslation`   | `Function` | Выбирает контент в зависимости от текущей локали.                                                                   | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md) |
-| `enu` / `getEnumeration` | `Function` | Выбирает контент в зависимости от количества.                                                                       | [enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md) |
-| `cond` / `getCondition`  | `Function` | Выбирает контент в зависимости от булевого условия.                                                                 | [условие](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/condition.md)       |
-| `gender`                 | `Function` | Выбирает контент в зависимости от пола.                                                                             | [пол](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender.md)              |
-| `insert`                 | `Function` | Вставляет значения в строку контента.                                                                               | [вставка](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md)       |
-| `nest` / `getNesting`    | `Function` | Вкладывает другой словарь.                                                                                          | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nesting.md)         |
-| `md`                     | `Function` | Обрабатывает markdown-контент.                                                                                      | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md)       |
-| `html`                   | `Function` | Обрабатывает HTML-контент.                                                                                          | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/html.md)               |
-| `file`                   | `Function` | Обрабатывает содержимое файла.                                                                                      | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file.md)               |
-| `getDictionary`          | `Function` | Обрабатывает объекты, похожие на словари (ключ, содержимое). Обрабатывает переводы `t()`, перечисления и т.д.       | -                                                                                                      |
-| `getIntlayer`            | `Function` | Основано на `getDictionary`, но внедряет оптимизированную версию словаря из сгенерированного декларационного файла. | -                                                                                                      |
+| Функция                  | Тип        | Описание                                                                                                                 | Связанный документ                                                                                                          |
+| ------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `t` / `getTranslation`   | `Function` | Выбирает контент в зависимости от текущей локали.                                                                        | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md)                      |
+| `enu` / `getEnumeration` | `Function` | Выбирает контент в зависимости от количества.                                                                            | [enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md)                      |
+| `cond` / `getCondition`  | `Function` | Выбирает контент в зависимости от булевого условия.                                                                      | [условие](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/condition.md)                            |
+| `gender`                 | `Function` | Выбирает контент в зависимости от пола.                                                                                  | [пол](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender.md)                                   |
+| `insert`                 | `Function` | Вставляет значения в строку контента.                                                                                    | [вставка](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md)                            |
+| `nest` / `getNesting`    | `Function` | Вкладывает другой словарь.                                                                                               | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nesting.md)                              |
+| `md`                     | `Function` | Обрабатывает markdown-контент.                                                                                           | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md)                            |
+| `html`                   | `Function` | Обрабатывает HTML-контент.                                                                                               | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/html.md)                                    |
+| `file`                   | `Function` | Обрабатывает содержимое файла.                                                                                           | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file.md)                                    |
+| `getDictionary`          | `Function` | Обрабатывает объекты, похожие на словари (ключ, содержимое). Обрабатывает переводы `t()`, перечисления и т. д.           | [getDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getDictionary.md)           |
+| `getDictionaryAsync`     | `Function` | Загружает отдельный фрагмент локали словаря из карты загрузчиков по локалям, затем обрабатывает его.                     | [getDictionaryAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getDictionaryAsync.md) |
+| `getIntlayer`            | `Function` | Основан на `getDictionary`, но внедряет оптимизированную версию словаря из сгенерированного объявления.                  | [getIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayer.md)               |
+| `getIntlayerAsync`       | `Function` | Асинхронный аналог `getIntlayer`, загружающий только запрошенную локаль. Для метаданных, загрузчиков, серверных функций. | [getIntlayerAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayerAsync.md)     |
 
 ### Утилиты локализации
 

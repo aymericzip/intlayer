@@ -15,6 +15,9 @@ slugs:
   - vite-intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-25
+    changes: "내보내기 색인 업데이트 – 프록시 및 컴파일러가 이제 intlayer()에 번들됨; intlayerProxy, intlayerCompiler, intlayerMinify 문서 추가"
   - version: 8.0.0
     date: 2026-01-21
     changes: "모든 exports에 대한 문서 통합"
@@ -41,13 +44,17 @@ npm install vite-intlayer
 import "vite-intlayer";
 ```
 
-| 함수                 | 설명                                                                      | 관련 문서                                                                                                              |
-| -------------------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `intlayer`           | 빌드 프로세스에 Intlayer를 통합하는 메인 Vite 플러그인.                   | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md)           |
-| `intlayerPlugin`     | (**사용 중단**) `intlayer`의 별칭.                                        | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md)           |
-| `intlayerProxy`      | 로케일 감지와 라우팅을 처리하는 개발용 미들웨어 플러그인.                 | -                                                                                                                      |
-| `intlayerMiddleware` | (**사용 중단**) `intlayerProxy`의 별칭.                                   | -                                                                                                                      |
-| `intlayerPrune`      | 빌드 시 사용되지 않는 사전(딕셔너리)을 트리 쉐이킹하여 제거하는 플러그인. | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayerPrune.md) |
+| 함수                       | 설명                                                                                                                                     | 관련 문서                                                                                                                    |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `intlayer`                 | 메인 Vite 플러그인. 사전을 준비하고, 별칭을 구성하고, 개발 서버 감시자를 시작하며, (v9부터) 프록시와 컴파일러를 번들합니다.              | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerPlugin`           | (**더 이상 사용되지 않음**) `intlayer`의 별칭입니다.                                                                                     | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md)                 |
+| `intLayerPlugin`           | (**더 이상 사용되지 않음**) `intlayer`의 별칭입니다.                                                                                     | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerProxy`            | 로케일 라우팅 미들웨어 플러그인(감지, 리디렉션, 재작성). v9부터 `intlayer()` 내에 번들되어 있습니다 – 필요한 경우에만 별도로 등록하세요. | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerMiddleware`       | (**더 이상 사용되지 않음**) `intlayerProxy`의 별칭입니다.                                                                                | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayerProxy.md)       |
+| `intLayerMiddlewarePlugin` | (**더 이상 사용되지 않음**) `intlayerProxy`의 별칭입니다.                                                                                | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerCompiler`         | 컴포넌트에서 인라인 콘텐츠 선언을 추출하여 사전에 기록합니다. v9부터 `intlayer()` 내에 번들되어 있습니다.                                | [intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayerCompiler.md) |
+| `intlayerPrune`            | 프로덕션 번들에서 사용되지 않는 사전 필드를 트리 쉐이킹합니다.                                                                           | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayerPrune.md)       |
+| `intlayerMinify`           | 컴파일된 사전 JSON 파일을 축소하고 선택적으로 필드 이름을 변경합니다.                                                                    | [intlayerMinify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/intlayerMinify.md)     |
 
 ### 유틸리티
 

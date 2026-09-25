@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-23
+    changes: "Documentazione di getIntlayer, getIntlayerAsync, getDictionary e getDictionaryAsync"
   - version: 9.0.0
     date: 2026-06-23
     changes: "Aggiunta l'utilità comparePaths"
@@ -89,19 +92,21 @@ Importazione:
 import "intlayer";
 ```
 
-| Funzione                 | Tipo       | Descrizione                                                                                                           | Doc correlato                                                                                           |
-| ------------------------ | ---------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `t` / `getTranslation`   | `Function` | Seleziona il contenuto in base alla locale corrente.                                                                  | [traduzione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/translation.md)   |
-| `enu` / `getEnumeration` | `Function` | Seleziona il contenuto in base a una quantità.                                                                        | [enumerazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/enumeration.md) |
-| `cond` / `getCondition`  | `Function` | Seleziona il contenuto in base a una condizione booleana.                                                             | [condizione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/condition.md)     |
-| `gender`                 | `Function` | Seleziona il contenuto in base al genere.                                                                             | [genere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/gender.md)            |
-| `insert`                 | `Function` | Inserisce valori all'interno di una stringa di contenuto.                                                             | [inserimento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion.md)    |
-| `nest` / `getNesting`    | `Function` | Innestare un altro dizionario.                                                                                        | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/nesting.md)          |
-| `md`                     | `Function` | Elabora contenuto Markdown.                                                                                           | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md)        |
-| `html`                   | `Function` | Elabora contenuto HTML.                                                                                               | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/html.md)                |
-| `file`                   | `Function` | Gestisce il contenuto dei file.                                                                                       | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/file.md)                |
-| `getDictionary`          | `Function` | Elabora oggetti che assomigliano a dizionari (chiave, contenuto). Gestisce le traduzioni `t()`, le enumerazioni, ecc. | -                                                                                                       |
-| `getIntlayer`            | `Function` | Basata su `getDictionary`, ma inietta una versione ottimizzata del dizionario dalla dichiarazione generata.           | -                                                                                                       |
+| Funzione                 | Tipo       | Descrizione                                                                                                             | Doc correlato                                                                                                               |
+| ------------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `t` / `getTranslation`   | `Function` | Seleziona il contenuto in base alla locale corrente.                                                                    | [traduzione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/translation.md)                       |
+| `enu` / `getEnumeration` | `Function` | Seleziona il contenuto in base a una quantità.                                                                          | [enumerazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/enumeration.md)                     |
+| `cond` / `getCondition`  | `Function` | Seleziona il contenuto in base a una condizione booleana.                                                               | [condizione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/condition.md)                         |
+| `gender`                 | `Function` | Seleziona il contenuto in base al genere.                                                                               | [genere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/gender.md)                                |
+| `insert`                 | `Function` | Inserisce valori all'interno di una stringa di contenuto.                                                               | [inserimento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion.md)                        |
+| `nest` / `getNesting`    | `Function` | Innestare un altro dizionario.                                                                                          | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/nesting.md)                              |
+| `md`                     | `Function` | Elabora contenuto Markdown.                                                                                             | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md)                            |
+| `html`                   | `Function` | Elabora contenuto HTML.                                                                                                 | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/html.md)                                    |
+| `file`                   | `Function` | Gestisce il contenuto dei file.                                                                                         | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/file.md)                                    |
+| `getDictionary`          | `Function` | Elabora oggetti che assomigliano a dizionari (chiave, contenuto). Elabora traduzioni `t()`, enumerazioni, ecc.          | [getDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getDictionary.md)           |
+| `getDictionaryAsync`     | `Function` | Carica un singolo chunk di locale di un dizionario da una mappa di caricamento per locale, quindi lo elabora.           | [getDictionaryAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getDictionaryAsync.md) |
+| `getIntlayer`            | `Function` | Basato su `getDictionary`, ma inietta una versione ottimizzata del dizionario proveniente dalla dichiarazione generata. | [getIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getIntlayer.md)               |
+| `getIntlayerAsync`       | `Function` | Controparte asincrona di `getIntlayer`, che carica solo la locale richiesta. Per metadati, loader, funzioni server.     | [getIntlayerAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getIntlayerAsync.md)     |
 
 ### Utility di localizzazione
 

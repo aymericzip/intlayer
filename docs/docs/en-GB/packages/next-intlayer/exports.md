@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Update to Next.js >= 9.4.0 architecture"
   - version: 10.0.0
     date: 2026-06-23
     changes: "Add usePathname utility"
@@ -75,11 +78,16 @@ or
 import "next-intlayer/server";
 ```
 
-| Component                | Description                                                                                                       | Related Doc |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------- | ----------- |
-| `IntlayerClientProvider` | Provider for client-side components in the Next.js App Router. Wraps `IntlayerProvider` from react-intlayer.      | -           |
-| `IntlayerServerProvider` | Provider for server-side components in the Next.js App Router. Provides the locale context on the server.         | -           |
-| `IntlayerServer`         | Server-side wrapper for Intlayer content in the App Router. Ensures correct locale handling in Server Components. | -           |
+| Component                | Description                                                                                                                                                                    | Related Doc |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
+| `IntlayerProvider`       | Unified provider for the Next.js App Router. Mounted once in the locale layout, it seeds the request-scoped server context _and_ mounts the client provider. (Intlayer >= 9.4) | -           |
+| `IntlayerClientProvider` | **Deprecated** — use `IntlayerProvider` from `next-intlayer/server`. Provider for client-side components in Next.js App Router. Wraps `IntlayerProvider` from react-intlayer.  | -           |
+| `IntlayerServerProvider` | **Deprecated** — use `IntlayerProvider` from `next-intlayer/server`. Provides locale context on the server. (Intlayer < 9.4)                                                   | -           |
+| `IntlayerServer`         | Server-side wrapper for Intlayer content in the App Router. Ensures correct locale handling in Server Components.                                                              | -           |
+| `HTMLProvider`           | Provider for HTML-related internationalisation settings. Allows component overrides for HTML tags.                                                                             | -           |
+| `HTMLRenderer`           | Renders HTML content with custom components.                                                                                                                                   | -           |
+| `MarkdownProvider`       | Provider for markdown rendering context. Allows custom component overrides for markdown elements.                                                                              | -           |
+| `MarkdownRenderer`       | Renders markdown content with custom components.                                                                                                                               | -           |
 
 ### Hooks (Client-side)
 
@@ -104,6 +112,8 @@ Re-exports most hooks from `react-intlayer`.
 | `useI18n`              | Hook that provides a translation function `t()` for accessing nested content by key. Mimics the i18next/next-intl pattern.                | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Hook that provides a locale-bound `Intl` object. Automatically injects the current locale and uses optimised caching.                     | -                                                                                                                          |
 | `useLoadDynamic`       | Hook to load dynamic dictionaries using React Suspense. Accepts a key and a promise, and caches results.                                  | -                                                                                                                          |
+| `useHTMLRenderer`      | Hook to obtain a pre-configured HTML renderer function.                                                                                   | -                                                                                                                          |
+| `useMarkdownRenderer`  | Hook to obtain a pre-configured Markdown renderer function.                                                                               | -                                                                                                                          |
 
 ### Functions (Server-side)
 

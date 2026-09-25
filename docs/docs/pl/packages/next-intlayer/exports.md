@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Aktualizacja do architektury Next.js >= 9.4.0"
   - version: 10.0.0
     date: 2026-06-23
     changes: "Dodano narzędzie usePathname"
@@ -75,11 +78,16 @@ or
 import "next-intlayer/server";
 ```
 
-| Komponent                | Opis                                                                                                                | Powiązany dokument |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `IntlayerClientProvider` | Provider dla komponentów po stronie klienta w Next.js App Router. Opakowuje `IntlayerProvider` z react-intlayer.    | -                  |
-| `IntlayerServerProvider` | Provider dla komponentów po stronie serwera w Next.js (App Router). Zapewnia kontekst locale na serwerze.           | -                  |
-| `IntlayerServer`         | Serwerowy wrapper dla zawartości Intlayer w App Router. Zapewnia prawidłowe zarządzanie locale w Server Components. | -                  |
+| Komponent                | Opis                                                                                                                                                                                          | Powiązany dokument |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `IntlayerProvider`       | Ujednolicony dostawca dla Next.js App Router. Montowany raz w układzie ustawień regionalnych, inicjuje kontekst serwera w zakresie żądania _oraz_ montuje dostawcę klienta. (Intlayer >= 9.4) | -                  |
+| `IntlayerClientProvider` | **Przestarzałe** — użyj `IntlayerProvider` z `next-intlayer/server`. Dostawca dla komponentów po stronie klienta w Next.js App Router. Opakowuje `IntlayerProvider` z `react-intlayer`.       | -                  |
+| `IntlayerServerProvider` | **Przestarzałe** — użyj `IntlayerProvider` z `next-intlayer/server`. Zapewnia kontekst ustawień regionalnych na serwerze. (Intlayer < 9.4)                                                    | -                  |
+| `IntlayerServer`         | Serwerowy wrapper dla zawartości Intlayer w App Router. Zapewnia prawidłowe zarządzanie locale w Server Components.                                                                           | -                  |
+| `HTMLProvider`           | Provider ustawień internacjonalizacji dotyczących HTML. Umożliwia nadpisanie komponentów odpowiadających tagom HTML.                                                                          | -                  |
+| `HTMLRenderer`           | Renderuje zawartość HTML przy użyciu niestandardowych komponentów.                                                                                                                            | -                  |
+| `MarkdownProvider`       | Dostawca kontekstu renderowania markdown. Pozwala na niestandardowe nadpisywanie komponentów dla elementów markdown.                                                                          | -                  |
+| `MarkdownRenderer`       | Renderuje treści markdown przy użyciu niestandardowych komponentów.                                                                                                                           | -                  |
 
 ### Hooki (po stronie klienta)
 
@@ -104,6 +112,8 @@ Ponownie eksportuje większość hooków z `react-intlayer`.
 | `useI18n`              | Hook, który udostępnia funkcję tłumaczącą `t()` do dostępu do zagnieżdżonych treści po kluczu. Imituje wzorzec i18next/next-intl.                                | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Hook, który dostarcza związany z lokalizacją obiekt `Intl`. Automatycznie wstrzykuje aktualną lokalizację i korzysta z zoptymalizowanego cachowania.             | -                                                                                                                       |
 | `useLoadDynamic`       | Hook do ładowania dynamicznych słowników z użyciem React Suspense. Przyjmuje klucz i promise, buforuje wyniki.                                                   | -                                                                                                                       |
+| `useHTMLRenderer`      | Hook do uzyskania wstępnie skonfigurowanej funkcji renderera HTML.                                                                                               | -                                                                                                                       |
+| `useMarkdownRenderer`  | Hook do uzyskania wstępnie skonfigurowanej funkcji renderera Markdown.                                                                                           | -                                                                                                                       |
 
 ### Funkcje (po stronie serwera)
 

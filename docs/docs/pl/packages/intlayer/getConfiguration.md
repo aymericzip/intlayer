@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-25
 title: Dokumentacja funkcji getConfiguration | intlayer
 description: Zobacz, jak używać funkcji getConfiguration w pakiecie intlayer
 keywords:
@@ -19,13 +19,23 @@ slugs:
   - intlayer
   - getConfiguration
 history:
+  - version: 9.5.9
+    date: 2026-09-25
+    changes: "Oznaczenie getConfiguration jako przestarzałego na rzecz bezpośrednich importów z intlayer"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inicjalizacja historii"
 author: aymericzip
 ---
 
-# Dokumentacja: funkcja `getConfiguration` w `intlayer`
+# Dokumentacja: funkcja `getConfiguration` w `intlayer` (Przestarzałe)
+
+> [!WARNING]
+> **Przestarzałe**: Funkcja `getConfiguration` jest przestarzała. Nowym zalecanym sposobem jest importowanie `{ availableLocale, defaultLocales, internationalization, routing, ... }` (takich jak `defaultLocale`, `locales`, `requiredLocales` lub `editor`) bezpośrednio z `'intlayer'`:
+>
+> ```typescript
+> import { defaultLocale, locales, requiredLocales, editor } from "intlayer";
+> ```
 
 ## Opis
 
@@ -66,6 +76,13 @@ console.log(config);
 
 ### Pobieranie `availableLocales` i `defaultLocale`
 
+> [!TIP]
+> **Zalecany sposób**: Zamiast pobierać lokalizacje z `getConfiguration()`, zaimportuj je bezpośrednio z `'intlayer'`:
+>
+> ```typescript
+> import { defaultLocale, locales } from "intlayer";
+> ```
+
 Sekcja `internationalization` konfiguracji zawiera ustawienia związane z lokalizacją, takie jak `locales` (dostępne lokalizacje) oraz `defaultLocale` (język domyślny).
 
 ```typescript codeFormat={["typescript", "esm", "commonjs"]}
@@ -75,7 +92,6 @@ const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;
 const { cookieName } = middleware;
 
-javascript;
 console.log(availableLocales); // Przykładowe wyjście: ["en", "fr", "es"]
 console.log(defaultLocale); // Przykładowe wyjście: "en"
 console.log(cookieName); // Wyjście: "INTLAYER_LOCALE"

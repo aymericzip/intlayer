@@ -15,6 +15,9 @@ slugs:
   - vite-intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-25
+    changes: "Cập nhật chỉ mục xuất – proxy và compiler hiện được đóng gói trong intlayer(); thêm tài liệu intlayerProxy, intlayerCompiler, intlayerMinify"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Hợp nhất tài liệu cho tất cả các exports"
@@ -41,13 +44,17 @@ Nhập:
 import "vite-intlayer";
 ```
 
-| Chức năng            | Mô tả                                                                                | Tài liệu liên quan                                                                                                     |
-| -------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| `intlayer`           | Plugin chính cho Vite tích hợp Intlayer vào quá trình build.                         | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayer.md)           |
-| `intlayerPlugin`     | (**Không còn được khuyến nghị**) Bí danh cho `intlayer`.                             | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayer.md)           |
-| `intlayerProxy`      | Plugin middleware cho môi trường phát triển để xử lý phát hiện locale và định tuyến. | -                                                                                                                      |
-| `intlayerMiddleware` | (**Không còn được khuyến nghị**) Bí danh cho `intlayerProxy`.                        | -                                                                                                                      |
-| `intlayerPrune`      | Plugin để tree-shake và loại bỏ các từ điển không dùng trong quá trình build.        | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayerPrune.md) |
+| Chức năng                  | Mô tả                                                                                                                                                 | Tài liệu liên quan                                                                                                           |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `intlayer`                 | Plugin Vite chính. Chuẩn bị từ điển, định cấu hình bí danh, khởi động trình theo dõi máy chủ phát triển và (từ v9) đóng gói proxy và trình biên dịch. | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerPlugin`           | (**Không còn được sử dụng**) Bí danh cho `intlayer`.                                                                                                  | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayer.md)                 |
+| `intLayerPlugin`           | (**Không còn được sử dụng**) Bí danh cho `intlayer`.                                                                                                  | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerProxy`            | Plugin trung gian định tuyến ngôn ngữ (phát hiện, chuyển hướng, viết lại). Từ v9 được đóng gói trong `intlayer()` – chỉ đăng ký riêng nếu cần.        | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerMiddleware`       | (**Không còn được sử dụng**) Bí danh cho `intlayerProxy`.                                                                                             | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayerProxy.md)       |
+| `intLayerMiddlewarePlugin` | (**Không còn được sử dụng**) Bí danh cho `intlayerProxy`.                                                                                             | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerCompiler`         | Trích xuất các khai báo nội dung nội dòng từ các thành phần và ghi chúng vào từ điển. Từ v9 được đóng gói trong `intlayer()`.                         | [intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayerCompiler.md) |
+| `intlayerPrune`            | Loại bỏ các trường từ điển không sử dụng khỏi gói sản xuất thông qua tree-shaking.                                                                    | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayerPrune.md)       |
+| `intlayerMinify`           | Thu nhỏ các tệp JSON từ điển đã biên dịch và tùy chọn cắt ngắn tên trường.                                                                            | [intlayerMinify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/intlayerMinify.md)     |
 
 ### Tiện ích
 

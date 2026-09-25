@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Pembaruan ke arsitektur Next.js >= 9.4.0"
   - version: 10.0.0
     date: 2026-06-23
     changes: "Menambahkan utilitas usePathname"
@@ -75,11 +78,16 @@ or
 import "next-intlayer/server";
 ```
 
-| Komponen                 | Deskripsi                                                                                                                 | Dokumen Terkait |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------- | --------------- |
-| `IntlayerClientProvider` | Provider untuk komponen sisi-klien pada Next.js App Router. Membungkus `IntlayerProvider` dari react-intlayer.            | -               |
-| `IntlayerServerProvider` | Provider untuk komponen sisi-server pada Next.js (App Router). Menyediakan konteks locale di server.                      | -               |
-| `IntlayerServer`         | Pembungkus sisi-server untuk konten Intlayer di App Router. Menjamin penanganan locale yang tepat pada Server Components. | -               |
+| Komponen                 | Deskripsi                                                                                                                                                                                 | Dokumen Terkait |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `IntlayerProvider`       | Penyedia terpadu untuk Next.js App Router. Dipasang sekali dalam tata letak lokal, menginisialisasi konteks server berlingkup permintaan _dan_ memasang penyedia klien. (Intlayer >= 9.4) | -               |
+| `IntlayerClientProvider` | **Usang** — gunakan `IntlayerProvider` dari `next-intlayer/server`. Penyedia untuk komponen sisi klien di Next.js App Router. Membungkus `IntlayerProvider` dari `react-intlayer`.        | -               |
+| `IntlayerServerProvider` | **Usang** — gunakan `IntlayerProvider` dari `next-intlayer/server`. Menyediakan konteks lokal di server. (Intlayer < 9.4)                                                                 | -               |
+| `IntlayerServer`         | Pembungkus sisi-server untuk konten Intlayer di App Router. Menjamin penanganan locale yang tepat pada Server Components.                                                                 | -               |
+| `HTMLProvider`           | Penyedia untuk pengaturan internasionalisasi terkait HTML. Memungkinkan penimpaan komponen untuk tag HTML.                                                                                | -               |
+| `HTMLRenderer`           | Merender konten HTML dengan komponen kustom.                                                                                                                                              | -               |
+| `MarkdownProvider`       | Penyedia untuk konteks perenderan markdown. Memungkinkan penimpaan komponen kustom untuk elemen markdown.                                                                                 | -               |
+| `MarkdownRenderer`       | Merender konten markdown dengan komponen kustom.                                                                                                                                          | -               |
 
 ### Hooks (Sisi-klien)
 
@@ -104,6 +112,8 @@ Mengekspor ulang sebagian besar hooks dari `react-intlayer`.
 | `useI18n`              | Hook yang menyediakan fungsi terjemahan `t()` untuk mengakses konten bersarang berdasarkan kunci. Meniru pola i18next/next-intl.                       | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Hook yang menyediakan objek `Intl` yang terkait locale. Secara otomatis menyuntikkan locale saat ini dan menggunakan caching yang dioptimalkan.        | -                                                                                                                       |
 | `useLoadDynamic`       | Hook untuk memuat kamus dinamis menggunakan React Suspense. Menerima sebuah key dan promise, serta meng-cache hasilnya.                                | -                                                                                                                       |
+| `useHTMLRenderer`      | Hook untuk mendapatkan fungsi perender HTML yang telah dikonfigurasi.                                                                                  | -                                                                                                                       |
+| `useMarkdownRenderer`  | Hook untuk mendapatkan fungsi perender Markdown yang telah dikonfigurasi.                                                                              | -                                                                                                                       |
 
 ### Fungsi (Server-side)
 

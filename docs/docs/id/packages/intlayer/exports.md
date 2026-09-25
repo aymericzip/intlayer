@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-23
+    changes: "Dokumentasi getIntlayer, getIntlayerAsync, getDictionary dan getDictionaryAsync"
   - version: 9.0.0
     date: 2026-06-23
     changes: "Menambahkan utilitas comparePaths"
@@ -89,19 +92,21 @@ Impor:
 import "intlayer";
 ```
 
-| Fungsi                   | Tipe       | Deskripsi                                                                                                         | Dokumen Terkait                                                                                        |
-| ------------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `t` / `getTranslation`   | `Function` | Memilih konten berdasarkan locale saat ini.                                                                       | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md) |
-| `enu` / `getEnumeration` | `Function` | Memilih konten berdasarkan jumlah.                                                                                | [enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md) |
-| `cond` / `getCondition`  | `Function` | Memilih konten berdasarkan kondisi boolean.                                                                       | [condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/condition.md)     |
-| `gender`                 | `Function` | Memilih konten berdasarkan gender.                                                                                | [gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md)           |
-| `insert`                 | `Function` | Menyisipkan nilai ke dalam string konten.                                                                         | [insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md)     |
-| `nest` / `getNesting`    | `Function` | Menyematkan kamus lain.                                                                                           | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nesting.md)         |
-| `md`                     | `Function` | Memproses konten Markdown.                                                                                        | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md)       |
-| `html`                   | `Function` | Memproses konten HTML.                                                                                            | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/html.md)               |
-| `file`                   | `Function` | Menangani konten file.                                                                                            | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file.md)               |
-| `getDictionary`          | `Function` | Memproses objek yang menyerupai dictionary (key, content). Ia memproses terjemahan `t()`, enumerasi, dll.         | -                                                                                                      |
-| `getIntlayer`            | `Function` | Berdasarkan `getDictionary`, tetapi memasukkan versi dictionary yang dioptimalkan dari deklarasi yang dihasilkan. | -                                                                                                      |
+| Fungsi                   | Tipe       | Deskripsi                                                                                                      | Dokumen Terkait                                                                                                             |
+| ------------------------ | ---------- | -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `t` / `getTranslation`   | `Function` | Memilih konten berdasarkan locale saat ini.                                                                    | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md)                      |
+| `enu` / `getEnumeration` | `Function` | Memilih konten berdasarkan jumlah.                                                                             | [enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md)                      |
+| `cond` / `getCondition`  | `Function` | Memilih konten berdasarkan kondisi boolean.                                                                    | [condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/condition.md)                          |
+| `gender`                 | `Function` | Memilih konten berdasarkan gender.                                                                             | [gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md)                                |
+| `insert`                 | `Function` | Menyisipkan nilai ke dalam string konten.                                                                      | [insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md)                          |
+| `nest` / `getNesting`    | `Function` | Menyematkan kamus lain.                                                                                        | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nesting.md)                              |
+| `md`                     | `Function` | Memproses konten Markdown.                                                                                     | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md)                            |
+| `html`                   | `Function` | Memproses konten HTML.                                                                                         | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/html.md)                                    |
+| `file`                   | `Function` | Menangani konten file.                                                                                         | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file.md)                                    |
+| `getDictionary`          | `Function` | Memproses objek yang mirip kamus (kunci, konten). Memproses terjemahan `t()`, enumerasi, dll.                  | [getDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getDictionary.md)           |
+| `getDictionaryAsync`     | `Function` | Memuat satu potongan kamus lokal dari peta pemuat per-lokal, lalu memprosesnya.                                | [getDictionaryAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getDictionaryAsync.md) |
+| `getIntlayer`            | `Function` | Berdasarkan `getDictionary`, tetapi menyuntikkan versi kamus yang dioptimalkan dari deklarasi yang dihasilkan. | [getIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayer.md)               |
+| `getIntlayerAsync`       | `Function` | Kebalikan asinkron dari `getIntlayer`, hanya memuat lokal yang diminta. Untuk metadata, pemuat, fungsi server. | [getIntlayerAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayerAsync.md)     |
 
 ### Utilitas Lokalisasi
 

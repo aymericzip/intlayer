@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-09-25
 title: getConfiguration 함수 문서 | intlayer
 description: intlayer 패키지의 getConfiguration 함수 사용법 안내
 keywords:
@@ -19,13 +19,23 @@ slugs:
   - intlayer
   - getConfiguration
 history:
+  - version: 9.5.9
+    date: 2026-09-25
+    changes: "getConfiguration 사용 중단 및 intlayer에서 직접 가져오기 권장"
   - version: 5.5.10
     date: 2025-06-29
     changes: "초기 이력"
 author: aymericzip
 ---
 
-# 문서: `intlayer`의 `getConfiguration` 함수
+# 문서: `intlayer`의 `getConfiguration` 함수 (사용 중단됨)
+
+> [!WARNING]
+> **사용 중단됨 (Deprecated)**: `getConfiguration` 함수는 더 이상 권장되지 않습니다. 새로운 권장 방식은 `'intlayer'`에서 `{ availableLocale, defaultLocales, internationalization, routing, ... }`(`defaultLocale`, `locales`, `requiredLocales`, `editor` 등)을 직접 가져오는 것입니다:
+>
+> ```typescript
+> import { defaultLocale, locales, requiredLocales, editor } from "intlayer";
+> ```
 
 ## 설명
 
@@ -65,6 +75,13 @@ console.log(config);
 ```
 
 ### `availableLocales` 및 `defaultLocale` 추출하기
+
+> [!TIP]
+> **권장 방식**: `getConfiguration()`에서 로케일을 추출하는 대신 `'intlayer'`에서 직접 가져오세요:
+>
+> ```typescript
+> import { defaultLocale, locales } from "intlayer";
+> ```
 
 설정의 `internationalization` 섹션은 `locales` (사용 가능한 로케일) 및 `defaultLocale` (기본 언어)과 같은 로케일 관련 설정을 제공합니다.
 

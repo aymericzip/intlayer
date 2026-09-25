@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-09-25
 title: getConfiguration 函数文档 | intlayer
 description: 查看如何使用 intlayer 包中的 getConfiguration 函数
 keywords:
@@ -19,13 +19,23 @@ slugs:
   - intlayer
   - getConfiguration
 history:
+  - version: 9.5.9
+    date: 2026-09-25
+    changes: "弃用 getConfiguration，推荐直接从 intlayer 导入"
   - version: 5.5.10
     date: 2025-06-29
     changes: "初始化历史"
 author: aymericzip
 ---
 
-# 文档：`intlayer` 中的 `getConfiguration` 函数
+# 文档：`intlayer` 中的 `getConfiguration` 函数（已弃用）
+
+> [!WARNING]
+> **已弃用**：`getConfiguration` 函数已被弃用。推荐的新方式是直接从 `'intlayer'` 导入 `{ availableLocale, defaultLocales, internationalization, routing, ... }`（例如 `defaultLocale`、`locales`、`requiredLocales` 或 `editor`）：
+>
+> ```typescript
+> import { defaultLocale, locales, requiredLocales, editor } from "intlayer";
+> ```
 
 ## 描述
 
@@ -65,6 +75,13 @@ console.log(config);
 ```
 
 ### 提取 `availableLocales` 和 `defaultLocale`
+
+> [!TIP]
+> **推荐方式**：无需从 `getConfiguration()` 中提取语言环境，可直接从 `'intlayer'` 导入：
+>
+> ```typescript
+> import { defaultLocale, locales } from "intlayer";
+> ```
 
 配置中的 `internationalization` 部分提供了与语言环境相关的设置，例如 `locales`（可用语言环境）和 `defaultLocale`（默认语言）。
 

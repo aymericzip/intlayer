@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Next.js >= 9.4.0 mimarisine güncelleme"
   - version: 10.0.0
     date: 2026-06-23
     changes: "usePathname aracı eklendi"
@@ -75,11 +78,16 @@ veya
 import "next-intlayer/server";
 ```
 
-| Bileşen                  | Açıklama                                                                                                            | İlgili Dok. |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `IntlayerClientProvider` | Next.js App Router'daki istemci tarafı bileşenler için sağlayıcı. react-intlayer'dan `IntlayerProvider`'ı sarar.    | -           |
-| `IntlayerServerProvider` | Next.js (App Router) içindeki sunucu tarafı bileşenler için sağlayıcı. Sunucuda locale bağlamı sağlar.              | -           |
-| `IntlayerServer`         | App Router'da Intlayer içeriği için sunucu tarafı sarmalayıcı. Server Components'te doğru locale yönetimini sağlar. | -           |
+| Bileşen                  | Açıklama                                                                                                                                                                                                                      | İlgili Dok. |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `IntlayerProvider`       | Next.js App Router için birleşik sağlayıcı. Yerel ayar düzenine bir kez monte edilir, istek kapsamındaki sunucu bağlamını başlatır _ve_ istemci sağlayıcısını monte eder. (Intlayer >= 9.4)                                   | -           |
+| `IntlayerClientProvider` | **Kullanımdan kaldırıldı** — `next-intlayer/server` altındaki `IntlayerProvider` kullanın. Next.js App Router'daki istemci tarafı bileşenler için sağlayıcı. `react-intlayer` paketinden `IntlayerProvider` bileşenini sarar. | -           |
+| `IntlayerServerProvider` | **Kullanımdan kaldırıldı** — `next-intlayer/server` altındaki `IntlayerProvider` kullanın. Sunucuda yerel ayar bağlamını sağlar. (Intlayer < 9.4)                                                                             | -           |
+| `IntlayerServer`         | App Router'da Intlayer içeriği için sunucu tarafı sarmalayıcı. Server Components'te doğru locale yönetimini sağlar.                                                                                                           | -           |
+| `HTMLProvider`           | HTML ile ilgili uluslararasılaştırma ayarları için provider. HTML etiketleri için bileşen geçersiz kılmalarına izin verir.                                                                                                    | -           |
+| `HTMLRenderer`           | Özel bileşenlerle HTML içeriğini render eder.                                                                                                                                                                                 | -           |
+| `MarkdownProvider`       | Markdown renderleme bağlamı için sağlayıcı. Markdown öğeleri için özel bileşenlerin geçersiz kılınmasına izin verir.                                                                                                          | -           |
+| `MarkdownRenderer`       | Özel bileşenlerle markdown içeriğini render eder.                                                                                                                                                                             | -           |
 
 ### Hook'lar (İstemci tarafı)
 
@@ -104,6 +112,8 @@ Re-exports most hooks from `react-intlayer`.
 | `useI18n`              | Anahtar kullanarak iç içe geçmiş içeriğe erişen `t()` çeviri fonksiyonunu sağlayan hook. i18next/next-intl desenini taklit eder.                        | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Locale ile bağlı bir `Intl` nesnesi sağlayan hook. Geçerli locale'i otomatik olarak enjekte eder ve optimize edilmiş önbellekleme kullanır.             | -                                                                                                                       |
 | `useLoadDynamic`       | React Suspense kullanarak dinamik sözlükleri yüklemek için hook. Bir key ve promise kabul eder, sonuçları önbelleğe alır.                               | -                                                                                                                       |
+| `useHTMLRenderer`      | Önceden yapılandırılmış bir HTML oluşturucu işlevi alma hook'u.                                                                                         | -                                                                                                                       |
+| `useMarkdownRenderer`  | Önceden yapılandırılmış bir Markdown oluşturucu işlevi alma hook'u.                                                                                     | -                                                                                                                       |
 
 ### Fonksiyonlar (Sunucu tarafı)
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-09-25
 title: getConfiguration Funktionsdokumentation | intlayer
 description: Sehen Sie, wie die Funktion getConfiguration für das intlayer-Paket verwendet wird
 keywords:
@@ -19,13 +19,23 @@ slugs:
   - intlayer
   - getConfiguration
 history:
+  - version: 9.5.9
+    date: 2026-09-25
+    changes: "Veraltung von getConfiguration zugunsten direkter Importe aus intlayer"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Initiale Historie"
 author: aymericzip
 ---
 
-# Dokumentation: `getConfiguration` Funktion in `intlayer`
+# Dokumentation: `getConfiguration` Funktion in `intlayer` (Veraltet)
+
+> [!WARNING]
+> **Veraltet**: Die Funktion `getConfiguration` ist veraltet. Der neue empfohlene Weg ist, `{ availableLocale, defaultLocales, internationalization, routing, ... }` (wie `defaultLocale`, `locales`, `requiredLocales` oder `editor`) direkt aus `'intlayer'` zu importieren:
+>
+> ```typescript
+> import { defaultLocale, locales, requiredLocales, editor } from "intlayer";
+> ```
 
 ## Beschreibung
 
@@ -65,6 +75,13 @@ console.log(config);
 ```
 
 ### Extrahieren von `availableLocales` und `defaultLocale`
+
+> [!TIP]
+> **Empfohlener Weg**: Anstatt Locales aus `getConfiguration()` zu extrahieren, importieren Sie diese direkt aus `'intlayer'`:
+>
+> ```typescript
+> import { defaultLocale, locales } from "intlayer";
+> ```
 
 Der Abschnitt `internationalization` der Konfiguration stellt sprachbezogene Einstellungen bereit, wie z.B. `locales` (verfügbare Sprachen) und `defaultLocale` (Fallback-Sprache).
 

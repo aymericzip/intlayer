@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-25
 title: Tài liệu hàm getConfiguration | intlayer
 description: Xem cách sử dụng hàm getConfiguration cho gói intlayer
 keywords:
@@ -19,13 +19,23 @@ slugs:
   - intlayer
   - getConfiguration
 history:
+  - version: 9.5.9
+    date: 2026-09-25
+    changes: "Không còn khuyến nghị getConfiguration, thay vào đó nhập trực tiếp từ intlayer"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Khởi tạo lịch sử"
 author: aymericzip
 ---
 
-# Tài liệu: Hàm `getConfiguration` trong `intlayer`
+# Tài liệu: Hàm `getConfiguration` trong `intlayer` (Không còn được dùng)
+
+> [!WARNING]
+> **Không còn được dùng (Deprecated)**: Hàm `getConfiguration` đã lỗi thời. Cách mới được khuyến nghị là nhập `{ availableLocale, defaultLocales, internationalization, routing, ... }` (chẳng hạn như `defaultLocale`, `locales`, `requiredLocales` hoặc `editor`) trực tiếp từ `'intlayer'`:
+>
+> ```typescript
+> import { defaultLocale, locales, requiredLocales, editor } from "intlayer";
+> ```
 
 ## Mô tả
 
@@ -65,6 +75,13 @@ console.log(config);
 ```
 
 ### Trích xuất `availableLocales` và `defaultLocale`
+
+> [!TIP]
+> **Cách khuyến nghị**: Thay vì trích xuất các locale từ `getConfiguration()`, hãy nhập trực tiếp từ `'intlayer'`:
+>
+> ```typescript
+> import { defaultLocale, locales } from "intlayer";
+> ```
 
 Phần `internationalization` trong cấu hình cung cấp các thiết lập liên quan đến locale như `locales` (các locale có sẵn) và `defaultLocale` (ngôn ngữ dự phòng).
 

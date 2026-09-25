@@ -15,6 +15,9 @@ slugs:
   - vite-intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-25
+    changes: "Indeks ekspor diperbarui – proxy dan compiler sekarang dibundel ke dalam intlayer(); menambahkan dokumentasi intlayerProxy, intlayerCompiler, intlayerMinify"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Unified documentation for all exports"
@@ -41,13 +44,17 @@ Impor:
 import "vite-intlayer";
 ```
 
-| Fungsi               | Deskripsi                                                                                | Dokumen Terkait                                                                                                        |
-| -------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `intlayer`           | Plugin Vite utama yang mengintegrasikan Intlayer ke dalam proses build.                  | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayer.md)           |
-| `intlayerPlugin`     | (**Tidak lagi digunakan**) Alias untuk `intlayer`.                                       | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayer.md)           |
-| `intlayerProxy`      | Plugin middleware pengembangan untuk menangani deteksi locale dan routing.               | -                                                                                                                      |
-| `intlayerMiddleware` | (**Tidak lagi digunakan**) Alias untuk `intlayerProxy`.                                  | -                                                                                                                      |
-| `intlayerPrune`      | Plugin untuk melakukan tree-shake dan memangkas kamus yang tidak digunakan selama build. | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayerPrune.md) |
+| Fungsi                     | Deskripsi                                                                                                                                                        | Dokumen Terkait                                                                                                              |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `intlayer`                 | Plugin Vite utama. Menyiapkan kamus, mengonfigurasi alias, memulai pemantau server dev, dan (sejak v9) membundel proxy dan compiler.                             | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerPlugin`           | (**Usang**) Alias untuk `intlayer`.                                                                                                                              | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayer.md)                 |
+| `intLayerPlugin`           | (**Usang**) Alias untuk `intlayer`.                                                                                                                              | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerProxy`            | Plugin middleware perutean lokal (deteksi, pengalihan, penulisan ulang). Sejak v9 dibundel dalam `intlayer()` – daftarkan secara terpisah hanya jika diperlukan. | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerMiddleware`       | (**Usang**) Alias untuk `intlayerProxy`.                                                                                                                         | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayerProxy.md)       |
+| `intLayerMiddlewarePlugin` | (**Usang**) Alias untuk `intlayerProxy`.                                                                                                                         | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerCompiler`         | Mengekstrak deklarasi konten sebaris dari komponen dan menulisnya ke kamus. Sejak v9 dibundel dalam `intlayer()`.                                                | [intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayerCompiler.md) |
+| `intlayerPrune`            | Menghapus kolom kamus yang tidak digunakan dari bundel produksi melalui tree-shaking.                                                                            | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayerPrune.md)       |
+| `intlayerMinify`           | Meminimalkan file JSON kamus yang dikompilasi dan secara opsional mengubah nama bidang.                                                                          | [intlayerMinify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayerMinify.md)     |
 
 ### Utilitas
 

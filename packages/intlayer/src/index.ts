@@ -122,6 +122,7 @@ export {
   units,
 } from '@intlayer/core/formatters';
 export {
+  getCondition,
   getDictionary,
   getDictionaryAsync,
   getEnumeration,
@@ -209,9 +210,13 @@ export {
   configuration,
   defaultLocale,
   editor,
+  /**
+   * @deprecated Use `defaultLocale`, `locales`, `requiredLocales` or `editor` instead.
+   */
   getConfiguration,
   locales,
   requiredLocales,
+  routing,
 };
 
 // --- Registries to be augmented by the generator ---

@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-23
+    changes: "getIntlayer, getIntlayerAsync, getDictionary, getDictionaryAsync 문서화"
   - version: 9.0.0
     date: 2026-06-23
     changes: "comparePaths 유틸리티 추가"
@@ -89,19 +92,21 @@ Import:
 import "intlayer";
 ```
 
-| 함수                     | 타입       | 설명                                                                                           | 관련 문서                                                                                        |
-| ------------------------ | ---------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `t` / `getTranslation`   | `Function` | 현재 로케일을 기반으로 콘텐츠를 선택합니다.                                                    | [번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md)  |
-| `enu` / `getEnumeration` | `Function` | 수량을 기반으로 콘텐츠를 선택합니다.                                                           | [수량](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)  |
-| `cond` / `getCondition`  | `Function` | 불리언 조건에 따라 콘텐츠를 선택합니다.                                                        | [조건](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/condition.md)    |
-| `gender`                 | `Function` | 성별에 따라 콘텐츠를 선택합니다.                                                               | [성별](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md)       |
-| `insert`                 | `Function` | 콘텐츠 문자열에 값을 삽입합니다.                                                               | [삽입](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md)    |
-| `nest` / `getNesting`    | `Function` | 다른 딕셔너리를 중첩합니다.                                                                    | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/nesting.md)   |
-| `md`                     | `Function` | Markdown 콘텐츠를 처리합니다.                                                                  | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md) |
-| `html`                   | `Function` | HTML 콘텐츠를 처리합니다.                                                                      | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/html.md)         |
-| `file`                   | `Function` | 파일 내용을 처리합니다.                                                                        | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file.md)         |
-| `getDictionary`          | `Function` | 딕셔너리처럼 보이는 객체(key, content)를 처리합니다. `t()` 번역, enumerations 등도 처리합니다. | -                                                                                                |
-| `getIntlayer`            | `Function` | `getDictionary`를 기반으로 하지만 생성된 선언으로부터 딕셔너리의 최적화된 버전을 주입합니다.   | -                                                                                                |
+| 함수                     | 타입       | 설명                                                                                             | 관련 문서                                                                                                                   |
+| ------------------------ | ---------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `t` / `getTranslation`   | `Function` | 현재 로케일을 기반으로 콘텐츠를 선택합니다.                                                      | [번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md)                             |
+| `enu` / `getEnumeration` | `Function` | 수량을 기반으로 콘텐츠를 선택합니다.                                                             | [수량](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)                             |
+| `cond` / `getCondition`  | `Function` | 불리언 조건에 따라 콘텐츠를 선택합니다.                                                          | [조건](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/condition.md)                               |
+| `gender`                 | `Function` | 성별에 따라 콘텐츠를 선택합니다.                                                                 | [성별](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md)                                  |
+| `insert`                 | `Function` | 콘텐츠 문자열에 값을 삽입합니다.                                                                 | [삽입](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md)                               |
+| `nest` / `getNesting`    | `Function` | 다른 딕셔너리를 중첩합니다.                                                                      | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/nesting.md)                              |
+| `md`                     | `Function` | Markdown 콘텐츠를 처리합니다.                                                                    | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md)                            |
+| `html`                   | `Function` | HTML 콘텐츠를 처리합니다.                                                                        | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/html.md)                                    |
+| `file`                   | `Function` | 파일 내용을 처리합니다.                                                                          | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file.md)                                    |
+| `getDictionary`          | `Function` | 사전과 같은 객체(키, 콘텐츠)를 처리합니다. `t()` 번역, 열거형 등을 처리합니다.                   | [getDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getDictionary.md)           |
+| `getDictionaryAsync`     | `Function` | 로케일별 로더 맵에서 사전의 단일 로케일 청크를 로드한 다음 처리합니다.                           | [getDictionaryAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getDictionaryAsync.md) |
+| `getIntlayer`            | `Function` | `getDictionary`를 기반으로 하지만 생성된 선언에서 최적화된 사전 버전을 주입합니다.               | [getIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayer.md)               |
+| `getIntlayerAsync`       | `Function` | `getIntlayer`의 비동기 대응 기능으로, 요청된 로케일만 로드합니다. 메타데이터, 로더, 서버 함수용. | [getIntlayerAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayerAsync.md)     |
 
 ### 로컬라이제이션 유틸리티
 

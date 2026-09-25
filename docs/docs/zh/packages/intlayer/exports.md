@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-23
+    changes: "记录 getIntlayer、getIntlayerAsync、getDictionary 和 getDictionaryAsync"
   - version: 9.0.0
     date: 2026-06-23
     changes: "添加 comparePaths 实用工具"
@@ -89,19 +92,21 @@ import "intlayer";
 import "intlayer";
 ```
 
-| 函数                     | 类型       | 描述                                                               | 相关文档                                                                                           |
-| ------------------------ | ---------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
-| `t` / `getTranslation`   | `Function` | 根据当前 locale（语言环境）选择内容。                              | [翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)    |
-| `enu` / `getEnumeration` | `Function` | 根据数量选择内容。                                                 | [枚举](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)    |
-| `cond` / `getCondition`  | `Function` | 根据布尔条件选择内容。                                             | [condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/condition.md) |
-| `gender`                 | `Function` | 根据性别选择内容。                                                 | [gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md)       |
-| `insert`                 | `Function` | 将值插入到内容字符串中。                                           | [insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md) |
-| `nest` / `getNesting`    | `Function` | 嵌套另一个字典。                                                   | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/nesting.md)     |
-| `md`                     | `Function` | 处理 Markdown 内容。                                               | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)   |
-| `html`                   | `Function` | 处理 HTML 内容。                                                   | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/html.md)           |
-| `file`                   | `Function` | 处理文件内容。                                                     | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file.md)           |
-| `getDictionary`          | `Function` | 处理类似字典的对象（key, content）。它处理 `t()` 翻译、枚举等。    | -                                                                                                  |
-| `getIntlayer`            | `Function` | 基于 `getDictionary`，但会注入从生成的声明中得到的优化版本的字典。 | -                                                                                                  |
+| 函数                     | 类型       | 描述                                                                                 | 相关文档                                                                                                                    |
+| ------------------------ | ---------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `t` / `getTranslation`   | `Function` | 根据当前 locale（语言环境）选择内容。                                                | [翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)                             |
+| `enu` / `getEnumeration` | `Function` | 根据数量选择内容。                                                                   | [枚举](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)                             |
+| `cond` / `getCondition`  | `Function` | 根据布尔条件选择内容。                                                               | [condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/condition.md)                          |
+| `gender`                 | `Function` | 根据性别选择内容。                                                                   | [gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md)                                |
+| `insert`                 | `Function` | 将值插入到内容字符串中。                                                             | [insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)                          |
+| `nest` / `getNesting`    | `Function` | 嵌套另一个字典。                                                                     | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/nesting.md)                              |
+| `md`                     | `Function` | 处理 Markdown 内容。                                                                 | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)                            |
+| `html`                   | `Function` | 处理 HTML 内容。                                                                     | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/html.md)                                    |
+| `file`                   | `Function` | 处理文件内容。                                                                       | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file.md)                                    |
+| `getDictionary`          | `Function` | 处理类似字典的对象（键、内容）。处理 `t()` 翻译、枚举等。                            | [getDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getDictionary.md)           |
+| `getDictionaryAsync`     | `Function` | 从按区域设置加载器映射中加载字典的单个区域设置块，然后进行处理。                     | [getDictionaryAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getDictionaryAsync.md) |
+| `getIntlayer`            | `Function` | 基于 `getDictionary`，但从生成的声明中注入字典的优化版本。                           | [getIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayer.md)               |
+| `getIntlayerAsync`       | `Function` | `getIntlayer` 的异步对应项，仅加载请求的区域设置。适用于元数据、加载器、服务器函数。 | [getIntlayerAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayerAsync.md)     |
 
 ### 本地化实用工具
 

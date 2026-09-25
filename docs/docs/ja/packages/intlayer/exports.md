@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-23
+    changes: "getIntlayer、getIntlayerAsync、getDictionary、getDictionaryAsync のドキュメント追加"
   - version: 9.0.0
     date: 2026-06-23
     changes: "comparePaths ユーティリティを追加"
@@ -89,19 +92,21 @@ import "intlayer";
 import "intlayer";
 ```
 
-| 関数                     | 型         | 説明                                                                                             | 関連ドキュメント                                                                                       |
-| ------------------------ | ---------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `t` / `getTranslation`   | `Function` | 現在のロケールに基づいてコンテンツを選択します。                                                 | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md) |
-| `enu` / `getEnumeration` | `Function` | 数量に基づいてコンテンツを選択します。                                                           | [enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md) |
-| `cond` / `getCondition`  | `Function` | ブール条件に基づいてコンテンツを選択します。                                                     | [条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/condition.md)          |
-| `gender`                 | `Function` | 性別に基づいてコンテンツを選択します。                                                           | [性別](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)             |
-| `insert`                 | `Function` | コンテンツ文字列内に値を挿入します。                                                             | [挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)          |
-| `nest` / `getNesting`    | `Function` | 別の辞書をネストします。                                                                         | [ネスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nesting.md)          |
-| `md`                     | `Function` | Markdown コンテンツを処理します。                                                                | [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)       |
-| `html`                   | `Function` | HTML コンテンツを処理します。                                                                    | [HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/html.md)               |
-| `file`                   | `Function` | ファイルの内容を処理します。                                                                     | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file.md)               |
-| `getDictionary`          | `Function` | キーと内容を持つ辞書のようなオブジェクトを処理します。`t()` 翻訳や列挙などを処理します。         | -                                                                                                      |
-| `getIntlayer`            | `Function` | `getDictionary` に基づいていますが、生成された宣言から辞書の最適化されたバージョンを注入します。 | -                                                                                                      |
+| 関数                     | 型         | 説明                                                                                                           | 関連ドキュメント                                                                                                            |
+| ------------------------ | ---------- | -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `t` / `getTranslation`   | `Function` | 現在のロケールに基づいてコンテンツを選択します。                                                               | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)                      |
+| `enu` / `getEnumeration` | `Function` | 数量に基づいてコンテンツを選択します。                                                                         | [enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md)                      |
+| `cond` / `getCondition`  | `Function` | ブール条件に基づいてコンテンツを選択します。                                                                   | [条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/condition.md)                               |
+| `gender`                 | `Function` | 性別に基づいてコンテンツを選択します。                                                                         | [性別](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md)                                  |
+| `insert`                 | `Function` | コンテンツ文字列内に値を挿入します。                                                                           | [挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)                               |
+| `nest` / `getNesting`    | `Function` | 別の辞書をネストします。                                                                                       | [ネスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nesting.md)                               |
+| `md`                     | `Function` | Markdown コンテンツを処理します。                                                                              | [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)                            |
+| `html`                   | `Function` | HTML コンテンツを処理します。                                                                                  | [HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/html.md)                                    |
+| `file`                   | `Function` | ファイルの内容を処理します。                                                                                   | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file.md)                                    |
+| `getDictionary`          | `Function` | 辞書のようなオブジェクト（キー、コンテンツ）を処理します。`t()` 翻訳、列挙などを処理します。                   | [getDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getDictionary.md)           |
+| `getDictionaryAsync`     | `Function` | ロケールごとのローダーマップから辞書の単一ロケールチャンクを読み込み、処理します。                             | [getDictionaryAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getDictionaryAsync.md) |
+| `getIntlayer`            | `Function` | `getDictionary` に基づいていますが、生成された宣言から最適化された辞書バージョンを挿入します。                 | [getIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md)               |
+| `getIntlayerAsync`       | `Function` | `getIntlayer` の非同期対応版で、要求されたロケールのみをロードします。メタデータ、ローダー、サーバー関数向け。 | [getIntlayerAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayerAsync.md)     |
 
 ### ローカリゼーションユーティリティ
 

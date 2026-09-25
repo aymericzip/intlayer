@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Aktualisierung auf die Next.js >= 9.4.0-Architektur"
   - version: 10.0.0
     date: 2026-06-23
     changes: "usePathname-Dienstprogramm hinzugefügt"
@@ -75,15 +78,16 @@ oder
 import "next-intlayer/server";
 ```
 
-| Komponente               | Beschreibung                                                                                                              | Zugehöriges Doc |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------- | --------------- |
-| `IntlayerClientProvider` | Provider für clientseitige Komponenten im Next.js App Router. Kapselt `IntlayerProvider` von react-intlayer.              | -               |
-| `IntlayerServerProvider` | Provider für serverseitige Komponenten in Next.js (App Router). Stellt auf dem Server den Locale-Kontext bereit.          | -               |
-| `IntlayerServer`         | Serverseitiger Wrapper für Intlayer-Inhalte im App Router. Gewährleistet korrektes Locale-Handling in Server Components.  | -               |
-| `HTMLProvider`           | Provider für HTML-bezogene Internationalisierungseinstellungen. Ermöglicht Komponentenüberschreibungen für HTML-Tags.     | -               |
-| `HTMLRenderer`           | Rendert HTML-Inhalte mit benutzerdefinierten Komponenten.                                                                 | -               |
-| `MarkdownProvider`       | Provider für Markdown-Rendering-Kontext. Ermöglicht benutzerdefinierte Komponentenüberschreibungen für Markdown-Elemente. | -               |
-| `MarkdownRenderer`       | Rendert Markdown-Inhalte mit benutzerdefinierten Komponenten.                                                             | -               |
+| Komponente               | Beschreibung                                                                                                                                                                                       | Zugehöriges Doc |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `IntlayerProvider`       | Einheitlicher Provider für den Next.js App Router. Wird einmalig im Locale-Layout montiert, initialisiert den anfragebezogenen Serverkontext _und_ montiert den Client-Provider. (Intlayer >= 9.4) | -               |
+| `IntlayerClientProvider` | **Veraltet** — verwenden Sie `IntlayerProvider` aus `next-intlayer/server`. Provider für clientseitige Komponenten im Next.js App Router. Kapselt `IntlayerProvider` aus react-intlayer.           | -               |
+| `IntlayerServerProvider` | **Veraltet** — verwenden Sie `IntlayerProvider` aus `next-intlayer/server`. Bietet Locale-Kontext auf dem Server. (Intlayer < 9.4)                                                                 | -               |
+| `IntlayerServer`         | Serverseitiger Wrapper für Intlayer-Inhalte im App Router. Gewährleistet korrektes Locale-Handling in Server Components.                                                                           | -               |
+| `HTMLProvider`           | Provider für HTML-bezogene Internationalisierungseinstellungen. Ermöglicht Komponentenüberschreibungen für HTML-Tags.                                                                              | -               |
+| `HTMLRenderer`           | Rendert HTML-Inhalte mit benutzerdefinierten Komponenten.                                                                                                                                          | -               |
+| `MarkdownProvider`       | Provider für Markdown-Rendering-Kontext. Ermöglicht benutzerdefinierte Komponentenüberschreibungen für Markdown-Elemente.                                                                          | -               |
+| `MarkdownRenderer`       | Rendert Markdown-Inhalte mit benutzerdefinierten Komponenten.                                                                                                                                      | -               |
 
 ### Hooks (Client-seitig)
 

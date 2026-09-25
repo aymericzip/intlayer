@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-09-25
 title: getConfiguration 関数ドキュメント | intlayer
 description: intlayer パッケージの getConfiguration 関数の使い方を解説
 keywords:
@@ -19,13 +19,23 @@ slugs:
   - intlayer
   - getConfiguration
 history:
+  - version: 9.5.9
+    date: 2026-09-25
+    changes: "getConfiguration を非推奨にし、intlayer からの直接インポートを推奨"
   - version: 5.5.10
     date: 2025-06-29
     changes: "履歴の初期化"
 author: aymericzip
 ---
 
-# ドキュメント: `intlayer` の `getConfiguration` 関数
+# ドキュメント: `intlayer` の `getConfiguration` 関数（非推奨）
+
+> [!WARNING]
+> **非推奨**: `getConfiguration` 関数は非推奨になりました。推奨される新しい方法は、`'intlayer'` から `{ availableLocale, defaultLocales, internationalization, routing, ... }`（`defaultLocale`、`locales`、`requiredLocales`、`editor` など）を直接インポートすることです:
+>
+> ```typescript
+> import { defaultLocale, locales, requiredLocales, editor } from "intlayer";
+> ```
 
 ## 説明
 
@@ -65,6 +75,13 @@ console.log(config);
 ```
 
 ### `availableLocales` と `defaultLocale` の抽出
+
+> [!TIP]
+> **推奨される方法**: `getConfiguration()` からロケールを抽出する代わりに、`'intlayer'` から直接インポートします:
+>
+> ```typescript
+> import { defaultLocale, locales } from "intlayer";
+> ```
 
 設定の `internationalization` セクションは、`locales`（利用可能なロケール）や `defaultLocale`（フォールバック言語）などのロケール関連の設定を提供します。
 

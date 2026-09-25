@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Next.js >= 9.4.0 アーキテクチャへの更新"
   - version: 10.0.0
     date: 2026-06-23
     changes: "usePathname ユーティリティを追加"
@@ -75,11 +78,16 @@ import "next-intlayer";
 import "next-intlayer/server";
 ```
 
-| コンポーネント           | 説明                                                                                                                     | 関連ドキュメント |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ---------------- |
-| `IntlayerClientProvider` | Next.js App Router のクライアント側コンポーネント用プロバイダー。`react-intlayer` の `IntlayerProvider` をラップします。 | -                |
-| `IntlayerServerProvider` | Next.js（App Router）のサーバー側コンポーネント用プロバイダー。サーバー上でロケールコンテキストを提供します。            | -                |
-| `IntlayerServer`         | App Router における Intlayer コンテンツのサーバー側ラッパー。サーバーコンポーネントでの適切なロケール処理を保証します。  | -                |
+| コンポーネント           | 説明                                                                                                                                                                                                   | 関連ドキュメント |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- |
+| `IntlayerProvider`       | Next.js App Router 用の統一プロバイダー。ロケールレイアウトに一度マウントされ、リクエストスコープのサーバーコンテキストをシード_し_、クライアントプロバイダーをマウントします。(Intlayer >= 9.4)       | -                |
+| `IntlayerClientProvider` | **非推奨** — `next-intlayer/server` の `IntlayerProvider` を使用してください。Next.js App Router のクライアント側コンポーネント用プロバイダー。`react-intlayer` の `IntlayerProvider` をラップします。 | -                |
+| `IntlayerServerProvider` | **非推奨** — `next-intlayer/server` の `IntlayerProvider` を使用してください。サーバー上でロケールコンテキストを提供します。(Intlayer < 9.4)                                                           | -                |
+| `IntlayerServer`         | App Router における Intlayer コンテンツのサーバー側ラッパー。サーバーコンポーネントでの適切なロケール処理を保証します。                                                                                | -                |
+| `HTMLProvider`           | HTML 関連の国際化設定用プロバイダー。HTML タグのコンポーネントオーバーライドを可能にします。                                                                                                           | -                |
+| `HTMLRenderer`           | カスタムコンポーネントを使用して HTML コンテンツをレンダリングします。                                                                                                                                 | -                |
+| `MarkdownProvider`       | Markdown レンダリングコンテキスト用プロバイダー。Markdown 要素のカスタムコンポーネントオーバーライドを可能にします。                                                                                   | -                |
+| `MarkdownRenderer`       | カスタムコンポーネントを使用して Markdown コンテンツをレンダリングします。                                                                                                                             | -                |
 
 ### フック（クライアント側）
 
@@ -104,6 +112,8 @@ import "next-intlayer";
 | `useI18n`              | キーでネストされたコンテンツにアクセスするための翻訳関数 `t()` を提供するフック。i18next/next-intl のパターンに似ています。                 | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | ロケールにバインドされた `Intl` オブジェクトを提供するフック。現在のロケールを自動的に注入し、最適化されたキャッシュを使用します。          | -                                                                                                                       |
 | `useLoadDynamic`       | React Suspense を使用して動的な辞書を読み込むフック。キーと Promise を受け取り、結果をキャッシュします。                                    | -                                                                                                                       |
+| `useHTMLRenderer`      | 事前設定された HTML レンダラー関数を取得するフック。                                                                                        | -                                                                                                                       |
+| `useMarkdownRenderer`  | 事前設定された Markdown レンダラー関数を取得するフック。                                                                                    | -                                                                                                                       |
 
 ### 関数（サーバーサイド）
 

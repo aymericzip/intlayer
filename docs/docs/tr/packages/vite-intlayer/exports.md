@@ -15,6 +15,9 @@ slugs:
   - vite-intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-25
+    changes: "Dışa aktarma dizini güncellendi – proxy ve compiler artık intlayer() içinde birleştirildi; intlayerProxy, intlayerCompiler, intlayerMinify belgeleri eklendi"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Tüm dışa aktarımlar için birleşik dokümantasyon"
@@ -41,13 +44,17 @@ npm install vite-intlayer
 import "vite-intlayer";
 ```
 
-| Function             | Description                                                                           | Related Doc                                                                                                            |
-| -------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `intlayer`           | Intlayer'ı build sürecine entegre eden ana Vite eklentisi.                            | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md)           |
-| `intlayerPlugin`     | (**Kullanımdan Kaldırıldı**) `intlayer` için takma ad.                                | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md)           |
-| `intlayerProxy`      | Yerel tespiti ve yönlendirmeyi işlemek için geliştirme middleware eklentisi.          | -                                                                                                                      |
-| `intlayerMiddleware` | (**Kullanımdan Kaldırıldı**) `intlayerProxy` için takma ad.                           | -                                                                                                                      |
-| `intlayerPrune`      | Derleme sırasında kullanılmayan sözlükleri tree-shake yapmak ve budamak için eklenti. | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayerPrune.md) |
+| Function                   | Description                                                                                                                                                                      | Related Doc                                                                                                                  |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `intlayer`                 | Ana Vite eklentisi. Sözlükleri hazırlar, takma adları yapılandırır, geliştirme sunucusu izleyicilerini başlatır ve (v9'dan beri) proxy ve derleyiciyi paketler.                  | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerPlugin`           | (**Kullanımdan kaldırıldı**) `intlayer` için takma ad.                                                                                                                           | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md)                 |
+| `intLayerPlugin`           | (**Kullanımdan kaldırıldı**) `intlayer` için takma ad.                                                                                                                           | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerProxy`            | Yerel ayar yönlendirme ara yazılımı eklentisi (algılama, yönlendirme, yeniden yazma). v9'dan beri `intlayer()` içine dahil edilmiştir – yalnızca gerekirse ayrı olarak kaydedin. | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerMiddleware`       | (**Kullanımdan kaldırıldı**) `intlayerProxy` için takma ad.                                                                                                                      | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayerProxy.md)       |
+| `intLayerMiddlewarePlugin` | (**Kullanımdan kaldırıldı**) `intlayerProxy` için takma ad.                                                                                                                      | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerCompiler`         | Bileşenlerden satır içi içerik bildirimlerini çıkarır ve bunları sözlüklere yazar. v9'dan beri `intlayer()` içinde paketlenmiştir.                                               | [intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayerCompiler.md) |
+| `intlayerPrune`            | Üretim paketinden kullanılmayan sözlük alanlarını tree-shake yapar.                                                                                                              | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayerPrune.md)       |
+| `intlayerMinify`           | Derlenmiş sözlük JSON dosyalarını küçültür ve isteğe bağlı olarak alan adlarını kısaltır.                                                                                        | [intlayerMinify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayerMinify.md)     |
 
 ### Utilities
 

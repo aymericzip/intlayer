@@ -84,6 +84,8 @@ import "react-intlayer";
 
 | 함수                 | 설명                                                                                                                    | 관련 문서                                                                                       |
 | -------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `renderHTML`         | 컴포넌트 외부에서 HTML을 렌더링하기 위한 독립형 유틸리티입니다.                                                         | -                                                                                               |
+| `renderMarkdown`     | 컴포넌트 외부에서 Markdown을 렌더링하기 위한 독립형 유틸리티입니다.                                                     | -                                                                                               |
 | `t`                  | 클라이언트 측 번역 함수로, 제공된 다국어 콘텐츠의 번역을 반환합니다. 제공되지 않을 경우 컨텍스트의 locale을 사용합니다. | [번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md) |
 | `getDictionary`      | 사전 객체를 처리하고 지정된 로케일에 대한 콘텐츠를 반환합니다. `t()` 번역, 열거형, 마크다운, HTML 등을 처리합니다.      | -                                                                                               |
 | `getIntlayer`        | 생성된 선언에서 키로 사전을 검색하고 지정된 로케일에 대한 콘텐츠를 반환합니다. `getDictionary`의 최적화된 버전입니다.   | -                                                                                               |
@@ -108,6 +110,7 @@ import "react-intlayer/markdown";
 
 | `컴포넌트`         | 설명                                                                                                                  | 관련 문서                                                                                                                     |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `HTMLRenderer`     | 커스텀 컴포넌트를 사용하여 HTML 콘텐츠를 렌더링합니다.                                                                | -                                                                                                                             |
 | `MarkdownProvider` | 마크다운 렌더링 컨텍스트용 Provider. 마크다운 요소에 대한 커스텀 컴포넌트 오버라이드를 허용합니다.                    | -                                                                                                                             |
 | `MarkdownRenderer` | 커스텀 컴포넌트를 사용하여 마크다운 콘텐츠를 렌더링합니다. 모든 표준 마크다운 기능과 Intlayer 전용 구문을 지원합니다. | [MarkdownRenderer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/MarkdownRenderer.md) |
 
@@ -131,13 +134,15 @@ Import:
 import "react-intlayer/server";
 ```
 
-| Export                   | Type        | Description                                    |
-| ------------------------ | ----------- | ---------------------------------------------- |
-| `IntlayerServerProvider` | `Component` | 서버 측 렌더링을 위한 Provider.                |
-| `IntlayerServer`         | `Component` | Intlayer 콘텐츠의 서버 측 래퍼.                |
-| `t`                      | `Function`  | 번역 함수의 서버 측 버전.                      |
-| `useLocale`              | `Hook`      | 서버 측에서 로케일에 접근하기 위한 Hook.       |
-| `useIntlayer`            | `Hook`      | 서버 측 버전의 `useIntlayer`.                  |
-| `useDictionary`          | `Hook`      | 서버 측 버전의 `useDictionary`.                |
-| `useI18n`                | `Hook`      | 서버 측 버전의 `useI18n`.                      |
-| `locale`                 | `Function`  | 서버 측에서 로케일을 가져오거나 설정하는 함수. |
+| Export                   | Type                                                  | Description                                    |
+| ------------------------ | ----------------------------------------------------- | ---------------------------------------------- |
+| `IntlayerServerProvider` | `Component`                                           | 서버 측 렌더링을 위한 Provider.                |
+| `IntlayerServer`         | `Component`                                           | Intlayer 콘텐츠의 서버 측 래퍼.                |
+| `t`                      | `Function`                                            | 번역 함수의 서버 측 버전.                      |
+| `useLocale`              | `Hook`                                                | 서버 측에서 로케일에 접근하기 위한 Hook.       |
+| `useHTMLRenderer`        | 사전 구성된 HTML 렌더러 함수를 가져오는 훅입니다.     | -                                              |
+| `useMarkdownRenderer`    | 사전 구성된 Markdown 렌더러 함수를 가져오는 훅입니다. | -                                              |
+| `useIntlayer`            | `Hook`                                                | 서버 측 버전의 `useIntlayer`.                  |
+| `useDictionary`          | `Hook`                                                | 서버 측 버전의 `useDictionary`.                |
+| `useI18n`                | `Hook`                                                | 서버 측 버전의 `useI18n`.                      |
+| `locale`                 | `Function`                                            | 서버 측에서 로케일을 가져오거나 설정하는 함수. |

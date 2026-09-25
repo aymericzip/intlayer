@@ -15,6 +15,9 @@ slugs:
   - vite-intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-25
+    changes: "निर्यात अनुक्रमणिका अपडेट की गई - प्रॉक्सी और कंपाइलर अब intlayer() में बंडल किए गए हैं; intlayerProxy, intlayerCompiler, intlayerMinify दस्तावेज़ जोड़े गए"
   - version: 8.0.0
     date: 2026-01-21
     changes: "सभी एक्स्पोर्ट्स के लिए एकीकृत प्रलेखन"
@@ -41,13 +44,17 @@ npm install vite-intlayer
 import "vite-intlayer";
 ```
 
-| फ़ंक्शन              | विवरण                                                                         | संबंधित दस्तावेज                                                                                                       |
-| -------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `intlayer`           | मुख्य Vite प्लगइन जो Intlayer को बिल्ड प्रक्रिया में एकीकृत करता है।          | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayer.md)           |
-| `intlayerPlugin`     | (**अप्रचलित**) `intlayer` के लिए उपनाम।                                       | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayer.md)           |
-| `intlayerProxy`      | डेवलपमेंट मिडलवेयर प्लगइन जो locale detection और routing को संभालता है।       | -                                                                                                                      |
-| `intlayerMiddleware` | (**अप्रचलित**) `intlayerProxy` के लिए उपनाम।                                  | -                                                                                                                      |
-| `intlayerPrune`      | बिल्ड के दौरान अप्रयुक्त शब्दकोशों को tree-shake और prune करने के लिए प्लगइन। | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayerPrune.md) |
+| फ़ंक्शन                    | विवरण                                                                                                                                                       | संबंधित दस्तावेज                                                                                                             |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `intlayer`                 | मुख्य Vite प्लगइन। शब्दकोश तैयार करता है, उपनाम कॉन्फ़िगर करता है, देव-सर्वर वॉचर्स प्रारंभ करता है, और (v9 से) प्रॉक्सी और कंपाइलर को बंडल करता है।        | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerPlugin`           | (**पदावनत**) `intlayer` के लिए उपनाम।                                                                                                                       | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayer.md)                 |
+| `intLayerPlugin`           | (**पदावनत**) `intlayer` के लिए उपनाम।                                                                                                                       | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerProxy`            | लोकेल-रूटिंग मिडलवेयर प्लगइन (पहचान, पुनर्निर्देशन, पुनर्लेखन)। v9 से यह `intlayer()` के अंदर बंडल किया गया है - केवल आवश्यकता होने पर अलग से पंजीकृत करें। | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerMiddleware`       | (**पदावनत**) `intlayerProxy` के लिए उपनाम।                                                                                                                  | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayerProxy.md)       |
+| `intLayerMiddlewarePlugin` | (**पदावनत**) `intlayerProxy` के लिए उपनाम।                                                                                                                  | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerCompiler`         | घटकों से इनलाइन सामग्री घोषणाओं को निकालता है और उन्हें शब्दकोशों में लिखता है। v9 से यह `intlayer()` के अंदर बंडल किया गया है।                             | [intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayerCompiler.md) |
+| `intlayerPrune`            | उत्पादन बंडल से अप्रयुक्त शब्दकोश फ़ील्ड को ट्री-शेक करता है।                                                                                               | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayerPrune.md)       |
+| `intlayerMinify`           | संकलित शब्दकोश JSON फ़ाइलों को छोटा करता है और वैकल्पिक रूप से फ़ील्ड नामों को बदलता है।                                                                    | [intlayerMinify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/intlayerMinify.md)     |
 
 ### उपयोगिताएँ
 

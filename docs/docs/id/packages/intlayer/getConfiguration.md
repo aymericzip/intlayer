@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-25
 title: Dokumentasi Fungsi getConfiguration | intlayer
 description: Lihat cara menggunakan fungsi getConfiguration untuk paket intlayer
 keywords:
@@ -19,13 +19,23 @@ slugs:
   - intlayer
   - getConfiguration
 history:
+  - version: 9.5.9
+    date: 2026-09-25
+    changes: "Fungsi getConfiguration sudah usang, disarankan mengimpor langsung dari intlayer"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inisialisasi riwayat"
 author: aymericzip
 ---
 
-# Dokumentasi: Fungsi `getConfiguration` dalam `intlayer`
+# Dokumentasi: Fungsi `getConfiguration` dalam `intlayer` (Usang)
+
+> [!WARNING]
+> **Usang (Deprecated)**: Fungsi `getConfiguration` sudah usang. Cara baru yang disarankan adalah mengimpor `{ availableLocale, defaultLocales, internationalization, routing, ... }` (seperti `defaultLocale`, `locales`, `requiredLocales`, atau `editor`) langsung dari `'intlayer'`:
+>
+> ```typescript
+> import { defaultLocale, locales, requiredLocales, editor } from "intlayer";
+> ```
 
 ## Deskripsi
 
@@ -65,6 +75,13 @@ console.log(config);
 ```
 
 ### Mengambil `availableLocales` dan `defaultLocale`
+
+> [!TIP]
+> **Cara yang Disarankan**: Alih-alih mengekstrak locale dari `getConfiguration()`, impor langsung dari `'intlayer'`:
+>
+> ```typescript
+> import { defaultLocale, locales } from "intlayer";
+> ```
 
 Bagian `internationalization` dari konfigurasi menyediakan pengaturan terkait locale seperti `locales` (locale yang tersedia) dan `defaultLocale` (bahasa fallback).
 

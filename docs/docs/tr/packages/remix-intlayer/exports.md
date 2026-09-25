@@ -42,9 +42,10 @@ npm install remix-intlayer
 
 ### Bağlam Depolama
 
-| Dışa Aktarım | Tür                            | Açıklama                                                                                                            | İlgili Doküman                                                                                                        |
-| ------------ | ------------------------------ | ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `Intlayer`   | RequestContext Anahtarı / Depo | Remix 3 istek bağlamından (`context.get(Intlayer)`) Intlayer durumunu almak için kullanılan istek bağlamı anahtarı. | [Intlayer Bağlamı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/remix-intlayer/Intlayer.md) |
+| Dışa Aktarım                | Tür                            | Açıklama                                                                                                                             | İlgili Doküman                                                                                                        |
+| --------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `Intlayer`                  | RequestContext Anahtarı / Depo | Remix 3 istek bağlamından (`context.get(Intlayer)`) Intlayer durumunu almak için kullanılan istek bağlamı anahtarı.                  | [Intlayer Bağlamı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/remix-intlayer/Intlayer.md) |
+| `INTLAYER_CONTEXT_PROPERTY` | `string`                       | Doğrudan istek bağlamına yüklenen özellik adı (`'intlayer'`); `context.intlayer` ve `context.get(Intlayer)` üzerinden erişim sağlar. | -                                                                                                                     |
 
 ### Hook'lar
 
@@ -54,27 +55,105 @@ npm install remix-intlayer
 | `useDictionary` | Hook | Önceden içe aktarılmış bir sözlük nesnesinden geçerli istek yerel ayarına karşılık gelen içeriği döner.                              | [useDictionary Hook'u](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/remix-intlayer/useDictionary.md) |
 | `useLocale`     | Hook | Geçerli istek yerel ayarına, varsayılan yerel ayara ve projede yapılandırılmış kullanılabilir yerel ayarlar listesine erişim sağlar. | [useLocale Hook'u](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/remix-intlayer/useLocale.md)         |
 
-## Hızlı Başlangıç
+### Yardımcı Programlar
 
-### Yönlendiricide Ara Yazılımı Yapılandırma
+İçe Aktar:
 
-```ts fileName="src/server.ts"
-import { createRouter } from "remix/router";
-import { intlayer } from "remix-intlayer";
-
-export const router = createRouter({
-  middleware: [intlayer()],
-});
+```tsx
+import { createLocaleRouting, getIntlayerState } from "remix-intlayer";
 ```
 
-### Görünümlerde ve Bileşenlerde İçerik Kullanımı
+| İşlev                 | Açıklama                                                                                                                                                    | İlgili Doküman |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `createLocaleRouting` | İstek, yapılandırma ve seçeneklere göre yerel ayar yönlendirme kararlarını (`redirect`, `rewrite` veya `pass`) hesaplayan saf işlev.                        | -              |
+| `getIntlayerState`    | React bileşenlerinin dışındaki `AsyncLocalStorage` istek kapsamından geçerli `IntlayerState` (`locale`, `defaultLocale`, `availableLocales`) değerini okur. | -              |
 
-```ts fileName="src/views/home.ts"
-import { useIntlayer } from "remix-intlayer";
+### Formatlayıcılar (remix-intlayer/format)
 
-export const HomeView = () => {
-  const content = useIntlayer("home");
+İçe aktarma:
 
-  return `<h1>${content.title}</h1><p>${content.description}</p>`;
-};
+```tsx
+import {
+  useIntl,
+  useDate,
+  useNumber,
+  useCurrency,
+  usePercentage,
+  useRelativeTime,
+  useList,
+  useUnit,
+  useCompact,
+} from "remix-intlayer/format";
 ```
+
+| Hook              | Açıklama                                                                                                          |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `useIntl`         | Önbelleğe alma ve abonelik özellikleriyle istek veya istemci yerel ayarına bağlı bir Intl örneği döndürür.        |
+| `useDate`         | Geçerli yerel ayara önceden bağlanmış bir tarih biçimlendirme işlevi döndürür (`Intl.DateTimeFormat`).            |
+| `useNumber`       | Geçerli yerel ayara önceden bağlanmış bir sayı biçimlendirme işlevi döndürür (`Intl.NumberFormat`).               |
+| `useCurrency`     | Geçerli yerel ayara önceden bağlanmış bir para birimi biçimlendirme işlevi döndürür.                              |
+| `usePercentage`   | Geçerli yerel ayara önceden bağlanmış bir yüzde biçimlendirme işlevi döndürür.                                    |
+| `useRelativeTime` | Geçerli yerel ayara önceden bağlanmış bir göreli zaman biçimlendirme işlevi döndürür (`Intl.RelativeTimeFormat`). |
+| `useList`         | Geçerli yerel ayara önceden bağlanmış bir liste biçimlendirme işlevi döndürür (`Intl.ListFormat`).                |
+| `useUnit`         | Geçerli yerel ayara önceden bağlanmış bir birim biçimlendirme işlevi döndürür.                                    |
+| `useCompact`      | Geçerli yerel ayara önceden bağlanmış bir kompakt sayı biçimlendirme işlevi döndürür (ör. `1.5K`).                |
+
+### HTML Yardımcı Programları (remix-intlayer/html)
+
+İçe aktarma:
+
+```tsx
+import { renderHTML, useHTML, useHTMLRenderer } from "remix-intlayer/html";
+```
+
+| Dışa Aktarım      | Tür        | Açıklama                                                        |
+| ----------------- | ---------- | --------------------------------------------------------------- |
+| `renderHTML`      | `Function` | HTML düğümlerini oluşturmak için bağımsız yardımcı işlev.       |
+| `useHTML`         | `Hook`     | HTML sağlayıcı bağlamını ve yapılandırmasını alma hook'u.       |
+| `useHTMLRenderer` | `Hook`     | Önceden yapılandırılmış bir HTML oluşturucu işlevi alma hook'u. |
+
+### Markdown Yardımcı Programları (remix-intlayer/markdown)
+
+İçe aktarma:
+
+```tsx
+import {
+  compileMarkdown,
+  renderMarkdown,
+  parseMarkdown,
+  useMarkdown,
+  useMarkdownRenderer,
+} from "remix-intlayer/markdown";
+```
+
+| Dışa Aktarım          | Tür        | Açıklama                                                            |
+| --------------------- | ---------- | ------------------------------------------------------------------- |
+| `compileMarkdown`     | `Function` | Markdown dizelerini yapılandırılmış bir temsile derler.             |
+| `renderMarkdown`      | `Function` | Markdown içeriğini çıktı düğümlerine dönüştürür.                    |
+| `parseMarkdown`       | `Function` | Ham Markdown içeriğini bir AST'ye ayrıştırır.                       |
+| `useMarkdown`         | `Hook`     | Markdown sağlayıcı bağlamını alma hook'u.                           |
+| `useMarkdownRenderer` | `Hook`     | Önceden yapılandırılmış bir Markdown oluşturucu işlevi alma hook'u. |
+
+### Tipler
+
+İçe Aktar:
+
+```tsx
+import type {
+  IntlayerState,
+  IntlayerMiddlewareOptions,
+  LocaleRoutingOptions,
+  LocaleRoutingAction,
+  LocaleRoutingRequest,
+  UseLocaleResult,
+} from "remix-intlayer";
+```
+
+| Tip                         | Açıklama                                                                                                         |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `IntlayerState`             | Remix istek bağlamında saklanan `locale`, `defaultLocale` ve `availableLocales` değerlerini tutan durum nesnesi. |
+| `IntlayerMiddlewareOptions` | `intlayer()` ara yazılımına geçirilen yapılandırma seçenekleri.                                                  |
+| `LocaleRoutingOptions`      | Yerel ayar önekini, algılamayı ve yönlendirmeleri özelleştiren seçenekler.                                       |
+| `LocaleRoutingAction`       | Yönlendirme kararını temsil eden ayrılmış birleşim: `redirect`, `rewrite` veya `pass`.                           |
+| `LocaleRoutingRequest`      | `createLocaleRouting` için gereken en az istek gösterimi.                                                        |
+| `UseLocaleResult`           | `locale`, `defaultLocale` ve `availableLocales` içeren `useLocale()` dönüş türü.                                 |

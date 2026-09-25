@@ -59,6 +59,8 @@ import "react-intlayer";
 
 | Hook                   | Descrizione                                                                                                                                                   | Documentazione correlata                                                                                                |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `useHTMLRenderer`      | Hook per ottenere una funzione di rendering HTML preconfigurata.                                                                                              | -                                                                                                                       |
+| `useMarkdownRenderer`  | Hook per ottenere una funzione di rendering Markdown preconfigurata.                                                                                          | -                                                                                                                       |
 | `useIntlayer`          | Hook lato client che seleziona un dizionario tramite la sua chiave e ne restituisce il contenuto. Usa la locale dal contesto se non fornita.                  | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/useIntlayer.md)     |
 | `useDictionary`        | Hook che trasforma un oggetto dizionario e restituisce il contenuto per la locale corrente. Elabora le traduzioni `t()`, le enumerazioni, ecc.                | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/useDictionary.md) |
 | `useDictionaryAsync`   | Hook che gestisce dizionari asincroni. Accetta una mappa di dizionari basata su promise e la risolve per la locale corrente.                                  | -                                                                                                                       |
@@ -86,6 +88,8 @@ import "react-intlayer";
 | Funzione | Descrizione | Doc correlata |
 | `t` | Funzione di traduzione lato client che restituisce la traduzione del contenuto multilingue fornito. Usa la locale dal contesto se non fornita. | [traduzione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/translation.md) |
 | `getDictionary` | Elabora gli oggetti del dizionario e restituisce il contenuto per la locale specificata. Elabora le traduzioni `t()`, le enumerazioni, il markdown, l'HTML, ecc. | - |
+| `renderHTML` | Utility standalone per il rendering di HTML all'esterno dei componenti. | -
+| `renderMarkdown` | Utility standalone per il rendering di Markdown all'esterno dei componenti. | -
 | `getIntlayer` | Recupera un dizionario tramite la sua chiave dalla dichiarazione generata e restituisce il suo contenuto per la locale specificata. Versione ottimizzata di `getDictionary`. | - |
 | `setLocaleInStorage` | Imposta la locale nello storage (local storage o cookie in base alla configurazione). | - |
 | `setLocaleCookie` | Deprecato. Usa `setLocaleInStorage` al suo posto. Imposta la locale in un cookie. | - |
@@ -108,6 +112,7 @@ import "react-intlayer/markdown";
 
 | Componente         | Descrizione                                                                                                                                                        | Documentazione correlata                                                                                                      |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `HTMLRenderer`     | Renderizza contenuti HTML con componenti personalizzati.                                                                                                           | -                                                                                                                             |
 | `MarkdownProvider` | Provider per il contesto di rendering del Markdown. Consente override di componenti personalizzati per gli elementi Markdown.                                      | -                                                                                                                             |
 | `MarkdownRenderer` | Esegue il rendering di contenuti Markdown con componenti personalizzati. Supporta tutte le funzionalità standard del Markdown e la sintassi specifica di Intlayer. | [MarkdownRenderer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/MarkdownRenderer.md) |
 

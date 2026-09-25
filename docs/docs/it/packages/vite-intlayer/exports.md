@@ -15,6 +15,9 @@ slugs:
   - vite-intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-25
+    changes: "Indice degli export aggiornato – proxy e compiler ora integrati in intlayer(); aggiunta documentazione per intlayerProxy, intlayerCompiler, intlayerMinify"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Documentazione unificata per tutte le esportazioni"
@@ -41,13 +44,17 @@ Importazione:
 import "vite-intlayer";
 ```
 
-| Funzione             | Descrizione                                                                               | Doc correlata                                                                                                          |
-| -------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `intlayer`           | Plugin Vite principale che integra Intlayer nel processo di build.                        | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayer.md)           |
-| `intlayerPlugin`     | (**Deprecato**) Alias per `intlayer`.                                                     | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayer.md)           |
-| `intlayerProxy`      | Plugin middleware per lo sviluppo che gestisce il rilevamento della locale e il routing.  | -                                                                                                                      |
-| `intlayerMiddleware` | (**Deprecato**) Alias per `intlayerProxy`.                                                | -                                                                                                                      |
-| `intlayerPrune`      | Plugin per eseguire il tree-shaking e potare i dizionari non utilizzati durante la build. | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayerPrune.md) |
+| Funzione                   | Descrizione                                                                                                                                                              | Doc correlata                                                                                                                |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `intlayer`                 | Plugin Vite principale. Prepara i dizionari, configura gli alias, avvia i watcher del server di sviluppo e (da v9) integra proxy e compilatore.                          | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerPlugin`           | (**Deprecato**) Alias per `intlayer`.                                                                                                                                    | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayer.md)                 |
+| `intLayerPlugin`           | (**Deprecato**) Alias per `intlayer`.                                                                                                                                    | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerProxy`            | Plugin middleware di routing delle locale (rilevamento, reindirizzamento, riscrittura). Da v9 è integrato in `intlayer()` – registrare separatamente solo se necessario. | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerMiddleware`       | (**Deprecato**) Alias per `intlayerProxy`.                                                                                                                               | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayerProxy.md)       |
+| `intLayerMiddlewarePlugin` | (**Deprecato**) Alias per `intlayerProxy`.                                                                                                                               | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerCompiler`         | Estrae le dichiarazioni di contenuto inline dai componenti e le scrive nei dizionari. Da v9 è integrato in `intlayer()`.                                                 | [intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayerCompiler.md) |
+| `intlayerPrune`            | Esegue il tree-shaking dei campi di dizionario inutilizzati dal bundle di produzione.                                                                                    | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayerPrune.md)       |
+| `intlayerMinify`           | Minifica i file JSON dei dizionari compilati e opzionalmente abbrevia i nomi dei campi.                                                                                  | [intlayerMinify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/intlayerMinify.md)     |
 
 ### Utilities
 

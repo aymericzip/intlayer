@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-09-25
 title: getConfiguration फ़ंक्शन दस्तावेज़ीकरण | intlayer
 description: intlayer पैकेज के लिए getConfiguration फ़ंक्शन का उपयोग कैसे करें देखें
 keywords:
@@ -19,13 +19,23 @@ slugs:
   - intlayer
   - getConfiguration
 history:
+  - version: 9.5.9
+    date: 2026-09-25
+    changes: "getConfiguration को पदावनत (deprecate) किया गया, intlayer से सीधे आयात की अनुशंसा"
   - version: 5.5.10
     date: 2025-06-29
     changes: "प्रारंभिक इतिहास"
 author: aymericzip
 ---
 
-# दस्तावेज़ीकरण: `intlayer` में `getConfiguration` फ़ंक्शन
+# दस्तावेज़ीकरण: `intlayer` में `getConfiguration` फ़ंक्शन (पदावनत / Deprecated)
+
+> [!WARNING]
+> **पदावनत (Deprecated)**: `getConfiguration` फ़ंक्शन अब अप्रचलित है। नया अनुशंसित तरीका `'intlayer'` से सीधे `{ availableLocale, defaultLocales, internationalization, routing, ... }` (जैसे `defaultLocale`, `locales`, `requiredLocales`, या `editor`) को आयात करना है:
+>
+> ```typescript
+> import { defaultLocale, locales, requiredLocales, editor } from "intlayer";
+> ```
 
 ## विवरण
 
@@ -65,6 +75,13 @@ console.log(config);
 ```
 
 ### `availableLocales` और `defaultLocale` निकालना
+
+> [!TIP]
+> **अनुशंसित तरीका**: `getConfiguration()` से लोकेल्स निकालने के बजाय, उन्हें सीधे `'intlayer'` से आयात करें:
+>
+> ```typescript
+> import { defaultLocale, locales } from "intlayer";
+> ```
 
 कॉन्फ़िगरेशन का `internationalization` सेक्शन लोकल से संबंधित सेटिंग्स प्रदान करता है जैसे कि `locales` (उपलब्ध देशिकाएँ) और `defaultLocale` (डिफ़ॉल्ट भाषा)।
 

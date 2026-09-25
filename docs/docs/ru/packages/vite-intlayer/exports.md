@@ -15,6 +15,9 @@ slugs:
   - vite-intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-25
+    changes: "Обновлен индекс экспортов – прокси и компилятор теперь объединены в intlayer(); добавлена документация intlayerProxy, intlayerCompiler, intlayerMinify"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Унифицированная документация для всех экспортов"
@@ -41,13 +44,17 @@ npm install vite-intlayer
 import "vite-intlayer";
 ```
 
-| Функция              | Описание                                                                                 | Связанная документация                                                                                                 |
-| -------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `intlayer`           | Основной плагин Vite, который интегрирует Intlayer в процесс сборки.                     | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md)           |
-| `intlayerPlugin`     | (**Устаревший**) Псевдоним для `intlayer`.                                               | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md)           |
-| `intlayerProxy`      | Плагин middleware для разработки, отвечающий за определение локали и маршрутизацию.      | -                                                                                                                      |
-| `intlayerMiddleware` | (**Устаревший**) Псевдоним для `intlayerProxy`.                                          | -                                                                                                                      |
-| `intlayerPrune`      | Плагин для tree-shaking и удаления неиспользуемых словарей во время сборки (build time). | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayerPrune.md) |
+| Функция                    | Описание                                                                                                                                                                      | Связанная документация                                                                                                       |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `intlayer`                 | Основной плагин Vite. Подготавливает словари, настраивает псевдонимы, запускает наблюдатели сервера разработки и (с v9) объединяет прокси и компилятор.                       | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerPlugin`           | (**Устарело**) Псевдоним для `intlayer`.                                                                                                                                      | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md)                 |
+| `intLayerPlugin`           | (**Устарело**) Псевдоним для `intlayer`.                                                                                                                                      | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md)                 |
+| `intlayerProxy`            | Плагин промежуточного ПО для маршрутизации локалей (обнаружение, перенаправление, перезапись). С v9 встроен в `intlayer()` – регистрируйте отдельно только при необходимости. | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerMiddleware`       | (**Устарело**) Псевдоним для `intlayerProxy`.                                                                                                                                 | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayerProxy.md)       |
+| `intLayerMiddlewarePlugin` | (**Устарело**) Псевдоним для `intlayerProxy`.                                                                                                                                 | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayerProxy.md)       |
+| `intlayerCompiler`         | Извлекает встроенные объявления содержимого из компонентов и записывает их в словари. С v9 встроен в `intlayer()`.                                                            | [intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayerCompiler.md) |
+| `intlayerPrune`            | Удаляет неиспользуемые поля словарей из производственной сборки с помощью tree-shaking.                                                                                       | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayerPrune.md)       |
+| `intlayerMinify`           | Минифицирует скомпилированные JSON-файлы словарей и при необходимости сокращает имена полей.                                                                                  | [intlayerMinify](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayerMinify.md)     |
 
 ### Утилиты
 

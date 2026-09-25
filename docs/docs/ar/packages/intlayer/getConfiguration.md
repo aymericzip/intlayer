@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-09-25
 title: توثيق دالة getConfiguration | intlayer
 description: تعرف على كيفية استخدام دالة getConfiguration لحزمة intlayer
 keywords:
@@ -19,13 +19,23 @@ slugs:
   - intlayer
   - getConfiguration
 history:
+  - version: 9.5.9
+    date: 2026-09-25
+    changes: "إهمال getConfiguration لصالح الاستيراد المباشر من intlayer"
   - version: 5.5.10
     date: 2025-06-29
     changes: "بدء التاريخ"
 author: aymericzip
 ---
 
-# التوثيق: دالة `getConfiguration` في `intlayer`
+# التوثيق: دالة `getConfiguration` في `intlayer` (مهملة)
+
+> [!WARNING]
+> **مهملة (Deprecated)**: دالة `getConfiguration` مهملة. الطريقة الجديدة الموصى بها هي استيراد `{ availableLocale, defaultLocales, internationalization, routing, ... }` (مثل `defaultLocale` و `locales` و `requiredLocales` أو `editor`) مباشرة من `'intlayer'`:
+>
+> ```typescript
+> import { defaultLocale, locales, requiredLocales, editor } from "intlayer";
+> ```
 
 ## الوصف
 
@@ -65,6 +75,13 @@ console.log(config);
 ```
 
 ### استخراج `availableLocales` و `defaultLocale`
+
+> [!TIP]
+> **الطريقة الموصى بها**: بدلاً من استخراج اللغات من `getConfiguration()`، قم باستيرادها مباشرة من `'intlayer'`:
+>
+> ```typescript
+> import { defaultLocale, locales } from "intlayer";
+> ```
 
 يوفر قسم `internationalization` في التكوين إعدادات متعلقة باللغات مثل `locales` (اللغات المتاحة) و `defaultLocale` (اللغة الافتراضية).
 

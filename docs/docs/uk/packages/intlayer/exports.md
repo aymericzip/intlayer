@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-23
+    changes: "Документування getIntlayer, getIntlayerAsync, getDictionary та getDictionaryAsync"
   - version: 9.0.0
     date: 2026-06-23
     changes: "Додано утиліту comparePaths"
@@ -89,19 +92,21 @@ import "intlayer";
 import "intlayer";
 ```
 
-| Функція                  | Тип        | Опис                                                                                                     | Пов'язаний документ                                                                                      |
-| ------------------------ | ---------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `t` / `getTranslation`   | `Function` | Вибирає вміст залежно від поточної локалі.                                                               | [переклад](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/translation.md)      |
-| `enu` / `getEnumeration` | `Function` | Вибирає вміст залежно від кількості.                                                                     | [перерахування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md) |
-| `cond` / `getCondition`  | `Function` | Вибирає контент на основі булевої умови.                                                                 | [умова](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/condition.md)           |
-| `gender`                 | `Function` | Вибирає контент на основі гендера.                                                                       | [гендер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md)             |
-| `insert`                 | `Function` | Вставляє значення у рядок контенту.                                                                      | [вставлення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md)      |
-| `nest` / `getNesting`    | `Function` | Вкладає інший словник.                                                                                   | [вкладення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/nesting.md)         |
-| `md`                     | `Function` | Обробляє вміст у форматі Markdown.                                                                       | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md)         |
-| `html`                   | `Function` | Обробляє HTML-вміст.                                                                                     | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/html.md)                 |
-| `file`                   | `Function` | Обробляє вміст файлу.                                                                                    | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/file.md)                 |
-| `getDictionary`          | `Function` | Обробляє об'єкти, які виглядають як словники (ключ, вміст). Обробляє переклади `t()`, enumerations тощо. | -                                                                                                        |
-| `getIntlayer`            | `Function` | Базується на `getDictionary`, але вставляє оптимізовану версію словника зі згенерованої декларації.      | -                                                                                                        |
+| Функція                  | Тип        | Опис                                                                                                                 | Пов'язаний документ                                                                                                         |
+| ------------------------ | ---------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `t` / `getTranslation`   | `Function` | Вибирає вміст залежно від поточної локалі.                                                                           | [переклад](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/translation.md)                         |
+| `enu` / `getEnumeration` | `Function` | Вибирає вміст залежно від кількості.                                                                                 | [перерахування](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md)                    |
+| `cond` / `getCondition`  | `Function` | Вибирає контент на основі булевої умови.                                                                             | [умова](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/condition.md)                              |
+| `gender`                 | `Function` | Вибирає контент на основі гендера.                                                                                   | [гендер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md)                                |
+| `insert`                 | `Function` | Вставляє значення у рядок контенту.                                                                                  | [вставлення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md)                         |
+| `nest` / `getNesting`    | `Function` | Вкладає інший словник.                                                                                               | [вкладення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/nesting.md)                            |
+| `md`                     | `Function` | Обробляє вміст у форматі Markdown.                                                                                   | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md)                            |
+| `html`                   | `Function` | Обробляє HTML-вміст.                                                                                                 | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/html.md)                                    |
+| `file`                   | `Function` | Обробляє вміст файлу.                                                                                                | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/file.md)                                    |
+| `getDictionary`          | `Function` | Обробляє об'єкти, схожі на словники (ключ, вміст). Обробляє переклади `t()`, перерахування тощо.                     | [getDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getDictionary.md)           |
+| `getDictionaryAsync`     | `Function` | Завантажує окремий фрагмент словника для локалі з карти завантажувачів для кожної локалі, а потім обробляє його.     | [getDictionaryAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getDictionaryAsync.md) |
+| `getIntlayer`            | `Function` | Базується на `getDictionary`, але впроваджує оптимізовану версію словника зі згенерованого оголошення.               | [getIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayer.md)               |
+| `getIntlayerAsync`       | `Function` | Асинхронний аналог `getIntlayer`, завантажує лише запитану локаль. Для метаданих, завантажувачів, серверних функцій. | [getIntlayerAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayerAsync.md)     |
 
 ### Локалізаційні утиліти
 

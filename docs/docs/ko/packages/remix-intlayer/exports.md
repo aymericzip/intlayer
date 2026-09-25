@@ -42,9 +42,10 @@ npm install remix-intlayer
 
 ### 컨텍스트 스토리지
 
-| 내보내기   | 타입                         | 설명                                                                                                            | 관련 문서                                                                                                              |
-| ---------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `Intlayer` | RequestContext 키 / 스토리지 | Remix 3 요청 컨텍스트(`context.get(Intlayer)`)에서 Intlayer 상태를 가져오는 데 사용되는 요청 컨텍스트 키입니다. | [Intlayer 컨텍스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/remix-intlayer/Intlayer.md) |
+| 내보내기                    | 타입                         | 설명                                                                                                                                  | 관련 문서                                                                                                              |
+| --------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `Intlayer`                  | RequestContext 키 / 스토리지 | Remix 3 요청 컨텍스트(`context.get(Intlayer)`)에서 Intlayer 상태를 가져오는 데 사용되는 요청 컨텍스트 키입니다.                       | [Intlayer 컨텍스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/remix-intlayer/Intlayer.md) |
+| `INTLAYER_CONTEXT_PROPERTY` | `string`                     | 요청 컨텍스트에 직접 설치된 프로퍼티 이름(`'intlayer'`)으로, `context.intlayer` 및 `context.get(Intlayer)`를 통해 접근할 수 있습니다. | -                                                                                                                      |
 
 ### 훅
 
@@ -54,27 +55,105 @@ npm install remix-intlayer
 | `useDictionary` | 훅   | 사전에 가져온 사전 객체에서 현재 요청 로케일에 해당하는 콘텐츠를 반환합니다.                         | [useDictionary 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/remix-intlayer/useDictionary.md) |
 | `useLocale`     | 훅   | 현재 요청 로케일, 기본 로케일 및 프로젝트에서 사용 가능한 전체 로케일 목록에 대한 접근을 제공합니다. | [useLocale 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/remix-intlayer/useLocale.md)         |
 
-## 빠른 시작
+### 유틸리티
 
-### 라우터에서 미들웨어 구성
+가져오기:
 
-```ts fileName="src/server.ts"
-import { createRouter } from "remix/router";
-import { intlayer } from "remix-intlayer";
-
-export const router = createRouter({
-  middleware: [intlayer()],
-});
+```tsx
+import { createLocaleRouting, getIntlayerState } from "remix-intlayer";
 ```
 
-### 뷰 및 컴포넌트에서 콘텐츠 사용
+| 함수                  | 설명                                                                                                                                    | 관련 문서 |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `createLocaleRouting` | 요청, 구성 및 옵션이 주어졌을 때 로케일 라우팅 결정(`redirect`, `rewrite` 또는 `pass`)을 계산하는 순수 함수입니다.                      | -         |
+| `getIntlayerState`    | React 컴포넌트 외부에서 `AsyncLocalStorage` 요청 범위의 현재 `IntlayerState`(`locale`, `defaultLocale`, `availableLocales`)를 읽습니다. | -         |
 
-```ts fileName="src/views/home.ts"
-import { useIntlayer } from "remix-intlayer";
+### 포맷터 (remix-intlayer/format)
 
-export const HomeView = () => {
-  const content = useIntlayer("home");
+가져오기:
 
-  return `<h1>${content.title}</h1><p>${content.description}</p>`;
-};
+```tsx
+import {
+  useIntl,
+  useDate,
+  useNumber,
+  useCurrency,
+  usePercentage,
+  useRelativeTime,
+  useList,
+  useUnit,
+  useCompact,
+} from "remix-intlayer/format";
 ```
+
+| 훅                | 설명                                                                                        |
+| ----------------- | ------------------------------------------------------------------------------------------- |
+| `useIntl`         | 캐싱 및 구독 기능과 함께 요청 또는 클라이언트 로케일에 바인딩된 Intl 인스턴스를 반환합니다. |
+| `useDate`         | 현재 로케일에 미리 바인딩된 날짜 형식화 함수를 반환합니다 (`Intl.DateTimeFormat`).          |
+| `useNumber`       | 현재 로케일에 미리 바인딩된 숫자 형식화 함수를 반환합니다 (`Intl.NumberFormat`).            |
+| `useCurrency`     | 현재 로케일에 미리 바인딩된 통화 형식화 함수를 반환합니다.                                  |
+| `usePercentage`   | 현재 로케일에 미리 바인딩된 백분율 형식화 함수를 반환합니다.                                |
+| `useRelativeTime` | 현재 로케일에 미리 바인딩된 상대 시간 형식화 함수를 반환합니다 (`Intl.RelativeTimeFormat`). |
+| `useList`         | 현재 로케일에 미리 바인딩된 목록 형식화 함수를 반환합니다 (`Intl.ListFormat`).              |
+| `useUnit`         | 현재 로케일에 미리 바인딩된 단위 형식화 함수를 반환합니다.                                  |
+| `useCompact`      | 현재 로케일에 미리 바인딩된 컴팩트 숫자 형식화 함수를 반환합니다 (예: `1.5K`).              |
+
+### HTML 유틸리티 (remix-intlayer/html)
+
+가져오기:
+
+```tsx
+import { renderHTML, useHTML, useHTMLRenderer } from "remix-intlayer/html";
+```
+
+| 내보내기          | 타입       | 설명                                                         |
+| ----------------- | ---------- | ------------------------------------------------------------ |
+| `renderHTML`      | `Function` | HTML 노드를 렌더링하기 위한 독립 실행형 유틸리티 함수입니다. |
+| `useHTML`         | `Hook`     | HTML 프로바이더 컨텍스트 및 구성을 가져오는 훅입니다.        |
+| `useHTMLRenderer` | `Hook`     | 사전 구성된 HTML 렌더러 함수를 가져오는 훅입니다.            |
+
+### Markdown 유틸리티 (remix-intlayer/markdown)
+
+가져오기:
+
+```tsx
+import {
+  compileMarkdown,
+  renderMarkdown,
+  parseMarkdown,
+  useMarkdown,
+  useMarkdownRenderer,
+} from "remix-intlayer/markdown";
+```
+
+| 내보내기              | 타입       | 설명                                                  |
+| --------------------- | ---------- | ----------------------------------------------------- |
+| `compileMarkdown`     | `Function` | 마크다운 문자열을 구조화된 표현으로 컴파일합니다.     |
+| `renderMarkdown`      | `Function` | 마크다운 콘텐츠를 출력 노드로 렌더링합니다.           |
+| `parseMarkdown`       | `Function` | 원시 마크다운 콘텐츠를 AST로 구문 분석합니다.         |
+| `useMarkdown`         | `Hook`     | 마크다운 프로바이더 컨텍스트를 가져오는 훅입니다.     |
+| `useMarkdownRenderer` | `Hook`     | 사전 구성된 Markdown 렌더러 함수를 가져오는 훅입니다. |
+
+### 타입
+
+가져오기:
+
+```tsx
+import type {
+  IntlayerState,
+  IntlayerMiddlewareOptions,
+  LocaleRoutingOptions,
+  LocaleRoutingAction,
+  LocaleRoutingRequest,
+  UseLocaleResult,
+} from "remix-intlayer";
+```
+
+| 타입                        | 설명                                                                                                     |
+| --------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `IntlayerState`             | Remix 요청 컨텍스트에 저장된 `locale`, `defaultLocale` 및 `availableLocales`를 포함하는 상태 객체입니다. |
+| `IntlayerMiddlewareOptions` | `intlayer()` 미들웨어에 전달되는 구성 옵션입니다.                                                        |
+| `LocaleRoutingOptions`      | 로케일 접두사, 감지 및 리디렉션을 사용자 정의하는 옵션입니다.                                            |
+| `LocaleRoutingAction`       | 라우팅 결정을 나타내는 구별된 유니온: `redirect`, `rewrite` 또는 `pass`.                                 |
+| `LocaleRoutingRequest`      | `createLocaleRouting`에 필요한 최소한의 요청 표현입니다.                                                 |
+| `UseLocaleResult`           | `locale`, `defaultLocale` 및 `availableLocales`를 포함하는 `useLocale()`의 반환 타입입니다.              |

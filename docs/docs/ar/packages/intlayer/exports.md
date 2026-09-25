@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "توثيق getIntlayer و getIntlayerAsync و getDictionary و getDictionaryAsync"
   - version: 9.0.0
     date: 2026-06-23
     changes: "إضافة الأداة المساعدة comparePaths"
@@ -89,19 +92,21 @@ Import:
 import "intlayer";
 ```
 
-| الدالة                   | النوع      | الوصف                                                                                                             | الوثيقة ذات الصلة                                                                                  |
-| ------------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `t` / `getTranslation`   | `Function` | يختار المحتوى بناءً على الـ locale الحالي.                                                                        | [ترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md)   |
-| `enu` / `getEnumeration` | `Function` | يختار المحتوى بناءً على الكمية.                                                                                   | [التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md) |
-| `cond` / `getCondition`  | `Function` | يختار المحتوى بناءً على شرط منطقي.                                                                                | [الشرط](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/condition.md)     |
-| `gender`                 | `Function` | يختار المحتوى بناءً على الجنس.                                                                                    | [الجنس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)        |
-| `insert`                 | `Function` | يُدرج القيم داخل سلسلة المحتوى.                                                                                   | [الإدراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)   |
-| `nest` / `getNesting`    | `Function` | يُضمِّن قاموسًا آخر.                                                                                              | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nesting.md)     |
-| `md`                     | `Function` | يعالج محتوى Markdown.                                                                                             | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)   |
-| `html`                   | `Function` | يعالج محتوى HTML.                                                                                                 | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/html.md)           |
-| `file`                   | `Function` | يتعامل مع محتوى الملفات.                                                                                          | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file.md)           |
-| `getDictionary`          | `Function` | يعالج الكائنات التي تشبه القواميس (المفتاح، المحتوى). يعالج ترجمات `t()`، والتعدادات (enumerations)، وما إلى ذلك. | -                                                                                                  |
-| `getIntlayer`            | `Function` | مبني على `getDictionary`، لكنه يحقن نسخة محسنة من القاموس مأخوذة من التصريح المولد.                               | -                                                                                                  |
+| الدالة                   | النوع      | الوصف                                                                                                             | الوثيقة ذات الصلة                                                                                                           |
+| ------------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `t` / `getTranslation`   | `Function` | يختار المحتوى بناءً على الـ locale الحالي.                                                                        | [getTranslation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getTranslation.md)         |
+| `enu` / `getEnumeration` | `Function` | يختار المحتوى بناءً على الكمية.                                                                                   | [التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md)                          |
+| `cond` / `getCondition`  | `Function` | يختار المحتوى بناءً على شرط منطقي.                                                                                | [الشرط](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/condition.md)                              |
+| `gender`                 | `Function` | يختار المحتوى بناءً على الجنس.                                                                                    | [الجنس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md)                                 |
+| `insert`                 | `Function` | يُدرج القيم داخل سلسلة المحتوى.                                                                                   | [الإدراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)                            |
+| `nest` / `getNesting`    | `Function` | يُضمِّن قاموسًا آخر.                                                                                              | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nesting.md)                              |
+| `md`                     | `Function` | يعالج محتوى Markdown.                                                                                             | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)                            |
+| `html`                   | `Function` | يعالج محتوى HTML.                                                                                                 | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/html.md)                                    |
+| `file`                   | `Function` | يتعامل مع محتوى الملفات.                                                                                          | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file.md)                                    |
+| `getDictionary`          | `Function` | يعالج الكائنات التي تشبه القواميس (المفتاح، المحتوى). يعالج ترجمات `t()`، والتعدادات (enumerations)، وما إلى ذلك. | [getDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getDictionary.md)           |
+| `getDictionaryAsync`     | `Function` | يُحمّل جزء لغة واحدة من القاموس من خريطة تحميل لكل لغة، ثم يعالجه.                                                | [getDictionaryAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getDictionaryAsync.md) |
+| `getIntlayer`            | `Function` | مبني على `getDictionary`، لكنه يحقن نسخة محسنة من القاموس مأخوذة من التصريح المولد.                               | [getIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayer.md)               |
+| `getIntlayerAsync`       | `Function` | النظير غير المتزامن لـ `getIntlayer`، يُحمّل فقط اللغة المطلوبة. للبيانات الوصفية ومحملات الدوال الخادمة.         | [getIntlayerAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayerAsync.md)     |
 
 ### أدوات التوطين
 

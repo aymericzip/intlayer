@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-09-25
 title: Documentação da Função getConfiguration | intlayer
 description: Veja como usar a função getConfiguration para o pacote intlayer
 keywords:
@@ -19,13 +19,23 @@ slugs:
   - intlayer
   - getConfiguration
 history:
+  - version: 9.5.9
+    date: 2026-09-25
+    changes: "Descontinuação de getConfiguration em favor de importações diretas do intlayer"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Histórico inicial"
 author: aymericzip
 ---
 
-# Documentação: Função `getConfiguration` em `intlayer`
+# Documentação: Função `getConfiguration` em `intlayer` (Obsoleto)
+
+> [!WARNING]
+> **Obsoleto**: A função `getConfiguration` está obsoleta. A nova forma recomendada é importar `{ availableLocale, defaultLocales, internationalization, routing, ... }` (como `defaultLocale`, `locales`, `requiredLocales` ou `editor`) diretamente de `'intlayer'`:
+>
+> ```typescript
+> import { defaultLocale, locales, requiredLocales, editor } from "intlayer";
+> ```
 
 ## Descrição
 
@@ -65,6 +75,13 @@ console.log(config);
 ```
 
 ### Extraindo `availableLocales` e `defaultLocale`
+
+> [!TIP]
+> **Forma recomendada**: Em vez de extrair os locales de `getConfiguration()`, importe-os diretamente de `'intlayer'`:
+>
+> ```typescript
+> import { defaultLocale, locales } from "intlayer";
+> ```
 
 A seção `internationalization` da configuração fornece definições relacionadas a locais, como `locales` (locais disponíveis) e `defaultLocale` (idioma padrão).
 

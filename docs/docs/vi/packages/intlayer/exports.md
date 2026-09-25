@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-23
+    changes: "Tài liệu cho getIntlayer, getIntlayerAsync, getDictionary và getDictionaryAsync"
   - version: 9.0.0
     date: 2026-06-23
     changes: "Thêm tiện ích comparePaths"
@@ -89,19 +92,21 @@ Nhập:
 import "intlayer";
 ```
 
-| Hàm                      | Kiểu       | Mô tả                                                                                                   | Tài liệu liên quan                                                                                 |
-| ------------------------ | ---------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `t` / `getTranslation`   | `Function` | Chọn nội dung dựa trên locale hiện tại.                                                                 | [dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation.md)    |
-| `enu` / `getEnumeration` | `Function` | Chọn nội dung dựa trên số lượng.                                                                        | [liệt kê](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md) |
-| `cond` / `getCondition`  | `Function` | Chọn nội dung dựa trên điều kiện boolean.                                                               | [điều kiện](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/condition.md) |
-| `gender`                 | `Function` | Chọn nội dung dựa trên giới tính.                                                                       | [giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md)    |
-| `insert`                 | `Function` | Chèn giá trị vào chuỗi nội dung.                                                                        | [chèn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md)      |
-| `nest` / `getNesting`    | `Function` | Lồng một dictionary khác.                                                                               | [lồng nhau](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/nesting.md)   |
-| `md`                     | `Function` | Xử lý nội dung Markdown.                                                                                | [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md)   |
-| `html`                   | `Function` | Xử lý nội dung HTML.                                                                                    | [HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/html.md)           |
-| `file`                   | `Function` | Xử lý nội dung tệp.                                                                                     | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/file.md)           |
-| `getDictionary`          | `Function` | Xử lý các objects có dạng dictionary (key, content). Nó xử lý các dịch `t()`, enumerations, v.v.        | -                                                                                                  |
-| `getIntlayer`            | `Function` | Dựa trên `getDictionary`, nhưng chèn một phiên bản dictionary được tối ưu hóa từ generated declaration. | -                                                                                                  |
+| Hàm                      | Kiểu       | Mô tả                                                                                                                | Tài liệu liên quan                                                                                                          |
+| ------------------------ | ---------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `t` / `getTranslation`   | `Function` | Chọn nội dung dựa trên locale hiện tại.                                                                              | [dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation.md)                             |
+| `enu` / `getEnumeration` | `Function` | Chọn nội dung dựa trên số lượng.                                                                                     | [liệt kê](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md)                          |
+| `cond` / `getCondition`  | `Function` | Chọn nội dung dựa trên điều kiện boolean.                                                                            | [điều kiện](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/condition.md)                          |
+| `gender`                 | `Function` | Chọn nội dung dựa trên giới tính.                                                                                    | [giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md)                             |
+| `insert`                 | `Function` | Chèn giá trị vào chuỗi nội dung.                                                                                     | [chèn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md)                               |
+| `nest` / `getNesting`    | `Function` | Lồng một dictionary khác.                                                                                            | [lồng nhau](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/nesting.md)                            |
+| `md`                     | `Function` | Xử lý nội dung Markdown.                                                                                             | [Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md)                            |
+| `html`                   | `Function` | Xử lý nội dung HTML.                                                                                                 | [HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/html.md)                                    |
+| `file`                   | `Function` | Xử lý nội dung tệp.                                                                                                  | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/file.md)                                    |
+| `getDictionary`          | `Function` | Xử lý các đối tượng giống từ điển (khóa, nội dung). Xử lý bản dịch `t()`, phép liệt kê, v.v.                         | [getDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getDictionary.md)           |
+| `getDictionaryAsync`     | `Function` | Tải một đoạn ngôn ngữ đơn lẻ của từ điển từ bản đồ trình tải theo ngôn ngữ, sau đó xử lý.                            | [getDictionaryAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getDictionaryAsync.md) |
+| `getIntlayer`            | `Function` | Dựa trên `getDictionary`, nhưng đưa vào phiên bản từ điển được tối ưu hóa từ khai báo đã tạo.                        | [getIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md)               |
+| `getIntlayerAsync`       | `Function` | Bản sao bất đồng bộ của `getIntlayer`, chỉ tải ngôn ngữ được yêu cầu. Dành cho siêu dữ liệu, trình tải, hàm máy chủ. | [getIntlayerAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayerAsync.md)     |
 
 ### Tiện ích Bản địa hóa
 

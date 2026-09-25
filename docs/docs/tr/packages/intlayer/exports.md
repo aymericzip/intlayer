@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-23
+    changes: "getIntlayer, getIntlayerAsync, getDictionary ve getDictionaryAsync belgelendi"
   - version: 9.0.0
     date: 2026-06-23
     changes: "comparePaths yardımcı programı eklendi"
@@ -89,19 +92,21 @@ import "intlayer";
 import "intlayer";
 ```
 
-| Fonksiyon                | Tür        | Açıklama                                                                                                      | İlgili Doküman                                                                                         |
-| ------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `t` / `getTranslation`   | `Function` | Mevcut locale'a göre içeriği seçer.                                                                           | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/translation.md) |
-| `enu` / `getEnumeration` | `Function` | Bir miktara göre içeriği seçer.                                                                               | [enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md) |
-| `cond` / `getCondition`  | `Function` | Bir boolean koşula göre içeriği seçer.                                                                        | [condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/condition.md)     |
-| `gender`                 | `Function` | Cinsiyete göre içeriği seçer.                                                                                 | [gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md)           |
-| `insert`                 | `Function` | İçerik dizesine değerler ekler.                                                                               | [insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md)     |
-| `nest` / `getNesting`    | `Function` | Başka bir sözlüğü iç içe yerleştirir.                                                                         | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/nesting.md)         |
-| `md`                     | `Function` | Markdown içeriğini işler.                                                                                     | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)       |
-| `html`                   | `Function` | HTML içeriğini işler.                                                                                         | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/html.md)               |
-| `file`                   | `Function` | Dosya içeriğini işler.                                                                                        | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/file.md)               |
-| `getDictionary`          | `Function` | Anahtar, içerik gibi sözlüklere benzeyen nesneleri işler. `t()` çevirilerini, numaralandırmaları, vb. işler.  | -                                                                                                      |
-| `getIntlayer`            | `Function` | `getDictionary`'e dayanır, ancak oluşturulan bildirimden sözlüğün optimize edilmiş bir sürümünü enjekte eder. | -                                                                                                      |
+| Fonksiyon                | Tür        | Açıklama                                                                                                                          | İlgili Doküman                                                                                                              |
+| ------------------------ | ---------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `t` / `getTranslation`   | `Function` | Mevcut locale'a göre içeriği seçer.                                                                                               | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/translation.md)                      |
+| `enu` / `getEnumeration` | `Function` | Bir miktara göre içeriği seçer.                                                                                                   | [enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md)                      |
+| `cond` / `getCondition`  | `Function` | Bir boolean koşula göre içeriği seçer.                                                                                            | [condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/condition.md)                          |
+| `gender`                 | `Function` | Cinsiyete göre içeriği seçer.                                                                                                     | [gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md)                                |
+| `insert`                 | `Function` | İçerik dizesine değerler ekler.                                                                                                   | [insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md)                          |
+| `nest` / `getNesting`    | `Function` | Başka bir sözlüğü iç içe yerleştirir.                                                                                             | [nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/nesting.md)                              |
+| `md`                     | `Function` | Markdown içeriğini işler.                                                                                                         | [markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md)                            |
+| `html`                   | `Function` | HTML içeriğini işler.                                                                                                             | [html](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/html.md)                                    |
+| `file`                   | `Function` | Dosya içeriğini işler.                                                                                                            | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/file.md)                                    |
+| `getDictionary`          | `Function` | Sözlük benzeri nesneleri işler (anahtar, içerik). `t()` çevirilerini, numaralandırmaları vb. işler.                               | [getDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getDictionary.md)           |
+| `getDictionaryAsync`     | `Function` | Yerel ayar bazlı yükleyici eşlemesinden bir sözlüğün tek bir yerel ayar parçasını yükler ve ardından işler.                       | [getDictionaryAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getDictionaryAsync.md) |
+| `getIntlayer`            | `Function` | `getDictionary` tabanlıdır, ancak oluşturulan bildirimden sözlüğün optimize edilmiş bir sürümünü enjekte eder.                    | [getIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getIntlayer.md)               |
+| `getIntlayerAsync`       | `Function` | `getIntlayer`'ın asenkron karşılığıdır, yalnızca istenen yerel ayarı yükler. Meta veriler, yükleyiciler ve sunucu işlevleri için. | [getIntlayerAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getIntlayerAsync.md)     |
 
 ### Yerelleştirme Yardımcıları
 

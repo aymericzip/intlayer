@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Next.js >= 9.4.0 아키텍처로 업데이트"
   - version: 10.0.0
     date: 2026-06-23
     changes: "usePathname 유틸리티 추가"
@@ -75,11 +78,16 @@ import "next-intlayer";
 import "next-intlayer/server";
 ```
 
-| 컴포넌트                 | 설명                                                                                                           | 관련 문서 |
-| ------------------------ | -------------------------------------------------------------------------------------------------------------- | --------- |
-| `IntlayerClientProvider` | Next.js App Router의 클라이언트 측 컴포넌트를 위한 Provider. react-intlayer의 `IntlayerProvider`를 래핑합니다. | -         |
-| `IntlayerServerProvider` | Next.js(App Router)의 서버 측 컴포넌트를 위한 Provider. 서버에서 locale 컨텍스트를 제공합니다.                 | -         |
-| `IntlayerServer`         | App Router에서 Intlayer 콘텐츠를 위한 서버 사이드 래퍼. 서버 컴포넌트에서 적절한 locale 처리를 보장합니다.     | -         |
+| 컴포넌트                 | 설명                                                                                                                                                                                                      | 관련 문서 |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `IntlayerProvider`       | Next.js App Router용 통합 프로바이더입니다. 로케일 레이아웃에 한 번 마운트되어 요청 범위의 서버 컨텍스트를 초기화_하고_ 클라이언트 프로바이더를 마운트합니다. (Intlayer >= 9.4)                           | -         |
+| `IntlayerClientProvider` | **더 이상 사용되지 않음** — `next-intlayer/server`의 `IntlayerProvider`를 사용하세요. Next.js App Router의 클라이언트 측 컴포넌트용 프로바이더입니다. `react-intlayer`의 `IntlayerProvider`를 래핑합니다. | -         |
+| `IntlayerServerProvider` | **더 이상 사용되지 않음** — `next-intlayer/server`의 `IntlayerProvider`를 사용하세요. 서버에서 로케일 컨텍스트를 제공합니다. (Intlayer < 9.4)                                                             | -         |
+| `IntlayerServer`         | App Router에서 Intlayer 콘텐츠를 위한 서버 사이드 래퍼. 서버 컴포넌트에서 적절한 locale 처리를 보장합니다.                                                                                                | -         |
+| `HTMLProvider`           | HTML 관련 다국어 설정을 위한 프로바이더입니다. HTML 태그에 대한 컴포넌트 재정의를 허용합니다.                                                                                                             | -         |
+| `HTMLRenderer`           | 커스텀 컴포넌트를 사용하여 HTML 콘텐츠를 렌더링합니다.                                                                                                                                                    | -         |
+| `MarkdownProvider`       | 마크다운 렌더링 컨텍스트를 위한 프로바이더입니다. 마크다운 요소에 대한 커스텀 컴포넌트 재정의를 허용합니다.                                                                                               | -         |
+| `MarkdownRenderer`       | 커스텀 컴포넌트를 사용하여 마크다운 콘텐츠를 렌더링합니다.                                                                                                                                                | -         |
 
 ### 훅 (클라이언트 측)
 
@@ -104,6 +112,8 @@ import "next-intlayer";
 | `useI18n`              | 키로 중첩된 콘텐츠에 접근하기 위한 번역 함수 `t()`를 제공하는 훅입니다. i18next/next-intl 패턴을 모방합니다.                                 | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | 로케일에 바인딩된 `Intl` 객체를 제공하는 훅. 현재 로케일을 자동으로 주입하고 최적화된 캐싱을 사용합니다.                                     | -                                                                                                                       |
 | `useLoadDynamic`       | React Suspense를 사용해 동적 사전을 로드하는 훅. 키와 프라미스(promise)를 받아 결과를 캐시합니다.                                            | -                                                                                                                       |
+| `useHTMLRenderer`      | 사전 구성된 HTML 렌더러 함수를 가져오는 훅입니다.                                                                                            | -                                                                                                                       |
+| `useMarkdownRenderer`  | 사전 구성된 Markdown 렌더러 함수를 가져오는 훅입니다.                                                                                        | -                                                                                                                       |
 
 ### 함수들 (서버 사이드)
 

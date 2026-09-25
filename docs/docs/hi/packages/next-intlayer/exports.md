@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-22
+    changes: "Next.js >= 9.4.0 आर्किटेक्चर में अपडेट"
   - version: 10.0.0
     date: 2026-06-23
     changes: "usePathname उपयोगिता जोड़ी गई"
@@ -75,11 +78,16 @@ import "next-intlayer";
 import "next-intlayer/server";
 ```
 
-| कंपोनेंट                 | विवरण                                                                                                                    | संबंधित डॉक्स |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------- |
-| `IntlayerClientProvider` | Next.js App Router में क्लाइंट-साइड कॉम्पोनेंट्स के लिए Provider। `react-intlayer` के `IntlayerProvider` को रैप करता है। | -             |
-| `IntlayerServerProvider` | Next.js (App Router) में सर्वर-साइड कॉम्पोनेंट्स के लिए Provider। सर्वर पर locale संदर्भ प्रदान करता है।                 | -             |
-| `IntlayerServer`         | App Router में Intlayer कंटेंट के लिए सर्वर-साइड रैपर। Server Components में सही locale हैंडलिंग सुनिश्चित करता है।      | -             |
+| कंपोनेंट                 | विवरण                                                                                                                                                                                                | संबंधित डॉक्स |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `IntlayerProvider`       | Next.js App Router के लिए एकीकृत प्रदाता। लोकेल लेआउट में एक बार माउंट किया गया, यह अनुरोध-स्कॉप्ड सर्वर संदर्भ को इनिशियलाइज़ करता है _और_ क्लाइंट प्रदाता को माउंट करता है। (Intlayer >= 9.4)      | -             |
+| `IntlayerClientProvider` | **पदावनत (Deprecated)** — `next-intlayer/server` से `IntlayerProvider` का उपयोग करें। Next.js App Router में क्लाइंट-साइड घटकों के लिए प्रदाता। `react-intlayer` से `IntlayerProvider` को लपेटता है। | -             |
+| `IntlayerServerProvider` | **पदावनत (Deprecated)** — `next-intlayer/server` से `IntlayerProvider` का उपयोग करें। सर्वर पर लोकेल संदर्भ प्रदान करता है। (Intlayer < 9.4)                                                         | -             |
+| `IntlayerServer`         | App Router में Intlayer कंटेंट के लिए सर्वर-साइड रैपर। Server Components में सही locale हैंडलिंग सुनिश्चित करता है।                                                                                  | -             |
+| `HTMLProvider`           | HTML-संबंधित अंतर्राष्ट्रीयकरण सेटिंग्स के लिए प्रदाता। HTML टैग के लिए घटक ओवरराइड की अनुमति देता है।                                                                                               | -             |
+| `HTMLRenderer`           | कस्टम घटकों के साथ HTML सामग्री को रेंडर करता है।                                                                                                                                                    | -             |
+| `MarkdownProvider`       | मार्कडाउन रेंडरिंग संदर्भ के लिए प्रदाता। मार्कडाउन तत्वों के लिए कस्टम घटक ओवरराइड की अनुमति देता है।                                                                                               | -             |
+| `MarkdownRenderer`       | कस्टम घटकों के साथ मार्कडाउन सामग्री को रेंडर करता है।                                                                                                                                               | -             |
 
 ### हुक्स (क्लाइंट-साइड)
 
@@ -104,6 +112,8 @@ import "next-intlayer";
 | `useI18n`              | एक hook जो nested सामग्री को key से एक्सेस करने के लिए अनुवाद फ़ंक्शन `t()` प्रदान करता है। यह i18next/next-intl पैटर्न की नकल करता है।                       | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Locale-बाउंड `Intl` ऑब्जेक्ट प्रदान करने वाला Hook। स्वचालित रूप से वर्तमान locale इंजेक्ट करता है और अनुकूलित कैशिंग का उपयोग करता है।                       | -                                                                                                                       |
 | `useLoadDynamic`       | React Suspense का उपयोग करके डायनामिक डिक्शनरी लोड करने वाला Hook। एक key और promise स्वीकार करता है, परिणामों को कैश करता है।                                | -                                                                                                                       |
+| `useHTMLRenderer`      | पूर्व-कॉन्फ़िगर किए गए HTML रेंडरर फ़ंक्शन को प्राप्त करने के लिए हुक।                                                                                        | -                                                                                                                       |
+| `useMarkdownRenderer`  | पूर्व-कॉन्फ़िगर किए गए Markdown रेंडरर फ़ंक्शन को प्राप्त करने के लिए हुक।                                                                                    | -                                                                                                                       |
 
 ### फ़ंक्शन्स (सर्वर-साइड)
 

@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.4.0
+    date: 2026-08-23
+    changes: "getIntlayer, getIntlayerAsync, getDictionary और getDictionaryAsync का दस्तावेज़ीकरण"
   - version: 9.0.0
     date: 2026-06-23
     changes: "comparePaths उपयोगिता जोड़ी गई"
@@ -89,19 +92,21 @@ Import:
 import "intlayer";
 ```
 
-| फ़ंक्शन                  | प्रकार     | विवरण                                                                                                                                | संबंधित डॉक                                                                                            |
-| ------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `t` / `getTranslation`   | `Function` | वर्तमान locale के आधार पर सामग्री का चयन करता है।                                                                                    | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md) |
-| `enu` / `getEnumeration` | `Function` | मात्रा के आधार पर सामग्री का चयन करता है।                                                                                            | [enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md) |
-| `cond` / `getCondition`  | `Function` | बूलियन शर्त के आधार पर सामग्री चुनता है।                                                                                             | [शर्त](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/condition.md)          |
-| `gender`                 | `Function` | लिंग के आधार पर सामग्री चुनता है।                                                                                                    | [लिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)             |
-| `insert`                 | `Function` | कंटेंट स्ट्रिंग में मान सम्मिलित करता है।                                                                                            | [सम्मिलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)       |
-| `nest` / `getNesting`    | `Function` | एक अन्य शब्दकोश को नेस्ट करता है।                                                                                                    | [नेस्टिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nesting.md)        |
-| `md`                     | `Function` | Markdown सामग्री को प्रोसेस करता है।                                                                                                 | [मार्कडाउन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)      |
-| `html`                   | `Function` | HTML सामग्री को प्रोसेस करता है।                                                                                                     | [HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/html.md)               |
-| `file`                   | `Function` | फ़ाइल सामग्री को संभालता है।                                                                                                         | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file.md)               |
-| `getDictionary`          | `Function` | ऐसे ऑब्जेक्ट्स को प्रोसेस करता है जो शब्दकोश (key, content) जैसा दिखते हैं। यह `t()` अनुवादों, enumerations, आदि को प्रोसेस करता है। | -                                                                                                      |
-| `getIntlayer`            | `Function` | `getDictionary` पर आधारित है, लेकिन जनरेट की गई declaration से शब्दकोश का एक optimized संस्करण इंजेक्ट करता है।                      | -                                                                                                      |
+| फ़ंक्शन                  | प्रकार     | विवरण                                                                                                         | संबंधित डॉक                                                                                                                 |
+| ------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `t` / `getTranslation`   | `Function` | वर्तमान locale के आधार पर सामग्री का चयन करता है।                                                             | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md)                      |
+| `enu` / `getEnumeration` | `Function` | मात्रा के आधार पर सामग्री का चयन करता है।                                                                     | [enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md)                      |
+| `cond` / `getCondition`  | `Function` | बूलियन शर्त के आधार पर सामग्री चुनता है।                                                                      | [शर्त](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/condition.md)                               |
+| `gender`                 | `Function` | लिंग के आधार पर सामग्री चुनता है।                                                                             | [लिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md)                                  |
+| `insert`                 | `Function` | कंटेंट स्ट्रिंग में मान सम्मिलित करता है।                                                                     | [सम्मिलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)                            |
+| `nest` / `getNesting`    | `Function` | एक अन्य शब्दकोश को नेस्ट करता है।                                                                             | [नेस्टिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nesting.md)                             |
+| `md`                     | `Function` | Markdown सामग्री को प्रोसेस करता है।                                                                          | [मार्कडाउन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)                           |
+| `html`                   | `Function` | HTML सामग्री को प्रोसेस करता है।                                                                              | [HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/html.md)                                    |
+| `file`                   | `Function` | फ़ाइल सामग्री को संभालता है।                                                                                  | [file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file.md)                                    |
+| `getDictionary`          | `Function` | शब्दकोश जैसी वस्तुओं (कुंजी, सामग्री) को संसाधित करता है। यह `t()` अनुवाद, गणना आदि को संसाधित करता है।       | [getDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getDictionary.md)           |
+| `getDictionaryAsync`     | `Function` | प्रति-लोकेल लोडर मैप से शब्दकोश के एकल लोकेल भाग को लोड करता है, फिर इसे संसाधित करता है।                     | [getDictionaryAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getDictionaryAsync.md) |
+| `getIntlayer`            | `Function` | `getDictionary` पर आधारित है, लेकिन उत्पन्न घोषणा से शब्दकोश का अनुकूलित संस्करण इंजेक्ट करता है।             | [getIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayer.md)               |
+| `getIntlayerAsync`       | `Function` | `getIntlayer` का अतुल्यकालिक समकक्ष, केवल अनुरोधित लोकेल लोड करता है। मेटाडेटा, लोडर्स, सर्वर फ़ंक्शन के लिए। | [getIntlayerAsync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayerAsync.md)     |
 
 ### स्थानीयकरण उपयोगिताएँ
 
