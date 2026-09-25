@@ -22,6 +22,7 @@ vi.mock('react-intlayer', () => ({
 vi.mock('@intlayer/core/localization', () => ({
   getLocalizedUrl: (url: string, locale: string) =>
     locale === 'en' ? url : `/${locale}${url}`,
+  getPathWithoutLocale: (path: string) => path,
 }));
 
 vi.mock('@intlayer/design-system/accordion', () => ({
@@ -126,6 +127,30 @@ describe('NavAccordion and NavSectionItem', () => {
     expect(lastAccordionProps).toBeTruthy();
 
     lastAccordionProps.onToggle(true);
+
+    expect(mockNavigate).not.toHaveBeenCalled();
+  });
+
+  it('closes without navigating when the drawer is already open and clicked', () => {
+    renderToStaticMarkup(
+      <NavAccordion
+        label="cli-open"
+        title="CLI Open"
+        to="/doc/concept/cli"
+        isActive={false}
+        isSelfActive={false}
+        isSubSectionActive={false}
+        defaultIsOpen={true}
+      >
+        <div>Content</div>
+      </NavAccordion>
+    );
+
+    expect(lastAccordionProps).toBeTruthy();
+    expect(lastAccordionProps.isOpen).toBe(true);
+
+    // Clicking when already open should close and not navigate
+    lastAccordionProps.onToggle(false);
 
     expect(mockNavigate).not.toHaveBeenCalled();
   });

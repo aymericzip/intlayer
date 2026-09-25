@@ -152,7 +152,9 @@ export const NavAccordion: FC<NavAccordionProps> = ({
   }, [isActive, setIsOpen]);
 
   const handleToggle = (nextIsOpen: boolean) => {
-    if (to && !isSelfActive) {
+    if (isOpen || !nextIsOpen) {
+      setIsOpen(false);
+    } else if (to && !isSelfActive) {
       navigate(to);
       setIsOpen(true);
     } else {
