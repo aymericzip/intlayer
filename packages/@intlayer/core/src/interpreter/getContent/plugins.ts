@@ -28,7 +28,11 @@ import { type GetNestingResult, getNesting } from '../getNesting';
 import { getNesting as getNestingOptimized } from '../getNesting.optimized';
 import { getPlural } from '../getPlural';
 import { getSelect } from '../getSelect';
-import { getTranslation } from '../getTranslation';
+import {
+  getTranslation,
+  getTranslationLocaleCandidates,
+  isMergeableTranslation,
+} from '../getTranslation';
 import {
   isInterpolableWrapperNode,
   transformInterpolableNode,
@@ -133,22 +137,30 @@ export const translationPlugin = (
         canHandle: (node) =>
           typeof node === 'object' && node?.nodeType === NodeTypes.TRANSLATION,
         transform: (node: TranslationContent, props, deepTransformNode) => {
-          const original = node[NodeTypes.TRANSLATION] ?? {};
+          const original: Record<string, any> =
+            node[NodeTypes.TRANSLATION] ?? {};
           const result: Record<string, any> = {};
 
-          for (const key in original) {
-            const childProps = {
+          // Only the locales `getTranslation` reads are transformed: the other
+          // locales of the node would never be displayed.
+          for (const key of getTranslationLocaleCandidates(locale, fallback)) {
+            const child = original[key];
+
+            if (child === undefined) continue;
+
+            const isFirstMatch = Object.keys(result).length === 0;
+
+            result[key] = deepTransformNode(child, {
               ...props,
-              children: original[key as keyof typeof original],
+              children: child,
               keyPath: [
                 ...props.keyPath,
                 { type: NodeTypes.TRANSLATION, key } as KeyPath,
               ],
-            };
-            result[key] = deepTransformNode(
-              original[key as keyof typeof original],
-              childProps
-            );
+            });
+
+            // Lower-priority locales only complement a plain object
+            if (isFirstMatch && !isMergeableTranslation(result[key])) break;
           }
 
           return getTranslation(result, locale, fallback);
