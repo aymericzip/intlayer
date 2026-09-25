@@ -78,8 +78,13 @@ export const getTranslation = <const Content = string>(
   locale: LocalesValues,
   fallback?: LocalesValues
 ): Content => {
-  const get = (loc: string): Content | undefined =>
-    languageContent[loc as keyof typeof languageContent];
+  const get = (localeEl: string): Content | undefined =>
+    languageContent[localeEl as keyof typeof languageContent];
+
+  // Fast path for the common case: a string for the exact locale always wins,
+  // so the candidate chain below would return it anyway.
+  const exactMatch = get(locale);
+  if (typeof exactMatch === 'string') return exactMatch;
 
   // Build priority-ordered locale candidates (most specific first), deduped
   const seen = new Set<string>();
@@ -103,15 +108,15 @@ export const getTranslation = <const Content = string>(
   const results: Content[] = [];
 
   for (const localeEl of locales) {
-    const val = get(localeEl);
+    const value = get(localeEl);
 
-    if (val === undefined) continue;
-    if (typeof val === 'string') {
-      if (results.length === 0) return val;
+    if (value === undefined) continue;
+    if (typeof value === 'string') {
+      if (results.length === 0) return value;
       continue; // an object at higher priority takes precedence
     }
 
-    results.push(val);
+    results.push(value);
   }
 
   if (results.length === 0) return undefined as Content;
