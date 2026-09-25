@@ -981,7 +981,7 @@ This extension provides:
 - **Inline previews** of translated content.
 - **Quick actions** to easily create and update translations.
 
-For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
 ## Idź dalej
 
@@ -1008,7 +1008,7 @@ React Router v7 nie dostarcza warstwy komunikatów, więc łączy się go z bibl
 
 - **`react-i18next` / `i18next`**: przestrzenie nazw JSON ładowane w czasie wykonywania, z osobnym detektorem lokalizacji podłączanym do routera.
 - **`react-intl`** i **`Lingui`**: komunikaty ICU z krokiem ekstrakcji.
-- **`Intlayer`**: zawartość deklarowana w dowolnym miejscu w bazie kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)), kompilowana w czasie budowania, w pełni typowana, z pomocnikami routingu uwzględniającymi lokalizację, tłumaczeniem AI, edytorem wizualnym i CMS.
+- **`Intlayer`**: zawartość deklarowana w dowolnym miejscu w bazie kodu ([obok każdego komponentu lub centralnie](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)), kompilowana w czasie budowania, w pełni typowana, z pomocnikami routingu uwzględniającymi lokalizację, tłumaczeniem AI, edytorem wizualnym i CMS.
 
 Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) oraz [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md).
 

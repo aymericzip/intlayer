@@ -459,7 +459,7 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 - 翻訳済みコンテンツの **インラインプレビュー**。
 - 翻訳を簡単に作成・更新するための **クイックアクション**。
 
-拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://intlayer.org/doc/vs-code-extension) を参照してください。
+拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md) を参照してください。
 
 ### さらに詳しく
 
@@ -473,7 +473,7 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 
 - **`@angular/localize`**、組み込みのi18n: メッセージはXLIFFに抽出され、各ロケールは独自のビルドにコンパイルされます。これは、言語ごとに1つのデプロイメント成果物があり、実行時にロケールを切り替えることができないことを意味します。
 - **`ngx-translate`** および **`Transloco`**: サービスを通じてロードされる実行時JSONカタログで、ロケール切り替えは可能ですが、ビルド時の型付けはありません。
-- **`Intlayer`**: 最も先進的なソリューションです。コンテンツはコードベースのどこにでも宣言でき（[各コンポーネントの隣または一元化](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、ビルド時にコンパイルされ、完全に型付けされており、実行時のロケール切り替え、AI翻訳、ビジュアルエディター、CMSを備えています。
+- **`Intlayer`**: 最も先進的なソリューションです。コンテンツはコードベースのどこにでも宣言でき（[各コンポーネントの隣または一元化](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）、ビルド時にコンパイルされ、完全に型付けされており、実行時のロケール切り替え、AI翻訳、ビジュアルエディター、CMSを備えています。
 
 このガイドはAngular 19を対象としています。Angular 21以降については、[Angularガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_angular_21.md)に従ってください。[Intlayerを選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご覧ください。
 

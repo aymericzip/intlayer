@@ -85,7 +85,7 @@ height="600px"
 style="border:none;"
 />
 
-> 本番ビルド環境において10ルート、10言語、gzip圧縮の条件で測定。詳細は[i18nベンチマークレポート](https://intlayer.org/ja/doc/benchmark)に記載されています。
+> 本番ビルド環境において10ルート、10言語、gzip圧縮の条件で測定。詳細は[i18nベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)に記載されています。
 
 ### ライブラリ自体の基礎オーバーヘッド
 
@@ -164,7 +164,7 @@ return <h1>{title}</h1>;
   </Tab>
 </Tabs>
 
-[Intlayerコンパイラ](https://intlayer.org/ja/doc/compiler)は`Hero.tsx`で参照されているフィールドを正確に特定し、未使用のデータをクライアントバンドルの生成前に除去します。詳細は[バンドル最適化](https://intlayer.org/ja/doc/concept/bundle-optimization)をご覧ください。
+[Intlayerコンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)は`Hero.tsx`で参照されているフィールドを正確に特定し、未使用のデータをクライアントバンドルの生成前に除去します。詳細は[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)をご覧ください。
 
 ## 開発体験（DX）の比較
 
@@ -231,17 +231,17 @@ export const Hero = () => {
 
 `CustomTypeOptions`を設定すればエディタ上で補完が効きますが、翻訳が全言語で揃っているかまでは保証されません。例えば`ja/hero.json`からキーを削除してもビルドエラーにはならず、実行時にフォールバックテキストが表示されるだけです。
 
-Intlayerは宣言されたコンテンツから型を自動生成し、[`strictMode`](https://intlayer.org/ja/doc/concept/configuration)を有効にすれば翻訳の欠落をビルドエラーとして即座に検出します。
+Intlayerは宣言されたコンテンツから型を自動生成し、[`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を有効にすれば翻訳の欠落をビルドエラーとして即座に検出します。
 
 ### 提供ツールの比較
 
-| 機能                      | i18nextエコシステム | Intlayer                                                                |
-| ------------------------- | ------------------- | ----------------------------------------------------------------------- |
-| **VS Code拡張機能**       | サードパーティのみ  | ✅ [公式拡張機能](https://intlayer.org/ja/doc/vs-code-extension)        |
-| **Language Server (LSP)** | ❌ なし             | ✅ [専用LSP搭載](https://intlayer.org/ja/doc/lsp)                       |
-| **AI向けMCPサーバー**     | ❌ なし             | ✅ [組み込みMCPサーバー](https://intlayer.org/ja/doc/mcp-server)        |
-| **AIエージェントスキル**  | ❌ なし             | ✅ [標準スキルセット](https://intlayer.org/ja/doc/agent_skills)         |
-| **ビジュアルCMS機能**     | Locize（有料SaaS）  | ✅ [無料かつオープンソース](https://intlayer.org/ja/doc/concept/editor) |
+| 機能                      | i18nextエコシステム | Intlayer                                                                                                             |
+| ------------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **VS Code拡張機能**       | サードパーティのみ  | ✅ [公式拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)                |
+| **Language Server (LSP)** | ❌ なし             | ✅ [専用LSP搭載](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)                               |
+| **AI向けMCPサーバー**     | ❌ なし             | ✅ [組み込みMCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)                |
+| **AIエージェントスキル**  | ❌ なし             | ✅ [標準スキルセット](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)                 |
+| **ビジュアルCMS機能**     | Locize（有料SaaS）  | ✅ [無料かつオープンソース](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) |
 
 ## 翻訳ワークフローとLocizeの関係
 
@@ -249,8 +249,8 @@ Locizeはi18nextの開発元が運営する有償サービスです。オープ�
 
 Intlayerはオープンなエコシステムを重視しています。
 
-- [`intlayer fill`](https://intlayer.org/ja/doc/concept/auto-fill)を使用し、手持ちのOpenAI、Anthropic、Mistral、GeminiのAPIキーを使ってターミナルやCI上で不足している翻訳を自動補完できます。
-- [Intlayer CMS](https://intlayer.org/ja/doc/concept/cms)はオープンソースであり、Docker Compose等を用いてセルフホスト可能です。
+- [`intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)を使用し、手持ちのOpenAI、Anthropic、Mistral、GeminiのAPIキーを使ってターミナルやCI上で不足している翻訳を自動補完できます。
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)はオープンソースであり、Docker Compose等を用いてセルフホスト可能です。
 - コンパイラ、CLI、エディタ、CMSはすべてApache 2.0ライセンスで提供されています。
 
 ## 現在もi18nextの採用が妥当なケース
@@ -303,9 +303,9 @@ bunx intlayer init --interactive
 
 ステップごとの詳しい手順は専用のガイドをご確認ください。
 
-- **互換レイヤーの活用:** [i18next](https://intlayer.org/ja/doc/compatibility/i18next)、[react-i18next](https://intlayer.org/ja/doc/compatibility/react-i18next)、[next-i18next](https://intlayer.org/ja/doc/compatibility/next-i18next)の互換レイヤーを利用し、既存の記法を保ったままビルドプロセスを最新化します。
-- **カタログ移行ガイド:** JSON資産を型付き辞書へ移行するためのドキュメントを用意しています。[i18nextからの移行](https://intlayer.org/ja/doc/migration/i18next)、[react-i18nextからの移行](https://intlayer.org/ja/doc/migration/react-i18next)、[next-i18nextからの移行](https://intlayer.org/ja/doc/migration/next-i18next)。
-- **ハイブリッド構成:** ランタイムとしてi18nextを維持しながら、[Intlayerとi18nextを連携](https://intlayer.org/ja/blog/intlayer-with-i18next)させて型の強化やローカルAI翻訳を活用します。
+- **互換レイヤーの活用:** [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18next.md)、[react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-i18next.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-i18next.md)の互換レイヤーを利用し、既存の記法を保ったままビルドプロセスを最新化します。
+- **カタログ移行ガイド:** JSON資産を型付き辞書へ移行するためのドキュメントを用意しています。[i18nextからの移行](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)、[react-i18nextからの移行](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md)、[next-i18nextからの移行](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-i18next_to_intlayer.md)。
+- **ハイブリッド構成:** ランタイムとしてi18nextを維持しながら、[Intlayerとi18nextを連携](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/intlayer_with_i18next.md)させて型の強化やローカルAI翻訳を活用します。
 
 無料の[i18n SEOスキャナー](https://intlayer.org/i18n-seo-scanner)で、自社サイトのサイズと翻訳漏れをチェックできます。
 
@@ -313,7 +313,7 @@ bunx intlayer init --interactive
 
 ## 関連記事
 
-- [Next.js i18nベンチマーク: パフォーマンス徹底比較](https://intlayer.org/ja/doc/benchmark/nextjs)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ja/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [2026年においてnext-intlは時代遅れなのか？](https://intlayer.org/ja/blog/is-next-intl-outdated)
-- [コンパイラ主導型i18nと宣言型アプローチの比較](https://intlayer.org/ja/blog/compiler-vs-declarative-i18n)
+- [Next.js i18nベンチマーク: パフォーマンス徹底比較](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/react-i18next_vs_react-intl_vs_intlayer.md)
+- [2026年においてnext-intlは時代遅れなのか？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/is_next-intl_outdated.md)
+- [コンパイラ主導型i18nと宣言型アプローチの比較](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)

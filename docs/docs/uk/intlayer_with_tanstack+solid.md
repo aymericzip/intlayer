@@ -1160,7 +1160,7 @@ Intlayer використовує розширення модулів (module au
 - **Вбудований попередній перегляд (inline previews)** перекладеного вмісту.
 - **Швидкі дії** для легкого створення та оновлення перекладів.
 
-Докладніше про те, як користуватися розширенням, див. у [документації до розширення Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Докладніше про те, як користуватися розширенням, див. у [документації до розширення Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md).
 
 ## Подальші кроки
 

@@ -266,7 +266,7 @@ To rozszerzenie zapewnia:
 - **Podgląd wierszowy** przetłumaczonej treści.
 - **Szybkie akcje** do łatwego tworzenia i aktualizowania tłumaczeń.
 
-Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokumentacji rozszerzenia Intlayer dla VS Code](https://intlayer.org/doc/vs-code-extension).
+Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokumentacji rozszerzenia Intlayer dla VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
 ### Konfiguracja Git
 

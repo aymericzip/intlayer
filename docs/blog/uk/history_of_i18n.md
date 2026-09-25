@@ -300,5 +300,5 @@ Intlayer розглядає це завдання не просто як пош�
 
 - [Компіляторний підхід проти декларативної i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)
 - [i18n на рівні компонентів проти централізованої](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/per-component_vs_centralized_i18n.md)
-- [Продуктивність та бенчмарки](https://intlayer.org/doc/benchmark)
-- [Адаптери сумісності Intlayer](https://intlayer.org/doc/concept/compatibility)
+- [Продуктивність та бенчмарки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md)
+- [Адаптери сумісності Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/index.md)

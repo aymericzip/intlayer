@@ -284,7 +284,7 @@ Intlayer के साथ अपने विकास अनुभव को �
 - अनुवादित सामग्री का **इनलाइन पूर्वावलोकन**।
 - आसानी से अनुवाद बनाने और अपडेट करने के लिए **त्वरित कार्रवाई**।
 
-एक्सटेंशन का उपयोग करने के तरीके के बारे में अधिक विवरण के लिए, [Intlayer VS Code Extension दस्तावेज़ीकरण](https://intlayer.org/doc/vs-code-extension) देखें।
+एक्सटेंशन का उपयोग करने के तरीके के बारे में अधिक विवरण के लिए, [Intlayer VS Code Extension दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) देखें।
 
 ### Git कॉन्फ़िगरेशन
 

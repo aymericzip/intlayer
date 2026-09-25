@@ -1312,4 +1312,4 @@ GitHub 星标是衡量项目受欢迎程度、社区信任度和长期相关性�
 - 使用**Intlayer**，**模块化内容**、**严格的 TS**、**构建时安全**、**摇树优化的包**以及**一流的 App Router 和 SEO 工具**都是**默认配置**，而非额外负担。
 - 如果你的团队重视在多语言、组件驱动的应用中实现**可维护性和速度**，Intlayer 提供了目前**最完整**的体验。
 
-更多详情请参阅[《为什么选择 Intlayer？》文档](https://intlayer.org/doc/why)。
+更多详情请参阅[《为什么选择 Intlayer？》文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。

@@ -649,7 +649,7 @@ Bu uzantı şunları sağlar:
 - Çevrilmiş içeriğin **satır içi önizlemesi**.
 - Kolayca çeviri oluşturmak ve güncellemek için **hızlı eylemler**.
 
-Uzantı kullanımı hakkında daha fazla bilgi için [VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
+Uzantı kullanımı hakkında daha fazla bilgi için [VS Code Uzantısı dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) bakın.
 
 ### Bilginizi Derinleştirin
 

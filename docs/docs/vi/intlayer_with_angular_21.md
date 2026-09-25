@@ -480,7 +480,7 @@ Tiện ích này cung cấp:
 - **Xem trước nội dung ngay trong dòng** cho các nội dung đã dịch.
 - **Thao tác nhanh** dễ dàng tạo và cập nhật các bản dịch.
 
-Để biết thêm chi tiết về cách sử dụng tiện ích, hãy tham khảo [tài liệu tiện ích mở rộng VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
+Để biết thêm chi tiết về cách sử dụng tiện ích, hãy tham khảo [tài liệu tiện ích mở rộng VS Code Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md).
 
 ### Đi xa hơn
 

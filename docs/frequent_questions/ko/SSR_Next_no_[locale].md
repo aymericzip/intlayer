@@ -24,7 +24,7 @@ author: aymericzip
 
 네, 페이지 경로에 `[locale]` 없이 Next.js에서 Intlayer를 사용하는 것이 가능합니다. 하지만 페이지를 분리하는 것이 검색 엔진에서 더 많은 키워드를 유발할 수 있기 때문에 권장하지 않습니다. 또한 SSR에도 영향을 미칠 수 있습니다.
 
-원하신다면, [Intlayer with Next.js](https://intlayer.org/doc/environment/nextjs) 가이드에 설명된 동일한 단계를 따르세요,
+원하신다면, [Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md) 가이드에 설명된 동일한 단계를 따르세요,
 
 - `src/middleware.ts` 없음
 - `generateStaticParams` 없음

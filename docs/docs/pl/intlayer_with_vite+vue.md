@@ -1154,7 +1154,7 @@ To rozszerzenie zapewnia:
 - **Podglądy inline** przetłumaczonej zawartości.
 - **Szybkie akcje** do łatwego tworzenia i aktualizowania tłumaczeń.
 
-Aby uzyskać więcej szczegółów na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Aby uzyskać więcej szczegółów na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
 ### Idź dalej
 
@@ -1167,7 +1167,7 @@ Aby iść dalej, możesz zaimplementować [edytor wizualny](https://github.com/a
 <Question title="Jakie są różne rozwiązania dostępne do internacjonalizacji aplikacji Vue?">
 
 - **`vue-i18n`**: biblioteka referencyjna z katalogami wiadomości rejestrowanymi globalnie. Brak możliwości precyzyjnego podziału sprawia, że strona pakuje każdy katalog, a rozmiar bundle'a rośnie wraz z nowymi stronami.
-- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)) i kompilowane przez wtyczkę Vite w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
+- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)) i kompilowane przez wtyczkę Vite w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
 
 Praktyczna różnica to zakres i typowanie. W `vue-i18n` klucze są ciągami znaków w runtime, więc zmiana nazwy klucza powoduje cichy błąd, podczas gdy Intlayer generuje typy z Twoich deklaracji i usuwa nieużywaną treść. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) oraz [benchmark Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/vue.md).
 

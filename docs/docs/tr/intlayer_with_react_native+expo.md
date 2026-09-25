@@ -489,7 +489,7 @@ Bu uzantı şunları sağlar:
 - **Çevrilmiş içeriğin satır içi önizlemeleri**.
 - **Çevirileri kolayca oluşturmak ve güncellemek için hızlı eylemler**.
 
-Uzantının nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
+Uzantının nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer VS Code Uzantısı dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) bakın.
 
 ## Daha Fazla İlerleyin
 

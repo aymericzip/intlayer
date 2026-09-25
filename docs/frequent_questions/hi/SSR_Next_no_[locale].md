@@ -24,7 +24,7 @@ author: aymericzip
 
 हाँ, Next.js के साथ पेज पाथ में `[locale]` के बिना Intlayer का उपयोग करना संभव है। हालांकि, ऐसा करने की सलाह नहीं दी जाती है, क्योंकि आपके पेज को विभाजित करने से सर्च इंजन पर अधिक कीवर्ड ट्रिगर करने की अनुमति मिलती है। आपका SSR भी प्रभावित हो सकता है।
 
-यदि आप ऐसा करना चाहते हैं, तो [Intlayer with Next.js](https://intlayer.org/doc/environment/nextjs) गाइड में वर्णित समान चरणों का पालन करें,
+यदि आप ऐसा करना चाहते हैं, तो [Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md) गाइड में वर्णित समान चरणों का पालन करें,
 
 - कोई `src/middleware.ts` नहीं
 - कोई `generateStaticParams` नहीं

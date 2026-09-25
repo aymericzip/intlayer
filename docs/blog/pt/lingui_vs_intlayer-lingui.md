@@ -27,7 +27,7 @@ author: aymericzip
 
 `@intlayer/lingui` é um adaptador de compatibilidade para `@lingui/core` e `@lingui/react`. Suas chamadas a `` t`...` ``, `<Trans>`, `useLingui()` e `i18n._()` permanecem rigorosamente as mesmas; as macros continuam compilando; o que muda é de onde as mensagens se originam em tempo de execução. Em vez de um catálogo compilado por idioma, cada ponto de chamada é vinculado a um dicionário Intlayer compilado especialmente para ele.
 
-Este artigo mede essa troca na mesma aplicação TanStack Start, construída uma vez com o Lingui e outra com o adaptador. Os números são provenientes do [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Para avaliar as duas bibliotecas diretamente, leia [Lingui vs Intlayer](https://intlayer.org/pt/blog/lingui-vs-intlayer). Este texto foca nas transformações proporcionadas pelo adaptador e nas situações em que ele não traz vantagens.
+Este artigo mede essa troca na mesma aplicação TanStack Start, construída uma vez com o Lingui e outra com o adaptador. Os números são provenientes do [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Para avaliar as duas bibliotecas diretamente, leia [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/lingui_vs_intlayer.md). Este texto foca nas transformações proporcionadas pelo adaptador e nas situações em que ele não traz vantagens.
 
 <TOC/>
 
@@ -227,7 +227,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Para catálogos `.po`, substitua `syncJSON` por `syncPO` do pacote `@intlayer/sync-po-plugin` mantendo a mesma estrutura `source` com extensão `.po`. Acesse a [documentação do plugin Sync PO](https://intlayer.org/pt/doc/plugin/sync-po).
+Para catálogos `.po`, substitua `syncJSON` por `syncPO` do pacote `@intlayer/sync-po-plugin` mantendo a mesma estrutura `source` com extensão `.po`. Acesse a [documentação do plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-po.md).
 
 `splitKeys: "key-prefix"` é o fator determinante para a redução no tamanho dos componentes. O catálogo retém sua estrutura linear; a divisão opera apenas nos dicionários gerados internamente, e a sincronização reconstitui as chaves perfeitamente.
 
@@ -277,7 +277,7 @@ export default defineConfig({
 - **O custo adicional em `dynamic`.** Como detalhado anteriormente: espere cerca de +20 KB por página em relação a uma aplicação Lingui com lazy loading em projetos menores. Essa diferença não aumenta conforme o conteúdo cresce (depende do parser, não dos catálogos), mas tampouco desaparece.
 - **Persistência do vazamento do idioma de origem.** Descritores de mensagens e macros compiladas gravam o texto original em inglês como fallback. Caso deseje eliminá-lo por completo, a solução é limpar o campo `message` ou migrar os componentes para `.content.ts`.
 - **`i18n.load()` atua como fallback, não como fluxo principal.** Continuar importando catálogos compilados enquanto chama `load()` carregará o bundle antigo junto com o novo. Remova essas importações.
-- **Suporte focado em Vite.** Não há plugin de Next.js para `@intlayer/lingui`. Aplicações Next.js usando Lingui devem avaliar diretamente o [`next-intlayer`](https://intlayer.org/pt/doc/environment/nextjs).
+- **Suporte focado em Vite.** Não há plugin de Next.js para `@intlayer/lingui`. Aplicações Next.js usando Lingui devem avaliar diretamente o [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_16.md).
 - **`defaultComponent` não tem efeito.** Se você depende dele para envolver cada `<Trans>`, adicione esse componente manualmente em volta das suas chamadas.
 
 ## Qual solução escolher?
@@ -288,12 +288,12 @@ export default defineConfig({
 
 ## Comparações relacionadas
 
-- [Lingui vs Intlayer](https://intlayer.org/pt/blog/lingui-vs-intlayer) (comparação aprofundada das duas bibliotecas, mesmo benchmark)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/pt/blog/next-intl-vs-intlayer-next-intl) (série de adaptadores de compatibilidade)
-- [i18next vs @intlayer/i18next](https://intlayer.org/pt/blog/i18next-vs-intlayer-i18next) (série de adaptadores de compatibilidade)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/pt/blog/vue-i18n-vs-intlayer-vue-i18n) (série de adaptadores de compatibilidade)
-- [Referência do adaptador de compatibilidade: Lingui](https://intlayer.org/pt/doc/compatibility/lingui)
-- [Compilador vs i18n declarativo](https://intlayer.org/pt/blog/compiler-vs-declarative-i18n)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/lingui_vs_intlayer.md) (comparação aprofundada das duas bibliotecas, mesmo benchmark)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-intl_vs_intlayer-next-intl.md) (série de adaptadores de compatibilidade)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/i18next_vs_intlayer-i18next.md) (série de adaptadores de compatibilidade)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/vue-i18n_vs_intlayer-vue-i18n.md) (série de adaptadores de compatibilidade)
+- [Referência do adaptador de compatibilidade: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/lingui.md)
+- [Compilador vs i18n declarativo](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/compiler_vs_declarative_i18n.md)
 
 ## Conclusão
 
@@ -301,4 +301,4 @@ O `@intlayer/lingui` reconfigura o destino ao qual cada chamada do Lingui é ass
 
 Todos os dados detalhados, projetos de teste e scripts podem ser conferidos no [repositório Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Fique à vontade para rodar os testes localmente.
 
-Consulte a documentação ['Por que o Intlayer?'](https://intlayer.org/pt/doc/why) para explorar mais detalhes.
+Consulte a documentação ['Por que o Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) para explorar mais detalhes.

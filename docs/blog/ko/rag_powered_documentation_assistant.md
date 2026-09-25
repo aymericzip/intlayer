@@ -28,7 +28,7 @@ author: aymericzip
 - 모든 UI 컴포넌트는 Tailwind CSS로 완전히 편집 가능합니다.
 - 모든 사용자 쿼리를 기록하여 누락된 문서, 사용자 불편 사항 및 제품 기회를 식별하는 데 도움을 줍니다.
 
-👉 [라이브 데모](https://intlayer.org/doc/why) 👉 [코드 보일러플레이트](https://github.com/aymericzip/smart_doc_RAG)
+👉 [라이브 데모](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md) 👉 [코드 보일러플레이트](https://github.com/aymericzip/smart_doc_RAG)
 
 ## 소개
 
@@ -91,6 +91,6 @@ RAG는 LLM을 실용적으로 만드는 가장 간단하면서도 강력한 방�
 - 피드백 채널
 - 제품 전략 도구
 
-👉 [여기서 데모를 시도해보세요](https://intlayer.org/doc/why) 👉 [GitHub에서 코드 템플릿을 확인하세요](https://github.com/aymericzip/smart_doc_RAG)
+👉 [여기서 데모를 시도해보세요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md) 👉 [GitHub에서 코드 템플릿을 확인하세요](https://github.com/aymericzip/smart_doc_RAG)
 
 그리고 만약 여러분도 RAG를 실험하고 있다면, 어떻게 사용하고 있는지 듣고 싶습니다.

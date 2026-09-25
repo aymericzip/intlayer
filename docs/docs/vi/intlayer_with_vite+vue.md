@@ -1151,7 +1151,7 @@ Tiện ích mở rộng này cung cấp:
 - **Inline previews** cho nội dung đã dịch.
 - **Quick actions** để dễ dàng tạo và cập nhật các bản dịch.
 
-Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Intlayer VS Code Extension](https://intlayer.org/vi/doc/vs-code-extension).
+Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md).
 
 ### Tiến xa hơn
 

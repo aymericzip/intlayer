@@ -81,7 +81,7 @@ height="600px"
 style="border:none;"
 />
 
-> Измерения в реальных браузерах с gzip-сжатием. Данные доступны в [документации бенчмарка Vue](https://intlayer.org/ru/doc/benchmark/vue).
+> Измерения в реальных браузерах с gzip-сжатием. Данные доступны в [документации бенчмарка Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md).
 
 ### Начальный оверхед библиотек
 
@@ -171,7 +171,7 @@ const { title } = useIntlayer("hero");
   </Tab>
 </Tabs>
 
-[Компилятор Intlayer](https://intlayer.org/ru/doc/compiler) отслеживает точные обращения к полям и исключает лишнее до сборки клиентских файлов. Подробнее в [оптимизации бандла](https://intlayer.org/ru/doc/concept/bundle-optimization).
+[Компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) отслеживает точные обращения к полям и исключает лишнее до сборки клиентских файлов. Подробнее в [оптимизации бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md).
 
 ## Опыт разработки
 
@@ -248,17 +248,17 @@ const { title } = useIntlayer("hero");
 
 `DefineLocaleMessage` дает автодополнение в редакторе по базовой схеме. Но оно не гарантирует полноту всех переводов. Пропуск ключа в `ru.json` не вызовет ошибку сборки TypeScript.
 
-В Intlayer словари валидируются строго. Включение [`strictMode`](https://intlayer.org/ru/doc/concept/configuration) приводит к ошибке сборки при отсутствии перевода в любом настроенном языке.
+В Intlayer словари валидируются строго. Включение [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md) приводит к ошибке сборки при отсутствии перевода в любом настроенном языке.
 
 ### Инструменты для IDE и ИИ
 
-| Возможность                 | `vue-i18n`            | Intlayer                                                                    |
-| --------------------------- | --------------------- | --------------------------------------------------------------------------- |
-| **Расширение VS Code**      | Стороннее (i18n Ally) | ✅ [Официальное расширение](https://intlayer.org/ru/doc/vs-code-extension)  |
-| **Language Server (LSP)**   | ❌ Нет                | ✅ [Встроенный LSP](https://intlayer.org/ru/doc/lsp)                        |
-| **MCP Server для ИИ**       | ❌ Нет                | ✅ [Интегрированный MCP-сервер](https://intlayer.org/ru/doc/mcp-server)     |
-| **Навыки агентов (Skills)** | ❌ Нет                | ✅ [Готовые навыки](https://intlayer.org/ru/doc/agent_skills)               |
-| **Визуальная CMS**          | ❌ Нет                | ✅ [Бесплатная Open Source CMS](https://intlayer.org/ru/doc/concept/editor) |
+| Возможность                 | `vue-i18n`            | Intlayer                                                                                                                 |
+| --------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| **Расширение VS Code**      | Стороннее (i18n Ally) | ✅ [Официальное расширение](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md)          |
+| **Language Server (LSP)**   | ❌ Нет                | ✅ [Встроенный LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/lsp.md)                                |
+| **MCP Server для ИИ**       | ❌ Нет                | ✅ [Интегрированный MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)             |
+| **Навыки агентов (Skills)** | ❌ Нет                | ✅ [Готовые навыки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/agent_skills.md)                       |
+| **Визуальная CMS**          | ❌ Нет                | ✅ [Бесплатная Open Source CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) |
 
 ## Процессы перевода
 
@@ -272,7 +272,7 @@ Intlayer предлагает встроенные решения:
 
 **Автономная визуальная CMS:**
 
-Используйте [Intlayer CMS](https://intlayer.org/ru/doc/concept/cms), чтобы контент-менеджеры редактировали тексты визуально с фиксацией изменений прямо в Git.
+Используйте [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md), чтобы контент-менеджеры редактировали тексты визуально с фиксацией изменений прямо в Git.
 
 **Свободная лицензия:**
 
@@ -328,9 +328,9 @@ bunx intlayer init --interactive
 
 Подробные инструкции можно найти в наших руководствах:
 
-- **Простая совместимость:** Сохраняйте существующие шаблоны с помощью [адаптера для `vue-i18n`](https://intlayer.org/ru/doc/compatibility/vue-i18n) или [`@nuxtjs/i18n`](https://intlayer.org/ru/doc/compatibility/nuxtjs-i18n).
-- **Руководства по миграции:** Конвертируйте JSON-файлы в типизированные словари по нашим инструкциям: [с vue-i18n](https://intlayer.org/ru/doc/migration/vue-i18n) или [с @nuxtjs/i18n](https://intlayer.org/ru/doc/migration/nuxtjs-i18n).
-- **Гибридный подход:** Оставьте `vue-i18n` в работе, подключив [Intlayer к vue-i18n](https://intlayer.org/ru/blog/intlayer-with-vue-i18n) для строгой типизации и локального ИИ-перевода.
+- **Простая совместимость:** Сохраняйте существующие шаблоны с помощью [адаптера для `vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/vue-i18n.md) или [`@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/nuxtjs-i18n.md).
+- **Руководства по миграции:** Конвертируйте JSON-файлы в типизированные словари по нашим инструкциям: [с vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_vue-i18n_to_intlayer.md) или [с @nuxtjs/i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_nuxtjs_i18n_to_intlayer.md).
+- **Гибридный подход:** Оставьте `vue-i18n` в работе, подключив [Intlayer к vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/intlayer_with_vue-i18n.md) для строгой типизации и локального ИИ-перевода.
 
 Проверьте сайт на утечки с помощью бесплатного [SEO-сканера i18n](https://intlayer.org/i18n-seo-scanner):
 
@@ -338,7 +338,7 @@ bunx intlayer init --interactive
 
 ## Дополнительные статьи
 
-- [Бенчмарк Vue & Vite i18n: подробный анализ производительности](https://intlayer.org/ru/doc/benchmark/vue)
-- [vue-i18n против Intlayer: детальное сравнение](https://intlayer.org/ru/blog/vue-i18n-vs-intlayer)
-- [Устарел ли next-intl в 2026 году?](https://intlayer.org/ru/blog/is-next-intl-outdated)
-- [Компиляция против декларативной интернационализации](https://intlayer.org/ru/blog/compiler-vs-declarative-i18n)
+- [Бенчмарк Vue & Vite i18n: подробный анализ производительности](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/vue.md)
+- [vue-i18n против Intlayer: детальное сравнение](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/vue-i18n_vs_intlayer.md)
+- [Устарел ли next-intl в 2026 году?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/is_next-intl_outdated.md)
+- [Компиляция против декларативной интернационализации](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md)

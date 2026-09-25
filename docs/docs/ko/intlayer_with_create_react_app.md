@@ -646,7 +646,7 @@ Intlayer와 함께 개발 경험을 향상시키려면 공식 **Intlayer VS Code
 - 번역된 콘텐츠의 **인라인 미리보기**.
 - 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
 
-확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 기능 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 기능 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
 
 ### 더 나아가기
 
@@ -660,7 +660,7 @@ Intlayer와 함께 개발 경험을 향상시키려면 공식 **Intlayer VS Code
 
 - **`react-i18next` / `i18next`**: 가장 널리 사용되며, 런타임에 JSON 네임스페이스를 로드합니다.
 - **`react-intl`** 및 **`Lingui`**: ICU 메시지 형식 기반으로, 추출 방식을 사용합니다.
-- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)), `react-scripts-intlayer`를 통해 빌드 타임에 컴파일되고, 완전한 타입 안전성을 제공하며 AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
+- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)), `react-scripts-intlayer`를 통해 빌드 타임에 컴파일되고, 완전한 타입 안전성을 제공하며 AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
 
 Create React App은 자체 webpack 구성을 래핑하므로, 직접 플러그인을 등록하는 대신 `react-scripts`의 드롭인 대체품인 `react-scripts-intlayer`를 통해 통합됩니다. [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)와 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참조하세요.
 

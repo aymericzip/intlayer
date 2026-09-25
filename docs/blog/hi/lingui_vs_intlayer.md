@@ -127,7 +127,7 @@ height="600px"
 style="border:none;"
 />
 
-> [Next.js बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/nextjs) में पूरी तालिका, प्रत्येक लाइब्रेरी और प्रत्येक रणनीति देखें।
+> [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) में पूरी तालिका, प्रत्येक लाइब्रेरी और प्रत्येक रणनीति देखें।
 
 ### TanStack Start पर परिणाम
 
@@ -157,7 +157,7 @@ height="600px"
 style="border:none;"
 />
 
-> [TanStack Start बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/tanstack) में पूरी तालिका देखें।
+> [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) में पूरी तालिका देखें।
 
 ## अंतर क्यों है? दो कंपाइलर, काम की दो इकाइयाँ
 
@@ -206,7 +206,7 @@ style="border:none;"
 
 ![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-> `dynamic` पंक्ति के आंकड़े प्राप्त करने के लिए, `intlayer.config.ts` में `dictionary.importMode: 'dynamic'` सेट करें। [बंडल ऑप्टिमाइज़ेशन दस्तावेज़](https://intlayer.org/hi/doc/concept/bundle-optimization) देखें।
+> `dynamic` पंक्ति के आंकड़े प्राप्त करने के लिए, `intlayer.config.ts` में `dictionary.importMode: 'dynamic'` सेट करें। [बंडल ऑप्टिमाइज़ेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
 
 ## डेवलपर अनुभव
 
@@ -390,7 +390,7 @@ export default defineConfig({
 });
 ```
 
-बिल्ड में `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` रखें, जो Intlayer कंपाइलर से पहले चल रहा हो। [Lingui संगतता दस्तावेज़](https://intlayer.org/hi/doc/compatibility/lingui) देखें।
+बिल्ड में `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` रखें, जो Intlayer कंपाइलर से पहले चल रहा हो। [Lingui संगतता दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md) देखें।
 
 ## कब किसे चुनें?
 
@@ -402,12 +402,12 @@ export default defineConfig({
 </Accordion>
 <Accordion header="Intlayer चुनें">
 
-यदि आप **घटक-क्षेत्रीय सामग्री**, **सख्त TypeScript**, **बिल्ड-टाइम अनुपलब्ध-कुंजी त्रुटियाँ**, **शून्य-प्रयास ट्री-शेकिंग और लेज़ी लोडिंग**, छोटे घटक, तेज़ हाइड्रेशन, त्वरित भाषा स्विचिंग और अंतर्निहित संपादकीय उपकरण ([विजुअल एडिटर](https://intlayer.org/hi/doc/concept/editor), [CMS](https://intlayer.org/hi/doc/concept/cms), [AI अनुवाद](https://intlayer.org/hi/doc/concept/auto-fill), [MCP सर्वर](https://intlayer.org/hi/doc/mcp-server)) चाहते हैं। बड़े, मॉड्यूलर कोडबेस और डिज़ाइन सिस्टम के लिए विशेष रूप से प्रासंगिक।
+यदि आप **घटक-क्षेत्रीय सामग्री**, **सख्त TypeScript**, **बिल्ड-टाइम अनुपलब्ध-कुंजी त्रुटियाँ**, **शून्य-प्रयास ट्री-शेकिंग और लेज़ी लोडिंग**, छोटे घटक, तेज़ हाइड्रेशन, त्वरित भाषा स्विचिंग और अंतर्निहित संपादकीय उपकरण ([विजुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md), [AI अनुवाद](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md), [MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)) चाहते हैं। बड़े, मॉड्यूलर कोडबेस और डिज़ाइन सिस्टम के लिए विशेष रूप से प्रासंगिक।
 
 </Accordion>
 <Accordion header="@intlayer/lingui चुनें">
 
-यदि आप Lingui पर हैं और मैक्रोज़ को छुए बिना वृद्धिशील रूप से Intlayer शब्दकोशों में स्थानांतरित होना चाहते हैं। आपके `.po` कैटलॉग [PO सिंक प्लगइन](https://intlayer.org/hi/doc/compatibility/lingui) के माध्यम से सत्य का स्रोत बने रहते हैं। [Lingui vs @intlayer/lingui](https://intlayer.org/hi/blog/lingui-vs-intlayer-lingui) में साथ-साथ मापा गया।
+यदि आप Lingui पर हैं और मैक्रोज़ को छुए बिना वृद्धिशील रूप से Intlayer शब्दकोशों में स्थानांतरित होना चाहते हैं। आपके `.po` कैटलॉग [PO सिंक प्लगइन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md) के माध्यम से सत्य का स्रोत बने रहते हैं। [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer-lingui.md) में साथ-साथ मापा गया।
 
 </Accordion>
 </AccordionGroup>
@@ -436,13 +436,13 @@ export default defineConfig({
 
 <Question title="क्या माइग्रेट करने के लिए मुझे मैक्रोज़ छोड़ना होगा?">
 
-नहीं। `@intlayer/lingui` `` t`...` ``, `<Trans>`, `msg`, `plural`, `select` और `selectOrdinal` को पहले की तरह संकलित करता रहता है; केवल वह स्रोत बदलता है जिसके विरुद्ध `i18n._()` हल होता है। बिल्ड में `@lingui/babel-plugin-lingui-macro` या `@lingui/swc-plugin` बनाए रखें। [Lingui संगतता दस्तावेज़](https://intlayer.org/hi/doc/compatibility/lingui) देखें।
+नहीं। `@intlayer/lingui` `` t`...` ``, `<Trans>`, `msg`, `plural`, `select` और `selectOrdinal` को पहले की तरह संकलित करता रहता है; केवल वह स्रोत बदलता है जिसके विरुद्ध `i18n._()` हल होता है। बिल्ड में `@lingui/babel-plugin-lingui-macro` या `@lingui/swc-plugin` बनाए रखें। [Lingui संगतता दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md) देखें।
 
 </Question>
 
 <Question title="एक्सट्रैक्ट और कंपाइल चरणों का क्या?">
 
-वे मैक्रोज़ के लिए बने रहते हैं, और Intlayer की अपनी सामग्री के लिए हट जाते हैं। `.content.ts` शब्दकोश तब बनाए जाते हैं जब बंडलर चलता है, बिना किसी अलग CLI पास के, और [`intlayer test`](https://intlayer.org/hi/doc/concept/cli) चुपचाप स्रोत स्ट्रिंग पर वापस जाने के बजाय किसी भी लापता कुंजी पर CI को विफल कर देता है।
+वे मैक्रोज़ के लिए बने रहते हैं, और Intlayer की अपनी सामग्री के लिए हट जाते हैं। `.content.ts` शब्दकोश तब बनाए जाते हैं जब बंडलर चलता है, बिना किसी अलग CLI पास के, और [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) चुपचाप स्रोत स्ट्रिंग पर वापस जाने के बजाय किसी भी लापता कुंजी पर CI को विफल कर देता है।
 
 </Question>
 
@@ -452,24 +452,24 @@ export default defineConfig({
 
 समान बेंचमार्क, अन्य लाइब्रेरीज़:
 
-- [next-intl vs Intlayer](https://intlayer.org/hi/blog/next-intl-vs-intlayer)
-- [i18next vs Intlayer](https://intlayer.org/hi/blog/i18next-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/hi/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/hi/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/hi/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/react-i18next_vs_react-intl_vs_intlayer.md)
 
 और आगे:
 
-- [Lingui vs @intlayer/lingui](https://intlayer.org/hi/blog/lingui-vs-intlayer-lingui), उसी ऐप पर मापा गया एडॉप्टर
-- [Compiler-driven vs declarative i18n](https://intlayer.org/hi/blog/compiler-vs-declarative-i18n)
-- [Per-component vs centralized i18n](https://intlayer.org/hi/blog/per-component-vs-centralized-i18n)
-- [ICU message format explained](https://intlayer.org/hi/blog/icu-message-format)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer-lingui.md), उसी ऐप पर मापा गया एडॉप्टर
+- [Compiler-driven vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
+- [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md)
+- [ICU message format explained](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 संदर्भ दस्तावेज़:
 
-- [Next.js बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/nextjs) और [TanStack Start बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/tanstack)
-- [Compat adapter: Lingui](https://intlayer.org/hi/doc/compatibility/lingui)
-- [बंडल अनुकूलन](https://intlayer.org/hi/doc/concept/bundle-optimization) और [Intlayer कंपाइलर](https://intlayer.org/hi/doc/compiler)
+- [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) और [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
+- [Compat adapter: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
+- [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
 
 ## GitHub STARS
 
@@ -485,4 +485,4 @@ Lingui इस बेंचमार्क में सबसे मजबूत
 
 सभी कच्चे डेटा, परीक्षण ऐप्स और स्क्रिप्ट [Benchmark Bloom रिपॉजिटरी](https://github.com/intlayer-org/benchmark-bloom) में उपलब्ध हैं। इसे स्वयं चलाकर देखें।
 
-अधिक विवरण के लिए ['Why Intlayer?' दस्तावेज़](https://intlayer.org/hi/doc/why) देखें।
+अधिक विवरण के लिए ['Why Intlayer?' दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।

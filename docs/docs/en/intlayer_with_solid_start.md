@@ -1070,7 +1070,7 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 - **`@solid-primitives/i18n`**: the community primitive, a flat dictionary you assemble, load and type yourself.
 - **`i18next`** with a Solid wrapper: mature catalogs, but nothing for locale aware routing or server rendering in Solid Start.
-- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://intlayer.org/blog/per-component-vs-centralized-i18n)) and compiled at build time, with localized routes, server side locale resolution, canonical and hreflang links, a multilingual sitemap, AI translation, a visual editor and a CMS.
+- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)) and compiled at build time, with localized routes, server side locale resolution, canonical and hreflang links, a multilingual sitemap, AI translation, a visual editor and a CMS.
 
 On Solid Start the difference shows in the server pieces, which this guide covers as dedicated steps rather than leaving them to you. See [why Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) and the [Solid i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md).
 

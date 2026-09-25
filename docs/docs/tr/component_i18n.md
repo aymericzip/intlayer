@@ -174,14 +174,14 @@ export function ClientComponent() {
 - **Ağaç sarsma (Tree-shaking)**: Sadece bileşen tarafından kullanılan içerik paketlenir, böylece büyük uygulamalarda yükler küçük tutulur.
 - **Geliştirici Deneyimi (DX) ve araçlar**: Dahili ara katman yazılımı, SEO yardımcıları ve isteğe bağlı Görsel Editör/Yapay Zeka çevirileri günlük işleri kolaylaştırır.
 
-Next.js odaklı karşılaştırmalar ve kalıplar için bakınız: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+Next.js odaklı karşılaştırmalar ve kalıplar için bakınız: https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md
 
 ## İlgili rehberler ve referanslar
 
-- React kurulumu (Vite): https://intlayer.org/doc/environment/vite-and-react
-- React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
-- TanStack Başlangıç: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
-- Next.js kurulumu: https://intlayer.org/doc/environment/nextjs
-- Neden Intlayer vs. next-intl vs. next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- React kurulumu (Vite): https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md
+- React Router v7: https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_react_router_v7.md
+- TanStack Başlangıç: https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md
+- Next.js kurulumu: https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md
+- Neden Intlayer vs. next-intl vs. next-i18next - https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md
 
 Bu sayfalar uçtan uca kurulum, sağlayıcılar, yönlendirme ve SEO yardımcılarını içerir.

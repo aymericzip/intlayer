@@ -419,7 +419,7 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 - एप्लिकेशन चल रहा है।
 
-- [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) कॉन्फ़िगरेशन आपके Intlayer कॉन्फ़िगरेशन फ़ाइल में सही ढंग से सेट है।
+- [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#editor-configuration) कॉन्फ़िगरेशन आपके Intlayer कॉन्फ़िगरेशन फ़ाइल में सही ढंग से सेट है।
   - आवश्यक फ़ील्ड:
 - एप्लिकेशन URL को उस URL से मेल खाना चाहिए जिसे आपने संपादक कॉन्फ़िगरेशन (`applicationURL`) में सेट किया है।
 - CMS URL

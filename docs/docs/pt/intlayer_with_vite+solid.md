@@ -754,7 +754,7 @@ O Vite não impõe nenhuma solução de i18n, portanto a escolha vem do ecossist
 
 - **`@solid-primitives/i18n`**: a primitiva da comunidade, um dicionário simples que você mesmo monta e carrega.
 - **`i18next`** com wrapper para Solid: catálogos maduros, mas sem reatividade nativa do Solid.
-- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)) e compilado pelo plugin Vite em tempo de build, totalmente tipado, com tradução por IA, editor visual e CMS.
+- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)) e compilado pelo plugin Vite em tempo de build, totalmente tipado, com tradução por IA, editor visual e CMS.
 
 O ganho específico no Vite é que as traduções são resolvidas e submetidas a tree-shaking em tempo de compilação em vez de serem buscadas como JSON em tempo de execução, de modo que uma página envia apenas as entradas que renderiza. Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) e o [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md).
 

@@ -1167,7 +1167,7 @@ Intlayer 使用模块扩展来获得 TypeScript 的好处并使你的代码库�
 - 翻译内容的**内联预览**。
 - 用于轻松创建和更新翻译的**快速操作**。
 
-有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
 ## 深入探索
 
@@ -1193,7 +1193,7 @@ TanStack Start 本身不包含 i18n 层，而在 Solid 生态中可用的选择�
 - **`@solid-primitives/i18n`**：扁平化字典，需要您自行组装并手动接入路由器。
 - **带有 Solid 封装的 `i18next`**：成熟的目录体系，但未与 TanStack 路由器、`head` 函数或预渲染流程深度集成。
 - **`Paraglide`**：编译型消息，仅专注于消息层。
-- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），在构建时编译，提供支持语言环境的路由、站点地图生成、AI 翻译、可视化编辑器和 CMS。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），在构建时编译，提供支持语言环境的路由、站点地图生成、AI 翻译、可视化编辑器和 CMS。
 
 请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [TanStack Start i18n 性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。
 

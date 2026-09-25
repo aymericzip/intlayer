@@ -24,7 +24,7 @@ author: aymericzip
 
 はい、ページパスに `[locale]` を含めずに Next.js で Intlayer を使用することは可能です。ただし、ページを分割することで検索エンジンでより多くのキーワードをトリガーできるため、推奨はされません。また、SSR（サーバーサイドレンダリング）にも影響が出る可能性があります。
 
-もしそれを行いたい場合は、[Intlayer with Next.js](https://intlayer.org/doc/environment/nextjs) ガイドに記載されている手順に従ってください。
+もしそれを行いたい場合は、[Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md) ガイドに記載されている手順に従ってください。
 
 - `src/middleware.ts` は使用しない
 - `generateStaticParams` は使用しない

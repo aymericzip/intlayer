@@ -1069,7 +1069,7 @@ Intlayer 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확�
 
 - **`@solid-primitives/i18n`**: 직접 조합하고 로드하며 타입을 지정해야 하는 커뮤니티 프리미티브 평면 사전입니다.
 - **`i18next`**(Solid 래퍼 포함): 성숙한 카탈로그이지만 Solid Start에서의 로케일 인식 라우팅이나 서버 렌더링을 지원하지 않습니다.
-- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)), 빌드 타임에 컴파일되고, 지역화된 라우트, 서버 사이드 로케일 확인, 표준(canonical) 및 hreflang 링크, 다국어 사이트맵, AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
+- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)), 빌드 타임에 컴파일되고, 지역화된 라우트, 서버 사이드 로케일 확인, 표준(canonical) 및 hreflang 링크, 다국어 사이트맵, AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
 
 Solid Start에서는 이 가이드에서 별도의 단계로 상세히 다루는 서버 측 구성 요소에서 큰 차이가 나타납니다. [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)와 [Solid i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/solid.md)를 참조하세요.
 

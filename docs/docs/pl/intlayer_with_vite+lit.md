@@ -791,7 +791,7 @@ To rozszerzenie zapewnia:
 - **Podglądy w tekście** przetłumaczonej treści.
 - **Szybkie akcje** ułatwiające tworzenie i aktualizowanie tłumaczeń.
 
-Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokumentacji rozszerzenia Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokumentacji rozszerzenia Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
 ### Dowiedz się więcej
 
@@ -806,7 +806,7 @@ Aby dowiedzieć się więcej, możesz zaimplementować [edytor wizualny](https:/
 Vite nie narzuca rozwiązań w kwestii i18n, więc wybór zależy od ekosystemu Lit:
 
 - **`@lit/localize`**: oficjalne rozwiązanie dla Lit, oparte na szablonach XLIFF i kompilacji w czasie budowy lub w runtime.
-- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)) i kompilowane przez wtyczkę Vite w czasie budowania, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
+- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)) i kompilowane przez wtyczkę Vite w czasie budowania, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
 
 Praktyczna różnica polega na elastyczności deklaracji i narzędziach: Intlayer dostarcza autouzupełnianie TypeScript, zintegrowane tłumaczenie AI oraz edytor wizualny bezpośrednio w Twoich elementach Lit. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
 

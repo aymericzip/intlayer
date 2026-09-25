@@ -1161,7 +1161,7 @@ Esta extensão oferece:
 - **Previsões inline** de conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
 
 ## Ir Além
 
@@ -1187,7 +1187,7 @@ O TanStack Start não traz uma camada nativa de i18n, e as opções no ecossiste
 - **`@solid-primitives/i18n`**: um dicionário plano que você monta e conecta manualmente ao roteador.
 - **`i18next`** com um wrapper para Solid: catálogos maduros, mas sem integração com o roteador do TanStack, com a função `head` ou com a etapa de pré-renderização.
 - **`Paraglide`**: mensagens compiladas, focado exclusivamente na camada de mensagens.
-- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)) e compilado em tempo de build, com roteamento com reconhecimento de idioma, geração de sitemap, tradução por IA, editor visual e CMS.
+- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)) e compilado em tempo de build, com roteamento com reconhecimento de idioma, geração de sitemap, tradução por IA, editor visual e CMS.
 
 Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) e o [benchmark TanStack Start i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md).
 

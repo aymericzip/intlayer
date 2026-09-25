@@ -644,7 +644,7 @@ Esta extensão oferece:
 - **Visualizações inline** do conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da extensão Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da extensão Intlayer para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
 
 ### Avançar
 
@@ -658,7 +658,7 @@ Para avançar, você pode implementar o [editor visual](https://github.com/aymer
 
 - **`react-i18next` / `i18next`**: a mais difundida, com namespaces JSON carregados em tempo de execução.
 - **`react-intl`** e **`Lingui`**: formato de mensagem ICU, baseado em extração.
-- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)) e compilado em tempo de build através de `react-scripts-intlayer`, totalmente tipado, com tradução por IA, editor visual e CMS.
+- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)) e compilado em tempo de build através de `react-scripts-intlayer`, totalmente tipado, com tradução por IA, editor visual e CMS.
 
 Como o Create React App empacota sua própria configuração do webpack, a integração se dá por meio da substituição direta do `react-scripts` por `react-scripts-intlayer`, em vez de um plugin registrado manualmente. Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) e o [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md).
 

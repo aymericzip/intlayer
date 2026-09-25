@@ -29,7 +29,7 @@ author: aymericzip
 
 `@intlayer/vue-i18n` là một compat adapter: nó expose API của `vue-i18n` (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...) và phục vụ nó từ các dictionaries được biên dịch bởi Intlayer. Các file `.vue` của bạn không thay đổi. Cái mà `t("footer.github")` được bind tới thì có.
 
-Bài viết này đo lường việc thay thế đó trên cùng một ứng dụng Vite + Vue 3, được xây dựng một lần với `vue-i18n` và một lần với adapter. Các con số đến từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Để so sánh `vue-i18n` và Intlayer như các thư viện, hãy đọc [vue-i18n vs Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer) và [benchmark vue-i18n vs Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer-benchmark). Bài này nói về những gì adapter thay đổi khi bạn giữ các component của mình như cũ.
+Bài viết này đo lường việc thay thế đó trên cùng một ứng dụng Vite + Vue 3, được xây dựng một lần với `vue-i18n` và một lần với adapter. Các con số đến từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Để so sánh `vue-i18n` và Intlayer như các thư viện, hãy đọc [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md) và [benchmark vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer_benchmark.md). Bài này nói về những gì adapter thay đổi khi bạn giữ các component của mình như cũ.
 
 <TOC/>
 
@@ -71,19 +71,19 @@ Thành phần không còn truy cập toàn bộ cây thông báo toàn cục. N�
 
 ## Những gì adapter giữ lại, bỏ qua và không thay thế
 
-| `vue-i18n` API                                                      | Với `@intlayer/vue-i18n`                                                                                        |
-| ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `useI18n()` → `{ t, d, n, te, tm, rt, locale, availableLocales }`   | ✅ Được giữ lại. `t` keys được gõ theo các từ điển của bạn                                                      |
-| `t("key", { name })`, `t("key", [a, b])`, `t("key", count)`         | ✅ Được giữ lại. `{name}`, `{0}` và plurals phân tách bằng dấu gạch chéo được phân giải như trước               |
-| `d(date, "long")`, `n(value, "currency")`                           | ✅ Được giữ lại. `datetimeFormats` / `numberFormats` từ `createI18n()` được sử dụng, được hỗ trợ bởi `Intl` gốc |
-| `i18n.global.locale.value = "fr"`                                   | ✅ Được giữ lại. Một `WritableComputedRef` được hỗ trợ bởi client của Intlayer; phản ứng hoạt động như trước    |
-| `$t`, `$tc`, `$te`, `$tm`, `$rt`, `$d`, `$n`, `$i18n` (Options API) | ✅ Được giữ lại. Được đăng ký trên `app.config.globalProperties` bởi `app.use(i18n)`                            |
-| `v-t` directive                                                     | ✅ Được giữ lại                                                                                                 |
-| `legacy: true`                                                      | ✅ Được chấp nhận                                                                                               |
-| `createI18n({ messages })`                                          | ⚠️ `messages` được sử dụng như một **fallback runtime** với cảnh báo dev. Xóa các import JSON để giảm bundle    |
-| `setLocaleMessage()`, `mergeLocaleMessage()`                        | ❌ Cảnh báo và không làm gì. Runtime message loading được thay thế bằng build-time dictionaries                 |
-| SFC `<i18n>` custom blocks                                          | ❌ Không được đọc. Di chuyển các messages đó vào locale JSON (hoặc một `.content.ts` bên cạnh component)        |
-| `@nuxtjs/i18n`                                                      | ⚠️ Adapter riêng biệt, xem [tài liệu tương thích Nuxt](https://intlayer.org/doc/compatibility/nuxtjs-i18n)      |
+| `vue-i18n` API                                                      | Với `@intlayer/vue-i18n`                                                                                                                    |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useI18n()` → `{ t, d, n, te, tm, rt, locale, availableLocales }`   | ✅ Được giữ lại. `t` keys được gõ theo các từ điển của bạn                                                                                  |
+| `t("key", { name })`, `t("key", [a, b])`, `t("key", count)`         | ✅ Được giữ lại. `{name}`, `{0}` và plurals phân tách bằng dấu gạch chéo được phân giải như trước                                           |
+| `d(date, "long")`, `n(value, "currency")`                           | ✅ Được giữ lại. `datetimeFormats` / `numberFormats` từ `createI18n()` được sử dụng, được hỗ trợ bởi `Intl` gốc                             |
+| `i18n.global.locale.value = "fr"`                                   | ✅ Được giữ lại. Một `WritableComputedRef` được hỗ trợ bởi client của Intlayer; phản ứng hoạt động như trước                                |
+| `$t`, `$tc`, `$te`, `$tm`, `$rt`, `$d`, `$n`, `$i18n` (Options API) | ✅ Được giữ lại. Được đăng ký trên `app.config.globalProperties` bởi `app.use(i18n)`                                                        |
+| `v-t` directive                                                     | ✅ Được giữ lại                                                                                                                             |
+| `legacy: true`                                                      | ✅ Được chấp nhận                                                                                                                           |
+| `createI18n({ messages })`                                          | ⚠️ `messages` được sử dụng như một **fallback runtime** với cảnh báo dev. Xóa các import JSON để giảm bundle                                |
+| `setLocaleMessage()`, `mergeLocaleMessage()`                        | ❌ Cảnh báo và không làm gì. Runtime message loading được thay thế bằng build-time dictionaries                                             |
+| SFC `<i18n>` custom blocks                                          | ❌ Không được đọc. Di chuyển các messages đó vào locale JSON (hoặc một `.content.ts` bên cạnh component)                                    |
+| `@nuxtjs/i18n`                                                      | ⚠️ Adapter riêng biệt, xem [tài liệu tương thích Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md) |
 
 ## Bài kiểm tra
 
@@ -137,7 +137,7 @@ height="600px"
 style="border:none;"
 />
 
-> Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Vue](https://intlayer.org/vi/doc/benchmark/vue).
+> Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md).
 
 ## Tại sao các số liệu thay đổi
 
@@ -285,7 +285,7 @@ Nếu các tin nhắn của bạn nằm bên trong các component, chúng cần 
 </Accordion>
 <Accordion header="Tải tin nhắn tại runtime đã bị loại bỏ">
 
-`setLocaleMessage()` và `mergeLocaleMessage()` đưa ra cảnh báo và trả về. Bản dịch được lấy từ CMS tại runtime cần [Intlayer CMS](https://intlayer.org/vi/doc/concept/cms) hoặc các lệnh `intlayer pull` / `push`.
+`setLocaleMessage()` và `mergeLocaleMessage()` đưa ra cảnh báo và trả về. Bản dịch được lấy từ CMS tại runtime cần [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) hoặc các lệnh `intlayer pull` / `push`.
 
 </Accordion>
 <Accordion header="messages là phương án dự phòng, không miễn phí">
@@ -315,7 +315,7 @@ Bạn đang dùng `vue-i18n` và muốn tiết kiệm 88 KB, component nhỏ hơ
 </Accordion>
 <Accordion header="Chuyển sang native (vue-intlayer)">
 
-Dành cho các dự án mới hoặc khi adapter đã hoàn thành nhiệm vụ. Nó có runtime nhẹ nhất (3.9 KB) và mô hình `.content.ts` cho từng component thay thế các khối `<i18n>` bằng nội dung có định kiểu. Bắt đầu với [Intlayer với Vue](https://intlayer.org/vi/doc/environment/vite-and-vue) hoặc [với Nuxt](https://intlayer.org/vi/doc/environment/nuxt-and-vue).
+Dành cho các dự án mới hoặc khi adapter đã hoàn thành nhiệm vụ. Nó có runtime nhẹ nhất (3.9 KB) và mô hình `.content.ts` cho từng component thay thế các khối `<i18n>` bằng nội dung có định kiểu. Bắt đầu với [Intlayer với Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md) hoặc [với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md).
 
 </Accordion>
 </AccordionGroup>
@@ -338,13 +338,13 @@ Bởi vì `useI18n()` không còn truy cập vào instance toàn cục. `createI
 
 <Question title="Định dạng d() và n() thì sao?">
 
-Được giữ nguyên. Các cấu hình `datetimeFormats` và `numberFormats` được truyền vào `createI18n()` đều được tuân thủ, hỗ trợ bởi API `Intl` gốc. Xem [định dạng ngày, giờ và số](https://intlayer.org/vi/blog/date-time-number-formatting-locales).
+Được giữ nguyên. Các cấu hình `datetimeFormats` và `numberFormats` được truyền vào `createI18n()` đều được tuân thủ, hỗ trợ bởi API `Intl` gốc. Xem [định dạng ngày, giờ và số](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/date_time_number_formatting_locales.md).
 
 </Question>
 
 <Question title="Nó có hoạt động với Nuxt không?">
 
-`@intlayer/vue-i18n` nhắm tới Vite + Vue. Đối với `@nuxtjs/i18n`, hãy sử dụng [adapter tương thích Nuxt i18n](https://intlayer.org/vi/doc/compatibility/nuxtjs-i18n) và xem [Intlayer với Nuxt](https://intlayer.org/vi/doc/environment/nuxt-and-vue) để thiết lập native.
+`@intlayer/vue-i18n` nhắm tới Vite + Vue. Đối với `@nuxtjs/i18n`, hãy sử dụng [adapter tương thích Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md) và xem [Intlayer với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md) để thiết lập native.
 
 </Question>
 
@@ -360,24 +360,24 @@ Có. Bất kỳ component nào cũng có thể chuyển từ `useI18n()` sang `u
 
 Cùng loạt adapter:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/vi/blog/next-intl-vs-intlayer-next-intl)
-- [i18next vs @intlayer/i18next](https://intlayer.org/vi/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/vi/blog/lingui-vs-intlayer-lingui)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer-next-intl.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer-lingui.md)
 
 Các thư viện được so sánh trực tiếp:
 
-- [vue-i18n vs Intlayer](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer), features and DX
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-benchmark)
-- [Is vue-i18n outdated?](https://intlayer.org/vi/blog/is-vue-i18n-outdated)
-- [How to pick a Vue i18n library](https://intlayer.org/vi/blog/how-to-pick-vue-i18n-library)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md), features and DX
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer_benchmark.md)
+- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_vue-i18n_outdated.md)
+- [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_vue_i18n_library.md)
 
 Tài liệu tham khảo:
 
-- [Compat adapter: vue-i18n](https://intlayer.org/vi/doc/compatibility/vue-i18n) and [Nuxt i18n](https://intlayer.org/vi/doc/compatibility/nuxtjs-i18n)
-- [Hướng dẫn di chuyển: vue-i18n sang Intlayer](https://intlayer.org/vi/doc/migration/vue-i18n)
-- [Báo cáo benchmark Vue](https://intlayer.org/vi/doc/benchmark/vue)
-- [Tối ưu hóa bundle](https://intlayer.org/vi/doc/concept/bundle-optimization) và [trình biên dịch Intlayer](https://intlayer.org/vi/doc/compiler)
-- [Visual Editor](https://intlayer.org/vi/doc/concept/editor), [CMS](https://intlayer.org/vi/doc/concept/cms) và [dịch thuật AI](https://intlayer.org/vi/doc/concept/auto-fill)
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md)
+- [Hướng dẫn di chuyển: vue-i18n sang Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_vue-i18n_to_intlayer.md)
+- [Báo cáo benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md)
+- [Tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) và [dịch thuật AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md)
 
 ## Kết luận
 
@@ -385,4 +385,4 @@ Tài liệu tham khảo:
 
 Tất cả dữ liệu thô, các ứng dụng thử nghiệm và các script đều có trong [kho lưu trữ Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Chạy nó bằng chính bạn.
 
-Tham khảo [tài liệu 'Why Intlayer?'](https://intlayer.org/vi/doc/why) để biết thêm chi tiết.
+Tham khảo [tài liệu 'Why Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.

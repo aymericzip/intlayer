@@ -83,7 +83,7 @@ height="600px"
 style="border:none;"
 />
 
-> Avaliado em navegadores reais com compressão gzip de produção. Informações completas no [relatório de benchmark Next.js](https://intlayer.org/pt/doc/benchmark/nextjs).
+> Avaliado em navegadores reais com compressão gzip de produção. Informações completas no [relatório de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/nextjs.md).
 
 ### Pegada base da biblioteca
 
@@ -131,7 +131,7 @@ O gráfico abaixo estima o peso do conteúdo para uma aplicação teórica de 1 
 
 ![Vazamento de conteúdo teórico por arquitetura](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-O Intlayer soluciona isso por análise estática: o [compilador do Intlayer](https://intlayer.org/pt/doc/compiler) empacota exclusivamente os textos solicitados por cada rota, reduzindo o vazamento para **0.0%**.
+O Intlayer soluciona isso por análise estática: o [compilador do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) empacota exclusivamente os textos solicitados por cada rota, reduzindo o vazamento para **0.0%**.
 
 ## Por que o next-intl não suporta tree-shaking
 
@@ -170,7 +170,7 @@ export function UserProfile() {
   </Tab>
 </Tabs>
 
-Turbopack e Webpack não conseguem assegurar quais chaves de `UserProfile` serão de fato invocadas. Para não ocasionar erros, **o bundler precisa empacotar o namespace por inteiro no bundle do cliente**. A desestruturação do Intlayer permite ao compilador inspecionar referências concretas e suprimir campos sem utilidade. Saiba mais em [otimização de bundle](https://intlayer.org/pt/doc/concept/bundle-optimization).
+Turbopack e Webpack não conseguem assegurar quais chaves de `UserProfile` serão de fato invocadas. Para não ocasionar erros, **o bundler precisa empacotar o namespace por inteiro no bundle do cliente**. A desestruturação do Intlayer permite ao compilador inspecionar referências concretas e suprimir campos sem utilidade. Saiba mais em [otimização de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md).
 
 ## Experiência do desenvolvedor
 
@@ -269,17 +269,17 @@ declare global {
 
 Entretanto, apenas o idioma base é verificado. Se uma chave for excluída de `pt.json`, o TypeScript não emitirá avisos, seu build passará normalmente e os usuários receberão textos ausentes.
 
-O Intlayer infere tipos a partir de todas as declarações. Com o [`strictMode`](https://intlayer.org/pt/doc/concept/configuration), traduções incompletas geram erros imediatos na compilação.
+O Intlayer infere tipos a partir de todas as declarações. Com o [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md), traduções incompletas geram erros imediatos na compilação.
 
 ### Ecossistema e automação com IA
 
-| Funcionalidade                  | `next-intl` | Intlayer                                                                |
-| ------------------------------- | ----------- | ----------------------------------------------------------------------- |
-| **Extensão VS Code**            | ❌ Nenhuma  | ✅ [Extensão oficial](https://intlayer.org/pt/doc/vs-code-extension)    |
-| **Language Server (LSP)**       | ❌ Nenhum   | ✅ [LSP dedicado](https://intlayer.org/pt/doc/lsp)                      |
-| **Servidor MCP (para agentes)** | ❌ Nenhum   | ✅ [Servidor MCP integrado](https://intlayer.org/pt/doc/mcp-server)     |
-| **Habilidades de Agente**       | ❌ Nenhuma  | ✅ [Skills prontas](https://intlayer.org/pt/doc/agent_skills)           |
-| **CMS Visual em contexto**      | ❌ Nenhum   | ✅ [Gratuito & Open Source](https://intlayer.org/pt/doc/concept/editor) |
+| Funcionalidade                  | `next-intl` | Intlayer                                                                                                             |
+| ------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------- |
+| **Extensão VS Code**            | ❌ Nenhuma  | ✅ [Extensão oficial](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md)            |
+| **Language Server (LSP)**       | ❌ Nenhum   | ✅ [LSP dedicado](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md)                              |
+| **Servidor MCP (para agentes)** | ❌ Nenhum   | ✅ [Servidor MCP integrado](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/mcp_server.md)             |
+| **Habilidades de Agente**       | ❌ Nenhuma  | ✅ [Skills prontas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/agent_skills.md)                   |
+| **CMS Visual em contexto**      | ❌ Nenhum   | ✅ [Gratuito & Open Source](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) |
 
 A presença de servidores LSP e MCP viabiliza que assistentes de codificação entendam a estrutura de conteúdo do projeto e sugiram atualizações com alta precisão.
 
@@ -295,7 +295,7 @@ Localiza e traduz textos ausentes utilizando suas credenciais da OpenAI, Anthrop
 
 **CMS visual auto-hospedado:**
 
-Use o [CMS Intlayer](https://intlayer.org/pt/doc/concept/cms) para capacitar editores a ajustarem textos com gravação direta no Git.
+Use o [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md) para capacitar editores a ajustarem textos com gravação direta no Git.
 
 **Licença de código aberto permissiva:**
 
@@ -351,9 +351,9 @@ Essa CLI interativa:
 
 Para instruções detalhadas, veja nossos guias dedicados:
 
-- **Compatibilidade transparente:** Mantenha suas chamadas `useTranslations` usando o [adaptador de compatibilidade para next-intl](https://intlayer.org/pt/doc/compatibility/next-intl).
-- **Migração guiada:** Converta catálogos JSON existentes em arquivos tipados por meio do nosso [guia de migração next-intl](https://intlayer.org/pt/doc/migration/next-intl).
-- **Abordagem híbrida:** Conserve o `next-intl` na renderização enquanto [utiliza o Intlayer com next-intl](https://intlayer.org/pt/blog/intlayer-with-next-intl) para realizar traduções locais por IA.
+- **Compatibilidade transparente:** Mantenha suas chamadas `useTranslations` usando o [adaptador de compatibilidade para next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/next-intl.md).
+- **Migração guiada:** Converta catálogos JSON existentes em arquivos tipados por meio do nosso [guia de migração next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_next-intl_to_intlayer.md).
+- **Abordagem híbrida:** Conserve o `next-intl` na renderização enquanto [utiliza o Intlayer com next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/intlayer_with_next-intl.md) para realizar traduções locais por IA.
 
 Avalie o payload e vazamento do seu site com o [scanner de SEO para i18n gratuito](https://intlayer.org/i18n-seo-scanner):
 
@@ -361,7 +361,7 @@ Avalie o payload e vazamento do seu site com o [scanner de SEO para i18n gratuit
 
 ## Leituras complementares
 
-- [Benchmark Next.js i18n: comparativo completo de performance](https://intlayer.org/pt/doc/benchmark/nextjs)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/pt/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [O i18next está obsoleto em 2026?](https://intlayer.org/pt/blog/is-i18next-outdated)
-- [Por que adotar uma internacionalização orientada a compiladores](https://intlayer.org/pt/blog/compiler-vs-declarative-i18n)
+- [Benchmark Next.js i18n: comparativo completo de performance](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-i18next_vs_next-intl_vs_intlayer.md)
+- [O i18next está obsoleto em 2026?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/is_i18next_outdated.md)
+- [Por que adotar uma internacionalização orientada a compiladores](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/compiler_vs_declarative_i18n.md)

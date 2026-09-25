@@ -997,7 +997,7 @@ This extension provides:
 - **Inline previews** of translated content.
 - **Quick actions** to easily create and update translations.
 
-For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md).
 
 ### Go Further
 
@@ -1013,7 +1013,7 @@ Vite has no opinion on i18n, so the options are the React ecosystem ones:
 
 - **`react-i18next` / `i18next`**: the most widespread, with JSON namespaces loaded at runtime.
 - **`react-intl`** and **`Lingui`**: ICU message format, extraction based.
-- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://intlayer.org/blog/per-component-vs-centralized-i18n)), compiled by a Vite plugin at build time, fully typed, with AI translation, a visual editor and a CMS.
+- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)), compiled by a Vite plugin at build time, fully typed, with AI translation, a visual editor and a CMS.
 
 On Vite specifically, Intlayer plugs into the build so translations are resolved and tree shaken at compile time instead of being fetched as JSON at runtime. See [why Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) and the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md).
 

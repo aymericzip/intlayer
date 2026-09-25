@@ -3,9 +3,11 @@ import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import type { DocMetadata } from '@intlayer/docs';
 import { getIntlayer } from 'intlayer';
-import { ChevronRight, FileText, Terminal } from 'lucide-react';
+import { ChevronRight, Terminal } from 'lucide-react';
 import {
+  Children,
   type FC,
+  isValidElement,
   type PropsWithChildren,
   type ReactNode,
   useMemo,
@@ -78,6 +80,8 @@ const normalizeSingleTechLogo = (tech: string): TechLogoName | undefined => {
     grok: 'grok',
     hono: 'hono',
     htmx: 'htmx',
+    i18next: 'vanilla',
+    'i18n-js': 'vanilla',
     javascript: 'vanilla',
     js: 'vanilla',
     linkedin: 'linkedin',
@@ -130,8 +134,6 @@ const normalizeSingleTechLogo = (tech: string): TechLogoName | undefined => {
     vue: 'vue',
     vuejs: 'vue',
     'vue-i18n': 'vue',
-    i18next: 'vanilla',
-    'i18n-js': 'vanilla',
     lingui: 'react',
     'ngx-translate': 'angular',
     ngx: 'angular',
@@ -139,36 +141,55 @@ const normalizeSingleTechLogo = (tech: string): TechLogoName | undefined => {
 
   if (directMap[t]) return directMap[t];
 
-  if (t.includes('next')) return 'nextjs';
-  if (t.includes('nuxt')) return 'nuxt';
-  if (t.includes('tanstack')) return 'tanstack';
-  if (t.includes('solid')) return 'solid';
-  if (t.includes('svelte')) return 'svelte';
-  if (t.includes('astro')) return 'astro';
-  if (t.includes('angular') || t.includes('analog')) return 'angular';
-  if (t.includes('preact')) return 'preact';
   if (
-    t.includes('react') ||
-    t.includes('expo') ||
-    t.includes('cra') ||
-    t.includes('lynx')
+    /(^|[^a-z0-9]|_)react([.-]|js|\b|_)/i.test(t) ||
+    /(^|[^a-z0-9]|_)expo([.-]|\b|_)/i.test(t) ||
+    /(^|[^a-z0-9]|_)cra([.-]|\b|_)/i.test(t) ||
+    /(^|[^a-z0-9]|_)lynx([.-]|js|\b|_)/i.test(t)
   ) {
-    if (t.includes('lynx')) return 'lynx';
+    if (/(^|[^a-z0-9]|_)lynx([.-]|js|\b|_)/i.test(t)) return 'lynx';
     return 'react';
   }
-  if (t.includes('vue')) return 'vue';
-  if (t.includes('vite')) return 'vite';
-  if (t.includes('remix')) return 'remix';
-  if (t.includes('express')) return 'express';
-  if (t.includes('nest')) return 'nestjs';
-  if (t.includes('fastify')) return 'fastify';
-  if (t.includes('hono')) return 'hono';
-  if (t.includes('elysia')) return 'elysia';
-  if (t.includes('adonis')) return 'adonis';
-  if (t.includes('lit')) return 'lit';
-  if (t.includes('htmx')) return 'htmx';
-  if (t.includes('vanilla') || t.includes('javascript')) return 'vanilla';
-  if (t.includes('node')) return 'node';
+
+  // Next.js: match 'nextjs', 'next.js', 'next-intl', 'next-i18next', 'next-...' or standalone 'next'
+  // But NOT 'i18next' where 'next' is preceded by 'i18' or '18'
+  if (/(^|[^a-z0-9]|_)next([.-]|js|\b|_)/i.test(t)) return 'nextjs';
+  if (/(^|[^a-z0-9]|_)nuxt([.-]|js|\b|_)/i.test(t)) return 'nuxt';
+  if (/(^|[^a-z0-9]|_)tanstack([.-]|js|\b|_)/i.test(t)) return 'tanstack';
+  if (/(^|[^a-z0-9]|_)solid([.-]|js|start|\b|_)/i.test(t)) return 'solid';
+  if (/(^|[^a-z0-9]|_)svelte([.-]|js|kit|\b|_)/i.test(t)) return 'svelte';
+  if (/(^|[^a-z0-9]|_)astro([.-]|js|\b|_)/i.test(t)) return 'astro';
+  if (
+    /(^|[^a-z0-9]|_)angular([.-]|js|\b|_)/i.test(t) ||
+    /(^|[^a-z0-9]|_)analog([.-]|js|\b|_)/i.test(t) ||
+    /(^|[^a-z0-9]|_)transloco([.-]|js|\b|_)/i.test(t) ||
+    /(^|[^a-z0-9]|_)ngx([.-]|\b|_)/i.test(t)
+  ) {
+    return 'angular';
+  }
+  if (/(^|[^a-z0-9]|_)preact([.-]|js|\b|_)/i.test(t)) return 'preact';
+  if (/(^|[^a-z0-9]|_)vue([.-]|js|\b|_)/i.test(t)) return 'vue';
+  if (/(^|[^a-z0-9]|_)vite([.-]|js|\b|_)/i.test(t)) return 'vite';
+  if (/(^|[^a-z0-9]|_)remix([.-]|js|\b|_)/i.test(t)) return 'remix';
+  if (/(^|[^a-z0-9]|_)express([.-]|js|\b|_)/i.test(t)) return 'express';
+  if (/(^|[^a-z0-9]|_)nest(js|[.-]|\b|_)/i.test(t)) return 'nestjs';
+  if (/(^|[^a-z0-9]|_)fastify([.-]|js|\b|_)/i.test(t)) return 'fastify';
+  if (/(^|[^a-z0-9]|_)hono([.-]|js|\b|_)/i.test(t)) return 'hono';
+  if (/(^|[^a-z0-9]|_)elysia([.-]|js|\b|_)/i.test(t)) return 'elysia';
+  if (/(^|[^a-z0-9]|_)adonis([.-]|js|\b|_)/i.test(t)) return 'adonis';
+  if (/(^|[^a-z0-9]|_)lit([.-]|js|\b|_)/i.test(t)) return 'lit';
+  if (/(^|[^a-z0-9]|_)htmx([.-]|js|\b|_)/i.test(t)) return 'htmx';
+  if (
+    /(^|[^a-z0-9]|_)polyglot([.-]|js|\b|_)/i.test(t) ||
+    /(^|[^a-z0-9]|_)i18n-js([.-]|\b|_)/i.test(t) ||
+    /(^|[^a-z0-9]|_)i18next([.-]|js|\b|_)/i.test(t) ||
+    /(^|[^a-z0-9]|_)vanilla([.-]|js|\b|_)/i.test(t) ||
+    /(^|[^a-z0-9]|_)javascript([.-]|js|\b|_)/i.test(t) ||
+    /(^|[^a-z0-9]|_)js([.-]|\b|_)/i.test(t)
+  ) {
+    return 'vanilla';
+  }
+  if (/(^|[^a-z0-9]|_)node([.-]|js|\b|_)/i.test(t)) return 'node';
 
   return undefined;
 };
@@ -238,15 +259,38 @@ const findMatchingDoc = (
     ?.replace(/\.(md|mdx)$/, '');
   if (!targetFile) return undefined;
 
+  const targetFileNorm = targetFile.replace(/-/g, '_');
+
   return allDocs.find((d) => {
     if (!d) return false;
     const docKey = getStringValue(d.docKey);
-    if (!docKey) return false;
-    const docFile = docKey
-      .split('/')
-      .pop()
-      ?.replace(/\.(md|mdx)$/, '');
-    return docFile === targetFile;
+    if (docKey) {
+      const docFile = docKey
+        .split('/')
+        .pop()
+        ?.replace(/\.(md|mdx)$/, '');
+      if (
+        docFile &&
+        (docFile === targetFile ||
+          docFile.replace(/-/g, '_') === targetFileNorm)
+      ) {
+        return true;
+      }
+    }
+
+    const slugs = d.slugs;
+    if (Array.isArray(slugs) && slugs.length > 0) {
+      const lastSlug = getStringValue(slugs[slugs.length - 1]);
+      if (
+        lastSlug &&
+        (lastSlug === targetFile ||
+          lastSlug.replace(/-/g, '_') === targetFileNorm)
+      ) {
+        return true;
+      }
+    }
+
+    return false;
   });
 };
 
@@ -372,7 +416,11 @@ export const TechLink: FC<TechLinkProps> = ({
   const docMeta = useMemo(() => {
     if (!rawTarget) return undefined;
     try {
-      const allDocs = getIntlayer('doc-metadata', locale) as DocMetadata[];
+      const docMetadata = (getIntlayer('doc-metadata', locale) ??
+        []) as DocMetadata[];
+      const blogMetadata = (getIntlayer('blog-metadata', locale) ??
+        []) as DocMetadata[];
+      const allDocs = [...docMetadata, ...blogMetadata];
       if (Array.isArray(allDocs)) {
         return findMatchingDoc(allDocs, rawTarget);
       }
@@ -398,6 +446,7 @@ export const TechLink: FC<TechLinkProps> = ({
 
   const displayTitle = useMemo(() => {
     if (title) return title;
+    if (children && !description) return children;
     const dataTitle = getStringValue(docDataEntry?.title);
     if (dataTitle) return dataTitle;
     const metaTitle = getStringValue(docMeta?.title);
@@ -408,15 +457,15 @@ export const TechLink: FC<TechLinkProps> = ({
         .pop()
         ?.replace(/\.(md|mdx)$/, '') || 'Guide'
     );
-  }, [title, docDataEntry, docMeta, rawTarget]);
+  }, [title, children, description, docDataEntry, docMeta, rawTarget]);
 
   const displayDescription = useMemo(() => {
     if (description) return description;
-    if (children) return children;
+    if (children && title && children !== title) return children;
     const metaDesc = getStringValue(docMeta?.description);
     if (metaDesc) return metaDesc;
     return undefined;
-  }, [description, children, docMeta]);
+  }, [description, children, docMeta, title]);
 
   const resolvedLogos = useMemo<TechLogoName[]>(() => {
     const explicit = tech ?? logo ?? framework ?? frameworksProp;
@@ -428,7 +477,33 @@ export const TechLink: FC<TechLinkProps> = ({
       return filterAutoFrameworks(docDataEntry.frameworks, titleStr);
     }
     if (rawTarget) {
+      const targetIdentifier = rawTarget
+        .split('?')[0]
+        .split('#')[0]
+        .split('/')
+        .filter(Boolean)
+        .pop()
+        ?.replace(/\.(md|mdx)$/, '');
+
+      if (targetIdentifier) {
+        const detectedFromId = normalizeSingleTechLogo(targetIdentifier);
+        if (detectedFromId) return [detectedFromId];
+      }
+
       const detected = normalizeSingleTechLogo(rawTarget);
+      if (detected) return [detected];
+    }
+    if (docMeta?.slugs && Array.isArray(docMeta.slugs)) {
+      for (let i = docMeta.slugs.length - 1; i >= 0; i--) {
+        const slug = getStringValue(docMeta.slugs[i]);
+        if (slug) {
+          const detectedSlug = normalizeSingleTechLogo(slug);
+          if (detectedSlug) return [detectedSlug];
+        }
+      }
+    }
+    if (typeof displayTitle === 'string' && displayTitle) {
+      const detected = normalizeSingleTechLogo(displayTitle);
       if (detected) return [detected];
     }
     return [];
@@ -439,6 +514,7 @@ export const TechLink: FC<TechLinkProps> = ({
     frameworksProp,
     docDataEntry,
     rawTarget,
+    docMeta,
     displayTitle,
   ]);
 
@@ -460,6 +536,8 @@ export const TechLink: FC<TechLinkProps> = ({
     return false;
   }, [rawTarget, docMeta]);
 
+  const hasIcon = Boolean(icon || resolvedLogos.length > 0 || isCli);
+
   const content = (
     <Container
       roundedSize="2xl"
@@ -473,39 +551,37 @@ export const TechLink: FC<TechLinkProps> = ({
         className
       )}
     >
-      <div className="flex size-10 shrink-0 items-center justify-center p-2 md:size-12">
-        {icon ? (
-          icon
-        ) : resolvedLogos.length === 1 ? (
-          <TechLogo
-            name={resolvedLogos[0]}
-            className="size-6 shrink-0 md:size-7"
-          />
-        ) : resolvedLogos.length > 1 ? (
-          <div className="flex shrink-0 items-center -space-x-2">
-            {resolvedLogos.slice(0, 2).map((logoName, idx) => (
-              <TechLogo
-                key={logoName}
-                name={logoName}
-                className={cn(
-                  'size-5 shrink-0 md:size-6',
-                  idx === 0 ? 'z-10' : 'z-0'
-                )}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-neutral-500/10 text-neutral-600 md:size-7 dark:text-neutral-400">
-            {isCli ? (
+      {hasIcon && (
+        <div className="flex size-10 shrink-0 items-center justify-center p-2 md:size-12">
+          {icon ? (
+            icon
+          ) : resolvedLogos.length === 1 ? (
+            <TechLogo
+              name={resolvedLogos[0]}
+              className="size-6 shrink-0 md:size-7"
+            />
+          ) : resolvedLogos.length > 1 ? (
+            <div className="flex shrink-0 items-center -space-x-2">
+              {resolvedLogos.slice(0, 2).map((logoName, idx) => (
+                <TechLogo
+                  key={logoName}
+                  name={logoName}
+                  className={cn(
+                    'size-5 shrink-0 md:size-6',
+                    idx === 0 ? 'z-10' : 'z-0'
+                  )}
+                />
+              ))}
+            </div>
+          ) : isCli ? (
+            <div className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-neutral-500/10 text-neutral-600 md:size-7 dark:text-neutral-400">
               <Terminal className="size-3.5 shrink-0 md:size-4" />
-            ) : (
-              <FileText className="size-3.5 shrink-0 md:size-4" />
-            )}
-          </div>
-        )}
-      </div>
+            </div>
+          ) : null}
+        </div>
+      )}
 
-      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+      <div className="flex min-w-0 flex-1 flex-col gap-2">
         <span className="line-clamp-2 font-semibold text-foreground text-sm leading-snug transition-colors group-hover/tech-link:text-primary md:text-base">
           {displayTitle}
         </span>
@@ -548,22 +624,67 @@ export type TechGridProps = PropsWithChildren<{
   items?: TechLinkProps[];
 }>;
 
-export const TechGrid: FC<TechGridProps> = ({ children, className, items }) => (
-  <div
-    className={cn('not-prose my-4 flex flex-wrap gap-x-3 gap-y-2', className)}
-  >
-    {items
-      ? items.map((item, idx) => (
-          <TechLink
-            key={
-              item.to ??
-              item.href ??
-              item.doc ??
-              (typeof item.title === 'string' ? item.title : idx)
-            }
-            {...item}
-          />
-        ))
-      : children}
-  </div>
-);
+export const TechGrid: FC<TechGridProps> = ({ children, className, items }) => {
+  const renderedChildren = useMemo(() => {
+    if (!children) return null;
+
+    const extractLinks = (nodes: ReactNode): ReactNode[] => {
+      const result: ReactNode[] = [];
+      Children.forEach(nodes, (child) => {
+        if (!isValidElement(child)) return;
+
+        // If it's a list (<ul> or <ol>) or list item (<li>), unwrap recursively
+        const typeStr =
+          typeof child.type === 'string'
+            ? child.type
+            : (child.props as any)?.originalType;
+
+        if (typeStr === 'ul' || typeStr === 'ol' || typeStr === 'li') {
+          result.push(...extractLinks((child.props as any).children));
+          return;
+        }
+
+        // If it's an <a> or <Link> or has href/to
+        const { children: linkChildren, ...restProps } = (child.props ??
+          {}) as any;
+        const href = restProps.href ?? restProps.to;
+        if (href && child.type !== TechLink) {
+          result.push(
+            <TechLink
+              key={href}
+              href={href}
+              title={restProps.title ?? linkChildren}
+              {...restProps}
+            />
+          );
+          return;
+        }
+
+        result.push(child);
+      });
+      return result;
+    };
+
+    return extractLinks(children);
+  }, [children]);
+
+  return (
+    <div
+      className={cn('not-prose my-4 flex flex-wrap gap-x-3 gap-y-2', className)}
+    >
+      {items
+        ? items.map((item, idx) => (
+            <TechLink
+              key={
+                item.to ??
+                item.href ??
+                item.doc ??
+                (typeof item.title === 'string' ? item.title : idx)
+              }
+              {...item}
+            />
+          ))
+        : renderedChildren}
+    </div>
+  );
+};

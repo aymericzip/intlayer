@@ -791,7 +791,7 @@ console.log("SEO files generated successfully.");
 - **معاينات مضمنة** للمحتوى المترجم.
 - **إجراءات سريعة** لإنشاء وتحديث الترجمات بسهولة.
 
-لمزيد من التفاصيل حول كيفية استخدام الإضافة، ارجع إلى [توثيق إضافة Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+لمزيد من التفاصيل حول كيفية استخدام الإضافة، ارجع إلى [توثيق إضافة Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md).
 
 ### اذهب أبعد من ذلك
 

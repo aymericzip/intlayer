@@ -23,7 +23,7 @@ author: aymericzip
 
 # vue-i18n VS Intlayer | Vue 国际化 (i18n) 基准测试
 
-`vue-i18n` 是 Vue 的参考 i18n 库。Intlayer 是一个基于编译器、按组件作用域划分内容的替代方案，并提供 Vue 集成（`vue-intlayer`）。我们已经比较过它们的[功能和开发体验](https://intlayer.org/blog/vue-i18n-vs-intlayer)。本文关注的是应用构建完成后，每个库各自的成本。
+`vue-i18n` 是 Vue 的参考 i18n 库。Intlayer 是一个基于编译器、按组件作用域划分内容的替代方案，并提供 Vue 集成（`vue-intlayer`）。我们已经比较过它们的[功能和开发体验](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md)。本文关注的是应用构建完成后，每个库各自的成本。
 
 数据来自 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)，这是一个开源套件，它用每个库构建同一个应用程序，并记录浏览器实际下载和执行的内容。
 
@@ -140,7 +140,7 @@ Intlayer 把这些知识移到构建阶段。内容在组件旁声明，`vite-in
 
 编译器按字典、按语言精确输出该组件需要的 JSON，并丢弃没有任何导入的字典。按路由的作用域是按组件作用域的自然结果，而不是一项任务。
 
-> 若还想丢弃未使用的语言，在 `intlayer.config.ts` 中设置 `dictionary.importMode: 'dynamic'`。参见 [bundle 优化文档](https://intlayer.org/doc/concept/bundle-optimization)。
+> 若还想丢弃未使用的语言，在 `intlayer.config.ts` 中设置 `dictionary.importMode: 'dynamic'`。参见 [bundle 优化文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
 
 ## 开发体验
 
@@ -328,7 +328,7 @@ export default defineConfig({
 
 在基准测试中，同一应用的 compat 构建每页从 **134.9 KB 降到 47.0 KB**，每组件从 **196 KB 降到 8.4 KB**，组件未做改动。通过 JSON 同步插件，你现有的 `locales/{locale}.json` 可以继续作为事实来源。
 
-参见 [vue-i18n 迁移指南](https://intlayer.org/doc/migration/vue-i18n)和[兼容性文档](https://intlayer.org/doc/compatibility/vue-i18n)。Nuxt 用户可通过 [`@nuxtjs/i18n` 兼容性](https://intlayer.org/doc/compatibility/nuxtjs-i18n)走同样的路径。
+参见 [vue-i18n 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md)和[兼容性文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md)。Nuxt 用户可通过 [`@nuxtjs/i18n` 兼容性](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)走同样的路径。
 
 ## 何时选择哪一个？
 
@@ -338,11 +338,11 @@ export default defineConfig({
 
 ## 相关对比
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer)（同一基准测试）
-- [i18next vs Intlayer](https://intlayer.org/blog/i18next-vs-intlayer)（同一基准测试）
-- [Lingui vs Intlayer](https://intlayer.org/blog/lingui-vs-intlayer)（同一基准测试）
-- [vue-i18n vs Intlayer（功能与 DX）](https://intlayer.org/blog/vue-i18n-vs-intlayer)
-- [vue-i18n 过时了吗？](https://intlayer.org/blog/is-vue-i18n-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer.md)（同一基准测试）
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer.md)（同一基准测试）
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)（同一基准测试）
+- [vue-i18n vs Intlayer（功能与 DX）](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md)
+- [vue-i18n 过时了吗？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_vue-i18n_outdated.md)
 
 ## GitHub Star
 
@@ -358,4 +358,4 @@ Intlayer 把工作移进编译器。按组件的字典和无用内容清除是�
 
 所有原始数据、测试应用和脚本都在 [Benchmark Bloom 仓库](https://github.com/intlayer-org/benchmark-bloom)中。自己跑一遍吧。
 
-更多细节请参阅[“为什么选择 Intlayer？”文档](https://intlayer.org/doc/why)。
+更多细节请参阅[“为什么选择 Intlayer？”文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。

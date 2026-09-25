@@ -14,10 +14,10 @@
 <br />
 
 <p align="center">
-  <a href="https://intlayer.org/doc/concept/content" rel="">Docs</a> •
-  <a href="https://intlayer.org/doc/environment/nextjs" rel="">Next.js</a> •
-  <a href="https://intlayer.org/doc/environment/vite-and-react" rel="">React + Vite</a> •
-  <a href="https://intlayer.org/doc/concept/cms" rel="">CMS</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md" rel="">Docs</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md" rel="">Next.js</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md" rel="">React + Vite</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md" rel="">CMS</a> •
   <a href="https://discord.gg/7uxamYVeCk" rel="noopener noreferrer nofollow">Discord</a>
 </p>
 <p align="center" style="margin-top:15px;">
@@ -31,7 +31,7 @@
 
 ![Смотреть видео](https://github.com/aymericzip/intlayer/blob/main/docs/assets/demo_video.gif)
 
-<a href="https://intlayer.org/doc/concept/content" rel="">
+<a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md" rel="">
   <img src="https://img.shields.io/badge/Начать-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
@@ -46,33 +46,33 @@ Intlayer, это **современное решение i18n** для веб- �
 
 ## Ключевые преимущества Intlayer:
 
-| Особенность                                                                                                                                         | Описание                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.webp?raw=true" alt="Feature" width="700">                         | **Поддержка нескольких фреймворков**<br><br>Intlayer совместим со всеми основными фреймворками и библиотеками, включая Next.js, React, Vite, Vue.js, Nuxt, Preact, Express и другие.                                                                                                                                                                                                                                                                                                                                                                 |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.jpg?raw=true" alt="Feature" width="700">       | **Управление контентом на основе JavaScript**<br><br>Используйте гибкость JavaScript для эффективного определения и управления вашим контентом. <br><br> - [Объявление контента](https://intlayer.org/doc/concept/content)                                                                                                                                                                                                                                                                                                                           |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true" alt="Feature" width="700"> | **Файл объявления контента для каждого языка**<br><br>Ускорьте разработку, объявляя ваш контент один раз до автоматической генерации.<br><br> - [Файл объявления контента для каждого языка](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                                                                                                                                                                       |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true" alt="Feature" width="700">                           | **Компилятор**<br><br>Компилятор Intlayer автоматически извлекает контент из компонентов и создает файлы словарей.<br><br> - [Компилятор](https://intlayer.org/doc/compiler)                                                                                                                                                                                                                                                                                                                                                                         |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true" alt="Feature" width="700">                      | **Безопасная типизация среды**<br><br>Используйте TypeScript, чтобы гарантировать отсутствие ошибок в определениях контента и коде, а также получать автозаполнение в IDE.<br><br> - [Конфигурация TypeScript](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                                                                                                                                                                             |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true" alt="Feature" width="700">                         | **Упрощённая настройка**<br><br>Быстрый старт с минимальной конфигурацией. Легко настраивайте параметры интернационализации, маршрутизации, ИИ, сборки и обработки контента.<br><br> - [Изучите интеграцию с Next.js](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                                                   |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png?raw=true" alt="Feature" width="700">                   | **Упрощённый доступ к контенту**<br><br>Не нужно вызывать функцию `t` для каждого элемента контента. Получайте весь ваш контент напрямую с помощью одного хука.<br><br> - [Интеграция с React](https://intlayer.org/doc/environment/create-react-app)                                                                                                                                                                                                                                                                                                |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png?raw=true" alt="Feature" width="700">                    | **Единообразная реализация серверных компонентов**<br><br>Идеально подходит для серверных компонентов Next.js, используйте одну и ту же реализацию как для клиентских, так и для серверных компонентов, нет необходимости передавать функцию `t` через каждый серверный компонент.<br><br> - [Серверные компоненты](https://intlayer.org/doc/environment/nextjs#step-7-utilize-content-in-your-code)                                                                                                                                                 |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png?raw=true" alt="Feature" width="700">                           | **Организованный код**<br><br>Поддерживайте ваш код более организованным: 1 компонент = 1 словарь в той же папке. Переводы находятся рядом с соответствующими компонентами, что улучшает сопровождаемость и ясность.<br><br> - [Как работает Intlayer](https://intlayer.org/doc/concept/how-works-intlayer)                                                                                                                                                                                                                                          |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png?raw=true" alt="Feature" width="700">                         | **Расширенная маршрутизация**<br><br>Полная поддержка маршрутизации приложений, плавно адаптирующаяся к сложным структурам приложений для Next.js, React, Vite, Vue.js и других.<br><br> - [Изучите интеграцию с Next.js](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                                               |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png?raw=true" alt="Feature" width="700">                            | **Поддержка Markdown**<br><br>Импорт и интерпретация локализованных файлов и удалённого Markdown для многоязычного контента, такого как политики конфиденциальности, документация и прочее. Интерпретируйте и делайте метаданные Markdown доступными в вашем коде.<br><br> - [Файлы контента](https://intlayer.org/doc/concept/content/file)                                                                                                                                                                                                         |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.webp?raw=true" alt="Feature" width="700">                      | **Бесплатный визуальный редактор и CMS**<br><br>Для контент-райтеров доступен бесплатный визуальный редактор и CMS, что устраняет необходимость в платформе локализации. Сохраняйте синхронизацию контента с помощью Git или полностью/частично выносите его с помощью CMS.<br><br> - [Редактор Intlayer](https://intlayer.org/doc/concept/editor) <br> - [CMS Intlayer](https://intlayer.org/doc/concept/cms)                                                                                                                                       |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true" alt="Feature" width="700">                             | **Контент с поддержкой tree-shaking**<br><br>Контент с поддержкой tree-shaking, уменьшающий размер итогового бандла. Загружает контент для каждого компонента, исключая неиспользуемый контент из вашего бандла. Поддерживает ленивую загрузку для повышения эффективности загрузки приложения. <br><br> - [Оптимизация сборки приложения](https://intlayer.org/doc/concept/how-works-intlayer#app-build-optimization)                                                                                                                               |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.webp?raw=true" alt="Feature" width="700">                   | **Статическая отрисовка**<br><br>Не блокирует статическую отрисовку. <br><br> - [Интеграция с Next.js](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                                                                                                                                                                  |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true" alt="Feature" width="700">                      | **Перевод с использованием ИИ**<br><br>Преобразуйте ваш сайт на 231 язык всего одним кликом с помощью передовых инструментов перевода на базе ИИ от Intlayer, используя вашего собственного поставщика ИИ / API ключ. <br><br> - [Интеграция CI/CD](https://intlayer.org/doc/concept/ci-cd) <br> - [CLI Intlayer](https://intlayer.org/doc/concept/cli) <br> - [Автозаполнение](https://intlayer.org/doc/concept/auto-fill)                                                                                                                          |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true" alt="Feature" width="700">                                 | **Интеграция MCP сервера**<br><br>Обеспечивает MCP (Model Context Protocol) сервер для автоматизации IDE, позволяя бесшовно управлять контентом и рабочими процессами i18n непосредственно в вашей среде разработки. <br><br> - [MCP Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)                                                                                                                                                                                                                            |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.webp?raw=true" alt="Feature" width="700">                   | **Расширение VSCode**<br><br>Intlayer предоставляет расширение для VSCode, которое поможет вам управлять вашим контентом и переводами, создавать словари, переводить контент и многое другое. <br><br> - [Расширение VSCode](https://intlayer.org/doc/vs-code-extension)                                                                                                                                                                                                                                                                             |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true" alt="Feature" width="700">                    | **Взаимодействие**<br><br>Обеспечивает взаимодействие с react-i18next, next-i18next, next-intl, react-intl, vue-i18n. <br><br> - [Intlayer и react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer и next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer и next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next) <br> - [Intlayer и vue-i18n](https://intlayer.org/blog/intlayer-with-vue-i18n) <br> - [Адаптеры совместимости Intlayer](https://intlayer.org/doc/compatibility) |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/benchmark.png?raw=true" alt="Feature" width="700">                           | **Производительность и бенчмарк**<br><br>Использует передовое разделение кода (tree-shaking) и динамическую загрузку для повышения производительности и сохранения максимальной легкости решения. <br><br> - [Производительность и бенчмарк](https://intlayer.org/doc/benchmark)                                                                                                                                                                                                                                                                     |
+| Особенность                                                                                                                                         | Описание                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.webp?raw=true" alt="Feature" width="700">                         | **Поддержка нескольких фреймворков**<br><br>Intlayer совместим со всеми основными фреймворками и библиотеками, включая Next.js, React, Vite, Vue.js, Nuxt, Preact, Express и другие.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.jpg?raw=true" alt="Feature" width="700">       | **Управление контентом на основе JavaScript**<br><br>Используйте гибкость JavaScript для эффективного определения и управления вашим контентом. <br><br> - [Объявление контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true" alt="Feature" width="700"> | **Файл объявления контента для каждого языка**<br><br>Ускорьте разработку, объявляя ваш контент один раз до автоматической генерации.<br><br> - [Файл объявления контента для каждого языка](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true" alt="Feature" width="700">                           | **Компилятор**<br><br>Компилятор Intlayer автоматически извлекает контент из компонентов и создает файлы словарей.<br><br> - [Компилятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true" alt="Feature" width="700">                      | **Безопасная типизация среды**<br><br>Используйте TypeScript, чтобы гарантировать отсутствие ошибок в определениях контента и коде, а также получать автозаполнение в IDE.<br><br> - [Конфигурация TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md#configure-typescript)                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true" alt="Feature" width="700">                         | **Упрощённая настройка**<br><br>Быстрый старт с минимальной конфигурацией. Легко настраивайте параметры интернационализации, маршрутизации, ИИ, сборки и обработки контента.<br><br> - [Изучите интеграцию с Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md)                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png?raw=true" alt="Feature" width="700">                   | **Упрощённый доступ к контенту**<br><br>Не нужно вызывать функцию `t` для каждого элемента контента. Получайте весь ваш контент напрямую с помощью одного хука.<br><br> - [Интеграция с React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_create_react_app.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png?raw=true" alt="Feature" width="700">                    | **Единообразная реализация серверных компонентов**<br><br>Идеально подходит для серверных компонентов Next.js, используйте одну и ту же реализацию как для клиентских, так и для серверных компонентов, нет необходимости передавать функцию `t` через каждый серверный компонент.<br><br> - [Серверные компоненты](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md#step-7-utilize-content-in-your-code)                                                                                                                                                                                                                                                                                                       |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png?raw=true" alt="Feature" width="700">                           | **Организованный код**<br><br>Поддерживайте ваш код более организованным: 1 компонент = 1 словарь в той же папке. Переводы находятся рядом с соответствующими компонентами, что улучшает сопровождаемость и ясность.<br><br> - [Как работает Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/how_works_intlayer.md)                                                                                                                                                                                                                                                                                                                                                                                                             |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png?raw=true" alt="Feature" width="700">                         | **Расширенная маршрутизация**<br><br>Полная поддержка маршрутизации приложений, плавно адаптирующаяся к сложным структурам приложений для Next.js, React, Vite, Vue.js и других.<br><br> - [Изучите интеграцию с Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md)                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png?raw=true" alt="Feature" width="700">                            | **Поддержка Markdown**<br><br>Импорт и интерпретация локализованных файлов и удалённого Markdown для многоязычного контента, такого как политики конфиденциальности, документация и прочее. Интерпретируйте и делайте метаданные Markdown доступными в вашем коде.<br><br> - [Файлы контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file.md)                                                                                                                                                                                                                                                                                                                                                                         |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.webp?raw=true" alt="Feature" width="700">                      | **Бесплатный визуальный редактор и CMS**<br><br>Для контент-райтеров доступен бесплатный визуальный редактор и CMS, что устраняет необходимость в платформе локализации. Сохраняйте синхронизацию контента с помощью Git или полностью/частично выносите его с помощью CMS.<br><br> - [Редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) <br> - [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)                                                                                                                                                                                                                                                 |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true" alt="Feature" width="700">                             | **Контент с поддержкой tree-shaking**<br><br>Контент с поддержкой tree-shaking, уменьшающий размер итогового бандла. Загружает контент для каждого компонента, исключая неиспользуемый контент из вашего бандла. Поддерживает ленивую загрузку для повышения эффективности загрузки приложения. <br><br> - [Оптимизация сборки приложения](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/how_works_intlayer.md#app-build-optimization)                                                                                                                                                                                                                                                                                                  |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.webp?raw=true" alt="Feature" width="700">                   | **Статическая отрисовка**<br><br>Не блокирует статическую отрисовку. <br><br> - [Интеграция с Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true" alt="Feature" width="700">                      | **Перевод с использованием ИИ**<br><br>Преобразуйте ваш сайт на 231 язык всего одним кликом с помощью передовых инструментов перевода на базе ИИ от Intlayer, используя вашего собственного поставщика ИИ / API ключ. <br><br> - [Интеграция CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/CI_CD.md) <br> - [CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md) <br> - [Автозаполнение](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/autoFill.md)                                                                                                                                                                                                                        |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true" alt="Feature" width="700">                                 | **Интеграция MCP сервера**<br><br>Обеспечивает MCP (Model Context Protocol) сервер для автоматизации IDE, позволяя бесшовно управлять контентом и рабочими процессами i18n непосредственно в вашей среде разработки. <br><br> - [MCP Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/mcp_server.md)                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.webp?raw=true" alt="Feature" width="700">                   | **Расширение VSCode**<br><br>Intlayer предоставляет расширение для VSCode, которое поможет вам управлять вашим контентом и переводами, создавать словари, переводить контент и многое другое. <br><br> - [Расширение VSCode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md)                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true" alt="Feature" width="700">                    | **Взаимодействие**<br><br>Обеспечивает взаимодействие с react-i18next, next-i18next, next-intl, react-intl, vue-i18n. <br><br> - [Intlayer и react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/intlayer_with_react-intl.md) <br> - [Intlayer и next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/intlayer_with_next-intl.md) <br> - [Intlayer и next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/intlayer_with_next-i18next.md) <br> - [Intlayer и vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/intlayer_with_vue-i18n.md) <br> - [Адаптеры совместимости Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md) |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/benchmark.png?raw=true" alt="Feature" width="700">                           | **Производительность и бенчмарк**<br><br>Использует передовое разделение кода (tree-shaking) и динамическую загрузку для повышения производительности и сохранения максимальной легкости решения. <br><br> - [Производительность и бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md)                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 ## 📦 Установка
 
 Начните свое путешествие с Intlayer уже сегодня и ощутите более плавный и мощный подход к интернационализации.
 
-<a href="https://intlayer.org/doc/concept/content" rel="">
+<a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md" rel="">
   <img src="https://img.shields.io/badge/Начать-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
@@ -137,13 +137,13 @@ const HomePage = () => {
 };
 ```
 
-<a href="https://intlayer.org/doc/environment/nextjs"> Получить полное руководство → </a>
+<a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md"> Получить полное руководство → </a>
 
 ## 🎥 Прямой урок на YouTube
 
 [![Как интернационализировать ваше приложение с помощью Intlayer](https://i.ytimg.com/vi/e_PPG7PTqGU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDtyJ4uYotEjl12nZ_gZKZ_kjEgOQ)](https://youtu.be/e_PPG7PTqGU?si=GyU_KpVhr61razRw)
 
-<a href="https://intlayer.org/doc/concept/content" rel="">
+<a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md" rel="">
   <img src="https://img.shields.io/badge/Начать-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
@@ -154,32 +154,32 @@ const HomePage = () => {
 <details open>
 <summary style="font-size:16px; font-weight:bold;">📘 Начало работы</summary>
 <ul>
-  <li><a href="https://intlayer.org/doc/why" rel=''>Почему Intlayer?</a></li>
-  <li><a href="https://intlayer.org/doc" rel=''>Введение</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md" rel=''>Почему Intlayer?</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/introduction.md" rel=''>Введение</a></li>
 </ul>
 </details>
 
 <details>
 <summary style="font-size:16px; font-weight:bold;">⚙️ Концепция</summary>
 <ul>
-  <li><a href="https://intlayer.org/doc/concept/how-works-intlayer" rel=''>Как работает Intlayer</a></li>
-  <li><a href="https://intlayer.org/doc/concept/configuration" rel=''>Конфигурация</a></li>
-  <li><a href="https://intlayer.org/doc/concept/cli" rel=''>Intlayer CLI</a></li>
-  <li><a href="https://intlayer.org/doc/compiler" rel=''>Компилятор</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/how_works_intlayer.md" rel=''>Как работает Intlayer</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md" rel=''>Конфигурация</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md" rel=''>Intlayer CLI</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md" rel=''>Компилятор</a></li>
 
-  <li><a href="https://intlayer.org/doc/concept/editor" rel=''>Редактор Intlayer</a></li>
-  <li><a href="https://intlayer.org/doc/concept/cms" rel=''>Intlayer CMS</a></li>
-  <li><a href="https://intlayer.org/doc/concept/content" rel=''>Словарь</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md" rel=''>Редактор Intlayer</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md" rel=''>Intlayer CMS</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md" rel=''>Словарь</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/concept/per-locale-file" rel=''>Файл декларации контента для каждого языка</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/translation" rel=''>Перевод</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/enumeration" rel=''>Перечисление</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/condition" rel=''>Условие</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/nesting" rel=''>Вложенность</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/markdown" rel=''>Markdown</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/function-fetching" rel=''>Вызов функции</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/insertion" rel=''>Вставка</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/file" rel=''>Файл</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md" rel=''>Файл декларации контента для каждого языка</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md" rel=''>Перевод</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md" rel=''>Перечисление</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/condition.md" rel=''>Условие</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nesting.md" rel=''>Вложенность</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md" rel=''>Markdown</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/function_fetching.md" rel=''>Вызов функции</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md" rel=''>Вставка</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file.md" rel=''>Файл</a></li>
     </ul>
   </li>
 </ul>
@@ -188,51 +188,51 @@ const HomePage = () => {
 <details open>
 <summary style="font-size:16px; font-weight:bold;">🌐 Окружение</summary>
 <ul>
-  <li><a href="https://intlayer.org/doc/environment/nextjs" rel=''>Intlayer с Next.js 16</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md" rel=''>Intlayer с Next.js 16</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/15" rel=''>Next.js 15</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/14" rel=''>Next.js 14 (App Router)</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-page-router" rel=''>Next.js Page Router</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/compiler" rel=''>Next.js с компилятором</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_15.md" rel=''>Next.js 15</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_14.md" rel=''>Next.js 14 (App Router)</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_page_router.md" rel=''>Next.js Page Router</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md" rel=''>Next.js с компилятором</a></li>
     </ul>
   </li>
-  <li><a href="https://intlayer.org/doc/environment/create-react-app" rel=''>React CRA</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React с компилятором</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react/react-router-v7" rel=''>React-router-v7</a></li>
-  <li><a href="https://intlayer.org/doc/environment/remix-3" rel=''>Remix 3</a></li>
-  <li><a href="https://intlayer.org/doc/environment/tanstack-start" rel=''>Tanstack start</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_create_react_app.md" rel=''>React CRA</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md" rel=''>Vite + React</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md" rel=''>Vite + React с компилятором</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_react_router_v7.md" rel=''>React-router-v7</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_remix_3.md" rel=''>Remix 3</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_tanstack.md" rel=''>Tanstack start</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/environment/tanstack-start/solid" rel=''>Solid</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_tanstack+solid.md" rel=''>Solid</a></li>
     </ul>
   </li>
-  <li><a href="https://intlayer.org/doc/environment/astro" rel=''>Astro</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_astro.md" rel=''>Astro</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/environment/astro/react" rel=''>React</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/vue" rel=''>Vue</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/svelte" rel=''>Svelte</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/solid" rel=''>Solid</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/lit" rel=''>Lit</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_astro_react.md" rel=''>React</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_astro_vue.md" rel=''>Vue</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_astro_svelte.md" rel=''>Svelte</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_astro_solid.md" rel=''>Solid</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_astro_lit.md" rel=''>Lit</a></li>
     </ul>
   </li>
 
-  <li><a href="https://intlayer.org/doc/environment/react-native-and-expo" rel=''>React Native</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-svelte" rel=''>Vite + Svelte</a></li>
-  <li><a href="https://intlayer.org/doc/environment/sveltekit" rel=''>SvelteKit</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-preact" rel=''>Vite + Preact</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-vue" rel=''>Vite + Vue</a></li>
-  <li><a href="https://intlayer.org/doc/environment/nuxt-and-vue" rel=''>Vite + Nuxt</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-solid" rel=''>Vite + Solid</a></li>
-  <li><a href="https://intlayer.org/doc/environment/solid-start" rel=''>Solid Start</a></li>
-  <li><a href="https://intlayer.org/doc/environment/angular" rel=''>Angular</a></li>  <li>
-     <a href="https://intlayer.org/doc/environment/express" rel=''>Бэкэнд</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_react_native+expo.md" rel=''>React Native</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+svelte.md" rel=''>Vite + Svelte</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_svelte_kit.md" rel=''>SvelteKit</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+preact.md" rel=''>Vite + Preact</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+vue.md" rel=''>Vite + Vue</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nuxt.md" rel=''>Vite + Nuxt</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+solid.md" rel=''>Vite + Solid</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_solid_start.md" rel=''>Solid Start</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_angular_21.md" rel=''>Angular</a></li>  <li>
+     <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_express.md" rel=''>Бэкэнд</a>
      <ul>
-      <li><a href="https://intlayer.org/doc/environment/express" rel=''>Express</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nest" rel=''>NestJS</a></li>
-      <li><a href="https://intlayer.org/doc/environment/fastify" rel=''>Fastify</a></li>
-      <li><a href="https://intlayer.org/doc/environment/adonisjs" rel=''>AdonisJS</a></li>
-      <li><a href="https://intlayer.org/doc/environment/hono" rel=''>Hono</a></li>
-      <li><a href="https://intlayer.org/doc/environment/elysia" rel=''>Elysia</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_express.md" rel=''>Express</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nestjs.md" rel=''>NestJS</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_fastify.md" rel=''>Fastify</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_adonisjs.md" rel=''>AdonisJS</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_hono.md" rel=''>Hono</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_elysia.md" rel=''>Elysia</a></li>
     </ul>
   </li>
 </ul>
@@ -253,10 +253,10 @@ const HomePage = () => {
 <summary style="font-size:16px; font-weight:bold;">📰 Блог</summary>
 <ul>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/what_is_internationalization.md" rel=''>Что такое i18n?</a></li>
-  <li><a href="https://intlayer.org/blog/SEO-and-i18n" rel=''>i18n и SEO</a></li>
-  <li><a href="https://intlayer.org/blog/intlayer-with-next-i18next" rel=''>Intlayer и i18next</a></li>
-  <li><a href="https://intlayer.org/blog/intlayer-with-react-i18next" rel=''>Intlayer и react-intl</a></li>
-  <li><a href="https://intlayer.org/blog/intlayer-with-next-intl" rel=''>Intlayer и next-intl</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/internationalization_and_SEO.md" rel=''>i18n и SEO</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/intlayer_with_next-i18next.md" rel=''>Intlayer и i18next</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/intlayer_with_react-i18next.md" rel=''>Intlayer и react-intl</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/intlayer_with_next-intl.md" rel=''>Intlayer и next-intl</a></li>
 </ul>
 </details>
 

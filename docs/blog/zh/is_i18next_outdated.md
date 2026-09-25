@@ -85,7 +85,7 @@ height="600px"
 style="border:none;"
 />
 
-> 基于包含 10 个路由、10 种语言的生产环境应用测量，采用 gzip 压缩。完整数据见 [i18n 基准测试报告](https://intlayer.org/zh/doc/benchmark)。
+> 基于包含 10 个路由、10 种语言的生产环境应用测量，采用 gzip 压缩。完整数据见 [i18n 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
 
 ### 库的基础体积
 
@@ -164,7 +164,7 @@ return <h1>{title}</h1>;
   </Tab>
 </Tabs>
 
-[Intlayer 编译器](https://intlayer.org/zh/doc/compiler)可以确切识别 `Hero.tsx` 访问的字段，并在生成客户端代码前剔除未引用的内容。详情请查阅[打包优化](https://intlayer.org/zh/doc/concept/bundle-optimization)。
+[Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)可以确切识别 `Hero.tsx` 访问的字段，并在生成客户端代码前剔除未引用的内容。详情请查阅[打包优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
 
 ## 开发者体验对比
 
@@ -231,17 +231,17 @@ export const Hero = () => {
 
 通过扩展 `CustomTypeOptions` 可以获得编辑器代码提示，但这无法检查翻译是否完备。如果在 `zh/hero.json` 中删除了某个键，构建依然会成功，只在运行时降级显示兜底文本。
 
-Intlayer 直接基于内容声明推导类型，启用 [`strictMode`](https://intlayer.org/zh/doc/concept/configuration) 后，缺失任何一种语言的翻译都会直接导致构建失败，彻底杜绝遗漏。
+Intlayer 直接基于内容声明推导类型，启用 [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 后，缺失任何一种语言的翻译都会直接导致构建失败，彻底杜绝遗漏。
 
 ### 工具链生态对比
 
-| 功能特性                  | i18next 生态        | Intlayer                                                      |
-| ------------------------- | ------------------- | ------------------------------------------------------------- |
-| **VS Code 插件**          | 仅第三方插件        | ✅ [官方插件](https://intlayer.org/zh/doc/vs-code-extension)  |
-| **Language Server (LSP)** | ❌ 无               | ✅ [专属 LSP](https://intlayer.org/zh/doc/lsp)                |
-| **AI MCP 服务**           | ❌ 无               | ✅ [内置 MCP Server](https://intlayer.org/zh/doc/mcp-server)  |
-| **AI Agent Skills**       | ❌ 无               | ✅ [预制 Skills](https://intlayer.org/zh/doc/agent_skills)    |
-| **上下文可视化 CMS**      | Locize（付费 SaaS） | ✅ [免费开源 CMS](https://intlayer.org/zh/doc/concept/editor) |
+| 功能特性                  | i18next 生态        | Intlayer                                                                                                   |
+| ------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **VS Code 插件**          | 仅第三方插件        | ✅ [官方插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)          |
+| **Language Server (LSP)** | ❌ 无               | ✅ [专属 LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)                        |
+| **AI MCP 服务**           | ❌ 无               | ✅ [内置 MCP Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)          |
+| **AI Agent Skills**       | ❌ 无               | ✅ [预制 Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)            |
+| **上下文可视化 CMS**      | Locize（付费 SaaS） | ✅ [免费开源 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) |
 
 内置 LSP 和 MCP 服务使 AI 编程助手能深入理解项目的多语言拓扑结构，从而提供极高准确度的补全与重构。
 
@@ -251,8 +251,8 @@ Locize 是 i18next 原班团队运营的商业服务。虽然开源项目的商�
 
 Intlayer 则采用开放的方案：
 
-- [`intlayer fill`](https://intlayer.org/zh/doc/concept/auto-fill) 允许你在终端或 CI 中使用自己的 OpenAI、Anthropic、Mistral 或 Gemini API 密钥自动补齐缺失的翻译。
-- [Intlayer CMS](https://intlayer.org/zh/doc/concept/cms) 完全开源，支持通过 Docker Compose 自主部署。
+- [`intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md) 允许你在终端或 CI 中使用自己的 OpenAI、Anthropic、Mistral 或 Gemini API 密钥自动补齐缺失的翻译。
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 完全开源，支持通过 Docker Compose 自主部署。
 - 编译器、CLI、编辑器和 CMS 均在 Apache 2.0 协议下完全开源。
 
 ## 何时继续选择 i18next 依然合理？
@@ -305,9 +305,9 @@ bunx intlayer init --interactive
 
 详细操作请参阅我们的专题指南：
 
-- **无缝兼容层：** 借助 [i18next](https://intlayer.org/zh/doc/compatibility/i18next)、[react-i18next](https://intlayer.org/zh/doc/compatibility/react-i18next) 和 [next-i18next](https://intlayer.org/zh/doc/compatibility/next-i18next) 兼容层，在保留当前语法的同时实现构建优化。
-- **词典迁移指南：** 将旧有的 JSON 转换为类型安全的词典：[从 i18next 迁移](https://intlayer.org/zh/doc/migration/i18next)、[从 react-i18next 迁移](https://intlayer.org/zh/doc/migration/react-i18next)以及[从 next-i18next 迁移](https://intlayer.org/zh/doc/migration/next-i18next)。
-- **混合架构：** 保留 i18next 运行时，[将 Intlayer 与 i18next 搭配使用](https://intlayer.org/zh/blog/intlayer-with-i18next)以引入类型检查和本地 AI 翻译。
+- **无缝兼容层：** 借助 [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/i18next.md)、[react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-i18next.md) 和 [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-i18next.md) 兼容层，在保留当前语法的同时实现构建优化。
+- **词典迁移指南：** 将旧有的 JSON 转换为类型安全的词典：[从 i18next 迁移](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md)、[从 react-i18next 迁移](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_react-i18next_to_intlayer.md)以及[从 next-i18next 迁移](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-i18next_to_intlayer.md)。
+- **混合架构：** 保留 i18next 运行时，[将 Intlayer 与 i18next 搭配使用](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_i18next.md)以引入类型检查和本地 AI 翻译。
 
 使用免费的 [i18n SEO 分析器](https://intlayer.org/i18n-seo-scanner) 检测你的线上应用是否存在多余的内容泄漏：
 
@@ -315,7 +315,7 @@ bunx intlayer init --interactive
 
 ## 相关阅读
 
-- [Next.js i18n 性能基准：深度对比测试](https://intlayer.org/zh/doc/benchmark/nextjs)
-- [react-i18next 对比 react-intl 与 Intlayer](https://intlayer.org/zh/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [2026 年，next-intl 已经过时了吗？](https://intlayer.org/zh/blog/is-next-intl-outdated)
-- [编译型国际化与声明式 i18n 架构对比](https://intlayer.org/zh/blog/compiler-vs-declarative-i18n)
+- [Next.js i18n 性能基准：深度对比测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+- [react-i18next 对比 react-intl 与 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/react-i18next_vs_react-intl_vs_intlayer.md)
+- [2026 年，next-intl 已经过时了吗？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_next-intl_outdated.md)
+- [编译型国际化与声明式 i18n 架构对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)

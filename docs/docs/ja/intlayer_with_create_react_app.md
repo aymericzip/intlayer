@@ -651,7 +651,7 @@ Intlayer を使った開発体験を向上させるために、公式の **Intla
 - 翻訳内容の**インラインプレビュー**。
 - 翻訳を簡単に作成・更新できる**クイックアクション**。
 
-拡張機能の使い方の詳細については、[Intlayer VS Code Extension ドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+拡張機能の使い方の詳細については、[Intlayer VS Code Extension ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
 
 ### さらに進むには
 
@@ -665,7 +665,7 @@ Intlayer を使った開発体験を向上させるために、公式の **Intla
 
 - **`react-i18next` / `i18next`**: 最も普及しており、実行時にJSONネームスペースがロードされます。
 - **`react-intl`** および **`Lingui`**: ICUメッセージ形式で、抽出ベースです。
-- **`Intlayer`**: 最も先進的なソリューションです。コンテンツはコードベースのどこにでも宣言でき（[各コンポーネントの隣または一元化](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、`react-scripts-intlayer`を介してビルド時にコンパイルされ、完全に型付けされており、AI翻訳、ビジュアルエディター、CMSを備えています。
+- **`Intlayer`**: 最も先進的なソリューションです。コンテンツはコードベースのどこにでも宣言でき（[各コンポーネントの隣または一元化](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）、`react-scripts-intlayer`を介してビルド時にコンパイルされ、完全に型付けされており、AI翻訳、ビジュアルエディター、CMSを備えています。
 
 Create React Appは独自のwebpack設定をラップしているため、統合は自分で登録するプラグインではなく、`react-scripts`のドロップイン代替である`react-scripts-intlayer`を介して行われます。[Intlayerの利点](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)をご覧ください。
 

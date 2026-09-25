@@ -1230,7 +1230,7 @@ Diese Extension bietet:
 - **Inline-Vorschau** von übersetztem Inhalt.
 - **Schnellaktionen** zum einfachen Erstellen und Aktualisieren von Übersetzungen.
 
-Für weitere Details zur Verwendung der Extension, siehe die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
+Für weitere Details zur Verwendung der Extension, siehe die [Intlayer VS Code Extension Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md).
 
 ## Weiter geht's
 

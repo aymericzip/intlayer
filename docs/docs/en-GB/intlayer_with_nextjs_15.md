@@ -1041,7 +1041,7 @@ This extension provides:
 - **Inline previews** of translated content.
 - **Quick actions** to easily create and update translations.
 
-For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md).
 
 ### Go Further
 
@@ -1057,7 +1057,7 @@ The `i18n` field of `next.config.js` does not apply to the App Router, so the lo
 
 - **`next-intl`**, **`next-i18next` / `i18next`** and **`react-intl`**: the historical options, based on JSON or ICU message catalogues loaded per namespace.
 - **`Lingui`**: extraction driven, with ICU messages compiled at build time.
-- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://intlayer.org/blog/per-component-vs-centralized-i18n)), compiled at build time into per component dictionaries, fully typed, with AI translation, a visual editor and a CMS included.
+- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/per-component_vs_centralized_i18n.md)), compiled at build time into per component dictionaries, fully typed, with AI translation, a visual editor and a CMS included.
 
 The practical difference is what reaches the browser. Namespace based libraries ship whole JSON catalogues to a page, while Intlayer ships only the content the rendered components use, which cuts bundle and page size by up to 50%. See [why Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/interest_of_intlayer.md) and the [Next.js i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md).
 

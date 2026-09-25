@@ -27,7 +27,7 @@ author: aymericzip
 
 `@intlayer/lingui` là adapter tương thích (compat adapter) dành cho `@lingui/core` và `@lingui/react`. Các lệnh gọi `` t`...` ``, `<Trans>`, `useLingui()` và `i18n._()` của bạn được giữ nguyên hoàn toàn; các macro tiếp tục biên dịch bình thường; điểm thay đổi duy nhất là nguồn gốc của các thông điệp khi ứng dụng chạy (runtime). Thay vì một tệp catalog biên dịch duy nhất cho mỗi ngôn ngữ, mỗi vị trí gọi lệnh được liên kết trực tiếp với một từ điển Intlayer được biên dịch riêng cho nó.
 
-Bài viết này đo lường sự thay đổi đó trên cùng một ứng dụng TanStack Start, được xây dựng một lần với Lingui thuần và một lần với adapter. Các số liệu được trích xuất từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Để so sánh trực tiếp hai thư viện độc lập, vui lòng đọc [Lingui vs Intlayer](https://intlayer.org/vi/blog/lingui-vs-intlayer). Bài viết này tập trung vào những gì adapter thay đổi và những trường hợp adapter không mang lại lợi thế.
+Bài viết này đo lường sự thay đổi đó trên cùng một ứng dụng TanStack Start, được xây dựng một lần với Lingui thuần và một lần với adapter. Các số liệu được trích xuất từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Để so sánh trực tiếp hai thư viện độc lập, vui lòng đọc [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md). Bài viết này tập trung vào những gì adapter thay đổi và những trường hợp adapter không mang lại lợi thế.
 
 <TOC/>
 
@@ -227,7 +227,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Đối với catalog `.po`, thay thế `syncJSON` bằng `syncPO` từ `@intlayer/sync-po-plugin` với cùng mẫu `source` nhưng mang phần mở rộng `.po`. Xem thêm tại [tài liệu plugin Sync PO](https://intlayer.org/vi/doc/plugin/sync-po).
+Đối với catalog `.po`, thay thế `syncJSON` bằng `syncPO` từ `@intlayer/sync-po-plugin` với cùng mẫu `source` nhưng mang phần mở rộng `.po`. Xem thêm tại [tài liệu plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/plugins/sync-po.md).
 
 `splitKeys: "key-prefix"` là chìa khóa chính giúp thu nhỏ kích thước component một cách ngoạn mục. Tệp catalog gốc giữ nguyên cấu trúc phẳng; việc phân tách chỉ diễn ra trong các từ điển được tạo ra, và quá trình ghi ngược sẽ tự động hợp nhất các khóa lại.
 
@@ -277,7 +277,7 @@ Plugin `lingui()` bao gói `vite-intlayer` (theo dõi nội dung, biên dịch t
 - **Chi phí mỗi trang ở chế độ `dynamic`.** Như đã phân tích: dự kiến dung lượng sẽ tăng khoảng +20 KB mỗi trang so với thiết lập Lingui tải lười trên ứng dụng nhỏ. Khoảng cách này không nở rộng theo khối lượng nội dung (vì do bộ phân tích cú pháp chứ không phải do catalog), nhưng nó cũng không tự thu hẹp lại.
 - **Vẫn còn rò rỉ ngôn ngữ nguồn.** Bộ mô tả thông điệp và kết quả macro chứa sẵn chuỗi tiếng Anh gốc để phòng ngừa lỗi. Nếu bạn cần loại bỏ điều này, giải pháp là xóa trường `message` hoặc chuyển đổi component sang `.content.ts`.
 - **`i18n.load()` chỉ là phương án dự phòng.** Nếu bạn vẫn tiếp tục import các catalog đã biên dịch và gọi `load()`, bạn sẽ vô tình nạp cả gói cũ lẫn gói mới. Hãy xóa các lệnh import đó.
-- **Chỉ dành cho Vite.** Hiện chưa có plugin Next.js cho `@intlayer/lingui`. Các dự án Next.js đang dùng Lingui nên cân nhắc chuyển đổi thẳng sang [`next-intlayer`](https://intlayer.org/vi/doc/environment/nextjs).
+- **Chỉ dành cho Vite.** Hiện chưa có plugin Next.js cho `@intlayer/lingui`. Các dự án Next.js đang dùng Lingui nên cân nhắc chuyển đổi thẳng sang [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
 - **`defaultComponent` không được áp dụng.** Nếu bạn đang dựa vào thuộc tính này để tự động bọc thẻ `<Trans>`, hãy chủ động bổ sung component bao bọc bên ngoài.
 
 ## Khi nào nên dùng giải pháp nào?
@@ -288,12 +288,12 @@ Plugin `lingui()` bao gói `vite-intlayer` (theo dõi nội dung, biên dịch t
 
 ## Các bài viết so sánh liên quan
 
-- [Lingui vs Intlayer](https://intlayer.org/vi/blog/lingui-vs-intlayer) (so sánh trực tiếp hai thư viện trên cùng benchmark)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/vi/blog/next-intl-vs-intlayer-next-intl) (thuộc chuỗi so sánh adapter tương thích)
-- [i18next vs @intlayer/i18next](https://intlayer.org/vi/blog/i18next-vs-intlayer-i18next) (thuộc chuỗi so sánh adapter tương thích)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-vue-i18n) (thuộc chuỗi so sánh adapter tương thích)
-- [Tài liệu adapter tương thích: Lingui](https://intlayer.org/vi/doc/compatibility/lingui)
-- [So sánh i18n dạng biên dịch vs dạng khai báo](https://intlayer.org/vi/blog/compiler-vs-declarative-i18n)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md) (so sánh trực tiếp hai thư viện trên cùng benchmark)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer-next-intl.md) (thuộc chuỗi so sánh adapter tương thích)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer-i18next.md) (thuộc chuỗi so sánh adapter tương thích)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer-vue-i18n.md) (thuộc chuỗi so sánh adapter tương thích)
+- [Tài liệu adapter tương thích: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
+- [So sánh i18n dạng biên dịch vs dạng khai báo](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
 
 ## Kết luận
 
@@ -301,4 +301,4 @@ Plugin `lingui()` bao gói `vite-intlayer` (theo dõi nội dung, biên dịch t
 
 Toàn bộ dữ liệu thô, các ứng dụng thử nghiệm và tập lệnh đo lường đều có sẵn tại [kho lưu trữ Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Bạn hoàn toàn có thể tự mình chạy kiểm thử.
 
-Tham khảo tài liệu ['Tại sao nên chọn Intlayer?'](https://intlayer.org/vi/doc/why) để biết thêm thông tin chi tiết.
+Tham khảo tài liệu ['Tại sao nên chọn Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm thông tin chi tiết.

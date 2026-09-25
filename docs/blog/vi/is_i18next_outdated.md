@@ -85,7 +85,7 @@ height="600px"
 style="border:none;"
 />
 
-> Đo lường trong bản build production với 10 routes và 10 ngôn ngữ có nén gzip. Chi tiết xem tại [báo cáo benchmark i18n](https://intlayer.org/vi/doc/benchmark).
+> Đo lường trong bản build production với 10 routes và 10 ngôn ngữ có nén gzip. Chi tiết xem tại [báo cáo benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md).
 
 ### Gánh Nặng Cơ Sở Của Thư Viện
 
@@ -164,7 +164,7 @@ return <h1>{title}</h1>;
   </Tab>
 </Tabs>
 
-[Trình biên dịch Intlayer](https://intlayer.org/vi/doc/compiler) xác định chính xác các thuộc tính mà `Hero.tsx` truy cập và loại bỏ nội dung không sử dụng trước khi tạo bundle client. Xem thêm tại [tối ưu hóa bundle](https://intlayer.org/vi/doc/concept/bundle-optimization).
+[Trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) xác định chính xác các thuộc tính mà `Hero.tsx` truy cập và loại bỏ nội dung không sử dụng trước khi tạo bundle client. Xem thêm tại [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
 
 ## Trải Nghiệm Lập Trình Viên (DX)
 
@@ -231,17 +231,17 @@ Khi bạn di chuyển hoặc xóa `Hero.tsx`, file khai báo nội dung của n�
 
 Khai báo `CustomTypeOptions` mang lại gợi ý mã trong trình soạn thảo, nhưng không đảm bảo tính đầy đủ của các bản dịch. Xóa một khóa khỏi `vi/hero.json` sẽ không làm hỏng quá trình build TypeScript, mà chỉ kích hoạt fallback khi chạy.
 
-Intlayer tự động tạo kiểu dữ liệu từ chính các khai báo nội dung, và chế độ [`strictMode`](https://intlayer.org/vi/doc/concept/configuration) sẽ báo lỗi build ngay lập tức nếu thiếu bản dịch ở bất kỳ ngôn ngữ nào.
+Intlayer tự động tạo kiểu dữ liệu từ chính các khai báo nội dung, và chế độ [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) sẽ báo lỗi build ngay lập tức nếu thiếu bản dịch ở bất kỳ ngôn ngữ nào.
 
 ### So Sánh Hệ Thống Công Cụ
 
-| Tính năng                 | Hệ sinh thái i18next | Intlayer                                                                 |
-| ------------------------- | -------------------- | ------------------------------------------------------------------------ |
-| **VS Code Extension**     | Chỉ bên thứ ba       | ✅ [Extension chính thức](https://intlayer.org/vi/doc/vs-code-extension) |
-| **Language Server (LSP)** | ❌ Không có          | ✅ [LSP chuyên dụng](https://intlayer.org/vi/doc/lsp)                    |
-| **MCP Server cho AI**     | ❌ Không có          | ✅ [Tích hợp sẵn MCP server](https://intlayer.org/vi/doc/mcp-server)     |
-| **Kỹ năng cho Agent**     | ❌ Không có          | ✅ [Kỹ năng thiết lập sẵn](https://intlayer.org/vi/doc/agent_skills)     |
-| **CMS Trực Quan**         | Locize (Trả phí)     | ✅ [Miễn phí & Mã nguồn mở](https://intlayer.org/vi/doc/concept/editor)  |
+| Tính năng                 | Hệ sinh thái i18next | Intlayer                                                                                                             |
+| ------------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **VS Code Extension**     | Chỉ bên thứ ba       | ✅ [Extension chính thức](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)        |
+| **Language Server (LSP)** | ❌ Không có          | ✅ [LSP chuyên dụng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md)                           |
+| **MCP Server cho AI**     | ❌ Không có          | ✅ [Tích hợp sẵn MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)            |
+| **Kỹ năng cho Agent**     | ❌ Không có          | ✅ [Kỹ năng thiết lập sẵn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)            |
+| **CMS Trực Quan**         | Locize (Trả phí)     | ✅ [Miễn phí & Mã nguồn mở](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) |
 
 Sự hiện diện của LSP và MCP server cho phép các trợ lý AI hiểu rõ cấu trúc dịch thuật của toàn dự án.
 
@@ -251,8 +251,8 @@ Locize là nền tảng thương mại do đội ngũ sáng lập i18next vận 
 
 Intlayer theo đuổi cách tiếp cận mở:
 
-- [`intlayer fill`](https://intlayer.org/vi/doc/concept/auto-fill) tự động điền các bản dịch còn thiếu trong terminal hoặc CI bằng API key OpenAI, Anthropic, Mistral hoặc Gemini của chính bạn.
-- [Intlayer CMS](https://intlayer.org/vi/doc/concept/cms) là mã nguồn mở và có thể tự lưu trữ thông qua Docker Compose.
+- [`intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md) tự động điền các bản dịch còn thiếu trong terminal hoặc CI bằng API key OpenAI, Anthropic, Mistral hoặc Gemini của chính bạn.
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) là mã nguồn mở và có thể tự lưu trữ thông qua Docker Compose.
 - Trình biên dịch, CLI, editor và CMS đều được phát hành theo giấy phép Apache 2.0.
 
 ## Khi Nào i18next Vẫn Là Lựa Chọn Hợp Lý?
@@ -305,9 +305,9 @@ Công cụ CLI tương tác này sẽ tự động:
 
 Để xem hướng dẫn chi tiết từng bước, hãy tham khảo các tài liệu chuyên sâu:
 
-- **Các Tầng Tương Thích:** Giữ nguyên cú pháp hiện tại với các adapter cho [i18next](https://intlayer.org/vi/doc/compatibility/i18next), [react-i18next](https://intlayer.org/vi/doc/compatibility/react-i18next), và [next-i18next](https://intlayer.org/vi/doc/compatibility/next-i18next).
-- **Hướng Dẫn Chuyển Đổi Từ Điển:** Chuyển đổi file JSON cũ sang từ điển định kiểu: [từ i18next](https://intlayer.org/vi/doc/migration/i18next), [từ react-i18next](https://intlayer.org/vi/doc/migration/react-i18next), hoặc [từ next-i18next](https://intlayer.org/vi/doc/migration/next-i18next).
-- **Mô Hình Lai:** Giữ nguyên runtime i18next trong khi [kết hợp Intlayer với i18next](https://intlayer.org/vi/blog/intlayer-with-i18next) để bổ sung kiểm tra kiểu dữ liệu và dịch thuật AI cục bộ.
+- **Các Tầng Tương Thích:** Giữ nguyên cú pháp hiện tại với các adapter cho [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-i18next.md), và [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-i18next.md).
+- **Hướng Dẫn Chuyển Đổi Từ Điển:** Chuyển đổi file JSON cũ sang từ điển định kiểu: [từ i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md), [từ react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_react-i18next_to_intlayer.md), hoặc [từ next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-i18next_to_intlayer.md).
+- **Mô Hình Lai:** Giữ nguyên runtime i18next trong khi [kết hợp Intlayer với i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_i18next.md) để bổ sung kiểm tra kiểu dữ liệu và dịch thuật AI cục bộ.
 
 Kiểm tra website của bạn bằng [công cụ quét SEO i18n miễn phí](https://intlayer.org/i18n-seo-scanner):
 
@@ -315,7 +315,7 @@ Kiểm tra website của bạn bằng [công cụ quét SEO i18n miễn phí](ht
 
 ## Bài Viết Liên Quan
 
-- [Next.js i18n Benchmark: Đánh Giá Chi Tiết Hiệu Năng](https://intlayer.org/vi/doc/benchmark/nextjs)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/vi/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [Liệu next-intl Đã Lỗi Thời Vào Năm 2026?](https://intlayer.org/vi/blog/is-next-intl-outdated)
-- [So Sánh Quốc Tế Hóa Dựa Trên Trình Biên Dịch Và Khai Báo](https://intlayer.org/vi/blog/compiler-vs-declarative-i18n)
+- [Next.js i18n Benchmark: Đánh Giá Chi Tiết Hiệu Năng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Liệu next-intl Đã Lỗi Thời Vào Năm 2026?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_next-intl_outdated.md)
+- [So Sánh Quốc Tế Hóa Dựa Trên Trình Biên Dịch Và Khai Báo](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)

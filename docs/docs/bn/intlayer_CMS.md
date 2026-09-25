@@ -556,7 +556,7 @@ CMS-এর সাথে কোনো সমস্যা হলে, নিম্�
 
 - অ্যাপ্লিকেশনটি চলছে।
 
-- আপনার Intlayer কনফিগারেশন ফাইলে [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) কনফিগারেশন সঠিকভাবে সেট করা আছে।
+- আপনার Intlayer কনফিগারেশন ফাইলে [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/configuration.md#editor-configuration) কনফিগারেশন সঠিকভাবে সেট করা আছে।
   - প্রয়োজনীয় ফিল্ড:
     - অ্যাপ্লিকেশন URL এডিটর কনফিগারেশনে আপনি যেটি সেট করেছেন তার সাথে মেলে কিনা (`applicationURL`)।
     - CMS URL

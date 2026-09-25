@@ -27,7 +27,7 @@ author: aymericzip
 
 `@intlayer/lingui` は、`@lingui/core` および `@lingui/react` 向けの互換アダプターです。`` t`...` ``、`<Trans>`、`useLingui()`、`i18n._()` の呼び出しは一切変更する必要がなく、マクロもそのままコンパイルされます。変化するのは、実行時にメッセージがどこから提供されるかという点です。ロケールごとに1つにまとめられたカタログではなく、各呼び出し箇所ごとに専用コンパイルされたIntlayerディクショナリへとバインドされます。
 
-本記事では、同じTanStack StartアプリケーションをLingui単体とアダプター併用の両方でビルドし、その差異を検証します。数値は [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) に基づいています。ライブラリ同士の純粋な比較については [Lingui vs Intlayer](https://intlayer.org/ja/blog/lingui-vs-intlayer) をご覧ください。本稿では、アダプターの導入によって何が変わり、どこで利点が得られないのかに焦点を当てます。
+本記事では、同じTanStack StartアプリケーションをLingui単体とアダプター併用の両方でビルドし、その差異を検証します。数値は [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) に基づいています。ライブラリ同士の純粋な比較については [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer.md) をご覧ください。本稿では、アダプターの導入によって何が変わり、どこで利点が得られないのかに焦点を当てます。
 
 <TOC/>
 
@@ -227,7 +227,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-`.po` カタログの場合は、`syncJSON` を `@intlayer/sync-po-plugin` の `syncPO` に置き換え、拡張子を `.po` にした同様の `source` パターンを指定します。詳細は [Sync POプラグインドキュメント](https://intlayer.org/ja/doc/plugin/sync-po) を参照してください。
+`.po` カタログの場合は、`syncJSON` を `@intlayer/sync-po-plugin` の `syncPO` に置き換え、拡張子を `.po` にした同様の `source` パターンを指定します。詳細は [Sync POプラグインドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-po.md) を参照してください。
 
 `splitKeys: "key-prefix"` こそがコンポーネントサイズ削減の要です。元のカタログファイルはフラットな構造のまま保持され、分割は自動生成されたディクショナリ内にのみ存在し、逆同期によってキーは自動的に再統合されます。
 
@@ -277,7 +277,7 @@ export default defineConfig({
 - **`dynamic` におけるページ容量コスト。** 前述の通り、小規模アプリの遅延ロードLinguiに対して約20 KB/ページの増加が見込まれます。この差はコンテンツ量とともに増大することはありませんが（リゾルバーに起因するため）、縮まることもありません。
 - **ソース言語リークの残存。** メッセージ記述子やマクロ出力には、フォールバック用の英語テキストが含まれます。これを完全に防ぐには、`message` フィールドを削るかコンポーネントを `.content.ts` に移行する必要があります。
 - **`i18n.load()` はフォールバック目的。** コンパイル済みカタログをインポートして `load()` を呼び出し続けると、新旧両方のバンドルを二重に読み込むことになります。該当インポートは削除してください。
-- **Vite限定。** `@intlayer/lingui` にはNext.jsプラグインがありません。Linguiを利用中のNext.jsプロジェクトは [`next-intlayer`](https://intlayer.org/ja/doc/environment/nextjs) の直接導入をご検討ください。
+- **Vite限定。** `@intlayer/lingui` にはNext.jsプラグインがありません。Linguiを利用中のNext.jsプロジェクトは [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md) の直接導入をご検討ください。
 - **`defaultComponent` の不適用。** `<Trans>` の自動ラッピングに頼っていた場合は、コンポーネント側でラッパーを明示的に指定してください。
 
 ## どちらを選択すべきか？
@@ -288,12 +288,12 @@ export default defineConfig({
 
 ## 関連する比較記事
 
-- [Lingui vs Intlayer](https://intlayer.org/ja/blog/lingui-vs-intlayer)（ライブラリ本体の詳細比較、同一ベンチマーク）
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/ja/blog/next-intl-vs-intlayer-next-intl)（アダプター比較シリーズ）
-- [i18next vs @intlayer/i18next](https://intlayer.org/ja/blog/i18next-vs-intlayer-i18next)（アダプター比較シリーズ）
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ja/blog/vue-i18n-vs-intlayer-vue-i18n)（アダプター比較シリーズ）
-- [互換アダプターリファレンス: Lingui](https://intlayer.org/ja/doc/compatibility/lingui)
-- [コンパイラ型 vs 宣言型 i18n](https://intlayer.org/ja/blog/compiler-vs-declarative-i18n)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer.md)（ライブラリ本体の詳細比較、同一ベンチマーク）
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer-next-intl.md)（アダプター比較シリーズ）
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer-i18next.md)（アダプター比較シリーズ）
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer-vue-i18n.md)（アダプター比較シリーズ）
+- [互換アダプターリファレンス: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)
+- [コンパイラ型 vs 宣言型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)
 
 ## 結論
 
@@ -301,4 +301,4 @@ export default defineConfig({
 
 ベンチマークの全生データ、テストアプリ、スクリプトは [Benchmark Bloom リポジトリ](https://github.com/intlayer-org/benchmark-bloom) で公開されています。ぜひご自身でお試しください。
 
-詳細については [「Intlayerを選ぶ理由」ドキュメント](https://intlayer.org/ja/doc/why) をご参照ください。
+詳細については [「Intlayerを選ぶ理由」ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) をご参照ください。

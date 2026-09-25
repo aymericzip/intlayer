@@ -644,7 +644,7 @@ Cette extension fournit :
 - **Aperçus intégrés** du contenu traduit.
 - **Actions rapides** pour créer et mettre à jour facilement les traductions.
 
-Pour plus de détails sur la façon d'utiliser l'extension, consultez la [documentation de l'extension Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Pour plus de détails sur la façon d'utiliser l'extension, consultez la [documentation de l'extension Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md).
 
 ### Aller plus loin
 

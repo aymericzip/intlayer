@@ -28,7 +28,7 @@ Saya membangun asisten dokumentasi bertenaga RAG dan mengemasnya menjadi boilerp
 - Semua komponen UI sepenuhnya dapat diedit dengan Tailwind CSS
 - Mencatat setiap kueri pengguna untuk membantu mengidentifikasi dokumen yang hilang, titik sakit pengguna, dan peluang produk
 
-👉 [Demo langsung](https://intlayer.org/doc/why) 👉 [Boilerplate kode](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Demo langsung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) 👉 [Boilerplate kode](https://github.com/aymericzip/smart_doc_RAG)
 
 ## Pendahuluan
 
@@ -243,7 +243,7 @@ Kami menggunakan SSE untuk melakukan streaming respons dari rute API.
 Seperti yang disebutkan, kami menggunakan gpt-4-turbo tanpa mode "thinking". Responsnya relevan, dan latensinya rendah.
 Kami bereksperimen dengan gpt-5, tetapi latensinya terlalu tinggi (kadang hingga 15 detik untuk sebuah balasan). Namun, kami akan meninjau kembali hal itu di masa depan.
 
-👉 [Coba demo di sini](https://intlayer.org/doc/why) 👉 [Periksa template kode di GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Coba demo di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) 👉 [Periksa template kode di GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 </Step>
 <Step number={10} title="Melangkah Lebih Jauh">
@@ -297,7 +297,7 @@ Bagi saya, proyek ini menunjukkan bahwa RAG bukan hanya trik teknis. Ini adalah 
 - saluran umpan balik
 - sebuah alat strategi produk
 
-👉 [Coba demo di sini](https://intlayer.org/doc/why) 👉 [Periksa template kode di GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Coba demo di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) 👉 [Periksa template kode di GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 Dan jika Anda juga bereksperimen dengan RAG, saya ingin sekali mendengar bagaimana Anda menggunakannya.
 
@@ -320,6 +320,6 @@ Bagi saya, proyek ini menunjukkan bahwa RAG bukan hanya trik teknis. Ini adalah 
 - saluran umpan balik
 - alat strategi produk
 
-👉 [Coba demo di sini](https://intlayer.org/doc/why) 👉 [Periksa template kode di GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Coba demo di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) 👉 [Periksa template kode di GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 Dan jika Anda juga bereksperimen dengan RAG, saya ingin mendengar bagaimana Anda menggunakannya.

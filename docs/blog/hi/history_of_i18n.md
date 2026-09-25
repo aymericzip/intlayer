@@ -300,5 +300,5 @@ Intlayer इस समस्या को एक संकीर्ण स्ट
 
 - [कंपाइलर बनाम घोषणात्मक अंतर्राष्ट्रीयकरण](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
 - [प्रति-घटक बनाम केंद्रीकृत i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md)
-- [प्रदर्शन और बेंचमार्क](https://intlayer.org/doc/benchmark)
-- [Intlayer अनुकूलता एडेप्टर](https://intlayer.org/doc/concept/compatibility)
+- [प्रदर्शन और बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md)
+- [Intlayer अनुकूलता एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/index.md)

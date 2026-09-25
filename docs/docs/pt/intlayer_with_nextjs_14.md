@@ -985,7 +985,7 @@ Esta extensão fornece:
 - **Pré-visualizações inline** do conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
 
 ### Vá Além
 
@@ -1001,7 +1001,7 @@ O campo `i18n` do `next.config.js` não se aplica ao App Router, portanto a esco
 
 - **`next-intl`**, **`next-i18next` / `i18next`** e **`react-intl`**: as opções históricas, baseadas em catálogos de mensagens JSON ou ICU carregados por namespace.
 - **`Lingui`**: orientado à extração, com mensagens ICU compiladas em tempo de build.
-- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)), compilado em tempo de build em dicionários por componente, totalmente tipado, com tradução por IA, editor visual e CMS incluídos.
+- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)), compilado em tempo de build em dicionários por componente, totalmente tipado, com tradução por IA, editor visual e CMS incluídos.
 
 A diferença prática está no que chega ao navegador. Bibliotecas baseadas em namespace enviam catálogos JSON inteiros para a página, enquanto o Intlayer envia apenas o conteúdo que os componentes renderizados utilizam, reduzindo o tamanho do bundle e da página em até 50%. Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) e o [benchmark de i18n do Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/nextjs.md).
 

@@ -982,7 +982,7 @@ This extension provides:
 - **Inline previews** of translated content.
 - **Quick actions** to easily create and update translations.
 
-For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md).
 
 ## Go Further
 
@@ -1009,7 +1009,7 @@ React Router v7은 자체 메시지 레이어를 제공하지 않으므로 i18n 
 
 - **`react-i18next` / `i18next`**: 런타임에 JSON 네임스페이스를 로드하며, 라우터와 연결하기 위한 별도의 로케일 감지기가 필요합니다.
 - **`react-intl`** 및 **`Lingui`**: 추출 단계를 거치는 ICU 메시지 포맷 기반입니다.
-- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)), 빌드 타임에 컴파일되고 종단 간 타입 안전성을 제공하며, 로케일 인식 라우팅 헬퍼, AI 번역, 비주얼 에디터 및 CMS를 포함합니다.
+- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)), 빌드 타임에 컴파일되고 종단 간 타입 안전성을 제공하며, 로케일 인식 라우팅 헬퍼, AI 번역, 비주얼 에디터 및 CMS를 포함합니다.
 
 [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)와 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참조하세요.
 

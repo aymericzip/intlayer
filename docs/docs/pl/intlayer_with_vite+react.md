@@ -1004,7 +1004,7 @@ To rozszerzenie zapewnia:
 - **Podglądy w tekście** przetłumaczonej zawartości.
 - **Szybkie akcje** ułatwiające tworzenie i aktualizowanie tłumaczeń.
 
-Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją Rozszerzenia Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją Rozszerzenia Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
 ### Idź dalej
 
@@ -1020,7 +1020,7 @@ Vite nie narzuca żadnego konkretnego podejścia do i18n, więc wybór sprowadza
 
 - **`react-i18next` / `i18next`**: najbardziej rozpowszechnione rozwiązanie z przestrzeniami nazw JSON ładowanymi w czasie działania (runtime).
 - **`react-intl`** oraz **`Lingui`**: format wiadomości ICU oparty na ekstrakcji.
-- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treść deklarowana w dowolnym miejscu w bazie kodu ([obok każdego komponentu lub scentralizowana](https://intlayer.org/pl/blog/per-component-vs-centralized-i18n)), kompilowana przez wtyczkę Vite w czasie budowania, w pełni typowana, ze zintegrowanym tłumaczeniem AI, edytorem wizualnym i systemem CMS.
+- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treść deklarowana w dowolnym miejscu w bazie kodu ([obok każdego komponentu lub scentralizowana](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)), kompilowana przez wtyczkę Vite w czasie budowania, w pełni typowana, ze zintegrowanym tłumaczeniem AI, edytorem wizualnym i systemem CMS.
 
 W przypadku Vite, Intlayer integruje się bezpośrednio z procesem budowania, dzięki czemu tłumaczenia są rozwiązywane i poddawane tree-shakingowi w czasie kompilacji, zamiast być pobieranymi jako pliki JSON w czasie wykonywania. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) oraz [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md).
 

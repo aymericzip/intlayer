@@ -1043,7 +1043,7 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 - **翻訳されたコンテンツのインラインプレビュー**。
 - **翻訳を簡単に作成・更新するためのクイックアクション**。
 
-拡張機能の使い方の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+拡張機能の使い方の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
 
 ### さらに進むには
 
@@ -1059,7 +1059,7 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 
 - **`next-intl`**、**`next-i18next` / `i18next`** および **`react-intl`**：JSON または ICU メッセージカタログに基づいた従来のオプションで、namespace ごとに読み込まれます。
 - **`Lingui`**：抽出駆動型で、ICU メッセージはビルド時にコンパイルされます。
-- **`Intlayer`**：最も高度なソリューション。コンテンツはコードベースのどこにでも宣言でき（[各コンポーネントの隣またはセントラライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、ビルド時にコンポーネント単位の辞書にコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS が含まれています。
+- **`Intlayer`**：最も高度なソリューション。コンテンツはコードベースのどこにでも宣言でき（[各コンポーネントの隣またはセントラライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）、ビルド時にコンポーネント単位の辞書にコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS が含まれています。
 
 実際の違いはブラウザに到達するものです。Namespace ベースのライブラリはページ全体の JSON カタログを配信しますが、Intlayer はレンダリングされたコンポーネントが使用するコンテンツのみを配信するため、bundle とページサイズを最大 50% 削減できます。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と [Next.js i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)を参照してください。
 

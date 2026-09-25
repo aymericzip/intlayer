@@ -23,7 +23,7 @@ author: aymericzip
 
 # vue-i18n مقابل Intlayer | معيار أداء التدويل (i18n) في Vue
 
-`vue-i18n` هي مكتبة i18n المرجعية لـ Vue. Intlayer بديل قائم على المُصرِّف، بمحتوى محدود بنطاق المكوّن، مع تكامل Vue (`vue-intlayer`). سبق أن قارنّا [ميزاتهما وتجربة المطور](https://intlayer.org/blog/vue-i18n-vs-intlayer). تنظر هذه المقالة في تكلفة كل منهما بعد بناء التطبيق.
+`vue-i18n` هي مكتبة i18n المرجعية لـ Vue. Intlayer بديل قائم على المُصرِّف، بمحتوى محدود بنطاق المكوّن، مع تكامل Vue (`vue-intlayer`). سبق أن قارنّا [ميزاتهما وتجربة المطور](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md). تنظر هذه المقالة في تكلفة كل منهما بعد بناء التطبيق.
 
 تأتي البيانات من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)، وهي مجموعة مفتوحة المصدر تبني نفس التطبيق بكل مكتبة وتسجّل ما يقوم المتصفح فعليًا بتنزيله وتنفيذه.
 
@@ -140,7 +140,7 @@ author: aymericzip
 
 يُصدر المُصرِّف، لكل قاموس ولكل لغة، JSON الذي يحتاجه ذلك المكوّن بالضبط، ويحذف القواميس التي لا يستوردها أحد. تحديد النطاق لكل مسار نتيجة لتحديد النطاق لكل مكوّن، وليس مهمة.
 
-> لحذف اللغات غير المستخدمة أيضًا، اضبط `dictionary.importMode: 'dynamic'` في `intlayer.config.ts`. انظر [وثيقة تحسين الحزمة](https://intlayer.org/doc/concept/bundle-optimization).
+> لحذف اللغات غير المستخدمة أيضًا، اضبط `dictionary.importMode: 'dynamic'` في `intlayer.config.ts`. انظر [وثيقة تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
 
 ## تجربة المطور
 
@@ -328,7 +328,7 @@ export default defineConfig({
 
 في معيار الأداء، انتقل بناء compat لنفس التطبيق من **134.9 كيلوبايت إلى 47.0 كيلوبايت** لكل صفحة ومن **196 كيلوبايت إلى 8.4 كيلوبايت** لكل مكوّن، دون المساس بالمكوّنات. يمكن أن تبقى ملفات `locales/{locale}.json` الحالية مصدر الحقيقة عبر إضافة مزامنة JSON.
 
-انظر [دليل الترحيل من vue-i18n](https://intlayer.org/doc/migration/vue-i18n) و[وثيقة التوافق](https://intlayer.org/doc/compatibility/vue-i18n). لمستخدمي Nuxt نفس المسار عبر [توافق `@nuxtjs/i18n`](https://intlayer.org/doc/compatibility/nuxtjs-i18n).
+انظر [دليل الترحيل من vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_vue-i18n_to_intlayer.md) و[وثيقة التوافق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md). لمستخدمي Nuxt نفس المسار عبر [توافق `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md).
 
 ## متى تختار أيهما؟
 
@@ -338,11 +338,11 @@ export default defineConfig({
 
 ## مقارنات ذات صلة
 
-- [next-intl مقابل Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (نفس معيار الأداء)
-- [i18next مقابل Intlayer](https://intlayer.org/blog/i18next-vs-intlayer) (نفس معيار الأداء)
-- [Lingui مقابل Intlayer](https://intlayer.org/blog/lingui-vs-intlayer) (نفس معيار الأداء)
-- [vue-i18n مقابل Intlayer (الميزات وتجربة المطور)](https://intlayer.org/blog/vue-i18n-vs-intlayer)
-- [هل أصبح vue-i18n قديمًا؟](https://intlayer.org/blog/is-vue-i18n-outdated)
+- [next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer.md) (نفس معيار الأداء)
+- [i18next مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer.md) (نفس معيار الأداء)
+- [Lingui مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md) (نفس معيار الأداء)
+- [vue-i18n مقابل Intlayer (الميزات وتجربة المطور)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md)
+- [هل أصبح vue-i18n قديمًا؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_vue-i18n_outdated.md)
 
 ## نجوم GitHub
 
@@ -358,4 +358,4 @@ export default defineConfig({
 
 كل البيانات الخام وتطبيقات الاختبار والنصوص البرمجية موجودة في [مستودع Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). شغّله بنفسك.
 
-راجع [وثيقة "لماذا Intlayer؟"](https://intlayer.org/doc/why) لمزيد من التفاصيل.
+راجع [وثيقة "لماذا Intlayer؟"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) لمزيد من التفاصيل.

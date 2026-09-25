@@ -302,7 +302,7 @@ Cette extension fournit :
 - **Aperçus en ligne** du contenu traduit.
 - **Actions rapides** pour créer et mettre à jour facilement les traductions.
 
-Pour plus de détails sur l'utilisation de l'extension, consultez la [documentation de l'extension VS Code d'Intlayer](https://intlayer.org/fr/doc/vs-code-extension).
+Pour plus de détails sur l'utilisation de l'extension, consultez la [documentation de l'extension VS Code d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md).
 
 ### Configuration Git
 

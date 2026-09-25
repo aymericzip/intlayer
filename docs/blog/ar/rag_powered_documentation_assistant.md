@@ -28,7 +28,7 @@ author: aymericzip
 - جميع مكونات واجهة المستخدم قابلة للتحرير بالكامل باستخدام Tailwind CSS
 - يسجل كل استعلام من المستخدم لمساعدة في تحديد الوثائق المفقودة، نقاط الألم لدى المستخدمين، وفرص المنتج
 
-👉 [عرض مباشر](https://intlayer.org/doc/why) 👉 [قالب الكود](https://github.com/aymericzip/smart_doc_RAG)
+👉 [عرض مباشر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) 👉 [قالب الكود](https://github.com/aymericzip/smart_doc_RAG)
 
 ## المقدمة
 
@@ -237,7 +237,7 @@ docUrl: "https://example.com/docs/ar/another-doc"
 كما ذُكر، نستخدم gpt-4-turbo بدون وضع "التفكير". الردود ذات صلة، والزمن المستغرق منخفض.
 قمنا بتجربة gpt-5، لكن زمن الاستجابة كان مرتفعًا جدًا (أحيانًا يصل إلى 15 ثانية للرد). لكننا سنعيد النظر في ذلك في المستقبل.
 
-👉 [جرّب العرض التوضيحي هنا](https://intlayer.org/doc/why) 👉 [تحقق من قالب الكود على GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [جرّب العرض التوضيحي هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) 👉 [تحقق من قالب الكود على GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 </Step>
 <Step number={10} title="التوسع أكثر">
@@ -291,7 +291,7 @@ RAG هي واحدة من أبسط وأقوى الطرق لجعل نماذج ال
 - قناة تغذية راجعة
 - أداة لاستراتيجية المنتج
 
-👉 [جرب العرض التوضيحي هنا](https://intlayer.org/ar/doc/why) 👉 [تحقق من قالب الكود على GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [جرب العرض التوضيحي هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) 👉 [تحقق من قالب الكود على GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 وإذا كنت تجرب RAG أيضًا، أود أن أسمع كيف تستخدمها.
 
@@ -315,6 +315,6 @@ RAG هي إحدى أبسط الطرق وأكثرها قوة لجعل نماذج 
 - قناة ردود الفعل
 - أداة استراتيجية للمنتج
 
-👉 [جرب العرض التوضيحي هنا](https://intlayer.org/doc/why) 👉 [تحقق من قالب الكود على GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [جرب العرض التوضيحي هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) 👉 [تحقق من قالب الكود على GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 وإذا كنت تجرب RAG أيضًا، فأود أن أسمع كيف تستخدمها.

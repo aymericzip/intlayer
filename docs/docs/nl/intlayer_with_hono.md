@@ -283,7 +283,7 @@ Deze extensie biedt:
 - **Inline voortonen** van vertaalde inhoud.
 - **Snelle acties** om eenvoudig vertalingen te maken en bij te werken.
 
-Raadpleeg voor meer informatie over het gebruik van de extensie de [documentatie van de Intlayer VS Code-extensie](https://intlayer.org/nl/doc/vs-code-extension).
+Raadpleeg voor meer informatie over het gebruik van de extensie de [documentatie van de Intlayer VS Code-extensie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md).
 
 ### Git-configuratie
 

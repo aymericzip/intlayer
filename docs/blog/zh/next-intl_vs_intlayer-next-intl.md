@@ -30,7 +30,7 @@ author: aymericzip
 
 `@intlayer/next-intl` 是一个兼容适配器：它暴露 `next-intl` API（`useTranslations`、`getTranslations`、`useLocale`、`t.rich()`、ICU 复数、`NextIntlClientProvider`...），并从 Intlayer 编译的字典中提供服务。应用代码不会改变。但 bundle 会改变。
 
-本文在同一个 Next.js 应用上对两者进行了比较，一次使用 `next-intl` 构建，一次使用适配器构建。这些数据来自 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)，一个记录浏览器实际下载内容的开源套件。如果你想要 `next-intl` vs Intlayer 作为库的比较，请阅读 [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer)。本文是关于当你保持组件原样不变时，适配器改变了什么。
+本文在同一个 Next.js 应用上对两者进行了比较，一次使用 `next-intl` 构建，一次使用适配器构建。这些数据来自 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)，一个记录浏览器实际下载内容的开源套件。如果你想要 `next-intl` vs Intlayer 作为库的比较，请阅读 [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer.md)。本文是关于当你保持组件原样不变时，适配器改变了什么。
 
 <TOC/>
 
@@ -142,7 +142,7 @@ height="600px"
 style="border:none;"
 />
 
-> 完整表格、所有库和策略请参阅 [Next.js 基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs)。
+> 完整表格、所有库和策略请参阅 [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
 
 ### TanStack Start 上的结果（`use-intl`）
 
@@ -174,7 +174,7 @@ height="600px"
 style="border:none;"
 />
 
-> 完整表格请参阅 [TanStack Start 基准测试报告](https://intlayer.org/zh/doc/benchmark/tanstack)。
+> 完整表格请参阅 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。
 
 ## 为什么数字会变动
 
@@ -326,7 +326,7 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="provider 上的 messages、timeZone 和 now 将被忽略">
 
-格式化器由原生 `Intl` 提供支持，只有当前语言会影响其输出。如果您依赖强制的时区或固定的 `now` 来获得注水稳定的日期，请在调用处自行处理。参见[日期、时间和数字格式化](https://intlayer.org/zh/blog/date-time-number-formatting-locales)。
+格式化器由原生 `Intl` 提供支持，只有当前语言会影响其输出。如果您依赖强制的时区或固定的 `now` 来获得注水稳定的日期，请在调用处自行处理。参见[日期、时间和数字格式化](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/date_time_number_formatting_locales.md)。
 
 </Accordion>
 </AccordionGroup>
@@ -346,7 +346,7 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="使用原生 (next-intlayer)">
 
-适用于新项目，或适配器完成过渡任务后。它是三者中最轻量级的（5.5 KB，每页仅增加 +0.3 KB），并解锁同步服务端组件、按组件就近维护 `.content.ts` 文件以及完整的全套功能。请阅读 [在 Next.js 中使用 Intlayer](https://intlayer.org/zh/doc/environment/nextjs)。
+适用于新项目，或适配器完成过渡任务后。它是三者中最轻量级的（5.5 KB，每页仅增加 +0.3 KB），并解锁同步服务端组件、按组件就近维护 `.content.ts` 文件以及完整的全套功能。请阅读 [在 Next.js 中使用 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)。
 
 </Accordion>
 </AccordionGroup>
@@ -363,7 +363,7 @@ export default withIntlayer(nextConfig);
 
 <Question title="ICU 消息支持情况如何？">
 
-它们可以继续正常工作。`t("key", { count })`、`t.rich()`、`t.markup()`、`select`、`selectordinal`、`#` 和 `{ts, date, long}` 均由 Intlayer 的 ICU 解析器处理。参见 [ICU 消息格式](https://intlayer.org/zh/blog/icu-message-format)。
+它们可以继续正常工作。`t("key", { count })`、`t.rich()`、`t.markup()`、`select`、`selectordinal`、`#` 和 `{ts, date, long}` 均由 Intlayer 的 ICU 解析器处理。参见 [ICU 消息格式](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)。
 
 </Question>
 
@@ -391,23 +391,23 @@ export default withIntlayer(nextConfig);
 
 同一适配器系列：
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/zh/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/zh/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer-vue-i18n.md)
 
 两款库的直接对比：
 
-- [next-intl vs Intlayer](https://intlayer.org/zh/blog/next-intl-vs-intlayer), 相同基准测试
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/zh/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Is next-intl outdated?](https://intlayer.org/zh/blog/is-next-intl-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer.md), 相同基准测试
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_next-intl_outdated.md)
 
 参考文档：
 
-- [Compat adapter: next-intl](https://intlayer.org/zh/doc/compatibility/next-intl)
-- [迁移指南：从 next-intl 到 Intlayer](https://intlayer.org/zh/doc/migration/next-intl)
-- [Next.js 基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs) 与 [TanStack Start 基准测试报告](https://intlayer.org/zh/doc/benchmark/tanstack)
-- [包体积优化](https://intlayer.org/zh/doc/concept/bundle-optimization) 与 [Intlayer 编译器](https://intlayer.org/zh/doc/compiler)
-- [可视化编辑器](https://intlayer.org/zh/doc/concept/editor)、[CMS](https://intlayer.org/zh/doc/concept/cms) 与 [AI 翻译](https://intlayer.org/zh/doc/concept/auto-fill)
+- [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-intl.md)
+- [迁移指南：从 next-intl 到 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md)
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md) 与 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
+- [包体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 与 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 与 [AI 翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)
 
 ## 总结
 
@@ -415,4 +415,4 @@ export default withIntlayer(nextConfig);
 
 所有原始数据、测试应用和脚本都在 [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom) 中。自己运行它。
 
-有关更多详情，请参考 ['Why Intlayer?' 文档](https://intlayer.org/doc/why)。
+有关更多详情，请参考 ['Why Intlayer?' 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。

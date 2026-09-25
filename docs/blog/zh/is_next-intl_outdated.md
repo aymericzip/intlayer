@@ -83,7 +83,7 @@ height="600px"
 style="border:none;"
 />
 
-> 在真实浏览器中开启 gzip 压缩环境下测试。完整数据见 [Next.js 基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs)。
+> 在真实浏览器中开启 gzip 压缩环境下测试。完整数据见 [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
 
 ### 库本身的基础体积
 
@@ -131,7 +131,7 @@ export default async function RootLayout({ children, params }) {
 
 ![按架构划分的理论内容泄漏](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-Intlayer 采用静态分析解决该问题：[Intlayer 编译器](https://intlayer.org/zh/doc/compiler)精准提取各个路由实际调用的翻译字段，使跨页面泄漏率直降为 **0.0%**。
+Intlayer 采用静态分析解决该问题：[Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)精准提取各个路由实际调用的翻译字段，使跨页面泄漏率直降为 **0.0%**。
 
 ## 为什么 next-intl 无法做 Tree-shaking？
 
@@ -170,7 +170,7 @@ export function UserProfile() {
   </Tab>
 </Tabs>
 
-Turbopack 和 Webpack 无法静态预判 `UserProfile` 内部将调用哪些键名。为了防止线上缺失文本报错，**打包工具只能将整个命名空间全部打包进客户端 chunk**。而在 Intlayer 中，属性以解构方式使用，编译器能精确追踪依赖关系并剪裁掉无用内容。更多细节见[打包优化](https://intlayer.org/zh/doc/concept/bundle-optimization)。
+Turbopack 和 Webpack 无法静态预判 `UserProfile` 内部将调用哪些键名。为了防止线上缺失文本报错，**打包工具只能将整个命名空间全部打包进客户端 chunk**。而在 Intlayer 中，属性以解构方式使用，编译器能精确追踪依赖关系并剪裁掉无用内容。更多细节见[打包优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
 
 ## 开发者体验对比
 
@@ -269,17 +269,17 @@ declare global {
 
 但这只能基于单一基准语言校验。如果在 `zh.json` 中删除了某个词条，TypeScript 不会发出任何告警，CI 流水线照样能通过，最终导致线上用户看到空白。
 
-Intlayer 则直接基于内容声明生成全局类型。开启 [`strictMode`](https://intlayer.org/zh/doc/concept/configuration) 后，若缺少任何一种目标语言的翻译，编译期就会立即报错拦截。
+Intlayer 则直接基于内容声明生成全局类型。开启 [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 后，若缺少任何一种目标语言的翻译，编译期就会立即报错拦截。
 
 ### 工具链与 AI 适配能力
 
-| 功能特性                  | `next-intl` | Intlayer                                                         |
-| ------------------------- | ----------- | ---------------------------------------------------------------- |
-| **VS Code 官方插件**      | ❌ 无       | ✅ [官方专属插件](https://intlayer.org/zh/doc/vs-code-extension) |
-| **Language Server (LSP)** | ❌ 无       | ✅ [专属 LSP 服务](https://intlayer.org/zh/doc/lsp)              |
-| **AI Agent MCP Server**   | ❌ 无       | ✅ [内置 MCP Server](https://intlayer.org/zh/doc/mcp-server)     |
-| **Agent Skills 预制集**   | ❌ 无       | ✅ [开箱即用 Skills](https://intlayer.org/zh/doc/agent_skills)   |
-| **可视化上下文 CMS**      | ❌ 无       | ✅ [免费开源 CMS](https://intlayer.org/zh/doc/concept/editor)    |
+| 功能特性                  | `next-intl` | Intlayer                                                                                                   |
+| ------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------- |
+| **VS Code 官方插件**      | ❌ 无       | ✅ [官方专属插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)      |
+| **Language Server (LSP)** | ❌ 无       | ✅ [专属 LSP 服务](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)                   |
+| **AI Agent MCP Server**   | ❌ 无       | ✅ [内置 MCP Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)          |
+| **Agent Skills 预制集**   | ❌ 无       | ✅ [开箱即用 Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)        |
+| **可视化上下文 CMS**      | ❌ 无       | ✅ [免费开源 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) |
 
 内置的 LSP 与 MCP Server 赋予 AI 编程助手透视多语言依赖结构的能力，极大提升代码生成与维护的精准度。
 
@@ -295,7 +295,7 @@ Intlayer 将这些能力原生地内置于开源工具链中：
 
 **支持私有化部署的可视化 CMS：**
 
-利用 [Intlayer CMS](https://intlayer.org/zh/doc/concept/cms)，非技术人员可以直接在网页上可视修改并即时推送到 Git 仓库。
+利用 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)，非技术人员可以直接在网页上可视修改并即时推送到 Git 仓库。
 
 **纯粹的开源协议：**
 
@@ -351,9 +351,9 @@ bunx intlayer init --interactive
 
 更多详细步骤请参考我们的专题文档：
 
-- **平滑兼容层：** 使用 [`next-intl` 兼容层](https://intlayer.org/zh/doc/compatibility/next-intl)，无需改动现有组件内的 `useTranslations` 语法，即可切换到底层的优化编译器。
-- **指南参考：** 阅读我们的 [next-intl 迁移指南](https://intlayer.org/zh/doc/migration/next-intl)，快速将旧版 JSON 资产转换为类型安全的数据定义。
-- **混合式方案：** 你也可以在运行时保留 `next-intl`，仅[将 Intlayer 与 next-intl 搭配使用](https://intlayer.org/zh/blog/intlayer-with-next-intl)，享受本地 AI 自动翻译与类型检查的能力。
+- **平滑兼容层：** 使用 [`next-intl` 兼容层](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-intl.md)，无需改动现有组件内的 `useTranslations` 语法，即可切换到底层的优化编译器。
+- **指南参考：** 阅读我们的 [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md)，快速将旧版 JSON 资产转换为类型安全的数据定义。
+- **混合式方案：** 你也可以在运行时保留 `next-intl`，仅[将 Intlayer 与 next-intl 搭配使用](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_next-intl.md)，享受本地 AI 自动翻译与类型检查的能力。
 
 欢迎使用免费的 [i18n SEO 分析器](https://intlayer.org/i18n-seo-scanner) 测量你当前网站的打包体积和翻译泄漏情况：
 
@@ -361,7 +361,7 @@ bunx intlayer init --interactive
 
 ## 延伸阅读
 
-- [Next.js i18n 基准测试：深度性能测评](https://intlayer.org/zh/doc/benchmark/nextjs)
-- [next-i18next vs next-intl vs Intlayer 方案对比](https://intlayer.org/zh/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [2026 年，i18next 已经过时了吗？](https://intlayer.org/zh/blog/is-i18next-outdated)
-- [编译型国际化与声明式架构优势剖析](https://intlayer.org/zh/blog/compiler-vs-declarative-i18n)
+- [Next.js i18n 基准测试：深度性能测评](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer 方案对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
+- [2026 年，i18next 已经过时了吗？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_i18next_outdated.md)
+- [编译型国际化与声明式架构优势剖析](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)

@@ -775,7 +775,7 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 - 翻訳されたコンテンツの**インライン形プレビュー**。
 - 翻訳を簡単に作成および更新できる**クイックアクション**。
 
-拡張機能の使用方法の詳細については、[Intlayer VS Code 拡張機能ドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+拡張機能の使用方法の詳細については、[Intlayer VS Code 拡張機能ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
 
 ### 次のステップ
 
@@ -791,7 +791,7 @@ Vite は i18n について特定の意見を持たないため、選択は Vanil
 
 - **手書きの辞書オブジェクト**をエントリーポイントにインポート：依存関係なし、ただし型付けなし、複数形ルールなし、翻訳が不足していることを知らせるものもなし。
 - **`i18next`**：成熟しており、フレームワークに依存しませんが、ランタイムを追加し、カタログを JSON として読み込みます。
-- **`Intlayer`**：最も高度なソリューション。コードベースの任意の場所で宣言されたコンテンツ（[各コンポーネントの隣またはセンタライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）は、Vite プラグインによってビルド時にコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディター、CMS を備えています。
+- **`Intlayer`**：最も高度なソリューション。コードベースの任意の場所で宣言されたコンテンツ（[各コンポーネントの隣またはセンタライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）は、Vite プラグインによってビルド時にコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディター、CMS を備えています。
 
 Vite 固有の利点は、翻訳がコンパイル時に解決され tree shake されるため、ランタイムに JSON として取得されるのではなく、ページはレンダリングするエントリのみを配信することです。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)を参照してください。
 

@@ -410,7 +410,7 @@ Esta extensão fornece:
 - **Visualizações inline** do conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para o VS Code](https://intlayer.org/doc/vs-code-extension).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para o VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
 
 ### Indo Além
 
@@ -426,7 +426,7 @@ O Analog é um meta-framework Angular construído sobre o Vite, herdando as solu
 
 - **`@angular/localize`**: extração para XLIFF com um build compilado por locale, o que se adapta mal a um roteador baseado em sistema de arquivos e à renderização no servidor.
 - **`ngx-translate`** e **`Transloco`**: catálogos JSON em tempo de execução via serviço, sem integração com o roteamento do Analog ou SSR.
-- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)) e compilado pelo plugin Vite em tempo de build, totalmente tipado, com troca de idioma em tempo de execução, tradução por IA, editor visual e CMS.
+- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)) e compilado pelo plugin Vite em tempo de build, totalmente tipado, com troca de idioma em tempo de execução, tradução por IA, editor visual e CMS.
 
 Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) e o [guia do Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_angular_21.md) para as APIs específicas do Angular.
 

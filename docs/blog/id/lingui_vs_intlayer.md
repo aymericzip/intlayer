@@ -127,7 +127,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tabel lengkap, setiap pustaka dan setiap strategi, dalam [laporan tolok ukur Next.js](https://intlayer.org/id/doc/benchmark/nextjs).
+> Tabel lengkap, setiap pustaka dan setiap strategi, dalam [laporan tolok ukur Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md).
 
 ### Hasil pada TanStack Start
 
@@ -157,7 +157,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tabel lengkap dalam [laporan tolok ukur TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack).
+> Tabel lengkap dalam [laporan tolok ukur TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md).
 
 ## Mengapa ada perbedaan? Dua kompiler, dua unit kerja
 
@@ -206,7 +206,7 @@ Itulah mengapa pola `scoped-dynamic` adalah output bawaan bagi Intlayer dan meru
 
 ![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-> Untuk mendapatkan angka pada baris `dynamic`, atur `dictionary.importMode: 'dynamic'` di `intlayer.config.ts`. Lihat [panduan optimasi bundle](https://intlayer.org/id/doc/concept/bundle-optimization).
+> Untuk mendapatkan angka pada baris `dynamic`, atur `dictionary.importMode: 'dynamic'` di `intlayer.config.ts`. Lihat [panduan optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md).
 
 ## Pengalaman pengembang
 
@@ -390,7 +390,7 @@ export default defineConfig({
 });
 ```
 
-Biarkan `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` tetap berada dalam pipeline build sebelum kompiler Intlayer. Lihat [dokumentasi kompatibilitas Lingui](https://intlayer.org/id/doc/compatibility/lingui).
+Biarkan `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` tetap berada dalam pipeline build sebelum kompiler Intlayer. Lihat [dokumentasi kompatibilitas Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md).
 
 ## Kapan harus memilih yang mana?
 
@@ -402,12 +402,12 @@ Anda menginginkan **ICU MessageFormat** dengan makro bertipe, penerjemah Anda be
 </Accordion>
 <Accordion header="Pilih Intlayer">
 
-Anda menginginkan **konten dengan cakupan komponen**, **TypeScript yang ketat**, **kesalahan kunci yang hilang saat waktu build**, **tree-shaking dan pemuatan lambat tanpa usaha**, komponen kecil, hidrasi cepat, pergantian bahasa instan, dan alat editorial bawaan ([Editor Visual](https://intlayer.org/id/doc/concept/editor), [CMS](https://intlayer.org/id/doc/concept/cms), [terjemahan AI](https://intlayer.org/id/doc/concept/auto-fill), [server MCP](https://intlayer.org/id/doc/mcp-server)). Sangat relevan untuk basis kode modular besar dan sistem desain.
+Anda menginginkan **konten dengan cakupan komponen**, **TypeScript yang ketat**, **kesalahan kunci yang hilang saat waktu build**, **tree-shaking dan pemuatan lambat tanpa usaha**, komponen kecil, hidrasi cepat, pergantian bahasa instan, dan alat editorial bawaan ([Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), [terjemahan AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md), [server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)). Sangat relevan untuk basis kode modular besar dan sistem desain.
 
 </Accordion>
 <Accordion header="Pilih @intlayer/lingui">
 
-Anda menggunakan Lingui dan ingin beralih ke kamus Intlayer secara bertahap tanpa menyentuh makro. Katalog `.po` Anda tetap menjadi sumber kebenaran melalui [plugin sinkronisasi PO](https://intlayer.org/id/doc/compatibility/lingui). Diukur berdampingan dalam [Lingui vs @intlayer/lingui](https://intlayer.org/id/blog/lingui-vs-intlayer-lingui).
+Anda menggunakan Lingui dan ingin beralih ke kamus Intlayer secara bertahap tanpa menyentuh makro. Katalog `.po` Anda tetap menjadi sumber kebenaran melalui [plugin sinkronisasi PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md). Diukur berdampingan dalam [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer-lingui.md).
 
 </Accordion>
 </AccordionGroup>
@@ -436,13 +436,13 @@ Ya, dan di TanStack Start ia menang tipis: 115.2 KB dalam mode `dynamic` dibandi
 
 <Question title="Apakah saya harus meninggalkan makro untuk bermigrasi?">
 
-Tidak. `@intlayer/lingui` mempertahankan kompilasi `` t`...` ``, `<Trans>`, `msg`, `plural`, `select`, dan `selectOrdinal` seperti sebelumnya; hanya target resolusi `i18n._()` yang berubah. Pertahankan `@lingui/babel-plugin-lingui-macro` atau `@lingui/swc-plugin` dalam build. Lihat [dokumentasi kompatibilitas Lingui](https://intlayer.org/id/doc/compatibility/lingui).
+Tidak. `@intlayer/lingui` mempertahankan kompilasi `` t`...` ``, `<Trans>`, `msg`, `plural`, `select`, dan `selectOrdinal` seperti sebelumnya; hanya target resolusi `i18n._()` yang berubah. Pertahankan `@lingui/babel-plugin-lingui-macro` atau `@lingui/swc-plugin` dalam build. Lihat [dokumentasi kompatibilitas Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md).
 
 </Question>
 
 <Question title="Bagaimana dengan langkah ekstraksi dan kompilasi?">
 
-Langkah-langkah tersebut tetap ada untuk makro, dan hilang untuk konten asli Intlayer. Kamus `.content.ts` dibangun saat bundler berjalan, tanpa perintah CLI terpisah, dan [`intlayer test`](https://intlayer.org/id/doc/concept/cli) menggagalkan CI jika ada kunci yang hilang alih-alih secara diam-diam kembali ke string sumber.
+Langkah-langkah tersebut tetap ada untuk makro, dan hilang untuk konten asli Intlayer. Kamus `.content.ts` dibangun saat bundler berjalan, tanpa perintah CLI terpisah, dan [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) menggagalkan CI jika ada kunci yang hilang alih-alih secara diam-diam kembali ke string sumber.
 
 </Question>
 
@@ -452,24 +452,24 @@ Langkah-langkah tersebut tetap ada untuk makro, dan hilang untuk konten asli Int
 
 Tolok ukur yang sama, pustaka lain:
 
-- [next-intl vs Intlayer](https://intlayer.org/id/blog/next-intl-vs-intlayer)
-- [i18next vs Intlayer](https://intlayer.org/id/blog/i18next-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/id/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/id/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Lebih lanjut:
 
-- [Lingui vs @intlayer/lingui](https://intlayer.org/id/blog/lingui-vs-intlayer-lingui), adaptor diukur pada aplikasi yang sama
-- [Compiler-driven vs declarative i18n](https://intlayer.org/id/blog/compiler-vs-declarative-i18n)
-- [Per-component vs centralized i18n](https://intlayer.org/id/blog/per-component-vs-centralized-i18n)
-- [ICU message format explained](https://intlayer.org/id/blog/icu-message-format)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer-lingui.md), adaptor diukur pada aplikasi yang sama
+- [Compiler-driven vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
+- [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md)
+- [ICU message format explained](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 Dokumen referensi:
 
-- [Laporan tolok ukur Next.js](https://intlayer.org/id/doc/benchmark/nextjs) dan [laporan tolok ukur TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack)
-- [Compat adapter: Lingui](https://intlayer.org/id/doc/compatibility/lingui)
-- [Optimalisasi bundel](https://intlayer.org/id/doc/concept/bundle-optimization) dan [kompiler Intlayer](https://intlayer.org/id/doc/compiler)
+- [Laporan tolok ukur Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md) dan [laporan tolok ukur TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
+- [Compat adapter: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md)
+- [Optimalisasi bundel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
 
 ## Bintang GitHub
 
@@ -485,4 +485,4 @@ Namun, bukan hanya itu yang penting. Kompiler Lingui hanya memproses hingga ting
 
 Semua data mentah, aplikasi pengujian, dan skrip tersedia di [repositori Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Anda dapat menjalankannya sendiri.
 
-Lihat dokumen ['Mengapa Intlayer?'](https://intlayer.org/id/doc/why) untuk informasi lebih lanjut.
+Lihat dokumen ['Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk informasi lebih lanjut.

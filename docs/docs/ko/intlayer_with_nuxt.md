@@ -689,7 +689,7 @@ Intlayer 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확�
 - 번역된 콘텐츠의 **인라인 미리보기**.
 - 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
 
-확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
 
 ### 더 나아가기
 
@@ -704,7 +704,7 @@ Intlayer 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확�
 두 가지 현실적인 옵션이 있습니다:
 
 - **`@nuxtjs/i18n`**: `vue-i18n`을 기반으로 구축된 기존 모듈로, 페이지별로 로케일 파일이 로드되며 광범위한 설정 표면적을 갖습니다. `vue-i18n`은 메시지 네임스페이스를 분할하는 기능이 부족하여 모든 페이지가 다른 모든 페이지의 메시지를 번들로 묶게 되며, 앱에 페이지가 추가될수록 번들이 계속해서 비대해집니다.
-- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)), 빌드 타임에 컴파일되고 완전한 타입 안전성을 제공하며 로케일 인식 라우팅, AI 번역, 비주얼 에디터 및 CMS를 포함합니다.
+- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)), 빌드 타임에 컴파일되고 완전한 타입 안전성을 제공하며 로케일 인식 라우팅, AI 번역, 비주얼 에디터 및 CMS를 포함합니다.
 
 가장 큰 차이는 콘텐츠의 위치입니다. `@nuxtjs/i18n`은 `locales/*.json` 파일에 콘텐츠를 중앙 집중화하는 반면, Intlayer는 이를 렌더링하는 컴포넌트 옆에 함께 배치하므로 페이지는 사용하는 항목만 전달하고 기능 폴더를 한 단위로 이동하거나 삭제할 수 있습니다. [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)와 [Vue i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)를 참조하세요.
 

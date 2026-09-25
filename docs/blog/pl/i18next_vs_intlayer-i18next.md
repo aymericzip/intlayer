@@ -32,7 +32,7 @@ author: aymericzip
 
 `@intlayer/i18next`, `@intlayer/react-i18next` i `@intlayer/next-i18next` to adaptery kompatybilności. Udostępniają API `i18next`, którego Twój kod już używa (`useTranslation`, `t()`, `<Trans>`, `i18n.changeLanguage()`, `getFixedT`, `serverSideTranslations`...) i obsługują je ze słowników skompilowanych przez Intlayer. Komponenty się nie zmieniają. Zmienia się runtime pod nimi.
 
-Ten artykuł mierzy tę zamianę na tej samej aplikacji Next.js, zbudowanej raz z `next-i18next`, a raz z `@intlayer/next-i18next`. Liczby pochodzą z [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Aby porównać `i18next` i Intlayer jako biblioteki, przeczytaj [i18next vs Intlayer](https://intlayer.org/pl/blog/i18next-vs-intlayer). Ten artykuł dotyczy tego, co zmienia adapter, gdy zachowujesz swój kod bez zmian.
+Ten artykuł mierzy tę zamianę na tej samej aplikacji Next.js, zbudowanej raz z `next-i18next`, a raz z `@intlayer/next-i18next`. Liczby pochodzą z [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Aby porównać `i18next` i Intlayer jako biblioteki, przeczytaj [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/i18next_vs_intlayer.md). Ten artykuł dotyczy tego, co zmienia adapter, gdy zachowujesz swój kod bez zmian.
 
 <TOC/>
 
@@ -142,9 +142,9 @@ height="600px"
 style="border:none;"
 />
 
-> Pełna tabela, każda biblioteka i każda strategia, w [raporcie benchmarku Next.js](https://intlayer.org/pl/doc/benchmark/nextjs).
+> Pełna tabela, każda biblioteka i każda strategia, w [raporcie benchmarku Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md).
 
-> Adapter `react-i18next` w Vite / TanStack Start nie brał udziału w tym uruchomieniu. Wartość bazowa `react-i18next` w TanStack Start znajduje się w [i18next vs Intlayer](https://intlayer.org/pl/blog/i18next-vs-intlayer): 127-184 KB na stronę i 123-185 ms przełączania języka przy leniwym backendzie.
+> Adapter `react-i18next` w Vite / TanStack Start nie brał udziału w tym uruchomieniu. Wartość bazowa `react-i18next` w TanStack Start znajduje się w [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/i18next_vs_intlayer.md): 127-184 KB na stronę i 123-185 ms przełączania języka przy leniwym backendzie.
 
 ## Dlaczego liczby się zmieniają
 
@@ -321,7 +321,7 @@ export default defineConfig({
 <AccordionGroup>
 <Accordion header="Backendy i detektory są bezczynne">
 
-`i18n.use(HttpBackend)` wywołuje jedynie init wtyczki i nic więcej. Jeśli Twoja aplikacja polegała na pobieraniu tłumaczeń z CMS w czasie wykonywania, ten przepływ znika; użyj zamiast tego [Intlayer CMS](https://intlayer.org/pl/doc/concept/cms) lub poleceń `intlayer pull` / `push`. Wykrywanie języka staje się konfiguracją routingu Intlayer (prefiks URL, cookie, nagłówek).
+`i18n.use(HttpBackend)` wywołuje jedynie init wtyczki i nic więcej. Jeśli Twoja aplikacja polegała na pobieraniu tłumaczeń z CMS w czasie wykonywania, ten przepływ znika; użyj zamiast tego [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md) lub poleceń `intlayer pull` / `push`. Wykrywanie języka staje się konfiguracją routingu Intlayer (prefiks URL, cookie, nagłówek).
 
 </Accordion>
 <Accordion header="resources jest ignorowane, nie scalane">
@@ -361,7 +361,7 @@ Używasz `react-i18next` / `next-i18next` i chcesz zaoszczędzić 68 KB, mieć 8
 </Accordion>
 <Accordion header="Przejdź na rozwiązanie natywne (next-intlayer / react-intlayer)">
 
-Dla nowych projektów lub po zakończeniu pracy przez adapter. Ma najlżejszy runtime (5.5 KB, +0.3 KB na stronę) i odblokowuje synchroniczne Server Components oraz pliki `.content.ts` dla każdego komponentu. Zacznij od [Intlayer z Next.js](https://intlayer.org/pl/doc/environment/nextjs) lub [z Vite i React](https://intlayer.org/pl/doc/environment/vite-and-react).
+Dla nowych projektów lub po zakończeniu pracy przez adapter. Ma najlżejszy runtime (5.5 KB, +0.3 KB na stronę) i odblokowuje synchroniczne Server Components oraz pliki `.content.ts` dla każdego komponentu. Zacznij od [Intlayer z Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md) lub [z Vite i React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+react.md).
 
 </Accordion>
 </AccordionGroup>
@@ -406,24 +406,24 @@ Tak. `locales/{lng}/{ns}.json` pozostaje źródłem prawdy: `syncJSON` odczytuje
 
 Ta sama seria adapterów:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/pl/blog/next-intl-vs-intlayer-next-intl)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/pl/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/pl/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/next-intl_vs_intlayer-next-intl.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/vue-i18n_vs_intlayer-vue-i18n.md)
 
 Biblioteki w bezpośrednim porównaniu:
 
-- [i18next vs Intlayer](https://intlayer.org/pl/blog/i18next-vs-intlayer), same benchmark
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/pl/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/pl/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [Is i18next outdated?](https://intlayer.org/pl/blog/is-i18next-outdated)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/i18next_vs_intlayer.md), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Is i18next outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/is_i18next_outdated.md)
 
 Dokumentacja referencyjna:
 
-- Compat adapters: [i18next](https://intlayer.org/pl/doc/compatibility/i18next), [react-i18next](https://intlayer.org/pl/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/pl/doc/compatibility/next-i18next)
-- Migration guides: [i18next](https://intlayer.org/pl/doc/migration/i18next), [react-i18next](https://intlayer.org/pl/doc/migration/react-i18next), [next-i18next](https://intlayer.org/pl/doc/migration/next-i18next)
-- [Next.js benchmark report](https://intlayer.org/pl/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/pl/doc/benchmark/tanstack)
-- [Bundle optimization](https://intlayer.org/pl/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/pl/doc/compiler)
-- [Visual Editor](https://intlayer.org/pl/doc/concept/editor), [CMS](https://intlayer.org/pl/doc/concept/cms) and [AI translation](https://intlayer.org/pl/doc/concept/auto-fill)
+- Compat adapters: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/next-i18next.md)
+- Migration guides: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_next-i18next_to_intlayer.md)
+- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md) and [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md)
+- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md) and [AI translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/autoFill.md)
 
 ## Podsumowanie
 
@@ -431,4 +431,4 @@ Dokumentacja referencyjna:
 
 Wszystkie surowe dane, aplikacje testowe i skrypty znajdują się w [repozytorium Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Uruchom je samodzielnie.
 
-Więcej szczegółów znajdziesz w dokumentacji [Dlaczego Intlayer?](https://intlayer.org/pl/doc/why).
+Więcej szczegółów znajdziesz w dokumentacji [Dlaczego Intlayer?](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).

@@ -687,7 +687,7 @@ Bu uzantı şunları sağlar:
 - Çevrilmiş içeriğin **Satır içi önizlemeleri**.
 - Çevirileri kolayca oluşturup güncellemek için **Hızlı işlemler**.
 
-Uzantının nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakabilirsiniz.
+Uzantının nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Uzantısı dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) bakabilirsiniz.
 
 ### Daha İleri Gitmek
 

@@ -83,7 +83,7 @@ height="600px"
 style="border:none;"
 />
 
-> Вимірювання у реальних браузерах зі стисненням gzip. Повні дані наведені у [звіті про бенчмарк Next.js](https://intlayer.org/uk/doc/benchmark/nextjs).
+> Вимірювання у реальних браузерах зі стисненням gzip. Повні дані наведені у [звіті про бенчмарк Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md).
 
 ### Базовий розмір бібліотек
 
@@ -131,7 +131,7 @@ export default async function RootLayout({ children, params }) {
 
 ![Теоретичний витік контенту за архітектурою](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-Intlayer вирішує це статичним аналізом: [компілятор Intlayer](https://intlayer.org/uk/doc/compiler) включає тільки ті тексти, які реально використовуються на поточному маршруті, зводячи витік до **0.0%**.
+Intlayer вирішує це статичним аналізом: [компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) включає тільки ті тексти, які реально використовуються на поточному маршруті, зводячи витік до **0.0%**.
 
 ## Чому next-intl не підтримує tree-shaking
 
@@ -170,7 +170,7 @@ export function UserProfile() {
   </Tab>
 </Tabs>
 
-Turbopack і Webpack не можуть визначити, які рядки з `UserProfile` реально знадобляться. Щоб уникнути збоїв, **збирач включає весь неймспейс до клієнтського бандла**. Деструктуровані властивості в Intlayer дозволяють компілятору точно відстежувати звернення та відкидати зайве. Докладніше в розділі [оптимізація бандла](https://intlayer.org/uk/doc/concept/bundle-optimization).
+Turbopack і Webpack не можуть визначити, які рядки з `UserProfile` реально знадобляться. Щоб уникнути збоїв, **збирач включає весь неймспейс до клієнтського бандла**. Деструктуровані властивості в Intlayer дозволяють компілятору точно відстежувати звернення та відкидати зайве. Докладніше в розділі [оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
 
 ## Досвід розробника
 
@@ -269,17 +269,17 @@ declare global {
 
 Однак перевіряється тільки основна мова. Якщо видалити ключ з `uk.json`, TypeScript не повідомить про помилку, CI буде успішним, а користувачі побачать порожні місця.
 
-Intlayer формує типи з усіх оголошень контенту. Активація [`strictMode`](https://intlayer.org/uk/doc/concept/configuration) блокує компіляцію, якщо відсутній хоча б один переклад.
+Intlayer формує типи з усіх оголошень контенту. Активація [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md) блокує компіляцію, якщо відсутній хоча б один переклад.
 
 ### Інструменти та підтримка ШІ
 
-| Можливість                      | `next-intl` | Intlayer                                                                    |
-| ------------------------------- | ----------- | --------------------------------------------------------------------------- |
-| **Розширення VS Code**          | ❌ Немає    | ✅ [Офіційне розширення](https://intlayer.org/uk/doc/vs-code-extension)     |
-| **Language Server (LSP)**       | ❌ Немає    | ✅ [Вбудований LSP](https://intlayer.org/uk/doc/lsp)                        |
-| **MCP Server (для ШІ-агентів)** | ❌ Немає    | ✅ [Готовий MCP-сервер](https://intlayer.org/uk/doc/mcp-server)             |
-| **Навички агентів (Skills)**    | ❌ Немає    | ✅ [Доступні навички](https://intlayer.org/uk/doc/agent_skills)             |
-| **Візуальна CMS**               | ❌ Немає    | ✅ [Безкоштовно та Open Source](https://intlayer.org/uk/doc/concept/editor) |
+| Можливість                      | `next-intl` | Intlayer                                                                                                                 |
+| ------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------ |
+| **Розширення VS Code**          | ❌ Немає    | ✅ [Офіційне розширення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)             |
+| **Language Server (LSP)**       | ❌ Немає    | ✅ [Вбудований LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)                                |
+| **MCP Server (для ШІ-агентів)** | ❌ Немає    | ✅ [Готовий MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)                     |
+| **Навички агентів (Skills)**    | ❌ Немає    | ✅ [Доступні навички](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)                     |
+| **Візуальна CMS**               | ❌ Немає    | ✅ [Безкоштовно та Open Source](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) |
 
 Наявність серверів LSP та MCP допомагає ШІ-помічникам аналізувати контент і точно оновлювати словники проєкту.
 
@@ -295,7 +295,7 @@ Intlayer пропонує ці можливості безпосередньо:
 
 **Автономна візуальна CMS:**
 
-Застосовуйте [Intlayer CMS](https://intlayer.org/uk/doc/concept/cms), щоб команда могла візуально редагувати контент із прямим збереженням у Git.
+Застосовуйте [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб команда могла візуально редагувати контент із прямим збереженням у Git.
 
 **Відкрита ліцензія:**
 
@@ -351,9 +351,9 @@ bunx intlayer init --interactive
 
 Детальні інструкції дивіться у наших посібниках:
 
-- **Швидка сумісність:** Зберігайте поточні виклики `useTranslations` завдяки [адаптеру сумісності з next-intl](https://intlayer.org/uk/doc/compatibility/next-intl).
-- **Покрокова міграція:** Перенесіть старі JSON-файли у типізовані словники за допомогою нашої [інструкції з міграції next-intl](https://intlayer.org/uk/doc/migration/next-intl).
-- **Гібридна схема:** Залиште `next-intl` для відображення інтерфейсу, [використовуючи Intlayer](https://intlayer.org/uk/blog/intlayer-with-next-intl) для локального ШІ-перекладу.
+- **Швидка сумісність:** Зберігайте поточні виклики `useTranslations` завдяки [адаптеру сумісності з next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md).
+- **Покрокова міграція:** Перенесіть старі JSON-файли у типізовані словники за допомогою нашої [інструкції з міграції next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md).
+- **Гібридна схема:** Залиште `next-intl` для відображення інтерфейсу, [використовуючи Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/intlayer_with_next-intl.md) для локального ШІ-перекладу.
 
 Перевірте ваш сайт за допомогою безкоштовного [SEO-сканера i18n](https://intlayer.org/i18n-seo-scanner):
 
@@ -361,7 +361,7 @@ bunx intlayer init --interactive
 
 ## Корисні матеріали
 
-- [Бенчмарк Next.js i18n: детальний аналіз продуктивності](https://intlayer.org/uk/doc/benchmark/nextjs)
-- [next-i18next проти next-intl та Intlayer](https://intlayer.org/uk/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Чи застарів i18next у 2026 році?](https://intlayer.org/uk/blog/is-i18next-outdated)
-- [Переваги інтернаціоналізації на основі компілятора](https://intlayer.org/uk/blog/compiler-vs-declarative-i18n)
+- [Бенчмарк Next.js i18n: детальний аналіз продуктивності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
+- [next-i18next проти next-intl та Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Чи застарів i18next у 2026 році?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/is_i18next_outdated.md)
+- [Переваги інтернаціоналізації на основі компілятора](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)

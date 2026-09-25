@@ -422,7 +422,7 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 - Приложение запущено.
 
-- Конфигурация [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) корректно настроена в вашем конфигурационном файле Intlayer.
+- Конфигурация [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#editor-configuration) корректно настроена в вашем конфигурационном файле Intlayer.
   - Обязательные поля:
     - URL приложения должен совпадать с тем, который вы указали в конфигурации редактора (`applicationURL`).
     - URL CMS

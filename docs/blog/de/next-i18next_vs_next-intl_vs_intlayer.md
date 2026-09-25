@@ -1440,4 +1440,4 @@ Alle drei Bibliotheken sind im Kern der Lokalisierung erfolgreich. Der Unterschi
 - Mit **Intlayer** sind **modularer Inhalt**, **striktes TypeScript**, **Build-Zeit-Sicherheit**, **tree-shaken Bundles** und **erstklassiger App Router + SEO-Tools** **Standard**, nicht lästige Pflicht.
 - Wenn Ihr Team **Wartbarkeit und Geschwindigkeit** in einer mehrsprachigen, komponentenbasierten Anwendung schätzt, bietet Intlayer heute die **vollständigste** Erfahrung.
 
-Weitere Details finden Sie im Dokument ['Warum Intlayer?'](https://intlayer.org/doc/why).
+Weitere Details finden Sie im Dokument ['Warum Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md).

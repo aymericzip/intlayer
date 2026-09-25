@@ -1068,7 +1068,7 @@ Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.co
 <Question title="Jakie są różne rozwiązania dostępne do internacjonalizacji aplikacji Solid Start?">
 
 - **`@solid-primitives/i18n`**: płaski słownik oparty na sygnałach, bez zintegrowanego routingu ani ekstrakcji w czasie budowy.
-- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)) i kompilowane w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
+- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)) i kompilowane w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
 
 W Solid Start Intlayer zapewnia integrację z SSR i prerenderowaniem, obsługę segmentów językowych w trasach oraz sygnały Solid aktualizujące tylko zmienione węzły DOM. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
 

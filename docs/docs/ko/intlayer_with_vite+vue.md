@@ -1158,7 +1158,7 @@ Intlayer와 함께하는 개발 환경을 개선하기 위해 공식 **Intlayer 
 - 번역된 콘텐츠의 **인라인 미리보기**.
 - 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업(Quick actions)**.
 
-확장 프로그램 사용법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+확장 프로그램 사용법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
 
 ### 더 나아가기
 
@@ -1171,7 +1171,7 @@ Intlayer와 함께하는 개발 환경을 개선하기 위해 공식 **Intlayer 
 <Question title="Vue 앱을 국제화하는 데 사용할 수 있는 다양한 솔루션은 무엇인가요?">
 
 - **`vue-i18n`**: 전역적으로 등록되는 메시지 카탈로그와 ICU 스타일 형식을 갖춘 표준 참조 라이브러리입니다. 메시지 네임스페이스를 분리할 수 있는 방법이 없어 한 페이지가 모든 카탈로그를 번들링하므로 페이지가 추가될수록 번들 크기가 계속 증가합니다.
-- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)), 빌드 타임에 Vite 플러그인에 의해 컴파일되고, 완전한 타입 안전성을 제공하며 AI 번역, 비주얼 에디터 및 CMS를 포함합니다.
+- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)), 빌드 타임에 Vite 플러그인에 의해 컴파일되고, 완전한 타입 안전성을 제공하며 AI 번역, 비주얼 에디터 및 CMS를 포함합니다.
 
 실제적인 차이는 범위와 타입 지정입니다. `vue-i18n`은 런타임에 키를 문자열로 확인하므로 키 이름이 바뀌면 조용히 실패하지만, Intlayer는 선언문에서 타입을 생성하고 컴포넌트에서 사용하지 않는 콘텐츠는 제거합니다. [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)와 [Vue i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)를 참조하세요.
 

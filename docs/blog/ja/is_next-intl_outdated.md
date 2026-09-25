@@ -83,7 +83,7 @@ height="600px"
 style="border:none;"
 />
 
-> 実ブラウザ環境で本番用gzip圧縮を適用して計測。詳細は[Next.jsベンチマークレポート](https://intlayer.org/ja/doc/benchmark/nextjs)に掲載しています。
+> 実ブラウザ環境で本番用gzip圧縮を適用して計測。詳細は[Next.jsベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)に掲載しています。
 
 ### ライブラリ本体のオーバーヘッド
 
@@ -131,7 +131,7 @@ JSONファイルを名前空間ごとに分けることで緩和できますが�
 
 ![アーキテクチャ別の理論上のコンテンツリーク](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-Intlayerはこの問題を静的解析で解決します。[Intlayerコンパイラ](https://intlayer.org/ja/doc/compiler)が該当ルートで使用されている文言だけを過不足なく抽出するため、ページ間のデータ漏洩率は**0.0%**となります。
+Intlayerはこの問題を静的解析で解決します。[Intlayerコンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)が該当ルートで使用されている文言だけを過不足なく抽出するため、ページ間のデータ漏洩率は**0.0%**となります。
 
 ## next-intlがTree-shakingを阻害する要因
 
@@ -170,7 +170,7 @@ export function UserProfile() {
   </Tab>
 </Tabs>
 
-TurbopackやWebpackは、`UserProfile`内でどのキーが実際に呼ばれるかを推測できません。実行時エラーを防ぐため、**バンドラーは名前空間全体をクライアントコードに含めざるを得ません**。一方、Intlayerのようにオブジェクトのプロパティを分割代入する形式であれば、コンパイラが参照関係を把握し、未使用の文言を安全に削除できます。詳細は[バンドル最適化](https://intlayer.org/ja/doc/concept/bundle-optimization)をご覧ください。
+TurbopackやWebpackは、`UserProfile`内でどのキーが実際に呼ばれるかを推測できません。実行時エラーを防ぐため、**バンドラーは名前空間全体をクライアントコードに含めざるを得ません**。一方、Intlayerのようにオブジェクトのプロパティを分割代入する形式であれば、コンパイラが参照関係を把握し、未使用の文言を安全に削除できます。詳細は[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)をご覧ください。
 
 ## 開発体験（DX）の違い
 
@@ -269,17 +269,17 @@ declare global {
 
 しかし型チェックの基準はデフォルト言語に限られます。`ja.json`からキーが抜け落ちていてもTypeScriptは警告を出さず、CIビルドも通過してしまい、本番で文言が欠落します。
 
-Intlayerはすべての言語のコンテンツ定義から直接型を生成します。[`strictMode`](https://intlayer.org/ja/doc/concept/configuration)を有効にすれば、いずれかの言語で翻訳が欠落している場合にビルドエラーとなり、事前にミスを防げます。
+Intlayerはすべての言語のコンテンツ定義から直接型を生成します。[`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を有効にすれば、いずれかの言語で翻訳が欠落している場合にビルドエラーとなり、事前にミスを防げます。
 
 ### 開発環境とAIエコシステム
 
-| 機能                              | `next-intl` | Intlayer                                                                |
-| --------------------------------- | ----------- | ----------------------------------------------------------------------- |
-| **VS Code拡張機能**               | ❌ なし     | ✅ [公式拡張機能](https://intlayer.org/ja/doc/vs-code-extension)        |
-| **Language Server (LSP)**         | ❌ なし     | ✅ [専用LSP](https://intlayer.org/ja/doc/lsp)                           |
-| **AIエージェント用MCPサーバー**   | ❌ なし     | ✅ [組み込みMCPサーバー](https://intlayer.org/ja/doc/mcp-server)        |
-| **エージェントスキル**            | ❌ なし     | ✅ [利用可能なスキル群](https://intlayer.org/ja/doc/agent_skills)       |
-| **インコンテキストビジュアルCMS** | ❌ なし     | ✅ [無料かつオープンソース](https://intlayer.org/ja/doc/concept/editor) |
+| 機能                              | `next-intl` | Intlayer                                                                                                             |
+| --------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------- |
+| **VS Code拡張機能**               | ❌ なし     | ✅ [公式拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)                |
+| **Language Server (LSP)**         | ❌ なし     | ✅ [専用LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)                                   |
+| **AIエージェント用MCPサーバー**   | ❌ なし     | ✅ [組み込みMCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)                |
+| **エージェントスキル**            | ❌ なし     | ✅ [利用可能なスキル群](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)               |
+| **インコンテキストビジュアルCMS** | ❌ なし     | ✅ [無料かつオープンソース](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) |
 
 LSPやMCPサーバーが備わっていることで、AIアシスタントがプロジェクトの多言語構造を正しく把握し、正確な補完や更新を行えます。
 
@@ -295,7 +295,7 @@ Intlayerはオープンなアプローチを基本に据えています。
 
 **セルフホスト可能なビジュアルCMS:**
 
-[Intlayer CMS](https://intlayer.org/ja/doc/concept/cms)を導入すれば、非エンジニアのメンバーがWeb上で文言を直接編集し、変更をGitへ反映できます。
+[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を導入すれば、非エンジニアのメンバーがWeb上で文言を直接編集し、変更をGitへ反映できます。
 
 **オープンなライセンス:**
 
@@ -351,9 +351,9 @@ bunx intlayer init --interactive
 
 詳しい手順については、以下のガイドをご覧ください:
 
-- **互換レイヤーの提供:** [`next-intl`互換レイヤー](https://intlayer.org/ja/doc/compatibility/next-intl)を使うことで、コード内の`useTranslations`記述を保ったまま最適化ビルドを導入できます。
-- **移行ガイド:** 既存のJSONファイルを型付きコンテンツに移行するための[next-intl移行ガイド](https://intlayer.org/ja/doc/migration/next-intl)を用意しています。
-- **段階的な併用:** ランタイムに`next-intl`を残したまま、[Intlayerとnext-intlを併用](https://intlayer.org/ja/blog/intlayer-with-next-intl)して型の恩恵やローカルAI翻訳のみを取り入れることも可能です。
+- **互換レイヤーの提供:** [`next-intl`互換レイヤー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-intl.md)を使うことで、コード内の`useTranslations`記述を保ったまま最適化ビルドを導入できます。
+- **移行ガイド:** 既存のJSONファイルを型付きコンテンツに移行するための[next-intl移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)を用意しています。
+- **段階的な併用:** ランタイムに`next-intl`を残したまま、[Intlayerとnext-intlを併用](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/intlayer_with_next-intl.md)して型の恩恵やローカルAI翻訳のみを取り入れることも可能です。
 
 自社サイトのバンドルサイズと翻訳漏れは無料の[i18n SEOスキャナー](https://intlayer.org/i18n-seo-scanner)で診断できます。
 
@@ -361,7 +361,7 @@ bunx intlayer init --interactive
 
 ## おすすめの関連記事
 
-- [Next.js i18nベンチマーク: パフォーマンス詳細分析](https://intlayer.org/ja/doc/benchmark/nextjs)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ja/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [2026年においてi18nextは時代遅れなのか？](https://intlayer.org/ja/blog/is-i18next-outdated)
-- [コンパイラによる国際化と宣言的アプローチの利点](https://intlayer.org/ja/blog/compiler-vs-declarative-i18n)
+- [Next.js i18nベンチマーク: パフォーマンス詳細分析](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)
+- [2026年においてi18nextは時代遅れなのか？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/is_i18next_outdated.md)
+- [コンパイラによる国際化と宣言的アプローチの利点](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)

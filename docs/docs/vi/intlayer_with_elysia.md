@@ -329,7 +329,7 @@ Tiện ích này cung cấp:
 - **Xem trước nội dung** dịch.
 - **Hành động nhanh** để dễ dàng tạo và cập nhật bản dịch.
 
-Để biết thêm chi tiết về cách sử dụng tiện ích này, hãy tham khảo [tài liệu Tiện ích VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
+Để biết thêm chi tiết về cách sử dụng tiện ích này, hãy tham khảo [tài liệu Tiện ích VS Code Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md).
 
 ### Cấu hình Git
 

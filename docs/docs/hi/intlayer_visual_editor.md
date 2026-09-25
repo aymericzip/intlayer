@@ -206,7 +206,7 @@ pnpm intlayer-editor start -e development
 
 - विजुअल एडिटर और एप्लिकेशन चल रहे हैं।
 
-- Intlayer कॉन्फ़िगरेशन फ़ाइल में [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) कॉन्फ़िगरेशन सही ढंग से सेट हैं।
+- Intlayer कॉन्फ़िगरेशन फ़ाइल में [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#editor-configuration) कॉन्फ़िगरेशन सही ढंग से सेट हैं।
   - आवश्यक फ़ील्ड:
     - एप्लिकेशन URL को एडिटर कॉन्फ़िगरेशन (`applicationURL`) में सेट किए गए URL से मेल खाना चाहिए।
 

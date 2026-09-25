@@ -174,14 +174,14 @@ export function ClientComponent() {
 - **ツリーシェイキング**: コンポーネントで使用されるコンテンツのみがバンドルされるため、大規模アプリでもペイロードを小さく保てます。
 - **DX（開発者体験）＆ツール**: 組み込みのミドルウェア、SEOヘルパー、オプションのビジュアルエディター／AI翻訳が日々の作業を効率化します。
 
-Next.jsに特化した比較とパターンのまとめはこちらをご覧ください: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+Next.jsに特化した比較とパターンのまとめはこちらをご覧ください: https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md
 
 ## 関連ガイドと参考資料
 
-- Reactセットアップ（Vite）: https://intlayer.org/doc/environment/vite-and-react
-- React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
-- TanStackスタート: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
-- Next.js セットアップ: https://intlayer.org/doc/environment/nextjs
-- なぜ Intlayer を選ぶのか vs. next-intl vs. next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- Reactセットアップ（Vite）: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md
+- React Router v7: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_react_router_v7.md
+- TanStackスタート: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md
+- Next.js セットアップ: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md
+- なぜ Intlayer を選ぶのか vs. next-intl vs. next-i18next - https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md
 
 これらのページには、エンドツーエンドのセットアップ、プロバイダー、ルーティング、および SEO ヘルパーが含まれています。

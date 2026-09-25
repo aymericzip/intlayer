@@ -979,7 +979,7 @@ Esta extensión proporciona:
 - **Vistas previas en línea** del contenido traducido.
 - **Acciones rápidas** para crear y actualizar traducciones fácilmente.
 
-Para más detalles sobre cómo usar la extensión, consulta la [documentación de la Extensión de Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+Para más detalles sobre cómo usar la extensión, consulta la [documentación de la Extensión de Intlayer para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md).
 
 ## Ir Más Lejos
 
@@ -1006,7 +1006,7 @@ React Router v7 no incluye una capa de mensajes, por lo que debes emparejarla co
 
 - **`react-i18next` / `i18next`**: espacios de nombres JSON cargados en tiempo de ejecución, con un detector de localidad separado para conectarlo al router.
 - **`react-intl`** y **`Lingui`**: mensajes ICU con un paso de extracción.
-- **`Intlayer`**: la solución más avanzada. Contenido declarado en cualquier lugar de tu codebase ([junto a cada componente o centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)), compilado en tiempo de compilación, tipado de extremo a extremo, con ayudantes de enrutamiento conscientes de la localidad, traducción con IA, un editor visual y un CMS.
+- **`Intlayer`**: la solución más avanzada. Contenido declarado en cualquier lugar de tu codebase ([junto a cada componente o centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/per-component_vs_centralized_i18n.md)), compilado en tiempo de compilación, tipado de extremo a extremo, con ayudantes de enrutamiento conscientes de la localidad, traducción con IA, un editor visual y un CMS.
 
 Consulta [por qué Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md) y el [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md).
 

@@ -649,7 +649,7 @@ Bu extension şunları sağlar:
 - **Çevrilmiş içeriğin satır içi önizlemeleri**.
 - **Çevirileri kolayca oluşturmak ve güncellemek için hızlı eylemler**.
 
-Extension'ın nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Extension belgelerine](https://intlayer.org/doc/vs-code-extension) bakın.
+Extension'ın nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Extension belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) bakın.
 
 ### Daha İleri Gidin
 

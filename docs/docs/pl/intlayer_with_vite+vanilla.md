@@ -775,7 +775,7 @@ To rozszerzenie zapewnia:
 - **Podgląd wierszowy** przetłumaczonej treści.
 - **Szybkie akcje** do łatwego tworzenia i aktualizowania tłumaczeń.
 
-Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokumentacji rozszerzenia Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokumentacji rozszerzenia Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
 ### Idź dalej
 
@@ -791,7 +791,7 @@ Vite nie narzuca podejścia do i18n, więc wybór pochodzi z ekosystemu Vanilla 
 
 - **Ręcznie pisane słowniki**: zwykłe obiekty JSON lub TypeScript importowane na stronę: brak zależności, ale brak typowania, reguł liczby mnogiej i narzędzi do wyszukiwania braków.
 - **`i18next`**: biblioteka ogólnego przeznaczenia ze słownikami ładowanymi w runtime.
-- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego modułu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)), kompilowane w czasie budowy i typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
+- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego modułu lub centralnie](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)), kompilowane w czasie budowy i typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
 
 W Vanilla JS kluczowe jest uniknięcie zbędnego narzutu runtime: Intlayer kompiluje słowniki w czasie budowy, więc aplikacja pobiera tylko potrzebne dane. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
 

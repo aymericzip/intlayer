@@ -32,7 +32,7 @@ author: aymericzip
 
 `@intlayer/i18next`, `@intlayer/react-i18next`, dan `@intlayer/next-i18next` adalah adapter kompatibilitas. Mereka mengekspos API `i18next` yang sudah digunakan kode Anda (`useTranslation`, `t()`, `<Trans>`, `i18n.changeLanguage()`, `getFixedT`, `serverSideTranslations`...) dan menyajikannya dari kamus (dictionaries) yang dikompilasi oleh Intlayer. Komponen tidak berubah. Runtime di bawahnya yang berubah.
 
-Artikel ini mengukur pertukaran tersebut pada aplikasi Next.js yang sama, dibangun sekali dengan `next-i18next` dan sekali dengan `@intlayer/next-i18next`. Angka-angka ini berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Untuk perbandingan `i18next` dan Intlayer sebagai library, baca [i18next vs Intlayer](https://intlayer.org/id/blog/i18next-vs-intlayer). Artikel ini berfokus pada apa yang diubah oleh adapter saat Anda mempertahankan kode apa adanya.
+Artikel ini mengukur pertukaran tersebut pada aplikasi Next.js yang sama, dibangun sekali dengan `next-i18next` dan sekali dengan `@intlayer/next-i18next`. Angka-angka ini berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Untuk perbandingan `i18next` dan Intlayer sebagai library, baca [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer.md). Artikel ini berfokus pada apa yang diubah oleh adapter saat Anda mempertahankan kode apa adanya.
 
 <TOC/>
 
@@ -142,9 +142,9 @@ height="600px"
 style="border:none;"
 />
 
-> Tabel lengkap, setiap pustaka dan strategi, dalam [laporan benchmark Next.js](https://intlayer.org/id/doc/benchmark/nextjs).
+> Tabel lengkap, setiap pustaka dan strategi, dalam [laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md).
 
-> Adapter `react-i18next` pada Vite / TanStack Start tidak diikutsertakan dalam pengujian ini. Data dasar `react-i18next` pada TanStack Start ada di [i18next vs Intlayer](https://intlayer.org/id/blog/i18next-vs-intlayer): 127-184 KB per halaman dan pergantian locale 123-185 ms saat backend dimuat secara malas.
+> Adapter `react-i18next` pada Vite / TanStack Start tidak diikutsertakan dalam pengujian ini. Data dasar `react-i18next` pada TanStack Start ada di [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer.md): 127-184 KB per halaman dan pergantian locale 123-185 ms saat backend dimuat secara malas.
 
 ## Mengapa angkanya berubah
 
@@ -321,7 +321,7 @@ export default defineConfig({
 <AccordionGroup>
 <Accordion header="Backend dan detektor tidak aktif">
 
-`i18n.use(HttpBackend)` memanggil init plugin dan tidak melakukan hal lain. Jika aplikasi Anda mengandalkan pengambilan terjemahan dari CMS saat runtime, alur tersebut tidak ada lagi; gunakan [CMS Intlayer](https://intlayer.org/id/doc/concept/cms) atau perintah `intlayer pull` / `push`. Deteksi bahasa menjadi konfigurasi perutean Intlayer (prefiks URL, cookie, header).
+`i18n.use(HttpBackend)` memanggil init plugin dan tidak melakukan hal lain. Jika aplikasi Anda mengandalkan pengambilan terjemahan dari CMS saat runtime, alur tersebut tidak ada lagi; gunakan [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) atau perintah `intlayer pull` / `push`. Deteksi bahasa menjadi konfigurasi perutean Intlayer (prefiks URL, cookie, header).
 
 </Accordion>
 <Accordion header="resources diabaikan, bukan digabungkan">
@@ -361,7 +361,7 @@ Anda menggunakan `react-i18next` / `next-i18next` dan menginginkan penghematan 6
 </Accordion>
 <Accordion header="Beralih ke native (next-intlayer / react-intlayer)">
 
-Untuk proyek baru, atau setelah adaptor menyelesaikan tugasnya. Menawarkan runtime teringan (5.5 KB, +0.3 KB per halaman) dan membuka Server Components sinkron serta berkas `.content.ts` per komponen. Mulai dengan [Intlayer dengan Next.js](https://intlayer.org/id/doc/environment/nextjs) atau [dengan Vite dan React](https://intlayer.org/id/doc/environment/vite-and-react).
+Untuk proyek baru, atau setelah adaptor menyelesaikan tugasnya. Menawarkan runtime teringan (5.5 KB, +0.3 KB per halaman) dan membuka Server Components sinkron serta berkas `.content.ts` per komponen. Mulai dengan [Intlayer dengan Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md) atau [dengan Vite dan React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md).
 
 </Accordion>
 </AccordionGroup>
@@ -406,24 +406,24 @@ Ya. `locales/{lng}/{ns}.json` tetap menjadi sumber kebenaran: `syncJSON` membaca
 
 Seri adaptor yang sama:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/id/blog/next-intl-vs-intlayer-next-intl)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/id/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer-next-intl.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer-vue-i18n.md)
 
 Pustaka yang dibandingkan secara langsung:
 
-- [i18next vs Intlayer](https://intlayer.org/id/blog/i18next-vs-intlayer), same benchmark
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/id/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/id/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [Is i18next outdated?](https://intlayer.org/id/blog/is-i18next-outdated)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer.md), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Is i18next outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_i18next_outdated.md)
 
 Dokumentasi referensi:
 
-- Compat adapters: [i18next](https://intlayer.org/id/doc/compatibility/i18next), [react-i18next](https://intlayer.org/id/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/id/doc/compatibility/next-i18next)
-- Migration guides: [i18next](https://intlayer.org/id/doc/migration/i18next), [react-i18next](https://intlayer.org/id/doc/migration/react-i18next), [next-i18next](https://intlayer.org/id/doc/migration/next-i18next)
-- [Next.js benchmark report](https://intlayer.org/id/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/id/doc/benchmark/tanstack)
-- [Bundle optimization](https://intlayer.org/id/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/id/doc/compiler)
-- [Visual Editor](https://intlayer.org/id/doc/concept/editor), [CMS](https://intlayer.org/id/doc/concept/cms) and [AI translation](https://intlayer.org/id/doc/concept/auto-fill)
+- Compat adapters: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-i18next.md)
+- Migration guides: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-i18next_to_intlayer.md)
+- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md) and [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
+- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) and [AI translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md)
 
 ## Kesimpulan
 
@@ -431,4 +431,4 @@ Dokumentasi referensi:
 
 Semua data mentah, aplikasi pengujian, dan skrip tersedia di [repositori Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Jalankan dan buktikan sendiri.
 
-Lihat dokumentasi ['Mengapa Intlayer?'](https://intlayer.org/id/doc/why) untuk detail selengkapnya.
+Lihat dokumentasi ['Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk detail selengkapnya.

@@ -266,7 +266,7 @@ Questa estensione offre:
 - **Anteprime inline** del contenuto tradotto.
 - **Azioni rapide** per creare e aggiornare facilmente le traduzioni.
 
-Per maggiori dettagli sull'uso dell'estensione, consulta la [documentazione dell'estensione Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Per maggiori dettagli sull'uso dell'estensione, consulta la [documentazione dell'estensione Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md).
 
 ### Configurazione Git
 

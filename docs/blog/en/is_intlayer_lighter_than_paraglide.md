@@ -22,7 +22,7 @@ author: aymericzip
 
 Yes.
 
-`Paraglide` has a good reputation for being the lightest i18n solution around, and at first sight the [benchmark](https://intlayer.org/doc/benchmark/tanstack) agrees: its library size is close to zero. But a library size of zero does not mean zero bytes shipped. It means the bytes live somewhere the metric does not look.
+`Paraglide` has a good reputation for being the lightest i18n solution around, and at first sight the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md) agrees: its library size is close to zero. But a library size of zero does not mean zero bytes shipped. It means the bytes live somewhere the metric does not look.
 
 <TOC/>
 
@@ -93,7 +93,7 @@ Next.js 16 App Router, same app:
 
 <I18nBenchmark framework="tanstack" vertical/>
 
-> Full data in the [TanStack Start benchmark report](https://intlayer.org/doc/benchmark/tanstack) and the [Next.js benchmark report](https://intlayer.org/doc/benchmark/nextjs). Every bundle can be inspected in the [benchmark repository](https://github.com/intlayer-org/benchmark-i18n).
+> Full data in the [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md) and the [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md). Every bundle can be inspected in the [benchmark repository](https://github.com/intlayer-org/benchmark-i18n).
 
 Two things stand out:
 
@@ -198,7 +198,7 @@ That loop has a cost:
 
 Paraglide's main promise is that unused messages are tree-shaken, since each message is its own export. In the Svelte + Vite benchmark, it works as advertised.
 
-In other setups, it did not. In our [Next.js](https://intlayer.org/doc/benchmark/nextjs) run, Paraglide's pages weigh 14 KB more than the base app, where `next-intlayer` adds 0.3 KB. Earlier runs on TanStack Start showed messages from other pages ending up in the route bundle as well.
+In other setups, it did not. In our [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md) run, Paraglide's pages weigh 14 KB more than the base app, where `next-intlayer` adds 0.3 KB. Earlier runs on TanStack Start showed messages from other pages ending up in the route bundle as well.
 
 Tree shaking depends on your bundler (Turbopack, Rolldown, Rollup), on how messages are imported (`import { m }` vs. `import * as m`), and on side-effect analysis. If you pick Paraglide for its size, open your bundle visualizer and check that it holds in your app.
 
@@ -238,7 +238,7 @@ export default config;
 | `dynamic`    | Only the current locale, lazy-loaded per dictionary     | **N times smaller** with N locales |
 | `fetch`      | Only the current locale, fetched from the Live Sync API | **N times smaller** with N locales |
 
-With the [build transformation](https://intlayer.org/doc/concept/bundle-optimization) and `importMode: 'static'`, Intlayer loads, in theory, the exact same content as Paraglide. With `'dynamic'` or `'fetch'`, it loads only what the current locale needs: for an app in N locales, the translation payload is N times smaller than Paraglide's.
+With the [build transformation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) and `importMode: 'static'`, Intlayer loads, in theory, the exact same content as Paraglide. With `'dynamic'` or `'fetch'`, it loads only what the current locale needs: for an app in N locales, the translation payload is N times smaller than Paraglide's.
 
 ## Where Paraglide Still Fits
 
@@ -281,8 +281,8 @@ bunx intlayer init --interactive
 
 ## Further Reading
 
-- [TanStack Start i18n Benchmark](https://intlayer.org/doc/benchmark/tanstack)
-- [Next.js i18n Benchmark](https://intlayer.org/doc/benchmark/nextjs)
-- [Bundle Optimization and `importMode`](https://intlayer.org/doc/concept/bundle-optimization)
-- [How to Pick a React i18n Library](https://intlayer.org/blog/how-to-pick-react-i18n-library)
-- [The Case for Compiler-Driven Internationalization](https://intlayer.org/blog/compiler-vs-declarative-i18n)
+- [TanStack Start i18n Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
+- [Next.js i18n Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)
+- [Bundle Optimization and `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)
+- [How to Pick a React i18n Library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/how_to_pick_react_i18n_library.md)
+- [The Case for Compiler-Driven Internationalization](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md)

@@ -1486,4 +1486,4 @@ export const config = {
 - З **Intlayer**, **модульний контент**, **строгий TS**, **безпека на етапі збірки**, **tree-shaken bundles**, і **first-class App Router + SEO tooling**, це **за замовчуванням**, а не обов'язок.
 - Якщо ваша команда цінує **підтримуваність і швидкість** у багатомовному, орієнтованому на компоненти додатку, Intlayer сьогодні пропонує **найповніший** досвід.
 
-Зверніться до документа ['Чому Intlayer?'](https://intlayer.org/doc/why) для детальнішої інформації.
+Зверніться до документа ['Чому Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md) для детальнішої інформації.

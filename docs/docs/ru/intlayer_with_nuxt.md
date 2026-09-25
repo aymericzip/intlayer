@@ -686,7 +686,7 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 - **Встроенный просмотр** переведённого контента.
 - **Быстрые действия** для лёгкого создания и обновления переводов.
 
-Для получения дополнительной информации о том, как использовать расширение, обратитесь к [документации Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+Для получения дополнительной информации о том, как использовать расширение, обратитесь к [документации Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md).
 
 ### Продвинуться дальше
 

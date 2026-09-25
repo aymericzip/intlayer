@@ -392,7 +392,7 @@ export const getLocale = (event: RequestEvent): Locale => {
 };
 ```
 
-> `getLocaleFromStorage`는 구성에 따라 헤더 또는 쿠키에서 로케일을 확인합니다. 자세한 내용은 [Configuration](https://intlayer.org/doc/concept/configuration) 문서를 참조하세요.
+> `getLocaleFromStorage`는 구성에 따라 헤더 또는 쿠키에서 로케일을 확인합니다. 자세한 내용은 [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md) 문서를 참조하세요.
 
 > `localeDetector` 함수는 `Accept-Language` 헤더를 처리하여 가장 적합한 로케일을 반환합니다.
 
@@ -782,7 +782,7 @@ Intlayer가 생성한 파일은 무시하는 것이 권장됩니다.
 
 - **`svelte-i18n`** 및 **`typesafe-i18n`**: 수동으로 load 함수에 연결해야 하는 스토어(store) 기반 메시지 카탈로그입니다.
 - **`Paraglide`**: 강력한 타입 안전성을 갖춘 컴파일된 메시지 라이브러리로, 메시지 계층 자체에만 집중합니다.
-- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)), 빌드 타임에 컴파일되고, 로케일 인식 라우팅, 서버 사이드 로케일 감지, AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
+- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)), 빌드 타임에 컴파일되고, 로케일 인식 라우팅, 서버 사이드 로케일 감지, AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
 
 SvelteKit에서는 서버 측 기능에서 차이가 두드러집니다: hooks에서의 로케일 감지, 지역화된 링크 및 에디터 통합이 프로젝트마다 직접 조립할 필요 없이 라이브러리에 기본 내장되어 있습니다. [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)와 [Svelte i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)를 참조하세요.
 

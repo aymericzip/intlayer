@@ -83,7 +83,7 @@ height="600px"
 style="border:none;"
 />
 
-> 프로덕션 환경의 실제 브라우저에서 gzip 압축을 적용하여 측정했습니다. 자세한 내용은 [Next.js 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/nextjs)를 확인하세요.
+> 프로덕션 환경의 실제 브라우저에서 gzip 압축을 적용하여 측정했습니다. 자세한 내용은 [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)를 확인하세요.
 
 ### 라이브러리 기본 번들 크기
 
@@ -131,7 +131,7 @@ JSON을 네임스페이스별로 나누어 일부 해소할 수 있으나, 어�
 
 ![아키텍처별 이론상의 콘텐츠 누수](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-Intlayer는 정적 분석을 통해 이 문제를 해결합니다. [Intlayer 컴파일러](https://intlayer.org/ko/doc/compiler)가 각 라우트에서 실제로 호출되는 문구만 번들링하므로 페이지 간 누수율이 **0.0%**가 됩니다.
+Intlayer는 정적 분석을 통해 이 문제를 해결합니다. [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)가 각 라우트에서 실제로 호출되는 문구만 번들링하므로 페이지 간 누수율이 **0.0%**가 됩니다.
 
 ## next-intl에서 트리 쉐이킹이 동작하지 않는 이유
 
@@ -170,7 +170,7 @@ export function UserProfile() {
   </Tab>
 </Tabs>
 
-Turbopack이나 Webpack은 `UserProfile` 내에서 어떤 키가 실제로 쓰이는지 사전에 알 수 없습니다. 누락 오류를 막기 위해 **번들러는 해당 네임스페이스 전체를 클라이언트 청크에 포함**시킵니다. 반면 Intlayer는 구조 분해된 프로퍼티를 통해 컴파일러가 실제 참조를 추적하고, 쓰이지 않는 문구를 깔끔히 제외합니다. 자세한 내용은 [번들 최적화](https://intlayer.org/ko/doc/concept/bundle-optimization)를 참고하세요.
+Turbopack이나 Webpack은 `UserProfile` 내에서 어떤 키가 실제로 쓰이는지 사전에 알 수 없습니다. 누락 오류를 막기 위해 **번들러는 해당 네임스페이스 전체를 클라이언트 청크에 포함**시킵니다. 반면 Intlayer는 구조 분해된 프로퍼티를 통해 컴파일러가 실제 참조를 추적하고, 쓰이지 않는 문구를 깔끔히 제외합니다. 자세한 내용은 [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)를 참고하세요.
 
 ## 개발자 경험 (DX)의 차이
 
@@ -269,17 +269,17 @@ declare global {
 
 하지만 검증 대상은 기본 언어에 한정됩니다. 만약 `ko.json`에서 키가 하나 빠져 있더라도 TypeScript는 에러를 내지 않고 빌드는 정상 통과하며, 실제 사용자에게는 빈 문자열이 노출됩니다.
 
-Intlayer는 모든 콘텐츠 선언 파일로부터 직접 타입을 생성합니다. [`strictMode`](https://intlayer.org/ko/doc/concept/configuration)를 켜두면 어떤 언어에서든 번역이 누락되었을 때 컴파일 에러가 발생해 문제를 사전에 차단합니다.
+Intlayer는 모든 콘텐츠 선언 파일로부터 직접 타입을 생성합니다. [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 켜두면 어떤 언어에서든 번역이 누락되었을 때 컴파일 에러가 발생해 문제를 사전에 차단합니다.
 
 ### 도구 생태계 및 AI 연동
 
-| 기능                       | `next-intl` | Intlayer                                                               |
-| -------------------------- | ----------- | ---------------------------------------------------------------------- |
-| **VS Code 확장 프로그램**  | ❌ 없음     | ✅ [공식 확장 프로그램](https://intlayer.org/ko/doc/vs-code-extension) |
-| **Language Server (LSP)**  | ❌ 없음     | ✅ [전용 LSP 탑재](https://intlayer.org/ko/doc/lsp)                    |
-| **AI 에이전트용 MCP 서버** | ❌ 없음     | ✅ [MCP 서버 내장](https://intlayer.org/ko/doc/mcp-server)             |
-| **에이전트 스킬 세트**     | ❌ 없음     | ✅ [사전 제작된 스킬](https://intlayer.org/ko/doc/agent_skills)        |
-| **인컨텍스트 비주얼 CMS**  | ❌ 없음     | ✅ [무료 오픈소스 CMS](https://intlayer.org/ko/doc/concept/editor)     |
+| 기능                       | `next-intl` | Intlayer                                                                                                        |
+| -------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
+| **VS Code 확장 프로그램**  | ❌ 없음     | ✅ [공식 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)     |
+| **Language Server (LSP)**  | ❌ 없음     | ✅ [전용 LSP 탑재](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)                        |
+| **AI 에이전트용 MCP 서버** | ❌ 없음     | ✅ [MCP 서버 내장](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)                 |
+| **에이전트 스킬 세트**     | ❌ 없음     | ✅ [사전 제작된 스킬](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)            |
+| **인컨텍스트 비주얼 CMS**  | ❌ 없음     | ✅ [무료 오픈소스 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) |
 
 LSP와 MCP 서버가 갖춰져 있어 AI 코딩 어시스턴트가 프로젝트의 번역 구조를 완벽히 이해하고 오차 없는 코드 생성과 업데이트를 수행합니다.
 
@@ -295,7 +295,7 @@ Intlayer는 이러한 기능들을 기본적으로 제공합니다.
 
 **자체 호스팅 비주얼 CMS:**
 
-[Intlayer CMS](https://intlayer.org/ko/doc/concept/cms)를 이용해 비개발 직군도 웹에서 문구를 직접 수정하고 Git에 곧바로 반영할 수 있습니다.
+[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 이용해 비개발 직군도 웹에서 문구를 직접 수정하고 Git에 곧바로 반영할 수 있습니다.
 
 **자유로운 오픈소스 라이선스:**
 
@@ -351,9 +351,9 @@ bunx intlayer init --interactive
 
 단계별 세부 내용은 다음 가이드를 참고하세요:
 
-- **간편한 호환성 지원:** [`next-intl` 호환성 레이어](https://intlayer.org/ko/doc/compatibility/next-intl)를 통해 기존 `useTranslations` 코드를 그대로 유지한 채 번들 최적화를 도입할 수 있습니다.
-- **단계별 마이그레이션 가이드:** 기존 JSON 파일을 타입 안전한 구조로 변환하는 [next-intl 마이그레이션 가이드](https://intlayer.org/ko/doc/migration/next-intl)를 참고하세요.
-- **점진적 하이브리드 구성:** UI 렌더링에는 `next-intl`을 유지하면서, [Intlayer와 next-intl을 함께 사용](https://intlayer.org/ko/blog/intlayer-with-next-intl)하여 로컬 AI 번역 기능만 가져올 수도 있습니다.
+- **간편한 호환성 지원:** [`next-intl` 호환성 레이어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md)를 통해 기존 `useTranslations` 코드를 그대로 유지한 채 번들 최적화를 도입할 수 있습니다.
+- **단계별 마이그레이션 가이드:** 기존 JSON 파일을 타입 안전한 구조로 변환하는 [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)를 참고하세요.
+- **점진적 하이브리드 구성:** UI 렌더링에는 `next-intl`을 유지하면서, [Intlayer와 next-intl을 함께 사용](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_next-intl.md)하여 로컬 AI 번역 기능만 가져올 수도 있습니다.
 
 무료 [i18n SEO 스캐너](https://intlayer.org/i18n-seo-scanner)를 통해 현재 웹사이트의 번들 누수와 크기를 측정해 보세요:
 
@@ -361,7 +361,7 @@ bunx intlayer init --interactive
 
 ## 함께 읽어볼 만한 글
 
-- [Next.js i18n 벤치마크: 성능 심층 비교 분석](https://intlayer.org/ko/doc/benchmark/nextjs)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ko/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [2026년에도 i18next를 계속 써야 할까요?](https://intlayer.org/ko/blog/is-i18next-outdated)
-- [컴파일러 기반 i18n 아키텍처의 장점](https://intlayer.org/ko/blog/compiler-vs-declarative-i18n)
+- [Next.js i18n 벤치마크: 성능 심층 비교 분석](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
+- [2026년에도 i18next를 계속 써야 할까요?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_i18next_outdated.md)
+- [컴파일러 기반 i18n 아키텍처의 장점](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)

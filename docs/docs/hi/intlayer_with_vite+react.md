@@ -1009,7 +1009,7 @@ Intlayer द्वारा जेनरेट की गई फ़ाइलो�
 - Translated content के **Inline previews**।
 - Translations को आसानी से बनाने और अपडेट करने के लिए **Quick actions**।
 
-Extension का उपयोग कैसे करें, इस पर अधिक विवरण के लिए, [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension) को देखें।
+Extension का उपयोग कैसे करें, इस पर अधिक विवरण के लिए, [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) को देखें।
 
 ### आगे बढ़ें
 

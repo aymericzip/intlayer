@@ -742,7 +742,7 @@ console.log("SEO files generated successfully.");
 - **Встроенный просмотр** переведенного контента.
 - **Быстрые действия** для удобного создания и обновления переводов.
 
-Для получения дополнительной информации о том, как использовать расширение, обратитесь к [документации расширения Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
+Для получения дополнительной информации о том, как использовать расширение, обратитесь к [документации расширения Intlayer для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md).
 
 ### Продвинуться дальше
 

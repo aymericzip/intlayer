@@ -30,7 +30,7 @@ author: aymericzip
 
 `@intlayer/next-intl` एक compat adapter है: यह `next-intl` API (`useTranslations`, `getTranslations`, `useLocale`, `t.rich()`, ICU plurals, `NextIntlClientProvider`...) को expose करता है और इसे Intlayer द्वारा compiled dictionaries से serve करता है। application code नहीं बदलता है। bundle बदलता है।
 
-यह article दोनों की तुलना एक ही Next.js application पर करता है, जो एक बार `next-intl` के साथ और एक बार adapter के साथ built है। नंबर [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) से आते हैं, एक open-source suite जो record करता है कि browser actually क्या download करता है। अगर आप `next-intl` vs Intlayer की तुलना libraries के रूप में चाहते हैं, तो [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) पढ़ें। यह एक इस बारे में है कि adapter क्या बदलता है जब आप अपने components को जैसे हैं वैसे ही रखते हैं।
+यह article दोनों की तुलना एक ही Next.js application पर करता है, जो एक बार `next-intl` के साथ और एक बार adapter के साथ built है। नंबर [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) से आते हैं, एक open-source suite जो record करता है कि browser actually क्या download करता है। अगर आप `next-intl` vs Intlayer की तुलना libraries के रूप में चाहते हैं, तो [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer.md) पढ़ें। यह एक इस बारे में है कि adapter क्या बदलता है जब आप अपने components को जैसे हैं वैसे ही रखते हैं।
 
 <TOC/>
 
@@ -142,7 +142,7 @@ height="600px"
 style="border:none;"
 />
 
-> [Next.js बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/nextjs) में पूरी तालिका, प्रत्येक लाइब्रेरी और प्रत्येक रणनीति देखें।
+> [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) में पूरी तालिका, प्रत्येक लाइब्रेरी और प्रत्येक रणनीति देखें।
 
 ### TanStack Start पर परिणाम (`use-intl`)
 
@@ -174,7 +174,7 @@ height="600px"
 style="border:none;"
 />
 
-> [TanStack Start बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/tanstack) में पूरी तालिका देखें।
+> [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) में पूरी तालिका देखें।
 
 ## संख्याएं क्यों बदलती हैं
 
@@ -326,7 +326,7 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="प्रदाता पर messages, timeZone और now को अनदेखा किया जाता है">
 
-फॉर्मेटर्स नेटिव `Intl` द्वारा समर्थित हैं और केवल भाषा उनके आउटपुट को प्रभावित करती है। यदि आप हाइड्रेशन-स्थिर तिथियों के लिए मजबूर समय क्षेत्र या एक निश्चित `now` पर भरोसा करते हैं, तो इसे कॉल साइट पर संभालें। [दिनांक, समय और संख्या स्वरूपण](https://intlayer.org/hi/blog/date-time-number-formatting-locales) देखें।
+फॉर्मेटर्स नेटिव `Intl` द्वारा समर्थित हैं और केवल भाषा उनके आउटपुट को प्रभावित करती है। यदि आप हाइड्रेशन-स्थिर तिथियों के लिए मजबूर समय क्षेत्र या एक निश्चित `now` पर भरोसा करते हैं, तो इसे कॉल साइट पर संभालें। [दिनांक, समय और संख्या स्वरूपण](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/date_time_number_formatting_locales.md) देखें।
 
 </Accordion>
 </AccordionGroup>
@@ -346,7 +346,7 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="नेटिव (next-intlayer) पर जाएँ">
 
-नई परियोजनाओं के लिए, या एक बार एडॉप्टर द्वारा अपना काम पूरा कर लेने के बाद। यह तीनों में सबसे हल्का है (5.5 KB, +0.3 KB प्रति पृष्ठ) और सिंक्रोनस सर्वर घटकों, प्रति-घटक `.content.ts` फाइलों और पूर्ण फीचर सेट को अनलॉक करता है। [Next.js के साथ Intlayer](https://intlayer.org/hi/doc/environment/nextjs) से शुरुआत करें।
+नई परियोजनाओं के लिए, या एक बार एडॉप्टर द्वारा अपना काम पूरा कर लेने के बाद। यह तीनों में सबसे हल्का है (5.5 KB, +0.3 KB प्रति पृष्ठ) और सिंक्रोनस सर्वर घटकों, प्रति-घटक `.content.ts` फाइलों और पूर्ण फीचर सेट को अनलॉक करता है। [Next.js के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md) से शुरुआत करें।
 
 </Accordion>
 </AccordionGroup>
@@ -363,7 +363,7 @@ Next.js पर, घटकों के लिए हाँ: बेंचमा�
 
 <Question title="ICU संदेशों का क्या होता है?">
 
-वे काम करते रहते हैं। `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` और `{ts, date, long}` Intlayer के ICU रिज़ॉल्वर द्वारा हल किए जाते हैं। [ICU संदेश प्रारूप](https://intlayer.org/hi/blog/icu-message-format) देखें।
+वे काम करते रहते हैं। `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` और `{ts, date, long}` Intlayer के ICU रिज़ॉल्वर द्वारा हल किए जाते हैं। [ICU संदेश प्रारूप](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) देखें।
 
 </Question>
 
@@ -391,23 +391,23 @@ Next.js पर, घटकों के लिए हाँ: बेंचमा�
 
 समान एडॉप्टर श्रृंखला:
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/hi/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/hi/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/hi/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer-vue-i18n.md)
 
 लाइब्रेरीज़ की आमने-सामने तुलना:
 
-- [next-intl vs Intlayer](https://intlayer.org/hi/blog/next-intl-vs-intlayer), समान बेंचमार्क
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/hi/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Is next-intl outdated?](https://intlayer.org/hi/blog/is-next-intl-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer.md), समान बेंचमार्क
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_next-intl_outdated.md)
 
 संदर्भ दस्तावेज़:
 
-- [Compat adapter: next-intl](https://intlayer.org/hi/doc/compatibility/next-intl)
-- [माइग्रेशन गाइड: next-intl से Intlayer](https://intlayer.org/hi/doc/migration/next-intl)
-- [Next.js बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/nextjs) और [TanStack Start बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/tanstack)
-- [बंडल अनुकूलन](https://intlayer.org/hi/doc/concept/bundle-optimization) और [Intlayer कंपाइलर](https://intlayer.org/hi/doc/compiler)
-- [विजुअल एडिटर](https://intlayer.org/hi/doc/concept/editor), [CMS](https://intlayer.org/hi/doc/concept/cms) और [AI अनुवाद](https://intlayer.org/hi/doc/concept/auto-fill)
+- [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-intl.md)
+- [माइग्रेशन गाइड: next-intl से Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md)
+- [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) और [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
+- [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+- [विजुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) और [AI अनुवाद](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md)
 
 ## निष्कर्ष
 
@@ -415,4 +415,4 @@ Next.js पर, घटकों के लिए हाँ: बेंचमा�
 
 सभी raw data, test apps और scripts [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom) में हैं। इसे स्वयं चलाएं।
 
-अधिक विवरण के लिए ['Why Intlayer?' doc](https://intlayer.org/doc/why) देखें।
+अधिक विवरण के लिए ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।

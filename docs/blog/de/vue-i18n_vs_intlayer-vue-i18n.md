@@ -29,7 +29,7 @@ author: aymericzip
 
 `@intlayer/vue-i18n` ist ein Kompatibilitätsadapter: Er stellt die `vue-i18n` API (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...) bereit und bedient sie aus von Intlayer kompilierten Wörterbüchern. Ihre `.vue` Dateien ändern sich nicht. Woran sich `t("footer.github")` bindet, tut es.
 
-Dieser Artikel misst diesen Austausch auf derselben Vite + Vue 3 Anwendung, die einmal mit `vue-i18n` und einmal mit dem Adapter gebaut wurde. Die Zahlen stammen von [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Für `vue-i18n` und Intlayer als Bibliotheken verglichen, lesen Sie [vue-i18n vs Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer) und den [vue-i18n vs Intlayer Benchmark](https://intlayer.org/blog/vue-i18n-vs-intlayer-benchmark). Diesen Artikel geht es darum, was der Adapter ändert, wenn Sie Ihre Komponenten so behalten, wie sie sind.
+Dieser Artikel misst diesen Austausch auf derselben Vite + Vue 3 Anwendung, die einmal mit `vue-i18n` und einmal mit dem Adapter gebaut wurde. Die Zahlen stammen von [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Für `vue-i18n` und Intlayer als Bibliotheken verglichen, lesen Sie [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer.md) und den [vue-i18n vs Intlayer Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer_benchmark.md). Diesen Artikel geht es darum, was der Adapter ändert, wenn Sie Ihre Komponenten so behalten, wie sie sind.
 
 <TOC/>
 
@@ -71,19 +71,19 @@ Die Komponente greift nicht mehr auf den globalen Message-Baum zu. Sie greift au
 
 ## Was der Adapter beibehält, ignoriert und nicht ersetzt
 
-| `vue-i18n` API                                                      | Mit `@intlayer/vue-i18n`                                                                                                             |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `useI18n()` → `{ t, d, n, te, tm, rt, locale, availableLocales }`   | ✅ Beibehalten. `t`-Schlüssel sind gegen deine Dictionaries typisiert                                                                |
-| `t("key", { name })`, `t("key", [a, b])`, `t("key", count)`         | ✅ Beibehalten. `{name}`, `{0}` und pipe-getrennte Plurale werden wie zuvor aufgelöst                                                |
-| `d(date, "long")`, `n(value, "currency")`                           | ✅ Beibehalten. `datetimeFormats` / `numberFormats` aus `createI18n()` werden berücksichtigt, unterstützt durch natives `Intl`       |
-| `i18n.global.locale.value = "fr"`                                   | ✅ Beibehalten. Eine `WritableComputedRef` gestützt auf Intlayers Client; die Reaktivität verhält sich wie zuvor                     |
-| `$t`, `$tc`, `$te`, `$tm`, `$rt`, `$d`, `$n`, `$i18n` (Options API) | ✅ Beibehalten. Registriert auf `app.config.globalProperties` durch `app.use(i18n)`                                                  |
-| `v-t` Direktive                                                     | ✅ Beibehalten                                                                                                                       |
-| `legacy: true`                                                      | ✅ Akzeptiert                                                                                                                        |
-| `createI18n({ messages })`                                          | ⚠️ `messages` werden als **Runtime-Fallback** verwendet mit einer Dev-Warnung. Entfernen Sie die JSON-Importe für die Bundle-Gewinne |
-| `setLocaleMessage()`, `mergeLocaleMessage()`                        | ❌ Warnung und keine Aktion. Laufzeit-Message-Laden wird durch Build-Zeit-Wörterbücher ersetzt                                       |
-| SFC `<i18n>` custom blocks                                          | ❌ Nicht gelesen. Verschieben Sie diese Messages in die Locale-JSON (oder eine `.content.ts` neben der Komponente)                   |
-| `@nuxtjs/i18n`                                                      | ⚠️ Separater Adapter, siehe die [Nuxt-Kompatibilitätsdokumentation](https://intlayer.org/doc/compatibility/nuxtjs-i18n)              |
+| `vue-i18n` API                                                      | Mit `@intlayer/vue-i18n`                                                                                                                                 |
+| ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useI18n()` → `{ t, d, n, te, tm, rt, locale, availableLocales }`   | ✅ Beibehalten. `t`-Schlüssel sind gegen deine Dictionaries typisiert                                                                                    |
+| `t("key", { name })`, `t("key", [a, b])`, `t("key", count)`         | ✅ Beibehalten. `{name}`, `{0}` und pipe-getrennte Plurale werden wie zuvor aufgelöst                                                                    |
+| `d(date, "long")`, `n(value, "currency")`                           | ✅ Beibehalten. `datetimeFormats` / `numberFormats` aus `createI18n()` werden berücksichtigt, unterstützt durch natives `Intl`                           |
+| `i18n.global.locale.value = "fr"`                                   | ✅ Beibehalten. Eine `WritableComputedRef` gestützt auf Intlayers Client; die Reaktivität verhält sich wie zuvor                                         |
+| `$t`, `$tc`, `$te`, `$tm`, `$rt`, `$d`, `$n`, `$i18n` (Options API) | ✅ Beibehalten. Registriert auf `app.config.globalProperties` durch `app.use(i18n)`                                                                      |
+| `v-t` Direktive                                                     | ✅ Beibehalten                                                                                                                                           |
+| `legacy: true`                                                      | ✅ Akzeptiert                                                                                                                                            |
+| `createI18n({ messages })`                                          | ⚠️ `messages` werden als **Runtime-Fallback** verwendet mit einer Dev-Warnung. Entfernen Sie die JSON-Importe für die Bundle-Gewinne                     |
+| `setLocaleMessage()`, `mergeLocaleMessage()`                        | ❌ Warnung und keine Aktion. Laufzeit-Message-Laden wird durch Build-Zeit-Wörterbücher ersetzt                                                           |
+| SFC `<i18n>` custom blocks                                          | ❌ Nicht gelesen. Verschieben Sie diese Messages in die Locale-JSON (oder eine `.content.ts` neben der Komponente)                                       |
+| `@nuxtjs/i18n`                                                      | ⚠️ Separater Adapter, siehe die [Nuxt-Kompatibilitätsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/nuxtjs-i18n.md) |
 
 ## Der Benchmark
 
@@ -137,7 +137,7 @@ height="600px"
 style="border:none;"
 />
 
-> Vollständige Tabelle, jede Bibliothek und jede Strategie, im [Vue-Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/vue).
+> Vollständige Tabelle, jede Bibliothek und jede Strategie, im [Vue-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/vue.md).
 
 ## Warum sich die Zahlen verschieben
 
@@ -285,7 +285,7 @@ Wenn sich Ihre Nachrichten innerhalb von Komponenten befinden, müssen sie in di
 </Accordion>
 <Accordion header="Das Laden von Nachrichten zur Laufzeit entfällt">
 
-`setLocaleMessage()` und `mergeLocaleMessage()` geben eine Warnung aus und brechen ab. Übersetzungen, die zur Laufzeit von einem CMS abgerufen werden, erfordern das [Intlayer-CMS](https://intlayer.org/de/doc/concept/cms) oder die Befehle `intlayer pull` / `push`.
+`setLocaleMessage()` und `mergeLocaleMessage()` geben eine Warnung aus und brechen ab. Übersetzungen, die zur Laufzeit von einem CMS abgerufen werden, erfordern das [Intlayer-CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) oder die Befehle `intlayer pull` / `push`.
 
 </Accordion>
 <Accordion header="messages ist ein Fallback, nicht kostenlos">
@@ -315,7 +315,7 @@ Sie nutzen `vue-i18n` und möchten 88 KB einsparen, 23-mal kleinere Komponenten,
 </Accordion>
 <Accordion header="Nativ werden (vue-intlayer)">
 
-Für neue Projekte oder sobald der Adapter seinen Dienst getan hat. Er bietet die leichteste Laufzeit (3.9 KB) und das komponentenspezifische `.content.ts`-Modell, das `<i18n>`-Blöcke durch typisierten Inhalt ersetzt. Starten Sie mit [Intlayer mit Vue](https://intlayer.org/de/doc/environment/vite-and-vue) oder [mit Nuxt](https://intlayer.org/de/doc/environment/nuxt-and-vue).
+Für neue Projekte oder sobald der Adapter seinen Dienst getan hat. Er bietet die leichteste Laufzeit (3.9 KB) und das komponentenspezifische `.content.ts`-Modell, das `<i18n>`-Blöcke durch typisierten Inhalt ersetzt. Starten Sie mit [Intlayer mit Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+vue.md) oder [mit Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nuxt.md).
 
 </Accordion>
 </AccordionGroup>
@@ -338,13 +338,13 @@ Weil `useI18n()` nicht mehr auf die globale Instanz zugreift. `createI18n({ mess
 
 <Question title="Was ist mit d()- und n()-Formatierung?">
 
-Beibehalten. Die an `createI18n()` übergebenen `datetimeFormats` und `numberFormats` werden respektiert und durch natives `Intl` unterstützt. Siehe [Datums-, Uhrzeit- und Zahlenformatierung](https://intlayer.org/de/blog/date-time-number-formatting-locales).
+Beibehalten. Die an `createI18n()` übergebenen `datetimeFormats` und `numberFormats` werden respektiert und durch natives `Intl` unterstützt. Siehe [Datums-, Uhrzeit- und Zahlenformatierung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/date_time_number_formatting_locales.md).
 
 </Question>
 
 <Question title="Funktioniert es mit Nuxt?">
 
-`@intlayer/vue-i18n` zielt auf Vite + Vue ab. Für `@nuxtjs/i18n` verwenden Sie den [Nuxt i18n-Kompatibilitätsadapter](https://intlayer.org/de/doc/compatibility/nuxtjs-i18n) und lesen Sie [Intlayer mit Nuxt](https://intlayer.org/de/doc/environment/nuxt-and-vue) für das native Setup.
+`@intlayer/vue-i18n` zielt auf Vite + Vue ab. Für `@nuxtjs/i18n` verwenden Sie den [Nuxt i18n-Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/nuxtjs-i18n.md) und lesen Sie [Intlayer mit Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nuxt.md) für das native Setup.
 
 </Question>
 
@@ -360,24 +360,24 @@ Ja. Jede Komponente kann mit einer danebenliegenden Inhaltsdatei von `useI18n()`
 
 Gleiche Adapter-Serie:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/de/blog/next-intl-vs-intlayer-next-intl)
-- [i18next vs @intlayer/i18next](https://intlayer.org/de/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/de/blog/lingui-vs-intlayer-lingui)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-intl_vs_intlayer-next-intl.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/lingui_vs_intlayer-lingui.md)
 
 Die Bibliotheken im direkten Vergleich:
 
-- [vue-i18n vs Intlayer](https://intlayer.org/de/blog/vue-i18n-vs-intlayer), Features und DX
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/de/blog/vue-i18n-vs-intlayer-benchmark)
-- [Is vue-i18n outdated?](https://intlayer.org/de/blog/is-vue-i18n-outdated)
-- [How to pick a Vue i18n library](https://intlayer.org/de/blog/how-to-pick-vue-i18n-library)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer.md), Features und DX
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer_benchmark.md)
+- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/is_vue-i18n_outdated.md)
+- [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_vue_i18n_library.md)
 
 Referenzdokumentation:
 
-- [Compat adapter: vue-i18n](https://intlayer.org/de/doc/compatibility/vue-i18n) and [Nuxt i18n](https://intlayer.org/de/doc/compatibility/nuxtjs-i18n)
-- [Migrationsleitfaden: vue-i18n zu Intlayer](https://intlayer.org/de/doc/migration/vue-i18n)
-- [Vue-Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/vue)
-- [Bundle-Optimierung](https://intlayer.org/de/doc/concept/bundle-optimization) und [der Intlayer-Compiler](https://intlayer.org/de/doc/compiler)
-- [Visual Editor](https://intlayer.org/de/doc/concept/editor), [CMS](https://intlayer.org/de/doc/concept/cms) und [KI-Übersetzung](https://intlayer.org/de/doc/concept/auto-fill)
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/nuxtjs-i18n.md)
+- [Migrationsleitfaden: vue-i18n zu Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_vue-i18n_to_intlayer.md)
+- [Vue-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/vue.md)
+- [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md) und [der Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) und [KI-Übersetzung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/autoFill.md)
 
 ## Fazit
 
@@ -385,4 +385,4 @@ Referenzdokumentation:
 
 Alle Rohdaten, die Test-Apps und die Scripts befinden sich im [Benchmark Bloom Repository](https://github.com/intlayer-org/benchmark-bloom). Führen Sie es selbst aus.
 
-Weitere Details finden Sie in der [Dokumentation 'Why Intlayer?'](https://intlayer.org/de/doc/why).
+Weitere Details finden Sie in der [Dokumentation 'Why Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md).

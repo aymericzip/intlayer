@@ -775,7 +775,7 @@ Intlayer 개발 환경을 개선하기 위해 공식 **Intlayer VS Code 확장 �
 - 번역된 콘텐츠의 **인라인 미리보기**.
 - 번역을 쉽게 만들고 업데이트할 수 있는 **빠른 작업**.
 
-확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
 
 ### 더 나아가기
 
@@ -791,7 +791,7 @@ Vite는 i18n에 대해 특정 방식을 강제하지 않으므로 바닐라 JS �
 
 - **직접 작성한 사전 객체(Hand-written dictionary object)**: 엔트리 포인트로 import되는 방식이지만 의존성이 없는 대신 타입 안전성, 복수형 규칙이 없으며 누락된 번역을 감지할 수 없습니다.
 - **`i18next`**: 성숙하고 프레임워크에 구애받지 않지만 런타임을 추가하고 카탈로그를 JSON으로 로드합니다.
-- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)), 빌드 타임에 Vite 플러그인에 의해 컴파일되고, 완전한 타입 안전성을 제공하며 AI 번역, 비주얼 에디터 및 CMS를 포함합니다.
+- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)), 빌드 타임에 Vite 플러그인에 의해 컴파일되고, 완전한 타입 안전성을 제공하며 AI 번역, 비주얼 에디터 및 CMS를 포함합니다.
 
 Vite 특화된 장점은 번역이 런타임에 JSON으로 가져오는 대신 컴파일 타임에 확인되고 트리 쉐이킹(tree-shaking)되므로 페이지가 렌더링하는 항목만 정확히 전달된다는 점입니다. [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)와 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참조하세요.
 

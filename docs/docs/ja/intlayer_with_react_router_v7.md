@@ -984,7 +984,7 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 - 翻訳内容の **インラインプレビュー**。
 - 翻訳を簡単に作成・更新できる **クイックアクション**。
 
-拡張機能の使い方の詳細は、[Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+拡張機能の使い方の詳細は、[Intlayer VS Code 拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
 
 ## さらに進む
 
@@ -1011,7 +1011,7 @@ React Router v7 にはメッセージレイヤーが付属していないため�
 
 - **`react-i18next` / `i18next`**: ランタイムで読み込まれる JSON ネームスペース。ロケール検出器をルーターに接続します。
 - **`react-intl`** と **`Lingui`**: ICU メッセージと抽出ステップ。
-- **`Intlayer`**: 最も高度なソリューション。コードベースの任意の場所でコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、ビルド時にコンパイルされ、エンドツーエンドで型付けされ、ロケール対応のルーティングヘルパー、AI 翻訳、ビジュアルエディター、CMS を備えています。
+- **`Intlayer`**: 最も高度なソリューション。コードベースの任意の場所でコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）、ビルド時にコンパイルされ、エンドツーエンドで型付けされ、ロケール対応のルーティングヘルパー、AI 翻訳、ビジュアルエディター、CMS を備えています。
 
 [Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)を参照してください。
 

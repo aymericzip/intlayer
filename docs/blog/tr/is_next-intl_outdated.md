@@ -83,7 +83,7 @@ height="600px"
 style="border:none;"
 />
 
-> Gerçek tarayıcı ortamlarında gzip sıkıştırmasıyla test edilmiştir. Tüm detaylar [Next.js benchmark raporunda](https://intlayer.org/tr/doc/benchmark/nextjs).
+> Gerçek tarayıcı ortamlarında gzip sıkıştırmasıyla test edilmiştir. Tüm detaylar [Next.js benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md).
 
 ### Kütüphane Ayak İzi
 
@@ -131,7 +131,7 @@ Aşağıdaki grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 say
 
 ![Mimariye göre teorik içerik sızıntısı](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-Intlayer bunu statik analiz ile çözer: [Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler) sadece o rotada çağrılan metinleri paketler, rotalar arası sızıntıyı **%0.0'a** indirir.
+Intlayer bunu statik analiz ile çözer: [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) sadece o rotada çağrılan metinleri paketler, rotalar arası sızıntıyı **%0.0'a** indirir.
 
 ## next-intl Neden Tree-Shaking'e İzin Vermez?
 
@@ -170,7 +170,7 @@ export function UserProfile() {
   </Tab>
 </Tabs>
 
-Turbopack ve Webpack, `UserProfile` içinde hangi anahtarların çağrılacağını bilemez. Çalışma anında hata oluşmaması için **paketleyici tüm ad alanını istemci paketine dahil eder**. Intlayer'ın parçalanmış özellikleri sayesinde derleyici erişilen alanları analiz eder ve gereksiz metinleri ayıklar. Detaylar için [paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization) konusuna göz atın.
+Turbopack ve Webpack, `UserProfile` içinde hangi anahtarların çağrılacağını bilemez. Çalışma anında hata oluşmaması için **paketleyici tüm ad alanını istemci paketine dahil eder**. Intlayer'ın parçalanmış özellikleri sayesinde derleyici erişilen alanları analiz eder ve gereksiz metinleri ayıklar. Detaylar için [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) konusuna göz atın.
 
 ## Geliştirici Deneyimi
 
@@ -269,17 +269,17 @@ declare global {
 
 Ancak yalnızca temel dil doğrulanır. `tr.json` içinden bir anahtar silindiğinde TypeScript hata vermez, CI başarılı görünür ve kullanıcılar boş metinlerle karşılaşır.
 
-Intlayer, tipleri tüm bildirimlerden çıkarır. [`strictMode`](https://intlayer.org/tr/doc/concept/configuration) modu etkinleştirildiğinde herhangi bir dildeki eksik çeviri derleme hatası oluşturur.
+Intlayer, tipleri tüm bildirimlerden çıkarır. [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) modu etkinleştirildiğinde herhangi bir dildeki eksik çeviri derleme hatası oluşturur.
 
 ### Araç Ekosistemi ve Yapay Zeka
 
-| Özellik                      | `next-intl` | Intlayer                                                                 |
-| ---------------------------- | ----------- | ------------------------------------------------------------------------ |
-| **VS Code Eklentisi**        | ❌ Yok      | ✅ [Resmi eklenti](https://intlayer.org/tr/doc/vs-code-extension)        |
-| **Language Server (LSP)**    | ❌ Yok      | ✅ [Özel LSP](https://intlayer.org/tr/doc/lsp)                           |
-| **MCP Sunucusu (AI İçin)**   | ❌ Yok      | ✅ [Entegre MCP sunucusu](https://intlayer.org/tr/doc/mcp-server)        |
-| **Ajan Becerileri (Skills)** | ❌ Yok      | ✅ [Kullanıma hazır beceriler](https://intlayer.org/tr/doc/agent_skills) |
-| **Görsel CMS**               | ❌ Yok      | ✅ [Ücretsiz ve Açık Kaynak](https://intlayer.org/tr/doc/concept/editor) |
+| Özellik                      | `next-intl` | Intlayer                                                                                                              |
+| ---------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------- |
+| **VS Code Eklentisi**        | ❌ Yok      | ✅ [Resmi eklenti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)                |
+| **Language Server (LSP)**    | ❌ Yok      | ✅ [Özel LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)                                   |
+| **MCP Sunucusu (AI İçin)**   | ❌ Yok      | ✅ [Entegre MCP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)                |
+| **Ajan Becerileri (Skills)** | ❌ Yok      | ✅ [Kullanıma hazır beceriler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)         |
+| **Görsel CMS**               | ❌ Yok      | ✅ [Ücretsiz ve Açık Kaynak](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) |
 
 Entegre LSP ve MCP sunucuları sayesinde yapay zeka kodlama asistanları projenin içerik yapısını eksiksiz algılar ve çevirileri hatasız biçimde tamamlar.
 
@@ -295,7 +295,7 @@ Eksik çevirileri OpenAI, Anthropic, Mistral veya Gemini API anahtarlarınızla 
 
 **Kendi Sunucunuzda Barındırılabilir Görsel CMS:**
 
-Teknik olmayan ekiplerin Git ile entegre biçimde metin düzenlemesi için [Intlayer CMS](https://intlayer.org/tr/doc/concept/cms) kullanın.
+Teknik olmayan ekiplerin Git ile entegre biçimde metin düzenlemesi için [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanın.
 
 **Özgür Açık Kaynak Lisansı:**
 
@@ -351,9 +351,9 @@ Bu etkileşimli CLI aracı:
 
 Ayrıntılı adımlar için hazırladığımız kılavuzları inceleyin:
 
-- **Doğrudan Uyumluluk:** [`next-intl` uyumluluk katmanı](https://intlayer.org/tr/doc/compatibility/next-intl) ile mevcut `useTranslations` kodlarınızı değiştirmeden koruyun.
-- **Rehberli Geçiş:** Eski JSON dosyalarınızı [next-intl geçiş kılavuzumuz](https://intlayer.org/tr/doc/migration/next-intl) ile yapılandırılmış sözlüklere dönüştürün.
-- **Hibrit Model:** Arayüzde `next-intl` kullanmaya devam ederken, yerel yapay zeka çevirisinden yararlanmak için [Intlayer'ı next-intl ile birleştirin](https://intlayer.org/tr/blog/intlayer-with-next-intl).
+- **Doğrudan Uyumluluk:** [`next-intl` uyumluluk katmanı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-intl.md) ile mevcut `useTranslations` kodlarınızı değiştirmeden koruyun.
+- **Rehberli Geçiş:** Eski JSON dosyalarınızı [next-intl geçiş kılavuzumuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md) ile yapılandırılmış sözlüklere dönüştürün.
+- **Hibrit Model:** Arayüzde `next-intl` kullanmaya devam ederken, yerel yapay zeka çevirisinden yararlanmak için [Intlayer'ı next-intl ile birleştirin](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/intlayer_with_next-intl.md).
 
 Sitenizin boyutunu ve sızıntılarını ücretsiz [i18n SEO Tarayıcısı](https://intlayer.org/i18n-seo-scanner) ile inceleyin:
 
@@ -361,7 +361,7 @@ Sitenizin boyutunu ve sızıntılarını ücretsiz [i18n SEO Tarayıcısı](http
 
 ## Ek Kaynaklar
 
-- [Next.js i18n Benchmark: Ayrıntılı Performans Analizi](https://intlayer.org/tr/doc/benchmark/nextjs)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/tr/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [i18next 2026'da Güncelliğini Yitirdi mi?](https://intlayer.org/tr/blog/is-i18next-outdated)
-- [Derleyici Odaklı Uluslararasılaştırmanın Önemi](https://intlayer.org/tr/blog/compiler-vs-declarative-i18n)
+- [Next.js i18n Benchmark: Ayrıntılı Performans Analizi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
+- [i18next 2026'da Güncelliğini Yitirdi mi?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_i18next_outdated.md)
+- [Derleyici Odaklı Uluslararasılaştırmanın Önemi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)

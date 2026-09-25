@@ -92,7 +92,7 @@ Installieren Sie ihn stattdessen global (`npm install -g @intlayer/lsp`), wenn I
 
 Installieren Sie die [Intlayer-VS-Code-Erweiterung](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). Der Language Server ist seit v8.12.0 enthalten und startet automatisch — **keine Konfiguration erforderlich**.
 
-Weitere Funktionen finden Sie in der [Dokumentation der VS-Code-Erweiterung](https://intlayer.org/doc/vs-code-extension).
+Weitere Funktionen finden Sie in der [Dokumentation der VS-Code-Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md).
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">

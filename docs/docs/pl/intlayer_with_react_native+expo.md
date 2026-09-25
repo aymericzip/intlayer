@@ -492,7 +492,7 @@ To rozszerzenie oferuje:
 - **Podglądy w linii** przetłumaczonej zawartości.
 - **Szybkie akcje** do łatwego tworzenia i aktualizowania tłumaczeń.
 
-Aby uzyskać więcej informacji o korzystaniu z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Aby uzyskać więcej informacji o korzystaniu z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
 ## Idź dalej
 

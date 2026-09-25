@@ -83,7 +83,7 @@ height="600px"
 style="border:none;"
 />
 
-> वास्तविक ब्राउज़रों में प्रोडक्शन gzip कंप्रेशन के साथ परीक्षण किया गया। पूर्ण विवरण [Next.js बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/nextjs) में उपलब्ध है।
+> वास्तविक ब्राउज़रों में प्रोडक्शन gzip कंप्रेशन के साथ परीक्षण किया गया। पूर्ण विवरण [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) में उपलब्ध है।
 
 ### बेस लाइब्रेरी ओवरहेड
 
@@ -131,7 +131,7 @@ JSON फाइलों को नेमस्पेस में बांट�
 
 ![आर्किटेक्चर के अनुसार सैद्धांतिक कंटेंट लीकेज](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-Intlayer इसे स्टैटिक एनालिसिस से हल करता है: [Intlayer कंपाइलर](https://intlayer.org/hi/doc/compiler) केवल उन्हीं टेक्स्ट्स को बंडल करता है जो उस विशेष रूट पर इस्तेमाल होते हैं, जिससे लीकेज **0.0%** हो जाता है।
+Intlayer इसे स्टैटिक एनालिसिस से हल करता है: [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) केवल उन्हीं टेक्स्ट्स को बंडल करता है जो उस विशेष रूट पर इस्तेमाल होते हैं, जिससे लीकेज **0.0%** हो जाता है।
 
 ## next-intl ट्री-शेकिंग का समर्थन क्यों नहीं करता?
 
@@ -170,7 +170,7 @@ export function UserProfile() {
   </Tab>
 </Tabs>
 
-Turbopack और Webpack यह पहले से नहीं जान सकते कि `UserProfile` में कौन सी कीज़ कॉल की जाएंगी। टेक्स्ट मिसिंग एरर से बचने के लिए, **बंडलर पूरे नेमस्पेस को क्लाइंट चंक में डाल देता है**। इसके विपरीत, Intlayer में डिएस्ट्रक्चर्ड प्रॉपर्टीज कंपाइलर को सटीक उपयोग का विश्लेषण करने और गैर-ज़रूरी टेक्स्ट हटाने की अनुमति देती हैं। अधिक जानकारी के लिए [बंडल ऑप्टिमाइजेशन](https://intlayer.org/hi/doc/concept/bundle-optimization) देखें।
+Turbopack और Webpack यह पहले से नहीं जान सकते कि `UserProfile` में कौन सी कीज़ कॉल की जाएंगी। टेक्स्ट मिसिंग एरर से बचने के लिए, **बंडलर पूरे नेमस्पेस को क्लाइंट चंक में डाल देता है**। इसके विपरीत, Intlayer में डिएस्ट्रक्चर्ड प्रॉपर्टीज कंपाइलर को सटीक उपयोग का विश्लेषण करने और गैर-ज़रूरी टेक्स्ट हटाने की अनुमति देती हैं। अधिक जानकारी के लिए [बंडल ऑप्टिमाइजेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
 
 ## डेवलपर अनुभव (DX) की तुलना
 
@@ -269,17 +269,17 @@ declare global {
 
 लेकिन यह केवल बेस लैंग्वेज की जांच करता है। यदि `hi.json` से कोई की गायब हो जाए, तो टाइपस्क्रिप्ट कोई एरर नहीं देगा और प्रोडक्शन में यूज़र्स को खाली जगह दिखेगी।
 
-Intlayer सभी कंटेंट फाइलों से सीधे टाइप्स बनाता है। [`strictMode`](https://intlayer.org/hi/doc/concept/configuration) चालू करने पर, किसी भी भाषा में ट्रांसलेशन छूटने पर तुरंत बिल्ड एरर आ जाता है।
+Intlayer सभी कंटेंट फाइलों से सीधे टाइप्स बनाता है। [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) चालू करने पर, किसी भी भाषा में ट्रांसलेशन छूटने पर तुरंत बिल्ड एरर आ जाता है।
 
 ### टूलिंग और एआई इंटीग्रेशन
 
-| फीचर                            | `next-intl` | Intlayer                                                              |
-| ------------------------------- | ----------- | --------------------------------------------------------------------- |
-| **VS Code एक्सटेंशन**           | ❌ नहीं है  | ✅ [ऑफिशियल एक्सटेंशन](https://intlayer.org/hi/doc/vs-code-extension) |
-| **Language Server (LSP)**       | ❌ नहीं है  | ✅ [समर्पित LSP](https://intlayer.org/hi/doc/lsp)                     |
-| **AI एजेंट्स के लिए MCP सर्वर** | ❌ नहीं है  | ✅ [इनबिल्ट MCP सर्वर](https://intlayer.org/hi/doc/mcp-server)        |
-| **एजेंट स्किल्स**               | ❌ नहीं है  | ✅ [रेडी-टू-यूज़ स्किल्स](https://intlayer.org/hi/doc/agent_skills)   |
-| **विजुअल सीएमएस**               | ❌ नहीं है  | ✅ [मुफ्त और ओपन सोर्स](https://intlayer.org/hi/doc/concept/editor)   |
+| फीचर                            | `next-intl` | Intlayer                                                                                                         |
+| ------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------- |
+| **VS Code एक्सटेंशन**           | ❌ नहीं है  | ✅ [ऑफिशियल एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)       |
+| **Language Server (LSP)**       | ❌ नहीं है  | ✅ [समर्पित LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)                           |
+| **AI एजेंट्स के लिए MCP सर्वर** | ❌ नहीं है  | ✅ [इनबिल्ट MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)              |
+| **एजेंट स्किल्स**               | ❌ नहीं है  | ✅ [रेडी-टू-यूज़ स्किल्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)         |
+| **विजुअल सीएमएस**               | ❌ नहीं है  | ✅ [मुफ्त और ओपन सोर्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) |
 
 LSP और MCP सर्वर की उपलब्धता से एआई कोडिंग असिस्टेंट्स पूरे प्रोजेक्ट के ट्रांसलेशन स्ट्रक्चर को गहराई से समझ पाते हैं।
 
@@ -295,7 +295,7 @@ Intlayer ये सभी टूल्स डिफ़ॉल्ट रूप स
 
 **सेल्फ-होस्टेड विजुअल सीएमएस:**
 
-[Intlayer CMS](https://intlayer.org/hi/doc/concept/cms) के जरिए गैर-तकनीकी टीम के सदस्य सीधे वेब यूआई में टेक्स्ट एडिट करके गिट में कमिट कर सकते हैं।
+[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के जरिए गैर-तकनीकी टीम के सदस्य सीधे वेब यूआई में टेक्स्ट एडिट करके गिट में कमिट कर सकते हैं।
 
 **ओपन सोर्स लाइसेंस:**
 
@@ -351,9 +351,9 @@ bunx intlayer init --interactive
 
 विस्तृत जानकारी के लिए हमारे विशेष गाइड्स देखें:
 
-- **तत्काल अनुकूलता:** [`next-intl` कम्पैटिबिलिटी लेयर](https://intlayer.org/hi/doc/compatibility/next-intl) का उपयोग करके अपने मौजूदा `useTranslations` कोड को बिना बदले ऑप्टिमाइज्ड बिल्ड पा सकते हैं।
-- **माइग्रेशन गाइड:** अपनी पुरानी JSON फाइलों को टाइप-सेफ डिक्शनरीज में बदलने के लिए हमारे [next-intl माइग्रेशन गाइड](https://intlayer.org/hi/doc/migration/next-intl) की मदद लें।
-- **हाइब्रिड मॉडल:** यूआई में `next-intl` बनाए रखते हुए, लोकल एआई ट्रांसलेशन का लाभ उठाने के लिए [Intlayer को next-intl के साथ जोड़ें](https://intlayer.org/hi/blog/intlayer-with-next-intl)।
+- **तत्काल अनुकूलता:** [`next-intl` कम्पैटिबिलिटी लेयर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-intl.md) का उपयोग करके अपने मौजूदा `useTranslations` कोड को बिना बदले ऑप्टिमाइज्ड बिल्ड पा सकते हैं।
+- **माइग्रेशन गाइड:** अपनी पुरानी JSON फाइलों को टाइप-सेफ डिक्शनरीज में बदलने के लिए हमारे [next-intl माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md) की मदद लें।
+- **हाइब्रिड मॉडल:** यूआई में `next-intl` बनाए रखते हुए, लोकल एआई ट्रांसलेशन का लाभ उठाने के लिए [Intlayer को next-intl के साथ जोड़ें](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/intlayer_with_next-intl.md)।
 
 मुफ्त [i18n SEO स्कैनर](https://intlayer.org/i18n-seo-scanner) से अपनी साइट के बंडल साइज और कंटेंट लीकेज की जांच करें:
 
@@ -361,7 +361,7 @@ bunx intlayer init --interactive
 
 ## संबंधित लेख
 
-- [Next.js i18n बेंचमार्क: विस्तृत परफॉर्मेंस रिपोर्ट](https://intlayer.org/hi/doc/benchmark/nextjs)
-- [next-i18next बनाम next-intl बनाम Intlayer](https://intlayer.org/hi/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [क्या 2026 में i18next पुराना हो चुका है?](https://intlayer.org/hi/blog/is-i18next-outdated)
-- [कंपाइलर-आधारित अंतर्राष्ट्रीयकरण के लाभ](https://intlayer.org/hi/blog/compiler-vs-declarative-i18n)
+- [Next.js i18n बेंचमार्क: विस्तृत परफॉर्मेंस रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+- [next-i18next बनाम next-intl बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md)
+- [क्या 2026 में i18next पुराना हो चुका है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_i18next_outdated.md)
+- [कंपाइलर-आधारित अंतर्राष्ट्रीयकरण के लाभ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)

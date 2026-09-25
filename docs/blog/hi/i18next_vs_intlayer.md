@@ -132,7 +132,7 @@ height="600px"
 style="border:none;"
 />
 
-> पूरी तालिका, प्रत्येक लाइब्रेरी और प्रत्येक रणनीति [Next.js बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/nextjs) में उपलब्ध है।
+> पूरी तालिका, प्रत्येक लाइब्रेरी और प्रत्येक रणनीति [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) में उपलब्ध है।
 
 ### TanStack Start पर परिणाम (`react-i18next`)
 
@@ -163,7 +163,7 @@ height="600px"
 style="border:none;"
 />
 
-> पूरी तालिका [TanStack Start बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/tanstack) में उपलब्ध है।
+> पूरी तालिका [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) में उपलब्ध है।
 
 ## यह अंतर क्यों है? ग्लोबल इंस्टेंस बनाम कंपाइल किए गए शब्दकोश
 
@@ -219,7 +219,7 @@ Intlayer ग्लोबल इंस्टेंस को पूरी तर�
 
 `@intlayer/swc` / `@intlayer/babel` यह पहचानता है कि कौन सा कंपोनेंट किस शब्दकोश को आयात करता है, केवल उन्हें और केवल सक्रिय भाषा के लिए बंडल करता है, और बाकी को हटा देता है। "scoped-dynamic" पैटर्न बिल्ड का स्वचालित परिणाम बन जाता है।
 
-> `dynamic` पंक्ति के परिणाम प्राप्त करने के लिए `intlayer.config.ts` में `dictionary.importMode: 'dynamic'` सेट करें। अधिक जानकारी के लिए [बंडल ऑप्टिमाइज़ेशन दस्तावेज़](https://intlayer.org/hi/doc/concept/bundle-optimization) देखें।
+> `dynamic` पंक्ति के परिणाम प्राप्त करने के लिए `intlayer.config.ts` में `dictionary.importMode: 'dynamic'` सेट करें। अधिक जानकारी के लिए [बंडल ऑप्टिमाइज़ेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
 
 ## डेवलपर अनुभव (DX)
 
@@ -458,7 +458,7 @@ export default defineConfig({
 
 बेंचमार्क में, उसी Next.js ऐप का संगत बिल्ड एप्लिकेशन कोड को छुए बिना **218.5 KB से 150.7 KB** प्रति पेज, कंपोनेंट **78.5 KB से 9.7 KB**, पेज लीकेज **~90% से 0%**, और हाइड्रेशन 15.6 ms से घटकर 11.3 ms हो गया। आपकी मौजूदा `locales/{lng}/{ns}.json` फाइलें JSON सिंक प्लगइन के माध्यम से प्राथमिक डेटा स्रोत बनी रह सकती हैं।
 
-माइग्रेशन गाइड देखें: [i18next](https://intlayer.org/hi/doc/migration/i18next), [react-i18next](https://intlayer.org/hi/doc/migration/react-i18next), [next-i18next](https://intlayer.org/hi/doc/migration/next-i18next)।
+माइग्रेशन गाइड देखें: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-i18next_to_intlayer.md)।
 
 ## कब किसका चयन करें?
 
@@ -470,12 +470,12 @@ export default defineConfig({
 </Accordion>
 <Accordion header="Intlayer चुनें">
 
-आप **कंपोनेंट-स्कोप सामग्री**, **सख्त TypeScript**, **बिल्ड-टाइम छूटी हुई कुंजियों पर त्रुटियाँ**, **शून्य-प्रयास ट्री-शेकिंग और लेज़ी लोडिंग**, त्वरित भाषा स्विचिंग, सिंक्रोनस सर्वर कंपोनेंट और अंतर्निहित संपादन उपकरण ([विज़ुअल एडिटर](https://intlayer.org/hi/doc/concept/editor), [CMS](https://intlayer.org/hi/doc/concept/cms), [AI अनुवाद](https://intlayer.org/hi/doc/concept/auto-fill), [MCP सर्वर](https://intlayer.org/hi/doc/mcp-server)) चाहते हैं। विशेष रूप से बड़े, मॉड्यूलर कोडबेस और डिज़ाइन सिस्टम के लिए उपयुक्त।
+आप **कंपोनेंट-स्कोप सामग्री**, **सख्त TypeScript**, **बिल्ड-टाइम छूटी हुई कुंजियों पर त्रुटियाँ**, **शून्य-प्रयास ट्री-शेकिंग और लेज़ी लोडिंग**, त्वरित भाषा स्विचिंग, सिंक्रोनस सर्वर कंपोनेंट और अंतर्निहित संपादन उपकरण ([विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md), [AI अनुवाद](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md), [MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)) चाहते हैं। विशेष रूप से बड़े, मॉड्यूलर कोडबेस और डिज़ाइन सिस्टम के लिए उपयुक्त।
 
 </Accordion>
 <Accordion header="@intlayer/*-i18next एडेप्टर चुनें">
 
-आप पहले से ही i18next पर हैं और कंपोनेंट्स को दोबारा लिखे बिना बंडल और प्रतिक्रियाशीलता का लाभ चाहते हैं। आपकी `locales/{lng}/{ns}.json` फ़ाइलें सच्चाई का स्रोत बनी रहती हैं। [i18next vs @intlayer/i18next](https://intlayer.org/hi/blog/i18next-vs-intlayer-i18next) में एक साथ मापा गया।
+आप पहले से ही i18next पर हैं और कंपोनेंट्स को दोबारा लिखे बिना बंडल और प्रतिक्रियाशीलता का लाभ चाहते हैं। आपकी `locales/{lng}/{ns}.json` फ़ाइलें सच्चाई का स्रोत बनी रहती हैं। [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer-i18next.md) में एक साथ मापा गया।
 
 </Accordion>
 </AccordionGroup>
@@ -498,19 +498,19 @@ export default defineConfig({
 
 <Question title="क्या मैं i18next के साथ 0% लीकेज तक पहुँच सकता हूँ?">
 
-हाँ, `scoped-dynamic` के साथ: प्रति रूट एक नेमस्पेस, एक संसाधन बैकएंड और हाथ से बनाए रखा जाने वाला पेज-टू-नेमस्पेस मैप। यह Next.js पर प्रति पेज 163.4 KB पर पहुँचता है, जो अभी भी Intlayer के 141.3 KB से **+22 KB** अधिक है, जिसके लिए किसी कॉन्फ़िगरेशन की आवश्यकता नहीं थी। देखें [बंडल अनुकूलन](https://intlayer.org/hi/doc/concept/bundle-optimization)।
+हाँ, `scoped-dynamic` के साथ: प्रति रूट एक नेमस्पेस, एक संसाधन बैकएंड और हाथ से बनाए रखा जाने वाला पेज-टू-नेमस्पेस मैप। यह Next.js पर प्रति पेज 163.4 KB पर पहुँचता है, जो अभी भी Intlayer के 141.3 KB से **+22 KB** अधिक है, जिसके लिए किसी कॉन्फ़िगरेशन की आवश्यकता नहीं थी। देखें [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)।
 
 </Question>
 
 <Question title="क्या मुझे माइग्रेट करने के लिए अपने कंपोनेंट्स को दोबारा लिखना होगा?">
 
-नहीं। `@intlayer/i18next`, `@intlayer/react-i18next` और `@intlayer/next-i18next` `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, `_one` / `_other` बहुवचन, संदर्भ प्रत्यय और `returnObjects` को बनाए रखते हैं। `next.config.ts` या `vite.config.ts` में केवल एक प्लगइन लाइन। [next-i18next माइग्रेशन गाइड](https://intlayer.org/hi/doc/migration/next-i18next) में चरण-दर-चरण।
+नहीं। `@intlayer/i18next`, `@intlayer/react-i18next` और `@intlayer/next-i18next` `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, `_one` / `_other` बहुवचन, संदर्भ प्रत्यय और `returnObjects` को बनाए रखते हैं। `next.config.ts` या `vite.config.ts` में केवल एक प्लगइन लाइन। [next-i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-i18next_to_intlayer.md) में चरण-दर-चरण।
 
 </Question>
 
 <Question title="मेरे i18next प्लगइन्स का क्या होता है?">
 
-बैकएंड और भाषा डिटेक्टर स्वीकार किए जाते हैं लेकिन निष्क्रिय रहते हैं: रनटाइम पर लोड या पता लगाने के लिए कुछ नहीं बचता है। भाषा का पता लगाना Intlayer का रूटिंग कॉन्फ़िगरेशन (URL उपसर्ग, कुकी, हेडर) बन जाता है। यदि आपका ऐप अनुरोध के समय CMS से अनुवाद प्राप्त करता है, तो इसके बजाय [Intlayer CMS](https://intlayer.org/hi/doc/concept/cms) या `intlayer pull` / `push` का उपयोग करें।
+बैकएंड और भाषा डिटेक्टर स्वीकार किए जाते हैं लेकिन निष्क्रिय रहते हैं: रनटाइम पर लोड या पता लगाने के लिए कुछ नहीं बचता है। भाषा का पता लगाना Intlayer का रूटिंग कॉन्फ़िगरेशन (URL उपसर्ग, कुकी, हेडर) बन जाता है। यदि आपका ऐप अनुरोध के समय CMS से अनुवाद प्राप्त करता है, तो इसके बजाय [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) या `intlayer pull` / `push` का उपयोग करें।
 
 </Question>
 
@@ -520,27 +520,27 @@ export default defineConfig({
 
 वही बेंचमार्क, अन्य लाइब्रेरीज़:
 
-- [next-intl vs Intlayer](https://intlayer.org/hi/blog/next-intl-vs-intlayer)
-- [Lingui vs Intlayer](https://intlayer.org/hi/blog/lingui-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/hi/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/hi/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/hi/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/react-i18next_vs_react-intl_vs_intlayer.md)
 
 i18next पर और आगे जानें:
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/hi/blog/i18next-vs-intlayer-i18next), उसी ऐप पर मापे गए एडेप्टर
-- [क्या i18next पुराना हो चुका है?](https://intlayer.org/hi/blog/is-i18next-outdated)
-- [i18next के साथ Intlayer का उपयोग करना](https://intlayer.org/hi/blog/intlayer-with-i18next) और [react-i18next के साथ](https://intlayer.org/hi/blog/intlayer-with-react-i18next)
-- [next-i18next के साथ Next.js ऐप का अंतर्राष्ट्रीयकरण कैसे करें](https://intlayer.org/hi/blog/nextjs-internationalization-using-next-i18next)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer-i18next.md), उसी ऐप पर मापे गए एडेप्टर
+- [क्या i18next पुराना हो चुका है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_i18next_outdated.md)
+- [i18next के साथ Intlayer का उपयोग करना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/intlayer_with_i18next.md) और [react-i18next के साथ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/intlayer_with_react-i18next.md)
+- [next-i18next के साथ Next.js ऐप का अंतर्राष्ट्रीयकरण कैसे करें](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_next-i18next.md)
 
 संदर्भ दस्तावेज़:
 
-- [Next.js बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/nextjs) और [TanStack Start बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/tanstack)
-- संगतता एडेप्टर: [i18next](https://intlayer.org/hi/doc/compatibility/i18next), [react-i18next](https://intlayer.org/hi/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/hi/doc/compatibility/next-i18next)
-- माइग्रेशन गाइड: [i18next](https://intlayer.org/hi/doc/migration/i18next), [react-i18next](https://intlayer.org/hi/doc/migration/react-i18next), [next-i18next](https://intlayer.org/hi/doc/migration/next-i18next)
-- [बंडल अनुकूलन](https://intlayer.org/hi/doc/concept/bundle-optimization) और [Intlayer कंपाइलर](https://intlayer.org/hi/doc/compiler)
-- [प्रति-कंपोनेंट बनाम केंद्रीकृत i18n](https://intlayer.org/hi/blog/per-component-vs-centralized-i18n)
-- [कंपाइलर-संचालित बनाम घोषणात्मक i18n](https://intlayer.org/hi/blog/compiler-vs-declarative-i18n)
+- [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) और [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
+- संगतता एडेप्टर: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-i18next.md)
+- माइग्रेशन गाइड: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-i18next_to_intlayer.md)
+- [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+- [प्रति-कंपोनेंट बनाम केंद्रीकृत i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md)
+- [कंपाइलर-संचालित बनाम घोषणात्मक i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
 
 ## GitHub स्टार्स
 
@@ -556,4 +556,4 @@ Intlayer इस पूरे कार्य को कंपाइलर पर
 
 सभी आंकड़े, परीक्षण एप्लिकेशन और स्क्रिप्ट [Benchmark Bloom रिपॉजिटरी](https://github.com/intlayer-org/benchmark-bloom) में सार्वजनिक रूप से उपलब्ध हैं।
 
-अधिक जानकारी के लिए ['Intlayer क्यों चुनें?' दस्तावेज़](https://intlayer.org/hi/doc/why) देखें।
+अधिक जानकारी के लिए ['Intlayer क्यों चुनें?' दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।

@@ -81,7 +81,7 @@ height="600px"
 style="border:none;"
 />
 
-> تم الاختبار في متصفحات فعلية مع تفعيل ضغط gzip. التفاصيل متوفرة في [توثيق مقارنة أداء Vue](https://intlayer.org/ar/doc/benchmark/vue).
+> تم الاختبار في متصفحات فعلية مع تفعيل ضغط gzip. التفاصيل متوفرة في [توثيق مقارنة أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md).
 
 ### العبء الأولي للمكتبات
 
@@ -171,7 +171,7 @@ const { title } = useIntlayer("hero");
   </Tab>
 </Tabs>
 
-يستطيع [مترجم Intlayer](https://intlayer.org/ar/doc/compiler) تتبع الخصائص المطلوبة تحديداً واستبعاد ما عداها قبل بناء ملفات العميل. تعرف على المزيد في [تحسين الحزم](https://intlayer.org/ar/doc/concept/bundle-optimization).
+يستطيع [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) تتبع الخصائص المطلوبة تحديداً واستبعاد ما عداها قبل بناء ملفات العميل. تعرف على المزيد في [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
 
 ## تجربة المطورين
 
@@ -248,17 +248,17 @@ const { title } = useIntlayer("hero");
 
 توفر `DefineLocaleMessage` اقتراحات بناءً على ملف اللغة الأساسية. لكنها تعجز عن رصد النقص في بقية اللغات. فغياب مفتاح من `ar.json` لن يعرقل بناء TypeScript.
 
-في Intlayer، تخضع القواميس لتدقيق حازم. وتفعيل [`strictMode`](https://intlayer.org/ar/doc/concept/configuration) يوقف البناء فوراً إذا كانت هناك ترجمة ناقصة في أي لغة مستهدفة.
+في Intlayer، تخضع القواميس لتدقيق حازم. وتفعيل [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) يوقف البناء فوراً إذا كانت هناك ترجمة ناقصة في أي لغة مستهدفة.
 
 ### أدوات المحررات والذكاء الاصطناعي
 
-| الأداة                        | `vue-i18n`                 | Intlayer                                                               |
-| ----------------------------- | -------------------------- | ---------------------------------------------------------------------- |
-| **إضافة VS Code**             | إضافات مجتمعية (i18n Ally) | ✅ [إضافة رسمية](https://intlayer.org/ar/doc/vs-code-extension)        |
-| **خادم اللغة (LSP)**          | ❌ غير متوفر               | ✅ [LSP مخصص](https://intlayer.org/ar/doc/lsp)                         |
-| **خادم MCP للذكاء الاصطناعي** | ❌ غير متوفر               | ✅ [خادم MCP مدمج](https://intlayer.org/ar/doc/mcp-server)             |
-| **مهارات الوكلاء (Skills)**   | ❌ غير متوفر               | ✅ [مهارات ذاتية](https://intlayer.org/ar/doc/agent_skills)            |
-| **نظام CMS مرئي**             | ❌ غير متوفر               | ✅ [نظام CMS مفتوح ومجاني](https://intlayer.org/ar/doc/concept/editor) |
+| الأداة                        | `vue-i18n`                 | Intlayer                                                                                                            |
+| ----------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **إضافة VS Code**             | إضافات مجتمعية (i18n Ally) | ✅ [إضافة رسمية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)                |
+| **خادم اللغة (LSP)**          | ❌ غير متوفر               | ✅ [LSP مخصص](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)                                 |
+| **خادم MCP للذكاء الاصطناعي** | ❌ غير متوفر               | ✅ [خادم MCP مدمج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)                     |
+| **مهارات الوكلاء (Skills)**   | ❌ غير متوفر               | ✅ [مهارات ذاتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)                    |
+| **نظام CMS مرئي**             | ❌ غير متوفر               | ✅ [نظام CMS مفتوح ومجاني](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) |
 
 ## إدارة الترجمات
 
@@ -272,7 +272,7 @@ const { title } = useIntlayer("hero");
 
 **نظام إدارة محتوى مرئي ذاتي الاستضافة:**
 
-شغّل [Intlayer CMS](https://intlayer.org/ar/doc/concept/cms) لتمكين كتاب المحتوى من تعديل العبارات برؤية حية مع الحفظ المباشر في Git.
+شغّل [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لتمكين كتاب المحتوى من تعديل العبارات برؤية حية مع الحفظ المباشر في Git.
 
 **ترخيص مفتوح:**
 
@@ -328,9 +328,9 @@ bunx intlayer init --interactive
 
 للاطلاع على الخطوات التفصيلية، راجع أدلتنا المتخصصة:
 
-- **توافق مباشر وسريع:** حافظ على شفرات القوالب عبر استخدام [طبقة التوافق مع `vue-i18n`](https://intlayer.org/ar/doc/compatibility/vue-i18n) أو [`@nuxtjs/i18n`](https://intlayer.org/ar/doc/compatibility/nuxtjs-i18n).
-- **أدلة النقل والتحويل:** حول ملفات JSON الحالية إلى قواميس منظمة بمساعدة أدلتنا: [من vue-i18n](https://intlayer.org/ar/doc/migration/vue-i18n) أو [من @nuxtjs/i18n](https://intlayer.org/ar/doc/migration/nuxtjs-i18n).
-- **الدمج المرحلي:** يمكنك ترك `vue-i18n` في وقت التشغيل، مع [استخدام Intlayer مع vue-i18n](https://intlayer.org/ar/blog/intlayer-with-vue-i18n) لإدخال تدقيق الأنواع الصارم والترجمة بالذكاء الاصطناعي محلياً.
+- **توافق مباشر وسريع:** حافظ على شفرات القوالب عبر استخدام [طبقة التوافق مع `vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md) أو [`@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md).
+- **أدلة النقل والتحويل:** حول ملفات JSON الحالية إلى قواميس منظمة بمساعدة أدلتنا: [من vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_vue-i18n_to_intlayer.md) أو [من @nuxtjs/i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_nuxtjs_i18n_to_intlayer.md).
+- **الدمج المرحلي:** يمكنك ترك `vue-i18n` في وقت التشغيل، مع [استخدام Intlayer مع vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_vue-i18n.md) لإدخال تدقيق الأنواع الصارم والترجمة بالذكاء الاصطناعي محلياً.
 
 افحص حمولة وتوافق موقعك عبر [ماسح SEO للتدويل المجاني](https://intlayer.org/i18n-seo-scanner):
 
@@ -338,7 +338,7 @@ bunx intlayer init --interactive
 
 ## مقالات مقترحة
 
-- [مقارنة أداء تدويل Vue وVite: دراسة معمقة](https://intlayer.org/ar/doc/benchmark/vue)
-- [مقارنة تفصيلية بين vue-i18n و Intlayer](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer)
-- [هل أصبحت مكتبة next-intl قديمة في 2026؟](https://intlayer.org/ar/blog/is-next-intl-outdated)
-- [التدويل المعتمد على المترجم في مقابل النموذج الإعلاني](https://intlayer.org/ar/blog/compiler-vs-declarative-i18n)
+- [مقارنة أداء تدويل Vue وVite: دراسة معمقة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md)
+- [مقارنة تفصيلية بين vue-i18n و Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md)
+- [هل أصبحت مكتبة next-intl قديمة في 2026؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_next-intl_outdated.md)
+- [التدويل المعتمد على المترجم في مقابل النموذج الإعلاني](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)

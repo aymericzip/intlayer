@@ -22,7 +22,7 @@ author: aymericzip
 
 結論から言うと、軽いです。
 
-`Paraglide` は極めて軽量な i18n ソリューションとして知られており、一見すると [ベンチマーク](https://intlayer.org/ja/doc/benchmark/tanstack) でもそれが裏付けられているように見えます。ライブラリサイズはほぼゼロです。しかし、ライブラリサイズがゼロであることは、配信されるバイト数がゼロであることを意味しません。その指標がカウントしていない別の場所にバイトが隠れているに過ぎません。
+`Paraglide` は極めて軽量な i18n ソリューションとして知られており、一見すると [ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md) でもそれが裏付けられているように見えます。ライブラリサイズはほぼゼロです。しかし、ライブラリサイズがゼロであることは、配信されるバイト数がゼロであることを意味しません。その指標がカウントしていない別の場所にバイトが隠れているに過ぎません。
 
 <TOC/>
 
@@ -93,7 +93,7 @@ Next.js 16 App Router、同一アプリケーション：
 
 <I18nBenchmark framework="tanstack" vertical/>
 
-> 詳細なデータは [TanStack Start ベンチマークレポート](https://intlayer.org/ja/doc/benchmark/tanstack) および [Next.js ベンチマークレポート](https://intlayer.org/ja/doc/benchmark/nextjs) を参照してください。すべてのバンドルは [ベンチマークリポジトリ](https://github.com/intlayer-org/benchmark-i18n) で確認できます。
+> 詳細なデータは [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md) および [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) を参照してください。すべてのバンドルは [ベンチマークリポジトリ](https://github.com/intlayer-org/benchmark-i18n) で確認できます。
 
 2 つの重要な事実が浮き彫りになります：
 
@@ -198,7 +198,7 @@ export const Hero = () => {
 
 Paraglide の最大のセールスポイントは、各メッセージが独立したエクスポートであるため、使用されていないメッセージが Tree Shaking によって削除されることです。Svelte + Vite のベンチマークでは、宣伝どおりに動作します。
 
-しかし、他の環境ではそうではありませんでした。[Next.js](https://intlayer.org/ja/doc/benchmark/nextjs) の計測では、Paraglide のページはベースアプリより 14 KB 増加したのに対し、`next-intlayer` の増加は 0.3 KB にとどまりました。TanStack Start の初期計測でも、他のページのメッセージがルートバンドルに混入していることが確認されました。
+しかし、他の環境ではそうではありませんでした。[Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) の計測では、Paraglide のページはベースアプリより 14 KB 増加したのに対し、`next-intlayer` の増加は 0.3 KB にとどまりました。TanStack Start の初期計測でも、他のページのメッセージがルートバンドルに混入していることが確認されました。
 
 Tree Shaking の成否は、バンドラー（Turbopack、Rolldown、Rollup）、メッセージのインポート方法（`import { m }` vs `import * as m`）、および副作用（Side Effects）の解析精度に左右されます。サイズを理由に Paraglide を採用する場合は、バンドルアナライザーを開いて、ご自身のアプリで正しく動作しているか確認してください。
 
@@ -234,7 +234,7 @@ export default config;
 | `dynamic`    | 現在のロケールのみ、辞書ごとに遅延読み込み | N 言語の場合、**N 分の 1 に軽量化** |
 | `fetch`      | 現在のロケールのみ、Live Sync API から取得 | N 言語の場合、**N 分の 1 に軽量化** |
 
-[ビルド変換](https://intlayer.org/ja/doc/concept/bundle-optimization) と `importMode: 'static'` を組み合わせることで、Intlayer は理論上 Paraglide とまったく同じ容量を配信します。`'dynamic'` または `'fetch'` を使用すれば、現在のロケールに必要なものだけを読み込むため、N 言語対応のアプリでは翻訳ペイロードが Paraglide と比較して N 分の 1 に削減されます。
+[ビルド変換](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) と `importMode: 'static'` を組み合わせることで、Intlayer は理論上 Paraglide とまったく同じ容量を配信します。`'dynamic'` または `'fetch'` を使用すれば、現在のロケールに必要なものだけを読み込むため、N 言語対応のアプリでは翻訳ペイロードが Paraglide と比較して N 分の 1 に削減されます。
 
 ## Paraglide が適しているユースケース
 
@@ -277,8 +277,8 @@ bunx intlayer init --interactive
 
 ## 関連リファレンス
 
-- [TanStack Start i18n ベンチマーク](https://intlayer.org/ja/doc/benchmark/tanstack)
-- [Next.js i18n ベンチマーク](https://intlayer.org/ja/doc/benchmark/nextjs)
-- [バンドル最適化と `importMode`](https://intlayer.org/ja/doc/concept/bundle-optimization)
-- [React 向け i18n ライブラリの選び方](https://intlayer.org/ja/blog/how-to-pick-react-i18n-library)
-- [コンパイラ駆動型国際化のメリットとデメリット](https://intlayer.org/ja/blog/compiler-vs-declarative-i18n)
+- [TanStack Start i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
+- [Next.js i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+- [バンドル最適化と `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+- [React 向け i18n ライブラリの選び方](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_react_i18n_library.md)
+- [コンパイラ駆動型国際化のメリットとデメリット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)

@@ -473,7 +473,7 @@ Intlayer генерує визначення типів у прихованій 
 - **Вбудовані попередні перегляди** перекладеного вмісту.
 - **Швидкі дії** для зручного створення та оновлення перекладів.
 
-Для детальнішої інформації про використання розширення див. документацію [Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+Для детальнішої інформації про використання розширення див. документацію [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md).
 
 ## Додаткові можливості
 

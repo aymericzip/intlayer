@@ -426,7 +426,7 @@ Intlayer使用模組擴充（Module Augmentation）來獲得TypeScript的好處�
 - 已翻譯內容的**內聯預覽**。
 - 輕鬆創建和更新翻譯的**快速操作**。
 
-有關如何使用該擴展的更多詳細資訊，請參閱 [Intlayer VS Code 擴展範例文件](https://intlayer.org/doc/vs-code-extension)。
+有關如何使用該擴展的更多詳細資訊，請參閱 [Intlayer VS Code 擴展範例文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)。
 
 ### 深入了解
 

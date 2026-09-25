@@ -1010,7 +1010,7 @@ Intlayer와 함께하는 개발 환경을 개선하기 위해 공식 **Intlayer 
 - 번역된 콘텐츠의 **인라인 미리보기**.
 - 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업(Quick actions)**.
 
-확장 프로그램 사용법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+확장 프로그램 사용법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
 
 ### 더 나아가기
 
@@ -1026,7 +1026,7 @@ Vite 자체는 i18n에 대해 특정 방식을 강제하지 않으므로 React �
 
 - **`react-i18next` / `i18next`**: 가장 널리 사용되며, 런타임에 JSON 네임스페이스를 로드합니다.
 - **`react-intl`** 및 **`Lingui`**: ICU 메시지 포맷 기반이며, 추출(extraction) 방식을 사용합니다.
-- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)), 빌드 타임에 Vite 플러그인을 통해 컴파일되고, 완전한 타입 안전성을 제공하며 AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
+- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)), 빌드 타임에 Vite 플러그인을 통해 컴파일되고, 완전한 타입 안전성을 제공하며 AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
 
 특히 Vite에서 Intlayer는 빌드 프로세스에 직접 연결되므로 번역이 런타임에 JSON으로 가져오는 대신 컴파일 타임에 해석되고 트리 쉐이킹(tree-shaking)됩니다. [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)와 [벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참조하세요.
 

@@ -393,7 +393,7 @@ export const getLocale = (event: RequestEvent): Locale => {
 };
 ```
 
-> `getLocaleFromStorage` 将根据你的配置从 header 或 cookie 检查语言环境。有关更多详情，请参阅[配置](https://intlayer.org/doc/concept/configuration)。
+> `getLocaleFromStorage` 将根据你的配置从 header 或 cookie 检查语言环境。有关更多详情，请参阅[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 > `localeDetector` 函数将处理 `Accept-Language` header 并返回最佳匹配。
 
@@ -784,7 +784,7 @@ bun run build # 或 bun run dev
 
 - **`svelte-i18n`** 和 **`typesafe-i18n`**：基于 Store 的消息目录，需要手动组装进 load 函数中。
 - **`Paraglide`**：具有强大类型提示的编译型消息方案，但仅专注于消息层。
-- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），并在构建时进行编译，提供支持语言环境的路由、服务端语言环境检测、AI 翻译、可视化编辑器和 CMS。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），并在构建时进行编译，提供支持语言环境的路由、服务端语言环境检测、AI 翻译、可视化编辑器和 CMS。
 
 在 SvelteKit 上，差异主要体现在服务端能力上：Hooks 中的语言环境检测、本地化链接以及编辑器集成都是库内置自带的，无需每个项目手动搭建组装。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [Svelte i18n 性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md)。
 

@@ -81,7 +81,7 @@ height="600px"
 style="border:none;"
 />
 
-> Đo lường trong môi trường trình duyệt thật với nén gzip production. Số liệu đầy đủ xem tại [tài liệu benchmark Vue](https://intlayer.org/vi/doc/benchmark/vue).
+> Đo lường trong môi trường trình duyệt thật với nén gzip production. Số liệu đầy đủ xem tại [tài liệu benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md).
 
 ### Kích Thước Cơ Bản Ban Đầu
 
@@ -171,7 +171,7 @@ const { title } = useIntlayer("hero");
   </Tab>
 </Tabs>
 
-[Trình biên dịch Intlayer](https://intlayer.org/vi/doc/compiler) theo dõi trực tiếp các thuộc tính được truy cập và lược bỏ dữ liệu thừa trước khi đóng gói các file cho client. Xem chi tiết tại [tối ưu hóa bundle](https://intlayer.org/vi/doc/concept/bundle-optimization).
+[Trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) theo dõi trực tiếp các thuộc tính được truy cập và lược bỏ dữ liệu thừa trước khi đóng gói các file cho client. Xem chi tiết tại [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
 
 ## Trải Nghiệm Lập Trình Viên (DX)
 
@@ -248,17 +248,17 @@ Khi bạn đổi tên hoặc xóa `Hero.vue`, file nội dung đi kèm cũng đ�
 
 `DefineLocaleMessage` mang đến gợi ý mã dựa trên schema ban đầu. Tuy nhiên, nó không đảm bảo tất cả các ngôn ngữ đều đầy đủ. Việc xóa một khóa khỏi `vi.json` không hề khiến tiến trình build của TypeScript bị gián đoạn.
 
-Với Intlayer, từ điển được kiểm định chặt chẽ. Kích hoạt [`strictMode`](https://intlayer.org/vi/doc/concept/configuration) sẽ khiến bản build báo lỗi ngay lập tức nếu thiếu bản dịch ở bất kỳ ngôn ngữ nào.
+Với Intlayer, từ điển được kiểm định chặt chẽ. Kích hoạt [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md) sẽ khiến bản build báo lỗi ngay lập tức nếu thiếu bản dịch ở bất kỳ ngôn ngữ nào.
 
 ### Công Cụ Trình Soạn Thảo Và AI
 
-| Tính năng                 | `vue-i18n`             | Intlayer                                                                  |
-| ------------------------- | ---------------------- | ------------------------------------------------------------------------- |
-| **VS Code Extension**     | Bên thứ ba (i18n Ally) | ✅ [Extension chính thức](https://intlayer.org/vi/doc/vs-code-extension)  |
-| **Language Server (LSP)** | ❌ Không có            | ✅ [LSP chuyên dụng](https://intlayer.org/vi/doc/lsp)                     |
-| **MCP Server cho AI**     | ❌ Không có            | ✅ [Tích hợp sẵn MCP server](https://intlayer.org/vi/doc/mcp-server)      |
-| **Kỹ năng cho Agent**     | ❌ Không có            | ✅ [Kỹ năng độc lập](https://intlayer.org/vi/doc/agent_skills)            |
-| **CMS Trực Quan**         | ❌ Không có            | ✅ [CMS mã nguồn mở miễn phí](https://intlayer.org/vi/doc/concept/editor) |
+| Tính năng                 | `vue-i18n`             | Intlayer                                                                                                               |
+| ------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **VS Code Extension**     | Bên thứ ba (i18n Ally) | ✅ [Extension chính thức](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)          |
+| **Language Server (LSP)** | ❌ Không có            | ✅ [LSP chuyên dụng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md)                             |
+| **MCP Server cho AI**     | ❌ Không có            | ✅ [Tích hợp sẵn MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)              |
+| **Kỹ năng cho Agent**     | ❌ Không có            | ✅ [Kỹ năng độc lập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)                    |
+| **CMS Trực Quan**         | ❌ Không có            | ✅ [CMS mã nguồn mở miễn phí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) |
 
 ## Quy Trình Dịch Thuật
 
@@ -272,7 +272,7 @@ Dịch các khóa còn thiếu bằng chính khóa API OpenAI, Anthropic, Mistra
 
 **CMS Trực Quan Tự Host:**
 
-Triển khai [Intlayer CMS](https://intlayer.org/vi/doc/concept/cms) để đội ngũ nội dung có thể chỉnh sửa văn bản trực quan với khả năng lưu trực tiếp vào Git.
+Triển khai [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) để đội ngũ nội dung có thể chỉnh sửa văn bản trực quan với khả năng lưu trực tiếp vào Git.
 
 **Giấy Phép Mã Nguồn Mở:**
 
@@ -328,9 +328,9 @@ Công cụ CLI tương tác này sẽ tự động:
 
 Để xem hướng dẫn chi tiết từng bước, hãy tham khảo các tài liệu chuyên sâu:
 
-- **Tương thích tức thì:** Giữ nguyên các template hiện có bằng cách dùng [tầng tương thích `vue-i18n`](https://intlayer.org/vi/doc/compatibility/vue-i18n) hoặc [`@nuxtjs/i18n`](https://intlayer.org/vi/doc/compatibility/nuxtjs-i18n).
-- **Hướng dẫn chuyển đổi:** Chuyển file JSON sang từ điển có cấu trúc qua các hướng dẫn: [từ vue-i18n](https://intlayer.org/vi/doc/migration/vue-i18n) hoặc [từ @nuxtjs/i18n](https://intlayer.org/vi/doc/migration/nuxtjs-i18n).
-- **Giải pháp kết hợp:** Giữ lại `vue-i18n` ở runtime trong khi [kết hợp Intlayer với vue-i18n](https://intlayer.org/vi/blog/intlayer-with-vue-i18n) để có được sự an toàn kiểu dữ liệu và tính năng dịch AI cục bộ.
+- **Tương thích tức thì:** Giữ nguyên các template hiện có bằng cách dùng [tầng tương thích `vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) hoặc [`@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md).
+- **Hướng dẫn chuyển đổi:** Chuyển file JSON sang từ điển có cấu trúc qua các hướng dẫn: [từ vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_vue-i18n_to_intlayer.md) hoặc [từ @nuxtjs/i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_nuxtjs_i18n_to_intlayer.md).
+- **Giải pháp kết hợp:** Giữ lại `vue-i18n` ở runtime trong khi [kết hợp Intlayer với vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_vue-i18n.md) để có được sự an toàn kiểu dữ liệu và tính năng dịch AI cục bộ.
 
 Đo lường dung lượng và độ rò rỉ của trang web với [công cụ quét SEO i18n miễn phí](https://intlayer.org/i18n-seo-scanner):
 
@@ -338,7 +338,7 @@ Công cụ CLI tương tác này sẽ tự động:
 
 ## Bài Viết Nên Đọc
 
-- [Vue & Vite i18n Benchmark: Đánh Giá Chi Tiết Hiệu Năng](https://intlayer.org/vi/doc/benchmark/vue)
-- [So Sánh vue-i18n và Intlayer](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer)
-- [Liệu next-intl Đã Lỗi Thời Vào Năm 2026?](https://intlayer.org/vi/blog/is-next-intl-outdated)
-- [Quốc Tế Hóa Dựa Trên Trình Biên Dịch vs Khai Báo](https://intlayer.org/vi/blog/compiler-vs-declarative-i18n)
+- [Vue & Vite i18n Benchmark: Đánh Giá Chi Tiết Hiệu Năng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md)
+- [So Sánh vue-i18n và Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md)
+- [Liệu next-intl Đã Lỗi Thời Vào Năm 2026?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_next-intl_outdated.md)
+- [Quốc Tế Hóa Dựa Trên Trình Biên Dịch vs Khai Báo](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)

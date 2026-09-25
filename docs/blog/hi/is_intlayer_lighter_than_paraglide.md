@@ -22,7 +22,7 @@ author: aymericzip
 
 हाँ।
 
-`Paraglide` सबसे हल्के i18n समाधान के रूप में जाना जाता है, और पहली नज़र में [बेंचमार्क](https://intlayer.org/hi/doc/benchmark/tanstack) भी इससे सहमत दिखता है: इसका लाइब्रेरी साइज शून्य के करीब है। लेकिन शून्य लाइब्रेरी साइज का मतलब यह नहीं है कि ब्राउज़र को शून्य बाइट भेजे गए हैं। इसका सीधा सा मतलब है कि बाइट्स ऐसी जगह मौजूद हैं जहाँ यह मेट्रिक ध्यान नहीं देती।
+`Paraglide` सबसे हल्के i18n समाधान के रूप में जाना जाता है, और पहली नज़र में [बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) भी इससे सहमत दिखता है: इसका लाइब्रेरी साइज शून्य के करीब है। लेकिन शून्य लाइब्रेरी साइज का मतलब यह नहीं है कि ब्राउज़र को शून्य बाइट भेजे गए हैं। इसका सीधा सा मतलब है कि बाइट्स ऐसी जगह मौजूद हैं जहाँ यह मेट्रिक ध्यान नहीं देती।
 
 <TOC/>
 
@@ -93,7 +93,7 @@ Next.js 16 App Router, समान ऐप:
 
 <I18nBenchmark framework="tanstack" vertical/>
 
-> संपूर्ण डेटा [TanStack Start बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/tanstack) और [Next.js बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/nextjs) में उपलब्ध है। प्रत्येक बंडल का निरीक्षण [बेंचमार्क रिपॉजिटरी](https://github.com/intlayer-org/benchmark-i18n) में किया जा सकता है।
+> संपूर्ण डेटा [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) और [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) में उपलब्ध है। प्रत्येक बंडल का निरीक्षण [बेंचमार्क रिपॉजिटरी](https://github.com/intlayer-org/benchmark-i18n) में किया जा सकता है।
 
 दो बातें स्पष्ट रूप से सामने आती हैं:
 
@@ -198,7 +198,7 @@ export const Hero = () => {
 
 Paraglide का मुख्य वादा यह है कि अप्रयुक्त संदेशों को Tree shaking द्वारा हटा दिया जाता है, क्योंकि प्रत्येक संदेश अपना स्वयं का निर्यात होता है। Svelte + Vite बेंचमार्क में, यह विज्ञापनों के अनुसार काम करता है।
 
-अन्य सेटअपों में ऐसा नहीं हुआ। हमारे [Next.js](https://intlayer.org/hi/doc/benchmark/nextjs) परीक्षण में, Paraglide के पेज बेस ऐप से 14 KB अधिक भारी थे, जबकि `next-intlayer` ने केवल 0.3 KB जोड़ा। TanStack Start पर पहले के परीक्षणों से यह भी पता चला कि अन्य पेजों के संदेश भी वर्तमान रूट बंडल में शामिल हो रहे थे।
+अन्य सेटअपों में ऐसा नहीं हुआ। हमारे [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) परीक्षण में, Paraglide के पेज बेस ऐप से 14 KB अधिक भारी थे, जबकि `next-intlayer` ने केवल 0.3 KB जोड़ा। TanStack Start पर पहले के परीक्षणों से यह भी पता चला कि अन्य पेजों के संदेश भी वर्तमान रूट बंडल में शामिल हो रहे थे।
 
 Tree shaking आपके बंडलर (Turbopack, Rolldown, Rollup), संदेशों को आयात करने के तरीके (`import { m }` बनाम `import * as m`) और साइड-इफेक्ट विश्लेषण पर निर्भर करता है। यदि आप इसके आकार के कारण Paraglide चुनते हैं, तो अपने बंडल विज़ुअलाइज़र को खोलें और सत्यापित करें कि यह आपके ऐप में सही काम कर रहा है या नहीं।
 
@@ -234,7 +234,7 @@ export default config;
 | `dynamic`    | केवल वर्तमान लोकेल, प्रति डिक्शनरी लेज़ी-लोड किया गया  | N भाषाओं में **N गुना अधिक हल्का** |
 | `fetch`      | केवल वर्तमान लोकेल, Live Sync API के माध्यम से प्राप्त | N भाषाओं में **N गुना अधिक हल्का** |
 
-[बिल्ड ट्रांसफ़ॉर्मेशन](https://intlayer.org/hi/doc/concept/bundle-optimization) और `importMode: 'static'` के साथ, Intlayer सैद्धांतिक रूप से Paraglide के समान ही सामग्री लोड करता है। `'dynamic'` या `'fetch'` के साथ, यह केवल वही लोड करता है जिसकी वर्तमान लोकेल को आवश्यकता होती है: N भाषाओं वाले ऐप के लिए, अनुवाद पेलोड Paraglide की तुलना में N गुना छोटा होता है।
+[बिल्ड ट्रांसफ़ॉर्मेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और `importMode: 'static'` के साथ, Intlayer सैद्धांतिक रूप से Paraglide के समान ही सामग्री लोड करता है। `'dynamic'` या `'fetch'` के साथ, यह केवल वही लोड करता है जिसकी वर्तमान लोकेल को आवश्यकता होती है: N भाषाओं वाले ऐप के लिए, अनुवाद पेलोड Paraglide की तुलना में N गुना छोटा होता है।
 
 ## Paraglide कहाँ अभी भी उपयुक्त है
 
@@ -277,8 +277,8 @@ bunx intlayer init --interactive
 
 ## अतिरिक्त संदर्भ
 
-- [TanStack Start i18n बेंचमार्क](https://intlayer.org/hi/doc/benchmark/tanstack)
-- [Next.js i18n बेंचमार्क](https://intlayer.org/hi/doc/benchmark/nextjs)
-- [बंडल अनुकूलन और `importMode`](https://intlayer.org/hi/doc/concept/bundle-optimization)
-- [React i18n लाइब्रेरी कैसे चुनें](https://intlayer.org/hi/blog/how-to-pick-react-i18n-library)
-- [कंपाइलर-संचालित अंतर्राष्ट्रीयकरण के पक्ष और विपक्ष](https://intlayer.org/hi/blog/compiler-vs-declarative-i18n)
+- [TanStack Start i18n बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
+- [Next.js i18n बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+- [बंडल अनुकूलन और `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
+- [React i18n लाइब्रेरी कैसे चुनें](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_react_i18n_library.md)
+- [कंपाइलर-संचालित अंतर्राष्ट्रीयकरण के पक्ष और विपक्ष](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)

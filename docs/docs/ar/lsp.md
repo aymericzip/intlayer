@@ -92,7 +92,7 @@ bun add --dev @intlayer/lsp
 
 ثبّت [إضافة Intlayer لـ VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). خادم اللغة مُضمَّن منذ الإصدار v8.12.0 ويبدأ تلقائيًا — **لا حاجة إلى أي إعداد**.
 
-راجع [توثيق إضافة VS Code](https://intlayer.org/doc/vs-code-extension) للاطلاع على بقية المزايا.
+راجع [توثيق إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md) للاطلاع على بقية المزايا.
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">

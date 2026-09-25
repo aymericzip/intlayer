@@ -132,7 +132,7 @@ height="600px"
 style="border:none;"
 />
 
-> Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://intlayer.org/vi/doc/benchmark/nextjs).
+> Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md).
 
 ### Kết quả trên TanStack Start (`react-i18next`)
 
@@ -163,7 +163,7 @@ height="600px"
 style="border:none;"
 />
 
-> Bảng đầy đủ trong [báo cáo benchmark TanStack Start](https://intlayer.org/vi/doc/benchmark/tanstack).
+> Bảng đầy đủ trong [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md).
 
 ## Nguyên nhân của sự chênh lệch: Global Instance vs Từ điển biên dịch
 
@@ -219,7 +219,7 @@ Intlayer loại bỏ hoàn toàn instance toàn cục. Nội dung được khai 
 
 `@intlayer/swc` / `@intlayer/babel` biết chính xác component nào cần từ điển nào, chỉ đóng gói đúng phần đó cho ngôn ngữ đang kích hoạt và loại bỏ nội dung thừa. Mô hình "scoped-dynamic" trở thành kết quả mặc định của quá trình build mà nhóm phát triển không phải bận tâm quản lý thủ công.
 
-> Để đạt được các thông số của dòng `dynamic`, bạn chỉ cần khai báo `dictionary.importMode: 'dynamic'` trong `intlayer.config.ts`. Chi tiết xem thêm tại [tài liệu tối ưu bundle](https://intlayer.org/vi/doc/concept/bundle-optimization).
+> Để đạt được các thông số của dòng `dynamic`, bạn chỉ cần khai báo `dictionary.importMode: 'dynamic'` trong `intlayer.config.ts`. Chi tiết xem thêm tại [tài liệu tối ưu bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
 
 ## Trải nghiệm lập trình viên (DX)
 
@@ -458,7 +458,7 @@ export default defineConfig({
 
 Trong bài đo kiểm, bản build tương thích của cùng ứng dụng Next.js đã giảm từ **218.5 KB xuống 150.7 KB** mỗi trang, từ **78.5 KB xuống 9.7 KB** mỗi component, tỷ lệ rò rỉ giảm từ **~90% về 0%**, và thời gian hydrate rút ngắn từ 15.6 ms xuống 11.3 ms mà không cần sửa bất kỳ dòng mã nghiệp vụ nào. Các tệp `locales/{lng}/{ns}.json` hiện tại vẫn có thể được giữ làm nguồn dữ liệu chính thông qua plugin đồng bộ JSON.
 
-Xem hướng dẫn chuyển đổi: [i18next](https://intlayer.org/vi/doc/migration/i18next), [react-i18next](https://intlayer.org/vi/doc/migration/react-i18next), [next-i18next](https://intlayer.org/vi/doc/migration/next-i18next).
+Xem hướng dẫn chuyển đổi: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-i18next_to_intlayer.md).
 
 ## Khi nào nên chọn giải pháp nào?
 
@@ -470,12 +470,12 @@ Nếu bạn phụ thuộc chặt chẽ vào hệ sinh thái plugin (bộ nhận 
 </Accordion>
 <Accordion header="Chọn Intlayer">
 
-Bạn mong muốn **nội dung theo phạm vi component**, **TypeScript nghiêm ngặt**, **phát hiện thiếu khóa trong thời gian build**, **tree-shaking và lazy loading không tốn công sức**, chuyển đổi ngôn ngữ tức thì, server component đồng bộ và các công cụ biên tập tích hợp sẵn ([Visual Editor](https://intlayer.org/vi/doc/concept/editor), [CMS](https://intlayer.org/vi/doc/concept/cms), [dịch thuật AI](https://intlayer.org/vi/doc/concept/auto-fill), [MCP server](https://intlayer.org/vi/doc/mcp-server)). Đặc biệt phù hợp cho các codebase dạng module quy mô lớn và design system.
+Bạn mong muốn **nội dung theo phạm vi component**, **TypeScript nghiêm ngặt**, **phát hiện thiếu khóa trong thời gian build**, **tree-shaking và lazy loading không tốn công sức**, chuyển đổi ngôn ngữ tức thì, server component đồng bộ và các công cụ biên tập tích hợp sẵn ([Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md), [dịch thuật AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md), [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)). Đặc biệt phù hợp cho các codebase dạng module quy mô lớn và design system.
 
 </Accordion>
 <Accordion header="Chọn adapter @intlayer/*-i18next">
 
-Bạn đã sử dụng i18next và muốn tối ưu dung lượng bundle cùng độ phản hồi mà không cần viết lại component. Các tệp `locales/{lng}/{ns}.json` hiện tại vẫn là nguồn chân lý duy nhất. Được đo lường song song trong [i18next vs @intlayer/i18next](https://intlayer.org/vi/blog/i18next-vs-intlayer-i18next).
+Bạn đã sử dụng i18next và muốn tối ưu dung lượng bundle cùng độ phản hồi mà không cần viết lại component. Các tệp `locales/{lng}/{ns}.json` hiện tại vẫn là nguồn chân lý duy nhất. Được đo lường song song trong [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer-i18next.md).
 
 </Accordion>
 </AccordionGroup>
@@ -498,19 +498,19 @@ Nó giảm dung lượng byte, nhưng không giải quyết được độ trễ
 
 <Question title="Tôi có thể đạt 0% rò rỉ nội dung với i18next không?">
 
-Có, với `scoped-dynamic`: một namespace cho mỗi route, một backend tài nguyên và một bảng ánh xạ trang - namespace bạn tự quản lý thủ công. Kích thước trang đạt 163.4 KB trên Next.js, vẫn cao hơn **+22 KB** so với 141.3 KB của Intlayer vốn không cần bất kỳ cấu hình nào. Xem [tối ưu hóa bundle](https://intlayer.org/vi/doc/concept/bundle-optimization).
+Có, với `scoped-dynamic`: một namespace cho mỗi route, một backend tài nguyên và một bảng ánh xạ trang - namespace bạn tự quản lý thủ công. Kích thước trang đạt 163.4 KB trên Next.js, vẫn cao hơn **+22 KB** so với 141.3 KB của Intlayer vốn không cần bất kỳ cấu hình nào. Xem [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
 
 </Question>
 
 <Question title="Tôi có phải viết lại các component để di chuyển không?">
 
-Không. `@intlayer/i18next`, `@intlayer/react-i18next` và `@intlayer/next-i18next` giữ nguyên `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, các dạng số nhiều `_one` / `_other`, hậu tố ngữ cảnh và `returnObjects`. Chỉ một dòng plugin trong `next.config.ts` hoặc `vite.config.ts`. Chi tiết từng bước trong [hướng dẫn di chuyển next-i18next](https://intlayer.org/vi/doc/migration/next-i18next).
+Không. `@intlayer/i18next`, `@intlayer/react-i18next` và `@intlayer/next-i18next` giữ nguyên `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, các dạng số nhiều `_one` / `_other`, hậu tố ngữ cảnh và `returnObjects`. Chỉ một dòng plugin trong `next.config.ts` hoặc `vite.config.ts`. Chi tiết từng bước trong [hướng dẫn di chuyển next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-i18next_to_intlayer.md).
 
 </Question>
 
 <Question title="Điều gì xảy ra với các plugin i18next của tôi?">
 
-Các backend và plugin phát hiện ngôn ngữ vẫn được chấp nhận nhưng ở trạng thái bất hoạt: không còn gì để tải hoặc phát hiện trong thời gian chạy. Việc phát hiện ngôn ngữ trở thành cấu hình định tuyến của Intlayer (tiền tố URL, cookie, header). Nếu ứng dụng của bạn lấy bản dịch từ CMS tại thời điểm yêu cầu, hãy sử dụng [Intlayer CMS](https://intlayer.org/vi/doc/concept/cms) hoặc lệnh `intlayer pull` / `push` thay thế.
+Các backend và plugin phát hiện ngôn ngữ vẫn được chấp nhận nhưng ở trạng thái bất hoạt: không còn gì để tải hoặc phát hiện trong thời gian chạy. Việc phát hiện ngôn ngữ trở thành cấu hình định tuyến của Intlayer (tiền tố URL, cookie, header). Nếu ứng dụng của bạn lấy bản dịch từ CMS tại thời điểm yêu cầu, hãy sử dụng [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) hoặc lệnh `intlayer pull` / `push` thay thế.
 
 </Question>
 
@@ -520,27 +520,27 @@ Các backend và plugin phát hiện ngôn ngữ vẫn được chấp nhận nh
 
 Cùng benchmark, các thư viện khác:
 
-- [next-intl vs Intlayer](https://intlayer.org/vi/blog/next-intl-vs-intlayer)
-- [Lingui vs Intlayer](https://intlayer.org/vi/blog/lingui-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/vi/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/vi/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Tìm hiểu sâu hơn về i18next:
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/vi/blog/i18next-vs-intlayer-i18next), đo lường adapter trên cùng một ứng dụng
-- [i18next có bị lỗi thời không?](https://intlayer.org/vi/blog/is-i18next-outdated)
-- [Sử dụng Intlayer với i18next](https://intlayer.org/vi/blog/intlayer-with-i18next) và [với react-i18next](https://intlayer.org/vi/blog/intlayer-with-react-i18next)
-- [Cách quốc tế hóa ứng dụng Next.js với next-i18next](https://intlayer.org/vi/blog/nextjs-internationalization-using-next-i18next)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer-i18next.md), đo lường adapter trên cùng một ứng dụng
+- [i18next có bị lỗi thời không?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_i18next_outdated.md)
+- [Sử dụng Intlayer với i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_i18next.md) và [với react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_react-i18next.md)
+- [Cách quốc tế hóa ứng dụng Next.js với next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-i18next.md)
 
 Tài liệu tham khảo:
 
-- [Báo cáo benchmark Next.js](https://intlayer.org/vi/doc/benchmark/nextjs) và [báo cáo benchmark TanStack Start](https://intlayer.org/vi/doc/benchmark/tanstack)
-- Adapter tương thích: [i18next](https://intlayer.org/vi/doc/compatibility/i18next), [react-i18next](https://intlayer.org/vi/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/vi/doc/compatibility/next-i18next)
-- Hướng dẫn di chuyển: [i18next](https://intlayer.org/vi/doc/migration/i18next), [react-i18next](https://intlayer.org/vi/doc/migration/react-i18next), [next-i18next](https://intlayer.org/vi/doc/migration/next-i18next)
-- [Tối ưu hóa bundle](https://intlayer.org/vi/doc/concept/bundle-optimization) và [trình biên dịch Intlayer](https://intlayer.org/vi/doc/compiler)
-- [i18n theo component vs i18n tập trung](https://intlayer.org/vi/blog/per-component-vs-centralized-i18n)
-- [i18n dựa trên compiler vs khai báo](https://intlayer.org/vi/blog/compiler-vs-declarative-i18n)
+- [Báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md) và [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
+- Adapter tương thích: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-i18next.md)
+- Hướng dẫn di chuyển: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-i18next_to_intlayer.md)
+- [Tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [i18n theo component vs i18n tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md)
+- [i18n dựa trên compiler vs khai báo](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
 
 ## Lượt gắn sao trên GitHub
 
@@ -556,4 +556,4 @@ Intlayer chuyển toàn bộ gánh nặng này sang trình biên dịch. Từ đ
 
 Toàn bộ dữ liệu thô, ứng dụng mẫu và kịch bản thử nghiệm đều công khai tại [kho lưu trữ Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Bạn hoàn toàn có thể tự mình kiểm chứng.
 
-Tìm hiểu thêm tại tài liệu ['Tại sao chọn Intlayer?'](https://intlayer.org/vi/doc/why).
+Tìm hiểu thêm tại tài liệu ['Tại sao chọn Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md).

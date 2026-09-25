@@ -329,7 +329,7 @@ export default config;
 - **Вбудовані попередні перегляди** перекладеного вмісту.
 - **Швидкі дії** для легкого створення та оновлення перекладів.
 
-Для більш детальної інформації про використання розширення звертайтесь до [документації розширення Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+Для більш детальної інформації про використання розширення звертайтесь до [документації розширення Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md).
 
 ### Конфігурація Git
 

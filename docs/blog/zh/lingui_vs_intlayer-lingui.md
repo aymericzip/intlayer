@@ -27,7 +27,7 @@ author: aymericzip
 
 `@intlayer/lingui` 是针对 `@lingui/core` 和 `@lingui/react` 的兼容适配器。你的 `` t`...` ``、`<Trans>`、`useLingui()` 和 `i18n._()` 调用保持完全不变；宏继续正常编译；改变的是运行时消息的来源。每个调用点不再依赖每个语言环境一个编译好的全局目录，而是绑定到专门为其编译的 Intlayer 字典。
 
-本文在相同的 TanStack Start 应用程序上测量了这种替换，该程序分别使用纯 Lingui 和使用适配器构建了一次。这些数据来自 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)。关于这两个库作为独立库的对比，请阅读 [Lingui vs Intlayer](https://intlayer.org/zh/blog/lingui-vs-intlayer)。本文主要关注适配器改变了什么，以及在哪些方面它没有帮助。
+本文在相同的 TanStack Start 应用程序上测量了这种替换，该程序分别使用纯 Lingui 和使用适配器构建了一次。这些数据来自 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)。关于这两个库作为独立库的对比，请阅读 [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)。本文主要关注适配器改变了什么，以及在哪些方面它没有帮助。
 
 <TOC/>
 
@@ -227,7 +227,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-对于 `.po` 目录，将 `syncJSON` 替换为来自 `@intlayer/sync-po-plugin` 的 `syncPO`，并使用带有 `.po` 扩展名的相同 `source` 模式。请参阅 [Sync PO 插件文档](https://intlayer.org/zh/doc/plugin/sync-po)。
+对于 `.po` 目录，将 `syncJSON` 替换为来自 `@intlayer/sync-po-plugin` 的 `syncPO`，并使用带有 `.po` 扩展名的相同 `source` 模式。请参阅 [Sync PO 插件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-po.md)。
 
 `splitKeys: "key-prefix"` 是让组件体积大幅缩小的关键。目录文件保留其扁平形态；拆分仅存在于生成的字典中，写回时会自动重新拼接 ID。
 
@@ -277,7 +277,7 @@ export default defineConfig({
 - **`dynamic` 模式下的每页体积开销。** 如前所述：在小型应用中，相对于延迟加载的 Lingui 设置，预计每页大约增加 20 KB。这一差距不会随着内容的增加而扩大（因为它来自解析器而非目录），但也不会缩小。
 - **源语言环境泄漏仍然存在。** 消息描述符和宏输出会嵌入英文源码作为回退。如果对此介意，解决方法是去除 `message` 字段或将该组件迁移到 `.content.ts`，适配器本身无法解决此问题。
 - **`i18n.load()` 仅作为回退手段。** 如果你继续导入编译好的目录并调用 `load()`，将会同时加载旧包与新包。请务必移除这些导入。
-- **仅支持 Vite。** `@intlayer/lingui` 没有提供 Next.js 插件。在 Lingui 上的 Next.js 项目应直接查阅 [`next-intlayer`](https://intlayer.org/zh/doc/environment/nextjs)。
+- **仅支持 Vite。** `@intlayer/lingui` 没有提供 Next.js 插件。在 Lingui 上的 Next.js 项目应直接查阅 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)。
 - **`defaultComponent` 未生效。** 如果你依赖它来自动包裹每个 `<Trans>`，请在组件中显式编写包装器。
 
 ## 应该选择哪种方案？
@@ -288,12 +288,12 @@ export default defineConfig({
 
 ## 相关对比文章
 
-- [Lingui vs Intlayer](https://intlayer.org/zh/blog/lingui-vs-intlayer)（库级别深度对比，相同基准测试）
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/zh/blog/next-intl-vs-intlayer-next-intl)（同系列适配器测评）
-- [i18next vs @intlayer/i18next](https://intlayer.org/zh/blog/i18next-vs-intlayer-i18next)（同系列适配器测评）
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-vue-i18n)（同系列适配器测评）
-- [兼容适配器参考：Lingui](https://intlayer.org/zh/doc/compatibility/lingui)
-- [编译器型 vs 声明式 i18n](https://intlayer.org/zh/blog/compiler-vs-declarative-i18n)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)（库级别深度对比，相同基准测试）
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer-next-intl.md)（同系列适配器测评）
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer-i18next.md)（同系列适配器测评）
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer-vue-i18n.md)（同系列适配器测评）
+- [兼容适配器参考：Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
+- [编译器型 vs 声明式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
 
 ## 总结
 
@@ -301,4 +301,4 @@ export default defineConfig({
 
 所有原始测试数据、测试应用和评测脚本均可在 [Benchmark Bloom 代码仓库](https://github.com/intlayer-org/benchmark-bloom) 中找到。欢迎自行复现并验证。
 
-详情请参考 [“为什么选择 Intlayer？”文档](https://intlayer.org/zh/doc/why)。
+详情请参考 [“为什么选择 Intlayer？”文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。

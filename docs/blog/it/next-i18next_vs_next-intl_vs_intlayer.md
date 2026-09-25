@@ -1295,4 +1295,4 @@ Tutte e tre le librerie riescono nella localizzazione di base. La differenza è 
 - Con **Intlayer**, **contenuti modulari**, **TS rigoroso**, **sicurezza a tempo di build**, **bundle tree-shaken** e **App Router di prima classe + strumenti SEO** sono **impostazioni predefinite**, non incombenze.
 - Se il tuo team valorizza la **manutenibilità e la velocità** in un'app multi-locale guidata da componenti, Intlayer offre l'esperienza **più completa** oggi disponibile.
 
-Consulta il documento ['Perché Intlayer?'](https://intlayer.org/doc/why) per maggiori dettagli.
+Consulta il documento ['Perché Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/interest_of_intlayer.md) per maggiori dettagli.

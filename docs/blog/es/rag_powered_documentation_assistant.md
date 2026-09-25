@@ -28,7 +28,7 @@ He construido un asistente de documentación potenciado por RAG y lo empaqueté 
 - Todos los componentes de la interfaz de usuario son completamente editables con Tailwind CSS
 - Registra cada consulta del usuario para ayudar a identificar documentación faltante, puntos de dolor del usuario y oportunidades de producto
 
-👉 [Demostración en vivo](https://intlayer.org/doc/why) 👉 [Plantilla de código](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Demostración en vivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md) 👉 [Plantilla de código](https://github.com/aymericzip/smart_doc_RAG)
 
 ## Introducción
 
@@ -239,7 +239,7 @@ Usamos SSE para transmitir la respuesta desde la ruta API.
 Como se mencionó, usamos gpt-4-turbo sin modo "pensando". Las respuestas son relevantes y la latencia es baja.
 Experimentamos con gpt-5, pero la latencia era demasiado alta (a veces hasta 15 segundos para una respuesta). Pero lo revisaremos en el futuro.
 
-👉 [Prueba la demo aquí](https://intlayer.org/doc/why) 👉 [Consulta la plantilla de código en GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Prueba la demo aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md) 👉 [Consulta la plantilla de código en GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 </Step>
 <Step number={10} title="Ir más allá">
@@ -319,7 +319,7 @@ Para mí, este proyecto mostró que RAG no es solo un truco técnico. Es una for
 - un canal de retroalimentación
 - una herramienta de estrategia de producto
 
-👉 [Prueba la demo aquí](https://intlayer.org/doc/why) 👉 [Consulta la plantilla de código en GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Prueba la demo aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md) 👉 [Consulta la plantilla de código en GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 Y si también estás experimentando con RAG, me encantaría saber cómo lo estás usando.
 
@@ -343,6 +343,6 @@ Para mí, este proyecto demostró que RAG no es solo un truco técnico. Es una f
 - un canal de retroalimentación
 - una herramienta de estrategia de producto
 
-👉 [Prueba la demo aquí](https://intlayer.org/doc/why) 👉 [Consulta la plantilla de código en GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Prueba la demo aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/interest_of_intlayer.md) 👉 [Consulta la plantilla de código en GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 Y si también estás experimentando con RAG, me encantaría saber cómo lo estás utilizando.

@@ -1069,7 +1069,7 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 
 - **`@solid-primitives/i18n`**: コミュニティプリミティブで、自分で組み立て、読み込み、型付けするフラット辞書です。
 - **`i18next`** と Solid ラッパー: 成熟したカタログですが、Solid Start でのロケール対応ルーティングやサーバーレンダリングには対応していません。
-- **`Intlayer`**: 最も高度なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、ビルド時にコンパイルされます。ローカライズされたルート、サーバーサイドロケール解決、canonical と hreflang リンク、多言語サイトマップ、AI 翻訳、ビジュアルエディタ、CMS に対応しています。
+- **`Intlayer`**: 最も高度なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）、ビルド時にコンパイルされます。ローカライズされたルート、サーバーサイドロケール解決、canonical と hreflang リンク、多言語サイトマップ、AI 翻訳、ビジュアルエディタ、CMS に対応しています。
 
 Solid Start ではサーバー部分の違いが顕著で、このガイドではそれらを専用のステップとしてカバーしています。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と [Solid i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)を参照してください。
 

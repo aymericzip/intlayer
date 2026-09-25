@@ -1471,4 +1471,4 @@ Middleware की सेटअप `intlayer.config.ts` फाइल में �
 - **Intlayer** के साथ, **मॉड्यूलर कंटेंट**, **सख्त TS**, **बिल्ड-टाइम सुरक्षा**, **ट्री-शेक्ड बंडल**, और **प्रथम श्रेणी का App Router + SEO टूलिंग** **डिफ़ॉल्ट** हैं, न कि बोझ।
 - यदि आपकी टीम एक मल्टी-लोकल, कंपोनेंट-चालित ऐप में **रखरखाव और गति** को महत्व देती है, तो Intlayer आज सबसे **पूर्ण** अनुभव प्रदान करता है।
 
-अधिक जानकारी के लिए ['Why Intlayer?' दस्तावेज़](https://intlayer.org/doc/why) देखें।
+अधिक जानकारी के लिए ['Why Intlayer?' दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।

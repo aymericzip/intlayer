@@ -1476,4 +1476,4 @@ Ketiga perpustakaan tersebut berhasil dalam lokalisasi inti. Perbedaannya adalah
 - Dengan **Intlayer**, **konten modular**, **TS ketat**, **keamanan saat build**, **bundle yang di-tree-shake**, dan **App Router kelas satu + alat SEO** adalah **default**, bukan tugas yang merepotkan.
 - Jika tim Anda menghargai **pemeliharaan dan kecepatan** dalam aplikasi multi-locale yang berbasis komponen, Intlayer menawarkan pengalaman yang **paling lengkap** saat ini.
 
-Lihat dokumen ['Mengapa Intlayer?'](https://intlayer.org/doc/why) untuk detail lebih lanjut.
+Lihat dokumen ['Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk detail lebih lanjut.

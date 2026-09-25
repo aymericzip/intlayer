@@ -174,14 +174,14 @@ export function ClientComponent() {
 - **إزالة الشجرة (Tree-shaking)**: يتم تجميع المحتوى المستخدم فقط بواسطة المكون، مما يحافظ على صغر حجم الحمولة في التطبيقات الكبيرة.
 - **تجربة المطور والأدوات**: تتضمن طبقة وسيطة مدمجة، ومساعدات تحسين محركات البحث، وترجمات اختيارية عبر المحرر المرئي/الذكاء الاصطناعي لتبسيط العمل اليومي.
 
-راجع المقارنات والأنماط في الملخص الموجه لـ Next.js: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+راجع المقارنات والأنماط في الملخص الموجه لـ Next.js: https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md
 
 ## الأدلة والمراجع ذات الصلة
 
-- إعداد React (Vite): https://intlayer.org/doc/environment/vite-and-react
-- React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
-- بداية TanStack: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
-- إعداد Next.js: https://intlayer.org/doc/environment/nextjs
-- لماذا Intlayer مقابل next-intl مقابل next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- إعداد React (Vite): https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md
+- React Router v7: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_router_v7.md
+- بداية TanStack: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md
+- إعداد Next.js: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md
+- لماذا Intlayer مقابل next-intl مقابل next-i18next - https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md
 
 تتضمن هذه الصفحات إعدادًا شاملاً، ومزودين، والتوجيه، ومساعدات تحسين محركات البحث.

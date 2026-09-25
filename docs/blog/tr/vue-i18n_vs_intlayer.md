@@ -55,7 +55,7 @@ Modern Vue araçlarına (Vite, Composition API) odaklanıyoruz ve şunları değ
 | `@intlayer/vue-i18n` |        7.9 KB |          47.0 KB |      0.0% |             8.4 KB |
 | **`vue-intlayer`**   |    **3.9 KB** |      **57.1 KB** |  **0.0%** |         **7.7 KB** |
 
-`vue-i18n` çalışma zamanı tek başına Intlayer'ın **6 katı** büyüklüğündedir, her sayfa **%90 oranında yabancı sayfa dizgisi** taşır ve tek başına derlenen bir bileşen, `useI18n()` onu genel mesaj ağacına bağladığı için **196 KB** yük getirir. Reaktivite ve sayfa yükleme sürelerini içeren tam rapor [vue-i18n vs Intlayer karşılaştırmasında](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-benchmark) yer almaktadır.
+`vue-i18n` çalışma zamanı tek başına Intlayer'ın **6 katı** büyüklüğündedir, her sayfa **%90 oranında yabancı sayfa dizgisi** taşır ve tek başına derlenen bir bileşen, `useI18n()` onu genel mesaj ağacına bağladığı için **196 KB** yük getirir. Reaktivite ve sayfa yükleme sürelerini içeren tam rapor [vue-i18n vs Intlayer karşılaştırmasında](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer_benchmark.md) yer almaktadır.
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
@@ -64,7 +64,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tam tablo [Vue kıyaslama raporunda](https://intlayer.org/tr/doc/benchmark/vue).
+> Tam tablo [Vue kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md).
 
 ## Yan Yana Özellik Karşılaştırması (Vue odaklı)
 
@@ -94,7 +94,7 @@ style="border:none;"
 <AccordionGroup>
 <Accordion header="1) Mimari ve ölçeklenebilirlik">
 
-- **vue-i18n**: Ortak kurulumlar yerel başına **merkezi kataloglar** kullanır (isteğe bağlı olarak dosyalara/ad alanlarına bölünür). SFC `<i18n>` blokları yerel mesajlara izin verir ancak ekipler projeler büyüdükçe paylaşılan kataloglara geri döner. Bkz. [bileşen başına ve merkezi i18n karşılaştırması](https://intlayer.org/tr/blog/per-component-vs-centralized-i18n).
+- **vue-i18n**: Ortak kurulumlar yerel başına **merkezi kataloglar** kullanır (isteğe bağlı olarak dosyalara/ad alanlarına bölünür). SFC `<i18n>` blokları yerel mesajlara izin verir ancak ekipler projeler büyüdükçe paylaşılan kataloglara geri döner. Bkz. [bileşen başına ve merkezi i18n karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md).
 - **Intlayer**: Hizmet ettikleri bileşenle birlikte **bileşen başına sözlükleri** teşvik eder. Bu, ekip arası çatışmaları azaltır, içeriği keşfedilebilir tutar ve doğal olarak kayma/kullanılmayan anahtarları sınırlandırır.
 
 **Neden önemli:** Büyük Vue uygulamalarında veya tasarım sistemlerinde, **modüler içerik** monolitik kataloglardan daha iyi ölçeklenir.
@@ -110,7 +110,7 @@ style="border:none;"
 </Accordion>
 <Accordion header="3) Eksik çeviri yönetimi">
 
-- **vue-i18n**: **Çalışma zamanı** uyarılar/geri dönüşler (örneğin, yerel veya anahtara geri dön). Bkz. [eksik çevirileri tespit etme](https://intlayer.org/tr/blog/detecting-missing-translations).
+- **vue-i18n**: **Çalışma zamanı** uyarılar/geri dönüşler (örneğin, yerel veya anahtara geri dön). Bkz. [eksik çevirileri tespit etme](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md).
 - **Intlayer**: Yerel ve anahtarlar genelinde **derleme zamanı** algılama ile uyarılar/hatalar., artı CI'da `npx intlayer test`.
 
 **Neden önemli:** Derleme zamanı uygulaması, üretim UI'sini temiz ve tutarlı tutar.
@@ -118,7 +118,7 @@ style="border:none;"
 </Accordion>
 <Accordion header="4) Yönlendirme ve URL stratejisi (Vue Router/Nuxt)">
 
-- **İkisi de** yerelleştirilmiş yollarla çalışabilir. Bkz. [hreflang kılavuzu](https://intlayer.org/tr/blog/hreflang-guide-multilingual-seo).
+- **İkisi de** yerelleştirilmiş yollarla çalışabilir. Bkz. [hreflang kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md).
 - **Intlayer**, **yerelleştirilmiş yollar oluşturmak**, **yerel önekleri yönetmek** ve SEO için **`<link rel="alternate" hreflang>`** yaymak için yardımcılar sağlar. Nuxt ile, çerçevenin yönlendirmesini tamamlar.
 
 **Neden önemli:** Daha az özel yapıştırıcı katman ve yerel genelinde **daha temiz SEO**.
@@ -142,7 +142,7 @@ style="border:none;"
 </Accordion>
 <Accordion header="7) SEO, SSR ve SSG">
 
-- **İkisi de** Vue SSR ve Nuxt ile çalışır. Bkz. [uluslararasılaştırma ve SEO](https://intlayer.org/tr/blog/SEO-and-i18n).
+- **İkisi de** Vue SSR ve Nuxt ile çalışır. Bkz. [uluslararasılaştırma ve SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md).
 - **Intlayer**: Vue/Nuxt yapılarıyla iyi uyumlu, çerçeve agnostik **SEO yardımcıları** (site haritaları/meta veri/`hreflang`) ekler.
 
 **Neden önemli:** Özel kablolama olmadan uluslararası SEO.
@@ -330,12 +330,12 @@ Bu yaklaşım:
 </Accordion>
 <Accordion header="Intlayer'ı seçin">
 
-**Bileşen kapsamlı içeriğe**, **katı TypeScript desteğine**, **derleme zamanı garantilerine**, **tree-shaking'e** ve yönlendirme, SEO ve düzenleyici araçlarına değer veriyorsanız, özellikle **büyük, modüler Vue/Nuxt kod tabanları** ve tasarım sistemleri için. [Vue ile Intlayer](https://intlayer.org/tr/doc/environment/vite-and-vue) veya [Nuxt ile](https://intlayer.org/tr/doc/environment/nuxt-and-vue) başlayın.
+**Bileşen kapsamlı içeriğe**, **katı TypeScript desteğine**, **derleme zamanı garantilerine**, **tree-shaking'e** ve yönlendirme, SEO ve düzenleyici araçlarına değer veriyorsanız, özellikle **büyük, modüler Vue/Nuxt kod tabanları** ve tasarım sistemleri için. [Vue ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+vue.md) veya [Nuxt ile](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md) başlayın.
 
 </Accordion>
 <Accordion header="@intlayer/vue-i18n'i seçin">
 
-Şu anda `vue-i18n` kullanıyorsanız ve `.vue` dosyalarını düzenlemeden paket boyutu kazanımı istiyorsanız. [Uyumluluk adaptörü](https://intlayer.org/tr/doc/compatibility/vue-i18n), `createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t` ve `v-t` çağrılarını korur ve derlenmiş sözlüklerden sunar. [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-vue-i18n) sayfasında yan yana ölçülmüştür.
+Şu anda `vue-i18n` kullanıyorsanız ve `.vue` dosyalarını düzenlemeden paket boyutu kazanımı istiyorsanız. [Uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md), `createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t` ve `v-t` çağrılarını korur ve derlenmiş sözlüklerden sunar. [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer-vue-i18n.md) sayfasında yan yana ölçülmüştür.
 
 </Accordion>
 </AccordionGroup>
@@ -344,7 +344,7 @@ Bu yaklaşım:
 
 `intlayer`, `vue-i18n` ad alanlarınızı yönetmenize de yardımcı olabilir.
 
-`intlayer` kullanarak, içeriğinizi favori i18n kütüphanenizin formatında beyan edebilirsiniz ve intlayer ad alanlarınızı istediğiniz konumda oluşturacaktır (örnek: `/messages/{{locale}}/{{namespace}}.json`). Bkz. [vue-i18n uyumluluk belgeleri](https://intlayer.org/tr/doc/compatibility/vue-i18n) ve [Nuxt i18n adaptörü](https://intlayer.org/tr/doc/compatibility/nuxtjs-i18n).
+`intlayer` kullanarak, içeriğinizi favori i18n kütüphanenizin formatında beyan edebilirsiniz ve intlayer ad alanlarınızı istediğiniz konumda oluşturacaktır (örnek: `/messages/{{locale}}/{{namespace}}.json`). Bkz. [vue-i18n uyumluluk belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) ve [Nuxt i18n adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md).
 
 ## SSS
 
@@ -364,19 +364,19 @@ Adaptör bunları okumaz. Bu mesajları yerel ayar JSON dosyanıza veya üretile
 
 <Question title="Intlayer Nuxt ile çalışır mı?">
 
-Evet. [Nuxt ile Intlayer](https://intlayer.org/tr/doc/environment/nuxt-and-vue) çok dilli yönlendirme, dil algılama ara yazılımı ve site haritası oluşturmayı kapsar. `@nuxtjs/i18n` kullanıyorsanız, [Nuxt i18n uyumluluk adaptörü](https://intlayer.org/tr/doc/compatibility/nuxtjs-i18n) geçiş yoludur.
+Evet. [Nuxt ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md) çok dilli yönlendirme, dil algılama ara yazılımı ve site haritası oluşturmayı kapsar. `@nuxtjs/i18n` kullanıyorsanız, [Nuxt i18n uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md) geçiş yoludur.
 
 </Question>
 
 <Question title="locales/{locale}.json dosyalarımı referans kaynağı olarak tutabilir miyim?">
 
-Evet. [JSON senkronizasyon eklentisi](https://intlayer.org/tr/doc/compatibility/vue-i18n) bunları `vue-i18n` sözdizimiyle (`{name}`, `{0}`, `"car | cars"` boru çoğulları) okur ve CLI veya CMS güncellediğinde çevirileri geri yazar.
+Evet. [JSON senkronizasyon eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) bunları `vue-i18n` sözdizimiyle (`{name}`, `{0}`, `"car | cars"` boru çoğulları) okur ve CLI veya CMS güncellediğinde çevirileri geri yazar.
 
 </Question>
 
 <Question title="ICU, Vue üzerinde Intlayer ile çalışır mı?">
 
-Yerel ICU desteği geliştirme aşamasındadır. `@intlayer/vue-i18n` adaptörü, boru çoğulları ve adlandırılmış/liste enterpolasyonu dahil olmak üzere `vue-i18n`'in kendi mesaj sözdizimini çözümler. Intlayer'ın çoğullaştırma modeli için [numaralandırma içeriği](https://intlayer.org/tr/doc/concept/content/enumeration) bölümüne bakın.
+Yerel ICU desteği geliştirme aşamasındadır. `@intlayer/vue-i18n` adaptörü, boru çoğulları ve adlandırılmış/liste enterpolasyonu dahil olmak üzere `vue-i18n`'in kendi mesaj sözdizimini çözümler. Intlayer'ın çoğullaştırma modeli için [numaralandırma içeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md) bölümüne bakın.
 
 </Question>
 
@@ -397,13 +397,13 @@ Hem **vue-i18n** hem de **Intlayer** Vue uygulamalarını iyi yerelleştirir. Fa
 
 ## Daha fazla okuma
 
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-benchmark), the measured run behind the table above
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-vue-i18n), the adapter on the same app
-- [Is vue-i18n outdated?](https://intlayer.org/tr/blog/is-vue-i18n-outdated)
-- [How to pick a Vue i18n library](https://intlayer.org/tr/blog/how-to-pick-vue-i18n-library)
-- [Using Intlayer with vue-i18n](https://intlayer.org/tr/blog/intlayer-with-vue-i18n)
-- [Vue benchmark report](https://intlayer.org/tr/doc/benchmark/vue)
-- [Migration guide: vue-i18n to Intlayer](https://intlayer.org/tr/doc/migration/vue-i18n)
-- [Bundle optimization](https://intlayer.org/tr/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/tr/doc/compiler)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer_benchmark.md), the measured run behind the table above
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer-vue-i18n.md), the adapter on the same app
+- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_vue-i18n_outdated.md)
+- [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_vue_i18n_library.md)
+- [Using Intlayer with vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/intlayer_with_vue-i18n.md)
+- [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
+- [Migration guide: vue-i18n to Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_vue-i18n_to_intlayer.md)
+- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 
-Refer to ['Why Intlayer?' doc](https://intlayer.org/tr/doc/why) for more details.
+Refer to ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) for more details.

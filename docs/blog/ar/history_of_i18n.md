@@ -300,5 +300,5 @@ author: aymericzip
 
 - [المترجم مقابل التدويل التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
 - [التدويل لكل مكون مقابل التدويل المركزي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md)
-- [الأداء ومعايير القياس](https://intlayer.org/doc/benchmark)
-- [محولات توافق Intlayer](https://intlayer.org/doc/concept/compatibility)
+- [الأداء ومعايير القياس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)
+- [محولات توافق Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md)

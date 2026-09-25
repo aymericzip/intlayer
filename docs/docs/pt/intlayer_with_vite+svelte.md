@@ -741,7 +741,7 @@ Esta extensão oferece:
 - **Visualizações inline** do conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
 
 ### Ir Além
 
@@ -757,7 +757,7 @@ O Vite não impõe nenhuma opinião sobre i18n, portanto a escolha vem do ecossi
 
 - **`svelte-i18n`** e **`typesafe-i18n`**: catálogos de mensagens baseados em stores registrados globalmente.
 - **`Paraglide`**: mensagens compiladas, focadas unicamente na camada de mensagens.
-- **`Intlayer`**: a solução mais avançada. Conteúdo declarado em qualquer lugar do seu código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)) e compilado pelo plugin Vite em tempo de build, totalmente tipado, com tradução por IA, editor visual e CMS.
+- **`Intlayer`**: a solução mais avançada. Conteúdo declarado em qualquer lugar do seu código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)) e compilado pelo plugin Vite em tempo de build, totalmente tipado, com tradução por IA, editor visual e CMS.
 
 O ganho específico no Vite é que as traduções são resolvidas e submetidas a tree-shaking em tempo de compilação em vez de serem buscadas como JSON em tempo de execução, de modo que uma página envia apenas as entradas que realmente renderiza. Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) e o [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md).
 

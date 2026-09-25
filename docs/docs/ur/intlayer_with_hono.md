@@ -283,7 +283,7 @@ Intlayer کے ساتھ اپنے ڈیولپمنٹ کے تجربے کو بہتر �
 - ترجمہ شدہ مواد کا **Inline previews**۔
 - آسانی سے ترجمہ تخلیق کرنے اور اپ ڈیٹ کرنے کے لیے **Quick actions**۔
 
-ایکسٹینشن استعمال کرنے کے طریقہ کے بارے میں مزید تفصیلات کے لیے، [Intlayer VS Code Extension دستاویزات](https://intlayer.org/doc/vs-code-extension) دیکھیں۔
+ایکسٹینشن استعمال کرنے کے طریقہ کے بارے میں مزید تفصیلات کے لیے، [Intlayer VS Code Extension دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) دیکھیں۔
 
 ### Git کنفیگریشن (Git Configuration)
 

@@ -300,5 +300,5 @@ Intlayer は国際化を単なるキー検索ツールではなく、総合的�
 
 - [コンパイラ型 vs. 宣言的国際化の比較](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)
 - [コンポーネント近接配置 vs. 中央集権型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)
-- [パフォーマンスとベンチマーク結果](https://intlayer.org/doc/benchmark)
-- [Intlayer 互換性アダプター一覧](https://intlayer.org/doc/concept/compatibility)
+- [パフォーマンスとベンチマーク結果](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
+- [Intlayer 互換性アダプター一覧](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/index.md)

@@ -489,7 +489,7 @@ Intlayer 会在一个隐藏文件夹中（默认是 `.intlayer`）生成类型�
 - 翻译内容的**内联预览**。
 - 轻松创建和更新翻译的**快速操作**。
 
-有关如何使用该扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+有关如何使用该扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
 ## 深入了解
 
@@ -533,7 +533,7 @@ import "@formatjs/intl-datetimeformat/polyfill";
 
 - **`i18n-js` 搭配 `expo-localization`**：传统的历史组合，仅为无类型支持的纯消息对象。
 - **`react-i18next`**：React 生态系统的通用标准，在运行时加载 JSON 命名空间。
-- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），并在构建时由 Metro 插件进行编译，全链路类型安全，提供 AI 翻译、可视化编辑器和 CMS。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），并在构建时由 Metro 插件进行编译，全链路类型安全，提供 AI 翻译、可视化编辑器和 CMS。
 
 在移动端，包体积的优势比在 Web 端更加显著，因为所有资源都会被打包进应用安装包中，而不是按页面请求动态加载。按组件编译内容可以确保未使用的语言和未使用的键完全不会进入应用包。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
 

@@ -23,7 +23,7 @@ author: aymericzip
 
 # vue-i18n vs Intlayer | Vue 국제화 (i18n) 벤치마크
 
-`vue-i18n`은 Vue를 위한 참조 i18n 라이브러리입니다. Intlayer는 컴파일러 기반의 컴포넌트 범위 대안으로 Vue 통합(`vue-intlayer`)을 제공합니다. 우리는 이미 그들의 [기능과 개발자 경험](https://intlayer.org/blog/vue-i18n-vs-intlayer)을 비교했습니다. 이 글은 앱이 빌드된 후 각각에 소요되는 비용을 살펴봅니다.
+`vue-i18n`은 Vue를 위한 참조 i18n 라이브러리입니다. Intlayer는 컴파일러 기반의 컴포넌트 범위 대안으로 Vue 통합(`vue-intlayer`)을 제공합니다. 우리는 이미 그들의 [기능과 개발자 경험](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)을 비교했습니다. 이 글은 앱이 빌드된 후 각각에 소요되는 비용을 살펴봅니다.
 
 데이터는 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)에서 나왔으며, 이는 각 라이브러리로 동일한 애플리케이션을 빌드하고 브라우저가 실제로 다운로드하고 실행하는 것을 기록하는 오픈소스 제품군입니다.
 
@@ -140,7 +140,7 @@ Intlayer는 그 지식을 빌드로 이동합니다. 콘텐츠는 컴포넌트 �
 
 컴파일러는 각 딕셔너리와 locale별로 component가 필요로 하는 정확한 JSON을 내보내고, 아무도 import하지 않는 딕셔너리는 제거합니다. Per-route 범위는 per-component 범위의 결과이지, 수행할 작업이 아닙니다.
 
-> 사용하지 않는 locale도 제거하려면 `intlayer.config.ts`에서 `dictionary.importMode: 'dynamic'`을 설정하세요. [bundle optimization doc](https://intlayer.org/doc/concept/bundle-optimization)을 참조하세요.
+> 사용하지 않는 locale도 제거하려면 `intlayer.config.ts`에서 `dictionary.importMode: 'dynamic'`을 설정하세요. [bundle optimization doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)을 참조하세요.
 
 ## 개발자 경험
 
@@ -333,7 +333,7 @@ export default defineConfig({
 
 벤치마크에서 동일한 앱의 호환성 빌드는 **페이지당 134.9 KB에서 47.0 KB로**, **컴포넌트당 196 KB에서 8.4 KB로** 감소했으며, 컴포넌트는 변경되지 않았습니다. 기존의 `locales/{locale}.json`은 JSON sync 플러그인을 통해 진실의 원천으로 유지될 수 있습니다.
 
-[vue-i18n 마이그레이션 가이드](https://intlayer.org/doc/migration/vue-i18n)와 [호환성 문서](https://intlayer.org/doc/compatibility/vue-i18n)를 참조하세요. Nuxt 사용자는 [`@nuxtjs/i18n` 호환성](https://intlayer.org/doc/compatibility/nuxtjs-i18n)을 통해 동일한 경로를 사용할 수 있습니다.
+[vue-i18n 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_vue-i18n_to_intlayer.md)와 [호환성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md)를 참조하세요. Nuxt 사용자는 [`@nuxtjs/i18n` 호환성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)을 통해 동일한 경로를 사용할 수 있습니다.
 
 ## 어떤 것을 선택할 때?
 
@@ -343,11 +343,11 @@ export default defineConfig({
 
 ## 관련 비교
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (동일한 벤치마크)
-- [i18next vs Intlayer](https://intlayer.org/blog/i18next-vs-intlayer) (동일한 벤치마크)
-- [Lingui vs Intlayer](https://intlayer.org/blog/lingui-vs-intlayer) (동일한 벤치마크)
-- [vue-i18n vs Intlayer (기능 & DX)](https://intlayer.org/blog/vue-i18n-vs-intlayer)
-- [vue-i18n이 구식인가?](https://intlayer.org/blog/is-vue-i18n-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer.md) (동일한 벤치마크)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer.md) (동일한 벤치마크)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md) (동일한 벤치마크)
+- [vue-i18n vs Intlayer (기능 & DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)
+- [vue-i18n이 구식인가?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_vue-i18n_outdated.md)
 
 ## GitHub STARs
 
@@ -363,4 +363,4 @@ Intlayer는 컴파일러로 작업을 이동합니다. 컴포넌트별 딕셔너
 
 모든 원본 데이터, 테스트 앱 및 스크립트는 [Benchmark Bloom 저장소](https://github.com/intlayer-org/benchmark-bloom)에 있습니다. 직접 실행해보세요.
 
-자세한 내용은 ['Intlayer를 선택해야 하는 이유?' 문서](https://intlayer.org/doc/why)를 참조하세요.
+자세한 내용은 ['Intlayer를 선택해야 하는 이유?' 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.

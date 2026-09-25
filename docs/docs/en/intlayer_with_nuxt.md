@@ -691,7 +691,7 @@ This extension provides:
 - **Inline previews** of translated content.
 - **Quick actions** to easily create and update translations.
 
-For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md).
 
 ### Go Further
 
@@ -706,7 +706,7 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 Two realistic options:
 
 - **`@nuxtjs/i18n`**: the established module, built on `vue-i18n`, with locale files loaded per page and a large configuration surface. `vue-i18n` has no way to namespace messages, so every page bundles the messages of every other page, and that bundle keeps growing as the app adds pages.
-- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://intlayer.org/blog/per-component-vs-centralized-i18n)) and compiled at build time, fully typed, with locale aware routing, AI translation, a visual editor and a CMS.
+- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)) and compiled at build time, fully typed, with locale aware routing, AI translation, a visual editor and a CMS.
 
 The difference is where the content lives. `@nuxtjs/i18n` centralizes it in `locales/*.json` files, while Intlayer co-locates it with the component that renders it, so a page ships only the entries it uses and a feature folder can be moved or deleted in one piece. See [why Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) and the [Vue i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md).
 

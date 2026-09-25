@@ -132,7 +132,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tableau complet, chaque bibliothèque et chaque stratégie, dans le [rapport de benchmark Next.js](https://intlayer.org/fr/doc/benchmark/nextjs).
+> Tableau complet, chaque bibliothèque et chaque stratégie, dans le [rapport de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md).
 
 ### Résultats sur TanStack Start (`react-i18next`)
 
@@ -163,7 +163,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tableau complet dans le [rapport de benchmark TanStack Start](https://intlayer.org/fr/doc/benchmark/tanstack).
+> Tableau complet dans le [rapport de benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/tanstack.md).
 
 ## Pourquoi un tel écart? Instance globale vs dictionnaires compilés
 
@@ -219,7 +219,7 @@ Intlayer élimine l'instance. Le contenu est déclaré à côté du composant, e
 
 `@intlayer/swc` / `@intlayer/babel` identifie quel composant importe quel dictionnaire, n'embarque que ceux-ci, uniquement pour la locale active, et exclut ceux qui ne sont pas référencés. Le modèle "scoped-dynamic" devient le résultat direct du build plutôt qu'une discipline manuelle imposée à l'équipe.
 
-> Pour obtenir les chiffres de la ligne `dynamic`, définissez `dictionary.importMode: 'dynamic'` dans `intlayer.config.ts`. Consultez la [documentation sur l'optimisation de bundle](https://intlayer.org/fr/doc/concept/bundle-optimization).
+> Pour obtenir les chiffres de la ligne `dynamic`, définissez `dictionary.importMode: 'dynamic'` dans `intlayer.config.ts`. Consultez la [documentation sur l'optimisation de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md).
 
 ## Expérience développeur
 
@@ -458,7 +458,7 @@ export default defineConfig({
 
 Dans le benchmark, la version adaptée de la même application Next.js est passée de **218.5 KB à 150.7 KB** par page, de **78.5 KB à 9.7 KB** par composant, de **~90% de fuite de page à 0%**, et d'une hydratation de 15.6 ms à 11.3 ms, sans modifier le code de l'application. Vos fichiers existants `locales/{lng}/{ns}.json` peuvent rester la source de vérité grâce au plugin de synchronisation JSON.
 
-Consultez les guides de migration: [i18next](https://intlayer.org/fr/doc/migration/i18next), [react-i18next](https://intlayer.org/fr/doc/migration/react-i18next), [next-i18next](https://intlayer.org/fr/doc/migration/next-i18next).
+Consultez les guides de migration: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_next-i18next_to_intlayer.md).
 
 ## Quand choisir quelle solution?
 
@@ -470,12 +470,12 @@ Si vous avez besoin de son écosystème de plugins (détecteurs, backends, ICU, 
 </Accordion>
 <Accordion header="Choisir Intlayer">
 
-Vous voulez **du contenu découpé par composant**, **un typage TypeScript strict**, **des erreurs au build en cas de clé manquante**, **du tree-shaking et lazy loading sans effort**, un changement de langue instantané, des composants serveur synchrones et des outils éditoriaux intégrés ([Éditeur Visuel](https://intlayer.org/fr/doc/concept/editor), [CMS](https://intlayer.org/fr/doc/concept/cms), [traduction IA](https://intlayer.org/fr/doc/concept/auto-fill), [serveur MCP](https://intlayer.org/fr/doc/mcp-server)). Particulièrement pertinent pour les codebases modulaires et les design systems.
+Vous voulez **du contenu découpé par composant**, **un typage TypeScript strict**, **des erreurs au build en cas de clé manquante**, **du tree-shaking et lazy loading sans effort**, un changement de langue instantané, des composants serveur synchrones et des outils éditoriaux intégrés ([Éditeur Visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md), [traduction IA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/autoFill.md), [serveur MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)). Particulièrement pertinent pour les codebases modulaires et les design systems.
 
 </Accordion>
 <Accordion header="Choisir les adaptateurs @intlayer/*-i18next">
 
-Vous utilisez déjà i18next et souhaitez obtenir les gains de bundle et de réactivité sans refactoriser vos composants. Vos fichiers `locales/{lng}/{ns}.json` restent la source de vérité. Mesuré côte à côte dans [i18next vs @intlayer/i18next](https://intlayer.org/fr/blog/i18next-vs-intlayer-i18next).
+Vous utilisez déjà i18next et souhaitez obtenir les gains de bundle et de réactivité sans refactoriser vos composants. Vos fichiers `locales/{lng}/{ns}.json` restent la source de vérité. Mesuré côte à côte dans [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18next_vs_intlayer-i18next.md).
 
 </Accordion>
 </AccordionGroup>
@@ -498,19 +498,19 @@ Il réduit les octets, pas la latence. Passer à `i18next-resources-to-backend` 
 
 <Question title="Puis-je atteindre 0% de fuite avec i18next ?">
 
-Oui, avec `scoped-dynamic` : un namespace par route, un backend de ressources et une table de correspondance pages-namespaces maintenue à la main. On arrive à 163.4 KB par page sur Next.js, soit toujours **+22 KB** par rapport aux 141.3 KB d'Intlayer qui n'a nécessité aucune configuration. Voir l'[optimisation du bundle](https://intlayer.org/fr/doc/concept/bundle-optimization).
+Oui, avec `scoped-dynamic` : un namespace par route, un backend de ressources et une table de correspondance pages-namespaces maintenue à la main. On arrive à 163.4 KB par page sur Next.js, soit toujours **+22 KB** par rapport aux 141.3 KB d'Intlayer qui n'a nécessité aucune configuration. Voir l'[optimisation du bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md).
 
 </Question>
 
 <Question title="Dois-je réécrire mes composants pour migrer ?">
 
-Non. `@intlayer/i18next`, `@intlayer/react-i18next` et `@intlayer/next-i18next` conservent `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, les pluriels `_one` / `_other`, les suffixes de contexte et `returnObjects`. Une seule ligne de plugin dans `next.config.ts` ou `vite.config.ts`. Guide pas à pas dans le [guide de migration next-i18next](https://intlayer.org/fr/doc/migration/next-i18next).
+Non. `@intlayer/i18next`, `@intlayer/react-i18next` et `@intlayer/next-i18next` conservent `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, les pluriels `_one` / `_other`, les suffixes de contexte et `returnObjects`. Une seule ligne de plugin dans `next.config.ts` ou `vite.config.ts`. Guide pas à pas dans le [guide de migration next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_next-i18next_to_intlayer.md).
 
 </Question>
 
 <Question title="Qu'advient-il de mes plugins i18next ?">
 
-Les backends et détecteurs de langue sont acceptés mais inertes : il n'y a plus rien à charger ou détecter au runtime. La détection de locale devient la configuration de routage d'Intlayer (préfixe d'URL, cookie, en-tête). Si votre application récupère des traductions depuis un CMS au moment de la requête, utilisez le [CMS d'Intlayer](https://intlayer.org/fr/doc/concept/cms) ou `intlayer pull` / `push` à la place.
+Les backends et détecteurs de langue sont acceptés mais inertes : il n'y a plus rien à charger ou détecter au runtime. La détection de locale devient la configuration de routage d'Intlayer (préfixe d'URL, cookie, en-tête). Si votre application récupère des traductions depuis un CMS au moment de la requête, utilisez le [CMS d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) ou `intlayer pull` / `push` à la place.
 
 </Question>
 
@@ -520,27 +520,27 @@ Les backends et détecteurs de langue sont acceptés mais inertes : il n'y a plu
 
 Même benchmark, autres bibliothèques :
 
-- [next-intl vs Intlayer](https://intlayer.org/fr/blog/next-intl-vs-intlayer)
-- [Lingui vs Intlayer](https://intlayer.org/fr/blog/lingui-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/fr/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/fr/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/fr/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/next-intl_vs_intlayer.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/lingui_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Pour aller plus loin sur i18next :
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/fr/blog/i18next-vs-intlayer-i18next), les adaptateurs mesurés sur la même application
-- [i18next est-il dépassé?](https://intlayer.org/fr/blog/is-i18next-outdated)
-- [Utiliser Intlayer avec i18next](https://intlayer.org/fr/blog/intlayer-with-i18next) et [avec react-i18next](https://intlayer.org/fr/blog/intlayer-with-react-i18next)
-- [Comment internationaliser une application Next.js avec next-i18next](https://intlayer.org/fr/blog/nextjs-internationalization-using-next-i18next)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18next_vs_intlayer-i18next.md), les adaptateurs mesurés sur la même application
+- [i18next est-il dépassé?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/is_i18next_outdated.md)
+- [Utiliser Intlayer avec i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/intlayer_with_i18next.md) et [avec react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/intlayer_with_react-i18next.md)
+- [Comment internationaliser une application Next.js avec next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_next-i18next.md)
 
 Documentation de référence :
 
-- [Rapport de benchmark Next.js](https://intlayer.org/fr/doc/benchmark/nextjs) et [rapport de benchmark TanStack Start](https://intlayer.org/fr/doc/benchmark/tanstack)
-- Adaptateurs de compatibilité : [i18next](https://intlayer.org/fr/doc/compatibility/i18next), [react-i18next](https://intlayer.org/fr/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/fr/doc/compatibility/next-i18next)
-- Guides de migration : [i18next](https://intlayer.org/fr/doc/migration/i18next), [react-i18next](https://intlayer.org/fr/doc/migration/react-i18next), [next-i18next](https://intlayer.org/fr/doc/migration/next-i18next)
-- [Optimisation du bundle](https://intlayer.org/fr/doc/concept/bundle-optimization) et [le compilateur Intlayer](https://intlayer.org/fr/doc/compiler)
-- [i18n par composant vs centralisée](https://intlayer.org/fr/blog/per-component-vs-centralized-i18n)
-- [i18n pilotée par compilateur vs déclarative](https://intlayer.org/fr/blog/compiler-vs-declarative-i18n)
+- [Rapport de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md) et [rapport de benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/tanstack.md)
+- Adaptateurs de compatibilité : [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/next-i18next.md)
+- Guides de migration : [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_next-i18next_to_intlayer.md)
+- [Optimisation du bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md) et [le compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md)
+- [i18n par composant vs centralisée](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/per-component_vs_centralized_i18n.md)
+- [i18n pilotée par compilateur vs déclarative](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/compiler_vs_declarative_i18n.md)
 
 ## Étoiles GitHub
 
@@ -556,4 +556,4 @@ Intlayer délègue ce travail au compilateur. Dictionnaires par composant, lazy 
 
 Toutes les données brutes, applications de test et scripts sont disponibles dans le [dépôt Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Testez-le par vous-même.
 
-Consultez la documentation ['Pourquoi Intlayer?'](https://intlayer.org/fr/doc/why) pour en savoir plus.
+Consultez la documentation ['Pourquoi Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/interest_of_intlayer.md) pour en savoir plus.

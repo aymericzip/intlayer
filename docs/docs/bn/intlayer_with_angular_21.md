@@ -416,7 +416,7 @@ Intlayer এর সাথে আপনার ডেভেলপমেন্ট�
 - অনুবাদ করা কন্টেন্টের **ইনলাইন প্রিভিউ**।
 - সহজে অনুবাদ তৈরি এবং আপডেট করার জন্য **দ্রুত পদক্ষেপ** (Quick actions)।
 
-এক্সটেনশনটি কীভাবে ব্যবহার করবেন তা সম্পর্কে আরও জানতে [Intlayer VS Code এক্সটেনশন ডকুমেন্টেশন](https://intlayer.org/doc/vs-code-extension) দেখুন।
+এক্সটেনশনটি কীভাবে ব্যবহার করবেন তা সম্পর্কে আরও জানতে [Intlayer VS Code এক্সটেনশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) দেখুন।
 
 ### আরও গভীরে যান
 

@@ -740,7 +740,7 @@ Bu eklenti şunları sağlar:
 - Çevrilmiş içeriğin **Satır içi önizlemeleri**.
 - Çevirileri kolayca oluşturup güncellemek için **Hızlı işlemler**.
 
-Eklentinin nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Eklentisi dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakabilirsiniz.
+Eklentinin nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Eklentisi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) bakabilirsiniz.
 
 ### Daha İleri Gitmek
 

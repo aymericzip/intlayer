@@ -81,7 +81,7 @@ height="600px"
 style="border:none;"
 />
 
-> 実ブラウザ環境で本番用gzip圧縮を適用して計測。詳細は[Vueベンチマークドキュメント](https://intlayer.org/ja/doc/benchmark/vue)をご覧ください。
+> 実ブラウザ環境で本番用gzip圧縮を適用して計測。詳細は[Vueベンチマークドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)をご覧ください。
 
 ### 初期ライブラリのサイズ
 
@@ -171,7 +171,7 @@ const { title } = useIntlayer("hero");
   </Tab>
 </Tabs>
 
-[Intlayerコンパイラ](https://intlayer.org/ja/doc/compiler)はアクセスされたプロパティを正確に追跡し、クライアント用チャンクをビルドする前に未使用データをカットします。詳細は[バンドル最適化](https://intlayer.org/ja/doc/concept/bundle-optimization)をご覧ください。
+[Intlayerコンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)はアクセスされたプロパティを正確に追跡し、クライアント用チャンクをビルドする前に未使用データをカットします。詳細は[バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)をご覧ください。
 
 ## 開発体験（DX）の比較
 
@@ -248,17 +248,17 @@ const { title } = useIntlayer("hero");
 
 `DefineLocaleMessage`を使用すればエディタ上でキーの候補が表示されます。しかし全言語の網羅性まではチェックされません。`ja.json`からキーが欠落していてもTypeScriptはビルドを止めません。
 
-Intlayerでは辞書の内容が厳密に検証されます。[`strictMode`](https://intlayer.org/ja/doc/concept/configuration)を有効にすれば、いずれかの言語で翻訳が不足している場合にビルドエラーが発生します。
+Intlayerでは辞書の内容が厳密に検証されます。[`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を有効にすれば、いずれかの言語で翻訳が不足している場合にビルドエラーが発生します。
 
 ### エディタおよびAIツールのサポート
 
-| ツール                            | `vue-i18n`          | Intlayer                                                              |
-| --------------------------------- | ------------------- | --------------------------------------------------------------------- |
-| **VS Code拡張機能**               | 有志製（i18n Ally） | ✅ [公式拡張機能](https://intlayer.org/ja/doc/vs-code-extension)      |
-| **Language Server (LSP)**         | ❌ なし             | ✅ [専用LSP](https://intlayer.org/ja/doc/lsp)                         |
-| **AI用MCPサーバー**               | ❌ なし             | ✅ [内蔵MCPサーバー](https://intlayer.org/ja/doc/mcp-server)          |
-| **エージェントスキル**            | ❌ なし             | ✅ [自律型スキル](https://intlayer.org/ja/doc/agent_skills)           |
-| **インコンテキストビジュアルCMS** | ❌ なし             | ✅ [無料・オープンソース](https://intlayer.org/ja/doc/concept/editor) |
+| ツール                            | `vue-i18n`          | Intlayer                                                                                                           |
+| --------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **VS Code拡張機能**               | 有志製（i18n Ally） | ✅ [公式拡張機能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)              |
+| **Language Server (LSP)**         | ❌ なし             | ✅ [専用LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/lsp.md)                                 |
+| **AI用MCPサーバー**               | ❌ なし             | ✅ [内蔵MCPサーバー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/mcp_server.md)                  |
+| **エージェントスキル**            | ❌ なし             | ✅ [自律型スキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/agent_skills.md)                   |
+| **インコンテキストビジュアルCMS** | ❌ なし             | ✅ [無料・オープンソース](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) |
 
 ## 翻訳ワークフロー
 
@@ -272,7 +272,7 @@ Intlayerは自前のツールチェーンを提供しています。
 
 **セルフホスト対応ビジュアルCMS:**
 
-[Intlayer CMS](https://intlayer.org/ja/doc/concept/cms)を起動し、非エンジニアのメンバーがWeb上で修正した内容を直接Gitに保存できます。
+[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を起動し、非エンジニアのメンバーがWeb上で修正した内容を直接Gitに保存できます。
 
 **オープンソースライセンス:**
 
@@ -328,9 +328,9 @@ bunx intlayer init --interactive
 
 詳しい手順については、以下のガイドをご覧ください:
 
-- **互換レイヤーの活用:** [`vue-i18n`互換レイヤー](https://intlayer.org/ja/doc/compatibility/vue-i18n)または[`@nuxtjs/i18n`互換レイヤー](https://intlayer.org/ja/doc/compatibility/nuxtjs-i18n)を使うことで、既存のテンプレートを維持したまま導入できます。
-- **移行ガイドライン:** 既存のJSONファイルを型付き辞書へ移行するためのドキュメントを用意しています。[vue-i18nからの移行](https://intlayer.org/ja/doc/migration/vue-i18n)、[@nuxtjs/i18nからの移行](https://intlayer.org/ja/doc/migration/nuxtjs-i18n)。
-- **ハイブリッド構成:** ランタイムとして`vue-i18n`を使い続けながら、[Intlayerとvue-i18nを連携](https://intlayer.org/ja/blog/intlayer-with-vue-i18n)させて厳格な型安全性とローカルAI翻訳を活用することも可能です。
+- **互換レイヤーの活用:** [`vue-i18n`互換レイヤー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/vue-i18n.md)または[`@nuxtjs/i18n`互換レイヤー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/nuxtjs-i18n.md)を使うことで、既存のテンプレートを維持したまま導入できます。
+- **移行ガイドライン:** 既存のJSONファイルを型付き辞書へ移行するためのドキュメントを用意しています。[vue-i18nからの移行](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_vue-i18n_to_intlayer.md)、[@nuxtjs/i18nからの移行](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_nuxtjs_i18n_to_intlayer.md)。
+- **ハイブリッド構成:** ランタイムとして`vue-i18n`を使い続けながら、[Intlayerとvue-i18nを連携](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/intlayer_with_vue-i18n.md)させて厳格な型安全性とローカルAI翻訳を活用することも可能です。
 
 自社サイトのサイズと翻訳漏れは無料の[i18n SEOスキャナー](https://intlayer.org/i18n-seo-scanner)で診断できます。
 
@@ -338,7 +338,7 @@ bunx intlayer init --interactive
 
 ## おすすめの記事
 
-- [Vue & Vite i18nベンチマーク: パフォーマンス詳細比較](https://intlayer.org/ja/doc/benchmark/vue)
-- [vue-i18n vs Intlayer: 項目別比較](https://intlayer.org/ja/blog/vue-i18n-vs-intlayer)
-- [2026年においてnext-intlは時代遅れなのか？](https://intlayer.org/ja/blog/is-next-intl-outdated)
-- [コンパイラ主導型国際化と宣言的i18nの比較](https://intlayer.org/ja/blog/compiler-vs-declarative-i18n)
+- [Vue & Vite i18nベンチマーク: パフォーマンス詳細比較](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)
+- [vue-i18n vs Intlayer: 項目別比較](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer.md)
+- [2026年においてnext-intlは時代遅れなのか？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/is_next-intl_outdated.md)
+- [コンパイラ主導型国際化と宣言的i18nの比較](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)

@@ -410,7 +410,7 @@ Intlayer 使用模块扩充 (module augmentation) 来利用 TypeScript 的优势
 - 翻译内容的**内联预览**。
 - 轻松创建和更新翻译的**快速操作**。
 
-有关如何使用该扩展的更多详细信息，请参考 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+有关如何使用该扩展的更多详细信息，请参考 [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
 ### 进一步探索
 
@@ -426,7 +426,7 @@ Analog 是基于 Vite 构建的 Angular 元框架，因此它继承了 Angular �
 
 - **`@angular/localize`**：基于 XLIFF 提取，每个语言环境生成一个编译构建产物，与基于文件的路由及服务端渲染契合度较差。
 - **`ngx-translate`** 和 **`Transloco`**：通过服务运行时的 JSON 目录加载，但未与 Analog 的路由或服务端渲染进行深度集成。
-- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），并在构建时由 Vite 插件进行编译，全链路类型安全，支持运行时语言环境切换、AI 翻译、可视化编辑器和 CMS。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），并在构建时由 Vite 插件进行编译，全链路类型安全，支持运行时语言环境切换、AI 翻译、可视化编辑器和 CMS。
 
 请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 以及 [Angular 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_angular_21.md) 了解 Angular 专用 API。
 

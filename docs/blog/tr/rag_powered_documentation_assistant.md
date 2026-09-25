@@ -28,7 +28,7 @@ RAG güçlendirmeli bir dokümantasyon asistanı oluşturdum ve bunu hemen kulla
 - Tüm UI bileşenleri Tailwind CSS ile tamamen düzenlenebilir
 - Eksik dokümanları, kullanıcı acı noktalarını ve ürün fırsatlarını belirlemeye yardımcı olmak için her kullanıcı sorgusunu günlüğe kaydeder
 
-👉 [Canlı demo](https://intlayer.org/doc/why) 👉 [Kod boilerplate](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Canlı demo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) 👉 [Kod boilerplate](https://github.com/aymericzip/smart_doc_RAG)
 
 ## Giriş
 
@@ -239,7 +239,7 @@ API route'undan yanıtı akış için SSE kullanırız.
 Bahsedildiği gibi, "düşünme" modu olmadan gpt-4-turbo'yu kullanırız. Yanıtlar ilgili ve gecikme düşük.
 Gpt-5 ile denedik, ama gecikme çok yüksekti (bazen 15 saniyeye kadar bir yanıt). Ama gelecekte tekrar gözden geçireceğiz.
 
-👉 [Demoyu burada deneyin](https://intlayer.org/doc/why) 👉 [GitHub'da kod şablonunu kontrol edin](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Demoyu burada deneyin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) 👉 [GitHub'da kod şablonunu kontrol edin](https://github.com/aymericzip/smart_doc_RAG)
 
 </Step>
 
@@ -261,6 +261,6 @@ Benim için bu proje, RAG'nin sadece bir teknik hile olmadığını gösterdi. D
 - bir geri bildirim kanalı
 - bir ürün strateji aracı
 
-👉 [Demoyu burada deneyin](https://intlayer.org/doc/why) 👉 [GitHub'da kod şablonunu kontrol edin](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Demoyu burada deneyin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) 👉 [GitHub'da kod şablonunu kontrol edin](https://github.com/aymericzip/smart_doc_RAG)
 
 Ve eğer siz de RAG ile deneme yapıyorsanız, nasıl kullandığınızı duymak isterim.

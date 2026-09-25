@@ -844,7 +844,7 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 - 翻訳された内容の **インラインプレビュー**。
 - 翻訳を簡単に作成・更新できる **クイックアクション**。
 
-拡張機能の使用方法の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+拡張機能の使用方法の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
 
 ## 追加リソース
 
@@ -868,7 +868,7 @@ Pages Router は引き続き `next.config.js` の組み込み `i18n` フィー�
 
 - **`next-i18next` / `i18next`** および **`next-intl`**：ページごとに読み込まれる JSON 名前空間で、Pages Router との歴史的なペアリングです。
 - **`react-intl`** および **`Lingui`**：抽出ステップを伴う ICU メッセージです。
-- **`Intlayer`**：最も高度なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、コンポーネントごとにコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
+- **`Intlayer`**：最も高度なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）、コンポーネントごとにコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
 
 [Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)および [Next.js i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)を参照してください。
 

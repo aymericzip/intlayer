@@ -30,7 +30,7 @@ author: aymericzip
 
 `@intlayer/next-intl` هو محول توافقية: يكشف API `next-intl` (`useTranslations`، `getTranslations`، `useLocale`، `t.rich()`، ICU plurals، `NextIntlClientProvider`...) ويقدمه من القواميس المجمعة بواسطة Intlayer. كود التطبيق لا يتغير. الـ bundle يتغير.
 
-تقارن هذه المقالة بين الاثنين على نفس تطبيق Next.js، تم بناؤه مرة مع `next-intl` ومرة مع المحول. تأتي الأرقام من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)، مجموعة مفتوحة المصدر تسجل ما يقوم المتصفح بتنزيله فعلياً. إذا كنت تريد مقارنة `next-intl` مقابل Intlayer كمكتبات، اقرأ [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer). هذا يتعلق بما يغيره المحول عندما تحافظ على مكوناتك كما هي.
+تقارن هذه المقالة بين الاثنين على نفس تطبيق Next.js، تم بناؤه مرة مع `next-intl` ومرة مع المحول. تأتي الأرقام من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)، مجموعة مفتوحة المصدر تسجل ما يقوم المتصفح بتنزيله فعلياً. إذا كنت تريد مقارنة `next-intl` مقابل Intlayer كمكتبات، اقرأ [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer.md). هذا يتعلق بما يغيره المحول عندما تحافظ على مكوناتك كما هي.
 
 <TOC/>
 
@@ -142,7 +142,7 @@ height="600px"
 style="border:none;"
 />
 
-> الجدول الكامل، لكل مكتبة واستراتيجية، في [تقرير قياس أداء Next.js](https://intlayer.org/ar/doc/benchmark/nextjs).
+> الجدول الكامل، لكل مكتبة واستراتيجية، في [تقرير قياس أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md).
 
 ### النتائج على TanStack Start (`use-intl`)
 
@@ -174,7 +174,7 @@ height="600px"
 style="border:none;"
 />
 
-> الجدول الكامل في [تقرير قياس أداء TanStack Start](https://intlayer.org/ar/doc/benchmark/tanstack).
+> الجدول الكامل في [تقرير قياس أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md).
 
 ## لماذا تتحرك الأرقام
 
@@ -326,7 +326,7 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="يتم تجاهل messages و timeZone و now في المزود">
 
-تعتمد أدوات التنسيق على `Intl` الأصلي وتؤثر اللغة فقط على مخرجاتها. إذا كنت تعتمد على منطقة زمنية مفروضة أو قيمة `now` ثابتة لتواريخ مستقرة أثناء الـ Hydration، فتعامل مع ذلك في موضع الاستدعاء. راجع [تنسيق التاريخ والوقت والأرقام](https://intlayer.org/ar/blog/date-time-number-formatting-locales).
+تعتمد أدوات التنسيق على `Intl` الأصلي وتؤثر اللغة فقط على مخرجاتها. إذا كنت تعتمد على منطقة زمنية مفروضة أو قيمة `now` ثابتة لتواريخ مستقرة أثناء الـ Hydration، فتعامل مع ذلك في موضع الاستدعاء. راجع [تنسيق التاريخ والوقت والأرقام](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/date_time_number_formatting_locales.md).
 
 </Accordion>
 </AccordionGroup>
@@ -346,7 +346,7 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="الانتقال إلى الحل الأصلي (next-intlayer)">
 
-للمشاريع الجديدة، أو بمجرد أن يكمل المحول مهمته الانتقالية. إنه الأخف بين الخيارات الثلاثة (5.5 كيلوبايت، +0.3 كيلوبايت لكل صفحة) ويفعل مكونات الخادم المتزامنة، وملفات `.content.ts` لكل مكون، وكامل مجموعة الميزات. ابدأ مع [Intlayer مع Next.js](https://intlayer.org/ar/doc/environment/nextjs).
+للمشاريع الجديدة، أو بمجرد أن يكمل المحول مهمته الانتقالية. إنه الأخف بين الخيارات الثلاثة (5.5 كيلوبايت، +0.3 كيلوبايت لكل صفحة) ويفعل مكونات الخادم المتزامنة، وملفات `.content.ts` لكل مكون، وكامل مجموعة الميزات. ابدأ مع [Intlayer مع Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md).
 
 </Accordion>
 </AccordionGroup>
@@ -363,7 +363,7 @@ export default withIntlayer(nextConfig);
 
 <Question title="ماذا يحدث لرسائل ICU؟">
 
-تستمر في العمل. يتم حل `t("key", { count })` و `t.rich()` و `t.markup()` و `select` و `selectordinal` و `#` و `{ts, date, long}` بواسطة محلل ICU الخاص بـ Intlayer. راجع [تنسيق رسائل ICU](https://intlayer.org/ar/blog/icu-message-format).
+تستمر في العمل. يتم حل `t("key", { count })` و `t.rich()` و `t.markup()` و `select` و `selectordinal` و `#` و `{ts, date, long}` بواسطة محلل ICU الخاص بـ Intlayer. راجع [تنسيق رسائل ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
 
 </Question>
 
@@ -391,23 +391,23 @@ export default withIntlayer(nextConfig);
 
 نفس سلسلة المحولات:
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/ar/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/ar/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer-vue-i18n.md)
 
 مقارنة مباشرة بين المكتبات:
 
-- [next-intl vs Intlayer](https://intlayer.org/ar/blog/next-intl-vs-intlayer), نفس الاختبار المرجعي
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ar/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Is next-intl outdated?](https://intlayer.org/ar/blog/is-next-intl-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer.md), نفس الاختبار المرجعي
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_next-intl_outdated.md)
 
 وثائق مرجعية:
 
-- [Compat adapter: next-intl](https://intlayer.org/ar/doc/compatibility/next-intl)
-- [دليل الترحيل: من next-intl إلى Intlayer](https://intlayer.org/ar/doc/migration/next-intl)
-- [تقرير قياس أداء Next.js](https://intlayer.org/ar/doc/benchmark/nextjs) و [تقرير قياس أداء TanStack Start](https://intlayer.org/ar/doc/benchmark/tanstack)
-- [تحسين الحزمة](https://intlayer.org/ar/doc/concept/bundle-optimization) و [مترجم Intlayer](https://intlayer.org/ar/doc/compiler)
-- [المحرر المرئي](https://intlayer.org/ar/doc/concept/editor)، [نظام إدارة المحتوى CMS](https://intlayer.org/ar/doc/concept/cms) و [الترجمة بالذكاء الاصطناعي](https://intlayer.org/ar/doc/concept/auto-fill)
+- [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md)
+- [دليل الترحيل: من next-intl إلى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md)
+- [تقرير قياس أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md) و [تقرير قياس أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
+- [تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، [نظام إدارة المحتوى CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) و [الترجمة بالذكاء الاصطناعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)
 
 ## الخلاصة
 
@@ -415,4 +415,4 @@ export default withIntlayer(nextConfig);
 
 جميع البيانات الأولية وتطبيقات الاختبار والبرامج النصية موجودة في [مستودع Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). قم بتشغيلها بنفسك.
 
-راجع [وثيقة 'Why Intlayer?'](https://intlayer.org/doc/why) للمزيد من التفاصيل.
+راجع [وثيقة 'Why Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) للمزيد من التفاصيل.

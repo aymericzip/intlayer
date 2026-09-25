@@ -28,7 +28,7 @@ Tôi đã xây dựng một trợ lý tài liệu được hỗ trợ bởi RAG 
 - Tất cả các thành phần UI đều có thể chỉnh sửa hoàn toàn với Tailwind CSS
 - Ghi lại mọi truy vấn của người dùng để giúp xác định tài liệu thiếu, điểm đau của người dùng và cơ hội sản phẩm
 
-👉 [Bản demo trực tiếp](https://intlayer.org/doc/why) 👉 [Boilerplate mã nguồn](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Bản demo trực tiếp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) 👉 [Boilerplate mã nguồn](https://github.com/aymericzip/smart_doc_RAG)
 
 ## Giới thiệu
 
@@ -243,7 +243,7 @@ Chúng tôi sử dụng SSE để truyền trực tiếp phản hồi từ API r
 Như đã đề cập, chúng tôi sử dụng gpt-4-turbo mà không có chế độ "suy nghĩ". Các phản hồi có liên quan và độ trễ thấp.
 Chúng tôi đã thử nghiệm với gpt-5, nhưng độ trễ quá cao (đôi khi lên đến 15 giây cho một phản hồi). Nhưng chúng tôi sẽ xem xét lại điều đó trong tương lai.
 
-👉 [Thử bản demo tại đây](https://intlayer.org/doc/why) 👉 [Xem mẫu mã nguồn trên GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Thử bản demo tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) 👉 [Xem mẫu mã nguồn trên GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 </Step>
 <Step number={10} title="Tiến xa hơn">
@@ -297,7 +297,7 @@ RAG là một trong những cách đơn giản nhất và mạnh mẽ nhất đ�
 - một kênh phản hồi
 - một công cụ chiến lược sản phẩm
 
-👉 [Thử bản demo tại đây](https://intlayer.org/doc/why) 👉 [Xem mẫu code trên GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Thử bản demo tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) 👉 [Xem mẫu code trên GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 Và nếu bạn cũng đang thử nghiệm với RAG, tôi rất muốn nghe cách bạn đang sử dụng nó như thế nào.
 
@@ -320,6 +320,6 @@ RAG là một trong những cách đơn giản nhất và mạnh mẽ nhất đ�
 - một kênh phản hồi
 - một công cụ chiến lược sản phẩm
 
-👉 [Hãy thử bản demo tại đây](https://intlayer.org/doc/why) 👉 [Xem mẫu mã trên GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Hãy thử bản demo tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) 👉 [Xem mẫu mã trên GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 Và nếu bạn cũng đang thử nghiệm RAG, tôi rất muốn biết cách bạn đang sử dụng nó.

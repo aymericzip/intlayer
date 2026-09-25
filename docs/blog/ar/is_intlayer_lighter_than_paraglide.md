@@ -22,7 +22,7 @@ author: aymericzip
 
 نعم.
 
-يحظى `Paraglide` بسمعة جيدة باعتباره أخف حلول التدويل المتاحة، وللوهلة الأولى يتفق [اختبار الأداء](https://intlayer.org/ar/doc/benchmark/tanstack) مع ذلك: فحجم مكتبته يقارب الصفر. لكن حجم مكتبة يقارب الصفر لا يعني إرسال صفر بايت إلى المتصفح. هذا يعني ببساطة أن البايتات تستقر في مكان لا ترصده تلك المعايير.
+يحظى `Paraglide` بسمعة جيدة باعتباره أخف حلول التدويل المتاحة، وللوهلة الأولى يتفق [اختبار الأداء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md) مع ذلك: فحجم مكتبته يقارب الصفر. لكن حجم مكتبة يقارب الصفر لا يعني إرسال صفر بايت إلى المتصفح. هذا يعني ببساطة أن البايتات تستقر في مكان لا ترصده تلك المعايير.
 
 <TOC/>
 
@@ -93,7 +93,7 @@ src/paraglide/
 
 <I18nBenchmark framework="tanstack" vertical/>
 
-> البيانات الكاملة متوفرة في [تقرير مقارنة TanStack Start](https://intlayer.org/ar/doc/benchmark/tanstack) و[تقرير مقارنة Next.js](https://intlayer.org/ar/doc/benchmark/nextjs). يمكن فحص كل حزمة في [مستودع اختبارات الأداء](https://github.com/intlayer-org/benchmark-i18n).
+> البيانات الكاملة متوفرة في [تقرير مقارنة TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md) و[تقرير مقارنة Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md). يمكن فحص كل حزمة في [مستودع اختبارات الأداء](https://github.com/intlayer-org/benchmark-i18n).
 
 هناك نقطتان واضحتان:
 
@@ -198,7 +198,7 @@ export const Hero = () => {
 
 الوعد الأساسي لـ Paraglide هو أن الرسائل غير المستخدمة يتم التخلص منها عبر الـ Tree Shaking لأن كل رسالة تصدر كعنصر مستقل. وفي اختبار Svelte + Vite، عملت هذه الميزة كما هو متوقع.
 
-لكن في بيئات أخرى، لم يتحقق ذلك. ففي اختبارنا على [Next.js](https://intlayer.org/ar/doc/benchmark/nextjs)، زادت صفحات Paraglide بمقدار 14 KB مقارنة بالتطبيق الأساسي، بينما أضاف `next-intlayer` فقط 0.3 KB. كما أظهرت اختبارات سابقة على TanStack Start تسرب رسائل من صفحات أخرى إلى حزمة المسار الحالي.
+لكن في بيئات أخرى، لم يتحقق ذلك. ففي اختبارنا على [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)، زادت صفحات Paraglide بمقدار 14 KB مقارنة بالتطبيق الأساسي، بينما أضاف `next-intlayer` فقط 0.3 KB. كما أظهرت اختبارات سابقة على TanStack Start تسرب رسائل من صفحات أخرى إلى حزمة المسار الحالي.
 
 يعتمد الـ Tree Shaking على أداة الحزم لديك (Turbopack، Rolldown، Rollup)، وعلى طريقة استيراد الرسائل (`import { m }` مقابل `import * as m`)، وعلى تحليل الآثار الجانبية (side-effects). إذا اخترت Paraglide لصغر حجمه، افتح أداة فحص الحزم وتأكد من تحقق ذلك في تطبيقك الفعلي.
 
@@ -234,7 +234,7 @@ export default config;
 | `dynamic`    | اللغة الحالية فقط، محملة بكسل لكل قاموس             | **أخف بـ N مرة** مع وجود N لغة |
 | `fetch`      | اللغة الحالية فقط، مجلوبة عبر واجهة برمجة Live Sync | **أخف بـ N مرة** مع وجود N لغة |
 
-بفضل [التحويل أثناء البناء](https://intlayer.org/ar/doc/concept/bundle-optimization) وخيار `importMode: 'static'`، يحمّل Intlayer نظرياً نفس المحتوى تماماً مثل Paraglide. ومع استخدام `'dynamic'` أو `'fetch'`، فإنه يحمّل فقط ما تتطلبه اللغة الحالية: لتطبيق يدعم N لغة، تصبح حمولة الترجمة أصغر بـ N مرة مقارنة بـ Paraglide.
+بفضل [التحويل أثناء البناء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) وخيار `importMode: 'static'`، يحمّل Intlayer نظرياً نفس المحتوى تماماً مثل Paraglide. ومع استخدام `'dynamic'` أو `'fetch'`، فإنه يحمّل فقط ما تتطلبه اللغة الحالية: لتطبيق يدعم N لغة، تصبح حمولة الترجمة أصغر بـ N مرة مقارنة بـ Paraglide.
 
 ## متى يظل Paraglide خياراً مناسباً؟
 
@@ -277,8 +277,8 @@ bunx intlayer init --interactive
 
 ## قراءات إضافية
 
-- [اختبار أداء i18n في TanStack Start](https://intlayer.org/ar/doc/benchmark/tanstack)
-- [اختبار أداء i18n في Next.js](https://intlayer.org/ar/doc/benchmark/nextjs)
-- [تحسين الحزم و `importMode`](https://intlayer.org/ar/doc/concept/bundle-optimization)
-- [كيفية اختيار مكتبة i18n المناسبة لـ React](https://intlayer.org/ar/blog/how-to-pick-react-i18n-library)
-- [دواعي ومبررات التدويل المعتمد على المترجم](https://intlayer.org/ar/blog/compiler-vs-declarative-i18n)
+- [اختبار أداء i18n في TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
+- [اختبار أداء i18n في Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+- [تحسين الحزم و `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+- [كيفية اختيار مكتبة i18n المناسبة لـ React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_react_i18n_library.md)
+- [دواعي ومبررات التدويل المعتمد على المترجم](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)

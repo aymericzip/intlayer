@@ -300,5 +300,5 @@ Weiterführende Vergleiche und praxisnahe Anleitungen finden Sie in folgenden Re
 
 - [Compiler vs. deklarative Internationalisierung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/compiler_vs_declarative_i18n.md)
 - [Komponentenbasierte vs. zentralisierte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/per-component_vs_centralized_i18n.md)
-- [Performance und Benchmarks](https://intlayer.org/doc/benchmark)
-- [Intlayer Kompatibilitäts-Adapter](https://intlayer.org/doc/concept/compatibility)
+- [Performance und Benchmarks](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md)
+- [Intlayer Kompatibilitäts-Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/index.md)

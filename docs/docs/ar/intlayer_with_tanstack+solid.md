@@ -1160,7 +1160,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 - **معاينة مضمنة** للمحتوى المترجم.
 - **إجراءات سريعة** لإنشاء وتحديث الترجمات بسهولة.
 
-لمزيد من التفاصيل حول كيفية استخدام الإضافة ، راجع [توثيق إضافة Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+لمزيد من التفاصيل حول كيفية استخدام الإضافة ، راجع [توثيق إضافة Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md).
 
 ## المضي قدمًا
 

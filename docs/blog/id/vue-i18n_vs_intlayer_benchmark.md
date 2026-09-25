@@ -23,7 +23,7 @@ author: aymericzip
 
 # vue-i18n VS Intlayer | Benchmark Internasionalisasi (i18n) Vue
 
-`vue-i18n` adalah pustaka i18n rujukan untuk Vue. Intlayer adalah alternatif berbasis compiler dengan konten berlingkup komponen, disertai integrasi Vue (`vue-intlayer`). Kami sudah membandingkan [fitur dan pengalaman pengembangnya](https://intlayer.org/blog/vue-i18n-vs-intlayer). Artikel ini melihat berapa biaya masing-masing setelah aplikasi di-build.
+`vue-i18n` adalah pustaka i18n rujukan untuk Vue. Intlayer adalah alternatif berbasis compiler dengan konten berlingkup komponen, disertai integrasi Vue (`vue-intlayer`). Kami sudah membandingkan [fitur dan pengalaman pengembangnya](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md). Artikel ini melihat berapa biaya masing-masing setelah aplikasi di-build.
 
 Data berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), sebuah suite open-source yang mem-build aplikasi yang sama dengan setiap pustaka dan mencatat apa yang benar-benar diunduh dan dieksekusi browser.
 
@@ -140,7 +140,7 @@ Intlayer memindahkan pengetahuan itu ke build. Konten dideklarasikan di samping 
 
 Compiler menghasilkan, per kamus dan per locale, persis JSON yang dibutuhkan komponen itu, dan membuang kamus yang tidak diimpor apa pun. Pembatasan per rute adalah konsekuensi dari pembatasan per komponen, bukan sebuah tugas.
 
-> Untuk juga membuang locale yang tidak dipakai, atur `dictionary.importMode: 'dynamic'` di `intlayer.config.ts`. Lihat [dokumentasi optimasi bundle](https://intlayer.org/doc/concept/bundle-optimization).
+> Untuk juga membuang locale yang tidak dipakai, atur `dictionary.importMode: 'dynamic'` di `intlayer.config.ts`. Lihat [dokumentasi optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md).
 
 ## Pengalaman pengembang
 
@@ -328,7 +328,7 @@ export default defineConfig({
 
 Dalam benchmark, build compat dari aplikasi yang sama turun dari **134,9 KB ke 47,0 KB** per halaman dan dari **196 KB ke 8,4 KB** per komponen, dengan komponen tidak disentuh. `locales/{locale}.json` Anda yang ada bisa tetap menjadi sumber kebenaran melalui plugin sinkronisasi JSON.
 
-Lihat [panduan migrasi vue-i18n](https://intlayer.org/doc/migration/vue-i18n) dan [dokumentasi kompatibilitas](https://intlayer.org/doc/compatibility/vue-i18n). Pengguna Nuxt punya jalur yang sama melalui [kompatibilitas `@nuxtjs/i18n`](https://intlayer.org/doc/compatibility/nuxtjs-i18n).
+Lihat [panduan migrasi vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_vue-i18n_to_intlayer.md) dan [dokumentasi kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md). Pengguna Nuxt punya jalur yang sama melalui [kompatibilitas `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md).
 
 ## Kapan memilih yang mana?
 
@@ -338,11 +338,11 @@ Lihat [panduan migrasi vue-i18n](https://intlayer.org/doc/migration/vue-i18n) da
 
 ## Perbandingan terkait
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (benchmark yang sama)
-- [i18next vs Intlayer](https://intlayer.org/blog/i18next-vs-intlayer) (benchmark yang sama)
-- [Lingui vs Intlayer](https://intlayer.org/blog/lingui-vs-intlayer) (benchmark yang sama)
-- [vue-i18n vs Intlayer (fitur & DX)](https://intlayer.org/blog/vue-i18n-vs-intlayer)
-- [Apakah vue-i18n sudah usang?](https://intlayer.org/blog/is-vue-i18n-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer.md) (benchmark yang sama)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer.md) (benchmark yang sama)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md) (benchmark yang sama)
+- [vue-i18n vs Intlayer (fitur & DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md)
+- [Apakah vue-i18n sudah usang?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_vue-i18n_outdated.md)
 
 ## GitHub STARs
 
@@ -358,4 +358,4 @@ Intlayer memindahkan pekerjaan ke compiler. Kamus per komponen dan pembersihan k
 
 Semua data mentah, aplikasi uji, dan skrip ada di [repositori Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Jalankan sendiri.
 
-Lihat [dokumentasi 'Mengapa Intlayer?'](https://intlayer.org/doc/why) untuk detail lebih lanjut.
+Lihat [dokumentasi 'Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk detail lebih lanjut.

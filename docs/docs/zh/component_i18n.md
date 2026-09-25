@@ -174,14 +174,14 @@ export function ClientComponent() {
 - **摇树优化**：仅打包组件实际使用的内容，保持大型应用的负载体积小。
 - **开发体验与工具**：内置中间件、SEO助手，以及可选的可视化编辑器/AI翻译，简化日常工作流程。
 
-请参阅针对 Next.js 的对比和模式总结：https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+请参阅针对 Next.js 的对比和模式总结：https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md
 
 ## 相关指南和参考资料
 
-- React 设置（Vite）：https://intlayer.org/doc/environment/vite-and-react
-- React Router v7：https://intlayer.org/doc/environment/vite-and-react/react-router-v7
-- TanStack 入门：https://intlayer.org/doc/environment/vite-and-react/tanstack-start
-- Next.js 设置：https://intlayer.org/doc/environment/nextjs
-- 为什么选择 Intlayer 而不是 next-intl 或 next-i18next：https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- React 设置（Vite）：https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md
+- React Router v7：https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react_router_v7.md
+- TanStack 入门：https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md
+- Next.js 设置：https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md
+- 为什么选择 Intlayer 而不是 next-intl 或 next-i18next：https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md
 
 这些页面包含端到端的设置、提供者、路由和 SEO 辅助工具。

@@ -118,7 +118,7 @@ height="600px"
 style="border:none;"
 />
 
-> Повна таблиця, кожна бібліотека та кожна стратегія, у [звіті бенчмарку Next.js](https://intlayer.org/uk/doc/benchmark/nextjs).
+> Повна таблиця, кожна бібліотека та кожна стратегія, у [звіті бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md).
 
 ### Результати на TanStack Start (`use-intl`)
 
@@ -149,7 +149,7 @@ height="600px"
 style="border:none;"
 />
 
-> Повна таблиця у [звіті бенчмарку TanStack Start](https://intlayer.org/uk/doc/benchmark/tanstack).
+> Повна таблиця у [звіті бенчмарку TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md).
 
 ## Чому виникає різниця? Централізовані каталоги проти скомпільованих словників
 
@@ -201,7 +201,7 @@ Intlayer змінює цей підхід. Контент декларуєтьс
 
 Під час збирання компілятор визначає, який компонент імпортує конкретний словник, і пакує тільки ці словники для активної локалі.
 
-> Щоб отримати показники рядка `dynamic`, встановіть `dictionary.importMode: 'dynamic'` у `intlayer.config.ts`. Дивіться [документацію з оптимізації бандла](https://intlayer.org/uk/doc/concept/bundle-optimization).
+> Щоб отримати показники рядка `dynamic`, встановіть `dictionary.importMode: 'dynamic'` у `intlayer.config.ts`. Дивіться [документацію з оптимізації бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
 
 ## Досвід розробника
 
@@ -411,9 +411,9 @@ const nextConfig: NextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
-У бенчмарку сумісна збірка того самого додатка зменшила розмір сторінки з **153.6 КБ до 147.5 КБ**, розмір компонентів з **21.8 КБ до 8.1 КБ**, а витік сторінки знизився з **~90% до 0%** без внесення змін у код самого додатка. Ваші наявні файли `messages/{locale}.json` можуть залишатися основним джерелом даних завдяки [плагіну синхронізації JSON](https://intlayer.org/uk/doc/compatibility/next-intl).
+У бенчмарку сумісна збірка того самого додатка зменшила розмір сторінки з **153.6 КБ до 147.5 КБ**, розмір компонентів з **21.8 КБ до 8.1 КБ**, а витік сторінки знизився з **~90% до 0%** без внесення змін у код самого додатка. Ваші наявні файли `messages/{locale}.json` можуть залишатися основним джерелом даних завдяки [плагіну синхронізації JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md).
 
-Дивіться [посібник із міграції з next-intl](https://intlayer.org/uk/doc/migration/next-intl) для отримання покрокових інструкцій.
+Дивіться [посібник із міграції з next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md) для отримання покрокових інструкцій.
 
 ## Що і коли обрати?
 
@@ -425,12 +425,12 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="Обрати Intlayer">
 
-Вам потрібен **контент з областю видимості компонента**, **суворий TypeScript**, **помилки відсутніх ключів на етапі збірки**, **автоматичний tree-shaking та ліниве завантаження**, синхронні серверні компоненти та вбудовані інструменти редагування ([Візуальний редактор](https://intlayer.org/uk/doc/concept/editor), [CMS](https://intlayer.org/uk/doc/concept/cms), [ШІ-переклад](https://intlayer.org/uk/doc/concept/auto-fill), [MCP-сервер](https://intlayer.org/uk/doc/mcp-server)). Особливо актуально для великих модульних кодових баз та дизайн-систем.
+Вам потрібен **контент з областю видимості компонента**, **суворий TypeScript**, **помилки відсутніх ключів на етапі збірки**, **автоматичний tree-shaking та ліниве завантаження**, синхронні серверні компоненти та вбудовані інструменти редагування ([Візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), [ШІ-переклад](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/autoFill.md), [MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)). Особливо актуально для великих модульних кодових баз та дизайн-систем.
 
 </Accordion>
 <Accordion header="Обрати @intlayer/next-intl">
 
-Ви вже використовуєте `next-intl` і хочете отримати переваги в розмірі бандла без повного переписування. [Адаптер сумісності](https://intlayer.org/uk/doc/compatibility/next-intl) зберігає ваші імпорти та файл `messages/{locale}.json` як єдине джерело правди. Порівняно пліч-о-пліч у [next-intl проти @intlayer/next-intl](https://intlayer.org/uk/blog/next-intl-vs-intlayer-next-intl).
+Ви вже використовуєте `next-intl` і хочете отримати переваги в розмірі бандла без повного переписування. [Адаптер сумісності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md) зберігає ваші імпорти та файл `messages/{locale}.json` як єдине джерело правди. Порівняно пліч-о-пліч у [next-intl проти @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer-next-intl.md).
 
 </Accordion>
 </AccordionGroup>
@@ -447,25 +447,25 @@ export default withIntlayer(nextConfig);
 
 <Question title="Чи можу я досягти 0% витоку з next-intl?">
 
-Так, з конфігурацією `scoped-dynamic`: розділіть `messages/{locale}.json` на простори імен для кожного маршруту, потім використовуйте `pick(messages, [...])` на кожній сторінці і підтримуйте це зіставлення правильним у міру переміщення компонентів. Рядки `scoped-*` бенчмарку якраз відображають цю роботу. Intlayer досягає 0% за замовчуванням без цього, оскільки компілятор ізолює контент по компонентах. Див. [оптимізація бандла](https://intlayer.org/uk/doc/concept/bundle-optimization).
+Так, з конфігурацією `scoped-dynamic`: розділіть `messages/{locale}.json` на простори імен для кожного маршруту, потім використовуйте `pick(messages, [...])` на кожній сторінці і підтримуйте це зіставлення правильним у міру переміщення компонентів. Рядки `scoped-*` бенчмарку якраз відображають цю роботу. Intlayer досягає 0% за замовчуванням без цього, оскільки компілятор ізолює контент по компонентах. Див. [оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
 
 </Question>
 
 <Question title="Чи потрібно переписувати компоненти для міграції?">
 
-Ні. `@intlayer/next-intl` зберігає `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, множинні форми ICU та помічники навігації, надаючи їх зі скомпільованих словників. Лише один рядок плагіна в `next.config.ts`. Покроково в [посібнику з міграції next-intl](https://intlayer.org/uk/doc/migration/next-intl).
+Ні. `@intlayer/next-intl` зберігає `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, множинні форми ICU та помічники навігації, надаючи їх зі скомпільованих словників. Лише один рядок плагіна в `next.config.ts`. Покроково в [посібнику з міграції next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md).
 
 </Question>
 
 <Question title="Чи підтримує Intlayer формат повідомлень ICU?">
 
-Нативна підтримка ICU знаходиться в розробці. Адаптери сумісності (`@intlayer/next-intl`, `@intlayer/use-intl`) повністю підтримують ICU: множинні форми, `select`, `selectordinal`, `#` та `{ts, date, long}` обробляються резолвером ICU від Intlayer. Докладніше читайте в [формат повідомлень ICU](https://intlayer.org/uk/blog/icu-message-format).
+Нативна підтримка ICU знаходиться в розробці. Адаптери сумісності (`@intlayer/next-intl`, `@intlayer/use-intl`) повністю підтримують ICU: множинні форми, `select`, `selectordinal`, `#` та `{ts, date, long}` обробляються резолвером ICU від Intlayer. Докладніше читайте в [формат повідомлень ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
 
 </Question>
 
 <Question title="Чи можу я зберегти файли messages/{locale}.json?">
 
-Так. [Плагін синхронізації JSON](https://intlayer.org/uk/doc/compatibility/next-intl) читає їх, розбиває ключі верхнього рівня на словники та перезаписує переклади в ті самі файли під час оновлення через CLI або CMS. Робочий процес ваших перекладачів не змінюється.
+Так. [Плагін синхронізації JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md) читає їх, розбиває ключі верхнього рівня на словники та перезаписує переклади в ті самі файли під час оновлення через CLI або CMS. Робочий процес ваших перекладачів не змінюється.
 
 </Question>
 
@@ -475,26 +475,26 @@ export default withIntlayer(nextConfig);
 
 Той самий бенчмарк, інші бібліотеки:
 
-- [i18next vs Intlayer](https://intlayer.org/uk/blog/i18next-vs-intlayer)
-- [Lingui vs Intlayer](https://intlayer.org/uk/blog/lingui-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/uk/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/uk/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/uk/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Більше про next-intl:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/uk/blog/next-intl-vs-intlayer-next-intl), адаптер виміряно на тому ж додатку
-- [Is next-intl outdated?](https://intlayer.org/uk/blog/is-next-intl-outdated)
-- [Using Intlayer with next-intl](https://intlayer.org/uk/blog/intlayer-with-next-intl)
-- [How to internationalize a Next.js app with next-intl](https://intlayer.org/uk/blog/nextjs-internationalization-using-next-intl)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer-next-intl.md), адаптер виміряно на тому ж додатку
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/is_next-intl_outdated.md)
+- [Using Intlayer with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/intlayer_with_next-intl.md)
+- [How to internationalize a Next.js app with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_next-intl.md)
 
 Довідкова документація:
 
-- [Звіт бенчмарку Next.js](https://intlayer.org/uk/doc/benchmark/nextjs) та [звіт бенчмарку TanStack Start](https://intlayer.org/uk/doc/benchmark/tanstack)
-- [Адаптер сумісності: next-intl](https://intlayer.org/uk/doc/compatibility/next-intl) та [посібник з міграції](https://intlayer.org/uk/doc/migration/next-intl)
-- [Оптимізація бандла](https://intlayer.org/uk/doc/concept/bundle-optimization) та [компілятор Intlayer](https://intlayer.org/uk/doc/compiler)
-- [Компонентна i18n проти централізованої](https://intlayer.org/uk/blog/per-component-vs-centralized-i18n)
-- [Компіляторна i18n проти декларативної](https://intlayer.org/uk/blog/compiler-vs-declarative-i18n)
+- [Звіт бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md) та [звіт бенчмарку TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
+- [Адаптер сумісності: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md) та [посібник з міграції](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md)
+- [Оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) та [компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
+- [Компонентна i18n проти централізованої](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/per-component_vs_centralized_i18n.md)
+- [Компіляторна i18n проти декларативної](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)
 
 ## Зірки GitHub
 
@@ -510,4 +510,4 @@ Intlayer переносить усю цю роботу до компілятор
 
 Усі вихідні дані, тестові додатки та скрипти доступні у [репозиторії Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom).
 
-Зверніться до документа ['Чому Intlayer?'](https://intlayer.org/uk/doc/why) для отримання детальнішої інформації.
+Зверніться до документа ['Чому Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md) для отримання детальнішої інформації.

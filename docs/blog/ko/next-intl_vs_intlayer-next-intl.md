@@ -30,7 +30,7 @@ author: aymericzip
 
 `@intlayer/next-intl`는 호환성 어댑터입니다. `next-intl` API (`useTranslations`, `getTranslations`, `useLocale`, `t.rich()`, ICU plurals, `NextIntlClientProvider`...)를 노출하고 Intlayer에서 컴파일한 딕셔너리로부터 제공합니다. 애플리케이션 코드는 변경되지 않습니다. 번들만 달라집니다.
 
-이 글은 동일한 Next.js 애플리케이션에서 `next-intl`로 한 번 빌드하고 어댑터로 한 번 빌드한 것을 비교합니다. 수치는 브라우저가 실제로 다운로드하는 내용을 기록하는 오픈소스 도구인 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)에서 나옵니다. 라이브러리로서의 `next-intl` vs Intlayer 비교를 원한다면 [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer)를 읽어보세요. 이 글은 컴포넌트를 그대로 유지할 때 어댑터가 어떤 변화를 가져오는지에 관한 것입니다.
+이 글은 동일한 Next.js 애플리케이션에서 `next-intl`로 한 번 빌드하고 어댑터로 한 번 빌드한 것을 비교합니다. 수치는 브라우저가 실제로 다운로드하는 내용을 기록하는 오픈소스 도구인 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)에서 나옵니다. 라이브러리로서의 `next-intl` vs Intlayer 비교를 원한다면 [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer.md)를 읽어보세요. 이 글은 컴포넌트를 그대로 유지할 때 어댑터가 어떤 변화를 가져오는지에 관한 것입니다.
 
 <TOC/>
 
@@ -142,7 +142,7 @@ height="600px"
 style="border:none;"
 />
 
-> 모든 라이브러리와 전략이 포함된 전체 표는 [Next.js 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/nextjs)에서 확인하세요.
+> 모든 라이브러리와 전략이 포함된 전체 표는 [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)에서 확인하세요.
 
 ### TanStack Start (`use-intl`)에서의 결과
 
@@ -174,7 +174,7 @@ height="600px"
 style="border:none;"
 />
 
-> 전체 표는 [TanStack Start 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/tanstack)에서 확인하세요.
+> 전체 표는 [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)에서 확인하세요.
 
 ## 숫자가 변하는 이유
 
@@ -326,7 +326,7 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="provider의 messages, timeZone, now는 무시됩니다">
 
-포매터는 네이티브 `Intl`을 기반으로 하며 로케일만이 출력에 영향을 미칩니다. 수화 과정에서 안정적인 날짜를 위해 강제 시간대나 고정된 `now`에 의존하는 경우 호출 위치에서 직접 처리하세요. [날짜, 시간 및 숫자 포맷팅](https://intlayer.org/ko/blog/date-time-number-formatting-locales)을 참조하세요.
+포매터는 네이티브 `Intl`을 기반으로 하며 로케일만이 출력에 영향을 미칩니다. 수화 과정에서 안정적인 날짜를 위해 강제 시간대나 고정된 `now`에 의존하는 경우 호출 위치에서 직접 처리하세요. [날짜, 시간 및 숫자 포맷팅](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/date_time_number_formatting_locales.md)을 참조하세요.
 
 </Accordion>
 </AccordionGroup>
@@ -346,7 +346,7 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="네이티브(next-intlayer)로 전환하기">
 
-신규 프로젝트나 어댑터가 과도기적 역할을 다한 경우에 적합합니다. 셋 중 가장 가벼우며(5.5 KB, 페이지당 +0.3 KB 추가), 동기식 서버 컴포넌트, 컴포넌트별 `.content.ts` 파일 및 모든 기능을 지원합니다. [Next.js에서 Intlayer 시작하기](https://intlayer.org/ko/doc/environment/nextjs)를 참조하세요.
+신규 프로젝트나 어댑터가 과도기적 역할을 다한 경우에 적합합니다. 셋 중 가장 가벼우며(5.5 KB, 페이지당 +0.3 KB 추가), 동기식 서버 컴포넌트, 컴포넌트별 `.content.ts` 파일 및 모든 기능을 지원합니다. [Next.js에서 Intlayer 시작하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)를 참조하세요.
 
 </Accordion>
 </AccordionGroup>
@@ -363,7 +363,7 @@ Next.js에서 컴포넌트 코드는 변경되지 않습니다. 벤치마크 빌
 
 <Question title="ICU 메시지는 어떻게 처리되나요?">
 
-정상적으로 계속 작동합니다. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#`, `{ts, date, long}`은 Intlayer의 ICU 해석기를 통해 처리됩니다. [ICU 메시지 형식](https://intlayer.org/ko/blog/icu-message-format)을 참조하세요.
+정상적으로 계속 작동합니다. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#`, `{ts, date, long}`은 Intlayer의 ICU 해석기를 통해 처리됩니다. [ICU 메시지 형식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)을 참조하세요.
 
 </Question>
 
@@ -391,23 +391,23 @@ Intlayer 코어 위에 `next-intl` API 표면(`useFormatter`, `t.rich`, ICU 해�
 
 동일한 어댑터 시리즈:
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/ko/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/ko/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ko/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer-vue-i18n.md)
 
 두 라이브러리 직접 비교:
 
-- [next-intl vs Intlayer](https://intlayer.org/ko/blog/next-intl-vs-intlayer), 동일한 벤치마크
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ko/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Is next-intl outdated?](https://intlayer.org/ko/blog/is-next-intl-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer.md), 동일한 벤치마크
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_next-intl_outdated.md)
 
 참조 문서:
 
-- [Compat adapter: next-intl](https://intlayer.org/ko/doc/compatibility/next-intl)
-- [마이그레이션 가이드: next-intl에서 Intlayer로](https://intlayer.org/ko/doc/migration/next-intl)
-- [Next.js 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/nextjs) 및 [TanStack Start 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/tanstack)
-- [번들 최적화](https://intlayer.org/ko/doc/concept/bundle-optimization) 및 [Intlayer 컴파일러](https://intlayer.org/ko/doc/compiler)
-- [비주얼 에디터](https://intlayer.org/ko/doc/concept/editor), [CMS](https://intlayer.org/ko/doc/concept/cms) 및 [AI 번역](https://intlayer.org/ko/doc/concept/auto-fill)
+- [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md)
+- [마이그레이션 가이드: next-intl에서 Intlayer로](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)
+- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md) 및 [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md) 및 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md) 및 [AI 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)
 
 ## 결론
 
@@ -415,4 +415,4 @@ Intlayer 코어 위에 `next-intl` API 표면(`useFormatter`, `t.rich`, ICU 해�
 
 모든 raw data, test app 및 script는 [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom)에 있습니다. 직접 실행해보세요.
 
-자세한 내용은 ['Why Intlayer?' doc](https://intlayer.org/doc/why)을 참조하세요.
+자세한 내용은 ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)을 참조하세요.

@@ -74,38 +74,46 @@ const Title: FC = () => {
       : undefined;
 
   return (
-    <m.div
-      layout
-      transition={{ duration: 0.2, ease: 'easeInOut' }}
-      className="ml-3 flex min-w-0 flex-1 flex-wrap items-center overflow-hidden"
-    >
-      <span className="line-clamp-2 text-muted-foreground text-xs leading-snug">
+    <div className="ml-3 flex min-w-0 flex-1 flex-col justify-center overflow-hidden">
+      <AnimatePresence mode="wait" initial={false}>
         <m.span
-          layout="position"
-          transition={{ duration: 0.2, ease: 'easeInOut' }}
-          className={
-            secondTitle ? 'text-muted-foreground/70' : 'text-muted-foreground'
-          }
+          key={firstTitle ?? 'empty-parent'}
+          initial={{ opacity: 0, y: -2 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 2 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className="block truncate text-muted-foreground text-xs leading-tight"
         >
           {firstTitle ?? ''}
         </m.span>
-        <AnimatePresence initial={false}>
-          {secondTitle && (
-            <m.span
-              key="second-title"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-              className="text-muted-foreground"
-            >
-              <span className="mx-1 text-muted-foreground/40">/</span>
-              {secondTitle}
-            </m.span>
-          )}
-        </AnimatePresence>
-      </span>
-    </m.div>
+      </AnimatePresence>
+
+      <AnimatePresence initial={false}>
+        {secondTitle && (
+          <m.div
+            key="second-title-container"
+            initial={{ opacity: 0, height: 0, y: -3 }}
+            animate={{ opacity: 1, height: 'auto', y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -3 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="overflow-hidden"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <m.span
+                key={secondTitle}
+                initial={{ opacity: 0, y: -2 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 2 }}
+                transition={{ duration: 0.15, ease: 'easeOut' }}
+                className="block truncate text-[10px] text-muted-foreground/60 leading-tight"
+              >
+                {secondTitle}
+              </m.span>
+            </AnimatePresence>
+          </m.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 

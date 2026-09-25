@@ -1161,7 +1161,7 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 - 翻訳されたコンテンツの **インラインプレビュー**。
 - 翻訳を簡単に作成および更新するための **クイックアクション**。
 
-拡張機能の使用方法の詳細については、[Intlayer VS Code 拡張機能ドキュメント](https://intlayer.org/doc/vs-code-extension) を参照してください。
+拡張機能の使用方法の詳細については、[Intlayer VS Code 拡張機能ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md) を参照してください。
 
 ## さらに進む
 
@@ -1187,7 +1187,7 @@ TanStack Start には i18n レイヤーが付属していないため、Solid �
 - **`@solid-primitives/i18n`**: フラットな辞書で、ルーターに自分で組み込む必要があります。
 - **`i18next`** と Solid ラッパー: 成熟したカタログですが、TanStack ルーター、`head` 関数、プリレンダリングパスとの統合がありません。
 - **`Paraglide`**: コンパイルされたメッセージで、メッセージレイヤーのみに焦点を当てています。
-- **`Intlayer`**: 最も高度なソリューション。コンテンツはコードベースの任意の場所で宣言でき（[各コンポーネントの隣またはセントラライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、ビルド時にコンパイルされます。ロケール対応ルーティング、サイトマップ生成、AI 翻訳、ビジュアルエディター、CMS を備えています。
+- **`Intlayer`**: 最も高度なソリューション。コンテンツはコードベースの任意の場所で宣言でき（[各コンポーネントの隣またはセントラライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）、ビルド時にコンパイルされます。ロケール対応ルーティング、サイトマップ生成、AI 翻訳、ビジュアルエディター、CMS を備えています。
 
 [Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と [TanStack Start i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)を参照してください。
 

@@ -27,7 +27,7 @@ author: aymericzip
 
 `@intlayer/lingui` adalah adaptor kompatibilitas (compat adapter) untuk `@lingui/core` dan `@lingui/react`. Pemanggilan `` t`...` ``, `<Trans>`, `useLingui()`, dan `i18n._()` Anda tetap sama persis; makro terus terkompilasi seperti biasa; yang berubah adalah sumber pesan pada saat runtime. Alih-alih satu katalog terkompilasi per bahasa, setiap lokasi pemanggilan terikat pada kamus Intlayer yang dikompilasi khusus untuknya.
 
-Artikel ini mengukur pertukaran tersebut pada aplikasi TanStack Start yang sama, dibangun sekali dengan Lingui murni dan sekali dengan adaptor. Angka-angka ini berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Untuk perbandingan langsung kedua pustaka, baca [Lingui vs Intlayer](https://intlayer.org/id/blog/lingui-vs-intlayer). Tulisan ini berfokus pada apa yang diubah oleh adaptor, dan di mana ia tidak memberikan peningkatan.
+Artikel ini mengukur pertukaran tersebut pada aplikasi TanStack Start yang sama, dibangun sekali dengan Lingui murni dan sekali dengan adaptor. Angka-angka ini berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Untuk perbandingan langsung kedua pustaka, baca [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md). Tulisan ini berfokus pada apa yang diubah oleh adaptor, dan di mana ia tidak memberikan peningkatan.
 
 <TOC/>
 
@@ -227,7 +227,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Untuk katalog `.po`, ganti `syncJSON` dengan `syncPO` dari `@intlayer/sync-po-plugin` dengan pola `source` yang sama menggunakan ekstensi `.po`. Lihat [dokumentasi plugin Sync PO](https://intlayer.org/id/doc/plugin/sync-po).
+Untuk katalog `.po`, ganti `syncJSON` dengan `syncPO` dari `@intlayer/sync-po-plugin` dengan pola `source` yang sama menggunakan ekstensi `.po`. Lihat [dokumentasi plugin Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/plugins/sync-po.md).
 
 `splitKeys: "key-prefix"` adalah kunci utama pengurangan ukuran komponen secara drastis. Berkas katalog tetap mempertahankan format datarnya; pemisahan hanya terjadi pada kamus yang dihasilkan, dan sinkronisasi balik menyatukan kembali kunci-kunci tersebut secara otomatis.
 
@@ -277,7 +277,7 @@ export default defineConfig({
 - **Biaya per halaman pada mode `dynamic`.** Seperti dibahas sebelumnya: perkirakan sekitar +20 KB per halaman dibandingkan penyiapan Lingui lazy-loaded pada aplikasi kecil. Selisih ini tidak bertambah besar seiring bertambahnya konten (karena berasal dari parser, bukan katalog), tetapi juga tidak berkurang.
 - **Kebocoran bahasa sumber tetap ada.** Deskriptor pesan dan keluaran makro menyematkan teks asli bahasa Inggris sebagai fallback. Untuk menghilangkannya sepenuhnya, bidang `message` harus dibersihkan atau komponen dipindahkan ke `.content.ts`.
 - **`i18n.load()` hanyalah fallback.** Jika Anda terus mengimpor katalog yang dikompilasi dan memanggil `load()`, bundel lama dan bundel baru akan dimuat bersamaan. Hapus impor tersebut.
-- **Khusus untuk Vite.** Belum ada plugin Next.js untuk `@intlayer/lingui`. Proyek Next.js berbasis Lingui sebaiknya langsung mempertimbangkan [`next-intlayer`](https://intlayer.org/id/doc/environment/nextjs).
+- **Khusus untuk Vite.** Belum ada plugin Next.js untuk `@intlayer/lingui`. Proyek Next.js berbasis Lingui sebaiknya langsung mempertimbangkan [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
 - **`defaultComponent` tidak diterapkan.** Jika Anda mengandalkannya untuk membungkus setiap elemen `<Trans>`, tambahkan pembungkus tersebut secara eksplisit pada komponen.
 
 ## Kapan harus memilih yang mana?
@@ -288,12 +288,12 @@ export default defineConfig({
 
 ## Perbandingan terkait
 
-- [Lingui vs Intlayer](https://intlayer.org/id/blog/lingui-vs-intlayer) (perbandingan kedua pustaka pada benchmark yang sama)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/id/blog/next-intl-vs-intlayer-next-intl) (seri perbandingan adaptor)
-- [i18next vs @intlayer/i18next](https://intlayer.org/id/blog/i18next-vs-intlayer-i18next) (seri perbandingan adaptor)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-vue-i18n) (seri perbandingan adaptor)
-- [Panduan adaptor kompatibilitas: Lingui](https://intlayer.org/id/doc/compatibility/lingui)
-- [Pendekatan berbasis kompilator vs i18n deklaratif](https://intlayer.org/id/blog/compiler-vs-declarative-i18n)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md) (perbandingan kedua pustaka pada benchmark yang sama)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer-next-intl.md) (seri perbandingan adaptor)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer-i18next.md) (seri perbandingan adaptor)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer-vue-i18n.md) (seri perbandingan adaptor)
+- [Panduan adaptor kompatibilitas: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md)
+- [Pendekatan berbasis kompilator vs i18n deklaratif](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
 
 ## Kesimpulan
 
@@ -301,4 +301,4 @@ export default defineConfig({
 
 Semua data mentah, aplikasi pengujian, dan skrip benchmark tersedia di [repositori Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Anda dipersilakan mengujinya sendiri.
 
-Untuk informasi selengkapnya, silakan baca dokumentasi ['Mengapa Intlayer?'](https://intlayer.org/id/doc/why).
+Untuk informasi selengkapnya, silakan baca dokumentasi ['Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).

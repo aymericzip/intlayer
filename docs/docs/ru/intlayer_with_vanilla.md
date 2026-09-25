@@ -473,7 +473,7 @@ const unsubscribe = useDictionaryDynamic(
 - **Встроенный предпросмотр** переведенного контента.
 - **Быстрые действия** для легкого создания и обновления переводов.
 
-Для получения более подробной информации об использовании расширения см. [документацию расширения Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
+Для получения более подробной информации об использовании расширения см. [документацию расширения Intlayer для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md).
 
 ### Идите дальше
 

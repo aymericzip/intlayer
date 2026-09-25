@@ -81,7 +81,7 @@ height="600px"
 style="border:none;"
 />
 
-> Diuji pada peramban aktual menggunakan kompresi gzip produksi. Data lengkap tercantum di [dokumentasi benchmark Vue](https://intlayer.org/id/doc/benchmark/vue).
+> Diuji pada peramban aktual menggunakan kompresi gzip produksi. Data lengkap tercantum di [dokumentasi benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md).
 
 ### Beban Pustaka Dasar
 
@@ -171,7 +171,7 @@ const { title } = useIntlayer("hero");
   </Tab>
 </Tabs>
 
-[Kompiler Intlayer](https://intlayer.org/id/doc/compiler) mengenali properti yang diakses dan membersihkan data yang tidak terpakai sebelum chunk klien dibuat. Baca selengkapnya di [optimasi bundle](https://intlayer.org/id/doc/concept/bundle-optimization).
+[Kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) mengenali properti yang diakses dan membersihkan data yang tidak terpakai sebelum chunk klien dibuat. Baca selengkapnya di [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md).
 
 ## Pengalaman Pengembang (DX)
 
@@ -248,17 +248,17 @@ Menghapus atau mengubah nama `Hero.vue` akan membuat file kontennya ikut diprose
 
 `DefineLocaleMessage` menyajikan autocomplete berdasarkan skema dasar. Namun fitur ini tidak memvalidasi kelengkapan semua bahasa. Menghapus key dari `id.json` tidak akan menggagalkan build TypeScript.
 
-Di Intlayer, kamus diverifikasi secara menyeluruh. Mode [`strictMode`](https://intlayer.org/id/doc/concept/configuration) akan langsung memicu error build jika ada terjemahan yang terlewat pada bahasa mana pun.
+Di Intlayer, kamus diverifikasi secara menyeluruh. Mode [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) akan langsung memicu error build jika ada terjemahan yang terlewat pada bahasa mana pun.
 
 ### Ekosistem Alat Bantu dan AI
 
-| Fitur                     | `vue-i18n`               | Intlayer                                                                |
-| ------------------------- | ------------------------ | ----------------------------------------------------------------------- |
-| **Ekstensi VS Code**      | Pihak ketiga (i18n Ally) | ✅ [Ekstensi resmi](https://intlayer.org/id/doc/vs-code-extension)      |
-| **Language Server (LSP)** | ❌ Tidak ada             | ✅ [LSP khusus](https://intlayer.org/id/doc/lsp)                        |
-| **Server MCP untuk AI**   | ❌ Tidak ada             | ✅ [Server MCP bawaan](https://intlayer.org/id/doc/mcp-server)          |
-| **Skill Agen AI**         | ❌ Tidak ada             | ✅ [Skill mandiri](https://intlayer.org/id/doc/agent_skills)            |
-| **CMS Visual in-context** | ❌ Tidak ada             | ✅ [CMS Open Source gratis](https://intlayer.org/id/doc/concept/editor) |
+| Fitur                     | `vue-i18n`               | Intlayer                                                                                                             |
+| ------------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| **Ekstensi VS Code**      | Pihak ketiga (i18n Ally) | ✅ [Ekstensi resmi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)              |
+| **Language Server (LSP)** | ❌ Tidak ada             | ✅ [LSP khusus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)                                |
+| **Server MCP untuk AI**   | ❌ Tidak ada             | ✅ [Server MCP bawaan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)                  |
+| **Skill Agen AI**         | ❌ Tidak ada             | ✅ [Skill mandiri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)                    |
+| **CMS Visual in-context** | ❌ Tidak ada             | ✅ [CMS Open Source gratis](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) |
 
 ## Alur Kerja Penerjemahan
 
@@ -272,7 +272,7 @@ Menerjemahkan teks yang hilang menggunakan API key OpenAI, Anthropic, Mistral, a
 
 **CMS Visual yang Dapat Di-hosting Mandiri:**
 
-Terapkan [Intlayer CMS](https://intlayer.org/id/doc/concept/cms) agar tim konten dapat mengedit terjemahan secara visual dengan sinkronisasi langsung ke Git.
+Terapkan [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) agar tim konten dapat mengedit terjemahan secara visual dengan sinkronisasi langsung ke Git.
 
 **Lisensi Open Source:**
 
@@ -328,9 +328,9 @@ CLI interaktif ini secara otomatis:
 
 Untuk instruksi langkah demi langkah, telusuri panduan khusus kami:
 
-- **Kompatibilitas Mudah:** Gunakan kembali template lama dengan [lapisan kompatibilitas `vue-i18n`](https://intlayer.org/id/doc/compatibility/vue-i18n) atau [`@nuxtjs/i18n`](https://intlayer.org/id/doc/compatibility/nuxtjs-i18n).
-- **Panduan Langkah Demi Langkah:** Ubah file JSON menjadi kamus terstruktur melalui panduan: [dari vue-i18n](https://intlayer.org/id/doc/migration/vue-i18n) atau [dari @nuxtjs/i18n](https://intlayer.org/id/doc/migration/nuxtjs-i18n).
-- **Pendekatan Bertahap:** Tetap gunakan `vue-i18n` di sisi runtime sembari [memanfaatkan Intlayer bersama vue-i18n](https://intlayer.org/id/blog/intlayer-with-vue-i18n) untuk mendapatkan validasi tipe ketat dan terjemahan AI lokal.
+- **Kompatibilitas Mudah:** Gunakan kembali template lama dengan [lapisan kompatibilitas `vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md) atau [`@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md).
+- **Panduan Langkah Demi Langkah:** Ubah file JSON menjadi kamus terstruktur melalui panduan: [dari vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_vue-i18n_to_intlayer.md) atau [dari @nuxtjs/i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_nuxtjs_i18n_to_intlayer.md).
+- **Pendekatan Bertahap:** Tetap gunakan `vue-i18n` di sisi runtime sembari [memanfaatkan Intlayer bersama vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/intlayer_with_vue-i18n.md) untuk mendapatkan validasi tipe ketat dan terjemahan AI lokal.
 
 Periksa ukuran bundle dan kebocoran data situs Anda dengan [Pemindai SEO i18n gratis](https://intlayer.org/i18n-seo-scanner):
 
@@ -338,7 +338,7 @@ Periksa ukuran bundle dan kebocoran data situs Anda dengan [Pemindai SEO i18n gr
 
 ## Bacaan Pilihan
 
-- [Benchmark Vue & Vite i18n: Evaluasi Mendalam](https://intlayer.org/id/doc/benchmark/vue)
-- [Perbandingan vue-i18n vs Intlayer](https://intlayer.org/id/blog/vue-i18n-vs-intlayer)
-- [Apakah next-intl Sudah Ketinggalan Zaman di Tahun 2026?](https://intlayer.org/id/blog/is-next-intl-outdated)
-- [Internasionalisasi Berbasis Kompiler vs Deklaratif](https://intlayer.org/id/blog/compiler-vs-declarative-i18n)
+- [Benchmark Vue & Vite i18n: Evaluasi Mendalam](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md)
+- [Perbandingan vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md)
+- [Apakah next-intl Sudah Ketinggalan Zaman di Tahun 2026?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_next-intl_outdated.md)
+- [Internasionalisasi Berbasis Kompiler vs Deklaratif](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)

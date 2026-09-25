@@ -23,7 +23,7 @@ author: aymericzip
 
 # vue-i18n VS Intlayer | Vue Internationalization (i18n) Benchmark
 
-`vue-i18n` ist die Referenz-i18n-Bibliothek für Vue. Intlayer ist eine compiler-basierte, component-scoped Alternative mit einer Vue-Integration (`vue-intlayer`). Wir haben bereits ihre [Features und Developer Experience](https://intlayer.org/blog/vue-i18n-vs-intlayer) verglichen. Dieser Artikel befasst sich damit, was jede Bibliothek nach dem Build kostet.
+`vue-i18n` ist die Referenz-i18n-Bibliothek für Vue. Intlayer ist eine compiler-basierte, component-scoped Alternative mit einer Vue-Integration (`vue-intlayer`). Wir haben bereits ihre [Features und Developer Experience](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer.md) verglichen. Dieser Artikel befasst sich damit, was jede Bibliothek nach dem Build kostet.
 
 Die Daten stammen von [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), einer Open-Source-Suite, die die gleiche Anwendung mit jeder Bibliothek erstellt und aufzeichnet, was der Browser tatsächlich herunterlädt und ausführt.
 
@@ -140,7 +140,7 @@ Intlayer verlagert dieses Wissen in den Build. Content wird neben der Komponente
 
 Der Compiler gibt pro Dictionary und pro Locale genau das JSON aus, das die Komponente benötigt, und verwirft Dictionaries, die nichts importiert. Per-Route-Scoping ist eine Folge von Per-Komponenten-Scoping, nicht eine Aufgabe.
 
-> Um auch die ungenutzten Locales zu verwirfen, setzen Sie `dictionary.importMode: 'dynamic'` in `intlayer.config.ts`. Siehe die [Bundle-Optimierungsdoku](https://intlayer.org/doc/concept/bundle-optimization).
+> Um auch die ungenutzten Locales zu verwirfen, setzen Sie `dictionary.importMode: 'dynamic'` in `intlayer.config.ts`. Siehe die [Bundle-Optimierungsdoku](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md).
 
 ## Entwickler-Erfahrung
 
@@ -328,7 +328,7 @@ export default defineConfig({
 
 Im Benchmark wurde der Compat-Build derselben App von **134,9 KB auf 47,0 KB** pro Seite und von **196 KB auf 8,4 KB** pro Komponente reduziert, wobei die Komponenten unverändert blieben. Ihre vorhandene `locales/{locale}.json` kann weiterhin die Quelle der Wahrheit bleiben durch das JSON-Sync-Plugin.
 
-Siehe den [vue-i18n Migrationsleitfaden](https://intlayer.org/doc/migration/vue-i18n) und die [Kompatibilitätsdokumentation](https://intlayer.org/doc/compatibility/vue-i18n). Nuxt-Benutzer haben denselben Weg durch [`@nuxtjs/i18n` Kompatibilität](https://intlayer.org/doc/compatibility/nuxtjs-i18n).
+Siehe den [vue-i18n Migrationsleitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_vue-i18n_to_intlayer.md) und die [Kompatibilitätsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/vue-i18n.md). Nuxt-Benutzer haben denselben Weg durch [`@nuxtjs/i18n` Kompatibilität](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/nuxtjs-i18n.md).
 
 ## Wann welches wählen?
 
@@ -338,11 +338,11 @@ Siehe den [vue-i18n Migrationsleitfaden](https://intlayer.org/doc/migration/vue-
 
 ## Verwandte Vergleiche
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (gleicher Benchmark)
-- [i18next vs Intlayer](https://intlayer.org/blog/i18next-vs-intlayer) (gleicher Benchmark)
-- [Lingui vs Intlayer](https://intlayer.org/blog/lingui-vs-intlayer) (gleicher Benchmark)
-- [vue-i18n vs Intlayer (Features & DX)](https://intlayer.org/blog/vue-i18n-vs-intlayer)
-- [Ist vue-i18n veraltet?](https://intlayer.org/blog/is-vue-i18n-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-intl_vs_intlayer.md) (gleicher Benchmark)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18next_vs_intlayer.md) (gleicher Benchmark)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/lingui_vs_intlayer.md) (gleicher Benchmark)
+- [vue-i18n vs Intlayer (Features & DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer.md)
+- [Ist vue-i18n veraltet?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/is_vue-i18n_outdated.md)
 
 ## GitHub STARs
 

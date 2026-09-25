@@ -206,7 +206,7 @@ pnpm intlayer-editor start -e development
 
 - المحرر البصري والتطبيق يعملان.
 
-- تم إعداد [تكوين المحرر](https://intlayer.org/doc/concept/configuration#editor-configuration) بشكل صحيح في ملف تكوين Intlayer الخاص بك.
+- تم إعداد [تكوين المحرر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#editor-configuration) بشكل صحيح في ملف تكوين Intlayer الخاص بك.
   - الحقول المطلوبة:
     - يجب أن يتطابق عنوان URL للتطبيق مع الذي قمت بتعيينه في تكوين المحرر (`applicationURL`).
 

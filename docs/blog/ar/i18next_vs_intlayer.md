@@ -132,7 +132,7 @@ height="600px"
 style="border:none;"
 />
 
-> الجدول الكامل، لكل مكتبة وكل استراتيجية، في [تقرير قياس الأداء لـ Next.js](https://intlayer.org/ar/doc/benchmark/nextjs).
+> الجدول الكامل، لكل مكتبة وكل استراتيجية، في [تقرير قياس الأداء لـ Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md).
 
 ### النتائج على TanStack Start (`react-i18next`)
 
@@ -163,7 +163,7 @@ height="600px"
 style="border:none;"
 />
 
-> الجدول الكامل في [تقرير قياس الأداء لـ TanStack Start](https://intlayer.org/ar/doc/benchmark/tanstack).
+> الجدول الكامل في [تقرير قياس الأداء لـ TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md).
 
 ## ما سبب هذا الفارق؟ النسخة العالمية مقابل القواميس المترجمة
 
@@ -219,7 +219,7 @@ style="border:none;"
 
 يتعرف `@intlayer/swc` / `@intlayer/babel` على المكون والقاموس الذي يستورده، فيحزم هذين فقط، وللغة النشطة فقط، ويتخلص من أي محتوى لا تتم الإشارة إليه. يصبح نمط "scoped-dynamic" نتاجا تلقائيا لعملية البناء بدلا من كونه عبئا تنظيميا يديره الفريق يدويا.
 
-> للحصول على أرقام سطر `dynamic`، اضبط `dictionary.importMode: 'dynamic'` في `intlayer.config.ts`. راجع [دليل تحسين الحزمة](https://intlayer.org/ar/doc/concept/bundle-optimization).
+> للحصول على أرقام سطر `dynamic`، اضبط `dictionary.importMode: 'dynamic'` في `intlayer.config.ts`. راجع [دليل تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
 
 ## تجربة المطور (DX)
 
@@ -458,7 +458,7 @@ export default defineConfig({
 
 في اختبار الأداء، انخفض بناء التوافق لنفس تطبيق Next.js من **218.5 كيلوبايت إلى 150.7 كيلوبايت** لكل صفحة، ومن **78.5 كيلوبايت إلى 9.7 كيلوبايت** لكل مكون، ومن **~90% تسرب للصفحات إلى 0%**، مع تحسن وقت الإماهة من 15.6 مللي ثانية إلى 11.3 مللي ثانية، دون أي تعديل في كود المكونات. ويمكن لملفات `locales/{lng}/{ns}.json` الحالية أن تظل المصدر الرئيسي للبيانات عبر إضافة مزامنة JSON.
 
-راجع أدلة الترحيل: [i18next](https://intlayer.org/ar/doc/migration/i18next)، [react-i18next](https://intlayer.org/ar/doc/migration/react-i18next)، [next-i18next](https://intlayer.org/ar/doc/migration/next-i18next).
+راجع أدلة الترحيل: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md)، [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_react-i18next_to_intlayer.md)، [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-i18next_to_intlayer.md).
 
 ## متى تختار كل منهما؟
 
@@ -470,12 +470,12 @@ export default defineConfig({
 </Accordion>
 <Accordion header="اختر Intlayer">
 
-أنت تبحث عن **محتوى محدد بنطاق المكونات**، و**TypeScript صارم**، و**أخطاء المفاتيح المفقودة في وقت البناء**، و**Tree-shaking وتحميل كسول بدون عناء**، وتبديل فوري للغة، ومكونات خادم متزامنة، وأدوات تحرير مدمجة ([المحرر المرئي](https://intlayer.org/ar/doc/concept/editor)، [نظام إدارة المحتوى CMS](https://intlayer.org/ar/doc/concept/cms)، [الترجمة بالذكاء الاصطناعي](https://intlayer.org/ar/doc/concept/auto-fill)، [خادم MCP](https://intlayer.org/ar/doc/mcp-server)). مناسب بشكل خاص لقواعد الأكواد البرمجية النمطية الكبيرة وأنظمة التصميم.
+أنت تبحث عن **محتوى محدد بنطاق المكونات**، و**TypeScript صارم**، و**أخطاء المفاتيح المفقودة في وقت البناء**، و**Tree-shaking وتحميل كسول بدون عناء**، وتبديل فوري للغة، ومكونات خادم متزامنة، وأدوات تحرير مدمجة ([المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، [نظام إدارة المحتوى CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، [الترجمة بالذكاء الاصطناعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)، [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)). مناسب بشكل خاص لقواعد الأكواد البرمجية النمطية الكبيرة وأنظمة التصميم.
 
 </Accordion>
 <Accordion header="اختر محولات @intlayer/*-i18next">
 
-أنت تستخدم i18next بالفعل وتريد مكاسب الحزمة وسرعة الاستجابة دون إعادة كتابة مكوناتك. تظل ملفات `locales/{lng}/{ns}.json` الخاصة بك هي مصدر الحقيقة الأساسي. تم قياسها جنبًا إلى جنب في [i18next مقابل @intlayer/i18next](https://intlayer.org/ar/blog/i18next-vs-intlayer-i18next).
+أنت تستخدم i18next بالفعل وتريد مكاسب الحزمة وسرعة الاستجابة دون إعادة كتابة مكوناتك. تظل ملفات `locales/{lng}/{ns}.json` الخاصة بك هي مصدر الحقيقة الأساسي. تم قياسها جنبًا إلى جنب في [i18next مقابل @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer-i18next.md).
 
 </Accordion>
 </AccordionGroup>
@@ -498,19 +498,19 @@ export default defineConfig({
 
 <Question title="هل يمكنني الوصول إلى 0% تسرب مع i18next؟">
 
-نعم، باستخدام `scoped-dynamic`: مساحة اسم واحدة لكل مسار، وواجهة خلفية للموارد، وخريطة من الصفحة إلى مساحة الاسم تتم صيانتها يدويًا. يستقر الحجم عند 163.4 كيلوبايت لكل صفحة على Next.js، وهو ما يزال **+22 كيلوبايت** فوق 141.3 كيلوبايت لـ Intlayer التي لم تتطلب أي إعداد. انظر [تحسين الحزمة](https://intlayer.org/ar/doc/concept/bundle-optimization).
+نعم، باستخدام `scoped-dynamic`: مساحة اسم واحدة لكل مسار، وواجهة خلفية للموارد، وخريطة من الصفحة إلى مساحة الاسم تتم صيانتها يدويًا. يستقر الحجم عند 163.4 كيلوبايت لكل صفحة على Next.js، وهو ما يزال **+22 كيلوبايت** فوق 141.3 كيلوبايت لـ Intlayer التي لم تتطلب أي إعداد. انظر [تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
 
 </Question>
 
 <Question title="هل يجب علي إعادة كتابة مكوناتي للترحيل؟">
 
-لا. تحتفظ `@intlayer/i18next` و `@intlayer/react-i18next` و `@intlayer/next-i18next` بـ `useTranslation` و `t()` و `<Trans>` و `{{interpolation}}` وصيغ الجمع `_one` / `_other` ولاحقات السياق و `returnObjects`. سطر إضافي واحد في `next.config.ts` أو `vite.config.ts`. خطوة بخطوة في [دليل الترحيل لـ next-i18next](https://intlayer.org/ar/doc/migration/next-i18next).
+لا. تحتفظ `@intlayer/i18next` و `@intlayer/react-i18next` و `@intlayer/next-i18next` بـ `useTranslation` و `t()` و `<Trans>` و `{{interpolation}}` وصيغ الجمع `_one` / `_other` ولاحقات السياق و `returnObjects`. سطر إضافي واحد في `next.config.ts` أو `vite.config.ts`. خطوة بخطوة في [دليل الترحيل لـ next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-i18next_to_intlayer.md).
 
 </Question>
 
 <Question title="ماذا يحدث للمكونات الإضافية لـ i18next الخاصة بي؟">
 
-يتم قبول الواجهات الخلفية وأدوات اكتشاف اللغة ولكنها تظل خاملة: لم يعد هناك شيء لتحميله أو اكتشافه في وقت التشغيل. يصبح اكتشاف اللغة إعداد التوجيه الخاص بـ Intlayer (بادئة URL، ملف تعريف الارتباط، الترويسة). إذا كان تطبيقك يجلب الترجمات من نظام إدارة محتوى (CMS) وقت الطلب، فاستخدم [Intlayer CMS](https://intlayer.org/ar/doc/concept/cms) أو أوامر `intlayer pull` / `push` بدلاً من ذلك.
+يتم قبول الواجهات الخلفية وأدوات اكتشاف اللغة ولكنها تظل خاملة: لم يعد هناك شيء لتحميله أو اكتشافه في وقت التشغيل. يصبح اكتشاف اللغة إعداد التوجيه الخاص بـ Intlayer (بادئة URL، ملف تعريف الارتباط، الترويسة). إذا كان تطبيقك يجلب الترجمات من نظام إدارة محتوى (CMS) وقت الطلب، فاستخدم [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) أو أوامر `intlayer pull` / `push` بدلاً من ذلك.
 
 </Question>
 
@@ -520,27 +520,27 @@ export default defineConfig({
 
 نفس المعيار، مكتبات أخرى:
 
-- [next-intl vs Intlayer](https://intlayer.org/ar/blog/next-intl-vs-intlayer)
-- [Lingui vs Intlayer](https://intlayer.org/ar/blog/lingui-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ar/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ar/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/react-i18next_vs_react-intl_vs_intlayer.md)
 
 المزيد حول i18next:
 
-- [i18next مقابل @intlayer/i18next](https://intlayer.org/ar/blog/i18next-vs-intlayer-i18next)، المحولات مقاسة على نفس التطبيق
-- [هل عفا عليه الزمن i18next؟](https://intlayer.org/ar/blog/is-i18next-outdated)
-- [استخدام Intlayer مع i18next](https://intlayer.org/ar/blog/intlayer-with-i18next) و [مع react-i18next](https://intlayer.org/ar/blog/intlayer-with-react-i18next)
-- [كيفية تدويل تطبيق Next.js باستخدام next-i18next](https://intlayer.org/ar/blog/nextjs-internationalization-using-next-i18next)
+- [i18next مقابل @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer-i18next.md)، المحولات مقاسة على نفس التطبيق
+- [هل عفا عليه الزمن i18next؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_i18next_outdated.md)
+- [استخدام Intlayer مع i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_i18next.md) و [مع react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_react-i18next.md)
+- [كيفية تدويل تطبيق Next.js باستخدام next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_next-i18next.md)
 
 الوثائق المرجعية:
 
-- [تقرير قياس الأداء لـ Next.js](https://intlayer.org/ar/doc/benchmark/nextjs) و [تقرير قياس الأداء لـ TanStack Start](https://intlayer.org/ar/doc/benchmark/tanstack)
-- محولات التوافق: [i18next](https://intlayer.org/ar/doc/compatibility/i18next)، [react-i18next](https://intlayer.org/ar/doc/compatibility/react-i18next)، [next-i18next](https://intlayer.org/ar/doc/compatibility/next-i18next)
-- أدلة الترحيل: [i18next](https://intlayer.org/ar/doc/migration/i18next)، [react-i18next](https://intlayer.org/ar/doc/migration/react-i18next)، [next-i18next](https://intlayer.org/ar/doc/migration/next-i18next)
-- [تحسين الحزمة](https://intlayer.org/ar/doc/concept/bundle-optimization) و [مترجم Intlayer](https://intlayer.org/ar/doc/compiler)
-- [i18n لكل مكون مقابل المركزية](https://intlayer.org/ar/blog/per-component-vs-centralized-i18n)
-- [i18n المعتمدة على المترجم مقابل التصريحية](https://intlayer.org/ar/blog/compiler-vs-declarative-i18n)
+- [تقرير قياس الأداء لـ Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md) و [تقرير قياس الأداء لـ TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
+- محولات التوافق: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/i18next.md)، [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-i18next.md)، [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-i18next.md)
+- أدلة الترحيل: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md)، [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_react-i18next_to_intlayer.md)، [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-i18next_to_intlayer.md)
+- [تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+- [i18n لكل مكون مقابل المركزية](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md)
+- [i18n المعتمدة على المترجم مقابل التصريحية](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
 
 ## نجوم GitHub
 
@@ -556,4 +556,4 @@ export default defineConfig({
 
 جميع البيانات الخام، والتطبيقات التجريبية، ونصوص الاختبار متاحة في [مستودع Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). يمكنك تشغيلها والتحقق منها بنفسك.
 
-راجع توثيق ['لماذا Intlayer؟'](https://intlayer.org/ar/doc/why) لمزيد من التفاصيل.
+راجع توثيق ['لماذا Intlayer؟'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) لمزيد من التفاصيل.

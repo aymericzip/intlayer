@@ -27,7 +27,7 @@ author: aymericzip
 
 `@intlayer/lingui`, `@lingui/core` और `@lingui/react` के लिए एक कम्पैट एडॉप्टर (संगतता एडॉप्टर) है। आपके `` t`...` ``, `<Trans>`, `useLingui()` और `i18n._()` कॉल्स बिल्कुल वैसे ही बने रहते हैं; मैक्रोज़ पहले की तरह कंपाइल होते रहते हैं; जो बदलता है वह यह है कि रनटाइम पर संदेश कहाँ से आते हैं। प्रति भाषा एक संकलित कैटलॉग के बजाय, प्रत्येक कॉल साइट इसके लिए विशेष रूप से संकलित Intlayer डिक्शनरी से बंधी होती है।
 
-यह लेख उसी TanStack Start एप्लिकेशन पर इस बदलाव को मापता है, जिसे एक बार शुद्ध Lingui के साथ और एक बार एडॉप्टर के साथ बनाया गया है। ये आंकड़े [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) से लिए गए हैं। दोनों लाइब्रेरीज़ की तुलना देखने के लिए [Lingui बनाम Intlayer](https://intlayer.org/hi/blog/lingui-vs-intlayer) पढ़ें। यह लेख इस बात पर केंद्रित है कि एडॉप्टर क्या बदलता है, और कहाँ यह अतिरिक्त लाभ नहीं देता।
+यह लेख उसी TanStack Start एप्लिकेशन पर इस बदलाव को मापता है, जिसे एक बार शुद्ध Lingui के साथ और एक बार एडॉप्टर के साथ बनाया गया है। ये आंकड़े [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) से लिए गए हैं। दोनों लाइब्रेरीज़ की तुलना देखने के लिए [Lingui बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer.md) पढ़ें। यह लेख इस बात पर केंद्रित है कि एडॉप्टर क्या बदलता है, और कहाँ यह अतिरिक्त लाभ नहीं देता।
 
 <TOC/>
 
@@ -227,7 +227,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-`.po` कैटलॉग के लिए, `syncJSON` को `@intlayer/sync-po-plugin` के `syncPO` से बदलें और `.po` एक्सटेंशन के साथ समान `source` पैटर्न का उपयोग करें। [Sync PO प्लगइन दस्तावेज़](https://intlayer.org/hi/doc/plugin/sync-po) देखें।
+`.po` कैटलॉग के लिए, `syncJSON` को `@intlayer/sync-po-plugin` के `syncPO` से बदलें और `.po` एक्सटेंशन के साथ समान `source` पैटर्न का उपयोग करें। [Sync PO प्लगइन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/plugins/sync-po.md) देखें।
 
 `splitKeys: "key-prefix"` घटक आकार को अत्यधिक कम करने का प्रमुख कारक है। कैटलॉग फ़ाइल अपना फ्लैट आकार बनाए रखती है; विभाजन केवल उत्पन्न डिक्शनरी में मौजूद होता है, और रिवर्स सिंक स्वचालित रूप से कुंजियों को फिर से जोड़ देता है।
 
@@ -277,7 +277,7 @@ export default defineConfig({
 - **`dynamic` मोड में प्रति पेज लागत।** जैसा कि ऊपर बताया गया है: छोटे ऐप पर लेज़ी-लोडेड Lingui सेटअप के मुकाबले प्रति पेज लगभग +20 KB की उम्मीद करें। सामग्री बढ़ने पर यह अंतर बढ़ता नहीं है (क्योंकि यह रिज़ॉल्वर से जुड़ा है, कैटलॉग से नहीं), लेकिन यह कम भी नहीं होता।
 - **स्रोत-भाषा लीकेज बना रहता है।** संदेश विवरण और कंपाइल किए गए मैक्रोज़ फ़ॉलबैक के रूप में मूल अंग्रेजी टेक्स्ट एम्बेड करते हैं। यदि इसे पूरी तरह हटाना है, तो `message` फ़ील्ड को साफ़ करना होगा या घटक को `.content.ts` में ले जाना होगा।
 - **`i18n.load()` केवल फ़ॉलबैक है।** यदि आप संकलित कैटलॉग इम्पोर्ट करना और `load()` कॉल करना जारी रखते हैं, तो पुराना बंडल और नया बंडल दोनों लोड होंगे। उन इम्पोर्ट्स को हटा दें।
-- **केवल Vite समर्थित।** `@intlayer/lingui` के लिए कोई Next.js प्लगइन उपलब्ध नहीं है। Lingui पर आधारित Next.js परियोजनाओं को सीधे [`next-intlayer`](https://intlayer.org/hi/doc/environment/nextjs) पर विचार करना चाहिए।
+- **केवल Vite समर्थित।** `@intlayer/lingui` के लिए कोई Next.js प्लगइन उपलब्ध नहीं है। Lingui पर आधारित Next.js परियोजनाओं को सीधे [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md) पर विचार करना चाहिए।
 - **`defaultComponent` लागू नहीं होता।** यदि आप प्रत्येक `<Trans>` को स्वचालित रूप से लपेटने के लिए इस पर निर्भर हैं, तो घटकों में स्पष्ट रूप से रैपर जोड़ें।
 
 ## कब किसका उपयोग करें?
@@ -288,12 +288,12 @@ export default defineConfig({
 
 ## संबंधित तुलनात्मक लेख
 
-- [Lingui बनाम Intlayer](https://intlayer.org/hi/blog/lingui-vs-intlayer) (समान बेंचमार्क पर दोनों लाइब्रेरीज़ की सीधी तुलना)
-- [next-intl बनाम @intlayer/next-intl](https://intlayer.org/hi/blog/next-intl-vs-intlayer-next-intl) (कम्पैट एडॉप्टर तुलना श्रृंखला)
-- [i18next बनाम @intlayer/i18next](https://intlayer.org/hi/blog/i18next-vs-intlayer-i18next) (कम्पैट एडॉप्टर तुलना श्रृंखला)
-- [vue-i18n बनाम @intlayer/vue-i18n](https://intlayer.org/hi/blog/vue-i18n-vs-intlayer-vue-i18n) (कम्पैट एडॉप्टर तुलना श्रृंखला)
-- [कम्पैट एडॉप्टर संदर्भ: Lingui](https://intlayer.org/hi/doc/compatibility/lingui)
-- [कंपाइलर बनाम घोषणात्मक i18n](https://intlayer.org/hi/blog/compiler-vs-declarative-i18n)
+- [Lingui बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer.md) (समान बेंचमार्क पर दोनों लाइब्रेरीज़ की सीधी तुलना)
+- [next-intl बनाम @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer-next-intl.md) (कम्पैट एडॉप्टर तुलना श्रृंखला)
+- [i18next बनाम @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer-i18next.md) (कम्पैट एडॉप्टर तुलना श्रृंखला)
+- [vue-i18n बनाम @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer-vue-i18n.md) (कम्पैट एडॉप्टर तुलना श्रृंखला)
+- [कम्पैट एडॉप्टर संदर्भ: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
+- [कंपाइलर बनाम घोषणात्मक i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
 
 ## निष्कर्ष
 
@@ -301,4 +301,4 @@ export default defineConfig({
 
 सभी मूल डेटा, परीक्षण ऐप्स और बेंचमार्क स्क्रिप्ट्स [Benchmark Bloom रिपॉजिटरी](https://github.com/intlayer-org/benchmark-bloom) में उपलब्ध हैं। आप इसे स्वयं चलाकर देख सकते हैं।
 
-अधिक जानकारी के लिए ['Intlayer क्यों चुनें?' दस्तावेज़](https://intlayer.org/hi/doc/why) देखें।
+अधिक जानकारी के लिए ['Intlayer क्यों चुनें?' दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।

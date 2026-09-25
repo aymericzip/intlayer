@@ -29,7 +29,7 @@ author: aymericzip
 
 `@intlayer/vue-i18n` एक compat adapter है: यह `vue-i18n` API (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...) को expose करता है और इसे Intlayer द्वारा compiled dictionaries से serve करता है। आपकी `.vue` files नहीं बदलती हैं। जो `t("footer.github")` से bound है, वह बदलता है।
 
-यह लेख एक ही Vite + Vue 3 एप्लिकेशन पर इस स्वैप को मापता है, एक बार `vue-i18n` के साथ और एक बार एडेप्टर के साथ निर्मित। संख्याएँ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) से आती हैं। `vue-i18n` और Intlayer की तुलना लाइब्रेरी के रूप में करने के लिए, [vue-i18n vs Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer) और [vue-i18n vs Intlayer benchmark](https://intlayer.org/blog/vue-i18n-vs-intlayer-benchmark) पढ़ें। यह इस बारे में है कि जब आप अपने components को वैसे ही रखते हैं तो एडेप्टर क्या बदलता है।
+यह लेख एक ही Vite + Vue 3 एप्लिकेशन पर इस स्वैप को मापता है, एक बार `vue-i18n` के साथ और एक बार एडेप्टर के साथ निर्मित। संख्याएँ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) से आती हैं। `vue-i18n` और Intlayer की तुलना लाइब्रेरी के रूप में करने के लिए, [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md) और [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer_benchmark.md) पढ़ें। यह इस बारे में है कि जब आप अपने components को वैसे ही रखते हैं तो एडेप्टर क्या बदलता है।
 
 <TOC/>
 
@@ -83,7 +83,7 @@ const { t } = useI18n(_dicHash_footer);
 | `createI18n({ messages })`                                          | ⚠️ `messages` को **runtime fallback** के रूप में उपयोग किया जाता है जिसमें एक dev warning है। Bundle gains के लिए JSON imports को हटाएं |
 | `setLocaleMessage()`, `mergeLocaleMessage()`                        | ❌ चेतावनी दें और कुछ न करें। Runtime message loading को build-time dictionaries से बदल दिया गया है                                     |
 | SFC `<i18n>` custom blocks                                          | ❌ नहीं पढ़े गए। उन messages को locale JSON में (या component के बगल में `.content.ts` में) स्थानांतरित करें                            |
-| `@nuxtjs/i18n`                                                      | ⚠️ अलग adapter, [Nuxt compat doc](https://intlayer.org/doc/compatibility/nuxtjs-i18n) देखें                                             |
+| `@nuxtjs/i18n`                                                      | ⚠️ अलग adapter, [Nuxt compat doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md) देखें            |
 
 ## बेंचमार्क
 
@@ -137,7 +137,7 @@ height="600px"
 style="border:none;"
 />
 
-> पूरी तालिका, प्रत्येक लाइब्रेरी और रणनीति, [Vue बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/vue) में।
+> पूरी तालिका, प्रत्येक लाइब्रेरी और रणनीति, [Vue बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md) में।
 
 ## संख्याएं क्यों बदलती हैं
 
@@ -285,7 +285,7 @@ export const i18n = createI18n({ locale: "en" });
 </Accordion>
 <Accordion header="रनटाइम संदेश लोडिंग हटा दी गई है">
 
-`setLocaleMessage()` और `mergeLocaleMessage()` चेतावनी देते हैं और वापस लौट जाते हैं। रनटाइम पर CMS से लाए गए अनुवादों के लिए [Intlayer CMS](https://intlayer.org/hi/doc/concept/cms) या `intlayer pull` / `push` कमांड की आवश्यकता होती है।
+`setLocaleMessage()` और `mergeLocaleMessage()` चेतावनी देते हैं और वापस लौट जाते हैं। रनटाइम पर CMS से लाए गए अनुवादों के लिए [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) या `intlayer pull` / `push` कमांड की आवश्यकता होती है।
 
 </Accordion>
 <Accordion header="messages एक फ़ॉलबैक है, मुफ़्त नहीं">
@@ -315,7 +315,7 @@ export const i18n = createI18n({ locale: "en" });
 </Accordion>
 <Accordion header="नेटिव बनें (vue-intlayer)">
 
-नई परियोजनाओं के लिए, या एक बार जब एडाप्टर अपना काम कर ले। इसमें सबसे हल्का रनटाइम (3.9 KB) और प्रति-घटक `.content.ts` मॉडल है जो `<i18n>` ब्लॉक को टाइप की गई सामग्री से बदलता है। [Vue के साथ Intlayer](https://intlayer.org/hi/doc/environment/vite-and-vue) या [Nuxt के साथ](https://intlayer.org/hi/doc/environment/nuxt-and-vue) से शुरुआत करें।
+नई परियोजनाओं के लिए, या एक बार जब एडाप्टर अपना काम कर ले। इसमें सबसे हल्का रनटाइम (3.9 KB) और प्रति-घटक `.content.ts` मॉडल है जो `<i18n>` ब्लॉक को टाइप की गई सामग्री से बदलता है। [Vue के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+vue.md) या [Nuxt के साथ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md) से शुरुआत करें।
 
 </Accordion>
 </AccordionGroup>
@@ -338,13 +338,13 @@ export const i18n = createI18n({ locale: "en" });
 
 <Question title="d() और n() फ़ॉर्मेटिंग का क्या होगा?">
 
-बनाए रखा गया है। `createI18n()` को दिए गए `datetimeFormats` और `numberFormats` का सम्मान किया जाता है, जो नेटिव `Intl` API द्वारा समर्थित हैं। [दिनांक, समय और संख्या फ़ॉर्मेटिंग](https://intlayer.org/hi/blog/date-time-number-formatting-locales) देखें।
+बनाए रखा गया है। `createI18n()` को दिए गए `datetimeFormats` और `numberFormats` का सम्मान किया जाता है, जो नेटिव `Intl` API द्वारा समर्थित हैं। [दिनांक, समय और संख्या फ़ॉर्मेटिंग](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/date_time_number_formatting_locales.md) देखें।
 
 </Question>
 
 <Question title="क्या यह Nuxt के साथ काम करता है?">
 
-`@intlayer/vue-i18n` Vite + Vue को लक्षित करता है। `@nuxtjs/i18n` के लिए, [Nuxt i18n संगतता एडाप्टर](https://intlayer.org/hi/doc/compatibility/nuxtjs-i18n) का उपयोग करें, और नेटिव सेटअप के लिए [Nuxt के साथ Intlayer](https://intlayer.org/hi/doc/environment/nuxt-and-vue) देखें।
+`@intlayer/vue-i18n` Vite + Vue को लक्षित करता है। `@nuxtjs/i18n` के लिए, [Nuxt i18n संगतता एडाप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md) का उपयोग करें, और नेटिव सेटअप के लिए [Nuxt के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md) देखें।
 
 </Question>
 
@@ -360,24 +360,24 @@ export const i18n = createI18n({ locale: "en" });
 
 समान एडाप्टर श्रृंखला:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/hi/blog/next-intl-vs-intlayer-next-intl)
-- [i18next vs @intlayer/i18next](https://intlayer.org/hi/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/hi/blog/lingui-vs-intlayer-lingui)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer-next-intl.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer-lingui.md)
 
 लाइब्रेरी की आमने-सामने तुलना:
 
-- [vue-i18n vs Intlayer](https://intlayer.org/hi/blog/vue-i18n-vs-intlayer), features and DX
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/hi/blog/vue-i18n-vs-intlayer-benchmark)
-- [Is vue-i18n outdated?](https://intlayer.org/hi/blog/is-vue-i18n-outdated)
-- [How to pick a Vue i18n library](https://intlayer.org/hi/blog/how-to-pick-vue-i18n-library)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md), features and DX
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer_benchmark.md)
+- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_vue-i18n_outdated.md)
+- [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_vue_i18n_library.md)
 
 संदर्भ दस्तावेज़:
 
-- [Compat adapter: vue-i18n](https://intlayer.org/hi/doc/compatibility/vue-i18n) and [Nuxt i18n](https://intlayer.org/hi/doc/compatibility/nuxtjs-i18n)
-- [माइग्रेशन गाइड: vue-i18n से Intlayer](https://intlayer.org/hi/doc/migration/vue-i18n)
-- [Vue बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark/vue)
-- [बंडल अनुकूलन](https://intlayer.org/hi/doc/concept/bundle-optimization) और [Intlayer कंपाइलर](https://intlayer.org/hi/doc/compiler)
-- [विज़ुअल एडिटर](https://intlayer.org/hi/doc/concept/editor), [CMS](https://intlayer.org/hi/doc/concept/cms) और [AI अनुवाद](https://intlayer.org/hi/doc/concept/auto-fill)
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md)
+- [माइग्रेशन गाइड: vue-i18n से Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_vue-i18n_to_intlayer.md)
+- [Vue बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md)
+- [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) और [AI अनुवाद](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md)
 
 ## निष्कर्ष
 
@@ -385,4 +385,4 @@ export const i18n = createI18n({ locale: "en" });
 
 [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom) में सभी raw data, test apps और scripts हैं। इसे अपने आप चलाएं।
 
-अधिक विवरण के लिए ['Why Intlayer?' doc](https://intlayer.org/hi/doc/why) देखें।
+अधिक विवरण के लिए ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।

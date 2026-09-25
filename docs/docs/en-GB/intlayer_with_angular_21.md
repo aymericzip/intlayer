@@ -480,7 +480,7 @@ This extension provides:
 - **Inline previews** of translated content.
 - **Quick actions** to easily create and update translations.
 
-For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md).
 
 ### Go Further
 
@@ -494,7 +494,7 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 - **`@angular/localize`**, the built-in i18n: messages are extracted to XLIFF and each locale is compiled into its own build, which means one deployment artifact per language and no runtime locale switching.
 - **`ngx-translate`** and **`Transloco`**: runtime JSON catalogues loaded through a service, with locale switching but no build time typing.
-- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://intlayer.org/blog/per-component-vs-centralized-i18n)) and compiled at build time, fully typed, with runtime locale switching, AI translation, a visual editor and a CMS.
+- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/per-component_vs_centralized_i18n.md)) and compiled at build time, fully typed, with runtime locale switching, AI translation, a visual editor and a CMS.
 
 The usual reason to leave `@angular/localize` is the one build per locale model. Intlayer keeps a single build and switches language at runtime. See [why Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/interest_of_intlayer.md).
 

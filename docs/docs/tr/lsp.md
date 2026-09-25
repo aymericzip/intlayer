@@ -92,7 +92,7 @@ Editörünüz `intlayer-lsp` komutunu `PATH` üzerinde arıyorsa bunun yerine k�
 
 [Intlayer VS Code eklentisini](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) kurun. Dil sunucusu v8.12.0’dan beri paketin içindedir ve otomatik başlar — **yapılandırma gerekmez**.
 
-Diğer özellikler için [VS Code eklentisi belgelerine](https://intlayer.org/doc/vs-code-extension) bakın.
+Diğer özellikler için [VS Code eklentisi belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) bakın.
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">

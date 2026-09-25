@@ -92,7 +92,7 @@ Hãy cài đặt toàn cục (`npm install -g @intlayer/lsp`) nếu trình soạ
 
 Cài [tiện ích mở rộng Intlayer cho VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). Máy chủ ngôn ngữ đã được đóng gói kèm từ v8.12.0 và tự khởi động — **không cần cấu hình gì**.
 
-Xem [tài liệu tiện ích mở rộng VS Code](https://intlayer.org/doc/vs-code-extension) để biết các tính năng khác.
+Xem [tài liệu tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md) để biết các tính năng khác.
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">

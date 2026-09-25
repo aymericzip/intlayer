@@ -845,7 +845,7 @@ Esta extensão oferece:
 - **Visualizações inline** do conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
 
 ## Recursos Adicionais
 
@@ -869,7 +869,7 @@ O Page Router ainda suporta o campo nativo `i18n` do `next.config.js`, mas ele g
 
 - **`next-i18next` / `i18next`** e **`next-intl`**: namespaces JSON carregados por página, a abordagem clássica com o Page Router.
 - **`react-intl`** e **`Lingui`**: mensagens ICU com etapa de extração.
-- **`Intlayer`**: a solução mais avançada. Conteúdo declarado em qualquer lugar do seu código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)) e compilado por componente, totalmente tipado, com tradução por IA, editor visual e CMS.
+- **`Intlayer`**: a solução mais avançada. Conteúdo declarado em qualquer lugar do seu código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)) e compilado por componente, totalmente tipado, com tradução por IA, editor visual e CMS.
 
 Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) e o [benchmark de i18n do Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/nextjs.md).
 

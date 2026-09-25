@@ -85,7 +85,7 @@ height="600px"
 style="border:none;"
 />
 
-> Вимірювання у production-збірці на 10 маршрутах і 10 мовах зі стисненням gzip. Деталі у [звіті про бенчмарк i18n](https://intlayer.org/uk/doc/benchmark).
+> Вимірювання у production-збірці на 10 маршрутах і 10 мовах зі стисненням gzip. Деталі у [звіті про бенчмарк i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md).
 
 ### Базовий оверхед бібліотек
 
@@ -164,7 +164,7 @@ return <h1>{title}</h1>;
   </Tab>
 </Tabs>
 
-[Компілятор Intlayer](https://intlayer.org/uk/doc/compiler) бачить, що саме використовує `Hero.tsx`, і видаляє незадіяні поля до генерації клієнтських бандлів. Детальніше про це у розділі [оптимізація бандла](https://intlayer.org/uk/doc/concept/bundle-optimization).
+[Компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) бачить, що саме використовує `Hero.tsx`, і видаляє незадіяні поля до генерації клієнтських бандлів. Детальніше про це у розділі [оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
 
 ## Досвід розробника
 
@@ -231,17 +231,17 @@ export const Hero = () => {
 
 Розширення `CustomTypeOptions` надає підказки в IDE, але не перевіряє наявність тексту. Видалення ключа з `uk/home.json` не зупинить збірку, а призведе лише до фоллбеку під час виконання.
 
-Intlayer формує типи безпосередньо з описів контенту, а режим [`strictMode`](https://intlayer.org/uk/doc/concept/configuration) перетворює відсутні переклади на помилки компіляції.
+Intlayer формує типи безпосередньо з описів контенту, а режим [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md) перетворює відсутні переклади на помилки компіляції.
 
 ### Порівняння інструментів
 
-| Функція                      | Екосистема i18next | Intlayer                                                                    |
-| ---------------------------- | ------------------ | --------------------------------------------------------------------------- |
-| **Розширення VS Code**       | Тільки сторонні    | ✅ [Офіційне розширення](https://intlayer.org/uk/doc/vs-code-extension)     |
-| **Language Server (LSP)**    | ❌ Немає           | ✅ [Вбудований LSP](https://intlayer.org/uk/doc/lsp)                        |
-| **MCP Server (для ШІ)**      | ❌ Немає           | ✅ [Інтегрований MCP-сервер](https://intlayer.org/uk/doc/mcp-server)        |
-| **Навички агентів (Skills)** | ❌ Немає           | ✅ [Готові навички](https://intlayer.org/uk/doc/agent_skills)               |
-| **Візуальна CMS**            | Locize (Платно)    | ✅ [Безкоштовно та Open Source](https://intlayer.org/uk/doc/concept/editor) |
+| Функція                      | Екосистема i18next | Intlayer                                                                                                                 |
+| ---------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| **Розширення VS Code**       | Тільки сторонні    | ✅ [Офіційне розширення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)             |
+| **Language Server (LSP)**    | ❌ Немає           | ✅ [Вбудований LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/lsp.md)                                |
+| **MCP Server (для ШІ)**      | ❌ Немає           | ✅ [Інтегрований MCP-сервер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)                |
+| **Навички агентів (Skills)** | ❌ Немає           | ✅ [Готові навички](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/agent_skills.md)                       |
+| **Візуальна CMS**            | Locize (Платно)    | ✅ [Безкоштовно та Open Source](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) |
 
 ## Переклад і комерційна модель Locize
 
@@ -249,8 +249,8 @@ Locize є комерційною платформою від творців i18n
 
 Intlayer використовує відкритий підхід:
 
-- [`intlayer fill`](https://intlayer.org/uk/doc/concept/auto-fill) доповнює відсутні переклади в терміналі або в CI за допомогою ваших власних API-ключів OpenAI, Anthropic, Mistral або Gemini.
-- [Intlayer CMS](https://intlayer.org/uk/doc/concept/cms) має відкритий вихідний код і розгортається локально через Docker Compose.
+- [`intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/autoFill.md) доповнює відсутні переклади в терміналі або в CI за допомогою ваших власних API-ключів OpenAI, Anthropic, Mistral або Gemini.
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md) має відкритий вихідний код і розгортається локально через Docker Compose.
 - Компілятор, CLI, редактор і CMS ліцензовані під Apache 2.0.
 
 ## Де i18next все ще актуальний?
@@ -303,9 +303,9 @@ bunx intlayer init --interactive
 
 Детальні інструкції дивіться у наших посібниках:
 
-- **Рівні сумісності:** Зберігайте поточний синтаксис з адаптерами для [i18next](https://intlayer.org/uk/doc/compatibility/i18next), [react-i18next](https://intlayer.org/uk/doc/compatibility/react-i18next) та [next-i18next](https://intlayer.org/uk/doc/compatibility/next-i18next).
-- **Міграція каталогів:** Конвертуйте JSON-файли у типізовані словники: [з i18next](https://intlayer.org/uk/doc/migration/i18next), [з react-i18next](https://intlayer.org/uk/doc/migration/react-i18next) або [з next-i18next](https://intlayer.org/uk/doc/migration/next-i18next).
-- **Гібридний підхід:** Залиште runtime i18next для показу інтерфейсу, [використовуючи Intlayer](https://intlayer.org/uk/blog/intlayer-with-i18next) для створення типів та автоперекладу каталогів.
+- **Рівні сумісності:** Зберігайте поточний синтаксис з адаптерами для [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/react-i18next.md) та [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-i18next.md).
+- **Міграція каталогів:** Конвертуйте JSON-файли у типізовані словники: [з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md), [з react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_react-i18next_to_intlayer.md) або [з next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-i18next_to_intlayer.md).
+- **Гібридний підхід:** Залиште runtime i18next для показу інтерфейсу, [використовуючи Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/intlayer_with_i18next.md) для створення типів та автоперекладу каталогів.
 
 Перевірте ваш сайт за допомогою безкоштовного [SEO-сканера i18n](https://intlayer.org/i18n-seo-scanner):
 
@@ -313,7 +313,7 @@ bunx intlayer init --interactive
 
 ## Додаткові матеріали
 
-- [Бенчмарк Next.js i18n: детальний аналіз продуктивності](https://intlayer.org/uk/doc/benchmark/nextjs)
-- [react-i18next проти react-intl та Intlayer](https://intlayer.org/uk/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [Чи застарів next-intl у 2026 році?](https://intlayer.org/uk/blog/is-next-intl-outdated)
-- [Компіляція проти декларативної інтернаціоналізації](https://intlayer.org/uk/blog/compiler-vs-declarative-i18n)
+- [Бенчмарк Next.js i18n: детальний аналіз продуктивності](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
+- [react-i18next проти react-intl та Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Чи застарів next-intl у 2026 році?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/is_next-intl_outdated.md)
+- [Компіляція проти декларативної інтернаціоналізації](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)

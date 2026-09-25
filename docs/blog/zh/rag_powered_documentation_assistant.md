@@ -28,7 +28,7 @@ author: aymericzip
 - 所有UI组件均可使用Tailwind CSS完全编辑
 - 记录每个用户查询，帮助识别缺失的文档、用户痛点和产品机会
 
-👉 [在线演示](https://intlayer.org/doc/why) 👉 [代码模板](https://github.com/aymericzip/smart_doc_RAG)
+👉 [在线演示](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 👉 [代码模板](https://github.com/aymericzip/smart_doc_RAG)
 
 ## RAG 流程是如何工作的
 
@@ -95,6 +95,6 @@ RAG 是使大型语言模型（LLM）实用的最简单且最强大的方法之�
 - 反馈渠道
 - 产品策略工具
 
-👉 [在此试用演示](https://intlayer.org/doc/why) 👉 [在 GitHub 查看代码模板](https://github.com/aymericzip/smart_doc_RAG)
+👉 [在此试用演示](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 👉 [在 GitHub 查看代码模板](https://github.com/aymericzip/smart_doc_RAG)
 
 如果您也在尝试使用 RAG，我很想了解您是如何使用它的。

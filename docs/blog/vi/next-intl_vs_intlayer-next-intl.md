@@ -30,7 +30,7 @@ author: aymericzip
 
 `@intlayer/next-intl` là một compat adapter: nó cung cấp API của `next-intl` (`useTranslations`, `getTranslations`, `useLocale`, `t.rich()`, ICU plurals, `NextIntlClientProvider`...) và phục vụ nó từ các từ điển được biên dịch bởi Intlayer. Mã ứng dụng không thay đổi. Bundle thì có.
 
-Bài viết này so sánh hai cái trên cùng một ứng dụng Next.js, được xây dựng một lần với `next-intl` và một lần với adapter. Các con số này đến từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), một bộ mã nguồn mở ghi lại những gì trình duyệt thực sự tải xuống. Nếu bạn muốn so sánh `next-intl` vs Intlayer dưới dạng các thư viện, hãy đọc [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer). Cái này là về những gì adapter thay đổi khi bạn giữ nguyên các component của mình.
+Bài viết này so sánh hai cái trên cùng một ứng dụng Next.js, được xây dựng một lần với `next-intl` và một lần với adapter. Các con số này đến từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), một bộ mã nguồn mở ghi lại những gì trình duyệt thực sự tải xuống. Nếu bạn muốn so sánh `next-intl` vs Intlayer dưới dạng các thư viện, hãy đọc [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer.md). Cái này là về những gì adapter thay đổi khi bạn giữ nguyên các component của mình.
 
 <TOC/>
 
@@ -142,7 +142,7 @@ height="600px"
 style="border:none;"
 />
 
-> Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://intlayer.org/vi/doc/benchmark/nextjs).
+> Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md).
 
 ### Kết quả trên TanStack Start (`use-intl`)
 
@@ -174,7 +174,7 @@ height="600px"
 style="border:none;"
 />
 
-> Bảng đầy đủ trong [báo cáo benchmark TanStack Start](https://intlayer.org/vi/doc/benchmark/tanstack).
+> Bảng đầy đủ trong [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md).
 
 ## Tại sao các con số thay đổi
 
@@ -326,7 +326,7 @@ Quá trình tối ưu hóa cần một namespace tĩnh để biết cần import
 </Accordion>
 <Accordion header="messages, timeZone và now trên provider bị bỏ qua">
 
-Các trình định dạng được hỗ trợ bởi `Intl` gốc và chỉ có ngôn ngữ mới ảnh hưởng đến kết quả. Nếu bạn phụ thuộc vào múi giờ bắt buộc hoặc một giá trị `now` cố định cho ngày tháng ổn định khi hydrate, hãy xử lý tại nơi gọi. Xem [định dạng ngày, giờ và số](https://intlayer.org/vi/blog/date-time-number-formatting-locales).
+Các trình định dạng được hỗ trợ bởi `Intl` gốc và chỉ có ngôn ngữ mới ảnh hưởng đến kết quả. Nếu bạn phụ thuộc vào múi giờ bắt buộc hoặc một giá trị `now` cố định cho ngày tháng ổn định khi hydrate, hãy xử lý tại nơi gọi. Xem [định dạng ngày, giờ và số](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/date_time_number_formatting_locales.md).
 
 </Accordion>
 </AccordionGroup>
@@ -346,7 +346,7 @@ Bạn đang dùng `next-intl` và muốn giảm kích thước bundle, hạn ch�
 </Accordion>
 <Accordion header="Chuyển sang bản gốc (next-intlayer)">
 
-Dành cho các dự án mới, hoặc khi adapter đã hoàn thành nhiệm vụ chuyển tiếp. Đây là giải pháp nhẹ nhất trong cả ba (5.5 KB, +0.3 KB mỗi trang) và mở khóa các server component đồng bộ, tệp `.content.ts` theo từng component cùng đầy đủ tính năng. Bắt đầu với [Intlayer với Next.js](https://intlayer.org/vi/doc/environment/nextjs).
+Dành cho các dự án mới, hoặc khi adapter đã hoàn thành nhiệm vụ chuyển tiếp. Đây là giải pháp nhẹ nhất trong cả ba (5.5 KB, +0.3 KB mỗi trang) và mở khóa các server component đồng bộ, tệp `.content.ts` theo từng component cùng đầy đủ tính năng. Bắt đầu với [Intlayer với Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
 
 </Accordion>
 </AccordionGroup>
@@ -363,7 +363,7 @@ Trên Next.js, câu trả lời là có đối với các component: bản build
 
 <Question title="Điều gì xảy ra với các thông điệp ICU?">
 
-Chúng vẫn hoạt động bình thường. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` và `{ts, date, long}` đều được xử lý bởi bộ giải quyết ICU của Intlayer. Xem [định dạng thông điệp ICU](https://intlayer.org/vi/blog/icu-message-format).
+Chúng vẫn hoạt động bình thường. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` và `{ts, date, long}` đều được xử lý bởi bộ giải quyết ICU của Intlayer. Xem [định dạng thông điệp ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
 
 </Question>
 
@@ -391,23 +391,23 @@ Không hoạt động thông qua `pathnames` của `next-intl`: adapter chấp n
 
 Cùng loạt adapter:
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/vi/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/vi/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer-vue-i18n.md)
 
 So sánh trực tiếp các thư viện:
 
-- [next-intl vs Intlayer](https://intlayer.org/vi/blog/next-intl-vs-intlayer), cùng benchmark
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/vi/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Is next-intl outdated?](https://intlayer.org/vi/blog/is-next-intl-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer.md), cùng benchmark
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_next-intl_outdated.md)
 
 Tài liệu tham khảo:
 
-- [Compat adapter: next-intl](https://intlayer.org/vi/doc/compatibility/next-intl)
-- [Hướng dẫn di chuyển: từ next-intl sang Intlayer](https://intlayer.org/vi/doc/migration/next-intl)
-- [Báo cáo benchmark Next.js](https://intlayer.org/vi/doc/benchmark/nextjs) và [báo cáo benchmark TanStack Start](https://intlayer.org/vi/doc/benchmark/tanstack)
-- [Tối ưu hóa bundle](https://intlayer.org/vi/doc/concept/bundle-optimization) và [trình biên dịch Intlayer](https://intlayer.org/vi/doc/compiler)
-- [Visual Editor](https://intlayer.org/vi/doc/concept/editor), [CMS](https://intlayer.org/vi/doc/concept/cms) và [dịch thuật AI](https://intlayer.org/vi/doc/concept/auto-fill)
+- [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md)
+- [Hướng dẫn di chuyển: từ next-intl sang Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md)
+- [Báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md) và [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
+- [Tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) và [dịch thuật AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md)
 
 ## Kết luận
 
@@ -415,4 +415,4 @@ Tài liệu tham khảo:
 
 Tất cả dữ liệu thô, các test apps và scripts có trong [repository Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Chạy nó của bạn.
 
-Tham khảo tài liệu ['Tại sao Intlayer?'](https://intlayer.org/doc/why) để biết thêm chi tiết.
+Tham khảo tài liệu ['Tại sao Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.

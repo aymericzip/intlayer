@@ -129,7 +129,7 @@ height="600px"
 style="border:none;"
 />
 
-> 完整表格、每个库和每种策略，请参阅 [Next.js 基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs)。
+> 完整表格、每个库和每种策略，请参阅 [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
 
 ### TanStack Start 上的结果（`use-intl`）
 
@@ -161,7 +161,7 @@ height="600px"
 style="border:none;"
 />
 
-> 完整表格请参阅 [TanStack Start 基准测试报告](https://intlayer.org/zh/doc/benchmark/tanstack)。
+> 完整表格请参阅 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。
 
 ## 为什么存在差距？集中式目录 vs. 编译的字典
 
@@ -213,7 +213,7 @@ Intlayer 翻转了这个责任。内容在组件旁边声明：
 
 在构建时，编译器（`@intlayer/swc` / `@intlayer/babel`）会检查哪个组件导入了哪个字典。它只为活跃的语言环境捆绑那些字典，并删除未被导入的字典。"scoped-dynamic"模式成为构建的输出，而不是团队必须维护的纪律。
 
-> 要获得 `dynamic` 行的数字，请在 `intlayer.config.ts` 中设置 `dictionary.importMode: 'dynamic'`。请参阅 [bundle 优化文档](https://intlayer.org/doc/concept/bundle-optimization)。
+> 要获得 `dynamic` 行的数字，请在 `intlayer.config.ts` 中设置 `dictionary.importMode: 'dynamic'`。请参阅 [bundle 优化文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
 
 ## 开发者体验
 
@@ -430,9 +430,9 @@ const nextConfig: NextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
-在基准测试中，同一应用的兼容性构建从**每页 153.6 KB 降至 147.5 KB**，从**每个组件 21.8 KB 降至 8.1 KB**，以及从**约 90% 的页面泄漏降至 0%**，应用代码保持不变。你现有的 `messages/{locale}.json` 文件可以通过 [JSON 同步插件](https://intlayer.org/doc/compatibility/next-intl)保持作为真实来源。
+在基准测试中，同一应用的兼容性构建从**每页 153.6 KB 降至 147.5 KB**，从**每个组件 21.8 KB 降至 8.1 KB**，以及从**约 90% 的页面泄漏降至 0%**，应用代码保持不变。你现有的 `messages/{locale}.json` 文件可以通过 [JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-intl.md)保持作为真实来源。
 
-查看 [next-intl 迁移指南](https://intlayer.org/doc/migration/next-intl)获取分步说明。
+查看 [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md)获取分步说明。
 
 ## 何时选择哪个？
 
@@ -444,12 +444,12 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="选择 Intlayer">
 
-您需要**组件级作用域内容**、**严格的 TypeScript**、**构建时缺失键报错**、**零成本 tree-shaking 和按需加载**、同步服务端组件以及内置编辑工具（[可视化编辑器](https://intlayer.org/zh/doc/concept/editor)、[CMS](https://intlayer.org/zh/doc/concept/cms)、[AI 自动翻译](https://intlayer.org/zh/doc/concept/auto-fill)、[MCP 服务端](https://intlayer.org/zh/doc/mcp-server)）。特别适用于大型模块化代码库和设计系统。
+您需要**组件级作用域内容**、**严格的 TypeScript**、**构建时缺失键报错**、**零成本 tree-shaking 和按需加载**、同步服务端组件以及内置编辑工具（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)、[AI 自动翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)、[MCP 服务端](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)）。特别适用于大型模块化代码库和设计系统。
 
 </Accordion>
 <Accordion header="选择 @intlayer/next-intl">
 
-您已经在项目中使用了 `next-intl`，希望在无需重写的情况下获得包体积缩减优势。[兼容适配器](https://intlayer.org/zh/doc/compatibility/next-intl)保留了您的导入和 `messages/{locale}.json` 文件作为单一真实来源。在 [next-intl 对比 @intlayer/next-intl](https://intlayer.org/zh/blog/next-intl-vs-intlayer-next-intl) 中进行了同台实测。
+您已经在项目中使用了 `next-intl`，希望在无需重写的情况下获得包体积缩减优势。[兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-intl.md)保留了您的导入和 `messages/{locale}.json` 文件作为单一真实来源。在 [next-intl 对比 @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer-next-intl.md) 中进行了同台实测。
 
 </Accordion>
 </AccordionGroup>
@@ -466,25 +466,25 @@ export default withIntlayer(nextConfig);
 
 <Question title="使用 next-intl 可以实现 0% 泄漏吗？">
 
-可以，通过 `scoped-dynamic` 配置：将 `messages/{locale}.json` 按路由拆分为单个命名空间，然后在每个页面中使用 `pick(messages, [...])` 并在组件调整时持续维护该映射关系。基准测试中的 `scoped-*` 行正代表这项工作。而 Intlayer 天然就能达到 0%，因为编译器会在组件层级对内容进行作用域划分。请参阅[包体积优化](https://intlayer.org/zh/doc/concept/bundle-optimization)。
+可以，通过 `scoped-dynamic` 配置：将 `messages/{locale}.json` 按路由拆分为单个命名空间，然后在每个页面中使用 `pick(messages, [...])` 并在组件调整时持续维护该映射关系。基准测试中的 `scoped-*` 行正代表这项工作。而 Intlayer 天然就能达到 0%，因为编译器会在组件层级对内容进行作用域划分。请参阅[包体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
 
 </Question>
 
 <Question title="迁移时需要重写组件吗？">
 
-不需要。`@intlayer/next-intl` 保留了 `useTranslations`、`getTranslations`、`useFormatter`、`t.rich()`、ICU 复数语法和导航助手，并通过编译后的字典进行提供。只需在 `next.config.ts` 中添加一行插件配置。详情请参阅 [next-intl 迁移指南](https://intlayer.org/zh/doc/migration/next-intl)。
+不需要。`@intlayer/next-intl` 保留了 `useTranslations`、`getTranslations`、`useFormatter`、`t.rich()`、ICU 复数语法和导航助手，并通过编译后的字典进行提供。只需在 `next.config.ts` 中添加一行插件配置。详情请参阅 [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md)。
 
 </Question>
 
 <Question title="Intlayer 支持 ICU MessageFormat 吗？">
 
-原生 API 正在积极完善 ICU 支持。兼容适配器（`@intlayer/next-intl`、`@intlayer/use-intl`）均能完美执行 ICU：复数、`select`、`selectordinal`、`#` 和 `{ts, date, long}` 都会经过 Intlayer 的 ICU 解析器处理。详情请参阅 [ICU 消息格式解析](https://intlayer.org/zh/blog/icu-message-format)。
+原生 API 正在积极完善 ICU 支持。兼容适配器（`@intlayer/next-intl`、`@intlayer/use-intl`）均能完美执行 ICU：复数、`select`、`selectordinal`、`#` 和 `{ts, date, long}` 都会经过 Intlayer 的 ICU 解析器处理。详情请参阅 [ICU 消息格式解析](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)。
 
 </Question>
 
 <Question title="我可以保留 messages/{locale}.json 文件吗？">
 
-可以。[JSON 同步插件](https://intlayer.org/zh/doc/compatibility/next-intl)会读取这些文件，将其顶层键拆分为字典，并在 CLI 或 CMS 更新时将翻译写回同一文件。译者的工作流程完全保持不变。
+可以。[JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-intl.md)会读取这些文件，将其顶层键拆分为字典，并在 CLI 或 CMS 更新时将翻译写回同一文件。译者的工作流程完全保持不变。
 
 </Question>
 
@@ -494,26 +494,26 @@ export default withIntlayer(nextConfig);
 
 同一基准测试，其他库：
 
-- [i18next vs Intlayer](https://intlayer.org/zh/blog/i18next-vs-intlayer)
-- [Lingui vs Intlayer](https://intlayer.org/zh/blog/lingui-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/zh/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/zh/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/react-i18next_vs_react-intl_vs_intlayer.md)
 
 深入了解 next-intl：
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/zh/blog/next-intl-vs-intlayer-next-intl), 在同一应用上实测的适配器
-- [Is next-intl outdated?](https://intlayer.org/zh/blog/is-next-intl-outdated)
-- [Using Intlayer with next-intl](https://intlayer.org/zh/blog/intlayer-with-next-intl)
-- [How to internationalize a Next.js app with next-intl](https://intlayer.org/zh/blog/nextjs-internationalization-using-next-intl)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer-next-intl.md), 在同一应用上实测的适配器
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_next-intl_outdated.md)
+- [Using Intlayer with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_next-intl.md)
+- [How to internationalize a Next.js app with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-intl.md)
 
 参考文档：
 
-- [Next.js 基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs) 与 [TanStack Start 基准测试报告](https://intlayer.org/zh/doc/benchmark/tanstack)
-- [兼容适配器：next-intl](https://intlayer.org/zh/doc/compatibility/next-intl) 与 [迁移指南](https://intlayer.org/zh/doc/migration/next-intl)
-- [包体积优化](https://intlayer.org/zh/doc/concept/bundle-optimization) 与 [Intlayer 编译器](https://intlayer.org/zh/doc/compiler)
-- [组件级 vs 集中式 i18n](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)
-- [编译器驱动 vs 声明式 i18n](https://intlayer.org/zh/blog/compiler-vs-declarative-i18n)
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md) 与 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
+- [兼容适配器：next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-intl.md) 与 [迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md)
+- [包体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 与 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [组件级 vs 集中式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)
+- [编译器驱动 vs 声明式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
 
 ## GitHub Stars
 
@@ -529,4 +529,4 @@ Intlayer 将这些工作转移到编译器中。按组件字典、按语言环�
 
 所有原始数据、测试应用和脚本都在 [Benchmark Bloom 仓库](https://github.com/intlayer-org/benchmark-bloom) 中。自己运行它。
 
-有关更多详细信息，请参阅 ['为什么选择 Intlayer?' 文档](https://intlayer.org/doc/why)。
+有关更多详细信息，请参阅 ['为什么选择 Intlayer?' 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。

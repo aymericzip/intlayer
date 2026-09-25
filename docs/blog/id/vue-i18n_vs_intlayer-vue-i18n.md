@@ -29,7 +29,7 @@ author: aymericzip
 
 `@intlayer/vue-i18n` adalah adapter kompatibilitas: ini mengekspos API `vue-i18n` (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...) dan melayaninya dari kamus yang dikompilasi oleh Intlayer. File `.vue` Anda tidak berubah. Apa yang terikat pada `t("footer.github")` yang berubah.
 
-Artikel ini mengukur pertukaran tersebut pada aplikasi Vite + Vue 3 yang sama, dibangun sekali dengan `vue-i18n` dan sekali dengan adapter. Angka-angka tersebut berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Untuk perbandingan `vue-i18n` dan Intlayer sebagai library, baca [vue-i18n vs Intlayer](https://intlayer.org/id/blog/vue-i18n-vs-intlayer) dan [benchmark vue-i18n vs Intlayer](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-benchmark). Yang ini tentang apa yang berubah adapter ketika Anda mempertahankan komponen seperti apa adanya.
+Artikel ini mengukur pertukaran tersebut pada aplikasi Vite + Vue 3 yang sama, dibangun sekali dengan `vue-i18n` dan sekali dengan adapter. Angka-angka tersebut berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Untuk perbandingan `vue-i18n` dan Intlayer sebagai library, baca [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md) dan [benchmark vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer_benchmark.md). Yang ini tentang apa yang berubah adapter ketika Anda mempertahankan komponen seperti apa adanya.
 
 <TOC/>
 
@@ -71,19 +71,19 @@ Komponen tidak lagi mengakses hierarki pesan global. Komponen mengakses `footer`
 
 ## Apa yang adapter simpan, abaikan, dan tidak gantikan
 
-| API `vue-i18n`                                                      | Dengan `@intlayer/vue-i18n`                                                                                           |
-| ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `useI18n()` → `{ t, d, n, te, tm, rt, locale, availableLocales }`   | ✅ Dipertahankan. Kunci `t` memiliki tipe berdasarkan kamus Anda                                                      |
-| `t("key", { name })`, `t("key", [a, b])`, `t("key", count)`         | ✅ Dipertahankan. `{name}`, `{0}` dan bentuk jamak dengan tanda pipa diselesaikan seperti sebelumnya                  |
-| `d(date, "long")`, `n(value, "currency")`                           | ✅ Dipertahankan. `datetimeFormats` / `numberFormats` dari `createI18n()` dihormati, didukung oleh `Intl` bawaan      |
-| `i18n.global.locale.value = "fr"`                                   | ✅ Dipertahankan. `WritableComputedRef` yang didukung oleh klien Intlayer; reaktivitas berfungsi seperti sebelumnya   |
-| `$t`, `$tc`, `$te`, `$tm`, `$rt`, `$d`, `$n`, `$i18n` (Options API) | ✅ Dipertahankan. Didaftarkan di `app.config.globalProperties` oleh `app.use(i18n)`                                   |
-| Direktif `v-t`                                                      | ✅ Dipertahankan                                                                                                      |
-| `legacy: true`                                                      | ✅ Diterima                                                                                                           |
-| `createI18n({ messages })`                                          | ⚠️ `messages` digunakan sebagai **fallback runtime** dengan peringatan dev. Hapus impor JSON untuk penghematan bundle |
-| `setLocaleMessage()`, `mergeLocaleMessage()`                        | ❌ Peringatan dan tidak melakukan apa pun. Pemuatan pesan runtime digantikan oleh kamus saat build                    |
-| Blok kustom SFC `<i18n>`                                            | ❌ Tidak dibaca. Pindahkan pesan-pesan tersebut ke dalam JSON lokal (atau `.content.ts` di sebelah komponen)          |
-| `@nuxtjs/i18n`                                                      | ⚠️ Adapter terpisah, lihat [dokumentasi kompatibilitas Nuxt](https://intlayer.org/id/doc/compatibility/nuxtjs-i18n)   |
+| API `vue-i18n`                                                      | Dengan `@intlayer/vue-i18n`                                                                                                                       |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useI18n()` → `{ t, d, n, te, tm, rt, locale, availableLocales }`   | ✅ Dipertahankan. Kunci `t` memiliki tipe berdasarkan kamus Anda                                                                                  |
+| `t("key", { name })`, `t("key", [a, b])`, `t("key", count)`         | ✅ Dipertahankan. `{name}`, `{0}` dan bentuk jamak dengan tanda pipa diselesaikan seperti sebelumnya                                              |
+| `d(date, "long")`, `n(value, "currency")`                           | ✅ Dipertahankan. `datetimeFormats` / `numberFormats` dari `createI18n()` dihormati, didukung oleh `Intl` bawaan                                  |
+| `i18n.global.locale.value = "fr"`                                   | ✅ Dipertahankan. `WritableComputedRef` yang didukung oleh klien Intlayer; reaktivitas berfungsi seperti sebelumnya                               |
+| `$t`, `$tc`, `$te`, `$tm`, `$rt`, `$d`, `$n`, `$i18n` (Options API) | ✅ Dipertahankan. Didaftarkan di `app.config.globalProperties` oleh `app.use(i18n)`                                                               |
+| Direktif `v-t`                                                      | ✅ Dipertahankan                                                                                                                                  |
+| `legacy: true`                                                      | ✅ Diterima                                                                                                                                       |
+| `createI18n({ messages })`                                          | ⚠️ `messages` digunakan sebagai **fallback runtime** dengan peringatan dev. Hapus impor JSON untuk penghematan bundle                             |
+| `setLocaleMessage()`, `mergeLocaleMessage()`                        | ❌ Peringatan dan tidak melakukan apa pun. Pemuatan pesan runtime digantikan oleh kamus saat build                                                |
+| Blok kustom SFC `<i18n>`                                            | ❌ Tidak dibaca. Pindahkan pesan-pesan tersebut ke dalam JSON lokal (atau `.content.ts` di sebelah komponen)                                      |
+| `@nuxtjs/i18n`                                                      | ⚠️ Adapter terpisah, lihat [dokumentasi kompatibilitas Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md) |
 
 ## Benchmark
 
@@ -137,7 +137,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tabel lengkap, setiap pustaka dan strategi, dalam [laporan benchmark Vue](https://intlayer.org/id/doc/benchmark/vue).
+> Tabel lengkap, setiap pustaka dan strategi, dalam [laporan benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md).
 
 ## Mengapa angka berubah
 
@@ -285,7 +285,7 @@ Jika pesan Anda berada di dalam komponen, pesan tersebut harus dipindahkan ke be
 </Accordion>
 <Accordion header="Pemuatan pesan saat runtime telah dihapus">
 
-`setLocaleMessage()` dan `mergeLocaleMessage()` memberikan peringatan dan kembali. Terjemahan yang diambil dari CMS saat runtime memerlukan [CMS Intlayer](https://intlayer.org/id/doc/concept/cms), atau perintah `intlayer pull` / `push`.
+`setLocaleMessage()` dan `mergeLocaleMessage()` memberikan peringatan dan kembali. Terjemahan yang diambil dari CMS saat runtime memerlukan [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), atau perintah `intlayer pull` / `push`.
 
 </Accordion>
 <Accordion header="messages adalah fallback, bukan gratis">
@@ -315,7 +315,7 @@ Anda menggunakan `vue-i18n` dan menginginkan penghematan 88 KB, komponen 23x leb
 </Accordion>
 <Accordion header="Beralih ke native (vue-intlayer)">
 
-Untuk proyek baru, atau setelah adaptor menyelesaikan tugasnya. Menawarkan runtime teringan (3.9 KB) dan model `.content.ts` per komponen yang menggantikan blok `<i18n>` dengan konten bertipe. Mulai dengan [Intlayer dengan Vue](https://intlayer.org/id/doc/environment/vite-and-vue) atau [dengan Nuxt](https://intlayer.org/id/doc/environment/nuxt-and-vue).
+Untuk proyek baru, atau setelah adaptor menyelesaikan tugasnya. Menawarkan runtime teringan (3.9 KB) dan model `.content.ts` per komponen yang menggantikan blok `<i18n>` dengan konten bertipe. Mulai dengan [Intlayer dengan Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue.md) atau [dengan Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md).
 
 </Accordion>
 </AccordionGroup>
@@ -338,13 +338,13 @@ Karena `useI18n()` berhenti mengakses instans global. `createI18n({ messages })`
 
 <Question title="Bagaimana dengan pemformatan d() dan n()?">
 
-Dipertahankan. Konfigurasi `datetimeFormats` dan `numberFormats` yang diteruskan ke `createI18n()` dihormati, didukung oleh API `Intl` bawaan. Lihat [pemformatan tanggal, waktu, dan angka](https://intlayer.org/id/blog/date-time-number-formatting-locales).
+Dipertahankan. Konfigurasi `datetimeFormats` dan `numberFormats` yang diteruskan ke `createI18n()` dihormati, didukung oleh API `Intl` bawaan. Lihat [pemformatan tanggal, waktu, dan angka](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/date_time_number_formatting_locales.md).
 
 </Question>
 
 <Question title="Apakah ini berfungsi dengan Nuxt?">
 
-`@intlayer/vue-i18n` menargetkan Vite + Vue. Untuk `@nuxtjs/i18n`, gunakan [adaptor kompatibilitas Nuxt i18n](https://intlayer.org/id/doc/compatibility/nuxtjs-i18n), dan lihat [Intlayer dengan Nuxt](https://intlayer.org/id/doc/environment/nuxt-and-vue) untuk konfigurasi bawaan.
+`@intlayer/vue-i18n` menargetkan Vite + Vue. Untuk `@nuxtjs/i18n`, gunakan [adaptor kompatibilitas Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md), dan lihat [Intlayer dengan Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md) untuk konfigurasi bawaan.
 
 </Question>
 
@@ -360,24 +360,24 @@ Ya. Setiap komponen dapat beralih dari `useI18n()` ke `useIntlayer("footer")` de
 
 Seri adaptor yang sama:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/id/blog/next-intl-vs-intlayer-next-intl)
-- [i18next vs @intlayer/i18next](https://intlayer.org/id/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/id/blog/lingui-vs-intlayer-lingui)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer-next-intl.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer-lingui.md)
 
 Pustaka yang dibandingkan secara langsung:
 
-- [vue-i18n vs Intlayer](https://intlayer.org/id/blog/vue-i18n-vs-intlayer), fitur dan DX
-- [benchmark vue-i18n vs Intlayer](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-benchmark), pengujian yang sama secara lengkap
-- [Apakah vue-i18n sudah usang?](https://intlayer.org/id/blog/is-vue-i18n-outdated)
-- [Cara memilih library i18n Vue](https://intlayer.org/id/blog/how-to-pick-vue-i18n-library)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md), fitur dan DX
+- [benchmark vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer_benchmark.md), pengujian yang sama secara lengkap
+- [Apakah vue-i18n sudah usang?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_vue-i18n_outdated.md)
+- [Cara memilih library i18n Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_vue_i18n_library.md)
 
 Dokumentasi referensi:
 
-- [Adapter kompatibilitas: vue-i18n](https://intlayer.org/id/doc/compatibility/vue-i18n) dan [Nuxt i18n](https://intlayer.org/id/doc/compatibility/nuxtjs-i18n)
-- [Panduan migrasi: vue-i18n ke Intlayer](https://intlayer.org/id/doc/migration/vue-i18n)
-- [Laporan benchmark Vue](https://intlayer.org/id/doc/benchmark/vue)
-- [Optimalisasi bundel](https://intlayer.org/id/doc/concept/bundle-optimization) dan [kompiler Intlayer](https://intlayer.org/id/doc/compiler)
-- [Editor Visual](https://intlayer.org/id/doc/concept/editor), [CMS](https://intlayer.org/id/doc/concept/cms) dan [terjemahan AI](https://intlayer.org/id/doc/concept/auto-fill)
+- [Adapter kompatibilitas: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md) dan [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md)
+- [Panduan migrasi: vue-i18n ke Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_vue-i18n_to_intlayer.md)
+- [Laporan benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md)
+- [Optimalisasi bundel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+- [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) dan [terjemahan AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md)
 
 ## Kesimpulan
 
@@ -385,4 +385,4 @@ Dokumentasi referensi:
 
 Semua data mentah, aplikasi pengujian, dan skrip ada di [repositori Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Jalankan sendiri.
 
-Lihat [dokumen 'Mengapa Intlayer?'](https://intlayer.org/id/doc/why) untuk detail selengkapnya.
+Lihat [dokumen 'Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk detail selengkapnya.

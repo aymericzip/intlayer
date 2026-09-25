@@ -641,7 +641,7 @@ Diese Erweiterung bietet:
 - **Inline-Vorschau** von übersetzten Inhalten.
 - **Schnelle Aktionen** zum einfachen Erstellen und Aktualisieren von Übersetzungen.
 
-Weitere Informationen zur Verwendung der Erweiterung finden Sie in der [Dokumentation zur VS Code Erweiterung](https://intlayer.org/doc/vs-code-extension).
+Weitere Informationen zur Verwendung der Erweiterung finden Sie in der [Dokumentation zur VS Code Erweiterung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md).
 
 ### Vertiefen Sie Ihr Wissen
 

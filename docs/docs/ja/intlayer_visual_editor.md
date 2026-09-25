@@ -206,7 +206,7 @@ pnpm intlayer-editor start -e development
 
 - ビジュアルエディタとアプリケーションが実行中である。
 
-- Intlayer 設定ファイルで [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) 設定が正しく設定されている。
+- Intlayer 設定ファイルで [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#editor-configuration) 設定が正しく設定されている。
   - 必須フィールド:
     - アプリケーション URL はエディタ設定 (`applicationURL`) に設定したものと一致する必要があります。
 

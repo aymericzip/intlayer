@@ -55,7 +55,7 @@ Trước bảng tính năng, phần đo lường thực tế. [Benchmark Bloom](
 | `@intlayer/vue-i18n` |        7.9 KB |          47.0 KB |      0.0% |             8.4 KB |
 | **`vue-intlayer`**   |    **3.9 KB** |      **57.1 KB** |  **0.0%** |         **7.7 KB** |
 
-Riêng runtime `vue-i18n` đã nặng gấp **6 lần** Intlayer, mỗi trang tải **90% chuỗi ký tự của các trang khác**, và một component được biên dịch riêng lẻ kéo theo **196 KB** vì `useI18n()` liên kết nó với toàn bộ cây thông điệp toàn cục. Kết quả đầy đủ với thời gian phản hồi và tải trang có trong [benchmark vue-i18n vs Intlayer](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-benchmark).
+Riêng runtime `vue-i18n` đã nặng gấp **6 lần** Intlayer, mỗi trang tải **90% chuỗi ký tự của các trang khác**, và một component được biên dịch riêng lẻ kéo theo **196 KB** vì `useI18n()` liên kết nó với toàn bộ cây thông điệp toàn cục. Kết quả đầy đủ với thời gian phản hồi và tải trang có trong [benchmark vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer_benchmark.md).
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
@@ -64,7 +64,7 @@ height="600px"
 style="border:none;"
 />
 
-> Bảng đầy đủ trong [báo cáo benchmark Vue](https://intlayer.org/vi/doc/benchmark/vue).
+> Bảng đầy đủ trong [báo cáo benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md).
 
 ## So sánh tính năng song song (tập trung vào Vue)
 
@@ -94,7 +94,7 @@ style="border:none;"
 <AccordionGroup>
 <Accordion header="1) Kiến trúc và khả năng mở rộng">
 
-- **vue-i18n**: Các thiết lập phổ biến sử dụng **danh mục tập trung** theo từng locale (có thể chia nhỏ thành các file/namespace). Các block SFC `<i18n>` cho phép thông điệp cục bộ nhưng các nhóm thường quay lại dùng danh mục chia sẻ khi dự án phát triển. Xem [i18n theo component vs tập trung](https://intlayer.org/vi/blog/per-component-vs-centralized-i18n).
+- **vue-i18n**: Các thiết lập phổ biến sử dụng **danh mục tập trung** theo từng locale (có thể chia nhỏ thành các file/namespace). Các block SFC `<i18n>` cho phép thông điệp cục bộ nhưng các nhóm thường quay lại dùng danh mục chia sẻ khi dự án phát triển. Xem [i18n theo component vs tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md).
 - **Intlayer**: Khuyến khích **từ điển theo từng component** được lưu trữ bên cạnh component mà nó phục vụ. Điều này giảm xung đột giữa các nhóm, giữ cho nội dung dễ tìm kiếm và tự nhiên giới hạn sự lệch pha/các khóa không sử dụng.
 
 **Tại sao điều này quan trọng:** Trong các ứng dụng Vue lớn hoặc hệ thống thiết kế, **nội dung mô-đun** mở rộng tốt hơn so với các danh mục đơn khối.
@@ -110,7 +110,7 @@ style="border:none;"
 </Accordion>
 <Accordion header="3) Xử lý bản dịch bị thiếu">
 
-- **vue-i18n**: Cảnh báo/fallback **thời gian chạy** (ví dụ, fallback locale hoặc key). Xem [phát hiện bản dịch bị thiếu](https://intlayer.org/vi/blog/detecting-missing-translations).
+- **vue-i18n**: Cảnh báo/fallback **thời gian chạy** (ví dụ, fallback locale hoặc key). Xem [phát hiện bản dịch bị thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/detecting_missing_translations.md).
 - **Intlayer**: Phát hiện **thời gian xây dựng** với cảnh báo/lỗi trên các locale và key., cộng thêm `npx intlayer test` trong CI.
 
 **Tại sao điều này quan trọng:** Việc kiểm soát thời gian xây dựng giữ cho giao diện sản phẩm sạch và nhất quán.
@@ -118,7 +118,7 @@ style="border:none;"
 </Accordion>
 <Accordion header="4) Chiến lược định tuyến và URL (Vue Router/Nuxt)">
 
-- **Cả hai** đều có thể làm việc với các route được địa phương hóa. Xem [hướng dẫn hreflang](https://intlayer.org/vi/blog/hreflang-guide-multilingual-seo).
+- **Cả hai** đều có thể làm việc với các route được địa phương hóa. Xem [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md).
 - **Intlayer** cung cấp các trợ giúp để **tạo đường dẫn có địa phương hóa**, **quản lý tiền tố ngôn ngữ**, và phát ra **`<link rel="alternate" hreflang>`** cho SEO. Với Nuxt, nó bổ sung cho hệ thống định tuyến của framework.
 
 **Tại sao điều này quan trọng:** Ít lớp kết dính tùy chỉnh hơn và **SEO sạch hơn** trên các ngôn ngữ.
@@ -142,7 +142,7 @@ style="border:none;"
 </Accordion>
 <Accordion header="7) SEO, SSR và SSG">
 
-- **Cả hai** đều hoạt động với Vue SSR và Nuxt. Xem [quốc tế hóa và SEO](https://intlayer.org/vi/blog/SEO-and-i18n).
+- **Cả hai** đều hoạt động với Vue SSR và Nuxt. Xem [quốc tế hóa và SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/internationalization_and_SEO.md).
 - **Intlayer**: Thêm các **trợ giúp SEO** (sơ đồ trang web/metadata/`hreflang`) không phụ thuộc vào framework và hoạt động tốt với các bản build Vue/Nuxt.
 
 **Tại sao điều này quan trọng:** SEO quốc tế mà không cần cấu hình phức tạp.
@@ -330,12 +330,12 @@ Bạn muốn **cách tiếp cận chuẩn của Vue**, bạn cảm thấy thoả
 </Accordion>
 <Accordion header="Chọn Intlayer">
 
-Bạn coi trọng **nội dung theo phạm vi component**, **TypeScript chặt chẽ**, **đảm bảo tại thời điểm build**, **tree-shaking** và các công cụ toàn diện cho routing, SEO và biên tập, đặc biệt cho các **codebase Vue/Nuxt lớn, có tính module** và hệ thống thiết kế. Bắt đầu với [Intlayer với Vue](https://intlayer.org/vi/doc/environment/vite-and-vue) hoặc [với Nuxt](https://intlayer.org/vi/doc/environment/nuxt-and-vue).
+Bạn coi trọng **nội dung theo phạm vi component**, **TypeScript chặt chẽ**, **đảm bảo tại thời điểm build**, **tree-shaking** và các công cụ toàn diện cho routing, SEO và biên tập, đặc biệt cho các **codebase Vue/Nuxt lớn, có tính module** và hệ thống thiết kế. Bắt đầu với [Intlayer với Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md) hoặc [với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md).
 
 </Accordion>
 <Accordion header="Chọn @intlayer/vue-i18n">
 
-Hiện tại bạn đang dùng `vue-i18n` và muốn tối ưu dung lượng bundle mà không cần chỉnh sửa tệp `.vue`. [Adapter tương thích](https://intlayer.org/vi/doc/compatibility/vue-i18n) giữ nguyên `createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t` và `v-t`, cung cấp chúng từ các từ điển đã biên dịch. Được đo đạc trực tiếp trong [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-vue-i18n).
+Hiện tại bạn đang dùng `vue-i18n` và muốn tối ưu dung lượng bundle mà không cần chỉnh sửa tệp `.vue`. [Adapter tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) giữ nguyên `createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t` và `v-t`, cung cấp chúng từ các từ điển đã biên dịch. Được đo đạc trực tiếp trong [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer-vue-i18n.md).
 
 </Accordion>
 </AccordionGroup>
@@ -344,7 +344,7 @@ Hiện tại bạn đang dùng `vue-i18n` và muốn tối ưu dung lượng bun
 
 `intlayer` cũng có thể giúp quản lý các namespace của `vue-i18n` của bạn.
 
-Sử dụng `intlayer`, bạn có thể khai báo nội dung theo định dạng của thư viện i18n yêu thích của bạn, và intlayer sẽ tạo ra các namespace tại vị trí bạn chọn (ví dụ: `/messages/{{locale}}/{{namespace}}.json`). Xem [tài liệu tương thích vue-i18n](https://intlayer.org/vi/doc/compatibility/vue-i18n) và [adapter Nuxt i18n](https://intlayer.org/vi/doc/compatibility/nuxtjs-i18n).
+Sử dụng `intlayer`, bạn có thể khai báo nội dung theo định dạng của thư viện i18n yêu thích của bạn, và intlayer sẽ tạo ra các namespace tại vị trí bạn chọn (ví dụ: `/messages/{{locale}}/{{namespace}}.json`). Xem [tài liệu tương thích vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) và [adapter Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md).
 
 ## FAQ
 
@@ -364,19 +364,19 @@ Adapter không đọc chúng. Hãy chuyển các thông điệp đó vào tệp 
 
 <Question title="Intlayer có hoạt động với Nuxt không?">
 
-Có. [Intlayer với Nuxt](https://intlayer.org/vi/doc/environment/nuxt-and-vue) hỗ trợ định tuyến đa ngôn ngữ, middleware phát hiện ngôn ngữ và tạo sitemap. Nếu bạn đang dùng `@nuxtjs/i18n`, [adapter tương thích Nuxt i18n](https://intlayer.org/vi/doc/compatibility/nuxtjs-i18n) là con đường di chuyển.
+Có. [Intlayer với Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md) hỗ trợ định tuyến đa ngôn ngữ, middleware phát hiện ngôn ngữ và tạo sitemap. Nếu bạn đang dùng `@nuxtjs/i18n`, [adapter tương thích Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md) là con đường di chuyển.
 
 </Question>
 
 <Question title="Tôi có thể giữ locales/{locale}.json làm nguồn chân lý duy nhất không?">
 
-Có. [Plugin đồng bộ JSON](https://intlayer.org/vi/doc/compatibility/vue-i18n) đọc chúng với cú pháp của `vue-i18n` (`{name}`, `{0}`, dạng số nhiều `"car | cars"`) và ghi các bản dịch trở lại khi CLI hoặc CMS cập nhật.
+Có. [Plugin đồng bộ JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) đọc chúng với cú pháp của `vue-i18n` (`{name}`, `{0}`, dạng số nhiều `"car | cars"`) và ghi các bản dịch trở lại khi CLI hoặc CMS cập nhật.
 
 </Question>
 
 <Question title="ICU có hoạt động với Intlayer trên Vue không?">
 
-Hỗ trợ ICU gốc đang được hoàn thiện. Adapter `@intlayer/vue-i18n` xử lý cú pháp thông điệp của chính `vue-i18n`, bao gồm dạng số nhiều và nội suy có tên/danh sách. Để tìm hiểu mô hình số nhiều của Intlayer, hãy xem [nội dung liệt kê](https://intlayer.org/vi/doc/concept/content/enumeration).
+Hỗ trợ ICU gốc đang được hoàn thiện. Adapter `@intlayer/vue-i18n` xử lý cú pháp thông điệp của chính `vue-i18n`, bao gồm dạng số nhiều và nội suy có tên/danh sách. Để tìm hiểu mô hình số nhiều của Intlayer, hãy xem [nội dung liệt kê](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md).
 
 </Question>
 
@@ -397,13 +397,13 @@ Cả **vue-i18n** và **Intlayer** đều hỗ trợ nội địa hóa ứng d�
 
 ## Đọc thêm
 
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-benchmark), the measured run behind the table above
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-vue-i18n), the adapter on the same app
-- [Is vue-i18n outdated?](https://intlayer.org/vi/blog/is-vue-i18n-outdated)
-- [How to pick a Vue i18n library](https://intlayer.org/vi/blog/how-to-pick-vue-i18n-library)
-- [Using Intlayer with vue-i18n](https://intlayer.org/vi/blog/intlayer-with-vue-i18n)
-- [Vue benchmark report](https://intlayer.org/vi/doc/benchmark/vue)
-- [Migration guide: vue-i18n to Intlayer](https://intlayer.org/vi/doc/migration/vue-i18n)
-- [Bundle optimization](https://intlayer.org/vi/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/vi/doc/compiler)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer_benchmark.md), the measured run behind the table above
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer-vue-i18n.md), the adapter on the same app
+- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_vue-i18n_outdated.md)
+- [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_vue_i18n_library.md)
+- [Using Intlayer with vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_vue-i18n.md)
+- [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md)
+- [Migration guide: vue-i18n to Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_vue-i18n_to_intlayer.md)
+- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
 
-Refer to ['Why Intlayer?' doc](https://intlayer.org/vi/doc/why) for more details.
+Refer to ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) for more details.

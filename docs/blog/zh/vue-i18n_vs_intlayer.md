@@ -55,7 +55,7 @@ author: aymericzip
 | `@intlayer/vue-i18n` |        7.9 KB |          47.0 KB |      0.0% |             8.4 KB |
 | **`vue-intlayer`**   |    **3.9 KB** |      **57.1 KB** |  **0.0%** |         **7.7 KB** |
 
-仅 `vue-i18n` 的运行时体积就是 Intlayer 的 **6 倍**，每个页面携带了 **90% 属于其他页面的字符串**，而且单独编译的组件会拖入 **196 KB**，因为 `useI18n()` 将其绑定到了全局消息树。包含响应性和页面加载时间的完整测试，请参阅 [vue-i18n 与 Intlayer 基准测试](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-benchmark)。
+仅 `vue-i18n` 的运行时体积就是 Intlayer 的 **6 倍**，每个页面携带了 **90% 属于其他页面的字符串**，而且单独编译的组件会拖入 **196 KB**，因为 `useI18n()` 将其绑定到了全局消息树。包含响应性和页面加载时间的完整测试，请参阅 [vue-i18n 与 Intlayer 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer_benchmark.md)。
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
@@ -64,7 +64,7 @@ height="600px"
 style="border:none;"
 />
 
-> 完整表格请参阅 [Vue 基准测试报告](https://intlayer.org/zh/doc/benchmark/vue)。
+> 完整表格请参阅 [Vue 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)。
 
 ## 并列功能对比（Vue 重点）
 
@@ -94,7 +94,7 @@ style="border:none;"
 <AccordionGroup>
 <Accordion header="1) 架构与可扩展性">
 
-- **vue-i18n**：常见的设置是为每个语言环境使用**集中式目录**（可选地拆分为文件/命名空间）。SFC `<i18n>` 块允许局部消息，但随着项目增长，团队通常会回归使用共享目录。 请参阅[组件级与集中式 i18n 对比](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)。
+- **vue-i18n**：常见的设置是为每个语言环境使用**集中式目录**（可选地拆分为文件/命名空间）。SFC `<i18n>` 块允许局部消息，但随着项目增长，团队通常会回归使用共享目录。 请参阅[组件级与集中式 i18n 对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)。
 - **Intlayer**：提倡将**每个组件的字典**存储在其对应组件旁边。这减少了跨团队冲突，保持内容可发现性，并自然限制了漂移/未使用的键。
 
 **重要原因：** 在大型 Vue 应用或设计系统中，**模块化内容**比单体目录更易于扩展。
@@ -110,7 +110,7 @@ style="border:none;"
 </Accordion>
 <Accordion header="3) 缺失翻译的处理">
 
-- **vue-i18n**：**运行时**警告/回退（例如，回退到默认语言或键）。 请参阅[检测缺失翻译](https://intlayer.org/zh/blog/detecting-missing-translations)。
+- **vue-i18n**：**运行时**警告/回退（例如，回退到默认语言或键）。 请参阅[检测缺失翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md)。
 - **Intlayer**：通过**构建时**检测，针对不同语言和键发出警告/错误。
 
 **重要性说明：** 构建时强制执行确保生产环境界面干净且一致。
@@ -118,7 +118,7 @@ style="border:none;"
 </Accordion>
 <Accordion header="4) 路由与 URL 策略 (Vue Router/Nuxt)">
 
-- **两者**都支持本地化路由。 请参阅 [hreflang 指南](https://intlayer.org/zh/blog/hreflang-guide-multilingual-seo)。
+- **两者**都支持本地化路由。 请参阅 [hreflang 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)。
 - **Intlayer** 提供辅助工具来 **生成本地化路径**，**管理语言前缀**，并为 SEO 生成 **`<link rel="alternate" hreflang>`** 标签。在 Nuxt 中，它补充了框架的路由功能。
 
 **重要性：** 减少自定义粘合层，实现跨语言环境的 **更清晰的 SEO**。
@@ -142,7 +142,7 @@ style="border:none;"
 </Accordion>
 <Accordion header="7) SEO、SSR 与 SSG">
 
-- **两者**均支持 Vue SSR 和 Nuxt。 请参阅[国际化与 SEO](https://intlayer.org/zh/blog/SEO-and-i18n)。
+- **两者**均支持 Vue SSR 和 Nuxt。 请参阅[国际化与 SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md)。
 - **Intlayer**：增加了**SEO 辅助工具**（站点地图/元数据/`hreflang`），与框架无关，并且能很好地配合 Vue/Nuxt 构建。
 
 **重要原因：** 实现国际化 SEO，无需定制复杂配置。
@@ -330,12 +330,12 @@ const { greeting } = useIntlayer("component-example");
 </Accordion>
 <Accordion header="选择 Intlayer">
 
-如果您看重 **组件作用域内容**、**严格的 TypeScript**、**构建期安全保证**、**Tree-shaking** 以及开箱即用的路由、SEO 和编辑器工具，特别是对于 **大型模块化 Vue/Nuxt 代码库** 和设计系统。请从 [Intlayer 与 Vue](https://intlayer.org/zh/doc/environment/vite-and-vue) 或 [与 Nuxt](https://intlayer.org/zh/doc/environment/nuxt-and-vue) 开始。
+如果您看重 **组件作用域内容**、**严格的 TypeScript**、**构建期安全保证**、**Tree-shaking** 以及开箱即用的路由、SEO 和编辑器工具，特别是对于 **大型模块化 Vue/Nuxt 代码库** 和设计系统。请从 [Intlayer 与 Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+vue.md) 或 [与 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md) 开始。
 
 </Accordion>
 <Accordion header="选择 @intlayer/vue-i18n">
 
-如果您当前在使用 `vue-i18n`，希望无需修改 `.vue` 文件即可获得包体积优化。[兼容适配器](https://intlayer.org/zh/doc/compatibility/vue-i18n) 保留了 `createI18n`、`useI18n`、`t()`、`d()`、`n()`、`$t` 和 `v-t`，并从编译后的字典提供服务。详细数据见 [vue-i18n 与 @intlayer/vue-i18n](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-vue-i18n)。
+如果您当前在使用 `vue-i18n`，希望无需修改 `.vue` 文件即可获得包体积优化。[兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) 保留了 `createI18n`、`useI18n`、`t()`、`d()`、`n()`、`$t` 和 `v-t`，并从编译后的字典提供服务。详细数据见 [vue-i18n 与 @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer-vue-i18n.md)。
 
 </Accordion>
 </AccordionGroup>
@@ -344,7 +344,7 @@ const { greeting } = useIntlayer("component-example");
 
 `intlayer` 还可以帮助管理您的 `vue-i18n` 命名空间。
 
-使用 `intlayer`，您可以按照喜爱的 i18n 库格式声明内容，intlayer 将在您选择的位置生成命名空间（例如：`/messages/{{locale}}/{{namespace}}.json`）。 请参阅 [vue-i18n 兼容性文档](https://intlayer.org/zh/doc/compatibility/vue-i18n) 以及 [Nuxt i18n 适配器](https://intlayer.org/zh/doc/compatibility/nuxtjs-i18n)。
+使用 `intlayer`，您可以按照喜爱的 i18n 库格式声明内容，intlayer 将在您选择的位置生成命名空间（例如：`/messages/{{locale}}/{{namespace}}.json`）。 请参阅 [vue-i18n 兼容性文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) 以及 [Nuxt i18n 适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)。
 
 ## 常见问题解答
 
@@ -364,19 +364,19 @@ const { greeting } = useIntlayer("component-example");
 
 <Question title="Intlayer 支持 Nuxt 吗？">
 
-支持。[Intlayer 与 Nuxt](https://intlayer.org/zh/doc/environment/nuxt-and-vue) 涵盖多语言路由、语言检测中间件和站点地图生成。如果您目前使用的是 `@nuxtjs/i18n`，[Nuxt i18n 兼容适配器](https://intlayer.org/zh/doc/compatibility/nuxtjs-i18n) 提供了理想的迁移路径。
+支持。[Intlayer 与 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md) 涵盖多语言路由、语言检测中间件和站点地图生成。如果您目前使用的是 `@nuxtjs/i18n`，[Nuxt i18n 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md) 提供了理想的迁移路径。
 
 </Question>
 
 <Question title="我可以继续将 locales/{locale}.json 作为唯一数据源吗？">
 
-可以。[JSON 同步插件](https://intlayer.org/zh/doc/compatibility/vue-i18n) 会以 `vue-i18n` 方言语法（`{name}`、`{0}`、`"car | cars"` 管道复数）读取它们，并在 CLI 或 CMS 进行更新时将翻译写回。
+可以。[JSON 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) 会以 `vue-i18n` 方言语法（`{name}`、`{0}`、`"car | cars"` 管道复数）读取它们，并在 CLI 或 CMS 进行更新时将翻译写回。
 
 </Question>
 
 <Question title="ICU 可以在 Vue 上的 Intlayer 中使用吗？">
 
-原生 ICU 支持正在开发中。`@intlayer/vue-i18n` 适配器解析 `vue-i18n` 自身的消息语法，包括管道复数以及命名和列表插值。有关 Intlayer 自身的复数模型，请参阅[枚举内容](https://intlayer.org/zh/doc/concept/content/enumeration)。
+原生 ICU 支持正在开发中。`@intlayer/vue-i18n` 适配器解析 `vue-i18n` 自身的消息语法，包括管道复数以及命名和列表插值。有关 Intlayer 自身的复数模型，请参阅[枚举内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)。
 
 </Question>
 
@@ -397,13 +397,13 @@ GitHub stars 是项目受欢迎程度、社区信任度和长期相关性的强�
 
 ## 延伸阅读
 
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-benchmark), the measured run behind the table above
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-vue-i18n), the adapter on the same app
-- [Is vue-i18n outdated?](https://intlayer.org/zh/blog/is-vue-i18n-outdated)
-- [How to pick a Vue i18n library](https://intlayer.org/zh/blog/how-to-pick-vue-i18n-library)
-- [Using Intlayer with vue-i18n](https://intlayer.org/zh/blog/intlayer-with-vue-i18n)
-- [Vue benchmark report](https://intlayer.org/zh/doc/benchmark/vue)
-- [Migration guide: vue-i18n to Intlayer](https://intlayer.org/zh/doc/migration/vue-i18n)
-- [Bundle optimization](https://intlayer.org/zh/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/zh/doc/compiler)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer_benchmark.md), the measured run behind the table above
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer-vue-i18n.md), the adapter on the same app
+- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_vue-i18n_outdated.md)
+- [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_vue_i18n_library.md)
+- [Using Intlayer with vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_vue-i18n.md)
+- [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
+- [Migration guide: vue-i18n to Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md)
+- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 
-Refer to ['Why Intlayer?' doc](https://intlayer.org/zh/doc/why) for more details.
+Refer to ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) for more details.

@@ -791,7 +791,7 @@ console.log("SEO files generated successfully.");
 - **Вбудований попередній перегляд** перекладеного контенту.
 - **Швидкі дії** для легкого створення та оновлення перекладів.
 
-Докладніше про використання розширення дивіться в [документації до розширення Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
+Докладніше про використання розширення дивіться в [документації до розширення Intlayer для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md).
 
 ### Йдіть далі
 

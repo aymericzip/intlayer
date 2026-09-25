@@ -85,7 +85,7 @@ height="600px"
 style="border:none;"
 />
 
-> प्रोडक्शन बिल्ड में 10 रूट्स और 10 भाषाओं के साथ gzip कंप्रेशन के तहत मापा गया। विवरण [i18n बेंचमार्क रिपोर्ट](https://intlayer.org/hi/doc/benchmark) में देखें।
+> प्रोडक्शन बिल्ड में 10 रूट्स और 10 भाषाओं के साथ gzip कंप्रेशन के तहत मापा गया। विवरण [i18n बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) में देखें।
 
 ### लाइब्रेरी का बेस ओवरहेड
 
@@ -164,7 +164,7 @@ return <h1>{title}</h1>;
   </Tab>
 </Tabs>
 
-[Intlayer कंपाइलर](https://intlayer.org/hi/doc/compiler) ट्रैक करता है कि `Hero.tsx` में वास्तव में कौन से फील्ड्स इस्तेमाल हो रहे हैं और क्लाइंट बंडल बनाने से पहले अप्रयुक्त डेटा को हटा देता है। अधिक विवरण के लिए [बंडल ऑप्टिमाइजेशन](https://intlayer.org/hi/doc/concept/bundle-optimization) देखें।
+[Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) ट्रैक करता है कि `Hero.tsx` में वास्तव में कौन से फील्ड्स इस्तेमाल हो रहे हैं और क्लाइंट बंडल बनाने से पहले अप्रयुक्त डेटा को हटा देता है। अधिक विवरण के लिए [बंडल ऑप्टिमाइजेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
 
 ## डेवलपर अनुभव (DX)
 
@@ -231,17 +231,17 @@ export const Hero = () => {
 
 `CustomTypeOptions` सेट करने से एडिटर में ऑटो-कंप्लीशन तो मिल जाता है, लेकिन यह अनुवादों की पूर्णता की जांच नहीं करता। यदि `hi/hero.json` से कोई की हटा दी जाए, तो भी टाइपस्क्रिप्ट बिल्ड नहीं रोकेगा।
 
-Intlayer सीधे कंटेंट डिक्लेरेशन से टाइप्स जनरेट करता है। [`strictMode`](https://intlayer.org/hi/doc/concept/configuration) सक्षम करने पर, यदि किसी भी भाषा में अनुवाद गायब हो, तो बिल्ड तुरंत फेल हो जाता है।
+Intlayer सीधे कंटेंट डिक्लेरेशन से टाइप्स जनरेट करता है। [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) सक्षम करने पर, यदि किसी भी भाषा में अनुवाद गायब हो, तो बिल्ड तुरंत फेल हो जाता है।
 
 ### टूलिंग इकोसिस्टम की तुलना
 
-| फीचर                      | i18next इकोसिस्टम | Intlayer                                                              |
-| ------------------------- | ----------------- | --------------------------------------------------------------------- |
-| **VS Code एक्सटेंशन**     | केवल थर्ड-पार्टी  | ✅ [ऑफिशियल एक्सटेंशन](https://intlayer.org/hi/doc/vs-code-extension) |
-| **Language Server (LSP)** | ❌ उपलब्ध नहीं    | ✅ [समर्पित LSP](https://intlayer.org/hi/doc/lsp)                     |
-| **AI के लिए MCP सर्वर**   | ❌ उपलब्ध नहीं    | ✅ [इनबिल्ट MCP सर्वर](https://intlayer.org/hi/doc/mcp-server)        |
-| **एजेंट स्किल्स**         | ❌ उपलब्ध नहीं    | ✅ [रेडी-टू-यूज़ स्किल्स](https://intlayer.org/hi/doc/agent_skills)   |
-| **विजुअल सीएमएस**         | Locize (पेड SaaS) | ✅ [मुफ्त और ओपन सोर्स](https://intlayer.org/hi/doc/concept/editor)   |
+| फीचर                      | i18next इकोसिस्टम | Intlayer                                                                                                         |
+| ------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **VS Code एक्सटेंशन**     | केवल थर्ड-पार्टी  | ✅ [ऑफिशियल एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)       |
+| **Language Server (LSP)** | ❌ उपलब्ध नहीं    | ✅ [समर्पित LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)                           |
+| **AI के लिए MCP सर्वर**   | ❌ उपलब्ध नहीं    | ✅ [इनबिल्ट MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)              |
+| **एजेंट स्किल्स**         | ❌ उपलब्ध नहीं    | ✅ [रेडी-टू-यूज़ स्किल्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)         |
+| **विजुअल सीएमएस**         | Locize (पेड SaaS) | ✅ [मुफ्त और ओपन सोर्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) |
 
 LSP और MCP सर्वर की मौजूदगी से एआई कोडिंग असिस्टेंट्स पूरे प्रोजेक्ट के ट्रांसलेशन स्ट्रक्चर को गहराई से समझ पाते हैं।
 
@@ -251,8 +251,8 @@ Locize, i18next के रचनाकारों का कमर्शिय�
 
 Intlayer एक खुला दृष्टिकोण अपनाता है:
 
-- [`intlayer fill`](https://intlayer.org/hi/doc/concept/auto-fill) आपकी अपनी OpenAI, Anthropic, Mistral या Gemini API कीज का उपयोग करके टर्मिनल या CI में छूटे हुए ट्रांसलेशन भरता है।
-- [Intlayer CMS](https://intlayer.org/hi/doc/concept/cms) ओपन सोर्स है और इसे Docker Compose से सेल्फ-होस्ट किया जा सकता है।
+- [`intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md) आपकी अपनी OpenAI, Anthropic, Mistral या Gemini API कीज का उपयोग करके टर्मिनल या CI में छूटे हुए ट्रांसलेशन भरता है।
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) ओपन सोर्स है और इसे Docker Compose से सेल्फ-होस्ट किया जा सकता है।
 - कंपाइलर, सीएलआई, एडिटर और सीएमएस पूरी तरह Apache 2.0 लाइसेंस के तहत उपलब्ध हैं।
 
 ## i18next किन परिस्थितियों में आज भी उपयुक्त है?
@@ -305,9 +305,9 @@ bunx intlayer init --interactive
 
 विस्तृत जानकारी के लिए हमारे विशेष गाइड्स देखें:
 
-- **कम्पैटिबिलिटी लेयर्स:** [i18next](https://intlayer.org/hi/doc/compatibility/i18next), [react-i18next](https://intlayer.org/hi/doc/compatibility/react-i18next), और [next-i18next](https://intlayer.org/hi/doc/compatibility/next-i18next) कम्पैटिबिलिटी लेयर्स के साथ अपने मौजूदा कोड को बनाए रखें।
-- **डिक्शनरी माइग्रेशन गाइड:** JSON फाइल्स को टाइप-सेफ स्ट्रक्चर में बदलें: [i18next से](https://intlayer.org/hi/doc/migration/i18next), [react-i18next से](https://intlayer.org/hi/doc/migration/react-i18next), या [next-i18next से](https://intlayer.org/hi/doc/migration/next-i18next)।
-- **हाइब्रिड अप्रोच:** रनटाइम के रूप में i18next को बनाए रखें, और [Intlayer को i18next के साथ इस्तेमाल करें](https://intlayer.org/hi/blog/intlayer-with-i18next) ताकि आपको टाइप चेकिंग और लोकल एआई ट्रांसलेशन का लाभ मिल सके।
+- **कम्पैटिबिलिटी लेयर्स:** [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/react-i18next.md), और [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-i18next.md) कम्पैटिबिलिटी लेयर्स के साथ अपने मौजूदा कोड को बनाए रखें।
+- **डिक्शनरी माइग्रेशन गाइड:** JSON फाइल्स को टाइप-सेफ स्ट्रक्चर में बदलें: [i18next से](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md), [react-i18next से](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_react-i18next_to_intlayer.md), या [next-i18next से](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-i18next_to_intlayer.md)।
+- **हाइब्रिड अप्रोच:** रनटाइम के रूप में i18next को बनाए रखें, और [Intlayer को i18next के साथ इस्तेमाल करें](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/intlayer_with_i18next.md) ताकि आपको टाइप चेकिंग और लोकल एआई ट्रांसलेशन का लाभ मिल सके।
 
 अपनी वेबसाइट का बंडल साइज और कंटेंट लीकेज मुफ्त [i18n SEO स्कैनर](https://intlayer.org/i18n-seo-scanner) से जांचें:
 
@@ -315,7 +315,7 @@ bunx intlayer init --interactive
 
 ## संबंधित लेख
 
-- [Next.js i18n बेंचमार्क: विस्तृत परफॉर्मेंस रिपोर्ट](https://intlayer.org/hi/doc/benchmark/nextjs)
-- [react-i18next बनाम react-intl बनाम Intlayer](https://intlayer.org/hi/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [क्या 2026 में next-intl पुराना हो चुका है?](https://intlayer.org/hi/blog/is-next-intl-outdated)
-- [कंपाइलर-बेस्ड और डिक्लेरेटिव i18n की तुलना](https://intlayer.org/hi/blog/compiler-vs-declarative-i18n)
+- [Next.js i18n बेंचमार्क: विस्तृत परफॉर्मेंस रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+- [react-i18next बनाम react-intl बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/react-i18next_vs_react-intl_vs_intlayer.md)
+- [क्या 2026 में next-intl पुराना हो चुका है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_next-intl_outdated.md)
+- [कंपाइलर-बेस्ड और डिक्लेरेटिव i18n की तुलना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)

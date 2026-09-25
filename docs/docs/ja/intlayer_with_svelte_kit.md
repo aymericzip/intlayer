@@ -393,7 +393,7 @@ export const getLocale = (event: RequestEvent): Locale => {
 };
 ```
 
-> `getLocaleFromStorage` はあなたの設定に応じて、ヘッダーまたはクッキーからロケールをチェックします。詳細は [Configuration](https://intlayer.org/doc/concept/configuration) を参照してください。
+> `getLocaleFromStorage` はあなたの設定に応じて、ヘッダーまたはクッキーからロケールをチェックします。詳細は [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md) を参照してください。
 
 > `localeDetector` 関数は `Accept-Language` ヘッダーを処理し、最適なマッチを返します。
 
@@ -780,7 +780,7 @@ Intlayerによって生成されたファイルを無視することをお勧め
 
 - **`svelte-i18n`** と **`typesafe-i18n`**: ストアベースのメッセージカタログで、load 関数に手動で配線します。
 - **`Paraglide`**: コンパイルされたメッセージと強力な型付けの仕組みを備え、メッセージレイヤーのみに焦点を当てています。
-- **`Intlayer`**: 最も高度なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、ビルド時にコンパイルされます。ロケール対応ルーティング、サーバーサイドロケール検出、AI 翻訳、ビジュアルエディタ、CMS を備えています。
+- **`Intlayer`**: 最も高度なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）、ビルド時にコンパイルされます。ロケール対応ルーティング、サーバーサイドロケール検出、AI 翻訳、ビジュアルエディタ、CMS を備えています。
 
 SvelteKit ではサーバーサイドの部分に違いが現れます。hooks でのロケール検出、ローカライズされたリンク、エディタ統合がライブラリに付属しており、プロジェクトごとに組み立てる必要がありません。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と [Svelte i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/svelte.md)を参照してください。
 

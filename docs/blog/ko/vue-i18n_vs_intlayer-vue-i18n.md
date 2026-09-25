@@ -29,7 +29,7 @@ author: aymericzip
 
 `@intlayer/vue-i18n`은 compat 어댑터입니다: `vue-i18n` API (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...)를 노출하고 Intlayer에 의해 컴파일된 딕셔너리에서 제공합니다. 당신의 `.vue` 파일은 변경되지 않습니다. `t("footer.github")`가 바인딩되는 대상만 변경됩니다.
 
-이 문서는 동일한 Vite + Vue 3 애플리케이션에서 `vue-i18n`으로 빌드한 경우와 어댑터로 빌드한 경우의 성능 변화를 측정합니다. 수치는 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)에서 나왔습니다. `vue-i18n`과 Intlayer를 라이브러리로 비교하려면 [vue-i18n vs Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer)와 [vue-i18n vs Intlayer benchmark](https://intlayer.org/blog/vue-i18n-vs-intlayer-benchmark)를 읽으세요. 이 문서는 컴포넌트를 그대로 유지했을 때 어댑터가 어떤 변화를 가져오는지에 관한 것입니다.
+이 문서는 동일한 Vite + Vue 3 애플리케이션에서 `vue-i18n`으로 빌드한 경우와 어댑터로 빌드한 경우의 성능 변화를 측정합니다. 수치는 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)에서 나왔습니다. `vue-i18n`과 Intlayer를 라이브러리로 비교하려면 [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)와 [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer_benchmark.md)를 읽으세요. 이 문서는 컴포넌트를 그대로 유지했을 때 어댑터가 어떤 변화를 가져오는지에 관한 것입니다.
 
 <TOC/>
 
@@ -71,19 +71,19 @@ const { t } = useI18n(_dicHash_footer);
 
 ## 어댑터가 유지하는 것, 무시하는 것, 그리고 대체하지 않는 것
 
-| `vue-i18n` API                                                      | `@intlayer/vue-i18n`을 사용할 때                                                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `useI18n()` → `{ t, d, n, te, tm, rt, locale, availableLocales }`   | ✅ 유지됨. `t` 키는 당신의 딕셔너리에 대해 타입이 지정됨                                                                 |
-| `t("key", { name })`, `t("key", [a, b])`, `t("key", count)`         | ✅ 유지됨. `{name}`, `{0}` 및 파이프로 구분된 복수형은 이전과 같이 해결됨                                                |
-| `d(date, "long")`, `n(value, "currency")`                           | ✅ 유지됨. `createI18n()`의 `datetimeFormats` / `numberFormats`은 준수되며, 기본 `Intl`로 지원됨                         |
-| `i18n.global.locale.value = "fr"`                                   | ✅ 유지됨. Intlayer의 클라이언트에서 지원하는 `WritableComputedRef`이며, 반응성은 이전과 동일하게 동작함                 |
-| `$t`, `$tc`, `$te`, `$tm`, `$rt`, `$d`, `$n`, `$i18n` (Options API) | ✅ 유지됨. `app.use(i18n)`에 의해 `app.config.globalProperties`에 등록됨                                                 |
-| `v-t` directive                                                     | ✅ 유지됨                                                                                                                |
-| `legacy: true`                                                      | ✅ 허용됨                                                                                                                |
-| `createI18n({ messages })`                                          | ⚠️ `messages`는 **runtime fallback**으로 사용되며 개발 경고가 표시됩니다. 번들 크기 감소를 위해 JSON import를 제거하세요 |
-| `setLocaleMessage()`, `mergeLocaleMessage()`                        | ❌ 경고 표시 후 작동하지 않음. Runtime message 로딩은 build-time dictionaries로 대체됩니다                               |
-| SFC `<i18n>` custom blocks                                          | ❌ 읽지 않음. 이 메시지들을 locale JSON으로 이동하거나 component 옆의 `.content.ts`로 옮기세요                           |
-| `@nuxtjs/i18n`                                                      | ⚠️ 별도의 adapter, [Nuxt compat doc](https://intlayer.org/doc/compatibility/nuxtjs-i18n)을 참조하세요                    |
+| `vue-i18n` API                                                      | `@intlayer/vue-i18n`을 사용할 때                                                                                                       |
+| ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `useI18n()` → `{ t, d, n, te, tm, rt, locale, availableLocales }`   | ✅ 유지됨. `t` 키는 당신의 딕셔너리에 대해 타입이 지정됨                                                                               |
+| `t("key", { name })`, `t("key", [a, b])`, `t("key", count)`         | ✅ 유지됨. `{name}`, `{0}` 및 파이프로 구분된 복수형은 이전과 같이 해결됨                                                              |
+| `d(date, "long")`, `n(value, "currency")`                           | ✅ 유지됨. `createI18n()`의 `datetimeFormats` / `numberFormats`은 준수되며, 기본 `Intl`로 지원됨                                       |
+| `i18n.global.locale.value = "fr"`                                   | ✅ 유지됨. Intlayer의 클라이언트에서 지원하는 `WritableComputedRef`이며, 반응성은 이전과 동일하게 동작함                               |
+| `$t`, `$tc`, `$te`, `$tm`, `$rt`, `$d`, `$n`, `$i18n` (Options API) | ✅ 유지됨. `app.use(i18n)`에 의해 `app.config.globalProperties`에 등록됨                                                               |
+| `v-t` directive                                                     | ✅ 유지됨                                                                                                                              |
+| `legacy: true`                                                      | ✅ 허용됨                                                                                                                              |
+| `createI18n({ messages })`                                          | ⚠️ `messages`는 **runtime fallback**으로 사용되며 개발 경고가 표시됩니다. 번들 크기 감소를 위해 JSON import를 제거하세요               |
+| `setLocaleMessage()`, `mergeLocaleMessage()`                        | ❌ 경고 표시 후 작동하지 않음. Runtime message 로딩은 build-time dictionaries로 대체됩니다                                             |
+| SFC `<i18n>` custom blocks                                          | ❌ 읽지 않음. 이 메시지들을 locale JSON으로 이동하거나 component 옆의 `.content.ts`로 옮기세요                                         |
+| `@nuxtjs/i18n`                                                      | ⚠️ 별도의 adapter, [Nuxt compat doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)을 참조하세요 |
 
 ## 벤치마크
 
@@ -137,7 +137,7 @@ height="600px"
 style="border:none;"
 />
 
-> 모든 라이브러리와 전략이 포함된 전체 표는 [Vue 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/vue)에서 확인하세요.
+> 모든 라이브러리와 전략이 포함된 전체 표는 [Vue 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)에서 확인하세요.
 
 ## 숫자가 움직이는 이유
 
@@ -285,7 +285,7 @@ export const i18n = createI18n({ locale: "en" });
 </Accordion>
 <Accordion header="런타임 메시지 로딩 제거됨">
 
-`setLocaleMessage()` 및 `mergeLocaleMessage()`는 경고를 표시하고 반환합니다. 런타임에 CMS에서 가져오는 번역은 [Intlayer CMS](https://intlayer.org/ko/doc/concept/cms) 또는 `intlayer pull` / `push` 명령어가 필요합니다.
+`setLocaleMessage()` 및 `mergeLocaleMessage()`는 경고를 표시하고 반환합니다. 런타임에 CMS에서 가져오는 번역은 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md) 또는 `intlayer pull` / `push` 명령어가 필요합니다.
 
 </Accordion>
 <Accordion header="messages는 폴백일 뿐, 무료가 아님">
@@ -315,7 +315,7 @@ export const i18n = createI18n({ locale: "en" });
 </Accordion>
 <Accordion header="네이티브로 전환 (vue-intlayer)">
 
-새 프로젝트이거나 어댑터가 역할을 다한 경우 적합합니다. 가장 가벼운 런타임(3.9 KB)과 `<i18n>` 블록을 타입이 지정된 콘텐츠로 대체하는 컴포넌트별 `.content.ts` 모델을 제공합니다. [Vue와 함께 사용하는 Intlayer](https://intlayer.org/ko/doc/environment/vite-and-vue) 또는 [Nuxt와 함께](https://intlayer.org/ko/doc/environment/nuxt-and-vue) 시작하세요.
+새 프로젝트이거나 어댑터가 역할을 다한 경우 적합합니다. 가장 가벼운 런타임(3.9 KB)과 `<i18n>` 블록을 타입이 지정된 콘텐츠로 대체하는 컴포넌트별 `.content.ts` 모델을 제공합니다. [Vue와 함께 사용하는 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vue.md) 또는 [Nuxt와 함께](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md) 시작하세요.
 
 </Accordion>
 </AccordionGroup>
@@ -338,13 +338,13 @@ export const i18n = createI18n({ locale: "en" });
 
 <Question title="d() 및 n() 포맷팅은 어떻게 되나요?">
 
-유지됩니다. `createI18n()`에 전달된 `datetimeFormats` 및 `numberFormats`가 적용되며 네이티브 `Intl` API가 지원합니다. [날짜, 시간 및 숫자 형식 지정](https://intlayer.org/ko/blog/date-time-number-formatting-locales)을 참조하세요.
+유지됩니다. `createI18n()`에 전달된 `datetimeFormats` 및 `numberFormats`가 적용되며 네이티브 `Intl` API가 지원합니다. [날짜, 시간 및 숫자 형식 지정](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/date_time_number_formatting_locales.md)을 참조하세요.
 
 </Question>
 
 <Question title="Nuxt에서도 작동하나요?">
 
-`@intlayer/vue-i18n`은 Vite + Vue를 대상으로 합니다. `@nuxtjs/i18n`의 경우 [Nuxt i18n 호환 어댑터](https://intlayer.org/ko/doc/compatibility/nuxtjs-i18n)를 사용하고, 네이티브 설정은 [Nuxt와 함께 사용하는 Intlayer](https://intlayer.org/ko/doc/environment/nuxt-and-vue)를 확인하세요.
+`@intlayer/vue-i18n`은 Vite + Vue를 대상으로 합니다. `@nuxtjs/i18n`의 경우 [Nuxt i18n 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)를 사용하고, 네이티브 설정은 [Nuxt와 함께 사용하는 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)를 확인하세요.
 
 </Question>
 
@@ -360,24 +360,24 @@ export const i18n = createI18n({ locale: "en" });
 
 동일한 어댑터 시리즈:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/ko/blog/next-intl-vs-intlayer-next-intl)
-- [i18next vs @intlayer/i18next](https://intlayer.org/ko/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/ko/blog/lingui-vs-intlayer-lingui)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer-next-intl.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer-lingui.md)
 
 직접 비교된 라이브러리:
 
-- [vue-i18n vs Intlayer](https://intlayer.org/ko/blog/vue-i18n-vs-intlayer), features and DX
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/ko/blog/vue-i18n-vs-intlayer-benchmark)
-- [Is vue-i18n outdated?](https://intlayer.org/ko/blog/is-vue-i18n-outdated)
-- [How to pick a Vue i18n library](https://intlayer.org/ko/blog/how-to-pick-vue-i18n-library)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md), features and DX
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer_benchmark.md)
+- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_vue-i18n_outdated.md)
+- [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_vue_i18n_library.md)
 
 참조 문서:
 
-- [Compat adapter: vue-i18n](https://intlayer.org/ko/doc/compatibility/vue-i18n) and [Nuxt i18n](https://intlayer.org/ko/doc/compatibility/nuxtjs-i18n)
-- [마이그레이션 가이드: vue-i18n에서 Intlayer로](https://intlayer.org/ko/doc/migration/vue-i18n)
-- [Vue 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/vue)
-- [번들 최적화](https://intlayer.org/ko/doc/concept/bundle-optimization) 및 [Intlayer 컴파일러](https://intlayer.org/ko/doc/compiler)
-- [비주얼 에디터](https://intlayer.org/ko/doc/concept/editor), [CMS](https://intlayer.org/ko/doc/concept/cms) 및 [AI 번역](https://intlayer.org/ko/doc/concept/auto-fill)
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)
+- [마이그레이션 가이드: vue-i18n에서 Intlayer로](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_vue-i18n_to_intlayer.md)
+- [Vue 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md) 및 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md) 및 [AI 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)
 
 ## 결론
 
@@ -385,4 +385,4 @@ export const i18n = createI18n({ locale: "en" });
 
 모든 원본 데이터, 테스트 앱 및 스크립트는 [Benchmark Bloom 저장소](https://github.com/intlayer-org/benchmark-bloom)에 있습니다. 직접 실행해보세요.
 
-자세한 내용은 ['Intlayer를 선택해야 하는 이유?' 문서](https://intlayer.org/ko/doc/why)를 참조하세요.
+자세한 내용은 ['Intlayer를 선택해야 하는 이유?' 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.

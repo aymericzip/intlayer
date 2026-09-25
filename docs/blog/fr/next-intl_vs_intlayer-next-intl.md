@@ -30,7 +30,7 @@ author: aymericzip
 
 `@intlayer/next-intl` est un adaptateur de compatibilité : il expose l'API `next-intl` (`useTranslations`, `getTranslations`, `useLocale`, `t.rich()`, pluriels ICU, `NextIntlClientProvider`...) et la sert à partir de dictionnaires compilés par Intlayer. Le code de l'application ne change pas. Le bundle, lui, change.
 
-Cet article compare les deux sur la même application Next.js, construite une fois avec `next-intl` et une fois avec l'adaptateur. Les chiffres proviennent de [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), une suite open-source qui enregistre ce que le navigateur télécharge réellement. Si vous voulez la comparaison `next-intl` vs Intlayer en tant que bibliothèques, consultez [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer). Celui-ci traite de ce que l'adaptateur change lorsque vous conservez vos composants tels qu'ils sont.
+Cet article compare les deux sur la même application Next.js, construite une fois avec `next-intl` et une fois avec l'adaptateur. Les chiffres proviennent de [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), une suite open-source qui enregistre ce que le navigateur télécharge réellement. Si vous voulez la comparaison `next-intl` vs Intlayer en tant que bibliothèques, consultez [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/next-intl_vs_intlayer.md). Celui-ci traite de ce que l'adaptateur change lorsque vous conservez vos composants tels qu'ils sont.
 
 <TOC/>
 
@@ -142,7 +142,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tableau complet, chaque bibliothèque et chaque stratégie, dans le [rapport de benchmark Next.js](https://intlayer.org/fr/doc/benchmark/nextjs).
+> Tableau complet, chaque bibliothèque et chaque stratégie, dans le [rapport de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md).
 
 ### Résultats sur TanStack Start (`use-intl`)
 
@@ -174,7 +174,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tableau complet dans le [rapport de benchmark TanStack Start](https://intlayer.org/fr/doc/benchmark/tanstack).
+> Tableau complet dans le [rapport de benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/tanstack.md).
 
 ## Pourquoi les nombres changent
 
@@ -326,7 +326,7 @@ La passe d'optimisation a besoin d'un namespace statique pour savoir quel dictio
 </Accordion>
 <Accordion header="messages, timeZone et now sur le provider sont ignorés">
 
-Les formateurs s'appuient sur l'API native `Intl` et seule la locale influence leur résultat. Si vous comptez sur un fuseau horaire forcé ou un `now` fixe pour des dates stables à l'hydratation, gérez-le au niveau du site d'appel. Consultez [formatage de dates, heures et nombres](https://intlayer.org/fr/blog/date-time-number-formatting-locales).
+Les formateurs s'appuient sur l'API native `Intl` et seule la locale influence leur résultat. Si vous comptez sur un fuseau horaire forcé ou un `now` fixe pour des dates stables à l'hydratation, gérez-le au niveau du site d'appel. Consultez [formatage de dates, heures et nombres](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/date_time_number_formatting_locales.md).
 
 </Accordion>
 </AccordionGroup>
@@ -346,7 +346,7 @@ Vous utilisez déjà `next-intl` aujourd'hui et souhaitez bénéficier des gains
 </Accordion>
 <Accordion header="Passer en natif (next-intlayer)">
 
-Pour les nouveaux projets, ou une fois que l'adaptateur a fait son travail. C'est le plus léger des trois (5.5 KB, +0.3 KB par page) et il débloque les composants serveur synchrones, les fichiers `.content.ts` par composant et l'ensemble des fonctionnalités. Commencez avec [Intlayer avec Next.js](https://intlayer.org/fr/doc/environment/nextjs).
+Pour les nouveaux projets, ou une fois que l'adaptateur a fait son travail. C'est le plus léger des trois (5.5 KB, +0.3 KB par page) et il débloque les composants serveur synchrones, les fichiers `.content.ts` par composant et l'ensemble des fonctionnalités. Commencez avec [Intlayer avec Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_16.md).
 
 </Accordion>
 </AccordionGroup>
@@ -363,7 +363,7 @@ Sur Next.js, oui pour les composants : le build de benchmark n'a modifié que `n
 
 <Question title="Qu'advient-il des messages ICU ?">
 
-Ils continuent de fonctionner. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` et `{ts, date, long}` sont résolus par le résolveur ICU d'Intlayer. Consultez [format de message ICU](https://intlayer.org/fr/blog/icu-message-format).
+Ils continuent de fonctionner. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` et `{ts, date, long}` sont résolus par le résolveur ICU d'Intlayer. Consultez [format de message ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
 
 </Question>
 
@@ -391,23 +391,23 @@ Pas via les `pathnames` de `next-intl` : l'adaptateur les accepte pour le typage
 
 Même série d'adaptateurs :
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/fr/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/fr/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/fr/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/vue-i18n_vs_intlayer-vue-i18n.md)
 
 Les bibliothèques comparées directement :
 
-- [next-intl vs Intlayer](https://intlayer.org/fr/blog/next-intl-vs-intlayer), même benchmark
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/fr/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Is next-intl outdated?](https://intlayer.org/fr/blog/is-next-intl-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/next-intl_vs_intlayer.md), même benchmark
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/is_next-intl_outdated.md)
 
 Documentation de référence :
 
-- [Compat adapter: next-intl](https://intlayer.org/fr/doc/compatibility/next-intl)
-- [Guide de migration : next-intl vers Intlayer](https://intlayer.org/fr/doc/migration/next-intl)
-- [Rapport de benchmark Next.js](https://intlayer.org/fr/doc/benchmark/nextjs) et [rapport de benchmark TanStack Start](https://intlayer.org/fr/doc/benchmark/tanstack)
-- [Optimisation du bundle](https://intlayer.org/fr/doc/concept/bundle-optimization) et [le compilateur Intlayer](https://intlayer.org/fr/doc/compiler)
-- [Visual Editor](https://intlayer.org/fr/doc/concept/editor), [CMS](https://intlayer.org/fr/doc/concept/cms) et [traduction par IA](https://intlayer.org/fr/doc/concept/auto-fill)
+- [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/next-intl.md)
+- [Guide de migration : next-intl vers Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_next-intl_to_intlayer.md)
+- [Rapport de benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md) et [rapport de benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/tanstack.md)
+- [Optimisation du bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md) et [le compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md)
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) et [traduction par IA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/autoFill.md)
 
 ## Conclusion
 
@@ -415,4 +415,4 @@ Documentation de référence :
 
 Toutes les données brutes, les applications de test et les scripts se trouvent dans le [référentiel Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Exécutez-le vous-même.
 
-Reportez-vous à la [documentation « Why Intlayer? »](https://intlayer.org/doc/why) pour plus de détails.
+Reportez-vous à la [documentation « Why Intlayer? »](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/interest_of_intlayer.md) pour plus de détails.

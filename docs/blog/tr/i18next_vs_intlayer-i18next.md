@@ -32,7 +32,7 @@ author: aymericzip
 
 `@intlayer/i18next`, `@intlayer/react-i18next` ve `@intlayer/next-i18next` uyumluluk bağdaştırıcılarıdır. Kodunuzun zaten kullanmakta olduğu `i18next` API'sini (`useTranslation`, `t()`, `<Trans>`, `i18n.changeLanguage()`, `getFixedT`, `serverSideTranslations`...) doğrudan sunar ve Intlayer tarafından derlenen sözlüklerden besler. Bileşenleriniz değişmez; yalnızca altlarındaki çalışma zamanı (runtime) değişir.
 
-Bu makale, biri `next-i18next` ve diğeri `@intlayer/next-i18next` ile oluşturulmuş aynı Next.js uygulaması üzerindeki bu değişimi ölçmektedir. Veriler [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) projesinden alınmıştır. `i18next` ve Intlayer'ı bağımsız kütüphaneler olarak karşılaştırmak için [i18next vs Intlayer](https://intlayer.org/tr/blog/i18next-vs-intlayer) makalesini okuyabilirsiniz. Bu yazı ise kodunuzu olduğu gibi koruduğunuzda bağdaştırıcının neleri değiştirdiğine odaklanmaktadır.
+Bu makale, biri `next-i18next` ve diğeri `@intlayer/next-i18next` ile oluşturulmuş aynı Next.js uygulaması üzerindeki bu değişimi ölçmektedir. Veriler [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) projesinden alınmıştır. `i18next` ve Intlayer'ı bağımsız kütüphaneler olarak karşılaştırmak için [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer.md) makalesini okuyabilirsiniz. Bu yazı ise kodunuzu olduğu gibi koruduğunuzda bağdaştırıcının neleri değiştirdiğine odaklanmaktadır.
 
 <TOC/>
 
@@ -142,9 +142,9 @@ height="600px"
 style="border:none;"
 />
 
-> Tüm tablo, her kütüphane ve her strateji, [Next.js kıyaslama raporunda](https://intlayer.org/tr/doc/benchmark/nextjs).
+> Tüm tablo, her kütüphane ve her strateji, [Next.js kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md).
 
-> Vite / TanStack Start üzerindeki `react-i18next` bağdaştırıcısı bu test serisine dahil edilmemiştir. TanStack Start için temel referans [i18next vs Intlayer](https://intlayer.org/tr/blog/i18next-vs-intlayer) yazısında incelenebilir.
+> Vite / TanStack Start üzerindeki `react-i18next` bağdaştırıcısı bu test serisine dahil edilmemiştir. TanStack Start için temel referans [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer.md) yazısında incelenebilir.
 
 ## Rakamların Değişme Sebebi
 
@@ -321,7 +321,7 @@ export default defineConfig({
 <AccordionGroup>
 <Accordion header="Backend'ler ve algılayıcılar etkisizdir">
 
-`i18n.use(HttpBackend)` eklentinin init fonksiyonunu çağırır ve başka hiçbir şey yapmaz. Uygulamanız çalışma zamanında bir CMS'ten çevirileri çekmeye dayanıyorsa, bu akış artık yoktur; bunun yerine [Intlayer CMS](https://intlayer.org/tr/doc/concept/cms) veya `intlayer pull` / `push` komutlarını kullanın. Dil algılama, Intlayer'ın yönlendirme yapılandırması haline gelir (URL ön eki, çerez, başlık).
+`i18n.use(HttpBackend)` eklentinin init fonksiyonunu çağırır ve başka hiçbir şey yapmaz. Uygulamanız çalışma zamanında bir CMS'ten çevirileri çekmeye dayanıyorsa, bu akış artık yoktur; bunun yerine [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) veya `intlayer pull` / `push` komutlarını kullanın. Dil algılama, Intlayer'ın yönlendirme yapılandırması haline gelir (URL ön eki, çerez, başlık).
 
 </Accordion>
 <Accordion header="resources yoksayılır, birleştirilmez">
@@ -361,7 +361,7 @@ Uygulamanız çalışma zamanı backend'lerine (istek anında bir CMS tarafında
 </Accordion>
 <Accordion header="Yerel kullanıma geçin (next-intlayer / react-intlayer)">
 
-Yeni projeler için veya adaptör görevini tamamladıktan sonra. En hafif çalışma zamanına (5.5 KB, sayfa başına +0.3 KB) sahiptir ve eşzamanlı Server Components ile bileşen başına `.content.ts` dosyalarının kilidini açar. [Next.js ile Intlayer](https://intlayer.org/tr/doc/environment/nextjs) veya [Vite ve React ile](https://intlayer.org/tr/doc/environment/vite-and-react) başlayın.
+Yeni projeler için veya adaptör görevini tamamladıktan sonra. En hafif çalışma zamanına (5.5 KB, sayfa başına +0.3 KB) sahiptir ve eşzamanlı Server Components ile bileşen başına `.content.ts` dosyalarının kilidini açar. [Next.js ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md) veya [Vite ve React ile](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md) başlayın.
 
 </Accordion>
 </AccordionGroup>
@@ -406,24 +406,24 @@ Evet. `locales/{lng}/{ns}.json` referans kaynağı olarak kalır: `syncJSON` dos
 
 Aynı adaptör serisi:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/tr/blog/next-intl-vs-intlayer-next-intl)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/tr/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer-next-intl.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer-vue-i18n.md)
 
 Doğrudan karşılaştırılan kütüphaneler:
 
-- [i18next vs Intlayer](https://intlayer.org/tr/blog/i18next-vs-intlayer), same benchmark
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/tr/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/tr/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [Is i18next outdated?](https://intlayer.org/tr/blog/is-i18next-outdated)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer.md), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Is i18next outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_i18next_outdated.md)
 
 Referans belgeler:
 
-- Compat adapters: [i18next](https://intlayer.org/tr/doc/compatibility/i18next), [react-i18next](https://intlayer.org/tr/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/tr/doc/compatibility/next-i18next)
-- Migration guides: [i18next](https://intlayer.org/tr/doc/migration/i18next), [react-i18next](https://intlayer.org/tr/doc/migration/react-i18next), [next-i18next](https://intlayer.org/tr/doc/migration/next-i18next)
-- [Next.js benchmark report](https://intlayer.org/tr/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/tr/doc/benchmark/tanstack)
-- [Bundle optimization](https://intlayer.org/tr/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/tr/doc/compiler)
-- [Visual Editor](https://intlayer.org/tr/doc/concept/editor), [CMS](https://intlayer.org/tr/doc/concept/cms) and [AI translation](https://intlayer.org/tr/doc/concept/auto-fill)
+- Compat adapters: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md)
+- Migration guides: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-i18next_to_intlayer.md)
+- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) and [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) and [AI translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md)
 
 ## Sonuç
 
@@ -431,4 +431,4 @@ Referans belgeler:
 
 Tüm ham ölçüm verileri, test uygulamaları ve betikler [Benchmark Bloom deposunda](https://github.com/intlayer-org/benchmark-bloom) açıkça paylaşılmıştır.
 
-Daha fazla ayrıntı için [Neden Intlayer?](https://intlayer.org/tr/doc/why) belgesini inceleyebilirsiniz.
+Daha fazla ayrıntı için [Neden Intlayer?](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) belgesini inceleyebilirsiniz.

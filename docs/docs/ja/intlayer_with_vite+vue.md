@@ -1160,7 +1160,7 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 - 翻訳済みコンテンツの **インラインプレビュー**。
 - 翻訳を簡単に作成・更新するための **クイックアクション**。
 
-拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://intlayer.org/ja/doc/vs-code-extension)を参照してください。
+拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
 
 ### さらに進むために
 
@@ -1173,7 +1173,7 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 <Question title="Vue アプリを国際化するために利用可能なソリューションにはどのようなものがありますか？">
 
 - **`vue-i18n`**: リファレンスライブラリで、メッセージカタログがグローバルに登録され、ICU スタイルのフォーマットに対応しています。メッセージの名前空間化の方法がないため、ページはすべてのカタログをバンドルし、アプリがページを追加するにつれてバンドルサイズが増え続けます。
-- **`Intlayer`**: 最も高度なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、ビルド時に Vite プラグインでコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
+- **`Intlayer`**: 最も高度なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）、ビルド時に Vite プラグインでコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
 
 実際の違いはスコープと型付けです。`vue-i18n` はキーを実行時に文字列として解決するため、キーの名前変更は静かに失敗しますが、Intlayer は宣言から型を生成し、コンポーネントが使用しないコンテンツを削除します。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と [Vue i18n ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)を参照してください。
 

@@ -300,5 +300,5 @@ Daha ayrıntılı mimari karşılaştırmalar ve geçiş rehberleri için aşağ
 
 - [Derleyici Yaklaşımı ve Bildirimsel i18n Karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
 - [Bileşen Düzeyinde i18n ve Merkezi i18n Karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md)
-- [Performans ve Karşılaştırmalı Testler](https://intlayer.org/doc/benchmark)
-- [Intlayer Uyumluluk Adaptörleri](https://intlayer.org/doc/concept/compatibility)
+- [Performans ve Karşılaştırmalı Testler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
+- [Intlayer Uyumluluk Adaptörleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/index.md)

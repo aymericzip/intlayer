@@ -83,7 +83,7 @@ height="600px"
 style="border:none;"
 />
 
-> Đo lường trên các trình duyệt thực tế với nén gzip ở môi trường production. Xem toàn bộ chi tiết trong [báo cáo benchmark Next.js](https://intlayer.org/vi/doc/benchmark/nextjs).
+> Đo lường trên các trình duyệt thực tế với nén gzip ở môi trường production. Xem toàn bộ chi tiết trong [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md).
 
 ### Dung Lượng Cơ Sở Của Thư Viện
 
@@ -131,7 +131,7 @@ Biểu đồ dưới đây ước tính dung lượng nội dung cho một ứng
 
 ![Rò rỉ nội dung lý thuyết theo kiến trúc](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-Intlayer giải quyết vấn đề bằng phân tích tĩnh: [trình biên dịch Intlayer](https://intlayer.org/vi/doc/compiler) chỉ đóng gói những nội dung thực sự được gọi trên route đó, đưa tỷ lệ rò rỉ giữa các trang về mức **0.0%**.
+Intlayer giải quyết vấn đề bằng phân tích tĩnh: [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) chỉ đóng gói những nội dung thực sự được gọi trên route đó, đưa tỷ lệ rò rỉ giữa các trang về mức **0.0%**.
 
 ## Tại Sao next-intl Không Thể Tree-Shaking?
 
@@ -170,7 +170,7 @@ export function UserProfile() {
   </Tab>
 </Tabs>
 
-Turbopack và Webpack không thể dự đoán những khóa nào trong `UserProfile` sẽ được gọi. Nhằm tránh lỗi thiếu văn bản, **bundler buộc phải đưa toàn bộ namespace vào chunk client**. Ngược lại, cú pháp tách thuộc tính của Intlayer cho phép trình biên dịch kiểm tra chính xác các liên kết và loại bỏ văn bản không dùng. Xem thêm tại [tối ưu hóa bundle](https://intlayer.org/vi/doc/concept/bundle-optimization).
+Turbopack và Webpack không thể dự đoán những khóa nào trong `UserProfile` sẽ được gọi. Nhằm tránh lỗi thiếu văn bản, **bundler buộc phải đưa toàn bộ namespace vào chunk client**. Ngược lại, cú pháp tách thuộc tính của Intlayer cho phép trình biên dịch kiểm tra chính xác các liên kết và loại bỏ văn bản không dùng. Xem thêm tại [tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
 
 ## Trải Nghiệm Lập Trình Viên (DX)
 
@@ -269,17 +269,17 @@ declare global {
 
 Tuy nhiên cơ chế này chỉ kiểm tra ngôn ngữ cơ sở. Nếu một khóa bị xóa khỏi `vi.json`, TypeScript sẽ không báo lỗi, tiến trình CI vẫn vượt qua và người dùng thực tế sẽ thấy khoảng trống.
 
-Intlayer tạo kiểu dữ liệu trực tiếp từ tất cả các file khai báo nội dung. Khi bật chế độ [`strictMode`](https://intlayer.org/vi/doc/concept/configuration), bất kỳ bản dịch nào bị thiếu ở bất kỳ ngôn ngữ nào đều khiến quá trình build dừng lại ngay lập tức.
+Intlayer tạo kiểu dữ liệu trực tiếp từ tất cả các file khai báo nội dung. Khi bật chế độ [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md), bất kỳ bản dịch nào bị thiếu ở bất kỳ ngôn ngữ nào đều khiến quá trình build dừng lại ngay lập tức.
 
 ### Hệ Thống Công Cụ Và Trợ Lý AI
 
-| Tính năng                   | `next-intl` | Intlayer                                                                 |
-| --------------------------- | ----------- | ------------------------------------------------------------------------ |
-| **VS Code Extension**       | ❌ Không có | ✅ [Extension chính thức](https://intlayer.org/vi/doc/vs-code-extension) |
-| **Language Server (LSP)**   | ❌ Không có | ✅ [LSP chuyên dụng](https://intlayer.org/vi/doc/lsp)                    |
-| **MCP Server cho AI Agent** | ❌ Không có | ✅ [Tích hợp sẵn MCP server](https://intlayer.org/vi/doc/mcp-server)     |
-| **Kỹ năng cho Agent**       | ❌ Không có | ✅ [Kỹ năng thiết lập sẵn](https://intlayer.org/vi/doc/agent_skills)     |
-| **CMS Trực Quan**           | ❌ Không có | ✅ [Miễn phí & Mã nguồn mở](https://intlayer.org/vi/doc/concept/editor)  |
+| Tính năng                   | `next-intl` | Intlayer                                                                                                             |
+| --------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------- |
+| **VS Code Extension**       | ❌ Không có | ✅ [Extension chính thức](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)        |
+| **Language Server (LSP)**   | ❌ Không có | ✅ [LSP chuyên dụng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md)                           |
+| **MCP Server cho AI Agent** | ❌ Không có | ✅ [Tích hợp sẵn MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)            |
+| **Kỹ năng cho Agent**       | ❌ Không có | ✅ [Kỹ năng thiết lập sẵn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)            |
+| **CMS Trực Quan**           | ❌ Không có | ✅ [Miễn phí & Mã nguồn mở](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) |
 
 Các máy chủ LSP và MCP giúp các trợ lý lập trình AI hiểu sâu sắc cấu trúc dịch thuật của dự án và đưa ra đề xuất chuẩn xác.
 
@@ -295,7 +295,7 @@ Tìm và dịch các khóa còn thiếu bằng chính khóa API OpenAI, Anthropi
 
 **CMS Trực Quan Tự Host:**
 
-Sử dụng [Intlayer CMS](https://intlayer.org/vi/doc/concept/cms) để những người không rành kỹ thuật có thể chỉnh sửa nội dung trực tiếp trên web và lưu vào Git.
+Sử dụng [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) để những người không rành kỹ thuật có thể chỉnh sửa nội dung trực tiếp trên web và lưu vào Git.
 
 **Bản Quyền Mã Nguồn Mở Tự Do:**
 
@@ -351,9 +351,9 @@ Công cụ CLI tương tác này sẽ tự động:
 
 Để xem hướng dẫn chi tiết từng bước, hãy tham khảo các tài liệu chuyên sâu:
 
-- **Tương thích tức thì:** Tiếp tục sử dụng các lệnh gọi `useTranslations` hiện tại thông qua [tầng tương thích next-intl](https://intlayer.org/vi/doc/compatibility/next-intl).
-- **Hướng dẫn chuyển đổi:** Chuyển đổi file JSON cũ sang từ điển định kiểu với [hướng dẫn chuyển đổi next-intl](https://intlayer.org/vi/doc/migration/next-intl).
-- **Mô hình kết hợp:** Giữ nguyên `next-intl` cho việc hiển thị trong khi [kết hợp Intlayer với next-intl](https://intlayer.org/vi/blog/intlayer-with-next-intl) để hưởng lợi từ dịch thuật AI cục bộ.
+- **Tương thích tức thì:** Tiếp tục sử dụng các lệnh gọi `useTranslations` hiện tại thông qua [tầng tương thích next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md).
+- **Hướng dẫn chuyển đổi:** Chuyển đổi file JSON cũ sang từ điển định kiểu với [hướng dẫn chuyển đổi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md).
+- **Mô hình kết hợp:** Giữ nguyên `next-intl` cho việc hiển thị trong khi [kết hợp Intlayer với next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_next-intl.md) để hưởng lợi từ dịch thuật AI cục bộ.
 
 Đo lường dung lượng bundle và độ rò rỉ của trang web với [công cụ quét SEO i18n miễn phí](https://intlayer.org/i18n-seo-scanner):
 
@@ -361,7 +361,7 @@ Công cụ CLI tương tác này sẽ tự động:
 
 ## Bài Viết Đề Xuất
 
-- [Next.js i18n Benchmark: Đánh Giá Hiệu Năng Chi Tiết](https://intlayer.org/vi/doc/benchmark/nextjs)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/vi/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Liệu i18next Đã Lỗi Thời Vào Năm 2026?](https://intlayer.org/vi/blog/is-i18next-outdated)
-- [Lợi Thế Của Quốc Tế Hóa Dựa Trên Trình Biên Dịch](https://intlayer.org/vi/blog/compiler-vs-declarative-i18n)
+- [Next.js i18n Benchmark: Đánh Giá Hiệu Năng Chi Tiết](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Liệu i18next Đã Lỗi Thời Vào Năm 2026?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_i18next_outdated.md)
+- [Lợi Thế Của Quốc Tế Hóa Dựa Trên Trình Biên Dịch](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)

@@ -28,7 +28,7 @@ J’ai créé un assistant de documentation propulsé par RAG et l’ai emballé
 - Tous les composants UI sont entièrement modifiables avec Tailwind CSS
 - Enregistre chaque requête utilisateur pour aider à identifier les documents manquants, les points de douleur des utilisateurs et les opportunités produit
 
-👉 [Démo en direct](https://intlayer.org/doc/why) 👉 [Boilerplate de code](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Démo en direct](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/interest_of_intlayer.md) 👉 [Boilerplate de code](https://github.com/aymericzip/smart_doc_RAG)
 
 ## Introduction
 
@@ -239,7 +239,7 @@ Nous utilisons SSE pour diffuser la réponse depuis la route API.
 Comme mentionné, nous utilisons gpt-4-turbo sans mode "réflexion". Les réponses sont pertinentes et la latence est faible.
 Nous avons expérimenté avec gpt-5, mais la latence était trop élevée (parfois jusqu'à 15 secondes pour une réponse). Nous y reviendrons à l'avenir.
 
-👉 [Essayez la démo ici](https://intlayer.org/doc/why) 👉 [Consultez le modèle de code sur GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Essayez la démo ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/interest_of_intlayer.md) 👉 [Consultez le modèle de code sur GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 </Step>
 
@@ -261,6 +261,6 @@ Pour moi, ce projet a montré que RAG n’est pas qu’un simple tour technique.
 - un canal de retour d’expérience
 - un outil de stratégie produit
 
-👉 [Essayez la démo ici](https://intlayer.org/doc/why) 👉 [Consultez le modèle de code sur GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Essayez la démo ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/interest_of_intlayer.md) 👉 [Consultez le modèle de code sur GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 Et si vous expérimentez aussi avec RAG, j’aimerais beaucoup savoir comment vous l’utilisez.

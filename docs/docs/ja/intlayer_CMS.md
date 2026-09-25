@@ -422,7 +422,7 @@ CMSで問題が発生した場合は、以下を確認してください：
 
 - アプリケーションが稼働していること。
 
-- [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration)の設定がIntlayerの設定ファイルで正しく行われていること。
+- [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#editor-configuration)の設定がIntlayerの設定ファイルで正しく行われていること。
   - 必須フィールド：
     - アプリケーションのURLは、エディター設定の `applicationURL` と一致している必要があります。
     - CMSのURL

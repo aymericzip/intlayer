@@ -645,7 +645,7 @@ This extension provides:
 - **Inline previews** of translated content.
 - **Quick actions** to easily create and update translations.
 
-For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md).
 
 ### Go Further
 
@@ -659,7 +659,7 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 - **`react-i18next` / `i18next`**: the most widespread, with JSON namespaces loaded at runtime.
 - **`react-intl`** and **`Lingui`**: ICU message format, extraction based.
-- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://intlayer.org/blog/per-component-vs-centralized-i18n)) and compiled at build time through `react-scripts-intlayer`, fully typed, with AI translation, a visual editor and a CMS.
+- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)) and compiled at build time through `react-scripts-intlayer`, fully typed, with AI translation, a visual editor and a CMS.
 
 Create React App wraps its own webpack configuration, so the integration goes through the `react-scripts-intlayer` drop in replacement for `react-scripts` rather than a plugin you register yourself. See [why Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) and the [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md).
 

@@ -492,7 +492,7 @@ Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS 
 - 번역된 콘텐츠의 **인라인 미리보기**.
 - 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
 
-확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
 
 ## 더 나아가기
 
@@ -536,7 +536,7 @@ import "@formatjs/intl-datetimeformat/polyfill";
 
 - **`i18n-js`** (`expo-localization`과 함께 사용): 가장 전통적인 조합으로, 타입 안전성이 없는 일반 메시지 객체입니다.
 - **`react-i18next`**: React 생태계의 표준으로, 런타임에 JSON 네임스페이스를 로드합니다.
-- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)), Metro 플러그인에 의해 빌드 타임에 컴파일되고, 완전한 타입 안전성을 제공하며 AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
+- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)), Metro 플러그인에 의해 빌드 타임에 컴파일되고, 완전한 타입 안전성을 제공하며 AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
 
 모바일에서는 페이지별로 가져오는 웹과 달리 모든 것이 앱 번들에 포함되기 때문에 번들 크기 절감 효과가 훨씬 강력합니다. 컴포넌트별로 콘텐츠를 컴파일하면 사용되지 않는 언어와 키가 번들에서 완전히 제외됩니다. [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.
 

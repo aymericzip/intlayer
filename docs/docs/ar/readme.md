@@ -14,10 +14,10 @@
 <br />
 
 <p align="center">
-  <a href="https://intlayer.org/doc/concept/content" rel="">Docs</a> •
-  <a href="https://intlayer.org/doc/environment/nextjs" rel="">Next.js</a> •
-  <a href="https://intlayer.org/doc/environment/vite-and-react" rel="">React + Vite</a> •
-  <a href="https://intlayer.org/doc/concept/cms" rel="">CMS</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md" rel="">Docs</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md" rel="">Next.js</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md" rel="">React + Vite</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md" rel="">CMS</a> •
   <a href="https://discord.gg/7uxamYVeCk" rel="noopener noreferrer nofollow">Discord</a>
 </p>
 <p align="center" style="margin-top:15px;">
@@ -31,7 +31,7 @@
 
 ![شاهد الفيديو](https://github.com/aymericzip/intlayer/blob/main/docs/assets/demo_video.gif)
 
-<a href="https://intlayer.org/doc/concept/content" rel="">
+<a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md" rel="">
   <img src="https://img.shields.io/badge/ابدأ-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
@@ -46,33 +46,33 @@ Intlayer هو **حل i18n حديث** لتطبيقات الويب والهاتف 
 
 ## الفوائد الرئيسية لـ Intlayer:
 
-| الميزة                                                                                                                                              | الوصف                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.webp?raw=true" alt="Feature" width="700">                         | **دعم عبر الأُطر المتعددة**<br><br>يتوافق Intlayer مع جميع الأُطر والمكتبات الرئيسية، بما في ذلك Next.js وReact وVite وVue.js وNuxt وPreact وExpress والمزيد.                                                                                                                                                                                                                                                                                                                                                                                  |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.jpg?raw=true" alt="Feature" width="700">       | **إدارة المحتوى مدعومة بجافا سكريبت**<br><br>استفد من مرونة جافا سكريبت لتعريف وإدارة محتواك بكفاءة. <br><br> - [إعلان المحتوى](https://intlayer.org/doc/concept/content)                                                                                                                                                                                                                                                                                                                                                                      |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true" alt="Feature" width="700"> | **ملف إعلان المحتوى لكل لغة**<br><br>سرّع عملية تطويرك من خلال إعلان محتواك مرة واحدة، قبل التوليد التلقائي.<br><br> - [ملف إعلان المحتوى لكل لغة](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                                                                                                                                                                                                           |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true" alt="Feature" width="700">                           | **المترجم (Compiler)**<br><br>يقوم مترجم Intlayer تلقائيًا باستخراج المحتوى من المكونات وتوليد ملفات القاموس.<br><br> - [Compiler](https://intlayer.org/doc/compiler)                                                                                                                                                                                                                                                                                                                                                                          |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true" alt="Feature" width="700">                      | **بيئة آمنة من حيث النوع**<br><br>استفد من TypeScript لضمان أن تعريفات المحتوى والكود الخاص بك خالية من الأخطاء، مع الاستفادة أيضًا من الإكمال التلقائي في بيئة التطوير.<br><br> - [تكوين TypeScript](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                                                                                                                                                                                |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true" alt="Feature" width="700">                         | **إعداد مبسط**<br><br>ابدأ بسرعة مع أقل قدر من التكوين. قم بضبط الإعدادات الخاصة بالتدويل، والتوجيه، والذكاء الاصطناعي، والبناء، وإدارة المحتوى بسهولة.<br><br> - [استكشاف تكامل Next.js](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                                                                         |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png?raw=true" alt="Feature" width="700">                   | **استرجاع المحتوى المبسط**<br><br>لا حاجة لاستدعاء دالة `t` لكل جزء من المحتوى. استرجع كل محتواك مباشرة باستخدام خطاف (hook) واحد.<br><br> - [تكامل React](https://intlayer.org/doc/environment/create-react-app)                                                                                                                                                                                                                                                                                                                              |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png?raw=true" alt="Feature" width="700">                    | **تنفيذ متسق لمكونات الخادم**<br><br>مناسب تمامًا لمكونات الخادم في Next.js، استخدم نفس التنفيذ لكل من مكونات العميل والخادم، دون الحاجة لتمرير دالة `t` عبر كل مكون خادم. <br><br> - [مكونات الخادم](https://intlayer.org/doc/environment/nextjs#step-7-utilize-content-in-your-code)                                                                                                                                                                                                                                                         |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png?raw=true" alt="Feature" width="700">                           | **قاعدة شفرة منظمة**<br><br>حافظ على تنظيم قاعدة الشفرة الخاصة بك بشكل أفضل: مكون واحد = قاموس واحد في نفس المجلد. الترجمات قريبة من مكوناتها الخاصة، مما يحسن الوضوح وسهولة الصيانة. <br><br> - [كيف يعمل Intlayer](https://intlayer.org/doc/concept/how-works-intlayer)                                                                                                                                                                                                                                                                      |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png?raw=true" alt="Feature" width="700">                         | **توجيه محسّن**<br><br>دعم كامل لتوجيه التطبيقات، يتكيف بسلاسة مع هياكل التطبيقات المعقدة، لـ Next.js و React و Vite و Vue.js وغيرها.<br><br> - [استكشاف تكامل Next.js](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                                                                                           |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png?raw=true" alt="Feature" width="700">                            | **دعم ماركداون**<br><br>استيراد وتفسير ملفات اللغة وملفات ماركداون عن بُعد للمحتوى متعدد اللغات مثل سياسات الخصوصية والوثائق وغيرها. تفسير وجعل بيانات التعريف الخاصة بماركداون متاحة في كودك.<br><br> - [ملفات المحتوى](https://intlayer.org/doc/concept/content/file)                                                                                                                                                                                                                                                                        |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.webp?raw=true" alt="Feature" width="700">                      | **محرر مرئي ونظام إدارة محتوى مجاني**<br><br>يتوفر محرر مرئي ونظام إدارة محتوى مجاني لكتاب المحتوى، مما يلغي الحاجة إلى منصات التوطين. حافظ على تزامن محتواك باستخدام Git، أو قم بإخراجه كليًا أو جزئيًا باستخدام نظام إدارة المحتوى.<br><br> - [محرر Intlayer](https://intlayer.org/doc/concept/editor) <br> - [نظام إدارة محتوى Intlayer](https://intlayer.org/doc/concept/cms)                                                                                                                                                              |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true" alt="Feature" width="700">                             | **محتوى قابل للتقليل (Tree-shakable)**<br><br>محتوى قابل للتقليل يقلل من حجم الحزمة النهائية. يقوم بتحميل المحتوى لكل مكون، مستبعدًا أي محتوى غير مستخدم. يدعم التحميل الكسول (lazy loading) لتحسين الكفاءة. <br><br> - [تحسين بناء التطبيق](https://intlayer.org/doc/concept/how-works-intlayer#app-build-optimization)                                                                                                                                                                                                                       |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.webp?raw=true" alt="Feature" width="700">                   | **التصيير الثابت (Static Rendering)**<br><br>لا يعيق التصيير الثابت. <br><br> - [تكامل Next.js](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                                                                                                                                                                   |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true" alt="Feature" width="700">                      | **ترجمة مدعومة بالذكاء الاصطناعي**<br><br>حوّل موقعك إلى 231 لغة بنقرة واحدة باستخدام أدوات الترجمة المتقدمة من Intlayer التي تستخدم مزود الذكاء الاصطناعي / مفتاح API الخاص بك. <br><br> - [التكامل مع CI/CD](https://intlayer.org/doc/concept/ci-cd) <br> - [واجهة سطر الأوامر Intlayer CLI](https://intlayer.org/doc/concept/cli) <br> - [الملء التلقائي](https://intlayer.org/doc/concept/auto-fill)                                                                                                                                       |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true" alt="Feature" width="700">                                 | **تكامل خادم MCP**<br><br>يوفر خادم MCP (Model Context Protocol) لأتمتة بيئة التطوير، مما يتيح إدارة المحتوى وسير عمل i18n بسلاسة داخل بيئتك. <br><br> - [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)                                                                                                                                                                                                                                                                                               |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.webp?raw=true" alt="Feature" width="700">                   | **امتداد VSCode**<br><br>يوفر Intlayer امتدادًا لـ VSCode لمساعدتك في إدارة المحتوى والترجمات، وبناء القواميس، وترجمة المحتوى، والمزيد. <br><br> - [امتداد VSCode](https://intlayer.org/doc/vs-code-extension)                                                                                                                                                                                                                                                                                                                                 |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true" alt="Feature" width="700">                    | **التشغيل البيني**<br><br>يسمح بالتشغيل البيني مع react-i18next و next-i18next و next-intl و react-intl و vue-i18n. <br><br> - [Intlayer و react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer و next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer و next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next) <br> - [Intlayer و vue-i18n](https://intlayer.org/blog/intlayer-with-vue-i18n) <br> - [محوّلات التوافق في Intlayer](https://intlayer.org/doc/compatibility) |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/benchmark.png?raw=true" alt="Feature" width="700">                           | **الأداء والاختبار المقارن**<br><br>يستخدم تقنية tree-shaking المتقدمة والتحميل الديناميكي لتعزيز الأداء والحفاظ على الحل خفيفًا قدر الإمكان. <br><br> - [الأداء والاختبار المقارن](https://intlayer.org/doc/benchmark)                                                                                                                                                                                                                                                                                                                        |
+| الميزة                                                                                                                                              | الوصف                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.webp?raw=true" alt="Feature" width="700">                         | **دعم عبر الأُطر المتعددة**<br><br>يتوافق Intlayer مع جميع الأُطر والمكتبات الرئيسية، بما في ذلك Next.js وReact وVite وVue.js وNuxt وPreact وExpress والمزيد.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.jpg?raw=true" alt="Feature" width="700">       | **إدارة المحتوى مدعومة بجافا سكريبت**<br><br>استفد من مرونة جافا سكريبت لتعريف وإدارة محتواك بكفاءة. <br><br> - [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true" alt="Feature" width="700"> | **ملف إعلان المحتوى لكل لغة**<br><br>سرّع عملية تطويرك من خلال إعلان محتواك مرة واحدة، قبل التوليد التلقائي.<br><br> - [ملف إعلان المحتوى لكل لغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true" alt="Feature" width="700">                           | **المترجم (Compiler)**<br><br>يقوم مترجم Intlayer تلقائيًا باستخراج المحتوى من المكونات وتوليد ملفات القاموس.<br><br> - [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true" alt="Feature" width="700">                      | **بيئة آمنة من حيث النوع**<br><br>استفد من TypeScript لضمان أن تعريفات المحتوى والكود الخاص بك خالية من الأخطاء، مع الاستفادة أيضًا من الإكمال التلقائي في بيئة التطوير.<br><br> - [تكوين TypeScript](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md#configure-typescript)                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true" alt="Feature" width="700">                         | **إعداد مبسط**<br><br>ابدأ بسرعة مع أقل قدر من التكوين. قم بضبط الإعدادات الخاصة بالتدويل، والتوجيه، والذكاء الاصطناعي، والبناء، وإدارة المحتوى بسهولة.<br><br> - [استكشاف تكامل Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png?raw=true" alt="Feature" width="700">                   | **استرجاع المحتوى المبسط**<br><br>لا حاجة لاستدعاء دالة `t` لكل جزء من المحتوى. استرجع كل محتواك مباشرة باستخدام خطاف (hook) واحد.<br><br> - [تكامل React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png?raw=true" alt="Feature" width="700">                    | **تنفيذ متسق لمكونات الخادم**<br><br>مناسب تمامًا لمكونات الخادم في Next.js، استخدم نفس التنفيذ لكل من مكونات العميل والخادم، دون الحاجة لتمرير دالة `t` عبر كل مكون خادم. <br><br> - [مكونات الخادم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md#step-7-utilize-content-in-your-code)                                                                                                                                                                                                                                                                                                                                                                                                               |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png?raw=true" alt="Feature" width="700">                           | **قاعدة شفرة منظمة**<br><br>حافظ على تنظيم قاعدة الشفرة الخاصة بك بشكل أفضل: مكون واحد = قاموس واحد في نفس المجلد. الترجمات قريبة من مكوناتها الخاصة، مما يحسن الوضوح وسهولة الصيانة. <br><br> - [كيف يعمل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/how_works_intlayer.md)                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png?raw=true" alt="Feature" width="700">                         | **توجيه محسّن**<br><br>دعم كامل لتوجيه التطبيقات، يتكيف بسلاسة مع هياكل التطبيقات المعقدة، لـ Next.js و React و Vite و Vue.js وغيرها.<br><br> - [استكشاف تكامل Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png?raw=true" alt="Feature" width="700">                            | **دعم ماركداون**<br><br>استيراد وتفسير ملفات اللغة وملفات ماركداون عن بُعد للمحتوى متعدد اللغات مثل سياسات الخصوصية والوثائق وغيرها. تفسير وجعل بيانات التعريف الخاصة بماركداون متاحة في كودك.<br><br> - [ملفات المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file.md)                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.webp?raw=true" alt="Feature" width="700">                      | **محرر مرئي ونظام إدارة محتوى مجاني**<br><br>يتوفر محرر مرئي ونظام إدارة محتوى مجاني لكتاب المحتوى، مما يلغي الحاجة إلى منصات التوطين. حافظ على تزامن محتواك باستخدام Git، أو قم بإخراجه كليًا أو جزئيًا باستخدام نظام إدارة المحتوى.<br><br> - [محرر Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) <br> - [نظام إدارة محتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)                                                                                                                                                                                                                                                                        |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true" alt="Feature" width="700">                             | **محتوى قابل للتقليل (Tree-shakable)**<br><br>محتوى قابل للتقليل يقلل من حجم الحزمة النهائية. يقوم بتحميل المحتوى لكل مكون، مستبعدًا أي محتوى غير مستخدم. يدعم التحميل الكسول (lazy loading) لتحسين الكفاءة. <br><br> - [تحسين بناء التطبيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/how_works_intlayer.md#app-build-optimization)                                                                                                                                                                                                                                                                                                                                                                                          |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.webp?raw=true" alt="Feature" width="700">                   | **التصيير الثابت (Static Rendering)**<br><br>لا يعيق التصيير الثابت. <br><br> - [تكامل Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true" alt="Feature" width="700">                      | **ترجمة مدعومة بالذكاء الاصطناعي**<br><br>حوّل موقعك إلى 231 لغة بنقرة واحدة باستخدام أدوات الترجمة المتقدمة من Intlayer التي تستخدم مزود الذكاء الاصطناعي / مفتاح API الخاص بك. <br><br> - [التكامل مع CI/CD](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/CI_CD.md) <br> - [واجهة سطر الأوامر Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) <br> - [الملء التلقائي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)                                                                                                                                                                                                                                     |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true" alt="Feature" width="700">                                 | **تكامل خادم MCP**<br><br>يوفر خادم MCP (Model Context Protocol) لأتمتة بيئة التطوير، مما يتيح إدارة المحتوى وسير عمل i18n بسلاسة داخل بيئتك. <br><br> - [خادم MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.webp?raw=true" alt="Feature" width="700">                   | **امتداد VSCode**<br><br>يوفر Intlayer امتدادًا لـ VSCode لمساعدتك في إدارة المحتوى والترجمات، وبناء القواميس، وترجمة المحتوى، والمزيد. <br><br> - [امتداد VSCode](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true" alt="Feature" width="700">                    | **التشغيل البيني**<br><br>يسمح بالتشغيل البيني مع react-i18next و next-i18next و next-intl و react-intl و vue-i18n. <br><br> - [Intlayer و react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_react-intl.md) <br> - [Intlayer و next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_next-intl.md) <br> - [Intlayer و next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_next-i18next.md) <br> - [Intlayer و vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_vue-i18n.md) <br> - [محوّلات التوافق في Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/index.md) |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/benchmark.png?raw=true" alt="Feature" width="700">                           | **الأداء والاختبار المقارن**<br><br>يستخدم تقنية tree-shaking المتقدمة والتحميل الديناميكي لتعزيز الأداء والحفاظ على الحل خفيفًا قدر الإمكان. <br><br> - [الأداء والاختبار المقارن](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 ## 📦 التثبيت
 
 ابدأ رحلتك مع Intlayer اليوم واختبر نهجًا أكثر سلاسة وقوة في التدويل.
 
-<a href="https://intlayer.org/ar/doc/concept/content" rel="">
+<a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md" rel="">
   <img src="https://img.shields.io/badge/ابدأ-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
@@ -137,13 +137,13 @@ const HomePage = () => {
 };
 ```
 
-<a href="https://intlayer.org/doc/environment/nextjs"> احصل على الدليل الكامل → </a>
+<a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md"> احصل على الدليل الكامل → </a>
 
 ## 🎥 درس مباشر على يوتيوب
 
 [![كيفية تعريب تطبيقك باستخدام Intlayer](https://i.ytimg.com/vi/e_PPG7PTqGU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDtyJ4uYotEjl12nZ_gZKZ_kjEgOQ)](https://youtu.be/e_PPG7PTqGU?si=GyU_KpVhr61razRw)
 
-<a href="https://intlayer.org/doc/concept/content" rel="">
+<a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md" rel="">
   <img src="https://img.shields.io/badge/ابدأ-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
@@ -154,32 +154,32 @@ const HomePage = () => {
 <details open>
 <summary style="font-size:16px; font-weight:bold;">📘 ابدأ الآن</summary>
 <ul>
-  <li><a href="https://intlayer.org/doc/why" rel=''>لماذا Intlayer؟</a></li>
-  <li><a href="https://intlayer.org/doc" rel=''>مقدمة</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md" rel=''>لماذا Intlayer؟</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/introduction.md" rel=''>مقدمة</a></li>
 </ul>
 </details>
 
 <details>
 <summary style="font-size:16px; font-weight:bold;">⚙️ المفهوم</summary>
 <ul>
-  <li><a href="https://intlayer.org/doc/concept/how-works-intlayer" rel=''>كيف يعمل Intlayer</a></li>
-  <li><a href="https://intlayer.org/doc/concept/configuration" rel=''>الإعدادات</a></li>
-  <li><a href="https://intlayer.org/doc/concept/cli" rel=''>Intlayer CLI</a></li>
-  <li><a href="https://intlayer.org/doc/compiler" rel=''>المترجم (Compiler)</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/how_works_intlayer.md" rel=''>كيف يعمل Intlayer</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md" rel=''>الإعدادات</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md" rel=''>Intlayer CLI</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md" rel=''>المترجم (Compiler)</a></li>
 
-  <li><a href="https://intlayer.org/doc/concept/editor" rel=''>محرر Intlayer</a></li>
-  <li><a href="https://intlayer.org/doc/concept/cms" rel=''>نظام إدارة المحتوى Intlayer CMS</a></li>
-  <li><a href="https://intlayer.org/doc/concept/content" rel=''>القاموس</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md" rel=''>محرر Intlayer</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md" rel=''>نظام إدارة المحتوى Intlayer CMS</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md" rel=''>القاموس</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/concept/per-locale-file" rel=''>ملف إعلان المحتوى لكل لغة</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/translation" rel=''>الترجمة</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/enumeration" rel=''>التعداد</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/condition" rel=''>الشرط</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/nesting" rel=''>التداخل</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/markdown" rel=''>ماركداون</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/function-fetching" rel=''>جلب الدوال</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/insertion" rel=''>الإدراج</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/file" rel=''>الملف</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md" rel=''>ملف إعلان المحتوى لكل لغة</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md" rel=''>الترجمة</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md" rel=''>التعداد</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/condition.md" rel=''>الشرط</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nesting.md" rel=''>التداخل</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md" rel=''>ماركداون</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/function_fetching.md" rel=''>جلب الدوال</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md" rel=''>الإدراج</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file.md" rel=''>الملف</a></li>
     </ul>
   </li>
 </ul>
@@ -188,51 +188,51 @@ const HomePage = () => {
 <details open>
 <summary style="font-size:16px; font-weight:bold;">🌐 البيئة</summary>
 <ul>
-  <li><a href="https://intlayer.org/doc/environment/nextjs" rel=''>إنتلاير مع Next.js 16</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md" rel=''>إنتلاير مع Next.js 16</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/15" rel=''>Next.js 15</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/14" rel=''>Next.js 14 (موجه التطبيق)</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-page-router" rel=''>Next.js موجه الصفحات</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/compiler" rel=''>Next.js باستخدام المترجم</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md" rel=''>Next.js 15</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_14.md" rel=''>Next.js 14 (موجه التطبيق)</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_page_router.md" rel=''>Next.js موجه الصفحات</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md" rel=''>Next.js باستخدام المترجم</a></li>
     </ul>
   </li>
-  <li><a href="https://intlayer.org/doc/environment/create-react-app" rel=''>React CRA</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React باستخدام المترجم</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react/react-router-v7" rel=''>React-router-v7</a></li>
-  <li><a href="https://intlayer.org/doc/environment/remix-3" rel=''>Remix 3</a></li>
-  <li><a href="https://intlayer.org/doc/environment/tanstack-start" rel=''>Tanstack start</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md" rel=''>React CRA</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md" rel=''>Vite + React</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md" rel=''>Vite + React باستخدام المترجم</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_router_v7.md" rel=''>React-router-v7</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_remix_3.md" rel=''>Remix 3</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md" rel=''>Tanstack start</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/environment/tanstack-start/solid" rel=''>Solid</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack+solid.md" rel=''>Solid</a></li>
     </ul>
   </li>
-  <li><a href="https://intlayer.org/doc/environment/astro" rel=''>Astro</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro.md" rel=''>Astro</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/environment/astro/react" rel=''>React</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/vue" rel=''>Vue</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/svelte" rel=''>Svelte</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/solid" rel=''>Solid</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/lit" rel=''>Lit</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_react.md" rel=''>React</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_vue.md" rel=''>Vue</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_svelte.md" rel=''>Svelte</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_solid.md" rel=''>Solid</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_astro_lit.md" rel=''>Lit</a></li>
     </ul>
   </li>
 
-  <li><a href="https://intlayer.org/doc/environment/react-native-and-expo" rel=''>React Native</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-svelte" rel=''>Vite + Svelte</a></li>
-  <li><a href="https://intlayer.org/doc/environment/sveltekit" rel=''>SvelteKit</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-preact" rel=''>Vite + Preact</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-vue" rel=''>Vite + Vue</a></li>
-  <li><a href="https://intlayer.org/doc/environment/nuxt-and-vue" rel=''>Vite + Nuxt</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-solid" rel=''>Vite + Solid</a></li>
-  <li><a href="https://intlayer.org/doc/environment/angular" rel=''>أنجولار</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_react_native+expo.md" rel=''>React Native</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+svelte.md" rel=''>Vite + Svelte</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_svelte_kit.md" rel=''>SvelteKit</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+preact.md" rel=''>Vite + Preact</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md" rel=''>Vite + Vue</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md" rel=''>Vite + Nuxt</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+solid.md" rel=''>Vite + Solid</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_angular_21.md" rel=''>أنجولار</a></li>
   <li>
-     <a href="https://intlayer.org/doc/environment/express" rel=''>الخلفية (Backend)</a>
+     <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_express.md" rel=''>الخلفية (Backend)</a>
      <ul>
-      <li><a href="https://intlayer.org/doc/environment/express" rel=''>Express</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nest" rel=''>NestJS</a></li>
-      <li><a href="https://intlayer.org/doc/environment/fastify" rel=''>Fastify</a></li>
-      <li><a href="https://intlayer.org/doc/environment/adonisjs" rel=''>AdonisJS</a></li>
-      <li><a href="https://intlayer.org/doc/environment/hono" rel=''>Hono</a></li>
-      <li><a href="https://intlayer.org/doc/environment/elysia" rel=''>Elysia</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_express.md" rel=''>Express</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nestjs.md" rel=''>NestJS</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_fastify.md" rel=''>Fastify</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_adonisjs.md" rel=''>AdonisJS</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_hono.md" rel=''>Hono</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_elysia.md" rel=''>Elysia</a></li>
     </ul>
   </li>
 </ul>
@@ -253,10 +253,10 @@ const HomePage = () => {
 <summary style="font-size:16px; font-weight:bold;">📰 مدونة</summary>
 <ul>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/what_is_internationalization.md" rel=''>ما هو i18n</a></li>
-  <li><a href="https://intlayer.org/blog/SEO-and-i18n" rel=''>i18n وتحسين محركات البحث</a></li>
-  <li><a href="https://intlayer.org/blog/intlayer-with-next-i18next" rel=''>Intlayer و i18next</a></li>
-  <li><a href="https://intlayer.org/blog/intlayer-with-react-i18next" rel=''>Intlayer و react-intl</a></li>
-  <li><a href="https://intlayer.org/blog/intlayer-with-next-intl" rel=''>Intlayer و next-intl</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/internationalization_and_SEO.md" rel=''>i18n وتحسين محركات البحث</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_next-i18next.md" rel=''>Intlayer و i18next</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_react-i18next.md" rel=''>Intlayer و react-intl</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_next-intl.md" rel=''>Intlayer و next-intl</a></li>
 </ul>
 </details>
 

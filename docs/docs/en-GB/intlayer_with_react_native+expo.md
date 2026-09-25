@@ -490,7 +490,7 @@ This extension provides:
 - **Inline previews** of translated content.
 - **Quick actions** to easily create and update translations.
 
-For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md).
 
 ## Go Further
 
@@ -534,7 +534,7 @@ import "@formatjs/intl-datetimeformat/polyfill";
 
 - **`i18n-js`** paired with `expo-localization`: the historical pairing, a plain object of messages with no typing.
 - **`react-i18next`**: the React ecosystem standard, with JSON namespaces loaded at runtime.
-- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://intlayer.org/blog/per-component-vs-centralized-i18n)) and compiled by the Metro plugin at build time, fully typed, with AI translation, a visual editor and a CMS.
+- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/per-component_vs_centralized_i18n.md)) and compiled by the Metro plugin at build time, fully typed, with AI translation, a visual editor and a CMS.
 
 On mobile the size argument is stronger than on the web, because everything is bundled into the app rather than fetched per page. Compiling content per component keeps unused languages and unused keys out of the bundle. See [why Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/interest_of_intlayer.md).
 

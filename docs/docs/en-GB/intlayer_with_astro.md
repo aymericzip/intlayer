@@ -642,7 +642,7 @@ This extension provides:
 - **Inline preview** of translated content.
 - **Quick actions** for easily creating and updating translations.
 
-For more information on using the extension, refer to the [VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+For more information on using the extension, refer to the [VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md).
 
 ### Deepen Your Knowledge
 

@@ -22,7 +22,7 @@ author: aymericzip
 
 Có.
 
-`Paraglide` nổi tiếng là giải pháp i18n nhẹ nhất hiện nay, và thoạt nhìn bảng [benchmark](https://intlayer.org/vi/doc/benchmark/tanstack) cũng đồng tình với điều đó: kích thước thư viện của nó gần như bằng không. Tuy nhiên, kích thước thư viện bằng không không đồng nghĩa với việc không có byte nào được gửi đến trình duyệt. Nó chỉ có nghĩa là các byte đó nằm ở một nơi mà chỉ số này không quét tới.
+`Paraglide` nổi tiếng là giải pháp i18n nhẹ nhất hiện nay, và thoạt nhìn bảng [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md) cũng đồng tình với điều đó: kích thước thư viện của nó gần như bằng không. Tuy nhiên, kích thước thư viện bằng không không đồng nghĩa với việc không có byte nào được gửi đến trình duyệt. Nó chỉ có nghĩa là các byte đó nằm ở một nơi mà chỉ số này không quét tới.
 
 <TOC/>
 
@@ -93,7 +93,7 @@ Next.js 16 App Router, cùng ứng dụng:
 
 <I18nBenchmark framework="tanstack" vertical/>
 
-> Dữ liệu đầy đủ có trong [báo cáo benchmark TanStack Start](https://intlayer.org/vi/doc/benchmark/tanstack) và [báo cáo benchmark Next.js](https://intlayer.org/vi/doc/benchmark/nextjs). Từng bundle có thể được kiểm tra tại [kho lưu trữ benchmark](https://github.com/intlayer-org/benchmark-i18n).
+> Dữ liệu đầy đủ có trong [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md) và [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md). Từng bundle có thể được kiểm tra tại [kho lưu trữ benchmark](https://github.com/intlayer-org/benchmark-i18n).
 
 Hai điểm nổi bật rõ ràng:
 
@@ -198,7 +198,7 @@ Quy trình phát triển này mang lại những bất tiện:
 
 Lời hứa hẹn lớn nhất của Paraglide là các thông điệp không dùng đến sẽ được loại bỏ thông qua tree shaking, vì mỗi thông điệp là một export độc lập. Trong thử nghiệm với Svelte + Vite, tính năng này hoạt động đúng như quảng cáo.
 
-Nhưng trong các môi trường khác thì không như vậy. Trong lần thử nghiệm trên [Next.js](https://intlayer.org/vi/doc/benchmark/nextjs), các trang của Paraglide nặng hơn ứng dụng gốc tới 14 KB, trong khi `next-intlayer` chỉ thêm 0.3 KB. Các bài đo trước đó trên TanStack Start cũng cho thấy thông điệp từ những trang khác bị kéo vào bundle của route hiện tại.
+Nhưng trong các môi trường khác thì không như vậy. Trong lần thử nghiệm trên [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md), các trang của Paraglide nặng hơn ứng dụng gốc tới 14 KB, trong khi `next-intlayer` chỉ thêm 0.3 KB. Các bài đo trước đó trên TanStack Start cũng cho thấy thông điệp từ những trang khác bị kéo vào bundle của route hiện tại.
 
 Tree shaking phụ thuộc chặt chẽ vào bundler (Turbopack, Rolldown, Rollup), cách thức import thông điệp (`import { m }` so với `import * as m`) và khả năng phân tích tác dụng phụ (side-effects). Nếu bạn chọn Paraglide vì kích thước nhỏ gọn, hãy mở công cụ phân tích bundle và kiểm tra xem điều đó có thực sự đúng với ứng dụng của bạn hay không.
 
@@ -234,7 +234,7 @@ export default config;
 | `dynamic`    | Chỉ ngôn ngữ hiện tại, tải theo cơ chế lazy cho từng từ điển | **Nhẹ hơn N lần** với N ngôn ngữ |
 | `fetch`      | Chỉ ngôn ngữ hiện tại, lấy trực tiếp qua Live Sync API       | **Nhẹ hơn N lần** với N ngôn ngữ |
 
-Nhờ [chuyển đổi trong quá trình build](https://intlayer.org/vi/doc/concept/bundle-optimization) và chế độ `importMode: 'static'`, Intlayer về mặt lý thuyết tải lượng nội dung hoàn toàn giống với Paraglide. Với `'dynamic'` hoặc `'fetch'`, nó chỉ tải những gì ngôn ngữ hiện tại cần: đối với ứng dụng có N ngôn ngữ, dung lượng dịch thuật nhẹ hơn N lần so với Paraglide.
+Nhờ [chuyển đổi trong quá trình build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và chế độ `importMode: 'static'`, Intlayer về mặt lý thuyết tải lượng nội dung hoàn toàn giống với Paraglide. Với `'dynamic'` hoặc `'fetch'`, nó chỉ tải những gì ngôn ngữ hiện tại cần: đối với ứng dụng có N ngôn ngữ, dung lượng dịch thuật nhẹ hơn N lần so với Paraglide.
 
 ## Những trường hợp Paraglide vẫn phù hợp
 
@@ -277,8 +277,8 @@ bunx intlayer init --interactive
 
 ## Đọc thêm
 
-- [Benchmark i18n TanStack Start](https://intlayer.org/vi/doc/benchmark/tanstack)
-- [Benchmark i18n Next.js](https://intlayer.org/vi/doc/benchmark/nextjs)
-- [Tối ưu hóa Bundle và `importMode`](https://intlayer.org/vi/doc/concept/bundle-optimization)
-- [Cách chọn thư viện i18n phù hợp cho React](https://intlayer.org/vi/blog/how-to-pick-react-i18n-library)
-- [Lợi ích của quốc tế hóa dựa trên trình biên dịch](https://intlayer.org/vi/blog/compiler-vs-declarative-i18n)
+- [Benchmark i18n TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
+- [Benchmark i18n Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+- [Tối ưu hóa Bundle và `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+- [Cách chọn thư viện i18n phù hợp cho React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_react_i18n_library.md)
+- [Lợi ích của quốc tế hóa dựa trên trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)

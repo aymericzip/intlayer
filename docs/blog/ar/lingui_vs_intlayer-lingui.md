@@ -27,7 +27,7 @@ author: aymericzip
 
 حزمة `@intlayer/lingui` هي محول توافق (compat adapter) لمكتبتي `@lingui/core` و `@lingui/react`. استدعاءاتك لكل من `` t`...` `` و `<Trans>` و `useLingui()` و `i18n._()` تبقى كما هي تماما؛ تواصل وحدات الماكرو التصريف دون تغيير؛ والشيء الوحيد الذي يتغير هو مصدر النصوص في وقت التشغيل (runtime). بدلا من وجود فهرس مجمع واحد لكل لغة، يرتبط كل موقع استدعاء بقاموس Intlayer تم تجميعه خصيصا له.
 
-تقيس هذه المقالة هذا التحول على نفس تطبيق TanStack Start، مبنيا مرة باستخدام Lingui الصافي ومرة باستخدام المحول. الأرقام مأخوذة من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). للمقارنة بين المكتبتين كمكتبتين مستقلتين، اقرأ [Lingui مقابل Intlayer](https://intlayer.org/ar/blog/lingui-vs-intlayer). تركز هذه المقالة على ما يغيره المحول، وأين لا يقدم فائدة إضافية.
+تقيس هذه المقالة هذا التحول على نفس تطبيق TanStack Start، مبنيا مرة باستخدام Lingui الصافي ومرة باستخدام المحول. الأرقام مأخوذة من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). للمقارنة بين المكتبتين كمكتبتين مستقلتين، اقرأ [Lingui مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md). تركز هذه المقالة على ما يغيره المحول، وأين لا يقدم فائدة إضافية.
 
 <TOC/>
 
@@ -227,7 +227,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-لفهارس `.po`، استبدل `syncJSON` بـ `syncPO` من حزمة `@intlayer/sync-po-plugin` واستخدم نفس نمط `source` مع امتداد `.po`. راجع [توثيق إضافة Sync PO](https://intlayer.org/ar/doc/plugin/sync-po).
+لفهارس `.po`، استبدل `syncJSON` بـ `syncPO` من حزمة `@intlayer/sync-po-plugin` واستخدم نفس نمط `source` مع امتداد `.po`. راجع [توثيق إضافة Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/plugins/sync-po.md).
 
 خيار `splitKeys: "key-prefix"` هو المفتاح الفعلي لتقليص أحجام المكونات. يحافظ ملف الفهرس على بنيته المسطحة؛ والتقسيم يظهر فقط في القواميس المنشأة، وتقوم المزامنة العكسية بإعادة دمج المفاتيح بسلاسة.
 
@@ -277,7 +277,7 @@ export default defineConfig({
 - **التكلفة الإضافية لكل صفحة في نمط `dynamic`.** كما وضحنا أعلاه: توقع زيادة قدرها نحو 20 كيلوبايت لكل صفحة مقارنة بإعداد Lingui المحمل كسولا في التطبيقات الصغيرة. هذا الفارق لا يزداد بزيادة المحتوى (لأنه يعود للمحلل وليس الفهارس)، ولكنه لا يتقلص أيضا.
 - **بقاء تسرب اللغة المصدر.** تشتمل واصفات الرسائل ونواتج الماكرو على النص الإنجليزي كاحتياط. إذا كان هذا الأمر يشكل أولوية لك، فالحل هو تنظيف حقل `message` أو نقل المكون إلى `.content.ts`، وليس المحول بحد ذاته.
 - **دالة `i18n.load()` باتت احتياطية.** إذا واصلت استيراد الفهارس المجمعة واستدعاء `load()`، فسينتهي بك الأمر بتحميل الحزمة القديمة والجديدة معا. احرص على حذف تلك الاستيرادات.
-- **حصري لـ Vite.** لا يوجد ملحق لـ Next.js ضمن `@intlayer/lingui`. مشاريع Next.js المعتمدة على Lingui يفضل أن تتوجه مباشرة إلى [`next-intlayer`](https://intlayer.org/ar/doc/environment/nextjs).
+- **حصري لـ Vite.** لا يوجد ملحق لـ Next.js ضمن `@intlayer/lingui`. مشاريع Next.js المعتمدة على Lingui يفضل أن تتوجه مباشرة إلى [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md).
 - **عدم تطبيق `defaultComponent`.** إذا كنت تعتمد عليه لتغليف كل عنصر `<Trans>` تلقائيا، أضف التغليف بشكل صريح داخل المكونات.
 
 ## متى تستخدم كل خيار؟
@@ -288,12 +288,12 @@ export default defineConfig({
 
 ## مقارنات ذات صلة
 
-- [Lingui مقابل Intlayer](https://intlayer.org/ar/blog/lingui-vs-intlayer) (مقارنة مباشرة بين المكتبتين على نفس الاختبار)
-- [next-intl مقابل @intlayer/next-intl](https://intlayer.org/ar/blog/next-intl-vs-intlayer-next-intl) (ضمن سلسلة مقارنات المحولات)
-- [i18next مقابل @intlayer/i18next](https://intlayer.org/ar/blog/i18next-vs-intlayer-i18next) (ضمن سلسلة مقارنات المحولات)
-- [vue-i18n مقابل @intlayer/vue-i18n](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer-vue-i18n) (ضمن سلسلة مقارنات المحولات)
-- [مرجع محول التوافق: Lingui](https://intlayer.org/ar/doc/compatibility/lingui)
-- [النهج المعتمد على المصرف مقابل التدويل التعريفي](https://intlayer.org/ar/blog/compiler-vs-declarative-i18n)
+- [Lingui مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md) (مقارنة مباشرة بين المكتبتين على نفس الاختبار)
+- [next-intl مقابل @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer-next-intl.md) (ضمن سلسلة مقارنات المحولات)
+- [i18next مقابل @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer-i18next.md) (ضمن سلسلة مقارنات المحولات)
+- [vue-i18n مقابل @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer-vue-i18n.md) (ضمن سلسلة مقارنات المحولات)
+- [مرجع محول التوافق: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
+- [النهج المعتمد على المصرف مقابل التدويل التعريفي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
 
 ## الخاتمة
 
@@ -301,4 +301,4 @@ export default defineConfig({
 
 تتوفر جميع البيانات التفصيلية وتطبيقات الاختبار وسكربتات القياس في [مستودع Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). ندعوك لتجربتها بنفسك.
 
-راجع توثيق ['لماذا Intlayer؟'](https://intlayer.org/ar/doc/why) لمزيد من التفاصيل.
+راجع توثيق ['لماذا Intlayer؟'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) لمزيد من التفاصيل.

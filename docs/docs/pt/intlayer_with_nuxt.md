@@ -685,7 +685,7 @@ Esta extensão oferece:
 - **Visualizações inline** do conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
 
 ### Ir Além
 
@@ -700,7 +700,7 @@ Para ir mais longe, você pode implementar o [editor visual](https://github.com/
 Duas opções realistas:
 
 - **`@nuxtjs/i18n`**: o módulo estabelecido, construído sobre o `vue-i18n`, com arquivos de idioma carregados por página e uma superfície de configuração extensa. O `vue-i18n` não possui isolamento nativo de mensagens por namespace, de modo que cada página acaba empacotando mensagens de outras páginas e esse bundle cresce conforme mais páginas são criadas.
-- **`Intlayer`**: a solução mais avançada. O conteúdo é declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)) e compilado em tempo de build, totalmente tipado, com roteamento ciente de locales, tradução por IA, editor visual e CMS.
+- **`Intlayer`**: a solução mais avançada. O conteúdo é declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)) e compilado em tempo de build, totalmente tipado, com roteamento ciente de locales, tradução por IA, editor visual e CMS.
 
 A grande diferença é onde o conteúdo reside. O `@nuxtjs/i18n` centraliza tudo em arquivos `locales/*.json`, enquanto o Intlayer posiciona os dicionários junto com os componentes que os renderizam, enviando apenas as entradas que a página realmente usa e permitindo mover ou deletar pastas de funcionalidades de forma atômica. Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) e o [benchmark Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/vue.md).
 

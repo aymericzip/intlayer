@@ -426,7 +426,7 @@ Toto rozšíření nabízí:
 - **Náhled přímo v kódu** pro přeložený obsah.
 - **Rychlé akce** k snadnému vytváření a aktualizaci překladů.
 
-Další informace o tom, jak používat rozšíření, najdete v [dokumentaci Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+Další informace o tom, jak používat rozšíření, najdete v [dokumentaci Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md).
 
 ### Další kroky
 

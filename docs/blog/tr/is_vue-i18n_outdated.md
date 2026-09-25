@@ -81,7 +81,7 @@ height="600px"
 style="border:none;"
 />
 
-> Gerçek tarayıcı ortamlarında gzip sıkıştırmasıyla test edilmiştir. Verilerin tamamı [Vue benchmark dokümantasyonunda](https://intlayer.org/tr/doc/benchmark/vue).
+> Gerçek tarayıcı ortamlarında gzip sıkıştırmasıyla test edilmiştir. Verilerin tamamı [Vue benchmark dokümantasyonunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md).
 
 ### Temel Kütüphane Yükü
 
@@ -171,7 +171,7 @@ const { title } = useIntlayer("hero");
   </Tab>
 </Tabs>
 
-[Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler) kullanılan özellikleri tam olarak belirler ve istemci paketini oluşturmadan önce gereksiz verileri ayıklar. Detaylar için [paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization) sayfasına bakın.
+[Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) kullanılan özellikleri tam olarak belirler ve istemci paketini oluşturmadan önce gereksiz verileri ayıklar. Detaylar için [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) sayfasına bakın.
 
 ## Geliştirici Deneyimi
 
@@ -248,17 +248,17 @@ const { title } = useIntlayer("hero");
 
 `DefineLocaleMessage` temel şemaya göre editörde ipuçları sağlar. Ancak tüm dillerin eksiksiz olduğunu garanti etmez. `tr.json` içinden bir anahtarı silmeniz derleme esnasında hata oluşturmaz.
 
-Intlayer ile sözlükler titizlikle kontrol edilir. [`strictMode`](https://intlayer.org/tr/doc/concept/configuration) ayarı açıldığında eksik bir çeviri doğrudan build hatasına dönüşür.
+Intlayer ile sözlükler titizlikle kontrol edilir. [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) ayarı açıldığında eksik bir çeviri doğrudan build hatasına dönüşür.
 
 ### Geliştirici ve Yapay Zeka Araçları
 
-| Özellik                     | `vue-i18n`               | Intlayer                                                                 |
-| --------------------------- | ------------------------ | ------------------------------------------------------------------------ |
-| **VS Code Eklentisi**       | Üçüncü taraf (i18n Ally) | ✅ [Resmi eklenti](https://intlayer.org/tr/doc/vs-code-extension)        |
-| **Language Server (LSP)**   | ❌ Yok                   | ✅ [Özel LSP](https://intlayer.org/tr/doc/lsp)                           |
-| **Yapay Zeka MCP Sunucusu** | ❌ Yok                   | ✅ [Entegre MCP sunucusu](https://intlayer.org/tr/doc/mcp-server)        |
-| **Ajan Becerileri**         | ❌ Yok                   | ✅ [Kullanıma hazır beceriler](https://intlayer.org/tr/doc/agent_skills) |
-| **Görsel CMS**              | ❌ Yok                   | ✅ [Ücretsiz ve Açık Kaynak](https://intlayer.org/tr/doc/concept/editor) |
+| Özellik                     | `vue-i18n`               | Intlayer                                                                                                              |
+| --------------------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| **VS Code Eklentisi**       | Üçüncü taraf (i18n Ally) | ✅ [Resmi eklenti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)                |
+| **Language Server (LSP)**   | ❌ Yok                   | ✅ [Özel LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)                                   |
+| **Yapay Zeka MCP Sunucusu** | ❌ Yok                   | ✅ [Entegre MCP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)                |
+| **Ajan Becerileri**         | ❌ Yok                   | ✅ [Kullanıma hazır beceriler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)         |
+| **Görsel CMS**              | ❌ Yok                   | ✅ [Ücretsiz ve Açık Kaynak](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) |
 
 ## Çeviri Süreçleri
 
@@ -272,7 +272,7 @@ Eksik anahtarları kendi OpenAI, Anthropic, Mistral veya Gemini anahtarlarınız
 
 **Kendi Altyapınızda Barındırılabilir Görsel CMS:**
 
-[Intlayer CMS](https://intlayer.org/tr/doc/concept/cms) ile teknik olmayan ekip üyelerinin doğrudan Git'e yansıyacak şekilde metin düzenlemesini sağlayın.
+[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) ile teknik olmayan ekip üyelerinin doğrudan Git'e yansıyacak şekilde metin düzenlemesini sağlayın.
 
 **Açık Kaynak Lisansı:**
 
@@ -328,9 +328,9 @@ Bu etkileşimli CLI aracı:
 
 Ayrıntılı adımlar için hazırladığımız kılavuzları inceleyin:
 
-- **Kolay Uyumluluk:** [`vue-i18n` uyumluluk katmanı](https://intlayer.org/tr/doc/compatibility/vue-i18n) veya [`@nuxtjs/i18n`](https://intlayer.org/tr/doc/compatibility/nuxtjs-i18n) ile mevcut şablonlarınızı koruyun.
-- **Rehberli Geçiş:** JSON dosyalarınızı kılavuzlarımız yardımıyla dönüştürün: [vue-i18n üzerinden](https://intlayer.org/tr/doc/migration/vue-i18n) veya [@nuxtjs/i18n üzerinden](https://intlayer.org/tr/doc/migration/nuxtjs-i18n).
-- **Hibrit Düzen:** Arayüzde `vue-i18n` çalıştırmaya devam ederken, tip güvenliği ve yerel yapay zeka çevirisi için [Intlayer'ı vue-i18n ile birleştirin](https://intlayer.org/tr/blog/intlayer-with-vue-i18n).
+- **Kolay Uyumluluk:** [`vue-i18n` uyumluluk katmanı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) veya [`@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md) ile mevcut şablonlarınızı koruyun.
+- **Rehberli Geçiş:** JSON dosyalarınızı kılavuzlarımız yardımıyla dönüştürün: [vue-i18n üzerinden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_vue-i18n_to_intlayer.md) veya [@nuxtjs/i18n üzerinden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_nuxtjs_i18n_to_intlayer.md).
+- **Hibrit Düzen:** Arayüzde `vue-i18n` çalıştırmaya devam ederken, tip güvenliği ve yerel yapay zeka çevirisi için [Intlayer'ı vue-i18n ile birleştirin](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/intlayer_with_vue-i18n.md).
 
 Uygulamanızı ücretsiz [i18n SEO Tarayıcısı](https://intlayer.org/i18n-seo-scanner) ile analiz edin:
 
@@ -338,7 +338,7 @@ Uygulamanızı ücretsiz [i18n SEO Tarayıcısı](https://intlayer.org/i18n-seo-
 
 ## İlgili Makaleler
 
-- [Vue & Vite i18n Benchmark: Kapsamlı Değerlendirme](https://intlayer.org/tr/doc/benchmark/vue)
-- [vue-i18n vs Intlayer Karşılaştırması](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer)
-- [next-intl 2026'da Güncelliğini Yitirdi mi?](https://intlayer.org/tr/blog/is-next-intl-outdated)
-- [Derleyici Odaklı vs Bildirime Dayalı i18n Mimarisi](https://intlayer.org/tr/blog/compiler-vs-declarative-i18n)
+- [Vue & Vite i18n Benchmark: Kapsamlı Değerlendirme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
+- [vue-i18n vs Intlayer Karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md)
+- [next-intl 2026'da Güncelliğini Yitirdi mi?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_next-intl_outdated.md)
+- [Derleyici Odaklı vs Bildirime Dayalı i18n Mimarisi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)

@@ -28,7 +28,7 @@ Ho costruito un assistente alla documentazione potenziato da RAG e l'ho confezio
 - Tutti i componenti UI sono completamente modificabili con Tailwind CSS
 - Registra ogni query dell'utente per aiutare a identificare documentazione mancante, punti dolenti degli utenti e opportunità di prodotto
 
-👉 [Demo live](https://intlayer.org/doc/why) 👉 [Boilerplate del codice](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Demo live](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/interest_of_intlayer.md) 👉 [Boilerplate del codice](https://github.com/aymericzip/smart_doc_RAG)
 
 ## Introduzione
 
@@ -91,6 +91,6 @@ Per me, questo progetto ha dimostrato che RAG non è solo un trucco tecnico. È 
 - un canale di feedback
 - uno strumento di strategia di prodotto
 
-👉 [Prova la demo qui](https://intlayer.org/doc/why) 👉 [Controlla il modello di codice su GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Prova la demo qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/interest_of_intlayer.md) 👉 [Controlla il modello di codice su GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 E se anche tu stai sperimentando con RAG, mi piacerebbe sapere come lo stai usando.

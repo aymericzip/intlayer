@@ -124,7 +124,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-이 구성을 사용하면 모든 로케일별 파일이 기본 로케일이 영어로 설정된 상태로 생성됩니다. 또한 `extract` 명령어와 컴파일러를 사용한 `.content` 파일 생성도 포함됩니다. (자세한 내용은 [Compiler](https://intlayer.org/ko/doc/compiler) 또는 [Extract](https://intlayer.org/ko/doc/concept/cli/extract)를 참조하세요.)
+이 구성을 사용하면 모든 로케일별 파일이 기본 로케일이 영어로 설정된 상태로 생성됩니다. 또한 `extract` 명령어와 컴파일러를 사용한 `.content` 파일 생성도 포함됩니다. (자세한 내용은 [Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) 또는 [Extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 참조하세요.)
 
 ## 로케일별 형식
 

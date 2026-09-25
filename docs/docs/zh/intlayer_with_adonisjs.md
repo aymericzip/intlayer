@@ -305,7 +305,7 @@ export default config;
 - 翻译内容的**内联预览**。
 - 轻松创建和更新翻译的**快速操作**。
 
-有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/zh/doc/vs-code-extension)。
+有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
 ### Git 配置
 

@@ -174,14 +174,14 @@ Tip: Untuk metadata halaman dan SEO, Anda juga dapat mengambil konten menggunaka
 - **Tree-shaking**: Hanya konten yang digunakan oleh komponen yang dibundel, menjaga ukuran payload tetap kecil pada aplikasi besar.
 - **DX & tooling**: Middleware bawaan, helper SEO, dan terjemahan Visual Editor/AI opsional mempermudah pekerjaan sehari-hari.
 
-Lihat perbandingan dan pola dalam rangkuman yang berfokus pada Next.js: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+Lihat perbandingan dan pola dalam rangkuman yang berfokus pada Next.js: https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md
 
 ## Panduan dan referensi terkait
 
-- Setup React (Vite): https://intlayer.org/doc/environment/vite-and-react
-- React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
-- Mulai TanStack: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
-- Setup Next.js: https://intlayer.org/doc/environment/nextjs
-- Mengapa Intlayer dibandingkan dengan next-intl dan next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- Setup React (Vite): https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md
+- React Router v7: https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_router_v7.md
+- Mulai TanStack: https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md
+- Setup Next.js: https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md
+- Mengapa Intlayer dibandingkan dengan next-intl dan next-i18next - https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md
 
 Halaman-halaman ini mencakup setup menyeluruh, penyedia, routing, dan helper SEO.

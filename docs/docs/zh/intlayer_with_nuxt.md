@@ -688,7 +688,7 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 - 翻译内容的 **内联预览**。
 - 轻松创建和更新翻译的 **快速操作**。
 
-有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
 ### 更进一步
 
@@ -703,7 +703,7 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 两个切合实际的选择：
 
 - **`@nuxtjs/i18n`**：成熟的官方模块，基于 `vue-i18n` 构建，按页面加载语言文件，配置项庞大。但 `vue-i18n` 无法实现消息的命名空间隔离，导致每个页面都会打包所有其他页面的消息，随着页面增多，bundle 体积不断膨胀。
-- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），并在构建时进行编译，全链路类型安全，提供支持语言环境的路由、AI 翻译、可视化编辑器和 CMS。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），并在构建时进行编译，全链路类型安全，提供支持语言环境的路由、AI 翻译、可视化编辑器和 CMS。
 
 核心区别在于内容的存放位置。`@nuxtjs/i18n` 将内容集中在 `locales/*.json` 文件中，而 Intlayer 将内容与渲染它的组件放置在同一目录下，因此页面仅输出其实际使用的条目，且功能模块目录可以整体移动或删除。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [Vue i18n 性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)。
 

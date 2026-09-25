@@ -29,7 +29,7 @@ author: aymericzip
 
 `@intlayer/vue-i18n`, bir uyumluluk adaptörüdür: `vue-i18n` API'sini (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...) ortaya çıkarır ve bunu Intlayer tarafından derlenmiş sözlüklerden sunar. `.vue` dosyalarınız değişmez. `t("footer.github")`'nin bağlı olduğu şey değişir.
 
-Bu makale, aynı Vite + Vue 3 uygulamasında bu değişimi ölçer; bir kez `vue-i18n` ile ve bir kez adapter ile oluşturulmuştur. Sayılar [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) kaynağından gelmektedir. `vue-i18n` ve Intlayer'ı kütüphaneler olarak karşılaştırmak için [vue-i18n vs Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer) ve [vue-i18n vs Intlayer benchmark](https://intlayer.org/blog/vue-i18n-vs-intlayer-benchmark) makalesini okuyun. Bu makale, bileşenlerinizi olduğu gibi tuttuğunuzda adapterın ne değiştirdiği hakkındadır.
+Bu makale, aynı Vite + Vue 3 uygulamasında bu değişimi ölçer; bir kez `vue-i18n` ile ve bir kez adapter ile oluşturulmuştur. Sayılar [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) kaynağından gelmektedir. `vue-i18n` ve Intlayer'ı kütüphaneler olarak karşılaştırmak için [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md) ve [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer_benchmark.md) makalesini okuyun. Bu makale, bileşenlerinizi olduğu gibi tuttuğunuzda adapterın ne değiştirdiği hakkındadır.
 
 <TOC/>
 
@@ -83,7 +83,7 @@ Bileşen artık global mesaj ağacına ulaşmıyor. Yalnızca `footer`'a ulaşı
 | `createI18n({ messages })`                                          | ⚠️ `messages` bir **runtime fallback** olarak kullanılır ve dev uyarısı gösterilir. Bundle kazançları için JSON importlarını kaldırın |
 | `setLocaleMessage()`, `mergeLocaleMessage()`                        | ❌ Uyarı gösterilir ve hiçbir şey yapmaz. Runtime message yükleme, build-time sözlükleri ile değiştirilir                             |
 | SFC `<i18n>` custom blocks                                          | ❌ Okunmaz. Bu mesajları locale JSON'a (veya bileşenin yanındaki `.content.ts`'e) taşıyın                                             |
-| `@nuxtjs/i18n`                                                      | ⚠️ Ayrı adapter, bkz. [Nuxt compat docu](https://intlayer.org/doc/compatibility/nuxtjs-i18n)                                          |
+| `@nuxtjs/i18n`                                                      | ⚠️ Ayrı adapter, bkz. [Nuxt compat docu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md)         |
 
 ## Benchmark
 
@@ -137,7 +137,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tüm tablo, her kütüphane ve her strateji, [Vue kıyaslama raporunda](https://intlayer.org/tr/doc/benchmark/vue).
+> Tüm tablo, her kütüphane ve her strateji, [Vue kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md).
 
 ## Sayılar neden değişiyor
 
@@ -285,7 +285,7 @@ Mesajlarınız bileşenlerin içindeyse, yerel ayarlara ait dosyalara veya üret
 </Accordion>
 <Accordion header="Çalışma zamanı mesaj yükleme kaldırıldı">
 
-`setLocaleMessage()` ve `mergeLocaleMessage()` bir uyarı verip geri döner. Çalışma zamanında bir CMS'ten çekilen çeviriler, [Intlayer CMS](https://intlayer.org/tr/doc/concept/cms) veya `intlayer pull` / `push` komutlarını gerektirir.
+`setLocaleMessage()` ve `mergeLocaleMessage()` bir uyarı verip geri döner. Çalışma zamanında bir CMS'ten çekilen çeviriler, [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) veya `intlayer pull` / `push` komutlarını gerektirir.
 
 </Accordion>
 <Accordion header="messages bir yedek seçenektir, ücretsiz değildir">
@@ -315,7 +315,7 @@ Uygulamanız SFC `<i18n>` bloklarına veya çalışma zamanı `setLocaleMessage(
 </Accordion>
 <Accordion header="Yerel kullanıma geçin (vue-intlayer)">
 
-Yeni projeler için veya adaptör görevini tamamladıktan sonra. En hafif çalışma zamanına (3.9 KB) ve `<i18n>` bloklarını tiplenmiş içerikle değiştiren bileşen başına `.content.ts` modeline sahiptir. [Vue ile Intlayer](https://intlayer.org/tr/doc/environment/vite-and-vue) veya [Nuxt ile](https://intlayer.org/tr/doc/environment/nuxt-and-vue) başlayın.
+Yeni projeler için veya adaptör görevini tamamladıktan sonra. En hafif çalışma zamanına (3.9 KB) ve `<i18n>` bloklarını tiplenmiş içerikle değiştiren bileşen başına `.content.ts` modeline sahiptir. [Vue ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+vue.md) veya [Nuxt ile](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md) başlayın.
 
 </Accordion>
 </AccordionGroup>
@@ -338,13 +338,13 @@ Hayır. Kıyaslama derlemesi yalnızca `vite.config.ts`, `intlayer.config.ts` ve
 
 <Question title="d() ve n() biçimlendirmeleri ne olacak?">
 
-Korundu. `createI18n()` işlevine iletilen `datetimeFormats` ve `numberFormats` yapılandırmalarına uyulur ve yerel `Intl` API'si ile desteklenir. Bkz. [tarih, saat ve sayı biçimlendirmesi](https://intlayer.org/tr/blog/date-time-number-formatting-locales).
+Korundu. `createI18n()` işlevine iletilen `datetimeFormats` ve `numberFormats` yapılandırmalarına uyulur ve yerel `Intl` API'si ile desteklenir. Bkz. [tarih, saat ve sayı biçimlendirmesi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/date_time_number_formatting_locales.md).
 
 </Question>
 
 <Question title="Nuxt ile çalışır mı?">
 
-`@intlayer/vue-i18n` Vite + Vue hedefler. `@nuxtjs/i18n` için [Nuxt i18n uyumluluk adaptörünü](https://intlayer.org/tr/doc/compatibility/nuxtjs-i18n) kullanın ve yerel kurulum için [Nuxt ile Intlayer](https://intlayer.org/tr/doc/environment/nuxt-and-vue) sayfasına bakın.
+`@intlayer/vue-i18n` Vite + Vue hedefler. `@nuxtjs/i18n` için [Nuxt i18n uyumluluk adaptörünü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md) kullanın ve yerel kurulum için [Nuxt ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md) sayfasına bakın.
 
 </Question>
 
@@ -360,24 +360,24 @@ Evet. Herhangi bir bileşen, aynı dizinde bulunan bir içerik dosyasıyla `useI
 
 Aynı adaptör serisi:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/tr/blog/next-intl-vs-intlayer-next-intl)
-- [i18next vs @intlayer/i18next](https://intlayer.org/tr/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/tr/blog/lingui-vs-intlayer-lingui)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer-next-intl.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer-lingui.md)
 
 Doğrudan karşılaştırılan kütüphaneler:
 
-- [vue-i18n vs Intlayer](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer), features and DX
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-benchmark)
-- [Is vue-i18n outdated?](https://intlayer.org/tr/blog/is-vue-i18n-outdated)
-- [How to pick a Vue i18n library](https://intlayer.org/tr/blog/how-to-pick-vue-i18n-library)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md), features and DX
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer_benchmark.md)
+- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_vue-i18n_outdated.md)
+- [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_vue_i18n_library.md)
 
 Referans belgeler:
 
-- [Compat adapter: vue-i18n](https://intlayer.org/tr/doc/compatibility/vue-i18n) and [Nuxt i18n](https://intlayer.org/tr/doc/compatibility/nuxtjs-i18n)
-- [Geçiş kılavuzu: vue-i18n'den Intlayer'a](https://intlayer.org/tr/doc/migration/vue-i18n)
-- [Vue kıyaslama raporu](https://intlayer.org/tr/doc/benchmark/vue)
-- [Paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization) ve [Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler)
-- [Görsel Düzenleyici](https://intlayer.org/tr/doc/concept/editor), [CMS](https://intlayer.org/tr/doc/concept/cms) ve [yapay zeka çevirisi](https://intlayer.org/tr/doc/concept/auto-fill)
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md)
+- [Geçiş kılavuzu: vue-i18n'den Intlayer'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_vue-i18n_to_intlayer.md)
+- [Vue kıyaslama raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
+- [Paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) ve [yapay zeka çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md)
 
 ## Sonuç
 
@@ -385,4 +385,4 @@ Referans belgeler:
 
 Tüm ham veriler, test uygulamaları ve scriptler [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom) içinde bulunmaktadır. Kendiniz çalıştırabilirsiniz.
 
-Daha fazla ayrıntı için ['Neden Intlayer?' dokümantasyonuna](https://intlayer.org/tr/doc/why) bakınız.
+Daha fazla ayrıntı için ['Neden Intlayer?' dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) bakınız.

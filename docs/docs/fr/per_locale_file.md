@@ -124,7 +124,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-En utilisant cette configuration, tous les fichiers par locale seront générés avec la locale par défaut définie sur l'anglais. Cela inclut également la génération de fichiers .content à l'aide de la commande extract et du compilateur. (Voir [Compilateur](https://intlayer.org/fr/doc/compiler) ou [Extract](https://intlayer.org/fr/doc/concept/cli/extract) pour plus d'informations.)
+En utilisant cette configuration, tous les fichiers par locale seront générés avec la locale par défaut définie sur l'anglais. Cela inclut également la génération de fichiers .content à l'aide de la commande extract et du compilateur. (Voir [Compilateur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md) ou [Extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md) pour plus d'informations.)
 
 ## Format par locale
 

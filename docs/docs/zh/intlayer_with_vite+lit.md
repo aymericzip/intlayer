@@ -809,7 +809,7 @@ console.log("SEO files generated successfully.");
 - 翻译内容的**内联预览**。
 - 以方便地创建和更新翻译的**快速操作**。
 
-有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
 ### 深入了解
 
@@ -825,7 +825,7 @@ Vite 本身对 i18n 没有特定偏好，因此选择主要来自 Lit 生态：
 
 - **`@lit/localize`**：官方方案，基于 XLIFF 提取，且每个语言环境需要单独打包一个编译 bundle，因此在运行时切换语言需要使用运行时模式。
 - **导入到每个元素中的手写字典**：无需外部依赖，但缺乏类型提示与开发工具链支持。
-- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），并在构建时由 Vite 插件进行编译，完全类型安全，并配有 AI 翻译、可视化编辑器和 CMS。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），并在构建时由 Vite 插件进行编译，完全类型安全，并配有 AI 翻译、可视化编辑器和 CMS。
 
 对 Vite 而言，最大优势在于翻译在编译时解析并执行 tree-shaking，而不是在运行时以 JSON 形式获取，因此页面仅输出其渲染所需的条目。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
 

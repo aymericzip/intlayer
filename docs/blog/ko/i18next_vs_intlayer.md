@@ -132,7 +132,7 @@ height="600px"
 style="border:none;"
 />
 
-> 전체 라이브러리와 전략이 포함된 상세 표는 [Next.js 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/nextjs)에서 확인하세요.
+> 전체 라이브러리와 전략이 포함된 상세 표는 [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)에서 확인하세요.
 
 ### TanStack Start 결과 (`react-i18next`)
 
@@ -163,7 +163,7 @@ height="600px"
 style="border:none;"
 />
 
-> 상세 표는 [TanStack Start 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/tanstack)에서 확인하세요.
+> 상세 표는 [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)에서 확인하세요.
 
 ## 차이의 원인: 글로벌 인스턴스 vs 컴파일된 사전
 
@@ -219,7 +219,7 @@ Intlayer는 글로벌 인스턴스를 사용하지 않습니다. 콘텐츠가 �
 
 `@intlayer/swc` / `@intlayer/babel`은 어떤 컴포넌트가 어떤 사전을 임포트하는지 확인하여 활성 언어에 필요한 것만 번들링하고 사용되지 않는 항목은 제거합니다. "scoped-dynamic" 패턴이 수동 관리 없이 빌드 결과물로 자동 도출됩니다.
 
-> `dynamic` 행의 성능을 적용하려면 `intlayer.config.ts`에서 `dictionary.importMode: 'dynamic'`을 설정하십시오. 자세한 내용은 [번들 최적화 문서](https://intlayer.org/ko/doc/concept/bundle-optimization)를 참고하세요.
+> `dynamic` 행의 성능을 적용하려면 `intlayer.config.ts`에서 `dictionary.importMode: 'dynamic'`을 설정하십시오. 자세한 내용은 [번들 최적화 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)를 참고하세요.
 
 ## 개발자 경험 (DX)
 
@@ -458,7 +458,7 @@ export default defineConfig({
 
 벤치마크에서 동일한 Next.js 앱의 호환 빌드는 애플리케이션 코드를 수정하지 않고도 페이지당 **218.5 KB에서 150.7 KB**로, 컴포넌트당 **78.5 KB에서 9.7 KB**로, 페이지 누출은 **~90%에서 0%**로, 하이드레이션은 15.6 ms에서 11.3 ms로 단축되었습니다. 기존의 `locales/{lng}/{ns}.json` 파일은 JSON 동기화 플러그인을 통해 신뢰할 수 있는 단일 원천(source of truth)으로 계속 사용할 수 있습니다.
 
-마이그레이션 가이드를 참고하세요: [i18next](https://intlayer.org/ko/doc/migration/i18next), [react-i18next](https://intlayer.org/ko/doc/migration/react-i18next), [next-i18next](https://intlayer.org/ko/doc/migration/next-i18next).
+마이그레이션 가이드를 참고하세요: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-i18next_to_intlayer.md).
 
 ## 어떤 도구를 선택해야 할까요?
 
@@ -470,12 +470,12 @@ export default defineConfig({
 </Accordion>
 <Accordion header="Intlayer를 선택해야 하는 경우">
 
-**컴포넌트 단위 콘텐츠 관리**, **엄격한 TypeScript 지원**, **빌드 시점 누락 키 감지**, **별도 설정 없는 Tree-shaking 및 지연 로딩**, 즉각적인 로케일 전환, 동기식 서버 컴포넌트, 내장 편집 도구([시각적 편집기](https://intlayer.org/ko/doc/concept/editor), [CMS](https://intlayer.org/ko/doc/concept/cms), [AI 자동 번역](https://intlayer.org/ko/doc/concept/auto-fill), [MCP 서버](https://intlayer.org/ko/doc/mcp-server))를 원할 때 적합합니다. 대규모 모듈식 코드베이스와 디자인 시스템에 특히 유용합니다.
+**컴포넌트 단위 콘텐츠 관리**, **엄격한 TypeScript 지원**, **빌드 시점 누락 키 감지**, **별도 설정 없는 Tree-shaking 및 지연 로딩**, 즉각적인 로케일 전환, 동기식 서버 컴포넌트, 내장 편집 도구([시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md), [AI 자동 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md), [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md))를 원할 때 적합합니다. 대규모 모듈식 코드베이스와 디자인 시스템에 특히 유용합니다.
 
 </Accordion>
 <Accordion header="@intlayer/*-i18next 어댑터를 선택해야 하는 경우">
 
-이미 i18next를 사용 중이며 컴포넌트를 다시 작성하지 않고 번들 크기 축소와 반응성 향상을 원할 때 적합합니다. 기존 `locales/{lng}/{ns}.json` 파일이 그대로 진실의 원천으로 유지됩니다. [i18next vs @intlayer/i18next](https://intlayer.org/ko/blog/i18next-vs-intlayer-i18next)에서 나란히 측정되었습니다.
+이미 i18next를 사용 중이며 컴포넌트를 다시 작성하지 않고 번들 크기 축소와 반응성 향상을 원할 때 적합합니다. 기존 `locales/{lng}/{ns}.json` 파일이 그대로 진실의 원천으로 유지됩니다. [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer-i18next.md)에서 나란히 측정되었습니다.
 
 </Accordion>
 </AccordionGroup>
@@ -498,19 +498,19 @@ export default defineConfig({
 
 <Question title="i18next로 0% 콘텐츠 누출을 달성할 수 있나요?">
 
-네, `scoped-dynamic` 설정을 통해 가능합니다. 라우트당 하나의 네임스페이스, 리소스 백엔드, 직접 유지 관리하는 페이지-네임스페이스 맵이 필요합니다. Next.js에서 페이지당 163.4 KB에 도달하지만, 아무런 설정도 필요 없는 Intlayer(141.3 KB)보다 여전히 **+22 KB** 무겁습니다. [번들 최적화](https://intlayer.org/ko/doc/concept/bundle-optimization)를 참조하세요.
+네, `scoped-dynamic` 설정을 통해 가능합니다. 라우트당 하나의 네임스페이스, 리소스 백엔드, 직접 유지 관리하는 페이지-네임스페이스 맵이 필요합니다. Next.js에서 페이지당 163.4 KB에 도달하지만, 아무런 설정도 필요 없는 Intlayer(141.3 KB)보다 여전히 **+22 KB** 무겁습니다. [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)를 참조하세요.
 
 </Question>
 
 <Question title="마이그레이션하려면 컴포넌트를 모두 다시 작성해야 하나요?">
 
-아닙니다. `@intlayer/i18next`, `@intlayer/react-i18next`, `@intlayer/next-i18next`는 `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, `_one` / `_other` 복수형, 컨텍스트 접미사, `returnObjects`를 그대로 유지합니다. `next.config.ts`나 `vite.config.ts`에 플러그인 한 줄만 추가하면 됩니다. 단계별 안내는 [next-i18next 마이그레이션 가이드](https://intlayer.org/ko/doc/migration/next-i18next)를 확인하세요.
+아닙니다. `@intlayer/i18next`, `@intlayer/react-i18next`, `@intlayer/next-i18next`는 `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, `_one` / `_other` 복수형, 컨텍스트 접미사, `returnObjects`를 그대로 유지합니다. `next.config.ts`나 `vite.config.ts`에 플러그인 한 줄만 추가하면 됩니다. 단계별 안내는 [next-i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-i18next_to_intlayer.md)를 확인하세요.
 
 </Question>
 
 <Question title="기존 i18next 플러그인은 어떻게 되나요?">
 
-백엔드 및 언어 감지 플러그인은 허용되지만 비활성 상태로 유지됩니다. 런타임에 로드하거나 감지할 것이 남아있지 않기 때문입니다. 언어 감지는 Intlayer의 라우팅 설정(URL 접두사, 쿠키, 헤더)으로 대체됩니다. 앱이 요청 시 CMS에서 번역을 가져오는 구조라면 [Intlayer CMS](https://intlayer.org/ko/doc/concept/cms)나 `intlayer pull` / `push`를 사용하세요.
+백엔드 및 언어 감지 플러그인은 허용되지만 비활성 상태로 유지됩니다. 런타임에 로드하거나 감지할 것이 남아있지 않기 때문입니다. 언어 감지는 Intlayer의 라우팅 설정(URL 접두사, 쿠키, 헤더)으로 대체됩니다. 앱이 요청 시 CMS에서 번역을 가져오는 구조라면 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)나 `intlayer pull` / `push`를 사용하세요.
 
 </Question>
 
@@ -520,27 +520,27 @@ export default defineConfig({
 
 동일 벤치마크, 다른 라이브러리 비교:
 
-- [next-intl vs Intlayer](https://intlayer.org/ko/blog/next-intl-vs-intlayer)
-- [Lingui vs Intlayer](https://intlayer.org/ko/blog/lingui-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/ko/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ko/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ko/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/react-i18next_vs_react-intl_vs_intlayer.md)
 
 i18next에 대해 더 알아보기:
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/ko/blog/i18next-vs-intlayer-i18next), 동일한 앱에서 측정된 어댑터 비교
-- [i18next는 구식인가요?](https://intlayer.org/ko/blog/is-i18next-outdated)
-- [i18next와 함께 Intlayer 사용하기](https://intlayer.org/ko/blog/intlayer-with-i18next) 및 [react-i18next와 함께 사용](https://intlayer.org/ko/blog/intlayer-with-react-i18next)
-- [next-i18next로 Next.js 앱 국제화하기](https://intlayer.org/ko/blog/nextjs-internationalization-using-next-i18next)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer-i18next.md), 동일한 앱에서 측정된 어댑터 비교
+- [i18next는 구식인가요?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_i18next_outdated.md)
+- [i18next와 함께 Intlayer 사용하기](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_i18next.md) 및 [react-i18next와 함께 사용](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_react-i18next.md)
+- [next-i18next로 Next.js 앱 국제화하기](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-i18next.md)
 
 참고 문서:
 
-- [Next.js 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/nextjs) 및 [TanStack Start 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark/tanstack)
-- 호환 어댑터: [i18next](https://intlayer.org/ko/doc/compatibility/i18next), [react-i18next](https://intlayer.org/ko/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/ko/doc/compatibility/next-i18next)
-- 마이그레이션 가이드: [i18next](https://intlayer.org/ko/doc/migration/i18next), [react-i18next](https://intlayer.org/ko/doc/migration/react-i18next), [next-i18next](https://intlayer.org/ko/doc/migration/next-i18next)
-- [번들 최적화](https://intlayer.org/ko/doc/concept/bundle-optimization) 및 [Intlayer 컴파일러](https://intlayer.org/ko/doc/compiler)
-- [컴포넌트별 vs 중앙 집중식 i18n](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)
-- [컴파일러 기반 vs 선언적 i18n](https://intlayer.org/ko/blog/compiler-vs-declarative-i18n)
+- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md) 및 [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
+- 호환 어댑터: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-i18next.md)
+- 마이그레이션 가이드: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-i18next_to_intlayer.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md) 및 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+- [컴포넌트별 vs 중앙 집중식 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)
+- [컴파일러 기반 vs 선언적 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
 
 ## GitHub 스타
 
@@ -556,4 +556,4 @@ Intlayer는 이러한 모든 작업을 컴파일러로 이전했습니다. 컴�
 
 모든 원시 데이터, 테스트 앱 및 스크립트는 [Benchmark Bloom 저장소](https://github.com/intlayer-org/benchmark-bloom)에서 직접 확인하고 검증하실 수 있습니다.
 
-자세한 내용은 ['왜 Intlayer인가요?' 문서](https://intlayer.org/ko/doc/why)를 참조하십시오.
+자세한 내용은 ['왜 Intlayer인가요?' 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하십시오.

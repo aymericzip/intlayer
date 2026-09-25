@@ -392,7 +392,7 @@ export const getLocale = (event: RequestEvent): Locale => {
 };
 ```
 
-> `getLocaleFromStorage` sprawdzi lokalizację na podstawie nagłówka lub ciasteczka w zależności od Twojej konfiguracji. Zobacz [Konfiguracja](https://intlayer.org/doc/concept/configuration) po więcej szczegółów.
+> `getLocaleFromStorage` sprawdzi lokalizację na podstawie nagłówka lub ciasteczka w zależności od Twojej konfiguracji. Zobacz [Konfiguracja](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md) po więcej szczegółów.
 
 > Funkcja `localeDetector` przetworzy nagłówek `Accept-Language` i zwróci najlepsze dopasowanie.
 
@@ -778,7 +778,7 @@ Zaleca się ignorowanie plików generowanych przez Intlayer.
 
 - **`svelte-i18n`** oraz **`typesafe-i18n`**: katalogi oparte na store'ach, ręcznie podpinane do funkcji ładowania (`load`).
 - **`Paraglide`**: kompilator komunikatów z adapterem dla SvelteKit.
-- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)) i kompilowane w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
+- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)) i kompilowane w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
 
 Główną zaletą w SvelteKit jest deklaracja treści per komponent, pełne wsparcie dla SSR i prerenderowania w plikach `+layout.server.ts` i `hooks.server.ts` oraz integracja z systemem reaktywności Svelte. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
 

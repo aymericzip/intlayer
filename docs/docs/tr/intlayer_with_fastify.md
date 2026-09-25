@@ -266,7 +266,7 @@ Bu eklenti şunları sağlar:
 - Çevrilmiş içeriğin **satır içi önizlemeleri**.
 - Çevirileri kolayca oluşturmak ve güncellemek için **hızlı eylemler**.
 
-Eklentinin kullanımı hakkında daha fazla ayrıntı için [Intlayer VS Code Extension belgeleri](https://intlayer.org/doc/vs-code-extension)ne bakın.
+Eklentinin kullanımı hakkında daha fazla ayrıntı için [Intlayer VS Code Extension belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)ne bakın.
 
 ### Git Yapılandırması
 

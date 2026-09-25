@@ -206,7 +206,7 @@ Se você encontrar problemas com o editor visual, verifique o seguinte:
 
 - O editor visual e a aplicação estão em execução.
 
-- As configurações do [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) estão corretamente definidas no arquivo de configuração do Intlayer.
+- As configurações do [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md#editor-configuration) estão corretamente definidas no arquivo de configuração do Intlayer.
   - Campos obrigatórios:
     - A URL da aplicação deve corresponder à que você configurou no editor (`applicationURL`).
 

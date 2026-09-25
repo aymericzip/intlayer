@@ -27,7 +27,7 @@ author: aymericzip
 
 `@intlayer/lingui`, `@lingui/core` ve `@lingui/react` için bir uyumluluk adaptörüdür (compat adapter). `` t`...` ``, `<Trans>`, `useLingui()` ve `i18n._()` çağrılarınız tamamen aynı kalır; makrolar normal şekilde derlenmeye devam eder; değişen tek şey, çalışma zamanında (runtime) mesajların nereden geldiğidir. Dil başına tek bir derlenmiş katalog yerine, her çağrı noktası özel olarak kendisi için derlenmiş bir Intlayer sözlüğüne bağlanır.
 
-Bu makale, aynı TanStack Start uygulaması üzerinde bu değişimi ölçmektedir: biri saf Lingui ile, diğeri adaptör ile inşa edilmiştir. Veriler [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) deposundan alınmıştır. İki kütüphanenin doğrudan karşılaştırması için [Lingui vs Intlayer](https://intlayer.org/tr/blog/lingui-vs-intlayer) yazısını okuyabilirsiniz. Bu yazı ise adaptörün neleri değiştirdiği ve nerede avantaj sağlamadığı üzerinedir.
+Bu makale, aynı TanStack Start uygulaması üzerinde bu değişimi ölçmektedir: biri saf Lingui ile, diğeri adaptör ile inşa edilmiştir. Veriler [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) deposundan alınmıştır. İki kütüphanenin doğrudan karşılaştırması için [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md) yazısını okuyabilirsiniz. Bu yazı ise adaptörün neleri değiştirdiği ve nerede avantaj sağlamadığı üzerinedir.
 
 <TOC/>
 
@@ -227,7 +227,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-`.po` katalogları için, `syncJSON` yerine `@intlayer/sync-po-plugin`'den `syncPO` kullanın ve `.po` uzantılı aynı `source` desenini uygulayın. [Sync PO eklenti belgelerine](https://intlayer.org/tr/doc/plugin/sync-po) göz atabilirsiniz.
+`.po` katalogları için, `syncJSON` yerine `@intlayer/sync-po-plugin`'den `syncPO` kullanın ve `.po` uzantılı aynı `source` desenini uygulayın. [Sync PO eklenti belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-po.md) göz atabilirsiniz.
 
 `splitKeys: "key-prefix"` bileşen boyutunu dramatik şekilde küçülten temel unsurdur. Katalog dosyası düz yapısını korur; bölme yalnızca üretilen sözlüklerde var olur ve geri yazma işlemi anahtarları otomatik olarak yeniden birleştirir.
 
@@ -277,7 +277,7 @@ export default defineConfig({
 - **`dynamic` moddaki sayfa başı maliyet.** Yukarıda belirtildiği gibi: Küçük bir uygulamada tembel yüklemeli Lingui kurulumuna kıyasla sayfa başına yaklaşık +20 KB beklenmelidir. Bu fark içerik arttıkça büyümez (kataloglardan değil çözümleyiciden kaynaklanır) ancak küçülmez de.
 - **Kaynak dil sızıntısı devam eder.** Mesaj tanımlayıcıları ve makro çıktıları yedek olarak orijinal İngilizce metni içerir. Bunu tamamen ortadan kaldırmak için `message` alanını temizlemek veya bileşeni `.content.ts`'ye taşımak gerekir.
 - **`i18n.load()` yalnızca bir yedektir.** Derlenmiş katalogları içe aktarmaya ve `load()` çağırmaya devam ederseniz hem eski hem yeni paketi yüklersiniz. Bu içe aktarmaları kaldırın.
-- **Yalnızca Vite.** `@intlayer/lingui` için Next.js eklentisi yoktur. Lingui kullanan Next.js projeleri doğrudan [`next-intlayer`](https://intlayer.org/tr/doc/environment/nextjs) seçeneğini değerlendirmelidir.
+- **Yalnızca Vite.** `@intlayer/lingui` için Next.js eklentisi yoktur. Lingui kullanan Next.js projeleri doğrudan [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md) seçeneğini değerlendirmelidir.
 - **`defaultComponent` uygulanmaz.** Her `<Trans>` etiketini otomatik sarmalamak için bu özelliğe güveniyorsanız bileşenlerinizde sarmalayıcıyı açıkça ekleyin.
 
 ## Hangisi ne zaman tercih edilmeli?
@@ -288,12 +288,12 @@ export default defineConfig({
 
 ## İlgili karşılaştırmalar
 
-- [Lingui vs Intlayer](https://intlayer.org/tr/blog/lingui-vs-intlayer) (aynı benchmark üzerinde doğrudan kütüphane karşılaştırması)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/tr/blog/next-intl-vs-intlayer-next-intl) (adaptör serisi karşılaştırması)
-- [i18next vs @intlayer/i18next](https://intlayer.org/tr/blog/i18next-vs-intlayer-i18next) (adaptör serisi karşılaştırması)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-vue-i18n) (adaptör serisi karşılaştırması)
-- [Uyumluluk adaptörü kılavuzu: Lingui](https://intlayer.org/tr/doc/compatibility/lingui)
-- [Derleyici tabanlı vs bildirimsel i18n](https://intlayer.org/tr/blog/compiler-vs-declarative-i18n)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md) (aynı benchmark üzerinde doğrudan kütüphane karşılaştırması)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer-next-intl.md) (adaptör serisi karşılaştırması)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer-i18next.md) (adaptör serisi karşılaştırması)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer-vue-i18n.md) (adaptör serisi karşılaştırması)
+- [Uyumluluk adaptörü kılavuzu: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md)
+- [Derleyici tabanlı vs bildirimsel i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
 
 ## Sonuç
 
@@ -301,4 +301,4 @@ export default defineConfig({
 
 Tüm ham veriler, test uygulamaları ve kıyaslama betikleri [Benchmark Bloom deposunda](https://github.com/intlayer-org/benchmark-bloom) mevcuttur. Kendiniz de çalıştırabilirsiniz.
 
-Daha fazla ayrıntı için ['Neden Intlayer?' dokümantasyonuna](https://intlayer.org/tr/doc/why) göz atabilirsiniz.
+Daha fazla ayrıntı için ['Neden Intlayer?' dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) göz atabilirsiniz.

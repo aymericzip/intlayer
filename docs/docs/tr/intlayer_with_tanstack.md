@@ -1229,7 +1229,7 @@ Bu extension şunları sağlar:
 - **Inline previews** çevirilen içerik için.
 - **Quick actions** kolayca çeviri oluşturmak ve güncellemek için.
 
-Extension'ın nasıl kullanılacağı hakkında daha fazla ayrıntı için, [Intlayer VS Code Extension belgelerine](https://intlayer.org/doc/vs-code-extension) başvurun.
+Extension'ın nasıl kullanılacağı hakkında daha fazla ayrıntı için, [Intlayer VS Code Extension belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) başvurun.
 
 ## Daha İleri Gidin
 

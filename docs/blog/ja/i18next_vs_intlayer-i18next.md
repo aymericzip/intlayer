@@ -32,7 +32,7 @@ author: aymericzip
 
 `@intlayer/i18next`、`@intlayer/react-i18next`、`@intlayer/next-i18next` は互換アダプターです。既存のコードが使用している `i18next` のAPI（`useTranslation`、`t()`、`<Trans>`、`i18n.changeLanguage()`、`getFixedT`、`serverSideTranslations` など）をそのまま公開し、Intlayerによってコンパイルされた辞書からデータを提供します。コンポーネント自体は変更されず、内部のランタイムのみが置き換わります。
 
-本記事では、同一のNext.jsアプリケーションを `next-i18next` と `@intlayer/next-i18next` のそれぞれでビルドしてその差異を測定しました。数値は [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) から引用しています。ライブラリ単体としての `i18next` と Intlayer の比較については [i18next vs Intlayer](https://intlayer.org/ja/blog/i18next-vs-intlayer) をご覧ください。本記事では、既存のコードをそのまま維持した状態でアダプターが何をもたらすかに焦点を当てます。
+本記事では、同一のNext.jsアプリケーションを `next-i18next` と `@intlayer/next-i18next` のそれぞれでビルドしてその差異を測定しました。数値は [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) から引用しています。ライブラリ単体としての `i18next` と Intlayer の比較については [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer.md) をご覧ください。本記事では、既存のコードをそのまま維持した状態でアダプターが何をもたらすかに焦点を当てます。
 
 <TOC/>
 
@@ -142,9 +142,9 @@ height="600px"
 style="border:none;"
 />
 
-> すべてのライブラリと各戦略の完全な表は、[Next.jsベンチマークレポート](https://intlayer.org/ja/doc/benchmark/nextjs)をご覧ください。
+> すべてのライブラリと各戦略の完全な表は、[Next.jsベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)をご覧ください。
 
-> Vite / TanStack Start 環境での `react-i18next` アダプターはこのテストには含まれていません。TanStack Start における基準値は [i18next vs Intlayer](https://intlayer.org/ja/blog/i18next-vs-intlayer) で確認できます。
+> Vite / TanStack Start 環境での `react-i18next` アダプターはこのテストには含まれていません。TanStack Start における基準値は [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer.md) で確認できます。
 
 ## なぜ数値が改善するのか
 
@@ -321,7 +321,7 @@ export default defineConfig({
 <AccordionGroup>
 <Accordion header="バックエンドと検出器は機能しません">
 
-`i18n.use(HttpBackend)` はプラグインの init を呼び出すだけで、他には何もしません。アプリが実行時にCMSから翻訳を取得することに依存していた場合、そのフローは利用できなくなります。代わりに [Intlayer CMS](https://intlayer.org/ja/doc/concept/cms) または `intlayer pull` / `push` コマンドを使用してください。言語検出はIntlayerのルーティング設定（URLプレフィックス、cookie、ヘッダー）に置き換わります。
+`i18n.use(HttpBackend)` はプラグインの init を呼び出すだけで、他には何もしません。アプリが実行時にCMSから翻訳を取得することに依存していた場合、そのフローは利用できなくなります。代わりに [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) または `intlayer pull` / `push` コマンドを使用してください。言語検出はIntlayerのルーティング設定（URLプレフィックス、cookie、ヘッダー）に置き換わります。
 
 </Accordion>
 <Accordion header="resources はマージされず、無視されます">
@@ -361,7 +361,7 @@ export default defineConfig({
 </Accordion>
 <Accordion header="ネイティブに移行する (next-intlayer / react-intlayer)">
 
-新規プロジェクト、またはアダプターが役割を果たした後向けです。最も軽量なランタイム（5.5 KB、ページあたり +0.3 KB）を備え、同期サーバーコンポーネントおよびコンポーネント単位の `.content.ts` ファイルを利用可能にします。[Next.jsとIntlayer](https://intlayer.org/ja/doc/environment/nextjs) または [ViteおよびReact](https://intlayer.org/ja/doc/environment/vite-and-react) から始めてください。
+新規プロジェクト、またはアダプターが役割を果たした後向けです。最も軽量なランタイム（5.5 KB、ページあたり +0.3 KB）を備え、同期サーバーコンポーネントおよびコンポーネント単位の `.content.ts` ファイルを利用可能にします。[Next.jsとIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md) または [ViteおよびReact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md) から始めてください。
 
 </Accordion>
 </AccordionGroup>
@@ -406,24 +406,24 @@ export default defineConfig({
 
 同じアダプターシリーズ：
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/ja/blog/next-intl-vs-intlayer-next-intl)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/ja/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ja/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer-next-intl.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer-vue-i18n.md)
 
 直接比較されたライブラリ：
 
-- [i18next vs Intlayer](https://intlayer.org/ja/blog/i18next-vs-intlayer), same benchmark
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ja/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ja/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [Is i18next outdated?](https://intlayer.org/ja/blog/is-i18next-outdated)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer.md), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Is i18next outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/is_i18next_outdated.md)
 
 リファレンスドキュメント：
 
-- Compat adapters: [i18next](https://intlayer.org/ja/doc/compatibility/i18next), [react-i18next](https://intlayer.org/ja/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/ja/doc/compatibility/next-i18next)
-- Migration guides: [i18next](https://intlayer.org/ja/doc/migration/i18next), [react-i18next](https://intlayer.org/ja/doc/migration/react-i18next), [next-i18next](https://intlayer.org/ja/doc/migration/next-i18next)
-- [Next.js benchmark report](https://intlayer.org/ja/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/ja/doc/benchmark/tanstack)
-- [Bundle optimization](https://intlayer.org/ja/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/ja/doc/compiler)
-- [Visual Editor](https://intlayer.org/ja/doc/concept/editor), [CMS](https://intlayer.org/ja/doc/concept/cms) and [AI translation](https://intlayer.org/ja/doc/concept/auto-fill)
+- Compat adapters: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-i18next.md)
+- Migration guides: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-i18next_to_intlayer.md)
+- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) and [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
+- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) and [AI translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)
 
 ## まとめ
 
@@ -431,4 +431,4 @@ export default defineConfig({
 
 すべての測定データ、検証用アプリ、再現スクリプトは [Benchmark Bloom リポジトリ](https://github.com/intlayer-org/benchmark-bloom) に公開されています。
 
-詳細は [なぜIntlayerなのか？](https://intlayer.org/ja/doc/why) ドキュメントをご覧ください。
+詳細は [なぜIntlayerなのか？](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) ドキュメントをご覧ください。

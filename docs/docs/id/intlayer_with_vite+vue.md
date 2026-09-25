@@ -1156,7 +1156,7 @@ Ekstensi ini menyediakan:
 - **Pratinjau inline** dari konten yang diterjemahkan.
 - **Tindakan cepat** untuk membuat dan memperbarui terjemahan dengan mudah.
 
-Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, silakan merujuk ke [dokumentasi Ekstensi VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
+Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, silakan merujuk ke [dokumentasi Ekstensi VS Code Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md).
 
 ### Melangkah Lebih Jauh
 

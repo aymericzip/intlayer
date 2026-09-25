@@ -410,7 +410,7 @@ Intlayer 개발 환경을 개선하려면 공식 **Intlayer VS Code Extension**�
 - 번역된 콘텐츠의 **인라인 미리보기**.
 - 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
 
-확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code Extension 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code Extension 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
 
 ### 더 나아가기
 
@@ -426,7 +426,7 @@ Analog는 Vite 기반으로 구축된 Angular 메타 프레임워크이므로 An
 
 - **`@angular/localize`**: 로케일당 하나의 컴파일된 빌드를 생성하는 XLIFF 추출 방식으로, 파일 기반 라우터 및 서버 렌더링 환경에 적합하지 않습니다.
 - **`ngx-translate`** 및 **`Transloco`**: 서비스를 통한 런타임 JSON 카탈로그 방식으로, Analog의 라우팅이나 서버 사이드 렌더링과의 긴밀한 통합이 부족합니다.
-- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)), 빌드 타임에 Vite 플러그인에 의해 컴파일되고, 완전한 타입 안전성을 제공하며 런타임 로케일 전환, AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
+- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)), 빌드 타임에 Vite 플러그인에 의해 컴파일되고, 완전한 타입 안전성을 제공하며 런타임 로케일 전환, AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
 
 [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)와 Angular 전용 API에 대한 [Angular 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_angular_21.md)를 참조하세요.
 

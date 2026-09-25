@@ -1008,7 +1008,7 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 - 已翻译内容的**行内预览**。
 - 轻松创建和更新翻译的**快速操作**。
 
-有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/zh/doc/vs-code-extension)。
+有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
 ### 深入了解
 
@@ -1024,7 +1024,7 @@ Vite 本身对 i18n 没有特定偏好，因此选项主要是 React 生态中�
 
 - **`react-i18next` / `i18next`**：最广泛使用，在运行时加载 JSON 命名空间。
 - **`react-intl`** 和 **`Lingui`**：基于 ICU 消息格式和内容提取。
-- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），在构建时由 Vite 插件编译，完全类型安全，并配有 AI 翻译、可视化编辑器和 CMS。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），在构建时由 Vite 插件编译，完全类型安全，并配有 AI 翻译、可视化编辑器和 CMS。
 
 特别是对于 Vite，Intlayer 深度集成到构建流程中，在编译时解析翻译并进行 tree-shaking，而不是在运行时通过 JSON 获取。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
 

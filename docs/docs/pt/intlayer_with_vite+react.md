@@ -999,7 +999,7 @@ Esta extensão oferece:
 - **Visualizações inline** do conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
 
 ### Avançar Mais
 
@@ -1015,7 +1015,7 @@ O Vite não impõe nenhuma solução de i18n, portanto as opções são as do ec
 
 - **`react-i18next` / `i18next`**: a mais difundida, com namespaces JSON carregados em tempo de execução.
 - **`react-intl`** e **`Lingui`**: formato de mensagens ICU, baseado em extração.
-- **`Intlayer`**: a solução mais avançada. O conteúdo é declarado em qualquer lugar do seu código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)), compilado por um plugin do Vite em tempo de build, totalmente tipado, com tradução por IA, editor visual e CMS.
+- **`Intlayer`**: a solução mais avançada. O conteúdo é declarado em qualquer lugar do seu código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)), compilado por um plugin do Vite em tempo de build, totalmente tipado, com tradução por IA, editor visual e CMS.
 
 Especificamente no Vite, o Intlayer se conecta ao pipeline de build para que as traduções sejam resolvidas e submetidas a tree-shaking em tempo de compilação, em vez de serem buscadas como JSON em tempo de execução. Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) e o [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md).
 

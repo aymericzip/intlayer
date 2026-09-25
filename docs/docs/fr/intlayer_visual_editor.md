@@ -206,7 +206,7 @@ Si vous rencontrez des problèmes avec l'éditeur visuel, vérifiez les points s
 
 - L'éditeur visuel et l'application sont en cours d'exécution.
 
-- La [configuration de l'éditeur](https://intlayer.org/doc/concept/configuration#editor-configuration) est correctement définie dans votre fichier de configuration Intlayer.
+- La [configuration de l'éditeur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md#editor-configuration) est correctement définie dans votre fichier de configuration Intlayer.
   - Champs obligatoires :
     - L'URL de l'application doit correspondre à celle que vous avez définie dans la configuration de l'éditeur (`applicationURL`).
 

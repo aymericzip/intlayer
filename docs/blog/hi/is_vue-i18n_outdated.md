@@ -81,7 +81,7 @@ height="600px"
 style="border:none;"
 />
 
-> वास्तविक ब्राउज़रों में प्रोडक्शन gzip कंप्रेशन के साथ परीक्षण किया गया। पूर्ण विवरण [Vue बेंचमार्क दस्तावेज़](https://intlayer.org/hi/doc/benchmark/vue) में देखें।
+> वास्तविक ब्राउज़रों में प्रोडक्शन gzip कंप्रेशन के साथ परीक्षण किया गया। पूर्ण विवरण [Vue बेंचमार्क दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md) में देखें।
 
 ### शुरुआती लाइब्रेरी ओवरहेड
 
@@ -171,7 +171,7 @@ const { title } = useIntlayer("hero");
   </Tab>
 </Tabs>
 
-[Intlayer कंपाइलर](https://intlayer.org/hi/doc/compiler) सटीक उपयोग का विश्लेषण करता है और क्लाइंट फाइल्स बनाने से पहले अप्रयुक्त डेटा को हटा देता है। अधिक जानकारी के लिए [बंडल ऑप्टिमाइजेशन](https://intlayer.org/hi/doc/concept/bundle-optimization) देखें।
+[Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) सटीक उपयोग का विश्लेषण करता है और क्लाइंट फाइल्स बनाने से पहले अप्रयुक्त डेटा को हटा देता है। अधिक जानकारी के लिए [बंडल ऑप्टिमाइजेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
 
 ## डेवलपर अनुभव (DX) की तुलना
 
@@ -248,17 +248,17 @@ const { title } = useIntlayer("hero");
 
 `DefineLocaleMessage` बेस स्कीमा के आधार पर ऑटो-कंप्लीशन देता है। लेकिन यह सभी भाषाओं की पूर्णता सुनिश्चित नहीं करता। `hi.json` से की गायब होने पर भी टाइपस्क्रिप्ट बिल्ड नहीं रोकेगा।
 
-Intlayer में डिक्शनरीज़ की सख्त जांच होती है। [`strictMode`](https://intlayer.org/hi/doc/concept/configuration) चालू करने पर किसी भी भाषा में अनुवाद छूटने पर तुरंत बिल्ड एरर आ जाता है।
+Intlayer में डिक्शनरीज़ की सख्त जांच होती है। [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) चालू करने पर किसी भी भाषा में अनुवाद छूटने पर तुरंत बिल्ड एरर आ जाता है।
 
 ### एडिटर और एआई टूल्स
 
-| फीचर                      | `vue-i18n`            | Intlayer                                                              |
-| ------------------------- | --------------------- | --------------------------------------------------------------------- |
-| **VS Code एक्सटेंशन**     | कम्युनिटी (i18n Ally) | ✅ [ऑफिशियल एक्सटेंशन](https://intlayer.org/hi/doc/vs-code-extension) |
-| **Language Server (LSP)** | ❌ नहीं है            | ✅ [समर्पित LSP](https://intlayer.org/hi/doc/lsp)                     |
-| **AI के लिए MCP सर्वर**   | ❌ नहीं है            | ✅ [इनबिल्ट MCP सर्वर](https://intlayer.org/hi/doc/mcp-server)        |
-| **एजेंट स्किल्स**         | ❌ नहीं है            | ✅ [स्वायत्त स्किल्स](https://intlayer.org/hi/doc/agent_skills)       |
-| **विजुअल सीएमएस**         | ❌ नहीं है            | ✅ [मुफ्त और ओपन सोर्स](https://intlayer.org/hi/doc/concept/editor)   |
+| फीचर                      | `vue-i18n`            | Intlayer                                                                                                         |
+| ------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **VS Code एक्सटेंशन**     | कम्युनिटी (i18n Ally) | ✅ [ऑफिशियल एक्सटेंशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)       |
+| **Language Server (LSP)** | ❌ नहीं है            | ✅ [समर्पित LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)                           |
+| **AI के लिए MCP सर्वर**   | ❌ नहीं है            | ✅ [इनबिल्ट MCP सर्वर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)              |
+| **एजेंट स्किल्स**         | ❌ नहीं है            | ✅ [स्वायत्त स्किल्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)             |
+| **विजुअल सीएमएस**         | ❌ नहीं है            | ✅ [मुफ्त और ओपन सोर्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) |
 
 ## ट्रांसलेशन वर्कफ़्लो
 
@@ -272,7 +272,7 @@ Intlayer ये सभी सुविधाएं सीधे प्रदा�
 
 **सेल्फ-होस्टेड विजुअल सीएमएस:**
 
-[Intlayer CMS](https://intlayer.org/hi/doc/concept/cms) के जरिए गैर-तकनीकी सदस्य सीधे वेब यूआई में टेक्स्ट एडिट करके सीधे गिट में कमिट कर सकते हैं।
+[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) के जरिए गैर-तकनीकी सदस्य सीधे वेब यूआई में टेक्स्ट एडिट करके सीधे गिट में कमिट कर सकते हैं।
 
 **ओपन सोर्स लाइसेंस:**
 
@@ -328,9 +328,9 @@ bunx intlayer init --interactive
 
 विस्तृत जानकारी के लिए हमारे विशेष गाइड्स देखें:
 
-- **सीधी अनुकूलता:** [`vue-i18n` कम्पैटिबिलिटी लेयर](https://intlayer.org/hi/doc/compatibility/vue-i18n) या [`@nuxtjs/i18n`](https://intlayer.org/hi/doc/compatibility/nuxtjs-i18n) का उपयोग करके अपने मौजूदा टेम्पलेट्स को बनाए रखें।
-- **स्टेप-बाय-स्टेप माइग्रेशन:** JSON फाइल्स को स्ट्रक्चर्ड डिक्शनरीज में बदलने के लिए हमारे गाइड्स देखें: [vue-i18n से](https://intlayer.org/hi/doc/migration/vue-i18n) या [@nuxtjs/i18n से](https://intlayer.org/hi/doc/migration/nuxtjs-i18n)।
-- **हाइब्रिड तरीका:** रनटाइम के रूप में `vue-i18n` को बनाए रखते हुए, [Intlayer को vue-i18n के साथ इस्तेमाल करें](https://intlayer.org/hi/blog/intlayer-with-vue-i18n) ताकि आपको सख्त टाइप सुरक्षा और लोकल एआई ट्रांसलेशन मिल सके।
+- **सीधी अनुकूलता:** [`vue-i18n` कम्पैटिबिलिटी लेयर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md) या [`@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md) का उपयोग करके अपने मौजूदा टेम्पलेट्स को बनाए रखें।
+- **स्टेप-बाय-स्टेप माइग्रेशन:** JSON फाइल्स को स्ट्रक्चर्ड डिक्शनरीज में बदलने के लिए हमारे गाइड्स देखें: [vue-i18n से](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_vue-i18n_to_intlayer.md) या [@nuxtjs/i18n से](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_nuxtjs_i18n_to_intlayer.md)।
+- **हाइब्रिड तरीका:** रनटाइम के रूप में `vue-i18n` को बनाए रखते हुए, [Intlayer को vue-i18n के साथ इस्तेमाल करें](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/intlayer_with_vue-i18n.md) ताकि आपको सख्त टाइप सुरक्षा और लोकल एआई ट्रांसलेशन मिल सके।
 
 मुफ्त [i18n SEO स्कैनर](https://intlayer.org/i18n-seo-scanner) से अपनी साइट के बंडल साइज और कंटेंट लीकेज की जांच करें:
 
@@ -338,7 +338,7 @@ bunx intlayer init --interactive
 
 ## संबंधित लेख
 
-- [Vue & Vite i18n बेंचमार्क: विस्तृत विश्लेषण](https://intlayer.org/hi/doc/benchmark/vue)
-- [vue-i18n बनाम Intlayer तुलनात्मक समीक्षा](https://intlayer.org/hi/blog/vue-i18n-vs-intlayer)
-- [क्या 2026 में next-intl पुराना हो चुका है?](https://intlayer.org/hi/blog/is-next-intl-outdated)
-- [कंपाइलर-आधारित बनाम डिक्लेरेटिव अंतर्राष्ट्रीयकरण](https://intlayer.org/hi/blog/compiler-vs-declarative-i18n)
+- [Vue & Vite i18n बेंचमार्क: विस्तृत विश्लेषण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md)
+- [vue-i18n बनाम Intlayer तुलनात्मक समीक्षा](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md)
+- [क्या 2026 में next-intl पुराना हो चुका है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_next-intl_outdated.md)
+- [कंपाइलर-आधारित बनाम डिक्लेरेटिव अंतर्राष्ट्रीयकरण](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)

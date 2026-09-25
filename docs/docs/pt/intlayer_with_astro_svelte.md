@@ -644,7 +644,7 @@ Esta extensão fornece:
 - **Visualização inline** do conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais informações sobre o uso da extensão, consulte a [documentação da Extensão do VS Code](https://intlayer.org/doc/vs-code-extension).
+Para mais informações sobre o uso da extensão, consulte a [documentação da Extensão do VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
 
 ### Aprofunde seu conhecimento
 

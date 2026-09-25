@@ -127,7 +127,7 @@ height="600px"
 style="border:none;"
 />
 
-> 完整表格、所有库和策略请参阅 [Next.js 基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs)。
+> 完整表格、所有库和策略请参阅 [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
 
 ### TanStack Start 测试结果
 
@@ -157,7 +157,7 @@ height="600px"
 style="border:none;"
 />
 
-> 完整表格请参阅 [TanStack Start 基准测试报告](https://intlayer.org/zh/doc/benchmark/tanstack)。
+> 完整表格请参阅 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。
 
 ## 根本成因剖析：两个编译器，两种不同的工作单元
 
@@ -206,7 +206,7 @@ style="border:none;"
 
 ![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-> 若要复现 `dynamic` 行的性能指标，只需在 `intlayer.config.ts` 中声明 `dictionary.importMode: 'dynamic'`。详见 [打包优化文档](https://intlayer.org/zh/doc/concept/bundle-optimization)。
+> 若要复现 `dynamic` 行的性能指标，只需在 `intlayer.config.ts` 中声明 `dictionary.importMode: 'dynamic'`。详见 [打包优化文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
 
 ## 开发者体验对比 (DX)
 
@@ -390,7 +390,7 @@ export default defineConfig({
 });
 ```
 
-构建流水线中保留 `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin`，确保其在 Intlayer 编译器之前执行。参阅 [Lingui 兼容适配器文档](https://intlayer.org/zh/doc/compatibility/lingui)。
+构建流水线中保留 `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin`，确保其在 Intlayer 编译器之前执行。参阅 [Lingui 兼容适配器文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)。
 
 ## 该如何做出选型抉择？
 
@@ -402,12 +402,12 @@ export default defineConfig({
 </Accordion>
 <Accordion header="选择 Intlayer">
 
-如果您想要**组件级作用域内容**、**严格的 TypeScript**、**构建期缺失键报错**、**零成本 tree-shaking 与懒加载**、微小的组件体积、快速注水、即时语言切换以及内置编辑工具（[可视化编辑器](https://intlayer.org/zh/doc/concept/editor)、[CMS](https://intlayer.org/zh/doc/concept/cms)、[AI 翻译](https://intlayer.org/zh/doc/concept/auto-fill)、[MCP 服务器](https://intlayer.org/zh/doc/mcp-server)）。特别适用于大型、模块化代码库与设计系统。
+如果您想要**组件级作用域内容**、**严格的 TypeScript**、**构建期缺失键报错**、**零成本 tree-shaking 与懒加载**、微小的组件体积、快速注水、即时语言切换以及内置编辑工具（[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)、[AI 翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)、[MCP 服务器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)）。特别适用于大型、模块化代码库与设计系统。
 
 </Accordion>
 <Accordion header="选择 @intlayer/lingui">
 
-如果您已在使用 Lingui，并希望在无需修改宏代码的情况下渐进式迁移到 Intlayer 字典。您的 `.po` 目录通过 [PO 同步插件](https://intlayer.org/zh/doc/compatibility/lingui) 仍然保持为唯一事实来源。在 [Lingui vs @intlayer/lingui](https://intlayer.org/zh/blog/lingui-vs-intlayer-lingui) 中并排测试。
+如果您已在使用 Lingui，并希望在无需修改宏代码的情况下渐进式迁移到 Intlayer 字典。您的 `.po` 目录通过 [PO 同步插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md) 仍然保持为唯一事实来源。在 [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer-lingui.md) 中并排测试。
 
 </Accordion>
 </AccordionGroup>
@@ -436,13 +436,13 @@ export default defineConfig({
 
 <Question title="迁移需要放弃宏吗？">
 
-不需要。`@intlayer/lingui` 让 `` t`...` ``、`<Trans>`、`msg`、`plural`、`select` 和 `selectOrdinal` 保持原样编译；仅仅是 `i18n._()` 底层解析的数据来源发生了改变。在构建中保留 `@lingui/babel-plugin-lingui-macro` 或 `@lingui/swc-plugin` 即可。参见 [Lingui 兼容性文档](https://intlayer.org/zh/doc/compatibility/lingui)。
+不需要。`@intlayer/lingui` 让 `` t`...` ``、`<Trans>`、`msg`、`plural`、`select` 和 `selectOrdinal` 保持原样编译；仅仅是 `i18n._()` 底层解析的数据来源发生了改变。在构建中保留 `@lingui/babel-plugin-lingui-macro` 或 `@lingui/swc-plugin` 即可。参见 [Lingui 兼容性文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)。
 
 </Question>
 
 <Question title="提取和编译步骤怎么处理？">
 
-宏代码继续保留这两个步骤，但对于 Intlayer 自身的内容则完全不需要。`.content.ts` 字典在打包器运行时自动生成，无需单独的 CLI 命令，并且 [`intlayer test`](https://intlayer.org/zh/doc/concept/cli) 会在缺失键时直接让 CI 报错，而不是静默回退到源文本。
+宏代码继续保留这两个步骤，但对于 Intlayer 自身的内容则完全不需要。`.content.ts` 字典在打包器运行时自动生成，无需单独的 CLI 命令，并且 [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md) 会在缺失键时直接让 CI 报错，而不是静默回退到源文本。
 
 </Question>
 
@@ -452,24 +452,24 @@ export default defineConfig({
 
 相同基准测试，其他库：
 
-- [next-intl vs Intlayer](https://intlayer.org/zh/blog/next-intl-vs-intlayer)
-- [i18next vs Intlayer](https://intlayer.org/zh/blog/i18next-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/zh/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/zh/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/react-i18next_vs_react-intl_vs_intlayer.md)
 
 深入了解：
 
-- [Lingui vs @intlayer/lingui](https://intlayer.org/zh/blog/lingui-vs-intlayer-lingui), 在同一应用上实测的适配器
-- [Compiler-driven vs declarative i18n](https://intlayer.org/zh/blog/compiler-vs-declarative-i18n)
-- [Per-component vs centralized i18n](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)
-- [ICU message format explained](https://intlayer.org/zh/blog/icu-message-format)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer-lingui.md), 在同一应用上实测的适配器
+- [Compiler-driven vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
+- [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)
+- [ICU message format explained](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 参考文档：
 
-- [Next.js 基准测试报告](https://intlayer.org/zh/doc/benchmark/nextjs) 与 [TanStack Start 基准测试报告](https://intlayer.org/zh/doc/benchmark/tanstack)
-- [Compat adapter: Lingui](https://intlayer.org/zh/doc/compatibility/lingui)
-- [包体积优化](https://intlayer.org/zh/doc/concept/bundle-optimization) 与 [Intlayer 编译器](https://intlayer.org/zh/doc/compiler)
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md) 与 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
+- [Compat adapter: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
+- [包体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 与 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 
 ## GitHub 星标发展历程
 
@@ -485,4 +485,4 @@ Lingui 毫无疑问是本次评测中最为强劲的“运行时+编译器”混
 
 所有的原始测试数据、测试应用与执行脚本均已在 [Benchmark Bloom 代码仓库](https://github.com/intlayer-org/benchmark-bloom) 中完整开源。欢迎亲自克隆并运行验证。
 
-欲了解更多设计哲学，请参阅 [“为什么选择 Intlayer？”文档](https://intlayer.org/zh/doc/why)。
+欲了解更多设计哲学，请参阅 [“为什么选择 Intlayer？”文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。

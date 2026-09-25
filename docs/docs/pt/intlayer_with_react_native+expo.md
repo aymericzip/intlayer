@@ -492,7 +492,7 @@ Esta extensão oferece:
 - **Visualizações inline** do conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
 
 ## Ir Além
 
@@ -536,7 +536,7 @@ import "@formatjs/intl-datetimeformat/polyfill";
 
 - **`i18n-js`** combinado com `expo-localization`: o par histórico, um objeto simples de mensagens sem verificação de tipos.
 - **`react-i18next`**: o padrão no ecossistema React, com namespaces JSON carregados em tempo de execução.
-- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)) e compilado pelo plugin Metro em tempo de build, totalmente tipado, com tradução por IA, editor visual e CMS.
+- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)) e compilado pelo plugin Metro em tempo de build, totalmente tipado, com tradução por IA, editor visual e CMS.
 
 No desenvolvimento móvel, a economia de tamanho de bundle é ainda mais crucial que na web, já que todo o código é empacotado no aplicativo em vez de requisitado por página. A compilação de conteúdo por componente impede que idiomas e chaves não utilizados façam parte do pacote distribuído. Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md).
 

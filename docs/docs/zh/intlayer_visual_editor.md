@@ -206,7 +206,7 @@ pnpm intlayer-editor start -e development
 
 - 可视化编辑器和应用程序是否正在运行。
 
-- [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) 配置是否正确设置在您的 Intlayer 配置文件中。
+- [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#editor-configuration) 配置是否正确设置在您的 Intlayer 配置文件中。
   - 必需字段：
     - 应用程序 URL 应与您在编辑器配置中设置的 URL (`applicationURL`) 匹配。
 

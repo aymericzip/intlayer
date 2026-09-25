@@ -174,14 +174,14 @@ export function ClientComponent() {
 - **Tree-shaking**: В бандл включается только контент, используемый компонентом, что позволяет сохранять размер payload небольшим в больших приложениях.
 - **DX и инструменты**: Встроенный middleware, помощники SEO и опциональные Визуальный редактор/AI-переводы упрощают повседневную работу.
 
-Смотрите сравнения и шаблоны в обзоре, ориентированном на Next.js: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+Смотрите сравнения и шаблоны в обзоре, ориентированном на Next.js: https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md
 
 ## Связанные руководства и ссылки
 
-- Настройка React (Vite): https://intlayer.org/doc/environment/vite-and-react
-- React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
-- TanStack Start: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
-- Настройка Next.js: https://intlayer.org/doc/environment/nextjs
-- Почему Intlayer вместо next-intl или next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- Настройка React (Vite): https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md
+- React Router v7: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_react_router_v7.md
+- TanStack Start: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_tanstack.md
+- Настройка Next.js: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md
+- Почему Intlayer вместо next-intl или next-i18next - https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md
 
 Эти страницы включают полную настройку, провайдеры, маршрутизацию и помощники SEO.

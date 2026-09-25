@@ -27,7 +27,7 @@ author: aymericzip
 
 `@intlayer/lingui` to adapter kompatybilności (compat adapter) dla bibliotek `@lingui/core` i `@lingui/react`. Twoje wywołania `` t`...` ``, `<Trans>`, `useLingui()` oraz `i18n._()` pozostają dokładnie takie same; makra nadal kompilują się bez zmian; to, co ulega zmianie, to źródło pochodzenia wiadomości w czasie wykonywania (runtime). Zamiast jednego skompilowanego katalogu przypadającego na język, każde miejsce wywołania zostaje powiązane ze słownikiem Intlayer skompilowanym specjalnie dla niego.
 
-Niniejszy artykuł mierzy tę zamianę na tej samej aplikacji TanStack Start, zbudowanej raz z czystym Lingui, a raz z adapterem. Dane liczbowe pochodzą z repozytorium [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Bezpośrednie porównanie obu bibliotek znajdziesz w artykule [Lingui vs Intlayer](https://intlayer.org/pl/blog/lingui-vs-intlayer). Ten wpis skupia się na tym, co zmienia adapter i w jakich kwestiach nie przynosi on korzyści.
+Niniejszy artykuł mierzy tę zamianę na tej samej aplikacji TanStack Start, zbudowanej raz z czystym Lingui, a raz z adapterem. Dane liczbowe pochodzą z repozytorium [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Bezpośrednie porównanie obu bibliotek znajdziesz w artykule [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/lingui_vs_intlayer.md). Ten wpis skupia się na tym, co zmienia adapter i w jakich kwestiach nie przynosi on korzyści.
 
 <TOC/>
 
@@ -227,7 +227,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Dla katalogów `.po` zastąp `syncJSON` wtyczką `syncPO` z pakietu `@intlayer/sync-po-plugin` z tym samym wzorcem `source` i rozszerzeniem `.po`. Szczegóły znajdziesz w [dokumentacji wtyczki Sync PO](https://intlayer.org/pl/doc/plugin/sync-po).
+Dla katalogów `.po` zastąp `syncJSON` wtyczką `syncPO` z pakietu `@intlayer/sync-po-plugin` z tym samym wzorcem `source` i rozszerzeniem `.po`. Szczegóły znajdziesz w [dokumentacji wtyczki Sync PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-po.md).
 
 Parametr `splitKeys: "key-prefix"` stanowi klucz do drastycznego zmniejszenia wagi komponentów. Sam plik katalogu zachowuje swoją płaską strukturę; podział istnieje tylko w generowanych słownikach, a mechanizm zapisu zwrotnego automatycznie scala klucze.
 
@@ -277,7 +277,7 @@ Wtyczka `lingui()` integruje `vite-intlayer` (obserwacja zawartości, kompilacja
 - **Narzut na stronę w trybie `dynamic`.** Jak opisano wcześniej: należy liczyć się z narzutem rzędu +20 KB na stronę w małej aplikacji w porównaniu do leniwie ładowanego Lingui. Różnica ta nie rośnie wraz z objętością treści (wynika z parsera, nie z katalogów), ale też nie maleje.
 - **Utrzymujący się wyciek języka źródłowego.** Deskryptory wiadomości i makra kompilują angielski tekst jako wartość zapasową. Całkowite wyeliminowanie tego zjawiska wymaga oczyszczenia pola `message` lub migracji komponentu na `.content.ts`.
 - **`i18n.load()` jest jedynie rozwiązaniem awaryjnym.** Jeżeli nadal importujesz skompilowane katalogi i wywołujesz `load()`, załadujesz równocześnie stary i nowy pakiet. Usuń te importy.
-- **Tylko dla ekosystemu Vite.** Brak wtyczki Next.js w ramach `@intlayer/lingui`. Projekty Next.js oparte na Lingui powinny skierować się bezpośrednio ku [`next-intlayer`](https://intlayer.org/pl/doc/environment/nextjs).
+- **Tylko dla ekosystemu Vite.** Brak wtyczki Next.js w ramach `@intlayer/lingui`. Projekty Next.js oparte na Lingui powinny skierować się bezpośrednio ku [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md).
 - **Brak obsługi `defaultComponent`.** Jeśli polegasz na automatycznym opakowywaniu każdego `<Trans>`, dodaj kontener bezpośrednio w kodzie komponentów.
 
 ## Kiedy wybrać które rozwiązanie?
@@ -288,12 +288,12 @@ Wtyczka `lingui()` integruje `vite-intlayer` (obserwacja zawartości, kompilacja
 
 ## Powiązane materiały porównawcze
 
-- [Lingui vs Intlayer](https://intlayer.org/pl/blog/lingui-vs-intlayer) (bezpośrednie porównanie bibliotek na tym samym teście)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/pl/blog/next-intl-vs-intlayer-next-intl) (artykuł z serii o adapterach kompatybilności)
-- [i18next vs @intlayer/i18next](https://intlayer.org/pl/blog/i18next-vs-intlayer-i18next) (artykuł z serii o adapterach kompatybilności)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/pl/blog/vue-i18n-vs-intlayer-vue-i18n) (artykuł z serii o adapterach kompatybilności)
-- [Przewodnik po adapterze kompatybilności: Lingui](https://intlayer.org/pl/doc/compatibility/lingui)
-- [Kompilator vs deklaratywne i18n](https://intlayer.org/pl/blog/compiler-vs-declarative-i18n)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/lingui_vs_intlayer.md) (bezpośrednie porównanie bibliotek na tym samym teście)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/next-intl_vs_intlayer-next-intl.md) (artykuł z serii o adapterach kompatybilności)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/i18next_vs_intlayer-i18next.md) (artykuł z serii o adapterach kompatybilności)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/vue-i18n_vs_intlayer-vue-i18n.md) (artykuł z serii o adapterach kompatybilności)
+- [Przewodnik po adapterze kompatybilności: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/lingui.md)
+- [Kompilator vs deklaratywne i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/compiler_vs_declarative_i18n.md)
 
 ## Podsumowanie
 
@@ -301,4 +301,4 @@ Wtyczka `lingui()` integruje `vite-intlayer` (obserwacja zawartości, kompilacja
 
 Wszystkie surowe dane pomiarowe, aplikacje demonstracyjne i skrypty znajdziesz w [repozytorium Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Możesz uruchomić je samodzielnie.
 
-Więcej szczegółów technicznych znajdziesz w dokumencie ['Dlaczego Intlayer?'](https://intlayer.org/pl/doc/why).
+Więcej szczegółów technicznych znajdziesz w dokumencie ['Dlaczego Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).

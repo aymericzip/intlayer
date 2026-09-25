@@ -30,7 +30,7 @@ author: aymericzip
 
 `@intlayer/next-intl` は互換性アダプタです。`next-intl` API (`useTranslations`、`getTranslations`、`useLocale`、`t.rich()`、ICU複数形、`NextIntlClientProvider`...)を公開し、Intlayerによってコンパイルされたディクショナリから提供します。アプリケーションコードは変わりません。bundleが変わります。
 
-この記事は、同じNext.jsアプリケーションで2つを比較しており、1回は`next-intl`で構築し、もう1回はアダプタで構築しています。数値は[Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)から得られており、これはブラウザが実際にダウンロードするものを記録するオープンソーススイートです。ライブラリとして`next-intl`とIntlayerの比較が必要な場合は、[next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer)をお読みください。このドキュメントは、コンポーネントをそのままにしておいたときにアダプタが何を変更するかについてです。
+この記事は、同じNext.jsアプリケーションで2つを比較しており、1回は`next-intl`で構築し、もう1回はアダプタで構築しています。数値は[Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)から得られており、これはブラウザが実際にダウンロードするものを記録するオープンソーススイートです。ライブラリとして`next-intl`とIntlayerの比較が必要な場合は、[next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer.md)をお読みください。このドキュメントは、コンポーネントをそのままにしておいたときにアダプタが何を変更するかについてです。
 
 <TOC/>
 
@@ -143,7 +143,7 @@ height="600px"
 style="border:none;"
 />
 
-> すべてのライブラリと戦略の完全な表は、[Next.js ベンチマークレポート](https://intlayer.org/ja/doc/benchmark/nextjs)をご覧ください。
+> すべてのライブラリと戦略の完全な表は、[Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)をご覧ください。
 
 ### TanStack Start上の結果 (`use-intl`)
 
@@ -175,7 +175,7 @@ height="600px"
 style="border:none;"
 />
 
-> 完全な表は、[TanStack Start ベンチマークレポート](https://intlayer.org/ja/doc/benchmark/tanstack)をご覧ください。
+> 完全な表は、[TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)をご覧ください。
 
 ## 数字が変わる理由
 
@@ -327,7 +327,7 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="provider の messages、timeZone、now は無視されます">
 
-フォーマッターはネイティブの `Intl` に基づいており、ロケールのみが出力に影響します。ハイドレーションが安定した日付のために強制的なタイムゾーンや固定の `now` に依存している場合は、呼び出し側で処理してください。[日付、時刻、数値のフォーマット](https://intlayer.org/ja/blog/date-time-number-formatting-locales)を参照してください。
+フォーマッターはネイティブの `Intl` に基づいており、ロケールのみが出力に影響します。ハイドレーションが安定した日付のために強制的なタイムゾーンや固定の `now` に依存している場合は、呼び出し側で処理してください。[日付、時刻、数値のフォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/date_time_number_formatting_locales.md)を参照してください。
 
 </Accordion>
 </AccordionGroup>
@@ -347,7 +347,7 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="ネイティブ（next-intlayer）に移行する">
 
-新規プロジェクト、またはアダプターがその役割を果たした後に適しています。3つの中で最も軽量であり（5.5 KB、ページあたり +0.3 KB）、同期サーバーコンポーネント、コンポーネントごとの `.content.ts` ファイル、およびすべてのフル機能を活用できます。[Next.js での Intlayer の導入](https://intlayer.org/ja/doc/environment/nextjs)から始めてください。
+新規プロジェクト、またはアダプターがその役割を果たした後に適しています。3つの中で最も軽量であり（5.5 KB、ページあたり +0.3 KB）、同期サーバーコンポーネント、コンポーネントごとの `.content.ts` ファイル、およびすべてのフル機能を活用できます。[Next.js での Intlayer の導入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)から始めてください。
 
 </Accordion>
 </AccordionGroup>
@@ -364,7 +364,7 @@ Next.js において、コンポーネントは変更不要です。ベンチマ
 
 <Question title="ICU メッセージはどうなりますか？">
 
-そのまま動作し続けます。`t("key", { count })`、`t.rich()`、`t.markup()`、`select`、`selectordinal`、`#`、`{ts, date, long}` は Intlayer の ICU リゾルバーによって解決されます。[ICU メッセージフォーマット](https://intlayer.org/ja/blog/icu-message-format)を参照してください。
+そのまま動作し続けます。`t("key", { count })`、`t.rich()`、`t.markup()`、`select`、`selectordinal`、`#`、`{ts, date, long}` は Intlayer の ICU リゾルバーによって解決されます。[ICU メッセージフォーマット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)を参照してください。
 
 </Question>
 
@@ -392,23 +392,23 @@ Intlayer コアの上に `next-intl` API サーフェス（`useFormatter`、`t.r
 
 同じアダプターシリーズ：
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/ja/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/ja/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ja/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer-vue-i18n.md)
 
 両ライブラリの直接比較：
 
-- [next-intl vs Intlayer](https://intlayer.org/ja/blog/next-intl-vs-intlayer), 同じベンチマーク
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ja/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Is next-intl outdated?](https://intlayer.org/ja/blog/is-next-intl-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer.md), 同じベンチマーク
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/is_next-intl_outdated.md)
 
 参考ドキュメント：
 
-- [Compat adapter: next-intl](https://intlayer.org/ja/doc/compatibility/next-intl)
-- [移行ガイド：next-intl から Intlayer へ](https://intlayer.org/ja/doc/migration/next-intl)
-- [Next.js ベンチマークレポート](https://intlayer.org/ja/doc/benchmark/nextjs) および [TanStack Start ベンチマークレポート](https://intlayer.org/ja/doc/benchmark/tanstack)
-- [バンドル最適化](https://intlayer.org/ja/doc/concept/bundle-optimization) および [Intlayer コンパイラー](https://intlayer.org/ja/doc/compiler)
-- [ビジュアルエディター](https://intlayer.org/ja/doc/concept/editor)、[CMS](https://intlayer.org/ja/doc/concept/cms) および [AI 翻訳](https://intlayer.org/ja/doc/concept/auto-fill)
+- [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-intl.md)
+- [移行ガイド：next-intl から Intlayer へ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)
+- [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) および [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
+- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) および [Intlayer コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+- [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) および [AI 翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)
 
 ## 結論
 
@@ -416,4 +416,4 @@ Intlayer コアの上に `next-intl` API サーフェス（`useFormatter`、`t.r
 
 すべてのraw data、テスト アプリ、およびスクリプトは [Benchmark Bloom リポジトリ](https://github.com/intlayer-org/benchmark-bloom) にあります。自分で実行してください。
 
-詳細については、['Why Intlayer?' ドキュメント](https://intlayer.org/doc/why) を参照してください。
+詳細については、['Why Intlayer?' ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) を参照してください。

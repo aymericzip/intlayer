@@ -1309,4 +1309,4 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰도, 그리고 장�
 - **Intlayer**를 사용하면, **모듈화된 콘텐츠**, **엄격한 TS(타입스크립트)**, **빌드 타임 안전성**, **트리 쉐이킹된 번들**, 그리고 **일류 App Router + SEO 도구**가 **기본값**으로 제공되며, 번거로운 작업이 아닙니다.
 - 다국어, 컴포넌트 기반 앱에서 **유지보수성과 속도**를 중요시하는 팀이라면, Intlayer가 오늘날 가장 **완벽한** 경험을 제공합니다.
 
-자세한 내용은 ['Why Intlayer?' 문서](https://intlayer.org/doc/why)를 참조하세요.
+자세한 내용은 ['Why Intlayer?' 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.

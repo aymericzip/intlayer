@@ -27,7 +27,7 @@ author: aymericzip
 
 `@intlayer/lingui`는 `@lingui/core` 및 `@lingui/react`를 위한 호환 어댑터입니다. 기존의 `` t`...` ``, `<Trans>`, `useLingui()`, `i18n._()` 호출은 그대로 유지되며, 매크로 역시 정상 컴파일됩니다. 변화하는 것은 런타임에 메시지를 가져오는 경로입니다. 언어별 단일 통합 카탈로그 대신, 각 호출 위치는 해당 위치만을 위해 컴파일된 Intlayer 딕셔너리에 바인딩됩니다.
 
-본 글에서는 동일한 TanStack Start 애플리케이션을 Lingui 단독 및 어댑터 적용 구성으로 각각 빌드하여 측정한 결과를 살펴봅니다. 수치는 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)을 기반으로 합니다. 라이브러리 간의 직접적인 기능 비교는 [Lingui vs Intlayer](https://intlayer.org/ko/blog/lingui-vs-intlayer)를 참조하십시오. 이 글은 어댑터가 가져오는 실질적 변화와 이점이 없는 영역을 집중적으로 다룹니다.
+본 글에서는 동일한 TanStack Start 애플리케이션을 Lingui 단독 및 어댑터 적용 구성으로 각각 빌드하여 측정한 결과를 살펴봅니다. 수치는 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)을 기반으로 합니다. 라이브러리 간의 직접적인 기능 비교는 [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md)를 참조하십시오. 이 글은 어댑터가 가져오는 실질적 변화와 이점이 없는 영역을 집중적으로 다룹니다.
 
 <TOC/>
 
@@ -227,7 +227,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-`.po` 카탈로그의 경우, `syncJSON` 대신 `@intlayer/sync-po-plugin`의 `syncPO`를 사용하고 `.po` 확장자가 포함된 동일한 `source` 패턴을 지정합니다. 자세한 내용은 [Sync PO 플러그인 문서](https://intlayer.org/ko/doc/plugin/sync-po)를 참조하십시오.
+`.po` 카탈로그의 경우, `syncJSON` 대신 `@intlayer/sync-po-plugin`의 `syncPO`를 사용하고 `.po` 확장자가 포함된 동일한 `source` 패턴을 지정합니다. 자세한 내용은 [Sync PO 플러그인 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/plugins/sync-po.md)를 참조하십시오.
 
 `splitKeys: "key-prefix"` 설정이 바로 컴포넌트 크기를 획기적으로 줄여주는 핵심 요소입니다. 카탈로그 원본 파일은 플랫 구조를 유지하며, 분할은 자동 생성된 딕셔너리에만 적용되고, 역방향 동기화를 통해 키들이 안전하게 다시 통합됩니다.
 
@@ -277,7 +277,7 @@ export default defineConfig({
 - **`dynamic` 모드의 페이지별 오버헤드.** 앞서 언급했듯, 소규모 앱의 지연 로딩 Lingui 대비 약 +20 KB/페이지의 추가 용량이 발생합니다. 이 차이는 콘텐츠 양에 따라 커지지는 않지만(카탈로그가 아닌 리졸버 크기 때문), 줄어들지도 않습니다.
 - **소스 언어 누수 유지.** 메시지 디스크립터 및 매크로 출력에는 폴백용 영문 텍스트가 포함됩니다. 이를 완전히 제거하려면 `message` 필드를 정리하거나 컴포넌트를 `.content.ts`로 이전해야 합니다.
 - **`i18n.load()`는 폴백용임.** 컴파일된 카탈로그를 계속 임포트하면서 `load()`를 호출하면 이전 번들과 새 번들이 중복 로드됩니다. 해당 임포트 코드를 제거하십시오.
-- **Vite 환경 전용.** `@intlayer/lingui`는 Next.js 플러그인을 제공하지 않습니다. Lingui 기반 Next.js 프로젝트는 [`next-intlayer`](https://intlayer.org/ko/doc/environment/nextjs)의 직접 도입을 검토해야 합니다.
+- **Vite 환경 전용.** `@intlayer/lingui`는 Next.js 플러그인을 제공하지 않습니다. Lingui 기반 Next.js 프로젝트는 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)의 직접 도입을 검토해야 합니다.
 - **`defaultComponent` 미적용.** `<Trans>` 컴포넌트를 일괄 래핑하기 위해 이 기능에 의존했다면 컴포넌트 코드에 직접 래퍼를 명시하십시오.
 
 ## 어떤 선택이 가장 적합한가?
@@ -288,12 +288,12 @@ export default defineConfig({
 
 ## 관련 비교 자료
 
-- [Lingui vs Intlayer](https://intlayer.org/ko/blog/lingui-vs-intlayer) (동일 벤치마크 기반의 두 라이브러리 직접 비교)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/ko/blog/next-intl-vs-intlayer-next-intl) (호환 어댑터 비교 시리즈)
-- [i18next vs @intlayer/i18next](https://intlayer.org/ko/blog/i18next-vs-intlayer-i18next) (호환 어댑터 비교 시리즈)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ko/blog/vue-i18n-vs-intlayer-vue-i18n) (호환 어댑터 비교 시리즈)
-- [호환 어댑터 레퍼런스: Lingui](https://intlayer.org/ko/doc/compatibility/lingui)
-- [컴파일러 기반 vs 선언형 i18n](https://intlayer.org/ko/blog/compiler-vs-declarative-i18n)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md) (동일 벤치마크 기반의 두 라이브러리 직접 비교)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer-next-intl.md) (호환 어댑터 비교 시리즈)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer-i18next.md) (호환 어댑터 비교 시리즈)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer-vue-i18n.md) (호환 어댑터 비교 시리즈)
+- [호환 어댑터 레퍼런스: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
+- [컴파일러 기반 vs 선언형 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
 
 ## 결론
 
@@ -301,4 +301,4 @@ export default defineConfig({
 
 모든 원시 측정 데이터, 테스트 앱 및 스크립트는 [Benchmark Bloom 저장소](https://github.com/intlayer-org/benchmark-bloom)에서 확인하실 수 있습니다. 직접 실행해 보시기 바랍니다.
 
-더 자세한 정보는 ['왜 Intlayer인가?' 문서](https://intlayer.org/ko/doc/why)를 참고하시기 바랍니다.
+더 자세한 정보는 ['왜 Intlayer인가?' 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참고하시기 바랍니다.

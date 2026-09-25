@@ -55,7 +55,7 @@ Vor den Feature-Tabellen der gemessene Teil. [Benchmark Bloom](https://github.co
 | `@intlayer/vue-i18n` |        7.9 KB |          47.0 KB |      0.0% |             8.4 KB |
 | **`vue-intlayer`**   |    **3.9 KB** |      **57.1 KB** |  **0.0%** |         **7.7 KB** |
 
-Die `vue-i18n`-Laufzeit allein wiegt **das 6-fache** von Intlayer, jede Seite transportiert **90% fremde Seiten-Strings**, und eine isoliert kompilierte Komponente schleppt **196 KB** mit sich, weil `useI18n()` sie an den globalen Nachrichtenbaum bindet. Der vollständige Durchlauf mit Reaktivitäts- und Seitenladezeiten findet sich im [vue-i18n vs Intlayer Benchmark](https://intlayer.org/de/blog/vue-i18n-vs-intlayer-benchmark).
+Die `vue-i18n`-Laufzeit allein wiegt **das 6-fache** von Intlayer, jede Seite transportiert **90% fremde Seiten-Strings**, und eine isoliert kompilierte Komponente schleppt **196 KB** mit sich, weil `useI18n()` sie an den globalen Nachrichtenbaum bindet. Der vollständige Durchlauf mit Reaktivitäts- und Seitenladezeiten findet sich im [vue-i18n vs Intlayer Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer_benchmark.md).
 
 <ClickToOpenIframe
 src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
@@ -64,7 +64,7 @@ height="600px"
 style="border:none;"
 />
 
-> Vollständige Tabelle im [Vue-Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/vue).
+> Vollständige Tabelle im [Vue-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/vue.md).
 
 ## Gegenüberstellung der Funktionen (Vue-fokussiert)
 
@@ -94,7 +94,7 @@ style="border:none;"
 <AccordionGroup>
 <Accordion header="1) Architektur und Skalierbarkeit">
 
-- **vue-i18n**: Übliche Setups verwenden **zentralisierte Kataloge** pro Locale (optional aufgeteilt in Dateien/Namespaces). SFC-`<i18n>`-Blöcke erlauben lokale Nachrichten, aber Teams greifen oft auf gemeinsame Kataloge zurück, wenn Projekte wachsen. Siehe [Komponenten-basierte vs. zentralisierte i18n](https://intlayer.org/de/blog/per-component-vs-centralized-i18n).
+- **vue-i18n**: Übliche Setups verwenden **zentralisierte Kataloge** pro Locale (optional aufgeteilt in Dateien/Namespaces). SFC-`<i18n>`-Blöcke erlauben lokale Nachrichten, aber Teams greifen oft auf gemeinsame Kataloge zurück, wenn Projekte wachsen. Siehe [Komponenten-basierte vs. zentralisierte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/per-component_vs_centralized_i18n.md).
 - **Intlayer**: Fördert **pro-Komponenten-Wörterbücher**, die neben der jeweiligen Komponente gespeichert werden. Dies reduziert Konflikte zwischen Teams, hält Inhalte auffindbar und begrenzt natürlich Drift/ungenutzte Schlüssel.
 
 **Warum das wichtig ist:** In großen Vue-Anwendungen oder Designsystemen skaliert **modularer Inhalt** besser als monolithische Kataloge.
@@ -110,7 +110,7 @@ style="border:none;"
 </Accordion>
 <Accordion header="3) Behandlung fehlender Übersetzungen">
 
-- **vue-i18n**: **Laufzeit**-Warnungen/Fallbacks (z.B. Rückfall auf Locale oder Schlüssel). Siehe [Erkennung fehlender Übersetzungen](https://intlayer.org/de/blog/detecting-missing-translations).
+- **vue-i18n**: **Laufzeit**-Warnungen/Fallbacks (z.B. Rückfall auf Locale oder Schlüssel). Siehe [Erkennung fehlender Übersetzungen](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/detecting_missing_translations.md).
 - **Intlayer**: **Buildzeit**-Erkennung mit Warnungen/Fehlern über alle Locales und Schlüssel hinweg., plus `npx intlayer test` in CI.
 
 **Warum das wichtig ist:** Durchsetzung zur Buildzeit hält die Produktions-UI sauber und konsistent.
@@ -118,7 +118,7 @@ style="border:none;"
 </Accordion>
 <Accordion header="4) Routing- und URL-Strategie (Vue Router/Nuxt)">
 
-- **Beide** können mit lokalisierten Routen arbeiten. Siehe den [hreflang-Leitfaden](https://intlayer.org/de/blog/hreflang-guide-multilingual-seo).
+- **Beide** können mit lokalisierten Routen arbeiten. Siehe den [hreflang-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/hreflang_guide_multilingual_seo.md).
 - **Intlayer** bietet Hilfsmittel, um **lokalisierte Pfade zu generieren**, **Locale-Präfixe zu verwalten** und **`<link rel="alternate" hreflang>`** für SEO auszugeben. In Kombination mit Nuxt ergänzt es das Routing des Frameworks.
 
 **Warum das wichtig ist:** Weniger individuelle Verbindungs-Schichten und **saubereres SEO** über verschiedene Sprachen hinweg.
@@ -142,7 +142,7 @@ style="border:none;"
 </Accordion>
 <Accordion header="7) SEO, SSR und SSG">
 
-- **Beide** funktionieren mit Vue SSR und Nuxt. Siehe [Internationalisierung und SEO](https://intlayer.org/de/blog/SEO-and-i18n).
+- **Beide** funktionieren mit Vue SSR und Nuxt. Siehe [Internationalisierung und SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/internationalization_and_SEO.md).
 - **Intlayer**: Fügt **SEO-Hilfsmittel** hinzu (Sitemaps/Metadaten/`hreflang`), die frameworkunabhängig sind und gut mit Vue/Nuxt-Builds zusammenarbeiten.
 
 **Warum das wichtig ist:** Internationale SEO ohne maßgeschneiderte Verkabelung.
@@ -330,12 +330,12 @@ Sie möchten den **Standard-Vue-Ansatz**, können Kataloge und Namespaces proble
 </Accordion>
 <Accordion header="Intlayer wählen">
 
-Sie legen Wert auf **komponentenbezogenen Inhalt**, **striktes TypeScript**, **Garantien zur Build-Zeit**, **Tree-Shaking** und integrierte Routing-, SEO- und Editor-Tools, insbesondere für **große, modulare Vue/Nuxt-Codebasen** und Design-Systeme. Starten Sie mit [Intlayer mit Vue](https://intlayer.org/de/doc/environment/vite-and-vue) oder [mit Nuxt](https://intlayer.org/de/doc/environment/nuxt-and-vue).
+Sie legen Wert auf **komponentenbezogenen Inhalt**, **striktes TypeScript**, **Garantien zur Build-Zeit**, **Tree-Shaking** und integrierte Routing-, SEO- und Editor-Tools, insbesondere für **große, modulare Vue/Nuxt-Codebasen** und Design-Systeme. Starten Sie mit [Intlayer mit Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+vue.md) oder [mit Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nuxt.md).
 
 </Accordion>
 <Accordion header="@intlayer/vue-i18n wählen">
 
-Sie nutzen heute `vue-i18n` und möchten Bundle-Einsparungen ohne Bearbeitung einer `.vue`-Datei erzielen. Der [Kompatibilitätsadapter](https://intlayer.org/de/doc/compatibility/vue-i18n) behält `createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t` und `v-t` bei und bedient sie aus kompilierten Wörterbüchern. Seite an Seite gemessen in [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/de/blog/vue-i18n-vs-intlayer-vue-i18n).
+Sie nutzen heute `vue-i18n` und möchten Bundle-Einsparungen ohne Bearbeitung einer `.vue`-Datei erzielen. Der [Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/vue-i18n.md) behält `createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t` und `v-t` bei und bedient sie aus kompilierten Wörterbüchern. Seite an Seite gemessen in [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer-vue-i18n.md).
 
 </Accordion>
 </AccordionGroup>
@@ -344,7 +344,7 @@ Sie nutzen heute `vue-i18n` und möchten Bundle-Einsparungen ohne Bearbeitung ei
 
 `intlayer` kann auch bei der Verwaltung deiner `vue-i18n` Namespaces helfen.
 
-Mit `intlayer` kannst du deinen Content im Format deiner bevorzugten i18n-Bibliothek deklarieren, und intlayer generiert deine Namespaces an dem Ort deiner Wahl (Beispiel: `/messages/{{locale}}/{{namespace}}.json`). Siehe die [vue-i18n-Kompatibilitätsdokumentation](https://intlayer.org/de/doc/compatibility/vue-i18n) und den [Nuxt i18n-Adapter](https://intlayer.org/de/doc/compatibility/nuxtjs-i18n).
+Mit `intlayer` kannst du deinen Content im Format deiner bevorzugten i18n-Bibliothek deklarieren, und intlayer generiert deine Namespaces an dem Ort deiner Wahl (Beispiel: `/messages/{{locale}}/{{namespace}}.json`). Siehe die [vue-i18n-Kompatibilitätsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/vue-i18n.md) und den [Nuxt i18n-Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/nuxtjs-i18n.md).
 
 ## FAQ
 
@@ -364,19 +364,19 @@ Der Adapter liest sie nicht. Verschieben Sie diese Nachrichten in Ihre Sprach-JS
 
 <Question title="Funktioniert Intlayer mit Nuxt?">
 
-Ja. [Intlayer mit Nuxt](https://intlayer.org/de/doc/environment/nuxt-and-vue) umfasst mehrsprachiges Routing, Middleware zur Spracherkennung und Sitemap-Generierung. Wenn Sie `@nuxtjs/i18n` nutzen, ist der [Nuxt i18n-Kompatibilitätsadapter](https://intlayer.org/de/doc/compatibility/nuxtjs-i18n) der Migrationspfad.
+Ja. [Intlayer mit Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nuxt.md) umfasst mehrsprachiges Routing, Middleware zur Spracherkennung und Sitemap-Generierung. Wenn Sie `@nuxtjs/i18n` nutzen, ist der [Nuxt i18n-Kompatibilitätsadapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/nuxtjs-i18n.md) der Migrationspfad.
 
 </Question>
 
 <Question title="Kann ich meine locales/{locale}.json als Source of Truth behalten?">
 
-Ja. Das [JSON-Sync-Plugin](https://intlayer.org/de/doc/compatibility/vue-i18n) liest sie mit dem `vue-i18n`-Dialekt (`{name}`, `{0}`, Pipe-Plurale `"car | cars"`) und schreibt Übersetzungen zurück, wenn die CLI oder das CMS sie aktualisiert.
+Ja. Das [JSON-Sync-Plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/vue-i18n.md) liest sie mit dem `vue-i18n`-Dialekt (`{name}`, `{0}`, Pipe-Plurale `"car | cars"`) und schreibt Übersetzungen zurück, wenn die CLI oder das CMS sie aktualisiert.
 
 </Question>
 
 <Question title="Funktioniert ICU mit Intlayer auf Vue?">
 
-Die native ICU-Unterstützung ist in Arbeit. Der `@intlayer/vue-i18n`-Adapter unterstützt die eigene Nachrichtensyntax von `vue-i18n`, einschließlich Pipe-Pluralen sowie benannter und Listen-Interpolation. Für das Pluralisierungsmodell von Intlayer siehe [Aufzählungsinhalt](https://intlayer.org/de/doc/concept/content/enumeration).
+Die native ICU-Unterstützung ist in Arbeit. Der `@intlayer/vue-i18n`-Adapter unterstützt die eigene Nachrichtensyntax von `vue-i18n`, einschließlich Pipe-Pluralen sowie benannter und Listen-Interpolation. Für das Pluralisierungsmodell von Intlayer siehe [Aufzählungsinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/enumeration.md).
 
 </Question>
 
@@ -397,13 +397,13 @@ Sowohl **vue-i18n** als auch **Intlayer** lokalisieren Vue-Apps gut. Der Untersc
 
 ## Weiterführende Literatur
 
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/de/blog/vue-i18n-vs-intlayer-benchmark), der gemessene Durchlauf hinter der obigen Tabelle
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/de/blog/vue-i18n-vs-intlayer-vue-i18n), der Adapter auf derselben App
-- [Is vue-i18n outdated?](https://intlayer.org/de/blog/is-vue-i18n-outdated)
-- [How to pick a Vue i18n library](https://intlayer.org/de/blog/how-to-pick-vue-i18n-library)
-- [Using Intlayer with vue-i18n](https://intlayer.org/de/blog/intlayer-with-vue-i18n)
-- [Vue benchmark report](https://intlayer.org/de/doc/benchmark/vue)
-- [Migration guide: vue-i18n to Intlayer](https://intlayer.org/de/doc/migration/vue-i18n)
-- [Bundle optimization](https://intlayer.org/de/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/de/doc/compiler)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer_benchmark.md), der gemessene Durchlauf hinter der obigen Tabelle
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer-vue-i18n.md), der Adapter auf derselben App
+- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/is_vue-i18n_outdated.md)
+- [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_vue_i18n_library.md)
+- [Using Intlayer with vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/intlayer_with_vue-i18n.md)
+- [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/vue.md)
+- [Migration guide: vue-i18n to Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_vue-i18n_to_intlayer.md)
+- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
 
-Refer to ['Why Intlayer?' doc](https://intlayer.org/de/doc/why) for more details.
+Refer to ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/interest_of_intlayer.md) for more details.

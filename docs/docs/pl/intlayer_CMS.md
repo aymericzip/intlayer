@@ -419,7 +419,7 @@ Jeśli napotkasz jakiekolwiek problemy z CMS, sprawdź następujące kwestie:
 
 - Aplikacja jest uruchomiona.
 
-- Konfiguracja [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) jest poprawnie ustawiona w pliku konfiguracyjnym Intlayer.
+- Konfiguracja [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md#editor-configuration) jest poprawnie ustawiona w pliku konfiguracyjnym Intlayer.
   - Wymagane pola:
     - URL aplikacji powinien odpowiadać temu, który ustawiłeś w konfiguracji edytora (`applicationURL`).
     - URL CMS

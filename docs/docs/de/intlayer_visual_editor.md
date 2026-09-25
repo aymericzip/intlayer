@@ -206,7 +206,7 @@ Wenn Sie Probleme mit dem visuellen Editor haben, überprüfen Sie Folgendes:
 
 - Der visuelle Editor und die Anwendung laufen.
 
-- Die [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) Konfiguration ist korrekt in Ihrer Intlayer-Konfigurationsdatei eingestellt.
+- Die [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md#editor-configuration) Konfiguration ist korrekt in Ihrer Intlayer-Konfigurationsdatei eingestellt.
   - Erforderliche Felder:
     - Die Anwendungs-URL sollte mit der übereinstimmen, die Sie in der Editor-Konfiguration (`applicationURL`) festgelegt haben.
 

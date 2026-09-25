@@ -489,7 +489,7 @@ Intlayer の開発体験を向上させるために、公式の **Intlayer VS Co
 - 翻訳内容の**インラインプレビュー**。
 - 翻訳の作成や更新を簡単に行うための**クイックアクション**。
 
-拡張機能の使い方の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension) を参照してください。
+拡張機能の使い方の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md) を参照してください。
 
 ## さらに進む
 
@@ -533,7 +533,7 @@ import "@formatjs/intl-datetimeformat/polyfill";
 
 - **`i18n-js`** と `expo-localization` の組み合わせ: 従来からの組み合わせで、型付けのないメッセージの単純なオブジェクトです。
 - **`react-i18next`**: React エコシステムの標準で、実行時に読み込まれる JSON ネームスペースを使用します。
-- **`Intlayer`**: 最も高度なソリューションです。コードベースの任意の場所（[各コンポーネントの隣またはセントラライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）でコンテンツを宣言し、ビルド時に Metro プラグインでコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
+- **`Intlayer`**: 最も高度なソリューションです。コードベースの任意の場所（[各コンポーネントの隣またはセントラライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）でコンテンツを宣言し、ビルド時に Metro プラグインでコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
 
 モバイルではウェブよりもサイズの議論がより重要です。すべてがアプリにバンドルされ、ページごとに取得されないためです。コンポーネントごとにコンテンツをコンパイルすることで、未使用の言語と未使用のキーをバンドルから除外します。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)を参照してください。
 

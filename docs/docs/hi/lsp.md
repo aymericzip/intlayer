@@ -92,7 +92,7 @@ bun add --dev @intlayer/lsp
 
 [Intlayer VS Code एक्सटेंशन](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) इंस्टॉल करें। लैंग्वेज सर्वर v8.12.0 से इसमें शामिल है और स्वतः शुरू होता है — **किसी कॉन्फ़िगरेशन की ज़रूरत नहीं**।
 
-अन्य सुविधाओं के लिए [VS Code एक्सटेंशन दस्तावेज़](https://intlayer.org/doc/vs-code-extension) देखें।
+अन्य सुविधाओं के लिए [VS Code एक्सटेंशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) देखें।
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">

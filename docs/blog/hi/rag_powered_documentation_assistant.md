@@ -28,7 +28,7 @@ author: aymericzip
 - सभी UI घटक Tailwind CSS के साथ पूरी तरह से संपादन योग्य हैं
 - हर उपयोगकर्ता क्वेरी को लॉग करता है ताकि गायब दस्तावेज़, उपयोगकर्ता की समस्याओं, और उत्पाद के अवसरों की पहचान की जा सके
 
-👉 [लाइव डेमो](https://intlayer.org/doc/why) 👉 [कोड बॉयलरप्लेट](https://github.com/aymericzip/smart_doc_RAG)
+👉 [लाइव डेमो](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) 👉 [कोड बॉयलरप्लेट](https://github.com/aymericzip/smart_doc_RAG)
 
 ## परिचय
 
@@ -239,7 +239,7 @@ docUrl: "https://example.com/docs/hi/another-doc"
 जैसा कि उल्लेख किया गया है, हम "थिंकिंग" मोड के बिना gpt-4-turbo का उपयोग करते हैं। प्रतिक्रियाएँ प्रासंगिक होती हैं, और विलंबता कम होती है।
 हमने gpt-5 के साथ प्रयोग किया, लेकिन विलंबता बहुत अधिक थी (कभी-कभी उत्तर के लिए 15 सेकंड तक)। लेकिन हम भविष्य में इसे फिर से देखेंगे।
 
-👉 [यहाँ डेमो आज़माएँ](https://intlayer.org/doc/why) 👉 [GitHub पर कोड टेम्पलेट देखें](https://github.com/aymericzip/smart_doc_RAG)
+👉 [यहाँ डेमो आज़माएँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) 👉 [GitHub पर कोड टेम्पलेट देखें](https://github.com/aymericzip/smart_doc_RAG)
 
 </Step>
 <Step number={10} title="आगे बढ़ना">
@@ -293,7 +293,7 @@ RAG LLMs को व्यावहारिक बनाने के सबस�
 - एक प्रतिक्रिया चैनल
 - एक उत्पाद रणनीति उपकरण
 
-👉 [यहाँ डेमो आज़माएँ](https://intlayer.org/doc/why) 👉 [GitHub पर कोड टेम्पलेट देखें](https://github.com/aymericzip/smart_doc_RAG)
+👉 [यहाँ डेमो आज़माएँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) 👉 [GitHub पर कोड टेम्पलेट देखें](https://github.com/aymericzip/smart_doc_RAG)
 
 और यदि आप भी RAG के साथ प्रयोग कर रहे हैं, तो मैं सुनना चाहूंगा कि आप इसे कैसे उपयोग कर रहे हैं।
 
@@ -317,6 +317,6 @@ RAG LLMs को व्यावहारिक बनाने के सबस�
 - एक feedback channel
 - एक product strategy tool
 
-👉 [Demo को यहाँ आजमाएं](https://intlayer.org/doc/why) 👉 [GitHub पर code template देखें](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Demo को यहाँ आजमाएं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) 👉 [GitHub पर code template देखें](https://github.com/aymericzip/smart_doc_RAG)
 
 और अगर आप भी RAG के साथ experiment कर रहे हैं, तो मुझे सुनना अच्छा लगेगा कि आप इसे कैसे use कर रहे हैं।

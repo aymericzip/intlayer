@@ -22,7 +22,7 @@ author: aymericzip
 
 Так.
 
-`Paraglide` має чудову репутацію найлегшого рішення для i18n, і на перший погляд [бенчмарк](https://intlayer.org/uk/doc/benchmark/tanstack) це підтверджує: розмір його бібліотеки близький до нуля. Проте нульовий розмір бібліотеки зовсім не означає нуль переданих байтів. Це лише вказує на те, що байти знаходяться там, куди ця метрика не заглядає.
+`Paraglide` має чудову репутацію найлегшого рішення для i18n, і на перший погляд [бенчмарк](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md) це підтверджує: розмір його бібліотеки близький до нуля. Проте нульовий розмір бібліотеки зовсім не означає нуль переданих байтів. Це лише вказує на те, що байти знаходяться там, куди ця метрика не заглядає.
 
 <TOC/>
 
@@ -93,7 +93,7 @@ Next.js 16 App Router, той самий додаток:
 
 <I18nBenchmark framework="tanstack" vertical/>
 
-> Повні дані наведено у [звіті бенчмарку TanStack Start](https://intlayer.org/uk/doc/benchmark/tanstack) та [звіті бенчмарку Next.js](https://intlayer.org/uk/doc/benchmark/nextjs). Кожен бандл можна детально оглянути в [репозиторії бенчмарку](https://github.com/intlayer-org/benchmark-i18n).
+> Повні дані наведено у [звіті бенчмарку TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md) та [звіті бенчмарку Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md). Кожен бандл можна детально оглянути в [репозиторії бенчмарку](https://github.com/intlayer-org/benchmark-i18n).
 
 Два висновки стають очевидними:
 
@@ -198,7 +198,7 @@ export const Hero = () => {
 
 Головна обіцянка Paraglide полягає в тому, що невикористані повідомлення видаляються за допомогою tree shaking, оскільки кожне повідомлення є окремим експортом. У бенчмарку Svelte + Vite це працює саме так, як заявлено.
 
-В інших середовищах цього не сталося. У наших тестах на [Next.js](https://intlayer.org/uk/doc/benchmark/nextjs) сторінки Paraglide важать на 14 KB більше за базовий додаток, тоді як `next-intlayer` додає лише 0.3 KB. Попередні виміри на TanStack Start також показали, що повідомлення з інших сторінок потрапляли в бандл поточного маршруту.
+В інших середовищах цього не сталося. У наших тестах на [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md) сторінки Paraglide важать на 14 KB більше за базовий додаток, тоді як `next-intlayer` додає лише 0.3 KB. Попередні виміри на TanStack Start також показали, що повідомлення з інших сторінок потрапляли в бандл поточного маршруту.
 
 Tree shaking залежить від вашого бандлера (Turbopack, Rolldown, Rollup), способу імпорту повідомлень (`import { m }` проти `import * as m`) та аналізу побічних ефектів. Якщо ви обираєте Paraglide через компактність, відкрийте візуалізатор бандла та перевірте, чи працює це у вашому додатку.
 
@@ -234,7 +234,7 @@ export default config;
 | `dynamic`    | Лише поточна локаль, ліниве завантаження для кожного словника | **У N разів менше** при N локалях |
 | `fetch`      | Лише поточна локаль, отримана через Live Sync API             | **У N разів менше** при N локалях |
 
-Завдяки [трансформації під час збірки](https://intlayer.org/uk/doc/concept/bundle-optimization) та режиму `importMode: 'static'`, Intlayer теоретично завантажує рівно той самий обсяг даних, що й Paraglide. А в режимах `'dynamic'` або `'fetch'` він завантажує лише те, що потрібно поточній мові: для додатку на N мовах обсяг переданих перекладів у N разів менший, ніж у Paraglide.
+Завдяки [трансформації під час збірки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) та режиму `importMode: 'static'`, Intlayer теоретично завантажує рівно той самий обсяг даних, що й Paraglide. А в режимах `'dynamic'` або `'fetch'` він завантажує лише те, що потрібно поточній мові: для додатку на N мовах обсяг переданих перекладів у N разів менший, ніж у Paraglide.
 
 ## Де Paraglide усе ще доречний
 
@@ -277,8 +277,8 @@ bunx intlayer init --interactive
 
 ## Додаткові матеріали
 
-- [Бенчмарк i18n TanStack Start](https://intlayer.org/uk/doc/benchmark/tanstack)
-- [Бенчмарк i18n Next.js](https://intlayer.org/uk/doc/benchmark/nextjs)
-- [Оптимізація бандла та `importMode`](https://intlayer.org/uk/doc/concept/bundle-optimization)
-- [Як вибрати бібліотеку i18n для React](https://intlayer.org/uk/blog/how-to-pick-react-i18n-library)
-- [Аргументи на користь компіляторного підходу до інтернаціоналізації](https://intlayer.org/uk/blog/compiler-vs-declarative-i18n)
+- [Бенчмарк i18n TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
+- [Бенчмарк i18n Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
+- [Оптимізація бандла та `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
+- [Як вибрати бібліотеку i18n для React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_react_i18n_library.md)
+- [Аргументи на користь компіляторного підходу до інтернаціоналізації](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)

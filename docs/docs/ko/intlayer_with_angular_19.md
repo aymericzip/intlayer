@@ -459,7 +459,7 @@ Intlayer 개발 경험을 개선하기 위해 공식 **Intlayer VS Code Extensio
 - 번역된 콘텐츠의 **인라인 미리보기**.
 - 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
 
-확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code Extension 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code Extension 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
 
 ### 더 알아보기
 
@@ -473,7 +473,7 @@ Intlayer 개발 경험을 개선하기 위해 공식 **Intlayer VS Code Extensio
 
 - **`@angular/localize`**(내장 i18n): 메시지가 XLIFF로 추출되고 각 로케일이 자체 빌드로 컴파일되므로 언어당 하나의 배포 결과물이 생성되고 런타임 로케일 전환이 지원되지 않습니다.
 - **`ngx-translate`** 및 **`Transloco`**: 서비스를 통해 로드되는 런타임 JSON 카탈로그 방식으로 로케일 전환은 가능하지만 빌드 타임 타입 안전성이 부족합니다.
-- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)), 빌드 타임에 컴파일되고, 완전한 타입 안전성을 제공하며 런타임 로케일 전환, AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
+- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)), 빌드 타임에 컴파일되고, 완전한 타입 안전성을 제공하며 런타임 로케일 전환, AI 번역, 비주얼 에디터 및 CMS를 지원합니다.
 
 이 가이드는 Angular 19를 다룹니다. Angular 21 이상은 [Angular 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_angular_21.md)를 참조하세요. [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)도 확인하세요.
 

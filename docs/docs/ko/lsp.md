@@ -92,7 +92,7 @@ bun add --dev @intlayer/lsp
 
 [Intlayer VS Code 확장](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)을 설치하세요. 언어 서버는 v8.12.0부터 포함되어 있으며 자동으로 시작됩니다 — **설정이 필요 없습니다**.
 
-다른 기능은 [VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참고하세요.
+다른 기능은 [VS Code 확장 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참고하세요.
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">

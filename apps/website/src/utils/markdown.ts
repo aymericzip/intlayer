@@ -56,12 +56,21 @@ export const urlRenamer = (
     );
 
   for (const meta of [...docMetadata, ...blogMetadata]) {
-    const docGithubUrlMap: URLMap = {
-      urlRegexToReplace: getGithubUrlRegex(meta.githubUrl),
-      urlToReplaceWith: getLocalizedUrl(meta.relativeUrl, pageLocale),
-    };
+    const localizedUrl = getLocalizedUrl(meta.relativeUrl, pageLocale);
 
-    urlMap.push(docGithubUrlMap);
+    urlMap.push({
+      urlRegexToReplace: getGithubUrlRegex(meta.githubUrl),
+      urlToReplaceWith: localizedUrl,
+    });
+
+    if (meta.githubUrl.endsWith('.md')) {
+      urlMap.push({
+        urlRegexToReplace: getGithubUrlRegex(
+          meta.githubUrl.replace(/\.md$/, '')
+        ),
+        urlToReplaceWith: localizedUrl,
+      });
+    }
   }
 
   // Execute all replacements sequentially. As every regexp is global (`g`),

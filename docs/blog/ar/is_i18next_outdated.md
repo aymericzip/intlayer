@@ -85,7 +85,7 @@ height="600px"
 style="border:none;"
 />
 
-> تم الاختبار في بيئة بناء إنتاجية تتضمن 10 مسارات و10 لغات مع ضغط gzip. التفاصيل متاحة في [تقرير مقارنة أداء i18n](https://intlayer.org/ar/doc/benchmark).
+> تم الاختبار في بيئة بناء إنتاجية تتضمن 10 مسارات و10 لغات مع ضغط gzip. التفاصيل متاحة في [تقرير مقارنة أداء i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md).
 
 ### العبء الأساسي للمكتبات
 
@@ -164,7 +164,7 @@ return <h1>{title}</h1>;
   </Tab>
 </Tabs>
 
-يقوم [مترجم Intlayer](https://intlayer.org/ar/doc/compiler) بتحليل الخصائص المستخدمة في `Hero.tsx` بدقة ويستبعد النصوص غير المستعملة قبل تجميع حزم العميل. راجع [تحسين الحزم](https://intlayer.org/ar/doc/concept/bundle-optimization) للمزيد.
+يقوم [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) بتحليل الخصائص المستخدمة في `Hero.tsx` بدقة ويستبعد النصوص غير المستعملة قبل تجميع حزم العميل. راجع [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) للمزيد.
 
 ## تجربة المطورين
 
@@ -231,17 +231,17 @@ export const Hero = () => {
 
 يمنح إعداد `CustomTypeOptions` اقتراحات داخل المحرر، لكنه لا يضمن اكتمال الترجمات عبر كل اللغات. حذف مفتاح من `ar/home.json` لن يعطل البناء بل سيكتفي بالرجوع للنص الافتراضي وقت التشغيل.
 
-تستنتج Intlayer الأنواع مباشرة من تعريفات المحتوى، ويقوم وضع [`strictMode`](https://intlayer.org/ar/doc/concept/configuration) بتحويل أي ترجمة مفقودة إلى خطأ فوري يوقف عملية البناء.
+تستنتج Intlayer الأنواع مباشرة من تعريفات المحتوى، ويقوم وضع [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) بتحويل أي ترجمة مفقودة إلى خطأ فوري يوقف عملية البناء.
 
 ### مقارنة الأدوات
 
-| الميزة                        | بيئة i18next         | Intlayer                                                             |
-| ----------------------------- | -------------------- | -------------------------------------------------------------------- |
-| **إضافة VS Code**             | إضافات خارجية فقط    | ✅ [إضافة رسمية](https://intlayer.org/ar/doc/vs-code-extension)      |
-| **خادم اللغة (LSP)**          | ❌ غير متوفر         | ✅ [LSP مدمج ومخصص](https://intlayer.org/ar/doc/lsp)                 |
-| **خادم MCP للذكاء الاصطناعي** | ❌ غير متوفر         | ✅ [خادم MCP جاهز](https://intlayer.org/ar/doc/mcp-server)           |
-| **مهارات الوكلاء (Skills)**   | ❌ غير متوفر         | ✅ [مهارات جاهزة](https://intlayer.org/ar/doc/agent_skills)          |
-| **نظام CMS مرئي**             | Locize (خدمة مدفوعة) | ✅ [مجاني ومفتوح المصدر](https://intlayer.org/ar/doc/concept/editor) |
+| الميزة                        | بيئة i18next         | Intlayer                                                                                                          |
+| ----------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| **إضافة VS Code**             | إضافات خارجية فقط    | ✅ [إضافة رسمية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)              |
+| **خادم اللغة (LSP)**          | ❌ غير متوفر         | ✅ [LSP مدمج ومخصص](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)                         |
+| **خادم MCP للذكاء الاصطناعي** | ❌ غير متوفر         | ✅ [خادم MCP جاهز](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)                   |
+| **مهارات الوكلاء (Skills)**   | ❌ غير متوفر         | ✅ [مهارات جاهزة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)                  |
+| **نظام CMS مرئي**             | Locize (خدمة مدفوعة) | ✅ [مجاني ومفتوح المصدر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) |
 
 ## الترجمة ونموذج Locize
 
@@ -249,8 +249,8 @@ export const Hero = () => {
 
 تتبنى Intlayer نهجاً مفتوحاً بالكامل:
 
-- أمر [`intlayer fill`](https://intlayer.org/ar/doc/concept/auto-fill) يتكفل بملء الترجمات الناقصة في الطرفية أو أدوات CI باستخدام مفاتيحك الخاصة من OpenAI أو Anthropic أو Mistral أو Gemini.
-- [نظام Intlayer CMS](https://intlayer.org/ar/doc/concept/cms) مفتوح المصدر ويمكن استضافته ذاتياً عبر Docker Compose.
+- أمر [`intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md) يتكفل بملء الترجمات الناقصة في الطرفية أو أدوات CI باستخدام مفاتيحك الخاصة من OpenAI أو Anthropic أو Mistral أو Gemini.
+- [نظام Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) مفتوح المصدر ويمكن استضافته ذاتياً عبر Docker Compose.
 - المترجم، والـ CLI، والمحرر، ونظام إدارة المحتوى جميعها مرخصة تحت رخصة Apache 2.0.
 
 ## متى تظل i18next خياراً ملائماً؟
@@ -303,9 +303,9 @@ bunx intlayer init --interactive
 
 للاطلاع على الخطوات التفصيلية، راجع أدلتنا المتخصصة:
 
-- **طبقات التوافق المباشر:** احتفظ بصيغ كودك السابقة عبر طبقات التوافق لـ [i18next](https://intlayer.org/ar/doc/compatibility/i18next)، و[react-i18next](https://intlayer.org/ar/doc/compatibility/react-i18next)، و[next-i18next](https://intlayer.org/ar/doc/compatibility/next-i18next).
-- **دليل تحويل الملفات:** حول ملفات JSON إلى قواميس معرفة الأنواع: [من i18next](https://intlayer.org/ar/doc/migration/i18next)، و[من react-i18next](https://intlayer.org/ar/doc/migration/react-i18next)، و[من next-i18next](https://intlayer.org/ar/doc/migration/next-i18next).
-- **الدمج التدريجي:** احتفظ بـ i18next في وقت التشغيل مع [استخدام Intlayer مع i18next](https://intlayer.org/ar/blog/intlayer-with-i18next) للحصول على أمان الأنواع والترجمة بالذكاء الاصطناعي محلياً.
+- **طبقات التوافق المباشر:** احتفظ بصيغ كودك السابقة عبر طبقات التوافق لـ [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/i18next.md)، و[react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-i18next.md)، و[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-i18next.md).
+- **دليل تحويل الملفات:** حول ملفات JSON إلى قواميس معرفة الأنواع: [من i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md)، و[من react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_react-i18next_to_intlayer.md)، و[من next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-i18next_to_intlayer.md).
+- **الدمج التدريجي:** احتفظ بـ i18next في وقت التشغيل مع [استخدام Intlayer مع i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_i18next.md) للحصول على أمان الأنواع والترجمة بالذكاء الاصطناعي محلياً.
 
 افحص موقعك وتأكد من نسبة التسريب عبر [ماسح SEO للتدويل المجاني](https://intlayer.org/i18n-seo-scanner):
 
@@ -313,7 +313,7 @@ bunx intlayer init --interactive
 
 ## مقالات مقترحة
 
-- [مقارنة أداء تدويل Next.js: فحص تفصيلي](https://intlayer.org/ar/doc/benchmark/nextjs)
-- [مقارنة react-i18next و react-intl و Intlayer](https://intlayer.org/ar/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [هل أصبحت مكتبة next-intl قديمة في 2026؟](https://intlayer.org/ar/blog/is-next-intl-outdated)
-- [التدويل القائم على المترجم في مواجهة الأسلوب التقليدي](https://intlayer.org/ar/blog/compiler-vs-declarative-i18n)
+- [مقارنة أداء تدويل Next.js: فحص تفصيلي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+- [مقارنة react-i18next و react-intl و Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/react-i18next_vs_react-intl_vs_intlayer.md)
+- [هل أصبحت مكتبة next-intl قديمة في 2026؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_next-intl_outdated.md)
+- [التدويل القائم على المترجم في مواجهة الأسلوب التقليدي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)

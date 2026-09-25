@@ -283,7 +283,7 @@ Intlayer-এর সাথে আপনার ডেভেলপমেন্ট �
 - অনুবাদিত কন্টেন্টের **Inline previews**।
 - সহজে অনুবাদ তৈরি এবং আপডেট করার জন্য **Quick actions**।
 
-এক্সটেনশনটি কীভাবে ব্যবহার করবেন সে সম্পর্কে আরও বিশদ বিবরণের জন্য, [Intlayer VS Code Extension ডকুমেন্টেশন](https://intlayer.org/doc/vs-code-extension) দেখুন।
+এক্সটেনশনটি কীভাবে ব্যবহার করবেন সে সম্পর্কে আরও বিশদ বিবরণের জন্য, [Intlayer VS Code Extension ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) দেখুন।
 
 ### Git কনফিগারেশন (Git Configuration)
 

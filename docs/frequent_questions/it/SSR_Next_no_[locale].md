@@ -24,7 +24,7 @@ author: aymericzip
 
 Sì, è possibile usare Intlayer con Next.js senza `[locale]` nel percorso della pagina. Tuttavia, non è consigliato farlo, perché suddividere la pagina permette di attivare più parole chiave sui motori di ricerca. Anche il tuo SSR potrebbe essere influenzato.
 
-Se vuoi farlo, segui gli stessi passaggi descritti nella guida [Intlayer con Next.js](https://intlayer.org/doc/environment/nextjs),
+Se vuoi farlo, segui gli stessi passaggi descritti nella guida [Intlayer con Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md),
 
 - nessun `src/middleware.ts`
 - nessun `generateStaticParams`

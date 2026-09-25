@@ -30,7 +30,7 @@ author: aymericzip
 
 `@intlayer/next-intl`, bir uyumluluk adaptörüdür: `next-intl` API'sini (`useTranslations`, `getTranslations`, `useLocale`, `t.rich()`, ICU plurals, `NextIntlClientProvider`...) kullanıma sunar ve bunu Intlayer tarafından derlenmiş sözlüklerden sunます. Uygulama kodu değişmez. Bundle değişir.
 
-Bu makale, aynı Next.js uygulamasında ikisini karşılaştırır: bir kez `next-intl` ile ve bir kez adaptör ile oluşturulmuş. Rakamlar [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)'dan gelir; bu, tarayıcının gerçekte ne indirdiğini kaydeden açık kaynak bir süittir. Eğer `next-intl` vs Intlayer karşılaştırmasını kütüphaneler olarak istiyorsanız, [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) okuyun. Bu makale adaptörün, bileşenlerinizi olduğu gibi tutarken neyi değiştirdiğiyle ilgilidir.
+Bu makale, aynı Next.js uygulamasında ikisini karşılaştırır: bir kez `next-intl` ile ve bir kez adaptör ile oluşturulmuş. Rakamlar [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)'dan gelir; bu, tarayıcının gerçekte ne indirdiğini kaydeden açık kaynak bir süittir. Eğer `next-intl` vs Intlayer karşılaştırmasını kütüphaneler olarak istiyorsanız, [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md) okuyun. Bu makale adaptörün, bileşenlerinizi olduğu gibi tutarken neyi değiştirdiğiyle ilgilidir.
 
 <TOC/>
 
@@ -142,7 +142,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tüm kütüphaneler ve stratejiler için tam tablo [Next.js benchmark raporunda](https://intlayer.org/tr/doc/benchmark/nextjs).
+> Tüm kütüphaneler ve stratejiler için tam tablo [Next.js benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md).
 
 ### TanStack Start üzerindeki sonuçlar (`use-intl`)
 
@@ -174,7 +174,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tam tablo [TanStack Start benchmark raporunda](https://intlayer.org/tr/doc/benchmark/tanstack).
+> Tam tablo [TanStack Start benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md).
 
 ## Sayılar neden hareket ediyor
 
@@ -326,7 +326,7 @@ Optimizasyon aşaması, hangi sözlüğün içe aktarılacağını bilmek için 
 </Accordion>
 <Accordion header="Sağlayıcıdaki messages, timeZone ve now yoksayılır">
 
-Biçimlendiriciler yerel `Intl` tarafından desteklenir ve yalnızca yerel ayar çıktılarını etkiler. Hidrasyon açısından kararlı tarihler için zorunlu bir saat dilimine veya sabit bir `now` değerine güveniyorsanız, bunu çağrı noktasında yönetin. [Tarih, saat ve sayı biçimlendirmesine](https://intlayer.org/tr/blog/date-time-number-formatting-locales) bakın.
+Biçimlendiriciler yerel `Intl` tarafından desteklenir ve yalnızca yerel ayar çıktılarını etkiler. Hidrasyon açısından kararlı tarihler için zorunlu bir saat dilimine veya sabit bir `now` değerine güveniyorsanız, bunu çağrı noktasında yönetin. [Tarih, saat ve sayı biçimlendirmesine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/date_time_number_formatting_locales.md) bakın.
 
 </Accordion>
 </AccordionGroup>
@@ -346,7 +346,7 @@ Bugün `next-intl` kullanıyorsanız ve kodları yeniden yazmadan paket boyutu, 
 </Accordion>
 <Accordion header="Doğrudan yerel kullanıma geçin (next-intlayer)">
 
-Yeni projeler için veya bağdaştırıcı görevini tamamladıktan sonra. Üçü arasında en hafif olanıdır (5.5 KB, sayfa başına +0.3 KB) ve senkron sunucu bileşenlerini, bileşen başına `.content.ts` dosyalarını ve eksiksiz özellik kümesini açar. [Next.js ile Intlayer](https://intlayer.org/tr/doc/environment/nextjs) ile başlayın.
+Yeni projeler için veya bağdaştırıcı görevini tamamladıktan sonra. Üçü arasında en hafif olanıdır (5.5 KB, sayfa başına +0.3 KB) ve senkron sunucu bileşenlerini, bileşen başına `.content.ts` dosyalarını ve eksiksiz özellik kümesini açar. [Next.js ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md) ile başlayın.
 
 </Accordion>
 </AccordionGroup>
@@ -363,7 +363,7 @@ Next.js'de bileşenler için evet: benchmark derlemesi yalnızca `next.config.ts
 
 <Question title="ICU mesajlarına ne olur?">
 
-Çalışmaya devam ederler. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` ve `{ts, date, long}` Intlayer'ın ICU çözümleyicisi tarafından işlenir. [ICU mesaj formatı](https://intlayer.org/tr/blog/icu-message-format) sayfasına bakın.
+Çalışmaya devam ederler. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` ve `{ts, date, long}` Intlayer'ın ICU çözümleyicisi tarafından işlenir. [ICU mesaj formatı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) sayfasına bakın.
 
 </Question>
 
@@ -391,23 +391,23 @@ Evet. Herhangi bir bileşen, yanına eklenen bir `.content.ts` ile `useTranslati
 
 Aynı bağdaştırıcı serisi:
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/tr/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/tr/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer-vue-i18n.md)
 
 Doğrudan karşılaştırılan kütüphaneler:
 
-- [next-intl vs Intlayer](https://intlayer.org/tr/blog/next-intl-vs-intlayer), aynı benchmark
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/tr/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Is next-intl outdated?](https://intlayer.org/tr/blog/is-next-intl-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md), aynı benchmark
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_next-intl_outdated.md)
 
 Referans belgeler:
 
-- [Compat adapter: next-intl](https://intlayer.org/tr/doc/compatibility/next-intl)
-- [Geçiş kılavuzu: next-intl'den Intlayer'a](https://intlayer.org/tr/doc/migration/next-intl)
-- [Next.js benchmark raporu](https://intlayer.org/tr/doc/benchmark/nextjs) ve [TanStack Start benchmark raporu](https://intlayer.org/tr/doc/benchmark/tanstack)
-- [Paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization) ve [Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler)
-- [Görsel Düzenleyici](https://intlayer.org/tr/doc/concept/editor), [CMS](https://intlayer.org/tr/doc/concept/cms) ve [Yapay Zeka Çevirisi](https://intlayer.org/tr/doc/concept/auto-fill)
+- [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-intl.md)
+- [Geçiş kılavuzu: next-intl'den Intlayer'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md)
+- [Next.js benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) ve [TanStack Start benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+- [Paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) ve [Yapay Zeka Çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md)
 
 ## Sonuç
 
@@ -415,4 +415,4 @@ Referans belgeler:
 
 Tüm ham veriler, test uygulamaları ve scriptler [Benchmark Bloom deposunda](https://github.com/intlayer-org/benchmark-bloom) bulunmaktadır. Kendiniz çalıştırın.
 
-Daha fazla detay için ['Why Intlayer?' dokümantasyonuna](https://intlayer.org/doc/why) başvurun.
+Daha fazla detay için ['Why Intlayer?' dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) başvurun.

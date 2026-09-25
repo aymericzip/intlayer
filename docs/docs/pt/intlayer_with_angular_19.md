@@ -464,7 +464,7 @@ Esta extensão oferece:
 - **Prévias inline** do conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
 
 ### Indo Mais Longe
 
@@ -478,7 +478,7 @@ Para ir mais longe, você pode implementar o [editor visual](https://github.com/
 
 - **`@angular/localize`**, a solução nativa de i18n: as mensagens são extraídas para XLIFF e cada locale é compilado em seu próprio build, gerando um artefato de implantação separado por idioma e impedindo a troca dinâmica de idiomas em tempo de execução sem recarregar a aplicação.
 - **`ngx-translate`** e **`Transloco`**: catálogos JSON carregados via serviço em tempo de execução, com suporte à troca de idiomas dinâmica, mas sem verificação de tipos em tempo de compilação.
-- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)) e compilado em tempo de build, totalmente tipado, com troca de idioma em tempo de execução, tradução por IA, editor visual e CMS.
+- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)) e compilado em tempo de build, totalmente tipado, com troca de idioma em tempo de execução, tradução por IA, editor visual e CMS.
 
 Este guia cobre o Angular 19. Para Angular 21 e versões posteriores, siga o [guia do Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_angular_21.md). Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md).
 

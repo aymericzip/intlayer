@@ -206,7 +206,7 @@ pnpm intlayer-editor start -e development
 
 - Визуальный редактор и приложение работают.
 
-- Конфигурация [`editor`](https://intlayer.org/ru/doc/concept/configuration#editor-configuration) правильно настроена в вашем файле конфигурации Intlayer.
+- Конфигурация [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#editor-configuration) правильно настроена в вашем файле конфигурации Intlayer.
   - Обязательные поля:
     - URL приложения должен совпадать с тем, который вы указали в конфигурации редактора (`applicationURL`).
 

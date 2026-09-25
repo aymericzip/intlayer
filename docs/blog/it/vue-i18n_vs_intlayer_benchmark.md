@@ -23,7 +23,7 @@ author: aymericzip
 
 # vue-i18n VS Intlayer | Benchmark di internazionalizzazione (i18n) per Vue
 
-`vue-i18n` è la libreria i18n di riferimento per Vue. Intlayer è un'alternativa basata su compilatore, con contenuti a scope di componente, con un'integrazione Vue (`vue-intlayer`). Abbiamo già confrontato le loro [funzionalità e developer experience](https://intlayer.org/blog/vue-i18n-vs-intlayer). Questo articolo guarda a quanto costa ciascuna una volta che l'app è compilata.
+`vue-i18n` è la libreria i18n di riferimento per Vue. Intlayer è un'alternativa basata su compilatore, con contenuti a scope di componente, con un'integrazione Vue (`vue-intlayer`). Abbiamo già confrontato le loro [funzionalità e developer experience](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/vue-i18n_vs_intlayer.md). Questo articolo guarda a quanto costa ciascuna una volta che l'app è compilata.
 
 I dati provengono da [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), una suite open-source che compila la stessa applicazione con ogni libreria e registra ciò che il browser scarica ed esegue davvero.
 
@@ -140,7 +140,7 @@ Intlayer sposta quella conoscenza nella build. Il contenuto è dichiarato accant
 
 Il compilatore emette, per dizionario e per locale, esattamente il JSON di cui quel componente ha bisogno, ed elimina i dizionari che nessuno importa. Lo scope per route è una conseguenza dello scope per componente, non un compito.
 
-> Per eliminare anche le locale inutilizzate, impostate `dictionary.importMode: 'dynamic'` in `intlayer.config.ts`. Vedi la [doc sull'ottimizzazione del bundle](https://intlayer.org/doc/concept/bundle-optimization).
+> Per eliminare anche le locale inutilizzate, impostate `dictionary.importMode: 'dynamic'` in `intlayer.config.ts`. Vedi la [doc sull'ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md).
 
 ## Developer experience
 
@@ -328,7 +328,7 @@ export default defineConfig({
 
 Nel benchmark, la build compat della stessa app è passata da **134,9 KB a 47,0 KB** per pagina e da **196 KB a 8,4 KB** per componente, con i componenti intatti. I vostri `locales/{locale}.json` esistenti possono restare la fonte di verità tramite il plugin di sincronizzazione JSON.
 
-Vedi la [guida di migrazione da vue-i18n](https://intlayer.org/doc/migration/vue-i18n) e la [doc di compatibilità](https://intlayer.org/doc/compatibility/vue-i18n). Gli utenti Nuxt hanno lo stesso percorso tramite la [compatibilità `@nuxtjs/i18n`](https://intlayer.org/doc/compatibility/nuxtjs-i18n).
+Vedi la [guida di migrazione da vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_vue-i18n_to_intlayer.md) e la [doc di compatibilità](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/vue-i18n.md). Gli utenti Nuxt hanno lo stesso percorso tramite la [compatibilità `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/nuxtjs-i18n.md).
 
 ## Quando scegliere quale?
 
@@ -338,11 +338,11 @@ Vedi la [guida di migrazione da vue-i18n](https://intlayer.org/doc/migration/vue
 
 ## Confronti correlati
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (stesso benchmark)
-- [i18next vs Intlayer](https://intlayer.org/blog/i18next-vs-intlayer) (stesso benchmark)
-- [Lingui vs Intlayer](https://intlayer.org/blog/lingui-vs-intlayer) (stesso benchmark)
-- [vue-i18n vs Intlayer (funzionalità e DX)](https://intlayer.org/blog/vue-i18n-vs-intlayer)
-- [vue-i18n è obsoleto?](https://intlayer.org/blog/is-vue-i18n-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/next-intl_vs_intlayer.md) (stesso benchmark)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/i18next_vs_intlayer.md) (stesso benchmark)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/lingui_vs_intlayer.md) (stesso benchmark)
+- [vue-i18n vs Intlayer (funzionalità e DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/vue-i18n_vs_intlayer.md)
+- [vue-i18n è obsoleto?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/is_vue-i18n_outdated.md)
 
 ## Stelle GitHub
 
@@ -358,4 +358,4 @@ Intlayer sposta il lavoro nel compilatore. I dizionari per componente e la purge
 
 Tutti i dati grezzi, le app di test e gli script sono nel [repository Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Eseguitelo voi stessi.
 
-Consultate la [doc "Perché Intlayer?"](https://intlayer.org/doc/why) per maggiori dettagli.
+Consultate la [doc "Perché Intlayer?"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/interest_of_intlayer.md) per maggiori dettagli.

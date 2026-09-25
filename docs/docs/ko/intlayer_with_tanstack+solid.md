@@ -1161,7 +1161,7 @@ Intlayer 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확�
 - 번역된 콘텐츠의 **인라인 미리보기**
 - 번역을 쉽게 만들고 업데이트할 수 있는 **빠른 작업**
 
-확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
 
 ## 더 나아가기
 
@@ -1187,7 +1187,7 @@ TanStack Start는 자체 i18n 레이어를 제공하지 않으며, Solid 생태�
 - **`@solid-primitives/i18n`**: 직접 조립하고 라우터에 수동으로 연결해야 하는 평면 사전입니다.
 - **`i18next`**(Solid 래퍼 포함): 성숙한 카탈로그이지만 TanStack 라우터, `head` 함수 또는 사전 렌더링 패스와의 통합이 없습니다.
 - **`Paraglide`**: 메시지 계층에만 초점을 맞춘 컴파일된 메시지 라이브러리입니다.
-- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)), 빌드 타임에 컴파일되고, 로케일 인식 라우팅, 사이트맵 생성, AI 번역, 비주얼 에디터 및 CMS를 제공합니다.
+- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)), 빌드 타임에 컴파일되고, 로케일 인식 라우팅, 사이트맵 생성, AI 번역, 비주얼 에디터 및 CMS를 제공합니다.
 
 [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)와 [TanStack Start i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)를 참조하세요.
 

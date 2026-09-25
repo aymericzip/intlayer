@@ -23,7 +23,7 @@ author: aymericzip
 
 # vue-i18n VS Intlayer | Vue Uluslararasılaştırma (i18n) Benchmark'ı
 
-`vue-i18n`, Vue için referans i18n kütüphanesidir. Intlayer ise derleyici tabanlı, bileşen kapsamlı bir alternatiftir ve bir Vue entegrasyonu (`vue-intlayer`) sunar. [Özelliklerini ve geliştirici deneyimlerini](https://intlayer.org/blog/vue-i18n-vs-intlayer) zaten karşılaştırmıştık. Bu yazı, uygulama derlendikten sonra her birinin neye mal olduğuna bakıyor.
+`vue-i18n`, Vue için referans i18n kütüphanesidir. Intlayer ise derleyici tabanlı, bileşen kapsamlı bir alternatiftir ve bir Vue entegrasyonu (`vue-intlayer`) sunar. [Özelliklerini ve geliştirici deneyimlerini](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md) zaten karşılaştırmıştık. Bu yazı, uygulama derlendikten sonra her birinin neye mal olduğuna bakıyor.
 
 Veriler, her kütüphaneyle aynı uygulamayı derleyen ve tarayıcının gerçekte ne indirip çalıştırdığını kaydeden açık kaynaklı bir paket olan [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)'dan geliyor.
 
@@ -140,7 +140,7 @@ Intlayer bu bilgiyi derlemeye taşır. İçerik bileşenin yanında bildirilir v
 
 Derleyici, sözlük ve locale başına, o bileşenin ihtiyaç duyduğu JSON'u tam olarak üretir ve hiçbir şeyin içe aktarmadığı sözlükleri atar. Rota başına kapsamlandırma, bileşen başına kapsamlandırmanın bir sonucudur, bir görev değil.
 
-> Kullanılmayan locale'leri de atmak için `intlayer.config.ts` içinde `dictionary.importMode: 'dynamic'` ayarlayın. [Bundle optimizasyonu dokümanına](https://intlayer.org/doc/concept/bundle-optimization) bakın.
+> Kullanılmayan locale'leri de atmak için `intlayer.config.ts` içinde `dictionary.importMode: 'dynamic'` ayarlayın. [Bundle optimizasyonu dokümanına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) bakın.
 
 ## Geliştirici deneyimi
 
@@ -328,7 +328,7 @@ export default defineConfig({
 
 Benchmark'ta aynı uygulamanın compat derlemesi, bileşenlere dokunulmadan sayfa başına **134,9 KB'dan 47,0 KB'a** ve bileşen başına **196 KB'dan 8,4 KB'a** düştü. Mevcut `locales/{locale}.json` dosyalarınız JSON senkronizasyon eklentisi aracılığıyla doğruluk kaynağı olarak kalabilir.
 
-[vue-i18n geçiş rehberine](https://intlayer.org/doc/migration/vue-i18n) ve [uyumluluk dokümanına](https://intlayer.org/doc/compatibility/vue-i18n) bakın. Nuxt kullanıcıları [`@nuxtjs/i18n` uyumluluğu](https://intlayer.org/doc/compatibility/nuxtjs-i18n) üzerinden aynı yola sahiptir.
+[vue-i18n geçiş rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_vue-i18n_to_intlayer.md) ve [uyumluluk dokümanına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) bakın. Nuxt kullanıcıları [`@nuxtjs/i18n` uyumluluğu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md) üzerinden aynı yola sahiptir.
 
 ## Hangisini ne zaman seçmeli?
 
@@ -338,11 +338,11 @@ Benchmark'ta aynı uygulamanın compat derlemesi, bileşenlere dokunulmadan sayf
 
 ## İlgili karşılaştırmalar
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (aynı benchmark)
-- [i18next vs Intlayer](https://intlayer.org/blog/i18next-vs-intlayer) (aynı benchmark)
-- [Lingui vs Intlayer](https://intlayer.org/blog/lingui-vs-intlayer) (aynı benchmark)
-- [vue-i18n vs Intlayer (özellikler ve DX)](https://intlayer.org/blog/vue-i18n-vs-intlayer)
-- [vue-i18n eskidi mi?](https://intlayer.org/blog/is-vue-i18n-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md) (aynı benchmark)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer.md) (aynı benchmark)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md) (aynı benchmark)
+- [vue-i18n vs Intlayer (özellikler ve DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md)
+- [vue-i18n eskidi mi?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_vue-i18n_outdated.md)
 
 ## GitHub Yıldızları
 
@@ -358,4 +358,4 @@ Intlayer işi derleyiciye taşır. Bileşen başına sözlükler ve ölü içeri
 
 Tüm ham veriler, test uygulamaları ve script'ler [Benchmark Bloom deposunda](https://github.com/intlayer-org/benchmark-bloom). Kendiniz çalıştırın.
 
-Daha fazla ayrıntı için ['Neden Intlayer?' dokümanına](https://intlayer.org/doc/why) bakın.
+Daha fazla ayrıntı için ['Neden Intlayer?' dokümanına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) bakın.

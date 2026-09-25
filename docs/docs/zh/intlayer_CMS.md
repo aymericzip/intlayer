@@ -416,7 +416,7 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 - 应用程序正在运行。
 
-- [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) 配置在您的 Intlayer 配置文件中设置正确。
+- [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#editor-configuration) 配置在您的 Intlayer 配置文件中设置正确。
   - 必需字段：
     - 应用程序 URL 应该与您在编辑器配置中设置的 URL 相匹配（`applicationURL`）。
     - CMS URL

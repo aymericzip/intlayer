@@ -392,7 +392,7 @@ export const getLocale = (event: RequestEvent): Locale => {
 };
 ```
 
-> `getLocaleFromStorage` akan memeriksa locale dari header atau cookie tergantung pada konfigurasi Anda. Lihat [Configuration](https://intlayer.org/doc/concept/configuration) untuk detail lebih lanjut.
+> `getLocaleFromStorage` akan memeriksa locale dari header atau cookie tergantung pada konfigurasi Anda. Lihat [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) untuk detail lebih lanjut.
 
 > Fungsi `localeDetector` akan memproses header `Accept-Language` dan mengembalikan kecocokan terbaik.
 

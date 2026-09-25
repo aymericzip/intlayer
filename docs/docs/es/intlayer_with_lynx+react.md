@@ -467,7 +467,7 @@ Esta extensión ofrece:
 - **Detección de errores en tiempo real** para traducciones faltantes.
 - **Previsualizaciones en línea** del contenido traducido.
 - **Acciones rápidas** para crear y actualizar traducciones fácilmente.
-  Para más detalles sobre cómo usar la extensión, consulta la [documentación de la extensión Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+  Para más detalles sobre cómo usar la extensión, consulta la [documentación de la extensión Intlayer para VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/vs_code_extension.md).
 
 ## Para profundizar
 

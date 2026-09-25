@@ -266,7 +266,7 @@ Intlayer 개발 환경을 개선하려면 공식 **Intlayer VS Code Extension**�
 - 번역된 콘텐츠의 **인라인 미리 보기**.
 - 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
 
-확장 프로그램 사용에 대한 자세한 내용은 [Intlayer VS Code Extension 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+확장 프로그램 사용에 대한 자세한 내용은 [Intlayer VS Code Extension 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
 
 ### Git 구성
 

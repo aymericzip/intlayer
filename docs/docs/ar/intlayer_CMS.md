@@ -419,7 +419,7 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 - التطبيق يعمل.
 
-- تم إعداد تكوين [`المحرر`](https://intlayer.org/doc/concept/configuration#editor-configuration) بشكل صحيح في ملف تكوين Intlayer الخاص بك.
+- تم إعداد تكوين [`المحرر`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#editor-configuration) بشكل صحيح في ملف تكوين Intlayer الخاص بك.
   - الحقول المطلوبة:
     - يجب أن يتطابق عنوان URL الخاص بالتطبيق مع العنوان الذي قمت بتعيينه في تكوين المحرر (`applicationURL`).
     - عنوان URL الخاص بنظام إدارة المحتوى (CMS)

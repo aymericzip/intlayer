@@ -1299,4 +1299,4 @@ Les trois bibliothèques réussissent la localisation de base. La différence r�
 - Avec **Intlayer**, le **contenu modulaire**, **TypeScript strict**, **la sécurité à la compilation**, **les bundles optimisés par tree-shaking**, et **un App Router de première classe avec des outils SEO** sont des **paramètres par défaut**, et non des corvées.
 - Si votre équipe valorise la **maintenabilité et la rapidité** dans une application multi-langues pilotée par composants, Intlayer offre aujourd’hui l’expérience la **plus complète**.
 
-Consultez la documentation ['Pourquoi Intlayer ?'](https://intlayer.org/doc/why) pour plus de détails.
+Consultez la documentation ['Pourquoi Intlayer ?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/interest_of_intlayer.md) pour plus de détails.

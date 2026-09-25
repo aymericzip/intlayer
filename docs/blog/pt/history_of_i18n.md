@@ -300,5 +300,5 @@ Para comparações arquiteturais aprofundadas e roteiros práticos de migração
 
 - [Compilador vs. i18n Declarativa](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/compiler_vs_declarative_i18n.md)
 - [i18n por Componente vs. Centralizada](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)
-- [Desempenho e Benchmarks](https://intlayer.org/doc/benchmark)
-- [Adaptadores de Compatibilidade do Intlayer](https://intlayer.org/doc/concept/compatibility)
+- [Desempenho e Benchmarks](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md)
+- [Adaptadores de Compatibilidade do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/index.md)

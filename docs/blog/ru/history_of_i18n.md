@@ -300,5 +300,5 @@ Intlayer предлагает подход, выходящий за рамки �
 
 - [Компиляторный подход против декларативной i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md)
 - [i18n на уровне компонентов против централизованной](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/per-component_vs_centralized_i18n.md)
-- [Производительность и бенчмарки](https://intlayer.org/doc/benchmark)
-- [Адаптеры совместимости Intlayer](https://intlayer.org/doc/concept/compatibility)
+- [Производительность и бенчмарки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md)
+- [Адаптеры совместимости Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/index.md)

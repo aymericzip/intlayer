@@ -1238,7 +1238,7 @@ Intlayer 使用模块扩展以获得 TypeScript 的好处并使你的 codebase �
 - **内联预览**已翻译的内容。
 - **快速操作**轻松创建和更新翻译。
 
-有关如何使用扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+有关如何使用扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
 ## 更进一步
 
@@ -1264,7 +1264,7 @@ TanStack Start 本身没有自带的 i18n 层，因此需要选择第三方库�
 - **`i18next` / `react-i18next`** 与 **`react-intl`**：与框架解耦的消息目录，需要手动接入路由。
 - **`Lingui`**：带有编译步骤的 ICU 消息方案。
 - **`Paraglide`**：编译型消息方案，仅专注于消息层。
-- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），在构建时编译，具备类型安全键、支持语言环境的路由、站点地图生成、AI 翻译、可视化编辑器和 CMS。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），在构建时编译，具备类型安全键、支持语言环境的路由、站点地图生成、AI 翻译、可视化编辑器和 CMS。
 
 在 TanStack Start 上，关键差异在于路由与服务端渲染支持。Intlayer 深度集成了基于文件的路由器、`head` 函数以及预渲染流程，免去了您手动组装 Provider、语言检测器和站点地图的繁琐工作。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [TanStack Start i18n 性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。
 

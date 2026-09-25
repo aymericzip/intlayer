@@ -81,7 +81,7 @@ height="600px"
 style="border:none;"
 />
 
-> 在真实浏览器中开启 gzip 压缩环境下测试。完整数据见 [Vue 基准测试文档](https://intlayer.org/zh/doc/benchmark/vue)。
+> 在真实浏览器中开启 gzip 压缩环境下测试。完整数据见 [Vue 基准测试文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)。
 
 ### 库本身的基础体积
 
@@ -171,7 +171,7 @@ const { title } = useIntlayer("hero");
   </Tab>
 </Tabs>
 
-[Intlayer 编译器](https://intlayer.org/zh/doc/compiler)能够准确识别访问了哪些属性，在生成客户端 bundle 之前剔除无用字段。具体解析请查阅[打包优化](https://intlayer.org/zh/doc/concept/bundle-optimization)。
+[Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)能够准确识别访问了哪些属性，在生成客户端 bundle 之前剔除无用字段。具体解析请查阅[打包优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
 
 ## 开发者体验对比
 
@@ -248,17 +248,17 @@ const { title } = useIntlayer("hero");
 
 `DefineLocaleMessage` 能带来基于基准模式的代码补全，但无法验证多语言翻译的完备性。即使 `zh.json` 中遗漏了键，TypeScript 也不会阻止编译。
 
-在 Intlayer 中，多语言数据遵循严格校验机制。开启 [`strictMode`](https://intlayer.org/zh/doc/concept/configuration) 后，只要任意语言存在未翻译词条，构建流程便会即刻报错中断。
+在 Intlayer 中，多语言数据遵循严格校验机制。开启 [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 后，只要任意语言存在未翻译词条，构建流程便会即刻报错中断。
 
 ### IDE 与 AI 辅助工具
 
-| 功能特性                  | `vue-i18n`             | Intlayer                                                         |
-| ------------------------- | ---------------------- | ---------------------------------------------------------------- |
-| **VS Code 扩展**          | 第三方插件 (i18n Ally) | ✅ [官方专属插件](https://intlayer.org/zh/doc/vs-code-extension) |
-| **Language Server (LSP)** | ❌ 无                  | ✅ [专属 LSP 服务](https://intlayer.org/zh/doc/lsp)              |
-| **AI MCP Server**         | ❌ 无                  | ✅ [内置 MCP Server](https://intlayer.org/zh/doc/mcp-server)     |
-| **AI Agent Skills**       | ❌ 无                  | ✅ [开箱即用 Skills](https://intlayer.org/zh/doc/agent_skills)   |
-| **可视化上下文 CMS**      | ❌ 无                  | ✅ [免费开源 CMS](https://intlayer.org/zh/doc/concept/editor)    |
+| 功能特性                  | `vue-i18n`             | Intlayer                                                                                                   |
+| ------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **VS Code 扩展**          | 第三方插件 (i18n Ally) | ✅ [官方专属插件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)      |
+| **Language Server (LSP)** | ❌ 无                  | ✅ [专属 LSP 服务](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)                   |
+| **AI MCP Server**         | ❌ 无                  | ✅ [内置 MCP Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)          |
+| **AI Agent Skills**       | ❌ 无                  | ✅ [开箱即用 Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)        |
+| **可视化上下文 CMS**      | ❌ 无                  | ✅ [免费开源 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) |
 
 ## 翻译流水线
 
@@ -272,7 +272,7 @@ Intlayer 提供了开箱即用的闭环工作流：
 
 **自主托管的可视化 CMS：**
 
-集成 [Intlayer CMS](https://intlayer.org/zh/doc/concept/cms)，方便非技术人员直观修改文案，并直接以 Git 提交的形式落盘。
+集成 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)，方便非技术人员直观修改文案，并直接以 Git 提交的形式落盘。
 
 **开源宽松授权：**
 
@@ -328,9 +328,9 @@ bunx intlayer init --interactive
 
 更多详细步骤请参考我们的专题文档：
 
-- **平滑兼容层：** 使用 [`vue-i18n` 兼容层](https://intlayer.org/zh/doc/compatibility/vue-i18n) 或 [`@nuxtjs/i18n` 兼容层](https://intlayer.org/zh/doc/compatibility/nuxtjs-i18n)，即可在保留旧有模板语法的同时享受现代构建优化。
-- **迁移指南参考：** 查阅迁移手册逐步将 JSON 转换为类型安全的字典配置：[从 vue-i18n 迁移](https://intlayer.org/zh/doc/migration/vue-i18n)、[从 @nuxtjs/i18n 迁移](https://intlayer.org/zh/doc/migration/nuxtjs-i18n)。
-- **混合使用方案：** 你也可以在运行时维持 `vue-i18n`，仅[将 Intlayer 与 vue-i18n 搭配使用](https://intlayer.org/zh/blog/intlayer-with-vue-i18n)，以低成本引入严格类型检查和本地 AI 翻译。
+- **平滑兼容层：** 使用 [`vue-i18n` 兼容层](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) 或 [`@nuxtjs/i18n` 兼容层](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)，即可在保留旧有模板语法的同时享受现代构建优化。
+- **迁移指南参考：** 查阅迁移手册逐步将 JSON 转换为类型安全的字典配置：[从 vue-i18n 迁移](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md)、[从 @nuxtjs/i18n 迁移](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_nuxtjs_i18n_to_intlayer.md)。
+- **混合使用方案：** 你也可以在运行时维持 `vue-i18n`，仅[将 Intlayer 与 vue-i18n 搭配使用](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_vue-i18n.md)，以低成本引入严格类型检查和本地 AI 翻译。
 
 使用免费的 [i18n SEO 分析器](https://intlayer.org/i18n-seo-scanner) 测量你当前应用的实际打包体积和内容泄漏情况：
 
@@ -338,7 +338,7 @@ bunx intlayer init --interactive
 
 ## 相关阅读
 
-- [Vue & Vite i18n 性能评测：深度对比报告](https://intlayer.org/zh/doc/benchmark/vue)
-- [vue-i18n 与 Intlayer 全方位对比](https://intlayer.org/zh/blog/vue-i18n-vs-intlayer)
-- [2026 年，next-intl 已经过时了吗？](https://intlayer.org/zh/blog/is-next-intl-outdated)
-- [编译型国际化与声明式架构优势剖析](https://intlayer.org/zh/blog/compiler-vs-declarative-i18n)
+- [Vue & Vite i18n 性能评测：深度对比报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
+- [vue-i18n 与 Intlayer 全方位对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md)
+- [2026 年，next-intl 已经过时了吗？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_next-intl_outdated.md)
+- [编译型国际化与声明式架构优势剖析](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)

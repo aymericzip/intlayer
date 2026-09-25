@@ -132,7 +132,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tüm kütüphaneler ve her strateji için tam tablo [Next.js kıyaslama raporunda](https://intlayer.org/tr/doc/benchmark/nextjs).
+> Tüm kütüphaneler ve her strateji için tam tablo [Next.js kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md).
 
 ### TanStack Start Sonuçları (`react-i18next`)
 
@@ -163,7 +163,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tam tablo [TanStack Start kıyaslama raporunda](https://intlayer.org/tr/doc/benchmark/tanstack).
+> Tam tablo [TanStack Start kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md).
 
 ## Fark Nereden Kaynaklanıyor? Global Örnek vs Derlenmiş Sözlükler
 
@@ -219,7 +219,7 @@ Intlayer global örneği tamamen ortadan kaldırır. İçerik doğrudan bileşen
 
 `@intlayer/swc` / `@intlayer/babel` hangi bileşenin hangi sözlüğü kullandığını tespit eder, yalnızca bunları ve yalnızca aktif dil için paketler, kullanılmayan içerikleri eler. "scoped-dynamic" kalıbı, ekibin yönetmek zorunda olduğu bir kural yerine derlemenin otomatik bir çıktısı haline gelir.
 
-> `dynamic` satırındaki rakamları elde etmek için `intlayer.config.ts` dosyasında `dictionary.importMode: 'dynamic'` ayarını yapmanız yeterlidir. Ayrıntılar için [paket optimizasyonu kılavuzuna](https://intlayer.org/tr/doc/concept/bundle-optimization) bakın.
+> `dynamic` satırındaki rakamları elde etmek için `intlayer.config.ts` dosyasında `dictionary.importMode: 'dynamic'` ayarını yapmanız yeterlidir. Ayrıntılar için [paket optimizasyonu kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) bakın.
 
 ## Geliştirici Deneyimi (DX)
 
@@ -458,7 +458,7 @@ export default defineConfig({
 
 Benchmark testinde, aynı Next.js uygulamasının uyumluluk derlemesi kodlara dokunulmadan sayfa başına **218.5 KB'tan 150.7 KB'a**, bileşen başına **78.5 KB'tan 9.7 KB'a**, sayfa sızıntısı **~%90'dan %0'a** gerilemiş ve hidrasyon süresi 15.6 ms'den 11.3 ms'ye düşmüştür. Mevcut `locales/{lng}/{ns}.json` dosyalarınız JSON senkronizasyon eklentisi sayesinde ana kaynak olarak kalabilir.
 
-Geçiş kılavuzlarına göz atın: [i18next](https://intlayer.org/tr/doc/migration/i18next), [react-i18next](https://intlayer.org/tr/doc/migration/react-i18next), [next-i18next](https://intlayer.org/tr/doc/migration/next-i18next).
+Geçiş kılavuzlarına göz atın: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-i18next_to_intlayer.md).
 
 ## Hangisini Ne Zaman Seçmeli?
 
@@ -470,12 +470,12 @@ Geniş eklenti ekosistemine (özel algılayıcılar, arka uçlar, ICU, Locize) k
 </Accordion>
 <Accordion header="Intlayer'ı Seçin">
 
-**Bileşen düzeyinde içerik**, **katı TypeScript**, **derleme zamanı eksik anahtar hataları**, **zahmetsiz tree-shaking ve lazy loading**, anında dil değişimi, eşzamanlı sunucu bileşenleri ve yerleşik düzenleme araçları ([Görsel Düzenleyici](https://intlayer.org/tr/doc/concept/editor), [CMS](https://intlayer.org/tr/doc/concept/cms), [Yapay Zeka Çevirisi](https://intlayer.org/tr/doc/concept/auto-fill), [MCP Sunucusu](https://intlayer.org/tr/doc/mcp-server)) istiyorsanız. Özellikle büyük, modüler kod tabanları ve tasarım sistemleri için uygundur.
+**Bileşen düzeyinde içerik**, **katı TypeScript**, **derleme zamanı eksik anahtar hataları**, **zahmetsiz tree-shaking ve lazy loading**, anında dil değişimi, eşzamanlı sunucu bileşenleri ve yerleşik düzenleme araçları ([Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md), [Yapay Zeka Çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md), [MCP Sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)) istiyorsanız. Özellikle büyük, modüler kod tabanları ve tasarım sistemleri için uygundur.
 
 </Accordion>
 <Accordion header="@intlayer/*-i18next Adaptörlerini Seçin">
 
-Zaten i18next kullanıyorsanız ve bileşenleri yeniden yazmadan paket ve tepkisellik kazanımlarını elde etmek istiyorsanız. `locales/{lng}/{ns}.json` dosyalarınız gerçek kaynak olarak kalır. [i18next vs @intlayer/i18next](https://intlayer.org/tr/blog/i18next-vs-intlayer-i18next) makalesinde yan yana ölçülmüştür.
+Zaten i18next kullanıyorsanız ve bileşenleri yeniden yazmadan paket ve tepkisellik kazanımlarını elde etmek istiyorsanız. `locales/{lng}/{ns}.json` dosyalarınız gerçek kaynak olarak kalır. [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer-i18next.md) makalesinde yan yana ölçülmüştür.
 
 </Accordion>
 </AccordionGroup>
@@ -498,19 +498,19 @@ Baytları çözer, gecikmeyi çözmez. `i18next-resources-to-backend`e geçmek s
 
 <Question title="i18next ile %0 içerik sızıntısına ulaşabilir miyim?">
 
-Evet, `scoped-dynamic` ile: rota başına bir namespace, bir kaynak backend'i ve elle tuttuğunuz bir sayfa-namespace haritası. Next.js'te sayfa başına 163.4 KB'a ulaşır; bu da hiçbir yapılandırma gerektirmeyen Intlayer'ın 141.3 KB değerinden hala **+22 KB** fazladır. Bkz. [paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization).
+Evet, `scoped-dynamic` ile: rota başına bir namespace, bir kaynak backend'i ve elle tuttuğunuz bir sayfa-namespace haritası. Next.js'te sayfa başına 163.4 KB'a ulaşır; bu da hiçbir yapılandırma gerektirmeyen Intlayer'ın 141.3 KB değerinden hala **+22 KB** fazladır. Bkz. [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md).
 
 </Question>
 
 <Question title="Geçiş yapmak için bileşenlerimi yeniden yazmam gerekir mi?">
 
-Hayır. `@intlayer/i18next`, `@intlayer/react-i18next` ve `@intlayer/next-i18next`; `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, `_one` / `_other` çoğulları, bağlam son ekleri ve `returnObjects`i korur. `next.config.ts` veya `vite.config.ts` içine tek bir eklenti satırı yeterlidir. [next-i18next geçiş kılavuzunda](https://intlayer.org/tr/doc/migration/next-i18next) adım adım anlatılmıştır.
+Hayır. `@intlayer/i18next`, `@intlayer/react-i18next` ve `@intlayer/next-i18next`; `useTranslation`, `t()`, `<Trans>`, `{{interpolation}}`, `_one` / `_other` çoğulları, bağlam son ekleri ve `returnObjects`i korur. `next.config.ts` veya `vite.config.ts` içine tek bir eklenti satırı yeterlidir. [next-i18next geçiş kılavuzunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-i18next_to_intlayer.md) adım adım anlatılmıştır.
 
 </Question>
 
 <Question title="i18next eklentilerime ne olur?">
 
-Backend'ler ve dil algılayıcılar kabul edilir ancak devre dışı kalır: çalışma zamanında yüklenecek veya algılanacak hiçbir şey kalmaz. Dil algılama, Intlayer'ın yönlendirme yapılandırmasına dönüşür (URL öneki, çerez, başlık). Uygulamanız istek anında bir CMS'den çevirileri alıyorsa, bunun yerine [Intlayer CMS](https://intlayer.org/tr/doc/concept/cms) veya `intlayer pull` / `push` kullanın.
+Backend'ler ve dil algılayıcılar kabul edilir ancak devre dışı kalır: çalışma zamanında yüklenecek veya algılanacak hiçbir şey kalmaz. Dil algılama, Intlayer'ın yönlendirme yapılandırmasına dönüşür (URL öneki, çerez, başlık). Uygulamanız istek anında bir CMS'den çevirileri alıyorsa, bunun yerine [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) veya `intlayer pull` / `push` kullanın.
 
 </Question>
 
@@ -520,27 +520,27 @@ Backend'ler ve dil algılayıcılar kabul edilir ancak devre dışı kalır: ça
 
 Aynı kıyaslama, diğer kütüphaneler:
 
-- [next-intl vs Intlayer](https://intlayer.org/tr/blog/next-intl-vs-intlayer)
-- [Lingui vs Intlayer](https://intlayer.org/tr/blog/lingui-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/tr/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/tr/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/react-i18next_vs_react-intl_vs_intlayer.md)
 
 i18next hakkında daha fazlası:
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/tr/blog/i18next-vs-intlayer-i18next), aynı uygulamada ölçülen adaptörler
-- [i18next modası geçti mi?](https://intlayer.org/tr/blog/is-i18next-outdated)
-- [i18next ile Intlayer Kullanımı](https://intlayer.org/tr/blog/intlayer-with-i18next) ve [react-i18next ile](https://intlayer.org/tr/blog/intlayer-with-react-i18next)
-- [next-i18next ile bir Next.js uygulamasını uluslararasılaştırma](https://intlayer.org/tr/blog/nextjs-internationalization-using-next-i18next)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer-i18next.md), aynı uygulamada ölçülen adaptörler
+- [i18next modası geçti mi?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_i18next_outdated.md)
+- [i18next ile Intlayer Kullanımı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/intlayer_with_i18next.md) ve [react-i18next ile](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/intlayer_with_react-i18next.md)
+- [next-i18next ile bir Next.js uygulamasını uluslararasılaştırma](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-i18next.md)
 
 Referans belgeleri:
 
-- [Next.js kıyaslama raporu](https://intlayer.org/tr/doc/benchmark/nextjs) ve [TanStack Start kıyaslama raporu](https://intlayer.org/tr/doc/benchmark/tanstack)
-- Uyumluluk adaptörleri: [i18next](https://intlayer.org/tr/doc/compatibility/i18next), [react-i18next](https://intlayer.org/tr/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/tr/doc/compatibility/next-i18next)
-- Geçiş kılavuzları: [i18next](https://intlayer.org/tr/doc/migration/i18next), [react-i18next](https://intlayer.org/tr/doc/migration/react-i18next), [next-i18next](https://intlayer.org/tr/doc/migration/next-i18next)
-- [Paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization) ve [Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler)
-- [Bileşen bazlı ve merkezi i18n](https://intlayer.org/tr/blog/per-component-vs-centralized-i18n)
-- [Derleyici güdümlü ve bildirimsel i18n](https://intlayer.org/tr/blog/compiler-vs-declarative-i18n)
+- [Next.js kıyaslama raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) ve [TanStack Start kıyaslama raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+- Uyumluluk adaptörleri: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md)
+- Geçiş kılavuzları: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-i18next_to_intlayer.md)
+- [Paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [Bileşen bazlı ve merkezi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md)
+- [Derleyici güdümlü ve bildirimsel i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
 
 ## GitHub Yıldızları
 
@@ -556,4 +556,4 @@ Intlayer bu iş yükünü derleyiciye devreder. Bileşen başına sözlükler, d
 
 Tüm ham veriler, test uygulamaları ve otomasyon komutları [Benchmark Bloom deposunda](https://github.com/intlayer-org/benchmark-bloom) herkese açıktır. Kendiniz test edebilirsiniz.
 
-Daha fazla bilgi için ['Neden Intlayer?' dokümanını](https://intlayer.org/tr/doc/why) inceleyin.
+Daha fazla bilgi için ['Neden Intlayer?' dokümanını](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) inceleyin.

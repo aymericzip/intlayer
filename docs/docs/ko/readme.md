@@ -14,10 +14,10 @@
 <br />
 
 <p align="center">
-  <a href="https://intlayer.org/doc/concept/content" rel="">Docs</a> •
-  <a href="https://intlayer.org/doc/environment/nextjs" rel="">Next.js</a> •
-  <a href="https://intlayer.org/doc/environment/vite-and-react" rel="">React + Vite</a> •
-  <a href="https://intlayer.org/doc/concept/cms" rel="">CMS</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md" rel="">Docs</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md" rel="">Next.js</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md" rel="">React + Vite</a> •
+  <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md" rel="">CMS</a> •
   <a href="https://discord.gg/7uxamYVeCk" rel="noopener noreferrer nofollow">Discord</a>
 </p>
 <p align="center" style="margin-top:15px;">
@@ -31,7 +31,7 @@
 
 ![비디오 시청하기](https://github.com/aymericzip/intlayer/blob/main/docs/assets/demo_video.gif)
 
-<a href="https://intlayer.org/doc/concept/content" rel="">
+<a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md" rel="">
   <img src="https://img.shields.io/badge/시작하기-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
@@ -46,33 +46,33 @@ Intlayer는 웹 및 모바일 애플리케이션을 위한 **최신 i18n 솔루�
 
 ## Intlayer의 주요 장점:
 
-| 기능                                                                                                                                                | 설명                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| --------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.webp?raw=true" alt="Feature" width="700">                         | **멀티 프레임워크 지원**<br><br>Intlayer는 Next.js, React, Vite, Vue.js, Nuxt, Preact, Express 등을 포함한 모든 주요 프레임워크 및 라이브러리와 호환됩니다.                                                                                                                                                                                                                                                                                                                                                                               |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.jpg?raw=true" alt="Feature" width="700">       | **JavaScript 기반 콘텐츠 관리**<br><br>JavaScript의 유연성을 활용하여 콘텐츠를 효율적으로 정의하고 관리하세요. <br><br> - [콘텐츠 선언](https://intlayer.org/doc/concept/content)                                                                                                                                                                                                                                                                                                                                                         |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true" alt="Feature" width="700"> | **로케일별 콘텐츠 선언 파일**<br><br>자동 생성 전에 콘텐츠를 한 번만 선언하여 개발 속도를 높이세요.<br><br> - [로케일별 콘텐츠 선언 파일](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                                                                                                                                                                                                               |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true" alt="Feature" width="700">                           | **컴파일러**<br><br>Intlayer 컴파일러는 컴포넌트에서 콘텐츠를 자동으로 추출하고 사전 파일을 생성합니다.<br><br> - [컴파일러](https://intlayer.org/doc/compiler)                                                                                                                                                                                                                                                                                                                                                                           |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true" alt="Feature" width="700">                      | **타입 안전 환경**<br><br>TypeScript를 활용하여 콘텐츠 정의와 코드가 오류가 없음을 보장하며, IDE 자동 완성의 혜택을 누릴 수 있습니다.<br><br> - [TypeScript 구성](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                                                                                                                                                                                                               |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true" alt="Feature" width="700">                         | **바이패스된 설정**<br><br>최소한의 설정으로 빠르게 시작하세요. 국제화, 라우팅, AI, 빌드 및 콘텐츠 관리 설정을 쉽게 조정할 수 있습니다. <br><br> - [Next.js 통합 탐색](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                                                                                       |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png?raw=true" alt="Feature" width="700">                   | **간소화된 콘텐츠 검색**<br><br>모든 콘텐츠 요소에 대해 `t` 함수를 호출할 필요가 없습니다. 단일 hook을 사용하여 모든 콘텐츠를 직접 가져오세요.<br><br> - [React 통합](https://intlayer.org/doc/environment/create-react-app)                                                                                                                                                                                                                                                                                                              |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png?raw=true" alt="Feature" width="700">                    | **일관된 서버 컴포넌트 구현**<br><br>Next.js 서버 컴포넌트에 완벽하게 적합하며, 클라이언트와 서버 컴포넌트 모두에서 동일한 구현을 사용하세요. 각 서버 컴포넌트에 `t` 함수를 전달할 필요가 없습니다. <br><br> - [서버 컴포넌트](https://intlayer.org/doc/environment/nextjs#step-7-utilize-content-in-your-code)                                                                                                                                                                                                                           |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png?raw=true" alt="Feature" width="700">                           | **정리된 코드베이스**<br><br>코드베이스를 더 체계적으로 유지하세요: 1 컴포넌트 = 동일 폴더 내 1 사전. 컴포넌트 근처의 번역은 유지 관리성과 명확성을 높여줍니다. <br><br> - [Intlayer 작동 방식](https://intlayer.org/doc/concept/how-works-intlayer)                                                                                                                                                                                                                                                                                      |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png?raw=true" alt="Feature" width="700">                         | **향상된 라우팅**<br><br>Next.js, React, Vite, Vue.js 등을 위한 복잡한 애플리케이션 구조에 완벽하게 적응하는 앱 라우팅을 완전 지원합니다.<br><br> - [Next.js 통합 탐색](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                                                                                      |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png?raw=true" alt="Feature" width="700">                            | **마크다운 지원**<br><br>개인정보 보호 정책, 문서 등과 같은 다국어 콘텐츠를 위해 로컬 파일 및 원격 마크다운을 가져오고 해석합니다. 마크다운 메타데이터를 해석하고 코드에서 액세스할 수 있도록 합니다.<br><br> - [콘텐츠 파일](https://intlayer.org/doc/concept/content/file)                                                                                                                                                                                                                                                              |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.webp?raw=true" alt="Feature" width="700">                      | **무료 시각적 편집기 및 CMS**<br><br>콘텐츠 작성자를 위한 무료 시각적 편집기와 CMS가 제공되어 현지화 플랫폼이 필요하지 않습니다. Git을 사용하여 콘텐츠를 동기화된 상태로 유지하거나 CMS를 통해 전체 또는 일부를 외부화하세요.<br><br> - [Intlayer 편집기](https://intlayer.org/doc/concept/editor) <br> - [Intlayer CMS](https://intlayer.org/doc/concept/cms)                                                                                                                                                                            |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true" alt="Feature" width="700">                             | **트리 쉐이킹 가능한 콘텐츠**<br><br>최종 번들 크기를 줄이는 트리 쉐이킹 가능한 콘텐츠입니다. 컴포넌트별로 콘텐츠를 로드하여 번들에서 사용하지 않는 콘텐츠를 제외합니다. 앱 로딩 효율성을 높이기 위해 지연 로딩을 지원합니다. <br><br> - [앱 빌드 최적화](https://intlayer.org/doc/concept/how-works-intlayer#app-build-optimization)                                                                                                                                                                                                     |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.webp?raw=true" alt="Feature" width="700">                   | **정적 렌더링**<br><br>정적 렌더링을 차단하지 않습니다. <br><br> - [Next.js 통합](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                                                                                                                                                                            |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true" alt="Feature" width="700">                      | **AI 기반 번역**<br><br>자체 AI 제공자 / API 키를 사용하는 Intlayer의 고급 AI 기반 번역 도구를 사용하여 한 번의 클릭으로 웹사이트를 231개 언어로 변환하세요. <br><br> - [CI/CD 통합](https://intlayer.org/doc/concept/ci-cd) <br> - [Intlayer CLI](https://intlayer.org/doc/concept/cli) <br> - [자동 완성](https://intlayer.org/doc/concept/auto-fill)                                                                                                                                                                                   |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true" alt="Feature" width="700">                                 | **MCP 서버 통합**<br><br>IDE 자동화를 위한 MCP(Model Context Protocol) 서버를 제공하여 개발 환경 내에서 원활한 콘텐츠 관리 및 i18n 워크플로우를 가능하게 합니다. <br><br> - [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)                                                                                                                                                                                                                                                                       |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.webp?raw=true" alt="Feature" width="700">                   | **VSCode 확장 프로그램**<br><br>Intlayer는 콘텐츠 및 번역 관리, 사전 구축, 콘텐츠 번역 등을 도와주는 VSCode 확장 프로그램을 제공합니다. <br><br> - [VSCode 확장 프로그램](https://intlayer.org/doc/vs-code-extension)                                                                                                                                                                                                                                                                                                                     |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true" alt="Feature" width="700">                    | **상호 운용성**<br><br>react-i18next, next-i18next, next-intl, react-intl, vue-i18n과의 상호 운용성을 허용합니다. <br><br> - [Intlayer 및 react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer 및 next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer 및 next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next) <br> - [Intlayer 및 vue-i18n](https://intlayer.org/blog/intlayer-with-vue-i18n) <br> - [Intlayer 호환 어댑터](https://intlayer.org/doc/compatibility) |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/benchmark.png?raw=true" alt="Feature" width="700">                           | **성능 및 벤치마크**<br><br>고급 트리 쉐이킹(tree-shaking) 및 동적 로딩을 사용하여 성능을 높이고 솔루션을 가능한 한 가볍게 유지합니다. <br><br> - [성능 및 벤치마크](https://intlayer.org/doc/benchmark)                                                                                                                                                                                                                                                                                                                                  |
+| 기능                                                                                                                                                | 설명                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.webp?raw=true" alt="Feature" width="700">                         | **멀티 프레임워크 지원**<br><br>Intlayer는 Next.js, React, Vite, Vue.js, Nuxt, Preact, Express 등을 포함한 모든 주요 프레임워크 및 라이브러리와 호환됩니다.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.jpg?raw=true" alt="Feature" width="700">       | **JavaScript 기반 콘텐츠 관리**<br><br>JavaScript의 유연성을 활용하여 콘텐츠를 효율적으로 정의하고 관리하세요. <br><br> - [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true" alt="Feature" width="700"> | **로케일별 콘텐츠 선언 파일**<br><br>자동 생성 전에 콘텐츠를 한 번만 선언하여 개발 속도를 높이세요.<br><br> - [로케일별 콘텐츠 선언 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.webp?raw=true" alt="Feature" width="700">                           | **컴파일러**<br><br>Intlayer 컴파일러는 컴포넌트에서 콘텐츠를 자동으로 추출하고 사전 파일을 생성합니다.<br><br> - [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true" alt="Feature" width="700">                      | **타입 안전 환경**<br><br>TypeScript를 활용하여 콘텐츠 정의와 코드가 오류가 없음을 보장하며, IDE 자동 완성의 혜택을 누릴 수 있습니다.<br><br> - [TypeScript 구성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md#configure-typescript)                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true" alt="Feature" width="700">                         | **바이패스된 설정**<br><br>최소한의 설정으로 빠르게 시작하세요. 국제화, 라우팅, AI, 빌드 및 콘텐츠 관리 설정을 쉽게 조정할 수 있습니다. <br><br> - [Next.js 통합 탐색](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png?raw=true" alt="Feature" width="700">                   | **간소화된 콘텐츠 검색**<br><br>모든 콘텐츠 요소에 대해 `t` 함수를 호출할 필요가 없습니다. 단일 hook을 사용하여 모든 콘텐츠를 직접 가져오세요.<br><br> - [React 통합](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_create_react_app.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png?raw=true" alt="Feature" width="700">                    | **일관된 서버 컴포넌트 구현**<br><br>Next.js 서버 컴포넌트에 완벽하게 적합하며, 클라이언트와 서버 컴포넌트 모두에서 동일한 구현을 사용하세요. 각 서버 컴포넌트에 `t` 함수를 전달할 필요가 없습니다. <br><br> - [서버 컴포넌트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md#step-7-utilize-content-in-your-code)                                                                                                                                                                                                                                                                                                                                                                                 |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png?raw=true" alt="Feature" width="700">                           | **정리된 코드베이스**<br><br>코드베이스를 더 체계적으로 유지하세요: 1 컴포넌트 = 동일 폴더 내 1 사전. 컴포넌트 근처의 번역은 유지 관리성과 명확성을 높여줍니다. <br><br> - [Intlayer 작동 방식](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/how_works_intlayer.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png?raw=true" alt="Feature" width="700">                         | **향상된 라우팅**<br><br>Next.js, React, Vite, Vue.js 등을 위한 복잡한 애플리케이션 구조에 완벽하게 적응하는 앱 라우팅을 완전 지원합니다.<br><br> - [Next.js 통합 탐색](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png?raw=true" alt="Feature" width="700">                            | **마크다운 지원**<br><br>개인정보 보호 정책, 문서 등과 같은 다국어 콘텐츠를 위해 로컬 파일 및 원격 마크다운을 가져오고 해석합니다. 마크다운 메타데이터를 해석하고 코드에서 액세스할 수 있도록 합니다.<br><br> - [콘텐츠 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file.md)                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.webp?raw=true" alt="Feature" width="700">                      | **무료 시각적 편집기 및 CMS**<br><br>콘텐츠 작성자를 위한 무료 시각적 편집기와 CMS가 제공되어 현지화 플랫폼이 필요하지 않습니다. Git을 사용하여 콘텐츠를 동기화된 상태로 유지하거나 CMS를 통해 전체 또는 일부를 외부화하세요.<br><br> - [Intlayer 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) <br> - [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)                                                                                                                                                                                                                                                                                      |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.webp?raw=true" alt="Feature" width="700">                             | **트리 쉐이킹 가능한 콘텐츠**<br><br>최종 번들 크기를 줄이는 트리 쉐이킹 가능한 콘텐츠입니다. 컴포넌트별로 콘텐츠를 로드하여 번들에서 사용하지 않는 콘텐츠를 제외합니다. 앱 로딩 효율성을 높이기 위해 지연 로딩을 지원합니다. <br><br> - [앱 빌드 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/how_works_intlayer.md#app-build-optimization)                                                                                                                                                                                                                                                                                                                                                                        |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.webp?raw=true" alt="Feature" width="700">                   | **정적 렌더링**<br><br>정적 렌더링을 차단하지 않습니다. <br><br> - [Next.js 통합](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true" alt="Feature" width="700">                      | **AI 기반 번역**<br><br>자체 AI 제공자 / API 키를 사용하는 Intlayer의 고급 AI 기반 번역 도구를 사용하여 한 번의 클릭으로 웹사이트를 231개 언어로 변환하세요. <br><br> - [CI/CD 통합](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/CI_CD.md) <br> - [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md) <br> - [자동 완성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)                                                                                                                                                                                                                                                                                 |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true" alt="Feature" width="700">                                 | **MCP 서버 통합**<br><br>IDE 자동화를 위한 MCP(Model Context Protocol) 서버를 제공하여 개발 환경 내에서 원활한 콘텐츠 관리 및 i18n 워크플로우를 가능하게 합니다. <br><br> - [MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.webp?raw=true" alt="Feature" width="700">                   | **VSCode 확장 프로그램**<br><br>Intlayer는 콘텐츠 및 번역 관리, 사전 구축, 콘텐츠 번역 등을 도와주는 VSCode 확장 프로그램을 제공합니다. <br><br> - [VSCode 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true" alt="Feature" width="700">                    | **상호 운용성**<br><br>react-i18next, next-i18next, next-intl, react-intl, vue-i18n과의 상호 운용성을 허용합니다. <br><br> - [Intlayer 및 react-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_react-intl.md) <br> - [Intlayer 및 next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_next-intl.md) <br> - [Intlayer 및 next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_next-i18next.md) <br> - [Intlayer 및 vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_vue-i18n.md) <br> - [Intlayer 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md) |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/benchmark.png?raw=true" alt="Feature" width="700">                           | **성능 및 벤치마크**<br><br>고급 트리 쉐이킹(tree-shaking) 및 동적 로딩을 사용하여 성능을 높이고 솔루션을 가능한 한 가볍게 유지합니다. <br><br> - [성능 및 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 ## 📦 설치
 
 오늘 바로 Intlayer와 함께 여정을 시작하고 더 원활하고 강력한 국제화 접근 방식을 경험해 보세요.
 
-<a href="https://intlayer.org/doc/concept/content" rel="">
+<a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md" rel="">
   <img src="https://img.shields.io/badge/시작하기-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
@@ -137,13 +137,13 @@ const HomePage = () => {
 };
 ```
 
-<a href="https://intlayer.org/doc/environment/nextjs"> 전체 가이드 받기 → </a>
+<a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md"> 전체 가이드 받기 → </a>
 
 ## 🎥 YouTube 라이브 튜토리얼
 
 [![How to Internationalize your application using Intlayer](https://i.ytimg.com/vi/e_PPG7PTqGU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDtyJ4uYotEjl12nZ_gZKZ_kjEgOQ)](https://youtu.be/e_PPG7PTqGU?si=GyU_KpVhr61razRw)
 
-<a href="https://intlayer.org/doc/concept/content" rel="">
+<a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md" rel="">
   <img src="https://img.shields.io/badge/시작하기-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
@@ -154,32 +154,32 @@ Intlayer를 시작하고 프로젝트에 통합하는 방법을 배우려면 종
 <details open>
 <summary style="font-size:16px; font-weight:bold;">📘 시작하기</summary>
 <ul>
-  <li><a href="https://intlayer.org/doc/why" rel=''>왜 Intlayer인가요?</a></li>
-  <li><a href="https://intlayer.org/doc" rel=''>소개</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md" rel=''>왜 Intlayer인가요?</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/introduction.md" rel=''>소개</a></li>
 </ul>
 </details>
 
 <details>
 <summary style="font-size:16px; font-weight:bold;">⚙️ 개념</summary>
 <ul>
-  <li><a href="https://intlayer.org/doc/concept/how-works-intlayer" rel=''>Intlayer 작동 방식</a></li>
-  <li><a href="https://intlayer.org/doc/concept/configuration" rel=''>구성</a></li>
-  <li><a href="https://intlayer.org/doc/concept/cli" rel=''>Intlayer CLI</a></li>
-  <li><a href="https://intlayer.org/doc/compiler" rel=''>컴파일러</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/how_works_intlayer.md" rel=''>Intlayer 작동 방식</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md" rel=''>구성</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md" rel=''>Intlayer CLI</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md" rel=''>컴파일러</a></li>
 
-  <li><a href="https://intlayer.org/doc/concept/editor" rel=''>Intlayer 편집기</a></li>
-  <li><a href="https://intlayer.org/doc/concept/cms" rel=''>Intlayer CMS</a></li>
-  <li><a href="https://intlayer.org/doc/concept/content" rel=''>사전</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md" rel=''>Intlayer 편집기</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md" rel=''>Intlayer CMS</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md" rel=''>사전</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/concept/per-locale-file" rel=''>로케일별 콘텐츠 선언 파일</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/translation" rel=''>번역</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/enumeration" rel=''>열거</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/condition" rel=''>조건</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/nesting" rel=''>중첩</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/markdown" rel=''>마크다운</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/function-fetching" rel=''>함수 가져오기</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/insertion" rel=''>삽입</a></li>
-      <li><a href="https://intlayer.org/doc/concept/content/file" rel=''>파일</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md" rel=''>로케일별 콘텐츠 선언 파일</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md" rel=''>번역</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md" rel=''>열거</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/condition.md" rel=''>조건</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/nesting.md" rel=''>중첩</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md" rel=''>마크다운</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/function_fetching.md" rel=''>함수 가져오기</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md" rel=''>삽입</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file.md" rel=''>파일</a></li>
     </ul>
   </li>
 </ul>
@@ -188,51 +188,51 @@ Intlayer를 시작하고 프로젝트에 통합하는 방법을 배우려면 종
 <details open>
 <summary style="font-size:16px; font-weight:bold;">🌐 환경</summary>
 <ul>
-  <li><a href="https://intlayer.org/doc/environment/nextjs" rel=''>Next.js 16과 Intlayer</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md" rel=''>Next.js 16과 Intlayer</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/15" rel=''>Next.js 15</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/14" rel=''>Next.js 14 (App Router)</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-page-router" rel=''>Next.js Page Router</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nextjs/compiler" rel=''>컴파일러를 사용한 Next.js</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md" rel=''>Next.js 15</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_14.md" rel=''>Next.js 14 (App Router)</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_page_router.md" rel=''>Next.js Page Router</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md" rel=''>컴파일러를 사용한 Next.js</a></li>
     </ul>
   </li>
-  <li><a href="https://intlayer.org/doc/environment/create-react-app" rel=''>React CRA</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>컴파일러를 사용한 Vite + React</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react/react-router-v7" rel=''>React-router-v7</a></li>
-  <li><a href="https://intlayer.org/doc/environment/remix-3" rel=''>Remix 3</a></li>
-  <li><a href="https://intlayer.org/doc/environment/tanstack-start" rel=''>Tanstack start</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_create_react_app.md" rel=''>React CRA</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md" rel=''>Vite + React</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md" rel=''>컴파일러를 사용한 Vite + React</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_router_v7.md" rel=''>React-router-v7</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_remix_3.md" rel=''>Remix 3</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md" rel=''>Tanstack start</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/environment/tanstack-start/solid" rel=''>Solid</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack+solid.md" rel=''>Solid</a></li>
     </ul>
   </li>
-  <li><a href="https://intlayer.org/doc/environment/astro" rel=''>Astro</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro.md" rel=''>Astro</a>
     <ul>
-      <li><a href="https://intlayer.org/doc/environment/astro/react" rel=''>React</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/vue" rel=''>Vue</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/svelte" rel=''>Svelte</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/solid" rel=''>Solid</a></li>
-      <li><a href="https://intlayer.org/doc/environment/astro/lit" rel=''>Lit</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_react.md" rel=''>React</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_vue.md" rel=''>Vue</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_svelte.md" rel=''>Svelte</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_solid.md" rel=''>Solid</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_lit.md" rel=''>Lit</a></li>
     </ul>
   </li>
 
-  <li><a href="https://intlayer.org/doc/environment/react-native-and-expo" rel=''>React Native</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-svelte" rel=''>Vite + Svelte</a></li>
-  <li><a href="https://intlayer.org/doc/environment/sveltekit" rel=''>SvelteKit</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-preact" rel=''>Vite + Preact</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-vue" rel=''>Vite + Vue</a></li>
-  <li><a href="https://intlayer.org/doc/environment/nuxt-and-vue" rel=''>Vite + Nuxt</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-solid" rel=''>Vite + Solid</a></li>
-  <li><a href="https://intlayer.org/doc/environment/solid-start" rel=''>Solid Start</a></li>
-  <li><a href="https://intlayer.org/doc/environment/angular" rel=''>Angular</a></li>  <li>
-     <a href="https://intlayer.org/doc/environment/express" rel=''>백엔드</a>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_native+expo.md" rel=''>React Native</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+svelte.md" rel=''>Vite + Svelte</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_svelte_kit.md" rel=''>SvelteKit</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+preact.md" rel=''>Vite + Preact</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vue.md" rel=''>Vite + Vue</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md" rel=''>Vite + Nuxt</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+solid.md" rel=''>Vite + Solid</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_solid_start.md" rel=''>Solid Start</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_angular_21.md" rel=''>Angular</a></li>  <li>
+     <a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_express.md" rel=''>백엔드</a>
      <ul>
-      <li><a href="https://intlayer.org/doc/environment/express" rel=''>Express</a></li>
-      <li><a href="https://intlayer.org/doc/environment/nest" rel=''>NestJS</a></li>
-      <li><a href="https://intlayer.org/doc/environment/fastify" rel=''>Fastify</a></li>
-      <li><a href="https://intlayer.org/doc/environment/adonisjs" rel=''>AdonisJS</a></li>
-      <li><a href="https://intlayer.org/doc/environment/hono" rel=''>Hono</a></li>
-      <li><a href="https://intlayer.org/doc/environment/elysia" rel=''>Elysia</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_express.md" rel=''>Express</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nestjs.md" rel=''>NestJS</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_fastify.md" rel=''>Fastify</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_adonisjs.md" rel=''>AdonisJS</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_hono.md" rel=''>Hono</a></li>
+      <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_elysia.md" rel=''>Elysia</a></li>
     </ul>
   </li>
 </ul>
@@ -253,10 +253,10 @@ Intlayer를 시작하고 프로젝트에 통합하는 방법을 배우려면 종
 <summary style="font-size:16px; font-weight:bold;">📰 블로그</summary>
 <ul>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/what_is_internationalization.md" rel=''>i18n이란 무엇인가요?</a></li>
-  <li><a href="https://intlayer.org/blog/SEO-and-i18n" rel=''>i18n 및 SEO</a></li>
-  <li><a href="https://intlayer.org/blog/intlayer-with-next-i18next" rel=''>Intlayer 및 i18next</a></li>
-  <li><a href="https://intlayer.org/blog/intlayer-with-react-i18next" rel=''>Intlayer 및 react-intl</a></li>
-  <li><a href="https://intlayer.org/blog/intlayer-with-next-intl" rel=''>Intlayer 및 next-intl</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/internationalization_and_SEO.md" rel=''>i18n 및 SEO</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_next-i18next.md" rel=''>Intlayer 및 i18next</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_react-i18next.md" rel=''>Intlayer 및 react-intl</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_next-intl.md" rel=''>Intlayer 및 next-intl</a></li>
 </ul>
 </details>
 

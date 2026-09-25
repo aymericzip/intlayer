@@ -174,14 +174,14 @@ export function ClientComponent() {
 - **트리 쉐이킹(Tree-shaking)**: 컴포넌트에서 사용하는 콘텐츠만 번들에 포함되어 대규모 앱에서도 페이로드를 작게 유지합니다.
 - **개발자 경험(DX) 및 도구**: 내장 미들웨어, SEO 도우미, 선택적 비주얼 에디터/AI 번역 기능이 일상 작업을 간소화합니다.
 
-Next.js 중심 비교 및 패턴은 다음 링크에서 확인하세요: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+Next.js 중심 비교 및 패턴은 다음 링크에서 확인하세요: https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md
 
 ## 관련 가이드 및 참고 자료
 
-- React 설정 (Vite): https://intlayer.org/doc/environment/vite-and-react
-- React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
-- TanStack 시작: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
-- Next.js 설정: https://intlayer.org/doc/environment/nextjs
-- Intlayer vs. next-intl vs. next-i18next 비교: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- React 설정 (Vite): https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md
+- React Router v7: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_react_router_v7.md
+- TanStack 시작: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md
+- Next.js 설정: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md
+- Intlayer vs. next-intl vs. next-i18next 비교: https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md
 
 이 페이지들은 엔드 투 엔드 설정, 프로바이더, 라우팅, SEO 도우미를 포함합니다.

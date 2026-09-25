@@ -92,7 +92,7 @@ Pasang secara global (`npm install -g @intlayer/lsp`) bila editor Anda membutuhk
 
 Pasang [ekstensi Intlayer untuk VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). Language server sudah disertakan sejak v8.12.0 dan berjalan otomatis — **tanpa konfigurasi apa pun**.
 
-Lihat [dokumentasi ekstensi VS Code](https://intlayer.org/doc/vs-code-extension) untuk fitur lainnya.
+Lihat [dokumentasi ekstensi VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md) untuk fitur lainnya.
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">

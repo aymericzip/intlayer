@@ -23,7 +23,7 @@ author: aymericzip
 
 # vue-i18n VS Intlayer | Vue 国際化 (i18n) ベンチマーク
 
-`vue-i18n` は Vue における i18n ライブラリの定番です。Intlayer はコンパイラベースでコンポーネント単位にスコープされた代替手段で、Vue 統合（`vue-intlayer`）を提供します。両者の[機能と開発者体験](https://intlayer.org/blog/vue-i18n-vs-intlayer)についてはすでに比較済みです。本記事では、アプリをビルドした後にそれぞれがどれだけのコストになるかを見ていきます。
+`vue-i18n` は Vue における i18n ライブラリの定番です。Intlayer はコンパイラベースでコンポーネント単位にスコープされた代替手段で、Vue 統合（`vue-intlayer`）を提供します。両者の[機能と開発者体験](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer.md)についてはすでに比較済みです。本記事では、アプリをビルドした後にそれぞれがどれだけのコストになるかを見ていきます。
 
 データは [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) から取得しています。これは各ライブラリで同じアプリケーションをビルドし、ブラウザが実際にダウンロードして実行する内容を記録するオープンソースのスイートです。
 
@@ -140,7 +140,7 @@ Intlayer はその知識をビルドに移します。コンテンツはコン�
 
 コンパイラは辞書ごと・ロケールごとに、そのコンポーネントが必要とする JSON だけを正確に出力し、どこからもインポートされない辞書は削除します。ルート単位のスコープはコンポーネント単位のスコープの帰結であって、作業ではありません。
 
-> 未使用のロケールも削除するには、`intlayer.config.ts` で `dictionary.importMode: 'dynamic'` を設定してください。[バンドル最適化のドキュメント](https://intlayer.org/doc/concept/bundle-optimization)を参照してください。
+> 未使用のロケールも削除するには、`intlayer.config.ts` で `dictionary.importMode: 'dynamic'` を設定してください。[バンドル最適化のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)を参照してください。
 
 ## 開発者体験
 
@@ -328,7 +328,7 @@ export default defineConfig({
 
 ベンチマークでは、同じアプリの compat ビルドはコンポーネントに手を加えずに、ページあたり **134.9 KB から 47.0 KB** に、コンポーネントあたり **196 KB から 8.4 KB** になりました。既存の `locales/{locale}.json` は JSON 同期プラグインを通じて引き続き信頼できる情報源として使えます。
 
-[vue-i18n 移行ガイド](https://intlayer.org/doc/migration/vue-i18n)と[互換性ドキュメント](https://intlayer.org/doc/compatibility/vue-i18n)を参照してください。Nuxt ユーザーは [`@nuxtjs/i18n` 互換性](https://intlayer.org/doc/compatibility/nuxtjs-i18n)を通じて同じ道をたどれます。
+[vue-i18n 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_vue-i18n_to_intlayer.md)と[互換性ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/vue-i18n.md)を参照してください。Nuxt ユーザーは [`@nuxtjs/i18n` 互換性](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/nuxtjs-i18n.md)を通じて同じ道をたどれます。
 
 ## どちらを選ぶべきか？
 
@@ -338,11 +338,11 @@ export default defineConfig({
 
 ## 関連する比較
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer)（同じベンチマーク）
-- [i18next vs Intlayer](https://intlayer.org/blog/i18next-vs-intlayer)（同じベンチマーク）
-- [Lingui vs Intlayer](https://intlayer.org/blog/lingui-vs-intlayer)（同じベンチマーク）
-- [vue-i18n vs Intlayer（機能と DX）](https://intlayer.org/blog/vue-i18n-vs-intlayer)
-- [vue-i18n は時代遅れ？](https://intlayer.org/blog/is-vue-i18n-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer.md)（同じベンチマーク）
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer.md)（同じベンチマーク）
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer.md)（同じベンチマーク）
+- [vue-i18n vs Intlayer（機能と DX）](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer.md)
+- [vue-i18n は時代遅れ？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/is_vue-i18n_outdated.md)
 
 ## GitHub スター
 
@@ -358,4 +358,4 @@ Intlayer はその作業をコンパイラに移します。コンポーネン�
 
 生データ、テストアプリ、スクリプトはすべて [Benchmark Bloom リポジトリ](https://github.com/intlayer-org/benchmark-bloom)にあります。ぜひご自身で実行してみてください。
 
-詳細は [「なぜ Intlayer？」ドキュメント](https://intlayer.org/doc/why)を参照してください。
+詳細は [「なぜ Intlayer？」ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)を参照してください。

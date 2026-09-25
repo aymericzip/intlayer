@@ -215,7 +215,7 @@ Nếu bạn gặp bất kỳ vấn đề nào với trình chỉnh sửa trực 
 
 - Trình chỉnh sửa trực quan và ứng dụng đang chạy.
 
-- Cấu hình [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) được thiết lập chính xác trong tệp cấu hình Intlayer của bạn.
+- Cấu hình [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md#editor-configuration) được thiết lập chính xác trong tệp cấu hình Intlayer của bạn.
   - Các trường bắt buộc:
     - URL ứng dụng nên khớp với URL bạn đã thiết lập trong cấu hình trình chỉnh sửa (`applicationURL`).
 

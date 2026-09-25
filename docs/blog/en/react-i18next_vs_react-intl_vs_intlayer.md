@@ -142,4 +142,4 @@ All three libraries localize React effectively. The differentiator is how much *
 - With **Intlayer**, **modular content**, **strict TS typing**, **build-time safety**, **tree-shaken bundles**, and **editorial tooling** are defaults - not chores.
 - If your team prizes **maintainability and speed** in multi-locale, component-driven React apps, Intlayer offers the **most complete** developer and content workflow today.
 
-Refer to ['Why Intlayer?' doc](https://intlayer.org/doc/why) for more details.
+Refer to ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) for more details.

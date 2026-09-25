@@ -753,7 +753,7 @@ Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.co
 Vite nie narzuca rozwiązań w kwestii i18n, więc wybór zależy od ekosystemu Solid:
 
 - **`@solid-primitives/i18n`**: podstawowe prymitywy i18n dla Solid oparte na słownikach runtime.
-- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)) i kompilowane w czasie budowy, w pełni zintegrowane z reaktywnością Solid, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
+- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)) i kompilowane w czasie budowy, w pełni zintegrowane z reaktywnością Solid, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
 
 W Solid kluczowa jest precyzyjna reaktywność (fine-grained reactivity): `solid-intlayer` opiera się na sygnałach Solid, dzięki czemu aktualizacje języka zmieniają tylko te węzły DOM, które odczytują treść, bez ponownego renderowania komponentu. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
 

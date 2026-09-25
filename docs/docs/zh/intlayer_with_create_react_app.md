@@ -649,7 +649,7 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 - **内联预览**已翻译的内容。
 - **快速操作**，轻松创建和更新翻译。
 
-有关如何使用此扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+有关如何使用此扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
 ### 深入了解
 
@@ -663,7 +663,7 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 
 - **`react-i18next` / `i18next`**：应用最广泛的方案，在运行时加载 JSON 命名空间。
 - **`react-intl`** 和 **`Lingui`**：基于 ICU 消息格式和内容提取。
-- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），并通过 `react-scripts-intlayer` 在构建时进行编译，全链路类型安全，提供 AI 翻译、可视化编辑器和 CMS。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），并通过 `react-scripts-intlayer` 在构建时进行编译，全链路类型安全，提供 AI 翻译、可视化编辑器和 CMS。
 
 Create React App 封装了自己的 webpack 配置，因此集成是通过 `react-scripts-intlayer` 作为 `react-scripts` 的直接替代品来进行的，而无需您手动注册插件。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
 

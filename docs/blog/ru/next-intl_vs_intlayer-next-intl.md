@@ -30,7 +30,7 @@ author: aymericzip
 
 `@intlayer/next-intl` - это адаптер совместимости: он предоставляет API `next-intl` (`useTranslations`, `getTranslations`, `useLocale`, `t.rich()`, ICU plurals, `NextIntlClientProvider`...) и обслуживает его из словарей, скомпилированных Intlayer. Код приложения не меняется. Меняется bundle.
 
-Эта статья сравнивает оба варианта на одном Next.js приложении, собранном один раз с `next-intl` и один раз с адаптером. Цифры взяты из [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), open-source набора инструментов, который записывает, что на самом деле загружает браузер. Если вам нужно сравнение `next-intl` и Intlayer как библиотек, прочитайте [next-intl vs Intlayer](https://intlayer.org/ru/blog/next-intl-vs-intlayer). Здесь речь идёт о том, что меняется в адаптере, когда вы оставляете компоненты как они есть.
+Эта статья сравнивает оба варианта на одном Next.js приложении, собранном один раз с `next-intl` и один раз с адаптером. Цифры взяты из [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), open-source набора инструментов, который записывает, что на самом деле загружает браузер. Если вам нужно сравнение `next-intl` и Intlayer как библиотек, прочитайте [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer.md). Здесь речь идёт о том, что меняется в адаптере, когда вы оставляете компоненты как они есть.
 
 <TOC/>
 
@@ -142,7 +142,7 @@ height="600px"
 style="border:none;"
 />
 
-> Полная таблица, каждая библиотека и стратегия в [отчете о бенчмарке Next.js](https://intlayer.org/ru/doc/benchmark/nextjs).
+> Полная таблица, каждая библиотека и стратегия в [отчете о бенчмарке Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md).
 
 ### Результаты на TanStack Start (`use-intl`)
 
@@ -174,7 +174,7 @@ height="600px"
 style="border:none;"
 />
 
-> Полная таблица в [отчете о бенчмарке TanStack Start](https://intlayer.org/ru/doc/benchmark/tanstack).
+> Полная таблица в [отчете о бенчмарке TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md).
 
 ## Почему цифры меняются
 
@@ -326,7 +326,7 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="messages, timeZone и now в провайдере игнорируются">
 
-Форматтеры основаны на нативном `Intl`, и только локаль влияет на вывод. Если вам нужен принудительный часовой пояс или фиксированное `now` для стабильной гидратации дат, управляйте этим в месте вызова. См. [форматирование дат, времени и чисел](https://intlayer.org/ru/blog/date-time-number-formatting-locales).
+Форматтеры основаны на нативном `Intl`, и только локаль влияет на вывод. Если вам нужен принудительный часовой пояс или фиксированное `now` для стабильной гидратации дат, управляйте этим в месте вызова. См. [форматирование дат, времени и чисел](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/date_time_number_formatting_locales.md).
 
 </Accordion>
 </AccordionGroup>
@@ -346,7 +346,7 @@ export default withIntlayer(nextConfig);
 </Accordion>
 <Accordion header="Перейти на нативный next-intlayer">
 
-Для новых проектов или когда адаптер выполнил свою задачу. Это самый легкий из трех вариантов (5.5 KB, +0.3 KB на страницу), который открывает синхронные серверные компоненты, файлы `.content.ts` для каждого компонента и полный набор функций. Начните с [Intlayer с Next.js](https://intlayer.org/ru/doc/environment/nextjs).
+Для новых проектов или когда адаптер выполнил свою задачу. Это самый легкий из трех вариантов (5.5 KB, +0.3 KB на страницу), который открывает синхронные серверные компоненты, файлы `.content.ts` для каждого компонента и полный набор функций. Начните с [Intlayer с Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md).
 
 </Accordion>
 </AccordionGroup>
@@ -363,7 +363,7 @@ export default withIntlayer(nextConfig);
 
 <Question title="Что происходит с сообщениями ICU?">
 
-Они продолжают работать. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` и `{ts, date, long}` обрабатываются резолвером ICU в Intlayer. См. [формат сообщений ICU](https://intlayer.org/ru/blog/icu-message-format).
+Они продолжают работать. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#` и `{ts, date, long}` обрабатываются резолвером ICU в Intlayer. См. [формат сообщений ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
 
 </Question>
 
@@ -391,23 +391,23 @@ export default withIntlayer(nextConfig);
 
 Та же серия адаптеров:
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/ru/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/ru/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ru/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/vue-i18n_vs_intlayer-vue-i18n.md)
 
 Прямое сравнение библиотек:
 
-- [next-intl vs Intlayer](https://intlayer.org/ru/blog/next-intl-vs-intlayer), тот же бенчмарк
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ru/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Is next-intl outdated?](https://intlayer.org/ru/blog/is-next-intl-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer.md), тот же бенчмарк
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/is_next-intl_outdated.md)
 
 Справочная документация:
 
-- [Compat adapter: next-intl](https://intlayer.org/ru/doc/compatibility/next-intl)
-- [Руководство по миграции: с next-intl на Intlayer](https://intlayer.org/ru/doc/migration/next-intl)
-- [Отчет о бенчмарке Next.js](https://intlayer.org/ru/doc/benchmark/nextjs) и [отчет о бенчмарке TanStack Start](https://intlayer.org/ru/doc/benchmark/tanstack)
-- [Оптимизация бандла](https://intlayer.org/ru/doc/concept/bundle-optimization) и [компилятор Intlayer](https://intlayer.org/ru/doc/compiler)
-- [Визуальный редактор](https://intlayer.org/ru/doc/concept/editor), [CMS](https://intlayer.org/ru/doc/concept/cms) и [ИИ-перевод](https://intlayer.org/ru/doc/concept/auto-fill)
+- [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-intl.md)
+- [Руководство по миграции: с next-intl на Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-intl_to_intlayer.md)
+- [Отчет о бенчмарке Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md) и [отчет о бенчмарке TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md)
+- [Оптимизация бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md) и [компилятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)
+- [Визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) и [ИИ-перевод](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/autoFill.md)
 
 ## Заключение
 
@@ -415,4 +415,4 @@ export default withIntlayer(nextConfig);
 
 Все исходные данные, тестовые приложения и скрипты находятся в [репозитории Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Запустите это самостоятельно.
 
-Дополнительные сведения см. в документации ['Why Intlayer?'](https://intlayer.org/doc/why).
+Дополнительные сведения см. в документации ['Why Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md).

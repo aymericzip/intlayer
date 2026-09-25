@@ -1450,4 +1450,4 @@ The set up of the middleware centralized in the `intlayer.config.ts` file.
 - مع **Intlayer**، يكون **المحتوى المعياري**، و**TypeScript الصارم**، و**السلامة أثناء وقت البناء**، و**حزم شجرة المهملة**، و**موجه التطبيقات من الدرجة الأولى + أدوات تحسين محركات البحث** هي **الإعدادات الافتراضية**، وليست مهامًا شاقة.
 - إذا كانت فرقك تقدر **قابلية الصيانة والسرعة** في تطبيق متعدد اللغات يعتمد على المكونات، فإن Intlayer تقدم التجربة **الأكمل** اليوم.
 
-راجع [وثيقة "لماذا Intlayer؟"](https://intlayer.org/doc/why) لمزيد من التفاصيل.
+راجع [وثيقة "لماذا Intlayer؟"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) لمزيد من التفاصيل.

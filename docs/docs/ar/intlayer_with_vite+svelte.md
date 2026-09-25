@@ -745,7 +745,7 @@ console.log("SEO files generated successfully.");
 - **معاينات داخلية** للمحتوى المترجم.
 - **إجراءات سريعة** لإنشاء التراجم وتحديثها بسهولة.
 
-لمزيد من التفاصيل حول كيفية استخدام الامتداد، راجع [توثيق امتداد Intlayer لـ VS Code](https://intlayer.org/doc/vs-code-extension).
+لمزيد من التفاصيل حول كيفية استخدام الامتداد، راجع [توثيق امتداد Intlayer لـ VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md).
 
 ### التعمق أكثر
 

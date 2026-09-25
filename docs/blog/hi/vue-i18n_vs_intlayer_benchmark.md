@@ -23,7 +23,7 @@ author: aymericzip
 
 # vue-i18n VS Intlayer | Vue अंतर्राष्ट्रीयकरण (i18n) बेंचमार्क
 
-`vue-i18n` Vue के लिए संदर्भ i18n लाइब्रेरी है। Intlayer एक कंपाइलर-आधारित, कंपोनेंट-स्कोप्ड विकल्प है जिसमें Vue इंटीग्रेशन (`vue-intlayer`) है। हम पहले ही उनकी [फीचर्स और डेवलपर अनुभव](https://intlayer.org/blog/vue-i18n-vs-intlayer) की तुलना कर चुके हैं। यह लेख देखता है कि ऐप बिल्ड होने के बाद हर एक की लागत क्या है।
+`vue-i18n` Vue के लिए संदर्भ i18n लाइब्रेरी है। Intlayer एक कंपाइलर-आधारित, कंपोनेंट-स्कोप्ड विकल्प है जिसमें Vue इंटीग्रेशन (`vue-intlayer`) है। हम पहले ही उनकी [फीचर्स और डेवलपर अनुभव](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md) की तुलना कर चुके हैं। यह लेख देखता है कि ऐप बिल्ड होने के बाद हर एक की लागत क्या है।
 
 डेटा [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) से आता है, जो एक ओपन-सोर्स सूट है जो हर लाइब्रेरी के साथ एक ही एप्लिकेशन बनाता है और रिकॉर्ड करता है कि ब्राउज़र वास्तव में क्या डाउनलोड और निष्पादित करता है।
 
@@ -140,7 +140,7 @@ Intlayer उस ज्ञान को बिल्ड में ले जा�
 
 कंपाइलर प्रति डिक्शनरी और प्रति लोकेल ठीक वही JSON उत्सर्जित करता है जिसकी उस कंपोनेंट को ज़रूरत है, और उन डिक्शनरी को हटा देता है जिन्हें कोई इम्पोर्ट नहीं करता। प्रति-रूट स्कोपिंग प्रति-कंपोनेंट स्कोपिंग का परिणाम है, कोई कार्य नहीं।
 
-> अप्रयुक्त लोकेल भी हटाने के लिए, `intlayer.config.ts` में `dictionary.importMode: 'dynamic'` सेट करें। [बंडल ऑप्टिमाइज़ेशन डॉक](https://intlayer.org/doc/concept/bundle-optimization) देखें।
+> अप्रयुक्त लोकेल भी हटाने के लिए, `intlayer.config.ts` में `dictionary.importMode: 'dynamic'` सेट करें। [बंडल ऑप्टिमाइज़ेशन डॉक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) देखें।
 
 ## डेवलपर अनुभव
 
@@ -328,7 +328,7 @@ export default defineConfig({
 
 बेंचमार्क में, उसी ऐप का compat बिल्ड प्रति पेज **134.9 KB से 47.0 KB** और प्रति कंपोनेंट **196 KB से 8.4 KB** पर आ गया, कंपोनेंट को छुए बिना। आपकी मौजूदा `locales/{locale}.json` JSON सिंक प्लगइन के ज़रिए सत्य का स्रोत बनी रह सकती हैं।
 
-[vue-i18n माइग्रेशन गाइड](https://intlayer.org/doc/migration/vue-i18n) और [संगतता डॉक](https://intlayer.org/doc/compatibility/vue-i18n) देखें। Nuxt उपयोगकर्ताओं के लिए [`@nuxtjs/i18n` संगतता](https://intlayer.org/doc/compatibility/nuxtjs-i18n) के ज़रिए वही रास्ता है।
+[vue-i18n माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_vue-i18n_to_intlayer.md) और [संगतता डॉक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md) देखें। Nuxt उपयोगकर्ताओं के लिए [`@nuxtjs/i18n` संगतता](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md) के ज़रिए वही रास्ता है।
 
 ## कब कौन-सा चुनें?
 
@@ -338,11 +338,11 @@ export default defineConfig({
 
 ## संबंधित तुलनाएँ
 
-- [next-intl बनाम Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (वही बेंचमार्क)
-- [i18next बनाम Intlayer](https://intlayer.org/blog/i18next-vs-intlayer) (वही बेंचमार्क)
-- [Lingui बनाम Intlayer](https://intlayer.org/blog/lingui-vs-intlayer) (वही बेंचमार्क)
-- [vue-i18n बनाम Intlayer (फीचर्स और DX)](https://intlayer.org/blog/vue-i18n-vs-intlayer)
-- [क्या vue-i18n पुराना हो गया है?](https://intlayer.org/blog/is-vue-i18n-outdated)
+- [next-intl बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer.md) (वही बेंचमार्क)
+- [i18next बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer.md) (वही बेंचमार्क)
+- [Lingui बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer.md) (वही बेंचमार्क)
+- [vue-i18n बनाम Intlayer (फीचर्स और DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md)
+- [क्या vue-i18n पुराना हो गया है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_vue-i18n_outdated.md)
 
 ## GitHub STARs
 
@@ -358,4 +358,4 @@ Intlayer काम को कंपाइलर में ले जाता �
 
 सारा कच्चा डेटा, टेस्ट ऐप और स्क्रिप्ट [Benchmark Bloom रिपॉज़िटरी](https://github.com/intlayer-org/benchmark-bloom) में हैं। इसे खुद चलाएँ।
 
-अधिक जानकारी के लिए ['Intlayer क्यों?' डॉक](https://intlayer.org/doc/why) देखें।
+अधिक जानकारी के लिए ['Intlayer क्यों?' डॉक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/interest_of_intlayer.md) देखें।

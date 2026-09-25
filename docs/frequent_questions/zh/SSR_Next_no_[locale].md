@@ -24,7 +24,7 @@ author: aymericzip
 
 是的，可以在页面路径中不使用 `[locale]` 来搭配 Next.js 使用 Intlayer。然而，不推荐这样做，因为拆分页面路径可以触发更多搜索引擎关键词。您的 SSR 也可能会受到影响。
 
-如果您想这样做，请按照[Intlayer 与 Next.js](https://intlayer.org/doc/environment/nextjs)指南中描述的相同步骤操作，
+如果您想这样做，请按照[Intlayer 与 Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)指南中描述的相同步骤操作，
 
 - 不要使用 `src/middleware.ts`
 - 不要使用 `generateStaticParams`

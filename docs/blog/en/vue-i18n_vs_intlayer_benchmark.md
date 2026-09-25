@@ -23,7 +23,7 @@ author: aymericzip
 
 # vue-i18n VS Intlayer | Vue Internationalization (i18n) Benchmark
 
-`vue-i18n` is the reference i18n library for Vue. Intlayer is a compiler-based, component-scoped alternative with a Vue integration (`vue-intlayer`). We already compared their [features and developer experience](https://intlayer.org/blog/vue-i18n-vs-intlayer). This article looks at what each one costs once the app is built.
+`vue-i18n` is the reference i18n library for Vue. Intlayer is a compiler-based, component-scoped alternative with a Vue integration (`vue-intlayer`). We already compared their [features and developer experience](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/vue-i18n_vs_intlayer.md). This article looks at what each one costs once the app is built.
 
 The data comes from [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), an open-source suite that builds the same application with each library and records what the browser actually downloads and executes.
 
@@ -140,7 +140,7 @@ Intlayer moves that knowledge to the build. Content is declared next to the comp
 
 The compiler emits, per dictionary and per locale, exactly the JSON that component needs, and drops dictionaries nothing imports. Per-route scoping is a consequence of per-component scoping, not a task.
 
-> To also drop the unused locales, set `dictionary.importMode: 'dynamic'` in `intlayer.config.ts`. See the [bundle optimization doc](https://intlayer.org/doc/concept/bundle-optimization).
+> To also drop the unused locales, set `dictionary.importMode: 'dynamic'` in `intlayer.config.ts`. See the [bundle optimization doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md).
 
 ## Developer experience
 
@@ -328,7 +328,7 @@ export default defineConfig({
 
 In the benchmark, the compat build of the same app went from **134.9 KB to 47.0 KB** per page and from **196 KB to 8.4 KB** per component, with the components untouched. Your existing `locales/{locale}.json` can stay the source of truth through the JSON sync plugin.
 
-See the [vue-i18n migration guide](https://intlayer.org/doc/migration/vue-i18n) and the [compatibility doc](https://intlayer.org/doc/compatibility/vue-i18n). Nuxt users have the same path through [`@nuxtjs/i18n` compatibility](https://intlayer.org/doc/compatibility/nuxtjs-i18n).
+See the [vue-i18n migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_vue-i18n_to_intlayer.md) and the [compatibility doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/vue-i18n.md). Nuxt users have the same path through [`@nuxtjs/i18n` compatibility](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/nuxtjs-i18n.md).
 
 ## When to choose which?
 
@@ -338,11 +338,11 @@ See the [vue-i18n migration guide](https://intlayer.org/doc/migration/vue-i18n) 
 
 ## Related comparisons
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (same benchmark)
-- [i18next vs Intlayer](https://intlayer.org/blog/i18next-vs-intlayer) (same benchmark)
-- [Lingui vs Intlayer](https://intlayer.org/blog/lingui-vs-intlayer) (same benchmark)
-- [vue-i18n vs Intlayer (features & DX)](https://intlayer.org/blog/vue-i18n-vs-intlayer)
-- [Is vue-i18n outdated?](https://intlayer.org/blog/is-vue-i18n-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-intl_vs_intlayer.md) (same benchmark)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18next_vs_intlayer.md) (same benchmark)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/lingui_vs_intlayer.md) (same benchmark)
+- [vue-i18n vs Intlayer (features & DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/vue-i18n_vs_intlayer.md)
+- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/is_vue-i18n_outdated.md)
 
 ## GitHub STARs
 
@@ -358,4 +358,4 @@ Intlayer moves the work into the compiler. Per-component dictionaries and dead-c
 
 All the raw data, the test apps and the scripts are in the [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom). Run it yourself.
 
-Refer to the ['Why Intlayer?' doc](https://intlayer.org/doc/why) for more details.
+Refer to the ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) for more details.

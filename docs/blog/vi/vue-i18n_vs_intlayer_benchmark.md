@@ -23,7 +23,7 @@ author: aymericzip
 
 # vue-i18n VS Intlayer | Benchmark quốc tế hóa (i18n) cho Vue
 
-`vue-i18n` là thư viện i18n tham chiếu cho Vue. Intlayer là một giải pháp thay thế dựa trên trình biên dịch, nội dung được giới hạn theo component, với tích hợp Vue (`vue-intlayer`). Chúng tôi đã so sánh [tính năng và trải nghiệm lập trình viên](https://intlayer.org/blog/vue-i18n-vs-intlayer) của cả hai. Bài viết này xem xét chi phí của mỗi thư viện sau khi ứng dụng được build.
+`vue-i18n` là thư viện i18n tham chiếu cho Vue. Intlayer là một giải pháp thay thế dựa trên trình biên dịch, nội dung được giới hạn theo component, với tích hợp Vue (`vue-intlayer`). Chúng tôi đã so sánh [tính năng và trải nghiệm lập trình viên](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md) của cả hai. Bài viết này xem xét chi phí của mỗi thư viện sau khi ứng dụng được build.
 
 Dữ liệu đến từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), một bộ công cụ mã nguồn mở build cùng một ứng dụng với từng thư viện và ghi lại những gì trình duyệt thực sự tải xuống và thực thi.
 
@@ -140,7 +140,7 @@ Intlayer chuyển kiến thức đó sang lúc build. Nội dung được khai b
 
 Trình biên dịch xuất ra, theo từng từ điển và từng locale, chính xác JSON mà component đó cần, và loại bỏ các từ điển không được import ở đâu cả. Giới hạn theo route là hệ quả của giới hạn theo component, không phải một nhiệm vụ.
 
-> Để loại bỏ luôn các locale không dùng, đặt `dictionary.importMode: 'dynamic'` trong `intlayer.config.ts`. Xem [tài liệu tối ưu bundle](https://intlayer.org/doc/concept/bundle-optimization).
+> Để loại bỏ luôn các locale không dùng, đặt `dictionary.importMode: 'dynamic'` trong `intlayer.config.ts`. Xem [tài liệu tối ưu bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md).
 
 ## Trải nghiệm lập trình viên
 
@@ -328,7 +328,7 @@ export default defineConfig({
 
 Trong benchmark, bản build compat của cùng ứng dụng giảm từ **134,9 KB xuống 47,0 KB** mỗi trang và từ **196 KB xuống 8,4 KB** mỗi component, với các component không thay đổi. Các file `locales/{locale}.json` hiện có của bạn có thể tiếp tục là nguồn sự thật thông qua plugin đồng bộ JSON.
 
-Xem [hướng dẫn di chuyển từ vue-i18n](https://intlayer.org/doc/migration/vue-i18n) và [tài liệu tương thích](https://intlayer.org/doc/compatibility/vue-i18n). Người dùng Nuxt có cùng lộ trình qua [tương thích `@nuxtjs/i18n`](https://intlayer.org/doc/compatibility/nuxtjs-i18n).
+Xem [hướng dẫn di chuyển từ vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_vue-i18n_to_intlayer.md) và [tài liệu tương thích](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md). Người dùng Nuxt có cùng lộ trình qua [tương thích `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md).
 
 ## Khi nào chọn cái nào?
 
@@ -338,11 +338,11 @@ Xem [hướng dẫn di chuyển từ vue-i18n](https://intlayer.org/doc/migratio
 
 ## Các so sánh liên quan
 
-- [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer) (cùng benchmark)
-- [i18next vs Intlayer](https://intlayer.org/blog/i18next-vs-intlayer) (cùng benchmark)
-- [Lingui vs Intlayer](https://intlayer.org/blog/lingui-vs-intlayer) (cùng benchmark)
-- [vue-i18n vs Intlayer (tính năng & DX)](https://intlayer.org/blog/vue-i18n-vs-intlayer)
-- [vue-i18n đã lỗi thời?](https://intlayer.org/blog/is-vue-i18n-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer.md) (cùng benchmark)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer.md) (cùng benchmark)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md) (cùng benchmark)
+- [vue-i18n vs Intlayer (tính năng & DX)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md)
+- [vue-i18n đã lỗi thời?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_vue-i18n_outdated.md)
 
 ## GitHub Stars
 
@@ -358,4 +358,4 @@ Intlayer chuyển công việc vào trình biên dịch. Từ điển theo compo
 
 Toàn bộ dữ liệu thô, ứng dụng kiểm thử và script nằm trong [kho lưu trữ Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Hãy tự chạy thử.
 
-Tham khảo [tài liệu 'Tại sao Intlayer?'](https://intlayer.org/doc/why) để biết thêm chi tiết.
+Tham khảo [tài liệu 'Tại sao Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.

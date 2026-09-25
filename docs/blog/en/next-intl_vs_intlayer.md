@@ -129,7 +129,7 @@ height="600px"
 style="border:none;"
 />
 
-> Full table, every library and every strategy, in the [Next.js benchmark report](https://intlayer.org/doc/benchmark/nextjs).
+> Full table, every library and every strategy, in the [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md).
 
 ### Results on TanStack Start (`use-intl`)
 
@@ -161,7 +161,7 @@ height="600px"
 style="border:none;"
 />
 
-> Full table in the [TanStack Start benchmark report](https://intlayer.org/doc/benchmark/tanstack).
+> Full table in the [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md).
 
 ## Why the gap? Centralized catalogs vs. compiled dictionaries
 
@@ -213,7 +213,7 @@ Intlayer flips the responsibility. Content is declared next to the component:
 
 At build time the compiler (`@intlayer/swc` / `@intlayer/babel`) sees which component imports which dictionary. It bundles only those dictionaries, only for the active locale, and drops the ones nothing imports. The "scoped-dynamic" pattern becomes the output of the build instead of a discipline the team has to maintain.
 
-> To get the `dynamic` row's numbers, set `dictionary.importMode: 'dynamic'` in `intlayer.config.ts`. See the [bundle optimization doc](https://intlayer.org/doc/concept/bundle-optimization).
+> To get the `dynamic` row's numbers, set `dictionary.importMode: 'dynamic'` in `intlayer.config.ts`. See the [bundle optimization doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md).
 
 ## Developer experience
 
@@ -425,9 +425,9 @@ const nextConfig: NextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
-In the benchmark, the compat build of the same app went from **153.6 KB to 147.5 KB** per page, from **21.8 KB to 8.1 KB** per component, and from **~90% page leakage to 0%**, with the application code untouched. Your existing `messages/{locale}.json` files can stay the source of truth through the [JSON sync plugin](https://intlayer.org/doc/compatibility/next-intl).
+In the benchmark, the compat build of the same app went from **153.6 KB to 147.5 KB** per page, from **21.8 KB to 8.1 KB** per component, and from **~90% page leakage to 0%**, with the application code untouched. Your existing `messages/{locale}.json` files can stay the source of truth through the [JSON sync plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/next-intl.md).
 
-See the [next-intl migration guide](https://intlayer.org/doc/migration/next-intl) for the step-by-step.
+See the [next-intl migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-intl_to_intlayer.md) for the step-by-step.
 
 ## When to choose which?
 
@@ -439,12 +439,12 @@ You want the ecosystem standard for Next.js, you rely on ICU MessageFormat, your
 </Accordion>
 <Accordion header="Choose Intlayer">
 
-You want **component-scoped content**, **strict TypeScript**, **build-time missing-key errors**, **zero-effort tree-shaking and lazy loading**, synchronous server components, and built-in editorial tooling ([Visual Editor](https://intlayer.org/doc/concept/editor), [CMS](https://intlayer.org/doc/concept/cms), [AI translation](https://intlayer.org/doc/concept/auto-fill), [MCP server](https://intlayer.org/doc/mcp-server)). Especially relevant for large, modular codebases and design systems.
+You want **component-scoped content**, **strict TypeScript**, **build-time missing-key errors**, **zero-effort tree-shaking and lazy loading**, synchronous server components, and built-in editorial tooling ([Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), [AI translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/autoFill.md), [MCP server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)). Especially relevant for large, modular codebases and design systems.
 
 </Accordion>
 <Accordion header="Choose @intlayer/next-intl">
 
-You are already on `next-intl` and want the bundle gains without a rewrite. The [compat adapter](https://intlayer.org/doc/compatibility/next-intl) keeps your imports and your `messages/{locale}.json` as the source of truth. Measured side by side in [next-intl vs @intlayer/next-intl](https://intlayer.org/blog/next-intl-vs-intlayer-next-intl).
+You are already on `next-intl` and want the bundle gains without a rewrite. The [compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/next-intl.md) keeps your imports and your `messages/{locale}.json` as the source of truth. Measured side by side in [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-intl_vs_intlayer-next-intl.md).
 
 </Accordion>
 </AccordionGroup>
@@ -461,25 +461,25 @@ Not at render time. The difference is what ships: `next-intl` costs **+12.6 KB g
 
 <Question title="Can I reach 0% leakage with next-intl?">
 
-Yes, with the `scoped-dynamic` setup: split `messages/{locale}.json` into one namespace per route, then `pick(messages, [...])` in every page and keep that mapping correct as components move. The benchmark's `scoped-*` rows are exactly that work. Intlayer reaches 0% without it because the compiler scopes content per component. See [bundle optimization](https://intlayer.org/doc/concept/bundle-optimization).
+Yes, with the `scoped-dynamic` setup: split `messages/{locale}.json` into one namespace per route, then `pick(messages, [...])` in every page and keep that mapping correct as components move. The benchmark's `scoped-*` rows are exactly that work. Intlayer reaches 0% without it because the compiler scopes content per component. See [bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md).
 
 </Question>
 
 <Question title="Do I have to rewrite my components to migrate?">
 
-No. `@intlayer/next-intl` keeps `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, ICU plurals and the navigation helpers, and serves them from compiled dictionaries. One plugin line in `next.config.ts`. Step by step in the [next-intl migration guide](https://intlayer.org/doc/migration/next-intl).
+No. `@intlayer/next-intl` keeps `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, ICU plurals and the navigation helpers, and serves them from compiled dictionaries. One plugin line in `next.config.ts`. Step by step in the [next-intl migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-intl_to_intlayer.md).
 
 </Question>
 
 <Question title="Does Intlayer support ICU MessageFormat?">
 
-ICU support is a work in progress on the native API. The compat adapters (`@intlayer/next-intl`, `@intlayer/use-intl`) do run ICU: plurals, `select`, `selectordinal`, `#` and `{ts, date, long}` go through Intlayer's ICU resolver. Read [ICU message format](https://intlayer.org/blog/icu-message-format) for the details.
+ICU support is a work in progress on the native API. The compat adapters (`@intlayer/next-intl`, `@intlayer/use-intl`) do run ICU: plurals, `select`, `selectordinal`, `#` and `{ts, date, long}` go through Intlayer's ICU resolver. Read [ICU message format](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) for the details.
 
 </Question>
 
 <Question title="Can I keep my messages/{locale}.json files?">
 
-Yes. The [JSON sync plugin](https://intlayer.org/doc/compatibility/next-intl) reads them, splits their top-level keys into dictionaries, and writes translations back to the same files when the CLI or the CMS updates them. Your translators' workflow does not change.
+Yes. The [JSON sync plugin](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/next-intl.md) reads them, splits their top-level keys into dictionaries, and writes translations back to the same files when the CLI or the CMS updates them. Your translators' workflow does not change.
 
 </Question>
 
@@ -489,26 +489,26 @@ Yes. The [JSON sync plugin](https://intlayer.org/doc/compatibility/next-intl) re
 
 Same benchmark, other libraries:
 
-- [i18next vs Intlayer](https://intlayer.org/blog/i18next-vs-intlayer)
-- [Lingui vs Intlayer](https://intlayer.org/blog/lingui-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18next_vs_intlayer.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/lingui_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Going further on next-intl:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/blog/next-intl-vs-intlayer-next-intl), the adapter measured on the same app
-- [Is next-intl outdated?](https://intlayer.org/blog/is-next-intl-outdated)
-- [Using Intlayer with next-intl](https://intlayer.org/blog/intlayer-with-next-intl)
-- [How to internationalize a Next.js app with next-intl](https://intlayer.org/blog/nextjs-internationalization-using-next-intl)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-intl_vs_intlayer-next-intl.md), the adapter measured on the same app
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/is_next-intl_outdated.md)
+- [Using Intlayer with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/intlayer_with_next-intl.md)
+- [How to internationalize a Next.js app with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)
 
 Reference docs:
 
-- [Next.js benchmark report](https://intlayer.org/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/doc/benchmark/tanstack)
-- [Compat adapter: next-intl](https://intlayer.org/doc/compatibility/next-intl) and [migration guide](https://intlayer.org/doc/migration/next-intl)
-- [Bundle optimization](https://intlayer.org/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/doc/compiler)
-- [Per-component vs centralized i18n](https://intlayer.org/blog/per-component-vs-centralized-i18n)
-- [Compiler-driven vs declarative i18n](https://intlayer.org/blog/compiler-vs-declarative-i18n)
+- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md) and [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
+- [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/next-intl.md) and [migration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-intl_to_intlayer.md)
+- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
+- [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)
+- [Compiler-driven vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md)
 
 ## GitHub STARs
 
@@ -524,4 +524,4 @@ Intlayer moves that work into the compiler. Per-component dictionaries, per-loca
 
 All the raw data, the test apps and the scripts are in the [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom). Run it yourself.
 
-Refer to the ['Why Intlayer?' doc](https://intlayer.org/doc/why) for more details.
+Refer to the ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/interest_of_intlayer.md) for more details.

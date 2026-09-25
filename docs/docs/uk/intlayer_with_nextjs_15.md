@@ -1129,7 +1129,7 @@ Intlayer використовує module augmentation, щоб скористат
 - **Вбудований перегляд** перекладеного контенту.
 - **Швидкі дії** для зручного створення та оновлення перекладів.
 
-Для детальнішої інформації про використання розширення зверніться до [документації розширення Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
+Для детальнішої інформації про використання розширення зверніться до [документації розширення Intlayer для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md).
 
 ### Далі
 

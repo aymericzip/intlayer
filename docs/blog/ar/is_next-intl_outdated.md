@@ -83,7 +83,7 @@ height="600px"
 style="border:none;"
 />
 
-> تم الاختبار في متصفحات حقيقية باستخدام ضغط gzip الإنتاجي. التفاصيل في [تقرير مقارنة أداء Next.js](https://intlayer.org/ar/doc/benchmark/nextjs).
+> تم الاختبار في متصفحات حقيقية باستخدام ضغط gzip الإنتاجي. التفاصيل في [تقرير مقارنة أداء Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md).
 
 ### حجم المكتبات المجرد
 
@@ -131,7 +131,7 @@ export default async function RootLayout({ children, params }) {
 
 ![تسرب المحتوى النظري حسب البنية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-تتجاوز Intlayer هذا القصور عبر التحليل الثابت: حيث يستخلص [مترجم Intlayer](https://intlayer.org/ar/doc/compiler) النصوص المستخدمة فعلياً في المسار المحدد، لتنخفض نسبة التسريب إلى **0.0%**.
+تتجاوز Intlayer هذا القصور عبر التحليل الثابت: حيث يستخلص [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) النصوص المستخدمة فعلياً في المسار المحدد، لتنخفض نسبة التسريب إلى **0.0%**.
 
 ## لماذا تعطل next-intl ميزة الـ Tree-shaking؟
 
@@ -170,7 +170,7 @@ export function UserProfile() {
   </Tab>
 </Tabs>
 
-لا يمكن لـ Turbopack أو Webpack معرفة المفاتيح التي ستُطلب من `UserProfile`. ولتجنب الأخطاء، **تضطر أدوات الحزم إلى تضمين المساحة الاسمية بأكملها في حزمة العميل**. بينما تتيح الخصائص المفككة في Intlayer للمترجم تتبع الاستخدام الفعلي وحذف كل ما لم يُستخدم. اقرأ المزيد في [تحسين الحزم](https://intlayer.org/ar/doc/concept/bundle-optimization).
+لا يمكن لـ Turbopack أو Webpack معرفة المفاتيح التي ستُطلب من `UserProfile`. ولتجنب الأخطاء، **تضطر أدوات الحزم إلى تضمين المساحة الاسمية بأكملها في حزمة العميل**. بينما تتيح الخصائص المفككة في Intlayer للمترجم تتبع الاستخدام الفعلي وحذف كل ما لم يُستخدم. اقرأ المزيد في [تحسين الحزم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md).
 
 ## مقارنة تجربة التطوير
 
@@ -269,17 +269,17 @@ declare global {
 
 لكن الفحص يقتصر على لغة واحدة فقط. إذا حُذف مفتاح من `ar.json`، فلن يصدر TypeScript أي تحذير، وسينجح البناء، بينما سيواجه المستخدمون مساحات فارغة.
 
-تستنتج Intlayer الأنواع من كافة ملفات المحتوى. وتفعيل [`strictMode`](https://intlayer.org/ar/doc/concept/configuration) يوقف عملية البناء عند غياب الترجمة في أي لغة مستهدفة.
+تستنتج Intlayer الأنواع من كافة ملفات المحتوى. وتفعيل [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) يوقف عملية البناء عند غياب الترجمة في أي لغة مستهدفة.
 
 ### أدوات التطوير والذكاء الاصطناعي
 
-| الميزة                               | `next-intl`  | Intlayer                                                             |
-| ------------------------------------ | ------------ | -------------------------------------------------------------------- |
-| **إضافة VS Code**                    | ❌ غير متوفر | ✅ [إضافة رسمية](https://intlayer.org/ar/doc/vs-code-extension)      |
-| **خادم اللغة (LSP)**                 | ❌ غير متوفر | ✅ [LSP مخصص](https://intlayer.org/ar/doc/lsp)                       |
-| **خادم MCP لوكلاء الذكاء الاصطناعي** | ❌ غير متوفر | ✅ [خادم MCP مدمج](https://intlayer.org/ar/doc/mcp-server)           |
-| **مهارات الوكلاء (Skills)**          | ❌ غير متوفر | ✅ [مهارات متكاملة](https://intlayer.org/ar/doc/agent_skills)        |
-| **نظام CMS مرئي**                    | ❌ غير متوفر | ✅ [مجاني ومفتوح المصدر](https://intlayer.org/ar/doc/concept/editor) |
+| الميزة                               | `next-intl`  | Intlayer                                                                                                          |
+| ------------------------------------ | ------------ | ----------------------------------------------------------------------------------------------------------------- |
+| **إضافة VS Code**                    | ❌ غير متوفر | ✅ [إضافة رسمية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)              |
+| **خادم اللغة (LSP)**                 | ❌ غير متوفر | ✅ [LSP مخصص](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)                               |
+| **خادم MCP لوكلاء الذكاء الاصطناعي** | ❌ غير متوفر | ✅ [خادم MCP مدمج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)                   |
+| **مهارات الوكلاء (Skills)**          | ❌ غير متوفر | ✅ [مهارات متكاملة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)                |
+| **نظام CMS مرئي**                    | ❌ غير متوفر | ✅ [مجاني ومفتوح المصدر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) |
 
 يمكّن وجود خوادم LSP وMCP المساعدات الذكية من فهم البنية الكاملة للمشروع وترقية الترجمات بدقة واقتدار.
 
@@ -295,7 +295,7 @@ declare global {
 
 **نظام إدارة محتوى مرئي ذاتي الاستضافة:**
 
-استخدم [Intlayer CMS](https://intlayer.org/ar/doc/concept/cms) لتمكين الفرق غير التقنية من مراجعة النصوص مع الحفظ المباشر في Git.
+استخدم [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لتمكين الفرق غير التقنية من مراجعة النصوص مع الحفظ المباشر في Git.
 
 **ترخيص مفتوح:**
 
@@ -351,9 +351,9 @@ bunx intlayer init --interactive
 
 للاطلاع على الخطوات التفصيلية، راجع أدلتنا المتخصصة:
 
-- **توافق فوري:** حافظ على استدعاءات `useTranslations` عبر [طبقة التوافق مع next-intl](https://intlayer.org/ar/doc/compatibility/next-intl).
-- **دليل التحويل:** حول ملفات JSON القديمة إلى قواميس معرفة بالأنواع عبر [دليل الانتقال من next-intl](https://intlayer.org/ar/doc/migration/next-intl).
-- **الاستخدام المختلط:** احتفظ بـ `next-intl` في الواجهة أثناء [استخدام Intlayer مع next-intl](https://intlayer.org/ar/blog/intlayer-with-next-intl) للاستفادة من الترجمة المحلية بالذكاء الاصطناعي.
+- **توافق فوري:** حافظ على استدعاءات `useTranslations` عبر [طبقة التوافق مع next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md).
+- **دليل التحويل:** حول ملفات JSON القديمة إلى قواميس معرفة بالأنواع عبر [دليل الانتقال من next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-intl_to_intlayer.md).
+- **الاستخدام المختلط:** احتفظ بـ `next-intl` في الواجهة أثناء [استخدام Intlayer مع next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_next-intl.md) للاستفادة من الترجمة المحلية بالذكاء الاصطناعي.
 
 قس حجم وتسريب تطبيقك باستخدام [ماسح SEO للتدويل المجاني](https://intlayer.org/i18n-seo-scanner):
 
@@ -361,7 +361,7 @@ bunx intlayer init --interactive
 
 ## مقالات مقترحة
 
-- [مقارنة أداء Next.js i18n: تقييم تفصيلي](https://intlayer.org/ar/doc/benchmark/nextjs)
-- [مقارنة next-i18next و next-intl و Intlayer](https://intlayer.org/ar/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [هل أصبحت مكتبة i18next قديمة في 2026؟](https://intlayer.org/ar/blog/is-i18next-outdated)
-- [مزايا التدويل المعتمد على المترجم](https://intlayer.org/ar/blog/compiler-vs-declarative-i18n)
+- [مقارنة أداء Next.js i18n: تقييم تفصيلي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+- [مقارنة next-i18next و next-intl و Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md)
+- [هل أصبحت مكتبة i18next قديمة في 2026؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_i18next_outdated.md)
+- [مزايا التدويل المعتمد على المترجم](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)

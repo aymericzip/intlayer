@@ -1479,4 +1479,4 @@ Wszystkie trzy biblioteki odnoszą sukces w podstawowej lokalizacji. Różnica p
 - W przypadku **Intlayer** **modularna zawartość**, **ścisły TS**, **bezpieczeństwo w czasie kompilacji**, **tree-shaken bundles** oraz **pierwszorzędny App Router i narzędzia SEO** są **domyślne**, a nie obowiązkowe.
 - Jeśli Twój zespół ceni **łatwość utrzymania i szybkość** w aplikacji wielojęzycznej, opartej na komponentach, Intlayer oferuje dziś **najpełniejsze** doświadczenie.
 
-Zapoznaj się z dokumentem ['Dlaczego Intlayer?'](https://intlayer.org/doc/why) po więcej szczegółów.
+Zapoznaj się z dokumentem ['Dlaczego Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) po więcej szczegółów.

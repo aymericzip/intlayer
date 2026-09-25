@@ -419,7 +419,7 @@ CMS ile ilgili herhangi bir sorunla karşılaşırsanız, aşağıdakileri kontr
 
 - Uygulamanın çalıştığından emin olun.
 
-- [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) yapılandırmasının Intlayer yapılandırma dosyanızda doğru şekilde ayarlandığından emin olun.
+- [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md#editor-configuration) yapılandırmasının Intlayer yapılandırma dosyanızda doğru şekilde ayarlandığından emin olun.
   - Gerekli alanlar:
 - Uygulama URL'si, editör yapılandırmasında (`applicationURL`) belirttiğinizle eşleşmelidir.
 - CMS URL'si

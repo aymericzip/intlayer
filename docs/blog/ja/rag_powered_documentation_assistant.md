@@ -28,7 +28,7 @@ author: aymericzip
 - すべてのUIコンポーネントはTailwind CSSで完全に編集可能
 - すべてのユーザークエリをログに記録し、欠落しているドキュメント、ユーザーの問題点、製品の機会を特定するのに役立てる
 
-👉 [ライブデモ](https://intlayer.org/doc/why) 👉 [コードボイラープレート](https://github.com/aymericzip/smart_doc_RAG)
+👉 [ライブデモ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) 👉 [コードボイラープレート](https://github.com/aymericzip/smart_doc_RAG)
 
 ## はじめに
 
@@ -239,7 +239,7 @@ APIルートからのレスポンスはSSEを使ってストリーミングし�
 前述の通り、"thinking"モードなしでgpt-4-turboを使用しています。応答は関連性が高く、レイテンシも低いです。
 gpt-5も試しましたが、レイテンシが高すぎました（返信に最大15秒かかることもありました）。しかし将来的に再検討する予定です。
 
-👉 [ここでデモを試す](https://intlayer.org/doc/why) 👉 [GitHubでコードテンプレートを確認](https://github.com/aymericzip/smart_doc_RAG)
+👉 [ここでデモを試す](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) 👉 [GitHubでコードテンプレートを確認](https://github.com/aymericzip/smart_doc_RAG)
 
 </Step>
 <Step number={10} title="さらに進むために">
@@ -293,7 +293,7 @@ RAGは、LLMを実用的にする最もシンプルで強力な方法の一つ�
 - フィードバックチャネル
 - 製品戦略ツール
 
-👉 [ここでデモを試す](https://intlayer.org/doc/why) 👉 [GitHubでコードテンプレートを確認する](https://github.com/aymericzip/smart_doc_RAG)
+👉 [ここでデモを試す](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) 👉 [GitHubでコードテンプレートを確認する](https://github.com/aymericzip/smart_doc_RAG)
 
 もしあなたもRAGを試しているなら、どのように使っているかぜひ教えてください。
 
@@ -317,6 +317,6 @@ RAGは、LLMを実用的にするための最もシンプルで強力な方法�
 - フィードバックチャネル
 - 製品戦略ツール
 
-👉 [デモを試す](https://intlayer.org/doc/why) 👉 [GitHubでコードテンプレートを確認](https://github.com/aymericzip/smart_doc_RAG)
+👉 [デモを試す](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) 👉 [GitHubでコードテンプレートを確認](https://github.com/aymericzip/smart_doc_RAG)
 
 RAGを試していると思ったら、どのように使用しているのか聞きたいです。

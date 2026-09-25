@@ -300,5 +300,5 @@ For deeper architectural comparisons and practical migration guides, explore the
 
 - [Compiler vs. Declarative Internationalisation](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/compiler_vs_declarative_i18n.md)
 - [Per-Component vs. Centralised i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/per-component_vs_centralized_i18n.md)
-- [Performance and Benchmarks](https://intlayer.org/doc/benchmark)
-- [Intlayer Compatibility Adapters](https://intlayer.org/doc/concept/compatibility)
+- [Performance and Benchmarks](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/index.md)
+- [Intlayer Compatibility Adapters](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/index.md)

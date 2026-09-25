@@ -142,4 +142,4 @@ Cả ba thư viện đều thực hiện việc bản địa hóa React một c�
 - Với **Intlayer**, **nội dung mô-đun**, **kiểu TS nghiêm ngặt**, **an toàn thời gian xây dựng**, **gói tree-shaken**, và **công cụ biên tập** là mặc định - không phải là công việc vặt.
 - Nếu nhóm của bạn coi trọng **khả năng bảo trì và tốc độ** trong các ứng dụng React đa ngôn ngữ, dựa trên thành phần, Intlayer cung cấp quy trình làm việc cho nhà phát triển và nội dung **đầy đủ nhất** hiện nay.
 
-Tham khảo tài liệu ['Tại sao chọn Intlayer?'](https://intlayer.org/doc/why) để biết thêm chi tiết.
+Tham khảo tài liệu ['Tại sao chọn Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.

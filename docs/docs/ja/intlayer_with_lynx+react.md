@@ -471,7 +471,7 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 - 欠落している翻訳の**リアルタイムエラー検出**。
 - 翻訳内容の**インラインプレビュー**。
 - 翻訳の作成や更新を簡単に行う**クイックアクション**。
-  拡張機能の使い方の詳細については、[Intlayer VS Code Extension ドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+  拡張機能の使い方の詳細については、[Intlayer VS Code Extension ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
 
 ## さらに進む
 

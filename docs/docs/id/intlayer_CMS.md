@@ -416,7 +416,7 @@ Jika Anda mengalami masalah dengan CMS, periksa hal-hal berikut:
 
 - Aplikasi sedang berjalan.
 
-- Konfigurasi [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) sudah diatur dengan benar dalam file konfigurasi Intlayer Anda.
+- Konfigurasi [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md#editor-configuration) sudah diatur dengan benar dalam file konfigurasi Intlayer Anda.
   - Field yang diperlukan:
     - URL aplikasi harus sesuai dengan yang Anda atur dalam konfigurasi editor (`applicationURL`).
     - URL CMS

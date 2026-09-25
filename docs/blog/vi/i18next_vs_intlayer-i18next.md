@@ -32,7 +32,7 @@ author: aymericzip
 
 `@intlayer/i18next`, `@intlayer/react-i18next` và `@intlayer/next-i18next` là các adapter tương thích. Chúng cung cấp API `i18next` mà mã nguồn của bạn đang sử dụng (`useTranslation`, `t()`, `<Trans>`, `i18n.changeLanguage()`, `getFixedT`, `serverSideTranslations`...) và phân phối bản dịch từ các từ điển được biên dịch bởi Intlayer. Các component không hề thay đổi. Runtime bên dưới chúng mới là phần thay đổi.
 
-Bài viết này đo lường sự thay thế đó trên cùng một ứng dụng Next.js, được xây dựng một lần với `next-i18next` và một lần với `@intlayer/next-i18next`. Các số liệu đến từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Để so sánh `i18next` và Intlayer dưới dạng thư viện, hãy đọc [i18next vs Intlayer](https://intlayer.org/vi/blog/i18next-vs-intlayer). Bài viết này tập trung vào những gì adapter mang lại khi bạn giữ nguyên mã nguồn của mình.
+Bài viết này đo lường sự thay thế đó trên cùng một ứng dụng Next.js, được xây dựng một lần với `next-i18next` và một lần với `@intlayer/next-i18next`. Các số liệu đến từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Để so sánh `i18next` và Intlayer dưới dạng thư viện, hãy đọc [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer.md). Bài viết này tập trung vào những gì adapter mang lại khi bạn giữ nguyên mã nguồn của mình.
 
 <TOC/>
 
@@ -142,9 +142,9 @@ height="600px"
 style="border:none;"
 />
 
-> Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://intlayer.org/vi/doc/benchmark/nextjs).
+> Bảng đầy đủ, từng thư viện và từng chiến lược, trong [báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md).
 
-> Adapter `react-i18next` trên Vite / TanStack Start không nằm trong đợt thử nghiệm này. Số liệu cơ sở của `react-i18next` trên TanStack Start có tại [i18next vs Intlayer](https://intlayer.org/vi/blog/i18next-vs-intlayer): 127-184 KB mỗi trang và mất 123-185 ms khi đổi ngôn ngữ với backend tải lười.
+> Adapter `react-i18next` trên Vite / TanStack Start không nằm trong đợt thử nghiệm này. Số liệu cơ sở của `react-i18next` trên TanStack Start có tại [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer.md): 127-184 KB mỗi trang và mất 123-185 ms khi đổi ngôn ngữ với backend tải lười.
 
 ## Lý do các con số có sự thay đổi
 
@@ -321,7 +321,7 @@ export default defineConfig({
 <AccordionGroup>
 <Accordion header="Các backend và trình phát hiện không hoạt động">
 
-`i18n.use(HttpBackend)` chỉ gọi init của plugin và không làm gì khác. Nếu ứng dụng của bạn dựa vào việc tìm nạp bản dịch từ CMS tại runtime, luồng đó sẽ không còn nữa; hãy sử dụng [Intlayer CMS](https://intlayer.org/vi/doc/concept/cms) hoặc các lệnh `intlayer pull` / `push` để thay thế. Việc phát hiện ngôn ngữ sẽ trở thành cấu hình định tuyến của Intlayer (tiền tố URL, cookie, tiêu đề).
+`i18n.use(HttpBackend)` chỉ gọi init của plugin và không làm gì khác. Nếu ứng dụng của bạn dựa vào việc tìm nạp bản dịch từ CMS tại runtime, luồng đó sẽ không còn nữa; hãy sử dụng [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) hoặc các lệnh `intlayer pull` / `push` để thay thế. Việc phát hiện ngôn ngữ sẽ trở thành cấu hình định tuyến của Intlayer (tiền tố URL, cookie, tiêu đề).
 
 </Accordion>
 <Accordion header="resources bị bỏ qua, không được hợp nhất">
@@ -361,7 +361,7 @@ Bạn đang dùng `react-i18next` / `next-i18next` và muốn tiết kiệm 68 K
 </Accordion>
 <Accordion header="Chuyển sang native (next-intlayer / react-intlayer)">
 
-Dành cho các dự án mới hoặc khi adapter đã hoàn thành nhiệm vụ. Nó có runtime nhẹ nhất (5.5 KB, +0.3 KB mỗi trang) và mở khóa các Server Components đồng bộ cùng các tệp `.content.ts` theo từng component. Bắt đầu với [Intlayer với Next.js](https://intlayer.org/vi/doc/environment/nextjs) hoặc [với Vite và React](https://intlayer.org/vi/doc/environment/vite-and-react).
+Dành cho các dự án mới hoặc khi adapter đã hoàn thành nhiệm vụ. Nó có runtime nhẹ nhất (5.5 KB, +0.3 KB mỗi trang) và mở khóa các Server Components đồng bộ cùng các tệp `.content.ts` theo từng component. Bắt đầu với [Intlayer với Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md) hoặc [với Vite và React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md).
 
 </Accordion>
 </AccordionGroup>
@@ -406,24 +406,24 @@ Có. `locales/{lng}/{ns}.json` vẫn là nguồn chân lý duy nhất: `syncJSON
 
 Cùng loạt adapter:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/vi/blog/next-intl-vs-intlayer-next-intl)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/vi/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/vi/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer-next-intl.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer-vue-i18n.md)
 
 Các thư viện được so sánh trực tiếp:
 
-- [i18next vs Intlayer](https://intlayer.org/vi/blog/i18next-vs-intlayer), same benchmark
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/vi/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/vi/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [Is i18next outdated?](https://intlayer.org/vi/blog/is-i18next-outdated)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer.md), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Is i18next outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_i18next_outdated.md)
 
 Tài liệu tham khảo:
 
-- Compat adapters: [i18next](https://intlayer.org/vi/doc/compatibility/i18next), [react-i18next](https://intlayer.org/vi/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/vi/doc/compatibility/next-i18next)
-- Migration guides: [i18next](https://intlayer.org/vi/doc/migration/i18next), [react-i18next](https://intlayer.org/vi/doc/migration/react-i18next), [next-i18next](https://intlayer.org/vi/doc/migration/next-i18next)
-- [Next.js benchmark report](https://intlayer.org/vi/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/vi/doc/benchmark/tanstack)
-- [Bundle optimization](https://intlayer.org/vi/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/vi/doc/compiler)
-- [Visual Editor](https://intlayer.org/vi/doc/concept/editor), [CMS](https://intlayer.org/vi/doc/concept/cms) and [AI translation](https://intlayer.org/vi/doc/concept/auto-fill)
+- Compat adapters: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-i18next.md)
+- Migration guides: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-i18next_to_intlayer.md)
+- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md) and [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
+- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) and [AI translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md)
 
 ## Kết luận
 
@@ -431,4 +431,4 @@ Tài liệu tham khảo:
 
 Mọi dữ liệu thô, ứng dụng kiểm thử và mã kịch bản đều có sẵn trong [kho lưu trữ Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Bạn có thể tự mình kiểm chứng.
 
-Tham khảo thêm tài liệu ['Tại sao chọn Intlayer?'](https://intlayer.org/vi/doc/why) để biết thêm chi tiết.
+Tham khảo thêm tài liệu ['Tại sao chọn Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.

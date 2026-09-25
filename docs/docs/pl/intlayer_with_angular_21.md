@@ -480,7 +480,7 @@ Rozszerzenie to zapewnia:
 - **Wbudowane podglądy** przetłumaczonych treści.
 - **Szybkie akcje**, by sprawnie stworzyć nowe i zaktualizować istniejące tłumaczenia.
 
-Więcej informacji na temat korzystania z rozszerzenia można znaleźć w [Dokumentacji Rozszerzenia Intlayer dla VS Code](https://intlayer.org/doc/vs-code-extension).
+Więcej informacji na temat korzystania z rozszerzenia można znaleźć w [Dokumentacji Rozszerzenia Intlayer dla VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
 ### Idź Dalej
 
@@ -494,7 +494,7 @@ By osiągnąć jeszcze więcej, możesz zaimplementować [edytor wizualny](https
 
 - **Wbudowane `@angular/localize`**: kompilacja odrębnego bundle'a na każdy język.
 - **`ngx-translate`** i **`Transloco`**: katalogi JSON ładowane w runtime.
-- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)) i kompilowane w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
+- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)) i kompilowane w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
 
 Intlayer jest w pełni zintegrowany z najnowszymi funkcjami Angulara: Standalone Components, Signal inputs oraz nowym pipeline'em budowania opartym na Vite i esbuild. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
 

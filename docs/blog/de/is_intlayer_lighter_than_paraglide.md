@@ -22,7 +22,7 @@ author: aymericzip
 
 Ja.
 
-`Paraglide` genießt den Ruf, die leichteste i18n-Lösung auf dem Markt zu sein, und auf den ersten Blick bestätigt der [Benchmark](https://intlayer.org/de/doc/benchmark/tanstack) diesen Eindruck: Die Bibliotheksgröße liegt nahe bei null. Doch eine Bibliotheksgröße von null bedeutet keineswegs null ausgelieferte Bytes. Es bedeutet lediglich, dass die Bytes an einer Stelle liegen, die diese Metrik nicht erfasst.
+`Paraglide` genießt den Ruf, die leichteste i18n-Lösung auf dem Markt zu sein, und auf den ersten Blick bestätigt der [Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/tanstack.md) diesen Eindruck: Die Bibliotheksgröße liegt nahe bei null. Doch eine Bibliotheksgröße von null bedeutet keineswegs null ausgelieferte Bytes. Es bedeutet lediglich, dass die Bytes an einer Stelle liegen, die diese Metrik nicht erfasst.
 
 <TOC/>
 
@@ -93,7 +93,7 @@ Next.js 16 App Router, dieselbe Anwendung:
 
 <I18nBenchmark framework="tanstack" vertical/>
 
-> Vollständige Daten im [TanStack Start Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/tanstack) und im [Next.js Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/nextjs). Jedes Bundle kann im [Benchmark-Repository](https://github.com/intlayer-org/benchmark-i18n) eingesehen werden.
+> Vollständige Daten im [TanStack Start Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/tanstack.md) und im [Next.js Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md). Jedes Bundle kann im [Benchmark-Repository](https://github.com/intlayer-org/benchmark-i18n) eingesehen werden.
 
 Zwei Aspekte stechen hervor:
 
@@ -198,7 +198,7 @@ Dieser Workflow bringt Nachteile mit sich:
 
 Paraglides zentrales Versprechen lautet, dass ungenutzte Nachrichten per Tree Shaking entfernt werden, da jede Nachricht ein eigener Export ist. Im Benchmark mit Svelte + Vite funktioniert das wie beworben.
 
-In anderen Konfigurationen funktionierte es nicht. In unserem [Next.js](https://intlayer.org/de/doc/benchmark/nextjs)-Lauf wiegen Paraglides Seiten 14 KB mehr als die Basisanwendung, während `next-intlayer` lediglich 0.3 KB hinzufügt. Frühere Durchläufe auf TanStack Start zeigten zudem, dass Nachrichten anderer Seiten im Bundle der Route landeten.
+In anderen Konfigurationen funktionierte es nicht. In unserem [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)-Lauf wiegen Paraglides Seiten 14 KB mehr als die Basisanwendung, während `next-intlayer` lediglich 0.3 KB hinzufügt. Frühere Durchläufe auf TanStack Start zeigten zudem, dass Nachrichten anderer Seiten im Bundle der Route landeten.
 
 Tree Shaking hängt von Ihrem Bundler (Turbopack, Rolldown, Rollup), der Import-Syntax (`import { m }` vs. `import * as m`) und der Side-Effect-Analyse ab. Wenn Sie Paraglide wegen seiner Größe wählen, öffnen Sie Ihren Bundle-Visualizer und überprüfen Sie, ob das Versprechen in Ihrer Anwendung greift.
 
@@ -234,7 +234,7 @@ export default config;
 | `dynamic`    | Nur die aktuelle Locale, Lazy-Loading pro Wörterbuch    | **N-mal kleiner** bei N Locales |
 | `fetch`      | Nur die aktuelle Locale, bezogen über die Live Sync API | **N-mal kleiner** bei N Locales |
 
-Mit der [Build-Transformation](https://intlayer.org/de/doc/concept/bundle-optimization) und `importMode: 'static'` lädt Intlayer in der Theorie exakt denselben Inhalt wie Paraglide. Mit `'dynamic'` oder `'fetch'` lädt es nur das, was die aktuelle Locale benötigt: Bei einer App in N Sprachen ist die Übersetzungs-Nutzlast um den Faktor N kleiner als bei Paraglide.
+Mit der [Build-Transformation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md) und `importMode: 'static'` lädt Intlayer in der Theorie exakt denselben Inhalt wie Paraglide. Mit `'dynamic'` oder `'fetch'` lädt es nur das, was die aktuelle Locale benötigt: Bei einer App in N Sprachen ist die Übersetzungs-Nutzlast um den Faktor N kleiner als bei Paraglide.
 
 ## Wann Paraglide weiterhin passt
 
@@ -277,8 +277,8 @@ bunx intlayer init --interactive
 
 ## Weiterführende Literatur
 
-- [TanStack Start i18n Benchmark](https://intlayer.org/de/doc/benchmark/tanstack)
-- [Next.js i18n Benchmark](https://intlayer.org/de/doc/benchmark/nextjs)
-- [Bundle-Optimierung und `importMode`](https://intlayer.org/de/doc/concept/bundle-optimization)
-- [So wählen Sie eine React i18n-Bibliothek aus](https://intlayer.org/de/blog/how-to-pick-react-i18n-library)
-- [Plädoyer für compilergestützte Internationalisierung](https://intlayer.org/de/blog/compiler-vs-declarative-i18n)
+- [TanStack Start i18n Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/tanstack.md)
+- [Next.js i18n Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
+- [Bundle-Optimierung und `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md)
+- [So wählen Sie eine React i18n-Bibliothek aus](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_react_i18n_library.md)
+- [Plädoyer für compilergestützte Internationalisierung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/compiler_vs_declarative_i18n.md)

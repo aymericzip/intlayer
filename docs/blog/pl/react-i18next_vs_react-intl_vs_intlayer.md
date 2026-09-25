@@ -142,4 +142,4 @@ Wszystkie trzy biblioteki skutecznie lokalizują React. Różnicą jest to, ile 
 - W przypadku **Intlayer**, **modularna zawartość**, **ścisłe typowanie TS**, **bezpieczeństwo w czasie kompilacji**, **tree-shaken bundles** oraz **narzędzia edytorskie** są domyślne - a nie obowiązkowe.
 - Jeśli Twój zespół ceni **utrzymywalność i szybkość** w wielojęzycznych aplikacjach React opartych na komponentach, Intlayer oferuje dziś **najbardziej kompletny** workflow dla deweloperów i zarządzania treścią.
 
-Zapoznaj się z dokumentem ['Dlaczego Intlayer?'](https://intlayer.org/doc/why) po więcej szczegółów.
+Zapoznaj się z dokumentem ['Dlaczego Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) po więcej szczegółów.

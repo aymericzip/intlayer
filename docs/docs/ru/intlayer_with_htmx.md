@@ -655,7 +655,7 @@ export default config;
 - **Встроенные предпросмотры** переведённого контента.
 - **Быстрые действия** для легкого создания и обновления переводов.
 
-Для получения дополнительной информации об использовании расширения см. [документацию расширения Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+Для получения дополнительной информации об использовании расширения см. [документацию расширения Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md).
 
 ### Идите дальше
 

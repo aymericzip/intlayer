@@ -775,7 +775,7 @@ Extension này cung cấp:
 - **Xem trước nội dung đã dịch** trực tiếp.
 - **Quick actions** để dễ dàng tạo và cập nhật các bản dịch.
 
-Để biết thêm chi tiết về cách sử dụng extension, hãy tham khảo [tài liệu Extension Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Để biết thêm chi tiết về cách sử dụng extension, hãy tham khảo [tài liệu Extension Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md).
 
 ### Đi xa hơn
 

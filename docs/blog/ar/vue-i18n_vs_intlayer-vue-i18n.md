@@ -29,7 +29,7 @@ author: aymericzip
 
 `@intlayer/vue-i18n` هو محول توافقي: يعرّض واجهة برمجية (API) من `vue-i18n` (`createI18n`، `useI18n`، `t()`، `d()`، `n()`، `$t`، `v-t`، `i18n.global.locale`...) ويقدمها من القواميس المترجمة بواسطة Intlayer. ملفات `.vue` الخاصة بك لا تتغير. ما يرتبط به `t("footer.github")` هو ما يتغير.
 
-تقيس هذه المقالة هذا التبديل على نفس تطبيق Vite + Vue 3، تم بناؤه مرة واحدة باستخدام `vue-i18n` ومرة أخرى باستخدام المحول. تأتي الأرقام من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). لمقارنة `vue-i18n` و Intlayer كمكتبات، اقرأ [vue-i18n vs Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer) و[vue-i18n vs Intlayer benchmark](https://intlayer.org/blog/vue-i18n-vs-intlayer-benchmark). هذا يتعلق بما يغيره المحول عندما تحتفظ بمكوناتك كما هي.
+تقيس هذه المقالة هذا التبديل على نفس تطبيق Vite + Vue 3، تم بناؤه مرة واحدة باستخدام `vue-i18n` ومرة أخرى باستخدام المحول. تأتي الأرقام من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). لمقارنة `vue-i18n` و Intlayer كمكتبات، اقرأ [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md) و[vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer_benchmark.md). هذا يتعلق بما يغيره المحول عندما تحتفظ بمكوناتك كما هي.
 
 <TOC/>
 
@@ -83,7 +83,7 @@ const { t } = useI18n(_dicHash_footer);
 | `createI18n({ messages })`                                          | ⚠️ يتم استخدام `messages` كـ **fallback في وقت التشغيل** مع تحذير في بيئة التطوير. قم بإزالة استيرادات JSON للحصول على مكاسب في حجم الحزمة |
 | `setLocaleMessage()`, `mergeLocaleMessage()`                        | ❌ تحذير وعدم القيام بأي شيء. يتم استبدال تحميل الرسائل في وقت التشغيل بقواميس build-time                                                  |
 | كتل `<i18n>` المخصصة في SFC                                         | ❌ لا يتم قراءتها. انقل تلك الرسائل إلى JSON اللغة (أو `.content.ts` بجانب المكون)                                                         |
-| `@nuxtjs/i18n`                                                      | ⚠️ محول منفصل، انظر [وثائق توافق Nuxt](https://intlayer.org/doc/compatibility/nuxtjs-i18n)                                                 |
+| `@nuxtjs/i18n`                                                      | ⚠️ محول منفصل، انظر [وثائق توافق Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md)                |
 
 ## المعايير
 
@@ -137,7 +137,7 @@ height="600px"
 style="border:none;"
 />
 
-> الجدول الكامل، كل مكتبة وكل استراتيجية، في [تقرير قياس أداء Vue](https://intlayer.org/ar/doc/benchmark/vue).
+> الجدول الكامل، كل مكتبة وكل استراتيجية، في [تقرير قياس أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md).
 
 ## لماذا تتحرك الأرقام
 
@@ -285,7 +285,7 @@ export const i18n = createI18n({ locale: "en" });
 </Accordion>
 <Accordion header="تمت إزالة تحميل الرسائل في وقت التشغيل">
 
-`setLocaleMessage()` و `mergeLocaleMessage()` يقومان بإصدار تحذير والعودة. تتطلب الترجمات التي يتم جلبها من نظام إدارة المحتوى (CMS) في وقت التشغيل استخدام [Intlayer CMS](https://intlayer.org/ar/doc/concept/cms)، أو أوامر `intlayer pull` / `push`.
+`setLocaleMessage()` و `mergeLocaleMessage()` يقومان بإصدار تحذير والعودة. تتطلب الترجمات التي يتم جلبها من نظام إدارة المحتوى (CMS) في وقت التشغيل استخدام [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)، أو أوامر `intlayer pull` / `push`.
 
 </Accordion>
 <Accordion header="messages هو خيار احتياطي، وليس مجانيًا">
@@ -315,7 +315,7 @@ export const i18n = createI18n({ locale: "en" });
 </Accordion>
 <Accordion header="الانتقال إلى الوضع الأصلي (vue-intlayer)">
 
-للمشاريع الجديدة، أو بمجرد أن يؤدي المحول وظيفته. يتميز بأخف وقت تشغيل (3.9 كيلوبايت) ونموذج `.content.ts` لكل مكون يحل محل كتل `<i18n>` بمحتوى ذي أنواع محددة. ابدأ مع [Intlayer مع Vue](https://intlayer.org/ar/doc/environment/vite-and-vue) أو [مع Nuxt](https://intlayer.org/ar/doc/environment/nuxt-and-vue).
+للمشاريع الجديدة، أو بمجرد أن يؤدي المحول وظيفته. يتميز بأخف وقت تشغيل (3.9 كيلوبايت) ونموذج `.content.ts` لكل مكون يحل محل كتل `<i18n>` بمحتوى ذي أنواع محددة. ابدأ مع [Intlayer مع Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md) أو [مع Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md).
 
 </Accordion>
 </AccordionGroup>
@@ -338,13 +338,13 @@ export const i18n = createI18n({ locale: "en" });
 
 <Question title="ماذا عن تنسيق d() و n()؟">
 
-تم الحفاظ عليه. يتم احترام إعدادات `datetimeFormats` و `numberFormats` التي تم تمريرها إلى `createI18n()`، وهي مدعومة بواسطة واجهة `Intl` الأصلية. راجع [تنسيق التاريخ والوقت والأرقام](https://intlayer.org/ar/blog/date-time-number-formatting-locales).
+تم الحفاظ عليه. يتم احترام إعدادات `datetimeFormats` و `numberFormats` التي تم تمريرها إلى `createI18n()`، وهي مدعومة بواسطة واجهة `Intl` الأصلية. راجع [تنسيق التاريخ والوقت والأرقام](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/date_time_number_formatting_locales.md).
 
 </Question>
 
 <Question title="هل يعمل مع Nuxt؟">
 
-`@intlayer/vue-i18n` يستهدف Vite + Vue. بالنسبة لـ `@nuxtjs/i18n`، استخدم [محول التوافق Nuxt i18n](https://intlayer.org/ar/doc/compatibility/nuxtjs-i18n)، وراجع [Intlayer مع Nuxt](https://intlayer.org/ar/doc/environment/nuxt-and-vue) للإعداد الأصلي.
+`@intlayer/vue-i18n` يستهدف Vite + Vue. بالنسبة لـ `@nuxtjs/i18n`، استخدم [محول التوافق Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md)، وراجع [Intlayer مع Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md) للإعداد الأصلي.
 
 </Question>
 
@@ -360,24 +360,24 @@ export const i18n = createI18n({ locale: "en" });
 
 نفس سلسلة المحولات:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/ar/blog/next-intl-vs-intlayer-next-intl)
-- [i18next vs @intlayer/i18next](https://intlayer.org/ar/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/ar/blog/lingui-vs-intlayer-lingui)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer-next-intl.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer-lingui.md)
 
 مقارنة المكتبات جنبًا إلى جنب:
 
-- [vue-i18n vs Intlayer](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer), features and DX
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/ar/blog/vue-i18n-vs-intlayer-benchmark)
-- [Is vue-i18n outdated?](https://intlayer.org/ar/blog/is-vue-i18n-outdated)
-- [How to pick a Vue i18n library](https://intlayer.org/ar/blog/how-to-pick-vue-i18n-library)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md), features and DX
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer_benchmark.md)
+- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_vue-i18n_outdated.md)
+- [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_vue_i18n_library.md)
 
 وثائق مرجعية:
 
-- [Compat adapter: vue-i18n](https://intlayer.org/ar/doc/compatibility/vue-i18n) and [Nuxt i18n](https://intlayer.org/ar/doc/compatibility/nuxtjs-i18n)
-- [دليل الترحيل: من vue-i18n إلى Intlayer](https://intlayer.org/ar/doc/migration/vue-i18n)
-- [تقرير قياس أداء Vue](https://intlayer.org/ar/doc/benchmark/vue)
-- [تحسين الحزمة](https://intlayer.org/ar/doc/concept/bundle-optimization) و [مترجم Intlayer](https://intlayer.org/ar/doc/compiler)
-- [المحرر المرئي](https://intlayer.org/ar/doc/concept/editor)، [نظام إدارة المحتوى (CMS)](https://intlayer.org/ar/doc/concept/cms) و [الترجمة بالذكاء الاصطناعي](https://intlayer.org/ar/doc/concept/auto-fill)
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md)
+- [دليل الترحيل: من vue-i18n إلى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_vue-i18n_to_intlayer.md)
+- [تقرير قياس أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md)
+- [تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) و [الترجمة بالذكاء الاصطناعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)
 
 ## الخلاصة
 
@@ -385,4 +385,4 @@ export const i18n = createI18n({ locale: "en" });
 
 جميع البيانات الأولية وتطبيقات الاختبار والسكريبتات موجودة في [مستودع Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). قم بتشغيلها بنفسك.
 
-راجع وثيقة ['Why Intlayer?'](https://intlayer.org/ar/doc/why) للحصول على مزيد من التفاصيل.
+راجع وثيقة ['Why Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md) للحصول على مزيد من التفاصيل.

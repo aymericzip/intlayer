@@ -1009,7 +1009,7 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 - 翻訳済みコンテンツの **インラインプレビュー**。
 - 翻訳を簡単に作成・更新するための **クイックアクション**。
 
-拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://intlayer.org/ja/doc/vs-code-extension)を参照してください。
+拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
 
 ### さらに進むために
 
@@ -1025,7 +1025,7 @@ Vite は i18n について特定の見解を持たないため、選択肢は Re
 
 - **`react-i18next` / `i18next`**: 最も広く使われており、JSON ネームスペースが実行時に読み込まれます。
 - **`react-intl`** と **`Lingui`**: ICU メッセージ形式、抽出ベースです。
-- **`Intlayer`**: 最も高度なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、Vite プラグインによってビルド時にコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
+- **`Intlayer`**: 最も高度なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣またはセントラライズ](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）、Vite プラグインによってビルド時にコンパイルされ、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
 
 Vite 特有の点として、Intlayer はビルドにプラグインされるため、翻訳は実行時に JSON として取得されるのではなく、コンパイル時に解決され tree shaken されます。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)を参照してください。
 

@@ -24,7 +24,7 @@ author: aymericzip
 
 Có, bạn có thể sử dụng Intlayer với Next.js mà không có `[locale]` trong đường dẫn trang. Tuy nhiên, điều này không được khuyến nghị, vì việc tách trang của bạn cho phép kích hoạt nhiều từ khóa hơn trên các công cụ tìm kiếm. SSR của bạn cũng có thể bị ảnh hưởng.
 
-Nếu bạn muốn làm như vậy, hãy làm theo các bước giống như được mô tả trong hướng dẫn [Intlayer với Next.js](https://intlayer.org/doc/environment/nextjs),
+Nếu bạn muốn làm như vậy, hãy làm theo các bước giống như được mô tả trong hướng dẫn [Intlayer với Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md),
 
 - không có `src/middleware.ts`
 - không có `generateStaticParams`

@@ -1046,7 +1046,7 @@ Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS 
 - **인라인 미리보기**로 번역된 내용을 바로 확인할 수 있습니다.
 - **빠른 작업**으로 번역을 쉽게 생성하고 업데이트할 수 있습니다.
 
-확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
 
 ### 더 나아가기
 
@@ -1062,7 +1062,7 @@ Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS 
 
 - **`next-intl`**, **`next-i18next` / `i18next`** 및 **`react-intl`**: 네임스페이스별로 로드되는 JSON 또는 ICU 메시지 카탈로그 기반의 전통적인 옵션입니다.
 - **`Lingui`**: 빌드 타임에 컴파일되는 ICU 메시지를 사용하는 추출 기반 솔루션입니다.
-- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://intlayer.org/ko/blog/per-component-vs-centralized-i18n)), 빌드 타임에 컴포넌트별 사전으로 컴파일되고, 완전한 타입 안전성을 제공하며 AI 번역, 비주얼 에디터 및 CMS를 포함합니다.
+- **`Intlayer`**: 가장 진보된 솔루션입니다. 코드베이스 어디에나 콘텐츠를 선언할 수 있으며([각 컴포넌트 옆 또는 중앙 집중식](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)), 빌드 타임에 컴포넌트별 사전으로 컴파일되고, 완전한 타입 안전성을 제공하며 AI 번역, 비주얼 에디터 및 CMS를 포함합니다.
 
 실제적인 차이는 브라우저에 전송되는 데이터 양입니다. 네임스페이스 기반 라이브러리는 페이지에 전체 JSON 카탈로그를 전송하지만, Intlayer는 렌더링된 컴포넌트가 사용하는 콘텐츠만 전송하므로 번들 및 페이지 크기를 최대 50% 줄여줍니다. [왜 Intlayer인가](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)와 [Next.js i18n 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)를 참조하세요.
 

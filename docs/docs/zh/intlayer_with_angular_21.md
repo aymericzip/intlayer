@@ -480,7 +480,7 @@ Intlayer使用模块扩充（Module Augmentation）来获得TypeScript的好处�
 - 已翻译内容的**内联预览**。
 - 轻松创建和更新翻译的**快速操作**。
 
-有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展示例文档](https://intlayer.org/doc/vs-code-extension)。
+有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展示例文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
 ### 深入了解
 
@@ -494,7 +494,7 @@ Intlayer使用模块扩充（Module Augmentation）来获得TypeScript的好处�
 
 - **`@angular/localize`**（内置 i18n）：消息被提取到 XLIFF 文件中，每个语言环境被编译进独立的构建产物中，这意味着每种语言对应一个部署产物，无法在运行时切换语言环境。
 - **`ngx-translate`** 和 **`Transloco`**：通过服务加载的运行时 JSON 目录，支持语言环境切换，但没有构建时类型安全。
-- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），并在构建时进行编译，全链路类型安全，支持运行时语言环境切换、AI 翻译、可视化编辑器和 CMS。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），并在构建时进行编译，全链路类型安全，支持运行时语言环境切换、AI 翻译、可视化编辑器和 CMS。
 
 脱离 `@angular/localize` 的常见原因正是其“每个语言环境一次构建”的模式。Intlayer 保持单一构建产物并在运行时无缝切换语言。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
 

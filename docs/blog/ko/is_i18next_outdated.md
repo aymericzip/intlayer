@@ -85,7 +85,7 @@ height="600px"
 style="border:none;"
 />
 
-> 프로덕션 빌드 환경에서 10개 라우트, 10개 언어, gzip 압축 기준으로 측정되었습니다. 세부 사항은 [i18n 벤치마크 보고서](https://intlayer.org/ko/doc/benchmark)를 참조하세요.
+> 프로덕션 빌드 환경에서 10개 라우트, 10개 언어, gzip 압축 기준으로 측정되었습니다. 세부 사항은 [i18n 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)를 참조하세요.
 
 ### 라이브러리 기본 오버헤드
 
@@ -164,7 +164,7 @@ return <h1>{title}</h1>;
   </Tab>
 </Tabs>
 
-[Intlayer 컴파일러](https://intlayer.org/ko/doc/compiler)는 `Hero.tsx`가 실제로 참조하는 필드만 분석하여 사용되지 않는 번역을 클라이언트 번들 생성 전에 완전히 제거합니다. 자세한 내용은 [번들 최적화](https://intlayer.org/ko/doc/concept/bundle-optimization)를 참조하세요.
+[Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 `Hero.tsx`가 실제로 참조하는 필드만 분석하여 사용되지 않는 번역을 클라이언트 번들 생성 전에 완전히 제거합니다. 자세한 내용은 [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)를 참조하세요.
 
 ## 개발자 경험 (DX) 비교
 
@@ -231,17 +231,17 @@ export const Hero = () => {
 
 `CustomTypeOptions`를 정의하면 에디터 자동완성은 지원되지만, 실제 번역이 빠짐없이 채워졌는지는 검증하지 못합니다. `ko/hero.json`에서 키를 지워도 빌드는 통과하며, 런타임에 폴백 텍스트만 표시됩니다.
 
-Intlayer는 선언된 콘텐츠를 기반으로 직접 타입을 생성합니다. [`strictMode`](https://intlayer.org/ko/doc/concept/configuration)를 활성화하면 특정 언어에서 번역이 누락되었을 때 즉시 빌드 에러를 발생시킵니다.
+Intlayer는 선언된 콘텐츠를 기반으로 직접 타입을 생성합니다. [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 활성화하면 특정 언어에서 번역이 누락되었을 때 즉시 빌드 에러를 발생시킵니다.
 
 ### 툴링 생태계 비교
 
-| 기능                      | i18next 생태계     | Intlayer                                                               |
-| ------------------------- | ------------------ | ---------------------------------------------------------------------- |
-| **VS Code 확장 프로그램** | 서드파티만 존재    | ✅ [공식 확장 프로그램](https://intlayer.org/ko/doc/vs-code-extension) |
-| **Language Server (LSP)** | ❌ 없음            | ✅ [전용 LSP 내장](https://intlayer.org/ko/doc/lsp)                    |
-| **AI용 MCP 서버**         | ❌ 없음            | ✅ [MCP 서버 내장](https://intlayer.org/ko/doc/mcp-server)             |
-| **AI 에이전트 스킬**      | ❌ 없음            | ✅ [사전 빌드된 스킬 제공](https://intlayer.org/ko/doc/agent_skills)   |
-| **인컨텍스트 비주얼 CMS** | Locize (유료 SaaS) | ✅ [무료 & 오픈소스](https://intlayer.org/ko/doc/concept/editor)       |
+| 기능                      | i18next 생태계     | Intlayer                                                                                                      |
+| ------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------- |
+| **VS Code 확장 프로그램** | 서드파티만 존재    | ✅ [공식 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)   |
+| **Language Server (LSP)** | ❌ 없음            | ✅ [전용 LSP 내장](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)                      |
+| **AI용 MCP 서버**         | ❌ 없음            | ✅ [MCP 서버 내장](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)               |
+| **AI 에이전트 스킬**      | ❌ 없음            | ✅ [사전 빌드된 스킬 제공](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)     |
+| **인컨텍스트 비주얼 CMS** | Locize (유료 SaaS) | ✅ [무료 & 오픈소스](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) |
 
 LSP와 MCP 서버가 내장되어 있어 AI 코딩 어시스턴트가 프로젝트의 다국어 구조를 정확히 이해하고 정밀한 제안을 제공할 수 있습니다.
 
@@ -251,8 +251,8 @@ Locize는 i18next 제작진이 운영하는 상용 서비스입니다. 오픈소
 
 Intlayer는 개방형 방식을 지향합니다.
 
-- [`intlayer fill`](https://intlayer.org/ko/doc/concept/auto-fill)은 본인의 OpenAI, Anthropic, Mistral, Gemini API 키를 활용해 터미널이나 CI에서 누락된 번역을 자동으로 채워줍니다.
-- [Intlayer CMS](https://intlayer.org/ko/doc/concept/cms)는 오픈소스로 제공되며 Docker Compose를 통해 자체 호스팅할 수 있습니다.
+- [`intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)은 본인의 OpenAI, Anthropic, Mistral, Gemini API 키를 활용해 터미널이나 CI에서 누락된 번역을 자동으로 채워줍니다.
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)는 오픈소스로 제공되며 Docker Compose를 통해 자체 호스팅할 수 있습니다.
 - 컴파일러, CLI, 에디터, CMS 모두 Apache 2.0 라이선스로 배포됩니다.
 
 ## 지금도 i18next가 유효한 경우는?
@@ -305,9 +305,9 @@ bunx intlayer init --interactive
 
 단계별 가이드는 다음 문서를 확인하세요.
 
-- **호환성 레이어:** [i18next](https://intlayer.org/ko/doc/compatibility/i18next), [react-i18next](https://intlayer.org/ko/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/ko/doc/compatibility/next-i18next) 호환성 레이어를 사용해 기존 코드를 유지하면서 빌드 파이프라인을 현대화합니다.
-- **사전 마이그레이션 가이드:** JSON 파일을 타입 안전한 사전으로 변환합니다. [i18next 마이그레이션](https://intlayer.org/ko/doc/migration/i18next), [react-i18next 마이그레이션](https://intlayer.org/ko/doc/migration/react-i18next), [next-i18next 마이그레이션](https://intlayer.org/ko/doc/migration/next-i18next).
-- **점진적 하이브리드 운영:** 런타임으로 i18next를 유지하면서, [Intlayer와 i18next를 결합](https://intlayer.org/ko/blog/intlayer-with-i18next)하여 타입 검사와 로컬 AI 번역 기능만 도입합니다.
+- **호환성 레이어:** [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-i18next.md) 호환성 레이어를 사용해 기존 코드를 유지하면서 빌드 파이프라인을 현대화합니다.
+- **사전 마이그레이션 가이드:** JSON 파일을 타입 안전한 사전으로 변환합니다. [i18next 마이그레이션](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md), [react-i18next 마이그레이션](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_react-i18next_to_intlayer.md), [next-i18next 마이그레이션](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-i18next_to_intlayer.md).
+- **점진적 하이브리드 운영:** 런타임으로 i18next를 유지하면서, [Intlayer와 i18next를 결합](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_i18next.md)하여 타입 검사와 로컬 AI 번역 기능만 도입합니다.
 
 무료 [i18n SEO 스캐너](https://intlayer.org/i18n-seo-scanner)로 운영 중인 사이트의 번들 누수와 크기를 진단해 보세요.
 
@@ -315,7 +315,7 @@ bunx intlayer init --interactive
 
 ## 관련 글 보기
 
-- [Next.js i18n 벤치마크: 성능 심층 분석](https://intlayer.org/ko/doc/benchmark/nextjs)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ko/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [2026년에도 next-intl을 계속 써야 할까요?](https://intlayer.org/ko/blog/is-next-intl-outdated)
-- [컴파일러 기반 i18n과 선언적 아키텍처의 차이](https://intlayer.org/ko/blog/compiler-vs-declarative-i18n)
+- [Next.js i18n 벤치마크: 성능 심층 분석](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/react-i18next_vs_react-intl_vs_intlayer.md)
+- [2026년에도 next-intl을 계속 써야 할까요?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_next-intl_outdated.md)
+- [컴파일러 기반 i18n과 선언적 아키텍처의 차이](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)

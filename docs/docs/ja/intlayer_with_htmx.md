@@ -657,7 +657,7 @@ Intlayer を使用した開発体験を向上させるために、公式の **In
 - **翻訳済みコンテンツのインラインプレビュー**。
 - **翻訳を簡単に作成・更新するクイックアクション**。
 
-エクステンションの使用方法の詳細については、[Intlayer VS Code エクステンションのドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+エクステンションの使用方法の詳細については、[Intlayer VS Code エクステンションのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
 
 ### さらに進める
 

@@ -81,7 +81,7 @@ height="600px"
 style="border:none;"
 />
 
-> Test condotti in browser reali con compressione gzip. Dati completi nella [documentazione del benchmark Vue](https://intlayer.org/it/doc/benchmark/vue).
+> Test condotti in browser reali con compressione gzip. Dati completi nella [documentazione del benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/vue.md).
 
 ### Peso iniziale delle librerie
 
@@ -171,7 +171,7 @@ const { title } = useIntlayer("hero");
   </Tab>
 </Tabs>
 
-Il [compilatore Intlayer](https://intlayer.org/it/doc/compiler) identifica le proprietà lette ed estromette i contenuti superflui prima di generare i chunk del client. Maggiori dettagli nell'[ottimizzazione del bundle](https://intlayer.org/it/doc/concept/bundle-optimization).
+Il [compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) identifica le proprietà lette ed estromette i contenuti superflui prima di generare i chunk del client. Maggiori dettagli nell'[ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md).
 
 ## Esperienza di sviluppo
 
@@ -248,17 +248,17 @@ Eliminando o modificando `Hero.vue`, i file di contenuto correlati vengono aggio
 
 `DefineLocaleMessage` fornisce autocompletamento nell'editor sulla base dello schema principale. Tuttavia non assicura che ogni lingua sia completa. L'omissione di una chiave in `it.json` non arresta il build con TypeScript.
 
-Intlayer convalida rigorosamente i dizionari. Abilitando [`strictMode`](https://intlayer.org/it/doc/concept/configuration), ogni traduzione mancante genera un errore bloccante in fase di compilazione.
+Intlayer convalida rigorosamente i dizionari. Abilitando [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md), ogni traduzione mancante genera un errore bloccante in fase di compilazione.
 
 ### Strumenti per IDE e IA
 
-| Funzionalità                  | `vue-i18n`              | Intlayer                                                                    |
-| ----------------------------- | ----------------------- | --------------------------------------------------------------------------- |
-| **Estensione VS Code**        | Terze parti (i18n Ally) | ✅ [Estensione ufficiale](https://intlayer.org/it/doc/vs-code-extension)    |
-| **Language Server (LSP)**     | ❌ Nessuno              | ✅ [LSP integrato](https://intlayer.org/it/doc/lsp)                         |
-| **Server MCP per IA**         | ❌ Nessuno              | ✅ [Server MCP dedicato](https://intlayer.org/it/doc/mcp-server)            |
-| **Competenze agente (Skill)** | ❌ Nessuna              | ✅ [Skill autonome](https://intlayer.org/it/doc/agent_skills)               |
-| **CMS Visuale in contesto**   | ❌ Nessuno              | ✅ [CMS gratuito & Open Source](https://intlayer.org/it/doc/concept/editor) |
+| Funzionalità                  | `vue-i18n`              | Intlayer                                                                                                                 |
+| ----------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| **Estensione VS Code**        | Terze parti (i18n Ally) | ✅ [Estensione ufficiale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/vs_code_extension.md)            |
+| **Language Server (LSP)**     | ❌ Nessuno              | ✅ [LSP integrato](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/lsp.md)                                 |
+| **Server MCP per IA**         | ❌ Nessuno              | ✅ [Server MCP dedicato](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/mcp_server.md)                    |
+| **Competenze agente (Skill)** | ❌ Nessuna              | ✅ [Skill autonome](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/agent_skills.md)                       |
+| **CMS Visuale in contesto**   | ❌ Nessuno              | ✅ [CMS gratuito & Open Source](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) |
 
 ## Flussi di traduzione
 
@@ -272,7 +272,7 @@ Traduce le chiavi assenti sfruttando le tue chiavi API di OpenAI, Anthropic, Mis
 
 **CMS visuale auto-ospitabile:**
 
-Impiega il [CMS Intlayer](https://intlayer.org/it/doc/concept/cms) per consentire ai collaboratori non tecnici di intervenire sui testi con salvataggio diretto su Git.
+Impiega il [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md) per consentire ai collaboratori non tecnici di intervenire sui testi con salvataggio diretto su Git.
 
 **Licenza open source permissiva:**
 
@@ -328,9 +328,9 @@ Questa CLI interattiva:
 
 Per istruzioni dettagliate, consulta le nostre guide dedicate:
 
-- **Compatibilità immediata:** Conserva i template esistenti impiegando il [layer di compatibilità `vue-i18n`](https://intlayer.org/it/doc/compatibility/vue-i18n) o [`@nuxtjs/i18n`](https://intlayer.org/it/doc/compatibility/nuxtjs-i18n).
-- **Guide per la migrazione:** Converti i file JSON tradizionali in dizionari strutturati tramite le nostre guide: [da vue-i18n](https://intlayer.org/it/doc/migration/vue-i18n) o [da @nuxtjs/i18n](https://intlayer.org/it/doc/migration/nuxtjs-i18n).
-- **Configurazione ibrida:** Mantieni `vue-i18n` a runtime mentre [utilizzi Intlayer con vue-i18n](https://intlayer.org/it/blog/intlayer-with-vue-i18n) per introdurre tipizzazione rigida e traduzione IA locale.
+- **Compatibilità immediata:** Conserva i template esistenti impiegando il [layer di compatibilità `vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/vue-i18n.md) o [`@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/nuxtjs-i18n.md).
+- **Guide per la migrazione:** Converti i file JSON tradizionali in dizionari strutturati tramite le nostre guide: [da vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_vue-i18n_to_intlayer.md) o [da @nuxtjs/i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_nuxtjs_i18n_to_intlayer.md).
+- **Configurazione ibrida:** Mantieni `vue-i18n` a runtime mentre [utilizzi Intlayer con vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/intlayer_with_vue-i18n.md) per introdurre tipizzazione rigida e traduzione IA locale.
 
 Analizza il carico di trasferimento del tuo sito con l'[analizzatore SEO i18n gratuito](https://intlayer.org/i18n-seo-scanner):
 
@@ -338,7 +338,7 @@ Analizza il carico di trasferimento del tuo sito con l'[analizzatore SEO i18n gr
 
 ## Articoli consigliati
 
-- [Benchmark Vue & Vite i18n: analisi approfondita delle prestazioni](https://intlayer.org/it/doc/benchmark/vue)
-- [vue-i18n vs Intlayer: confronto punto per punto](https://intlayer.org/it/blog/vue-i18n-vs-intlayer)
-- [next-intl è obsoleto nel 2026?](https://intlayer.org/it/blog/is-next-intl-outdated)
-- [Internazionalizzazione a compilazione vs dichiarativa](https://intlayer.org/it/blog/compiler-vs-declarative-i18n)
+- [Benchmark Vue & Vite i18n: analisi approfondita delle prestazioni](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/vue.md)
+- [vue-i18n vs Intlayer: confronto punto per punto](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/vue-i18n_vs_intlayer.md)
+- [next-intl è obsoleto nel 2026?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/is_next-intl_outdated.md)
+- [Internazionalizzazione a compilazione vs dichiarativa](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/compiler_vs_declarative_i18n.md)

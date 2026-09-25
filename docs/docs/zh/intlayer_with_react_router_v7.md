@@ -990,7 +990,7 @@ This extension provides:
 - 翻译内容的**内联预览**。
 - 轻松创建和更新翻译的**快速操作**。
 
-有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
 ## 深入了解
 
@@ -1017,7 +1017,7 @@ React Router v7 本身不包含消息管理层，因此需要将其与 i18n 库�
 
 - **`react-i18next` / `i18next`**：在运行时加载 JSON 命名空间，需要单独编写语言检测器接入路由。
 - **`react-intl`** 和 **`Lingui`**：基于提取步骤的 ICU 消息方案。
-- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），在构建时编译，全链路类型安全，提供支持语言环境的路由辅助函数、AI 翻译、可视化编辑器和 CMS。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），在构建时编译，全链路类型安全，提供支持语言环境的路由辅助函数、AI 翻译、可视化编辑器和 CMS。
 
 请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)。
 

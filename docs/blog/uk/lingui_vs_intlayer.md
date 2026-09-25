@@ -127,7 +127,7 @@ height="600px"
 style="border:none;"
 />
 
-> Повна таблиця, кожна бібліотека та стратегія у [звіті про бенчмарк Next.js](https://intlayer.org/uk/doc/benchmark/nextjs).
+> Повна таблиця, кожна бібліотека та стратегія у [звіті про бенчмарк Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md).
 
 ### Результати на TanStack Start
 
@@ -157,7 +157,7 @@ height="600px"
 style="border:none;"
 />
 
-> Повна таблиця у [звіті про бенчмарк TanStack Start](https://intlayer.org/uk/doc/benchmark/tanstack).
+> Повна таблиця у [звіті про бенчмарк TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md).
 
 ## Чому виникає ця різниця? Два компілятори, дві одиниці роботи
 
@@ -206,7 +206,7 @@ style="border:none;"
 
 ![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-> Щоб отримати показники рядка `dynamic`, встановіть `dictionary.importMode: 'dynamic'` у `intlayer.config.ts`. Дивіться [документацію з оптимізації бандла](https://intlayer.org/uk/doc/concept/bundle-optimization).
+> Щоб отримати показники рядка `dynamic`, встановіть `dictionary.importMode: 'dynamic'` у `intlayer.config.ts`. Дивіться [документацію з оптимізації бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md).
 
 ## Досвід розробника
 
@@ -390,7 +390,7 @@ export default defineConfig({
 });
 ```
 
-Збережіть плагін `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` у процесі збирання перед компілятором Intlayer. Дивіться [документацію щодо сумісності з Lingui](https://intlayer.org/uk/doc/compatibility/lingui).
+Збережіть плагін `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` у процесі збирання перед компілятором Intlayer. Дивіться [документацію щодо сумісності з Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md).
 
 ## Що і коли обрати?
 
@@ -402,12 +402,12 @@ export default defineConfig({
 </Accordion>
 <Accordion header="Обрати Intlayer">
 
-Вам потрібен **контент з областю видимості на рівні компонентів**, **суворий TypeScript**, **помилки відсутніх ключів під час збирання**, **tree-shaking та lazy loading без зайвих зусиль**, компактні компоненти, швидка гідратація, миттєве перемикання мов і вбудовані інструменти редагування ([Візуальний редактор](https://intlayer.org/uk/doc/concept/editor), [CMS](https://intlayer.org/uk/doc/concept/cms), [переклад через ШІ](https://intlayer.org/uk/doc/concept/auto-fill), [сервер MCP](https://intlayer.org/uk/doc/mcp-server)). Особливо актуально для великих модульних кодових баз і дизайн-систем.
+Вам потрібен **контент з областю видимості на рівні компонентів**, **суворий TypeScript**, **помилки відсутніх ключів під час збирання**, **tree-shaking та lazy loading без зайвих зусиль**, компактні компоненти, швидка гідратація, миттєве перемикання мов і вбудовані інструменти редагування ([Візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), [переклад через ШІ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/autoFill.md), [сервер MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/mcp_server.md)). Особливо актуально для великих модульних кодових баз і дизайн-систем.
 
 </Accordion>
 <Accordion header="Обрати @intlayer/lingui">
 
-Ви вже використовуєте Lingui і хочете поступово перейти на словники Intlayer, не змінюючи макроси. Ваші каталоги `.po` залишаються джерелом правди завдяки [плагіну синхронізації PO](https://intlayer.org/uk/doc/compatibility/lingui). Виміряно поруч у [Lingui vs @intlayer/lingui](https://intlayer.org/uk/blog/lingui-vs-intlayer-lingui).
+Ви вже використовуєте Lingui і хочете поступово перейти на словники Intlayer, не змінюючи макроси. Ваші каталоги `.po` залишаються джерелом правди завдяки [плагіну синхронізації PO](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md). Виміряно поруч у [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer-lingui.md).
 
 </Accordion>
 </AccordionGroup>
@@ -436,13 +436,13 @@ export default defineConfig({
 
 <Question title="Чи потрібно відмовлятися від макросів для міграції?">
 
-Ні. `@intlayer/lingui` підтримує компіляцію `` t`...` ``, `<Trans>`, `msg`, `plural`, `select` і `selectOrdinal` як раніше; змінюється лише те, звідки `i18n._()` бере значення. Залиште `@lingui/babel-plugin-lingui-macro` або `@lingui/swc-plugin` у збірці. Див. [документацію щодо сумісності з Lingui](https://intlayer.org/uk/doc/compatibility/lingui).
+Ні. `@intlayer/lingui` підтримує компіляцію `` t`...` ``, `<Trans>`, `msg`, `plural`, `select` і `selectOrdinal` як раніше; змінюється лише те, звідки `i18n._()` бере значення. Залиште `@lingui/babel-plugin-lingui-macro` або `@lingui/swc-plugin` у збірці. Див. [документацію щодо сумісності з Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md).
 
 </Question>
 
 <Question title="Що щодо кроків вилучення та компіляції?">
 
-Вони залишаються для макросів і зникають для власного контенту Intlayer. Словники `.content.ts` створюються під час роботи бандлера без окремого виклику CLI, а [`intlayer test`](https://intlayer.org/uk/doc/concept/cli) зупиняє CI у разі відсутності ключа замість непомітного відкату до вихідного рядка.
+Вони залишаються для макросів і зникають для власного контенту Intlayer. Словники `.content.ts` створюються під час роботи бандлера без окремого виклику CLI, а [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md) зупиняє CI у разі відсутності ключа замість непомітного відкату до вихідного рядка.
 
 </Question>
 
@@ -452,24 +452,24 @@ export default defineConfig({
 
 Той самий бенчмарк, інші бібліотеки:
 
-- [next-intl vs Intlayer](https://intlayer.org/uk/blog/next-intl-vs-intlayer)
-- [i18next vs Intlayer](https://intlayer.org/uk/blog/i18next-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/uk/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/uk/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/uk/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Докладніше:
 
-- [Lingui vs @intlayer/lingui](https://intlayer.org/uk/blog/lingui-vs-intlayer-lingui), адаптер виміряно на тому ж застосунку
-- [Compiler-driven vs declarative i18n](https://intlayer.org/uk/blog/compiler-vs-declarative-i18n)
-- [Per-component vs centralized i18n](https://intlayer.org/uk/blog/per-component-vs-centralized-i18n)
-- [ICU message format explained](https://intlayer.org/uk/blog/icu-message-format)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer-lingui.md), адаптер виміряно на тому ж застосунку
+- [Compiler-driven vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)
+- [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/per-component_vs_centralized_i18n.md)
+- [ICU message format explained](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 Довідкова документація:
 
-- [Звіт про бенчмарк Next.js](https://intlayer.org/uk/doc/benchmark/nextjs) та [звіт про бенчмарк TanStack Start](https://intlayer.org/uk/doc/benchmark/tanstack)
-- [Compat adapter: Lingui](https://intlayer.org/uk/doc/compatibility/lingui)
-- [Оптимізація бандла](https://intlayer.org/uk/doc/concept/bundle-optimization) та [компілятор Intlayer](https://intlayer.org/uk/doc/compiler)
+- [Звіт про бенчмарк Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md) та [звіт про бенчмарк TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
+- [Compat adapter: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md)
+- [Оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) та [компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
 
 ## Зірки GitHub
 
@@ -485,4 +485,4 @@ Lingui є найпотужнішою комбінованою бібліотек
 
 Усі вихідні дані, тестові додатки та скрипти доступні у [репозиторії Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Ви можете запустити їх самостійно.
 
-Зверніться до документа ['Чому Intlayer?'](https://intlayer.org/uk/doc/why) для отримання детальнішої інформації.
+Зверніться до документа ['Чому Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/interest_of_intlayer.md) для отримання детальнішої інформації.

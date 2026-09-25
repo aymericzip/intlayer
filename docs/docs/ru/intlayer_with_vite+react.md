@@ -996,7 +996,7 @@ Intlayer использует расширение модулей (module augmen
 - **Встроенный предпросмотр** переведенного контента.
 - **Быстрые действия** для легкого создания и обновления переводов.
 
-Для получения более подробной информации о том, как использовать расширение, обратитесь к [документации Intlayer VS Code Extension](https://intlayer.org/ru/doc/vs-code-extension).
+Для получения более подробной информации о том, как использовать расширение, обратитесь к [документации Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/vs_code_extension.md).
 
 ### Продвинутые возможности
 

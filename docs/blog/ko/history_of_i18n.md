@@ -300,5 +300,5 @@ Intlayer는 이를 단순한 문자열 검색 도구가 아닌, 통합 다국어
 
 - [컴파일러 기반 vs. 선언적 국제화 비교 분석](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
 - [컴포넌트 단위 코로케이션 vs. 중앙집중식 i18n 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)
-- [성능 측정 및 벤치마크 결과](https://intlayer.org/doc/benchmark)
-- [Intlayer 호환성 어댑터 안내](https://intlayer.org/doc/concept/compatibility)
+- [성능 측정 및 벤치마크 결과](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
+- [Intlayer 호환성 어댑터 안내](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/index.md)

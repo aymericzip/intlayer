@@ -329,7 +329,7 @@ To rozszerzenie zapewnia:
 - **Podglądy inline** przetłumaczonej zawartości.
 - **Szybkie akcje** do łatwego tworzenia i aktualizacji tłumaczeń.
 
-Aby uzyskać więcej szczegółów na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją Rozszerzenia Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Aby uzyskać więcej szczegółów na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją Rozszerzenia Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
 ### Konfiguracja Git
 

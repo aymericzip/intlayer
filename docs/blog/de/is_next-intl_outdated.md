@@ -83,7 +83,7 @@ height="600px"
 style="border:none;"
 />
 
-> Getestet in realen Browserumgebungen mit Gzip-Kompression. Vollständige Daten im [Next.js-Benchmark-Bericht](https://intlayer.org/de/doc/benchmark/nextjs).
+> Getestet in realen Browserumgebungen mit Gzip-Kompression. Vollständige Daten im [Next.js-Benchmark-Bericht](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md).
 
 ### Basis-Overhead
 
@@ -131,7 +131,7 @@ Das folgende Diagramm schätzt die Payload für eine theoretische App mit 1 bis 
 
 ![Theoretisches Content-Leakage nach Architektur](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-Intlayer löst dies per statischer Analyse: Der [Intlayer-Compiler](https://intlayer.org/de/doc/compiler) bündelt exakt die Texte, die auf der jeweiligen Route benötigt werden. Die Leakage sinkt auf **0.0%**.
+Intlayer löst dies per statischer Analyse: Der [Intlayer-Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) bündelt exakt die Texte, die auf der jeweiligen Route benötigt werden. Die Leakage sinkt auf **0.0%**.
 
 ## Warum next-intl Tree-Shaking verhindert
 
@@ -170,7 +170,7 @@ export function UserProfile() {
   </Tab>
 </Tabs>
 
-Weder Turbopack noch Webpack können zur Build-Zeit prüfen, welche Schlüssel in `UserProfile` tatsächlich aufgerufen werden. Um Ausfälle zu vermeiden, **muss der Bundler den gesamten Namespace in den Client-Chunk packen**. Intlayers destrukturierte Eigenschaften ermöglichen es dem Compiler, Referenzen nachzuverfolgen und ungenutzte Texte auszusortieren. Siehe [Bundle-Optimierung](https://intlayer.org/de/doc/concept/bundle-optimization).
+Weder Turbopack noch Webpack können zur Build-Zeit prüfen, welche Schlüssel in `UserProfile` tatsächlich aufgerufen werden. Um Ausfälle zu vermeiden, **muss der Bundler den gesamten Namespace in den Client-Chunk packen**. Intlayers destrukturierte Eigenschaften ermöglichen es dem Compiler, Referenzen nachzuverfolgen und ungenutzte Texte auszusortieren. Siehe [Bundle-Optimierung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md).
 
 ## Entwicklererfahrung
 
@@ -269,17 +269,17 @@ declare global {
 
 Es prüft jedoch nur die Primärsprache. Fehlt ein Schlüssel in `de.json`, meldet TypeScript keinen Fehler, die CI bleibt grün, und Nutzer sehen fehlende Texte.
 
-Intlayer leitet Typen aus allen Deklarationen ab. Mit aktiviertem [`strictMode`](https://intlayer.org/de/doc/concept/configuration) führt jede fehlende Übersetzung zu einem Build-Fehler.
+Intlayer leitet Typen aus allen Deklarationen ab. Mit aktiviertem [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md) führt jede fehlende Übersetzung zu einem Build-Fehler.
 
 ### Tooling & KI-Workflows
 
-| Feature                         | `next-intl` | Intlayer                                                                 |
-| ------------------------------- | ----------- | ------------------------------------------------------------------------ |
-| **VS Code Extension**           | ❌ Keine    | ✅ [Offizielle Extension](https://intlayer.org/de/doc/vs-code-extension) |
-| **Language Server (LSP)**       | ❌ Keiner   | ✅ [Integrierter LSP](https://intlayer.org/de/doc/lsp)                   |
-| **MCP Server (für KI-Agenten)** | ❌ Keiner   | ✅ [Integrierter MCP-Server](https://intlayer.org/de/doc/mcp-server)     |
-| **Agent Skills**                | ❌ Keine    | ✅ [Bereitgestellte Skills](https://intlayer.org/de/doc/agent_skills)    |
-| **Visuelles In-Context-CMS**    | ❌ Keines   | ✅ [Kostenlos & Open Source](https://intlayer.org/de/doc/concept/editor) |
+| Feature                         | `next-intl` | Intlayer                                                                                                              |
+| ------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------- |
+| **VS Code Extension**           | ❌ Keine    | ✅ [Offizielle Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md)         |
+| **Language Server (LSP)**       | ❌ Keiner   | ✅ [Integrierter LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/lsp.md)                           |
+| **MCP Server (für KI-Agenten)** | ❌ Keiner   | ✅ [Integrierter MCP-Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/mcp_server.md)             |
+| **Agent Skills**                | ❌ Keine    | ✅ [Bereitgestellte Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/agent_skills.md)            |
+| **Visuelles In-Context-CMS**    | ❌ Keines   | ✅ [Kostenlos & Open Source](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) |
 
 Ein eigener LSP- und MCP-Server versetzt KI-Coding-Assistenten in die Lage, den Inhaltsgraphen zu verstehen und Übersetzungen präzise zu ergänzen.
 
@@ -295,7 +295,7 @@ Erkennt und übersetzt fehlende Texte automatisch mit eigenen API-Schlüsseln (O
 
 **Selbst hostbares visuelles CMS:**
 
-Ermöglicht Redakteuren im [Intlayer CMS](https://intlayer.org/de/doc/concept/cms) visuelles Bearbeiten mit direktem Git-Commit.
+Ermöglicht Redakteuren im [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) visuelles Bearbeiten mit direktem Git-Commit.
 
 **Permissive Open-Source-Lizenz:**
 
@@ -351,9 +351,9 @@ Dieses interaktive CLI-Tool:
 
 Detaillierte Schritt-für-Schritt-Anleitungen finden Sie hier:
 
-- **Drop-in-Kompatibilität:** Bestehende Aufrufe von `useTranslations` lassen sich mit dem [next-intl-Kompatibilitäts-Layer](https://intlayer.org/de/doc/compatibility/next-intl) weiterverwenden.
-- **Geführte Migration:** Bestehende JSON-Dateien können mit der [next-intl Migrationsanleitung](https://intlayer.org/de/doc/migration/next-intl) umgewandelt werden.
-- **Hybrides Setup:** Verwenden Sie `next-intl` zur Anzeige und [Intlayer mit next-intl](https://intlayer.org/de/blog/intlayer-with-next-intl) für lokale KI-Übersetzung.
+- **Drop-in-Kompatibilität:** Bestehende Aufrufe von `useTranslations` lassen sich mit dem [next-intl-Kompatibilitäts-Layer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/next-intl.md) weiterverwenden.
+- **Geführte Migration:** Bestehende JSON-Dateien können mit der [next-intl Migrationsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_next-intl_to_intlayer.md) umgewandelt werden.
+- **Hybrides Setup:** Verwenden Sie `next-intl` zur Anzeige und [Intlayer mit next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/intlayer_with_next-intl.md) für lokale KI-Übersetzung.
 
 Testen Sie Ihre Website mit dem kostenlosen [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner):
 
@@ -361,7 +361,7 @@ Testen Sie Ihre Website mit dem kostenlosen [i18n SEO Scanner](https://intlayer.
 
 ## Weitere Empfehlungen
 
-- [Next.js i18n Benchmark: Umfassende Performance-Analyse](https://intlayer.org/de/doc/benchmark/nextjs)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/de/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Ist i18next im Jahr 2026 veraltet?](https://intlayer.org/de/blog/is-i18next-outdated)
-- [Compiler-gestützte Internationalisierung](https://intlayer.org/de/blog/compiler-vs-declarative-i18n)
+- [Next.js i18n Benchmark: Umfassende Performance-Analyse](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/nextjs.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Ist i18next im Jahr 2026 veraltet?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/is_i18next_outdated.md)
+- [Compiler-gestützte Internationalisierung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/compiler_vs_declarative_i18n.md)

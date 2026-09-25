@@ -127,7 +127,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tüm kütüphaneler ve stratejiler için tam tablo [Next.js benchmark raporunda](https://intlayer.org/tr/doc/benchmark/nextjs).
+> Tüm kütüphaneler ve stratejiler için tam tablo [Next.js benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md).
 
 ### TanStack Start Sonuçları
 
@@ -157,7 +157,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tam tablo [TanStack Start benchmark raporunda](https://intlayer.org/tr/doc/benchmark/tanstack).
+> Tam tablo [TanStack Start benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md).
 
 ## Neden bu fark var? İki derleyici, iki çalışma birimi
 
@@ -206,7 +206,7 @@ Bu nedenle `scoped-dynamic` modeli Intlayer için doğal bir derleme çıktısı
 
 ![Theoretical content leakage by architecture](https://github.com/aymericzip/intlayer/blob/main/docs/assets/theorical_content_leakage.webp?raw=true)
 
-> `dynamic` satırının sayılarını elde etmek için `intlayer.config.ts` dosyasında `dictionary.importMode: 'dynamic'` ayarını yapın. [Paket optimizasyonu kılavuzuna](https://intlayer.org/tr/doc/concept/bundle-optimization) göz atın.
+> `dynamic` satırının sayılarını elde etmek için `intlayer.config.ts` dosyasında `dictionary.importMode: 'dynamic'` ayarını yapın. [Paket optimizasyonu kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) göz atın.
 
 ## Geliştirici deneyimi
 
@@ -390,7 +390,7 @@ export default defineConfig({
 });
 ```
 
-`@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` eklentisini Intlayer derleyicisinden önce çalışacak şekilde yapılandırmada tutun. [Lingui uyumluluk kılavuzuna](https://intlayer.org/tr/doc/compatibility/lingui) bakın.
+`@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` eklentisini Intlayer derleyicisinden önce çalışacak şekilde yapılandırmada tutun. [Lingui uyumluluk kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md) bakın.
 
 ## Hangisi ne zaman seçilmeli?
 
@@ -402,12 +402,12 @@ Tiplendirilmiş makrolarla **ICU MessageFormat** istiyorsanız, çevirmenleriniz
 </Accordion>
 <Accordion header="Intlayer'ı Seçin">
 
-**Bileşen kapsamlı içerik**, **katı TypeScript**, **derleme zamanında eksik anahtar hataları**, **sıfır çabayla tree-shaking ve lazy loading**, küçük bileşenler, hızlı hidrasyon, anında dil değiştirme ve yerleşik editöryal araçlar ([Görsel Düzenleyici](https://intlayer.org/tr/doc/concept/editor), [CMS](https://intlayer.org/tr/doc/concept/cms), [Yapay Zeka Çevirisi](https://intlayer.org/tr/doc/concept/auto-fill), [MCP Sunucusu](https://intlayer.org/tr/doc/mcp-server)) istiyorsanız. Özellikle büyük, modüler kod tabanları ve tasarım sistemleri için uygundur.
+**Bileşen kapsamlı içerik**, **katı TypeScript**, **derleme zamanında eksik anahtar hataları**, **sıfır çabayla tree-shaking ve lazy loading**, küçük bileşenler, hızlı hidrasyon, anında dil değiştirme ve yerleşik editöryal araçlar ([Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md), [Yapay Zeka Çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md), [MCP Sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)) istiyorsanız. Özellikle büyük, modüler kod tabanları ve tasarım sistemleri için uygundur.
 
 </Accordion>
 <Accordion header="@intlayer/lingui'yi Seçin">
 
-Zaten Lingui kullanıyorsanız ve makrolara dokunmadan aşamalı olarak Intlayer sözlüklerine geçmek istiyorsanız. `.po` kataloglarınız [PO senkronizasyon eklentisi](https://intlayer.org/tr/doc/compatibility/lingui) sayesinde tek doğruluk kaynağı olarak kalır. [Lingui vs @intlayer/lingui](https://intlayer.org/tr/blog/lingui-vs-intlayer-lingui) sayfasında yan yana ölçülmüştür.
+Zaten Lingui kullanıyorsanız ve makrolara dokunmadan aşamalı olarak Intlayer sözlüklerine geçmek istiyorsanız. `.po` kataloglarınız [PO senkronizasyon eklentisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md) sayesinde tek doğruluk kaynağı olarak kalır. [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer-lingui.md) sayfasında yan yana ölçülmüştür.
 
 </Accordion>
 </AccordionGroup>
@@ -436,13 +436,13 @@ Evet, TanStack Start'ta kıl payı öndedir: Intlayer için 118.6 KB'a karşıl�
 
 <Question title="Geçiş yapmak için makrolardan vazgeçmek zorunda mıyım?">
 
-Hayır. `@intlayer/lingui` `` t`...` ``, `<Trans>`, `msg`, `plural`, `select` ve `selectOrdinal` ifadelerinin eskisi gibi derlenmesini sağlar; yalnızca `i18n._()` çağrısının çözümlendiği kaynak değişir. Derlemede `@lingui/babel-plugin-lingui-macro` veya `@lingui/swc-plugin` kullanmaya devam edin. [Lingui uyumluluk belgesine](https://intlayer.org/tr/doc/compatibility/lingui) bakın.
+Hayır. `@intlayer/lingui` `` t`...` ``, `<Trans>`, `msg`, `plural`, `select` ve `selectOrdinal` ifadelerinin eskisi gibi derlenmesini sağlar; yalnızca `i18n._()` çağrısının çözümlendiği kaynak değişir. Derlemede `@lingui/babel-plugin-lingui-macro` veya `@lingui/swc-plugin` kullanmaya devam edin. [Lingui uyumluluk belgesine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md) bakın.
 
 </Question>
 
 <Question title="Ayıklama ve derleme adımları ne olacak?">
 
-Makrolar için kalır, Intlayer'ın kendi içeriği için ortadan kalkar. `.content.ts` sözlükleri, ayrı bir CLI komutu olmadan paketleyici çalıştığında derlenir ve [`intlayer test`](https://intlayer.org/tr/doc/concept/cli) sessizce kaynak dizeye dönmek yerine eksik bir anahtar olduğunda CI sürecini durdurur.
+Makrolar için kalır, Intlayer'ın kendi içeriği için ortadan kalkar. `.content.ts` sözlükleri, ayrı bir CLI komutu olmadan paketleyici çalıştığında derlenir ve [`intlayer test`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) sessizce kaynak dizeye dönmek yerine eksik bir anahtar olduğunda CI sürecini durdurur.
 
 </Question>
 
@@ -452,24 +452,24 @@ Makrolar için kalır, Intlayer'ın kendi içeriği için ortadan kalkar. `.cont
 
 Aynı benchmark, diğer kütüphaneler:
 
-- [next-intl vs Intlayer](https://intlayer.org/tr/blog/next-intl-vs-intlayer)
-- [i18next vs Intlayer](https://intlayer.org/tr/blog/i18next-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/tr/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/tr/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/tr/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Daha fazlası:
 
-- [Lingui vs @intlayer/lingui](https://intlayer.org/tr/blog/lingui-vs-intlayer-lingui), aynı uygulamada ölçülen bağdaştırıcı
-- [Compiler-driven vs declarative i18n](https://intlayer.org/tr/blog/compiler-vs-declarative-i18n)
-- [Per-component vs centralized i18n](https://intlayer.org/tr/blog/per-component-vs-centralized-i18n)
-- [ICU message format explained](https://intlayer.org/tr/blog/icu-message-format)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer-lingui.md), aynı uygulamada ölçülen bağdaştırıcı
+- [Compiler-driven vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
+- [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md)
+- [ICU message format explained](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 Referans belgeler:
 
-- [Next.js benchmark raporu](https://intlayer.org/tr/doc/benchmark/nextjs) ve [TanStack Start benchmark raporu](https://intlayer.org/tr/doc/benchmark/tanstack)
-- [Compat adapter: Lingui](https://intlayer.org/tr/doc/compatibility/lingui)
-- [Paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization) ve [Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler)
+- [Next.js benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) ve [TanStack Start benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+- [Compat adapter: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md)
+- [Paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 
 ## GitHub Yıldızları
 
@@ -485,4 +485,4 @@ Ancak metrikler bundan ibaret değildir. Lingui'nin derleyicisi dil düzeyinde d
 
 Tüm ham veriler, test uygulamaları ve betikler [Benchmark Bloom deposunda](https://github.com/intlayer-org/benchmark-bloom) yer almaktadır. Kendiniz de test edebilirsiniz.
 
-Daha fazla ayrıntı için ['Neden Intlayer?' belgesine](https://intlayer.org/tr/doc/why) başvurun.
+Daha fazla ayrıntı için ['Neden Intlayer?' belgesine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) başvurun.

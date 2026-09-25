@@ -22,7 +22,7 @@ author: aymericzip
 
 Ya.
 
-`Paraglide` memiliki reputasi yang sangat baik sebagai solusi i18n paling ringan, dan sekilas hasil [benchmark](https://intlayer.org/id/doc/benchmark/tanstack) mengonfirmasi hal tersebut: ukuran pustakanya mendekati nol. Namun, ukuran pustaka nol tidak berarti nol bita yang dikirim ke peramban. Itu hanya berarti bita-bita tersebut berada di tempat yang tidak diukur oleh metrik tersebut.
+`Paraglide` memiliki reputasi yang sangat baik sebagai solusi i18n paling ringan, dan sekilas hasil [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md) mengonfirmasi hal tersebut: ukuran pustakanya mendekati nol. Namun, ukuran pustaka nol tidak berarti nol bita yang dikirim ke peramban. Itu hanya berarti bita-bita tersebut berada di tempat yang tidak diukur oleh metrik tersebut.
 
 <TOC/>
 
@@ -93,7 +93,7 @@ Next.js 16 App Router, aplikasi yang sama:
 
 <I18nBenchmark framework="tanstack" vertical/>
 
-> Data lengkap tersedia di [laporan benchmark TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack) dan [laporan benchmark Next.js](https://intlayer.org/id/doc/benchmark/nextjs). Setiap bundle dapat diperiksa langsung di [repositori benchmark](https://github.com/intlayer-org/benchmark-i18n).
+> Data lengkap tersedia di [laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md) dan [laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md). Setiap bundle dapat diperiksa langsung di [repositori benchmark](https://github.com/intlayer-org/benchmark-i18n).
 
 Dua hal terlihat sangat jelas:
 
@@ -198,7 +198,7 @@ Alur kerja semacam ini menimbulkan konsekuensi:
 
 Janji utama Paraglide adalah bahwa pesan yang tidak digunakan akan dibuang melalui tree shaking, karena setiap pesan merupakan ekspor mandiri. Pada tolok ukur Svelte + Vite, fitur ini bekerja sesuai klaim.
 
-Namun dalam konfigurasi lain, hal itu tidak terjadi. Pada pengujian [Next.js](https://intlayer.org/id/doc/benchmark/nextjs) kami, halaman Paraglide berbobot 14 KB lebih berat daripada aplikasi dasar, sedangkan `next-intlayer` hanya menambahkan 0.3 KB. Pengujian awal di TanStack Start juga memperlihatkan pesan dari halaman lain ikut terbawa ke dalam bundle rute yang sedang dibuka.
+Namun dalam konfigurasi lain, hal itu tidak terjadi. Pada pengujian [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md) kami, halaman Paraglide berbobot 14 KB lebih berat daripada aplikasi dasar, sedangkan `next-intlayer` hanya menambahkan 0.3 KB. Pengujian awal di TanStack Start juga memperlihatkan pesan dari halaman lain ikut terbawa ke dalam bundle rute yang sedang dibuka.
 
 Tree shaking sangat bergantung pada bundler Anda (Turbopack, Rolldown, Rollup), cara pesan diimpor (`import { m }` vs `import * as m`), dan analisis efek samping (side effects). Jika Anda memilih Paraglide karena pertimbangan ukuran, buka visualizer bundle Anda dan pastikan fitur tersebut bekerja di aplikasi Anda.
 
@@ -234,7 +234,7 @@ export default config;
 | `dynamic`    | Hanya bahasa aktif, dimuat secara lazy per kamus        | **N kali lebih ringan** dengan N bahasa |
 | `fetch`      | Hanya bahasa aktif, diambil langsung dari Live Sync API | **N kali lebih ringan** dengan N bahasa |
 
-Dengan [transformasi build](https://intlayer.org/id/doc/concept/bundle-optimization) dan `importMode: 'static'`, Intlayer secara teoritis memuat konten yang sama persis dengan Paraglide. Namun dengan mode `'dynamic'` atau `'fetch'`, ia hanya memuat apa yang dibutuhkan bahasa saat ini: untuk aplikasi dengan N bahasa, beban terjemahan menjadi N kali lebih kecil daripada Paraglide.
+Dengan [transformasi build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan `importMode: 'static'`, Intlayer secara teoritis memuat konten yang sama persis dengan Paraglide. Namun dengan mode `'dynamic'` atau `'fetch'`, ia hanya memuat apa yang dibutuhkan bahasa saat ini: untuk aplikasi dengan N bahasa, beban terjemahan menjadi N kali lebih kecil daripada Paraglide.
 
 ## Kapan Paraglide Masih Relevan?
 
@@ -277,8 +277,8 @@ bunx intlayer init --interactive
 
 ## Bacaan Lanjutan
 
-- [Benchmark i18n TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack)
-- [Benchmark i18n Next.js](https://intlayer.org/id/doc/benchmark/nextjs)
-- [Optimasi Bundle dan `importMode`](https://intlayer.org/id/doc/concept/bundle-optimization)
-- [Cara Memilih Pustaka i18n untuk React](https://intlayer.org/id/blog/how-to-pick-react-i18n-library)
-- [Alasan Memilih Internasionalisasi Berbasis Kompilator](https://intlayer.org/id/blog/compiler-vs-declarative-i18n)
+- [Benchmark i18n TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
+- [Benchmark i18n Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+- [Optimasi Bundle dan `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
+- [Cara Memilih Pustaka i18n untuk React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_react_i18n_library.md)
+- [Alasan Memilih Internasionalisasi Berbasis Kompilator](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)

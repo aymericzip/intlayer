@@ -1338,7 +1338,7 @@ To rozszerzenie zapewnia:
 - **Podgląd wierszowy** przetłumaczonej zawartości.
 - **Szybkie akcje** do łatwego tworzenia i aktualizowania tłumaczeń.
 
-Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
 ### Idź dalej
 
@@ -1354,7 +1354,7 @@ Next.js nie posiada wbudowanej warstwy komunikatów, odkąd pole `i18n` w `next.
 
 - **`next-intl`**, **`i18next` / `next-i18next`** oraz **`react-intl`**: tradycyjne rozwiązania oparte na katalogach komunikatów JSON lub ICU ładowanych według przestrzeni nazw (namespaces).
 - **`Lingui`**: rozwiązanie oparte na ekstrakcji, z komunikatami ICU kompilowanymi w czasie budowy.
-- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Zawartość deklarowana w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)), kompilowana w czasie budowy do słowników per komponent, w pełni typowana, z wbudowanym tłumaczeniem AI, edytorem wizualnym i CMS-em.
+- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Zawartość deklarowana w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)), kompilowana w czasie budowy do słowników per komponent, w pełni typowana, z wbudowanym tłumaczeniem AI, edytorem wizualnym i CMS-em.
 
 Praktyczna różnica polega na tym, co trafia do przeglądarki. Biblioteki oparte na namespace'ach wysyłają całe katalogi JSON na stronę, podczas gdy Intlayer dostarcza tylko treść, z której korzystają renderowane komponenty, co zmniejsza rozmiar bundle'a i strony nawet o 50%. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) oraz [benchmark i18n dla Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md).
 

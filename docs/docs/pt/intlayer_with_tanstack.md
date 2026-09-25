@@ -1231,7 +1231,7 @@ Esta extensão fornece:
 - **Visualizações inline** de conteúdo traduzido.
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/vs_code_extension.md).
 
 ## Ir Além
 
@@ -1257,7 +1257,7 @@ O TanStack Start não fornece uma camada própria de i18n, portanto a escolha re
 - **`i18next` / `react-i18next`** e **`react-intl`**: catálogos de mensagens agnósticos de framework, conectados manualmente ao roteador.
 - **`Lingui`**: mensagens no formato ICU com etapa de compilação.
 - **`Paraglide`**: mensagens compiladas, focado exclusivamente na camada de mensagens.
-- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)) e compilado em tempo de build, com chaves tipadas, roteamento ciente de locales, geração de sitemap, tradução por IA, editor visual e CMS.
+- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)) e compilado em tempo de build, com chaves tipadas, roteamento ciente de locales, geração de sitemap, tradução por IA, editor visual e CMS.
 
 A grande diferença no TanStack Start reside no roteamento e na renderização no servidor. O Intlayer integra-se nativamente com o roteador baseado em arquivos, a função `head` e a etapa de pré-renderização, evitando que você precise montar provedores, detectores de idioma e sitemaps manualmente. Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) e o [benchmark TanStack Start i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md).
 

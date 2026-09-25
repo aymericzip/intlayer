@@ -410,7 +410,7 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 - 翻訳されたコンテンツの**インラインプレビュー**。
 - 翻訳を簡単に作成・更新するための**クイックアクション**。
 
-拡張機能の使用方法の詳細については、[Intlayer VS Code Extensionのドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+拡張機能の使用方法の詳細については、[Intlayer VS Code Extensionのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
 
 ### さらに進める
 
@@ -426,7 +426,7 @@ AnalogはVite上に構築されたAngularのメタフレームワークである
 
 - **`@angular/localize`**: ロケールごとに1つのコンパイル済みビルドを生成するXLIFF抽出ですが、ファイルベースのルーターやサーバーレンダリングとは相性が良くありません。
 - **`ngx-translate`** および **`Transloco`**: サービスを介したランタイムJSONカタログですが、Analogのルーティングやサーバーサイドレンダリングとの統合はありません。
-- **`Intlayer`**: 最も先進的なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣または一元化](https://intlayer.org/blog/per-component-vs-centralized-i18n)）、ビルド時にVite pluginによってコンパイルされ、完全に型付けされており、ランタイムでのロケール切り替え、AI翻訳、ビジュアルエディター、CMSを備えています。
+- **`Intlayer`**: 最も先進的なソリューションです。コードベースのどこにでもコンテンツを宣言でき（[各コンポーネントの隣または一元化](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）、ビルド時にVite pluginによってコンパイルされ、完全に型付けされており、ランタイムでのロケール切り替え、AI翻訳、ビジュアルエディター、CMSを備えています。
 
 Angular固有のAPIについては、[Intlayerの利点](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)および[Angularガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_angular_21.md)を参照してください。
 

@@ -300,5 +300,5 @@ Intlayer 将国际化定位为一体化的多语言内容基础设施。通过�
 
 - [编译型 vs. 声明式国际化对比分析](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
 - [组件级就近管理 vs. 中心化翻译对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)
-- [性能指标与基准评测报告](https://intlayer.org/doc/benchmark)
-- [Intlayer 框架兼容适配器生态](https://intlayer.org/doc/concept/compatibility)
+- [性能指标与基准评测报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
+- [Intlayer 框架兼容适配器生态](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/index.md)

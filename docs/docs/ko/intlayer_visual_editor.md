@@ -206,7 +206,7 @@ pnpm intlayer-editor start -e development
 
 - 시각적 편집기와 애플리케이션이 실행 중인지 확인하세요.
 
-- Intlayer 구성 파일에서 [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) 구성이 올바르게 설정되었는지 확인하세요.
+- Intlayer 구성 파일에서 [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#editor-configuration) 구성이 올바르게 설정되었는지 확인하세요.
   - 필수 필드:
     - 애플리케이션 URL은 편집기 구성(`applicationURL`)에 설정한 URL과 일치해야 합니다.
 

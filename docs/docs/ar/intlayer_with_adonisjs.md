@@ -306,7 +306,7 @@ export default config;
 - **معاينات مضمنة** للمحتوى المترجم.
 - **إجراءات سريعة** لإنشاء الترجمات وتحديثها بسهولة.
 
-لمزيد من التفاصيل حول كيفية استخدام الملحق، راجع [وثائق ملحق Intlayer VS Code](https://intlayer.org/ar/doc/vs-code-extension).
+لمزيد من التفاصيل حول كيفية استخدام الملحق، راجع [وثائق ملحق Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md).
 
 ### تكوين Git
 

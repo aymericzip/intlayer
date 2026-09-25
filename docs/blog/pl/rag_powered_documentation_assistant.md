@@ -28,7 +28,7 @@ Zbudowałem asystenta dokumentacji opartego na RAG i zapakowałem go w boilerpla
 - Wszystkie komponenty UI są w pełni edytowalne za pomocą Tailwind CSS
 - Rejestruje każde zapytanie użytkownika, aby pomóc zidentyfikować brakujące dokumenty, problemy użytkowników i możliwości produktowe
 
-👉 [Demo na żywo](https://intlayer.org/doc/why) 👉 [Boilerplate kodu](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Demo na żywo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) 👉 [Boilerplate kodu](https://github.com/aymericzip/smart_doc_RAG)
 
 ## Wprowadzenie
 
@@ -243,7 +243,7 @@ Używamy SSE do strumieniowania odpowiedzi z trasy API.
 Jak wspomniano, używamy gpt-4-turbo bez trybu "myślenia". Odpowiedzi są trafne, a opóźnienia niskie.
 Eksperymentowaliśmy z gpt-5, ale opóźnienia były zbyt duże (czasami do 15 sekund na odpowiedź). Jednak wrócimy do tego w przyszłości.
 
-👉 [Wypróbuj demo tutaj](https://intlayer.org/pl/doc/why) 👉 [Sprawdź szablon kodu na GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Wypróbuj demo tutaj](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) 👉 [Sprawdź szablon kodu na GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 </Step>
 <Step number={10} title="Idąc dalej">
@@ -297,7 +297,7 @@ Dla mnie ten projekt pokazał, że RAG to nie tylko techniczny trik. To sposób 
 - kanał informacji zwrotnej
 - narzędzie do strategii produktowej
 
-👉 [Wypróbuj demo tutaj](https://intlayer.org/doc/why) 👉 [Sprawdź szablon kodu na GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Wypróbuj demo tutaj](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) 👉 [Sprawdź szablon kodu na GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 A jeśli również eksperymentujesz z RAG, chętnie usłyszę, jak go używasz.
 
@@ -320,6 +320,6 @@ Dla mnie ten projekt pokazał, że RAG to nie tylko techniczny trik. To sposób 
 - kanał do zbierania opinii
 - narzędzie strategii produktu
 
-👉 [Spróbuj demo tutaj](https://intlayer.org/doc/why) 👉 [Sprawdź szablon kodu na GitHubie](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Spróbuj demo tutaj](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) 👉 [Sprawdź szablon kodu na GitHubie](https://github.com/aymericzip/smart_doc_RAG)
 
 A jeśli ty też eksperymentujesz z RAG, chętnie usłyszę, jak go wykorzystujesz.

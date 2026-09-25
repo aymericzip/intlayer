@@ -654,7 +654,7 @@ Tiện ích này sẽ cung cấp:
 - **Xem trước trực tiếp** nội dung đã dịch.
 - **Các hành động nhanh** để tạo và cập nhật bản dịch dễ dàng.
 
-Để biết thêm thông tin về cách sử dụng tiện ích này, hãy xem [tài liệu tiện ích VS Code](https://intlayer.org/doc/vs-code-extension).
+Để biết thêm thông tin về cách sử dụng tiện ích này, hãy xem [tài liệu tiện ích VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md).
 
 ### Tìm hiểu sâu hơn
 

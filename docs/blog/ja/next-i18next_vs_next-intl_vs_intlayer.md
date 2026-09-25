@@ -1309,4 +1309,4 @@ GitHubのスターは、プロジェクトの人気、コミュニティの信�
 - **Intlayer** では、**モジュラーコンテンツ**、**厳格なTS**、**ビルド時の安全性**、**ツリーシェイクされたバンドル**、および **一流のApp Router + SEOツール** が **デフォルト** であり、手間ではありません。
 - チームが多言語対応のコンポーネント駆動型アプリにおいて、**保守性と速度**を重視するなら、Intlayerは今日最も**完全な**体験を提供します。
 
-詳細は ['Why Intlayer?' ドキュメント](https://intlayer.org/doc/why) を参照してください。
+詳細は ['Why Intlayer?' ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md) を参照してください。

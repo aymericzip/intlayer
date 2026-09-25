@@ -85,7 +85,7 @@ height="600px"
 style="border:none;"
 />
 
-> 10 rota ve 10 dil içeren bir üretim derlemesinde gzip sıkıştırmasıyla test edilmiştir. Tüm veriler [i18n benchmark raporunda](https://intlayer.org/tr/doc/benchmark).
+> 10 rota ve 10 dil içeren bir üretim derlemesinde gzip sıkıştırmasıyla test edilmiştir. Tüm veriler [i18n benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md).
 
 ### Temel Kütüphane Yükü
 
@@ -164,7 +164,7 @@ return <h1>{title}</h1>;
   </Tab>
 </Tabs>
 
-[Intlayer derleyicisi](https://intlayer.org/tr/doc/compiler), `Hero.tsx` bileşeninin gerçekte neleri tükettiğini analiz eder ve kullanılmayan alanları temizler. İncelemek için [paket optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization) sayfasına bakın.
+[Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md), `Hero.tsx` bileşeninin gerçekte neleri tükettiğini analiz eder ve kullanılmayan alanları temizler. İncelemek için [paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) sayfasına bakın.
 
 ## Geliştirici Deneyimi
 
@@ -231,17 +231,17 @@ export const Hero = () => {
 
 `CustomTypeOptions` tanımlamak editörde otomatik tamamlama sağlar ancak içeriğin varlığını garanti etmez. `tr/home.json` dosyasından bir anahtarı silmek derlemeyi durdurmaz, sadece çalışma zamanında fallback tetikler.
 
-Intlayer, tipleri doğrudan içerik bildirimlerinden çıkarır ve [`strictMode`](https://intlayer.org/tr/doc/concept/configuration) modu eksik çevirileri derleme hatasına dönüştürür.
+Intlayer, tipleri doğrudan içerik bildirimlerinden çıkarır ve [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) modu eksik çevirileri derleme hatasına dönüştürür.
 
 ### Araç Karşılaştırması
 
-| Özellik                      | i18next Ekosistemi    | Intlayer                                                                 |
-| ---------------------------- | --------------------- | ------------------------------------------------------------------------ |
-| **VS Code Eklentisi**        | Yalnızca üçüncü taraf | ✅ [Resmi eklenti](https://intlayer.org/tr/doc/vs-code-extension)        |
-| **Language Server (LSP)**    | ❌ Yok                | ✅ [Özel LSP](https://intlayer.org/tr/doc/lsp)                           |
-| **MCP Sunucusu (AI İçin)**   | ❌ Yok                | ✅ [Entegre MCP sunucusu](https://intlayer.org/tr/doc/mcp-server)        |
-| **Ajan Becerileri (Skills)** | ❌ Yok                | ✅ [Kullanıma hazır beceriler](https://intlayer.org/tr/doc/agent_skills) |
-| **Görsel CMS**               | Locize (Ücretli SaaS) | ✅ [Ücretsiz ve Açık Kaynak](https://intlayer.org/tr/doc/concept/editor) |
+| Özellik                      | i18next Ekosistemi    | Intlayer                                                                                                              |
+| ---------------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| **VS Code Eklentisi**        | Yalnızca üçüncü taraf | ✅ [Resmi eklenti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)                |
+| **Language Server (LSP)**    | ❌ Yok                | ✅ [Özel LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)                                   |
+| **MCP Sunucusu (AI İçin)**   | ❌ Yok                | ✅ [Entegre MCP sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)                |
+| **Ajan Becerileri (Skills)** | ❌ Yok                | ✅ [Kullanıma hazır beceriler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)         |
+| **Görsel CMS**               | Locize (Ücretli SaaS) | ✅ [Ücretsiz ve Açık Kaynak](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) |
 
 ## Çeviri ve Locize Modeli
 
@@ -249,8 +249,8 @@ Locize, i18next yapımcılarının ticari servisidir. Açık kaynağın sürdür
 
 Intlayer açık yaklaşımı benimser:
 
-- [`intlayer fill`](https://intlayer.org/tr/doc/concept/auto-fill), eksik çevirileri terminalinizde veya CI süreçlerinizde kendi OpenAI, Anthropic, Mistral ya da Gemini API anahtarlarınızla tamamlar.
-- [Intlayer CMS](https://intlayer.org/tr/doc/concept/cms) açık kaynaklıdır ve Docker Compose ile yerel olarak barındırılabilir.
+- [`intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md), eksik çevirileri terminalinizde veya CI süreçlerinizde kendi OpenAI, Anthropic, Mistral ya da Gemini API anahtarlarınızla tamamlar.
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) açık kaynaklıdır ve Docker Compose ile yerel olarak barındırılabilir.
 - Derleyici, CLI, editör ve CMS tamamen Apache 2.0 lisanslıdır.
 
 ## i18next Hangi Durumlarda Halen Uygundur?
@@ -303,9 +303,9 @@ Bu etkileşimli CLI:
 
 Ayrıntılı adımlar için özel kılavuzlarımızı inceleyin:
 
-- **Uyumluluk katmanları:** [i18next](https://intlayer.org/tr/doc/compatibility/i18next), [react-i18next](https://intlayer.org/tr/doc/compatibility/react-i18next) ve [next-i18next](https://intlayer.org/tr/doc/compatibility/next-i18next) uyumluluk katmanlarıyla mevcut sözdiziminizi koruyun.
-- **Katalog dönüştürme:** JSON dosyalarınızı tipli sözlüklere dönüştürün: [i18next üzerinden](https://intlayer.org/tr/doc/migration/i18next), [react-i18next üzerinden](https://intlayer.org/tr/doc/migration/react-i18next) veya [next-i18next üzerinden](https://intlayer.org/tr/doc/migration/next-i18next).
-- **Hibrit yapı:** i18next çalışma zamanını korurken, katalogları otomatik olarak tiplendirmek ve çevirmek için [Intlayer'ı i18next ile birlikte kullanın](https://intlayer.org/tr/blog/intlayer-with-i18next).
+- **Uyumluluk katmanları:** [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-i18next.md) ve [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md) uyumluluk katmanlarıyla mevcut sözdiziminizi koruyun.
+- **Katalog dönüştürme:** JSON dosyalarınızı tipli sözlüklere dönüştürün: [i18next üzerinden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md), [react-i18next üzerinden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md) veya [next-i18next üzerinden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-i18next_to_intlayer.md).
+- **Hibrit yapı:** i18next çalışma zamanını korurken, katalogları otomatik olarak tiplendirmek ve çevirmek için [Intlayer'ı i18next ile birlikte kullanın](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/intlayer_with_i18next.md).
 
 Sitenizi ücretsiz [i18n SEO Tarayıcısı](https://intlayer.org/i18n-seo-scanner) ile analiz edin:
 
@@ -313,7 +313,7 @@ Sitenizi ücretsiz [i18n SEO Tarayıcısı](https://intlayer.org/i18n-seo-scanne
 
 ## İlgili Yazılar
 
-- [Next.js i18n Benchmark: Kapsamlı Performans İncelemesi](https://intlayer.org/tr/doc/benchmark/nextjs)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/tr/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [next-intl 2026'da Güncelliğini Yitirdi mi?](https://intlayer.org/tr/blog/is-next-intl-outdated)
-- [Derleyici Odaklı ve Bildirime Dayalı i18n Mimarisi](https://intlayer.org/tr/blog/compiler-vs-declarative-i18n)
+- [Next.js i18n Benchmark: Kapsamlı Performans İncelemesi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/react-i18next_vs_react-intl_vs_intlayer.md)
+- [next-intl 2026'da Güncelliğini Yitirdi mi?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_next-intl_outdated.md)
+- [Derleyici Odaklı ve Bildirime Dayalı i18n Mimarisi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)

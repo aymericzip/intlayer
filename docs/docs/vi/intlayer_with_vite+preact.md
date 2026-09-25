@@ -1040,7 +1040,7 @@ Tiện ích này cung cấp:
 - **Inline previews** của nội dung được dịch.
 - **Quick actions** để dễ dàng tạo và cập nhật các bản dịch.
 
-Để biết thêm chi tiết về cách sử dụng tiện ích, vui lòng tham khảo [tài liệu Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+Để biết thêm chi tiết về cách sử dụng tiện ích, vui lòng tham khảo [tài liệu Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md).
 
 ### Đi xa hơn
 

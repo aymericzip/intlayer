@@ -30,7 +30,7 @@ author: aymericzip
 
 `@intlayer/next-intl` adalah compat adapter: ia mengekspos API `next-intl` (`useTranslations`, `getTranslations`, `useLocale`, `t.rich()`, ICU plurals, `NextIntlClientProvider`...) dan melayaninya dari dictionary yang dikompilasi oleh Intlayer. Kode aplikasi tidak berubah. Bundle-nya berubah.
 
-Artikel ini membandingkan keduanya pada aplikasi Next.js yang sama, dibangun sekali dengan `next-intl` dan sekali dengan adapter. Angka-angka berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), suite open-source yang mencatat apa yang benar-benar diunduh browser. Jika Anda menginginkan perbandingan `next-intl` vs Intlayer sebagai library, baca [next-intl vs Intlayer](https://intlayer.org/blog/next-intl-vs-intlayer). Yang ini tentang apa yang berubah pada adapter ketika Anda menjaga komponen seperti yang sekarang.
+Artikel ini membandingkan keduanya pada aplikasi Next.js yang sama, dibangun sekali dengan `next-intl` dan sekali dengan adapter. Angka-angka berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), suite open-source yang mencatat apa yang benar-benar diunduh browser. Jika Anda menginginkan perbandingan `next-intl` vs Intlayer sebagai library, baca [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer.md). Yang ini tentang apa yang berubah pada adapter ketika Anda menjaga komponen seperti yang sekarang.
 
 <TOC/>
 
@@ -143,7 +143,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tabel lengkap, setiap pustaka dan setiap strategi, dalam [laporan tolok ukur Next.js](https://intlayer.org/id/doc/benchmark/nextjs).
+> Tabel lengkap, setiap pustaka dan setiap strategi, dalam [laporan tolok ukur Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md).
 
 ### Hasil pada TanStack Start (`use-intl`)
 
@@ -175,7 +175,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tabel lengkap dalam [laporan tolok ukur TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack).
+> Tabel lengkap dalam [laporan tolok ukur TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md).
 
 ## Mengapa angka-angka berubah
 
@@ -327,7 +327,7 @@ Runtime 8.0 KB dibandingkan 5.5 KB untuk `next-intlayer`, dan +6-7 KB per halama
 </Accordion>
 <Accordion header="messages, timeZone, dan now pada provider diabaikan">
 
-Pemformat didukung oleh `Intl` bawaan dan hanya bahasa yang memengaruhi hasilnya. Jika Anda mengandalkan zona waktu paksa atau `now` tetap untuk tanggal yang stabil saat hidrasi, tangani di titik panggilan. Lihat [pemformatan tanggal, waktu, dan angka](https://intlayer.org/id/blog/date-time-number-formatting-locales).
+Pemformat didukung oleh `Intl` bawaan dan hanya bahasa yang memengaruhi hasilnya. Jika Anda mengandalkan zona waktu paksa atau `now` tetap untuk tanggal yang stabil saat hidrasi, tangani di titik panggilan. Lihat [pemformatan tanggal, waktu, dan angka](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/date_time_number_formatting_locales.md).
 
 </Accordion>
 </AccordionGroup>
@@ -347,7 +347,7 @@ Anda menggunakan `next-intl` hari ini dan menginginkan keuntungan bundel, pengur
 </Accordion>
 <Accordion header="Gunakan bawaan (next-intlayer)">
 
-Untuk proyek baru, atau setelah adaptor menyelesaikan tugasnya. Ini adalah yang paling ringan dari ketiganya (5.5 KB, +0.3 KB per halaman) dan membuka komponen server sinkron, file `.content.ts` per komponen, dan rangkaian fitur lengkap. Mulai dengan [Intlayer dengan Next.js](https://intlayer.org/id/doc/environment/nextjs).
+Untuk proyek baru, atau setelah adaptor menyelesaikan tugasnya. Ini adalah yang paling ringan dari ketiganya (5.5 KB, +0.3 KB per halaman) dan membuka komponen server sinkron, file `.content.ts` per komponen, dan rangkaian fitur lengkap. Mulai dengan [Intlayer dengan Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
 
 </Accordion>
 </AccordionGroup>
@@ -364,7 +364,7 @@ Pada Next.js, ya untuk komponen: build tolok ukur hanya mengubah `next.config.ts
 
 <Question title="Apa yang terjadi dengan pesan ICU?">
 
-Mereka tetap berfungsi. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#`, dan `{ts, date, long}` diselesaikan oleh resolver ICU Intlayer. Lihat [format pesan ICU](https://intlayer.org/id/blog/icu-message-format).
+Mereka tetap berfungsi. `t("key", { count })`, `t.rich()`, `t.markup()`, `select`, `selectordinal`, `#`, dan `{ts, date, long}` diselesaikan oleh resolver ICU Intlayer. Lihat [format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md).
 
 </Question>
 
@@ -392,23 +392,23 @@ Tidak melalui `pathnames` dari `next-intl`: adaptor menerimanya untuk pengetikan
 
 Seri adaptor yang sama:
 
-- [i18next vs @intlayer/i18next](https://intlayer.org/id/blog/i18next-vs-intlayer-i18next)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/id/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer-i18next.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer-vue-i18n.md)
 
 Perbandingan langsung pustaka:
 
-- [next-intl vs Intlayer](https://intlayer.org/id/blog/next-intl-vs-intlayer), tolok ukur yang sama
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/id/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [Is next-intl outdated?](https://intlayer.org/id/blog/is-next-intl-outdated)
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer.md), tolok ukur yang sama
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_next-intl_outdated.md)
 
 Dokumen referensi:
 
-- [Compat adapter: next-intl](https://intlayer.org/id/doc/compatibility/next-intl)
-- [Panduan migrasi: next-intl ke Intlayer](https://intlayer.org/id/doc/migration/next-intl)
-- [Laporan tolok ukur Next.js](https://intlayer.org/id/doc/benchmark/nextjs) dan [laporan tolok ukur TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack)
-- [Optimalisasi bundel](https://intlayer.org/id/doc/concept/bundle-optimization) dan [kompiler Intlayer](https://intlayer.org/id/doc/compiler)
-- [Editor Visual](https://intlayer.org/id/doc/concept/editor), [CMS](https://intlayer.org/id/doc/concept/cms), dan [terjemahan AI](https://intlayer.org/id/doc/concept/auto-fill)
+- [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-intl.md)
+- [Panduan migrasi: next-intl ke Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md)
+- [Laporan tolok ukur Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md) dan [laporan tolok ukur TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
+- [Optimalisasi bundel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+- [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), dan [terjemahan AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md)
 
 ## Kesimpulan
 
@@ -416,4 +416,4 @@ Dokumen referensi:
 
 Semua data mentah, aplikasi tes, dan script tersedia di [repository Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Jalankan sendiri.
 
-Lihat ['dokumen Why Intlayer?'](https://intlayer.org/doc/why) untuk detail lebih lanjut.
+Lihat ['dokumen Why Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk detail lebih lanjut.

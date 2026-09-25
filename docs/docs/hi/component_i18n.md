@@ -174,14 +174,14 @@ export function ClientComponent() {
 - **ट्री-शेकिंग**: केवल वही कंटेंट जो कंपोनेंट द्वारा उपयोग किया जाता है, उसे बंडल किया जाता है, जिससे बड़े ऐप्स में पेलोड छोटे रहते हैं।
 - **डीएक्स और टूलिंग**: बिल्ट-इन मिडलवेयर, SEO हेल्पर्स, और वैकल्पिक विजुअल एडिटर/एआई अनुवाद रोज़मर्रा के काम को सरल बनाते हैं।
 
-Next.js-केंद्रित राउंडअप में तुलना और पैटर्न देखें: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+Next.js-केंद्रित राउंडअप में तुलना और पैटर्न देखें: https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md
 
 ## संबंधित गाइड और संदर्भ
 
-- React सेटअप (Vite): https://intlayer.org/doc/environment/vite-and-react
-- React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
-- TanStack स्टार्ट: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
-- Next.js सेटअप: https://intlayer.org/doc/environment/nextjs
-- क्यों Intlayer बनाम next-intl बनाम next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- React सेटअप (Vite): https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md
+- React Router v7: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_react_router_v7.md
+- TanStack स्टार्ट: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md
+- Next.js सेटअप: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_16.md
+- क्यों Intlayer बनाम next-intl बनाम next-i18next - https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md
 
 इन पृष्ठों में एंड-टू-एंड सेटअप, प्रोवाइडर्स, रूटिंग, और SEO हेल्पर्स शामिल हैं।

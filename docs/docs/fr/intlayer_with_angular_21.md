@@ -480,7 +480,7 @@ Cette extension fournit :
 - **Des aperçus en ligne** du contenu traduit.
 - **Des actions rapides** pour créer et mettre à jour facilement les traductions.
 
-Pour plus de détails sur l'utilisation de l'extension, consultez la [documentation de l'extension VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
+Pour plus de détails sur l'utilisation de l'extension, consultez la [documentation de l'extension VS Code Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md).
 
 ### Aller plus loin
 

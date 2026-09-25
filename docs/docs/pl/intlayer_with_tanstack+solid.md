@@ -1160,7 +1160,7 @@ To rozszerzenie oferuje:
 - **Podgląd wewnątrz linii (inline previews)** przetłumaczonej treści.
 - **Szybkie akcje** do łatwego tworzenia i aktualizowania tłumaczeń.
 
-Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokumentacji rozszerzenia Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokumentacji rozszerzenia Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
 ## Idąc dalej
 
@@ -1184,7 +1184,7 @@ Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.co
 TanStack Start nie dostarcza własnej warstwy i18n, a ekosystem Solid ma ograniczone opcje:
 
 - **`@solid-primitives/i18n`**: płaski słownik bez wsparcia dla SSR TanStack Start i bez typowania.
-- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)) i kompilowane w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
+- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)) i kompilowane w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
 
 W TanStack Start i Solid Intlayer łączy SSR, prerenderowanie i sygnały Solid w spójną całość. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
 

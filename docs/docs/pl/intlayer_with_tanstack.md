@@ -1229,7 +1229,7 @@ To rozszerzenie zapewnia:
 - **Podglądy inline** przetłumaczonej zawartości.
 - **Szybkie akcje** do łatwego tworzenia i aktualizacji tłumaczeń.
 
-Aby uzyskać więcej szczegółów na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+Aby uzyskać więcej szczegółów na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
 ## Idź dalej
 
@@ -1253,7 +1253,7 @@ Aby pójść dalej, możesz wdrożyć [edytor wizualny](https://github.com/aymer
 TanStack Start nie posiada własnej warstwy i18n, więc wybór sprowadza się do bibliotek:
 
 - **`i18next` / `react-i18next`** oraz **`react-intl`**: popularne biblioteki oparte na przestrzeniach nazw JSON ładowanych w runtime.
-- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)) i kompilowane w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
+- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)) i kompilowane w czasie budowy, w pełni typowane, z tłumaczeniem AI, edytorem wizualnym i systemem CMS.
 
 Główną zaletą w TanStack Start jest ścisła integracja z SSR i prerenderowaniem, brak konieczności przesyłania niepotrzebnych słowników na klienta oraz autouzupełnianie TypeScript. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
 

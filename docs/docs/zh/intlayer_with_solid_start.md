@@ -1068,7 +1068,7 @@ node .output/server/index.mjs
 
 - **`@solid-primitives/i18n`**：社区的原语方案，需要开发者自行组装、加载和进行类型标注的扁平字典。
 - **带有 Solid 包装层的 `i18next`**：成熟的目录生态，但在 Solid Start 中没有针对支持语言环境的路由或服务端渲染提供开箱即用的支持。
-- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），并在构建时进行编译，提供本地化路由、服务端语言环境解析、canonical 与 hreflang 链接、多语言站点地图、AI 辅助翻译、可视化编辑器和 CMS。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），并在构建时进行编译，提供本地化路由、服务端语言环境解析、canonical 与 hreflang 链接、多语言站点地图、AI 辅助翻译、可视化编辑器和 CMS。
 
 在 Solid Start 上，差异主要体现在服务端能力上，本指南将其作为专门的步骤进行了讲解，而无需开发者从零摸索。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [Solid i18n 性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md)。
 

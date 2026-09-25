@@ -28,7 +28,7 @@ Eu construí um assistente de documentação com RAG e o empacotei em um boilerp
 - Todos os componentes da interface são totalmente editáveis com Tailwind CSS
 - Registra todas as consultas dos usuários para ajudar a identificar documentação faltante, pontos problemáticos dos usuários e oportunidades de produto
 
-👉 [Demo ao vivo](https://intlayer.org/doc/why) 👉 [Boilerplate do código](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Demo ao vivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) 👉 [Boilerplate do código](https://github.com/aymericzip/smart_doc_RAG)
 
 ## Introdução
 
@@ -91,6 +91,6 @@ Para mim, este projeto mostrou que RAG não é apenas um truque técnico. É uma
 - um canal de feedback
 - uma ferramenta de estratégia de produto
 
-👉 [Experimente a demonstração aqui](https://intlayer.org/doc/why) 👉 [Confira o modelo de código no GitHub](https://github.com/aymericzip/smart_doc_RAG)
+👉 [Experimente a demonstração aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) 👉 [Confira o modelo de código no GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 E se você também estiver experimentando com RAG, adoraria saber como está usando.

@@ -85,7 +85,7 @@ height="600px"
 style="border:none;"
 />
 
-> Mesures effectuées sur un build de production avec 10 routes et 10 locales, compression gzip activée. Détails dans le [rapport de benchmark i18n](https://intlayer.org/fr/doc/benchmark).
+> Mesures effectuées sur un build de production avec 10 routes et 10 locales, compression gzip activée. Détails dans le [rapport de benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/index.md).
 
 ### Poids initial des bibliothèques
 
@@ -164,7 +164,7 @@ return <h1>{title}</h1>;
   </Tab>
 </Tabs>
 
-Le [compilateur Intlayer](https://intlayer.org/fr/doc/compiler) identifie ce que `Hero.tsx` utilise réellement et élimine les champs non référencés avant de produire les bundles clients. Consultez [l'optimisation de bundle](https://intlayer.org/fr/doc/concept/bundle-optimization) pour en savoir plus.
+Le [compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md) identifie ce que `Hero.tsx` utilise réellement et élimine les champs non référencés avant de produire les bundles clients. Consultez [l'optimisation de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md) pour en savoir plus.
 
 ## Expérience développeur
 
@@ -231,17 +231,17 @@ Lorsque vous déplacez ou supprimez `Hero.tsx`, ses traductions suivent automati
 
 L'extension de `CustomTypeOptions` offre l'autocomplétion des clés, mais ne garantit pas la présence effective des textes. La suppression d'une clé dans `fr/home.json` ne bloque pas votre build, elle entraîne simplement un fallback au runtime.
 
-Intlayer déduit les types à partir des déclarations de contenu, et le [`strictMode`](https://intlayer.org/fr/doc/concept/configuration) convertit les traductions manquantes en erreurs strictes au build.
+Intlayer déduit les types à partir des déclarations de contenu, et le [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md) convertit les traductions manquantes en erreurs strictes au build.
 
 ### Comparatif d'outillage
 
-| Fonctionnalité                  | Écosystème i18next   | Intlayer                                                                     |
-| ------------------------------- | -------------------- | ---------------------------------------------------------------------------- |
-| **Extension VS Code**           | Tierce uniquement    | ✅ [Extension officielle](https://intlayer.org/fr/doc/vs-code-extension)     |
-| **Serveur de langage (LSP)**    | ❌ Aucun             | ✅ [LSP dédié](https://intlayer.org/fr/doc/lsp)                              |
-| **Serveur MCP (pour IA)**       | ❌ Aucun             | ✅ [Serveur MCP intégré](https://intlayer.org/fr/doc/mcp-server)             |
-| **Compétences agents (Skills)** | ❌ Aucune            | ✅ [Compétences prêtes à l'emploi](https://intlayer.org/fr/doc/agent_skills) |
-| **CMS visuel en contexte**      | Locize (SaaS payant) | ✅ [Gratuit et open source](https://intlayer.org/fr/doc/concept/editor)      |
+| Fonctionnalité                  | Écosystème i18next   | Intlayer                                                                                                             |
+| ------------------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **Extension VS Code**           | Tierce uniquement    | ✅ [Extension officielle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md)        |
+| **Serveur de langage (LSP)**    | ❌ Aucun             | ✅ [LSP dédié](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)                                 |
+| **Serveur MCP (pour IA)**       | ❌ Aucun             | ✅ [Serveur MCP intégré](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)                |
+| **Compétences agents (Skills)** | ❌ Aucune            | ✅ [Compétences prêtes à l'emploi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)    |
+| **CMS visuel en contexte**      | Locize (SaaS payant) | ✅ [Gratuit et open source](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) |
 
 ## Traduction et modèle économique de Locize
 
@@ -249,8 +249,8 @@ Locize est la plateforme commerciale officielle créée par les auteurs d'i18nex
 
 Intlayer privilégie un modèle ouvert :
 
-- [`intlayer fill`](https://intlayer.org/fr/doc/concept/auto-fill) complète les traductions manquantes en local ou en CI avec vos propres clés API (OpenAI, Anthropic, Mistral, Gemini).
-- Le [CMS Intlayer](https://intlayer.org/fr/doc/concept/cms) est open source et auto-hébergeable via Docker Compose.
+- [`intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/autoFill.md) complète les traductions manquantes en local ou en CI avec vos propres clés API (OpenAI, Anthropic, Mistral, Gemini).
+- Le [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) est open source et auto-hébergeable via Docker Compose.
 - Le compilateur, la CLI, l'éditeur et le CMS sont tous sous licence Apache 2.0.
 
 ## Dans quels cas i18next reste-t-il pertinent ?
@@ -303,9 +303,9 @@ Cette CLI interactive :
 
 Pour aller plus loin, consultez nos guides détaillés :
 
-- **Couches de compatibilité :** Conservez votre code existant avec les adaptateurs pour [i18next](https://intlayer.org/fr/doc/compatibility/i18next), [react-i18next](https://intlayer.org/fr/doc/compatibility/react-i18next) et [next-i18next](https://intlayer.org/fr/doc/compatibility/next-i18next).
-- **Migration des dictionnaires :** Convertissez vos catalogues JSON en structures typées : [depuis i18next](https://intlayer.org/fr/doc/migration/i18next), [depuis react-i18next](https://intlayer.org/fr/doc/migration/react-i18next) ou [depuis next-i18next](https://intlayer.org/fr/doc/migration/next-i18next).
-- **Approche hybride :** Gardez votre runtime i18next tout en [associant Intlayer à i18next](https://intlayer.org/fr/blog/intlayer-with-i18next) pour générer, typer et traduire automatiquement vos dictionnaires.
+- **Couches de compatibilité :** Conservez votre code existant avec les adaptateurs pour [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/react-i18next.md) et [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compat/next-i18next.md).
+- **Migration des dictionnaires :** Convertissez vos catalogues JSON en structures typées : [depuis i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_i18next_to_intlayer.md), [depuis react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_react-i18next_to_intlayer.md) ou [depuis next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_next-i18next_to_intlayer.md).
+- **Approche hybride :** Gardez votre runtime i18next tout en [associant Intlayer à i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/intlayer_with_i18next.md) pour générer, typer et traduire automatiquement vos dictionnaires.
 
 Analysez votre site en production avec le [scanner SEO i18n gratuit](https://intlayer.org/i18n-seo-scanner) :
 
@@ -313,7 +313,7 @@ Analysez votre site en production avec le [scanner SEO i18n gratuit](https://int
 
 ## Lectures recommandées
 
-- [Benchmark i18n Next.js : analyse complète des performances](https://intlayer.org/fr/doc/benchmark/nextjs)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/fr/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [next-intl est-il obsolète en 2026 ?](https://intlayer.org/fr/blog/is-next-intl-outdated)
-- [Architecture de compilation vs i18n déclarative](https://intlayer.org/fr/blog/compiler-vs-declarative-i18n)
+- [Benchmark i18n Next.js : analyse complète des performances](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/react-i18next_vs_react-intl_vs_intlayer.md)
+- [next-intl est-il obsolète en 2026 ?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/is_next-intl_outdated.md)
+- [Architecture de compilation vs i18n déclarative](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/compiler_vs_declarative_i18n.md)

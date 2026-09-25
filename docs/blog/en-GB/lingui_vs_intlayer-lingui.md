@@ -27,7 +27,7 @@ author: aymericzip
 
 `@intlayer/lingui` is a compat adapter for `@lingui/core` and `@lingui/react`. Your `` t`...` ``, `<Trans>`, `useLingui()` and `i18n._()` calls stay exactly as they are; the macros keep compiling; what changes is where the messages come from at runtime. Instead of one compiled catalogue per locale, each call site is bound to an Intlayer dictionary compiled for it.
 
-This article measures that swap on the same TanStack Start application, built once with Lingui and once with the adapter. The numbers come from [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). For the two libraries compared as libraries, read [Lingui vs Intlayer](https://intlayer.org/en-GB/blog/lingui-vs-intlayer). This one is about what the adapter changes, and where it does not help.
+This article measures that swap on the same TanStack Start application, built once with Lingui and once with the adapter. The numbers come from [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). For the two libraries compared as libraries, read [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/lingui_vs_intlayer.md). This one is about what the adapter changes, and where it does not help.
 
 <TOC/>
 
@@ -227,7 +227,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-For `.po` catalogues, replace `syncJSON` with `syncPO` from `@intlayer/sync-po-plugin` and the same `source` pattern with a `.po` extension. See the [Sync PO plugin doc](https://intlayer.org/en-GB/doc/plugin/sync-po).
+For `.po` catalogues, replace `syncJSON` with `syncPO` from `@intlayer/sync-po-plugin` and the same `source` pattern with a `.po` extension. See the [Sync PO plugin doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-po.md).
 
 `splitKeys: "key-prefix"` is what makes the component-size column drop. The catalogue file keeps its flat shape; the split only exists in the generated dictionaries, and write-back re-joins the ids.
 
@@ -277,7 +277,7 @@ export default defineConfig({
 - **The `dynamic` per-page cost.** Covered above: expect roughly +20 KB per page against a lazy-loaded Lingui setup on a small app. The gap does not grow with content (it is the resolver, not the catalogues), but it does not shrink either.
 - **Source-locale leakage stays.** Message descriptors and macro output embed the English source as fallback. If that matters, the fix is stripping the `message` field or moving that component to `.content.ts`, not the adapter.
 - **`i18n.load()` is a fallback, not the path.** If you keep importing compiled catalogues and calling `load()`, you get the old bundle plus the new one. Remove the imports.
-- **Vite only.** There is no Next.js plugin for `@intlayer/lingui`. Next.js projects on Lingui should look at [`next-intlayer`](https://intlayer.org/en-GB/doc/environment/nextjs) directly.
+- **Vite only.** There is no Next.js plugin for `@intlayer/lingui`. Next.js projects on Lingui should look at [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_nextjs_16.md) directly.
 - **`defaultComponent` is not applied.** If you rely on it to wrap every `<Trans>`, add the wrapper explicitly.
 
 ## When to use which?
@@ -288,12 +288,12 @@ export default defineConfig({
 
 ## Related comparisons
 
-- [Lingui vs Intlayer](https://intlayer.org/en-GB/blog/lingui-vs-intlayer) (the libraries, same benchmark)
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/en-GB/blog/next-intl-vs-intlayer-next-intl) (same adapter series)
-- [i18next vs @intlayer/i18next](https://intlayer.org/en-GB/blog/i18next-vs-intlayer-i18next) (same adapter series)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/en-GB/blog/vue-i18n-vs-intlayer-vue-i18n) (same adapter series)
-- [Compat adapter reference: Lingui](https://intlayer.org/en-GB/doc/compatibility/lingui)
-- [Compiler vs declarative i18n](https://intlayer.org/en-GB/blog/compiler-vs-declarative-i18n)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/lingui_vs_intlayer.md) (the libraries, same benchmark)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/next-intl_vs_intlayer-next-intl.md) (same adapter series)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18next_vs_intlayer-i18next.md) (same adapter series)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/vue-i18n_vs_intlayer-vue-i18n.md) (same adapter series)
+- [Compat adapter reference: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/lingui.md)
+- [Compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/compiler_vs_declarative_i18n.md)
 
 ## Conclusion
 
@@ -301,4 +301,4 @@ export default defineConfig({
 
 All the raw data, the test apps and the scripts are in the [Benchmark Bloom repository](https://github.com/intlayer-org/benchmark-bloom). Run it yourself.
 
-Refer to the ['Why Intlayer?' doc](https://intlayer.org/en-GB/doc/why) for more details.
+Refer to the ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/interest_of_intlayer.md) for more details.

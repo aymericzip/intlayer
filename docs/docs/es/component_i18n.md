@@ -174,14 +174,14 @@ Consejo: Para metadatos de página y SEO, también puedes obtener contenido con 
 - Tree-shaking: Solo se incluye el contenido usado por el componente, manteniendo cargas pequeñas en aplicaciones grandes.
 - DX y herramientas: Middleware incorporado, asistentes de SEO y traducciones opcionales mediante Editor Visual/IA agilizan el trabajo diario.
 
-Consulta las comparaciones y patrones en el resumen enfocado en Next.js: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+Consulta las comparaciones y patrones en el resumen enfocado en Next.js: https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/next-i18next_vs_next-intl_vs_intlayer.md
 
 ## Guías y referencias relacionadas
 
-- Configuración React (Vite): https://intlayer.org/doc/environment/vite-and-react
-- React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
-- TanStack Start: https://intlayer.org/doc/environment/tanstack-start
-- Configuración Next.js: https://intlayer.org/doc/environment/nextjs
-- Por qué Intlayer vs. next-intl vs. next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- Configuración React (Vite): https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md
+- React Router v7: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_react_router_v7.md
+- TanStack Start: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack.md
+- Configuración Next.js: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_16.md
+- Por qué Intlayer vs. next-intl vs. next-i18next - https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/next-i18next_vs_next-intl_vs_intlayer.md
 
 Estas páginas incluyen configuración completa, proveedores, enrutamiento y helpers de SEO.

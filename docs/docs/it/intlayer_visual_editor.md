@@ -206,7 +206,7 @@ Se riscontri problemi con l'editor visivo, controlla quanto segue:
 
 - L'editor visivo e l'applicazione sono in esecuzione.
 
-- La configurazione [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) è correttamente impostata nel file di configurazione di Intlayer.
+- La configurazione [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md#editor-configuration) è correttamente impostata nel file di configurazione di Intlayer.
   - Campi obbligatori:
     - L'URL dell'applicazione dovrebbe corrispondere a quello impostato nella configurazione dell'editor (`applicationURL`).
 

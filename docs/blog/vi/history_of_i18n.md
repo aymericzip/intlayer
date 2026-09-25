@@ -300,5 +300,5 @@ Intlayer tiếp cận vấn đề này không phải như một công cụ tra c
 
 - [Trình biên dịch so với Quốc tế hóa khai báo](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
 - [Quốc tế hóa theo từng Component so với Tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md)
-- [Hiệu năng và Thử nghiệm thực tế](https://intlayer.org/doc/benchmark)
-- [Bộ điều hợp tương thích của Intlayer](https://intlayer.org/doc/concept/compatibility)
+- [Hiệu năng và Thử nghiệm thực tế](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
+- [Bộ điều hợp tương thích của Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/index.md)

@@ -473,7 +473,7 @@ Diese Erweiterung bietet:
 - **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.
 - **Inline-Vorschauen** des übersetzten Inhalts.
 - **Schnellaktionen**, um Übersetzungen einfach zu erstellen und zu aktualisieren.
-  Für weitere Details zur Verwendung der Erweiterung lesen Sie bitte die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
+  Für weitere Details zur Verwendung der Erweiterung lesen Sie bitte die [Intlayer VS Code Extension Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md).
 
 ## Weiterführende Schritte
 

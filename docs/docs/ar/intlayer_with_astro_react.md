@@ -645,7 +645,7 @@ bun run build # Or bun run dev
 - **معاينة مضمنة** للمحتوى المترجم.
 - **إجراءات سريعة** لإنشاء وتحديث الترجمات بسهولة.
 
-لمزيد من المعلومات حول استخدام الإضافة، راجع [توثيق إضافة VS Code](https://intlayer.org/doc/vs-code-extension).
+لمزيد من المعلومات حول استخدام الإضافة، راجع [توثيق إضافة VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md).
 
 ### تعمق أكثر
 

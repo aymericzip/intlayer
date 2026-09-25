@@ -410,7 +410,7 @@ To rozszerzenie zapewnia:
 - **Podgląd inline** przetłumaczonej treści.
 - **Szybkie akcje** ułatwiające tworzenie i aktualizację tłumaczeń.
 
-Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokumentacji rozszerzenia Intlayer dla VS Code](https://intlayer.org/doc/vs-code-extension).
+Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokumentacji rozszerzenia Intlayer dla VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md).
 
 ### Dowiedz się więcej
 
@@ -425,7 +425,7 @@ Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.co
 Analog to meta-framework dla Angulara zbudowany na bazie Vite, więc dziedziczy opcje Angulara i dodaje te z Vite:
 
 - **`ngx-translate`** lub **`Transloco`**: biblioteki runtime dla Angulara, wymagające manualnej konfiguracji pod kątem SSR Analog.
-- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://intlayer.org/blog/per-component-vs-centralized-i18n)) i kompilowane przez wtyczkę Vite w czasie budowy, w pełni typowane, ze wsparciem dla SSR, tłumaczeniem AI, edytorem wizualnym i systemem CMS.
+- **`Intlayer`**: najbardziej zaawansowane rozwiązanie. Treści deklarowane w dowolnym miejscu bazy kodu ([obok każdego komponentu lub centralnie](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)) i kompilowane przez wtyczkę Vite w czasie budowy, w pełni typowane, ze wsparciem dla SSR, tłumaczeniem AI, edytorem wizualnym i systemem CMS.
 
 W Analog Intlayer łączy architekturę Vite, SSR i routing oparty na systemie plików w spójną całość. Zobacz [dlaczego Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
 

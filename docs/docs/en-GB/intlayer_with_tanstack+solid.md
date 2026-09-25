@@ -1161,7 +1161,7 @@ This extension offers:
 - **Inline previews** of translated content.
 - **Quick actions** to create and update translations easily.
 
-For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md).
 
 ## Going Further
 
@@ -1187,7 +1187,7 @@ TanStack Start ships no i18n layer, and the Solid ecosystem options are thin:
 - **`@solid-primitives/i18n`**: a flat dictionary you assemble and wire into the router yourself.
 - **`i18next`** with a Solid wrapper: mature catalogues, but no integration with the TanStack router, the `head` function or the pre-render pass.
 - **`Paraglide`**: compiled messages, focused on the message layer only.
-- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://intlayer.org/blog/per-component-vs-centralized-i18n)) and compiled at build time, with locale aware routing, sitemap generation, AI translation, a visual editor and a CMS.
+- **`Intlayer`**: the most advanced solution. Content declared anywhere in your codebase ([next to each component or centralized](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/per-component_vs_centralized_i18n.md)) and compiled at build time, with locale aware routing, sitemap generation, AI translation, a visual editor and a CMS.
 
 See [why Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/interest_of_intlayer.md) and the [TanStack Start i18n benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md).
 

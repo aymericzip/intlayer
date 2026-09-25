@@ -32,7 +32,7 @@ author: aymericzip
 
 `@intlayer/i18next`, `@intlayer/react-i18next` и `@intlayer/next-i18next` - это адаптеры совместимости. Они предоставляют API `i18next`, который уже использует ваш код (`useTranslation`, `t()`, `<Trans>`, `i18n.changeLanguage()`, `getFixedT`, `serverSideTranslations`...), и передают данные из словарей, скомпилированных Intlayer. Компоненты не меняются. Меняется среда выполнения (runtime) под ними.
 
-В этой статье измеряется эффект от этой замены на одном и том же приложении Next.js, собранном сначала с `next-i18next`, а затем с `@intlayer/next-i18next`. Исходные цифры взяты из [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Если вас интересует сравнение `i18next` и Intlayer как отдельных библиотек, прочтите [i18next vs Intlayer](https://intlayer.org/ru/blog/i18next-vs-intlayer). Этот материал посвящен тому, что именно меняет адаптер, если вы оставляете свой код в исходном виде.
+В этой статье измеряется эффект от этой замены на одном и том же приложении Next.js, собранном сначала с `next-i18next`, а затем с `@intlayer/next-i18next`. Исходные цифры взяты из [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Если вас интересует сравнение `i18next` и Intlayer как отдельных библиотек, прочтите [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer.md). Этот материал посвящен тому, что именно меняет адаптер, если вы оставляете свой код в исходном виде.
 
 <TOC/>
 
@@ -142,9 +142,9 @@ height="600px"
 style="border:none;"
 />
 
-> Полная таблица, каждая библиотека и каждая стратегия, в [отчете о бенчмарке Next.js](https://intlayer.org/ru/doc/benchmark/nextjs).
+> Полная таблица, каждая библиотека и каждая стратегия, в [отчете о бенчмарке Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md).
 
-> Адаптер `react-i18next` на Vite / TanStack Start не входил в этот тестовый прогон. Базовые замеры для `react-i18next` на TanStack Start можно найти в статье [i18next vs Intlayer](https://intlayer.org/ru/blog/i18next-vs-intlayer): 127-184 КБ на страницу и 123-185 мс задержки переключения языка при отложенном бэкенде.
+> Адаптер `react-i18next` на Vite / TanStack Start не входил в этот тестовый прогон. Базовые замеры для `react-i18next` на TanStack Start можно найти в статье [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer.md): 127-184 КБ на страницу и 123-185 мс задержки переключения языка при отложенном бэкенде.
 
 ## Почему изменяются показатели
 
@@ -321,7 +321,7 @@ export default defineConfig({
 <AccordionGroup>
 <Accordion header="Бэкенды и детекторы не активны">
 
-`i18n.use(HttpBackend)` вызывает init плагина и ничего больше. Если ваше приложение полагалось на получение переводов из CMS во время выполнения, этот процесс больше не работает; используйте [Intlayer CMS](https://intlayer.org/ru/doc/concept/cms) или команды `intlayer pull` / `push`. Определение локали становится конфигурацией маршрутизации Intlayer (префикс URL, cookie, заголовок).
+`i18n.use(HttpBackend)` вызывает init плагина и ничего больше. Если ваше приложение полагалось на получение переводов из CMS во время выполнения, этот процесс больше не работает; используйте [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) или команды `intlayer pull` / `push`. Определение локали становится конфигурацией маршрутизации Intlayer (префикс URL, cookie, заголовок).
 
 </Accordion>
 <Accordion header="resources игнорируется, а не объединяется">
@@ -361,7 +361,7 @@ export default defineConfig({
 </Accordion>
 <Accordion header="Перейти на нативный (next-intlayer / react-intlayer)">
 
-Для новых проектов или когда адаптер выполнил свою задачу. Он имеет самый легкий рантайм (5.5 КБ, +0.3 КБ на страницу) и открывает доступ к синхронным серверным компонентам и файлам `.content.ts` для каждого компонента. Начните с [Intlayer с Next.js](https://intlayer.org/ru/doc/environment/nextjs) или [с Vite и React](https://intlayer.org/ru/doc/environment/vite-and-react).
+Для новых проектов или когда адаптер выполнил свою задачу. Он имеет самый легкий рантайм (5.5 КБ, +0.3 КБ на страницу) и открывает доступ к синхронным серверным компонентам и файлам `.content.ts` для каждого компонента. Начните с [Intlayer с Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md) или [с Vite и React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md).
 
 </Accordion>
 </AccordionGroup>
@@ -406,24 +406,24 @@ export default defineConfig({
 
 Та же серия адаптеров:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/ru/blog/next-intl-vs-intlayer-next-intl)
-- [Lingui vs @intlayer/lingui](https://intlayer.org/ru/blog/lingui-vs-intlayer-lingui)
-- [vue-i18n vs @intlayer/vue-i18n](https://intlayer.org/ru/blog/vue-i18n-vs-intlayer-vue-i18n)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer-next-intl.md)
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/lingui_vs_intlayer-lingui.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/vue-i18n_vs_intlayer-vue-i18n.md)
 
 Прямое сравнение библиотек:
 
-- [i18next vs Intlayer](https://intlayer.org/ru/blog/i18next-vs-intlayer), same benchmark
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/ru/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/ru/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [Is i18next outdated?](https://intlayer.org/ru/blog/is-i18next-outdated)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer.md), same benchmark
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Is i18next outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/is_i18next_outdated.md)
 
 Справочная документация:
 
-- Compat adapters: [i18next](https://intlayer.org/ru/doc/compatibility/i18next), [react-i18next](https://intlayer.org/ru/doc/compatibility/react-i18next), [next-i18next](https://intlayer.org/ru/doc/compatibility/next-i18next)
-- Migration guides: [i18next](https://intlayer.org/ru/doc/migration/i18next), [react-i18next](https://intlayer.org/ru/doc/migration/react-i18next), [next-i18next](https://intlayer.org/ru/doc/migration/next-i18next)
-- [Next.js benchmark report](https://intlayer.org/ru/doc/benchmark/nextjs) and [TanStack Start benchmark report](https://intlayer.org/ru/doc/benchmark/tanstack)
-- [Bundle optimization](https://intlayer.org/ru/doc/concept/bundle-optimization) and [the Intlayer compiler](https://intlayer.org/ru/doc/compiler)
-- [Visual Editor](https://intlayer.org/ru/doc/concept/editor), [CMS](https://intlayer.org/ru/doc/concept/cms) and [AI translation](https://intlayer.org/ru/doc/concept/auto-fill)
+- Compat adapters: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/next-i18next.md)
+- Migration guides: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/migration_from_next-i18next_to_intlayer.md)
+- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md) and [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md)
+- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md)
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md) and [AI translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/autoFill.md)
 
 ## Заключение
 
@@ -431,4 +431,4 @@ export default defineConfig({
 
 Все сырые данные, тестовые приложения и скрипты опубликованы в [репозитории Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom).
 
-Подробности смотрите в документе [Почему Intlayer?](https://intlayer.org/ru/doc/why).
+Подробности смотрите в документе [Почему Intlayer?](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/interest_of_intlayer.md).

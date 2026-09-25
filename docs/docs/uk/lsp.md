@@ -92,7 +92,7 @@ bun add --dev @intlayer/lsp
 
 Встановіть [розширення Intlayer для VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension). Мовний сервер входить до нього починаючи з v8.12.0 і запускається автоматично — **налаштування не потрібне**.
 
-Інші можливості описано в [документації розширення VS Code](https://intlayer.org/doc/vs-code-extension).
+Інші можливості описано в [документації розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md).
 
   </Tab>
   <Tab label="Cursor / Windsurf" value="cursor">

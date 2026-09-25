@@ -416,7 +416,7 @@ Nếu bạn gặp bất kỳ vấn đề nào với CMS, hãy kiểm tra các đ
 
 - Ứng dụng đang chạy.
 
-- Cấu hình [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) được thiết lập chính xác trong file cấu hình Intlayer của bạn.
+- Cấu hình [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md#editor-configuration) được thiết lập chính xác trong file cấu hình Intlayer của bạn.
   - Các trường bắt buộc:
     - URL ứng dụng phải khớp với URL bạn đã thiết lập trong cấu hình editor (`applicationURL`).
     - URL CMS

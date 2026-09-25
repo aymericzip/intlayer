@@ -124,7 +124,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-この設定を使用すると、すべてのロケールごとのファイルがデフォルトロケールを英語として生成されます。これには、`extract` コマンドを使用した `.content` ファイルの生成や、コンパイラも含まれます。（詳細については、[Compiler](https://intlayer.org/ja/doc/compiler) または [Extract](https://intlayer.org/ja/doc/concept/cli/extract) を参照してください。）
+この設定を使用すると、すべてのロケールごとのファイルがデフォルトロケールを英語として生成されます。これには、`extract` コマンドを使用した `.content` ファイルの生成や、コンパイラも含まれます。（詳細については、[Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) または [Extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を参照してください。）
 
 ## ロケール別フォーマット
 

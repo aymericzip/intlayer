@@ -142,4 +142,4 @@ GitHub yıldızları, bir projenin popülaritesinin, topluluk güveninin ve uzun
 - **Intlayer** ile, **modüler içerik**, **katı TS yazımı**, **derleme zamanı güvenliği**, **ağaç sallanan paketler** ve **düzenleme araçları** varsayılanlardır - görevler değildir.
 - Ekibiniz çok yerel, bileşen odaklı React uygulamalarında **bakım ve hızı** takdir ediyorsa, Intlayer bugün **en kapsamlı** geliştirici ve içerik iş akışını sunar.
 
-Daha fazla detay için ['Neden Intlayer?' dokümantasyonuna](https://intlayer.org/doc/why) bakın.
+Daha fazla detay için ['Neden Intlayer?' dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) bakın.

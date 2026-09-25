@@ -81,7 +81,7 @@ height="600px"
 style="border:none;"
 />
 
-> 프로덕션 gzip 압축을 적용하여 실제 브라우저에서 측정했습니다. 세부 사항은 [Vue 벤치마크 문서](https://intlayer.org/ko/doc/benchmark/vue)에서 확인할 수 있습니다.
+> 프로덕션 gzip 압축을 적용하여 실제 브라우저에서 측정했습니다. 세부 사항은 [Vue 벤치마크 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)에서 확인할 수 있습니다.
 
 ### 라이브러리 초기 오버헤드
 
@@ -171,7 +171,7 @@ const { title } = useIntlayer("hero");
   </Tab>
 </Tabs>
 
-[Intlayer 컴파일러](https://intlayer.org/ko/doc/compiler)는 컴포넌트가 접근하는 프로퍼티를 명확히 파악하여 클라이언트 번들 생성 전에 미사용 번역을 안전하게 배제합니다. 자세한 내용은 [번들 최적화](https://intlayer.org/ko/doc/concept/bundle-optimization)를 참고하세요.
+[Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)는 컴포넌트가 접근하는 프로퍼티를 명확히 파악하여 클라이언트 번들 생성 전에 미사용 번역을 안전하게 배제합니다. 자세한 내용은 [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)를 참고하세요.
 
 ## 개발자 경험 (DX) 비교
 
@@ -248,17 +248,17 @@ const { title } = useIntlayer("hero");
 
 `DefineLocaleMessage`를 통해 기본 스키마 기준의 자동완성은 지원됩니다. 하지만 모든 언어의 완결성을 보장하지는 못합니다. `ko.json`에서 키를 지워도 TypeScript 빌드가 멈추지 않습니다.
 
-Intlayer는 사전을 엄격하게 검증합니다. [`strictMode`](https://intlayer.org/ko/doc/concept/configuration)를 활성화하면 어떤 언어에서든 번역이 누락될 경우 즉각 빌드 에러가 발생합니다.
+Intlayer는 사전을 엄격하게 검증합니다. [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 활성화하면 어떤 언어에서든 번역이 누락될 경우 즉각 빌드 에러가 발생합니다.
 
 ### IDE 및 AI 도구 지원
 
-| 기능                      | `vue-i18n`           | Intlayer                                                               |
-| ------------------------- | -------------------- | ---------------------------------------------------------------------- |
-| **VS Code 확장 프로그램** | 서드파티 (i18n Ally) | ✅ [공식 확장 프로그램](https://intlayer.org/ko/doc/vs-code-extension) |
-| **Language Server (LSP)** | ❌ 없음              | ✅ [전용 LSP](https://intlayer.org/ko/doc/lsp)                         |
-| **AI용 MCP 서버**         | ❌ 없음              | ✅ [내장 MCP 서버](https://intlayer.org/ko/doc/mcp-server)             |
-| **에이전트 스킬 세트**    | ❌ 없음              | ✅ [자율 에이전트 스킬](https://intlayer.org/ko/doc/agent_skills)      |
-| **인컨텍스트 비주얼 CMS** | ❌ 없음              | ✅ [무료 오픈소스 CMS](https://intlayer.org/ko/doc/concept/editor)     |
+| 기능                      | `vue-i18n`           | Intlayer                                                                                                        |
+| ------------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------- |
+| **VS Code 확장 프로그램** | 서드파티 (i18n Ally) | ✅ [공식 확장 프로그램](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)     |
+| **Language Server (LSP)** | ❌ 없음              | ✅ [전용 LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)                             |
+| **AI용 MCP 서버**         | ❌ 없음              | ✅ [내장 MCP 서버](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)                 |
+| **에이전트 스킬 세트**    | ❌ 없음              | ✅ [자율 에이전트 스킬](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)          |
+| **인컨텍스트 비주얼 CMS** | ❌ 없음              | ✅ [무료 오픈소스 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) |
 
 ## 번역 워크플로우
 
@@ -272,7 +272,7 @@ Intlayer는 완전한 네이티브 도구를 기본 제공합니다.
 
 **자체 호스팅 비주얼 CMS:**
 
-[Intlayer CMS](https://intlayer.org/ko/doc/concept/cms)를 연동하면 기획자나 마케터가 웹 UI에서 문구를 직접 수정하고 변경 사항을 Git에 커밋할 수 있습니다.
+[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 연동하면 기획자나 마케터가 웹 UI에서 문구를 직접 수정하고 변경 사항을 Git에 커밋할 수 있습니다.
 
 **오픈소스 라이선스:**
 
@@ -328,9 +328,9 @@ bunx intlayer init --interactive
 
 단계별 세부 내용은 다음 가이드를 참고하세요:
 
-- **쉬운 호환성:** [`vue-i18n` 호환성 레이어](https://intlayer.org/ko/doc/compatibility/vue-i18n) 또는 [`@nuxtjs/i18n` 호환性 레이어](https://intlayer.org/ko/doc/compatibility/nuxtjs-i18n)를 이용해 기존 템플릿 코드를 그대로 유지할 수 있습니다.
-- **단계별 이전 가이드:** JSON 파일을 구조화된 사전으로 변환하는 가이드를 참고하세요: [vue-i18n 마이그레이션](https://intlayer.org/ko/doc/migration/vue-i18n), [@nuxtjs/i18n 마이그레이션](https://intlayer.org/ko/doc/migration/nuxtjs-i18n).
-- **하이브리드 구성:** `vue-i18n`을 런타임으로 유지하면서, [Intlayer와 vue-i18n을 함께 활용](https://intlayer.org/ko/blog/intlayer-with-vue-i18n)하여 엄격한 타입 검사와 로컬 AI 번역만 먼저 도입할 수도 있습니다.
+- **쉬운 호환성:** [`vue-i18n` 호환성 레이어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md) 또는 [`@nuxtjs/i18n` 호환性 레이어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)를 이용해 기존 템플릿 코드를 그대로 유지할 수 있습니다.
+- **단계별 이전 가이드:** JSON 파일을 구조화된 사전으로 변환하는 가이드를 참고하세요: [vue-i18n 마이그레이션](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_vue-i18n_to_intlayer.md), [@nuxtjs/i18n 마이그레이션](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_nuxtjs_i18n_to_intlayer.md).
+- **하이브리드 구성:** `vue-i18n`을 런타임으로 유지하면서, [Intlayer와 vue-i18n을 함께 활용](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_vue-i18n.md)하여 엄격한 타입 검사와 로컬 AI 번역만 먼저 도입할 수도 있습니다.
 
 무료 [i18n SEO 스캐너](https://intlayer.org/i18n-seo-scanner)를 통해 현재 웹사이트의 번들 누수와 크기를 분석해 보세요:
 
@@ -338,7 +338,7 @@ bunx intlayer init --interactive
 
 ## 관련 글 보기
 
-- [Vue & Vite i18n 벤치마크: 성능 세부 분석](https://intlayer.org/ko/doc/benchmark/vue)
-- [vue-i18n vs Intlayer 비교 분석](https://intlayer.org/ko/blog/vue-i18n-vs-intlayer)
-- [2026년에도 next-intl을 계속 써야 할까요?](https://intlayer.org/ko/blog/is-next-intl-outdated)
-- [컴파일러 기반 i18n과 선언적 접근법의 차이](https://intlayer.org/ko/blog/compiler-vs-declarative-i18n)
+- [Vue & Vite i18n 벤치마크: 성능 세부 분석](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)
+- [vue-i18n vs Intlayer 비교 분석](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)
+- [2026년에도 next-intl을 계속 써야 할까요?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_next-intl_outdated.md)
+- [컴파일러 기반 i18n과 선언적 접근법의 차이](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)

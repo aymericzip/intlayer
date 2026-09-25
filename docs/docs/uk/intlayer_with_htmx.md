@@ -648,7 +648,7 @@ export default config;
 - **Вбудовані попередні перегляди** перекладеного вмісту.
 - **Швидкі дії** для легкого створення та оновлення перекладів.
 
-Для отримання більше деталей про використання розширення звертайтесь до [документації Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+Для отримання більше деталей про використання розширення звертайтесь до [документації Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md).
 
 ### Йти далі
 

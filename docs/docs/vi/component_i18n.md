@@ -174,14 +174,14 @@ Mẹo: Để lấy metadata trang và SEO, bạn cũng có thể lấy nội dun
 - **Tree-shaking**: Chỉ nội dung được component sử dụng mới được đóng gói, giữ cho payload nhỏ trong các ứng dụng lớn.
 - **DX & tooling**: Middleware tích hợp sẵn, trợ giúp SEO và tùy chọn Visual Editor/AI dịch thuật giúp đơn giản hóa công việc hàng ngày.
 
-Xem các so sánh và mẫu trong bài tổng hợp tập trung vào Next.js: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+Xem các so sánh và mẫu trong bài tổng hợp tập trung vào Next.js: https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md
 
 ## Hướng dẫn và tài liệu liên quan
 
-- Cài đặt React (Vite): https://intlayer.org/doc/environment/vite-and-react
-- React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
-- Bắt đầu với TanStack: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
-- Cài đặt Next.js: https://intlayer.org/doc/environment/nextjs
-- Tại sao chọn Intlayer thay vì next-intl hay next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer
+- Cài đặt React (Vite): https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md
+- React Router v7: https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_react_router_v7.md
+- Bắt đầu với TanStack: https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md
+- Cài đặt Next.js: https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md
+- Tại sao chọn Intlayer thay vì next-intl hay next-i18next - https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md
 
 Các trang này bao gồm thiết lập end-to-end, providers, routing và trợ giúp SEO.

@@ -392,7 +392,7 @@ export const getLocale = (event: RequestEvent): Locale => {
 };
 ```
 
-> `getLocaleFromStorage` verificará o locale a partir do header ou cookie dependendo da sua configuração. Veja [Configuração](https://intlayer.org/doc/concept/configuration) para mais detalhes.
+> `getLocaleFromStorage` verificará o locale a partir do header ou cookie dependendo da sua configuração. Veja [Configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md) para mais detalhes.
 
 > A função `localeDetector` tratará o header `Accept-Language` e retornará a melhor correspondência.
 
@@ -778,7 +778,7 @@ bun run build # Or bun run dev
 
 - **`svelte-i18n`** e **`typesafe-i18n`**: catálogos de mensagens baseados em stores, conectados manualmente nas funções load.
 - **`Paraglide`**: mensagens compiladas com forte suporte a tipos, porém focado apenas na camada de mensagens.
-- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)) e compilado em tempo de build, com roteamento com suporte a locales, detecção de idioma no servidor, tradução por IA, editor visual e CMS.
+- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)) e compilado em tempo de build, com roteamento com suporte a locales, detecção de idioma no servidor, tradução por IA, editor visual e CMS.
 
 No SvelteKit a diferença se destaca nas partes de servidor: detecção de locale nos hooks, links localizados e a integração com o editor já vêm prontos na biblioteca, sem precisar serem configurados do zero a cada projeto. Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) e o [benchmark Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/svelte.md).
 

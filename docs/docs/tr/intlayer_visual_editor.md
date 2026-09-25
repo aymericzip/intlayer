@@ -206,7 +206,7 @@ Görsel düzenleyici ile herhangi bir sorunla karşılaşırsanız, aşağıdaki
 
 - Görsel düzenleyici ve uygulama çalışıyor.
 
-- Intlayer yapılandırma dosyanızda [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) yapılandırması doğru şekilde ayarlandı.
+- Intlayer yapılandırma dosyanızda [`editor`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md#editor-configuration) yapılandırması doğru şekilde ayarlandı.
   - Gerekli alanlar:
     - Uygulama URL'si düzenleyici yapılandırmasında ayarladığınızla eşleşmelidir (`applicationURL`).
 

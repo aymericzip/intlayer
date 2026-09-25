@@ -329,7 +329,7 @@ Intlayer के साथ अपने development experience को बेह�
 - **Inline previews** translated content के लिए।
 - **Quick actions** easily create और update translations के लिए।
 
-Extension को कैसे use करें इस बारे में अधिक जानकारी के लिए, [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension) देखें।
+Extension को कैसे use करें इस बारे में अधिक जानकारी के लिए, [Intlayer VS Code Extension documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md) देखें।
 
 ### Git Configuration
 

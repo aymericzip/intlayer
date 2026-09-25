@@ -480,7 +480,7 @@ Intlayerでの開発エクスペリエンスを向上させるために、公式
 - 翻訳されたコンテンツの**インラインプレビュー**。
 - 翻訳を簡単に作成および更新するための**クイックアクション**。
 
-拡張機能の使い方の詳細については、[Intlayer VS Code拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+拡張機能の使い方の詳細については、[Intlayer VS Code拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
 
 ### さらに進む
 
@@ -494,7 +494,7 @@ Intlayerでの開発エクスペリエンスを向上させるために、公式
 
 - **`@angular/localize`**、組み込みのi18n: メッセージはXLIFFに抽出され、各ロケールは独自のビルドにコンパイルされます。これは、言語ごとに1つのデプロイメントアーティファクトが必要で、ランタイムでのロケール切り替えができないことを意味します。
 - **`ngx-translate`** および **`Transloco`**: サービスを介してロードされるランタイムJSONカタログで、ロケール切り替えは可能ですが、ビルド時の型付けはありません。
-- **`Intlayer`**: 最も先進的なソリューションです。コードベースのどこにでも宣言されたコンテンツ（[各コンポーネントの隣、または一元化された場所](https://intlayer.org/blog/per-component-vs-centralized-i18n)）がビルド時にコンパイルされ、完全に型付けされ、ランタイムでのロケール切り替え、AI翻訳、ビジュアルエディター、CMSが利用できます。
+- **`Intlayer`**: 最も先進的なソリューションです。コードベースのどこにでも宣言されたコンテンツ（[各コンポーネントの隣、または一元化された場所](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）がビルド時にコンパイルされ、完全に型付けされ、ランタイムでのロケール切り替え、AI翻訳、ビジュアルエディター、CMSが利用できます。
 
 `@angular/localize` を使用しない主な理由は、ロケールごとに1つのビルドが必要となるモデルです。Intlayerは単一のビルドを維持し、ランタイムで言語を切り替えます。[Intlayerの利点](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご覧ください。
 

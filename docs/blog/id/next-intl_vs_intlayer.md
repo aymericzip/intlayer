@@ -118,7 +118,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tabel lengkap, setiap pustaka dan strategi, dalam [laporan benchmark Next.js](https://intlayer.org/id/doc/benchmark/nextjs).
+> Tabel lengkap, setiap pustaka dan strategi, dalam [laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md).
 
 ### Hasil pada TanStack Start (`use-intl`)
 
@@ -149,7 +149,7 @@ height="600px"
 style="border:none;"
 />
 
-> Tabel lengkap dalam [laporan benchmark TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack).
+> Tabel lengkap dalam [laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md).
 
 ## Mengapa ada perbedaan? Katalog terpusat vs kamus terkompilasi
 
@@ -201,7 +201,7 @@ Intlayer membalikkan model tersebut. Konten dideklarasikan langsung di sebelah k
 
 Saat build, kompiler melihat komponen mana yang mengimpor kamus mana, dan hanya membundel kamus tersebut untuk lokal yang aktif.
 
-> Untuk mendapatkan angka pada baris `dynamic`, atur `dictionary.importMode: 'dynamic'` di `intlayer.config.ts`. Lihat [panduan optimasi bundle](https://intlayer.org/id/doc/concept/bundle-optimization).
+> Untuk mendapatkan angka pada baris `dynamic`, atur `dictionary.importMode: 'dynamic'` di `intlayer.config.ts`. Lihat [panduan optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md).
 
 ## Pengalaman pengembang
 
@@ -411,9 +411,9 @@ const nextConfig: NextConfig = {};
 export default withIntlayer(nextConfig);
 ```
 
-Dalam pengujian, build kompatibilitas dari aplikasi yang sama turun dari **153.6 KB ke 147.5 KB** per halaman, ukuran komponen turun dari **21.8 KB ke 8.1 KB**, dan kebocoran halaman turun dari **~90% ke 0%**, tanpa mengubah kode aplikasi. File `messages/{locale}.json` yang ada dapat tetap menjadi sumber data utama melalui [plugin sinkronisasi JSON](https://intlayer.org/id/doc/compatibility/next-intl).
+Dalam pengujian, build kompatibilitas dari aplikasi yang sama turun dari **153.6 KB ke 147.5 KB** per halaman, ukuran komponen turun dari **21.8 KB ke 8.1 KB**, dan kebocoran halaman turun dari **~90% ke 0%**, tanpa mengubah kode aplikasi. File `messages/{locale}.json` yang ada dapat tetap menjadi sumber data utama melalui [plugin sinkronisasi JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-intl.md).
 
-Lihat [panduan migrasi next-intl](https://intlayer.org/id/doc/migration/next-intl) untuk langkah-langkah detailnya.
+Lihat [panduan migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md) untuk langkah-langkah detailnya.
 
 ## Kapan harus memilih yang mana?
 
@@ -425,12 +425,12 @@ Anda menginginkan standar ekosistem untuk Next.js, mengandalkan ICU MessageForma
 </Accordion>
 <Accordion header="Pilih Intlayer">
 
-Anda menginginkan **konten dengan cakupan komponen**, **TypeScript yang ketat**, **kesalahan kunci hilang pada waktu build**, **tree-shaking dan pemuatan lambat (lazy loading) tanpa usaha**, komponen server sinkron, dan alat editorial bawaan ([Editor Visual](https://intlayer.org/id/doc/concept/editor), [CMS](https://intlayer.org/id/doc/concept/cms), [terjemahan AI](https://intlayer.org/id/doc/concept/auto-fill), [server MCP](https://intlayer.org/id/doc/mcp-server)). Sangat relevan untuk basis kode modular besar dan sistem desain.
+Anda menginginkan **konten dengan cakupan komponen**, **TypeScript yang ketat**, **kesalahan kunci hilang pada waktu build**, **tree-shaking dan pemuatan lambat (lazy loading) tanpa usaha**, komponen server sinkron, dan alat editorial bawaan ([Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md), [terjemahan AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md), [server MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)). Sangat relevan untuk basis kode modular besar dan sistem desain.
 
 </Accordion>
 <Accordion header="Pilih @intlayer/next-intl">
 
-Anda sudah menggunakan `next-intl` dan ingin penghematan ukuran bundel tanpa perlu menulis ulang kode. [Adaptor kompatibilitas](https://intlayer.org/id/doc/compatibility/next-intl) menjaga impor dan file `messages/{locale}.json` Anda sebagai sumber kebenaran tunggal. Diukur berdampingan dalam [next-intl vs @intlayer/next-intl](https://intlayer.org/id/blog/next-intl-vs-intlayer-next-intl).
+Anda sudah menggunakan `next-intl` dan ingin penghematan ukuran bundel tanpa perlu menulis ulang kode. [Adaptor kompatibilitas](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-intl.md) menjaga impor dan file `messages/{locale}.json` Anda sebagai sumber kebenaran tunggal. Diukur berdampingan dalam [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer-next-intl.md).
 
 </Accordion>
 </AccordionGroup>
@@ -447,25 +447,25 @@ Tidak pada waktu render. Perbedaannya terletak pada apa yang dikirim ke browser:
 
 <Question title="Bisakah saya mencapai 0% kebocoran dengan next-intl?">
 
-Bisa, dengan konfigurasi `scoped-dynamic`: bagi `messages/{locale}.json` menjadi satu namespace per rute, lalu gunakan `pick(messages, [...])` di setiap halaman dan jaga pemetaan tersebut tetap sinkron saat komponen berpindah. Baris `scoped-*` dalam tolok ukur mencerminkan pekerjaan tersebut. Intlayer mencapai 0% secara bawaan karena kompilator membatasi konten per komponen. Lihat [pengoptimalan bundel](https://intlayer.org/id/doc/concept/bundle-optimization).
+Bisa, dengan konfigurasi `scoped-dynamic`: bagi `messages/{locale}.json` menjadi satu namespace per rute, lalu gunakan `pick(messages, [...])` di setiap halaman dan jaga pemetaan tersebut tetap sinkron saat komponen berpindah. Baris `scoped-*` dalam tolok ukur mencerminkan pekerjaan tersebut. Intlayer mencapai 0% secara bawaan karena kompilator membatasi konten per komponen. Lihat [pengoptimalan bundel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md).
 
 </Question>
 
 <Question title="Apakah saya harus menulis ulang komponen untuk bermigrasi?">
 
-Tidak. `@intlayer/next-intl` mempertahankan `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, bentuk jamak ICU, dan helper navigasi, lalu menyediakannya dari kamus yang dikompilasi. Cukup satu baris plugin di `next.config.ts`. Panduan langkah demi langkah di [panduan migrasi next-intl](https://intlayer.org/id/doc/migration/next-intl).
+Tidak. `@intlayer/next-intl` mempertahankan `useTranslations`, `getTranslations`, `useFormatter`, `t.rich()`, bentuk jamak ICU, dan helper navigasi, lalu menyediakannya dari kamus yang dikompilasi. Cukup satu baris plugin di `next.config.ts`. Panduan langkah demi langkah di [panduan migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md).
 
 </Question>
 
 <Question title="Apakah Intlayer mendukung ICU MessageFormat?">
 
-Dukungan ICU sedang dikembangkan pada API asli. Adaptor kompatibilitas (`@intlayer/next-intl`, `@intlayer/use-intl`) sudah menjalankan ICU: bentuk jamak, `select`, `selectordinal`, `#`, dan `{ts, date, long}` diproses melalui penyelesai ICU Intlayer. Baca [format pesan ICU](https://intlayer.org/id/blog/icu-message-format) untuk detailnya.
+Dukungan ICU sedang dikembangkan pada API asli. Adaptor kompatibilitas (`@intlayer/next-intl`, `@intlayer/use-intl`) sudah menjalankan ICU: bentuk jamak, `select`, `selectordinal`, `#`, dan `{ts, date, long}` diproses melalui penyelesai ICU Intlayer. Baca [format pesan ICU](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md) untuk detailnya.
 
 </Question>
 
 <Question title="Bisakah saya mempertahankan file messages/{locale}.json?">
 
-Bisa. [Plugin sinkronisasi JSON](https://intlayer.org/id/doc/compatibility/next-intl) membacanya, membagi kunci tingkat atas menjadi kamus, dan menulis kembali terjemahan ke file yang sama ketika CLI atau CMS memperbaruinya. Alur kerja penerjemah Anda tidak berubah.
+Bisa. [Plugin sinkronisasi JSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-intl.md) membacanya, membagi kunci tingkat atas menjadi kamus, dan menulis kembali terjemahan ke file yang sama ketika CLI atau CMS memperbaruinya. Alur kerja penerjemah Anda tidak berubah.
 
 </Question>
 
@@ -475,26 +475,26 @@ Bisa. [Plugin sinkronisasi JSON](https://intlayer.org/id/doc/compatibility/next-
 
 Tolok ukur yang sama, pustaka lain:
 
-- [i18next vs Intlayer](https://intlayer.org/id/blog/i18next-vs-intlayer)
-- [Lingui vs Intlayer](https://intlayer.org/id/blog/lingui-vs-intlayer)
-- [vue-i18n vs Intlayer benchmark](https://intlayer.org/id/blog/vue-i18n-vs-intlayer-benchmark)
-- [next-i18next vs next-intl vs Intlayer](https://intlayer.org/id/blog/next-i18next-vs-next-intl-vs-intlayer)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/id/blog/react-i18next-vs-react-intl-vs-intlayer)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer_benchmark.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Mendalami next-intl:
 
-- [next-intl vs @intlayer/next-intl](https://intlayer.org/id/blog/next-intl-vs-intlayer-next-intl), adaptor diukur pada aplikasi yang sama
-- [Is next-intl outdated?](https://intlayer.org/id/blog/is-next-intl-outdated)
-- [Using Intlayer with next-intl](https://intlayer.org/id/blog/intlayer-with-next-intl)
-- [How to internationalize a Next.js app with next-intl](https://intlayer.org/id/blog/nextjs-internationalization-using-next-intl)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer-next-intl.md), adaptor diukur pada aplikasi yang sama
+- [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_next-intl_outdated.md)
+- [Using Intlayer with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/intlayer_with_next-intl.md)
+- [How to internationalize a Next.js app with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-intl.md)
 
 Dokumentasi referensi:
 
-- [Laporan benchmark Next.js](https://intlayer.org/id/doc/benchmark/nextjs) dan [laporan benchmark TanStack Start](https://intlayer.org/id/doc/benchmark/tanstack)
-- [Adaptor kompatibilitas: next-intl](https://intlayer.org/id/doc/compatibility/next-intl) dan [panduan migrasi](https://intlayer.org/id/doc/migration/next-intl)
-- [Pengoptimalan bundel](https://intlayer.org/id/doc/concept/bundle-optimization) dan [kompilator Intlayer](https://intlayer.org/id/doc/compiler)
-- [i18n per komponen vs terpusat](https://intlayer.org/id/blog/per-component-vs-centralized-i18n)
-- [i18n berbasis kompilator vs deklaratif](https://intlayer.org/id/blog/compiler-vs-declarative-i18n)
+- [Laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md) dan [laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
+- [Adaptor kompatibilitas: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-intl.md) dan [panduan migrasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md)
+- [Pengoptimalan bundel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [kompilator Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+- [i18n per komponen vs terpusat](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md)
+- [i18n berbasis kompilator vs deklaratif](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
 
 ## Bintang GitHub
 
@@ -510,4 +510,4 @@ Intlayer memindahkan semua pekerjaan itu ke kompiler. Kamus per komponen, lazy l
 
 Semua data mentah, aplikasi pengujian, dan skrip tersedia di [repositori Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Anda dapat menjalankannya sendiri.
 
-Lihat dokumen ['Mengapa Intlayer?'](https://intlayer.org/id/doc/why) untuk detail lebih lanjut.
+Lihat dokumen ['Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk detail lebih lanjut.

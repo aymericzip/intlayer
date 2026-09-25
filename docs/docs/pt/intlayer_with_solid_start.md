@@ -1069,7 +1069,7 @@ Para ir mais longe, você pode implementar o [editor visual](https://github.com/
 
 - **`@solid-primitives/i18n`**: a primitiva da comunidade, um dicionário simples que você mesmo monta, carrega e tipa.
 - **`i18next`** com um wrapper para Solid: catálogos maduros, mas sem suporte para roteamento com suporte a locales ou renderização no servidor no Solid Start.
-- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://intlayer.org/blog/per-component-vs-centralized-i18n)) e compilado em tempo de build, com rotas localizadas, resolução de locale no servidor, links canonical e hreflang, sitemap multilíngue, tradução por IA, editor visual e CMS.
+- **`Intlayer`**: a solução mais avançada. O conteúdo pode ser declarado em qualquer lugar da sua base de código ([ao lado de cada componente ou centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/per-component_vs_centralized_i18n.md)) e compilado em tempo de build, com rotas localizadas, resolução de locale no servidor, links canonical e hreflang, sitemap multilíngue, tradução por IA, editor visual e CMS.
 
 No Solid Start a diferença se destaca nas partes de servidor, que este guia aborda em etapas dedicadas em vez de deixar a cargo do desenvolvedor. Consulte [por que Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md) e o [benchmark Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/solid.md).
 

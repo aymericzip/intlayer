@@ -85,7 +85,7 @@ height="600px"
 style="border:none;"
 />
 
-> Diuji pada build produksi dengan 10 rute dan 10 bahasa menggunakan kompresi gzip. Rincian lengkap ada di [laporan benchmark i18n](https://intlayer.org/id/doc/benchmark).
+> Diuji pada build produksi dengan 10 rute dan 10 bahasa menggunakan kompresi gzip. Rincian lengkap ada di [laporan benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md).
 
 ### Beban Dasar Pustaka
 
@@ -164,7 +164,7 @@ return <h1>{title}</h1>;
   </Tab>
 </Tabs>
 
-[Kompiler Intlayer](https://intlayer.org/id/doc/compiler) memeriksa bagian mana dari `Hero.tsx` yang benar-benar dipanggil dan membuang konten yang tidak terpakai sebelum bundle klien dibuat. Pelajari lebih lanjut di [optimasi bundle](https://intlayer.org/id/doc/concept/bundle-optimization).
+[Kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) memeriksa bagian mana dari `Hero.tsx` yang benar-benar dipanggil dan membuang konten yang tidak terpakai sebelum bundle klien dibuat. Pelajari lebih lanjut di [optimasi bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md).
 
 ## Pengalaman Pengembang (DX)
 
@@ -231,17 +231,17 @@ Jika Anda memindahkan atau menghapus `Hero.tsx`, file kontennya akan ikut berpin
 
 Mendeklarasikan `CustomTypeOptions` memberi saran kode di editor, tetapi tidak memverifikasi kelengkapan terjemahan. Menghapus key dari `id/hero.json` tidak akan membatalkan build, melainkan hanya menampilkan fallback saat runtime.
 
-Intlayer menghasilkan tipe data langsung dari deklarasi konten, dan mode [`strictMode`](https://intlayer.org/id/doc/concept/configuration) akan langsung menghentikan build jika ada terjemahan yang hilang pada bahasa apa pun.
+Intlayer menghasilkan tipe data langsung dari deklarasi konten, dan mode [`strictMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) akan langsung menghentikan build jika ada terjemahan yang hilang pada bahasa apa pun.
 
 ### Ekosistem Alat Bantu
 
-| Fitur                     | Ekosistem i18next      | Intlayer                                                              |
-| ------------------------- | ---------------------- | --------------------------------------------------------------------- |
-| **Ekstensi VS Code**      | Hanya pihak ketiga     | ✅ [Ekstensi resmi](https://intlayer.org/id/doc/vs-code-extension)    |
-| **Language Server (LSP)** | ❌ Tidak ada           | ✅ [LSP khusus](https://intlayer.org/id/doc/lsp)                      |
-| **Server MCP (untuk AI)** | ❌ Tidak ada           | ✅ [Server MCP bawaan](https://intlayer.org/id/doc/mcp-server)        |
-| **Skill Agen AI**         | ❌ Tidak ada           | ✅ [Skill siap pakai](https://intlayer.org/id/doc/agent_skills)       |
-| **CMS Visual in-context** | Locize (SaaS berbayar) | ✅ [Gratis & Open Source](https://intlayer.org/id/doc/concept/editor) |
+| Fitur                     | Ekosistem i18next      | Intlayer                                                                                                           |
+| ------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Ekstensi VS Code**      | Hanya pihak ketiga     | ✅ [Ekstensi resmi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)            |
+| **Language Server (LSP)** | ❌ Tidak ada           | ✅ [LSP khusus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)                              |
+| **Server MCP (untuk AI)** | ❌ Tidak ada           | ✅ [Server MCP bawaan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)                |
+| **Skill Agen AI**         | ❌ Tidak ada           | ✅ [Skill siap pakai](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)               |
+| **CMS Visual in-context** | Locize (SaaS berbayar) | ✅ [Gratis & Open Source](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) |
 
 Keberadaan server LSP dan MCP membuat AI coding assistant memahami struktur terjemahan proyek secara menyeluruh.
 
@@ -251,8 +251,8 @@ Locize adalah layanan komersial yang dikelola oleh pembuat i18next. Keberlanjuta
 
 Intlayer memilih pendekatan terbuka:
 
-- Perintah [`intlayer fill`](https://intlayer.org/id/doc/concept/auto-fill) melengkapi terjemahan yang hilang di terminal atau CI memakai API key OpenAI, Anthropic, Mistral, atau Gemini milik Anda sendiri.
-- [Intlayer CMS](https://intlayer.org/id/doc/concept/cms) bersifat open source dan dapat di-hosting mandiri melalui Docker Compose.
+- Perintah [`intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md) melengkapi terjemahan yang hilang di terminal atau CI memakai API key OpenAI, Anthropic, Mistral, atau Gemini milik Anda sendiri.
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) bersifat open source dan dapat di-hosting mandiri melalui Docker Compose.
 - Kompiler, CLI, editor, dan CMS dirilis di bawah lisensi Apache 2.0.
 
 ## Kapan i18next Masih Menjadi Pilihan Tepat?
@@ -305,9 +305,9 @@ CLI interaktif ini secara otomatis:
 
 Untuk panduan langkah demi langkah yang lebih mendalam, simak referensi kami:
 
-- **Lapisan Kompatibilitas:** Pertahankan kode lama Anda dengan adaptor untuk [i18next](https://intlayer.org/id/doc/compatibility/i18next), [react-i18next](https://intlayer.org/id/doc/compatibility/react-i18next), dan [next-i18next](https://intlayer.org/id/doc/compatibility/next-i18next).
-- **Panduan Migrasi Kamus:** Konversikan file JSON lama menjadi kamus bertipe: [dari i18next](https://intlayer.org/id/doc/migration/i18next), [dari react-i18next](https://intlayer.org/id/doc/migration/react-i18next), atau [dari next-i18next](https://intlayer.org/id/doc/migration/next-i18next).
-- **Pola Hibrida:** Pertahankan runtime i18next sembari [menggunakan Intlayer bersama i18next](https://intlayer.org/id/blog/intlayer-with-i18next) untuk mendapatkan validasi tipe dan terjemahan AI lokal.
+- **Lapisan Kompatibilitas:** Pertahankan kode lama Anda dengan adaptor untuk [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/react-i18next.md), dan [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-i18next.md).
+- **Panduan Migrasi Kamus:** Konversikan file JSON lama menjadi kamus bertipe: [dari i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md), [dari react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_react-i18next_to_intlayer.md), atau [dari next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-i18next_to_intlayer.md).
+- **Pola Hibrida:** Pertahankan runtime i18next sembari [menggunakan Intlayer bersama i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/intlayer_with_i18next.md) untuk mendapatkan validasi tipe dan terjemahan AI lokal.
 
 Periksa ukuran bundle dan kebocoran konten situs Anda dengan [Pemindai SEO i18n gratis](https://intlayer.org/i18n-seo-scanner):
 
@@ -315,7 +315,7 @@ Periksa ukuran bundle dan kebocoran konten situs Anda dengan [Pemindai SEO i18n 
 
 ## Artikel Terkait
 
-- [Benchmark Next.js i18n: Analisis Performa Mendalam](https://intlayer.org/id/doc/benchmark/nextjs)
-- [react-i18next vs react-intl vs Intlayer](https://intlayer.org/id/blog/react-i18next-vs-react-intl-vs-intlayer)
-- [Apakah next-intl Sudah Ketinggalan Zaman di Tahun 2026?](https://intlayer.org/id/blog/is-next-intl-outdated)
-- [Internasionalisasi Berbasis Kompiler vs Deklaratif](https://intlayer.org/id/blog/compiler-vs-declarative-i18n)
+- [Benchmark Next.js i18n: Analisis Performa Mendalam](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Apakah next-intl Sudah Ketinggalan Zaman di Tahun 2026?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_next-intl_outdated.md)
+- [Internasionalisasi Berbasis Kompiler vs Deklaratif](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)

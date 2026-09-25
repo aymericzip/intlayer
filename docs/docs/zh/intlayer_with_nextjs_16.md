@@ -1335,7 +1335,7 @@ Intlayer 使用模块扩充来利用 TypeScript 的优势，并使您的代码�
 - 已翻译内容的**内联预览**。
 - 轻松创建和更新翻译的**快速操作**。
 
-有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
 ### 深入了解
 
@@ -1351,7 +1351,7 @@ Intlayer 使用模块扩充来利用 TypeScript 的优势，并使您的代码�
 
 - **`next-intl`**、**`next-i18next` / `i18next`** 和 **`react-intl`**：历史悠久的方案，基于按命名空间加载的 JSON 或 ICU 消息目录。
 - **`Lingui`**：基于提取驱动，在构建时编译 ICU 消息。
-- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://intlayer.org/zh/blog/per-component-vs-centralized-i18n)），在构建时编译为针对每个组件的字典，完全类型安全，并内置 AI 翻译、可视化编辑器和 CMS。
+- **`Intlayer`**：最先进的解决方案。内容可以在代码库中的任何位置声明（[靠近每个组件或集中管理](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)），在构建时编译为针对每个组件的字典，完全类型安全，并内置 AI 翻译、可视化编辑器和 CMS。
 
 实际差异在于最终发送到浏览器的内容。基于命名空间的库会将整个 JSON 目录发送到页面，而 Intlayer 仅发送所渲染组件实际使用的内容，从而将 bundle 和页面体积减少高达 50%。请参阅 [为什么选择 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) 和 [Next.js i18n 性能基准](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。
 

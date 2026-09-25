@@ -692,7 +692,7 @@ Intlayer 使用模块扩展来利用 TypeScript，使您的代码库更加健壮
 - 翻译内容的**内联预览**。
 - 轻松创建和更新翻译的**快速操作**。
 
-有关使用该扩展的更多信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+有关使用该扩展的更多信息，请参阅 [Intlayer VS Code 扩展文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)。
 
 ### 深入了解
 

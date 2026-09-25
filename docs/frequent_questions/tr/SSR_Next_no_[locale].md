@@ -24,7 +24,7 @@ author: aymericzip
 
 Evet, Next.js ile `[locale]` olmadan Intlayer kullanmak mümkündür. Ancak, sayfalarınızı bölmek arama motorlarında daha fazla anahtar kelime tetiklenmesini sağlar ve SSR performansınız etkilenebilir.
 
-Bunu yapmak isterseniz, [Intlayer ile Next.js](https://intlayer.org/doc/environment/nextjs) rehberinde anlatılan adımları izleyin:
+Bunu yapmak isterseniz, [Intlayer ile Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md) rehberinde anlatılan adımları izleyin:
 
 - `src/middleware.ts` dosyası yok
 - `generateStaticParams` yok

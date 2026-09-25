@@ -1496,4 +1496,4 @@ Cả ba thư viện đều thành công trong việc cốt lõi hóa localizatio
 - Với **Intlayer**, **nội dung mô-đun**, **TypeScript nghiêm ngặt**, **an toàn thời gian xây dựng**, **gói tree-shaken**, và **App Router + công cụ SEO hàng đầu** là **mặc định**, không phải là gánh nặng.
 - Nếu đội ngũ của bạn coi trọng **khả năng bảo trì và tốc độ** trong một ứng dụng đa ngôn ngữ, hướng thành phần, Intlayer cung cấp trải nghiệm **toàn diện nhất** hiện nay.
 
-Tham khảo tài liệu ['Tại sao chọn Intlayer?'](https://intlayer.org/doc/why) để biết thêm chi tiết.
+Tham khảo tài liệu ['Tại sao chọn Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md) để biết thêm chi tiết.

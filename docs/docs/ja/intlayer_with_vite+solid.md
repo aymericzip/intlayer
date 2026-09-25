@@ -757,7 +757,7 @@ Vite は i18n について特定の見解を持たないため、選択は Solid
 
 - **`@solid-primitives/i18n`**: コミュニティプリミティブで、自分で組み立てて読み込むフラット辞書です。
 - **`i18next`** と Solid ラッパー: 成熟したカタログですが、独自のリアクティビティストーリーはありません。
-- **`Intlayer`**: 最も高度なソリューション。コードベースの任意の場所で宣言されたコンテンツ（[各コンポーネントの隣またはセントラライズド](https://intlayer.org/blog/per-component-vs-centralized-i18n)）を Vite プラグインでビルド時にコンパイルし、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
+- **`Intlayer`**: 最も高度なソリューション。コードベースの任意の場所で宣言されたコンテンツ（[各コンポーネントの隣またはセントラライズド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)）を Vite プラグインでビルド時にコンパイルし、完全に型付けされ、AI 翻訳、ビジュアルエディタ、CMS を備えています。
 
 Vite 固有の利点は、翻訳がコンパイル時に解決され tree shaking されるため、実行時に JSON として取得されるのではなく、ページはレンダリングするエントリのみを配信することです。[Intlayer を選ぶ理由](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)と[ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)を参照してください。
 

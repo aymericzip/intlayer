@@ -306,7 +306,7 @@ Bu uzantı şunları sağlar:
 - Çevrilmiş içeriğin **satır içi önizlemeleri**.
 - Çevirileri kolayca oluşturmak ve güncellemek için **hızlı eylemler**.
 
-Uzantının nasıl kullanılacağına ilişkin daha fazla ayrıntı için [Intlayer VS Code Uzantısı belgelerine](https://intlayer.org/tr/doc/vs-code-extension) bakın.
+Uzantının nasıl kullanılacağına ilişkin daha fazla ayrıntı için [Intlayer VS Code Uzantısı belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md) bakın.
 
 ### Git Yapılandırması
 

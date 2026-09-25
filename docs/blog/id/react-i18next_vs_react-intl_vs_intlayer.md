@@ -142,4 +142,4 @@ Ketiga pustaka tersebut secara efektif melakukan lokalisasi React. Pembeda utama
 - Dengan **Intlayer**, **konten modular**, **pengetikan TS yang ketat**, **keamanan saat build**, **bundle yang di-tree-shake**, dan **alat editorial** adalah default - bukan tugas yang merepotkan.
 - Jika tim Anda mengutamakan **pemeliharaan dan kecepatan** dalam aplikasi React multi-locale yang berbasis komponen, Intlayer menawarkan **alur kerja** pengembang dan konten yang **paling lengkap** saat ini.
 
-Lihat dokumen ['Mengapa Intlayer?'](https://intlayer.org/doc/why) untuk detail lebih lanjut.
+Lihat dokumen ['Mengapa Intlayer?'](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md) untuk detail lebih lanjut.

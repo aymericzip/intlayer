@@ -329,7 +329,7 @@ Intlayer 개발 경험을 개선하기 위해 공식 **Intlayer VS Code Extensio
 - **인라인 미리보기** 번역된 콘텐츠용
 - **빠른 작업** 번역을 쉽게 생성하고 업데이트할 수 있음
 
-extension 사용 방법에 대한 자세한 내용은 [Intlayer VS Code Extension 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+extension 사용 방법에 대한 자세한 내용은 [Intlayer VS Code Extension 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)를 참조하세요.
 
 ### Git 구성
 

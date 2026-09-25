@@ -392,7 +392,7 @@ export const getLocale = (event: RequestEvent): Locale => {
 };
 ```
 
-> `getLocaleFromStorage`, yapılandırmanıza bağlı olarak yerel ayarı header veya cookie'den kontrol edecektir. Daha fazla detay için [Configuration](https://intlayer.org/doc/concept/configuration) sayfasına bakınız.
+> `getLocaleFromStorage`, yapılandırmanıza bağlı olarak yerel ayarı header veya cookie'den kontrol edecektir. Daha fazla detay için [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) sayfasına bakınız.
 
 > `localeDetector` fonksiyonu `Accept-Language` header'ını işleyip en uygun eşleşmeyi döndürecektir.
 

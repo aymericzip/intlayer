@@ -306,7 +306,7 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 - 翻訳されたコンテンツの**インラインプレビュー**。
 - 翻訳を簡単に作成・更新するための**クイックアクション**。
 
-拡張機能の使用方法の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/ja/doc/vs-code-extension)を参照してください。
+拡張機能の使用方法の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/vs_code_extension.md)を参照してください。
 
 ### Git の設定
 

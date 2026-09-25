@@ -649,7 +649,7 @@ Ekstensi ini menyediakan:
 - **Preview inline** dari konten yang diterjemahkan.
 - **Aksi cepat** untuk dengan mudah membuat dan memperbarui terjemahan.
 
-Untuk detail lebih lanjut tentang cara menggunakan ekstensi, lihat [dokumentasi Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+Untuk detail lebih lanjut tentang cara menggunakan ekstensi, lihat [dokumentasi Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md).
 
 ### Lanjutkan Lebih Jauh
 

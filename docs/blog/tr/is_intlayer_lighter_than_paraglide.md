@@ -22,7 +22,7 @@ author: aymericzip
 
 Evet.
 
-`Paraglide`, piyasadaki en hafif i18n çözümü olarak haklı bir üne sahiptir ve ilk bakışta [benchmark](https://intlayer.org/tr/doc/benchmark/tanstack) sonuçları da bunu doğrular niteliktedir: kütüphane boyutu sıfıra yakındır. Ancak kütüphane boyutunun sıfır olması, istemciye sıfır bayt gönderildiği anlamına gelmez. Bu yalnızca baytların, söz konusu metriğin ölçmediği bir yerde barındığı anlamına gelir.
+`Paraglide`, piyasadaki en hafif i18n çözümü olarak haklı bir üne sahiptir ve ilk bakışta [benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) sonuçları da bunu doğrular niteliktedir: kütüphane boyutu sıfıra yakındır. Ancak kütüphane boyutunun sıfır olması, istemciye sıfır bayt gönderildiği anlamına gelmez. Bu yalnızca baytların, söz konusu metriğin ölçmediği bir yerde barındığı anlamına gelir.
 
 <TOC/>
 
@@ -93,7 +93,7 @@ Next.js 16 App Router, aynı uygulama:
 
 <I18nBenchmark framework="tanstack" vertical/>
 
-> Tüm veriler [TanStack Start kıyaslama raporunda](https://intlayer.org/tr/doc/benchmark/tanstack) ve [Next.js kıyaslama raporunda](https://intlayer.org/tr/doc/benchmark/nextjs) incelenebilir. Her bir paket [kıyaslama deposunda](https://github.com/intlayer-org/benchmark-i18n) açıkça görülebilir.
+> Tüm veriler [TanStack Start kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) ve [Next.js kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) incelenebilir. Her bir paket [kıyaslama deposunda](https://github.com/intlayer-org/benchmark-i18n) açıkça görülebilir.
 
 İki önemli nokta öne çıkmaktadır:
 
@@ -198,7 +198,7 @@ Bu geliştirme döngüsü bazı zorluklar barındırır:
 
 Paraglide'ın en büyük iddiası, her iletinin bağımsız bir dışa aktarma olması sebebiyle kullanılmayan mesajların tree shaking ile elenmesidir. Svelte + Vite ortamında bu vaat başarıyla çalışır.
 
-Ancak diğer ortamlarda durum böyle olmadı. [Next.js](https://intlayer.org/tr/doc/benchmark/nextjs) testlerimizde Paraglide sayfaları temel uygulamadan 14 KB daha ağır çıkarken, `next-intlayer` yalnızca 0.3 KB eklemiştir. TanStack Start üzerindeki önceki çalışmalar da diğer sayfaların mesajlarının mevcut rota paketine sızdığını göstermiştir.
+Ancak diğer ortamlarda durum böyle olmadı. [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) testlerimizde Paraglide sayfaları temel uygulamadan 14 KB daha ağır çıkarken, `next-intlayer` yalnızca 0.3 KB eklemiştir. TanStack Start üzerindeki önceki çalışmalar da diğer sayfaların mesajlarının mevcut rota paketine sızdığını göstermiştir.
 
 Tree shaking başarısı paketleyicinize (Turbopack, Rolldown, Rollup), mesajların içe aktarılma biçimine (`import { m }` vs `import * as m`) ve yan etki analizine sıkı sıkıya bağlıdır. Paraglide'ı boyutu nedeniyle tercih ediyorsanız, paket analiz aracınızı açıp uygulamanızda durumun gerçekten böyle olup olmadığını test edin.
 
@@ -234,7 +234,7 @@ export default config;
 | `dynamic`    | Yalnızca mevcut dil, sözlük başına dinamik yüklenir    | N dilde **N kat daha hafif**     |
 | `fetch`      | Yalnızca mevcut dil, Live Sync API üzerinden getirilir | N dilde **N kat daha hafif**     |
 
-[Derleme optimizasyonu](https://intlayer.org/tr/doc/concept/bundle-optimization) ve `importMode: 'static'` moduyla Intlayer, teoride Paraglide ile tamamen aynı içeriği yükler. `'dynamic'` veya `'fetch'` kullanıldığında ise yalnızca mevcut dilin ihtiyaç duyduğu veriyi yükler: N dile sahip bir uygulama için çeviri yükü Paraglide'a göre N kat daha küçüktür.
+[Derleme optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve `importMode: 'static'` moduyla Intlayer, teoride Paraglide ile tamamen aynı içeriği yükler. `'dynamic'` veya `'fetch'` kullanıldığında ise yalnızca mevcut dilin ihtiyaç duyduğu veriyi yükler: N dile sahip bir uygulama için çeviri yükü Paraglide'a göre N kat daha küçüktür.
 
 ## Paraglide Hangi Durumlarda Hala Mantıklıdır?
 
@@ -277,8 +277,8 @@ bunx intlayer init --interactive
 
 ## Ek Kaynaklar
 
-- [TanStack Start i18n Kıyaslaması](https://intlayer.org/tr/doc/benchmark/tanstack)
-- [Next.js i18n Kıyaslaması](https://intlayer.org/tr/doc/benchmark/nextjs)
-- [Paket Optimizasyonu ve `importMode`](https://intlayer.org/tr/doc/concept/bundle-optimization)
-- [React İçin Doğru i18n Kütüphanesi Nasıl Seçilir?](https://intlayer.org/tr/blog/how-to-pick-react-i18n-library)
-- [Derleyici Tabanlı ve Bildirimsel Uluslararasılaştırma Kıyaslaması](https://intlayer.org/tr/blog/compiler-vs-declarative-i18n)
+- [TanStack Start i18n Kıyaslaması](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+- [Next.js i18n Kıyaslaması](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+- [Paket Optimizasyonu ve `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+- [React İçin Doğru i18n Kütüphanesi Nasıl Seçilir?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_react_i18n_library.md)
+- [Derleyici Tabanlı ve Bildirimsel Uluslararasılaştırma Kıyaslaması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)

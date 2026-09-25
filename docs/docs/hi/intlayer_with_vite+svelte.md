@@ -757,7 +757,7 @@ pnpm या yarn हो तो कमांड अनुकूलित कर�
 - अनुवादित सामग्री के **इनलाइन पूर्वावलोकन**।
 - अनुवादों को आसानी से बनाने और अपडेट करने के लिए **त्वरित क्रियाएं**।
 
-एक्सटेंशन का उपयोग कैसे करें, इसके लिए अधिक जानकारी के लिए देखें [Intlayer VS Code Extension दस्ताव़ज़](https://intlayer.org/doc/vs-code-extension)।
+एक्सटेंशन का उपयोग कैसे करें, इसके लिए अधिक जानकारी के लिए देखें [Intlayer VS Code Extension दस्ताव़ज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)।
 
 ### आगे बढ़ें
 

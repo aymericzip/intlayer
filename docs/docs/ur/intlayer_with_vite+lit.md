@@ -735,7 +735,7 @@ Intlayer کے ذریعے اپنے ترقیاتی تجربے کو بہتر بنا
 - ترجمہ شدہ مواد کا **ان لائن پیش نظارہ**۔
 - آسانی سے ترجمہ بنانے اور اپ ڈیٹ کرنے کے لیے **فوری کارروائیاں (Quick actions)**۔
 
-ایکسٹینشن استعمال کرنے کے مزید تفصیلات کے لیے، [Intlayer VS Code ایکسٹینشن دستاویزات](https://intlayer.org/doc/vs-code-extension) دیکھیں۔
+ایکسٹینشن استعمال کرنے کے مزید تفصیلات کے لیے، [Intlayer VS Code ایکسٹینشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md) دیکھیں۔
 
 ### مزید آگے بڑھیں
 
