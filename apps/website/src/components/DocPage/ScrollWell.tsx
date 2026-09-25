@@ -1,4 +1,5 @@
 import { useGetElementById, useScrollY } from '@intlayer/design-system/hooks';
+import { AnimatePresence, m } from 'framer-motion';
 import type { FC, SVGProps } from 'react';
 import { useActiveSection } from './useActiveSection';
 import { useTitlesTree } from './useTitlesTree';
@@ -70,22 +71,39 @@ const Title: FC = () => {
   const secondTitle = parentTitle && childTitle ? childTitle : undefined;
 
   return (
-    <div className="flex min-w-0 flex-1 flex-col justify-center">
-      <span className="truncate text-muted-foreground text-xs leading-tight">
+    <m.div
+      layout
+      transition={{ duration: 0.2, ease: 'easeInOut' }}
+      className="ml-2 flex min-w-0 flex-1 flex-col justify-center overflow-hidden"
+    >
+      <m.span
+        layout="position"
+        transition={{ duration: 0.2, ease: 'easeInOut' }}
+        className="block truncate text-muted-foreground text-xs leading-tight"
+      >
         {firstTitle ?? ''}
-      </span>
-      {secondTitle && (
-        <span className="truncate text-[10px] text-muted-foreground/60 leading-tight">
-          {secondTitle}
-        </span>
-      )}
-    </div>
+      </m.span>
+      <AnimatePresence initial={false}>
+        {secondTitle && (
+          <m.span
+            key="second-title"
+            initial={{ opacity: 0, height: 0, y: -2 }}
+            animate={{ opacity: 1, height: 'auto', y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -2 }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+            className="block truncate text-[10px] text-muted-foreground/60 leading-tight"
+          >
+            {secondTitle}
+          </m.span>
+        )}
+      </AnimatePresence>
+    </m.div>
   );
 };
 
 export const ScrollWellAndTitle: FC = () => {
   return (
-    <div className="flex h-8 min-w-0 flex-1 flex-row items-center gap-3">
+    <div className="flex h-8 min-w-0 flex-1 flex-row items-center">
       <ScrollWell className="block size-4 shrink-0" />
       <Title />
     </div>
