@@ -31,6 +31,7 @@ import {
   intlayerProxy,
 } from './intlayerProxyPlugin';
 import { intlayerPrune } from './intlayerPrunePlugin';
+import { startContentWatcher } from './startContentWatcher';
 
 /**
  * Packages that must go through Vite's transform pipeline instead of being
@@ -256,14 +257,12 @@ export const intlayerPlugin = (
         };
       },
 
-      configureServer: async (server) => {
+      configureServer: (server) => {
         if (server.config.mode === 'development') {
-          // Lazily load the file watcher (`@intlayer/engine/watcher`, which pulls
-          // in `@parcel/watcher`) only when the dev server actually starts.
-          const { watch } = await import('@intlayer/engine/watcher');
-
-          // Start watching (assuming watch is also async)
-          await watch({ configuration: intlayerConfig });
+          // Takes the content watcher lock first, so a parallel
+          // `intlayer watch` (or the VS Code extension) does not rebuild the
+          // same dictionaries alongside this dev server.
+          startContentWatcher(intlayerConfig);
         }
       },
     },
