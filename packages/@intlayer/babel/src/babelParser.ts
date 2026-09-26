@@ -44,7 +44,6 @@ const buildBabelOptions = (
     'exportDefaultFrom',
     'functionBind',
     'functionSent',
-    'importMeta',
     ['pipelineOperator', { proposal: 'fsharp' }],
     'throwExpressions',
     'v8intrinsic',

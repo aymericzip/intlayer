@@ -33,15 +33,8 @@ export const BABEL_PARSER_OPTIONS: ParserOptions = {
     'typescript',
     'jsx',
     'decorators-legacy',
-    'classProperties',
-    'objectRestSpread',
-    'asyncGenerators',
     'functionBind',
     'exportDefaultFrom',
-    'exportNamespaceFrom',
-    'dynamicImport',
-    'nullishCoalescingOperator',
-    'optionalChaining',
   ],
 };
 
