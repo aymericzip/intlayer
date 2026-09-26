@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: أفضل حل i18n لـ Solid في عام 2026 - تقرير قياسي
 description: قارن بين مكتبات تدويل Solid (i18n) مثل solid-primitives وsolid-i18next وTolgee وIntlayer. تقرير أداء مفصل حول حجم الحزمة والتسرب والتفاعل.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "تحديث نتائج المقارنة"
   - version: 9.5.7
     date: 2026-09-23
     changes: "تحديث نتائج المقارنة"
@@ -69,7 +72,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: الخيار الموصى به لتطبيقات Solid المهنية التي تحتاج إلى ميزات متقدمة وتحسين (v9.5.6).
+- **Intlayer**: الخيار الموصى به لتطبيقات Solid المهنية التي تحتاج إلى ميزات متقدمة وتحسين (v9.5.10).
 - **@solid-primitives/i18n**: بديل خفيف الوزن ممتاز للمشاريع البسيطة، على الرغم من افتقاره إلى ميزات متقدمة مثل التحميل الكسول (lazy loading).
 - **solid-i18next**: خيار معياري ولكنه ثقيل (~3.5 أضعاف Intlayer) مع نفس عيوب React i18next.
 - **Tolgee**: منصة ترجمة غنية بالميزات، ولكنها ثقيلة نسبيًا (~12.7 كيلوبايت، حوالي 3.0 أضعاف Intlayer)، وتفتقر إلى بدائيات Solid الأصلية (تعتمد على @tolgee/web)، وتظهر تسريبًا كبيرًا عبر الصفحات في الإعدادات الثابتة (90% تسريب للصفحات).
@@ -105,7 +108,7 @@ style="border:none;"
 في هذا التقييم القياسي، قارنا المكتبات التالية:
 
 - `Base App` (بدون مكتبة i18n)
-- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/exports.md) (v9.5.10)
 - [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
 - [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
 - [`@tolgee/web`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -196,7 +199,7 @@ style="border:none;"
 
 ### 3 - التوصيات
 
-**(Intlayer)** (`solid-intlayer@9.5.6`):
+**(Intlayer)** (`solid-intlayer@9.5.10`):
 
 لن أحكم شخصيًا على `solid-intlayer` من أجل الموضوعية، لأنه الحل الخاص بي.
 

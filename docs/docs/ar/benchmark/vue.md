@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: أفضل حل i18n لـ Vue في عام 2026 - تقرير قياسي
 description: قارن بين مكتبات تدويل Vue (i18n) مثل vue-i18n وfluent-vue, Tolgee وIntlayer. تقرير أداء مفصل حول حجم الحزمة والتسرب والتفاعل.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "تحديث نتائج المقارنة"
   - version: 9.5.7
     date: 2026-09-23
     changes: "تحديث نتائج المقارنة وإضافة Tolgee"
@@ -69,8 +72,8 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: الحل الأخف وزنًا (v9.5.6) مع ميزة النطاق (scoping) والتحميل الديناميكي المدمجة.
-- **Tolgee**: تحميل ديناميكي فعال بدون أي تسريب في الوضع الديناميكي، ولكنه أثقل (~3.7× Intlayer) ويفتقر إلى أمان الأنواع المدمج في وقت التحويل البرمجي.
+- **Intlayer**: الحل الأخف وزنًا (v9.5.10) مع ميزة النطاق (scoping) والتحميل الديناميكي المدمجة.
+- **Tolgee**: تحميل ديناميكي فعال بدون أي تسريب في الوضع الديناميكي، ولكنه أثقل (~3.0× Intlayer) ويفتقر إلى أمان الأنواع المدمج في وقت التحويل البرمجي.
 - **vue-i18n**: المعيار الصناعي مع نظام بيئي غني، ولكنه قد يصبح أثقل بكثير ويصعب تحسينه لتقسيم الكود في التطبيقات الكبيرة.
 - **fluent-vue**: تنظيم مبتكر للرسائل ولكنه يفتقر إلى سلامة النوع (type-safety) ويعد حلاً ثقيلًا للغاية.
 
@@ -104,8 +107,8 @@ style="border:none;"
 في هذا التقييم القياسي، قارنا المكتبات التالية:
 
 - `Base App` (بدون مكتبة i18n)
-- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vue-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md) (v9.5.6)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vue-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md) (v9.5.10)
 - [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
 - [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 - [`@tolgee/vue`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -174,10 +177,10 @@ style="border:none;"
 
 **(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue** يقدم محاولة ابتكار من خلال تنسيق .ftl. تنظيم الرسائل رائع، وأسهل في البدء. ولكن في الممارسة العملية، يؤدي نقص سلامة النوع إلى زيادة خطر الخطأ ويمكن أن يصبح استهلاك الوقت في تصحيح الأخطاء سريعًا. علاوة على ذلك، يقوم هذا الحل بتحميل الرسائل باستخدام مكون vite الإضافي الذي يفرض تحميل كل المحتوى بجميع اللغات في كل صفحة. بالإضافة إلى ذلك، هذا حل ثقيل للغاية (~29.7kb، أي حوالي 7.5 ضعف `vue-intlayer`).
+- **fluent-vue** يقدم محاولة ابتكار من خلال تنسيق .ftl. تنظيم الرسائل رائع، وأسهل في البدء. ولكن في الممارسة العملية، يؤدي نقص سلامة النوع إلى زيادة خطر الخطأ ويمكن أن يصبح استهلاك الوقت في تصحيح الأخطاء سريعًا. علاوة على ذلك، يقوم هذا الحل بتحميل الرسائل باستخدام مكون vite الإضافي الذي يفرض تحميل كل المحتوى بجميع اللغات في كل صفحة. بالإضافة إلى ذلك، هذا حل ثقيل للغاية (~92.7kb، أي حوالي 7.5 ضعف `vue-intlayer`).
 
 ### 3 - التوصيات
 
-**(Intlayer)** (`vue-intlayer@9.5.6`):
+**(Intlayer)** (`vue-intlayer@9.5.10`):
 
 لن أحكم شخصيًا على `vue-intlayer` من أجل الموضوعية، لأنه الحل الخاص بي.

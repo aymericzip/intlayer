@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Giải pháp i18n tốt nhất cho Svelte năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa (i18n) Svelte như svelte-i18n, Paraglide, Tolgee và Intlayer. Báo cáo hiệu suất chi tiết về kích thước bundle, rò rỉ và tính phản ứng.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Cập nhật kết quả benchmark"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Update benchmark results"
@@ -69,7 +72,7 @@ Tác động khác là đối với trải nghiệm nhà phát triển (DX): cá
 
 ## TL;DR
 
-- **Intlayer**: Lựa chọn hiệu quả nhất về hiệu suất (v9.5.6) với dấu chân (footprint) nhỏ nhất.
+- **Intlayer**: Lựa chọn hiệu quả nhất về hiệu suất (v9.5.10) với dấu chân (footprint) nhỏ nhất.
 - **Paraglide**: Đối thủ nặng ký cho tree-shaking nhưng có trải nghiệm nhà phát triển phức tạp hơn và overhead về tính phản ứng.
 - **Tolgee**: Nền tảng dịch thuật giàu tính năng với khả năng chỉnh sửa in-context, nhưng khá nặng (~13.0kb, gấp khoảng 3.6 lần Intlayer), và trong cấu hình tĩnh gây rò rỉ bản dịch đáng kể giữa các trang (90% rò rỉ trang).
 - **svelte-i18n**: Toàn diện và tiêu chuẩn cho Svelte, nhưng mang trọng lượng bundle lớn hơn nhiều (~4.5 lần Intlayer).
@@ -104,7 +107,7 @@ Các cú pháp được xây dựng xung quanh `t('a.b.c')` rất tiện lợi n
 Đối với benchmark này, chúng tôi đã so sánh các thư viện sau:
 
 - `Base App` (Không có thư viện i18n)
-- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/svelte-intlayer/exports.md) (v9.5.10)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
 - [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
@@ -179,7 +182,7 @@ Gói này tương đối nặng (~13.0kb, gấp khoảng 3.6 lần `svelte-intla
 
 Nếu không có cơ chế chia nhỏ theo từng trang trong Svelte, tất cả các bản dịch sẽ được tải vào bộ nhớ ngay từ đầu trong cấu hình tĩnh. Điều này gây ra hiện tượng rò rỉ bundle đáng kể (50.0% rò rỉ ngôn ngữ, 90.0% rò rỉ trang) và kích thước bundle trung bình mỗi trang là ~100.7kb (so với ~59.0kb của Intlayer).
 
-Khả năng phản ứng khi chuyển đổi ngôn ngữ rất nhanh (0.5ms), được hưởng lợi từ các store phản ứng của Svelte, mặc dù chi phí hydration cao hơn một chút (~6.2ms so với ~5.5ms của Intlayer).
+Khả năng phản ứng khi chuyển đổi ngôn ngữ rất nhanh (0.5ms), được hưởng lợi từ các store phản ứng của Svelte, mặc dù chi phí hydration cao hơn một chút (~6.2ms so với ~4.1ms của Intlayer).
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 
@@ -187,7 +190,7 @@ Giải pháp này đáp ứng tất cả các nhu cầu i18n trong một dự á
 
 ### 3 - Khuyến nghị
 
-**(Intlayer)** (`svelte-intlayer@9.5.0`):
+**(Intlayer)** (`svelte-intlayer@9.5.10`):
 
 Tôi sẽ không đích thân đánh giá `svelte-intlayer` vì tính khách quan, vì đó là giải pháp của chính tôi.
 

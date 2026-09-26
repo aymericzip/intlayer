@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026'da Next.js için En İyi i18n Çözümü - Benchmark Raporu
 description: next-intl, next-i18next ve Intlayer gibi Next.js uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Benchmark sonuçları güncellendi"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Benchmark sonuçları güncellendi"
@@ -75,7 +78,7 @@ Intlayer tüm bu boyutlarda optimizasyon yapmaya çalışır.
 
 - **Intlayer** & **next-translate**: Next.js performansı için en iyi seçimler; en küçük ayak izini ve en iyi statik render desteğini sunarlar.
 - **next-intl**: Şu anki en popüler seçenek ancak ağır ve büyük uygulamalar için optimize edilmesi karmaşık.
-- **next-i18next**: Popüler ve eklenti bakımından zengin ancak önemli bir paket ağırlığı getiriyor (~3.5× Intlayer).
+- **next-i18next**: Popüler ve eklenti bakımından zengin ancak önemli bir paket ağırlığı getiriyor (~3.8× Intlayer).
 - **Kaçının**: Ciddi performans sorunları, satıcı kısıtlaması (vendor lock-in) ve derlemeyi bozan hatalar nedeniyle **gt-next** ve **lingo.dev**'den kaçının.
 
 ## Uygulamanızı Test Edin
@@ -116,9 +119,9 @@ Son olarak `Intlayer`, build zamanı (build-time) optimizasyonu uygulayarak `use
 Bu benchmark için aşağıdaki kütüphaneleri karşılaştırdık:
 
 - `Base App` (i18n kütüphanesi yok)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md) (v9.5.6)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md) (v9.5.10)
 - [`next-i18next`](https://github.com/i18next/next-i18next) (v16.3.0)
 - [`next-intl`](https://github.com/amannn/next-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -243,7 +246,7 @@ Mesaj formatları da farklıdır: `next-intl` ICU MessageFormat kullanırken, `i
 
 `t()` stili bir API seviyorsanız `next-translate` ana önerimdir. `next-translate-plugin` aracılığıyla zarif bir şekilde çalışır ve Webpack / Turbopack yükleyicisi ile `getStaticProps` üzerinden ad alanlarını yükler. Ayrıca buradaki en hafif seçeneklerden biridir (~3.5kb). Yapılandırmada sayfa veya rota başına ad alanı tanımlamak iyi düşünülmüştür ve **next-intl** veya **next-i18next** gibi ana alternatiflerden daha kolay bakımı yapılır. `3.1.2` sürümünde statik render'ın çalışmadığını ve Next.js'in dinamik render'a geri döndüğünü fark ettim.
 
-**(Intlayer)** (`next-intlayer@9.5.6`):
+**(Intlayer)** (`next-intlayer@9.5.10`):
 
 Nesnellik adına kendi çözümüm olan `next-intlayer` hakkında kişisel olarak yorum yapmayacağım.
 

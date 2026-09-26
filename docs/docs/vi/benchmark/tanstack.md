@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Giải pháp i18n tốt nhất cho TanStack Start năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa cho TanStack Start như react-i18next, use-intl và Intlayer. Báo cáo hiệu năng chi tiết về kích thước bundle bundle, rò rỉ dữ liệu và tính phản ứng.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Cập nhật kết quả benchmark"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Cập nhật kết quả benchmark"
@@ -69,7 +72,7 @@ Tác động khác là đối với trải nghiệm phát triển (DX): cách b�
 
 ## TL;DR
 
-- **Intlayer**: Cung cấp hiệu năng tốt nhất và kích thước bundle nhỏ nhất (v9.5.6) cho TanStack Start.
+- **Intlayer**: Cung cấp hiệu năng tốt nhất và kích thước bundle nhỏ nhất (v9.5.10) cho TanStack Start.
 - **react-i18next** & **use-intl**: Các lựa chọn thay thế thuần thục với hệ sinh thái lớn, nhưng nặng hơn đáng kể và phức tạp hơn để tối ưu hóa.
 - **Paraglide**: Ý tưởng tree-shaking sáng tạo nhưng không hoạt động trong thực tế. DX phức tạp và chi phí phản ứng trên TanStack Start.
 - **Cần tránh**: **General Translation (GT)** và **Lingo.dev** do các vấn đề hiệu năng nghiêm trọng, giới hạn hạn mức AI và bị ràng buộc vào nhà cung cấp (vendor lock-in).
@@ -104,10 +107,10 @@ Các cú pháp được xây dựng xung quanh `const t = useTranslation()` + `t
 Đối với benchmark này, chúng tôi đã so sánh các thư viện sau:
 
 - `Base App` (Không sử dụng thư viện i18n)
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md) (v9.5.6)
-- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-i18next.md) (v9.5.6)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md) (v9.5.10)
+- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-i18next.md) (v9.5.10)
 - [`react-i18next`](https://github.com/i18next/react-i18next) (v17.0.13)
 - [`use-intl`](https://github.com/amannn/next-intl/tree/main/packages/use-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -204,7 +207,7 @@ Các vấn đề gặp phải:
 
 `Tolgee` giải quyết được nhiều vấn đề đã đề cập trước đó. Tôi thấy việc bắt đầu với Tolgee khó khăn hơn so với các công cụ khác có phương pháp tiếp cận tương tự. Nó không cung cấp tính an toàn kiểu dữ liệu, điều này cũng khiến việc phát hiện các khóa bị thiếu tại thời điểm biên dịch trở nên khó khăn hơn nhiều. Tôi đã phải bao bọc các API của Tolgee bằng các API của riêng mình để thêm tính năng phát hiện khóa bị thiếu.
 
-Package này khá nặng (~13.8 kb, gấp hơn 2.9× `react-intlayer`).
+Package này khá nặng (~11.1 kb, gấp hơn 2.3× `react-intlayer`).
 
 Trên TanStack Start, tôi cũng gặp vấn đề về tính phản ứng: khi ngôn ngữ thay đổi, tôi phải ép buộc provider render lại và đăng ký vào các sự kiện thay đổi ngôn ngữ để việc tải ở một ngôn ngữ khác hoạt động chính xác.
 
@@ -232,13 +235,13 @@ Các định dạng thông báo cũng khác nhau: `use-intl` sử dụng ICU Mes
 
 `react-intl` là một triển khai hiệu năng từ nhóm Format.js. Trải nghiệm phát triển vẫn còn rườm rà: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` thêm vào sự phức tạp, công việc JavaScript bổ sung và ràng buộc instance i18n toàn cục vào nhiều nút trong cây React.
 
-Package cũng khá nặng (~15.3kb, tức là khoảng 3× `react-intlayer`).
+Package cũng khá nặng (~14.4kb, tức là khoảng 3× `react-intlayer`).
 
 ### 4 - Các khuyến nghị
 
 Benchmark TanStack Start này không có đối trọng trực tiếp cho `next-translate` (Next.js plugin + `getStaticProps`). Đối với các nhóm thực sự muốn một API `t()` với một hệ sinh thái chín muồi, `react-i18next` và `use-intl` vẫn là những lựa chọn "hợp lý", nhưng hãy chuẩn bị đầu tư nhiều thời gian tối ưu hóa để tránh rò rỉ.
 
-**(Intlayer)** (`react-intlayer@9.5.6`):
+**(Intlayer)** (`react-intlayer@9.5.10`):
 
 Tôi sẽ không đích thân đánh giá `react-intlayer` vì tính khách quan, vì đây là giải pháp của riêng tôi.
 

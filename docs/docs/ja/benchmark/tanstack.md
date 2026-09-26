@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026年におけるTanStack Startの最適なi18nソリューション - ベンチマークレポート
 description: react-i18next、use-intl、IntlayerなどのTanStack Start国際化ライブラリを比較。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "ベンチマーク結果を更新"
   - version: 9.5.7
     date: 2026-09-23
     changes: "ベンチマーク結果を更新"
@@ -104,10 +107,10 @@ i18nのリーク問題を素早く特定するために、無料のスキャナ�
 このベンチマークでは、以下のライブラリを比較しました。
 
 - `Base App`（i18nライブラリなし）
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md) (v9.5.6)
-- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-i18next.md) (v9.5.6)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md) (v9.5.10)
+- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/react-i18next.md) (v9.5.10)
 - [`react-i18next`](https://github.com/i18next/react-i18next) (v17.0.13)
 - [`use-intl`](https://github.com/amannn/next-intl/tree/main/packages/use-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -232,13 +235,13 @@ TanStack Startでは、Next.js特有の罠（`setRequestLocale`、静的レン�
 
 `react-intl`は、Format.jsチームによるパフォーマンス重視の実装です。DXは冗長なままです。`const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })`は複雑さを増し、JavaScriptの余分な作業を増やし、グローバルなi18nインスタンスをReactツリーの多くのノードに結びつけます。
 
-このパッケージは重い（~15.3kb で、`react-intlayer` の約 3 倍）です。
+このパッケージは重い（~14.4kb で、`react-intlayer` の約 3 倍）です。
 
 ### 4 - 推奨事項
 
 このTanStack Startベンチマークには、`next-translate`（Next.jsプラグイン + `getStaticProps`）に直接相当するものはありません。成熟したエコシステムと`t()` APIを切望するチームにとって、`react-i18next`や`use-intl`は「妥当な」選択肢であり続けますが、リークを回避するための最適化には多くの時間を投資することを覚悟してください。
 
-**(Intlayer)** (`react-intlayer@9.5.6`):
+**(Intlayer)** (`react-intlayer@9.5.10`):
 
 客観性を保つため、自分自身のソリューションである`react-intlayer`については個人的な判断を控えさせていただきます。
 

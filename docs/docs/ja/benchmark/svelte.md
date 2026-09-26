@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026年 Svelte向けの最高のi18nソリューション - ベンチマークレポート
 description: svelte-i18n、Paraglide、Tolgee、IntlayerなどのSvelte国際化（i18n）ライブラリを比較します。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "ベンチマーク結果を更新"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Update benchmark results"
@@ -72,7 +75,7 @@ style="border:none;"
 - **Intlayer**: 最もパフォーマンス効率が高く、フットプリントが最も小さい選択肢（v9.5.6）。
 - **Paraglide**: ツリーシェイキング（tree-shaking）の強力な候補ですが、開発者エクスペリエンスがより複雑で、反応性のオーバーヘッドがあります。
 - **Tolgee**: インコンテキスト編集機能を備えた高機能な翻訳プラットフォームですが、やや重く（約13.0kb、Intlayerの約3.6倍）、静的構成ではページ間で大きな翻訳リークが発生します（90%のページリーク）。
-- **svelte-i18n**: Svelte向けの標準的で機能が充実したソリューションですが、バンドル重量が非常に大きくなります（Intlayerの約4.5倍）。
+- **svelte-i18n**: Svelte向けの標準的で機能が充実したソリューションですが、バンドル重量が非常に大きくなります（Intlayerの約4.6倍）。
 
 ## アプリをテストする
 
@@ -104,7 +107,7 @@ i18nリークの問題を素早く特定するために、無料のスキャナ�
 このベンチマークでは、以下のライブラリを比較しました。
 
 - `Base App` (i18nライブラリなし)
-- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/svelte-intlayer/exports.md) (v9.5.10)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
 - [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
@@ -179,7 +182,7 @@ GitHubのスターは、プロジェクトの普及度、コミュニティの�
 
 Svelteにおけるページごとのきめ細かい分割がないため、静的設定では起動時にすべての翻訳がメモリに読み込まれます。これにより大幅なバンドルリークが発生し（ロケールリーク50.0%、ページリーク90.0%）、平均ページバンドルサイズは約100.7kbになります（Intlayerの約59.0kbと比較）。
 
-言語切り替えの反応性は非常に高速（0.5ms）であり、Svelteのリアクティブストアの恩恵を受けていますが、ハイドレーションのオーバーヘッドはやや高くなります（Intlayerの約5.5msに対して約6.2ms）。
+言語切り替えの反応性は非常に高速（0.5ms）であり、Svelteのリアクティブストアの恩恵を受けていますが、ハイドレーションのオーバーヘッドはやや高くなります（Intlayerの約4.1msに対して約6.2ms）。
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 
@@ -187,7 +190,7 @@ Svelteにおけるページごとのきめ細かい分割がないため、静�
 
 ### 3 - 推奨事項
 
-**(Intlayer)** (`svelte-intlayer@9.5.0`):
+**(Intlayer)** (`svelte-intlayer@9.5.10`):
 
 客観性を保つため、`svelte-intlayer` については私自身のソリューションであるため、個人的な評価は控えます。
 

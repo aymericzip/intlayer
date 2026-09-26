@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Beste i18n-Lösung für Next.js im Jahr 2026 - Benchmark-Bericht
 description: Vergleichen Sie Next.js Internationalisierungs-Software (i18n) wie next-intl, next-i18next und Intlayer. Detaillierter Performance-Bericht zu Bundle-Größe, Leakage und Reaktivität.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Benchmark-Ergebnisse aktualisiert"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Benchmark-Ergebnisse aktualisiert"
@@ -75,7 +78,7 @@ Intlayer versucht, über all diese Dimensionen hinweg zu optimieren.
 
 - **Intlayer** & **next-translate**: Top-Empfehlungen für die Next.js-Performance, mit dem kleinsten Fußabdruck und der besten Unterstützung für statisches Rendering.
 - **next-intl**: Die aktuell trendigste Option, aber schwerfällig und komplex für die Optimierung großer Anwendungen.
-- **next-i18next**: Beliebt und reich an Plugins, bringt jedoch ein erhebliches Bundle-Gewicht mit sich (~3,5× Intlayer).
+- **next-i18next**: Beliebt und reich an Plugins, bringt jedoch ein erhebliches Bundle-Gewicht mit sich (~3.8× Intlayer).
 - **Vermeiden**: **gt-next** und **lingo.dev** aufgrund schwerwiegender Performance-Probleme, Vendor-Lock-in und Build-Fehlern.
 
 ## Testen Sie Ihre App
@@ -116,9 +119,9 @@ Schließlich wendet `Intlayer` eine Build-Optimierung an, sodass `useIntlayer('m
 Für diesen Benchmark haben wir die folgenden Bibliotheken verglichen:
 
 - `Base App` (Ohne i18n-Bibliothek)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/next-i18next.md) (v9.5.6)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/next-i18next.md) (v9.5.10)
 - [`next-i18next`](https://github.com/i18next/next-i18next) (v16.3.0)
 - [`next-intl`](https://github.com/amannn/next-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -243,7 +246,7 @@ Die Nachrichtenformate unterscheiden sich ebenfalls: `next-intl` verwendet ICU M
 
 `next-translate` ist meine Hauptempfehlung, wenn Sie eine API im `t()`-Stil bevorzugen. Es ist durch das `next-translate-plugin` elegant gelöst und lädt Namespaces über `getStaticProps` mit einem Webpack / Turbopack Loader. Es ist zudem eine der leichtesten Optionen hier (~3,5 KB). Für das Namespacing ist die Definition pro Seite oder Route in der Konfiguration gut durchdacht und einfacher zu warten als die Hauptalternativen wie **next-intl** oder **next-i18next**. In Version `3.1.2` stellte ich fest, dass das statische Rendering nicht funktionierte; Next.js fiel auf dynamisches Rendering zurück.
 
-**(Intlayer)** (`next-intlayer@9.5.6`):
+**(Intlayer)** (`next-intlayer@9.5.10`):
 
 Ich werde `next-intlayer` der Objektivität halber nicht persönlich bewerten, da es meine eigene Lösung ist.
 

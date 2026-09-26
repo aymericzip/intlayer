@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026년 Svelte를 위한 최고의 i18n 솔루션 - 벤치마크 리포트
 description: svelte-i18n, Paraglide, Tolgee, Intlayer와 같은 Svelte 국제화(i18n) 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "벤치마크 결과 업데이트"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Update benchmark results"
@@ -69,10 +72,10 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: 가장 성능 효율적인 선택(v9.5.6)으로, 발자국(footprint)이 가장 작습니다.
+- **Intlayer**: 가장 성능 효율적인 선택(v9.5.10)으로, 발자국(footprint)이 가장 작습니다.
 - **Paraglide**: 트리 쉐이킹(tree-shaking)을 위한 강력한 후보이지만, 개발자 경험이 더 복잡하고 반응성 오버헤드가 있습니다.
 - **Tolgee**: 인컨텍스트 편집 기능을 갖춘 강력한 번역 플랫폼이지만, 다소 무겁고(~13.0kb, Intlayer의 약 3.6배), 정적 설정 시 페이지 간 번역 누수가 큽니다(90% 페이지 누수).
-- **svelte-i18n**: Svelte를 위한 표준적이고 기능이 완비된 솔루션이지만, 번들 무게가 훨씬 더 큽니다(Intlayer의 약 4.5배).
+- **svelte-i18n**: Svelte를 위한 표준적이고 기능이 완비된 솔루션이지만, 번들 무게가 훨씬 더 큽니다(Intlayer의 약 4.6배).
 
 ## 앱 테스트하기
 
@@ -104,7 +107,7 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 이 벤치마크에서는 다음과 같은 라이브러리를 비교했습니다:
 
 - `Base App` (i18n 라이브러리 없음)
-- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/svelte-intlayer/exports.md) (v9.5.10)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
 - [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
@@ -179,7 +182,7 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 
 Svelte에서 페이지별 세분화된 분할이 없어 정적 설정 시 시작할 때 모든 번역이 메모리에 로드됩니다. 이로 인해 상당한 번들 누수가 발생하며(로케일 누수 50.0%, 페이지 누수 90.0%), 평균 페이지 번들 크기는 ~100.7kb에 달합니다(Intlayer의 ~59.0kb 대비).
 
-언어 전환 반응성은 매우 빠르며(0.5ms), Svelte의 반응형 스토어 덕분에 신속하게 동작하지만, 하이드레이션 오버헤드는 다소 높습니다(Intlayer의 ~5.5ms 대비 ~6.2ms).
+언어 전환 반응성은 매우 빠르며(0.5ms), Svelte의 반응형 스토어 덕분에 신속하게 동작하지만, 하이드레이션 오버헤드는 다소 높습니다(Intlayer의 ~4.1ms 대비 ~6.2ms).
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 
@@ -187,7 +190,7 @@ Svelte에서 페이지별 세분화된 분할이 없어 정적 설정 시 시작
 
 ### 3 - 추천 사항
 
-**(Intlayer)** (`svelte-intlayer@9.5.0`):
+**(Intlayer)** (`svelte-intlayer@9.5.10`):
 
 객관성을 위해 나의 솔루션인 `svelte-intlayer`에 대해서는 직접 판단하지 않겠습니다.
 

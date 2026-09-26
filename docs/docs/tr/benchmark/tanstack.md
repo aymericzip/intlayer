@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026'da TanStack Start için En İyi i18n Çözümü - Benchmark Raporu
 description: react-i18next, use-intl ve Intlayer gibi TanStack Start uluslararasılaştırma kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Benchmark sonuçları güncellendi"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Benchmark sonuçları güncellendi"
@@ -69,7 +72,7 @@ Diğer bir etki ise geliştirici deneyimidir (DX): içeriği nasıl tanımladı�
 
 ## TL;DR
 
-- **Intlayer**: TanStack Start için en iyi performansı ve en küçük bundle boyutunu (v9.5.6) sağlar.
+- **Intlayer**: TanStack Start için en iyi performansı ve en küçük bundle boyutunu (v9.5.10) sağlar.
 - **react-i18next** & **use-intl**: Geniş ekosistemlere sahip olgun alternatiflerdir, ancak optimize edilmeleri önemli ölçüde daha ağır ve karmaşıktır.
 - **Paraglide**: Kağıt üzerinde yenilikçi bir tree-shaking fikridir ancak pratikte çalışmaz. TanStack Start'ta karmaşık DX ve reaktivite ek yükü oluşturur.
 - **Kaçının**: Ciddi performans sorunları, AI kota sınırları ve satıcı kilidi (vendor lock-in) nedeniyle **General Translation (GT)** ve **Lingo.dev**.
@@ -104,10 +107,10 @@ Dinamik yükleme ile bir ödün vermeyi kabul edersiniz: daha az başlangıç JS
 Bu benchmark için aşağıdaki kütüphaneleri karşılaştırdık:
 
 - `Base App` (i18n kütüphanesi yok)
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md) (v9.5.6)
-- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-i18next.md) (v9.5.6)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md) (v9.5.10)
+- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-i18next.md) (v9.5.10)
 - [`react-i18next`](https://github.com/i18next/react-i18next) (v17.0.13)
 - [`use-intl`](https://github.com/amannn/next-intl/tree/main/packages/use-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -204,7 +207,7 @@ Karşılaşılan sorunlar:
 
 `Tolgee` daha önce bahsedilen sorunların çoğunu ele alıyor. Benzer yaklaşımlara sahip diğer araçlara göre başlamasının daha zor olduğunu gördüm. Tip güvenliği sağlamıyor, bu da eksik anahtarların build zamanında yakalanmasını çok zorlaştırıyor. Eksik anahtar algılama özelliği eklemek için Tolgee'nin API'larını kendi API'larımla sarmak zorunda kaldım.
 
-Package oldukça ağır (~13.8 kb, bu `react-intlayer`'ın 2× katından fazladır).
+Package oldukça ağır (~11.1 kb, bu `react-intlayer`'ın 2.3× katından fazladır).
 
 TanStack Start üzerinde de reaktivite problemlerim oldu: yerel ayar değiştiğinde, sağlayıcıyı yeniden render etmeye zorlamam ve yerel ayar değişikliği olaylarına abone olmam gerekiyordu, böylece başka bir dildeki yükleme düzgün davrandı.
 
@@ -232,13 +235,13 @@ Mesaj formatları da farklıdır: `use-intl` ICU MessageFormat kullanırken, `i1
 
 `react-intl`, Format.js ekibinin performans odaklı bir uygulamasıdır. DX "verbose" kalır: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` karmaşıklık, ek JavaScript yükü ekler ve global i18n örneğini React ağacındaki birçok düğüme bağlar.
 
-Paket ayrıca ağırdır (~15.3kb, bu yaklaşık 3× `react-intlayer`).
+Paket ayrıca ağırdır (~14.4kb, bu yaklaşık 3× `react-intlayer`).
 
 ### 4 - Öneriler
 
 Bu TanStack Start benchmark'ının `next-translate` (Next.js eklentisi + `getStaticProps`) için doğrudan bir karşılığı yoktur. Gerçekten olgun bir ekosisteme sahip bir `t()` API'si isteyen ekipler için `react-i18next` ve `use-intl` "makul" seçenekler olmaya devam ediyor, ancak sızıntıyı önlemek için optimizasyon yapmaya çok zaman ayırmaya hazırlıklı olun.
 
-**(Intlayer)** (`react-intlayer@9.5.6`):
+**(Intlayer)** (`react-intlayer@9.5.10`):
 
 Nesnellik adına kendi çözümüm olan `react-intlayer` hakkında kişisel olarak yorum yapmayacağım.
 

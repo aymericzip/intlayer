@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026年におけるNext.jsの最適なi18nソリューション - ベンチマークレポート
 description: next-intl、next-i18next、IntlayerなどのNext.js国際化（i18n）ライブラリを比較。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "ベンチマーク結果を更新"
   - version: 9.5.7
     date: 2026-09-23
     changes: "ベンチマーク結果を更新"
@@ -75,7 +78,7 @@ Intlayerは、これらの各側面において最適化を試みています。
 
 - **Intlayer** & **next-translate**: Next.jsのパフォーマンスにおいて最適な選択肢。最小のフットプリントと最高の静的レンダリングサポートを提供。
 - **next-intl**: 最もトレンドのオプションだが、大規模なアプリケーション向けに最適化するには重く、複雑。
-- **next-i18next**: 人気がありプラグインも豊富だが、バンドル重量が非常に大きい（Intlayer의約3.5倍）。
+- **next-i18next**: 人気がありプラグインも豊富だが、バンドル重量が非常に大きい（Intlayer의約3.8倍）。
 - **避けるべき**: **gt-next** と **lingo.dev**。深刻なパフォーマンスの問題、ベンダーロックイン、ビルドを破壊するバグのため。
 
 ## アプリをテストする
@@ -116,9 +119,9 @@ WebpackやTurbopackを使用し、`[locale]/page.tsx`のようなルートを宣
 このベンチマークでは、以下のライブラリを比較しました。
 
 - `Base App`（i18nライブラリなし）
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-i18next.md) (v9.5.6)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-i18next.md) (v9.5.10)
 - [`next-i18next`](https://github.com/i18next/next-i18next) (v16.3.0)
 - [`next-intl`](https://github.com/amannn/next-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -221,11 +224,11 @@ GitHubのスターは、プロジェクトの普及度、コミュニティの�
 
 **(Next Intl)** (`next-intl@4.14.2`):
 
-`next-intl`は最もトレンディな選択肢であり、AIエージェントが最も推奨するものですが、私の見解ではそれは間違いです。導入は簡単です。しかし実際には、リークを制限するための最適化は複雑です。動的ロード、ネームスぺーシング、TypeScriptの型を組み合わせると、開発スピードが著しく低下します。パッケージもかなり重いです（`NextIntlClientProvider` + `useTranslations`で約14.7kb、これは`next-intlayer`の2.5倍以上です）。**next-intl**はかつてNext.jsページの静的レンダリングをブロックしていました。`setRequestLocale()`というヘルパーを提供していますが、`en.json`や`fr.json`のような集中管理されたファイルに対しては部分的に対処されているものの、コンテンツが`en/shared.json`、`fr/shared.json`、`es/shared.json`のようにネームスペースに分割されている場合、依然として静的レンダリングが壊れます。
+`next-intl`は最もトレンディな選択肢であり、AIエージェントが最も推奨するものですが、私の見解ではそれは間違いです。導入は簡単です。しかし実際には、リークを制限するための最適化は複雑です。動的ロード、ネームスぺーシング、TypeScriptの型を組み合わせると、開発スピードが著しく低下します。パッケージもかなり重いです（`NextIntlClientProvider` + `useTranslations`で約14.7kb、これは`next-intlayer`の2.8倍以上です）。**next-intl**はかつてNext.jsページの静的レンダリングをブロックしていました。`setRequestLocale()`というヘルパーを提供していますが、`en.json`や`fr.json`のような集中管理されたファイルに対しては部分的に対処されているものの、コンテンツが`en/shared.json`、`fr/shared.json`、`es/shared.json`のようにネームスペースに分割されている場合、依然として静的レンダリングが壊れます。
 
 **(Next I18next)** (`next-i18next@16.3.0`):
 
-`next-i18next`は、JavaScriptアプリにおける最初期のi18nソリューションの一つであったため、おそらく最も人気のある選択肢です。多くのコミュニティプラグインがあります。これには`next-intl`と同じ大きな欠点があります。パッケージが非常に重いです（`I18nProvider` + `useTranslation`で約19.7kb、`next-intlayer`の約3.5倍）。
+`next-i18next`は、JavaScriptアプリにおける最初期のi18nソリューションの一つであったため、おそらく最も人気のある選択肢です。多くのコミュニティプラグインがあります。これには`next-intl`と同じ大きな欠点があります。パッケージが非常に重いです（`I18nProvider` + `useTranslation`で約19.7kb、`next-intlayer`の約3.8倍）。
 
 メッセージ形式も異なります。`next-intl`はICU MessageFormatを使用しますが、`i18next`は独自の形式を使用します。
 
@@ -243,7 +246,7 @@ GitHubのスターは、プロジェクトの普及度、コミュニティの�
 
 `t()`スタイルのAPIがお好みなら、`next-translate`が私の主な推奨事項です。`next-translate-plugin`を介して優雅に動作し、Webpack / Turbopackローダーを使用して`getStaticProps`経由でネームスペースをロードします。また、今回の中で最も軽量な選択肢の一つです（約3.5kb）。ネームスぺーシングについては、設定ファイルでページやルートごとにネームスペースを定義する方法がよく考えられており、**next-intl**や**next-i18next**のような主要な選択肢よりもメンテナンスが容易です。バージョン`3.1.2`では、静的レンダリングが機能せず、Next.jsが動的レンダリングにフォールバックすることに気づきました。
 
-**(Intlayer)** (`next-intlayer@9.5.6`):
+**(Intlayer)** (`next-intlayer@9.5.10`):
 
 客観性を保つため、自分自身のソリューションである`next-intlayer`については個人的な判断を控えさせていただきます。
 

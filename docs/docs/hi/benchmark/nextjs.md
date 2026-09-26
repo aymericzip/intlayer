@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026 में Next.js के लिए सर्वश्रेष्ठ i18n समाधान - बेंचमार्क रिपोर्ट
 description: next-intl, next-i18next और Intlayer जैसे Next.js अंतर्राष्ट्रीयकरण (i18n) लाइब्रेरीज़ की तुलना करें। बंडल आकार, लीकेज और रिएक्टिविटी पर विस्तृत परफॉरमेंस रिपोर्ट।
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "बेंचमार्क परिणाम अपडेट किए गए"
   - version: 9.5.7
     date: 2026-09-23
     changes: "बेंचमार्क परिणाम अपडेट किए गए"
@@ -116,9 +119,9 @@ Intlayer इन सभी आयामों में अनुकूलन क
 इस बेंचमार्क के लिए, हमने निम्नलिखित लाइब्रेरीज़ की तुलना की है:
 
 - `Base App` (कोई i18n लाइब्रेरी नहीं)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-i18next.md) (v9.5.6)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-i18next.md) (v9.5.10)
 - [`next-i18next`](https://github.com/i18next/next-i18next) (v16.3.0)
 - [`next-intl`](https://github.com/amannn/next-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -243,7 +246,7 @@ GitHub सितारे किसी प्रोजेक्ट की लो
 
 यदि आप `t()` स्टाइल की API पसंद करते हैं, तो `next-translate` मेरी मुख्य सिफारिश है। यह `next-translate-plugin` के माध्यम से सुंदर ढंग से काम करता है, जो Webpack / Turbopack लोडर के माध्यम से `getStaticProps` में नेमस्पेस लोड करता है। यह यहाँ के सबसे हल्के विकल्पों में से एक भी है (~3.5kb)। नेमस्पेसिंग के पार, कॉन्फ़िगरेशन में प्रति पेज या रूट नेमस्पेस परिभाषित करना अच्छी तरह से सोचा गया है और **next-intl** या **next-i18next** जैसे मुख्य विकल्पों की तुलना में बनाए रखना आसान है। वर्जन `3.1.2` में, मैंने पाया कि स्टेटिक रेंडरिंग काम नहीं करती थी; Next.js डायनेमिक रेंडरिंग पर वापस चला गया।
 
-**(Intlayer)** (`next-intlayer@9.5.6`):
+**(Intlayer)** (`next-intlayer@9.5.10`):
 
 निष्पक्षता के लिए मैं व्यक्तिगत रूप से मेरे स्वयं के समाधान `next-intlayer` पर निर्णय नहीं दूँगा।
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: أفضل حل i18n لـ Svelte في عام 2026 - تقرير قياسي
 description: قارن بين مكتبات تدويل Svelte (i18n) مثل svelte-i18n وParaglide وTolgee وIntlayer. تقرير أداء مفصل حول حجم الحزمة والتسرب والتفاعل.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "تحديث نتائج المقارنة"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Update benchmark results"
@@ -69,7 +72,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: الخيار الأكثر كفاءة في الأداء (v9.5.6) مع أصغر بصمة (footprint).
+- **Intlayer**: الخيار الأكثر كفاءة في الأداء (v9.5.10) مع أصغر بصمة (footprint).
 - **Paraglide**: منافس قوي للتخلص من الكود غير المستخدم (tree-shaking) ولكنه يمتلك تجربة مطور أكثر تعقيدًا وعبئًا في التفاعل.
 - **Tolgee**: منصة ترجمة غنية بالميزات مع إمكانات التحرير المباشر في السياق، ولكنها ثقيلة نسبيًا (~13.0 كيلوبايت، حوالي 3.6 أضعاف Intlayer)، وتظهر تسريبًا كبيرًا عبر الصفحات في الإعدادات الثابتة (90% تسريب للصفحات).
 - **svelte-i18n**: كامل ومعياري لـ Svelte، ولكنه يحمل وزن حزمة أكبر بكثير (~4.5 أضعاف Intlayer).
@@ -104,7 +107,7 @@ style="border:none;"
 في هذا التقييم القياسي، قارنا المكتبات التالية:
 
 - `Base App` (بدون مكتبة i18n)
-- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/svelte-intlayer/exports.md) (v9.5.10)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
 - [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
@@ -187,7 +190,7 @@ style="border:none;"
 
 ### 3 - التوصيات
 
-**(Intlayer)** (`svelte-intlayer@9.5.0`):
+**(Intlayer)** (`svelte-intlayer@9.5.10`):
 
 لن أحكم شخصيًا على `svelte-intlayer` من أجل الموضوعية، لأنه الحل الخاص بي.
 

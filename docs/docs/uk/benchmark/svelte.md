@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Найкраще i18n рішення для Svelte у 2026 році - Звіт про бенчмарк
 description: Порівняйте бібліотеки інтернаціоналізації (i18n) для Svelte, такі як svelte-i18n, Paraglide, Tolgee та Intlayer. Детальний звіт про продуктивність щодо розміру бандла, витоків та реактивності.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Оновлення результатів бенчмарку"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Update benchmark results"
@@ -69,7 +72,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: Найефективніший за продуктивністю вибір (v9.5.6) з найменшим слідом (footprint).
+- **Intlayer**: Найефективніший за продуктивністю вибір (v9.5.10) з найменшим слідом (footprint).
 - **Paraglide**: Сильний претендент для tree-shaking, але має складніший досвід розробника та накладні витрати на реактивність.
 - **Tolgee**: Багатофункціональна платформа перекладів із редагуванням in-context, але досить важка (~13.0 КБ, приблизно в 3.6× важча за Intlayer), зі значним витоком між сторінками у статичних конфігураціях (90% витоку сторінок).
 - **svelte-i18n**: Комплексний та стандартний для Svelte, але несе значно більшу вагу бандла (~4.5 разів більше за Intlayer).
@@ -104,7 +107,7 @@ style="border:none;"
 Для цього бенчмарку ми порівняли наступні бібліотеки:
 
 - `Base App` (Без бібліотеки i18n)
-- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/svelte-intlayer/exports.md) (v9.5.10)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
 - [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
@@ -187,7 +190,7 @@ style="border:none;"
 
 ### 3 - Рекомендації
 
-**(Intlayer)** (`svelte-intlayer@9.5.0`):
+**(Intlayer)** (`svelte-intlayer@9.5.10`):
 
 Я не буду особисто оцінювати `svelte-intlayer` заради об'єктивності, оскільки це моє власне рішення.
 

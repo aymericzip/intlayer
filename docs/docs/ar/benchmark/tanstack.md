@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: أفضل حل i18n لـ TanStack Start في 2026 - تقرير المقارنة
 description: قارن بين مكتبات تدويل TanStack Start مثل react-i18next و use-intl و Intlayer. تقرير مفصل للأداء حول حجم الحزمة، التسرب، والتفاعلية.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "تحديث نتائج المقارنة"
   - version: 9.5.7
     date: 2026-09-23
     changes: "تحديث نتائج المقارنة"
@@ -69,7 +72,7 @@ history:
 
 ## TL;DR
 
-- **Intlayer**: يوفر أفضل أداء وأصغر حجم للحزمة (v9.5.6) لـ TanStack Start.
+- **Intlayer**: يوفر أفضل أداء وأصغر حجم للحزمة (v9.5.10) لـ TanStack Start.
 - **react-i18next** و **use-intl**: بدائل ناضجة مع أنظمة بيئية كبيرة، ولكنها أثقل بكثير وأكثر تعقيدًا في التحسين.
 - **Paraglide**: فكرة مبتكرة لـ tree-shaking لكنها لا تعمل في الممارسة العملية. تجربة مطور (DX) معقدة وعبء تفاعلي في TanStack Start.
 - **تجنب**: **General Translation (GT)** و **Lingo.dev** بسبب مشكلات الأداء الخطيرة، وقيود حصة الذكاء الاصطناعي، والارتباط بالبائع (vendor lock-in).
@@ -104,10 +107,10 @@ history:
 في هذه المقارنة، قمنا بمقارنة المكتبات التالية:
 
 - `Base App` (بدون مكتبة i18n)
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md) (v9.5.6)
-- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-i18next.md) (v9.5.6)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md) (v9.5.10)
+- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-i18next.md) (v9.5.10)
 - [`react-i18next`](https://github.com/i18next/react-i18next) (v17.0.13)
 - [`use-intl`](https://github.com/amannn/next-intl/tree/main/packages/use-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -204,7 +207,7 @@ history:
 
 يعالج `Tolgee` العديد من المشكلات المذكورة سابقًا. وجدت صعوبة في البدء معه أكثر من الأدوات الأخرى ذات التوجهات المشابهة. لا يوفر سلامة الأنواع، مما يجعل اكتشاف المفاتيح المفقودة وقت البناء أمراً صعباً للغاية. اضطررت لتغليف واجهات برمجة تطبيقات Tolgee بواجهاتي الخاصة لإضافة ميزة اكتشاف المفاتيح المفقودة.
 
-الحزمة ثقيلة نسبياً (~13.8 kb، وهي أكثر من 2.9× `react-intlayer`).
+الحزمة ثقيلة نسبياً (~11.1 kb، وهي أكثر من 2.3× `react-intlayer`).
 
 في TanStack Start، واجهت أيضًا مشكلات في التفاعلية: عند تغيير اللغة، كان علي فرض إعادة رندرة المزود والاشتراك في أحداث تغيير اللغة حتى يعمل التحميل بلغة أخرى بشكل صحيح.
 
@@ -232,13 +235,13 @@ history:
 
 يعد `react-intl` تنفيذاً عالي الأداء من فريق Format.js. تظل تجربة المطور مطولة: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` يضيف تعقيداً وعملاً إضافياً على JavaScript ويربط مثيل i18n العالمي بالعديد من العقد في شجرة React.
 
-الحزمة ثقيلة أيضًا (~15.3kb، وهو حوالي 3× `react-intlayer`).
+الحزمة ثقيلة أيضًا (~14.4kb، وهو حوالي 3× `react-intlayer`).
 
 ### 4 - التوصيات
 
 لا يوجد لهذا الاختبار في TanStack Start مكافئ مباشر لـ `next-translate` (إضافة Next.js + `getStaticProps`). بالنسبة للفرق التي تريد حقاً واجهة برمجة تطبيقات بأسلوب `t()` مع نظام ناضج، يظل `react-i18next` و `use-intl` خيارات "معقولة"، ولكن توقع استثمار الكثير من الوقت في التحسين لتجنب التسرب.
 
-**(Intlayer)** (`react-intlayer@9.5.6`):
+**(Intlayer)** (`react-intlayer@9.5.10`):
 
 لن أحكم شخصيًا على `react-intlayer` من أجل الموضوعية، لأنه حلي الخاص.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026 年 TanStack Start 最佳 i18n 解决方案 - 基准测试报告
 description: 对比 react-i18next、use-intl 和 Intlayer 等 TanStack Start 国际化库。关于打包体积、泄漏和响应性的详细性能报告。
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "更新基准测试结果"
   - version: 9.5.7
     date: 2026-09-23
     changes: "更新基准测试结果"
@@ -69,7 +72,7 @@ history:
 
 ## TL;DR
 
-- **Intlayer**: 为 TanStack Start 提供最佳性能和最小的打包体积 (v9.5.6)。
+- **Intlayer**: 为 TanStack Start 提供最佳性能和最小的打包体积 (v9.5.10)。
 - **react-i18next** & **use-intl**: 拥有庞大生态系统的成熟替代方案，但体积显著更大且优化更为复杂。
 - **Paraglide**: 创新的 Tree-shaking 理念，但在实际应用中并未生效。在 TanStack Start 中 DX 复杂且存在响应性开销。
 - **应当避免**: **General Translation (GT)** 和 **Lingo.dev**。由于严重的性能问题、AI 配额限制以及供应商锁定 (vendor lock-in)。
@@ -104,10 +107,10 @@ history:
 在此基准测试中，我们对比了以下库：
 
 - `Base App`（无 i18n 库）
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md) (v9.5.6)
-- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-i18next.md) (v9.5.6)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md) (v9.5.10)
+- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-i18next.md) (v9.5.10)
 - [`react-i18next`](https://github.com/i18next/react-i18next) (v17.0.13)
 - [`use-intl`](https://github.com/amannn/next-intl/tree/main/packages/use-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -232,13 +235,13 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 `react-intl` 是来自 Format.js 团队的高性能实现。但 DX 依然繁琐：`const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` 增加了复杂度和额外的 JavaScript 开销，并将全局 i18n 实例绑定到了 React 树中的许多节点。
 
-该 package 也很重（~15.3kb，大约是 `react-intlayer` 的 3 倍）。
+该 package 也很重（~14.4kb，大约是 `react-intlayer` 的 3 倍）。
 
 ### 4 - 推荐方案
 
 在本次 TanStack Start 基准测试中，没有与 `next-translate`（Next.js 插件 + `getStaticProps`）直接对应的方案。对于那些确实想要 `t()` API 且拥有成熟生态的团队，`react-i18next` 和 `use-intl` 仍是“合理”的选择，但要做好投入大量时间进行优化以避免泄漏的准备。
 
-**(Intlayer)** (`react-intlayer@9.5.6`):
+**(Intlayer)** (`react-intlayer@9.5.10`):
 
 出于客观性考量，我不会亲自评价 `react-intlayer`，因为这是我自己的解决方案。
 

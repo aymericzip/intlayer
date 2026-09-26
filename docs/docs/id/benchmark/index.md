@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-26
 priority: 8
 title: Benchmark library i18n
 description: Pelajari perbandingan Intlayer dengan library i18n lainnya dalam hal performa dan ukuran bundle.
@@ -15,6 +15,9 @@ slugs:
   - doc
   - benchmark
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Pembaruan hasil benchmark"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Pembaruan hasil benchmark"

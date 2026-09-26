@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Giải pháp i18n tốt nhất cho Next.js năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa (i18n) cho Next.js như next-intl, next-i18next và Intlayer. Báo cáo hiệu năng chi tiết về kích thước bundle bundle, rò rỉ dữ liệu và tính phản ứng.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Cập nhật kết quả benchmark"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Cập nhật kết quả benchmark"
@@ -75,7 +78,7 @@ Intlayer cố gắng tối ưu hóa trên tất cả các khía cạnh này.
 
 - **Intlayer** & **next-translate**: Những lựa chọn tốt nhất cho hiệu năng của Next.js, mang lại kích thước nhỏ nhất và hỗ trợ render tĩnh tốt nhất.
 - **next-intl**: Tùy chọn hợp thời nhất, nhưng nặng và phức tạp để tối ưu hóa cho các ứng dụng lớn.
-- **next-i18next**: Phổ biến và giàu plugin, nhưng mang lại gánh nặng bundle đáng kể (~3.5× Intlayer).
+- **next-i18next**: Phổ biến và giàu plugin, nhưng mang lại gánh nặng bundle đáng kể (~3.8× Intlayer).
 - **Tránh**: **gt-next** và **lingo.dev** do các vấn đề hiệu năng nghiêm trọng, phụ thuộc vào nhà cung cấp (vendor lock-in) và các lỗi gây hỏng build.
 
 ## Kiểm tra ứng dụng của bạn
@@ -116,9 +119,9 @@ Cuối cùng, `Intlayer` áp dụng một tối ưu hóa tại thời điểm bu
 Đối với benchmark này, chúng tôi đã so sánh các thư viện sau:
 
 - `Base App` (Không sử dụng thư viện i18n)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-i18next.md) (v9.5.6)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-i18next.md) (v9.5.10)
 - [`next-i18next`](https://github.com/i18next/next-i18next) (v16.3.0)
 - [`next-intl`](https://github.com/amannn/next-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -243,7 +246,7 @@ Các định dạng thông báo cũng khác nhau: `next-intl` sử dụng ICU Me
 
 `next-translate` là khuyến nghị chính của tôi nếu bạn thích một API theo kiểu `t()`. Nó vận hành thanh thoát thông qua `next-translate-plugin`, tải các namespace qua `getStaticProps` với một trình tải Webpack / Turbopack. Nó cũng là một trong những tùy chọn nhẹ nhất ở đây (~3.5kb). Đối với việc phân namespace, việc định nghĩa các namespace theo từng trang hoặc route trong cấu hình được cân nhắc kỹ lưỡng và dễ bảo trì hơn so với các lựa chọn thay thế chính như **next-intl** hay **next-i18next**. Ở phiên bản `3.1.2`, tôi nhận thấy rằng việc render tĩnh không hoạt động; Next.js đã quay trở lại việc render động.
 
-**(Intlayer)** (`next-intlayer@9.5.6`):
+**(Intlayer)** (`next-intlayer@9.5.10`):
 
 Tôi sẽ không đích thân đánh giá `next-intlayer` vì tính khách quan, vì đây là giải pháp của riêng tôi.
 

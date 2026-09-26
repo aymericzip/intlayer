@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026年 Vue向けの最高のi18nソリューション - ベンチマークレポート
 description: vue-i18n、fluent-vue、IntlayerなどのVue国際化（i18n）ライブラリを比較します。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "ベンチマーク結果を更新"
   - version: 9.5.7
     date: 2026-09-23
     changes: "ベンチマーク結果を更新し、Tolgeeを追加"
@@ -70,7 +73,7 @@ style="border:none;"
 ## TL;DR
 
 - **Intlayer**: スコーピング（scoping）と動的ロードを内蔵した、最も軽量なソリューション（v9.5.6）。
-- **Tolgee**: 動的モードでリークゼロの効果的な動的ロードを実現しますが、より重く（~3.7× Intlayer）、コンパイル時の組み込み型安全性がありません。
+- **Tolgee**: 動的モードでリークゼロの効果的な動的ロードを実現しますが、より重く（~3.0× Intlayer）、コンパイル時の組み込み型安全性がありません。
 - **vue-i18n**: 豊かなエコシステムを持つ業界標準ですが、非常に重くなる可能性があり、大規模アプリケーションでのコード分割の最適化が難しい場合があります。
 - **fluent-vue**: 革新的なメッセージ構成ですが、型安全性が欠けており、非常に重いソリューションです。
 
@@ -104,8 +107,8 @@ i18nリークの問題を素早く特定するために、無料のスキャナ�
 このベンチマークでは、以下のライブラリを比較しました。
 
 - `Base App` (i18nライブラリなし)
-- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vue-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/vue-i18n.md) (v9.5.6)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vue-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/vue-i18n.md) (v9.5.10)
 - [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
 - [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 - [`@tolgee/vue`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -164,7 +167,7 @@ GitHubのスターは、プロジェクトの普及度、コミュニティの�
 
 **(Tolgee)** (`@tolgee/vue@7.2.0`):
 
-`Tolgee`は前述の問題の多くに対処しており、ロケールやページのリークを完全に排除する動的ロードを提供します（ページJSを約58.8kbまで削減）。ただし、デフォルトではキーに対するコンパイル時の組み込み型安全性が提供されないため、欠落したキーの検出が難しくなります。また、ライブラリのサイズも比較的重いです（~13.8kb、これは`vue-intlayer`の約3.7倍です）。
+`Tolgee`は前述の問題の多くに対処しており、ロケールやページのリークを完全に排除する動的ロードを提供します（ページJSを約58.8kbまで削減）。ただし、デフォルトではキーに対するコンパイル時の組み込み型安全性が提供されないため、欠落したキーの検出が難しくなります。また、ライブラリのサイズも比較的重いです（~13.8kb、これは`vue-intlayer`の約3.0倍です）。
 
 **(vue-i18n)** (`vue-i18n@11.4.0`):
 
@@ -174,10 +177,10 @@ GitHubのスターは、プロジェクトの普及度、コミュニティの�
 
 **(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue** は .ftl 形式を通じて革新を試みています。メッセージの構成は素晴らしく、始めやすいです。しかし実際には、型安全性の欠如によりエラーのリスクが高まり、デバッグに時間がかかる可能性があります。さらに、このソリューションはViteプラグインを使用してメッセージをロードしますが、これによりすべての言語の全コンテンツが各ページに強制的にロードされます。加えて、これは極めて重いソリューションです（~29.7kb。これは `vue-intlayer` の約8倍です）。
+- **fluent-vue** は .ftl 形式を通じて革新を試みています。メッセージの構成は素晴らしく、始めやすいです。しかし実際には、型安全性の欠如によりエラーのリスクが高まり、デバッグに時間がかかる可能性があります。さらに、このソリューションはViteプラグインを使用してメッセージをロードしますが、これによりすべての言語の全コンテンツが各ページに強制的にロードされます。加えて、これは極めて重いソリューションです（~92.7kb。これは `vue-intlayer` の約20倍です）。
 
 ### 3 - 推奨事項
 
-**(Intlayer)** (`vue-intlayer@9.5.6`):
+**(Intlayer)** (`vue-intlayer@9.5.10`):
 
 客観性を保つため、`vue-intlayer` については私自身のソリューションであるため、個人的な評価は控えます。

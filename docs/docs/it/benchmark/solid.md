@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Migliore soluzione i18n per Solid nel 2026 - Rapporto Benchmark
 description: Confronta le librerie di internazionalizzazione (i18n) per Solid come solid-primitives, solid-i18next, Tolgee e Intlayer. Rapporto dettagliato sulle prestazioni in termini di dimensioni del bundle, leak e reattività.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Aggiornamento dei risultati del benchmark"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Aggiornamento dei risultati del benchmark"
@@ -69,7 +72,7 @@ L'autre impatto riguarda l'esperienza dello sviluppatore (DX): come si dichiara 
 
 ## TL;DR
 
-- **Intlayer**: Scelta consigliata per applicazioni Solid professionali che necessitano di funzionalità avanzate e ottimizzazione (v9.5.6).
+- **Intlayer**: Scelta consigliata per applicazioni Solid professionali che necessitano di funzionalità avanzate e ottimizzazione (v9.5.10).
 - **@solid-primitives/i18n**: Eccellente alternativa leggera per progetti semplici, sebbene manchi di funzionalità avanzate come il lazy loading.
 - **solid-i18next**: Opzione standard ma pesante (~3.5× Intlayer) con gli stessi svantaggi di React i18next.
 - **Tolgee**: Piattaforma di traduzione ricca di funzionalità, ma piuttosto pesante (~12.7kb, circa 3.0× Intlayer), priva di primitive Solid native (si affida a @tolgee/web) e con notevole dispersione tra pagine nelle configurazioni statiche (90% di dispersione tra pagine).
@@ -105,7 +108,7 @@ Le sintassi costruite attorno a `t('a.b.c')` sono molto comode ma spesso incorag
 Per questo benchmark, abbiamo confrontato le seguenti librerie:
 
 - `Base App` (Nessuna libreria i18n)
-- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/solid-intlayer/exports.md) (v9.5.10)
 - [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
 - [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
 - [`@tolgee/web`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -184,9 +187,9 @@ Su Solid non esiste attualmente un adapter nativo ufficiale (come `@tolgee/solid
 
 Il pacchetto è relativamente pesante (~12.7kb, circa 3.0× `solid-intlayer`).
 
-Senza un meccanismo di suddivisione granulare per pagina su Solid, tutte le traduzioni vengono caricate in memoria all'avvio nelle configurazioni statiche. Ciò causa un'elevata dispersione nel bundle (44.5% di dispersione delle lingue, 90.0% di dispersione tra pagine) e dimensioni medie del bundle per pagina di ~91.8kb (rispetto a ~35.8kb per Intlayer).
+Senza un meccanismo di suddivisione granulare per pagina su Solid, tutte le traduzioni vengono caricate in memoria all'avvio nelle configurazioni statiche. Ciò causa un'elevata dispersione nel bundle (44.5% di dispersione delle lingue, 90.0% di dispersione tra pagine) e dimensioni medie del bundle per pagina di ~91.8kb (rispetto a ~35.4kb per Intlayer).
 
-La reattività al cambio di lingua è estremamente rapida (0.6ms), sfruttando la reattività a grana fine di Solid, sebbene l'overhead di idratazione sia leggermente superiore (~5.6ms rispetto a ~3.0ms per Intlayer).
+La reattività al cambio di lingua è estremamente rapida (0.6ms), sfruttando la reattività a grana fine di Solid, sebbene l'overhead di idratazione sia leggermente superiore (~5.6ms rispetto a ~2.9ms per Intlayer).
 
 **(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
@@ -196,7 +199,7 @@ Infine, rispetto ad altre soluzioni, Paraglide non utilizza uno store (es. Solid
 
 ### 3 - Raccomandazioni
 
-**(Intlayer)** (`solid-intlayer@9.5.6`):
+**(Intlayer)** (`solid-intlayer@9.5.10`):
 
 Non giudicherò personalmente `solid-intlayer` per motivi di obiettività, essendo la mia soluzione.
 

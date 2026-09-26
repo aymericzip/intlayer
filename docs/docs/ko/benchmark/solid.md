@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026년 Solid를 위한 최고의 i18n 솔루션 - 벤치마크 리포트
 description: solid-primitives, solid-i18next, Tolgee, Intlayer와 같은 Solid 국제화(i18n) 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "벤치마크 결과 업데이트"
   - version: 9.5.7
     date: 2026-09-23
     changes: "벤치마크 결과 업데이트"
@@ -69,7 +72,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: 고급 기능과 최적화가 필요한 전문 Solid 애플리케이션을 위한 추천 선택(v9.5.6).
+- **Intlayer**: 고급 기능과 최적화가 필요한 전문 Solid 애플리케이션을 위한 추천 선택(v9.5.10).
 - **@solid-primitives/i18n**: 단순한 프로젝트를 위한 훌륭한 경량 대안이지만 지연 로딩과 같은 고급 기능이 부족합니다.
 - **solid-i18next**: 표준적이지만 무거운 옵션(Intlayer의 약 3.5배)으로 React i18next와 동일한 단점을 공유합니다.
 - **Tolgee**: 풍부한 기능을 갖춘 번역 플랫폼이지만, 다소 무겁고(~12.7kb, Intlayer의 약 3.0배), 전용 Solid 프리미티브가 부족하며(@tolgee/web에 의존), 정적 설정 시 페이지 간 번역 누수가 큽니다(90% 페이지 누수).
@@ -105,7 +108,7 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 이 벤치마크에서는 다음과 같은 라이브러리를 비교했습니다:
 
 - `Base App` (i18n 라이브러리 없음)
-- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/solid-intlayer/exports.md) (v9.5.10)
 - [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
 - [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
 - [`@tolgee/web`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -184,9 +187,9 @@ Solid 환경에서는 현재 공식 네이티브 어댑터(`@tolgee/solid` 등)�
 
 패키지 크기는 비교적 큽니다(~12.7kb, `solid-intlayer`의 약 3.0배).
 
-Solid에서 페이지별 세분화된 분할 메커니즘이 없어 정적 설정 시 시작할 때 모든 번역이 메모리에 로드됩니다. 이로 인해 심각한 번들 누수가 발생하며(로케일 누수 44.5%, 페이지 누수 90.0%), 평균 페이지 번들 크기는 ~91.8kb에 달합니다(Intlayer의 ~35.8kb 대비).
+Solid에서 페이지별 세분화된 분할 메커니즘이 없어 정적 설정 시 시작할 때 모든 번역이 메모리에 로드됩니다. 이로 인해 심각한 번들 누수가 발생하며(로케일 누수 44.5%, 페이지 누수 90.0%), 평균 페이지 번들 크기는 ~91.8kb에 달합니다(Intlayer의 ~35.4kb 대비).
 
-언어 전환 반응성은 매우 빠르며(0.6ms), Solid 특유의 세밀한 반응성과 잘 어우러지지만, 하이드레이션 오버헤드는 다소 높습니다(Intlayer의 ~3.0ms 대비 ~5.6ms).
+언어 전환 반응성은 매우 빠르며(0.6ms), Solid 특유의 세밀한 반응성과 잘 어우러지지만, 하이드레이션 오버헤드는 다소 높습니다(Intlayer의 ~2.9ms 대비 ~5.6ms).
 
 **(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
@@ -196,7 +199,7 @@ Solid에서 페이지별 세분화된 분할 메커니즘이 없어 정적 설�
 
 ### 3 - 추천 사항
 
-**(Intlayer)** (`solid-intlayer@9.5.6`):
+**(Intlayer)** (`solid-intlayer@9.5.10`):
 
 객관성을 위해 나의 솔루션인 `solid-intlayer`에 대해서는 직접 판단하지 않겠습니다.
 

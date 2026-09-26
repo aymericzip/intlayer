@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026 年 Svelte 最佳 i18n 解决方案 - 基准报告
 description: 比较 Svelte 国际化（i18n）库，如 svelte-i18n、Paraglide、Tolgee 和 Intlayer。关于Bundle 大小、泄漏和反应性的详细性能报告。
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "更新基准测试结果"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Update benchmark results"
@@ -104,7 +107,7 @@ history:
 在此基准测试中，我们比较了以下库：
 
 - `Base App`（无 i18n 库）
-- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/svelte-intlayer/exports.md) (v9.5.10)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
 - [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
@@ -179,7 +182,7 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 由于在 Svelte 中缺乏细粒度的按页面拆分机制，在静态配置下所有翻译都会在启动时直接加载到内存中。这导致严重的包内容泄露（50.0% 语言泄露，90.0% 页面内容泄露），页面平均 JS 大小达到 ~100.7kb（相比之下 Intlayer 仅为 ~59.0kb）。
 
-得益于 Svelte 的响应式 store，语言切换响应极为迅速（0.5ms），不过注水（hydration）开销略高（~6.2ms 对比 Intlayer 的 ~5.5ms）。
+得益于 Svelte 的响应式 store，语言切换响应极为迅速（0.5ms），不过注水（hydration）开销略高（~6.2ms 对比 Intlayer 的 ~4.1ms）。
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 
@@ -187,7 +190,7 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 ### 3 - 建议
 
-**(Intlayer)** (`svelte-intlayer@9.5.0`):
+**(Intlayer)** (`svelte-intlayer@9.5.10`):
 
 出于客观性考虑，我个人不会对 `svelte-intlayer` 做出评价，因为它是我的个人解决方案。
 

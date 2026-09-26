@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026 年 Next.js 最佳 i18n 解决方案 - 基准测试报告
 description: 对比 next-intl、next-i18next 和 Intlayer 等 Next.js 国际化 (i18n) 库。关于打包体积、泄漏和响应性的详细性能报告。
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "更新基准测试结果"
   - version: 9.5.7
     date: 2026-09-23
     changes: "更新基准测试结果"
@@ -116,9 +119,9 @@ Intlayer 尝试在这些维度上进行优化。
 在此基准测试中，我们对比了以下库：
 
 - `Base App`（无 i18n 库）
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-i18next.md) (v9.5.6)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-i18next.md) (v9.5.10)
 - [`next-i18next`](https://github.com/i18next/next-i18next) (v16.3.0)
 - [`next-intl`](https://github.com/amannn/next-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -243,7 +246,7 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 如果你喜欢 `t()` 风格的 API，`next-translate` 是我的主要推荐方案。它通过 `next-translate-plugin` 优雅运作，利用 Webpack / Turbopack loader 通过 `getStaticProps` 加载命名空间。它也是这些方案中最轻量的之一（约 3.5kb）。对于命名空间拆分，在配置中为每个页面或路由定义命名空间的设计非常周到，比 **next-intl** 或 **next-i18next** 等主要替代方案更易于维护。在版本 `3.1.2` 中，我注意到静态渲染无法工作，Next.js 会回退到动态渲染。
 
-**(Intlayer)** (`next-intlayer@9.5.6`):
+**(Intlayer)** (`next-intlayer@9.5.10`):
 
 出于客观性考量，我不会亲自评价 `next-intlayer`，因为这是我自己的解决方案。
 

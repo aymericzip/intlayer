@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Giải pháp i18n tốt nhất cho Vue năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa (i18n) Vue như vue-i18n, fluent-vue, Tolgee và Intlayer. Báo cáo hiệu suất chi tiết về kích thước bundle, rò rỉ và tính phản ứng.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Cập nhật kết quả benchmark"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Cập nhật kết quả benchmark và thêm Tolgee"
@@ -69,8 +72,8 @@ Tác động khác là đối với trải nghiệm nhà phát triển (DX): cá
 
 ## TL;DR
 
-- **Intlayer**: Giải pháp nhẹ nhất (v9.5.6) với tính năng scoping và tải động gốc.
-- **Tolgee**: Tải động hiệu quả mà không bị rò rỉ trong chế độ động, nhưng nặng hơn (~3.7× Intlayer) và thiếu tính an toàn kiểu dữ liệu lúc biên dịch.
+- **Intlayer**: Giải pháp nhẹ nhất (v9.5.10) với tính năng scoping và tải động gốc.
+- **Tolgee**: Tải động hiệu quả mà không bị rò rỉ trong chế độ động, nhưng nặng hơn (~3.0× Intlayer) và thiếu tính an toàn kiểu dữ liệu lúc biên dịch.
 - **vue-i18n**: Tiêu chuẩn ngành với hệ sinh thái phong phú, nhưng có thể trở nên nặng hơn đáng kể và khó tối ưu hóa cho code-splitting trong các ứng dụng lớn.
 - **fluent-vue**: Tổ chức thông báo sáng tạo nhưng thiếu an toàn kiểu (type-safety) và hóa ra là một giải pháp cực kỳ nặng.
 
@@ -104,8 +107,8 @@ Các cú pháp được xây dựng xung quanh `const { t } = useI18n()` + `t('a
 Đối với benchmark này, chúng tôi đã so sánh các thư viện sau:
 
 - `Base App` (Không có thư viện i18n)
-- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vue-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) (v9.5.6)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vue-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) (v9.5.10)
 - [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
 - [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 - [`@tolgee/vue`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -174,10 +177,10 @@ Package này rất nặng (~24.1 kb, gấp khoảng 6.5 lần `vue-intlayer`).
 
 **(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue** đưa ra một nỗ lực đổi mới thông qua định dạng .ftl. Tổ chức tin nhắn tuyệt vời, dễ dàng bắt đầu hơn. Nhưng trong thực tế, việc thiếu an toàn kiểu làm tăng rủi ro lỗi và có thể nhanh chóng trở nên tốn thời gian để debug. Hơn nữa, giải pháp đó tải các tin nhắn bằng một plugin vite bắt buộc tải tất cả nội dung ở tất cả các ngôn ngữ vào mỗi trang. Ngoài ra, đây là một giải pháp cực kỳ nặng (~29.7kb, gấp khoảng 8 lần `vue-intlayer`).
+- **fluent-vue** đưa ra một nỗ lực đổi mới thông qua định dạng .ftl. Tổ chức tin nhắn tuyệt vời, dễ dàng bắt đầu hơn. Nhưng trong thực tế, việc thiếu an toàn kiểu làm tăng rủi ro lỗi và có thể nhanh chóng trở nên tốn thời gian để debug. Hơn nữa, giải pháp đó tải các tin nhắn bằng một plugin vite bắt buộc tải tất cả nội dung ở tất cả các ngôn ngữ vào mỗi trang. Ngoài ra, đây là một giải pháp cực kỳ nặng (~92.7kb, gấp khoảng 8 lần `vue-intlayer`).
 
 ### 3 - Khuyến nghị
 
-**(Intlayer)** (`vue-intlayer@9.5.6`):
+**(Intlayer)** (`vue-intlayer@9.5.10`):
 
 Tôi sẽ không đích thân đánh giá `vue-intlayer` vì tính khách quan, vì đó là giải pháp của chính tôi.

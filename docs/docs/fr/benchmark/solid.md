@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: La meilleure solution i18n pour Solid en 2026 - Rapport de Benchmark
 description: Comparez les bibliothèques d'internationalisation (i18n) pour Solid comme solid-primitives, solid-i18next, Tolgee et Intlayer. Rapport de performance détaillé sur la taille du bundle, les fuites et la réactivité.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Mise à jour des résultats du benchmark"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Mise à jour des résultats du benchmark"
@@ -69,7 +72,7 @@ L'autre impact concerne l'expérience développeur (DX) : la façon dont vous d�
 
 ## TL;DR
 
-- **Intlayer** : Choix recommandé pour les applications Solid professionnelles nécessitant des fonctionnalités avancées et une optimisation poussée (v9.5.6).
+- **Intlayer** : Choix recommandé pour les applications Solid professionnelles nécessitant des fonctionnalités avancées et une optimisation poussée (v9.5.10).
 - **@solid-primitives/i18n** : Excellente alternative légère pour les projets simples, bien qu'il manque de fonctionnalités avancées comme le lazy loading.
 - **solid-i18next** : Option standard mais lourde (~3.5× Intlayer) avec les mêmes inconvénients que React i18next.
 - **Tolgee** : Plateforme de traduction riche en fonctionnalités, mais assez lourde (~12.7 Ko, soit environ 3.0× Intlayer), sans primitives Solid dédiées (repose sur @tolgee/web), avec d'importantes fuites de traduction entre les pages en configuration statique (90 % de fuite de page).
@@ -105,7 +108,7 @@ Les syntaxes basées sur `t('a.b.c')` sont très pratiques mais encouragent souv
 Pour ce benchmark, nous avons comparé les bibliothèques suivantes :
 
 - `Base App` (Pas de bibliothèque i18n)
-- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/solid-intlayer/exports.md) (v9.5.10)
 - [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
 - [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
 - [`@tolgee/web`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -184,9 +187,9 @@ Sur Solid, il n'existe actuellement aucun adaptateur natif officiel (comme `@tol
 
 Le paquet est relativement lourd (~12.7 Ko, soit environ 3.0× `solid-intlayer`).
 
-En l'absence de découpage granulaire par namespace et par page sur Solid, toutes les traductions sont chargées en mémoire dès le démarrage en mode statique. Cela entraîne d'importantes fuites de bundle (44.5 % de fuite de locale, 90.0 % de fuite de page) et une taille moyenne de bundle de ~91.8 Ko par page (contre ~35.8 Ko pour Intlayer).
+En l'absence de découpage granulaire par namespace et par page sur Solid, toutes les traductions sont chargées en mémoire dès le démarrage en mode statique. Cela entraîne d'importantes fuites de bundle (44.5 % de fuite de locale, 90.0 % de fuite de page) et une taille moyenne de bundle de ~91.8 Ko par page (contre ~35.4 Ko pour Intlayer).
 
-La réactivité lors du changement de langue est très rapide (0.6 ms), profitant de la réactivité fine de Solid, bien que le temps d'hydratation soit plus élevé (~5.6 ms contre ~3.0 ms pour Intlayer).
+La réactivité lors du changement de langue est très rapide (0.6 ms), profitant de la réactivité fine de Solid, bien que le temps d'hydratation soit plus élevé (~5.6 ms contre ~2.9 ms pour Intlayer).
 
 **(Paraglide)** (`@inlang/paraglide-js@2.25.1`) :
 
@@ -196,7 +199,7 @@ Enfin, par rapport à d'autres solutions, Paraglide n'utilise pas de store (ex: 
 
 ### 3 - Recommandations
 
-**(Intlayer)** (`solid-intlayer@9.5.6`) :
+**(Intlayer)** (`solid-intlayer@9.5.10`) :
 
 Je ne jugerai pas personnellement `solid-intlayer` par souci d'objectivité, puisqu'il s'agit de ma propre solution.
 

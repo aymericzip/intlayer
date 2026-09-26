@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Лучшее i18n решение для Svelte в 2026 году - Отчет о бенчмарке
 description: Сравните библиотеки интернационализации (i18n) для Svelte, такие как svelte-i18n, Paraglide, Tolgee и Intlayer. Подробный отчет о производительности, размере бандла, утечках и реактивности.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Обновление результатов бенчмарка"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Update benchmark results"
@@ -69,7 +72,7 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: Самый эффективный выбор с точки зрения производительности (v9.5.6) с минимальным влиянием на размер.
+- **Intlayer**: Самый эффективный выбор с точки зрения производительности (v9.5.10) с минимальным влиянием на размер.
 - **Paraglide**: Сильный конкурент для tree-shaking, но имеет более сложный опыт разработки и накладные расходы на реактивность.
 - **Tolgee**: Функциональная платформа переводов с возможностью редактирования in-context, но довольно тяжелая (~13.0 КБ, примерно в 3.6× тяжелее Intlayer), с заметными утечками между страницами в статических сборках (90% утечки страниц).
 - **svelte-i18n**: Полнофункциональный и стандартный для Svelte, но имеет гораздо больший вес бандла (~4.5 раз больше Intlayer).
@@ -104,7 +107,7 @@ style="border:none;"
 Для этого бенчмарка мы сравнили следующие библиотеки:
 
 - `Base App` (Без библиотеки i18n)
-- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/svelte-intlayer/exports.md) (v9.5.10)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
 - [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
@@ -187,7 +190,7 @@ style="border:none;"
 
 ### 3 - Рекомендации
 
-**(Intlayer)** (`svelte-intlayer@9.5.0`):
+**(Intlayer)** (`svelte-intlayer@9.5.10`):
 
 Я не буду лично оценивать `svelte-intlayer` ради объективности, так как это мое собственное решение.
 

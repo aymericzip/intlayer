@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Solusi i18n terbaik untuk Next.js tahun 2026 - Laporan Benchmark
 description: Bandingkan library internasionalisasi (i18n) Next.js seperti next-intl, next-i18next, dan Intlayer. Laporan performa terperinci tentang ukuran bundle, kebocoran, dan reaktivitas.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Pembaruan hasil benchmark"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Pembaruan hasil benchmark"
@@ -75,7 +78,7 @@ Intlayer mencoba mengoptimalkan di semua dimensi ini.
 
 - **Intlayer** & **next-translate**: Pilihan terbaik untuk performa Next.js, menawarkan footprint terkecil dan dukungan render statis terbaik.
 - **next-intl**: Opsi paling tren, tetapi berat dan kompleks untuk dioptimalkan bagi aplikasi besar.
-- **next-i18next**: Populer dan kaya plugin, tetapi membawa beban bundle yang signifikan (~3,5× Intlayer).
+- **next-i18next**: Populer dan kaya plugin, tetapi membawa beban bundle yang signifikan (~3.8× Intlayer).
 - **Hindari**: **gt-next** dan **lingo.dev** karena masalah performa yang parah, ketergantungan pada vendor (vendor lock-in), dan bug yang merusak build.
 
 ## Uji aplikasi Anda
@@ -116,9 +119,9 @@ Terakhir, `Intlayer` menerapkan optimisasi waktu build sehingga `useIntlayer('ku
 Untuk benchmark ini, kami membandingkan library berikut:
 
 - `Base App` (Tanpa library i18n)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-i18next.md) (v9.5.6)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-i18next.md) (v9.5.10)
 - [`next-i18next`](https://github.com/i18next/next-i18next) (v16.3.0)
 - [`next-intl`](https://github.com/amannn/next-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -221,11 +224,11 @@ Terakhir, dibandingkan dengan solusi lain, Paraglide tidak menggunakan store (mi
 
 **(Next Intl)** (`next-intl@4.14.2`):
 
-`next-intl` adalah opsi yang paling tren dan yang paling didorong oleh agen AI, tetapi menurut pandangan saya itu salah. Memulainya memang mudah. Dalam praktiknya, mengoptimalkan untuk membatasi kebocoran itu kompleks. Menggabungkan pemuatan dinamis + namespacing + tipe TypeScript sangat memperlambat pengembangan. Paket ini juga cukup berat (~14,7kb untuk `NextIntlClientProvider` + `useTranslations`, yang berarti lebih dari 2,5x lipat `next-intlayer`). **next-intl** dulu memblokir rendering statis halaman Next.js. Ia menyediakan helper bernama `setRequestLocale()`. Itu tampaknya sudah diatasi sebagian untuk file tersentralisasi seperti `en.json` / `fr.json`, tetapi rendering statis tetap rusak ketika konten dipisah ke dalam namespace seperti `en/shared.json` / `fr/shared.json` / `es/shared.json`.
+`next-intl` adalah opsi yang paling tren dan yang paling didorong oleh agen AI, tetapi menurut pandangan saya itu salah. Memulainya memang mudah. Dalam praktiknya, mengoptimalkan untuk membatasi kebocoran itu kompleks. Menggabungkan pemuatan dinamis + namespacing + tipe TypeScript sangat memperlambat pengembangan. Paket ini juga cukup berat (~14,7kb untuk `NextIntlClientProvider` + `useTranslations`, yang berarti lebih dari 2.8x lipat `next-intlayer`). **next-intl** dulu memblokir rendering statis halaman Next.js. Ia menyediakan helper bernama `setRequestLocale()`. Itu tampaknya sudah diatasi sebagian untuk file tersentralisasi seperti `en.json` / `fr.json`, tetapi rendering statis tetap rusak ketika konten dipisah ke dalam namespace seperti `en/shared.json` / `fr/shared.json` / `es/shared.json`.
 
 **(Next I18next)** (`next-i18next@16.3.0`):
 
-`next-i18next` mungkin adalah opsi yang paling populer karena merupakan salah satu solusi i18n pertama untuk aplikasi JavaScript. Ia memiliki banyak plugin komunitas. Ia memiliki kelemahan utama yang sama dengan `next-intl`. Paketnya sangat berat (~19,7kb untuk `I18nProvider` + `useTranslation`, sekitar 3,5x lipat `next-intlayer`).
+`next-i18next` mungkin adalah opsi yang paling populer karena merupakan salah satu solusi i18n pertama untuk aplikasi JavaScript. Ia memiliki banyak plugin komunitas. Ia memiliki kelemahan utama yang sama dengan `next-intl`. Paketnya sangat berat (~19,7kb untuk `I18nProvider` + `useTranslation`, sekitar 3.8x lipat `next-intlayer`).
 
 Format pesan juga berbeda: `next-intl` menggunakan ICU MessageFormat, sementara `i18next` menggunakan formatnya sendiri.
 
@@ -243,7 +246,7 @@ Format pesan juga berbeda: `next-intl` menggunakan ICU MessageFormat, sementara 
 
 `next-translate` adalah rekomendasi utama saya jika Anda menyukai API bergaya `t()`. Ini elegan melalui `next-translate-plugin`, memuat namespace melalui `getStaticProps` dengan loader Webpack / Turbopack. Ini juga merupakan salah satu opsi teringan di sini (~3,5kb). Untuk namespacing, mendefinisikan namespace per halaman atau rute di config dipikirkan dengan matang dan lebih mudah dipelihara daripada alternatif utama seperti **next-intl** atau **next-i18next**. Di versi `3.1.2`, saya mencatat bahwa rendering statis tidak berfungsi; Next.js kembali ke rendering dinamis.
 
-**(Intlayer)** (`next-intlayer@9.5.6`):
+**(Intlayer)** (`next-intlayer@9.5.10`):
 
 Saya tidak akan secara pribadi menilai `next-intlayer` demi objektivitas, karena itu adalah solusi saya sendiri.
 

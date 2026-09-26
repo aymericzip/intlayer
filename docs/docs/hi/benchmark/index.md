@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-26
 priority: 8
 title: i18n लाइब्रेरी बेंचमार्क
 description: जानें कि परफॉरमेंस और बंडल आकार के मामले में Intlayer अन्य i18n लाइब्रेरीज़ की तुलना में कैसा है।
@@ -15,6 +15,9 @@ slugs:
   - doc
   - benchmark
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "बेंचमार्क परिणाम अपडेट किए गए"
   - version: 9.5.1
     date: 2026-09-11
     changes: "बेंचमार्क परिणाम अपडेट किए गए"

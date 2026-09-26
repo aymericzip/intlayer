@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026 में Solid के लिए सर्वश्रेष्ठ i18n समाधान - बेंचमार्क रिपोर्ट
 description: solid-primitives, solid-i18next, Tolgee, और Intlayer जैसे Solid अंतर्राष्ट्रीयकरण (i18n) पुस्तकालयों की तुलना करें। बंडल आकार, लीकेज और प्रतिक्रियाशीलता पर विस्तृत प्रदर्शन रिपोर्ट।
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "बेंचमार्क परिणाम अपडेट किए गए"
   - version: 9.5.7
     date: 2026-09-23
     changes: "बेंचमार्क परिणाम अपडेट किए गए"
@@ -69,7 +72,7 @@ Solid ऐप में अंतर्राष्ट्रीयकरण (Inte
 
 ## TL;DR
 
-- **Intlayer**: उन्नत सुविधाओं और अनुकूलन की आवश्यकता वाले पेशेवर Solid अनुप्रयोगों के लिए अनुशंसित विकल्प (v9.5.6)।
+- **Intlayer**: उन्नत सुविधाओं और अनुकूलन की आवश्यकता वाले पेशेवर Solid अनुप्रयोगों के लिए अनुशंसित विकल्प (v9.5.10)।
 - **@solid-primitives/i18n**: सरल परियोजनाओं के लिए उत्कृष्ट हल्का विकल्प, हालांकि इसमें लेज़ी लोडिंग (lazy loading) जैसी उन्नत सुविधाओं का अभाव है।
 - **solid-i18next**: मानक लेकिन भारी विकल्प (~3.5x Intlayer) जिसमें React i18next वाले ही नकारात्मक पक्ष हैं।
 - **Tolgee**: सुविधाओं से भरपूर अनुवाद प्लेटफ़ॉर्म, लेकिन काफी भारी (~12.7kb, Intlayer से लगभग 3.0 गुना), इसमें समर्पित Solid प्रिमिटिव की कमी है (@tolgee/web पर निर्भर करता है), और स्टैटिक सेटअप में पेजों के बीच महत्वपूर्ण अनुवाद रिसाव होता है (90% पेज रिसाव)।
@@ -105,7 +108,7 @@ i18n लीकेज समस्याओं को तुरंत पहच�
 इस बेंचमार्क के लिए, हमने निम्नलिखित पुस्तकालयों की तुलना की:
 
 - `Base App` (कोई i18n पुस्तकालय नहीं)
-- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/exports.md) (v9.5.10)
 - [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
 - [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
 - [`@tolgee/web`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -184,9 +187,9 @@ Solid पर वर्तमान में कोई आधिकारिक 
 
 यह पैकेज अपेक्षाकृत भारी है (~12.7kb, जो `solid-intlayer` से लगभग 3.0 गुना अधिक है)।
 
-Solid में प्रति-पेज विभाजन तंत्र के बिना, स्टैटिक सेटअप में सभी अनुवाद शुरुआत में ही मेमोरी में लोड हो जाते हैं। इससे भारी बंडल रिसाव (44.5% लोकेल रिसाव, 90.0% पेज रिसाव) होता है और औसत पेज बंडल आकार ~91.8kb तक पहुंच जाता है (Intlayer के ~35.8kb की तुलना में)।
+Solid में प्रति-पेज विभाजन तंत्र के बिना, स्टैटिक सेटअप में सभी अनुवाद शुरुआत में ही मेमोरी में लोड हो जाते हैं। इससे भारी बंडल रिसाव (44.5% लोकेल रिसाव, 90.0% पेज रिसाव) होता है और औसत पेज बंडल आकार ~91.8kb तक पहुंच जाता है (Intlayer के ~35.4kb की तुलना में)।
 
-भाषा बदलने की प्रतिक्रियाशीलता बहुत तेज़ है (0.6ms), जो Solid की बारीक प्रतिक्रियाशीलता से मेल खाती है, हालांकि हाइड्रेशन ओवरहेड थोड़ा अधिक है (Intlayer के ~3.0ms की तुलना में ~5.6ms)।
+भाषा बदलने की प्रतिक्रियाशीलता बहुत तेज़ है (0.6ms), जो Solid की बारीक प्रतिक्रियाशीलता से मेल खाती है, हालांकि हाइड्रेशन ओवरहेड थोड़ा अधिक है (Intlayer के ~2.9ms की तुलना में ~5.6ms)।
 
 **(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
@@ -196,7 +199,7 @@ Solid में प्रति-पेज विभाजन तंत्र क
 
 ### 3 - सिफारिशें
 
-**(Intlayer)** (`solid-intlayer@9.5.6`):
+**(Intlayer)** (`solid-intlayer@9.5.10`):
 
 मैं निष्पक्षता के लिए व्यक्तिगत रूप से `solid-intlayer` का न्याय नहीं करूँगा, क्योंकि यह मेरा अपना समाधान है।
 

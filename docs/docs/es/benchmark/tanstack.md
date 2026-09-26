@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: La mejor solución i18n para TanStack Start en 2026 - Informe de Benchmark
 description: Compara librerías de internacionalización para TanStack Start como react-i18next, use-intl e Intlayer. Informe detallado de rendimiento sobre tamaño del bundle, fugas y reactividad.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Actualización de los resultados del benchmark"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Actualización de los resultados del benchmark"
@@ -69,7 +72,7 @@ El otro impacto es en la experiencia del desarrollador: cómo declaras el conten
 
 ## TL;DR
 
-- **Intlayer**: Proporciona el mejor rendimiento y el tamaño de bundle más pequeño (v9.5.6) para TanStack Start.
+- **Intlayer**: Proporciona el mejor rendimiento y el tamaño de bundle más pequeño (v9.5.10) para TanStack Start.
 - **react-i18next** & **use-intl**: Alternativas maduras con grandes ecosistemas, mas significativamente más pesadas y complejas de optimizar.
 - **Paraglide**: Idea innovadora de tree-shaking que no funciona en la práctica. DX compleja y sobrecarga de reactividad en TanStack Start.
 - **Evitar**: **General Translation (GT)** y **Lingo.dev** debido a graves problemas de rendimiento, límites de cuota de IA y bloqueo del proveedor (vendor lock-in).
@@ -104,10 +107,10 @@ Las sintaxis basadas en `const t = useTranslation()` + `t('a.b.c')` son muy cóm
 Para este benchmark, comparamos las siguientes librerías:
 
 - `Base App` (Sin librería i18n)
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/lingui.md) (v9.5.6)
-- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/react-i18next.md) (v9.5.6)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/lingui.md) (v9.5.10)
+- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compat/react-i18next.md) (v9.5.10)
 - [`react-i18next`](https://github.com/i18next/react-i18next) (v17.0.13)
 - [`use-intl`](https://github.com/amannn/next-intl/tree/main/packages/use-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -204,7 +207,7 @@ La idea detrás de `Wuchale` es interesante pero todavía no es una solución vi
 
 `Tolgee` aborda muchos de los problemas mencionados anteriormente. Me resultó más difícil empezar con ella que con otras herramientas con enfoques similares. No proporciona seguridad de tipos, lo que también dificulta mucho detectar claves faltantes en tiempo de compilación (build time). Tuve que envolver las API de Tolgee con las mías propias para añadir la detección de claves faltantes.
 
-El package es bastante pesado (~13.8 kb, lo que es más de 2.9× `react-intlayer`).
+El package es bastante pesado (~11.1 kb, lo que es más de 2.3× `react-intlayer`).
 
 En TanStack Start también tuve problemas de reactividad: al cambiar de idioma, tuve que forzar el renderizado del proveedor y suscribirme a eventos de cambio de idioma para que la carga en otro idioma se comportara correctamente.
 
@@ -232,13 +235,13 @@ A menudo se elogia a `Lingui`. Personalmente, encontré el flujo de trabajo en t
 
 `react-intl` es una implementación de alto rendimiento del equipo de Format.js. La DX sigue siendo verbosa: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` añade complejidad, trabajo extra de JavaScript y vincula la instancia global de i18n a muchos nodos en el árbol de React.
 
-El package también es pesado (~15.3kb, lo que es aproximadamente 3× `react-intlayer`).
+El package también es pesado (~14.4kb, lo que es aproximadamente 3× `react-intlayer`).
 
 ### 4 - Recomendaciones
 
 Este benchmark de TanStack Start no tiene un equivalente directo a `next-translate` (plugin de Next.js + `getStaticProps`). Para los equipos que realmente quieren una API `t()` con un ecosistema maduro, `react-i18next` y `use-intl` siguen siendo opciones "razonables", pero prepárate para invertir mucho tiempo optimizando para evitar fugas.
 
-**(Intlayer)** (`react-intlayer@9.5.6`):
+**(Intlayer)** (`react-intlayer@9.5.10`):
 
 No seré yo quien juzgue personalmente a `react-intlayer` por objetividad, ya que es mi propia solución.
 

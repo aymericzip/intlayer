@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Najlepsze rozwiązanie i18n dla Solid w 2026 r. - raport z benchmarku
 description: Porównaj biblioteki internacjonalizacji (i18n) dla Solid, takie jak solid-primitives, solid-i18next, Tolgee i Intlayer. Szczegółowy raport wydajności dotyczący rozmiaru paczki, wycieków i reaktywności.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Aktualizacja wyników benchmarku"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Aktualizacja wyników benchmarku"
@@ -69,7 +72,7 @@ Innym skutkiem jest wpływ na doświadczenie programisty (DX): sposób deklarowa
 
 ## TL;DR
 
-- **Intlayer**: Zalecany wybór dla profesjonalnych aplikacji Solid wymagających zaawansowanych funkcji i optymalizacji (v9.5.6).
+- **Intlayer**: Zalecany wybór dla profesjonalnych aplikacji Solid wymagających zaawansowanych funkcji i optymalizacji (v9.5.10).
 - **@solid-primitives/i18n**: Doskonała lekka alternatywa dla prostych projektów, choć brakuje jej zaawansowanych funkcji, takich jak lazy loading.
 - **solid-i18next**: Standardowa, ale ciężka opcja (~3.5x Intlayer) z tymi samymi wadami co React i18next.
 - **Tolgee**: Bogata w funkcje platforma tłumaczeniowa, ale dość ciężka (~12.7kb, około 3.0× Intlayer), pozbawiona dedykowanych prymitywów Solid (opiera się na @tolgee/web) i wykazująca znaczny wyciek między stronami w konfiguracjach statycznych (90% wycieku stron).
@@ -105,7 +108,7 @@ Składnie zbudowane wokół `t('a.b.c')` są bardzo wygodne, ale często zachęc
 W tym benchmarku porównaliśmy następujące biblioteki:
 
 - `Base App` (Brak biblioteki i18n)
-- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/solid-intlayer/exports.md) (v9.5.10)
 - [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
 - [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
 - [`@tolgee/web`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -184,9 +187,9 @@ W Solid obecnie nie ma oficjalnego natywnego adaptera (takiego jak `@tolgee/soli
 
 Pakiet jest stosunkowo ciężki (~12.7kb, czyli około 3.0× `solid-intlayer`).
 
-Bez mechanizmu granularnego podziału na strony w Solid wszystkie tłumaczenia są ładowane do pamięci od razu przy starcie w konfiguracjach statycznych. Skutkuje to dużym wyciekiem paczki (44.5% wycieku języka, 90.0% wycieku stron) oraz średnim rozmiarem paczki strony ~91.8kb (w porównaniu do ~35.8kb dla Intlayer).
+Bez mechanizmu granularnego podziału na strony w Solid wszystkie tłumaczenia są ładowane do pamięci od razu przy starcie w konfiguracjach statycznych. Skutkuje to dużym wyciekiem paczki (44.5% wycieku języka, 90.0% wycieku stron) oraz średnim rozmiarem paczki strony ~91.8kb (w porównaniu do ~35.4kb dla Intlayer).
 
-Reaktywność podczas zmiany języka jest bardzo szybka (0.6ms), idealnie współgrając z drobnoziarnistą reaktywnością Solid, chociaż narzut hydratacji jest nieco wyższy (~5.6ms w porównaniu do ~3.0ms dla Intlayer).
+Reaktywność podczas zmiany języka jest bardzo szybka (0.6ms), idealnie współgrając z drobnoziarnistą reaktywnością Solid, chociaż narzut hydratacji jest nieco wyższy (~5.6ms w porównaniu do ~2.9ms dla Intlayer).
 
 **(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
@@ -196,7 +199,7 @@ Wreszcie, w porównaniu z innymi rozwiązaniami, Paraglide nie używa store'a (n
 
 ### 3 - Rekomendacje
 
-**(Intlayer)** (`solid-intlayer@9.5.6`):
+**(Intlayer)** (`solid-intlayer@9.5.10`):
 
 Nie będę osobiście oceniać `solid-intlayer` ze względu na obiektywizm, ponieważ jest to moje własne rozwiązanie.
 

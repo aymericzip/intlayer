@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-26
 priority: 8
 title: i18n Kütüphaneleri Karşılaştırması (Benchmark)
 description: Intlayer'ın performans ve bundle boyutu açısından diğer i18n kütüphaneleriyle nasıl karşılaştırıldığını öğrenin.
@@ -15,6 +15,9 @@ slugs:
   - doc
   - benchmark
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Benchmark sonuçları güncellendi"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Benchmark sonuçları güncellendi"

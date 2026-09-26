@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026 में Svelte के लिए सर्वश्रेष्ठ i18n समाधान - बेंचमार्क रिपोर्ट
 description: svelte-i18n, Paraglide, Tolgee, और Intlayer जैसे Svelte अंतर्राष्ट्रीयकरण (i18n) पुस्तकालयों की तुलना करें। बंडल आकार, लीकेज और प्रतिक्रियाशीलता पर विस्तृत प्रदर्शन रिपोर्ट।
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "बेंचमार्क परिणाम अपडेट किए गए"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Update benchmark results"
@@ -69,10 +72,10 @@ Svelte ऐप में अंतर्राष्ट्रीयकरण (Int
 
 ## TL;DR
 
-- **Intlayer**: सबसे छोटे पदचिह्न (footprint) के साथ सबसे प्रदर्शन-कुशल विकल्प (v9.5.6)।
+- **Intlayer**: सबसे छोटे पदचिह्न (footprint) के साथ सबसे प्रदर्शन-कुशल विकल्प (v9.5.10)।
 - **Paraglide**: ट्री-शेकिंग (tree-shaking) के लिए मजबूत दावेदार लेकिन इसमें अधिक जटिल डेवलपर अनुभव और प्रतिक्रियाशीलता ओवरहेड है।
 - **Tolgee**: इन-कॉन्टेक्स्ट एडिटिंग के साथ सुविधाओं से भरपूर अनुवाद प्लेटफ़ॉर्म, लेकिन काफी भारी (~13.0kb, Intlayer से लगभग 3.6 गुना), और स्टैटिक सेटअप में पेजों के बीच महत्वपूर्ण अनुवाद रिसाव होता है (90% पेज रिसाव)।
-- **svelte-i18n**: Svelte के लिए व्यापक और मानक, लेकिन बहुत बड़े बंडल वजन (~4.5x Intlayer) के साथ आता है।
+- **svelte-i18n**: Svelte के लिए व्यापक और मानक, लेकिन बहुत बड़े बंडल वजन (~4.6x Intlayer) के साथ आता है।
 
 ## अपने ऐप का परीक्षण करें
 
@@ -104,7 +107,7 @@ i18n लीकेज समस्याओं को तुरंत पहच�
 इस बेंचमार्क के लिए, हमने निम्नलिखित पुस्तकालयों की तुलना की:
 
 - `Base App` (कोई i18n पुस्तकालय नहीं)
-- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/svelte-intlayer/exports.md) (v9.5.10)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
 - [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
@@ -179,7 +182,7 @@ GitHub सितारे किसी प्रोजेक्ट की लो
 
 Svelte में प्रति-पेज विभाजन तंत्र के बिना, स्टैटिक सेटअप में सभी अनुवाद शुरुआत में ही मेमोरी में लोड हो जाते हैं। इससे भारी बंडल रिसाव (50.0% लोकेल रिसाव, 90.0% पेज रिसाव) होता है और औसत पेज बंडल आकार ~100.7kb तक पहुंच जाता है (Intlayer के ~59.0kb की तुलना में)।
 
-भाषा बदलने की प्रतिक्रियाशीलता बहुत तेज़ है (0.5ms), जो Svelte के प्रतिक्रियाशील स्टोर्स से लाभान्वित होती है, हालांकि हाइड्रेशन ओवरहेड थोड़ा अधिक है (Intlayer के ~5.5ms की तुलना में ~6.2ms)।
+भाषा बदलने की प्रतिक्रियाशीलता बहुत तेज़ है (0.5ms), जो Svelte के प्रतिक्रियाशील स्टोर्स से लाभान्वित होती है, हालांकि हाइड्रेशन ओवरहेड थोड़ा अधिक है (Intlayer के ~4.1ms की तुलना में ~6.2ms)।
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 
@@ -187,7 +190,7 @@ Svelte में प्रति-पेज विभाजन तंत्र �
 
 ### 3 - सिफारिशें
 
-**(Intlayer)** (`svelte-intlayer@9.5.0`):
+**(Intlayer)** (`svelte-intlayer@9.5.10`):
 
 मैं निष्पक्षता के लिए व्यक्तिगत रूप से `svelte-intlayer` का न्याय नहीं करूँगा, क्योंकि यह मेरा अपना समाधान है।
 

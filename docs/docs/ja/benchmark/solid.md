@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026年 Solid向けの最高のi18nソリューション - ベンチマークレポート
 description: solid-primitives、solid-i18next、Tolgee、IntlayerなどのSolid国際化（i18n）ライブラリを比較します。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "ベンチマーク結果を更新"
   - version: 9.5.7
     date: 2026-09-23
     changes: "ベンチマーク結果を更新"
@@ -105,7 +108,7 @@ i18nリークの問題を素早く特定するために、無料のスキャナ�
 このベンチマークでは、以下のライブラリを比較しました。
 
 - `Base App` (i18nライブラリなし)
-- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/solid-intlayer/exports.md) (v9.5.10)
 - [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
 - [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
 - [`@tolgee/web`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -184,9 +187,9 @@ Solid向けには、現在公式のネイティブアダプター（`@tolgee/sol
 
 パッケージは比較的重いです（約12.7kb、これは `solid-intlayer` の約3.0倍です）。
 
-Solidにおけるページごとのきめ細かい分割メカニズムがないため、静的設定では起動時にすべての翻訳がメモリに読み込まれます。これにより大幅なバンドルリークが発生し（ロケールリーク44.5%、ページリーク90.0%）、平均ページバンドルサイズは約91.8kbになります（Intlayerの約35.8kbと比較）。
+Solidにおけるページごとのきめ細かい分割メカニズムがないため、静的設定では起動時にすべての翻訳がメモリに読み込まれます。これにより大幅なバンドルリークが発生し（ロケールリーク44.5%、ページリーク90.0%）、平均ページバンドルサイズは約91.8kbになります（Intlayerの約35.4kbと比較）。
 
-言語切り替えの反応性は非常に高速（0.6ms）であり、Solidのきめ細かいリアクティビティとよく調和していますが、ハイドレーションのオーバーヘッドはやや高くなります（Intlayerの約3.0msに対して約5.6ms）。
+言語切り替えの反応性は非常に高速（0.6ms）であり、Solidのきめ細かいリアクティビティとよく調和していますが、ハイドレーションのオーバーヘッドはやや高くなります（Intlayerの約2.9msに対して約5.6ms）。
 
 **(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
@@ -196,7 +199,7 @@ Solidにおけるページごとのきめ細かい分割メカニズムがない
 
 ### 3 - 推奨事項
 
-**(Intlayer)** (`solid-intlayer@9.5.6`):
+**(Intlayer)** (`solid-intlayer@9.5.10`):
 
 客観性を保つため、`solid-intlayer` については私自身のソリューションであるため、個人的な評価は控えます。
 

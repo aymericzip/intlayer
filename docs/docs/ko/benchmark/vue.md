@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026년 Vue를 위한 최고의 i18n 솔루션 - 벤치마크 리포트
 description: vue-i18n, fluent-vue, Tolgee, Intlayer와 같은 Vue 국제화(i18n) 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "벤치마크 결과 업데이트"
   - version: 9.5.7
     date: 2026-09-23
     changes: "벤치마크 결과 업데이트 및 Tolgee 추가"
@@ -69,8 +72,8 @@ style="border:none;"
 
 ## TL;DR
 
-- **Intlayer**: 내장된 스코핑(scoping)과 동적 로딩을 제공하는 가장 가벼운 솔루션(v9.5.6).
-- **Tolgee**: 동적 모드에서 누수 없는 효과적인 동적 로딩을 제공하지만, 더 무겁고 (~3.7× Intlayer) 컴파일 시점의 기본 타입 안전성이 부족합니다.
+- **Intlayer**: 내장된 스코핑(scoping)과 동적 로딩을 제공하는 가장 가벼운 솔루션(v9.5.10).
+- **Tolgee**: 동적 모드에서 누수 없는 효과적인 동적 로딩을 제공하지만, 더 무겁고 (~3.0× Intlayer) 컴파일 시점의 기본 타입 안전성이 부족합니다.
 - **vue-i18n**: 풍부한 에코시스템을 가진 업계 표준이지만, 대규모 애플리케이션에서 코드 분할 최적화가 어렵고 상당히 무거워질 수 있습니다.
 - **fluent-vue**: 혁신적인 메시지 구성을 제공하지만 타입 안전성이 부족하고 극도로 무거운 솔루션입니다.
 
@@ -104,8 +107,8 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 이 벤치마크에서는 다음과 같은 라이브러리를 비교했습니다:
 
 - `Base App` (i18n 라이브러리 없음)
-- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vue-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md) (v9.5.6)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vue-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md) (v9.5.10)
 - [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
 - [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 - [`@tolgee/vue`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -164,7 +167,7 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 
 **(Tolgee)** (`@tolgee/vue@7.2.0`):
 
-`Tolgee`는 앞서 언급한 많은 문제들을 해결하며, 로케일 및 페이지 누수를 성공적으로 제거하는 동적 로딩을 제공합니다(페이지 JS를 약 58.8kb로 축소). 하지만 기본적으로 키에 대한 컴파일 타임 타입 안전성을 제공하지 않아 누락된 키를 감지하기 어렵습니다. 또한 라이브러리 크기가 비교적 무겁습니다(~13.8kb, 이는 `vue-intlayer`의 약 3.7배입니다).
+`Tolgee`는 앞서 언급한 많은 문제들을 해결하며, 로케일 및 페이지 누수를 성공적으로 제거하는 동적 로딩을 제공합니다(페이지 JS를 약 58.8kb로 축소). 하지만 기본적으로 키에 대한 컴파일 타임 타입 안전성을 제공하지 않아 누락된 키를 감지하기 어렵습니다. 또한 라이브러리 크기가 비교적 무겁습니다(~13.8kb, 이는 `vue-intlayer`의 약 3.0배입니다).
 
 **(vue-i18n)** (`vue-i18n@11.4.0`):
 
@@ -174,10 +177,10 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 
 **(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue**는 .ftl 형식을 통해 혁신을 시도합니다. 메시지 구성이 훌륭하고 시작하기 쉽습니다. 하지만 실제로는 타입 안전성의 부재로 오류 위험이 높고 디버깅에 많은 시간이 소요될 수 있습니다. 또한, 이 솔루션은 Vite 플러그인을 사용하여 메시지를 로드하는데, 이는 모든 언어의 모든 콘텐츠를 각 페이지에 강제로 로드하게 만듭니다. 게다가 이는 극도로 무거운 솔루션입니다 (~29.7kb, `vue-intlayer`의 약 8배).
+- **fluent-vue**는 .ftl 형식을 통해 혁신을 시도합니다. 메시지 구성이 훌륭하고 시작하기 쉽습니다. 하지만 실제로는 타입 안전성의 부재로 오류 위험이 높고 디버깅에 많은 시간이 소요될 수 있습니다. 또한, 이 솔루션은 Vite 플러그인을 사용하여 메시지를 로드하는데, 이는 모든 언어의 모든 콘텐츠를 각 페이지에 강제로 로드하게 만듭니다. 게다가 이는 극도로 무거운 솔루션입니다 (~92.7kb, `vue-intlayer`의 약 20배).
 
 ### 3 - 추천 사항
 
-**(Intlayer)** (`vue-intlayer@9.5.6`):
+**(Intlayer)** (`vue-intlayer@9.5.10`):
 
 객관성을 위해 나의 솔루션인 `vue-intlayer`에 대해서는 직접 판단하지 않겠습니다.

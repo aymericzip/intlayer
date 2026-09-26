@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Solusi i18n Terbaik untuk Vue di Tahun 2026 - Laporan Benchmark
 description: Bandingkan pustaka internasionalisasi (i18n) Vue seperti vue-i18n, fluent-vue, Tolgee, dan Intlayer. Laporan performa mendetail tentang ukuran bundle, kebocoran, dan reaktivitas.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Pembaruan hasil benchmark"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Pembaruan hasil benchmark dan penambahan Tolgee"
@@ -69,8 +72,8 @@ Dampak lainnya adalah pada pengalaman pengembang (DX): bagaimana Anda mendeklara
 
 ## TL;DR
 
-- **Intlayer**: Solusi paling ringan (v9.5.6) dengan scoping bawaan dan pemuatan dinamis.
-- **Tolgee**: Pemuatan dinamis yang efektif tanpa kebocoran dalam mode dinamis, tetapi lebih berat (~3.7× Intlayer) dan tidak memiliki type safety bawaan saat waktu kompilasi.
+- **Intlayer**: Solusi paling ringan (v9.5.10) dengan scoping bawaan dan pemuatan dinamis.
+- **Tolgee**: Pemuatan dinamis yang efektif tanpa kebocoran dalam mode dinamis, tetapi lebih berat (~3.0× Intlayer) dan tidak memiliki type safety bawaan saat waktu kompilasi.
 - **vue-i18n**: Standar industri dengan ekosistem yang kaya, tetapi bisa menjadi jauh lebih berat dan sulit dioptimalkan untuk code-splitting dalam aplikasi besar.
 - **fluent-vue**: Organisasi pesan yang inovatif tetapi kurang dalam keamanan tipe (type-safety) dan ternyata merupakan solusi yang sangat berat.
 
@@ -104,8 +107,8 @@ Sintaks yang dibangun di sekitar `const { t } = useI18n()` + `t('a.b.c')` sangat
 Untuk benchmark ini, kami membandingkan pustaka berikut:
 
 - `Base App` (Tanpa pustaka i18n)
-- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vue-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md) (v9.5.6)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vue-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md) (v9.5.10)
 - [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
 - [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 - [`@tolgee/vue`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -164,7 +167,7 @@ Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komuni
 
 **(Tolgee)** (`@tolgee/vue@7.2.0`):
 
-`Tolgee` mengatasi banyak masalah yang disebutkan sebelumnya, menawarkan pemuatan dinamis yang berhasil menghilangkan kebocoran lokal dan halaman (mengurangi JS halaman menjadi sekitar 58.8kb). Namun, ia tidak menyediakan keamanan tipe bawaan saat waktu kompilasi untuk kunci, sehingga menyulitkan pendeteksian kunci yang hilang. Selain itu, ukuran pustaka relatif berat (~13.8kb, yaitu sekitar 3.7× `vue-intlayer`).
+`Tolgee` mengatasi banyak masalah yang disebutkan sebelumnya, menawarkan pemuatan dinamis yang berhasil menghilangkan kebocoran lokal dan halaman (mengurangi JS halaman menjadi sekitar 58.8kb). Namun, ia tidak menyediakan keamanan tipe bawaan saat waktu kompilasi untuk kunci, sehingga menyulitkan pendeteksian kunci yang hilang. Selain itu, ukuran pustaka relatif berat (~13.8kb, yaitu sekitar 3.0× `vue-intlayer`).
 
 **(vue-i18n)** (`vue-i18n@11.4.0`):
 
@@ -174,10 +177,10 @@ Paketnya sangat berat (~24.1 kb, yang mana sekitar 6.5× `vue-intlayer`).
 
 **(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue** menawarkan satu upaya inovasi melalui format .ftl. Organisasi pesan sangat bagus, lebih mudah untuk memulai. Namun dalam praktiknya, kurangnya keamanan tipe meningkatkan risiko kesalahan dan dapat dengan cepat memakan waktu untuk proses debug. Selain itu, solusi tersebut memuat pesan menggunakan plugin vite yang memaksa pemuatan semua konten dalam semua bahasa ke setiap halaman. Selain itu, ini adalah solusi yang sangat berat (~29.7kb, yang mana sekitar 8× `vue-intlayer`).
+- **fluent-vue** menawarkan satu upaya inovasi melalui format .ftl. Organisasi pesan sangat bagus, lebih mudah untuk memulai. Namun dalam praktiknya, kurangnya keamanan tipe meningkatkan risiko kesalahan dan dapat dengan cepat memakan waktu untuk proses debug. Selain itu, solusi tersebut memuat pesan menggunakan plugin vite yang memaksa pemuatan semua konten dalam semua bahasa ke setiap halaman. Selain itu, ini adalah solusi yang sangat berat (~92.7kb, yang mana sekitar 20× `vue-intlayer`).
 
 ### 3 - Rekomendasi
 
-**(Intlayer)** (`vue-intlayer@9.5.6`):
+**(Intlayer)** (`vue-intlayer@9.5.10`):
 
 Saya tidak akan menilai `vue-intlayer` secara pribadi demi objektivitas, karena ini adalah solusi saya sendiri.

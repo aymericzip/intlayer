@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026 年 Vue 最佳 i18n 解决方案 - 基准报告
 description: 比较 Vue 国际化（i18n）库，如 vue-i18n、fluent-vue, Tolgee 和 Intlayer。关于Bundle 大小、泄漏和反应性的详细性能报告。
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "更新基准测试结果"
   - version: 9.5.7
     date: 2026-09-23
     changes: "更新基准测试结果并添加 Tolgee"
@@ -104,8 +107,8 @@ style="border:none;"
 在此基准测试中，我们比较了以下库：
 
 - `Base App`（无 i18n 库）
-- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vue-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) (v9.5.6)
+- [`vue-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vue-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/vue-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) (v9.5.10)
 - [`vue-i18n`](https://github.com/intlify/vue-i18n) (v11.4.0)
 - [`fluent-vue`](https://github.com/fluent-vue/fluent-vue) (v3.8.2)
 - [`@tolgee/vue`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -174,10 +177,10 @@ GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力�
 
 **(fluent-vue)** (`fluent-vue@3.8.2`):
 
-- **fluent-vue** 通过 .ftl 格式提供了一种创新尝试。消息组织很棒，更容易上手。但在实践中，缺乏类型安全增加了错误风险，并且调试起来可能很快就会变得耗时。此外，该解决方案使用 vite 插件加载消息，强制将所有语言的所有内容加载到每个页面中。此外，这是一个极其沉重的解决方案（~29.7kb，约为 `vue-intlayer` 的 8倍）。
+- **fluent-vue** 通过 .ftl 格式提供了一种创新尝试。消息组织很棒，更容易上手。但在实践中，缺乏类型安全增加了错误风险，并且调试起来可能很快就会变得耗时。此外，该解决方案使用 vite 插件加载消息，强制将所有语言的所有内容加载到每个页面中。此外，这是一个极其沉重的解决方案（~92.7kb，约为 `vue-intlayer` 的 20倍）。
 
 ### 3 - 建议
 
-**(Intlayer)** (`vue-intlayer@9.5.6`):
+**(Intlayer)** (`vue-intlayer@9.5.10`):
 
 出于客观性考虑，我个人不会对 `vue-intlayer` 做出评价，因为它是我的个人解决方案。

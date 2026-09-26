@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-26
 priority: 8
 title: Benchmark bibliotek i18n
 description: Dowiedz się, jak Intlayer wypada na tle innych bibliotek i18n pod względem wydajności i rozmiaru pakietu.
@@ -15,6 +15,9 @@ slugs:
   - doc
   - benchmark
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Aktualizacja wyników benchmarku"
   - version: 9.5.1
     date: 2026-09-11
     changes: "Aktualizacja wyników benchmarku"

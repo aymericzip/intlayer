@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-26
 priority: 8
 title: i18n 库基准测试
 description: 了解 Intlayer 在性能和打包体积方面与其他 i18n 库的对比情况。
@@ -15,6 +15,9 @@ slugs:
   - doc
   - benchmark
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "更新基准测试结果"
   - version: 9.5.1
     date: 2026-09-11
     changes: "更新基准测试结果"

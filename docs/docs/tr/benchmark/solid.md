@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026'da Solid için En İyi i18n Çözümü - Benchmark Raporu
 description: solid-primitives, solid-i18next, Tolgee ve Intlayer gibi Solid uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Benchmark sonuçları güncellendi"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Benchmark sonuçları güncellendi"
@@ -69,7 +72,7 @@ Diğer etki geliştirici deneyimi (DX) üzerindedir: içeriği nasıl tanımlad�
 
 ## TL;DR
 
-- **Intlayer**: Gelişmiş özelliklere ve optimizasyona ihtiyaç duyan profesyonel Solid uygulamaları için önerilen seçim (v9.5.6).
+- **Intlayer**: Gelişmiş özelliklere ve optimizasyona ihtiyaç duyan profesyonel Solid uygulamaları için önerilen seçim (v9.5.10).
 - **@solid-primitives/i18n**: Basit projeler için mükemmel hafif bir alternatif, ancak lazy loading gibi gelişmiş özelliklerden yoksundur.
 - **solid-i18next**: Standart ancak ağır bir seçenek (~3.5x Intlayer), React i18next ile aynı dezavantajlara sahiptir.
 - **Tolgee**: Zengin özellikli çeviri platformu, ancak oldukça ağır (~12.7kb, Intlayer'ın yaklaşık 3.0 katı), yerel Solid primitiflerinden yoksun (@tolgee/web kullanır) ve statik kurulumlarda sayfalar arası belirgin sızıntı gösterir (%90 sayfa sızıntısı).
@@ -105,7 +108,7 @@ Dinamik yükleme ile bir ödünleşimi kabul edersiniz: daha az başlangıç JS'
 Bu benchmark için aşağıdaki kütüphaneleri karşılaştırdık:
 
 - `Base App` (i18n kütüphanesi yok)
-- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/exports.md) (v9.5.6)
+- [`solid-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/exports.md) (v9.5.10)
 - [`@solid-primitives/i18n`](https://github.com/solidjs-community/solid-primitives/tree/main/packages/i18n) (v2.2.1)
 - [`i18next`](https://github.com/i18next/i18next) (v26.0.8) + [`@mbarzda/solid-i18next`](https://github.com/mbarzda/solid-i18next) (v1.4.1)
 - [`@tolgee/web`](https://github.com/tolgee/tolgee-js) (v7.2.0)
@@ -184,9 +187,9 @@ Solid üzerinde şu anda resmi bir yerel bağdaştırıcı (`@tolgee/solid` gibi
 
 Paket oldukça ağırdır (~12.7kb, `solid-intlayer`'ın yaklaşık 3.0 katı).
 
-Solid'de sayfa başına ayrıntılı bölme mekanizması olmadan, statik kurulumlarda tüm çeviriler başlangıçta belleğe yüklenir. Bu durum yüksek paket sızıntısına (%44.5 dil sızıntısı, %90.0 sayfa sızıntısı) ve ortalama ~91.8kb sayfa paketi boyutuna yol açar (Intlayer için ~35.8kb).
+Solid'de sayfa başına ayrıntılı bölme mekanizması olmadan, statik kurulumlarda tüm çeviriler başlangıçta belleğe yüklenir. Bu durum yüksek paket sızıntısına (%44.5 dil sızıntısı, %90.0 sayfa sızıntısı) ve ortalama ~91.8kb sayfa paketi boyutuna yol açar (Intlayer için ~35.4kb).
 
-Dil değiştirme reaktivitesi son derece hızlıdır (0.6ms), Solid'in hassas reaktivitesine tam uyum sağlar; ancak hidrasyon ek yükü biraz daha yüksektir (Intlayer için ~3.0ms iken ~5.6ms).
+Dil değiştirme reaktivitesi son derece hızlıdır (0.6ms), Solid'in hassas reaktivitesine tam uyum sağlar; ancak hidrasyon ek yükü biraz daha yüksektir (Intlayer için ~2.9ms iken ~5.6ms).
 
 **(Paraglide)** (`@inlang/paraglide-js@2.25.1`):
 
@@ -196,7 +199,7 @@ Son olarak, diğer çözümlerle karşılaştırıldığında Paraglide, içeri�
 
 ### 3 - Öneriler
 
-**(Intlayer)** (`solid-intlayer@9.5.6`):
+**(Intlayer)** (`solid-intlayer@9.5.10`):
 
 Kendi çözümüm olduğu için tarafsızlık adına `solid-intlayer`'ı kişisel olarak yargılamayacağım.
 

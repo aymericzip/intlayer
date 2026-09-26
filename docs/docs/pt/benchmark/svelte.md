@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Melhor solução i18n para Svelte em 2026 - Relatório de Benchmark
 description: Compare bibliotecas de internacionalização (i18n) para Svelte como svelte-i18n, Paraglide, Tolgee e Intlayer. Relatório de desempenho detalhado sobre tamanho do bundle, vazamento e reatividade.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Atualização dos resultados do benchmark"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Update benchmark results"
@@ -69,10 +72,10 @@ O outro impacto é na experiência do desenvolvedor (DX): como você declara con
 
 ## TL;DR
 
-- **Intlayer**: A escolha mais eficiente em desempenho (v9.5.6) com o menor footprint.
+- **Intlayer**: A escolha mais eficiente em desempenho (v9.5.10) com o menor footprint.
 - **Paraglide**: Forte candidato para tree-shaking, mas possui uma experiência de desenvolvedor mais complexa e overhead de reatividade.
 - **Tolgee**: Plataforma de tradução rica em recursos com edição in-context, mas bastante pesada (~13.0kb, cerca de 3.6× Intlayer), e em configurações estáticas apresenta vazamento substancial entre páginas (90% de vazamento de página).
-- **svelte-i18n**: Abrangente e padrão para Svelte, mas carrega um peso de bundle muito maior (~4.5× o Intlayer).
+- **svelte-i18n**: Abrangente e padrão para Svelte, mas carrega um peso de bundle muito maior (~4.6× o Intlayer).
 
 ## Teste seu app
 
@@ -104,7 +107,7 @@ Sintaxes construídas em torno de `t('a.b.c')` são muito convenientes, mas freq
 Para este benchmark, comparamos as seguintes bibliotecas:
 
 - `Base App` (Sem biblioteca i18n)
-- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/svelte-intlayer/exports.md) (v9.5.6)
+- [`svelte-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/svelte-intlayer/exports.md) (v9.5.10)
 - [`svelte-i18n`](https://github.com/kaisermann/svelte-i18n) (v4.0.1)
 - [`@tolgee/svelte`](https://github.com/tolgee/tolgee-js) (v7.2.1)
 - [`@inlang/paraglide-js`](https://github.com/opral/paraglide-js) (v2.25.1)
@@ -179,7 +182,7 @@ O pacote é relativamente pesado (~13.0kb, cerca de 3.6× `svelte-intlayer`).
 
 Sem uma divisão granular por página no Svelte, todas as traduções são carregadas na memória logo na inicialização em configurações estáticas. Isso causa um vazamento substancial no bundle (50.0% de vazamento de localidade, 90.0% de vazamento de página) e tamanhos médios de bundle por página de ~100.7kb (em comparação com ~59.0kb para o Intlayer).
 
-A reatividade na troca de idioma é muito rápida (0.5ms), beneficiando-se das stores reativas do Svelte, embora a sobrecarga de hidratação seja um pouco maior (~6.2ms contra ~5.5ms para o Intlayer).
+A reatividade na troca de idioma é muito rápida (0.5ms), beneficiando-se das stores reativas do Svelte, embora a sobrecarga de hidratação seja um pouco maior (~6.2ms contra ~4.1ms para o Intlayer).
 
 **(svelte-i18n)** (`svelte-i18n@4.0.1`):
 
@@ -187,7 +190,7 @@ Esta solução atende a todas as necessidades de i18n em um projeto Svelte. Mas,
 
 ### 3 - Recomendações
 
-**(Intlayer)** (`svelte-intlayer@9.5.0`):
+**(Intlayer)** (`svelte-intlayer@9.5.10`):
 
 Eu não julgarei pessoalmente o `svelte-intlayer` por uma questão de objetividade, já que é minha própria solução.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: 2026년 TanStack Start를 위한 최고의 i18n 솔루션 - 벤치마크 리포트
 description: react-i18next, use-intl, Intlayer와 같은 TanStack Start 국제화 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "벤치마크 결과 업데이트"
   - version: 9.5.7
     date: 2026-09-23
     changes: "벤치마크 결과 업데이트"
@@ -69,7 +72,7 @@ history:
 
 ## TL;DR
 
-- **Intlayer**: TanStack Start에서 최고의 성능과 가장 작은 번들 크(v9.5.6)를 제공합니다.
+- **Intlayer**: TanStack Start에서 최고의 성능과 가장 작은 번들 크(v9.5.10)를 제공합니다.
 - **react-i18next** & **use-intl**: 큰 에코시스템을 가진 성숙한 대안이지만, 훨씬 더 무겁고 최적화가 복잡합니다.
 - **Paraglide**: 혁신적인 트리 쉐이킹 아이디어이지만 실제로는 작동하지 않습니다. TanStack Start에서 복잡한 DX와 반응성 오버헤드가 발생합니다.
 - **피해야 할 솔루션**: **General Translation (GT)** 및 **Lingo.dev**. 심각한 성능 문제, AI 쿼터 제한 및 벤더 종속성(vendor lock-in) 때문입니다.
@@ -104,10 +107,10 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 이 벤치마크에서는 다음과 같은 라이브러리를 비교했습니다:
 
 - `Base App` (i18n 라이브러리 없음)
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md) (v9.5.6)
-- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/react-i18next.md) (v9.5.6)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md) (v9.5.10)
+- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/react-i18next.md) (v9.5.10)
 - [`react-i18next`](https://github.com/i18next/react-i18next) (v17.0.13)
 - [`use-intl`](https://github.com/amannn/next-intl/tree/main/packages/use-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -204,7 +207,7 @@ GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 �
 
 `Tolgee`는 앞에서 언급한 많은 문제들을 해결합니다. 비슷한 접근 방식을 가진 다른 도구들보다 시작하기 더 어렵다고 느꼈습니다. 타입 안전성을 제공하지 않아 컴파일 시점에 누락된 키를 찾는 것도 매우 어렵습니다. 누락된 키 감지 기능을 추가하기 위해 Tolgee의 API를 나의 API로 래핑해야 했습니다.
 
-이 패키지는 상당히 무거운 편입니다 (~13.8 kb, 이는 `react-intlayer`의 2.9배 이상입니다).
+이 패키지는 상당히 무거운 편입니다 (~11.1 kb, 이는 `react-intlayer`의 2.3배 이상입니다).
 
 TanStack Start에서도 반응성 문제가 있었습니다: 로케일 변경 시 프로바이더를 강제 재렌더링하고 로케일 변경 이벤트를 구독하여 다른 언어로의 로딩이 올바르게 작동하도록 해야 했습니다.
 
@@ -232,13 +235,13 @@ TanStack Start에서는 Next.js 전용 함정(`setRequestLocale`, 정적 렌더�
 
 `react-intl`은 Format.js 팀의 성능 중심 구현입니다. DX는 여전히 장황합니다: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })`는 복잡성과 추가 JavaScript 작업을 가중시키고 글로벌 i18n 인스턴스를 React 트리의 많은 노드에 묶어둡니다.
 
-패키지도 무겁습니다(~15.3kb, 이는 `react-intlayer`의 약 3배 정도).
+패키지도 무겁습니다(~14.4kb, 이는 `react-intlayer`의 약 3배 정도).
 
 ### 4 - 추천 사항
 
 이 TanStack Start 벤치마크에는 `next-translate`(Next.js 플러그인 + `getStaticProps`)에 상응하는 직접적인 대안이 없습니다. 성숙한 에코시스템과 `t()` API를 진정으로 원하는 팀에게는 `react-i18next`와 `use-intl`이 "합리적인" 선택으로 남겠지만, 누수를 피하기 위해 최적화하는 데 많은 시간을 투자할 것을 각오해야 합니다.
 
-**(Intlayer)** (`react-intlayer@9.5.6`):
+**(Intlayer)** (`react-intlayer@9.5.10`):
 
 객관성을 위해 나의 솔루션인 `react-intlayer`에 대해서는 직접 판단하지 않겠습니다.
 

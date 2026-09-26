@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-26
 priority: 8
 title: i18n 라이브러리 벤치마크
 description: Intlayer 가 성능 및 번들 크기 측면에서 다른 i18n 라이브러리와 어떻게 비교되는지 알아보세요.
@@ -15,6 +15,9 @@ slugs:
   - doc
   - benchmark
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "벤치마크 결과 업데이트"
   - version: 9.5.1
     date: 2026-09-11
     changes: "벤치마크 결과 업데이트"

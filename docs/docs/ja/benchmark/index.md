@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-11
+updatedAt: 2026-09-26
 priority: 8
 title: i18nライブラリのベンチマーク
 description: パフォーマンスとバンドルサイズの観点から、Intlayerが他のi18nライブラリとどのように比較されるかをご覧ください。
@@ -15,6 +15,9 @@ slugs:
   - doc
   - benchmark
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "ベンチマーク結果を更新"
   - version: 9.5.1
     date: 2026-09-11
     changes: "ベンチマーク結果を更新"

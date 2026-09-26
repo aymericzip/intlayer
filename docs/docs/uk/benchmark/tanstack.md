@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Найкраще i18n рішення для TanStack Start у 2026 році - Звіт бенчмарку
 description: Порівняйте бібліотеки інтернаціоналізації для TanStack Start, такі як react-i18next, use-intl та Intlayer. Детальний звіт про продуктивність за розміром бандла, витоком та реактивністю.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Оновлення результатів бенчмарку"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Оновлення результатів бенчмарку"
@@ -69,7 +72,7 @@ history:
 
 ## TL;DR
 
-- **Intlayer**: Забезпечує найкращу продуктивність і найменший розмір бандла (v9.5.6) для TanStack Start.
+- **Intlayer**: Забезпечує найкращу продуктивність і найменший розмір бандла (v9.5.10) для TanStack Start.
 - **react-i18next** та **use-intl**: Зрілі альтернативи з великими екосистемами, але значно важчі та складніші в оптимізації.
 - **Paraglide**: Інноваційна ідея tree-shaking, яка не працює на практиці. Складний DX та накладні витрати реактивності в TanStack Start.
 - **Уникайте**: **General Translation (GT)** та **Lingo.dev** через серйозні проблеми з продуктивністю, ліміти ШІ та прив'язку до вендора (vendor lock-in).
@@ -104,10 +107,10 @@ history:
 Для цього бенчмарку ми порівняли наступні бібліотеки:
 
 - `Base App` (Без бібліотеки i18n)
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md) (v9.5.6)
-- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/react-i18next.md) (v9.5.6)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md) (v9.5.10)
+- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/react-i18next.md) (v9.5.10)
 - [`react-i18next`](https://github.com/i18next/react-i18next) (v17.0.13)
 - [`use-intl`](https://github.com/amannn/next-intl/tree/main/packages/use-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -204,7 +207,7 @@ history:
 
 `Tolgee` вирішує багато зі згаданих проблем. Проте почати роботу з ним здалося мені важче, ніж з іншими інструментами з подібними підходами. Він не забезпечує типізацію, що значно ускладнює виявлення відсутніх ключів під час компіляції. Мені довелося обертати Tolgee API своїми рішеннями, щоб додати перевірку відсутніх ключів.
 
-Пакет досить важкий (~13.8 kb, що більш ніж у 2.9 рази більше за `react-intlayer`).
+Пакет досить важкий (~11.1 kb, що більш ніж у 2.9 рази більше за `react-intlayer`).
 
 На TanStack Start я також мав проблеми з реактивністю: при зміні локалі довелося примусово перерендерити провайдер і підписуватися на події зміни локалі, щоб завантаження іншою мовою працювало коректно.
 
@@ -232,13 +235,13 @@ history:
 
 `react-intl` - це продуктивна реалізація від команди Format.js. DX залишається багатослівним: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` додає складності, додаткової роботи JavaScript та прив'язує глобальний екземпляр i18n до багатьох вузлів у React-дереві.
 
-Пакет також важкий (~15.3kb, що становить близько 3× `react-intlayer`).
+Пакет також важкий (~14.4kb, що становить близько 3× `react-intlayer`).
 
 ### 4 - Рекомендації
 
 Цей бенчмарк TanStack Start не має прямого еквівалента `next-translate` (Next.js плагін + `getStaticProps`). Командам, які справді хочуть API у стилі `t()` зі зрілою екосистемою, `react-i18next` та `use-intl` залишаються "розумним" вибором, але будьте готові витратити багато часу на оптимізацію для уникнення витоків.
 
-**(Intlayer)** (`react-intlayer@9.5.6`):
+**(Intlayer)** (`react-intlayer@9.5.10`):
 
 Я не буду особисто оцінювати `react-intlayer` заради об’єктивності, оскільки це моє власне рішення.
 

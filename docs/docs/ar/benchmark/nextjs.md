@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: أفضل حل i18n لـ Next.js في 2026 - تقرير المقارنة
 description: قارن بين مكتبات تدويل (i18n) Next.js مثل next-intl و next-i18next و Intlayer. تقرير مفصل للأداء حول حجم الحزمة، التسرب، والتفاعلية.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "تحديث نتائج المقارنة"
   - version: 9.5.7
     date: 2026-09-23
     changes: "تحديث نتائج المقارنة"
@@ -116,9 +119,9 @@ style="border:none;"
 في هذه المقارنة، قمنا بمقارنة المكتبات التالية:
 
 - `Base App` (بدون مكتبة i18n)
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-i18next.md) (v9.5.6)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/next-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/next-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-i18next.md) (v9.5.10)
 - [`next-i18next`](https://github.com/i18next/next-i18next) (v16.3.0)
 - [`next-intl`](https://github.com/amannn/next-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -243,7 +246,7 @@ style="border:none;"
 
 خيار `next-translate` هو توصيتي الرئيسية إذا كنت تحب واجهة برمجية بأسلوب `t()`. إنه أنيق عبر `next-translate-plugin` ، حيث يحمل مساحات الأسماء من خلال `getStaticProps` مع مجمع Webpack / Turbopack. إنه أيضًا من أخف الخيارات هنا (~3.5 كيلوبايت). بالنسبة لمساحات الأسماء، فإن تحديدها لكل صفحة أو مسار في الإعدادات مدروس جيدًا وأسهل في الصيانة من البدائل الرئيسية مثل **next-intl** أو **next-i18next**. في الإصدار `3.1.2` ، لاحظت أن الرندرة الستاتيكية لم تعمل؛ حيث تراجع Next.js إلى الرندرة الديناميكية.
 
-**(Intlayer)** (`next-intlayer@9.5.6`):
+**(Intlayer)** (`next-intlayer@9.5.10`):
 
 لن أحكم شخصيًا على `next-intlayer` من أجل الموضوعية، لأنه حلي الخاص.
 

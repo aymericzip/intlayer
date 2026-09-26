@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-23
+updatedAt: 2026-09-26
 priority: 8
 title: Best i18n solution for TanStack Start in 2026 - Benchmark Report
 description: Compare TanStack Start internationalization libraries like react-i18next, use-intl, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
@@ -18,6 +18,9 @@ slugs:
 author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
+  - version: 9.5.10
+    date: 2026-09-26
+    changes: "Update benchmark results"
   - version: 9.5.7
     date: 2026-09-23
     changes: "Update benchmark results"
@@ -69,7 +72,7 @@ The other impact is on developer experience: how you declare content, types, nam
 
 ## TL;DR
 
-- **Intlayer**: Provides the best performance and smallest bundle size (v9.5.6) for TanStack Start.
+- **Intlayer**: Provides the best performance and smallest bundle size (v9.5.10) for TanStack Start.
 - **react-i18next** & **use-intl**: Mature alternatives with large ecosystems, but significantly heavier and more complex to optimize.
 - **Paraglide**: Innovative tree-shaking idea that does not work in practice. Complex DX and reactivity overhead in TanStack Start.
 - **Avoid**: **General Translation (GT)** and **Lingo.dev** due to severe performance issues, AI quota limits, and vendor lock-in.
@@ -104,10 +107,10 @@ Syntaxes built around `const t = useTranslation()` + `t('a.b.c')` are very conve
 For this benchmark, we compared the following libraries:
 
 - `Base App` (No i18n library)
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/exports.md) (v9.5.6)
-- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/next-intl.md) (v9.5.6)
-- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/lingui.md) (v9.5.6)
-- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/react-i18next.md) (v9.5.6)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/exports.md) (v9.5.10)
+- [`@intlayer/use-intl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/next-intl.md) (v9.5.10)
+- [`@intlayer/lingui`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/lingui.md) (v9.5.10)
+- [`@intlayer/react-i18next`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compat/react-i18next.md) (v9.5.10)
 - [`react-i18next`](https://github.com/i18next/react-i18next) (v17.0.13)
 - [`use-intl`](https://github.com/amannn/next-intl/tree/main/packages/use-intl) (v4.14.2)
 - [`@lingui/core`](https://github.com/lingui/js-lingui) (v6.6.0)
@@ -172,7 +175,7 @@ Issues encountered:
 
 **(General Translation)** (`gt-react@10.18.3`):
 
-- For an app around 111kb, `gt-react` can add more than 170kb extra (~172.8kb, which is about 12× the extra added by `react-intlayer`). There is a serious quality issue from the developer experience side.
+- For an app around 111kb, `gt-react` can add more than 170kb extra (~172.8kb, which is about 36× the extra added by `react-intlayer`). There is a serious quality issue from the developer experience side.
 - `Quota Exceeded, please upgrade your plan` on the very first build with General Translation.
 - Translations are not rendered; I get the error `Error: <T> used on the client-side outside of <GTProvider>`, which seems to be a bug in the library.
 - While implementing **gt-tanstack-start-react**, I also came across an [issue](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) with the library: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, which was making the application break. After reporting this issue, the maintainer fixed it within 24 hours.
@@ -206,13 +209,13 @@ Finally, in comparison with other solutions, Paraglide does not use a store (e.g
 
 `Tolgee` addresses many of the issues mentioned earlier. I found it harder to get started with than other tools with similar approaches. It does not provide type safety, which also makes catching missing keys at compile time much harder. I had to wrap Tolgee’s APIs with my own to add missing-key detection.
 
-The package is fairly heavy (~13.8kb, which is about 2.9× `react-intlayer`).
+The package is fairly heavy (~11.1kb, which is about 2.3× `react-intlayer`).
 
 On TanStack Start I also had reactivity problems: on locale change I had to force the provider to rerender and subscribe to locale-change events so loading in another language behaved correctly.
 
 **(use-intl)** (`use-intl@4.14.2`):
 
-`use-intl` is the most fashionable “intl” piece in the React ecosystem (same family as `next-intl`) and is often pushed by AI agents, but in my view wrongly so in a performance-first setting. Getting started is fairly simple. In practice, the process to optimize and limit leakage is quite complex. Likewise, combining dynamic loading + namespacing + TypeScript types slows development a lot. The package is also fairly heavy (~13.0kb, which is about 2.7× `react-intlayer`).
+`use-intl` is the most fashionable “intl” piece in the React ecosystem (same family as `next-intl`) and is often pushed by AI agents, but in my view wrongly so in a performance-first setting. Getting started is fairly simple. In practice, the process to optimize and limit leakage is quite complex. Likewise, combining dynamic loading + namespacing + TypeScript types slows development a lot. The package is also fairly heavy (~75.9kb, which is about 15.8× `react-intlayer`).
 
 On TanStack Start you avoid Next.js-specific traps (`setRequestLocale`, static rendering), but the core issue is the same: without strict discipline, the bundle quickly carries too many messages and per-route namespace maintenance becomes painful.
 
@@ -234,13 +237,13 @@ Message formats also diverge: `use-intl` uses ICU MessageFormat, while `i18next`
 
 `react-intl` is a performant implementation from the Format.js team. The DX stays verbose: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` adds complexity, extra JavaScript work, and ties the global i18n instance to many nodes in the React tree.
 
-The package is also heavy (~15.3kb, which is about 3× `react-intlayer`).
+The package is also heavy (~14.4kb, which is about 3× `react-intlayer`).
 
 ### 4 - Recommendations
 
 This TanStack Start benchmark has no direct equivalent to `next-translate` (Next.js plugin + `getStaticProps`). For teams that really want a `t()` API with a mature ecosystem, `react-i18next` and `use-intl` remain “reasonable” choices, but expect to invest a lot of time optimizing to avoid leakage.
 
-**(Intlayer)** (`react-intlayer@9.5.6`):
+**(Intlayer)** (`react-intlayer@9.5.10`):
 
 I will not personally judge `react-intlayer` for objectivity’s sake, since it is my own solution.
 
