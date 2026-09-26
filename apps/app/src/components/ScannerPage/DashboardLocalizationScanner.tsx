@@ -45,6 +45,7 @@ export const DashboardLocalizationScanner: FC = () => {
     score,
     domainData,
     mergedData,
+    cachedAt,
     handleAnalyze,
   } = useLocalizationScan(globalError?.value);
 
@@ -243,6 +244,10 @@ export const DashboardLocalizationScanner: FC = () => {
           mergedData={mergedData}
           url={scannedUrl || selectedUrl || ''}
           isSingleScanLoading={isSingleScanLoading}
+          cachedAt={cachedAt}
+          onRerun={() =>
+            handleAnalyze(scannedUrl || selectedUrl || '', { refresh: true })
+          }
           isDiscovering={isDiscovering}
           discoveredUrls={discoveredUrls}
           onDiscoverUrls={() => handleDiscoverUrls(applicationURL)}

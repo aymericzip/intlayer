@@ -13,6 +13,14 @@ export type ScanSnapshot = {
   score: number;
   domainData: Partial<DomainData> | undefined;
   mergedData: MergedData;
+  /** ISO date of the audit when replayed from the one-hour cache. */
+  cachedAt: string | null;
+};
+
+/** Options of `handleAnalyze`. */
+export type AnalyzeOptions = {
+  /** Bypass the one-hour backend cache and run a new audit. */
+  refresh?: boolean;
 };
 
 type AnalyzerState = {
@@ -83,6 +91,10 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     'localization-analyzer-data',
     {}
   );
+  const [cachedAt, setCachedAt] = usePersistedStore<string | null>(
+    'localization-analyzer-cached-at',
+    null
+  );
 
   const abortControllerRef = useRef<AbortController | null>(null);
   // Mirrors the persisted state so callers awaiting a scan can read its
@@ -91,6 +103,7 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     score: 0,
     domainData: undefined,
     mergedData: {},
+    cachedAt: null,
   });
 
   const handleMessage = (event: AuditEvent) => {
@@ -101,6 +114,10 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
       return;
     }
 
+    if (typeof event.cachedAt === 'string') {
+      snapshotRef.current.cachedAt = event.cachedAt;
+      setCachedAt(event.cachedAt);
+    }
     if (typeof event.message === 'string') {
       setStepsMessage(event.message);
     }
@@ -136,7 +153,10 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     }
   };
 
-  const handleAnalyze = async (url: string): Promise<ScanSnapshot> => {
+  const handleAnalyze = async (
+    url: string,
+    { refresh = false }: AnalyzeOptions = {}
+  ): Promise<ScanSnapshot> => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
@@ -148,7 +168,13 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     setMergedData({});
     setDomainData(undefined);
     setScore(0);
-    snapshotRef.current = { score: 0, domainData: undefined, mergedData: {} };
+    setCachedAt(null);
+    snapshotRef.current = {
+      score: 0,
+      domainData: undefined,
+      mergedData: {},
+      cachedAt: null,
+    };
 
     const abortController = new AbortController();
     abortControllerRef.current = abortController;
@@ -161,6 +187,7 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
       await auditAPI.scanUrl(
         {
           url,
+          refresh,
           onMessage: handleMessage,
           onDone: () => {
             dispatch({ type: 'FINISH_SINGLE_SCAN' });
@@ -196,6 +223,7 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     score,
     domainData,
     mergedData,
+    cachedAt,
     handleAnalyze,
     handleCancel,
     setMergedData,

@@ -4,8 +4,10 @@ import { useIntlayer } from 'react-intlayer';
 import { AnalyzerPageResults } from './Analyzer/Results/AnalyzerPageResults';
 import { AnalyzerSiteResults } from './Analyzer/Results/AnalyzerSiteResults';
 import { BundleContentField } from './Analyzer/Results/BundleContentField';
+import { CachedResultNotice } from './Analyzer/Results/CachedResultNotice';
 import { RobotsSection } from './Analyzer/Results/RobotsSection';
 import { SitemapSection } from './Analyzer/Results/SitemapSection';
+import { SiteStackSection } from './Analyzer/Results/SiteStackSection';
 import { RecursiveAuditResults } from './RecursiveAuditResults';
 import { UrlDiscoveryList } from './UrlDiscoveryList';
 
@@ -15,6 +17,10 @@ interface AnalyzerResultsSectionProps {
   mergedData: any;
   url: string;
   isSingleScanLoading: boolean;
+  /** ISO date of the audit when it was replayed from the one-hour cache. */
+  cachedAt?: string | null;
+  /** Runs a fresh audit of the URL, bypassing the cache. */
+  onRerun: () => void;
   // discovery phase
   isDiscovering: boolean;
   discoveredUrls: string[] | null;
@@ -36,6 +42,8 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
   mergedData,
   url,
   isSingleScanLoading,
+  cachedAt,
+  onRerun,
   isDiscovering,
   discoveredUrls,
   onStartWithUrls,
@@ -56,10 +64,10 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
 
   return (
     <Container
-      className="mt-10 w-full max-w-2xl"
+      className="mt-10 w-full max-w-2xl shadow-md"
       padding="lg"
       border
-      roundedSize="3xl"
+      roundedSize="2xl"
       borderColor="neutral"
     >
       <AnalyzerSiteResults
@@ -67,6 +75,12 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
         score={score}
         isLoading={isSingleScanLoading}
       />
+      <CachedResultNotice
+        cachedAt={cachedAt}
+        onRerun={onRerun}
+        isLoading={isSingleScanLoading}
+      />
+      <SiteStackSection domainData={domainData} />
       <AnalyzerPageResults
         data={mergedData}
         url={url}

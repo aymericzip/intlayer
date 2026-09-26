@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { baseCheckType, checkSection, fallbackCheckLabel } from './checkLabels';
+import {
+  baseCheckType,
+  checkSection,
+  fallbackCheckLabel,
+  getCheckIssueLines,
+} from './checkLabels';
 
 describe('checkLabels', () => {
   it('strips the url suffix of url-scoped checks', () => {
@@ -20,5 +25,25 @@ describe('checkLabels', () => {
     expect(fallbackCheckLabel('url_newCheck\\https://example.com')).toBe(
       'newCheck'
     );
+  });
+
+  it('explains failing checks and stays silent on successful ones', () => {
+    expect(
+      getCheckIssueLines({
+        status: 'warning',
+        data: {
+          warningsDetails: {
+            message: 'No internal link keeps the locale',
+            links: ['<a href="/pricing">Pricing</a>'],
+          },
+        },
+      })
+    ).toEqual([
+      'No internal link keeps the locale',
+      '<a href="/pricing">Pricing</a>',
+    ]);
+    expect(
+      getCheckIssueLines({ status: 'success', data: { successDetails: 'ok' } })
+    ).toEqual([]);
   });
 });

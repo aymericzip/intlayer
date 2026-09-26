@@ -1,37 +1,37 @@
-import { logger } from '@logger';
-import { launchBrowser } from '@utils/puppeteer/launchBrowser';
-import { load } from 'cheerio';
-import type { Browser } from 'puppeteer';
-import { checkBundleContent } from './checkers/bundleChecker';
-import { checkLinguisticStructure } from './checkers/linguisticChecker';
-import { checkMetadata } from './checkers/metadataChecker';
 import {
-  checkHtmlAttributes,
-  extractPageMetadata,
-} from './checkers/pageChecker';
-import { checkRobots } from './checkers/robotsChecker';
-import { checkSitemap } from './checkers/sitemapChecker';
-import { checkUrlStructure } from './checkers/urlChecker';
-import type { AuditEvent } from './types';
+  type BundleChunkInput,
+  extractScriptUrls,
+  getTechnologyGlobalNames,
+  runScanChecks,
+  type ScanEvent,
+} from '@intlayer/engine/scan';
+import { logger } from '@logger';
+import { isPublicHttpUrl } from '@utils/isPublicUrl';
+import { launchBrowser } from '@utils/puppeteer/launchBrowser';
+import type { Browser, HTTPRequest, Page } from 'puppeteer';
+import type { AuditData, AuditEvent } from './types';
 
-const gotoWithRetries = async (
-  page: import('puppeteer').Page,
-  url: string,
-  attempts = 3
-) => {
-  let lastErr: unknown;
-  for (let i = 1; i <= attempts; i++) {
+const USER_AGENT =
+  'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119 Safari/537.36';
+const FETCH_TIMEOUT_MS = 15_000;
+
+/** Resource types never needed by the audit. */
+const SKIPPED_RESOURCE_TYPES = new Set(['image', 'media', 'font', 'websocket']);
+
+const gotoWithRetries = async (page: Page, url: string, attempts = 3) => {
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
-      const resp = await page.goto(url, {
+      const response = await page.goto(url, {
         waitUntil: 'domcontentloaded',
         timeout: 45000,
       });
 
-      if (!resp) {
+      if (!response) {
         throw new Error(`Failed to get a response from ${url}`);
       }
 
-      const status = resp.status();
+      const status = response.status();
       logger.info(`[gotoWithRetries] Status: ${status} for ${url}`);
       if (status >= 400) throw new Error(`HTTP ${status} on ${url}`);
 
@@ -43,22 +43,89 @@ const gotoWithRetries = async (
           /* ok if it doesn't fully idle */
         });
 
-      return resp;
-    } catch (err) {
-      lastErr = err;
-      if (i < attempts) {
-        await new Promise((r) => setTimeout(r, 500 * i));
+      return response;
+    } catch (error) {
+      lastError = error;
+      if (attempt < attempts) {
+        await new Promise((resolve) => setTimeout(resolve, 500 * attempt));
         continue;
       }
-      throw lastErr;
+      throw lastError;
     }
   }
 };
 
+/** Map an engine {@link ScanEvent} to the SSE {@link AuditEvent} shape. */
+const toAuditEvent = ({ type, status, details }: ScanEvent): AuditEvent => ({
+  type: type as AuditEvent['type'],
+  status,
+  data: {
+    successDetails: details?.success,
+    warningsDetails: details?.warning,
+    errorsDetails: details?.error,
+  } as AuditData,
+});
+
+/**
+ * Read, in the page context, which technology globals exist and the version
+ * paths they expose. Serialized by puppeteer: must stay self-contained.
+ */
+const readRuntimeGlobals = (
+  globalNames: string[],
+  versionPaths: string[]
+): { globals: string[]; globalVersions: Record<string, string> } => {
+  const pageWindow = window as unknown as Record<string, unknown>;
+  const globalVersions: Record<string, string> = {};
+  for (const versionPath of versionPaths) {
+    const value = versionPath
+      .split('.')
+      .reduce<unknown>(
+        (current, key) =>
+          current && typeof current === 'object'
+            ? (current as Record<string, unknown>)[key]
+            : undefined,
+        pageWindow
+      );
+    if (typeof value === 'string') globalVersions[versionPath] = value;
+  }
+  return {
+    globals: globalNames.filter((name) => pageWindow[name] !== undefined),
+    globalVersions,
+  };
+};
+
+/**
+ * Block navigations (including redirects) to private addresses and skip the
+ * heavy resources the audit does not need.
+ */
+const handleRequest = async (request: HTTPRequest): Promise<void> => {
+  const requestUrl = request.url();
+  const isSkipped =
+    SKIPPED_RESOURCE_TYPES.has(request.resourceType()) ||
+    !/^https?:/.test(requestUrl);
+  const isBlockedNavigation =
+    request.isNavigationRequest() && !(await isPublicHttpUrl(requestUrl));
+
+  if (isBlockedNavigation) {
+    logger.warn(`[runSingleAudit] Blocked navigation to ${requestUrl}`);
+  }
+
+  if (isSkipped || isBlockedNavigation) {
+    await request.abort();
+  } else {
+    await request.continue();
+  }
+};
+
+/**
+ * Audit a single page: render it with puppeteer, then run the shared
+ * `@intlayer/engine/scan` checks (the same ones as `intlayer scan`), streaming
+ * every step through `onEvent`.
+ */
 export const runSingleAudit = async (
   targetUrl: string,
   onEvent: (event: AuditEvent) => void
-): Promise<{ events: AuditEvent[]; internalUrls: string[] }> => {
+): Promise<{ events: AuditEvent[] }> => {
   let browser: Browser | undefined;
   const events: AuditEvent[] = [];
 
@@ -69,7 +136,6 @@ export const runSingleAudit = async (
 
   try {
     const origin = new URL(targetUrl).origin;
-    const localesSet = new Set<string>();
 
     handleEvent({
       progress: 10,
@@ -80,8 +146,7 @@ export const runSingleAudit = async (
     const page = await browser.newPage();
 
     await page.setUserAgent({
-      userAgent:
-        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119 Safari/537.36',
+      userAgent: USER_AGENT,
       platform: 'Linux',
       userAgentMetadata: {
         brands: [{ brand: 'Google Chrome', version: '119' }],
@@ -92,36 +157,25 @@ export const runSingleAudit = async (
         model: 'Linux',
       },
     });
-
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
+    await page.setViewport({ width: 1280, height: 800 });
 
     await page.setRequestInterception(true);
-    page.on('request', (req) => {
-      const reqUrl = req.url();
-      const type = req.resourceType();
-      if (
-        type === 'image' ||
-        type === 'media' ||
-        type === 'font' ||
-        type === 'websocket' ||
-        reqUrl.startsWith('file://') ||
-        reqUrl.startsWith('data:') ||
-        reqUrl.startsWith('chrome://') ||
-        reqUrl.startsWith('view-source:')
-      ) {
-        req.abort();
-      } else {
-        req.continue();
-      }
+    page.on('request', (request) => {
+      handleRequest(request).catch(() => {
+        /* request already handled */
+      });
     });
 
-    const jsResponseMap = new Map<string, string>(); // URL -> content
+    const jsResponseMap = new Map<string, string>();
+    const requestUrls: string[] = [];
     let totalPageSize = 0;
     const pendingResponses: Promise<void>[] = [];
 
     page.on('response', (response) => {
       const responsePromise = (async () => {
         const responseUrl = response.url();
+        requestUrls.push(responseUrl);
         if (response.status() !== 200) return;
         const contentType = response.headers()['content-type'] ?? '';
         const isJavaScript =
@@ -144,54 +198,21 @@ export const runSingleAudit = async (
       pendingResponses.push(responsePromise);
     });
 
-    await page.setViewport({ width: 1280, height: 800 });
-
     page.on('requestfailed', (request) =>
       logger.warn(
         `[requestfailed] ${request.url()} ${request.failure()?.errorText}`
       )
     );
-    page.on('console', (message) =>
-      logger.info(`[console] ${message.type()} ${message.text()}`)
-    );
     page.on('pageerror', (error) => logger.error(`[pageerror] ${error}`));
 
     await gotoWithRetries(page, targetUrl);
-
     await Promise.allSettled(pendingResponses);
 
     const html = await page.content();
     logger.info(`[runSingleAudit] Page loaded. Content length: ${html.length}`);
-    const cheerioApi = load(html);
-    logger.info(
-      `[runSingleAudit] Cheerio loaded. Body found: ${cheerioApi('body').length > 0}`
-    );
 
-    // Identify main bundle scripts — scripts that are eagerly loaded on initial page load.
-    // Covers:
-    //   <script src="...">              — classic and module entry points
-    //   <link rel="modulepreload">      — Vite preloads critical chunks this way
-    //   <link rel="preload" as="script"> — generic preload
-    const mainBundleUrls = new Set<string>();
-    const addMainUrl = (raw: string | undefined) => {
-      if (!raw) return;
-      try {
-        mainBundleUrls.add(new URL(raw, targetUrl).href);
-      } catch {
-        /* ignore */
-      }
-    };
-    cheerioApi('script[src]').each((_, el) =>
-      addMainUrl(cheerioApi(el).attr('src'))
-    );
-    cheerioApi('link[rel="modulepreload"][href]').each((_, el) =>
-      addMainUrl(cheerioApi(el).attr('href'))
-    );
-    cheerioApi('link[rel="preload"][as="script"][href]').each((_, el) =>
-      addMainUrl(cheerioApi(el).attr('href'))
-    );
-
-    const bundleChunks = Array.from(jsResponseMap.entries()).map(
+    const mainBundleUrls = new Set(extractScriptUrls(html, targetUrl));
+    const chunks: BundleChunkInput[] = Array.from(jsResponseMap.entries()).map(
       ([url, content]) => ({
         url,
         isMainBundle: mainBundleUrls.has(url),
@@ -199,86 +220,53 @@ export const runSingleAudit = async (
       })
     );
 
-    await extractPageMetadata(cheerioApi, targetUrl, handleEvent);
+    const { globals: globalNames, versionGlobals } = getTechnologyGlobalNames();
+    const { globals, globalVersions } = await page
+      .evaluate(readRuntimeGlobals, globalNames, versionGlobals)
+      .catch(() => ({ globals: [], globalVersions: {} }));
+    const cookies = await page.cookies().catch(() => []);
 
-    handleEvent({ progress: 15 });
+    // The page is fully captured: free the browser before the network checks.
+    await browser.close();
+    browser = undefined;
 
-    const { langTag } = await checkHtmlAttributes(
-      cheerioApi,
-      targetUrl,
-      handleEvent
+    await runScanChecks(
+      {
+        targetUrl,
+        html,
+        chunks,
+        totalPageSize,
+        requestUrls,
+        runtimeSignals: {
+          globals,
+          globalVersions,
+          storageKeys: cookies.map(({ name }) => name),
+        },
+      },
+      (event) => handleEvent(toAuditEvent(event)),
+      {
+        userAgent: USER_AGENT,
+        timeoutMs: FETCH_TIMEOUT_MS,
+        shouldFetchUrl: isPublicHttpUrl,
+        onProgress: (progress, message) => handleEvent({ progress, message }),
+        onPageInfo: ({ metadata, locales, routing, technologies }) =>
+          handleEvent({
+            domainData: {
+              ...metadata,
+              discoveredLocales: locales,
+              routing,
+              technologies,
+            },
+          }),
+      }
     );
 
-    handleEvent({
-      progress: 30,
-      message: 'Analyzing linguistic structure...',
-    });
+    handleEvent({ progress: 100, message: 'Audit completed' });
 
-    await checkLinguisticStructure(
-      cheerioApi,
-      targetUrl,
-      localesSet,
-      handleEvent
-    );
-
-    handleEvent({
-      progress: 40,
-      message: 'Analysing bundle content & leakage...',
-    });
-
-    checkBundleContent(
-      bundleChunks,
-      html,
-      langTag,
-      targetUrl,
-      totalPageSize,
-      handleEvent
-    );
-
-    handleEvent({
-      progress: 50,
-      message: 'Checking metadata structure...',
-    });
-
-    await checkMetadata(cheerioApi, targetUrl, handleEvent);
-
-    handleEvent({
-      progress: 60,
-      message: 'Analyzing URL structure...',
-    });
-
-    const internalUrls = await checkUrlStructure(
-      page,
-      origin,
-      targetUrl,
-      handleEvent
-    );
-
-    handleEvent({
-      progress: 70,
-      message: 'Checking robots.txt...',
-    });
-
-    await checkRobots(origin, localesSet, handleEvent);
-
-    handleEvent({
-      progress: 80,
-      message: 'Checking sitemap.xml...',
-    });
-
-    await checkSitemap(origin, localesSet, handleEvent);
-
-    handleEvent({
-      progress: 100,
-      message: 'Audit completed',
-    });
-
-    return { events, internalUrls };
-  } catch (err: unknown) {
-    handleEvent({
-      globalError: (err as Error).message,
-    });
-    throw err;
+    return { events };
+  } catch (error: unknown) {
+    handleEvent({ globalError: (error as Error).message });
+    throw error;
   } finally {
     if (browser) await browser.close();
   }

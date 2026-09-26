@@ -1,6 +1,8 @@
+import { getTechnologyGlobalNames } from '@intlayer/engine/scan/detection';
 import { useEffect, useState } from 'preact/hooks';
-import { detectPage } from '../detector/detectPage';
-import type { PageDetectionResult } from '../detector/types';
+import { buildPageDetection } from '../detector/buildPageDetection';
+import { collectPageSignals } from '../detector/collectPageSignals';
+import type { PageDetectionResult, RawPageSignals } from '../detector/types';
 
 /** Why the active tab could not be inspected — translated by the popup. */
 export type ActiveTabErrorCode =
@@ -28,9 +30,9 @@ export type ActiveTabDetection = {
 };
 
 /**
- * Resolves the active tab and injects {@link detectPage} into it (MAIN world,
- * so page globals like `__NEXT_DATA__` are visible) to collect every
- * i18n-related implementation detail of the page. Detection runs again each
+ * Resolves the active tab and injects {@link collectPageSignals} into it (MAIN
+ * world, so page globals like `__NEXT_DATA__` are visible), then interprets
+ * the collected signals with {@link buildPageDetection}. Detection runs again each
  * time the tab finishes loading a new page, e.g. after a popup navigation.
  */
 export const useActiveTabDetection = (): ActiveTabDetection => {
@@ -68,10 +70,12 @@ export const useActiveTabDetection = (): ActiveTabDetection => {
 
         setTabUrl(tab.url);
 
+        const { globals, versionGlobals } = getTechnologyGlobalNames();
         const [injectionResult] = await chrome.scripting.executeScript({
           target: { tabId: tab.id },
           world: 'MAIN',
-          func: detectPage,
+          func: collectPageSignals,
+          args: [globals, versionGlobals],
         });
 
         if (!injectionResult?.result) {
@@ -79,7 +83,9 @@ export const useActiveTabDetection = (): ActiveTabDetection => {
           return;
         }
 
-        setDetection(injectionResult.result as PageDetectionResult);
+        setDetection(
+          buildPageDetection(injectionResult.result as RawPageSignals)
+        );
       } catch (executionError) {
         setError({
           code: 'analysisFailed',

@@ -1,8 +1,8 @@
-import { getIntlayer } from 'intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod/mini';
 
 export const useAnalyzerUrlSchema = () => {
-  const { invalidUrlError } = getIntlayer('analyzer-form');
+  const invalidUrlError = useIntlayer('analyzer-form').invalidUrlError.value;
 
   const urlSchema = z.pipe(
     z.pipe(
@@ -40,7 +40,7 @@ export const useAnalyzerUrlSchema = () => {
             return false;
           }
         },
-        { error: invalidUrlError.value }
+        { error: invalidUrlError }
       )
     )
   );

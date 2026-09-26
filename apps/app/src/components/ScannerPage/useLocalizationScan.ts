@@ -1,6 +1,5 @@
 import { getAuditAPI } from '@intlayer/api';
 import { extractErrorMessage } from '@intlayer/config/client';
-import {} from '@intlayer/design-system/api';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { useReducer, useRef } from 'react';
 import type {
@@ -8,6 +7,12 @@ import type {
   DomainData,
   MergedData,
 } from './Analyzer/Results/types';
+
+/** Options of `handleAnalyze`. */
+export type AnalyzeOptions = {
+  /** Bypass the one-hour backend cache and run a new audit. */
+  refresh?: boolean;
+};
 
 type AnalyzerState = {
   error: string | null;
@@ -81,6 +86,10 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     'localization-analyzer-data',
     {}
   );
+  const [cachedAt, setCachedAt] = usePersistedStore<string | null>(
+    'localization-analyzer-cached-at',
+    null
+  );
 
   const abortControllerRef = useRef<AbortController | null>(null);
 
@@ -96,6 +105,9 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
       return;
     }
 
+    if (typeof event.cachedAt === 'string') {
+      setCachedAt(event.cachedAt);
+    }
     if (typeof event.message === 'string') {
       setStepsMessage(event.message);
     }
@@ -122,7 +134,10 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     }
   };
 
-  const handleAnalyze = async (url: string) => {
+  const handleAnalyze = async (
+    url: string,
+    { refresh = false }: AnalyzeOptions = {}
+  ) => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
@@ -134,6 +149,7 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     setMergedData({});
     setDomainData(undefined);
     setScore(0);
+    setCachedAt(null);
 
     const abortController = new AbortController();
     abortControllerRef.current = abortController;
@@ -146,6 +162,7 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
       await auditAPI.scanUrl(
         {
           url,
+          refresh,
           onMessage: handleMessage,
           onDone: () => {
             dispatch({ type: 'FINISH_SINGLE_SCAN' });
@@ -178,6 +195,7 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     score,
     domainData,
     mergedData,
+    cachedAt,
     handleAnalyze,
     handleCancel,
     setMergedData,

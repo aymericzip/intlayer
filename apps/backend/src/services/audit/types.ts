@@ -1,11 +1,7 @@
-import type { CheerioAPI as CheerioAPIType } from 'cheerio';
-import type { FastifyRequest } from 'fastify';
-
-export type CompatibleRequest =
-  | (FastifyRequest & { signal?: AbortSignal })
-  | (Request & { signal: AbortSignal });
-
-export type CheerioAPI = CheerioAPIType;
+import type {
+  DetectedTechnology,
+  RoutingDetection,
+} from '@intlayer/engine/scan';
 
 type Details =
   | null
@@ -16,7 +12,7 @@ type Details =
   | Details[]
   | { [key: string]: Details };
 
-type AuditStatus = 'started' | 'success' | 'warning' | 'error' | 'done';
+type AuditStatus = 'started' | 'success' | 'warning' | 'error';
 
 export type AuditData = {
   successDetails?: Details;
@@ -37,10 +33,12 @@ type UrlAuditCheck =
   | 'url_currentLocale'
   | 'url_htmlLang'
   | 'url_htmlDir'
+  | 'url_ogLocale'
   | 'url_hreflang'
+  | 'url_hreflangReciprocal'
   | 'url_hasXDefault'
   | 'url_allAnchorsLocalized'
-  | 'url_hasFlagIcons'
+  | 'url_hasLangSelector'
   | 'url_unusedBundleContent';
 
 /**
@@ -71,6 +69,10 @@ export type DomainData = {
   image: string;
   title: string;
   description: string;
+  /** How the site encodes the locale in its URLs. */
+  routing: RoutingDetection;
+  /** Frameworks, i18n libraries, TMS and translation proxies detected. */
+  technologies: DetectedTechnology[];
 };
 
 export type AuditEvent = {
@@ -82,4 +84,9 @@ export type AuditEvent = {
   message?: string;
   globalError?: string;
   domainData?: Partial<DomainData>;
+  /**
+   * ISO date of the audit, sent first when the result is replayed from cache
+   * (audits are cached one hour; `refresh=true` forces a new one).
+   */
+  cachedAt?: string;
 };

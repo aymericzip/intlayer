@@ -1,6 +1,5 @@
 import { getAuditAPI } from '@intlayer/api';
 import { extractErrorMessage } from '@intlayer/config/client';
-import {} from '@intlayer/design-system/api';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { useReducer, useRef } from 'react';
 import type {
@@ -8,6 +7,21 @@ import type {
   DomainData,
   MergedData,
 } from './Analyzer/Results/types';
+
+/** Final state of a single-URL scan, as returned by `handleAnalyze`. */
+export type ScanSnapshot = {
+  score: number;
+  domainData: Partial<DomainData> | undefined;
+  mergedData: MergedData;
+  /** ISO date of the audit when replayed from the one-hour cache. */
+  cachedAt: string | null;
+};
+
+/** Options of `handleAnalyze`. */
+export type AnalyzeOptions = {
+  /** Bypass the one-hour backend cache and run a new audit. */
+  refresh?: boolean;
+};
 
 type AnalyzerState = {
   error: string | null;
@@ -25,10 +39,10 @@ const initialState: AnalyzerState = {
   isSingleScanLoading: false,
 };
 
-const analyzerReducer = (
+function analyzerReducer(
   state: AnalyzerState,
   action: AnalyzerAction
-): AnalyzerState => {
+): AnalyzerState {
   switch (action.type) {
     case 'START_SINGLE_SCAN':
       return {
@@ -52,7 +66,7 @@ const analyzerReducer = (
     default:
       return state;
   }
-};
+}
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
 
@@ -77,8 +91,20 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     'localization-analyzer-data',
     {}
   );
+  const [cachedAt, setCachedAt] = usePersistedStore<string | null>(
+    'localization-analyzer-cached-at',
+    null
+  );
 
   const abortControllerRef = useRef<AbortController | null>(null);
+  // Mirrors the persisted state so callers awaiting a scan can read its
+  // outcome without waiting for React to commit the last event.
+  const snapshotRef = useRef<ScanSnapshot>({
+    score: 0,
+    domainData: undefined,
+    mergedData: {},
+    cachedAt: null,
+  });
 
   const handleMessage = (event: AuditEvent) => {
     if (typeof event.globalError === 'string') {
@@ -88,6 +114,10 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
       return;
     }
 
+    if (typeof event.cachedAt === 'string') {
+      snapshotRef.current.cachedAt = event.cachedAt;
+      setCachedAt(event.cachedAt);
+    }
     if (typeof event.message === 'string') {
       setStepsMessage(event.message);
     }
@@ -95,9 +125,14 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
       setProgress(event.progress ?? 0);
     }
     if (typeof event.score === 'number') {
+      snapshotRef.current.score = event.score;
       setScore(event.score);
     }
     if (typeof event.type === 'string') {
+      snapshotRef.current.mergedData = {
+        ...snapshotRef.current.mergedData,
+        [event.type]: { status: event.status, data: event.data },
+      };
       setMergedData((prev) => ({
         ...prev,
         [event.type!]: {
@@ -107,6 +142,10 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
       }));
     }
     if (typeof event.domainData === 'object') {
+      snapshotRef.current.domainData = {
+        ...snapshotRef.current.domainData,
+        ...event.domainData,
+      };
       setDomainData((prev) => ({ ...prev, ...event.domainData }));
     }
     if (typeof event.progress === 'number' && event.progress === 100) {
@@ -114,7 +153,10 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     }
   };
 
-  const handleAnalyze = async (url: string) => {
+  const handleAnalyze = async (
+    url: string,
+    { refresh = false }: AnalyzeOptions = {}
+  ): Promise<ScanSnapshot> => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
@@ -126,6 +168,13 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     setMergedData({});
     setDomainData(undefined);
     setScore(0);
+    setCachedAt(null);
+    snapshotRef.current = {
+      score: 0,
+      domainData: undefined,
+      mergedData: {},
+      cachedAt: null,
+    };
 
     const abortController = new AbortController();
     abortControllerRef.current = abortController;
@@ -138,6 +187,7 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
       await auditAPI.scanUrl(
         {
           url,
+          refresh,
           onMessage: handleMessage,
           onDone: () => {
             dispatch({ type: 'FINISH_SINGLE_SCAN' });
@@ -146,12 +196,15 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
         { signal: abortController.signal }
       );
     } catch (error) {
-      if ((error as Error).name === 'AbortError') return;
-      setMergedData({});
-      dispatch({ type: 'SET_ERROR', payload: extractErrorMessage(error) });
+      if ((error as Error).name !== 'AbortError') {
+        setMergedData({});
+        dispatch({ type: 'SET_ERROR', payload: extractErrorMessage(error) });
+      }
     } finally {
       abortControllerRef.current = null;
     }
+
+    return snapshotRef.current;
   };
 
   const handleCancel = () => {
@@ -170,6 +223,7 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     score,
     domainData,
     mergedData,
+    cachedAt,
     handleAnalyze,
     handleCancel,
     setMergedData,

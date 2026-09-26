@@ -1,16 +1,10 @@
 import { GREY, GREY_LIGHT } from '@intlayer/config/colors';
 import { colorize, logger } from '@intlayer/config/logger';
 import { mutateScore, type Score, toScorePercent } from './calculateScore';
-import {
-  checkBundleContent,
-  checkCanonical,
-  checkHtmlAttributes,
-  checkLinguisticStructure,
-  checkRobots,
-  checkSitemap,
-  checkUrlStructure,
-} from './checks';
-import { byteLength, extractAnchors, extractScriptUrls } from './parseHtml';
+import { getTechnologyGlobalNames } from './detection/detectTechnologies';
+import { fetchText } from './fetchText';
+import { byteLength, extractScriptUrls } from './parseHtml';
+import { runScanChecks, type ScanPageInput } from './runScanChecks';
 import type {
   BundleChunkInput,
   ScanEvent,
@@ -39,10 +33,34 @@ const logDeepScanRecommendation = (): void => {
 };
 
 /** Outcome of a render-based deep scan. */
-type DeepScanResult = {
-  html: string;
-  totalPageSize: number;
-  chunks: BundleChunkInput[];
+type DeepScanResult = Required<Omit<ScanPageInput, 'targetUrl'>>;
+
+/**
+ * Read, in the page context, which technology globals exist and the version
+ * paths they expose. Serialized by puppeteer: must stay self-contained.
+ */
+const readRuntimeGlobals = (
+  globalNames: string[],
+  versionPaths: string[]
+): { globals: string[]; globalVersions: Record<string, string> } => {
+  const pageWindow = window as unknown as Record<string, unknown>;
+  const globalVersions: Record<string, string> = {};
+  for (const versionPath of versionPaths) {
+    const value = versionPath
+      .split('.')
+      .reduce<unknown>(
+        (current, key) =>
+          current && typeof current === 'object'
+            ? (current as Record<string, unknown>)[key]
+            : undefined,
+        pageWindow
+      );
+    if (typeof value === 'string') globalVersions[versionPath] = value;
+  }
+  return {
+    globals: globalNames.filter((name) => pageWindow[name] !== undefined),
+    globalVersions,
+  };
 };
 
 /**
@@ -90,6 +108,7 @@ const runDeepScan = async (
 
     const origin = new URL(targetUrl).origin;
     const jsResponseMap = new Map<string, string>();
+    const requestUrls: string[] = [];
     let totalPageSize = 0;
     const pendingResponses: Promise<void>[] = [];
 
@@ -97,6 +116,7 @@ const runDeepScan = async (
       pendingResponses.push(
         (async () => {
           try {
+            requestUrls.push(response.url());
             if (response.status() !== 200) return;
             const buffer = await response.buffer();
             totalPageSize += buffer.length;
@@ -138,29 +158,25 @@ const runDeepScan = async (
       })
     );
 
-    return { html, totalPageSize, chunks };
+    const { globals: globalNames, versionGlobals } = getTechnologyGlobalNames();
+    const { globals, globalVersions } = await page
+      .evaluate(readRuntimeGlobals, globalNames, versionGlobals)
+      .catch(() => ({ globals: [], globalVersions: {} }));
+    const cookies: { name: string }[] = await page.cookies().catch(() => []);
+
+    return {
+      html,
+      totalPageSize,
+      chunks,
+      requestUrls,
+      runtimeSignals: {
+        globals,
+        globalVersions,
+        storageKeys: cookies.map(({ name }) => name),
+      },
+    };
   } finally {
     if (browser) await browser.close();
-  }
-};
-
-/** Fetch the raw HTML document, measuring its byte size. */
-const fetchHtml = async (
-  url: string,
-  userAgent: string,
-  timeoutMs: number
-): Promise<{ html: string; finalUrl: string }> => {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const response = await fetch(url, {
-      headers: { 'User-Agent': userAgent, 'Accept-Language': 'en-US,en;q=0.9' },
-      signal: controller.signal,
-    });
-    const html = await response.text();
-    return { html, finalUrl: response.url || url };
-  } finally {
-    clearTimeout(timer);
   }
 };
 
@@ -220,58 +236,43 @@ export const scanWebsite = async (
   } = options;
 
   const origin = new URL(targetUrl).origin;
-
-  let mode: ScanResult['mode'] = 'basic';
-  let html: string;
-  let totalPageSize: number;
-  let chunks: BundleChunkInput[];
+  const fetchOptions = { userAgent, timeoutMs };
 
   const deepResult = deep
     ? await runDeepScan(targetUrl, userAgent, timeoutMs)
     : null;
 
+  let pageInput: Omit<ScanPageInput, 'targetUrl'>;
+
   if (deepResult) {
-    mode = 'deep';
-    html = deepResult.html;
-    chunks = deepResult.chunks;
-    totalPageSize = deepResult.totalPageSize;
+    pageInput = deepResult;
   } else {
     if (deep) logDeepScanRecommendation();
-    const { html: fetchedHtml, finalUrl } = await fetchHtml(
-      targetUrl,
-      userAgent,
-      timeoutMs
-    );
-    html = fetchedHtml;
-    const scriptUrls = extractScriptUrls(fetchedHtml, finalUrl);
-    const { chunks: fetchedChunks, scriptBytes } = await fetchScripts(
+    const response = await fetchText(targetUrl, fetchOptions);
+    if (!response?.ok) {
+      throw new Error(
+        `Failed to fetch ${targetUrl}${response ? ` (HTTP ${response.status})` : ''}`
+      );
+    }
+    const scriptUrls = extractScriptUrls(response.text, response.finalUrl);
+    const { chunks, scriptBytes } = await fetchScripts(
       scriptUrls,
       origin,
       userAgent
     );
-    chunks = fetchedChunks;
-    totalPageSize = byteLength(fetchedHtml) + scriptBytes;
+    pageInput = {
+      html: response.text,
+      chunks,
+      totalPageSize: byteLength(response.text) + scriptBytes,
+    };
   }
 
-  const htmlSize = byteLength(html);
-
   const events: ScanEvent[] = [];
-  const localesSet = new Set<string>();
-
-  const { langTag } = checkHtmlAttributes(html, targetUrl, events);
-  checkCanonical(html, targetUrl, events);
-  checkLinguisticStructure(html, targetUrl, localesSet, events);
-  checkUrlStructure(extractAnchors(html), origin, targetUrl, events);
-  const bundle = checkBundleContent(
-    chunks,
-    html,
-    langTag,
-    targetUrl,
-    totalPageSize,
-    events
+  const checksResult = await runScanChecks(
+    { targetUrl, ...pageInput },
+    (event) => events.push(event),
+    fetchOptions
   );
-  await checkRobots(origin, localesSet, userAgent, events);
-  await checkSitemap(origin, localesSet, userAgent, events);
 
   const rawScore = events.reduce<Score>(
     (score, event) => mutateScore(score, event),
@@ -280,13 +281,12 @@ export const scanWebsite = async (
 
   return {
     url: targetUrl,
-    mode,
-    totalPageSize,
-    htmlSize,
+    mode: deepResult ? 'deep' : 'basic',
+    totalPageSize: pageInput.totalPageSize,
+    htmlSize: byteLength(pageInput.html),
     score: toScorePercent(rawScore),
     rawScore,
     events,
-    locales: Array.from(localesSet),
-    bundle,
+    ...checksResult,
   };
 };

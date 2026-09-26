@@ -6,6 +6,11 @@ export const DEFAULT_BACKEND_URL = 'https://back.intlayer.org';
 export type ScanUrlOptions = {
   /** Absolute URL of the page to audit. */
   url: string;
+  /**
+   * Run a new audit. Without it, a URL audited less than an hour ago is
+   * replayed from the backend cache (first event carries `cachedAt`).
+   */
+  refresh?: boolean;
   /** Called for every SSE event streamed by the backend. */
   onMessage: (event: AuditEvent) => void;
   /** Aborts the underlying fetch. */
@@ -23,11 +28,13 @@ export type ScanUrlOptions = {
  */
 export const scanUrl = async ({
   url,
+  refresh = false,
   onMessage,
   signal,
   backendUrl = DEFAULT_BACKEND_URL,
 }: ScanUrlOptions): Promise<void> => {
   const params = new URLSearchParams({ url });
+  if (refresh) params.set('refresh', 'true');
   const endpoint = `${backendUrl}/api/scan?${params.toString()}`;
 
   const response = await fetch(endpoint, {

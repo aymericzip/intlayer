@@ -58,18 +58,38 @@ export const extractMetaDescription = (html: string): string => {
 export const extractOgImage = (html: string): string | undefined => {
   const metas = html.match(/<meta\b[^>]*>/gi) ?? [];
   for (const meta of metas) {
-    if (/property\s*=\s*("|')?og:image\1?/i.test(meta)) {
+    if (/property\s*=\s*("|')?og:image\1?[\s>/]/i.test(meta)) {
       return readAttribute(meta, 'content');
     }
   }
   return undefined;
 };
 
-/** Whether a `<link rel="canonical">` element is present. */
-export const hasCanonical = (html: string): boolean => {
-  const links = html.match(/<link\b[^>]*>/gi) ?? [];
-  return links.some((link) => /rel\s*=\s*("|')?canonical\1?/i.test(link));
+/** Extract the `<meta property="og:locale">` content. */
+export const extractOgLocale = (html: string): string | undefined => {
+  const metas = html.match(/<meta\b[^>]*>/gi) ?? [];
+  for (const meta of metas) {
+    if (/property\s*=\s*("|')?og:locale\1?[\s>/]/i.test(meta)) {
+      return readAttribute(meta, 'content');
+    }
+  }
+  return undefined;
 };
+
+/** Extract the `href` of the `<link rel="canonical">` element, if present. */
+export const extractCanonicalHref = (html: string): string | undefined => {
+  const links = html.match(/<link\b[^>]*>/gi) ?? [];
+  const canonicalLink = links.find((link) =>
+    /rel\s*=\s*("|')?canonical\1?/i.test(link)
+  );
+  return canonicalLink
+    ? (readAttribute(canonicalLink, 'href') ?? '')
+    : undefined;
+};
+
+/** Whether a `<link rel="canonical">` element is present. */
+export const hasCanonical = (html: string): boolean =>
+  extractCanonicalHref(html) !== undefined;
 
 /** A parsed `<link rel="alternate" hreflang>` element. */
 export type HreflangLink = { hreflang: string; href: string };
@@ -123,7 +143,12 @@ export const extractScriptUrls = (html: string, baseUrl: string): string[] => {
 };
 
 /** A parsed `<a href>` anchor. */
-export type Anchor = { href: string; text: string };
+export type Anchor = {
+  href: string;
+  text: string;
+  /** `hreflang` attribute, set on language-switcher links. */
+  hreflang?: string;
+};
 
 /** Extract every `<a href="…">text</a>` anchor from the document. */
 export const extractAnchors = (html: string): Anchor[] => {
@@ -137,11 +162,45 @@ export const extractAnchors = (html: string): Anchor[] => {
         .replace(/<[^>]+>/g, ' ')
         .replace(/\s+/g, ' ')
         .trim();
-      anchors.push({ href, text });
+      anchors.push({
+        href,
+        text,
+        hreflang: readAttribute(match[1], 'hreflang'),
+      });
     }
     match = anchorPattern.exec(html);
   }
   return anchors;
+};
+
+/**
+ * Extract every resource URL referenced by the document (`<script src>`,
+ * `<link href>`, `<iframe src>`), used to fingerprint third-party services.
+ *
+ * @param html - The raw HTML document.
+ * @param baseUrl - Base URL used to resolve relative URLs.
+ * @returns Absolute, de-duplicated URLs.
+ */
+export const extractResourceUrls = (
+  html: string,
+  baseUrl: string
+): string[] => {
+  const urls = new Set<string>();
+  const tagPattern = /<(script|link|iframe)\b([^>]*)>/gi;
+  let match = tagPattern.exec(html);
+  while (match !== null) {
+    const attributeName = match[1]?.toLowerCase() === 'link' ? 'href' : 'src';
+    const rawUrl = readAttribute(match[2] ?? '', attributeName);
+    if (rawUrl) {
+      try {
+        urls.add(new URL(rawUrl, baseUrl).href);
+      } catch {
+        /* ignore malformed URLs */
+      }
+    }
+    match = tagPattern.exec(html);
+  }
+  return Array.from(urls);
 };
 
 /**

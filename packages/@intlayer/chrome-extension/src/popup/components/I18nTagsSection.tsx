@@ -35,8 +35,10 @@ export const I18nTagsSection: FunctionComponent<{
       />
       <TagRow
         label="html dir"
-        isValid={Boolean(detection.htmlDir)}
-        value={detection.htmlDir ?? missing}
+        isValid={detection.isHtmlDirValid}
+        value={
+          detection.htmlDir ?? (detection.isHtmlDirValid ? 'ltr' : missing)
+        }
       />
       <TagRow
         label="canonical"

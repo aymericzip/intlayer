@@ -27,6 +27,7 @@ export const LocalizationAnalyzer: FC = () => {
     score,
     domainData,
     mergedData,
+    cachedAt,
     handleAnalyze,
     handleCancel,
   } = useLocalizationScan(globalError?.value);
@@ -62,7 +63,7 @@ export const LocalizationAnalyzer: FC = () => {
   const urlSchema = useAnalyzerUrlSchema();
   const analyzedUrlRef = useRef<string | null>(null);
 
-  const { params } = useSearchParamState({
+  const { params, setParam } = useSearchParamState({
     auto_start: { type: 'boolean', fallbackValue: false },
     url: { type: 'string', fallbackValue: '' },
   });
@@ -72,7 +73,7 @@ export const LocalizationAnalyzer: FC = () => {
     useScannerWebMCPTools({
       urlSchema,
       scan: handleAnalyze,
-      snapshot: { score, domainData, mergedData },
+      snapshot: { score, domainData, mergedData, cachedAt },
       isScanning: isLoading,
     })
   );
@@ -101,7 +102,9 @@ export const LocalizationAnalyzer: FC = () => {
     <div className="flex w-full flex-col items-center justify-center py-6 text-center">
       <div className="flex w-full flex-col items-center gap-4">
         <AnalyzerForm
-          onAnalyze={handleAnalyze}
+          // Re-mount on URL change so the input shows the scanned page.
+          key={params.url}
+          onAnalyze={(url) => handleAnalyze(url)}
           loading={isLoading}
           onCancel={handleCancel}
         />
@@ -120,6 +123,14 @@ export const LocalizationAnalyzer: FC = () => {
         mergedData={mergedData}
         url={scannedUrl || params.url}
         isSingleScanLoading={isSingleScanLoading}
+        cachedAt={cachedAt}
+        onScanPage={(pageUrl) => {
+          setParam('url', pageUrl);
+          handleAnalyze(pageUrl);
+        }}
+        onRerun={() =>
+          handleAnalyze(scannedUrl || params.url, { refresh: true })
+        }
         isDiscovering={isDiscovering}
         discoveredUrls={discoveredUrls}
         onDiscoverUrls={() => handleDiscoverUrls(params.url)}

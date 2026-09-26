@@ -24,12 +24,16 @@ export const TechnologyList: FunctionComponent<{
           <span
             className={cn(
               'ml-auto rounded-full border px-1.5 py-0.5 font-semibold text-[10px] uppercase tracking-wide',
-              technology.category === 'i18n-library'
+              technology.category === 'i18n-library' ||
+                technology.category === 'tms'
                 ? 'border-text text-text'
                 : 'border-neutral/40 text-neutral'
             )}
+            title={technology.evidence}
           >
-            {categories[technology.category]}
+            {technology.category in categories
+              ? categories[technology.category as keyof typeof categories]
+              : technology.category}
           </span>
         </li>
       ))}

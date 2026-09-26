@@ -1,8 +1,14 @@
+import {
+  discoverSitemapUrls,
+  mutateScore,
+  type Score,
+  toScorePercent,
+} from '@intlayer/engine/scan';
 import { logger } from '@logger';
 import { AuditJobModel, AuditJobStatus } from '@schemas/auditJob.schema';
 import { AuditPageModel, AuditPageStatus } from '@schemas/auditPage.schema';
-import { load } from 'cheerio';
-import { mutateScore, type Score } from './analysis/calculateScore';
+import { isPublicHttpUrl } from '@utils/isPublicUrl';
+import { getCachedAudit, setCachedAudit } from './auditCache.service';
 import { runSingleAudit } from './seoAudit.service';
 
 const SLEEP_TIME = 30000;
@@ -10,45 +16,41 @@ const MAX_PAGES = 10;
 
 let isProcessing = false;
 
+/** Keep the public URLs, resolving each origin only once. */
+const filterPublicUrls = async (urls: string[]): Promise<string[]> => {
+  const publicOrigins = new Map<string, boolean>();
+  const publicUrls: string[] = [];
+  for (const url of urls) {
+    let origin: string;
+    try {
+      origin = new URL(url).origin;
+    } catch {
+      continue;
+    }
+    if (!publicOrigins.has(origin)) {
+      publicOrigins.set(origin, await isPublicHttpUrl(origin));
+    }
+    if (publicOrigins.get(origin)) publicUrls.push(url);
+  }
+  return publicUrls;
+};
+
 /**
- * Fetches sitemap.xml for the given URL and extracts all <loc> entries.
- * Falls back to [targetUrl] if no sitemap is found.
+ * Lists the page URLs of a site from its sitemaps (robots.txt `Sitemap:`
+ * directives or default locations, sitemap indexes included), keeping only
+ * public URLs. Falls back to `[targetUrl]` when no sitemap is found.
  */
 export const discoverUrlsFromSitemap = async (
   targetUrl: string
 ): Promise<string[]> => {
   try {
-    const { origin } = new URL(targetUrl);
-    const sitemapUrl = `${origin}/sitemap.xml`;
-
-    const response = await fetch(sitemapUrl, {
-      method: 'GET',
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; SEO-Audit-Bot/1.0)' },
-      signal: AbortSignal.timeout(10000),
+    const urls = await discoverSitemapUrls(targetUrl, {
+      userAgent: 'Mozilla/5.0 (compatible; SEO-Audit-Bot/1.0)',
+      timeoutMs: 10_000,
+      shouldFetchUrl: isPublicHttpUrl,
     });
-
-    if (!response.ok) return [targetUrl];
-
-    const sitemapContent = await response.text();
-    const $ = load(sitemapContent, { xmlMode: true });
-
-    const urls: string[] = [];
-
-    // Primary <loc> entries
-    $('loc').each((_, el) => {
-      const url = $(el).text().trim();
-      if (url) urls.push(url);
-    });
-
-    // Alternate hreflang URLs from <xhtml:link rel="alternate" href="...">
-    // Cheerio in xmlMode parses these as "xhtml:link" elements
-    $('xhtml\\:link[rel="alternate"], link[rel="alternate"]').each((_, el) => {
-      const href = $(el).attr('href')?.trim();
-      if (href && href !== 'x-default') urls.push(href);
-    });
-
-    const uniqueUrls = [...new Set(urls)];
-    return uniqueUrls.length > 0 ? uniqueUrls : [targetUrl];
+    const publicUrls = await filterPublicUrls(urls);
+    return publicUrls.length > 0 ? publicUrls : [targetUrl];
   } catch {
     return [targetUrl];
   }
@@ -68,10 +70,11 @@ export const startRecursiveAuditJob = async (
     return (existingJob._id as any).toString();
   }
 
-  const pageUrls =
+  const candidateUrls =
     urls && urls.length > 0
       ? [...new Set(urls)].slice(0, MAX_PAGES)
       : [targetUrl];
+  const pageUrls = await filterPublicUrls(candidateUrls);
 
   const job = await AuditJobModel.create({
     targetUrl,
@@ -170,8 +173,16 @@ export const processAuditJobs = async (): Promise<void> => {
       pendingPage.status = AuditPageStatus.RUNNING;
       await pendingPage.save();
 
+      let isPageFromCache = false;
+
       try {
-        const { events } = await runSingleAudit(pendingPage.url, () => {});
+        // Reuse a page audited less than an hour ago (single scan or job).
+        const cachedAudit = await getCachedAudit(pendingPage.url);
+        const events =
+          cachedAudit?.events ??
+          (await runSingleAudit(pendingPage.url, () => {})).events;
+        if (!cachedAudit) await setCachedAudit(pendingPage.url, events);
+        isPageFromCache = Boolean(cachedAudit);
 
         // Compute score the same way the single-page SSE controller does
         let score: Score = { score: 0, totalScore: 0 };
@@ -181,9 +192,7 @@ export const processAuditJobs = async (): Promise<void> => {
 
         pendingPage.status = AuditPageStatus.COMPLETED;
         pendingPage.results = events;
-        pendingPage.score = Math.round(
-          score.totalScore > 0 ? (score.score / score.totalScore) * 100 : 0
-        );
+        pendingPage.score = toScorePercent(score);
         await pendingPage.save();
 
         const totalPages = await AuditPageModel.countDocuments({
@@ -205,7 +214,10 @@ export const processAuditJobs = async (): Promise<void> => {
         await pendingPage.save();
       }
 
-      await new Promise((resolve) => setTimeout(resolve, SLEEP_TIME));
+      // Throttle real audits only: cached pages cost no browser run.
+      if (!isPageFromCache) {
+        await new Promise((resolve) => setTimeout(resolve, SLEEP_TIME));
+      }
     }
   } finally {
     isProcessing = false;

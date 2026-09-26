@@ -1,0 +1,72 @@
+import { type Dictionary, insert, t } from 'intlayer';
+
+const cachedResultNoticeContent = {
+  key: 'cached-result-notice',
+  content: {
+    cachedResult: insert(
+      t({
+        en: 'Result from {{time}}, served from cache.',
+        'en-GB': 'Result from {{time}}, served from cache.',
+        fr: 'Résultat de {{time}}, servi depuis le cache.',
+        es: 'Resultado de {{time}}, servido desde la caché.',
+        de: 'Ergebnis von {{time}}, aus dem Cache geladen.',
+        ja: '{{time}}の結果（キャッシュから表示）。',
+        zh: '{{time}}的结果，来自缓存。',
+        ru: 'Результат от {{time}}, загружен из кэша.',
+        ko: '{{time}}의 결과로, 캐시에서 가져왔습니다.',
+        it: 'Risultato di {{time}}, servito dalla cache.',
+        pt: 'Resultado de {{time}}, servido do cache.',
+        hi: '{{time}} का परिणाम, कैश से दिखाया गया।',
+        tr: '{{time}} tarihli sonuç, önbellekten sunuldu.',
+        pl: 'Wynik z {{time}}, pobrany z pamięci podręcznej.',
+        id: 'Hasil dari {{time}}, disajikan dari cache.',
+        vi: 'Kết quả từ {{time}}, lấy từ bộ nhớ đệm.',
+        ar: 'نتيجة من {{time}}، مقدّمة من الذاكرة المؤقتة.',
+        uk: 'Результат від {{time}}, завантажений із кешу.',
+      })
+    ),
+    cacheDescription: t({
+      en: 'Scan results are kept for one hour. Rerun to audit the page again.',
+      'en-GB':
+        'Scan results are kept for one hour. Rerun to audit the page again.',
+      fr: 'Les résultats sont conservés une heure. Relancez pour auditer à nouveau la page.',
+      es: 'Los resultados se conservan una hora. Vuelve a ejecutar para auditar la página de nuevo.',
+      de: 'Ergebnisse werden eine Stunde lang gespeichert. Erneut ausführen, um die Seite neu zu prüfen.',
+      ja: 'スキャン結果は 1 時間保持されます。再実行するとページを再監査します。',
+      zh: '扫描结果保留一小时。重新运行即可再次审核该页面。',
+      ru: 'Результаты хранятся один час. Перезапустите, чтобы проверить страницу заново.',
+      ko: '스캔 결과는 1시간 동안 보관됩니다. 다시 실행하면 페이지를 새로 감사합니다.',
+      it: 'I risultati vengono conservati per un’ora. Riavvia per analizzare di nuovo la pagina.',
+      pt: 'Os resultados ficam guardados por uma hora. Execute novamente para auditar a página outra vez.',
+      hi: 'स्कैन परिणाम एक घंटे तक रखे जाते हैं। पेज का फिर से ऑडिट करने के लिए दोबारा चलाएँ।',
+      tr: 'Tarama sonuçları bir saat saklanır. Sayfayı yeniden denetlemek için tekrar çalıştırın.',
+      pl: 'Wyniki są przechowywane przez godzinę. Uruchom ponownie, aby jeszcze raz przeanalizować stronę.',
+      id: 'Hasil pemindaian disimpan selama satu jam. Jalankan ulang untuk mengaudit halaman lagi.',
+      vi: 'Kết quả quét được lưu trong một giờ. Chạy lại để kiểm tra lại trang.',
+      ar: 'تُحفَظ نتائج الفحص لمدة ساعة. أعد التشغيل لتدقيق الصفحة من جديد.',
+      uk: 'Результати зберігаються одну годину. Перезапустіть, щоб перевірити сторінку знову.',
+    }),
+    rerun: t({
+      en: 'Rerun',
+      'en-GB': 'Rerun',
+      fr: 'Relancer',
+      es: 'Volver a ejecutar',
+      de: 'Erneut ausführen',
+      ja: '再実行',
+      zh: '重新运行',
+      ru: 'Перезапустить',
+      ko: '다시 실행',
+      it: 'Riavvia',
+      pt: 'Executar novamente',
+      hi: 'फिर से चलाएँ',
+      tr: 'Yeniden çalıştır',
+      pl: 'Uruchom ponownie',
+      id: 'Jalankan ulang',
+      vi: 'Chạy lại',
+      ar: 'إعادة التشغيل',
+      uk: 'Перезапустити',
+    }),
+  },
+} satisfies Dictionary;
+
+export default cachedResultNoticeContent;

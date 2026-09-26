@@ -1,10 +1,12 @@
 import { Button } from '@intlayer/design-system/button';
+import { relativeTime } from 'intlayer';
 import type { FunctionComponent } from 'preact';
-import { useIntlayer } from 'preact-intlayer';
+import { useIntlayer, useLocale } from 'preact-intlayer';
 import {
   baseCheckType,
   checkSection,
   fallbackCheckLabel,
+  getCheckIssueLines,
 } from '../../scan/checkLabels';
 import type { MergedAuditData } from '../../scan/types';
 import type { AuditScan } from '../useAuditScan';
@@ -12,6 +14,20 @@ import { ScoreRing } from './ScoreRing';
 import { StatusIcon } from './StatusIcon';
 
 const sectionOrder = ['page', 'domain', 'robots', 'sitemap'] as const;
+
+/** Age of a cached audit in the popup locale, e.g. "12 minutes ago". */
+const formatCachedAge = (cachedAt: string, locale: string): string => {
+  const cachedDate = new Date(cachedAt);
+  const elapsedSeconds = (Date.now() - cachedDate.getTime()) / 1000;
+  const unit: Intl.RelativeTimeFormatUnit =
+    elapsedSeconds < 60 ? 'second' : elapsedSeconds < 3600 ? 'minute' : 'hour';
+
+  return relativeTime(new Date(), cachedDate, {
+    locale,
+    unit,
+    numeric: 'auto',
+  });
+};
 
 /** Keeps one check type per section and base type, in streaming order. */
 const groupCheckTypes = (mergedData: MergedAuditData) => {
@@ -54,6 +70,7 @@ export const AuditSection: FunctionComponent<{
     sectionTitles,
     checkLabels,
   } = useIntlayer('audit-section');
+  const { locale } = useLocale();
   const hasResults = Object.keys(scan.mergedData).length > 0;
   const groups = groupCheckTypes(scan.mergedData);
   const discoveredLocaleCount = scan.domainData?.discoveredLocales?.length ?? 0;
@@ -75,7 +92,10 @@ export const AuditSection: FunctionComponent<{
           label={runButtonLabel.value}
           isFullWidth
           disabled={!tabUrl}
-          onClick={() => tabUrl && scan.startScan(tabUrl)}
+          // "Run again" bypasses the one-hour backend cache.
+          onClick={() =>
+            tabUrl && scan.startScan(tabUrl, { refresh: hasResults })
+          }
         >
           {runButtonLabel}
         </Button>
@@ -119,6 +139,11 @@ export const AuditSection: FunctionComponent<{
                   {localesDiscovered({ count: discoveredLocaleCount })}
                 </div>
               )}
+              {scan.cachedAt && (
+                <div className="text-neutral text-xs">
+                  🕘 {formatCachedAge(scan.cachedAt, locale)}
+                </div>
+              )}
             </div>
           </div>
 
@@ -133,12 +158,28 @@ export const AuditSection: FunctionComponent<{
                   {sectionTitles[section]}
                 </h3>
                 <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
-                  {checkTypes.map((type) => (
-                    <li key={type} className="flex items-baseline gap-2">
-                      <StatusIcon status={scan.mergedData[type]?.status} />
-                      <span>{getCheckLabel(type)}</span>
-                    </li>
-                  ))}
+                  {checkTypes.map((type) => {
+                    const issueLines = getCheckIssueLines(
+                      scan.mergedData[type]
+                    );
+
+                    return (
+                      <li key={type} className="flex items-baseline gap-2">
+                        <StatusIcon status={scan.mergedData[type]?.status} />
+                        <div className="min-w-0">
+                          <span>{getCheckLabel(type)}</span>
+                          {issueLines[0] && (
+                            <span
+                              className="block truncate text-neutral text-xs"
+                              title={issueLines.join('\n')}
+                            >
+                              {issueLines[0]}
+                            </span>
+                          )}
+                        </div>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             );

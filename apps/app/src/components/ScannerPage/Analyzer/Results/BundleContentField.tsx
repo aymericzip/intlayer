@@ -4,7 +4,6 @@ import { Package } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useTheme } from '#/providers/ThemeProvider';
 import { Link } from '#components/Link/Link.tsx';
 import { createCompOverwrite } from './AnalyzerPageResults';
 import { FieldItem } from './FieldItem';
@@ -134,7 +133,7 @@ const BundleSummaryLabel: FC<BundleSummaryLabelProps> = ({ summary }) => {
                     <TD>
                       <span className="flex items-center gap-1.5">
                         <Tag
-                          color={chunk.isMain ? 'primary' : 'neutral'}
+                          color={chunk.isMain ? 'text' : 'neutral'}
                           size="xs"
                         >
                           {chunk.isMain ? chunkTable.main : chunkTable.lazy}
@@ -225,13 +224,11 @@ const BundleSummaryLabel: FC<BundleSummaryLabelProps> = ({ summary }) => {
 
 export const BundleContentField: FC<BundleContentFieldProps> = memo(
   ({ id, event, isLoading }) => {
-    const { resolvedTheme } = useTheme();
-    const isInDarkMode = resolvedTheme === 'dark';
     const { fields, fieldsDescription, sections } =
       useIntlayer('analyzer-results');
 
     const summary = parseSummary(event);
-    const compOverwrite = createCompOverwrite(isInDarkMode);
+    const compOverwrite = createCompOverwrite();
 
     return (
       <>

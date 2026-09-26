@@ -3,7 +3,6 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { getIntlayer } from 'intlayer';
 import { ChevronRightIcon } from 'lucide-react';
 import { type FC, Fragment, type HTMLAttributes, type ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -103,8 +102,7 @@ const LinkLink: FC<LinkLinkProps> = ({
   className,
   ...props
 }) => {
-  const content = getIntlayer('breadcrumb');
-  const linkLabel = content.linkLabel;
+  const { linkLabel } = useIntlayer('breadcrumb', locale);
 
   return (
     <>
@@ -118,7 +116,7 @@ const LinkLink: FC<LinkLinkProps> = ({
         itemScope
         itemType="https://schema.org/WebPage"
         {...props}
-        label={`${linkLabel} ${children}`}
+        label={`${linkLabel.value} ${children}`}
         itemID={href}
         size="custom"
       >

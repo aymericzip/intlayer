@@ -1,4 +1,6 @@
 import type { Score } from './calculateScore';
+import type { RoutingDetection } from './detection/detectRoutingStrategy';
+import type { DetectedTechnology } from './detection/detectTechnologies';
 
 /** Status of an individual scan check. */
 export type ScanCheckStatus = 'success' | 'warning' | 'error';
@@ -74,6 +76,14 @@ export type ScanOptions = {
   userAgent?: string;
 };
 
+/** Title, description and preview image of the scanned page. */
+export type PageMetadata = {
+  title: string;
+  description: string;
+  /** Absolute `og:image` URL, `''` when absent. */
+  image: string;
+};
+
 /** Result of scanning a single page. */
 export type ScanResult = {
   url: string;
@@ -93,4 +103,10 @@ export type ScanResult = {
   locales: string[];
   /** Locale-weight breakdown of the bundles, when computable. */
   bundle?: BundleContentAnalysis;
+  /** How the site encodes the locale in its URLs. */
+  routing: RoutingDetection;
+  /** Frameworks, i18n libraries, TMS and translation proxies detected. */
+  technologies: DetectedTechnology[];
+  /** Title, description and preview image of the page. */
+  metadata: PageMetadata;
 };

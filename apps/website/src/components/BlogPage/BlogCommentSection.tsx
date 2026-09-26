@@ -8,7 +8,6 @@ import {
   FormTextArea,
   useForm,
 } from '@intlayer/design-system/form';
-import { getIntlayer } from 'intlayer';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod/mini';
@@ -46,14 +45,15 @@ const fetchApprovedComments = async (
   return (json.data ?? []) as BlogCommentPublicAPI[];
 };
 
-const postComment = async (payload: {
-  blogSlug: string;
-  authorName: string;
-  authorEmail: string;
-  content: string;
-}): Promise<void> => {
-  const dictionary = getIntlayer('blog-comment-section');
-
+const postComment = async (
+  payload: {
+    blogSlug: string;
+    authorName: string;
+    authorEmail: string;
+    content: string;
+  },
+  errorMessage: string
+): Promise<void> => {
   const response = await fetch(COMMENTS_API_BASE, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -61,7 +61,7 @@ const postComment = async (payload: {
   });
 
   if (!response.ok) {
-    throw new Error(dictionary.failedToSubmitComment as unknown as string);
+    throw new Error(errorMessage);
   }
 };
 
@@ -95,7 +95,10 @@ const CommentForm: FC<CommentFormProps> = ({
   const { form, isSubmitting } = useForm(commentSchema);
 
   const handleSubmit = async (data: CommentFormData) => {
-    await postComment({ blogSlug, ...data });
+    await postComment(
+      { blogSlug, ...data },
+      content.failedToSubmitComment.value
+    );
     form.reset();
     onSuccess();
   };

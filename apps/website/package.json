@@ -60,6 +60,7 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/docs": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
+    "@intlayer/engine": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@resvg/resvg-wasm": "2.6.2",
     "@shikijs/transformers": "4.4.3",

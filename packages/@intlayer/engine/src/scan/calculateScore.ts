@@ -51,10 +51,13 @@ export const scoreRecord = {
   url_htmlDir: 3,
   url_hasCanonical: 10,
   url_hreflang: 9,
+  url_hreflangReciprocal: 8,
   url_hasLocalizedLinks: 8,
   url_hasXDefault: 7,
   url_allAnchorsLocalized: 6,
-  url_currentLocale: 3,
+  url_hasLangSelector: 6,
+  url_currentLocale: 5,
+  url_ogLocale: 3,
   url_unusedBundleContent: 8,
 } as const;
 

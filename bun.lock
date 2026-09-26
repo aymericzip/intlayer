@@ -236,6 +236,7 @@
         "@intlayer/dictionaries-entry": "workspace:*",
         "@intlayer/docs": "workspace:*",
         "@intlayer/editor-react": "workspace:*",
+        "@intlayer/engine": "workspace:*",
         "@intlayer/types": "workspace:*",
         "@resvg/resvg-wasm": "2.6.2",
         "@shikijs/transformers": "4.4.3",
@@ -1677,6 +1678,7 @@
       "dependencies": {
         "@intlayer/core": "workspace:*",
         "@intlayer/design-system": "workspace:*",
+        "@intlayer/engine": "workspace:*",
         "fuse.js": "7.5.0",
         "intlayer": "workspace:*",
         "lucide-react": "1.48.0",

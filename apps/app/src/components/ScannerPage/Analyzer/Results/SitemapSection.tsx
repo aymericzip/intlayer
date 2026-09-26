@@ -2,7 +2,6 @@ import { Globe, Link as LinkIcon, Map as MapIcon } from 'lucide-react';
 import type { FC } from 'react';
 import { memo } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useTheme } from '#/providers/ThemeProvider';
 import { createCompOverwrite } from './AnalyzerPageResults';
 import { FieldItem } from './FieldItem';
 import type { MergedData } from './types';
@@ -14,8 +13,7 @@ type SitemapSectionProps = {
 
 export const SitemapSection: FC<SitemapSectionProps> = memo(
   ({ data, isLoading }) => {
-    const { resolvedTheme } = useTheme();
-    const compOverwrite = createCompOverwrite(resolvedTheme === 'dark');
+    const compOverwrite = createCompOverwrite();
     const { sections, sitemapLabels } = useIntlayer('analyzer-results');
 
     return (

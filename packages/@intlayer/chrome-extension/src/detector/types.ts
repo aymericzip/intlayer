@@ -1,18 +1,9 @@
-/** Category of a technology detected on the inspected page. */
-export type TechnologyCategory = 'framework' | 'i18n-library' | 'cms';
+import type {
+  DetectedTechnology,
+  RoutingDetection,
+} from '@intlayer/engine/scan/detection';
 
-/** A single technology detected on the inspected page. */
-export type DetectedTechnology = {
-  /** Stable identifier, e.g. `nextjs`, `intlayer`. */
-  id: string;
-  /** Human-readable name, e.g. `Next.js`. */
-  name: string;
-  category: TechnologyCategory;
-  /** Version when it can be read from the page, e.g. `14.2.3`. */
-  version?: string;
-  /** Short explanation of the signal that triggered the detection. */
-  evidence: string;
-};
+export type { DetectedTechnology, RoutingDetection };
 
 /** An `<link rel="alternate" hreflang>` entry found in the page head. */
 export type HreflangEntry = {
@@ -20,7 +11,7 @@ export type HreflangEntry = {
   href: string;
 };
 
-/** A cookie or web-storage entry that looks locale-related. */
+/** A cookie or web-storage entry. */
 export type LocaleStorageEntry = {
   /** Where the entry was found. */
   source: 'cookie' | 'localStorage' | 'sessionStorage';
@@ -28,12 +19,44 @@ export type LocaleStorageEntry = {
   value: string;
 };
 
-/** Everything the in-page detector collects about the inspected page. */
+/** Raw signals collected in the inspected page by `collectPageSignals`. */
+export type RawPageSignals = {
+  url: string;
+  title: string;
+  htmlLang: string | null;
+  htmlDir: string | null;
+  canonicalHref: string | null;
+  hreflangs: HreflangEntry[];
+  ogLocale: string | null;
+  ogLocaleAlternates: string[];
+  /** Site name from `og:site_name` / `application-name` meta tags. */
+  siteName: string | null;
+  /** Absolute `href` + text of the page anchors. */
+  anchors: { href: string; text: string; hreflang?: string }[];
+  /** Every cookie and web-storage entry (values truncated). */
+  storageEntries: LocaleStorageEntry[];
+  /** `outerHTML` of the document, truncated. */
+  html: string;
+  /** Script / stylesheet / iframe / network resource URLs. */
+  resourceUrls: string[];
+  /** Contents of the same-origin scripts, truncated. */
+  scripts: string[];
+  /** Technology globals present on `window`. */
+  globals: string[];
+  /** Version strings read from dotted window paths. */
+  globalVersions: Record<string, string>;
+  /** Live-DOM markers, e.g. `react-fiber`. */
+  domMarkers: string[];
+};
+
+/** Everything the popup displays about the inspected page. */
 export type PageDetectionResult = {
   url: string;
   title: string;
   htmlLang: string | null;
   htmlDir: string | null;
+  /** Whether `dir` is right for the language (only required for RTL). */
+  isHtmlDirValid: boolean;
   canonicalHref: string | null;
   hreflangs: HreflangEntry[];
   hasXDefault: boolean;
@@ -41,16 +64,15 @@ export type PageDetectionResult = {
   ogLocaleAlternates: string[];
   /** Union of locales found in `lang`, hreflang and og tags. */
   detectedLocales: string[];
-  /** Locale prefix found in the current URL path, e.g. `fr` in `/fr/about`. */
-  urlLocalePrefix: string | null;
-  /** Content of the `<meta name="generator">` tag, when present. */
-  generator: string | null;
+  /** How the site encodes the locale in its URLs. */
+  routing: RoutingDetection;
   /** Site name from `og:site_name` / `application-name` meta tags. */
   siteName: string | null;
   technologies: DetectedTechnology[];
+  /** Cookie / web-storage entries holding a locale value. */
   localeStorageEntries: LocaleStorageEntry[];
-  /** Total number of same-origin anchors found on the page. */
+  /** Same-origin anchors, language-switcher links excluded. */
   internalAnchorCount: number;
-  /** Same-origin anchors whose path starts with a locale prefix. */
+  /** Internal anchors resolving to the page locale, per the routing strategy. */
   localizedAnchorCount: number;
 };

@@ -5,6 +5,28 @@ import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import type { DomainData } from './types';
 
+// const AnalyzerSiteResultsSkeleton: FC = () => (
+//   <div className="flex flex-col pb-6">
+//     <div className="mb-4 flex items-center justify-between">
+//       <div className="flex items-baseline gap-2">
+//         <div className="h-8 w-20 animate-pulse rounded bg-neutral/20" />
+//         <div className="h-8 w-16 animate-pulse rounded bg-neutral/20" />
+//         <div className="h-6 w-12 animate-pulse rounded bg-neutral/20" />
+//       </div>
+//       <div className="h-8 w-24 animate-pulse rounded-full bg-neutral/20" />
+//     </div>
+
+//     <div className="flex items-center gap-8">
+//       <div className="h-45 w-75 animate-pulse rounded-lg border-4 border-neutral bg-neutral/20" />
+//       <div className="flex-1 space-y-3">
+//         <div className="h-7 w-3/4 animate-pulse rounded bg-neutral/20" />
+//         <div className="h-4 w-full animate-pulse rounded bg-neutral/20" />
+//         <div className="h-4 w-5/6 animate-pulse rounded bg-neutral/20" />
+//       </div>
+//     </div>
+//   </div>
+// );
+
 type SkeletonProps = {
   className?: string;
   children?: ReactNode;
@@ -21,7 +43,7 @@ const Skeleton: FC<SkeletonProps> = ({
   isLoading ? (
     <div
       className={cn(
-        'inline-block animate-pulse rounded-xl bg-neutral/20',
+        'inline-block animate-pulse rounded-lg bg-neutral/20',
         className
       )}
     >
@@ -51,38 +73,39 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
   return (
     <div className="flex flex-col pb-6">
       <div className="mb-4 flex items-center justify-between">
-        <span className="font-semibold text-2xl text-text/70">
-          <span className="mr-2 text-neutral">{scoreTitle.title}:</span>
+        <span className="font-semibold text-2xl text-foreground/70">
+          <span className="mr-2 text-muted-foreground">
+            {scoreTitle?.title}:
+          </span>
 
           <Skeleton isLoading={isLoading && !score}>
-            <span className="mr-1 text-text">{score ?? 0}</span>
+            <span className="mr-1 text-foreground">{score ?? 0}</span>
           </Skeleton>
-          <span className="text-neutral text-sm">/100</span>
+          <span className="text-muted-foreground text-sm">/100</span>
         </span>
 
         <Skeleton isLoading={isLoading && !score}>
-          <Tag color={status(score ?? 0).color.value} size="md">
-            {status(score ?? 0).label}
+          <Tag color={status?.(score ?? 0)?.color?.value} size="md">
+            {status?.(score ?? 0)?.label}
           </Tag>
         </Skeleton>
       </div>
 
       <div className="flex items-center gap-8">
         <Skeleton
-          className="h-45 w-75 max-w-[30vw] rounded-xl border-4"
+          className="h-45 w-75 max-w-[30vw] rounded-lg border-4"
           isLoading={isLoading && !domainData?.image}
           renderChildren={false}
         >
           {domainData?.image && (
             <Container
-              className="max-w-[30vw] bg-background"
+              className="max-w-[30vw] overflow-hidden bg-background"
               border
               borderColor="neutral"
             >
-              {' '}
               <img
                 src={domainData?.image}
-                alt={messages.websitePreview.value}
+                alt={messages?.websitePreview?.value}
                 width={300}
                 height={180}
               />
@@ -96,15 +119,15 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
             isLoading={isLoading && !domainData?.title}
           >
             <h3 className="mb-2 font-semibold text-neutral-900 text-xl dark:text-neutral-100">
-              {domainData?.title ?? messages.noTitle}
+              {domainData?.title ?? messages?.noTitle}
             </h3>
           </Skeleton>
           <Skeleton
             className="mb-2 h-4 w-full"
             isLoading={isLoading && !domainData?.description}
           >
-            <p className="text-neutral text-sm">
-              {domainData?.description ?? messages.noDescription}
+            <p className="text-muted-foreground text-sm">
+              {domainData?.description ?? messages?.noDescription}
             </p>
           </Skeleton>
         </div>

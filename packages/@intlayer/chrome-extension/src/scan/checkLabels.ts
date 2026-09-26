@@ -1,3 +1,6 @@
+import { getCheckDetailLines } from '@intlayer/engine/scan/detection';
+import type { MergedAuditData } from './types';
+
 /**
  * Helpers to group and label the audit check types streamed by the backend.
  * Check types are namespaced (`url_`, `robots_`, `sitemap_`, `domain_`) and
@@ -22,3 +25,19 @@ export const baseCheckType = (type: string): string =>
 /** Readable label for a check type the dictionary does not know yet. */
 export const fallbackCheckLabel = (type: string): string =>
   baseCheckType(type).replace(/^(url|robots|sitemap|domain)_/, '');
+
+/**
+ * Explanation lines of a failing check (message, then listed issues / links),
+ * empty for a successful or pending check.
+ */
+export const getCheckIssueLines = (
+  check: MergedAuditData[string] | undefined
+): string[] => {
+  if (check?.status === 'warning') {
+    return getCheckDetailLines(check.data?.warningsDetails);
+  }
+  if (check?.status === 'error') {
+    return getCheckDetailLines(check.data?.errorsDetails);
+  }
+  return [];
+};

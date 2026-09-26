@@ -1,5 +1,5 @@
 import { Code, type CodeLanguage } from '@intlayer/design-system/ide';
-import { FileText, Globe, Link as LinkIcon } from 'lucide-react';
+import { FileText, Globe, Languages, Link as LinkIcon } from 'lucide-react';
 import type { FC, HTMLProps, ReactNode } from 'react';
 import { memo } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -77,6 +77,18 @@ export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
         description: fieldsDescription?.htmlDir?.use(compOverwrite),
       },
       {
+        key: `url_currentLocale\\${url}`,
+        icon: <Globe size={16} />,
+        label: fields?.currentLocale,
+        description: fieldsDescription?.currentLocale?.use(compOverwrite),
+      },
+      {
+        key: `url_ogLocale\\${url}`,
+        icon: <Globe size={16} />,
+        label: fields?.ogLocale,
+        description: fieldsDescription?.ogLocale?.use(compOverwrite),
+      },
+      {
         key: `url_hreflang\\${url}`,
         icon: <FileText size={16} />,
         label: fields?.hreflangs,
@@ -87,6 +99,12 @@ export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
         icon: <FileText size={16} />,
         label: fields?.hasXDefault,
         description: fieldsDescription?.hasXDefault?.use(compOverwrite),
+      },
+      {
+        key: `url_hreflangReciprocal\\${url}`,
+        icon: <FileText size={16} />,
+        label: fields?.hreflangReciprocal,
+        description: fieldsDescription?.hreflangReciprocal?.use(compOverwrite),
       },
       {
         key: `url_hasCanonical\\${url}`,
@@ -105,6 +123,12 @@ export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
         icon: <LinkIcon size={16} />,
         label: fields?.allAnchorsLocalized,
         description: fieldsDescription?.allAnchorsLocalized?.use(compOverwrite),
+      },
+      {
+        key: `url_hasLangSelector\\${url}`,
+        icon: <Languages size={16} />,
+        label: fields?.langSelector,
+        description: fieldsDescription?.langSelector?.use(compOverwrite),
       },
     ];
 

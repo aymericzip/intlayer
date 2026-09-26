@@ -51,6 +51,7 @@
   "dependencies": {
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
+    "@intlayer/engine": "workspace:*",
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
     "lucide-react": "1.48.0",

@@ -75,6 +75,11 @@
       "require": "./dist/cjs/scan/index.cjs",
       "import": "./dist/esm/scan/index.mjs"
     },
+    "./scan/detection": {
+      "types": "./dist/types/scan/detection/index.d.ts",
+      "require": "./dist/cjs/scan/detection/index.cjs",
+      "import": "./dist/esm/scan/detection/index.mjs"
+    },
     "./docReview": {
       "types": "./dist/types/docReview/index.d.ts",
       "require": "./dist/cjs/docReview/index.cjs",
@@ -110,6 +115,9 @@
       ],
       "scan": [
         "./dist/types/scan/index.d.ts"
+      ],
+      "scan/detection": [
+        "./dist/types/scan/detection/index.d.ts"
       ],
       "docReview": [
         "./dist/types/docReview/index.d.ts"

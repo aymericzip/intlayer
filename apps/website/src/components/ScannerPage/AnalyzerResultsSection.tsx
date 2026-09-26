@@ -1,4 +1,5 @@
 import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { App_Auth_SignIn } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -6,8 +7,11 @@ import { Link } from '~/components/Link/Link';
 import { AnalyzerPageResults } from './Analyzer/Results/AnalyzerPageResults';
 import { AnalyzerSiteResults } from './Analyzer/Results/AnalyzerSiteResults';
 import { BundleContentField } from './Analyzer/Results/BundleContentField';
+import { CachedResultNotice } from './Analyzer/Results/CachedResultNotice';
+import { LocalizedPagesSection } from './Analyzer/Results/LocalizedPagesSection';
 import { RobotsSection } from './Analyzer/Results/RobotsSection';
 import { SitemapSection } from './Analyzer/Results/SitemapSection';
+import { SiteStackSection } from './Analyzer/Results/SiteStackSection';
 import { RecursiveAuditResults } from './RecursiveAuditResults';
 import { UrlDiscoveryList } from './UrlDiscoveryList';
 
@@ -17,6 +21,12 @@ interface AnalyzerResultsSectionProps {
   mergedData: any;
   url: string;
   isSingleScanLoading: boolean;
+  /** ISO date of the audit when it was replayed from the one-hour cache. */
+  cachedAt?: string | null;
+  /** Runs a fresh audit of the URL, bypassing the cache. */
+  onRerun: () => void;
+  /** Scans another localized version of the page. */
+  onScanPage: (url: string) => void;
   // discovery phase
   isDiscovering: boolean;
   discoveredUrls: string[] | null;
@@ -39,6 +49,9 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
   mergedData,
   url,
   isSingleScanLoading,
+  cachedAt,
+  onRerun,
+  onScanPage,
   isDiscovering,
   discoveredUrls,
   onDiscoverUrls,
@@ -72,10 +85,29 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
   if (!hasData && !isSingleScanLoading) return null;
 
   return (
-    <div className="mt-10 w-full max-w-2xl rounded-2xl bg-card p-6 shadow-md">
+    <Container
+      className="mt-10 w-full max-w-2xl shadow-md"
+      padding="lg"
+      border
+      roundedSize="2xl"
+      borderColor="neutral"
+    >
       <AnalyzerSiteResults
         domainData={domainData}
         score={score}
+        isLoading={isSingleScanLoading}
+      />
+      <CachedResultNotice
+        cachedAt={cachedAt}
+        onRerun={onRerun}
+        isLoading={isSingleScanLoading}
+      />
+      <SiteStackSection domainData={domainData} />
+      <LocalizedPagesSection
+        url={url}
+        hreflangEvent={mergedData[`url_hreflang\\${url}`]}
+        domainData={domainData}
+        onScanPage={onScanPage}
         isLoading={isSingleScanLoading}
       />
       <AnalyzerPageResults
@@ -141,6 +173,6 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
           onCancel={onCancel}
         />
       )}
-    </div>
+    </Container>
   );
 };

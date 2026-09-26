@@ -47,6 +47,8 @@ export type AuditEvent = {
   /** Fatal error aborting the whole audit. */
   globalError?: string;
   domainData?: Partial<DomainData>;
+  /** ISO date of the audit, sent first when replayed from the one-hour cache. */
+  cachedAt?: string;
 };
 
 /** Result of a check, keyed by the `type` field of the SSE events. */

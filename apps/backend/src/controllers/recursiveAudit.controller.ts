@@ -6,6 +6,7 @@ import {
   resumeAuditJob,
   startRecursiveAuditJob,
 } from '@services/audit/recursiveAudit.service';
+import { isPublicHttpUrl } from '@utils/isPublicUrl';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
 export type StartRecursiveAuditResult = {
@@ -58,10 +59,10 @@ export const discoverUrls = async (
     return reply.status(400).send({ error: 'URL is required' });
   }
 
-  try {
-    new URL(url);
-  } catch {
-    return reply.status(400).send({ error: 'Invalid URL format' });
+  if (!(await isPublicHttpUrl(url))) {
+    return reply
+      .status(400)
+      .send({ error: 'URL must be a public http(s) address' });
   }
 
   try {
@@ -85,6 +86,12 @@ export const startRecursiveAudit = async (
 
   if (!url || typeof url !== 'string') {
     return reply.status(400).send({ error: 'URL is required' });
+  }
+
+  if (!(await isPublicHttpUrl(url))) {
+    return reply
+      .status(400)
+      .send({ error: 'URL must be a public http(s) address' });
   }
 
   try {

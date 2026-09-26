@@ -12,6 +12,8 @@ export type AuditScanState = {
   error: string | null;
   domainData: Partial<DomainData> | null;
   mergedData: MergedAuditData;
+  /** ISO date of the audit when replayed from the one-hour backend cache. */
+  cachedAt: string | null;
 };
 
 const initialState: AuditScanState = {
@@ -23,11 +25,15 @@ const initialState: AuditScanState = {
   error: null,
   domainData: null,
   mergedData: {},
+  cachedAt: null,
 };
 
 export type AuditScan = AuditScanState & {
-  /** Starts (or restarts) a streamed audit of the given URL. */
-  startScan: (url: string) => void;
+  /**
+   * Starts (or restarts) a streamed audit of the given URL. `refresh`
+   * bypasses the one-hour backend cache.
+   */
+  startScan: (url: string, options?: { refresh?: boolean }) => void;
   /** Aborts the in-flight audit, keeping the results received so far. */
   cancelScan: () => void;
   /** Aborts the in-flight audit and clears every result. */
@@ -54,68 +60,76 @@ export const useAuditScan = (): AuditScan => {
     setState(initialState);
   }, []);
 
-  const startScan = useCallback((url: string) => {
-    abortControllerRef.current?.abort();
-    const abortController = new AbortController();
-    abortControllerRef.current = abortController;
+  const startScan = useCallback(
+    (url: string, { refresh = false }: { refresh?: boolean } = {}) => {
+      abortControllerRef.current?.abort();
+      const abortController = new AbortController();
+      abortControllerRef.current = abortController;
 
-    setState({ ...initialState, isScanning: true });
+      setState({ ...initialState, isScanning: true });
 
-    scanUrl({
-      url,
-      signal: abortController.signal,
-      onMessage: (event) => {
-        setState((previous) => {
-          const next = { ...previous };
+      scanUrl({
+        url,
+        refresh,
+        signal: abortController.signal,
+        onMessage: (event) => {
+          setState((previous) => {
+            const next = { ...previous };
 
-          if (typeof event.globalError === 'string') {
-            next.error = event.globalError;
-            next.isScanning = false;
-            return next;
-          }
-          if (typeof event.message === 'string') {
-            next.stepMessage = event.message;
-          }
-          if (typeof event.progress === 'number') {
-            next.progress = event.progress;
-            if (event.progress >= 100) {
+            if (typeof event.globalError === 'string') {
+              next.error = event.globalError;
               next.isScanning = false;
-              next.isDone = true;
+              return next;
             }
-          }
-          if (typeof event.score === 'number') {
-            next.score = event.score;
-          }
-          if (typeof event.type === 'string') {
-            next.mergedData = {
-              ...previous.mergedData,
-              [event.type]: { status: event.status, data: event.data },
-            };
-          }
-          if (event.domainData) {
-            next.domainData = { ...previous.domainData, ...event.domainData };
-          }
+            if (typeof event.cachedAt === 'string') {
+              next.cachedAt = event.cachedAt;
+            }
+            if (typeof event.message === 'string') {
+              next.stepMessage = event.message;
+            }
+            if (typeof event.progress === 'number') {
+              next.progress = event.progress;
+              if (event.progress >= 100) {
+                next.isScanning = false;
+                next.isDone = true;
+              }
+            }
+            if (typeof event.score === 'number') {
+              next.score = event.score;
+            }
+            if (typeof event.type === 'string') {
+              next.mergedData = {
+                ...previous.mergedData,
+                [event.type]: { status: event.status, data: event.data },
+              };
+            }
+            if (event.domainData) {
+              next.domainData = { ...previous.domainData, ...event.domainData };
+            }
 
-          return next;
-        });
-      },
-    })
-      .then(() => {
-        setState((previous) => ({
-          ...previous,
-          isScanning: false,
-          isDone: previous.error === null,
-        }));
+            return next;
+          });
+        },
       })
-      .catch((scanError: unknown) => {
-        if ((scanError as Error).name === 'AbortError') return;
-        setState((previous) => ({
-          ...previous,
-          isScanning: false,
-          error: scanError instanceof Error ? scanError.message : 'Scan failed',
-        }));
-      });
-  }, []);
+        .then(() => {
+          setState((previous) => ({
+            ...previous,
+            isScanning: false,
+            isDone: previous.error === null,
+          }));
+        })
+        .catch((scanError: unknown) => {
+          if ((scanError as Error).name === 'AbortError') return;
+          setState((previous) => ({
+            ...previous,
+            isScanning: false,
+            error:
+              scanError instanceof Error ? scanError.message : 'Scan failed',
+          }));
+        });
+    },
+    []
+  );
 
   return { ...state, startScan, cancelScan, resetScan };
 };

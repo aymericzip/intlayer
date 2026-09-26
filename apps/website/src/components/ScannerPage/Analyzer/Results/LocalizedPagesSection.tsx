@@ -1,0 +1,131 @@
+import { cn } from '@intlayer/design-system/utils';
+import {
+  getLocalizedPages,
+  isBaseLocalePage,
+} from '@intlayer/engine/scan/detection';
+import { Info, Languages } from 'lucide-react';
+import { type FC, useMemo } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import type { AuditEvent, DomainData } from './types';
+
+type Hreflang = { hreflang: string; href: string };
+
+type LocalizedPagesSectionProps = {
+  /** Scanned URL. */
+  url: string;
+  /** Result of the `url_hreflang` check of the scanned URL. */
+  hreflangEvent?: Pick<AuditEvent, 'status' | 'data'>;
+  domainData?: Partial<DomainData>;
+  /** Scans another localized version of the page. */
+  onScanPage: (url: string) => void;
+  isLoading?: boolean;
+};
+
+const isHreflang = (value: unknown): value is Hreflang =>
+  typeof value === 'object' &&
+  value !== null &&
+  typeof (value as Hreflang).hreflang === 'string' &&
+  typeof (value as Hreflang).href === 'string';
+
+/**
+ * Read the hreflang tags from the `url_hreflang` check: the list itself on
+ * success, `{ issues, hreflangs }` on warning.
+ */
+const getHreflangs = (
+  hreflangEvent: LocalizedPagesSectionProps['hreflangEvent']
+): Hreflang[] => {
+  const details =
+    hreflangEvent?.data?.successDetails ?? hreflangEvent?.data?.warningsDetails;
+  const list = Array.isArray(details)
+    ? details
+    : details && typeof details === 'object' && 'hreflangs' in details
+      ? details.hreflangs
+      : undefined;
+
+  return Array.isArray(list) ? list.filter(isHreflang) : [];
+};
+
+/** `pathname + search` of a URL, `/` for the root. */
+const getUrlPath = (url: string): string => {
+  try {
+    const { pathname, search } = new URL(url);
+    return `${pathname}${search}` || '/';
+  } catch {
+    return url;
+  }
+};
+
+/**
+ * Links to the other language versions of the scanned page (read from its
+ * hreflang tags) to scan them in one click, with a hint when the scanned page
+ * is the base one — i18n issues mostly show up on the localized versions.
+ */
+export const LocalizedPagesSection: FC<LocalizedPagesSectionProps> = ({
+  url,
+  hreflangEvent,
+  domainData,
+  onScanPage,
+  isLoading,
+}) => {
+  const { title, description, basePageNote, current } = useIntlayer(
+    'localized-pages-section'
+  );
+
+  const hreflangs = useMemo(() => getHreflangs(hreflangEvent), [hreflangEvent]);
+  const localizedPages = useMemo(
+    () => (url ? getLocalizedPages(hreflangs, url) : []),
+    [hreflangs, url]
+  );
+
+  if (localizedPages.length < 2) return null;
+
+  const isBasePage =
+    domainData?.routing !== undefined &&
+    isBaseLocalePage({ pageUrl: url, hreflangs, routing: domainData.routing });
+
+  return (
+    <div className="mt-3 flex flex-col gap-2 border-neutral border-t border-dotted pt-3 text-left text-sm">
+      <strong className="flex items-center gap-2 text-muted-foreground">
+        <Languages size={16} />
+        {title}
+      </strong>
+
+      {isBasePage && (
+        <p className="flex items-start gap-2 rounded-lg border border-warning/40 bg-warning/5 px-3 py-2 text-foreground/80">
+          <Info size={16} className="mt-0.5 shrink-0 text-warning" />
+          {basePageNote}
+        </p>
+      )}
+
+      <span className="text-muted-foreground text-xs">{description}</span>
+      <ul className="flex flex-wrap gap-2">
+        {localizedPages.map((localizedPage) => (
+          <li key={localizedPage.url}>
+            <button
+              type="button"
+              disabled={localizedPage.isCurrent || isLoading}
+              onClick={() => onScanPage(localizedPage.url)}
+              title={localizedPage.url}
+              className={cn(
+                'flex max-w-60 items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition-colors',
+                localizedPage.isCurrent
+                  ? 'cursor-default border-foreground/60 font-semibold text-foreground'
+                  : 'cursor-pointer border-neutral/40 text-foreground/80 hover:border-foreground/60 disabled:cursor-not-allowed disabled:opacity-60'
+              )}
+            >
+              <span className="font-mono font-semibold">
+                {localizedPage.hreflang}
+              </span>
+              <span className="truncate text-muted-foreground">
+                {getUrlPath(localizedPage.url)}
+              </span>
+              {localizedPage.isCurrent && (
+                <span className="text-muted-foreground">({current})</span>
+              )}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};

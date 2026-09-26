@@ -1,10 +1,10 @@
 import { Button } from '@intlayer/design-system/button';
 import { Input } from '@intlayer/design-system/input';
+import { getLocalizedPages } from '@intlayer/engine/scan/detection';
 import type { FunctionComponent } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 import { useIntlayer } from 'preact-intlayer';
 import type { PageDetectionResult } from '../../detector/types';
-import { getLocalizedPages } from '../../navigation/pageSearch';
 import type { SitemapPages } from '../../navigation/useSitemapPages';
 
 /** Rendering thousands of sitemap rows would freeze the popup. */

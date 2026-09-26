@@ -49,6 +49,35 @@ export const InformationTag: FC<PropsWithChildren<{ id: string }>> = ({
   </Popover>
 );
 
+/**
+ * Split check details into a message, the listed links (rendered as HTML) and
+ * other listed items (issues, alternates, URLs). Other shapes (bundle
+ * summaries, hreflang lists…) return nothing and are rendered as JSON.
+ */
+const getDetailsLists = (
+  details: unknown
+): { message?: string; links?: string[]; listedItems?: string[] } => {
+  if (typeof details === 'string') return { message: details };
+  if (Array.isArray(details)) return { listedItems: details.map(String) };
+  if (!details || typeof details !== 'object') return {};
+
+  const { message, links, issues, alternates, urls } = details as Record<
+    string,
+    unknown
+  >;
+  const listedItems = [issues, alternates, urls].find(Array.isArray) as
+    | unknown[]
+    | undefined;
+
+  return {
+    message: typeof message === 'string' ? message : undefined,
+    links: Array.isArray(links)
+      ? links.map((link) => String(link).replace(/````html\n?|```/g, ''))
+      : undefined,
+    listedItems: listedItems?.map(String),
+  };
+};
+
 export const EventTag: FC<
   PropsWithChildren<{
     id: string;
@@ -62,12 +91,7 @@ export const EventTag: FC<
     event?.data?.successDetails;
 
   if (details) {
-    const isObject =
-      typeof details === 'object' &&
-      details !== null &&
-      !Array.isArray(details);
-    const detailsObj = isObject ? (details as Record<string, any>) : null;
-    const hasLinks = detailsObj && Array.isArray(detailsObj.links);
+    const { message, links, listedItems } = getDetailsLists(details);
 
     return (
       <Popover identifier={`information-tag-${id}`}>
@@ -81,20 +105,21 @@ export const EventTag: FC<
           isFocusable
           isOverable
         >
-          {hasLinks ? (
+          {message || links || listedItems ? (
             <div className="flex flex-col gap-2">
-              {detailsObj.message && (
-                <p className="font-semibold">{detailsObj.message}</p>
+              {message && <p className="font-semibold">{message}</p>}
+              {links && links.length > 0 && (
+                <CodeBlock lang="html">{links.join('\n')}</CodeBlock>
               )}
-              <div className="flex flex-col gap-1">
-                <CodeBlock lang="html">
-                  {detailsObj.links
-                    .map((link: any) =>
-                      String(link).replace(/````html\n?|```/g, '')
-                    )
-                    .join('\n')}
-                </CodeBlock>
-              </div>
+              {listedItems && (
+                <ul className="list-disc pl-4">
+                  {listedItems.map((item) => (
+                    <li key={item} className="break-all">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ) : (
             <CodeBlock lang="json">
@@ -132,10 +157,10 @@ export const FieldItem: FC<FieldItemProps> = ({
   isLoading,
   children,
 }) => (
-  <div className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-2 rounded-lg px-2 py-1 text-neutral">
+  <div className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-2 rounded-lg px-2 py-1 text-muted-foreground">
     {icon}
     <strong className="min-w-28">{label}:</strong>
-    <span className="flex items-center justify-end gap-2 text-left text-text/70">
+    <span className="flex items-center justify-end gap-2 text-left text-foreground/70">
       <EventTag id={`${id}-success`} event={event} isLoading={isLoading}>
         {children}
       </EventTag>

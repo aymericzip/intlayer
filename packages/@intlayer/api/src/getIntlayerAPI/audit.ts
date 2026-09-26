@@ -16,6 +16,11 @@ export type {
 
 export type ScanUrlBody = {
   url: string;
+  /**
+   * Force a new audit. Without it, a URL audited less than an hour ago is
+   * replayed from cache (its first event carries `cachedAt`).
+   */
+  refresh?: boolean;
   onMessage?: (event: AuditEvent) => void;
   onDone?: () => void;
 };
@@ -81,9 +86,10 @@ export const getAuditAPI = (
   ) => {
     if (!body?.url) return;
 
-    const { url, onMessage, onDone } = body;
+    const { url, refresh, onMessage, onDone } = body;
 
     const params = new URLSearchParams({ url });
+    if (refresh) params.set('refresh', 'true');
     const endpoint = `${AUDIT_API_ROUTE}?${params.toString()}`;
 
     const response = await fetch(endpoint, {

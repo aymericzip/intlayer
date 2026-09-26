@@ -1,3 +1,4 @@
+import { Container } from '@intlayer/design-system/container';
 import {
   Form,
   FormButton,
@@ -39,52 +40,56 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
   };
 
   return (
-    <Form
-      schema={urlSchema}
-      onSubmitSuccess={onSubmitSuccess}
-      toolName="submitWebsiteScanForm"
-      toolDescription="Fill the i18n SEO scanner form with a website URL for the user to launch. To run the audit and get the report directly, call `createWebsiteI18nScan` instead."
-      className={cn(
-        'flex w-full max-w-lg flex-col gap-2 rounded-2xl bg-card p-2 shadow-sm md:flex-row',
-        className
-      )}
-      {...form}
+    <Container
+      roundedSize="2xl"
+      border
+      borderColor="neutral"
+      className={cn('w-full max-w-lg p-2 shadow-sm', className)}
     >
-      <FormInput
-        name="url"
-        aria-label={input.label.value}
-        toolParamDescription="Public URL of the website to audit, e.g. https://example.com"
-        type="url"
-        placeholder={input.placeholder.value}
-        className="flex-1 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2"
-      />
-      <div className="flex items-stretch gap-2">
-        <FormButton
-          type="submit"
-          label={button.analyze.value}
-          disabled={loading}
-          size="md"
-          variant="fade"
-          color="custom"
-          isLoading={isSubmitting || loading}
-          className="w-full rounded-lg px-5 py-2 font-medium"
-        >
-          {loading ? button.analyzing : button.analyze}
-        </FormButton>
-        {loading && onCancel && (
+      <Form
+        schema={urlSchema}
+        onSubmitSuccess={onSubmitSuccess}
+        toolName="submitWebsiteScanForm"
+        toolDescription="Fill the i18n SEO scanner form with a website URL for the user to launch. To run the audit and get the report directly, call `createWebsiteI18nScan` instead."
+        className="flex flex-col gap-2 md:flex-row"
+        {...form}
+      >
+        <FormInput
+          name="url"
+          aria-label={input.label.value}
+          toolParamDescription="Public URL of the website to audit, e.g. https://example.com"
+          type="url"
+          placeholder={input.placeholder.value}
+          className="flex-1 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2"
+        />
+        <div className="flex items-stretch gap-2">
           <FormButton
-            type="button"
-            label={button.cancel.value}
-            onClick={onCancel}
+            type="submit"
+            label={button.analyze.value}
+            disabled={loading}
             size="md"
-            variant="outline"
-            color="text"
-            className="rounded-lg px-5 py-2 font-medium"
+            variant="fade"
+            color="custom"
+            isLoading={isSubmitting || loading}
+            className="w-full rounded-lg px-5 py-2 font-medium"
           >
-            {button.cancel}
+            {loading ? button.analyzing : button.analyze}
           </FormButton>
-        )}
-      </div>
-    </Form>
+          {loading && onCancel && (
+            <FormButton
+              type="button"
+              label={button.cancel.value}
+              onClick={onCancel}
+              size="md"
+              variant="outline"
+              color="text"
+              className="rounded-lg px-5 py-2 font-medium"
+            >
+              {button.cancel}
+            </FormButton>
+          )}
+        </div>
+      </Form>
+    </Container>
   );
 };

@@ -20,26 +20,74 @@ export type AuditData = {
 
 type Url = string;
 
+/** Prefixes of the per-URL audit checks. */
+type UrlAuditCheck =
+  | 'url_hasCanonical'
+  | 'url_hasLocalizedLinks'
+  | 'url_currentLocale'
+  | 'url_htmlLang'
+  | 'url_htmlDir'
+  | 'url_ogLocale'
+  | 'url_hreflang'
+  | 'url_hreflangReciprocal'
+  | 'url_hasXDefault'
+  | 'url_allAnchorsLocalized'
+  | 'url_hasLangSelector'
+  | 'url_unusedBundleContent';
+
+/**
+ * Check keys. Per-URL keys are `<check>\<url>` at runtime; the backslash is
+ * left out of the template type, matching the backend `AuditDataList` (the
+ * TypeScript 7 `.d.ts` emitter cannot serialise it).
+ */
 export type AuditDataList<T extends Url> =
-  | `url_hasCanonical\\${T}`
-  | `url_hasLocalizedLinks\\${T}`
-  | `url_currentLocale\\${T}`
-  | `url_htmlLang\\${T}`
-  | `url_htmlDir\\${T}`
-  | `url_hreflang\\${T}`
-  | `url_hasXDefault\\${T}`
-  | `url_allAnchorsLocalized\\${T}`
-  | `url_hasLangSelector\\${T}`
-  | `url_hasFlagIcons\\${T}`
-  | `url_unusedBundleContent\\${T}`
-  | 'domain_localesCount'
+  | `${UrlAuditCheck}${T}`
   | 'robots_robotsPresent'
   | 'robots_noLocalizedUrlsForgotten'
   | 'sitemap_sitemapPresent'
   | 'sitemap_noLocalizedUrlsForgotten'
-  | 'sitemap_hasXDefault';
+  | 'sitemap_hasXDefault'
+  | 'sitemap_hasAlternates';
 
 type Locale = string;
+
+/** How the site encodes the locale in its URLs (from `@intlayer/engine`). */
+export type RoutingStrategy =
+  | 'prefix-all'
+  | 'prefix-no-default'
+  | 'search-params'
+  | 'subdomain'
+  | 'domain'
+  | 'no-prefix'
+  | 'unknown';
+
+/** Routing detection streamed in `domainData.routing`. */
+export type RoutingDetection = {
+  strategy: RoutingStrategy;
+  confidence: 'high' | 'low';
+  locales: Locale[];
+  defaultLocale?: Locale;
+  searchParamName?: string;
+  urlLocale?: Locale;
+  evidence: string;
+};
+
+/** Category of a detected technology. */
+export type TechnologyCategory =
+  | 'framework'
+  | 'i18n-library'
+  | 'tms'
+  | 'translation-proxy'
+  | 'cms';
+
+/** Technology streamed in `domainData.technologies`. */
+export type DetectedTechnology = {
+  id: string;
+  name: string;
+  category: TechnologyCategory;
+  version?: string;
+  evidence: string;
+};
 
 export type DomainData = {
   discoveredUrls: Record<Locale, string[]>;
@@ -48,6 +96,8 @@ export type DomainData = {
   image: string;
   title: string;
   description: string;
+  routing: RoutingDetection;
+  technologies: DetectedTechnology[];
 };
 
 export type AuditEvent = {
@@ -62,6 +112,7 @@ export type AuditEvent = {
   message?: string; // Message for the current audit step
   globalError?: string; // Global error message for the entire audit
   domainData?: Partial<DomainData>; // Domain data
+  cachedAt?: string; // ISO date of the audit, when replayed from the one-hour cache
 };
 
 export type MergedData = Partial<

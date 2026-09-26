@@ -128,16 +128,26 @@ const analyzeChunkLocaleContent = (
     match = regex.exec(text);
   }
 
-  // Step 2: a locale key is i18n content only if another locale key with a
-  // DIFFERENT locale code exists within LOCALE_CLUSTER_WINDOW chars.
+  // Step 2: a locale key is i18n content only if, within
+  // LOCALE_CLUSTER_WINDOW chars, another locale key with a DIFFERENT language
+  // exists AND the rendered locale is part of the cluster. The second rule
+  // discards minified object keys that happen to be locale codes (`id:{`,
+  // `as:{`, `to:{`…), which never come with the page locale next to them.
+  const languageOf = (candidate: LocaleMatch): string =>
+    candidate.locale.split('-')[0].toLowerCase();
+
   const isI18nMatch = (idx: number): boolean => {
-    const base = candidates[idx].locale.split('-')[0].toLowerCase();
+    const base = languageOf(candidates[idx]);
+    let hasOtherLanguage = false;
+    let hasCurrentLanguage = base === baseCurrent;
     for (let j = 0; j < candidates.length; j++) {
       if (j === idx) continue;
       const dist = Math.abs(candidates[j].position - candidates[idx].position);
       if (dist > LOCALE_CLUSTER_WINDOW) continue;
-      if (candidates[j].locale.split('-')[0].toLowerCase() !== base)
-        return true;
+      const neighborLanguage = languageOf(candidates[j]);
+      if (neighborLanguage !== base) hasOtherLanguage = true;
+      if (neighborLanguage === baseCurrent) hasCurrentLanguage = true;
+      if (hasOtherLanguage && hasCurrentLanguage) return true;
     }
     return false;
   };

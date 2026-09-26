@@ -1,15 +1,15 @@
 import type { AnyWebMCPTool } from '@intlayer/design-system/hooks';
 import type { ZodMiniType } from 'zod/mini';
 import type { AuditData, AuditStatus } from './Analyzer/Results/types';
-import type { ScanSnapshot } from './useLocalizationScan';
+import type { AnalyzeOptions, ScanSnapshot } from './useLocalizationScan';
 
-type ScanWebsiteInput = { url: string };
+type ScanWebsiteInput = { url: string; refresh?: boolean };
 
 type UseScannerWebMCPToolsOptions = {
   /** Validates and normalizes a URL the way the form does. */
   urlSchema: ZodMiniType<{ url: string }>;
   /** Runs a scan and resolves with its outcome. */
-  scan: (url: string) => Promise<ScanSnapshot>;
+  scan: (url: string, options?: AnalyzeOptions) => Promise<ScanSnapshot>;
   /** Outcome of the last scan, from a previous visit too. */
   snapshot: ScanSnapshot;
   isScanning: boolean;
@@ -38,7 +38,12 @@ const toScanCheck = (
 };
 
 /** A scan outcome in the shape an agent can reason about. */
-const describeSnapshot = ({ score, domainData, mergedData }: ScanSnapshot) => {
+const describeSnapshot = ({
+  score,
+  domainData,
+  mergedData,
+  cachedAt,
+}: ScanSnapshot) => {
   const checks = Object.entries(mergedData).map(([key, value]) =>
     toScanCheck(key, value)
   );
@@ -47,6 +52,7 @@ const describeSnapshot = ({ score, domainData, mergedData }: ScanSnapshot) => {
 
   return {
     score,
+    cachedAt: cachedAt ?? undefined,
     site: domainData
       ? {
           title: domainData.title,
@@ -79,7 +85,7 @@ export const useScannerWebMCPTools = ({
   const scanWebsite: AnyWebMCPTool = {
     name: 'createWebsiteI18nScan',
     description:
-      'Audit the internationalization and SEO of a public website with the scanner on this page: locales, hreflang, html lang / dir, canonical, localized links, sitemap and robots. Returns a score out of 100 and every check with its status and details. Takes up to a minute; the report also appears on the page.',
+      'Audit the internationalization and SEO of a public website with the scanner on this page: locales, hreflang, html lang / dir, canonical, localized links, sitemap and robots. Returns a score out of 100 and every check with its status and details. Takes up to a minute; the report also appears on the page. A URL audited less than an hour ago is returned from cache (`cachedAt` is set); pass `refresh: true` to run a new audit.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -87,6 +93,11 @@ export const useScannerWebMCPTools = ({
           type: 'string',
           description:
             'Public URL of the page to audit, for example `https://example.com`.',
+        },
+        refresh: {
+          type: 'boolean',
+          description:
+            'Run a new audit instead of returning a result cached less than an hour ago.',
         },
       },
       required: ['url'],
@@ -97,7 +108,7 @@ export const useScannerWebMCPTools = ({
       untrustedContentHint: true,
       openWorldHint: true,
     },
-    execute: async ({ url }: ScanWebsiteInput) => {
+    execute: async ({ url, refresh }: ScanWebsiteInput) => {
       const parsed = urlSchema.safeParse({ url });
 
       if (!parsed.success) {
@@ -108,7 +119,7 @@ export const useScannerWebMCPTools = ({
         return 'A scan is already running on this page; wait for it to finish.';
       }
 
-      const result = await scan(parsed.data.url);
+      const result = await scan(parsed.data.url, { refresh });
 
       if (Object.keys(result.mergedData).length === 0) {
         return `The scan of ${parsed.data.url} produced no result; the site may be unreachable.`;
