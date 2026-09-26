@@ -45,7 +45,7 @@ export const useConfiguration = (): IntlayerConfig | undefined => {
   const reactConfig = useContext(ConfigurationReactContext); // 3. Consume native context
 
   const [config, setConfig] = useState<IntlayerConfig | undefined>(
-    manager?.configuration.value ?? reactConfig
+    (manager?.configuration.value as IntlayerConfig | undefined) ?? reactConfig
   );
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export const useConfigurationState = () => {
   const reactConfig = useContext(ConfigurationReactContext);
 
   const [config, setConfig] = useState<IntlayerConfig | undefined>(
-    manager?.configuration.value ?? reactConfig
+    (manager?.configuration.value as IntlayerConfig | undefined) ?? reactConfig
   );
 
   return [

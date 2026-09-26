@@ -48,7 +48,7 @@ export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
 }: UseLocaleProps = {}): UseLocaleResult => {
-  const context = useContext(IntlayerClientContext) ?? {};
+  const context = useContext(IntlayerClientContext);
 
   const setLocale = (locale: LocalesValues) => {
     if (!availableLocales?.map(String).includes(locale)) {

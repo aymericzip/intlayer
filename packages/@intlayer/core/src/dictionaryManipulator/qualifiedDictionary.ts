@@ -298,7 +298,7 @@ export const parseDictionarySelector = <L extends LocalesValues>(
     };
   }
 
-  return { locale: localeOrSelector };
+  return { locale: localeOrSelector as L | undefined };
 };
 
 /**

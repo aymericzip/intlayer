@@ -124,17 +124,23 @@ export const intlayer = (): RequestHandler => async (req, res, next) => {
 
   const t = translateFunction(req, res, next);
 
-  const getIntlayer: typeof getIntlayerFunction = (
-    key,
-    localeArg = localeDetected as Parameters<typeof getIntlayerFunction>[1],
-    ...props
-  ) => getIntlayerFunction(key, localeArg, ...props);
+  const getIntlayer: typeof getIntlayerFunction = (key, localeArg, ...props) =>
+    getIntlayerFunction(
+      key,
+      (localeArg ?? localeDetected) as typeof localeArg,
+      ...props
+    );
 
   const getDictionary: typeof getDictionaryFunction = (
     key,
-    localeArg = localeDetected as Parameters<typeof getDictionaryFunction>[1],
+    localeArg,
     ...props
-  ) => getDictionaryFunction(key, localeArg, ...props);
+  ) =>
+    getDictionaryFunction(
+      key,
+      (localeArg ?? localeDetected) as typeof localeArg,
+      ...props
+    );
 
   res.locals.t = t;
   res.locals.getIntlayer = getIntlayer;

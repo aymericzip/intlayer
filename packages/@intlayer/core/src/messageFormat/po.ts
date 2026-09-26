@@ -185,7 +185,7 @@ const poToIntlayerPlugin = {
     const msgstr = node.msgstr || [];
     const isPlural = Boolean(node.msgid_plural) || msgstr.length > 1;
 
-    const processString = (str: string) => {
+    const processString = (str: string = '') => {
       if (!str) return '';
       // Convert Python/C-style gettext variables %(name)s or %(name)d -> {{name}}
       const parsed = str.replace(/%\(([a-zA-Z0-9_-]+)\)[sdf]/g, '{{$1}}');

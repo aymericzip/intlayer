@@ -116,7 +116,7 @@ export const initInfra = async (
 
     script = await response.text();
   } catch (error) {
-    spinner.stop('Could not download the installer', 1);
+    spinner.stop('Could not download the installer');
     p.log.error(
       `${(error as Error).message}\nRun it directly: ${
         process.platform === 'win32'

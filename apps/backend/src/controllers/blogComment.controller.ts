@@ -53,8 +53,9 @@ export const submitBlogComment = async (
       content,
     });
 
-    const { authorEmail: _email, ...publicComment } =
-      comment.toJSON() as BlogCommentAPI;
+    const { authorEmail: _email, ...publicComment } = (
+      comment as unknown as { toJSON(): BlogCommentAPI }
+    ).toJSON();
 
     const responseData = formatResponse<BlogCommentPublicAPI>({
       message: t({
@@ -98,12 +99,12 @@ export const getApprovedBlogComments = async (
     const comments =
       await blogCommentService.getApprovedCommentsBySlug(blogSlug);
 
-    const publicComments = comments.map(
-      (comment): BlogCommentPublicAPI =>
-        (({ authorEmail: _email, ...rest }) => rest)(
-          (comment as unknown as { toJSON(): BlogCommentAPI }).toJSON()
-        )
-    );
+    const publicComments: BlogCommentPublicAPI[] = comments.map((comment) => {
+      const { authorEmail: _email, ...rest } = (
+        comment as unknown as { toJSON(): BlogCommentAPI }
+      ).toJSON();
+      return rest;
+    });
 
     const responseData = formatResponse<BlogCommentPublicAPI[]>({
       data: publicComments,

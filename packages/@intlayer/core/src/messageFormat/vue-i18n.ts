@@ -89,7 +89,7 @@ const vueI18nPartToIntlayer = (nodes: VueI18nNode[]): any => {
 };
 
 const vueI18nNodesToIntlayer = (parts: VueI18nNode[][]): any => {
-  if (parts.length === 1) {
+  if (parts.length === 1 && parts[0]) {
     return vueI18nPartToIntlayer(parts[0]);
   }
 
@@ -101,7 +101,7 @@ const vueI18nNodesToIntlayer = (parts: VueI18nNode[][]): any => {
   const options: Record<string, any> = {};
   const varName = 'count'; // Default variable for vue-i18n choices
 
-  if (parts.length === 2) {
+  if (parts.length === 2 && parts[0] && parts[1]) {
     // 2 choices: 1 | other
     return enu({
       '1': vueI18nPartToIntlayer(parts[0]),
@@ -109,7 +109,7 @@ const vueI18nNodesToIntlayer = (parts: VueI18nNode[][]): any => {
     });
   }
 
-  if (parts.length === 3) {
+  if (parts.length === 3 && parts[0] && parts[1] && parts[2]) {
     // 3 choices: 0 | 1 | other
     return enu({
       '0': vueI18nPartToIntlayer(parts[0]),
@@ -176,6 +176,7 @@ const intlayerToVueI18nPlugin = {
           typeof item === 'object' &&
           (item.nodeType === NodeTypes.INSERTION ||
             item.nodeType === NodeTypes.ENUMERATION ||
+            item.nodeType === NodeTypes.PLURAL ||
             item.nodeType === NodeTypes.GENDER ||
             item.nodeType === NodeTypes.SELECT ||
             item.nodeType === 'composite')

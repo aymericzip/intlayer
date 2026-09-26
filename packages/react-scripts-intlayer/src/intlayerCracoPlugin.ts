@@ -37,9 +37,13 @@ export const overrideWebpackConfig = ({
   webpackConfig,
 }: WebpackConfigOverride): CracoWebpackConfig => {
   // 1) Remove `module`, `fs`, `path`, `vm` from externals.
-  if (typeof webpackConfig.externals === 'object') {
+  if (
+    webpackConfig.externals &&
+    typeof webpackConfig.externals === 'object' &&
+    !Array.isArray(webpackConfig.externals)
+  ) {
     webpackConfig.externals = {
-      ...webpackConfig.externals,
+      ...(webpackConfig.externals as Record<string, unknown>),
       esbuild: 'esbuild',
     };
   }

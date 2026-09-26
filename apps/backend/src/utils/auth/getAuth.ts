@@ -500,5 +500,5 @@ export const getAuth = (dbClient: MongoClient): Auth => {
     },
   });
 
-  return auth;
+  return auth as unknown as Auth;
 };

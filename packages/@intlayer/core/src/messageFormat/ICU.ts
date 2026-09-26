@@ -114,7 +114,7 @@ const parseICU = (text: string): ICUNode[] => {
     // We are past '{'
     // Parse name
     let name = '';
-    while (index < text.length && /[^,}]/.test(text[index])) {
+    while (index < text.length && /[^,}]/.test(text[index]!)) {
       name += text[index];
       index++;
     }
@@ -132,7 +132,7 @@ const parseICU = (text: string): ICUNode[] => {
       index++;
       // Parse type
       let type = '';
-      while (index < text.length && /[^,}]/.test(text[index])) {
+      while (index < text.length && /[^,}]/.test(text[index]!)) {
         type += text[index];
         index++;
       }
@@ -159,16 +159,16 @@ const parseICU = (text: string): ICUNode[] => {
 
           while (index < text.length && text[index] !== '}') {
             // skip whitespace
-            while (index < text.length && /\s/.test(text[index])) index++;
+            while (index < text.length && /\s/.test(text[index]!)) index++;
 
             // parse key
             let key = '';
-            while (index < text.length && /[^{\s]/.test(text[index])) {
+            while (index < text.length && /[^{\s]/.test(text[index]!)) {
               key += text[index];
               index++;
             }
 
-            while (index < text.length && /\s/.test(text[index])) index++;
+            while (index < text.length && /\s/.test(text[index]!)) index++;
 
             if (text[index] !== '{')
               throw new Error('Expected { after option key');
@@ -182,7 +182,7 @@ const parseICU = (text: string): ICUNode[] => {
 
             options[key] = value;
 
-            while (index < text.length && /\s/.test(text[index])) index++;
+            while (index < text.length && /\s/.test(text[index]!)) index++;
           }
 
           index++; // skip closing argument }
@@ -229,14 +229,14 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
 
   // Check if we can flatten to a single string (insert)
   const canFlatten = nodes.every(
-    (node) => typeof node === 'string' || node.type === 'argument'
+    (node) => typeof node === 'string' || node?.type === 'argument'
   );
   if (canFlatten) {
     let str = '';
     for (const node of nodes) {
       if (typeof node === 'string') {
         str += node;
-      } else if (typeof node !== 'string' && node.type === 'argument') {
+      } else if (typeof node !== 'string' && node?.type === 'argument') {
         if (node.format) {
           // Formatted variables keep ICU format: {var, type, style}
           str += `{${node.name}, ${node.format.type}${
@@ -265,7 +265,7 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
       }
       return node;
     }
-    if (node.type === 'argument') {
+    if (node?.type === 'argument') {
       if (node.format) {
         return insert(
           `{${node.name}, ${node.format.type}${
@@ -275,7 +275,7 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
       }
       return insert(`{{${node.name}}}`);
     }
-    if (node.type === 'plural') {
+    if (node?.type === 'plural') {
       const options: Record<string, any> = {};
       let hasExactMatch = false;
 
@@ -324,7 +324,7 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
       } else {
         for (const [key, val] of Object.entries(node.options)) {
           // Handle # in plural value
-          const replacedVal = val.map((v) => {
+          const replacedVal = val?.map((v) => {
             if (typeof v === 'string') {
               return v.replace(/#/g, `{{${node.name}}}`);
             }
@@ -337,7 +337,7 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
         return plural(options as any);
       }
     }
-    if (node.type === 'select') {
+    if (node?.type === 'select') {
       const options: Record<string, any> = {};
 
       for (const [key, val] of Object.entries(node.options)) {
@@ -367,7 +367,7 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
       return select(options, node.name);
     }
 
-    if (node.type === 'selectordinal') {
+    if (node?.type === 'selectordinal') {
       // Ordinal plural ({n, selectordinal, one {#st} two {#nd} other {#th}}).
       // Stored as an enumeration with the ordinal marker: exact matches keep
       // numeric keys, CLDR ordinal categories keep their names, and the
@@ -456,6 +456,7 @@ const intlayerToIcuPlugin = {
           (item.nodeType === NodeTypes.INSERTION ||
             item.nodeType === NodeTypes.HTML ||
             item.nodeType === NodeTypes.ENUMERATION ||
+            item.nodeType === NodeTypes.PLURAL ||
             item.nodeType === NodeTypes.GENDER ||
             item.nodeType === NodeTypes.SELECT ||
             item.nodeType === 'composite')
@@ -508,7 +509,7 @@ const intlayerToIcuPlugin = {
       if (fallbackVal) {
         const match = fallbackVal.match(/\{([a-zA-Z0-9_]+)\}(?!,)/);
         if (match) {
-          varName = match[1];
+          varName = match[1]!;
         }
       }
 
@@ -541,8 +542,8 @@ const intlayerToIcuPlugin = {
           transformedOptions.fallback ||
           transformedOptions.other ||
           Object.values(transformedOptions)[0];
-        const match = fallbackVal.match(/\{([a-zA-Z0-9_]+)\}(?!,)/);
-        if (match) {
+        const match = fallbackVal?.match(/\{([a-zA-Z0-9_]+)\}(?!,)/);
+        if (match?.[1]) {
           varName = match[1];
         }
       }

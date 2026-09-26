@@ -66,7 +66,7 @@ export const getPathWithoutLocale = <
   // Determine if the original URL is absolute (includes protocol)
   const isAbsoluteUrl = checkIsURLAbsolute(inputUrl);
 
-  let fixedInputUrl = inputUrl;
+  let fixedInputUrl: string = inputUrl;
 
   if (inputUrl?.endsWith('/')) {
     fixedInputUrl = inputUrl.slice(0, -1);

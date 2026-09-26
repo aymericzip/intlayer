@@ -33,6 +33,11 @@ export const defineRouting: (config?: Partial<Routing>) => Routing = (
     config?.defaultLocale ??
     (internationalization?.defaultLocale as LocalesValues),
   localePrefix:
-    config?.localePrefix ?? (routing?.prefixDefault ? 'always' : 'as-needed'),
+    config?.localePrefix ??
+    (routing?.mode === 'prefix-all'
+      ? 'always'
+      : routing?.mode === 'no-prefix'
+        ? 'never'
+        : 'as-needed'),
   ...config,
 });

@@ -7,16 +7,25 @@ import {
   compileWithOptions,
   parseMarkdown as coreParseMarkdown,
   renderMarkdownAst as coreRenderMarkdownAst,
+  type HTMLTag,
   type MarkdownContext,
   type ParsedMarkdown,
 } from '@intlayer/core/markdown';
+import type { ComponentType, JSX } from 'preact';
+import type { HTMLComponents } from '../html/types';
 import { preactRuntime } from './runtime';
 
 /**
  * Options accepted by `compileMarkdown` and `parseMarkdown` to customise
  * rendering behaviour (custom components, sanitizer, slugify, rule hooks, …).
  */
-export type MarkdownCompilerOptions = CompileOptions;
+export type MarkdownCompilerOptions = Omit<
+  CompileOptions<HTMLComponents<'permissive', {}>>,
+  'wrapper' | 'components'
+> & {
+  wrapper?: ComponentType<unknown> | keyof JSX.IntrinsicElements | null;
+  components?: HTMLComponents<'permissive', {}>;
+};
 
 /**
  * Intermediate AST produced by `parseMarkdown`.
@@ -55,15 +64,21 @@ export const parseMarkdown = (
     ...compilerOptions
   } = options;
 
-  const ctx: MarkdownContext<any> = {
+  const ctx: MarkdownContext<unknown> = {
     runtime: preactRuntime,
-    components,
+    components: components as unknown as Record<string, unknown>,
     namedCodesToUnicode,
-    sanitizer: sanitizer as any,
+    sanitizer: sanitizer as
+      | ((value: string, tag: HTMLTag, attribute: string) => string | null)
+      | undefined,
     slugify,
   };
 
-  return coreParseMarkdown(markdown, ctx, compilerOptions);
+  return coreParseMarkdown(
+    markdown,
+    ctx,
+    compilerOptions as unknown as CompileOptions
+  );
 };
 
 /**
@@ -86,7 +101,11 @@ export const compileMarkdown = (
   options: MarkdownCompilerOptions = {}
 ) => {
   if (typeof input === 'string') {
-    return compileWithOptions(input, preactRuntime, options);
+    return compileWithOptions(
+      input,
+      preactRuntime,
+      options as unknown as CompileOptions
+    );
   }
 
   const {
@@ -97,13 +116,19 @@ export const compileMarkdown = (
     ...compilerOptions
   } = options;
 
-  const ctx: MarkdownContext<any> = {
+  const ctx: MarkdownContext<unknown> = {
     runtime: preactRuntime,
-    components,
+    components: components as unknown as Record<string, unknown>,
     namedCodesToUnicode,
-    sanitizer: sanitizer as any,
+    sanitizer: sanitizer as
+      | ((value: string, tag: HTMLTag, attribute: string) => string | null)
+      | undefined,
     slugify,
   };
 
-  return coreRenderMarkdownAst(input, ctx, compilerOptions);
+  return coreRenderMarkdownAst(
+    input,
+    ctx,
+    compilerOptions as unknown as CompileOptions
+  );
 };

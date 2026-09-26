@@ -11,7 +11,7 @@
     "build": "bun --bun vite build",
     "serve": "bun --bun vite preview",
     "test": "bun --bun vitest run",
-    "typecheck": "tsc --noEmit --project tsconfig.types.json",
+    "typecheck": "tsc --project tsconfig.json",
     "start:editor": "bun intlayer-editor start -e development",
     "intlayer:build": "intlayer build"
   },

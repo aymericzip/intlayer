@@ -34,7 +34,7 @@ describe('vue-i18n', () => {
       expect(
         vueI18nToIntlayerFormatter('no apples | one apple | {count} apples')
       ).toEqual(
-        enu({
+        enu<string | ReturnType<typeof insert>>({
           '0': 'no apples',
           '1': 'one apple',
           fallback: insert('{{count}} apples'),

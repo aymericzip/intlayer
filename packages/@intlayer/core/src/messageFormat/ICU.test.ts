@@ -194,6 +194,30 @@ describe('ICU Formatter', () => {
         },
       });
     });
+
+    it('should transform combined interpolation and pluralization message', () => {
+      const input =
+        'Hello {name}, you have {count, plural, one {# unread message} other {# unread messages}}.';
+      const result = icuToIntlayerFormatter(input);
+
+      expect(result).toEqual([
+        'Hello ',
+        {
+          nodeType: NodeTypes.INSERTION,
+          insertion: '{{name}}',
+          fields: ['name'],
+        },
+        ', you have ',
+        {
+          nodeType: NodeTypes.PLURAL,
+          plural: {
+            one: '{{count}} unread message',
+            other: '{{count}} unread messages',
+          },
+        },
+        '.',
+      ]);
+    });
   });
 
   describe('intlayerToICUFormatter', () => {
@@ -341,6 +365,24 @@ describe('ICU Formatter', () => {
         'female {{n, plural, =0 {She has no cars} other {She has many cars}}}'
       );
     });
+
+    it('should transform combined interpolation and pluralization array back to ICU', () => {
+      const input = [
+        'Hello ',
+        insert('{{name}}'),
+        ', you have ',
+        plural({
+          one: '{{count}} unread message',
+          other: '{{count}} unread messages',
+        }),
+        '.',
+      ];
+      const result = intlayerToICUFormatter(input as any);
+
+      expect(result).toBe(
+        'Hello {name}, you have {count, plural, one {# unread message} other {# unread messages}}.'
+      );
+    });
   });
 
   describe('ICU Roundtrip', () => {
@@ -403,6 +445,31 @@ describe('ICU Formatter', () => {
           '{position, selectordinal, one {#st} two {#nd} few {#rd} other {#th}}',
         exactOrdinal:
           '{position, selectordinal, =1 {first!} two {#nd} other {#th}}',
+      };
+
+      const toIntlayer = icuToIntlayerFormatter(original as any);
+      const backToICU = intlayerToICUFormatter(toIntlayer as any);
+
+      expect(backToICU).toEqual(original);
+    });
+
+    it('should round-trip combined interpolation and pluralization message', () => {
+      const original =
+        'Hello {name}, you have {count, plural, one {# unread message} other {# unread messages}}.';
+      const toIntlayer = icuToIntlayerFormatter(original);
+      const backToICU = intlayerToICUFormatter(toIntlayer as any);
+
+      expect(backToICU).toBe(original);
+    });
+
+    it('should round-trip ICU formatted dictionary content', () => {
+      const original = {
+        key: 'my-dictionary',
+        format: 'icu',
+        content: {
+          message:
+            'Hello {name}, you have {count, plural, one {# unread message} other {# unread messages}}.',
+        },
       };
 
       const toIntlayer = icuToIntlayerFormatter(original as any);

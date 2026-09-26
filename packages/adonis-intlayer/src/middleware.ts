@@ -5,6 +5,7 @@ import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
 } from '@intlayer/core/interpreter';
+import { localeDetector } from '@intlayer/core/localization';
 import { appNamespace, getStorageLocale, translateFunction } from './index';
 
 const configuration = getConfiguration();
@@ -47,15 +48,25 @@ export default class IntlayerMiddleware {
 
     const getIntlayer: typeof getIntlayerFunction = (
       key,
-      localeArg = locale as Parameters<typeof getIntlayerFunction>[1],
+      localeArg,
       ...props
-    ) => getIntlayerFunction(key, localeArg, ...props);
+    ) =>
+      getIntlayerFunction(
+        key,
+        (localeArg ?? locale) as typeof localeArg,
+        ...props
+      );
 
     const getDictionary: typeof getDictionaryFunction = (
       key,
-      localeArg = locale as Parameters<typeof getDictionaryFunction>[1],
+      localeArg,
       ...props
-    ) => getDictionaryFunction(key, localeArg, ...props);
+    ) =>
+      getDictionaryFunction(
+        key,
+        (localeArg ?? locale) as typeof localeArg,
+        ...props
+      );
 
     // Make functions available via CLS
     await appNamespace.runPromise(async () => {

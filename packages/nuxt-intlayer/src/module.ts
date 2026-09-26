@@ -28,7 +28,8 @@ export const module: NuxtModule = defineNuxtModule({
   setup(_options, nuxt) {
     const configuration = getConfiguration();
 
-    nuxt.options.typescript = nuxt.options.typescript || {};
+    nuxt.options.typescript =
+      nuxt.options.typescript ?? ({} as typeof nuxt.options.typescript);
     nuxt.options.typescript.tsConfig = nuxt.options.typescript.tsConfig || {};
     nuxt.options.typescript.tsConfig.include =
       nuxt.options.typescript.tsConfig.include || [];

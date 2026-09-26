@@ -1,7 +1,9 @@
 import {
+  type CompileOptions,
   compileWithOptions,
   parseMarkdown as coreParseMarkdown,
   renderMarkdownAst as coreRenderMarkdownAst,
+  type HTMLTag,
   type MarkdownContext,
   type ParsedMarkdown,
 } from '@intlayer/core/markdown';
@@ -13,6 +15,8 @@ import { svelteHtmlRuntime } from './runtime';
  * rendered multiple times.
  */
 export type { ParsedMarkdown };
+
+export type MarkdownCompilerOptions = CompileOptions;
 
 /**
  * **Step 1 of 2 — parse only.**
@@ -34,7 +38,7 @@ export type { ParsedMarkdown };
  */
 export const parseMarkdown = (
   markdown: string = '',
-  options: any = {}
+  options: MarkdownCompilerOptions = {}
 ): ParsedMarkdown => {
   const {
     components,
@@ -44,11 +48,13 @@ export const parseMarkdown = (
     ...compilerOptions
   } = options;
 
-  const ctx: MarkdownContext<any> = {
+  const ctx: MarkdownContext<unknown> = {
     runtime: svelteHtmlRuntime,
-    components,
+    components: components as Record<string, unknown> | undefined,
     namedCodesToUnicode,
-    sanitizer: sanitizer as any,
+    sanitizer: sanitizer as
+      | ((value: string, tag: HTMLTag, attribute: string) => string | null)
+      | undefined,
     slugify,
   };
 
@@ -71,10 +77,10 @@ export const parseMarkdown = (
  */
 export const compileMarkdown = (
   input: string | ParsedMarkdown = '',
-  options: any = {}
-) => {
+  options: MarkdownCompilerOptions = {}
+): string => {
   if (typeof input === 'string') {
-    return compileWithOptions(input, svelteHtmlRuntime, options);
+    return compileWithOptions(input, svelteHtmlRuntime, options) as string;
   }
 
   const {
@@ -85,13 +91,15 @@ export const compileMarkdown = (
     ...compilerOptions
   } = options;
 
-  const ctx: MarkdownContext<any> = {
+  const ctx: MarkdownContext<unknown> = {
     runtime: svelteHtmlRuntime,
-    components,
+    components: components as Record<string, unknown> | undefined,
     namedCodesToUnicode,
-    sanitizer: sanitizer as any,
+    sanitizer: sanitizer as
+      | ((value: string, tag: HTMLTag, attribute: string) => string | null)
+      | undefined,
     slugify,
   };
 
-  return coreRenderMarkdownAst(input, ctx, compilerOptions);
+  return coreRenderMarkdownAst(input, ctx, compilerOptions) as string;
 };

@@ -18,7 +18,7 @@ import type {
   ResolveQualifiedDictionaryContent,
 } from './dictionary';
 
-export type SchemaKeys = keyof __SchemaRegistry extends never
+export type SchemaKeys = [keyof __SchemaRegistry] extends [never]
   ? string
   : keyof __SchemaRegistry;
 
@@ -28,15 +28,16 @@ export type Schema<T extends SchemaKeys> = [string] extends [T]
     ? __SchemaRegistry[T]
     : any;
 
-export type DictionaryKeys = keyof __DictionaryRegistry extends never
+export type DictionaryKeys = [keyof __DictionaryRegistry] extends [never]
   ? string
   : keyof __DictionaryRegistry;
 
 // Dictionaries
-export type DictionaryRegistry =
-  __DictionaryRegistry[keyof __DictionaryRegistry] extends never
-    ? Record<string, Dictionary>
-    : __DictionaryRegistry;
+export type DictionaryRegistry = [
+  __DictionaryRegistry[keyof __DictionaryRegistry],
+] extends [never]
+  ? Record<string, Dictionary>
+  : __DictionaryRegistry;
 
 export type DictionaryRegistryElement<T extends DictionaryKeys> = [
   string,

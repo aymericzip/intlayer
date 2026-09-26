@@ -78,10 +78,13 @@ export const filterAccessibleDictionaryIds = async (
     },
     { _id: 1 }
   );
-  const projectIds = projects.map((project) => project._id);
+  const projectIds = projects.map((project) => String(project._id));
 
   const dictionaries = await DictionaryModel.find(
-    { _id: { $in: dictionaryIds }, projectIds: { $in: projectIds } },
+    {
+      _id: { $in: dictionaryIds },
+      projectIds: { $in: projectIds },
+    },
     { _id: 1 }
   );
 

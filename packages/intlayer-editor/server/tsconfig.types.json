@@ -6,13 +6,13 @@
   "compilerOptions": {
     "outDir": "dist",
     "paths": {
-      "@controllers/*": ["./controllers/*"],
-      "@services/*": ["./services/*"],
-      "@routes/*": ["./routes/*"],
-      "@middlewares/*": ["./middlewares/*"],
-      "@schemas/*": ["./schemas/*"],
-      "@utils/*": ["./utils/*"],
-      "@/*": ["./*"]
+      "@controllers/*": ["./src/controllers/*"],
+      "@services/*": ["./src/services/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@schemas/*": ["./src/schemas/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@/*": ["./src/*"]
     }
   }
 }

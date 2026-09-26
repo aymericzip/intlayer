@@ -65,7 +65,9 @@ export const selectCmsEnvironment = async (
       return;
     }
 
-    await intlayerAPI.project.selectEnvironment(String(targetEnvironment.id));
+    await intlayerAPI.environment.selectEnvironment(
+      String(targetEnvironment.id)
+    );
 
     appLogger(
       `Using environment: ${colorize(targetEnvironment.name, ANSIColors.CYAN)}`

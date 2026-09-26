@@ -9,7 +9,7 @@ export type FilePathPatternContext = {
   key: DictionaryKey;
   fileName: string;
   extension: ContentExtension | (string & {});
-  format: 'ts' | 'cjs' | 'esm' | 'json' | 'jsonc' | 'json5';
+  format: 'ts' | 'cjs' | 'esm' | 'json' | 'jsonc' | 'json5' | 'md' | 'yaml';
   componentExtension?:
     | '.json'
     | '.js'
@@ -18,7 +18,7 @@ export type FilePathPatternContext = {
     | '.tsx'
     | '.cjs'
     | '.mjs';
-  componentFormat?: 'ts' | 'cjs' | 'esm';
+  componentFormat?: 'ts' | 'cjs' | 'esm' | 'md' | 'yaml';
 
   componentFileName?: string;
   componentDirPath?: string;

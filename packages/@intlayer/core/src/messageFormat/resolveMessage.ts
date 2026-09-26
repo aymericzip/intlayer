@@ -403,8 +403,8 @@ export const parseTaggedMessage = (message: string): TaggedMessageToken[] => {
 
     if (selfClosingTag) {
       tokens.push({ tag: selfClosingTag, children: [] });
-    } else {
-      tokens.push({ tag, children: parseTaggedMessage(inner) });
+    } else if (tag) {
+      tokens.push({ tag, children: parseTaggedMessage(inner ?? '') });
     }
 
     lastIndex = match.index + match[0].length;

@@ -1,6 +1,7 @@
 import type {
   ContentNode,
   Dictionary as DictionaryCore,
+  DictionaryVariantValue,
 } from '@intlayer/types/dictionary';
 import type { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
@@ -20,7 +21,7 @@ export type DictionaryQualifiers = {
    * Variant discriminator — a named string (A/B testing, seasonal banners…) or
    * a structured object (CMS records, user-specific copy…).
    */
-  variant?: string | Record<string, string | number>;
+  variant?: DictionaryVariantValue | DictionaryVariantValue[];
   /** Ordered collection item index. */
   item?: number;
 };

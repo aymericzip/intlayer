@@ -1,5 +1,9 @@
 import * as ANSIColors from '@intlayer/config/colors';
-import { colorize, colorizeNumber } from '@intlayer/config/logger';
+import {
+  type ANSIColorsType,
+  colorize,
+  colorizeNumber,
+} from '@intlayer/config/logger';
 import { buildAlignmentPlan } from './pipeline';
 
 /**
@@ -208,10 +212,7 @@ const colorizeLineRange = (range?: LineRange): string => {
  * Colorize a count with green when zero (nothing to do) and a caller-supplied
  * non-zero color (orange for warnings, red for destructive actions).
  */
-const colorizeCount = (
-  count: number,
-  nonZeroColor: (typeof ANSIColors)[keyof typeof ANSIColors]
-): string =>
+const colorizeCount = (count: number, nonZeroColor: ANSIColorsType): string =>
   colorizeNumber(count, {
     zero: ANSIColors.GREEN,
     one: nonZeroColor,

@@ -1,4 +1,8 @@
-export type { MarkdownProviderOptions } from './MarkdownProvider';
+export type {
+  MarkdownContextValue,
+  MarkdownProviderOptions,
+  MarkdownProviderProps,
+} from './MarkdownProvider';
 export { MarkdownProvider, useMarkdownContext } from './MarkdownProvider';
 export type {
   MarkdownRendererProps,

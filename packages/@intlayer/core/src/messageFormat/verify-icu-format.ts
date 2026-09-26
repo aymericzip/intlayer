@@ -12,7 +12,7 @@ console.log('=== ICU Format Verification ===\n');
 // Test 1: Simple interpolation
 console.log('Test 1: Simple Interpolation');
 console.log('Intlayer input:', insert('Hello {{name}}'));
-const test1 = intlayerToICUFormatter(insert('Hello {{name}}'));
+const test1 = String(intlayerToICUFormatter(insert('Hello {{name}}')));
 console.log('ICU output:', test1);
 console.log('✓ Expected: Single braces {name}');
 console.log(
@@ -24,8 +24,8 @@ console.log();
 // Test 2: Formatted variable
 console.log('Test 2: Formatted Variable');
 console.log('Intlayer input:', insert('Price: {amount, number, currency}'));
-const test2 = intlayerToICUFormatter(
-  insert('Price: {amount, number, currency}')
+const test2 = String(
+  intlayerToICUFormatter(insert('Price: {amount, number, currency}'))
 );
 console.log('ICU output:', test2);
 console.log('✓ Expected: Single braces {amount, number, currency}');
@@ -43,7 +43,7 @@ const pluralInput = enu({
   fallback: '{{count}} items',
 });
 console.log('Intlayer input:', JSON.stringify(pluralInput, null, 2));
-const test3 = intlayerToICUFormatter(pluralInput);
+const test3 = String(intlayerToICUFormatter(pluralInput));
 console.log('ICU output:', test3);
 console.log('✓ Expected: {count, plural, ...} with # for count');
 console.log(
@@ -76,7 +76,7 @@ const genderInput = gender({
   female: 'She has items',
   fallback: 'They have items',
 });
-const test5 = intlayerToICUFormatter(genderInput);
+const test5 = String(intlayerToICUFormatter(genderInput));
 console.log('ICU output:', test5);
 console.log('✓ Expected: Single braces only');
 console.log('✓ Result:', !test5.includes('{{') ? 'PASS' : 'FAIL');

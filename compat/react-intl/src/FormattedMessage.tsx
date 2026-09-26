@@ -1,6 +1,11 @@
 'use client';
 
-import { Fragment, type ReactElement, type ReactNode } from 'react';
+import {
+  type ComponentProps,
+  Fragment,
+  type ReactElement,
+  type ReactNode,
+} from 'react';
 import type { FormattedMessage as _FormattedMessage } from 'react-intl';
 import { useIntl } from './useIntl';
 
@@ -25,7 +30,7 @@ import { useIntl } from './useIntl';
  * />
  * ```
  */
-export const FormattedMessage: typeof _FormattedMessage = ({
+export const FormattedMessage: typeof _FormattedMessage = (({
   id = '',
   description: _description,
   defaultMessage,
@@ -33,7 +38,7 @@ export const FormattedMessage: typeof _FormattedMessage = ({
   tagName: TagName,
   children,
   ignoreTag: _ignoreTag,
-}) => {
+}: ComponentProps<typeof _FormattedMessage>) => {
   const intl = useIntl();
   const stringDefaultMessage =
     typeof defaultMessage === 'string' ? defaultMessage : undefined;
@@ -57,4 +62,4 @@ export const FormattedMessage: typeof _FormattedMessage = ({
   }
 
   return <>{nodes}</>;
-};
+}) as unknown as typeof _FormattedMessage;

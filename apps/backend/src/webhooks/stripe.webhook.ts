@@ -123,7 +123,8 @@ export const stripeWebhook = async (
       throw new GenericError('USER_NOT_FOUND');
     }
 
-    const status = statusOverride ?? subscription.status; // Use the provided status override or the subscription's status
+    const status: Plan['status'] =
+      statusOverride ?? (subscription.status as Plan['status']); // Use the provided status override or the subscription's status
 
     // Snapshot the previous plan state (organization is fetched before the
     // update) so notification emails are only sent when the status actually

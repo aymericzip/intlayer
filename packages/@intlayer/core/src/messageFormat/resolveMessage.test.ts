@@ -120,6 +120,19 @@ describe('resolveMessage', () => {
     ).toBe('3 items');
   });
 
+  it('should resolve ICU message with combined interpolation and pluralization', () => {
+    const message =
+      'Hello {name}, you have {count, plural, one {# unread message} other {# unread messages}}.';
+
+    expect(
+      resolveMessage(message, { name: 'Aymeric', count: 3 }, 'en', 'icu')
+    ).toBe('Hello Aymeric, you have 3 unread messages.');
+
+    expect(
+      resolveMessage(message, { name: 'Aymeric', count: 1 }, 'en', 'icu')
+    ).toBe('Hello Aymeric, you have 1 unread message.');
+  });
+
   it('should resolve ICU plural with exact matches', () => {
     expect(
       resolveMessage(
@@ -217,6 +230,19 @@ describe('resolveMessageNodeToString', () => {
     expect(resolveMessageNodeToString(42)).toBe('42');
     expect(resolveMessageNodeToString(undefined)).toBe('');
   });
+
+  it('should resolve transformed ICU composite node array to string', () => {
+    const message = icuToIntlayerFormatter(
+      'Hello {name}, you have {count, plural, one {# unread message} other {# unread messages}}.'
+    );
+
+    expect(
+      resolveMessageNodeToString(message, { name: 'Aymeric', count: 3 }, 'en')
+    ).toBe('Hello Aymeric, you have 3 unread messages.');
+    expect(
+      resolveMessageNodeToString(message, { name: 'Aymeric', count: 1 }, 'en')
+    ).toBe('Hello Aymeric, you have 1 unread message.');
+  });
 });
 
 describe('createMessageResolver', () => {
@@ -230,6 +256,19 @@ describe('createMessageResolver', () => {
         'en'
       )
     ).toBe('3 items');
+  });
+
+  it('should resolve combined ICU interpolation and pluralization through bound converter', () => {
+    const resolveIcuMessage = createMessageResolver(icuToIntlayerFormatter);
+    const message =
+      'Hello {name}, you have {count, plural, one {# unread message} other {# unread messages}}.';
+
+    expect(
+      resolveIcuMessage(message, { name: 'Aymeric', count: 3 }, 'en')
+    ).toBe('Hello Aymeric, you have 3 unread messages.');
+    expect(
+      resolveIcuMessage(message, { name: 'Aymeric', count: 1 }, 'en')
+    ).toBe('Hello Aymeric, you have 1 unread message.');
   });
 
   it('should match resolveMessage for the same dialect', () => {

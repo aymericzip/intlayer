@@ -75,7 +75,7 @@ const parseI18Next = (text: string): I18NextNode[] => {
   const parseICUArgument = (): I18NextNode => {
     // We are past '{'
     let name = '';
-    while (index < text.length && /[^,}]/.test(text[index])) {
+    while (index < text.length && /[^,}]/.test(text[index]!)) {
       name += text[index];
       index++;
     }
@@ -93,7 +93,7 @@ const parseI18Next = (text: string): I18NextNode[] => {
       index++;
       // Parse type
       let type = '';
-      while (index < text.length && /[^,}]/.test(text[index])) {
+      while (index < text.length && /[^,}]/.test(text[index]!)) {
         type += text[index];
         index++;
       }
@@ -114,15 +114,15 @@ const parseI18Next = (text: string): I18NextNode[] => {
           const options: Record<string, I18NextNode[]> = {};
 
           while (index < text.length && text[index] !== '}') {
-            while (index < text.length && /\s/.test(text[index])) index++;
+            while (index < text.length && /\s/.test(text[index]!)) index++;
 
             let key = '';
-            while (index < text.length && /[^{\s]/.test(text[index])) {
+            while (index < text.length && /[^{\s]/.test(text[index]!)) {
               key += text[index];
               index++;
             }
 
-            while (index < text.length && /\s/.test(text[index])) index++;
+            while (index < text.length && /\s/.test(text[index]!)) index++;
 
             if (text[index] !== '{')
               throw new Error('Expected { after option key');
@@ -136,7 +136,7 @@ const parseI18Next = (text: string): I18NextNode[] => {
 
             options[key] = value;
 
-            while (index < text.length && /\s/.test(text[index])) index++;
+            while (index < text.length && /\s/.test(text[index]!)) index++;
           }
 
           index++; // skip closing argument }
@@ -215,7 +215,7 @@ const i18nextNodesToIntlayer = (nodes: I18NextNode[]): any => {
       return node;
     }
 
-    if (node.type === 'argument') {
+    if (node?.type === 'argument') {
       if (node.format) {
         return insert(
           `{${node.name}, ${node.format.type}${
@@ -226,7 +226,7 @@ const i18nextNodesToIntlayer = (nodes: I18NextNode[]): any => {
       return insert(`{{${node.name}}}`);
     }
 
-    if (node.type === 'plural') {
+    if (node?.type === 'plural') {
       const options: Record<string, any> = {};
       let hasExactMatch = false;
 
@@ -288,7 +288,7 @@ const i18nextNodesToIntlayer = (nodes: I18NextNode[]): any => {
       }
     }
 
-    if (node.type === 'select') {
+    if (node?.type === 'select') {
       const options: Record<string, any> = {};
       for (const [key, val] of Object.entries(node.options)) {
         // ICU names its catch-all case `other`; intlayer names it `fallback`.
@@ -369,6 +369,7 @@ const intlayerToI18nextPlugin = {
           (item.nodeType === NodeTypes.INSERTION ||
             item.nodeType === NodeTypes.HTML ||
             item.nodeType === NodeTypes.ENUMERATION ||
+            item.nodeType === NodeTypes.PLURAL ||
             item.nodeType === NodeTypes.GENDER ||
             item.nodeType === NodeTypes.SELECT ||
             item.nodeType === 'composite')
@@ -424,7 +425,7 @@ const intlayerToI18nextPlugin = {
         const match =
           fallbackVal.match(/\{\{([a-zA-Z0-9_]+)\}\}/) ||
           fallbackVal.match(/\{([a-zA-Z0-9_]+)\}(?!,)/);
-        if (match) {
+        if (match?.[1]) {
           varName = match[1];
         }
       }
@@ -464,9 +465,9 @@ const intlayerToI18nextPlugin = {
           Object.values(transformedOptions)[0];
 
         const match =
-          fallbackVal.match(/\{\{([a-zA-Z0-9_]+)\}\}/) ||
-          fallbackVal.match(/\{([a-zA-Z0-9_]+)\}(?!,)/);
-        if (match) {
+          fallbackVal?.match(/\{\{([a-zA-Z0-9_]+)\}\}/) ||
+          fallbackVal?.match(/\{([a-zA-Z0-9_]+)\}(?!,)/);
+        if (match?.[1]) {
           varName = match[1];
         }
       }

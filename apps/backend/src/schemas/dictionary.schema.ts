@@ -87,17 +87,17 @@ export const dictionarySchema = new Schema<DictionarySchema>(
     toJSON: {
       virtuals: true, // keep the automatic `id` getter
       versionKey: false, // drop __v
-      transform(_doc, ret: any) {
+      transform(_doc, ret: Record<string, unknown>) {
         const { _id, ...rest } = ret;
         return {
           ...rest,
-          id: _id.toString(),
+          id: String(_id),
         };
       },
     },
     toObject: {
       virtuals: true,
-      transform(_doc, ret: any) {
+      transform(_doc, ret: Record<string, unknown>) {
         const { _id, ...rest } = ret;
         return {
           ...rest,

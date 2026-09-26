@@ -154,15 +154,25 @@ const fastifyIntlayer: FastifyPluginAsync = async (fastify, _opts) => {
     // Helper functions bound to the current request context
     const getIntlayerWrapped: typeof getIntlayerFunction = (
       key,
-      localeArg = localeDetected as Parameters<typeof getIntlayerFunction>[1],
+      localeArg,
       ...props
-    ) => getIntlayerFunction(key, localeArg, ...props);
+    ) =>
+      getIntlayerFunction(
+        key,
+        (localeArg ?? localeDetected) as typeof localeArg,
+        ...props
+      );
 
     const getDictionaryWrapped: typeof getDictionaryFunction = (
       key,
-      localeArg = localeDetected as Parameters<typeof getDictionaryFunction>[1],
+      localeArg,
       ...props
-    ) => getDictionaryFunction(key, localeArg, ...props);
+    ) =>
+      getDictionaryFunction(
+        key,
+        (localeArg ?? localeDetected) as typeof localeArg,
+        ...props
+      );
 
     // Assign data to request decoration
     req.intlayer = {
