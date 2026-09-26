@@ -1,5 +1,7 @@
+import { Link } from '@intlayer/design-system/link';
 import { LocaleSwitcher } from '@intlayer/design-system/locale-switcher-drop-down';
 import { Logo } from '@intlayer/design-system/logo';
+import { Website_Scanner } from '@intlayer/design-system/routes';
 import { getHTMLTextDir } from 'intlayer';
 import type { ComponentChildren, FunctionComponent } from 'preact';
 import { useEffect } from 'preact/hooks';
@@ -15,7 +17,15 @@ import { TechnologyList } from './components/TechnologyList';
 import { useActiveTabDetection } from './useActiveTabDetection';
 import { useAuditScan } from './useAuditScan';
 
-const SCANNER_PAGE_URL = 'https://intlayer.org/i18n-seo-scanner';
+/** Scanner page URL, prefilled with the tab URL so the report runs on open. */
+const getScannerPageUrl = (tabUrl: string | null): string => {
+  if (!tabUrl) return Website_Scanner;
+
+  const scannerPageUrl = new URL(Website_Scanner);
+  scannerPageUrl.searchParams.set('url', tabUrl);
+
+  return scannerPageUrl.toString();
+};
 
 const Section: FunctionComponent<{
   title: ComponentChildren;
@@ -126,14 +136,16 @@ export const App: FunctionComponent = () => {
       )}
 
       <footer className="pb-0.5 text-center">
-        <a
-          href={SCANNER_PAGE_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="text-neutral text-xs no-underline hover:text-text"
+        <Link
+          href={getScannerPageUrl(tabUrl)}
+          label={fullReport.value}
+          isExternalLink
+          color="neutral"
+          underlined={false}
+          className="text-xs hover:text-text"
         >
           {fullReport}
-        </a>
+        </Link>
       </footer>
     </main>
   );
