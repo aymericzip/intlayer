@@ -31,6 +31,8 @@ author: aymericzip
 
 Benchmark Bloom 是一套性能基准测试，用于衡量 i18n（国际化）库在多种 React 框架与加载策略下的真实影响。
 
+<I18nBenchmark vertical/>
+
 各框架的详细报告与技术文档见下方：
 
 - [**Next.js Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)

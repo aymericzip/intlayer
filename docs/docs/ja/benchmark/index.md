@@ -31,6 +31,8 @@ author: aymericzip
 
 Benchmark Bloom は、複数の React フレームワークとロード戦略における i18n（国際化）ライブラリの実環境への影響を測るパフォーマンスベンチマークの一式です。
 
+<I18nBenchmark vertical/>
+
 各フレームワークの詳細レポートと技術ドキュメントは次のとおりです。
 
 - [**Next.js ベンチマークレポート**](./nextjs.md)

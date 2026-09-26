@@ -31,6 +31,8 @@ author: aymericzip
 
 O Benchmark Bloom é uma suíte de benchmarks de desempenho que mede o impacto real das bibliotecas de i18n (internacionalização) em vários frameworks React e estratégias de carregamento.
 
+<I18nBenchmark vertical/>
+
 Abaixo estão os relatórios detalhados e a documentação técnica de cada framework:
 
 - [**Next.js Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/nextjs.md)

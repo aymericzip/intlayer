@@ -31,6 +31,8 @@ author: aymericzip
 
 Benchmark Bloom, birden fazla React çatısı ve yükleme stratejisinde i18n (uluslararasılaştırma) kütüphanelerinin gerçek dünyadaki etkisini ölçen bir performans kıyaslama paketidir.
 
+<I18nBenchmark vertical/>
+
 Her çatı için ayrıntılı raporlar ve teknik belgeleri aşağıda bulabilirsiniz:
 
 - [**Next.js Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)

@@ -31,6 +31,8 @@ author: aymericzip
 
 Benchmark Bloom هي مجموعة لقياس الأداء تقيس التأثير الفعلي لمكتبات i18n (تدويل التطبيقات) عبر عدة أطر عمل React واستراتيجيات التحميل.
 
+<I18nBenchmark vertical/>
+
 فيما يلي التقارير التفصيلية والتوثيق الفني لكل إطار عمل:
 
 - [**Next.js Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)
