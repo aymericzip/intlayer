@@ -16,6 +16,7 @@ import {
   onMount,
   type ParentProps,
   Suspense,
+  startTransition,
   untrack,
   useContext,
 } from 'solid-js';
@@ -117,7 +118,10 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
       return;
     }
 
-    setCurrentLocale(newLocale); // Update state
+    // A transition keeps the current content on screen while dynamic
+    // dictionaries of the new locale load, rather than showing the Suspense
+    // fallback — the same way a router navigation does.
+    startTransition(() => setCurrentLocale(newLocale));
     setLocaleInStorage(newLocale, props.isCookieEnabled); // Optionally set cookie for persistence
   };
 

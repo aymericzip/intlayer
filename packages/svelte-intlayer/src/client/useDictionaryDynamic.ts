@@ -54,14 +54,14 @@ const loadingProxy = (): any =>
   );
 
 /** Merges the resolved content with the loading/error state. */
-const withState = (value: unknown): any => {
+const withState = (value: unknown, isLoading = false): any => {
   if (Array.isArray(value)) {
-    return Object.assign(value.slice(), { isLoading: false, error: null });
+    return Object.assign(value.slice(), { isLoading, error: null });
   }
   if (value && typeof value === 'object') {
-    return { ...value, isLoading: false, error: null };
+    return { ...value, isLoading, error: null };
   }
-  return { isLoading: false, error: null };
+  return { isLoading, error: null };
 };
 
 /**
@@ -121,9 +121,19 @@ export function useDictionaryDynamic<
     ($store) => explicitLocale ?? context?.locale ?? $store.locale
   );
 
+  // Once content has resolved, a locale switch keeps it on screen (flagged as
+  // loading) until the new chunk lands. Falling back to `loadingProxy()` would
+  // blank every text node for a frame before rendering the target locale.
+  let resolvedContent: unknown;
+
   return derived(
     localeStore,
     ($locale, set) => {
+      const publish = (content: unknown) => {
+        resolvedContent = content;
+        set(withState(content));
+      };
+
       // A build-tool plugin may have resolved this locale's dictionary while
       // the entry point evaluated. Publishing it synchronously lets the store
       // open on real content — otherwise every dynamic dictionary starts on
@@ -135,16 +145,15 @@ export function useDictionaryDynamic<
       );
 
       if (preloadedDictionary) {
-        set(
-          withState(
-            getDictionary(preloadedDictionary, $locale as DeclaredLocales)
-          )
-        );
+        publish(getDictionary(preloadedDictionary, $locale as DeclaredLocales));
         return;
       }
 
-      // Set loading state immediately with proxy
-      set(loadingProxy());
+      set(
+        resolvedContent === undefined
+          ? loadingProxy()
+          : withState(resolvedContent, true)
+      );
 
       let isCancelled = false;
 
@@ -177,7 +186,7 @@ export function useDictionaryDynamic<
 
           if (isCancelled) return;
 
-          set(withState(resolved));
+          publish(resolved);
         } catch (error) {
           if (isCancelled) return;
           console.error(error);
