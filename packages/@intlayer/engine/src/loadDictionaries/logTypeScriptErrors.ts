@@ -4,7 +4,7 @@ import type { IntlayerConfig } from '@intlayer/types/config';
 import type {
   API as NativeTypeScriptAPI,
   Diagnostic as NativeTypeScriptDiagnostic,
-} from 'typescript/unstable/sync';
+} from 'typescript/unstable/async';
 
 /** Diagnostic of the classic (TS <= 6) compiler API. */
 interface ClassicTypeScriptDiagnostic {
@@ -170,44 +170,56 @@ const flattenNativeDiagnosticMessage = (
  * export only exposes the version. It spawns the bundled `tsgo` binary, which
  * resolves the closest tsconfig of each file.
  */
-const collectNativeTypeScriptErrors = (
+const collectNativeTypeScriptErrors = async (
   NativeAPI: typeof NativeTypeScriptAPI,
   filePaths: string[],
   baseDir: string
-): TypeScriptError[] => {
+): Promise<TypeScriptError[]> => {
   const api = new NativeAPI({ cwd: baseDir });
 
   try {
-    const snapshot = api.updateSnapshot({ openFiles: filePaths });
+    const snapshot = await api.updateSnapshot({ openFiles: filePaths });
 
     try {
-      return filePaths.flatMap((filePath) => {
-        const program = snapshot.getDefaultProjectForFile(filePath)?.program;
-        const sourceFile = program?.getSourceFile(filePath);
+      const results = await Promise.all(
+        filePaths.map(async (filePath) => {
+          const defaultProject =
+            await snapshot.getDefaultProjectForFile(filePath);
+          const program = defaultProject?.program;
 
-        if (!program || !sourceFile) return [];
+          if (!program) return [];
 
-        return [
-          ...program.getSyntacticDiagnostics(filePath),
-          ...program.getSemanticDiagnostics(filePath),
-        ].map((diagnostic) => {
-          const { line, character } = sourceFile.getLineAndCharacterOfPosition(
-            diagnostic.pos
+          const sourceFile = await program.getSourceFile(filePath);
+
+          if (!sourceFile) return [];
+
+          const syntacticDiagnostics =
+            await program.getSyntacticDiagnostics(filePath);
+          const semanticDiagnostics =
+            await program.getSemanticDiagnostics(filePath);
+
+          return [...syntacticDiagnostics, ...semanticDiagnostics].map(
+            (diagnostic) => {
+              const { line, character } =
+                sourceFile.getLineAndCharacterOfPosition(diagnostic.pos);
+
+              return {
+                fileName: diagnostic.fileName ?? filePath,
+                line,
+                character,
+                message: flattenNativeDiagnosticMessage(diagnostic),
+              };
+            }
           );
+        })
+      );
 
-          return {
-            fileName: diagnostic.fileName ?? filePath,
-            line,
-            character,
-            message: flattenNativeDiagnosticMessage(diagnostic),
-          };
-        });
-      });
+      return results.flat();
     } finally {
-      snapshot.dispose();
+      await snapshot.dispose();
     }
   } finally {
-    api.close();
+    await api.close();
   }
 };
 
@@ -245,10 +257,16 @@ const collectTypeScriptErrors = async (
   let nativeModule: { API: typeof NativeTypeScriptAPI };
 
   try {
-    nativeModule = await import('typescript/unstable/sync');
+    nativeModule = await import('typescript/unstable/async');
   } catch {
-    // Neither the classic nor the native API is available
-    return undefined;
+    try {
+      nativeModule = (await import('typescript/unstable/sync')) as unknown as {
+        API: typeof NativeTypeScriptAPI;
+      };
+    } catch {
+      // Neither the classic nor the native API is available
+      return undefined;
+    }
   }
 
   return collectNativeTypeScriptErrors(nativeModule.API, filePaths, baseDir);
