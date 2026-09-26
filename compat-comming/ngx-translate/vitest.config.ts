@@ -1,8 +1,15 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  esbuild: {
+    tsconfigRaw: {
+      compilerOptions: {
+        experimentalDecorators: true,
+      },
+    },
+  },
   test: {
-    environment: 'jsdom',
+    environment: 'node',
     globals: true,
     clearMocks: true,
     mockReset: true,

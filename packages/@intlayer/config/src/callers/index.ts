@@ -2,8 +2,11 @@ import { BASE_CALLERS } from './base';
 import { I18NEXT_CALLERS } from './compat/i18next';
 import { LINGUI_CALLERS } from './compat/lingui';
 import { NEXT_INTL_CALLERS } from './compat/nextIntl';
+import { NGX_TRANSLATE_CALLERS } from './compat/ngxTranslate';
+import { NUXTJS_I18N_CALLERS } from './compat/nuxtjsI18n';
 import { REACT_I18NEXT_CALLERS } from './compat/reactI18next';
 import { REACT_INTL_CALLERS } from './compat/reactIntl';
+import { SVELTE_I18N_CALLERS } from './compat/svelteI18n';
 import { USE_INTL_CALLERS } from './compat/useIntl';
 import { VUE_I18N_CALLERS } from './compat/vueI18n';
 import type { CallerDescriptor } from './types';
@@ -12,8 +15,11 @@ export { BASE_CALLERS } from './base';
 export { I18NEXT_CALLERS } from './compat/i18next';
 export { LINGUI_CALLERS } from './compat/lingui';
 export { NEXT_INTL_CALLERS } from './compat/nextIntl';
+export { NGX_TRANSLATE_CALLERS } from './compat/ngxTranslate';
+export { NUXTJS_I18N_CALLERS } from './compat/nuxtjsI18n';
 export { REACT_I18NEXT_CALLERS } from './compat/reactI18next';
 export { REACT_INTL_CALLERS } from './compat/reactIntl';
+export { SVELTE_I18N_CALLERS } from './compat/svelteI18n';
 export { USE_INTL_CALLERS } from './compat/useIntl';
 export { VUE_I18N_CALLERS } from './compat/vueI18n';
 export {
@@ -42,6 +48,9 @@ export const COMPAT_CALLERS: CallerDescriptor[] = [
   ...REACT_INTL_CALLERS,
   ...LINGUI_CALLERS,
   ...VUE_I18N_CALLERS,
+  ...SVELTE_I18N_CALLERS,
+  ...NUXTJS_I18N_CALLERS,
+  ...NGX_TRANSLATE_CALLERS,
 ];
 
 /** Base + compat callers — the full registry the matchers run against. */
