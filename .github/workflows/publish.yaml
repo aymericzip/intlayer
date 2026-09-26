@@ -10,8 +10,11 @@
 #     Workflow filename:    publish.yaml   (must match this file name exactly)
 #     Environment name:     npm
 #
-# The `npm` GitHub environment can require reviewers, which turns the run into
-# a "click to approve" release gate.
+# The release gate is the `release` GitHub environment (required reviewers):
+# the `approve` job waits on it right after the version check, before any
+# build starts. A manual run started by aymericzip skips it. The `npm` and
+# `crates-io` environments only scope the OIDC trust, so they must not require
+# reviewers, or the run would pause a second time.
 #
 # The `intlayer-swc-plugin` crate is published to crates.io the same way
 # (trusted publishing through OIDC, no `CARGO_REGISTRY_TOKEN` secret).
@@ -64,10 +67,24 @@ jobs:
           REF_TYPE: ${{ github.ref_type }}
           BEFORE_SHA: ${{ github.event.before }}
 
-  publish:
-    # Prevents the workflow from running on forks and only runs when version changed
+  approve:
+    # Release gate, asked once at the start of the run. A manual run started
+    # by the maintainer is already an explicit decision, so it is skipped.
     needs: check-version
-    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
+    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' && !(github.event_name == 'workflow_dispatch' && github.triggering_actor == 'aymericzip') }}
+
+    name: ✅ Approve release
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - name: ✅ Approved
+        run: echo "Release ${{ needs.check-version.outputs.version }} approved"
+
+  publish:
+    # Prevents the workflow from running on forks, only runs when version
+    # changed, and waits for the release gate (or its skip)
+    needs: [check-version, approve]
+    if: ${{ !cancelled() && github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' && contains(fromJSON('["success", "skipped"]'), needs.approve.result) }}
 
     name: 📦 Publish
     runs-on: ubuntu-latest
@@ -142,8 +159,8 @@ jobs:
           exit 1
 
   publish-crate:
-    needs: check-version
-    if: ${{ github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' }}
+    needs: [check-version, approve]
+    if: ${{ !cancelled() && github.repository_owner == 'aymericzip' && needs.check-version.outputs.changed == 'true' && contains(fromJSON('["success", "skipped"]'), needs.approve.result) }}
 
     name: 🦀 Publish to crates.io
     runs-on: ubuntu-latest
