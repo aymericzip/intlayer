@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2026-09-16
+priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: react-i18next'i next-intl ve Intlayer ile React uygulamasının uluslararasılaştırması (i18n) için entegre edin
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Observar Diccionarios
 description: Aprende cómo observar cambios en tus archivos de declaración de contenido y construir diccionarios automáticamente.
 keywords:

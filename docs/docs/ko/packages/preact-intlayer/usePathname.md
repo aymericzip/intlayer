@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname 훅 문서 | preact-intlayer
 description: preact-intlayer 패키지에서 usePathname 훅을 사용하는 방법을 알아보세요
 keywords:

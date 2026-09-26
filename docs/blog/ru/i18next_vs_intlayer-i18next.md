@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next vs @intlayer/i18next: Тот же API, другой бандл"
 description: Что меняется, когда приложение на React или Next.js сохраняет вызовы i18next, react-i18next и next-i18next, но обслуживает их через адаптеры @intlayer/i18next. Размер JavaScript на страницу, вес компонентов, утечка строк и гидратация на одном и том же коде, а также то, что адаптеры сохраняют, игнорируют и чем не могут стать.
 keywords:

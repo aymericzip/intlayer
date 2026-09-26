@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: useRewriteURL 훅 문서
 description: Svelte 전용 훅으로 Intlayer에서 로컬라이즈된 URL 재작성 관리를 돕습니다.

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-10
+priority: 8
 title: "JavaScript i18n の歴史：2011 年から 2026 年までの歩み"
 description: "2011 年から 2026 年までのフロントエンド国際化の変遷を辿ります。React、Vue、Next.js、Angular、Svelte、Solid におけるリリース時期、設計上の課題、主要な革新を徹底解説。"
 keywords:

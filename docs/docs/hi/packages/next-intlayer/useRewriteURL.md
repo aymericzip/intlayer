@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: useRewriteURL हुक दस्तावेज़
 description: Intlayer में स्थानीयकृत URL पुनर्लेखन को प्रबंधित करने के लिए Next.js-विशिष्ट हुक।

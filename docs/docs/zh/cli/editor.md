@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: 编辑器命令
 description: 了解如何使用 Intlayer 编辑器命令。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Alternatywa platformy L10n dla Lokalise
 description: Znajdź najlepszą alternatywę platformy L10n dla Lokalise odpowiadającą Twoim potrzebom
 keywords:

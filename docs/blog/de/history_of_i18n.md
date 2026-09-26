@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-09
+priority: 8
 title: "Die Geschichte der JavaScript-i18n: Von 2011 bis 2026"
 description: "Erfahren Sie mehr über die Evolution der Frontend-Internationalisierung von 2011 bis 2026. Release-Daten, Architekturprobleme und Innovationen in React, Vue, Next.js, Angular, Svelte und Solid."
 keywords:

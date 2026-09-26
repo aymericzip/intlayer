@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 8
 title: Khai báo nội dung `Theo Ngôn Ngữ` trong Intlayer
 description: Tìm hiểu cách khai báo nội dung theo từng ngôn ngữ trong Intlayer. Theo dõi tài liệu để hiểu các định dạng và trường hợp sử dụng khác nhau.
 keywords:

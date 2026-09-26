@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-21
 updatedAt: 2026-09-21
+priority: 5
 title: CLI - Init Infra
 description: Intlayer CLI init infra 명령어를 사용하여 데스크톱 앱을 설치하거나 Docker(올인원 컨테이너 또는 Docker Compose 스택)로 Intlayer CMS를 셀프 호스팅하는 방법을 알아봅니다.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
+priority: 8
 title: React-intl JSON çevirilerinizi Intlayer kullanarak nasıl otomatikleştirirsiniz
 description: React uygulamalarında gelişmiş uluslararasılaştırma için Intlayer ve react-intl ile JSON çevirilerinizi otomatikleştirin.
 keywords:

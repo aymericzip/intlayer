@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 7
 title: "Astro i18n: routing is built in, translations are not"
 description: Astro's built-in i18n covers locale routing only. What it gives you, where it stops, and how to translate content inside React, Vue or Svelte islands.
 keywords:

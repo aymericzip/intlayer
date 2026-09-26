@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-26
+priority: 8
 title: 动态字典
 description: Intlayer 动态字典功能（集合与变体）的概览，用于构建灵活的、由运行时驱动的 i18n 内容。
 keywords:

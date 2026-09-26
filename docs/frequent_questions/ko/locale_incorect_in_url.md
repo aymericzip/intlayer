@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: URL에서 잘못된 로케일이 검색됨
 description: URL에서 잘못된 로케일이 검색되는 문제를 해결하는 방법을 알아보세요.
 keywords:

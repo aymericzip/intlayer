@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2026-09-16
+priority: 8
 title: "Per-Komponente vs. Zentralisiertes i18n: Ein neuer Ansatz mit Intlayer"
 description: Eine eingehende Analyse der Internationalisierungsstrategien in React, die zentralisierte, per-key- und per-component-Ansätze vergleicht und Intlayer vorstellt.
 keywords:

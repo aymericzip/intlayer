@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrare da Next Translate a Intlayer"
 description: "Scopri come migrare la tua applicazione Next.js da next-translate a Intlayer utilizzando l'adapter di compatibilità."
 keywords:

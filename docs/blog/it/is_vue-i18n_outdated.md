@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: vue-i18n è obsoleto nel 2026?
 description: vue-i18n è stato lo standard per Vue e Nuxt per oltre un decennio. Tuttavia, nei nostri benchmark si è dimostrato il runtime i18n più pesante del web. Scopri i dettagli.
 keywords:

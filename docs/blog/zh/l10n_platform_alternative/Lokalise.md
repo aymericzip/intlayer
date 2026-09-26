@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: 用于替代 Lokalise 的 L10n 平台替代方案
 description: 为您的需求找到最佳的 L10n 平台以替代 Lokalise
 keywords:

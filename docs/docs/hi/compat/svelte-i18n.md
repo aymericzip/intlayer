@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Svelte I18n से Intlayer में माइग्रेट करें"
 description: "compat adapter का उपयोग करके अपने Svelte एप्लिकेशन को svelte-i18n से Intlayer में माइग्रेट करना सीखें।"
 keywords:

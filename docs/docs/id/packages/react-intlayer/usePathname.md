@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Dokumentasi Hook usePathname | react-intlayer
 description: Pelajari cara menggunakan hook usePathname dari paket react-intlayer untuk mendapatkan nama path URL saat ini tanpa segmen lokal (locale).
 keywords:

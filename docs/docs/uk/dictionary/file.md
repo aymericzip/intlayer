@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
+priority: 8
 title: Файл
 description: Дізнайтеся, як вбудовувати зовнішні файли у ваш content dictionary за допомогою функції `file`. Ця документація пояснює, як Intlayer пов’язує та динамічно керує вмістом файлів.
 keywords:

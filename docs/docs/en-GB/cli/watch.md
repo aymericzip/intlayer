@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Watch Dictionaries
 description: Learn how to watch for changes in your content declaration files and automatically build dictionaries.
 keywords:

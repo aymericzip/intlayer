@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: intlayer Elysia 插件文档 | elysia-intlayer
 description: 了解如何使用 elysia-intlayer 包中的 intlayer 插件
 keywords:

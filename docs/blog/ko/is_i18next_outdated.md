@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: 2026년에도 i18next를 계속 써야 할까요?
 description: i18next는 수많은 웹사이트를 지원하지만, 2011년에 설계된 런타임 아키텍처는 한계를 보이기 시작했습니다. 번들 크기, 트리 쉐이킹 제약, 정체된 혁신을 분석합니다.
 keywords:

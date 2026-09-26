@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Dokument überprüfen
 description: Erfahren Sie, wie Sie Dokumentationsdateien auf Qualität, Konsistenz und Vollständigkeit in verschiedenen Sprachversionen überprüfen.
 keywords:

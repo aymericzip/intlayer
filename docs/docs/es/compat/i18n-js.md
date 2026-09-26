@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrar de i18n-js a Intlayer"
 description: "Aprende cómo migrar tu aplicación desde i18n-js a Intlayer usando el adaptador de compatibilidad."
 keywords:

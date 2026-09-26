@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: Tài liệu Middleware intlayer cho Hono | hono-intlayer
 description: Xem cách sử dụng middleware intlayer cho gói hono-intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-21
 updatedAt: 2026-09-21
+priority: 5
 title: CLI - Init Infra
 description: 了解如何使用 Intlayer CLI init infra 命令安装桌面应用程序，或使用 Docker（多合一容器或 Docker Compose 堆栈）自行托管 Intlayer CMS。
 keywords:

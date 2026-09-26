@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 推送词典
 description: 了解如何将您的词典推送到 Intlayer 编辑器和 CMS。
 keywords:

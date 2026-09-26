@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: Dokumentacja Pakietu hono-intlayer
 description: Middleware Hono dla Intlayer, dostarczający funkcje tłumaczenia i wykrywanie języka.
 keywords:

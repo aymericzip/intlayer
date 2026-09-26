@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-05-31
+priority: 7
 title: أفضل أدوات التدويل (i18n) للإنترات - الدليل الكامل لترجمة Best Vue i18n Libraries 2026 — Compared by DX & Bundle
 description: أفضل حل لحجم الحزمة وتحسين محركات البحث والأداء والصيانة. اجعل Vue تطبيق متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
 keywords:

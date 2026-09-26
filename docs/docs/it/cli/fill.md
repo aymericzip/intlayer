@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Riempire Dizionari
 description: Impara come riempire, controllare e tradurre i tuoi dizionari usando l'AI.
 keywords:

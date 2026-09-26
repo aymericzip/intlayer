@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: i18next 2026'da Güncelliğini Yitirdi mi?
 description: i18next milyonlarca web sitesine güç veriyor, ancak 2011 yapımı çalışma zamanı mimarisi eskimeye başladı. Paket boyutu, tree-shaking sınırları ve duraksayan inovasyon üzerine bir inceleme.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "如何在 2026 年选择合适的 React i18n 库"
 description: "React 国际化选型指南。在对比 react-i18next、react-intl、Lingui、use-intl、Paraglide 和 Intlayer 之前需要回答的关键问题，以及各方案在 bundle size、类型支持和维护成本方面的权衡。"
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: preact-intlayer पैकेज दस्तावेज़ीकरण
 description: Preact-विशिष्ट Intlayer एकीकरण, जो Preact एप्लिकेशनों के लिए providers और hooks प्रदान करता है।
 keywords:

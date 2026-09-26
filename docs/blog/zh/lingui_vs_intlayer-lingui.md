@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "Lingui vs @intlayer/lingui：相同宏，不同运行时"
 description: "当 React 应用程序保留其 Lingui 宏但通过 @intlayer/lingui 兼容适配器提供服务时会发生什么变化。在相同的 TanStack Start 代码上测量的组件大小、水合、泄漏和每页 JavaScript，包括适配器处于劣势的方面。"
 keywords:

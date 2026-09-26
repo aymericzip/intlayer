@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "从 @nuxtjs/i18n 迁移到 Intlayer | 国际化 (i18n)"
 description: "了解如何将您的 Nuxt 应用从 @nuxtjs/i18n 迁移到 Intlayer — 逐步进行，不破坏现有代码。使用 @intlayer/vue-i18n 兼容适配器实现零中断过渡。"
 keywords:

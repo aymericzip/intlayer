@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: t 함수 문서 | adonis-intlayer
 description: adonis-intlayer 패키지에서 t 함수를 사용하는 방법을 알아보세요
 keywords:

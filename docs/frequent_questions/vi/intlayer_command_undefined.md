@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Lệnh Intlayer không xác định
 description: Tìm hiểu cách khắc phục lỗi lệnh intlayer không xác định.
 keywords:
@@ -142,7 +143,7 @@ npm --version
     Nếu bạn đang dùng phiên bản cũ, hãy cân nhắc cập nhật Node.js và npm.
 
 11. **Kiểm tra các vấn đề về quyền truy cập**
-    Nếu bạn gặp lỗi về quyền:
+Nếu bạn gặp lỗi về quyền:
 
     ```bash
     # Đối với hệ thống dựa trên Unix

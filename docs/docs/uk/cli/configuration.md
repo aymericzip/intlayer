@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Керування конфігурацією
 description: Дізнайтеся, як отримувати та завантажувати вашу конфігурацію Intlayer у CMS.
 keywords:

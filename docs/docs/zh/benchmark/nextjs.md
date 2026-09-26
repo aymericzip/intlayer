@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: 2026 年 Next.js 最佳 i18n 解决方案 - 基准测试报告
 description: 对比 next-intl、next-i18next 和 Intlayer 等 Next.js 国际化 (i18n) 库。关于打包体积、泄漏和响应性的详细性能报告。
 keywords:

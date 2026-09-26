@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "كيفية اختيار مكتبة Svelte i18n المناسبة في عام 2026"
 description: دليل اتخاذ القرار لتدويل تطبيقات Svelte و SvelteKit. ما هي الأسئلة التي يجب الإجابة عليها قبل المقارنة بين svelte-i18n و Paraglide و typesafe-i18n و wuchale و Intlayer، وتكلفة كل خيار من حيث حجم الحزمة (bundle size) ونظام الأنواع (typing) وأمان SSR.
 keywords:

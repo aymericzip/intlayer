@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-06-25
+priority: 9
 title: "تدويل Expo + React Native - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Expo + React Native متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:

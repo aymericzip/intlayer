@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
+priority: 4
 title: نوع IntlayerNode. ما هو؟
 description: ما هو نوع IntlayerNode؟ لماذا يتم تحويل سلسلتي النصية إلى IntlayerNode&lt;string&gt;؟
 keywords:

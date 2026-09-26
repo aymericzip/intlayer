@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: Intlayer कमांड डिबग करें
 description: जानें कि Intlayer CLI समस्याओं को कैसे डिबग और ट्रबलशूट करें।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useLocale Hook Dokümantasyonu | remix-intlayer
 description: Remix 3 uygulamalarında geçerli istek yerel ayarını, varsayılan yerel ayarı ve kullanılabilir yerel ayarları almak için useLocale hook'unun nasıl kullanılacağını görün.
 keywords:

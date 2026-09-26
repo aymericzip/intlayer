@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: remix-intlayer Package Documentation
 description: Remix 3 integration for Intlayer, providing middleware, context, hooks, and formatters for locale-based routing and content management.
 keywords:

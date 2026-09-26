@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Jak wykrywać brakujące tłumaczenia, zanim zrobią to użytkownicy"
 description: Brakujące tłumaczenia zawodzą po cichu. Dlaczego mechanizm fallback je ukrywa, jakie cztery warstwy wykrywania naprawdę działają i jak zatrzymać build na nieprzetłumaczonym kluczu.
 keywords:

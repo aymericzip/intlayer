@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 5
 title: getHTMLTextDir Fonksiyonu Dokümantasyonu | intlayer
 description: intlayer paketinde getHTMLTextDir fonksiyonunun nasıl kullanılacağını görün
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-25
+priority: 5
 title: Dokumentacja funkcji getConfiguration | intlayer
 description: Zobacz, jak używać funkcji getConfiguration w pakiecie intlayer
 keywords:

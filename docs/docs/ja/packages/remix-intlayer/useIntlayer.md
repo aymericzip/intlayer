@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useIntlayer フックのドキュメント | remix-intlayer
 description: Remix 3 アプリケーションで useIntlayer フックを使用して、キーによってローカライズされたコンテンツにアクセスする方法を説明します。
 keywords:

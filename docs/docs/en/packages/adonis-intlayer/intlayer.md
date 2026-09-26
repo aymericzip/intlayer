@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: intlayer AdonisJS Middleware Documentation | adonis-intlayer
 description: See how to use the intlayer middleware for adonis-intlayer package
 keywords:

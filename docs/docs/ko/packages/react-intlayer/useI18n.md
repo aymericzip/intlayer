@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: useI18n 훅 문서 | react-intlayer
 description: react-intlayer 패키지에서 useI18n 훅을 사용하는 방법을 알아보세요
 keywords:

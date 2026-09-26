@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: Solusi i18n terbaik untuk Next.js tahun 2026 - Laporan Benchmark
 description: Bandingkan library internasionalisasi (i18n) Next.js seperti next-intl, next-i18next, dan Intlayer. Laporan performa terperinci tentang ukuran bundle, kebocoran, dan reaktivitas.
 keywords:

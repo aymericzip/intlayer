@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документація плагіна intlayerPrune для Vite | vite-intlayer
 description: Дізнайтеся, як використовувати плагін intlayerPrune для пакета vite-intlayer
 keywords:

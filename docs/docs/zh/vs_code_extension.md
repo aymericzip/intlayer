@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-17
 updatedAt: 2025-09-30
+priority: 6
 title: 官方 VS Code 扩展
 description: 学习如何在 VS Code 中使用 Intlayer 扩展以提升您的开发工作流程。快速在本地化内容之间导航并高效管理您的词典。
 keywords:

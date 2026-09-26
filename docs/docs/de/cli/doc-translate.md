@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Dokument übersetzen
 description: Erfahren Sie, wie Sie Dokumentationsdateien automatisch mit KI-Übersetzungsdiensten übersetzen können.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-09-30
+priority: 8
 title: React と Next.js でコンポーネントを多言語対応（i18n）にする方法
 description: Intlayer を使って多言語対応の React または Next.js コンポーネントを作成するために、ローカライズされたコンテンツの宣言と取得方法を学びます。
 keywords:

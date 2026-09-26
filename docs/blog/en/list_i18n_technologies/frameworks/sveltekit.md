@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 7
 title: "SvelteKit i18n: routing, SSR, and shared state"
 description: SvelteKit ships no i18n. How to wire locale routing with an optional param or the reroute hook, and why a module-level locale store leaks between SSR requests.
 keywords:

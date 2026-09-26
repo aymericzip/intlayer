@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-08-22
+priority: 8
 title: Intlayer Analytics | Traccia l'esposizione dei contenuti ed esegui test A/B
 description: Scopri come @intlayer/analytics traccia le visualizzazioni di pagine/lingue e l'esposizione dei contenuti, e come usarlo per eseguire test A/B sui tuoi contenuti Intlayer.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 5
 title: CLI - ترقية حزم Intlayer
 description: تعرف على كيفية استخدام أمر upgrade في Intlayer CLI لسرد كل حزمة Intlayer في مشروعك أو monorepo وترقيتها إلى أحدث إصدار.
 keywords:

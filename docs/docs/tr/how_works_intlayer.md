@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2026-09-19
+priority: 8
 title: Intlayer Nasıl Çalışır
 description: Intlayer'ın dahili olarak nasıl çalıştığını öğrenin. Intlayer'ı güçlü kılan mimari ve bileşenleri anlayın.
 keywords:

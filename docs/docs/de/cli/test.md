@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Fehlende Übersetzungen testen
 description: Erfahren Sie, wie Sie fehlende Übersetzungen in Ihren Wörterbüchern testen und identifizieren.
 keywords:

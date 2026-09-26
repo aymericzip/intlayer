@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
+priority: 8
 title: Wie Sie Ihre react-i18next JSON-Übersetzungen mit Intlayer automatisieren
 description: Automatisieren Sie Ihre JSON-Übersetzungen mit Intlayer und react-i18next für eine verbesserte Internationalisierung in React-Anwendungen.
 keywords:

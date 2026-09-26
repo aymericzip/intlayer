@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: Anidación del diccionario
 description: Descubre cómo usar la anidación de contenido en Intlayer para reutilizar y estructurar tu contenido multilingüe de manera eficiente. Sigue esta documentación para implementar la anidación sin problemas en tu proyecto.
 keywords:

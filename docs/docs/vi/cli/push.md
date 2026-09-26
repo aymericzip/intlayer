@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Đẩy Từ Điển
 description: Tìm hiểu cách đẩy từ điển của bạn lên trình chỉnh sửa và CMS của Intlayer.
 keywords:

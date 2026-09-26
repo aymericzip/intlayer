@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerCompiler Vite 플러그인 문서 | vite-intlayer
 description: 빌드/변환 시점에 컴포넌트 파일에서 인라인 Intlayer 콘텐츠 선언을 추출하여 사전 JSON 파일에 기록하는 Vite 플러그인입니다.
 keywords:

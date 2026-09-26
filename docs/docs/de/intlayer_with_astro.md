@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-09-21
+priority: 10
 title: "Astro i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Astro-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:

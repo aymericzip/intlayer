@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-25
 updatedAt: 2026-09-20
+priority: 9
 title: "TanStack Start + Solid i18n - Guia completo para traduzir seu aplicativo"
 description: "Sem mais i18next. O guia 2026 para criar uma aplicação TanStack Start + Solid multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:

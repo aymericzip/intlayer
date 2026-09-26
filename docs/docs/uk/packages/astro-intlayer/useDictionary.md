@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Документація хука useDictionary | astro-intlayer
 description: Дізнайтеся, як використовувати хук useDictionary у компонентах і скриптах Astro для обробки об'єктів словників.
 keywords:

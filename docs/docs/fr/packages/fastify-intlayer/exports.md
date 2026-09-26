@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Documentation du package fastify-intlayer
 description: Plugin Fastify pour Intlayer, fournissant des fonctions de traduction et la détection de la locale.
 keywords:

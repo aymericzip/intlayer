@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 8
 title: Intlayer는 Paraglide보다 가벼운가요?
 description: Paraglide는 코드가 저장소 내부로 생성되기 때문에 i18n 벤치마크에서 거의 무료처럼 보입니다. 그 용량이 실제로 어디로 가는지, 노드별 로케일 조회가 성능을 저하시키는 이유, 그리고 Intlayer의 동적 로딩이 모든 언어 대신 단 하나의 로케일만 번들에 포함시키는 방식을 살펴봅니다.
 keywords:

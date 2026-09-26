@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-11
 updatedAt: 2026-01-11
+priority: 4
 title: `vite-env-only` और Intlayer – false positive `node:fs` अस्वीकृत त्रुटि
 description: vite-env-only यह क्यों रिपोर्ट करता है कि Intlayer + React-Router + Vite के साथ `node:fs` आयात अस्वीकृत है और इस स्थिति में क्या करना चाहिए।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 문서 검토
 description: 다양한 로케일에서 문서 파일의 품질, 일관성 및 완전성을 검토하는 방법을 알아보세요.
 keywords:

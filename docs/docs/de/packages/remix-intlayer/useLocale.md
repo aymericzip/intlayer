@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useLocale Hook Dokumentation | remix-intlayer
 description: Erfahren Sie, wie Sie den useLocale-Hook in Remix 3-Anwendungen verwenden, um die aktuelle Request-Locale, die Standard-Locale und die verfügbaren Locales abzurufen.
 keywords:

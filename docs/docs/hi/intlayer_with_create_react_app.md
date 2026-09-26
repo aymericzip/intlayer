@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-05-31
+priority: 3
 title: "Create React App i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "अब i18next की जरूरत नहीं। 2026 में Create React App ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-10-25
 updatedAt: 2026-08-29
+priority: 9
 title: "Next.js 15 i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Next.js 15 app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-10
+priority: 6
 title: Intlayer LSP Sunucusu
 description: Intlayer dil sunucusunun IDE’nize ve yapay zekâ ajanınıza tanıma gitme, referans arama, imleçle önizleme, anahtar otomatik tamamlama ve tanılama özelliklerini nasıl kazandırdığını öğrenin.
 keywords:

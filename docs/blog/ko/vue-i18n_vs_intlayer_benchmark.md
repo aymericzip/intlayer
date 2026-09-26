@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "vue-i18n vs Intlayer: 2026 벤치마크"
 description: 동일한 Vite + Vue 3 앱에서 측정한 vue-i18n과 Intlayer. 라이브러리 크기, 페이지별 JavaScript, 콘텐츠 누수, 컴포넌트 크기 및 로케일 전환 반응성, 숫자 설명 포함.
 keywords:

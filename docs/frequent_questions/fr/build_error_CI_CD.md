@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Erreur de build en CI/CD
 description: Apprenez comment corriger les erreurs de build qui surviennent dans les environnements CI/CD.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-11-01
+priority: 8
 title: كيفية أتمتة ترجمات JSON الخاصة بـ i18next باستخدام Intlayer
 description: أتمتة ترجمات JSON الخاصة بك باستخدام Intlayer و i18next لتعزيز التدويل في تطبيقات جافا سكريبت.
 keywords:

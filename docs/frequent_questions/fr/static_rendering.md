@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Rendu statique vs dynamique avec i18n dans Next.js
 description: Apprenez à utiliser le rendu statique vs dynamique avec i18n dans Next.js.
 keywords:

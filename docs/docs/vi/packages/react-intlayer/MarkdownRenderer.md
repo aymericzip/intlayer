@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu Component MarkdownRenderer | react-intlayer
 description: Xem cách sử dụng component MarkdownRenderer cho package react-intlayer
 keywords:

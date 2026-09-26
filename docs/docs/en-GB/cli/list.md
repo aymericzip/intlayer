@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-01-06
+priority: 5
 title: List Content Declaration Files
 description: Learn how to list all content declaration files in your project.
 keywords:

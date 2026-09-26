@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-08-30
+priority: 9
 title: "Fastify i18n - Guia completo para traduzir seu aplicativo"
 description: "Sem mais i18next. O guia 2026 para criar uma aplicação Fastify multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useIntlayer フックドキュメント | astro-intlayer
 description: Astro コンポーネントとクライアントスクリプトで useIntlayer フックを使用してローカライズされたコンテンツにアクセスする方法を説明します。
 keywords:

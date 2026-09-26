@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-08-04
+priority: 8
 title: Varyantlar
 description: Adlandırılmış veya yapılandırılmış içerik alternatifleri — A/B testleri, sezonluk afişler, özellik bayraklı metin, CMS kayıtları, kullanıcıya özel içerik — bildirmek ve kod değişikliği olmadan çalışma zamanında aralarında geçiş yapmak için Intlayer içerik dosyalarında variant meta veri alanını kullanın.
 keywords:

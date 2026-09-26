@@ -186,26 +186,31 @@ export const indexMarkdownFiles = async (): Promise<void> => {
         | undefined;
 
       const chunkContentChanged = storedHash !== currentChunkHash;
+      // A failed generation is stored as an empty vector, retry it
+      const hasStoredEmbedding = (storedEmbedding?.length ?? 0) > 0;
 
       let embedding: number[] | undefined = storedEmbedding;
 
       if (
-        !storedEmbedding ||
+        !hasStoredEmbedding ||
         (chunkContentChanged && !skipDocEmbeddingsIndex)
       ) {
         embedding = await generateEmbedding(fileChunk); // Generate embedding if not present or content changed
         logger.info(`- Generated new embedding: ${fileKey}/${chunkKeyName}`);
       }
 
-      // Update the file-scoped result object with the embedding and hash
+      const hasEmbedding = (embedding?.length ?? 0) > 0;
+
+      // Update the file-scoped result object with the embedding and hash.
+      // Without an embedding, the hash is omitted so the next run retries it.
       resultForFile = {
         ...resultForFile,
         [chunkKeyName]: embedding ?? [],
-        [chunkHashKey]: currentChunkHash,
+        ...(hasEmbedding && { [chunkHashKey]: currentChunkHash }),
       };
 
       // Store the embedding and content in the in-memory vector store
-      if (embedding) {
+      if (embedding && hasEmbedding) {
         vectorStore.push({
           fileKey,
           chunkNumber,

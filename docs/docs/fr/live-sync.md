@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-07-08
+priority: 8
 title: Synchronisation en direct (Live Sync) | Reflétez les changements de contenu du CMS en temps réel
 description: Laissez votre application refléter les modifications de contenu du CMS Intlayer en temps réel, sans reconstruction ni redéploiement.
 keywords:

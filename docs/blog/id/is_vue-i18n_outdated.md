@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Apakah vue-i18n Sudah Ketinggalan Zaman di Tahun 2026?
 description: vue-i18n telah menjadi standar untuk Vue dan Nuxt selama satu dekade. Namun dalam pengujian tolok ukur kami, pustaka ini menjadi runtime i18n terberat di web. Simak ulasannya.
 keywords:

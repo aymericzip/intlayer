@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-30
+priority: 9
 title: "Elysia i18n - アプリを翻訳するための完全ガイド"
 description: "もう i18next は不要です。多言語 (i18n) Elysia アプリを構築するための 2026 年のガイド。AI エージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:

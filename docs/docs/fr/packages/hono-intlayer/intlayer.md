@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: Documentation du Middleware Hono intlayer | hono-intlayer
 description: Voir comment utiliser le middleware intlayer pour le paquet hono-intlayer
 keywords:

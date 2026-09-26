@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: onRequest 미들웨어 문서 | astro-intlayer
 description: Astro 애플리케이션에서 onRequest 미들웨어를 사용하여 요청 로케일을 확인하고 Astro.locals.intlayer를 채우는 방법을 알아봅니다.
 keywords:

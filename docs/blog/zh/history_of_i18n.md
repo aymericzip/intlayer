@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-10
+priority: 8
 title: "JavaScript 国际化 (i18n) 发展史：从 2011 到 2026 年"
 description: "深入了解 2011 至 2026 年前端国际化的演进历程。探究 React、Vue、Next.js、Angular、Svelte 与 Solid 生态中的发布节点、架构痛点及关键创新。"
 keywords:

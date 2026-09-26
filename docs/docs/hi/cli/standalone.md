@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: स्टैंडअलोन बंडल (Standalone Bundle)
 description: एप्लिकेशन सामग्री का स्टैंडअलोन JavaScript बंडल बनाने का तरीका जानें।
 keywords:

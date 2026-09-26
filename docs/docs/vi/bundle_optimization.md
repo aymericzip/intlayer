@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-25
 updatedAt: 2026-09-16
+priority: 8
 title: Tối ưu hóa dung lượng Bundle & Hiệu suất i18n
 description: Giảm dung lượng bundle của ứng dụng bằng cách tối ưu hóa nội dung quốc tế hóa (i18n). Tìm hiểu cách tận dụng tree shaking và tải 지연 (lazy loading) cho các từ điển với Intlayer.
 keywords:

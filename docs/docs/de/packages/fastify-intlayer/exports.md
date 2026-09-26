@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: fastify-intlayer Paketdokumentation
 description: Fastify-Plugin für Intlayer, das Übersetzungsfunktionen und Locale-Erkennung bereitstellt.
 keywords:

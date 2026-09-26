@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: intlayer AdonisJS 미들웨어 문서 | adonis-intlayer
 description: adonis-intlayer 패키지의 intlayer 미들웨어 사용 방법을 알아보세요
 keywords:

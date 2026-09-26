@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
+priority: 8
 title: Chèn Nội Dung
 description: Tìm hiểu cách khai báo và sử dụng các chỗ giữ chèn trong nội dung của bạn. Tài liệu này hướng dẫn bạn các bước để chèn giá trị một cách động trong các cấu trúc nội dung đã định sẵn.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: onRequest मिडलवेयर प्रलेखन | astro-intlayer
 description: Astro एप्लिकेशनों में अनुरोध लोकेल को हल करने और Astro.locals.intlayer को भरने के लिए onRequest मिडलवेयर का उपयोग करने का तरीका देखें।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "vue-i18n مقابل Intlayer: معيار الأداء 2026"
 description: قياس vue-i18n و Intlayer على نفس تطبيق Vite + Vue 3. حجم المكتبة، JavaScript لكل صفحة، تسرب المحتوى، حجم المكوّنات وتفاعلية تبديل اللغة، مع شرح الأرقام.
 keywords:

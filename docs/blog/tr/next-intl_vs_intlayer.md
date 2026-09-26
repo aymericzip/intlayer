@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl ve Intlayer Karşılaştırması: 2026 Kıyaslama Testi"
 description: "Next.js App Router ve TanStack Start üzerinde next-intl ve Intlayer karşılaştırması. Paket boyutu, içerik sızıntısı, bileşen boyutu, hidrasyon ve geliştirici deneyimi."
 keywords:

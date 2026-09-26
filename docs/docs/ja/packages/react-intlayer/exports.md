@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: react-intlayer パッケージのドキュメント
 description: React アプリケーション向けのフックとプロバイダーを提供する、Intlayer の React 専用実装。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 8
 title: Cinsiyete Dayalı İçerik
 description: Intlayer'da cinsiyete dayalı içeriği kullanarak cinsiyete göre içeriği dinamik olarak nasıl görüntüleyeceğinizi öğrenin. Bu dokümantasyonu takip ederek projenizde cinsiyete özel içeriği verimli bir şekilde uygulayın.
 keywords:

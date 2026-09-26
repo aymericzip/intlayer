@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-04
 updatedAt: 2026-05-04
+priority: 8
 title: Plural
 description: Descubre cómo declarar y utilizar contenido en plural adaptado a la configuración regional (basado en CLDR) en tu sitio web multilingüe. Sigue los pasos de esta documentación en línea para configurar tu proyecto en unos minutos.
 keywords:

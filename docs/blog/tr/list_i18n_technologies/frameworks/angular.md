@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2026-05-31
+priority: 7
 title: "Angular İçin En İyi Uluslararasılaştırma (i18n) Araçları - Eksiksiz çeviri rehberi: Best Angular i18n Libraries 2026 — Compared by DX & Bundle"
 description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Angular uygulamayı'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:

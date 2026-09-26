@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Чи застарів next-intl у 2026 році?
 description: next-intl став популярним рішенням для Next.js App Router. Проте він все ще створює оверхед у бандлі під час виконання та вимагає ручного керування неймспейсами.
 keywords:

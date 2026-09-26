@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Comment choisir la bonne bibliothèque i18n Vue en 2026"
 description: Un guide de décision pour l'internationalisation de Vue et Nuxt. Les questions à se poser avant de comparer vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide et Intlayer, et ce que chaque choix coûte en taille de bundle, typage et payload SSR.
 keywords:

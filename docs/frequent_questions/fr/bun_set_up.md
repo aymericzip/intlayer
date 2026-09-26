@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Je reçois une erreur de module introuvable lors de l'utilisation de bun
 description: Corriger l'erreur lors de l'utilisation de bun.
 keywords:

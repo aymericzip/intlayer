@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-11
 updatedAt: 2026-01-11
+priority: 4
 title: `vite-env-only` y Intlayer – error falso positivo `node:fs` import denegado
 description: Por qué vite-env-only informa una importación `node:fs` denegada con Intlayer + React-Router + Vite y qué hacer.
 keywords:

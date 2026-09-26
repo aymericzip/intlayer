@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
+priority: 8
 title: Aufbau eines RAG-basierten Dokumentationsassistenten (Chunking, Embeddings und Suche)
 description: Aufbau eines RAG-basierten Dokumentationsassistenten (Chunking, Embeddings und Suche)
 keywords:

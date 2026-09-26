@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-09-21
+priority: 8
 title: Markdown
 description: Dowiedz się, jak deklarować i używać treści Markdown na swojej wielojęzycznej stronie internetowej za pomocą Intlayer. Postępuj zgodnie z instrukcjami w tej dokumentacji online, aby bezproblemowo zintegrować Markdown ze swoim projektem.
 keywords:

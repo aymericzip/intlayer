@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
+priority: 8
 title: Wie Sie Ihre react-intl JSON-Übersetzungen mit Intlayer automatisieren
 description: Automatisieren Sie Ihre JSON-Übersetzungen mit Intlayer und react-intl für eine verbesserte Internationalisierung in React-Anwendungen.
 keywords:

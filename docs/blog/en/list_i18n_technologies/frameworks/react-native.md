@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-09-02
+priority: 7
 title: "React Native i18n: device locale, RTL and Intl gaps"
 description: Mobile i18n is not web i18n. Device locale detection, persisting the user override, the Android RTL restart, Intl polyfills on Hermes, and the library options.
 keywords:

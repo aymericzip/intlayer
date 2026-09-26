@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2026-09-16
+priority: 8
 title: "Bileşen-Başına vs Merkezileştirilmiş i18n: Intlayer ile Yeni Bir Yaklaşım"
 description: React'te uluslararasılaştırma stratejilerine derinlemesine bir bakış; merkezi, per-key (anahtar-başına) ve bileşen-başına yaklaşımları karşılaştırır ve Intlayer'ı tanıtır.
 keywords:

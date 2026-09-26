@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: مسح موقع الويب
 description: تعرف على كيفية استخدام أمر scan في Intlayer CLI لقياس حجم الصفحة وتدقيق صحة i18n/SEO لأي موقع ويب.
 keywords:

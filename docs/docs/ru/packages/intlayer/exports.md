@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация пакета intlayer
 description: Ядро Intlayer, предоставляющее базовые функции и типы для интернационализации.
 keywords:

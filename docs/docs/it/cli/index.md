@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-23
+priority: 8
 title: CLI - Tutti i comandi della CLI di Intlayer per il tuo sito web multilingue
 description: Scopri come utilizzare la CLI di Intlayer per gestire il tuo sito web multilingue. Segui i passaggi in questa documentazione online per configurare il tuo progetto in pochi minuti.
 keywords:

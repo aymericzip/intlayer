@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-25
 updatedAt: 2026-09-16
+priority: 8
 title: تحسين حجم وأداء حزمة i18n
 description: قم بتقليل حجم حزمة تطبيقك عن طريق تحسين محتوى التدويل (i18n). تعلم كيفية الاستفادة من "tree shaking" والتحميل الكسول (lazy loading) للقواميس مع Intlayer.
 keywords:

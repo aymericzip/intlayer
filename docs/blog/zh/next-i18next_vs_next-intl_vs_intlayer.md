@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-16
+priority: 9
 title: "next-i18next vs next-intl vs Intlayer - 完整翻译指南： next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Next.js 网站在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:

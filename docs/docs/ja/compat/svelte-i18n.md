@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Svelte I18nからIntlayerへの移行"
 description: "compat アダプターを使用して、Svelte アプリケーションを svelte-i18n から Intlayer に移行する方法を学びます。"
 keywords:

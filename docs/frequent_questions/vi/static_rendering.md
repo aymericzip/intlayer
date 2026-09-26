@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Kết xuất Tĩnh và Động với i18n trong Next.js
 description: Tìm hiểu cách sử dụng kết xuất tĩnh và động với i18n trong Next.js.
 keywords:

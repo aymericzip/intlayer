@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentacja pakietu express-intlayer
 description: Middleware Express dla Intlayer, udostępniający funkcje tłumaczeń i wykrywanie lokalizacji.
 keywords:

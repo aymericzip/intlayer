@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Lokalise için L10n Platformu Alternatifi
 description: Lokalise için ihtiyaçlarınıza en uygun L10n platform alternatifini bulun
 keywords:

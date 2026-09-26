@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 1
 title: Ketentuan Layanan Intlayer
 description: Temukan bagaimana Intlayer menangani informasi yang dikumpulkan melalui situs web dan CMS kami. Ikuti dokumentasi untuk memahami berbagai format dan kasus penggunaan.
 keywords:

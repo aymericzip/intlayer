@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-02
 updatedAt: 2026-04-02
+priority: 8
 title: کسٹم ڈومینز (Custom Domains)
 description: سیکھیں کہ مخصوص ہوسٹ نیمز سے مختلف لوکلز (locales) پیش کرنے کے لیے Intlayer میں ڈومین پر مبنی لوکل راؤٹنگ کو کیسے ترتیب دینا ہے۔
 keywords:

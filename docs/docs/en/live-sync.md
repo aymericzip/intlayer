@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-07-08
+priority: 8
 title: Live Sync | Reflect CMS content changes at runtime
 description: Let your app reflect Intlayer CMS content changes at runtime, with no rebuild or redeploy required.
 keywords:

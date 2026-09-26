@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-09-20
+priority: 9
 title: "Vite + Lit i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Vite + Lit. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:

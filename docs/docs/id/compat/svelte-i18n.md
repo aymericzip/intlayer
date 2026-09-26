@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrasi dari Svelte I18n ke Intlayer"
 description: "Pelajari cara migrasi aplikasi Svelte Anda dari svelte-i18n ke Intlayer menggunakan adapter kompatibilitas."
 keywords:

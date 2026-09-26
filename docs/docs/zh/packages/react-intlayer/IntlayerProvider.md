@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: IntlayerProvider 组件文档 | react-intlayer
 description: 查看如何在 react-intlayer 包中使用 IntlayerProvider 组件
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-07-27
 updatedAt: 2025-07-27
+priority: 8
 title: Mapeador de Locale
 description: Descubra como o Mapeador de Locale funciona. Veja os passos usados pelo Mapeador de Locale na sua aplicação. Veja o que os diferentes pacotes fazem.
 keywords:

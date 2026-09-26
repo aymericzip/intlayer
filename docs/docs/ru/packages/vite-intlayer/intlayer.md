@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация плагина intlayer для Vite | vite-intlayer
 description: Узнайте, как использовать плагин intlayer для пакета vite-intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "Lingui vs Intlayer: 2026年ベンチマーク＆機能比較"
 description: "Next.jsおよびTanStack Startで測定された2つのコンパイラベースi18nライブラリ。バンドルサイズ、コンテンツリーク率、コンポーネントサイズ、ハイドレーション、言語切り替え応答性、および開発者体験の徹底比較。"
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Incorrect Locale Retrieved from URL
 description: Learn how to fix the incorrect locale retrieved from the URL.
 keywords:

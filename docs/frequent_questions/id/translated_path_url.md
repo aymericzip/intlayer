@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: Bisakah saya menerjemahkan jalur URL?
 description: Pelajari cara menerjemahkan jalur URL.
 keywords:

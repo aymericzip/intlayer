@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "NGX-Translateからのへの移行"
 description: "compat adapterを使用してあなたのAngularアプリケーションをngx-translateからIntlayerに移行する方法を学びます。"
 keywords:

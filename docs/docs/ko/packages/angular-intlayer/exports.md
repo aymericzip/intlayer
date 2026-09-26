@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: angular-intlayer 패키지 문서
 description: Angular 애플리케이션에 Intlayer를 통합하기 위한 Angular 전용 구성으로, 프로바이더와 서비스를 제공합니다.
 keywords:

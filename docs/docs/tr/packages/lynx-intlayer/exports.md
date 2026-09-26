@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: lynx-intlayer Paket Dokümantasyonu
 description: Lynx için Intlayer desteği; locale desteği için polyfill'ler sağlar.
 keywords:

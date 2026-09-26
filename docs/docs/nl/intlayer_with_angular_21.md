@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
+priority: 9
 title: "Angular 22 i18n - Volledige gids voor het vertalen van uw app"
 description: "Geen i18next meer. De 2026-gids voor het bouwen van een meertalige (i18n) Angular 22-app. Vertaal met AI-agenten en optimaliseer bundelgrootte, SEO en prestaties."
 keywords:

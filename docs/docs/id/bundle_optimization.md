@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-25
 updatedAt: 2026-09-16
+priority: 8
 title: Optimasi Ukuran Bundle & Performa i18n
 description: Kurangi ukuran bundle aplikasi Anda dengan mengoptimalkan konten internasionalisasi (i18n). Pelajari cara memanfaatkan tree shaking dan lazy loading untuk kamus menggunakan Intlayer.
 keywords:

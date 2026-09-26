@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "مقارنة i18next مقابل @intlayer/i18next: نفس واجهة البرمجة (API)، وحزمة برمجية مختلفة تماماً"
 description: "ما الذي يتغير عندما يحتفظ تطبيق React أو Next.js باستدعاءات i18next و react-i18next و next-i18next ولكنه يخدمها من خلال محولات @intlayer/i18next. قياسات حجم JavaScript لكل صفحة، وحجم المكونات، وتسريب النصوص، والترطيب على نفس الشيفرة البرمجية."
 keywords:

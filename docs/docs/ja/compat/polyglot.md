@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Polyglot.jsからIntlayerへの移行"
 description: "compat adapterを使用してPolyglot.jsからIntlayerに移行する方法を学びます。"
 keywords:

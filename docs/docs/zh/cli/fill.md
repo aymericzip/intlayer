@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 填充字典
 description: 学习如何使用 AI 填充、审核和翻译您的字典。
 keywords:

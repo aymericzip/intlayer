@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: nuxt-intlayer Paket Dokümantasyonu
 description: Intlayer için Nuxt entegrasyonu, Nuxt uygulamaları için bir modül sağlar.
 keywords:

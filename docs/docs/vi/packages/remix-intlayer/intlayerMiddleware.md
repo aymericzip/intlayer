@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Tài liệu Middleware intlayer | remix-intlayer
 description: Tìm hiểu cách sử dụng middleware intlayer trong Remix 3 để phát hiện locale, xử lý chuyển hướng và đưa trạng thái Intlayer vào context yêu cầu.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2026-09-16
+priority: 9
 title: "next-i18next vs next-intl vs Intlayer - Eksiksiz çeviri rehberi: next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Next.js web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:

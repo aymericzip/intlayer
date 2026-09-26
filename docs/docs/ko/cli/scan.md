@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: 웹사이트 스캔
 description: Intlayer CLI scan 명령어를 사용하여 모든 웹사이트의 페이지 크기를 측정하고 i18n/SEO 상태를 감사하는 방법을 알아봅니다.
 keywords:

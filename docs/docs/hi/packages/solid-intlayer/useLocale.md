@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: useLocale हुक दस्तावेज़ | solid-intlayer
 description: देखें कि solid-intlayer पैकेज में useLocale हुक का उपयोग कैसे करें
 keywords:

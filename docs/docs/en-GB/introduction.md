@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-06
+priority: 10
 title: Introduction
 description: Discover how Intlayer works. See the steps used by Intlayer in your application. See what the different packages do.
 keywords:

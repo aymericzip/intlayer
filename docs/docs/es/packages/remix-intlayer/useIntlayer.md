@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Documentación del hook useIntlayer | remix-intlayer
 description: Vea cómo utilizar el hook useIntlayer en aplicaciones Remix 3 para acceder a contenido localizado por clave.
 keywords:

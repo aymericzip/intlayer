@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-21
+priority: 9
 title: "Remix 3 i18n - 完整的应用多语言国际化翻译指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Remix 3 应用的权威指南。借助 AI 智能体完成翻译，并优化打包体积、SEO 和性能。"
 keywords:

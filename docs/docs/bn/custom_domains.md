@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-02
 updatedAt: 2026-04-02
+priority: 8
 title: কাস্টম ডোমেইন (Custom Domains)
 description: ডেডিকেটেড হোস্টনেম থেকে বিভিন্ন লোকেল (locales) পরিবেশন করার জন্য Intlayer-এ ডোমেইন-ভিত্তিক লোকেল রাউটিং কীভাবে কনফিগার করবেন তা শিখুন।
 keywords:

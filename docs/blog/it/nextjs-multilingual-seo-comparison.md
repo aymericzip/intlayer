@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-28
 updatedAt: 2025-09-28
+priority: 8
 title: SEO e i18n in Next.js
 description: Impara come configurare la SEO multilingue nella tua app Next.js usando next-intl, next-i18next e Intlayer.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Jak wybrać odpowiednią bibliotekę Vue i18n w 2026 roku"
 description: Przewodnik decyzyjny dotyczący internacjonalizacji Vue i Nuxt. Na jakie pytania odpowiedzieć przed porównaniem vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide i Intlayer oraz ile każdy wybór kosztuje pod kątem bundle size, typowania i SSR payload.
 keywords:

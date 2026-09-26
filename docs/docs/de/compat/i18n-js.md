@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migration von i18n-js zu Intlayer"
 description: "Erfahren Sie, wie Sie Ihre Anwendung von i18n-js zu Intlayer mithilfe des Compat-Adapters migrieren."
 keywords:

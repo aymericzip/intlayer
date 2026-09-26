@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: getLocale Function Documentation | intlayer
 description: See how to use the getLocale function for intlayer package
 keywords:

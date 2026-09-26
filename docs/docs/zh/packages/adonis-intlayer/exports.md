@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: adonis-intlayer 包文档
 description: 用于 Intlayer 的 AdonisJS 中间件，提供翻译函数和语言区域检测。
 keywords:

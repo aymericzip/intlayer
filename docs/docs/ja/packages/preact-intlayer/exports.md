@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: preact-intlayer パッケージドキュメント
 description: Intlayer の Preact 向け統合。Preact アプリケーション向けにプロバイダーとフックを提供します。
 keywords:

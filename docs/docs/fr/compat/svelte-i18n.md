@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrer de Svelte I18n vers Intlayer"
 description: "Apprenez comment migrer votre application Svelte de svelte-i18n vers Intlayer en utilisant l'adaptateur de compatibilité."
 keywords:

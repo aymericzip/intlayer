@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next vs Intlayer: 2026年基准测试与深度对比"
 description: "在 Next.js 和 TanStack Start 上对比评测 react-i18next、next-i18next 与 Intlayer。涵盖打包体积、多余内容泄露、语言切换响应速度及开发体验。"
 keywords:

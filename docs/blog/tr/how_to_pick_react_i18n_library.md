@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "2026'da Doğru React i18n Kütüphanesini Seçme Rehberi"
 description: React uluslararasılaştırması için karar rehberi. react-i18next, react-intl, Lingui, use-intl, Paraglide ve Intlayer'ı karşılaştırmadan önce yanıtlanması gereken sorular ve her seçeneğin bundle boyutu, typing ve bakım maliyetleri.
 keywords:

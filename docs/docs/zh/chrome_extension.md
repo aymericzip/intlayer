@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
+priority: 6
 title: Chrome 与 Firefox 扩展，i18n 与 SEO 扫描器
 description: 使用 Intlayer Chrome 扩展检查任何网站的 i18n 配置。检测框架、i18n 库、语言区域、hreflang 和 SEO 标签，并运行完整的 i18n SEO 审计。
 keywords:

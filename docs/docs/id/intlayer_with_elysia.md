@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-24
+priority: 9
 title: "Elysia i18n - Panduan lengkap untuk menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Elysia multibahasa (i18n). Terjemahkan dengan AI agents dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:

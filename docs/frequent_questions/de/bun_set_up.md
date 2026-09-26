@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Ich erhalte einen "Modul nicht gefunden"-Fehler bei der Verwendung von bun
 description: Fehlerbehebung bei der Verwendung von bun.
 keywords:

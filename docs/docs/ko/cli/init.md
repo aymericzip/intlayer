@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-09-21
+priority: 5
 title: Intlayer 초기화
 description: 프로젝트에서 Intlayer를 초기화하는 방법을 알아봅니다.
 keywords:

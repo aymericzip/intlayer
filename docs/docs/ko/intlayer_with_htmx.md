@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 9
 title: "htmx i18n - 앱을 번역하는 완벽한 가이드"
 description: "더 이상 i18next가 아닙니다. 다국어(i18n) htmx 앱을 구축하는 2026년 가이드입니다. AI 에이전트로 번역하고 번들 크기, SEO 및 성능을 최적화하세요."
 keywords:

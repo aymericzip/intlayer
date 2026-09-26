@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: intlayer AdonisJS ミドルウェアドキュメント | adonis-intlayer
 description: adonis-intlayer パッケージの intlayer ミドルウェアの使用方法を確認してください
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Tài liệu Hook useDictionary | astro-intlayer
 description: Xem cách sử dụng hook useDictionary trong các thành phần và script Astro để giải quyết các đối tượng từ điển.
 keywords:

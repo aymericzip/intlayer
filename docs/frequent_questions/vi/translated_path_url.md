@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: Tôi có thể dịch đường dẫn URL không?
 description: Tìm hiểu cách dịch đường dẫn URL.
 keywords:

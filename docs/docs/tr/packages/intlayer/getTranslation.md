@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 5
 title: getTranslation Fonksiyonu Dokümantasyonu | intlayer
 description: intlayer paketinde getTranslation fonksiyonunun nasıl kullanılacağını görün
 keywords:

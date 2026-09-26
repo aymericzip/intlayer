@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next vs @intlayer/i18next: To samo API, inny bundle"
 description: "Co się zmienia, gdy aplikacja React lub Next.js zachowuje wywołania i18next, react-i18next i next-i18next, ale obsługuje je za pośrednictwem adapterów @intlayer/i18next. JavaScript na stronę, rozmiar komponentów, wycieki i hydratacja zmierzone na tym samym kodzie, a także co adaptery zachowują, ignorują i czego nie mogą zastąpić."
 keywords:

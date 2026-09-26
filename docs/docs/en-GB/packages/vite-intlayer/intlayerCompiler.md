@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerCompiler Vite Plugin Documentation | vite-intlayer
 description: Vite plugin that extracts inline Intlayer content declarations from component files and writes them to dictionary JSON files at build/transform time.
 keywords:

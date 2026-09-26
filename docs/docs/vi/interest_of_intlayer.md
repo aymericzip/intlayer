@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-14
 updatedAt: 2026-05-31
+priority: 8
 title: Lợi ích của Intlayer
 description: Khám phá những lợi ích và ưu điểm của việc sử dụng Intlayer trong các dự án của bạn. Hiểu tại sao Intlayer nổi bật giữa các khung khác.
 keywords:

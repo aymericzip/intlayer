@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: URLパスを翻訳できますか？
 description: URLパスを翻訳する方法を学びます。
 keywords:

@@ -2,6 +2,7 @@
 title: Jak umiędzynarodowić (i18n) aplikację React Router v7 za pomocą Intlayer
 createdAt: 2025-02-07
 updatedAt: 2026-09-20
+priority: 10
 description: Zintegruj Intlayer z React Router v7, aby stworzyć w pełni wielojęzyczną aplikację z optymalnym SEO i routingiem.
 keywords:
   - Internacjonalizacja

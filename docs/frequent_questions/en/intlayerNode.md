@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
+priority: 4
 title: IntlayerNode type. What is it?
 description: What is it the IntlayerNode type? Why my string is transformed as an IntlayerNode&lt;string&gt;?
 keywords:

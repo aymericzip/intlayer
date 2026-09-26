@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-04
 updatedAt: 2026-05-04
+priority: 8
 title: 复数 (Plural)
 description: 了解如何在多语言网站中声明和使用区分语言区域的复数内容（基于 CLDR）。按照此在线文档中的步骤，在几分钟内完成项目设置。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2025-08-20
+priority: 8
 title: 格式化工具
 description: 基于 Intl 的本地化格式化工具，支持数字、百分比、货币、日期、相对时间、单位和紧凑表示法。包含缓存的 Intl 辅助工具。
 keywords:

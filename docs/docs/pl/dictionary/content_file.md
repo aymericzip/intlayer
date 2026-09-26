@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-07-30
+priority: 8
 title: Plik z Treścią
 description: Dowiedz się, jak dostosować rozszerzenia dla plików deklaracji treści. Postępuj zgodnie z tą dokumentacją, aby efektywnie wdrażać warunki w swoim projekcie.
 keywords:

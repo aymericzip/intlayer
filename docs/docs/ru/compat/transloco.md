@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Миграция с Transloco на Intlayer"
 description: "Узнайте, как перенести ваше приложение Angular с Transloco на Intlayer, используя адаптер совместимости."
 keywords:

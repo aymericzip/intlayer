@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: CLI SDK
 description: Learn how to use the Intlayer CLI SDK in your own code.
 keywords:

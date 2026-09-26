@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: ¿Puedo usar un arreglo como declaración de contenido?
 description: Aprende cómo usar un arreglo como declaración de contenido.
 keywords:

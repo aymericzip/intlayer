@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Tài liệu hàm usePathname | vue-intlayer
 description: Tìm hiểu cách sử dụng hàm usePathname từ gói vue-intlayer
 keywords:

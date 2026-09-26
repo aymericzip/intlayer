@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-09-30
+priority: 8
 title: Rendre un composant multilingue (i18n) en React et Next.js
 description: Apprenez à déclarer et récupérer du contenu localisé pour créer un composant React ou Next.js multilingue avec Intlayer.
 keywords:

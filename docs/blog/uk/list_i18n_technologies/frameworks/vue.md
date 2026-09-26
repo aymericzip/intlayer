@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-05-31
+priority: 7
 title: Найкращі інструменти інтернаціоналізації (i18n) для Vue - Повний посібник з перекладу Best Vue i18n Libraries 2026 — Compared by DX & Bundle
 description: Найкраще рішення для розміру бандлу, SEO, продуктивності & підтримуваності. Зробіть Vue застосунок багатомовним у 2026, переклад LLM, Agent Skills & MCP.
 keywords:

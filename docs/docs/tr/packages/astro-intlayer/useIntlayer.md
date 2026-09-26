@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useIntlayer Hook Dokümantasyonu | astro-intlayer
 description: Yerelleştirilmiş içeriğe erişmek için Astro bileşenlerinde ve istemci komut dosyalarında useIntlayer hook'unun nasıl kullanılacağını görün.
 keywords:

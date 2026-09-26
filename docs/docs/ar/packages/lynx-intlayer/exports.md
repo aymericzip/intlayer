@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: وثائق حزمة lynx-intlayer
 description: دعم Lynx لـ Intlayer، يوفر polyfills لدعم locale.
 keywords:

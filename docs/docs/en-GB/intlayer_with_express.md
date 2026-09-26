@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-08-30
+priority: 9
 title: "Express i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Express app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:

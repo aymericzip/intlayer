@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-21
+priority: 6
 title: MCP 서버 문서
 description: MCP 서버의 기능과 설정을 탐색하여 서버 관리 및 운영을 최적화하세요.
 keywords:

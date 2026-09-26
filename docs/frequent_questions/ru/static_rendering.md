@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Статическая и динамическая отрисовка с i18n в Next.js
 description: Узнайте, как использовать статическую и динамическую отрисовку с i18n в Next.js.
 keywords:

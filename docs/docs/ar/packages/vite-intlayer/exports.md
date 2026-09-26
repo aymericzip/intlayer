@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: توثيق حزمة vite-intlayer
 description: ملحق Vite لـ Intlayer، يوفر aliases للقواميس وwatchers.
 keywords:

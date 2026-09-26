@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook दस्तावेज़ | next-intlayer
 description: next-intlayer पैकेज के लिए usePathname हुक का उपयोग करना सीखें
 keywords:

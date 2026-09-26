@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: Documentazione Hook useLocale | react-intlayer
 description: Scopri come utilizzare l'hook useLocale per il pacchetto react-intlayer
 keywords:

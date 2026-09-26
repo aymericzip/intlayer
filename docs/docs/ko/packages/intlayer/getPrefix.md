@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-16
 updatedAt: 2025-11-16
+priority: 5
 title: getPrefix 함수 문서 | intlayer
 description: intlayer 패키지의 getPrefix 함수 사용법을 확인하세요
 keywords:

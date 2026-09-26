@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next बनाम @intlayer/i18next: समान API, पूरी तरह भिन्न बंडल"
 description: "क्या बदलता है जब एक React या Next.js ऐप अपने i18next, react-i18next और next-i18next कॉल्स को बरकरार रखता है लेकिन उन्हें @intlayer/i18next एडेप्टर के माध्यम से प्रस्तुत करता है। समान कोड पर मापा गया प्रति-पेज JavaScript आकार, घटक आकार, सामग्री लीकेज और हाइड्रेशन।"
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Documentation du package preact-intlayer
 description: Intégration spécifique à Preact pour Intlayer, fournissant des providers et des hooks pour les applications Preact.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-17
 updatedAt: 2025-09-30
+priority: 6
 title: Resmi VS Code Eklentisi
 description: Geliştirme iş akışınızı geliştirmek için VS Code'da Intlayer eklentisinin nasıl kullanılacağını öğrenin. Yerelleştirilmiş içerikler arasında hızlıca gezin ve sözlüklerinizi verimli bir şekilde yönetin.
 keywords:

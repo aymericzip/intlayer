@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "2026'da Doğru Solid i18n Kütüphanesini Seçme Rehberi"
 description: SolidJS ve SolidStart uluslararasılaştırması için bir karar rehberi. @solid-primitives/i18n, solid-i18next, Paraglide, Lingui ve Intlayer'ı karşılaştırmadan önce yanıtlanması gereken sorular ve her seçeneğin reaktivite, bundle boyutu ve typing açısından maliyetleri.
 keywords:

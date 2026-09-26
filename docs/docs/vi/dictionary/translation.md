@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 8
 title: Dịch thuật
 description: Khám phá cách khai báo và sử dụng dịch thuật trong trang web đa ngôn ngữ của bạn. Làm theo các bước trong tài liệu trực tuyến này để thiết lập dự án của bạn trong vài phút.
 keywords:

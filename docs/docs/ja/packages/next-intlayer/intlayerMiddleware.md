@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-02-25
+priority: 5
 title: intlayerMiddleware ドキュメント | next-intlayer
 description: next-intlayer パッケージの intlayerMiddleware 関数の使用方法を参照してください
 keywords:

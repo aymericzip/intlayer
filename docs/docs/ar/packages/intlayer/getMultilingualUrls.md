@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: توثيق دالة getMultilingualUrls | intlayer
 description: تعرف على كيفية استخدام دالة getMultilingualUrls لحزمة intlayer
 keywords:

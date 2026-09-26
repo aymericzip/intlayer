@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayerPrune Vite 插件文档 | vite-intlayer
 description: 查看如何在 vite-intlayer 包中使用 intlayerPrune 插件
 keywords:

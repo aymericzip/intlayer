@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-09-22
+priority: 1
 title: Intlayer Privacy Notice
 description: Discover how Intlayer handles information collected through our website and CMS. Follow the documentation to understand the different formats and use cases.
 keywords:

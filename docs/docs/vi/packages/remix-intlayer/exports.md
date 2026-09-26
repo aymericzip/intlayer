@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Tài liệu gói remix-intlayer
 description: Tài liệu về các exports của gói remix-intlayer, cung cấp quốc tế hóa (i18n) cho các ứng dụng Remix 3.
 keywords:

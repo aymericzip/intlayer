@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 4
 title: Como limitar o consumo de tokens do Claude Code para gerar traduções
 description: Por que traduzir com o Claude Code gasta tokens em excesso, o que o Intlayer faz em vez disso (filtra chaves traduzidas, divide JSON em blocos, traduz markdown bloco a bloco) e como reutilizar sua assinatura do Claude com claude setup-token.
 keywords:

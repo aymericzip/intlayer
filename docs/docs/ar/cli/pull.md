@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: سحب القواميس
 description: تعلّم كيفية سحب القواميس من محرر Intlayer ونظام إدارة المحتوى.
 keywords:

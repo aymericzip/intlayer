@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-16
 updatedAt: 2026-09-12
+priority: 5
 title: CLI - Inicio de sesión
 description: Aprende a usar el comando login del CLI de Intlayer para autenticarte con el CMS de Intlayer y obtener credenciales de acceso.
 keywords:

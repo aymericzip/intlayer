@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: Tài liệu Hàm getIntlayer | intlayer
 description: Xem cách sử dụng hàm getIntlayer cho gói intlayer
 keywords:

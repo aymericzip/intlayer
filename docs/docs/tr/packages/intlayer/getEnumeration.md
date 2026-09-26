@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 5
 title: getEnumeration Fonksiyonu Dokümantasyonu | intlayer
 description: intlayer paketinde getEnumeration fonksiyonunun nasıl kullanılacağını görün
 keywords:

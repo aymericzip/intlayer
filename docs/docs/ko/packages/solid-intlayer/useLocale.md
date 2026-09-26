@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: useLocale 훅 문서 | solid-intlayer
 description: solid-intlayer 패키지의 useLocale 훅 사용 방법 보기
 keywords:

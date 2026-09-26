@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl vs Intlayer: 2026 ベンチマーク＆比較"
 description: Bundle size、content leakage、locale-switch の反応性、および Next.js と TanStack Start での開発者体験を測定。2026年ではどのi18nライブラリを選ぶべきでしょうか？
 keywords:

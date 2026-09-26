@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-14
 updatedAt: 2026-08-30
+priority: 8
 title: Intlayer의 장점
 description: 프로젝트에서 Intlayer를 사용할 때의 이점과 장점을 알아보세요. 다른 프레임워크 중에서 Intlayer가 왜 뛰어난지 이해해보세요.
 keywords:

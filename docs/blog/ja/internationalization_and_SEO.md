@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
+priority: 8
 title: SEOと国際化
 description: 検索エンジン向けにマルチリンガルサイトを最適化し、SEOを改善する方法を見つけましょう。
 keywords:

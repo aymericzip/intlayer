@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
+priority: 9
 title: "Hono i18n - Kompletní průvodce překladem vaší aplikace"
 description: "Žádný i18next. Průvodce 2026 pro vytváření vícejazyčné (i18n) aplikace Hono. Překládejte pomocí agentů AI a optimalizujte velikost bundlu, SEO a výkon."
 keywords:

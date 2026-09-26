@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: astro-intlayer Paketi Dokümantasyonu
 description: Yerel ayar tabanlı yönlendirme, ara yazılım, hook'lar, istemci deposu ve sözlük yönetimi kurulumunu sağlayan Intlayer Astro entegrasyonu.
 keywords:

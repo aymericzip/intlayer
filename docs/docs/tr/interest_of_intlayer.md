@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-14
 updatedAt: 2026-05-31
+priority: 8
 title: Intlayer'ın Önemi
 description: Projelerinizde Intlayer kullanmanın yararlarını ve avantajlarını keşfedin. Intlayer'ın diğer framework'ler arasında neden öne çıktığını anlayın.
 keywords:

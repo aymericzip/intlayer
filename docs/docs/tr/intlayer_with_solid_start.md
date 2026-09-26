@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-06
 updatedAt: 2026-09-20
+priority: 9
 title: "Solid Start i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. Çok dilli (i18n) bir SolidStart uygulaması oluşturmak için 2026 kılavuzu. Sunucu tarafında işlenen yerel ayar yönlendirmesi, hreflang, sitemap ve yapay zeka destekli çeviri."
 keywords:

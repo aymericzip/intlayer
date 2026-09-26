@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-09-06
+priority: 8
 title: "Mevcut Bir Vite ve React Uygulamasını Sonradan Çok Dilli (i18n) Yapma Rehberi (2026)"
 description: "Mevcut bir Vite ve React uygulamasını kapsamlı bir yeniden yapılandırma olmadan sonradan çok dilli (i18n) yapma rehberi (2026). Intlayer ile otomatik içerik çıkarma, yapay zeka çevirisi ve paket optimizasyonu."
 keywords:

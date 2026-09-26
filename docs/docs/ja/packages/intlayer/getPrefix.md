@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-16
 updatedAt: 2025-11-16
+priority: 5
 title: getPrefix 関数ドキュメント | intlayer
 description: intlayer パッケージの getPrefix 関数の使い方を確認する
 keywords:

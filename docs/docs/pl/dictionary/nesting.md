@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: Zagnieżdżanie słowników
 description: Dowiedz się, jak korzystać z zagnieżdżania treści w Intlayer, aby efektywnie ponownie wykorzystywać i strukturyzować wielojęzyczne treści. Postępuj zgodnie z tą dokumentacją, aby bezproblemowo wdrożyć zagnieżdżanie w swoim projekcie.
 keywords:

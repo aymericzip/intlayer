@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname 훅 문서 | next-intlayer
 description: next-intlayer 패키지의 usePathname 훅 사용 방법
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentasi Hook useIntlayer | astro-intlayer
 description: Pelajari cara menggunakan hook useIntlayer dalam komponen Astro dan skrip klien untuk mengakses konten yang dilokalisasi.
 keywords:

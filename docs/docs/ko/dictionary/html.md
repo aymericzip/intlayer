@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-20
 updatedAt: 2026-09-21
+priority: 8
 title: HTML 콘텐츠
 description: Intlayer에서 커스텀 컴포넌트를 사용하여 HTML 콘텐츠를 선언하고 사용하는 방법을 알아보세요. 이 문서를 따라 국제화된 프로젝트에서 동적인 컴포넌트 교체와 함께 풍부한 HTML 유사 콘텐츠를 임베드하세요.
 keywords:

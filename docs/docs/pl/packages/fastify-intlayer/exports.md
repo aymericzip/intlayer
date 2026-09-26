@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentacja pakietu fastify-intlayer
 description: Wtyczka Fastify dla Intlayer, zapewniająca funkcje tłumaczeń i wykrywanie lokalizacji.
 keywords:

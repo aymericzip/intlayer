@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-09-20
+priority: 8
 title: Preenchimento Automático
 description: Aprenda a usar a funcionalidade de preenchimento automático no Intlayer para popular conteúdo automaticamente com base em padrões predefinidos. Siga esta documentação para implementar recursos de preenchimento automático de forma eficiente em seu projeto.
 keywords:

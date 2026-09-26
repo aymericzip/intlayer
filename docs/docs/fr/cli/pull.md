@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Récupérer des Dictionnaires
 description: Apprenez comment récupérer des dictionnaires depuis l'éditeur Intlayer et le CMS.
 keywords:

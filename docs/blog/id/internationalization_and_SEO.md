@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
+priority: 8
 title: SEO dan Internasionalisasi
 description: Temukan cara mengoptimalkan situs web multibahasa Anda untuk mesin pencari dan meningkatkan SEO Anda.
 keywords:

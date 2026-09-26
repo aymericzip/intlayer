@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-23
+priority: 8
 title: CLI - 适用于多语言网站的所有 Intlayer CLI 命令
 description: 了解如何使用 Intlayer CLI 管理您的多语言网站。按照此在线文档中的步骤，在几分钟内设置您的项目。
 keywords:

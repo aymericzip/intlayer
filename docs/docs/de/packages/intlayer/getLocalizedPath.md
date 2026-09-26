@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-22
 updatedAt: 2026-01-22
+priority: 5
 title: getLocalizedPath Funktionsdokumentation | intlayer
 description: Anleitung zur Verwendung der Funktion getLocalizedPath im intlayer-Paket
 keywords:

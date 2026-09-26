@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-22
 updatedAt: 2026-01-22
+priority: 5
 title: getLocalizedPath 関数のドキュメント | intlayer
 description: intlayer パッケージで getLocalizedPath 関数を使用する方法
 keywords:

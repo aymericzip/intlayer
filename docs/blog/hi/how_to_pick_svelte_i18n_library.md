@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "2026 में सही Svelte i18n लाइब्रेरी कैसे चुनें"
 description: Svelte और SvelteKit अंतर्राष्ट्रीयकरण के लिए एक निर्णय मार्गदर्शिका। svelte-i18n, Paraglide, typesafe-i18n, wuchale और Intlayer की तुलना करने से पहले किन सवालों के जवाब देने चाहिए, और प्रत्येक विकल्प बंडल आकार, टाइपिंग और SSR सुरक्षा के मामले में क्या लागत लेता है।
 keywords:

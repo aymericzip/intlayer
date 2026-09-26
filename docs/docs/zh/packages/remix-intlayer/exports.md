@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: remix-intlayer 包文档
 description: remix-intlayer 包的导出项文档，为 Remix 3 应用程序提供国际化 (i18n) 支持。
 keywords:

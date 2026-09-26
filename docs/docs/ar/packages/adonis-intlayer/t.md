@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: توثيق دالة t | adonis-intlayer
 description: تعرف على كيفية استخدام دالة t لحزمة adonis-intlayer
 keywords:

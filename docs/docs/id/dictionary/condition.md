@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: Konten Kondisional
 description: Pelajari cara menggunakan konten kondisional di Intlayer untuk menampilkan konten secara dinamis berdasarkan kondisi tertentu. Ikuti dokumentasi ini untuk mengimplementasikan kondisi secara efisien dalam proyek Anda.
 keywords:

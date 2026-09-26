@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Documentación del hook useLocale | astro-intlayer
 description: Descubre cómo usar el hook useLocale en aplicaciones Astro para acceder y administrar el locale actual.
 keywords:

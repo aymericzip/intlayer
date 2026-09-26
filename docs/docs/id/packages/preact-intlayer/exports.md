@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentasi Paket preact-intlayer
 description: Integrasi khusus Preact untuk Intlayer, menyediakan provider dan hook untuk aplikasi Preact.
 keywords:

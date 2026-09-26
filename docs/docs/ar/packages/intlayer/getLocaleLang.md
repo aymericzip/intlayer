@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: توثيق دالة getLocaleLang | intlayer
 description: تعرف على كيفية استخدام دالة getLocaleLang لحزمة intlayer
 keywords:

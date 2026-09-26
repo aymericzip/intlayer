@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Automatiser les traductions dans la CI/CD sans livrer de mauvais textes"
 description: Trois points d'automatisation i18n, pre-push, pull request et runtime. Comment bloquer un build sur la couverture, auto-compléter en sécurité et éviter la boucle infinie de commits.
 keywords:

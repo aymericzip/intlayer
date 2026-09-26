@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: "Tài liệu Gói @intlayer/babel"
 description: Các plugin Babel cho Intlayer để xử lý trích xuất nội dung, tối ưu hóa nhập khẩu (import), loại bỏ các trường không sử dụng và mã hóa tên trường trong quá trình xây dựng (build).
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "ICU Message Format: Syntax, Plurals and Select"
 description: A practical reference to ICU MessageFormat - argument interpolation, plural and select branching, CLDR plural categories per language, and the usual mistakes.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Nền tảng L10n thay thế cho Lokalise
 description: Tìm nền tảng L10n thay thế tốt nhất cho Lokalise phù hợp với nhu cầu của bạn
 keywords:

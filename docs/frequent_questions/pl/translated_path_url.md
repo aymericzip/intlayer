@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: Czy mogę przetłumaczyć ścieżkę URL?
 description: Dowiedz się, jak przetłumaczyć ścieżkę URL.
 keywords:

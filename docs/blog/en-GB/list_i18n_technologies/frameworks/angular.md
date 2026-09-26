@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-05-31
+priority: 7
 title: Best Internationalization (i18n) Tools for Angular - Complete guide to translate Best Angular i18n Libraries 2026 — Compared by DX & Bundle
 description: Best solution for bundle size, SEO, performances & maintainability. Make your Angular app multilingual in 2026, LLM translation, Agent Skills & MCP.
 keywords:

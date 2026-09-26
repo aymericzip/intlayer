@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "Lingui vs @intlayer/lingui: Stesse Macro, Runtime Diverso"
 description: Cosa cambia quando un'applicazione React mantiene le macro Lingui ma le serve tramite l'adattatore di compatibilità @intlayer/lingui. Dimensioni dei componenti, idratazione, leakage e JavaScript per pagina misurati sullo stesso codice TanStack Start, inclusi i punti in cui l'adattatore è in svantaggio.
 keywords:

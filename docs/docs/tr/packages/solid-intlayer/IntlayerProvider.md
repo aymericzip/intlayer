@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: IntlayerProvider Bileşen Dokümantasyonu | solid-intlayer
 description: solid-intlayer paketindeki IntlayerProvider bileşeninin nasıl kullanılacağını görün
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname 함수 문서 | vue-intlayer
 description: vue-intlayer 패키지의 usePathname 함수 사용 방법 알아보기
 keywords:

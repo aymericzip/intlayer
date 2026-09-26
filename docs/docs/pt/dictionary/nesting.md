@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: Aninhamento do dicionário
 description: Descubra como usar o aninhamento de conteúdo no Intlayer para reutilizar e estruturar seu conteúdo multilíngue de forma eficiente. Siga esta documentação para implementar o aninhamento sem problemas no seu projeto.
 keywords:

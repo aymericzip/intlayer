@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Come scegliere la giusta libreria i18n per Solid nel 2026"
 description: Una guida decisionale per l'internazionalizzazione in SolidJS e SolidStart. Quali domande porsi prima di confrontare @solid-primitives/i18n, solid-i18next, Paraglide, Lingui e Intlayer, e cosa comporta ogni scelta in termini di reattività, bundle size e typing.
 keywords:

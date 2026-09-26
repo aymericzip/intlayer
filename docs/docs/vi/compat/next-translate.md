@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Di Chuyển Từ Next Translate Sang Intlayer"
 description: "Tìm hiểu cách di chuyển ứng dụng Next.js của bạn từ next-translate sang Intlayer bằng bộ điều hợp tương thích."
 keywords:

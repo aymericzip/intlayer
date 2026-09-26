@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerPrune Vite Plugin Documentation | vite-intlayer
 description: Vite plugin that tree-shakes unused dictionary fields from the production bundle to reduce bundle size.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
+priority: 9
 title: Czym jest internacjonalizacja (i18n)? Definicja i wyzwania
 description: Dowiedz się, dlaczego internacjonalizacja Twojej strony internetowej jest niezbędna. Poznaj kluczowe zasady, które poprawią SEO, zwiększą komfort użytkownika i rozszerzą zasięg globalny.
 keywords:

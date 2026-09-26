@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Документация промежуточного ПО intlayer | remix-intlayer
 description: Узнайте, как использовать промежуточное ПО intlayer в Remix 3 для определения локали, обработки перенаправлений и внедрения состояния Intlayer в контекст запроса.
 keywords:

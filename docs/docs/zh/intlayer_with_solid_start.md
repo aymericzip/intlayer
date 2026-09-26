@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-06
 updatedAt: 2026-09-20
+priority: 9
 title: "Solid Start i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) SolidStart 应用的指南。包含服务端渲染的语言路由、hreflang、sitemap 和 AI 辅助翻译。"
 keywords:

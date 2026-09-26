@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Tài liệu Middleware onRequest | astro-intlayer
 description: Xem cách sử dụng middleware onRequest trong các ứng dụng Astro để giải quyết ngôn ngữ yêu cầu và điền vào Astro.locals.intlayer.
 keywords:

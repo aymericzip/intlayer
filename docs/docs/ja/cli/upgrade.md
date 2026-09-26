@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 5
 title: CLI - Intlayerパッケージのアップグレード
 description: Intlayer CLIのupgradeコマンドを使用して、プロジェクトまたはモノレポ内のすべてのIntlayerパッケージをリストし、最新バージョンにアップグレードする方法を学びます。
 keywords:

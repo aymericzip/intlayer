@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Eksik Çevirileri Test Etme
 description: Sözlüklerinizdeki eksik çevirileri nasıl test edeceğinizi ve tespit edeceğinizi öğrenin.
 keywords:

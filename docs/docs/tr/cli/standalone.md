@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Bağımsız Paket (Standalone Bundle)
 description: Uygulama içeriğinin bağımsız bir JavaScript paketini nasıl oluşturacağınızı öğrenin.
 keywords:

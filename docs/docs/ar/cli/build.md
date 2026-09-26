@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: بناء القواميس
 description: تعلّم كيفية بناء قواميس Intlayer الخاصة بك من ملفات إعلان المحتوى.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Traducir Documento
 description: Aprende cómo traducir automáticamente archivos de documentación usando servicios de traducción AI.
 keywords:

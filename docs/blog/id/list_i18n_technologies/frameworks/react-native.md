@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-05-31
+priority: 7
 title: "Alat Internasionalisasi (i18n) Terbaik untuk React Native - Panduan lengkap menerjemahkan React Native i18n 2026: Best Tools for Expo & TypeScript"
 description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan React Native aplikasi mobile Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
 keywords:

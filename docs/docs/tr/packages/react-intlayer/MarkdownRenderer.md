@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: MarkdownRenderer Bileşen Dokümantasyonu | react-intlayer
 description: react-intlayer paketi için MarkdownRenderer bileşeninin nasıl kullanılacağını görün
 keywords:

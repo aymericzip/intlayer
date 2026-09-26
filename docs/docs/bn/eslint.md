@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: ESLint প্লাগইন | Intlayer এর জন্য লিন্ট নিয়ম
 description: eslint-plugin-intlayer ব্যবহার করে হার্ডকোডেড স্ট্রিং, ডাইনামিক কল যা Intlayer কম্পাইলার অপ্টিমাইজ করতে পারে না এবং অব্যবহৃত ডিকশনারি সামগ্রী শনাক্ত করুন। React, Vue, Svelte, Angular এবং Astro জুড়ে ESLint এবং oxlint এর সাথে কাজ করে।
 keywords:

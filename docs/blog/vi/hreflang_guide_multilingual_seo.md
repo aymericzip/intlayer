@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 8
 title: "Hreflang, hướng dẫn cho SEO đa ngôn ngữ"
 description: "Hreflang là gì, các quy tắc mà các search engine thực thi, tại sao x-default hầu như luôn sai, và cách tạo các tags chính xác trong Next.js và TanStack Start."
 keywords:

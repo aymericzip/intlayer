@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 1
 title: Intlayer Terms of Service
 description: Discover how Intlayer handles information collected through our website and CMS. Follow the documentation to understand the different formats and use cases.
 keywords:

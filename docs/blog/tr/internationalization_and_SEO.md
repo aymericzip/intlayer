@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 8
 title: SEO ve Uluslararasılaştırma
 description: Çok dilli web sitenizi arama motorları için optimize etmeyi ve SEO'nuzu iyileştirmeyi öğrenin.
 keywords:

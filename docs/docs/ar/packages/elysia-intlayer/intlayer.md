@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: توثيق مكوّن intlayer لـ Elysia | elysia-intlayer
 description: تعرّف على كيفية استخدام المكوّن intlayer من حزمة elysia-intlayer
 keywords:

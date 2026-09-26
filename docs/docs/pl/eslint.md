@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: Wtyczka ESLint | Reguły lintera dla Intlayer
 description: Wykrywaj zahardkodowane ciągi znaków, wywołania dynamiczne, których kompilator Intlayer nie jest w stanie zoptymalizować, oraz nieużywaną zawartość słowników dzięki eslint-plugin-intlayer. Działa z ESLint i oxlint w React, Vue, Svelte, Angular i Astro.
 keywords:

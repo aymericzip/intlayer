@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 8
 title: 函数获取
 description: 了解如何在您的多语言网站中声明和使用函数获取。按照本在线文档中的步骤，几分钟内即可设置您的项目。
 keywords:

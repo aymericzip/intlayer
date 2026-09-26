@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Intlayer Bağlamı Dokümantasyonu | remix-intlayer
 description: Remix 3 uygulamalarında Intlayer istek bağlamı depolama anahtarı dokümantasyonu.
 keywords:

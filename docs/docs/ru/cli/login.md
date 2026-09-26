@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-16
 updatedAt: 2026-09-12
+priority: 5
 title: CLI - Вход
 description: Узнайте, как использовать команду login в Intlayer CLI для аутентификации в Intlayer CMS и получения учетных данных доступа.
 keywords:

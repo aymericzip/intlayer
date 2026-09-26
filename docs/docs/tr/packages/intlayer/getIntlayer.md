@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: getIntlayer Fonksiyonu Dokümantasyonu | intlayer
 description: intlayer paketi için getIntlayer fonksiyonunun nasıl kullanılacağını öğrenin
 keywords:

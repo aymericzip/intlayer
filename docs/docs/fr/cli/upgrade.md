@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 5
 title: CLI - Mettre à jour les packages Intlayer
 description: Découvrez comment utiliser la commande upgrade du CLI Intlayer pour lister tous les packages Intlayer de votre projet ou monorepo et les mettre à jour vers la dernière version.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathnameフックドキュメント | react-intlayer
 description: react-intlayerパッケージからusePathnameフックを使用して、ロケールセグメントを含まない現在のURLパス名を取得する方法を学びます。
 keywords:

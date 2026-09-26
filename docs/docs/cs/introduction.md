@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-06
+priority: 10
 title: Úvod
 description: Zjistěte, jak Intlayer funguje. Podívejte se na kroky, které Intlayer ve vaší aplikaci používá. Objevte, co dělají různé balíčky.
 keywords:

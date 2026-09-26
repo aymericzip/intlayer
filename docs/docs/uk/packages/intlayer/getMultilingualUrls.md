@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-11-16
+priority: 5
 title: Документація функції getMultilingualUrls | intlayer
 description: Дізнайтеся, як використовувати функцію getMultilingualUrls у пакеті intlayer
 keywords:

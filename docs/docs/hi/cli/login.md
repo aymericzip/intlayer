@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-16
 updatedAt: 2026-09-12
+priority: 5
 title: "CLI - लॉगिन"
 description: "Intlayer CLI के `login` कमांड का उपयोग करके Intlayer CMS के साथ प्रमाणीकृत होने और एक्सेस क्रेडेंशियल प्राप्त करने का तरीका जानें।"
 keywords:

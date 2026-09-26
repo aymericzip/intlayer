@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer 패키지 문서
 description: Intlayer의 핵심 패키지로, 국제화용 기본 함수와 타입을 제공합니다.
 keywords:

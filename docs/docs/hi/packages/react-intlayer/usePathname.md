@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook दस्तावेज़ीकरण | react-intlayer
 description: जानें कि react-intlayer पैकेज से usePathname hook का उपयोग करके वर्तमान URL पथनाम को बिना स्थानीयकरण खंड के कैसे प्राप्त करें।
 keywords:

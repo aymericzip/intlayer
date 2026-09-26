@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Construir Dicionários
 description: Aprenda como construir seus dicionários Intlayer a partir de arquivos de declaração de conteúdo.
 keywords:

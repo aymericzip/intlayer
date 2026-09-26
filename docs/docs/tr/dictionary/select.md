@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-30
 updatedAt: 2026-07-30
+priority: 8
 title: Seçime Dayalı İçerik (Select)
 description: Rastgele bir dize (string) değerine göre içeriği dinamik olarak oluşturmak için Intlayer'da seçime dayalı (select) içeriği nasıl kullanacağınızı öğrenin. Projenizde switch benzeri içeriği verimli bir şekilde uygulamak için bu belgeleri takip edin.
 keywords:

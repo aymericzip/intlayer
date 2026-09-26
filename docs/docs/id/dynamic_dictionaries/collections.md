@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-12
+priority: 8
 title: Koleksi
 description: Gunakan bidang metadata item di file konten Intlayer untuk membangun koleksi terurut dari item yang dilokalkan yang dapat dipilih berdasarkan indeks saat runtime.
 keywords:

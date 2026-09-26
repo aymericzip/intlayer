@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
+priority: 4
 title: IntlayerNode 类型。它是什么？
 description: 什么是 IntlayerNode 类型？为什么我的字符串被转换为 IntlayerNode&lt;string&gt;？
 keywords:

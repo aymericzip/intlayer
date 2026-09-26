@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2026-05-31
+priority: 3
 title: "Lynx + React i18n - Guide complet pour traduire votre application"
 description: "Oubliez i18next. Le guide 2026 pour créer une application Lynx + React multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:

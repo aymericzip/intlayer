@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Dokumentacja wtyczki Vite intlayerMinify | vite-intlayer
 description: Wtyczka Vite, która minifikuje skompilowane pliki JSON słownika Intlayer i opcjonalnie maskuje nazwy pól zawartości w celu zmniejszenia rozmiaru pakietu.
 keywords:

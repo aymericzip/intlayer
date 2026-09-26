@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-26
+priority: 8
 title: Kamus dinamis
 description: Ikhtisar fitur kamus dinamis Intlayer — koleksi dan varian — untuk membangun konten i18n yang fleksibel dan digerakkan saat runtime.
 keywords:

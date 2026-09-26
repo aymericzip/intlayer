@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
+priority: 5
 title: Blog
 description: Descubra todos os tópicos relacionados a Intlayer, internacionalização e outros
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 8
 title: "Hreflang، دليل تحسين محركات البحث متعددة اللغات"
 description: "ما هو hreflang، القواعد التي تفرضها محركات البحث، لماذا x-default خاطئ في معظم الأحيان، وكيفية إنشاء علامات صحيحة في Next.js و TanStack Start."
 keywords:

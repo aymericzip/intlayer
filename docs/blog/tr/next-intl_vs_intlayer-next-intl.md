@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl vs @intlayer/next-intl: Aynı API, Farklı Bundle"
 description: next-intl import'larının bir Next.js uygulamasının @intlayer/next-intl compat adapter tarafından sunulduğunda ne değiştiği. Bundle boyutu, sızıntı, bileşen boyutu ve hidrasyon aynı kod üzerinde ölçülmüştür, plus adapter'ın ne tuttuğu, ne göz ardı ettiği ve neyi değiştiremediği.
 keywords:

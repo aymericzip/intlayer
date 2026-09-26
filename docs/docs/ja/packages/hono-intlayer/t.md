@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-02
 updatedAt: 2025-06-29
+priority: 5
 title: t 関数ドキュメント | hono-intlayer
 description: hono-intlayer パッケージでの t 関数の使用方法を確認する
 keywords:

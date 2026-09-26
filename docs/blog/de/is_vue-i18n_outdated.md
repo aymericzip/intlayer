@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Ist vue-i18n im Jahr 2026 veraltet?
 description: vue-i18n war ein Jahrzehnt lang der Standard für Vue- und Nuxt-Anwendungen. Doch in unseren Benchmarks erwies es sich als die schwerste i18n-Runtime im Web. Warum das so ist.
 keywords:

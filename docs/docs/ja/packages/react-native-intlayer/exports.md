@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: react-native-intlayer パッケージのドキュメント
 description: Intlayer のための React Native サポート。プロバイダー、フック、ポリフィル、Metro 設定を提供します。
 keywords:

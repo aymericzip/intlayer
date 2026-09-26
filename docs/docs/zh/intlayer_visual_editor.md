@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-08-30
+priority: 8
 title: Intlayer 可视编辑器 | 使用可视编辑器编辑您的内容
 description: 发现如何使用 Intlayer 编辑器来管理您的多语言网站。按照本在线文档中的步骤，在几分钟内设置您的项目。
 keywords:

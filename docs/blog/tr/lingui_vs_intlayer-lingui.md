@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "Lingui vs @intlayer/lingui: Aynı Makrolar, Farklı Çalışma Zamanı"
 description: "Bir React uygulaması Lingui makrolarını korurken bunları @intlayer/lingui uyumluluk adaptörü aracılığıyla sunduğunda ne değişir? Bileşen boyutu, hidrasyon, sızıntı ve sayfa başına JavaScript miktarı aynı TanStack Start kodunda ölçüldü; adaptörün geride kaldığı noktalar dahil."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: 词典嵌套
 description: 了解如何在Intlayer中使用内容嵌套，以高效地重用和构造您的多语言内容。按照本文档的步骤无缝实施嵌套。
 keywords:

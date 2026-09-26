@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useLocale हुक प्रलेखन | astro-intlayer
 description: वर्तमान लोकेल तक पहुँचने और उसे प्रबंधित करने के लिए Astro एप्लिकेशनों में useLocale हुक का उपयोग करने का तरीका देखें।
 keywords:

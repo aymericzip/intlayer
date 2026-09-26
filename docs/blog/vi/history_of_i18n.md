@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-10
+priority: 8
 title: "Lịch sử i18n trong JavaScript: Từ 2011 đến 2026"
 description: Khám phá sự phát triển của quốc tế hóa frontend từ 2011 đến 2026. Tìm hiểu các mốc phát hành, thách thức kiến trúc và các cải tiến quan trọng trên React, Vue, Next.js, Angular, Svelte và Solid.
 keywords:

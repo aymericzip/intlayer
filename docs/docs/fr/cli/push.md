@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Pousser les dictionnaires
 description: Apprenez comment pousser vos dictionnaires vers l'éditeur Intlayer et le CMS.
 keywords:

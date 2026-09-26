@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: getIntlayerAsync 函数文档 | intlayer
 description: 了解如何使用 intlayer package 中的 getIntlayerAsync 函数
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-06
+priority: 10
 title: परिचय
 description: जानें कि Intlayer कैसे काम करता है। देखें कि Intlayer आपके एप्लिकेशन में किन चरणों का उपयोग करता है। खोजें कि विभिन्न पैकेजों का क्या कार्य है।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: useDictionary フック ドキュメント | next-intlayer
 description: next-intlayer パッケージの useDictionary フックの使い方を解説
 keywords:

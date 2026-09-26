@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Canlı Senkronizasyon Komutları
 description: Canlı Senkronizasyonu kullanarak CMS içerik değişikliklerini çalışma zamanında nasıl yansıtacağınızı öğrenin.
 keywords:

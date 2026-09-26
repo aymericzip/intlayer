@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 4
 title: URL'den yanlış locale alınması
 description: URL'den yanlış locale alınması sorununu nasıl düzelteceğinizi öğrenin.
 keywords:

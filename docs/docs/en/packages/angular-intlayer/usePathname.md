@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook Documentation | angular-intlayer
 description: See how to use the usePathname hook for angular-intlayer package
 keywords:

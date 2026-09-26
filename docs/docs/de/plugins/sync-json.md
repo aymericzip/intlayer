@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2026-06-21
+priority: 6
 title: Sync JSON Plugin
 description: Synchronisieren Sie Intlayer-Wörterbücher mit Drittanbieter-i18n-JSON-Dateien (i18next, next-intl, react-intl, vue-i18n und mehr). Behalten Sie Ihr bestehendes i18n bei und verwenden Sie Intlayer, um Ihre Nachrichten zu verwalten, zu übersetzen und zu testen.
 keywords:

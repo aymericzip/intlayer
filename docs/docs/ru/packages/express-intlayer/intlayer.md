@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация по middleware intlayer для Express | express-intlayer
 description: Узнайте, как использовать middleware intlayer для пакета express-intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 5
 title: getLocalizedUrl Fonksiyonu Dokümantasyonu | intlayer
 description: intlayer paketinde getLocalizedUrl fonksiyonunun nasıl kullanılacağını görün
 keywords:

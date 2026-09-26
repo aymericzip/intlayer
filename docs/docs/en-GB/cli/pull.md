@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Pull Dictionaries
 description: Learn how to pull dictionaries from the Intlayer editor and CMS.
 keywords:

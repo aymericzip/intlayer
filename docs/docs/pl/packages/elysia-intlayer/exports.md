@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: Dokumentacja pakietu elysia-intlayer
 description: Wtyczka Elysia dla Intlayer, zapewniająca funkcje tłumaczeń i wykrywanie locale.
 keywords:

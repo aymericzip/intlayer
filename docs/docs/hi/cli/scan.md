@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: वेबसाइट स्कैन करें
 description: किसी भी वेबसाइट के पेज आकार को मापने और i18n/SEO स्वास्थ्य का ऑडिट करने के लिए Intlayer CLI scan कमांड का उपयोग करने का तरीका जानें।
 keywords:

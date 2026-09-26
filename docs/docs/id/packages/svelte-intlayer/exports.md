@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentasi Paket svelte-intlayer
 description: Integrasi khusus Svelte untuk Intlayer, menyediakan fungsi penyiapan dan store untuk aplikasi Svelte.
 keywords:

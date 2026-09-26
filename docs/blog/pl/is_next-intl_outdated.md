@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Czy next-intl jest przestarzały w 2026 roku?
 description: next-intl stał się domyślnym wyborem dla Next.js App Router. Mimo to nadal obciąża bundle narzutem w runtime i wymaga ręcznego dzielenia na namespace'y.
 keywords:

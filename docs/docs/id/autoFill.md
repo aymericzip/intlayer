@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-09-20
+priority: 8
 title: Isi Otomatis
 description: Pelajari cara menggunakan fungsi isi otomatis di Intlayer untuk mengisi konten secara otomatis berdasarkan pola yang telah ditentukan. Ikuti dokumentasi ini untuk mengimplementasikan fitur isi otomatis secara efisien dalam proyek Anda.
 keywords:

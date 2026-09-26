@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Lokalise के लिए L10n प्लेटफ़ॉर्म विकल्प
 description: अपनी ज़रूरतों के लिए Lokalise का सबसे अच्छा L10n प्लेटफ़ॉर्म विकल्प खोजें
 keywords:

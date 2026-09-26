@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-07-27
 updatedAt: 2025-07-27
+priority: 8
 title: Pemeta Locale
 description: Temukan bagaimana Pemeta Locale bekerja. Lihat langkah-langkah yang digunakan oleh Pemeta Locale dalam aplikasi Anda. Lihat apa fungsi dari berbagai paket yang berbeda.
 keywords:

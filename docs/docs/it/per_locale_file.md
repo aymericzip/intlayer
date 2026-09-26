@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 8
 title: Dichiarazione di Contenuto `Per-Locale` in Intlayer
 description: Scopri come dichiarare contenuti per locale in Intlayer. Segui la documentazione per comprendere i diversi formati e casi d'uso.
 keywords:

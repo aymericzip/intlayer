@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Tài liệu Hook useIntlayer | astro-intlayer
 description: Xem cách sử dụng hook useIntlayer trong các thành phần Astro và script client để truy cập nội dung được bản địa hóa.
 keywords:

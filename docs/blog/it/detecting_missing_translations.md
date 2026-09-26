@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Come individuare le traduzioni mancanti prima dei tuoi utenti"
 description: Le traduzioni mancanti falliscono in silenzio. Perché il fallback le nasconde, i quattro livelli di rilevamento realmente efficaci e come bloccare una build su una chiave non tradotta.
 keywords:

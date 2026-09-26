@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-09-20
+priority: 8
 title: Relleno Automático
 description: Aprende a usar la funcionalidad de relleno automático en Intlayer para poblar contenido automáticamente basado en patrones predefinidos. Sigue esta documentación para implementar funciones de relleno automático de manera eficiente en tu proyecto.
 keywords:

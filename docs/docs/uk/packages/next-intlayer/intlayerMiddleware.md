@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-02-25
+priority: 5
 title: Документація intlayerMiddleware | next-intlayer
 description: Дивіться, як використовувати функцію intlayerMiddleware для пакету next-intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 从 URL 获取的语言环境不正确
 description: 了解如何修复从 URL 获取的语言环境不正确的问题。
 keywords:

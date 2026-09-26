@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 8
 title: Intlayer est-il plus léger que Paraglide ?
 description: Paraglide semble presque gratuit dans les benchmarks i18n car son code est généré dans votre repo. Voici où se trouve réellement ce poids, pourquoi les lectures de locale par nœud vous coûtent des ressources, et comment le chargement dynamique d'Intlayer n'envoie qu'une seule locale au lieu de toutes.
 keywords:

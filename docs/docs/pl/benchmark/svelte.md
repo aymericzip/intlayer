@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: Najlepsze rozwiązanie i18n dla Svelte w 2026 r. - raport z benchmarku
 description: Porównaj biblioteki internacjonalizacji (i18n) dla Svelte, takie jak svelte-i18n, Paraglide, Tolgee i Intlayer. Szczegółowy raport wydajności dotyczący rozmiaru paczki, wycieków i reaktywności.
 keywords:

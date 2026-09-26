@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
+priority: 5
 title: Inicializace Intlayeru
 description: Naučte se, jak inicializovat Intlayer ve vašem projektu.
 keywords:

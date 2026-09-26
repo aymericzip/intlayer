@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Puis-je utiliser un tableau comme déclaration de contenu ?
 description: Apprenez comment utiliser un tableau comme déclaration de contenu.
 keywords:

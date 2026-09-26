@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 7
 title: Next.js i18n - what the App Router makes you build
 description: The App Router dropped built-in i18n routing. What you now write yourself, why Server and Client Components split the problem, and how libraries compare.
 keywords:

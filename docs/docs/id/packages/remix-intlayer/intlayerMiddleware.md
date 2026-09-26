@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentasi Middleware intlayer | remix-intlayer
 description: Pelajari cara menggunakan middleware intlayer di Remix 3 untuk mendeteksi locale, menangani pengalihan, dan menyuntikkan status Intlayer ke dalam konteks permintaan.
 keywords:

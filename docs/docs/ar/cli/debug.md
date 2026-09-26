@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: تصحيح أمر Intlayer
 description: تعلّم كيفية تصحيح واستكشاف مشكلات CLI الخاصة بـ Intlayer.
 keywords:

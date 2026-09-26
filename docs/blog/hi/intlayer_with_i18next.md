@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-11-01
+priority: 8
 title: Intlayer का उपयोग करके अपने i18next JSON अनुवादों को स्वचालित कैसे करें
 description: JavaScript अनुप्रयोगों में बेहतर अंतरराष्ट्रीयकरण के लिए Intlayer और i18next के साथ अपने JSON अनुवादों को स्वचालित करें।
 keywords:

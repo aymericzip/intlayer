@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: ESLint Plugin | Lint rules for Intlayer
 description: Catch hardcoded strings, dynamic calls the Intlayer compiler cannot optimize, and unused dictionary content, with eslint-plugin-intlayer. Works with ESLint and oxlint, across React, Vue, Svelte, Angular and Astro.
 keywords:

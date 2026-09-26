@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-01-26
+priority: 5
 title: useLocale Hook Documentation | next-intlayer
 description: See how to use the useLocale hook for next-intlayer package
 keywords:

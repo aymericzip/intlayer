@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 9
 title: "htmx i18n - 完整的应用翻译指南"
 description: "不再使用 i18next。2026 年构建多语言 (i18n) htmx 应用的指南。使用 AI 代理进行翻译，优化 bundle 大小、SEO 和性能。"
 keywords:

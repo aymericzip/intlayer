@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: Hook useRewriteURL
 description: Hook dành cho React để quản lý việc viết lại URL có bản địa hóa trong Intlayer.

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Cara mengambil locale dari cookies / headers?
 description: Pelajari cara mengambil locale dari cookies / headers.
 keywords:

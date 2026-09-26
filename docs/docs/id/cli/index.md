@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-23
+priority: 8
 title: CLI - Semua perintah Intlayer CLI untuk situs web multibahasa Anda
 description: Pelajari cara menggunakan Intlayer CLI untuk mengelola situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi online ini untuk menyiapkan proyek Anda dalam hitungan menit.
 keywords:

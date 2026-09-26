@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-30
 updatedAt: 2026-07-30
+priority: 8
 title: Contenido Basado en Selección
 description: Aprende a usar contenido basado en selección en Intlayer para mostrar contenido dinámicamente según un valor de cadena arbitrario. Sigue esta documentación para implementar contenido tipo switch eficientemente en tu proyecto.
 keywords:

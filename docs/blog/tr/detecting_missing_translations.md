@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Kullanıcılarınızdan Önce Eksik Çevirileri Tespit Etme Yöntemleri"
 description: Eksik çeviriler sessizce hata verir. Geri dönüş mekanizmasının (fallback) bunları neden gizlediğini, gerçekten işe yarayan dört tespit katmanını ve çevrilmemiş anahtarlarda derlemeyi nasıl durduracağınızı öğrenin.
 keywords:

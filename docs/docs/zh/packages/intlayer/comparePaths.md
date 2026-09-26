@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: comparePaths 函数文档 | intlayer
 description: 了解如何使用 intlayer 包中的 comparePaths 函数
 keywords:

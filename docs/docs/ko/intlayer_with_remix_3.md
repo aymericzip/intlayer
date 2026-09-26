@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-21
+priority: 9
 title: "Remix 3 i18n - 앱 다국어 번역 완벽 가이드"
 description: "더 이상 i18next는 필요 없습니다. 2026년 다국어(i18n) Remix 3 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO 및 성능을 최적화하세요."
 keywords:

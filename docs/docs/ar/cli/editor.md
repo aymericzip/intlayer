@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: أوامر المحرر
 description: تعلّم كيفية استخدام أوامر محرر Intlayer.
 keywords:

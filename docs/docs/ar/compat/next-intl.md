@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: الترحيل من next-intl إلى Intlayer
 description: تعرّف على كيفية ترحيل تطبيق Next.js الخاص بك من next-intl إلى Intlayer باستخدام محول التوافق.
 keywords:

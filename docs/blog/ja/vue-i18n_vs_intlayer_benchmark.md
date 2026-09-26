@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "vue-i18n vs Intlayer：2026年ベンチマーク"
 description: 同じ Vite + Vue 3 アプリで vue-i18n と Intlayer を計測。ライブラリサイズ、ページあたりの JavaScript、コンテンツの漏れ、コンポーネントサイズ、ロケール切り替えのリアクティビティを、数値の解説付きで紹介します。
 keywords:

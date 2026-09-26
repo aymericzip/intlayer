@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "2026년 올바른 React i18n 라이브러리를 선택하는 방법"
 description: React 국제화를 위한 결정 가이드. react-i18next, react-intl, Lingui, use-intl, Paraglide, Intlayer를 비교하기 전에 답해야 할 질문들과 각 선택이 번들 크기, 타입 정의 및 유지보수에 미치는 영향을 알아봅니다.
 keywords:

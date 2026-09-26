@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: توثيق حزمة astro-intlayer
 description: تكامل Astro لـ Intlayer، يوفّر إعداد التوجيه المستند إلى اللغة، البرمجيات الوسيطة، الخطافات، متجر العميل، وإدارة القواميس.
 keywords:

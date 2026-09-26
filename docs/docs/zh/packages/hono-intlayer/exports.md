@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: hono-intlayer 包文档
 description: 用于 Intlayer 的 Hono 中间件，提供翻译函数和语言检测。
 keywords:

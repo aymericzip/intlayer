@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-05-31
+priority: 7
 title: "Vue용 최상의 국제화 도구 - 완전한 번역 가이드: Best Vue i18n Libraries 2026 — Compared by DX & Bundle"
 description: 번들 크기, SEO, 성능 및 유지보수성을 위한 최고의 솔루션. 2026년에 Vue 앱를 다국어로 만드세요, LLM 번역, Agent Skills & MCP.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Come scegliere la giusta libreria i18n per Svelte nel 2026"
 description: "Una guida decisionale per l'internazionalizzazione di Svelte e SvelteKit. Quali domande porsi prima di confrontare svelte-i18n, Paraglide, typesafe-i18n, wuchale e Intlayer, e quanto costa ogni scelta in termini di bundle size, tipizzazione e sicurezza SSR."
 keywords:

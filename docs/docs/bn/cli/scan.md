@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: ওয়েবসাইট স্ক্যান করুন
 description: যেকোনো ওয়েবসাইটের পেজ সাইজ পরিমাপ করতে এবং i18n/SEO স্বাস্থ্য অডিট করতে Intlayer CLI scan কমান্ড কীভাবে ব্যবহার করবেন তা শিখুন।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-09-20
+priority: 8
 title: Autouzupełnianie
 description: Dowiedz się, jak korzystać z funkcji autouzupełniania w Intlayer, aby automatycznie wypełniać zawartość na podstawie zdefiniowanych wzorców. Postępuj zgodnie z tą dokumentacją, aby efektywnie wdrożyć funkcje autouzupełniania w swoim projekcie.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: react-native-intlayer पैकेज दस्तावेज़
 description: Intlayer के लिए React Native समर्थन, जो providers, hooks, polyfills और Metro कॉन्फ़िगरेशन प्रदान करता है।
 keywords:

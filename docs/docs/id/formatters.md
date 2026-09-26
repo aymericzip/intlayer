@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2025-10-14
+priority: 8
 title: Formatters
 description: Utilitas pemformatan yang sadar lokal berdasarkan Intl untuk angka, persentase, mata uang, tanggal, waktu relatif, satuan, dan notasi ringkas. Termasuk pembantu Intl yang di-cache.
 keywords:

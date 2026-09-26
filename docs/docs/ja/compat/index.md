@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Intlayer Compat アダプター"
 description: "既存の i18n ソリューションを、compat アダプターを使用して、ゼロの摩擦で Intlayer に移行してください。"
 keywords:

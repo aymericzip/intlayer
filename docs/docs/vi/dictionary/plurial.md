@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-04
 updatedAt: 2026-05-04
+priority: 8
 title: Số nhiều (Plural)
 description: Khám phá cách khai báo và sử dụng nội dung số nhiều dựa trên ngôn ngữ (dựa trên CLDR) trong trang web đa ngôn ngữ của bạn. Làm theo các bước trong tài liệu trực tuyến này để thiết lập dự án của bạn trong vài phút.
 keywords:

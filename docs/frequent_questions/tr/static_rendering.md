@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 4
 title: Next.js'de i18n ile Statik ve Dinamik Render
  description: Next.js'de i18n ile statik ve dinamik render nasıl kullanılır, öğrenin.
 keywords:

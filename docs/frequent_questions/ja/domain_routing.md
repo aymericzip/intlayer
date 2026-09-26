@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: ドメインベースのルーティングを設定する方法
 description: ドメインベースのルーティングの設定方法を学びます。
 keywords:

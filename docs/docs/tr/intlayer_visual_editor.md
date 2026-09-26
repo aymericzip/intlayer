@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 8
 title: Intlayer Görsel Düzenleyici | İçeriğinizi görsel düzenleyici kullanarak düzenleyin
 description: Çok dilli web sitenizi yönetmek için Intlayer Düzenleyici'yi nasıl kullanacağınızı keşfedin. Bu çevrimiçi dokümantasyondaki adımları takip ederek projenizi birkaç dakikada kurun.
 keywords:

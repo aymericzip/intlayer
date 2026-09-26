@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-09-08
+priority: 8
 title: Compilateur Intlayer | Extraction automatique de contenu pour l'i18n
 description: Automatisez votre processus d'internationalisation avec le compilateur Intlayer. Extrayez le contenu directement de vos composants pour une i18n plus rapide et plus efficace dans Vite, Next.js, et plus encore.
 keywords:

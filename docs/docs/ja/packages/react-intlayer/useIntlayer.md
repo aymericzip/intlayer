@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: useIntlayer フック ドキュメント | react-intlayer
 description: react-intlayer パッケージの useIntlayer フックの使い方を見る
 keywords:

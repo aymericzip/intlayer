@@ -83,6 +83,30 @@ const toCanonicalPath = ({ slugs }: { slugs: string[] }): string =>
   `/${slugs.join('/')}`;
 
 /**
+ * Converts the `priority` front matter of a content file to a sitemap
+ * priority.
+ *
+ * Front matter holds an integer from 1 to 10, the sitemap protocol expects a
+ * value from 0.0 to 1.0. Files without the field fall back to the default of
+ * their section.
+ *
+ * @param fileMetadata - Metadata of a routable documentation file.
+ * @param fallbackPriority - Front matter priority used when the file has none.
+ * @returns The sitemap priority, e.g. `0.8` for `priority: 8`.
+ */
+const toSitemapPriority = (
+  { priority }: { priority?: number },
+  fallbackPriority: number
+): number => {
+  const frontMatterPriority =
+    typeof priority === 'number' && Number.isFinite(priority)
+      ? priority
+      : fallbackPriority;
+
+  return Math.min(Math.max(frontMatterPriority, 1), 10) / 10;
+};
+
+/**
  * Static sitemap entries shared between the sitemap route and prerender config.
  * `lastmod` is omitted here and added dynamically at call time.
  *
@@ -119,7 +143,7 @@ export const staticSitemapEntries: Omit<SitemapUrlEntry, 'lastmod'>[] = [
     changefreq: 'monthly',
     priority: 0.8,
   },
-  { path: Website_Blog_Path, changefreq: 'weekly', priority: 0.7 },
+  { path: Website_Blog_Path, changefreq: 'weekly', priority: 0.8 },
 ];
 
 /**
@@ -164,25 +188,25 @@ export async function buildSitemapEntries(): Promise<SitemapUrlEntry[]> {
       path: toCanonicalPath(legalEl),
       lastmod: toISO(legalEl.updatedAt),
       changefreq: 'monthly',
-      priority: 0.1,
+      priority: toSitemapPriority(legalEl, 1),
     })),
     ...docs.map((doc) => ({
       path: toCanonicalPath(doc),
       lastmod: toISO(doc.updatedAt),
       changefreq: 'monthly',
-      priority: 1,
+      priority: toSitemapPriority(doc, 2),
     })),
     ...blogs.map((blog) => ({
       path: toCanonicalPath(blog),
       lastmod: toISO(blog.updatedAt),
       changefreq: 'monthly',
-      priority: 0.8,
+      priority: toSitemapPriority(blog, 8),
     })),
     ...frequentQuestions.map((faq) => ({
       path: toCanonicalPath(faq),
       lastmod: toISO(faq.updatedAt),
       changefreq: 'monthly',
-      priority: 0.4,
+      priority: toSitemapPriority(faq, 4),
     })),
   ]);
 }

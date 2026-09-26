@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
+priority: 8
 title: 文件
 description: 了解如何使用 `file` 函数将外部文件嵌入到您的内容字典中。本文档解释了 Intlayer 如何动态链接和管理文件内容。
 keywords:

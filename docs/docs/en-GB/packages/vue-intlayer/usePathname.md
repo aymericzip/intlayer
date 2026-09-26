@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Function Documentation | vue-intlayer
 description: Learn how to use the usePathname function from the vue-intlayer package
 keywords:

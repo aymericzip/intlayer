@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-11
+priority: 8
 title: Comparativa de librerías i18n
 description: Descubre cómo se compara Intlayer con otras librerías i18n en términos de rendimiento y tamaño del bundle.
 keywords:

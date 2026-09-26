@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-23
+priority: 8
 title: CLI - Çok dilli web siteniz için tüm Intlayer CLI komutları
 description: Çok dilli web sitenizi yönetmek için Intlayer CLI'yı nasıl kullanacağınızı keşfedin. Projenizi birkaç dakika içinde kurmak için bu çevrimiçi belgelerdeki adımları izleyin.
 keywords:

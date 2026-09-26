@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 4
 title: İçerik bildirimi olarak dizi kullanabilir miyim?
 description: İçerik bildirimi olarak dizi nasıl kullanılır, öğrenin.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: t 函数文档 | next-intlayer
 description: 查看如何使用 next-intlayer 包中的 t 函数
 keywords:

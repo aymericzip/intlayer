@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Mengotomatiskan Terjemahan di CI/CD Tanpa Mengirim Teks yang Buruk"
 description: Tiga tempat untuk mengotomatiskan i18n, pre-push, pull request, dan runtime. Cara membatasi build berdasarkan cakupan, mengisi otomatis dengan aman, dan menghindari loop commit CI tanpa akhir.
 keywords:

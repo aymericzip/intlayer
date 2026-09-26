@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentasi Komponen IntlayerProvider | solid-intlayer
 description: Lihat cara menggunakan komponen IntlayerProvider untuk paket solid-intlayer
 keywords:

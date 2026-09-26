@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 我可以使用数组作为内容声明吗？
 description: 了解如何使用数组作为内容声明。
 keywords:

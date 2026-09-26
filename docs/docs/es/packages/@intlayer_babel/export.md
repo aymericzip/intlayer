@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: "Documentación del paquete @intlayer/babel"
 description: Complementos de Babel para Intlayer para manejar la extracción de contenido, la optimización de importaciones, la depuración de campos no utilizados y la ofuscación de nombres de campos durante la compilación.
 keywords:

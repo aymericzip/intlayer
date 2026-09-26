@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-09-06
+priority: 8
 title: "Cách làm đa ngôn ngữ (i18n) cho ứng dụng Vite và React hiện có sau này (Hướng dẫn i18n 2026)"
 description: "Hướng dẫn năm 2026 về cách thêm đa ngôn ngữ (i18n) vào ứng dụng Vite và React hiện có mà không cần tái cấu trúc phức tạp. Trích xuất tự động, dịch thuật bằng AI và tối ưu hóa bundle với Intlayer."
 keywords:

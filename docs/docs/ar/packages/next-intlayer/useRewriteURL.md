@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: وثائق هوك useRewriteURL
 description: هوك مخصّص لـ Next.js لإدارة إعادة كتابة عناوين URL الموحَّدة محليًا في Intlayer.

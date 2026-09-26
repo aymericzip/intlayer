@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Kiểm tra bản dịch thiếu
 description: Tìm hiểu cách kiểm tra và xác định các bản dịch thiếu trong từ điển của bạn.
 keywords:

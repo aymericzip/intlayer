@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-04
 updatedAt: 2026-05-04
+priority: 8
 title: Plural
 description: Discover how to declare and use locale-aware plural content (CLDR-based) in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:

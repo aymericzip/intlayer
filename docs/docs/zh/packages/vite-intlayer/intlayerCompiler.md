@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerCompiler Vite 插件文档 | vite-intlayer
 description: Vite 插件，用于在构建/转换时从组件文件中提取内联 Intlayer 内容声明并将其写入字典 JSON 文件。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-23
+priority: 8
 title: CLI - Alle Intlayer-CLI-Befehle für Ihre mehrsprachige Website
 description: Erfahren Sie, wie Sie das Intlayer-CLI zur Verwaltung Ihrer mehrsprachigen Website verwenden. Folgen Sie den Schritten in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
 keywords:

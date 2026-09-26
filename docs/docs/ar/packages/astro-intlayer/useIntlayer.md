@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: توثيق خطاف useIntlayer | astro-intlayer
 description: تعرّف على كيفية استخدام خطاف useIntlayer في مكونات Astro وسكربتات العميل للوصول إلى المحتوى المترجم.
 keywords:

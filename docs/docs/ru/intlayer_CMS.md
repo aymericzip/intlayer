@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-08-30
+priority: 8
 title: Intlayer CMS | Внешнее управление контентом через Intlayer CMS
 description: Внешнее управление вашим контентом через Intlayer CMS для делегирования управления контентом вашей команде.
 keywords:

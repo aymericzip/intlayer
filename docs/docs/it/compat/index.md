@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Intlayer Compat Adapters"
 description: "Migra la tua soluzione i18n esistente a Intlayer senza attriti utilizzando compat adapters."
 keywords:

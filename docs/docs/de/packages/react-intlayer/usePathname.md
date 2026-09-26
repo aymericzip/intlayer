@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook Dokumentation | react-intlayer
 description: Erfahren Sie, wie Sie den usePathname Hook aus dem react-intlayer Paket verwenden, um den aktuellen URL-Pfad ohne das Locale-Segment zu erhalten.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Kesalahan Build di CI/CD
 description: Pelajari cara memperbaiki kesalahan build yang terjadi di lingkungan CI/CD.
 keywords:

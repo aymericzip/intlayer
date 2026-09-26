@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Formatear fechas y números por idioma con Intl"
 description: Probablemente no necesitas una librería de formateo. Cómo maneja Intl fechas, números, monedas y listas por idioma, el costo de caché y el bug de zona horaria en producción.
 keywords:

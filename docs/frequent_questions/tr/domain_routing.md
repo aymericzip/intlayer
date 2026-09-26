@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 4
 title: Alan adına göre yönlendirme nasıl yapılır?
 description: Alan adına göre yönlendirme nasıl yapılır, öğrenin.
 keywords:

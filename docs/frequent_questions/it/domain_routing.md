@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Come configurare il routing basato sul dominio?
 description: Scopri come configurare il routing basato sul dominio.
 keywords:

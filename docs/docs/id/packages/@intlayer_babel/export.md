@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: "Dokumentasi Paket @intlayer/babel"
 description: Plugin Babel untuk Intlayer untuk menangani ekstraksi konten, optimasi impor, pemangkasan bidang yang tidak digunakan, dan pengaburan nama bidang selama pembuatan.
 keywords:

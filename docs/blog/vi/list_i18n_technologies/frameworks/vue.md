@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-05-31
+priority: 7
 title: Công cụ quốc tế hóa (i18n) tốt nhất cho Vue - Hướng dẫn đầy đủ để dịch Best Vue i18n Libraries 2026 — Compared by DX & Bundle
 description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Vue ứng dụng của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
 keywords:

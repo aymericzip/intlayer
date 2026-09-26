@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer Express 미들웨어 문서 | express-intlayer
 description: express-intlayer 패키지용 intlayer 미들웨어 사용 방법을 확인하세요
 keywords:

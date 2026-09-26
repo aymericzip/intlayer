@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2026-08-21
+priority: 6
 title: MCP Sunucu Dokümantasyonu
 description: Sunucu yönetimini ve işlemlerinizi optimize etmek için MCP Sunucusu'nun özelliklerini ve kurulumunu keşfedin.
 keywords:

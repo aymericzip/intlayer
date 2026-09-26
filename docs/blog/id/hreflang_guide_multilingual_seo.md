@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 8
 title: "Hreflang, panduan untuk SEO multibahasa"
 description: "Apa itu hreflang, aturan yang diterapkan search engine, mengapa x-default hampir selalu salah, dan cara membuat tag yang benar di Next.js dan TanStack Start."
 keywords:

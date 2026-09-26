@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-07-08
+priority: 8
 title: Intlayer CMS | अपने कंटेंट को Intlayer CMS में बाहरीकृत करें
 description: अपने कंटेंट को Intlayer CMS में बाहरीकृत करें ताकि आप अपनी टीम को कंटेंट प्रबंधन सौंप सकें।
 keywords:

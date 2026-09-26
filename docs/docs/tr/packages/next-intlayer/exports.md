@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: next-intlayer Paket Dokümantasyonu
 description: Next.js'e özgü Intlayer entegrasyonu; App Router ve Page Router için middleware ve provider'lar sağlar.
 keywords:

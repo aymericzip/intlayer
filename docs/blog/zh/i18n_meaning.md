@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-02-26
 updatedAt: 2026-02-26
+priority: 9
 title: "i18n 的含义：什么是国际化，为什么它很重要？"
 description: "探索软件开发中 i18n 的真正含义。了解什么是国际化，为什么它被缩写为 i18n，以及它如何影响全球覆盖。"
 keywords:

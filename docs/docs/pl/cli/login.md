@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-16
 updatedAt: 2026-09-12
+priority: 5
 title: CLI - Logowanie
 description: Dowiedz się, jak użyć polecenia login w Intlayer CLI, aby uwierzytelnić się w Intlayer CMS i uzyskać dane dostępowe.
 keywords:

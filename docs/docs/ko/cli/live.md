@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 라이브 싱크 명령어
 description: 런타임에 CMS 콘텐츠 변경 사항을 반영하기 위해 라이브 싱크를 사용하는 방법을 알아보세요.
 keywords:

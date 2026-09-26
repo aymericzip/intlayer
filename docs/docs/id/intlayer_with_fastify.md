@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-05-31
+priority: 9
 title: "Fastify i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Fastify multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:

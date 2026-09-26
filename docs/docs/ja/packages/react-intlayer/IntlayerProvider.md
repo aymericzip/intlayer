@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: IntlayerProvider コンポーネントのドキュメント | react-intlayer
 description: react-intlayer パッケージの IntlayerProvider コンポーネントの使用方法を見る
 keywords:

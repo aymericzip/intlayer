@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Statisches vs. dynamisches Rendering mit i18n in Next.js
 description: Erfahren Sie, wie Sie statisches vs. dynamisches Rendering mit i18n in Next.js verwenden.
 keywords:

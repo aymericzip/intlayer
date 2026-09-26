@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-24
 updatedAt: 2025-11-24
+priority: 8
 title: 编译器与声明式国际化的对比
 description: 探讨“魔法”编译器驱动的国际化与显式声明式内容管理之间的架构权衡。
 keywords:

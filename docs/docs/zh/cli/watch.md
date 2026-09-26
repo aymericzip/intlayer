@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 监视字典
 description: 学习如何监视内容声明文件的更改并自动构建字典。
 keywords:

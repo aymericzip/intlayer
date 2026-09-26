@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-21
 updatedAt: 2026-09-21
+priority: 5
 title: CLI - Init Infra
 description: Tìm hiểu cách sử dụng lệnh init infra của Intlayer CLI để cài đặt ứng dụng máy tính để bàn hoặc tự lưu trữ Intlayer CMS với Docker (vùng chứa tất cả trong một hoặc ngăn xếp Docker Compose).
 keywords:

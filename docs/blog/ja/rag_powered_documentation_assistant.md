@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
+priority: 8
 title: RAG搭載ドキュメントアシスタントの構築（チャンク分割、埋め込み、検索）
 description: RAG搭載ドキュメントアシスタントの構築（チャンク分割、埋め込み、検索）
 keywords:

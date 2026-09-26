@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Документація плагина Vite intlayerMinify | vite-intlayer
 description: Плагін Vite, який мінімізує зкомпільовані файли JSON словника Intlayer та опціонально приховує імена полів вмісту для зменшення розміру бандлу.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Kelola Konfigurasi
 description: Pelajari cara mendapatkan dan mengirim konfigurasi Intlayer Anda ke CMS.
 keywords:

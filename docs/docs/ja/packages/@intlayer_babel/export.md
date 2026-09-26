@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: "@intlayer/babel パッケージドキュメント"
 description: コンテンツ抽出、インポートの最適化、未使用フィールドのクリーンアップ、ビルド中のフィールド名の難読化を処理するIntlayer用のBabelプラグイン。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Falsche Locale aus URL abgerufen
 description: Erfahren Sie, wie Sie die falsche Locale, die aus der URL abgerufen wird, beheben können.
 keywords:

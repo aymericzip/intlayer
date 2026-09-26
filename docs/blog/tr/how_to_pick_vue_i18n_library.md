@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "2026'da Doğru Vue i18n Kütüphanesi Nasıl Seçilir"
 description: Vue ve Nuxt uluslararasılaştırması için bir karar rehberi. vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide ve Intlayer'ı karşılaştırmadan önce yanıtlanması gereken sorular ve her seçimin bundle boyutu, typing ve SSR payload açısından maliyeti.
 keywords:

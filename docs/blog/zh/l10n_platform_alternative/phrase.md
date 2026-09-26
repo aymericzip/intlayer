@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: L10n 平台替代方案, 适用于 Phrase
 description: 为您的需求找到替代 Phrase 的最佳 L10n 平台
 keywords:

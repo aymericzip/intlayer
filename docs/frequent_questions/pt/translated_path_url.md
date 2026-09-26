@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: Posso traduzir o caminho do URL?
 description: Aprenda como traduzir o caminho do URL.
 keywords:

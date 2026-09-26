@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: Lồng từ điển
 description: Tìm hiểu cách sử dụng lồng nội dung trong Intlayer để tái sử dụng và cấu trúc nội dung đa ngôn ngữ của bạn một cách hiệu quả. Theo dõi tài liệu này để triển khai lồng nội dung một cách liền mạch trong dự án của bạn.
 keywords:

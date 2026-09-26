@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 사전 채우기
 description: AI를 사용하여 사전을 채우고, 감사하며, 번역하는 방법을 알아보세요.
 keywords:

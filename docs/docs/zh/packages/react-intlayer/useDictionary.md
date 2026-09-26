@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 5
 title: useDictionary Hook - React Intlayer 文档
 description: 使用 Intlayer 在 React 应用中高效处理本地化内容的 useDictionary 钩子完整指南，无需视觉编辑器。
 keywords:

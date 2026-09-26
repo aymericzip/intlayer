@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Как выбрать подходящую библиотеку i18n для Svelte в 2026 году"
 description: Руководство по интернационализации Svelte и SvelteKit. На какие вопросы ответить перед сравнением svelte-i18n, Paraglide, typesafe-i18n, wuchale и Intlayer, и во сколько каждый выбор обходится в плане размера bundle, типизации и SSR.
 keywords:

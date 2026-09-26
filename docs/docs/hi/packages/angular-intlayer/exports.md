@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: angular-intlayer पैकेज दस्तावेज़
 description: Intlayer के लिए Angular-विशिष्ट एकीकरण, जो Angular एप्लिकेशनों के लिए providers और services प्रदान करता है।
 keywords:

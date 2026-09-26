@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-16
 updatedAt: 2026-09-12
+priority: 5
 title: CLI - 로그인
 description: Intlayer CLI의 login 명령을 사용하여 Intlayer CMS에 인증하고 액세스 자격증명을 얻는 방법을 알아보세요.
 keywords:

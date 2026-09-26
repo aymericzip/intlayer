@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-07-30
+priority: 8
 title: Archivo de Contenido
 description: Aprende a personalizar las extensiones para tus archivos de declaración de contenido. Sigue esta documentación para implementar condiciones de manera eficiente en tu proyecto.
 keywords:

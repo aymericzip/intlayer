@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Documentación del Hook usePathname | next-intlayer
 description: Descubre cómo usar el hook usePathname con el paquete next-intlayer
 keywords:

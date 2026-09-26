@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: useIntlayer Hook Documentation | react-intlayer
 description: See how to use the useIntlayer hook for react-intlayer package
 keywords:

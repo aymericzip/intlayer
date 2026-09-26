@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-11
+priority: 8
 title: Benchmark delle librerie i18n
 description: Scopri come Intlayer si confronta con altre librerie i18n in termini di prestazioni e dimensioni del bundle.
 keywords:

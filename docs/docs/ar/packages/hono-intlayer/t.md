@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-02
 updatedAt: 2025-06-29
+priority: 5
 title: توثيق دالة t | hono-intlayer
 description: تعرف على كيفية استخدام دالة t لحزمة hono-intlayer
 keywords:

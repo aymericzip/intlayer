@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu Plugin intlayer cho Fastify | fastify-intlayer
 description: Xem cách sử dụng plugin intlayer cho gói fastify-intlayer
 keywords:

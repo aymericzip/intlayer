@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-24
 updatedAt: 2025-11-24
+priority: 8
 title: Compiler vs. i18n Dichiarativo
 description: Esplorare i compromessi architetturali tra l'internazionalizzazione "magica" basata su compiler e la gestione esplicita e dichiarativa dei contenuti.
 keywords:

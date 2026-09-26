@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: L10n प्लेटफ़ॉर्म विकल्प
 description: अपनी आवश्यकताओं के लिए सर्वश्रेष्ठ L10n प्लेटफ़ॉर्म विकल्प खोजें
 keywords:

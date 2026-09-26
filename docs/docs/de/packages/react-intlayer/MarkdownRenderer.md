@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: "Dokumentation der MarkdownRenderer-Komponente | react-intlayer"
 description: "Anleitung zur Verwendung der MarkdownRenderer-Komponente des react-intlayer-Pakets"
 keywords:

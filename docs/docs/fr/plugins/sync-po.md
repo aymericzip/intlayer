@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-10
 updatedAt: 2026-05-10
+priority: 6
 title: Plugin Sync PO
 description: Synchronisez les dictionnaires Intlayer avec les fichiers Gettext PO. Conservez votre i18n existante tout en utilisant Intlayer pour gérer, traduire et tester vos messages.
 keywords:

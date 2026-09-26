@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-02-26
 updatedAt: 2026-02-26
+priority: 9
 title: "i18n Bedeutung: Was ist Internationalisierung und warum ist sie wichtig?"
 description: "Entdecken Sie die wahre i18n Bedeutung in der Softwareentwicklung. Erfahren Sie, was Internationalisierung ist, warum sie als i18n abgekürzt wird und wie sie die globale Reichweite beeinflusst."
 keywords:

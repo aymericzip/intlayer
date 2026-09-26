@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrare da i18next a Intlayer"
 description: "Scopri come migrare la tua applicazione Vanilla JS/TS da i18next a Intlayer utilizzando l'adattatore di compatibilità."
 keywords:

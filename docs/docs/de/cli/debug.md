@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: Intlayer-Befehl debuggen
 description: Erfahren Sie, wie Sie Intlayer CLI-Probleme debuggen und beheben können.
 keywords:

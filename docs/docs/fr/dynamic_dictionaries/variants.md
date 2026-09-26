@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-08-04
+priority: 8
 title: Variantes
 description: Utilisez le champ de métadonnées variant dans les fichiers de contenu Intlayer pour déclarer des alternatives de contenu nommées ou structurées — tests A/B, bannières saisonnières, contenu sous feature flag, enregistrements de CMS, contenu propre à un utilisateur — et basculer entre elles à l'exécution sans changement de code.
 keywords:

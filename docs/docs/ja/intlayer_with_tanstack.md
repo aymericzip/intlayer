@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-09-20
+priority: 10
 title: "TanStack Start i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）TanStack Startアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:

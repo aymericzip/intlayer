@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: कुकीज़ / हेडर से लोकल कैसे प्राप्त करें?
 description: कुकीज़ / हेडर से लोकल कैसे प्राप्त करें, जानें।
 keywords:

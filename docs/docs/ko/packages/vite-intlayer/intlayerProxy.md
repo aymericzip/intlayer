@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerProxy Vite 플러그인 문서 | vite-intlayer
 description: Vite dev/preview 서버 및 프로덕션 SSR용 언어 라우팅 미들웨어입니다. 언어 감지, URL 리다이렉트 및 내부 재작성을 처리합니다.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-05-31
+priority: 9
 title: "Fastify i18n - Volledige gids voor het vertalen van uw app"
 description: "Geen i18next meer. De 2026-gids voor het bouwen van een meertalige (i18n) Fastify-app. Vertaal met AI-agenten en optimaliseer bundelgrootte, SEO en prestaties."
 keywords:

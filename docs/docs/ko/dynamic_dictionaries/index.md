@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-26
+priority: 8
 title: 동적 사전
 description: Intlayer의 동적 사전 기능(컬렉션 및 변형) 개요 — 유연하고 런타임 기반의 i18n 콘텐츠를 구축하기 위한 것입니다.
 keywords:

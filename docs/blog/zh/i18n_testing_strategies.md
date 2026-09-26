@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "如何测试翻译而不写出脆弱的测试"
 description: 在多语言（i18n）应用中什么值得测试，什么不值得测试。基于 Provider 的渲染测试、伪本地化、RTL 与复数覆盖率，以及快照测试的陷阱。
 keywords:

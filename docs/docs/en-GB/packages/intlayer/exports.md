@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer Package Documentation
 description: The core package of Intlayer, providing the foundational functions and types for internationalisation.
 keywords:

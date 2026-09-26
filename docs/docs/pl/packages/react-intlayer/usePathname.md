@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Dokumentacja hooka usePathname | react-intlayer
 description: Dowiedz się, jak używać hooka usePathname z pakietu react-intlayer, aby uzyskać bieżącą ścieżkę URL bez segmentu lokalizacji.
 keywords:

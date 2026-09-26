@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: express-intlayer 패키지 문서
 description: Intlayer용 Express 미들웨어로, 번역 함수와 로케일 감지를 제공합니다.
 keywords:

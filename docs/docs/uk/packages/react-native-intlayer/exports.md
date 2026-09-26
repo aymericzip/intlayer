@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: Документація пакета react-native-intlayer
 description: Підтримка React Native для Intlayer, надає провайдери, хуки, поліфіли та конфігурацію Metro.
 keywords:

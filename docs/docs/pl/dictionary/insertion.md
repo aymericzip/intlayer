@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
+priority: 8
 title: Wstawianie
 description: Dowiedz się, jak deklarować i używać miejsc na wstawki w swojej treści. Ta dokumentacja przeprowadzi Cię przez kroki umożliwiające dynamiczne wstawianie wartości w zdefiniowanych strukturach treści.
 keywords:

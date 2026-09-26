@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 1
 title: Intlayer サービス利用規約
 description: Intlayer が当社のウェブサイトおよび CMS を通じて収集した情報をどのように扱うかをご確認ください。さまざまなフォーマットと使用例を理解するためにドキュメントに従ってください。
 keywords:

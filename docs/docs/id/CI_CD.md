@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-08-13
+priority: 8
 title: Integrasi CI/CD
 description: Pelajari cara mengintegrasikan Intlayer ke dalam pipeline CI/CD Anda untuk manajemen konten dan deployment otomatis.
 keywords:

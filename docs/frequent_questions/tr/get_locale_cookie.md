@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 4
 title: Çerezlerden / başlıklardan locale nasıl alınır?
 description: Çerezlerden / başlıklardan locale nasıl alınır, öğrenin.
 keywords:

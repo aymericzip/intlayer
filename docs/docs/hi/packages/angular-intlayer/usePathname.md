@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook प्रलेखन | angular-intlayer
 description: देखें कि angular-intlayer पैकेज के लिए usePathname hook का उपयोग कैसे करें
 keywords:

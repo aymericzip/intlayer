@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: Documentazione dell'integrazione intlayer | astro-intlayer
 description: Scopri come configurare e utilizzare l'integrazione Astro intlayer in astro.config.mjs.
 keywords:

@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: useRewriteURL Hook Documentation
 description: Solid-specific hook for managing localised URL rewrites in Intlayer.

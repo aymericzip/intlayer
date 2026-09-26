@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация пакета react-intlayer
 description: Специализированная для React реализация Intlayer, предоставляющая хуки и провайдеры для React-приложений.
 keywords:

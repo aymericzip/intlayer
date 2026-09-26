@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerProxy Vite-Plugin-Dokumentation | vite-intlayer
 description: Sprach-Routing-Middleware für Vite-Entwicklungs-/Vorschau-Server und Produktions-SSR. Verwaltet Spracherkennung, URL-Redirections und interne Rewrites.
 keywords:

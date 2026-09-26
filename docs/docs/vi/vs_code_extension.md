@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-17
 updatedAt: 2025-09-30
+priority: 6
 title: Tiện ích mở rộng chính thức cho VS Code
 description: Tìm hiểu cách sử dụng tiện ích mở rộng Intlayer trong VS Code để nâng cao quy trình phát triển của bạn. Dễ dàng điều hướng giữa các nội dung được bản địa hóa và quản lý từ điển của bạn một cách hiệu quả.
 keywords:

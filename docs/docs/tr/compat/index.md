@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Intlayer Uyumluluk Adaptörleri"
 description: "Mevcut i18n çözümünüzü sıfır zorlukla Intlayer'a geçirin uyumluluk adaptörleri kullanarak."
 keywords:

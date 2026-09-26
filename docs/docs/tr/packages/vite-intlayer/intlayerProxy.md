@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerProxy Vite Eklenti Dokümantasyonu | vite-intlayer
 description: Vite dev/preview sunucuları ve üretim SSR için dil yönlendirme ara yazılımı (middleware). Dil algılama, URL yönlendirmeleri ve dahili yeniden yazmaları yönetir.
 keywords:

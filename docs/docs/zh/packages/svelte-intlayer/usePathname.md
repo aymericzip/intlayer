@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname 函数文档 | svelte-intlayer
 description: 了解如何使用 svelte-intlayer 包中的 usePathname 函数
 keywords:

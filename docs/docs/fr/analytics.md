@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-08-22
+priority: 8
 title: Analytique Intlayer | Suivre l'exposition du contenu et exécuter des tests A/B
 description: Découvrez comment @intlayer/analytics suit les vues de pages/locales et l'exposition du contenu, et comment l'utiliser pour exécuter des tests A/B sur votre contenu Intlayer.
 keywords:

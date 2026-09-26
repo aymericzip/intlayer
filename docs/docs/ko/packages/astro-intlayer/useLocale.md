@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useLocale 훅 문서 | astro-intlayer
 description: Astro 애플리케이션에서 useLocale 훅을 사용하여 현재 로케일에 액세스하고 관리하는 방법을 알아봅니다.
 keywords:

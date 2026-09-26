@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: express-intlayer Paket Dokümantasyonu
 description: Intlayer için Express ara yazılımı; çeviri fonksiyonları ve yerel algılama sağlar.
 keywords:

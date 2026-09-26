@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Tài liệu Plugin Vite intlayerCompiler | vite-intlayer
 description: Plugin Vite giúp trích xuất các khai báo nội dung Intlayer trực tiếp (inline) từ các tệp component và ghi chúng vào các tệp JSON từ điển tại thời điểm build/transform.
 keywords:

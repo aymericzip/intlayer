@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Документація контексту Intlayer | remix-intlayer
 description: Документація ключа сховища контексту запиту Intlayer у додатках Remix 3.
 keywords:

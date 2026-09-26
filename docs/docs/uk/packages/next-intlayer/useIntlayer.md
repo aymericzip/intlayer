@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-06
+priority: 5
 title: Інструкція по використанню хуку useIntlayer | next-intlayer
 description: Дізнайтеся, як використовувати хук useIntlayer для пакета next-intlayer
 keywords:

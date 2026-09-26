@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-11-01
+priority: 8
 title: i18next JSON çevirilerinizi Intlayer kullanarak nasıl otomatikleştirirsiniz
 description: JavaScript uygulamalarında gelişmiş uluslararasılaştırma için Intlayer ve i18next ile JSON çevirilerinizi otomatikleştirin.
 keywords:

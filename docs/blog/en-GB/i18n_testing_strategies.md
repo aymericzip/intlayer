@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "How to test translations without writing brittle tests"
 description: What is worth testing in an i18n app and what is not. Provider-based rendering tests, pseudolocalisation, RTL and plural coverage, and the snapshot trap.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
+priority: 4
 title: Tipe IntlayerNode. Apa itu?
 description: Apa itu tipe IntlayerNode? Mengapa string saya diubah menjadi IntlayerNode&lt;string&gt;?
 keywords:

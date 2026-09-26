@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-02-26
 updatedAt: 2026-02-26
+priority: 9
 title: "Ý nghĩa i18n: Quốc tế hóa là gì và tại sao nó lại quan trọng?"
 description: "Khám phá ý nghĩa thực sự của i18n trong phát triển phần mềm. Tìm hiểu quốc tế hóa là gì, tại sao nó được viết tắt là i18n và nó tác động như thế nào đến phạm vị tiếp cận toàn cầu."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-01-06
+priority: 5
 title: Lista plików deklaracji zawartości
 description: Dowiedz się, jak wyświetlić listę wszystkich plików deklaracji zawartości w swoim projekcie.
 keywords:

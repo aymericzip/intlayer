@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Extract strings
 description: Learn how to extract strings from your components into a .content file close to the component.
 keywords:

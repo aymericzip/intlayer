@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: useRewriteURL Composable Dokümantasyonu
 description: Intlayer'da yerelleştirilmiş URL yeniden yazmalarını yönetmek için Vue'ye özgü composable.

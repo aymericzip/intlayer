@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Intlayer Compat Adapter"
 description: "Migrieren Sie Ihre bestehende i18n-Lösung mit null Reibung zu Intlayer mithilfe von Compat-Adaptern."
 keywords:

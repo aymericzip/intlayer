@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-07-30
+priority: 8
 title: Content File
 description: Learn how to customize the extensions for your content declaration files. Follow this documentation to implement conditions efficiently in your project.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
+priority: 6
 title: إضافة Chrome و Firefox، ماسح i18n و SEO
 description: افحص إعداد i18n لأي موقع ويب باستخدام إضافة Chrome من Intlayer. اكتشف إطار العمل ومكتبة i18n واللغات وعلامات hreflang و SEO، وقم بإجراء تدقيق كامل لـ i18n SEO.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Live Sync Commands
 description: Learn how to use Live Sync to reflect CMS content changes at runtime.
 keywords:

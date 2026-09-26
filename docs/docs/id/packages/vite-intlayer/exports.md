@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentasi Paket vite-intlayer
 description: Plugin Vite untuk Intlayer, menyediakan alias kamus dan watchers.
 keywords:

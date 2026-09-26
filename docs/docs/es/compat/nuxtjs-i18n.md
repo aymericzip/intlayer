@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrar de NuxtJS I18n a Intlayer"
 description: "Aprende cómo migrar tu aplicación Nuxt desde @nuxtjs/i18n a Intlayer usando el módulo adaptador de compatibilidad."
 keywords:

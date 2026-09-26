@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: Хук useRewriteURL
 description: Специфичный для Solid хук для управления локализованными перезаписями URL в Intlayer.

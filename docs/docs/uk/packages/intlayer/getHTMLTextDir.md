@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 5
 title: "Документація: функція getHTMLTextDir | intlayer"
 description: Дізнайтеся, як використовувати функцію getHTMLTextDir у пакеті intlayer
 keywords:

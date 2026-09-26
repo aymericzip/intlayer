@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-10
 updatedAt: 2026-05-10
+priority: 6
 title: إضافة Sync PO
 description: قم بمزامنة قواميس Intlayer مع ملفات Gettext PO. حافظ على نظام i18n الحالي الخاص بك مع استخدام Intlayer لإدارة رسائلك وترجمتها واختبارها.
 keywords:

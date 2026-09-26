@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-20
 updatedAt: 2026-09-21
+priority: 8
 title: Zawartość HTML
 description: Dowiedz się, jak deklarować i używać zawartości HTML z niestandardowymi komponentami w Intlayer. Postępuj zgodnie z tą dokumentacją, aby osadzić bogate, przypominające HTML treści z dynamiczną podmianą komponentów w swoim zlokalizowanym projekcie.
 keywords:

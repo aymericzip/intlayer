@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: comparePaths Fonksiyonu Dokümantasyonu | intlayer
 description: intlayer paketi için comparePaths fonksiyonunun nasıl kullanılacağını görün
 keywords:

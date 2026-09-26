@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
+priority: 9
 title: "Hono i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Hono. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:

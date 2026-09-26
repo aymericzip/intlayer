@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 5
 title: CLI - Intlayer Paketlerini Yükseltme
 description: Projenizin veya monorepo'nuzun her Intlayer paketini listelemek ve bunları en son sürüme yükseltmek için Intlayer CLI upgrade komutunu nasıl kullanacağınızı öğrenin.
 keywords:

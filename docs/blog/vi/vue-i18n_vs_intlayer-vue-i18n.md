@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "vue-i18n vs @intlayer/vue-i18n: API Giống Nhau, Bundle Khác"
 description: Những thay đổi khi một ứng dụng Vue 3 giữ các lệnh gọi vue-i18n của nó nhưng phục vụ chúng qua bộ điều hợp tương thích @intlayer/vue-i18n. JavaScript mỗi trang, kích thước runtime, kích thước thành phần và rò rỉ được đo lường trên cùng một mã Vite + Vue, cộng với những gì bộ điều hợp giữ lại, bỏ qua và không thể thay thế.
 keywords:

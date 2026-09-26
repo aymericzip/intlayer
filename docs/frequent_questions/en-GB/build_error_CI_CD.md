@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Build Error in CI/CD
 description: Learn how to fix build errors that occur in CI/CD environments.
 keywords:

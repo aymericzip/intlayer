@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: intlayer Hono Ara Yazılım Dokümantasyonu | hono-intlayer
 description: hono-intlayer paketi için intlayer ara yazılımının nasıl kullanılacağını görün
 keywords:

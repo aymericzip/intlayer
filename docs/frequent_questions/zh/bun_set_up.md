@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 使用 bun 时出现模块未找到错误
 description: 解决使用 bun 时的错误。
 keywords:

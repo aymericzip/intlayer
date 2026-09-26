@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 实时同步命令
 description: 了解如何使用实时同步在运行时反映 CMS 内容更改。
 keywords:

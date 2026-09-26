@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
+priority: 8
 title: RAG 기반 문서 지원 도우미 구축하기 (청킹, 임베딩, 검색)
 description: RAG 기반 문서 지원 도우미 구축하기 (청킹, 임베딩, 검색)
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-22
 updatedAt: 2026-01-22
+priority: 5
 title: getCanonicalPath 函数文档 | intlayer
 description: 了解如何在 intlayer 包中使用 getCanonicalPath 函数
 keywords:

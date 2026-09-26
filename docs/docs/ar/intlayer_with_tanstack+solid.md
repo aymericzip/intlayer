@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-25
 updatedAt: 2026-09-20
+priority: 9
 title: "تدويل TanStack Start + Solid - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق TanStack Start + Solid متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:

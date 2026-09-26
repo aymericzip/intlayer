@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: Puis-je traduire le chemin de l'URL ?
 description: Apprenez comment traduire le chemin de l'URL.
 keywords:

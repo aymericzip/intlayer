@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
+priority: 8
 title: Cara mengotomatisasi terjemahan JSON react-intl Anda menggunakan Intlayer
 description: Otomatiskan terjemahan JSON Anda dengan Intlayer dan react-intl untuk peningkatan internasionalisasi dalam aplikasi React.
 keywords:

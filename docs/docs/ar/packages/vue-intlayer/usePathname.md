@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: توثيق دالة usePathname | vue-intlayer
 description: تعرف على كيفية استخدام دالة usePathname من حزمة vue-intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Documentation du package lynx-intlayer
 description: Support Lynx pour Intlayer, fournissant des polyfills pour la prise en charge des locales.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-14
 updatedAt: 2026-08-30
+priority: 8
 title: Intlayerの重要性
 description: プロジェクトでIntlayerを使用するメリットと利点をご紹介します。他のフレームワークの中でIntlayerが選ばれる理由を理解しましょう。
 keywords:

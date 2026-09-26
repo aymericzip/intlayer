@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useLocale हुक प्रलेखन | remix-intlayer
 description: वर्तमान अनुरोध लोकेल, डिफ़ॉल्ट लोकेल, और उपलब्ध लोकेल्स प्राप्त करने के लिए Remix 3 एप्लिकेशनों में useLocale हुक का उपयोग करने का तरीका देखें।
 keywords:

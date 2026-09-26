@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-08-22
+priority: 8
 title: Intlayer Analytics | コンテンツ露出の追跡とA/Bテストの実行
 description: "@intlayer/analyticsがページ/ロケールビューとコンテンツ露出をどのように追跡するか、そしてそれを活用してIntlayerコンテンツでA/Bテストを実行する方法について説明します。"
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: I get an error related to sub-packages @intlayer/*
 description: Fix error related to sub-packages @intlayer/*.
 keywords:

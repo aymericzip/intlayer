@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: توثيق إضافة intlayerProxy Vite | vite-intlayer
 description: برنامج وسيط لتوجيه اللغات لخوادم تطوير/معاينة Vite والـ SSR في الإنتاج. يتعامل مع اكتشاف اللغة، وإعادة توجيه عناوين URL، وإعادة الكتابة الداخلية.
 keywords:

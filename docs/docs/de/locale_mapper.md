@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-07-27
 updatedAt: 2025-07-27
+priority: 8
 title: Locale Mapper
 description: Entdecken Sie, wie der Locale Mapper funktioniert. Sehen Sie die Schritte, die der Locale Mapper in Ihrer Anwendung verwendet. Erfahren Sie, was die verschiedenen Pakete tun.
 keywords:

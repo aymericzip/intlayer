@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-11-01
+priority: 8
 title: Как автоматизировать ваши JSON-переводы i18next с помощью Intlayer
 description: Автоматизируйте ваши JSON-переводы с помощью Intlayer и i18next для улучшенной интернационализации в JavaScript-приложениях.
 keywords:

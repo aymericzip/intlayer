@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
+priority: 5
 title: Initialiseer Intlayer
 description: Leer hoe u Intlayer in uw project kunt initialiseren.
 keywords:

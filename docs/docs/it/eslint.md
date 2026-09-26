@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: Plugin ESLint | Regole di lint per Intlayer
 description: Rileva stringhe hardcoded, chiamate dinamiche che il compilatore Intlayer non può ottimizzare e contenuti di dizionario inutilizzati, con eslint-plugin-intlayer. Funziona con ESLint e oxlint, su React, Vue, Svelte, Angular e Astro.
 keywords:

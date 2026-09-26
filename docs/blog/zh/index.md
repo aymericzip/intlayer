@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
+priority: 5
 title: 博客
 description: 了解所有与 Intlayer、国际化和其他相关的主题
 keywords:

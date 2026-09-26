@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: توثيق Hook usePathname | angular-intlayer
 description: تعرف على كيفية استخدام hook usePathname في حزمة angular-intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 5
 title: CLI - Upgrade Intlayer packages
 description: Learn how to use the Intlayer CLI upgrade command to list every Intlayer package of your project or monorepo and upgrade them to the latest version.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-09-08
+priority: 8
 title: Intlayer Compiler | Zautomatyzowane wydobywanie treści dla i18n
 description: Zautomatyzuj proces internacjonalizacji za pomocą Intlayer Compiler. Wydobywaj treści bezpośrednio z komponentów dla szybszego i bardziej efektywnego i18n w Vite, Next.js i innych.
 keywords:

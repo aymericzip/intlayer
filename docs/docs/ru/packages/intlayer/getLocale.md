@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация функции getLocale | intlayer
 description: Как использовать функцию getLocale в пакете intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
+priority: 9
 title: Cos'è l'internazionalizzazione (i18n)? Definizione e sfide
 description: Scopri perché internazionalizzare il tuo sito web è essenziale. Impara i principi chiave per accelerare il tuo SEO, migliorare l'esperienza utente e espandere la tua raggiungibilità globale.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer Express Middleware Dokümantasyonu | express-intlayer
 description: express-intlayer paketi için intlayer middleware'inin nasıl kullanılacağını görün
 keywords:

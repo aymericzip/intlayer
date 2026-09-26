@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentasi Hook useLocale | remix-intlayer
 description: Pelajari cara menggunakan hook useLocale di aplikasi Remix 3 untuk mendapatkan locale permintaan saat ini, locale default, dan daftar locale yang tersedia.
 keywords:

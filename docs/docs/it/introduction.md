@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-06
+priority: 10
 title: Introduzione
 description: Scopri come funziona Intlayer. Guarda i passaggi che Intlayer utilizza nella tua applicazione. Scopri cosa fanno i diversi pacchetti.
 keywords:

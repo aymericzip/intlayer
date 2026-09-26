@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: L10n-платформенная альтернатива для Phrase
 description: Найдите лучшую альтернативу платформе L10n для Phrase, соответствующую вашим требованиям
 keywords:

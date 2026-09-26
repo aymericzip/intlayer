@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 4
 title: Як обмежити споживання токенів Claude Code під час генерації перекладів
 description: Чому переклад за допомогою Claude Code спалює токени, що натомість робить Intlayer (фільтрує перекладені ключі, розбиває JSON на частини, перекладає markdown блок за блоком) та як повторно використати підписку Claude за допомогою claude setup-token.
 keywords:

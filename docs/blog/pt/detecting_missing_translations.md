@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Como detectar traduções ausentes antes dos seus usuários"
 description: Traduções ausentes falham em silêncio. Por que o fallback as esconde, as quatro camadas de detecção que funcionam e como quebrar o build em chaves não traduzidas.
 keywords:

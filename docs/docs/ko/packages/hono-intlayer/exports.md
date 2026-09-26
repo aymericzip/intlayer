@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: hono-intlayer 패키지 문서
 description: 번역 함수와 로케일 감지를 제공하는 Intlayer용 Hono 미들웨어입니다.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-07-30
+priority: 8
 title: 内容文件
 description: 学习如何自定义内容声明文件的扩展。按照本指南高效地在项目中实现条件。
 keywords:

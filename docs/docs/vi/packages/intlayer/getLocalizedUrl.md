@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 5
 title: Tài liệu hàm getLocalizedUrl | intlayer
 description: Xem cách sử dụng hàm getLocalizedUrl cho gói intlayer
 keywords:

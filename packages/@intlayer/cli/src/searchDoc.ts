@@ -10,6 +10,14 @@ import {
 } from '@intlayer/config/node';
 import { logConfigDetails } from '@intlayer/engine/cli';
 
+/** A documentation chunk returned by the search endpoint with `returnContent`. */
+type SearchDocChunk = Exclude<
+  NonNullable<
+    Awaited<ReturnType<ReturnType<typeof getSearchAPI>['searchDoc']>>['data']
+  >,
+  string[]
+>[number];
+
 interface SearchDocOptions {
   query: string;
   limit?: number;
@@ -39,16 +47,22 @@ export const searchDoc = async ({
       return;
     }
 
-    const chunks = response.data;
+    // Ranked by relevance, weighted by the `priority` front matter of each doc
+    const chunks = response.data as SearchDocChunk[];
 
     appLogger(`Found ${colorizeNumber(chunks.length)} relevant chunks:`);
 
-    chunks.forEach((chunk: any) => {
+    chunks.forEach((chunk) => {
       appLogger('---');
       appLogger(`${colorizeKey('File')}: ${chunk.fileKey}`);
       appLogger(`${colorizeKey('Title')}: ${chunk.docName}`);
       appLogger(`${colorizeKey('URL')}: ${chunk.docUrl}`);
       appLogger(`${colorizeKey('Chunk')}: ${chunk.chunkNumber}`);
+      if (chunk.priority !== undefined) {
+        appLogger(
+          `${colorizeKey('Priority')}: ${colorizeNumber(chunk.priority)}`
+        );
+      }
       appLogger(`${colorizeKey('Content')}:`);
       appLogger(chunk.content);
     });

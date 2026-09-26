@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-22
 updatedAt: 2026-01-22
+priority: 5
 title: getLocalizedPath फ़ंक्शन प्रलेखन | intlayer
 description: देखें कि intlayer पैकेज के लिए getLocalizedPath फ़ंक्शन का उपयोग कैसे करें
 keywords:

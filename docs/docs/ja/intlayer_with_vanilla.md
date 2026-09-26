@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-03-31
 updatedAt: 2026-08-30
+priority: 9
 title: "Vanilla JS i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Vanilla JSアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
+priority: 4
 title: Тип IntlayerNode. Що це таке?
 description: Що таке тип IntlayerNode? Чому мій рядок перетворюється на IntlayerNode&lt;string&gt;?
 keywords:

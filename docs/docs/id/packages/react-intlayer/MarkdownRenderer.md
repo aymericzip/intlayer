@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentasi Komponen MarkdownRenderer | react-intlayer
 description: Lihat cara menggunakan komponen MarkdownRenderer untuk paket react-intlayer
 keywords:

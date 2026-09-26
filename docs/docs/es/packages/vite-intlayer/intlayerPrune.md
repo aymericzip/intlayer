@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Documentación del plugin intlayerPrune para Vite | vite-intlayer
 description: Vea cómo usar el plugin intlayerPrune del paquete vite-intlayer
 keywords:

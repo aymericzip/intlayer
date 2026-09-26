@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: Plugin ESLint | Pravidla lintování pro Intlayer
 description: Odhalujte natvrdo zapsané řetězce, dynamická volání, která kompilátor Intlayer nedokáže optimalizovat, a nepoužitý obsah slovníků pomocí eslint-plugin-intlayer. Funguje s ESLint a oxlint v Reactu, Vue, Svelte, Angularu a Astru.
 keywords:

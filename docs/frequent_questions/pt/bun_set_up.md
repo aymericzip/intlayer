@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Recebo erro de módulo não encontrado ao usar bun
 description: Corrigir erro ao usar bun.
 keywords:

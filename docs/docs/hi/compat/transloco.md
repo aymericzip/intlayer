@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Transloco से Intlayer में माइग्रेट करें"
 description: "सीखें कि compat adapter का उपयोग करके अपने Angular एप्लिकेशन को Transloco से Intlayer में कैसे माइग्रेट करें।"
 keywords:

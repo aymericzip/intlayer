@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
+priority: 8
 title: Intlayer kullanarak next-intl JSON çevirilerinizi nasıl otomatikleştirirsiniz
 description: Next.js uygulamalarında gelişmiş uluslararasılaştırma için Intlayer ve next-intl ile JSON çevirilerinizi otomatikleştirin.
 keywords:

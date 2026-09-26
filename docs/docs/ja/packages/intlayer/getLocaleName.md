@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: getLocaleName 関数のドキュメント | intlayer
 description: intlayer パッケージの getLocaleName 関数の使い方を見る
 keywords:

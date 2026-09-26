@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: t 関数ドキュメント | adonis-intlayer
 description: adonis-intlayer パッケージでの t 関数の使用方法を確認してください
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-11-01
+priority: 8
 title: Intlayer를 사용하여 i18next JSON 번역 자동화하는 방법
 description: JavaScript 애플리케이션에서 향상된 국제화를 위해 Intlayer와 i18next를 사용하여 JSON 번역을 자동화하세요.
 keywords:

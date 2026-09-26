@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-20
 updatedAt: 2026-09-21
+priority: 8
 title: HTML-Inhalte
 description: Erfahren Sie, wie Sie HTML-Inhalte deklarieren und mit benutzerdefinierten Komponenten in Intlayer verwenden. Folgen Sie dieser Dokumentation, um reichhaltige HTML-ähnliche Inhalte mit dynamischem Komponentenersatz in Ihrem internationalisierten Projekt einzubetten.
 keywords:

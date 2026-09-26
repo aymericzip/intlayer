@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu gói svelte-intlayer
 description: Tích hợp Intlayer cho Svelte, cung cấp các hàm thiết lập và các store cho ứng dụng Svelte.
 keywords:

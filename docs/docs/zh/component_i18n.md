@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-09-30
+priority: 8
 title: 在 React 和 Next.js 中制作多语言（i18n）组件
 description: 学习如何声明和获取本地化内容，以使用 Intlayer 构建多语言 React 或 Next.js 组件。
 keywords:

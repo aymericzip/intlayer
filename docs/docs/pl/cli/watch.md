@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Obserwuj słowniki
 description: Dowiedz się, jak obserwować zmiany w plikach deklaracji treści i automatycznie budować słowniki.
 keywords:

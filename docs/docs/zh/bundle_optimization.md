@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-25
 updatedAt: 2026-09-16
+priority: 8
 title: 优化 i18n 打包体积与性能
 description: 通过优化国际化（i18n）内容来减小应用程序包的大小。了解如何利用 Intlayer 实现字典的 tree shaking 和延迟加载（lazy loading）。
 keywords:

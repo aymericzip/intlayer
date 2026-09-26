@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Tarik Kamus
 description: Pelajari cara menarik kamus dari editor dan CMS Intlayer.
 keywords:

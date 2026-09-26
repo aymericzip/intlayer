@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: express-intlayer पैकेज दस्तावेज़
 description: Intlayer के लिए Express middleware, जो अनुवाद फ़ंक्शन और locale का पता लगाने की सुविधा प्रदान करता है।
 keywords:

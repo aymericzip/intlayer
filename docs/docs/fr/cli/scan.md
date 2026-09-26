@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: Scanner le site web
 description: Apprenez à utiliser la commande scan du CLI Intlayer pour mesurer la taille de la page et auditer la santé i18n/SEO de n'importe quel site web.
 keywords:

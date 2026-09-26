@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 8
 title: "Hreflang, руководство по многоязычной SEO"
 description: "Что такое hreflang, правила, которые применяют поисковые системы, почему x-default почти всегда неправильный, и как генерировать правильные теги в Next.js и TanStack Start."
 keywords:

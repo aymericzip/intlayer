@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-10
 updatedAt: 2026-05-10
+priority: 6
 title: Sync PO プラグイン
 description: Intlayer 辞書を Gettext PO ファイルと同期します。Intlayer を使用してメッセージの管理、翻訳、テストを行いながら、既存の i18n を維持します。
 keywords:

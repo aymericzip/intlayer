@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документація пакета next-intlayer
 description: Інтеграція Intlayer, специфічна для Next.js, що надає middleware та провайдери для App Router і Page Router.
 keywords:

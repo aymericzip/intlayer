@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: CLI संस्करण जांचें
 description: स्थापित Intlayer CLI संस्करण कैसे जांचें, जानें।
 keywords:

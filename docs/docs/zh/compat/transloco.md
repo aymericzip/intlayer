@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "从 Transloco 迁移到 Intlayer"
 description: "了解如何使用兼容适配器将您的 Angular 应用程序从 Transloco 迁移到 Intlayer。"
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-06
 updatedAt: 2026-09-20
+priority: 9
 title: "Solid Start i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) SolidStart-App. Server-gerendertes Locale-Routing, hreflang, Sitemap und KI-gestützte Übersetzung."
 keywords:

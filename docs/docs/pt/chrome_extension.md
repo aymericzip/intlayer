@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
+priority: 6
 title: Extensão do Chrome e Firefox, Scanner i18n & SEO
 description: Inspecione a configuração de i18n de qualquer site com a extensão do Chrome do Intlayer. Detecte o framework, a biblioteca de i18n, idiomas, tags hreflang e SEO, e execute uma auditoria de SEO i18n completa.
 keywords:

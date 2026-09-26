@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Как получить локаль из cookies / заголовков?
 description: Узнайте, как получить локаль из cookies / заголовков.
 keywords:

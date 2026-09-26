@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: Best i18n solution for Solid in 2026 - Benchmark Report
 description: Compare Solid internationalization libraries like solid-primitives, solid-i18next, Tolgee, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
 keywords:

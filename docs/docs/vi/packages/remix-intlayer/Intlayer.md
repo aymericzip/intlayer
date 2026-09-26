@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Tài liệu Context Intlayer | remix-intlayer
 description: Tài liệu về khóa lưu trữ context yêu cầu Intlayer trong các ứng dụng Remix 3.
 keywords:

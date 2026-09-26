@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2026-01-26
+priority: 8
 title: Custom URL Rewrites
 description: Learn how to configure and use custom URL rewrites in Intlayer to define locale-specific paths.
 keywords:
@@ -248,7 +249,7 @@ To ensure that the browser's address bar always reflects the "pretty" localized 
 
 <Tabs group='framework'>
   <Tab label="Next.js" value="nextjs">
-  
+
     ```tsx
     'use client';
 
@@ -263,7 +264,7 @@ To ensure that the browser's address bar always reflects the "pretty" localized 
   </Tab>
 
   <Tab label="React Router" value="reactrouter">
-  
+
     ```tsx
     'use client';
 
@@ -279,7 +280,7 @@ To ensure that the browser's address bar always reflects the "pretty" localized 
   </Tab>
 
   <Tab label="Vue" value="vue">
-  
+
     ```vue
     <script setup>
     import { useRewriteURL } from "vue-intlayer";
@@ -291,7 +292,7 @@ To ensure that the browser's address bar always reflects the "pretty" localized 
 
   </Tab>
   <Tab label="Solid" value="solid">
-  
+
     ```tsx
     import { useRewriteURL } from "solid-intlayer";
 
@@ -303,7 +304,7 @@ To ensure that the browser's address bar always reflects the "pretty" localized 
 
   </Tab>
   <Tab label="Svelte" value="svelte">
-  
+
     ```svelte
     <script>
     import { useRewriteURL } from "svelte-intlayer";

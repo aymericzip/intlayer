@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Как выбрать подходящую библиотеку i18n для React в 2026 году"
 description: Руководство по выбору инструментов интернационализации React. На какие вопросы ответить перед сравнением react-i18next, react-intl, Lingui, use-intl, Paraglide и Intlayer, и во сколько каждый выбор обходится в плане размера bundle, типизации и поддержки.
 keywords:

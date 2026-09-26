@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerMinify Vite प्लगइन दस्तावेज़ | vite-intlayer
 description: Vite प्लगइन जो संकलित Intlayer शब्दकोश JSON फ़ाइलों को छोटा (minify) करता है और बंडल आकार को कम करने के लिए वैकल्पिक रूप से सामग्री फ़ील्ड नामों को विकृत (mangle) करता है।
 keywords:

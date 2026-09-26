@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: 我可以翻译 URL 路径吗？
 description: 了解如何翻译 URL 路径。
 keywords:

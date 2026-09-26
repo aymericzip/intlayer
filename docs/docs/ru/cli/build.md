@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Построение словарей
 description: Узнайте, как создавать словари Intlayer из файлов декларации контента.
 keywords:

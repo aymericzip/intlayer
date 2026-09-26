@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Cómo probar traducciones sin escribir pruebas frágiles"
 description: Qué vale la pena probar en una aplicación i18n y qué no. Pruebas de renderizado con provider, pseudolocalización, cobertura RTL y plurales, y la trampa de los snapshots.
 keywords:

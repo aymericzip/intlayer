@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: astro-intlayer 软件包文档
 description: Intlayer 的 Astro 集成，提供基于语言环境的路由、中间件、钩子 (hooks)、客户端存储以及字典管理配置。
 keywords:

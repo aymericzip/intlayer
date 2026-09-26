@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-24
 updatedAt: 2025-11-24
+priority: 8
 title: Compilateur vs. i18n déclaratif
 description: Exploration des compromis architecturaux entre l'internationalisation "magique" basée sur un compilateur et la gestion explicite et déclarative du contenu.
 keywords:

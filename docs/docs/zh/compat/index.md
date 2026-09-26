@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Intlayer 兼容适配器"
 description: "使用兼容适配器将您现有的 i18n 解决方案零摩擦迁移到 Intlayer。"
 keywords:

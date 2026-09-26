@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: 에디터 명령어
 description: Intlayer 에디터 명령어 사용법을 알아보세요.
 keywords:

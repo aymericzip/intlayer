@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: IntlayerProvider 컴포넌트 문서 | solid-intlayer
 description: solid-intlayer 패키지의 IntlayerProvider 컴포넌트 사용 방법
 keywords:

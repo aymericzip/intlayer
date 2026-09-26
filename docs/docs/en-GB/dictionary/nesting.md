@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: Dictionary's nesting
 description: Learn how to use content nesting in Intlayer to reuse and structure your multilingual content efficiently. Follow this documentation to implement nesting seamlessly in your project.
 keywords:

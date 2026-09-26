@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Lokalise の代替となる L10n プラットフォーム
 description: ニーズに合った Lokalise の L10n プラットフォームの代替を見つける
 keywords:

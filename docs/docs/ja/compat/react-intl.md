@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "React Intl から Intlayer への移行"
 description: "compat アダプターを使用して、React アプリケーションを react-intl から Intlayer に移行する方法を学びます。"
 keywords:

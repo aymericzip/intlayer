@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Como recuperar a localidade dos cookies / cabeçalhos?
 description: Aprenda como recuperar a localidade dos cookies / cabeçalhos.
 keywords:

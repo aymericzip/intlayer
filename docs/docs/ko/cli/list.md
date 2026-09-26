@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-01-06
+priority: 5
 title: 콘텐츠 선언 파일 목록
 description: 프로젝트 내 모든 콘텐츠 선언 파일을 나열하는 방법을 알아보세요.
 keywords:

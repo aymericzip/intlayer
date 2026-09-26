@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: intlayer 통합 문서 | astro-intlayer
 description: astro.config.mjs에서 intlayer Astro 통합을 구성하고 사용하는 방법을 살펴봅니다.
 keywords:

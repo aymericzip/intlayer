@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: क्या मैं URL पथ का अनुवाद कर सकता हूँ?
 description: जानें कि URL पथ का अनुवाद कैसे करें।
 keywords:

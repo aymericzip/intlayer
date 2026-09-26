@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Alternativa alla piattaforma L10n
 description: Trova la migliore alternativa a una piattaforma L10n per le tue esigenze
 keywords:

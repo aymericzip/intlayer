@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu gói react-intlayer
 description: Cài đặt dành riêng cho React của Intlayer, cung cấp hooks và providers cho các ứng dụng React.
 keywords:

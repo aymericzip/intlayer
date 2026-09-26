@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Cara Menguji Terjemahan Tanpa Menulis Tes yang Rapuh"
 description: Apa yang layak diuji dalam aplikasi i18n dan apa yang tidak. Pengujian rendering berbasis provider, pseudolokalisasi, cakupan RTL dan bentuk jamak, serta jebakan snapshot.
 keywords:

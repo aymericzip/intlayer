@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: MarkdownRenderer 组件文档 | react-intlayer
 description: 查看如何使用 react-intlayer 包的 MarkdownRenderer 组件
 keywords:

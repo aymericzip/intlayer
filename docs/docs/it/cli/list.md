@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-01-06
+priority: 5
 title: Elencare i file di dichiarazione del contenuto
 description: Scopri come elencare tutti i file di dichiarazione del contenuto nel tuo progetto.
 keywords:

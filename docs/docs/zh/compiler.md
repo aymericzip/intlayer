@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-09-08
+priority: 8
 title: Intlayer 编译器 | 用于 i18n 的自动内容提取
 description: 使用 Intlayer 编译器自动化您的国际化流程。直接从组件中提取内容，实现 Vite、Next.js 等框架中更快速、更高效的 i18n。
 keywords:

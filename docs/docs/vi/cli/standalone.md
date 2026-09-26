@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Bản Đóng Gói Độc Lập (Standalone Bundle)
 description: Tìm hiểu cách tạo một bản đóng gói JavaScript độc lập cho nội dung ứng dụng.
 keywords:

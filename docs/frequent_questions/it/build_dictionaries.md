@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Come costruire dizionari?
 description: Impara come costruire dizionari.
 keywords:

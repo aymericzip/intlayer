@@ -121,6 +121,20 @@ const validateMetadata = (
   }
 
   // Additional validation for optional fields if present
+  if (
+    metadata.priority !== undefined &&
+    !(
+      Number.isInteger(metadata.priority) &&
+      (metadata.priority as number) >= 1 &&
+      (metadata.priority as number) <= 10
+    )
+  ) {
+    invalidFields.push({
+      field: 'priority',
+      reason: 'priority must be an integer between 1 and 10',
+    });
+  }
+
   if (metadata.history !== undefined) {
     if (!Array.isArray(metadata.history)) {
       invalidFields.push({

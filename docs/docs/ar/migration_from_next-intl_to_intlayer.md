@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: الترحيل من next-intl إلى Intlayer | التدويل (i18n)
 description: تعرّف على كيفية ترحيل تطبيق Next.js الخاص بك من next-intl إلى Intlayer - خطوة بخطوة، دون كسر الكود الموجود. استخدم محول التوافق @intlayer/next-intl للانتقال بدون انقطاع.
 keywords:

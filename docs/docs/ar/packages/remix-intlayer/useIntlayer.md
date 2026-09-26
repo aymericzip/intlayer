@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: توثيق خطاف useIntlayer | remix-intlayer
 description: تعرّف على كيفية استخدام خطاف useIntlayer في تطبيقات Remix 3 للوصول إلى المحتوى المترجم حسب المفتاح.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Intlayer 命令未定义
 description: 了解如何修复 intlayer 命令未定义错误。
 keywords:
@@ -141,7 +142,7 @@ npm --version
     如果你使用的是过时的版本，考虑更新 Node.js 和 npm。
 
 11. **检查权限问题**  
-    如果遇到权限错误：
+如果遇到权限错误：
 
 ```bash
 # 对于基于 Unix 的系统

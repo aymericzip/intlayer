@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 我遇到了与子包 @intlayer/* 相关的错误
 description: 解决与子包 @intlayer/* 相关的错误。
 keywords:

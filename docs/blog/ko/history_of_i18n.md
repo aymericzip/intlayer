@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-10
+priority: 8
 title: "JavaScript i18n의 역사: 2011년부터 2026년까지"
 description: "2011년부터 2026년까지 프론트엔드 국제화(i18n)의 발전 과정을 살펴봅니다. React, Vue, Next.js, Angular, Svelte, Solid 생태계의 출시 역사, 아키텍처 과제 및 핵심 혁신을 정리합니다."
 keywords:

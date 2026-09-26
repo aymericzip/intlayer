@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-07-30
+priority: 8
 title: Fichier de Contenu
 description: Apprenez à personnaliser les extensions pour vos fichiers de déclaration de contenu. Suivez cette documentation pour implémenter efficacement des conditions dans votre projet.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 5
 title: useI18n Hook Dokümantasyonu | react-intlayer
 description: react-intlayer paketinde useI18n hook'unun nasıl kullanılacağını öğrenin
 keywords:

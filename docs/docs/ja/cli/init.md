@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-09-21
+priority: 5
 title: Intlayerの初期化
 description: プロジェクトでIntlayerを初期化する方法。
 keywords:

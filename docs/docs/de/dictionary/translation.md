@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 8
 title: Übersetzung
 description: Entdecken Sie, wie Sie Übersetzungen in Ihrer mehrsprachigen Website deklarieren und verwenden können. Folgen Sie den Schritten in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
 keywords:

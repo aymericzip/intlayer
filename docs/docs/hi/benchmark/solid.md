@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: 2026 में Solid के लिए सर्वश्रेष्ठ i18n समाधान - बेंचमार्क रिपोर्ट
 description: solid-primitives, solid-i18next, Tolgee, और Intlayer जैसे Solid अंतर्राष्ट्रीयकरण (i18n) पुस्तकालयों की तुलना करें। बंडल आकार, लीकेज और प्रतिक्रियाशीलता पर विस्तृत प्रदर्शन रिपोर्ट।
 keywords:

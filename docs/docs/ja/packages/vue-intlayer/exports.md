@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: vue-intlayer パッケージのドキュメント
 description: Vue アプリケーション向けに Intlayer を統合するためのプラグインとコンポーザブルを提供します。
 keywords:

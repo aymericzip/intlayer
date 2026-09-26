@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Tài liệu Hook useIntlayer | remix-intlayer
 description: Xem cách sử dụng hook useIntlayer trong các ứng dụng Remix 3 để truy cập nội dung được bản địa hóa theo khóa.
 keywords:

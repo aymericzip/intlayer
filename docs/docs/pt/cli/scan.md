@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: Escanear Website
 description: Saiba como usar o comando scan do CLI Intlayer para medir o tamanho da página e auditar a saúde de i18n/SEO de qualquer website.
 keywords:

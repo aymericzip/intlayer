@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Empujar Diccionarios
 description: Aprende cómo empujar tus diccionarios al editor y CMS de Intlayer.
 keywords:

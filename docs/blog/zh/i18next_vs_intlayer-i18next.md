@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next vs @intlayer/i18next：相同的 API，截然不同的 Bundle"
 description: 当 React 或 Next.js 应用保持其 i18next、react-i18next 和 next-i18next 调用不变，但改由 @intlayer/i18next 适配器提供服务时会发生什么变化。基于同一套代码测量的每页 JavaScript 体积、组件大小、文本泄漏与水合性能，以及适配器保留、忽略和无法替代的功能。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-21
+priority: 9
 title: "Remix 3 i18n - Guida completa per tradurre la tua applicazione"
 description: "Dimentica i18next. La guida 2026 per creare un'applicazione Remix 3 multilingue (i18n). Traduci con agenti IA e ottimizza le dimensioni del bundle, la SEO e le prestazioni."
 keywords:

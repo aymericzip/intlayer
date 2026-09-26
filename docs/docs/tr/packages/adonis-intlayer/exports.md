@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: adonis-intlayer Paketi Belgeleri
 description: Çeviri fonksiyonları ve yerel ayar tespiti sağlayan Intlayer için AdonisJS middleware'i.
 keywords:

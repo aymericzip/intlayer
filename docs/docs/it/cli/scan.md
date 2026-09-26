@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: Scansiona il sito web
 description: Scopri come utilizzare il comando scan della CLI di Intlayer per misurare la dimensione della pagina e controllare la salute i18n/SEO di qualsiasi sito web.
 keywords:

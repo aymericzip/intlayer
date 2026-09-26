@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: useDictionary Hook Documentation | react-intlayer
 description: See how to use the useDictionary hook for react-intlayer package
 keywords:

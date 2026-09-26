@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-09-02
+priority: 7
 title: "Svelte i18n: stores, runes, and what Svelte 5 changed"
 description: Most Svelte i18n tutorials are written for Svelte 4 stores. How the store model works, what runes change, message compilation costs, and typed keys.
 keywords:

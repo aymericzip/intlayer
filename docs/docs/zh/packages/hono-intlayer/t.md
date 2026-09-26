@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-02
 updatedAt: 2025-06-29
+priority: 5
 title: t 函数文档 | hono-intlayer
 description: 了解如何为 hono-intlayer 包使用 t 函数
 keywords:

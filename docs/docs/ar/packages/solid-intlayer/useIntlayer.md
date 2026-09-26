@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-05-06
+priority: 5
 title: توثيق hook useIntlayer | solid-intlayer
 description: اطلع على كيفية استخدام الـ hook useIntlayer لحزمة solid-intlayer
 keywords:

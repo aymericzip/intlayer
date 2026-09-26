@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-02-25
+priority: 5
 title: Documentação do intlayerProxy | next-intlayer
 description: Veja como usar a função intlayerMiddleware do pacote next-intlayer
 keywords:

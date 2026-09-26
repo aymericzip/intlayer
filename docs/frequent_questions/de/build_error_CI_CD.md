@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Build-Fehler in CI/CD
 description: Erfahren Sie, wie Sie Build-Fehler beheben, die in CI/CD-Umgebungen auftreten.
 keywords:

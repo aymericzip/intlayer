@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
+priority: 6
 title: Chrome ve Firefox Uzantısı, i18n & SEO Tarayıcısı
 description: Intlayer Chrome uzantısı ile herhangi bir web sitesinin i18n yapılandırmasını inceleyin. Framework'ü, i18n kütüphanesini, dilleri, hreflang ve SEO etiketlerini tespit edin ve tam bir i18n SEO denetimi gerçekleştirin.
 keywords:

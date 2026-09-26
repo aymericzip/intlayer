@@ -63,3 +63,35 @@ export const getSearchableDocs = async (
 /** Builds the fuzzy index over {@link getSearchableDocs}. */
 export const createDocSearchIndex = (docs: DocMetadata[]): Fuse<DocMetadata> =>
   new Fuse(docs, docSearchFuseOptions);
+
+/** Priority assumed for a page without `priority` front matter. */
+const DEFAULT_DOC_PRIORITY = 5;
+
+/**
+ * Fuse score bonus of a priority 10 page. Matches stay below the 0.3
+ * threshold, so the bonus only reorders pages of close relevance.
+ */
+const PRIORITY_SCORE_WEIGHT = 0.05;
+
+/**
+ * Searches the fuzzy index, favoring pages with a higher `priority` front
+ * matter among equally relevant matches.
+ *
+ * @param docSearchIndex - Index built by {@link createDocSearchIndex}.
+ * @param query - Text typed by the user.
+ * @returns The matching pages, best first.
+ */
+export const searchDocIndex = (
+  docSearchIndex: Fuse<DocMetadata>,
+  query: string
+): DocMetadata[] =>
+  docSearchIndex
+    .search(query)
+    .map(({ item, score = 0 }) => ({
+      item,
+      rankingScore:
+        score -
+        (PRIORITY_SCORE_WEIGHT * (item.priority ?? DEFAULT_DOC_PRIORITY)) / 10,
+    }))
+    .sort((resultA, resultB) => resultA.rankingScore - resultB.rankingScore)
+    .map(({ item }) => item);

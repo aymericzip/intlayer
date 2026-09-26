@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: hono-intlayer पैकेज दस्तावेज़ीकरण
 description: Intlayer के लिए Hono मिडलवेयर, अनुवाद फ़ंक्शन और लोकेल डिटेक्शन प्रदान करता है।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-05-06
+priority: 5
 title: useIntlayer フック ドキュメント | solid-intlayer
 description: solid-intlayer パッケージの useIntlayer フックの使用方法
 keywords:

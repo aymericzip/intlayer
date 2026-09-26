@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: solid-intlayer 패키지 문서
 description: Solid 애플리케이션을 위한 Intlayer의 Solid 전용 통합으로, 프로바이더와 훅을 제공합니다.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useIntlayer हुक प्रलेखन | remix-intlayer
 description: Remix 3 एप्लिकेशनों में कुंजी द्वारा स्थानीयकृत सामग्री तक पहुँचने के लिए useIntlayer हुक का उपयोग करने का तरीका देखें।
 keywords:

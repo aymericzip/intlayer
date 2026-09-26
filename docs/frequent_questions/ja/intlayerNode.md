@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
+priority: 4
 title: IntlayerNode 型。これは何ですか？
 description: IntlayerNode 型とは何ですか？なぜ私の文字列が IntlayerNode&lt;string&gt; に変換されるのですか？
 keywords:

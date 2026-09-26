@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: Intlayerコマンドのデバッグ
 description: Intlayer CLIの問題をデバッグおよびトラブルシューティングする方法を学びます。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: Documentazione del pacchetto elysia-intlayer
 description: Plugin Elysia per Intlayer, che fornisce funzioni di traduzione e rilevamento della locale.
 keywords:

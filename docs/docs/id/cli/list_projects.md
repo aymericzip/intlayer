@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-01-06
+priority: 5
 title: Daftar Proyek Intlayer
 description: Pelajari cara mendaftarkan semua proyek Intlayer di sebuah direktori atau repositori git.
 keywords:

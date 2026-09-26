@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2026-09-16
+priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: 将 react-i18next 与 next-intl 和 Intlayer 集成，用于 React 应用的国际化 (i18n)
 keywords:

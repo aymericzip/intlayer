@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-30
 updatedAt: 2026-09-21
+priority: 8
 title: Intlayer सेल्फ-होस्टिंग
 description: "अपने स्वयं के बुनियादी ढांचे पर Intlayer चलाएं: एक डेस्कटॉप ऐप, एकल ऑल-इन-वन Docker कंटेनर, या एक स्केलेबल Docker Compose स्टैक के रूप में। किसी Intlayer Cloud खाते की आवश्यकता नहीं है।"
 keywords:

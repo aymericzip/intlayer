@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-07-08
+priority: 8
 title: Intlayer CMS | Виносьте свій контент у Intlayer CMS
 description: Виносьте свій контент у Intlayer CMS, щоб делегувати керування ним вашій команді.
 keywords:

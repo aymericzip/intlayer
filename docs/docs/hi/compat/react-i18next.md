@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "react-i18next से Intlayer में माइग्रेट करें"
 description: "Compat adapter का उपयोग करके अपने React एप्लिकेशन को react-i18next से Intlayer में माइग्रेट करना सीखें।"
 keywords:

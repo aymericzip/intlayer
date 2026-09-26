@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документація пакета express-intlayer
 description: Express middleware для Intlayer, що забезпечує функції перекладу та визначення локалі.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: أفضل حل i18n لـ Next.js في 2026 - تقرير المقارنة
 description: قارن بين مكتبات تدويل (i18n) Next.js مثل next-intl و next-i18next و Intlayer. تقرير مفصل للأداء حول حجم الحزمة، التسرب، والتفاعلية.
 keywords:

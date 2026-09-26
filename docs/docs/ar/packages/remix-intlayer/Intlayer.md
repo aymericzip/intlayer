@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: توثيق سياق Intlayer | remix-intlayer
 description: توثيق مفتاح تخزين سياق طلب Intlayer في تطبيقات Remix 3.
 keywords:

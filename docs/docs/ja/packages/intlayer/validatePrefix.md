@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: validatePrefix 関数のドキュメント | intlayer
 description: intlayer パッケージでの validatePrefix 関数の使用方法
 keywords:

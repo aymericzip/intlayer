@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-12
 updatedAt: 2026-09-19
+priority: 8
 title: Intlayer 的工作原理
 description: 了解Intlayer的内部运作方式。理解使Intlayer强大的架构和组件。
 keywords:

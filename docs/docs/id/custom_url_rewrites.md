@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2026-06-23
+priority: 8
 title: Penulisan Ulang URL Kustom
 description: Pelajari cara mengonfigurasi dan menggunakan penulisan ulang URL kustom di Intlayer untuk menentukan jalur spesifik per locale.
 keywords:

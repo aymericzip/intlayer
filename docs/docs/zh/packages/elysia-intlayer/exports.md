@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: elysia-intlayer 包文档
 description: Intlayer 的 Elysia 插件，提供翻译函数和 locale 检测。
 keywords:

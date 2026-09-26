@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: vite-intlayer Package Documentation
 description: Vite plugin for Intlayer, providing dictionary aliases, watchers, locale routing, and build optimisations.
 keywords:

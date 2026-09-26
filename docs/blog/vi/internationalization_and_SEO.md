@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
+priority: 8
 title: SEO và Quốc tế hóa
 description: Khám phá cách tối ưu hóa website đa ngôn ngữ của bạn cho các công cụ tìm kiếm và cải thiện SEO.
 keywords:

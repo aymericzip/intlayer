@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useDictionary 钩子文档 | remix-intlayer
 description: 了解如何在 Remix 3 应用程序中使用 useDictionary 钩子为当前请求语言环境解析字典对象。
 keywords:

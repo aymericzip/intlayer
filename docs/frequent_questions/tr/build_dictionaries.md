@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 4
 title: Sözlükler nasıl oluşturulur?
 description: Sözlüklerin nasıl oluşturulacağını öğrenin.
 keywords:

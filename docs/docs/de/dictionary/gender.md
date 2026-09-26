@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-07-27
 updatedAt: 2025-07-27
+priority: 8
 title: Geschlechtsspezifische Inhalte
 description: Erfahren Sie, wie Sie geschlechtsspezifische Inhalte in Intlayer verwenden, um Inhalte dynamisch basierend auf dem Geschlecht anzuzeigen. Folgen Sie dieser Dokumentation, um geschlechtsspezifische Inhalte effizient in Ihrem Projekt zu implementieren.
 keywords:

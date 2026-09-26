@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 9
 title: "htmx i18n - Panduan lengkap untuk menerjemahkan aplikasi Anda"
 description: "Tidak perlu i18next lagi. Panduan 2026 untuk membangun aplikasi htmx multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:

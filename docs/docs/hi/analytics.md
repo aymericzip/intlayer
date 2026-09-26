@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-08-22
+priority: 8
 title: Intlayer Analytics | सामग्री के प्रदर्शन को ट्रैक करें और A/B परीक्षण चलाएं
 description: जानें कि @intlayer/analytics कैसे पेज/लोकेल व्यू और सामग्री के प्रदर्शन को ट्रैक करता है, और अपने Intlayer सामग्री पर A/B परीक्षण चलाने के लिए इसका उपयोग कैसे करें।
 keywords:

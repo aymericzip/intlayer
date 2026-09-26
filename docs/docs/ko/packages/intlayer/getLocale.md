@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: getLocale 함수 문서 | intlayer
 description: intlayer 패키지에서 getLocale 함수를 사용하는 방법을 확인하세요
 keywords:

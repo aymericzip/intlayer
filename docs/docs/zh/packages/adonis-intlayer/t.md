@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: t 函数文档 | adonis-intlayer
 description: 了解如何为 adonis-intlayer 包使用 t 函数
 keywords:

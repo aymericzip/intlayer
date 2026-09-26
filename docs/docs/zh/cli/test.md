@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 测试缺失的翻译
 description: 学习如何测试并识别字典中缺失的翻译。
 keywords:

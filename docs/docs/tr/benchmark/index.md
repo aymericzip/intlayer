@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-11
+priority: 8
 title: i18n Kütüphaneleri Karşılaştırması (Benchmark)
 description: Intlayer'ın performans ve bundle boyutu açısından diğer i18n kütüphaneleriyle nasıl karşılaştırıldığını öğrenin.
 keywords:

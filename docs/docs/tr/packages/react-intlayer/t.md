@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 5
 title: t Fonksiyonu Dokümantasyonu | react-intlayer
 description: react-intlayer paketi için t fonksiyonunun nasıl kullanılacağını görün
 keywords:

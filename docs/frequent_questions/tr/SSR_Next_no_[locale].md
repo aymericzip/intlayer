@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 4
 title: Next.js ile `[locale]` olmadan Intlayer kullanmak mümkün mü?
 description: Next.js ile `[locale]` olmadan Intlayer nasıl kullanılır, öğrenin.
 keywords:

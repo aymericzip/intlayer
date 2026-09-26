@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-05-31
+priority: 7
 title: Najlepsze narzędzia do internacjonalizacji (i18n) dla React - Kompletny przewodnik po tłumaczeniu Best React i18n Libraries 2026 — Compared by DX & Bundle
 description: Najlepsze rozwiązanie dla rozmiaru bundle, SEO, wydajności & utrzymania. Uczyń swój React aplikację wielojęzycznym w 2026, tłumaczenie LLM, Agent Skills & MCP.
 keywords:

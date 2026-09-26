@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 사전 빌드 방법
 description: 사전 빌드 방법을 알아보세요.
 keywords:

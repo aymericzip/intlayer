@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Điền Từ điển
 description: Tìm hiểu cách điền, kiểm tra và dịch từ điển của bạn bằng AI.
 keywords:

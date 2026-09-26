@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Intlayer command undefined
 description: Learn how to fix the intlayer command undefined error.
 keywords:
@@ -142,7 +143,7 @@ npm --version
     If you're using an outdated version, consider updating Node.js and npm.
 
 11. **Check for permission issues**
-    If you're getting permission errors:
+If you're getting permission errors:
 
     ```bash
     # For Unix-based systems

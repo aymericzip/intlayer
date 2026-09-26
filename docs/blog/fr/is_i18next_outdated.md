@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: i18next est-il obsolète en 2026 ?
 description: i18next propulse des millions de sites web, mais son architecture runtime de 2011 accuse son âge. Analyse du surpoids des bundles, des limites de tree-shaking et du manque d'innovations.
 keywords:

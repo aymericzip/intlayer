@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: Документация пакета elysia-intlayer
 description: Плагин Elysia для Intlayer, предоставляющий функции перевода и определение локали.
 keywords:

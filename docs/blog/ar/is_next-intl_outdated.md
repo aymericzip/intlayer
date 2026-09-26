@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: هل أصبحت مكتبة next-intl قديمة في عام 2026؟
 description: أصبحت next-intl الخيار الشائع لـ Next.js App Router. لكنها ما زالت تثقل حزم التشغيل وتتطلب إدارة يدوية معقدة للمساحات الاسمية.
 keywords:

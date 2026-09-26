@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-25
+priority: 5
 title: getConfiguration 関数ドキュメント | intlayer
 description: intlayer パッケージの getConfiguration 関数の使い方を解説
 keywords:

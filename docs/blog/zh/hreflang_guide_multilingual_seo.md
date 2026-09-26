@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 8
 title: "Hreflang，多语言 SEO 指南"
 description: "什么是 hreflang，搜索引擎强制执行的规则，为什么 x-default 几乎总是错误的，以及如何在 Next.js 和 TanStack Start 中生成正确的标签。"
 keywords:

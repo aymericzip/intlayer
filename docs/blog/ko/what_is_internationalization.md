@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
+priority: 9
 title: 국제화란? 정의와 도전
 description: 웹사이트를 국제화하는 이유를 알아보세요. 검색 엔진을 부스트 하고 사용자 경험을 향상시키고 전세계 방위를 확장하는 키 원칙을 배우세요.
 keywords:

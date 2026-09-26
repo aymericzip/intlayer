@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-01-06
+priority: 5
 title: 列出内容声明文件
 description: 了解如何列出项目中的所有内容声明文件。
 keywords:

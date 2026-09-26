@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Міграція з react-i18next на Intlayer"
 description: "Дізнайтесь, як мігрувати свій React додаток з react-i18next на Intlayer за допомогою адаптера сумісності."
 keywords:

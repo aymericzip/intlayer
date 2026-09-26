@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: Imbrication du dictionnaire
 description: Découvrez comment utiliser l’imbrication de contenu dans Intlayer pour réutiliser et structurer efficacement votre contenu multilingue. Suivez cette documentation pour implémenter l’imbrication facilement dans votre projet.
 keywords:

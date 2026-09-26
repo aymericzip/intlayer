@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-12
 updatedAt: 2026-09-19
+priority: 8
 title: Cách Thức Hoạt Động của Intlayer
 description: Tìm hiểu cách Intlayer hoạt động bên trong. Hiểu kiến trúc và các thành phần làm cho Intlayer mạnh mẽ.
 keywords:

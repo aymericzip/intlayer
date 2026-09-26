@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: توثيق دالة getDictionaryAsync | intlayer
 description: اطلع على كيفية استخدام دالة getDictionaryAsync لحزمة intlayer
 keywords:

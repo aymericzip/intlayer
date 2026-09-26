@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-16
 updatedAt: 2026-09-12
+priority: 5
 title: CLI - تسجيل الدخول
 description: تعلم كيفية استخدام أمر login في Intlayer CLI للمصادقة مع نظام إدارة المحتوى Intlayer والحصول على بيانات الاعتماد.
 keywords:

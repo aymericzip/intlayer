@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl vs Intlayer: Điểm chuẩn & So sánh 2026"
 description: "So sánh chi tiết giữa next-intl và Intlayer trên Next.js App Router và TanStack Start. Kích thước bundle, rò rỉ nội dung, kích thước component, hydrate và trải nghiệm lập trình viên."
 keywords:

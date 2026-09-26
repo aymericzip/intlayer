@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 5
 title: Dokumentacja funkcji getHTMLTextDir | intlayer
 description: Zobacz, jak używać funkcji getHTMLTextDir w pakiecie intlayer
 keywords:

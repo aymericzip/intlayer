@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация пакета vue-intlayer
 description: Vue-специфичная интеграция для Intlayer, предоставляющая плагины и composables для приложений на Vue.
 keywords:

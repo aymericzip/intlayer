@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu gói next-intlayer
 description: Tích hợp dành riêng cho Next.js cho Intlayer, cung cấp middleware và providers cho App Router và Page Router.
 keywords:

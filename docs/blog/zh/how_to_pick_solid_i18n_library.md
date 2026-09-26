@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "如何在 2026 年选择合适的 Solid i18n 库"
 description: "SolidJS 与 SolidStart 国际化选型指南。在对比 @solid-primitives/i18n、solid-i18next、Paraglide、Lingui 和 Intlayer 之前需要明确的关键问题，以及各方案在响应性、bundle size 与类型支持方面的权衡。"
 keywords:

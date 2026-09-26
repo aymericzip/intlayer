@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Lokalise에 대한 L10n 플랫폼 대안
 description: 귀하의 필요에 맞는 Lokalise 대안 L10n 플랫폼을 찾아보세요
 keywords:

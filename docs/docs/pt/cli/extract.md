@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Extrair strings
 description: Aprenda como extrair strings dos seus componentes para um ficheiro .content próximo do componente.
 keywords:

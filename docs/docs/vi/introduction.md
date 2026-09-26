@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-06
+priority: 10
 title: Giới thiệu
 description: Khám phá cách Intlayer hoạt động. Xem các bước mà Intlayer sử dụng trong ứng dụng của bạn. Khám phá những gì các gói khác nhau thực hiện.
 keywords:

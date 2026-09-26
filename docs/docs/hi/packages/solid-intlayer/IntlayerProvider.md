@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: IntlayerProvider कंपोनेंट दस्तावेज़ | solid-intlayer
 description: देखें कि solid-intlayer पैकेज के लिए IntlayerProvider कंपोनेंट का उपयोग कैसे करें
 keywords:

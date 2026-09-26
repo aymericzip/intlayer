@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-06
+priority: 5
 title: useIntlayer 훅 문서 | next-intlayer
 description: next-intlayer 패키지의 useIntlayer 훅 사용법을 확인하세요
 keywords:

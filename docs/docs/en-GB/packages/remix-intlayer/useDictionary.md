@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useDictionary Hook Documentation | remix-intlayer
 description: See how to use the useDictionary hook in Remix 3 applications to resolve dictionary objects for the current request locale.
 keywords:

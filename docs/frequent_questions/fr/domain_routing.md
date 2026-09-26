@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Comment configurer le routage basé sur le domaine ?
 description: Apprenez à configurer le routage basé sur le domaine.
 keywords:

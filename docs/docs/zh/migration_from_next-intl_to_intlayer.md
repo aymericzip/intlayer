@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "从 next-intl 迁移到 Intlayer | 国际化 (i18n)"
 description: "学习如何逐步将你的 Next.js 应用从 next-intl 迁移到 Intlayer，无需破坏现有代码。使用 @intlayer/next-intl 兼容适配器实现零中断过渡。"
 keywords:

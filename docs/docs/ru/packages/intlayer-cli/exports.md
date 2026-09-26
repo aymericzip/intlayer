@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация пакета intlayer-cli
 description: CLI-инструмент для Intlayer, предоставляющий команды для сборки и аудита словарей.
 keywords:

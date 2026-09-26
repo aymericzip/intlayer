@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Comando Intlayer indefinido
 description: Aprende cómo solucionar el error de comando intlayer indefinido.
 keywords:
@@ -142,7 +143,7 @@ npm --version
     Si estás usando una versión desactualizada, considera actualizar Node.js y npm.
 
 11. **Verifica problemas de permisos**  
-    Si estás obteniendo errores de permisos:
+Si estás obteniendo errores de permisos:
 
     ```bash
     # Para sistemas basados en Unix

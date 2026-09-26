@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: react-intlayer 패키지 문서
 description: React 애플리케이션을 위한 Intlayer의 React 전용 구현으로, 훅과 프로바이더를 제공합니다.
 keywords:

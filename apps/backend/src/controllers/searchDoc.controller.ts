@@ -14,6 +14,8 @@ export type SearchDocResult = {
   content?: string;
   docUrl: string;
   docName: string;
+  /** Front matter `priority` of the source file, from 1 to 10. */
+  priority?: number;
 };
 
 export type SearchDocUtilResult = ResponseData<string[] | SearchDocResult[]>;
@@ -40,6 +42,7 @@ export const searchDocUtil = async (
       content: doc.content,
       docUrl: doc.docUrl,
       docName: doc.docName,
+      priority: doc.priority,
     }));
 
     const responseData = formatResponse<SearchDocResult[]>({

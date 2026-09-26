@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2026-08-22
+priority: 8
 title: Konfigurasi
 description: Pelajari cara mengonfigurasi Intlayer untuk aplikasi Anda. Pahami berbagai pengaturan dan opsi yang tersedia untuk menyesuaikan Intlayer sesuai kebutuhan Anda.
 keywords:

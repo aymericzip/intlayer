@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: Editor Commands
 description: Learn how to use the Intlayer editor commands.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-05-06
+priority: 5
 title: useIntlayer 훅 문서 | solid-intlayer
 description: solid-intlayer 패키지에서 useIntlayer 훅을 사용하는 방법을 확인하세요
 keywords:

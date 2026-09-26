@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-23
+priority: 8
 title: CLI - Wszystkie polecenia Intlayer CLI dla Twojej wielojęzycznej strony
 description: Dowiedz się, jak używać Intlayer CLI do zarządzania wielojęzyczną stroną internetową. Postępuj zgodnie z krokami w tej dokumentacji online, aby skonfigurować swój projekt w kilka minut.
 keywords:

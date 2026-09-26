@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Giải pháp thay thế nền tảng L10n
 description: Tìm nền tảng L10n thay thế tốt nhất cho nhu cầu của bạn
 keywords:

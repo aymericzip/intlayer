@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: Документація пакета astro-intlayer
 description: Інтеграція Astro для Intlayer, що забезпечує маршрутизацію на основі локалей, middleware, хуки, клієнтське сховище та керування словниками.
 keywords:

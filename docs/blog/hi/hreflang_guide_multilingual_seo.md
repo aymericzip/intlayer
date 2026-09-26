@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 8
 title: "Hreflang, बहुभाषी SEO के लिए गाइड"
 description: "Hreflang क्या है, search engines द्वारा लागू किए जाने वाले नियम, x-default लगभग हमेशा गलत क्यों है, और Next.js और TanStack Start में सही tags कैसे generate करें।"
 keywords:

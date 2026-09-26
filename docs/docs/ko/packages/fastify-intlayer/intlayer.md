@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer Fastify 플러그인 문서 | fastify-intlayer
 description: fastify-intlayer 패키지용 intlayer 플러그인 사용 방법을 확인하세요
 keywords:

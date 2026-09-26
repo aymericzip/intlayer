@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-09-21
+priority: 10
 title: "Astro i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Astro uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-01-06
+priority: 5
 title: Inhaltsdeklarationsdateien auflisten
 description: Erfahren Sie, wie Sie alle Inhaltsdeklarationsdateien in Ihrem Projekt auflisten können.
 keywords:

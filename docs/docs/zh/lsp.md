@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-10
+priority: 6
 title: Intlayer LSP 服务器
 description: 了解 Intlayer 语言服务器如何为你的 IDE 和 AI 智能体带来转到定义、查找引用、悬停预览、键名自动补全与诊断能力。
 keywords:

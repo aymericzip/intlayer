@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-01-06
+priority: 5
 title: Lister les fichiers de déclaration de contenu
 description: Apprenez à lister tous les fichiers de déclaration de contenu dans votre projet.
 keywords:

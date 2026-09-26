@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 9
 title: "htmx i18n - Uygulamanızı çevirmek için kapsamlı rehber"
 description: "Artık i18next yok. 2026 çok dilli (i18n) htmx uygulaması oluşturmak için rehber. AI aracıları ile çeviri yapın ve bundle boyutunu, SEO'yu ve performansı optimize edin."
 keywords:

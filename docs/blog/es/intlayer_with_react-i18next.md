@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
+priority: 8
 title: Cómo automatizar tus traducciones JSON de react-i18next usando Intlayer
 description: Automatiza tus traducciones JSON con Intlayer y react-i18next para una internacionalización mejorada en aplicaciones React.
 keywords:

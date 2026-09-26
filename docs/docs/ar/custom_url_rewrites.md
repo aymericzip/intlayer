@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2026-06-23
+priority: 8
 title: إعادة كتابة روابط URL مخصصة
 description: تعرّف على كيفية تكوين واستخدام إعادة كتابة روابط URL المخصصة في Intlayer لتحديد مسارات خاصة بكل لغة.
 keywords:

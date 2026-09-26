@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu Thành phần IntlayerProvider | solid-intlayer
 description: Xem cách sử dụng thành phần IntlayerProvider cho package solid-intlayer
 keywords:

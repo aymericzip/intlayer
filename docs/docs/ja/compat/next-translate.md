@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Next Translateから Intlayerへの移行"
 description: "compat adapterを使用して、Next.jsアプリケーションをnext-translateからIntlayerに移行する方法を学びます。"
 keywords:

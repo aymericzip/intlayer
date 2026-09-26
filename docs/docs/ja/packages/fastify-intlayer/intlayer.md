@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer Fastify プラグインドキュメント | fastify-intlayer
 description: fastify-intlayer パッケージの intlayer プラグインの使用方法
 keywords:

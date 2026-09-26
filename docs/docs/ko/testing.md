@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-01
 updatedAt: 2025-09-20
+priority: 8
 title: 콘텐츠 테스트하기
 description: Intlayer로 콘텐츠를 테스트하는 방법을 알아보세요.
 keywords:

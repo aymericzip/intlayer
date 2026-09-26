@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-07-27
 updatedAt: 2025-07-27
+priority: 8
 title: Maper Lokalizacji
 description: Odkryj, jak działa Maper Lokalizacji. Zobacz kroki używane przez Maper Lokalizacji w Twojej aplikacji. Zobacz, co robią różne pakiety.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
+priority: 8
 title: SEO i internacjonalizacja
 description: Odkryj, jak zoptymalizować swoją wielojęzyczną stronę internetową pod kątem wyszukiwarek i poprawić SEO.
 keywords:

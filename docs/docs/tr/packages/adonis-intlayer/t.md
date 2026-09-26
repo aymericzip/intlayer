@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: t Fonksiyonu Belgeleri | adonis-intlayer
 description: adonis-intlayer paketi için t fonksiyonunun nasıl kullanılacağını görün
 keywords:

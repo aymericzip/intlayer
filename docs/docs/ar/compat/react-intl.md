@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: الترحيل من React Intl إلى Intlayer
 description: تعرّف على كيفية ترحيل تطبيق React الخاص بك من react-intl إلى Intlayer باستخدام محول التوافق.
 keywords:

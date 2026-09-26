@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 8
 title: Récupération par Fonction
 description: Découvrez comment déclarer et utiliser la récupération par fonction dans votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.
 keywords:

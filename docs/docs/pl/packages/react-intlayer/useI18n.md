@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 5
 title: Dokumentacja hooka useI18n | react-intlayer
 description: Dowiedz się, jak używać hooka useI18n w pakiecie react-intlayer
 keywords:

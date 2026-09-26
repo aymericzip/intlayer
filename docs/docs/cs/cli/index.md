@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 8
 title: CLI - Všechny příkazy Intlayer CLI pro váš vícejazyčný web
 description: Naučte se používat Intlayer CLI pro správu vašeho vícejazyčného webu. Postupujte podle kroků v této online dokumentaci a nastavte svůj projekt během několika minut.
 keywords:

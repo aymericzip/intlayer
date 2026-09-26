@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-05-06
+priority: 5
 title: توثيق هوك useIntlayer | next-intlayer
 description: تعرف على كيفية استخدام هوك useIntlayer لحزمة next-intlayer
 keywords:

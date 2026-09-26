@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: intlayer 中间件文档 | remix-intlayer
 description: 了解如何在 Remix 3 中使用 intlayer 中间件检测语言环境、处理重定向并将 Intlayer 状态注入到请求上下文中。
 keywords:

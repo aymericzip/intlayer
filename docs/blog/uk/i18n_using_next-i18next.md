@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-01
 updatedAt: 2026-05-31
+priority: 9
 title: Як інтернаціоналізувати ваш додаток Next.js за допомогою next-i18next - Повний посібник з перекладу Translate Next.js 16 with next-i18next — App Router Setup
 description: Найкраще рішення для розміру бандлу, SEO, продуктивності & підтримуваності. Зробіть Next.js 16 сайт багатомовним у 2026, переклад LLM, Agent Skills & MCP.
 keywords:

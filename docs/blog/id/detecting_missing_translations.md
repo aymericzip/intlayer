@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Cara Menemukan Terjemahan yang Hilang Sebelum Pengguna Anda Menemukannya"
 description: Terjemahan yang hilang gagal secara diam-diam. Mengapa fallback menyembunyikannya, empat lapisan deteksi yang benar-benar berfungsi, dan cara menggagalkan build pada kunci yang belum diterjemahkan.
 keywords:

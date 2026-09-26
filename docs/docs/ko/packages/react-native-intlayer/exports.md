@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: react-native-intlayer 패키지 문서
 description: Intlayer용 React Native 지원으로, 프로바이더, 훅, 폴리필 및 Metro 구성을 제공합니다.
 keywords:

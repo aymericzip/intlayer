@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentacja hooka useLocale | astro-intlayer
 description: Zobacz, jak używać hooka useLocale w aplikacjach Astro, aby uzyskać dostęp do bieżącej lokalizacji i zarządzać nią.
 keywords:

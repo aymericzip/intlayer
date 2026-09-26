@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Cách xây dựng từ điển?
 description: Tìm hiểu cách xây dựng từ điển.
 keywords:

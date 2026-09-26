@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: Skanuj stronę internetową
 description: Dowiedz się, jak używać polecenia scan w Intlayer CLI, aby zmierzyć rozmiar strony i przeprowadzić audyt zdrowia i18n/SEO dowolnej witryny.
 keywords:

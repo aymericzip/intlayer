@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Documentación del paquete express-intlayer
 description: Middleware de Express para Intlayer, que proporciona funciones de traducción y detección de la configuración regional.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Theo dõi Từ điển
 description: Tìm hiểu cách theo dõi các thay đổi trong các tệp khai báo nội dung của bạn và tự động xây dựng từ điển.
 keywords:

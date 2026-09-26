@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Làm thế nào để tùy chỉnh danh sách ngôn ngữ?
 description: Tìm hiểu cách tùy chỉnh danh sách ngôn ngữ.
 keywords:

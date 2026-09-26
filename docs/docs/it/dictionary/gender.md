@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-07-27
 updatedAt: 2025-07-27
+priority: 8
 title: Contenuto Basato sul Genere
 description: Scopri come utilizzare contenuti basati sul genere in Intlayer per visualizzare dinamicamente contenuti in base al genere. Segui questa documentazione per implementare contenuti specifici per genere in modo efficiente nel tuo progetto.
 keywords:

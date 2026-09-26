@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentasi paket express-intlayer
 description: Middleware Express untuk Intlayer, menyediakan fungsi terjemahan dan deteksi locale.
 keywords:

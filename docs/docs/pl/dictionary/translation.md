@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 8
 title: Tłumaczenie
 description: Dowiedz się, jak deklarować i używać tłumaczeń na swojej wielojęzycznej stronie internetowej. Postępuj zgodnie z krokami w tej dokumentacji online, aby skonfigurować swój projekt w kilka minut.
 keywords:

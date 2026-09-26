@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 8
 title: Declaration of `Per-Locale` Content Declaration in Intlayer
 description: Discover how to declare content per locale in Intlayer. Follow the documentation to understand the different formats and use cases.
 keywords:

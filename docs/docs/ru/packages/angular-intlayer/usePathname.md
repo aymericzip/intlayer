@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Документация хука usePathname | angular-intlayer
 description: Узнайте, как использовать хук usePathname в пакете angular-intlayer
 keywords:

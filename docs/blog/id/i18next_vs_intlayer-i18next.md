@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next vs @intlayer/i18next: API yang Sama, Bundle Berbeda"
 description: "Apa yang berubah ketika aplikasi React atau Next.js tetap menggunakan panggilan i18next, react-i18next, dan next-i18next tetapi menyajikannya melalui adapter @intlayer/i18next. JavaScript per halaman, ukuran komponen, kebocoran, dan hidrasi diukur pada kode yang sama, serta apa yang dipertahankan, diabaikan, dan tidak dapat digantikan oleh adapter."
 keywords:

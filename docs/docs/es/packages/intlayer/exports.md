@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Documentación del paquete intlayer
 description: El paquete núcleo de Intlayer, que proporciona las funciones y tipos base para la internacionalización.
 keywords:

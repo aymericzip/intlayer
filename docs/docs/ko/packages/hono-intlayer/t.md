@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-02
 updatedAt: 2025-06-29
+priority: 5
 title: t 함수 문서 | hono-intlayer
 description: hono-intlayer 패키지의 t 함수 사용법 알아보기
 keywords:

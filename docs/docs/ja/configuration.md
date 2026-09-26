@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2026-08-30
+priority: 8
 title: 設定 (Configuration)
 description: アプリケーションにIntlayerを設定する方法について説明します。ニーズに合わせてIntlayerをカスタマイズするためのさまざまな設定とオプションを理解してください。
 keywords:

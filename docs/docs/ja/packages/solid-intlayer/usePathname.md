@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook ドキュメント | solid-intlayer
 description: solid-intlayer パッケージの usePathname フックの使い方
 keywords:

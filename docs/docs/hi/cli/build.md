@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: शब्दकोश बनाएं
 description: कंटेंट घोषणा फ़ाइलों से अपने Intlayer शब्दकोश बनाने का तरीका सीखें।
 keywords:

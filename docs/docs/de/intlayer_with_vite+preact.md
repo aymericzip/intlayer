@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-09-20
+priority: 9
 title: "Vite + Preact i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Vite + Preact-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:

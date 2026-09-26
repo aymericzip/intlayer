@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Автономна збірка (Standalone Bundle)
 description: Дізнайтеся, як створити автономну JavaScript-збірку для контенту застосунку.
 keywords:

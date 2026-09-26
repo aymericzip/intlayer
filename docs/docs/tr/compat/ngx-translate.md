@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "NGX-Translate'den Intlayer'a Geçiş Yapın"
 description: "Uyumluluk adaptörünü kullanarak Angular uygulamanızı ngx-translate'den Intlayer'a nasıl geçireceğinizi öğrenin."
 keywords:

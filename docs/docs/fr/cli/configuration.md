@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Gérer la Configuration
 description: Apprenez à récupérer et pousser votre configuration Intlayer vers le CMS.
 keywords:

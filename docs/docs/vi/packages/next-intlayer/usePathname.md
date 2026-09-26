@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Tài liệu về Hook usePathname | next-intlayer
 description: Tìm hiểu cách sử dụng hook usePathname cho gói next-intlayer
 keywords:

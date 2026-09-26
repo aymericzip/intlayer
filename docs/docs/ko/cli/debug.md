@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: Intlayer 명령어 디버깅
 description: Intlayer CLI 문제를 디버깅하고 문제를 해결하는 방법을 알아보세요.
 keywords:

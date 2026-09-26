@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "NuxtJS I18n から Intlayer への移行"
 description: "compat アダプターを使用して、Nuxt.js アプリケーションを @nuxtjs/i18n から Intlayer に移行する方法を学びます。"
 keywords:

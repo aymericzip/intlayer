@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: Документация промежуточного ПО intlayer для Hono | hono-intlayer
 description: Узнайте, как использовать промежуточное ПО intlayer для пакета hono-intlayer
 keywords:

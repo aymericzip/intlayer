@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-04
 updatedAt: 2026-05-04
+priority: 8
 title: Liczba mnoga
 description: Dowiedz się, jak deklarować i używać treści w liczbie mnogiej zależnych od języka (opartych na CLDR) w swojej wielojęzycznej witrynie. Postępuj zgodnie z krokami w tej dokumentacji online, aby skonfigurować swój projekt w kilka minut.
 keywords:

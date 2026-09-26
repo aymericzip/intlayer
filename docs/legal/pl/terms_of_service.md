@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 1
 title: Warunki świadczenia usług Intlayer
 description: Dowiedz się, jak Intlayer przetwarza informacje zbierane za pośrednictwem naszej strony internetowej i CMS. Postępuj zgodnie z dokumentacją, aby zrozumieć różne formaty i przypadki użycia.
 keywords:

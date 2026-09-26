@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrasi dari Vue I18n ke Intlayer"
 description: "Pelajari cara migrasi aplikasi Vue Anda dari vue-i18n ke Intlayer menggunakan adapter kompatibilitas."
 keywords:

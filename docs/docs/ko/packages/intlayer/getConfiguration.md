@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-25
+priority: 5
 title: getConfiguration 함수 문서 | intlayer
 description: intlayer 패키지의 getConfiguration 함수 사용법 안내
 keywords:

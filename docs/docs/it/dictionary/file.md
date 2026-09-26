@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
+priority: 8
 title: File
 description: Scopri come incorporare file esterni nel tuo dizionario di contenuti usando la funzione `file`. Questa documentazione spiega come Intlayer collega e gestisce dinamicamente il contenuto dei file.
 keywords:

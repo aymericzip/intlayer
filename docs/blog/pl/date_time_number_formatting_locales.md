@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Formatowanie dat i liczb według lokalizacji za pomocą Intl"
 description: Prawdopodobnie nie potrzebujesz zewnętrznej biblioteki do formatowania. Jak Intl obsługuje daty, liczby, waluty i listy per locale, koszt cache'owania oraz błąd strefy czasowej na produkcji.
 keywords:

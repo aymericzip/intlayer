@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-01
 updatedAt: 2025-10-05
+priority: 8
 title: Kiểm thử nội dung của bạn
 description: Khám phá cách kiểm thử nội dung của bạn với Intlayer.
 keywords:

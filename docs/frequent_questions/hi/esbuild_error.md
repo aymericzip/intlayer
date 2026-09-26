@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: ESBuild त्रुटि
 description: ESBuild त्रुटियों को कैसे ठीक करें, जानें।
 keywords:

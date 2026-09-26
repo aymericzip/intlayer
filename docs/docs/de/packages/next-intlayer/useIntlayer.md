@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-05-06
+priority: 5
 title: useIntlayer Hook Dokumentation | next-intlayer
 description: Siehe, wie der useIntlayer Hook für das next-intlayer Paket verwendet wird
 keywords:

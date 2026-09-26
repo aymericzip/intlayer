@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: t फ़ंक्शन दस्तावेज़ीकरण | adonis-intlayer
 description: adonis-intlayer पैकेज के लिए t फ़ंक्शन का उपयोग करने का तरीका देखें
 keywords:

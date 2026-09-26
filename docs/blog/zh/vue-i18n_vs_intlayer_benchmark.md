@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "vue-i18n vs Intlayer：2026 基准测试"
 description: 在同一个 Vite + Vue 3 应用上测量 vue-i18n 与 Intlayer。库体积、每页 JavaScript、内容泄漏、组件体积以及语言切换的响应速度，并对数字加以解释。
 keywords:

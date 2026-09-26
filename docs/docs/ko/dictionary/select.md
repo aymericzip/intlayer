@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-30
 updatedAt: 2026-07-30
+priority: 8
 title: 선택 기반 콘텐츠
 description: Intlayer에서 선택 기반 콘텐츠를 사용하여 임의의 문자열 값을 기반으로 콘텐츠를 동적으로 표시하는 방법을 알아보세요. 이 문서를 따라 프로젝트에서 스위치(switch) 유사 콘텐츠를 효율적으로 구현하세요.
 keywords:

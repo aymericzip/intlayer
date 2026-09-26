@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-09-21
+priority: 8
 title: Markdown
 description: 了解如何使用 Intlayer 在您的多语言网站中声明和使用 Markdown 内容。按照本在线文档中的步骤将 Markdown 无缝集成到您的项目中。
 keywords:

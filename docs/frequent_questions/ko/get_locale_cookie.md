@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 쿠키 / 헤더에서 로케일을 가져오는 방법
 description: 쿠키 / 헤더에서 로케일을 가져오는 방법을 알아보세요.
 keywords:

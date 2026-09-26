@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: IntlayerProvider コンポーネントのドキュメント | solid-intlayer
 description: solid-intlayer パッケージの IntlayerProvider コンポーネントの使い方を見る
 keywords:

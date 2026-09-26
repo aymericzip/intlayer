@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useLocale Hook Dokümantasyonu | astro-intlayer
 description: Geçerli yerel ayara erişmek ve bunu yönetmek için Astro uygulamalarında useLocale hook'unun nasıl kullanılacağını görün.
 keywords:

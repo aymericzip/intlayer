@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: Документация плагина intlayer для Elysia | elysia-intlayer
 description: Узнайте, как использовать плагин intlayer из пакета elysia-intlayer
 keywords:

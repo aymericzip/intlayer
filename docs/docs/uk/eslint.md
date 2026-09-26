@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: Плагін ESLint | Правила лінтингу для Intlayer
 description: Знаходьте жорстко закодовані рядки, динамічні виклики, які компілятор Intlayer не може оптимізувати, та невикористаний вміст словників за допомогою eslint-plugin-intlayer. Працює з ESLint та oxlint для React, Vue, Svelte, Angular та Astro.
 keywords:

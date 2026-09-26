@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
+priority: 8
 title: 如何使用 Intlayer 自动化您的 react-intl JSON 翻译
 description: 使用 Intlayer 和 react-intl 自动化您的 JSON 翻译，提升 React 应用的国际化体验。
 keywords:

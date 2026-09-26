@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-06
+priority: 10
 title: 簡介
 description: 了解 Intlayer 的工作原理。查看 Intlayer 在您的應用程式中使用的步驟。了解不同的套件各自的功能。
 keywords:

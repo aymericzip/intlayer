@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-30
 updatedAt: 2026-09-21
+priority: 8
 title: Intlayer のセルフホスティング
 description: "独自のインフラストラクチャ上で Intlayer を実行します: デスクトップアプリ、単一のオールインワン Docker コンテナ、またはスケーラブルな Docker Compose スタック。Intlayer Cloud アカウントは不要です。"
 keywords:

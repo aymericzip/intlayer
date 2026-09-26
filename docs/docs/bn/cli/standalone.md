@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: স্ট্যান্ডঅলোন বান্ডল (Standalone Bundle)
 description: অ্যাপ্লিকেশন বিষয়বস্তুর একটি স্ট্যান্ডঅলোন JavaScript বান্ডল কীভাবে তৈরি করবেন তা শিখুন।
 keywords:

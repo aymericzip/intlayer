@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useDictionary 钩子文档 | astro-intlayer
 description: 了解如何在 Astro 组件和脚本中使用 useDictionary 钩子解析字典对象。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-24
+priority: 9
 title: "Elysia i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "i18next artık değil. 2026 kılavuzu: çok dilli (i18n) Elysia uygulaması oluşturma. AI ajanlarıyla çeviri yapın ve bundle boyutunu, SEO'yu ve performansı optimize edin."
 keywords:

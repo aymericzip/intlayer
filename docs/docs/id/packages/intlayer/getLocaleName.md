@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 5
 title: Dokumentasi Fungsi getLocaleName | intlayer
 description: Lihat cara menggunakan fungsi getLocaleName untuk paket intlayer
 keywords:

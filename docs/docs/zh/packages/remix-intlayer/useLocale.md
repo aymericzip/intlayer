@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useLocale 钩子文档 | remix-intlayer
 description: 了解如何在 Remix 3 应用程序中使用 useLocale 钩子获取当前请求语言环境、默认语言环境和可用语言环境。
 keywords:

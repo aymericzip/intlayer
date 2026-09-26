@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: توثيق حزمة intlayer
 description: الحزمة الأساسية لـ Intlayer، التي توفر الدوال والأنواع الأساسية للتدويل.
 keywords:

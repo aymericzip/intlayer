@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: Tài liệu Tích hợp intlayer | astro-intlayer
 description: Xem cách cấu hình và sử dụng tích hợp Astro intlayer trong tệp astro.config.mjs.
 keywords:

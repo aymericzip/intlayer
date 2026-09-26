@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 5
 title: Хук useDictionary - Документация React Intlayer
 description: Полное руководство по использованию хука useDictionary в React-приложениях с Intlayer для эффективной работы с локализованным контентом без визуального редактора.
 keywords:

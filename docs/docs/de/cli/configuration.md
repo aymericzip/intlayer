@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Konfiguration verwalten
 description: Erfahren Sie, wie Sie Ihre Intlayer-Konfiguration abrufen und in das CMS hochladen.
 keywords:

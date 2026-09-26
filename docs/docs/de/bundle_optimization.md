@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-25
 updatedAt: 2026-09-16
+priority: 8
 title: Optimierung der i18n-Bundle-Größe & Leistung
 description: Reduzieren Sie die Bundle-Größe Ihrer Anwendung, indem Sie den Inhalt der Internationalisierung (i18n) optimieren. Erfahren Sie, wie Sie Tree Shaking und Lazy Loading für Wörterbücher mit Intlayer nutzen.
 keywords:

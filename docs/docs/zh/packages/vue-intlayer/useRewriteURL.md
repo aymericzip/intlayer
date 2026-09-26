@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: useRewriteURL Composable 文档
 description: 适用于 Intlayer 的 Vue 专用 composable，用于管理本地化 URL 重写。

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2026-09-16
+priority: 9
 title: react-i18next مقابل react-intl مقابل Intlayer
 description: دمج react-i18next مع next-intl و Intlayer للتدويل (i18n) في تطبيق React
 keywords:

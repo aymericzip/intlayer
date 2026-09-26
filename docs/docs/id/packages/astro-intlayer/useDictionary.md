@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentasi Hook useDictionary | astro-intlayer
 description: Pelajari cara menggunakan hook useDictionary dalam komponen dan skrip Astro untuk menyelesaikan objek kamus.
 keywords:

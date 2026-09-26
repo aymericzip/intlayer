@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next vs Intlayer: 2026 벤치마크 및 비교"
 description: "Next.js 및 TanStack Start 환경에서 react-i18next와 next-i18next를 Intlayer와 비교 측정한 결과. 번들 크기, 콘텐츠 누출, 로케일 전환 반응성 및 개발자 경험 분석."
 keywords:

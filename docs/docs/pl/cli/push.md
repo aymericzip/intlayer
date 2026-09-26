@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Wysyłanie słowników
 description: Dowiedz się, jak wysyłać swoje słowniki do edytora Intlayer i CMS.
 keywords:

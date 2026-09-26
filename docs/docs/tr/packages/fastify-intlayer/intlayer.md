@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer Fastify Eklenti Dokümantasyonu | fastify-intlayer
 description: fastify-intlayer paketi için intlayer eklentisinin nasıl kullanılacağını öğrenin
 keywords:

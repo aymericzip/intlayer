@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Я получаю ошибку, связанную с суб-пакетами `@intlayer/*`
 description: Исправление ошибки, связанной с суб-пакетами `@intlayer/*`.
 keywords:

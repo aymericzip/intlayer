@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "从 Svelte I18n 迁移到 Intlayer"
 description: "了解如何使用兼容适配器将您的 Svelte 应用程序从 svelte-i18n 迁移到 Intlayer。"
 keywords:

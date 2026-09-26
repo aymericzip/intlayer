@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-09-21
+priority: 10
 title: "Astro i18n - Guía completa para traducir tu aplicación"
 description: "Sin más i18next. La guía 2026 para crear una aplicación Astro multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:

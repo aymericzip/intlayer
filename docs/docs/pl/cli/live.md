@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Polecenia Live Sync
 description: Dowiedz się, jak używać Live Sync do odzwierciedlania zmian treści CMS w czasie rzeczywistym.
 keywords:

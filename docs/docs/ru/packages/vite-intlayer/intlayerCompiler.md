@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Документация плагина Vite intlayerCompiler | vite-intlayer
 description: Плагин Vite, который извлекает встроенные объявления контента Intlayer из файлов компонентов и записывает их в файлы JSON словаря во время сборки/трансформации.
 keywords:

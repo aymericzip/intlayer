@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: getTranslation 関数ドキュメント | intlayer
 description: intlayer パッケージの getTranslation 関数の使い方を説明します
 keywords:

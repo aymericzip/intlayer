@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-07-08
+priority: 8
 title: Intlayer CMS | Eksternalisasi konten Anda ke Intlayer CMS
 description: Eksternalisasi konten Anda ke Intlayer CMS untuk mendelegasikan pengelolaan konten kepada tim Anda.
 keywords:

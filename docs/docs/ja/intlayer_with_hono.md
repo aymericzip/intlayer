@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-08-30
+priority: 9
 title: "Hono i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Honoアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Can I use an array as a content declaration?
 description: Learn how to use an array as a content declaration.
 keywords:

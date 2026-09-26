@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Intlayer Compat Adapters"
 description: "अपने मौजूदा i18n समाधान को Intlayer में compat adapters का उपयोग करके बिना किसी घर्षण के माइग्रेट करें।"
 keywords:

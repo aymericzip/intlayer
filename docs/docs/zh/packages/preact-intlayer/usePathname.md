@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook 文档 | preact-intlayer
 description: 了解如何使用 preact-intlayer 包中的 usePathname 钩子
 keywords:

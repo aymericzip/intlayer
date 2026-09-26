@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: URLから取得したロケールが誤っている
 description: URLから取得した誤ったロケールを修正する方法を学びます。
 keywords:

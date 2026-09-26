@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
+priority: 4
 title: Kiểu IntlayerNode. Nó là gì?
 description: Kiểu IntlayerNode là gì? Tại sao chuỗi của tôi lại được chuyển đổi thành IntlayerNode&lt;string&gt;?
 keywords:

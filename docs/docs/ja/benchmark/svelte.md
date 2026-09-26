@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: 2026年 Svelte向けの最高のi18nソリューション - ベンチマークレポート
 description: svelte-i18n、Paraglide、Tolgee、IntlayerなどのSvelte国際化（i18n）ライブラリを比較します。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
 keywords:

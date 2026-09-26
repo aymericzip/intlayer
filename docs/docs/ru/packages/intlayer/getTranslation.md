@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 5
 title: Документация функции getTranslation | intlayer
 description: Узнайте, как использовать функцию getTranslation для пакета intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-16
 updatedAt: 2025-11-16
+priority: 5
 title: Tài liệu hàm getPrefix | intlayer
 description: Xem cách sử dụng hàm getPrefix cho gói intlayer
 keywords:

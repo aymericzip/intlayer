@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu gói preact-intlayer
 description: Tích hợp chuyên biệt cho Preact với Intlayer, cung cấp các providers và hooks cho các ứng dụng Preact.
 keywords:

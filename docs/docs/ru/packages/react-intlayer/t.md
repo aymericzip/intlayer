@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 5
 title: Документация функции t | react-intlayer
 description: Узнайте, как использовать функцию t в пакете react-intlayer
 keywords:

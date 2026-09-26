@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-08-30
+priority: 8
 title: Intlayer CMS | Intlayer CMS에 콘텐츠 외부화하기
 description: 콘텐츠 관리를 팀에 위임하기 위해 Intlayer CMS에 콘텐츠를 외부화하세요.
 keywords:

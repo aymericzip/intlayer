@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-09-30
+priority: 8
 title: جعل المكون متعدد اللغات (مكتبة i18n) في React و Next.js
 description: تعلم كيفية إعلان واسترجاع المحتوى المحلي لبناء مكون React أو Next.js متعدد اللغات باستخدام Intlayer.
 keywords:

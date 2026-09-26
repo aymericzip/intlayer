@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: Verschachtelung des Wörterbuchs
 description: Erfahren Sie, wie Sie die Inhaltsverschachtelung in Intlayer nutzen können, um Ihre mehrsprachigen Inhalte effizient wiederzuverwenden und zu strukturieren. Folgen Sie dieser Dokumentation, um die Verschachtelung nahtlos in Ihr Projekt zu integrieren.
 keywords:

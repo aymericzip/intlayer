@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-22
 updatedAt: 2026-01-22
+priority: 5
 title: "توثيق الدالة getCanonicalPath | intlayer"
 description: "اطّلع على كيفية استخدام الدالة getCanonicalPath لحزمة intlayer"
 keywords:

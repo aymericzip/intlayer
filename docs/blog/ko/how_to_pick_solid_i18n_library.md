@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "2026년 올바른 Solid i18n 라이브러리를 선택하는 방법"
 description: SolidJS 및 SolidStart 국제화를 위한 결정 가이드. @solid-primitives/i18n, solid-i18next, Paraglide, Lingui, Intlayer를 비교하기 전에 답해야 할 질문들과 각 선택이 반응성(reactivity), 번들 크기 및 타입 정의에 미치는 영향을 알아봅니다.
 keywords:

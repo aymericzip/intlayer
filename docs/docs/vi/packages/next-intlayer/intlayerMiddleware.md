@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-02-25
+priority: 5
 title: Tài liệu intlayerMiddleware | next-intlayer
 description: Xem cách sử dụng hàm intlayerMiddleware cho gói next-intlayer
 keywords:

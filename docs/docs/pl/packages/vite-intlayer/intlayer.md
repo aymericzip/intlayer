@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentacja wtyczki Vite intlayer | vite-intlayer
 description: Zobacz, jak używać wtyczki intlayer dla pakietu vite-intlayer
 keywords:

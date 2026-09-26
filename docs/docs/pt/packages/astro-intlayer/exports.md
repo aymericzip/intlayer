@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: Documentação do pacote astro-intlayer
 description: Integração Astro para Intlayer, fornecendo configuração para roteamento baseado em locale, middleware, hooks, store de cliente e gestão de dicionários.
 keywords:

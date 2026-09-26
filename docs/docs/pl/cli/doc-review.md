@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Przegląd dokumentu
 description: Dowiedz się, jak przeglądać pliki dokumentacji pod kątem jakości, spójności i kompletności w różnych lokalizacjach.
 keywords:

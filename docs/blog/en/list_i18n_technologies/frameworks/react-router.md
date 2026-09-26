@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 7
 title: React Router i18n - locale routes that get indexed
 description: How to add locale-prefixed routes in React Router v7, why the answer differs between framework mode and SPA mode, and how to avoid hydration mismatches.
 keywords:

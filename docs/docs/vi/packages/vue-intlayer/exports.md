@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu gói vue-intlayer
 description: Tích hợp dành riêng cho Vue cho Intlayer, cung cấp plugin và composable cho các ứng dụng Vue.
 keywords:

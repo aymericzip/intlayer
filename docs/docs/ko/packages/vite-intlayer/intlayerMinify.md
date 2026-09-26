@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerMinify Vite 플러그인 문서 | vite-intlayer
 description: 컴파일된 Intlayer 사전 JSON 파일을 압축(Minify)하고, 필요에 따라 콘텐츠 필드 이름을 난독화하여 번들 크기를 줄이는 Vite 플러그인입니다.
 keywords:

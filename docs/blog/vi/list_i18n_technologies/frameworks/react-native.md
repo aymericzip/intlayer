@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-05-31
+priority: 7
 title: "Công Cụ Quốc Tế Hóa (i18n) Tốt Nhất cho React Native - Hướng dẫn đầy đủ để dịch React Native i18n 2026: Best Tools for Expo & TypeScript"
 description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho React Native ứng dụng di động của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
 keywords:

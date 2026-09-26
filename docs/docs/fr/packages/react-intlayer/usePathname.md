@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Documentation du Hook usePathname | react-intlayer
 description: Apprenez à utiliser le hook usePathname du package react-intlayer pour obtenir le chemin (pathname) de l'URL actuelle sans le segment de langue.
 keywords:

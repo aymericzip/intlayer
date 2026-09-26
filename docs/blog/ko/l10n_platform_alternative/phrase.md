@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Phrase용 L10n 플랫폼 대안
 description: 귀하의 필요에 맞는 Phrase의 최적 L10n 플랫폼 대안을 찾아보세요
 keywords:

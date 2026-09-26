@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-12
+priority: 8
 title: Bộ Sưu Tập
 description: Sử dụng trường siêu dữ liệu item trong các tệp nội dung Intlayer để xây dựng các bộ sưu tập có thứ tự gồm các mục được bản địa hóa có thể chọn theo chỉ mục ở runtime.
 keywords:

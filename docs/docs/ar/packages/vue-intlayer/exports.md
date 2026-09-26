@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: وثائق حزمة vue-intlayer
 description: تكامل مخصص لـ Vue مع Intlayer، يوفر مكوّنات إضافية (plugins) وcomposables لتطبيقات Vue.
 keywords:

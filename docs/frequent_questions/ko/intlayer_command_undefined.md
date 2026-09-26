@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Intlayer 명령어 정의되지 않음
 description: intlayer 명령어 정의되지 않음 오류를 해결하는 방법을 알아보세요.
 keywords:
@@ -141,7 +142,7 @@ npm --version
     구버전을 사용 중이라면 Node.js와 npm을 업데이트하는 것을 고려하세요.
 
 11. **권한 문제 확인하기**  
-    권한 오류가 발생하는 경우:
+권한 오류가 발생하는 경우:
 
 ```bash
 # 유닉스 기반 시스템용

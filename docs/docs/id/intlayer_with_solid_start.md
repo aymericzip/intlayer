@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-06
 updatedAt: 2026-09-20
+priority: 9
 title: "Solid Start i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi SolidStart multibahasa (i18n). Pengarahan lokal yang dirender server, hreflang, peta situs, dan terjemahan dibantu AI."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Extraer Diccionarios
 description: Aprende cómo extraer diccionarios desde el editor y CMS de Intlayer.
 keywords:

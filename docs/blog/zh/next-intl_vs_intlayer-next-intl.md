@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl vs @intlayer/next-intl: 相同的 API，不同的 Bundle"
 description: 当 Next.js 应用程序的 next-intl 导入由 @intlayer/next-intl 兼容适配器提供时会发生什么。在相同代码上测量的 Bundle 大小、泄漏、组件大小和水合，以及适配器保留、忽略和无法替换的内容。
 keywords:

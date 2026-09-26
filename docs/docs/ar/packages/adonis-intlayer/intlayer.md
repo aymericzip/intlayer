@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: توثيق وسيط intlayer لـ AdonisJS | adonis-intlayer
 description: تعرف على كيفية استخدام وسيط intlayer لحزمة adonis-intlayer
 keywords:

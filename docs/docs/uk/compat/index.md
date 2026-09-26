@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Адаптери сумісності Intlayer"
 description: "Мігруйте своє існуюче рішення i18n на Intlayer без зусиль, використовуючи адаптери сумісності."
 keywords:

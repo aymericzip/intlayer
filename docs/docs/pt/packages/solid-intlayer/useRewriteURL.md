@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: Documentação do Hook useRewriteURL
 description: Hook específico para Solid para gerenciar reescritas de URL localizadas no Intlayer.

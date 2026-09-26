@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Intlayer संदर्भ प्रलेखन | remix-intlayer
 description: Remix 3 एप्लिकेशनों में Intlayer अनुरोध संदर्भ संग्रहण कुंजी का प्रलेखन।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: Отладка команды Intlayer
 description: Узнайте, как отлаживать и устранять проблемы с Intlayer CLI.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 독립 실행형 번들 (Standalone Bundle)
 description: 애플리케이션 콘텐츠의 독립 실행형 JavaScript 번들을 만드는 방법을 알아봅니다.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "Lingui vs @intlayer/lingui: Cùng Macro, Khác Runtime"
 description: "Điều gì thay đổi khi một ứng dụng React giữ nguyên các macro Lingui nhưng phân phối chúng qua adapter tương thích @intlayer/lingui. Kích thước component, hydration, rò rỉ và lượng JavaScript trên mỗi trang được đo lường trên cùng một mã nguồn TanStack Start, bao gồm cả những điểm adapter còn hạn chế."
 keywords:

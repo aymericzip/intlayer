@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: توثيق مكوّن intlayer لـ Fastify | fastify-intlayer
 description: اطلع على كيفية استخدام مكوّن intlayer لحزمة fastify-intlayer
 keywords:

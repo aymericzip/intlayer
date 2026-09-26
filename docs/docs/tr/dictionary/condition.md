@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 8
 title: Koşullu İçerik
 description: Intlayer'da koşullu içeriği kullanarak belirli koşullara göre içeriği dinamik olarak nasıl görüntüleyeceğinizi öğrenin. Bu dokümantasyonu takip ederek projenizde koşulları verimli bir şekilde uygulayın.
 keywords:

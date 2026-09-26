@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Übersetzungen testen ohne fragile Tests zu schreiben"
 description: Was es sich in einer i18n-App zu testen lohnt und was nicht. Provider-basiertes Rendering, Pseudolokalisierung, RTL- und Pluralabdeckung und die Snapshot-Falle.
 keywords:

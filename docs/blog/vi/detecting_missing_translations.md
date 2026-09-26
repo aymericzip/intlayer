@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Cách phát hiện các bản dịch còn thiếu trước khi người dùng nhìn thấy"
 description: Các bản dịch còn thiếu thường lỗi trong im lặng. Tại sao fallback lại che giấu chúng, bốn tầng phát hiện thực sự hiệu quả và cách làm fail một bản build khi có key chưa được dịch.
 keywords:

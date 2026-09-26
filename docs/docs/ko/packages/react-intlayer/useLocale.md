@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: useLocale 훅 문서 | react-intlayer
 description: react-intlayer 패키지의 useLocale 훅 사용법을 확인하세요
 keywords:

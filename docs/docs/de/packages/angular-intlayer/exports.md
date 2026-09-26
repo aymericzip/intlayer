@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: angular-intlayer Paketdokumentation
 description: Angular-spezifische Integration für Intlayer, stellt Provider und Services für Angular-Anwendungen bereit.
 keywords:

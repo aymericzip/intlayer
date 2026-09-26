@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
+priority: 8
 title: Budowanie asystenta dokumentacji opartego na RAG (dzielenie na fragmenty, osadzenia i wyszukiwanie)
 description: Budowanie asystenta dokumentacji opartego na RAG (dzielenie na fragmenty, osadzenia i wyszukiwanie)
 keywords:

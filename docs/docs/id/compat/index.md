@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Adapter Kompatibilitas Intlayer"
 description: "Migrasikan solusi i18n Anda yang sudah ada ke Intlayer tanpa hambatan menggunakan adapter kompatibilitas."
 keywords:

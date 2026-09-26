@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: Website scannen
 description: Erfahren Sie, wie Sie den Intlayer-CLI-Scanbefehl verwenden, um die Seitengröße zu messen und die i18n/SEO-Gesundheit einer beliebigen Website zu überprüfen.
 keywords:

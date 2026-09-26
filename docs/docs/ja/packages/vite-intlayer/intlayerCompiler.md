@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerCompiler Viteプラグインドキュメント | vite-intlayer
 description: コンポーネントファイルからインラインのIntlayerコンテンツ宣言を抽出し、ビルド/変換時に辞書JSONファイルに書き込むViteプラグイン。
 keywords:

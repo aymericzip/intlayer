@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "i18next से Intlayer में माइग्रेट करें"
 description: "Learn how to migrate your Vanilla JS/TS application from i18next to Intlayer using the compat adapter."
 keywords:

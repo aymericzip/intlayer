@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: وثائق حزمة fastify-intlayer
 description: مُكون إضافي لـ Fastify لـ Intlayer يوفر دوال ترجمة واكتشاف اللغة.
 keywords:

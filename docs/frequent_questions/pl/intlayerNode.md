@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
+priority: 4
 title: Typ IntlayerNode. Co to jest?
 description: Czym jest typ IntlayerNode? Dlaczego mój ciąg znaków jest przekształcany w IntlayerNode&lt;string&gt;?
 keywords:

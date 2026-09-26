@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-25
 updatedAt: 2026-09-16
+priority: 8
 title: Optimización del tamaño y rendimiento del paquete i18n
 description: Reduce el tamaño del paquete de tu aplicación optimizando el contenido de internacionalización (i18n). Aprende cómo aprovechar el tree shaking y el lazy loading para diccionarios con Intlayer.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: "@intlayer/babel पैकेज दस्तावेज़"
 description: बिल्ड के दौरान सामग्री निष्कर्षण, आयात अनुकूलन, अप्रयुक्त फ़ील्ड को हटाने और फ़ील्ड नामों को विकृत (mangle) करने के लिए Intlayer हेतु Babel प्लगइन्स।
 keywords:

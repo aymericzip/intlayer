@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: svelte-intlayer पैकेज दस्तावेज़ीकरण
 description: Intlayer के लिए Svelte-विशिष्ट एकीकरण, जो Svelte एप्लिकेशनों के लिए setup फ़ंक्शंस और stores प्रदान करता है।
 keywords:

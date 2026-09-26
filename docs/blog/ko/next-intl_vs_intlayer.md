@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl vs Intlayer: 2026 벤치마크 및 비교"
 description: "Next.js App Router와 TanStack Start에서 next-intl과 Intlayer를 비교 측정했습니다. 번들 크기, 콘텐츠 누출, 컴포넌트 크기, 하이드레이션, 로케일 전환 속도 및 개발자 경험."
 keywords:

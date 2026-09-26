@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Tester les traductions manquantes
 description: Apprenez à tester et identifier les traductions manquantes dans vos dictionnaires.
 keywords:

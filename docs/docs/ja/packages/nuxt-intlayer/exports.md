@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: nuxt-intlayer パッケージドキュメント
 description: Intlayer の Nuxt 統合。Nuxt アプリ向けのモジュールを提供します。
 keywords:

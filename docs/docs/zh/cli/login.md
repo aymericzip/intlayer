@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-16
 updatedAt: 2026-09-12
+priority: 5
 title: CLI - 登录
 description: 了解如何使用 Intlayer CLI 的 login 命令与 Intlayer CMS 进行身份验证并获取访问凭证。
 keywords:

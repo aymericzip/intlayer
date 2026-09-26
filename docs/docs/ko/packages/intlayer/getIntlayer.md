@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: getIntlayer 함수 문서 | intlayer
 description: intlayer 패키지를 위한 getIntlayer 함수 사용 방법을 알아봅니다
 keywords:

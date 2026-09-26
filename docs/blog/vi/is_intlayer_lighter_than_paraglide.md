@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 8
 title: Intlayer có nhẹ hơn Paraglide không?
 description: Paraglide trông gần như miễn phí trong các bài kiểm chuẩn i18n vì mã nguồn của nó được tạo trực tiếp vào kho lưu trữ của bạn. Cùng tìm hiểu xem dung lượng đó thực sự đi đâu, tại sao việc đọc locale trên từng nút lại gây tốn tài nguyên và cách tải động của Intlayer chỉ gửi một ngôn ngữ thay vì tất cả.
 keywords:

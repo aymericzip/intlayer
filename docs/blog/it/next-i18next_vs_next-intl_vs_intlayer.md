@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-16
+priority: 9
 title: "next-i18next vs next-intl vs Intlayer - Guida completa per tradurre next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Next.js sito web multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
 keywords:

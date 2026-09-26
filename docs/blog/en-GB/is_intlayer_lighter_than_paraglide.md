@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 8
 title: Is Intlayer Lighter than Paraglide?
 description: Paraglide looks almost free in i18n benchmarks because its code is generated into your repo. Here is where that weight actually goes, why per-node locale reads cost you, and how Intlayer's dynamic loading ships one locale instead of all of them.
 keywords:

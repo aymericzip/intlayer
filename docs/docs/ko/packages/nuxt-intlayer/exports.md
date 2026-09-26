@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: nuxt-intlayer 패키지 문서
 description: Nuxt 애플리케이션에 Intlayer를 통합하기 위한 모듈을 제공합니다.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "next-intlからIntlayerへの移行 | 国際化 (i18n)"
 description: "Next.jsアプリケーションをnext-intlからIntlayerに移行する方法を学びます — 既存のコードを壊すことなく、ステップバイステップで解説します。シームレスな移行のために@intlayer/next-intl互換性アダプターを使用してください。"
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2026-05-31
+priority: 7
 title: "next-i18next i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）next-i18nextアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:

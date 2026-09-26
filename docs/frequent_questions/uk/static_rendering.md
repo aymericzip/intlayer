@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Статичний vs динамічний рендеринг з i18n у Next.js
 description: Дізнайтеся, як використовувати статичний та динамічний рендеринг з i18n у Next.js.
 keywords:

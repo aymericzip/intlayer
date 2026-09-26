@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: preact-intlayer 包文档
 description: 用于 Preact 的 Intlayer 集成，为 Preact 应用提供 providers 和 hooks。
 keywords:

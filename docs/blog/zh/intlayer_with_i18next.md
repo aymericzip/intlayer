@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-11-01
+priority: 8
 title: 如何使用 Intlayer 自动化您的 i18next JSON 翻译
 description: 使用 Intlayer 和 i18next 自动化您的 JSON 翻译，提升 JavaScript 应用程序的国际化水平。
 keywords:

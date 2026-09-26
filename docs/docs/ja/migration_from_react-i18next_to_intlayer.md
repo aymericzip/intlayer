@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "react-i18next / i18nextからIntlayerへの移行 | 国際化 (i18n)"
 description: "ReactまたはNext.jsアプリケーションをreact-i18nextまたはi18nextからIntlayerに移行する方法を学びます — 既存のコードを壊すことなく、ステップバイステップで解説します。シームレスな移行のために@intlayer/react-i18nextおよび@intlayer/i18next互換性アダプターを使用してください。"
 keywords:

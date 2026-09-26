@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Manage Configuration
 description: Learn how to get and push your Intlayer configuration to the CMS.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "Migrando de i18next para Intlayer | Internacionalização (i18n)"
 description: "Aprenda como migrar sua aplicação JavaScript/TypeScript de i18next para Intlayer — passo a passo, sem quebrar seu código existente. Use o adaptador de compatibilidade @intlayer/i18next para uma transição perfeita."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-31
+priority: 6
 title: "Storybook i18n - Guía completa para traducir tu aplicación"
 description: "Sin más i18next. La guía 2026 para crear una aplicación Storybook multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: Controllare la versione della CLI
 description: Scopri come verificare la versione della CLI Intlayer installata.
 keywords:

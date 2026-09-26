@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-21
 updatedAt: 2026-09-21
+priority: 5
 title: CLI - Init Infra
 description: Masaüstü uygulamasını yüklemek veya Intlayer CMS'yi Docker (hepsi bir arada kapsayıcı veya Docker Compose yığını) ile kendi sunucunuzda barındırmak için Intlayer CLI init infra komutunun nasıl kullanılacağını öğrenin.
 keywords:

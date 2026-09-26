@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Миграция с NGX-Translate на Intlayer"
 description: "Узнайте, как перенести ваше приложение Angular с ngx-translate на Intlayer, используя адаптер совместимости."
 keywords:

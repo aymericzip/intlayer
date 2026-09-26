@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "i18n-js'den Intlayer'a Geçiş Yapın"
 description: "Uyumluluk adaptörünü kullanarak uygulamanızı i18n-js'den Intlayer'a nasıl geçireceğinizi öğrenin."
 keywords:

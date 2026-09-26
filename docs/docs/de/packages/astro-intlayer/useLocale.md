@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useLocale Hook Dokumentation | astro-intlayer
 description: Erfahren Sie, wie Sie den useLocale Hook in Astro-Anwendungen verwenden, um auf das aktuelle Locale zuzugreifen und es zu verwalten.
 keywords:

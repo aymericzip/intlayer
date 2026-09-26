@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Bundle Standalone
 description: Aprenda a criar um bundle JavaScript autónomo do conteúdo da aplicação.
 keywords:

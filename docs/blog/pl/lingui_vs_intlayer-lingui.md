@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "Lingui vs @intlayer/lingui: Te same makra, inny runtime"
 description: "Co się zmienia, gdy aplikacja React zachowuje swoje makra Lingui, ale serwuje je przez adapter kompatybilności @intlayer/lingui. Rozmiar komponentów, hydratacja, wycieki i ilość JavaScriptu na stronę zmierzone na tym samym kodzie TanStack Start, w tym obszary, w których adapter ustępuje."
 keywords:

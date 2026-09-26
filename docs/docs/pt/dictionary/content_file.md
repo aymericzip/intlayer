@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-07-30
+priority: 8
 title: Arquivo de Conteúdo
 description: Aprenda como personalizar as extensões para seus arquivos de declaração de conteúdo. Siga esta documentação para implementar condições de forma eficiente em seu projeto.
 keywords:

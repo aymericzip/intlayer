@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-10-29
+priority: 8
 title: إنتلاير و next-i18next
 description: دمج إنتلاير مع next-i18next لحل شامل للتدويل في Next.js
 keywords:

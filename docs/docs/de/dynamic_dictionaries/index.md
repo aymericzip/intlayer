@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-26
+priority: 8
 title: Dynamische Wörterbücher
 description: Überblick über die Funktionen für dynamische Wörterbücher von Intlayer — Sammlungen und Varianten — zum Erstellen flexibler, zur Laufzeit gesteuerter i18n-Inhalte.
 keywords:

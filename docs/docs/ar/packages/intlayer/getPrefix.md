@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-16
 updatedAt: 2025-11-16
+priority: 5
 title: توثيق دالة getPrefix | intlayer
 description: تعرف على كيفية استخدام دالة getPrefix لحزمة intlayer
 keywords:

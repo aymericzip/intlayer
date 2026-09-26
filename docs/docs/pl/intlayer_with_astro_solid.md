@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-09-21
+priority: 9
 title: "Astro + Solid i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Astro + Solid. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:

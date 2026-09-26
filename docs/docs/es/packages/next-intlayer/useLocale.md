@@ -17,6 +17,7 @@ slugs:
 description: Documentation for the useLocale hook in the next-intlayer package
 createdAt: 2024-08-11
 updatedAt: 2026-01-26
+priority: 5
 title: Documentación del Hook useLocale | next-intlayer
 history:
   - version: 8.0.0

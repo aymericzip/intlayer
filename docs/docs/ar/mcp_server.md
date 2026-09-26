@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-21
+priority: 6
 title: توثيق خادم MCP
 description: استكشف ميزات وإعداد خادم MCP لتحسين إدارة وتشغيل الخادم الخاص بك.
 keywords:

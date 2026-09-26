@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Samodzielny Pakiet (Standalone Bundle)
 description: Dowiedz się, jak utworzyć samodzielny pakiet JavaScript z treściami aplikacji.
 keywords:

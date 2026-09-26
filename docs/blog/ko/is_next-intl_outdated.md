@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: 2026년에도 next-intl을 계속 써야 할까요?
 description: next-intl은 Next.js App Router의 표준으로 자리잡았습니다. 하지만 런타임 번들 오버헤드와 수동 네임스페이스 관리라는 부담은 여전히 남아 있습니다.
 keywords:

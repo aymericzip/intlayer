@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 8
 title: Intlayer 比 Paraglide 更轻量吗？
 description: Paraglide 在 i18n 基准测试中看起来几乎没有开销，因为其代码是直接生成到你的代码库中的。本文将深入分析其实际体积去了哪里、为什么按节点读取语言会带来性能损耗，以及 Intlayer 的动态加载如何做到仅下发单一语言而非全量语言包。
 keywords:

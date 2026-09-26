@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Terjemahkan Dokumen
 description: Pelajari cara menerjemahkan file dokumentasi secara otomatis menggunakan layanan terjemahan AI.
 keywords:

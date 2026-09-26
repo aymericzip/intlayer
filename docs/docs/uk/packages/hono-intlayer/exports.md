@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: Документація пакета hono-intlayer
 description: Проміжне ПЗ Hono для Intlayer, що надає функції перекладу та виявлення локалі.
 keywords:

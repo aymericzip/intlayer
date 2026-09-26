@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-02
 updatedAt: 2025-06-29
+priority: 5
 title: Documentazione della funzione t | express-intlayer
 description: Scopri come utilizzare la funzione t per il pacchetto express-intlayer
 keywords:

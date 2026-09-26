@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Revisar Documento
 description: Aprende cómo revisar archivos de documentación para calidad, consistencia y completitud en diferentes locales.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: solid-intlayer 包文档
 description: Intlayer 在 Solid 上的集成，提供用于 Solid 应用的 providers 和 hooks。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-11-06
+priority: 8
 title: Intlayer та vue-i18n
 description: Інтеграція Intlayer з vue-i18n для комплексного рішення інтернаціоналізації Vue.js
 keywords:

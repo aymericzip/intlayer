@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: react-native-intlayer Paket Dokümantasyonu
 description: Intlayer için React Native desteği, provider'lar, hook'lar, polyfill'ler ve Metro yapılandırması sağlar.
 keywords:

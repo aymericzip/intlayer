@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2026-08-30
+priority: 9
 title: "Next.js 14 i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Next.js 14. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:

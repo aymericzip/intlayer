@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-05-06
+priority: 5
 title: useIntlayer Hook 文档 | next-intlayer
 description: 查看如何使用 next-intlayer 包中的 useIntlayer hook
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: توثيق مكوّن Vite الخاص بـ intlayer | vite-intlayer
 description: اطلع على كيفية استخدام مكوّن intlayer لحزمة vite-intlayer
 keywords:

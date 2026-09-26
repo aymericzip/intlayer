@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-09-08
+priority: 8
 title: Trình Biên Dịch Intlayer | Trích Xuất Nội Dung Tự Động cho i18n
 description: Tự động hóa quy trình quốc tế hóa của bạn với Trình Biên Dịch Intlayer. Trích xuất nội dung trực tiếp từ các component để i18n nhanh hơn và hiệu quả hơn trong Vite, Next.js và nhiều hơn nữa.
 keywords:

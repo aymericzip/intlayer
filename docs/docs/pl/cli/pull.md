@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Pobieranie słowników
 description: Dowiedz się, jak pobierać słowniki z edytora Intlayer i CMS.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
+priority: 8
 title: 插入
 description: 学习如何在内容中声明和使用插入占位符。本指南将引导您通过步骤，在预定义的内容结构中动态插入值。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: Чи можна перекласти шлях URL?
 description: Дізнайтеся, як перекласти шлях URL.
 keywords:

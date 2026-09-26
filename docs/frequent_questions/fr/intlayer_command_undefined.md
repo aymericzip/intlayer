@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Commande Intlayer non définie
 description: Apprenez comment résoudre l'erreur de commande intlayer non définie.
 keywords:
@@ -142,7 +143,7 @@ npm --version
     Si vous utilisez une version obsolète, envisagez de mettre à jour Node.js et npm.
 
 11. **Vérifiez les problèmes de permissions**  
-    Si vous rencontrez des erreurs de permission :
+Si vous rencontrez des erreurs de permission :
 
     ```bash
     # Pour les systèmes basés sur Unix

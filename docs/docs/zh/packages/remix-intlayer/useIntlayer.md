@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useIntlayer 钩子文档 | remix-intlayer
 description: 了解如何在 Remix 3 应用程序中使用 useIntlayer 钩子按键访问本地化内容。
 keywords:

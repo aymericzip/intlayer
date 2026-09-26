@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: Najlepsze rozwiązanie i18n dla Solid w 2026 r. - raport z benchmarku
 description: Porównaj biblioteki internacjonalizacji (i18n) dla Solid, takie jak solid-primitives, solid-i18next, Tolgee i Intlayer. Szczegółowy raport wydajności dotyczący rozmiaru paczki, wycieków i reaktywności.
 keywords:

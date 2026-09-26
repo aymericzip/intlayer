@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Cómo detectar traducciones faltantes antes de que lo hagan tus usuarios"
 description: Las traducciones faltantes fallan en silencio. Por qué el fallback las oculta, las cuatro capas de detección efectivas y cómo bloquear una compilación por una clave no traducida.
 keywords:

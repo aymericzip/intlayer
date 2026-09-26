@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2026-08-30
+priority: 8
 title: 구성 (Configuration)
 description: 애플리케이션에 Intlayer를 구성하는 방법을 알아보세요. 필요에 따라 Intlayer를 맞춤설정하는 데 사용할 수 있는 다양한 설정과 옵션을 이해하세요.
 keywords:

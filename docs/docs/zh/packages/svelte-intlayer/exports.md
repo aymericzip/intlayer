@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: svelte-intlayer 包文档
 description: 针对 Svelte 的 Intlayer 集成，为 Svelte 应用提供 setup 函数和 stores。
 keywords:

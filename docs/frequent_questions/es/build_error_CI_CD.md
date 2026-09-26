@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Error de compilación en CI/CD
 description: Aprende cómo solucionar errores de compilación que ocurren en entornos CI/CD.
 keywords:

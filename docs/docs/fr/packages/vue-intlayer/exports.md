@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Package vue-intlayer
 description: Intégration spécifique à Vue pour Intlayer, fournissant des plugins et des composables pour les applications Vue.
 keywords:

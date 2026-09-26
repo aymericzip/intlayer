@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Міграція з React Intl на Intlayer"
 description: "Дізнайтеся, як перенести вашу React-додаток з react-intl на Intlayer, використовуючи адаптер сумісності."
 keywords:

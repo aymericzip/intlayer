@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Renderização Estática vs Dinâmica com i18n no Next.js
 description: Aprenda como usar renderização estática vs dinâmica com i18n no Next.js.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-01-06
+priority: 5
 title: Lista projektów Intlayer
 description: Dowiedz się, jak wypisać wszystkie projekty Intlayer w katalogu lub repozytorium git.
 keywords:

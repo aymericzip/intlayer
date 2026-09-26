@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-06
+priority: 10
 title: Introductie
 description: Ontdek hoe Intlayer werkt. Bekijk de stappen die Intlayer in uw applicatie gebruikt. Ontdek wat de verschillende pakketten doen.
 keywords:

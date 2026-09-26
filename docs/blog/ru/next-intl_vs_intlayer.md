@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl vs Intlayer: Benchmark и сравнение 2026"
 description: Bundle size, утечки контента, реактивность переключения локали и опыт разработчика, измеренные на Next.js и TanStack Start. Какую библиотеку i18n вам выбрать в 2026?
 keywords:

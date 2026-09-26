@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2026-06-21
+priority: 6
 title: Плагин Sync JSON
 description: Синхронизируйте словари Intlayer со сторонними i18n JSON-файлами (i18next, next-intl, react-intl, vue-i18n и другими). Сохраняйте существующую i18n структуру, используя Intlayer для управления, перевода и тестирования ваших сообщений.
 keywords:

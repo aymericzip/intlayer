@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2025-10-14
+priority: 8
 title: Formatery
 description: Narzędzia do formatowania uwzględniające lokalizację oparte na Intl dla liczb, procentów, walut, dat, czasu względnego, jednostek i notacji skróconej. Zawiera pamięć podręczną pomocnika Intl.
 keywords:

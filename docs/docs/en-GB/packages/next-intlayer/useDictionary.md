@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: useDictionary Hook Documentation | next-intlayer
 description: See how to use the useDictionary hook for next-intlayer package
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: bun 사용 시 모듈을 찾을 수 없다는 오류가 발생합니다
 description: bun 사용 시 발생하는 오류 수정 방법.
 keywords:

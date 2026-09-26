@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Strings extrahieren
 description: Erfahren Sie, wie Sie Strings aus Ihren Komponenten in eine .content-Datei in der Nähe der Komponente extrahieren.
 keywords:

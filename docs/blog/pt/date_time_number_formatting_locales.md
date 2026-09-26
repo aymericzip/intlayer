@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Formatando datas e números por idioma com Intl"
 description: Você provavelmente não precisa de uma biblioteca externa de formatação. Como o Intl lida com datas, números, moedas e listas por localidade, o custo de cache e o bug de timezone em produção.
 keywords:

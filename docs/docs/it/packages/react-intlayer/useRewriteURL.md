@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: Documentazione dell'hook useRewriteURL
 description: Hook specifico per React per gestire le riscritture di URL localizzate in Intlayer.

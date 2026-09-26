@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-01
 updatedAt: 2025-09-20
+priority: 8
 title: Testen Ihres Inhalts
 description: Entdecken Sie, wie Sie Ihre Inhalte mit Intlayer testen können.
 keywords:

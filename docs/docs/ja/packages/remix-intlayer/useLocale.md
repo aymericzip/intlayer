@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useLocale フックのドキュメント | remix-intlayer
 description: Remix 3 アプリケーションで useLocale フックを使用して、現在のリクエストロケール、デフォルトロケール、および利用可能なロケールを取得する方法を説明します。
 keywords:

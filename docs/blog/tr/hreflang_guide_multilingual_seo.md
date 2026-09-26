@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 8
 title: "Hreflang, çok dilli SEO rehberi"
 description: "Hreflang nedir, arama motorlarının uyguladığı kurallar, x-default neden neredeyse her zaman yanlıştır ve Next.js ile TanStack Start'ta doğru etiketler nasıl oluşturulur."
 keywords:

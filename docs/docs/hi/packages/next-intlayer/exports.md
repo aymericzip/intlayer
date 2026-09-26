@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: next-intlayer पैकेज दस्तावेज़
 description: Intlayer के लिए Next.js-विशिष्ट इंटीग्रेशन, जो App Router और Page Router के लिए middleware और providers प्रदान करता है।
 keywords:

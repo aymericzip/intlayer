@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-17
 updatedAt: 2025-09-30
+priority: 6
 title: Offizielle VS Code Erweiterung
 description: Erfahren Sie, wie Sie die Intlayer-Erweiterung in VS Code verwenden, um Ihren Entwicklungsworkflow zu verbessern. Navigieren Sie schnell zwischen lokalisierten Inhalten und verwalten Sie Ihre Wörterbücher effizient.
 keywords:

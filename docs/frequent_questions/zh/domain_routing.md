@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 如何配置基于域名的路由？
 description: 学习如何配置基于域名的路由。
 keywords:

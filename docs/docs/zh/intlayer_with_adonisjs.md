@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-08-30
+priority: 9
 title: "AdonisJS i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) AdonisJS 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:

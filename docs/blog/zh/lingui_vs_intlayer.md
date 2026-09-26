@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "Lingui vs Intlayer：2026 年基准测试与深度对比"
 description: "在 Next.js 和 TanStack Start 上实测的两款基于编译器的 i18n 库。打包体积、内容泄漏、组件大小、水合性能、语言切换响应速度及开发者体验全面对比。"
 keywords:

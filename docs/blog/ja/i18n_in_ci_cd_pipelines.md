@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "粗悪な翻訳をリリースしないためのCI/CD自動化戦略"
 description: i18nを自動化する3つのフェーズ（Pre-push、Pull Request、ランタイム）。カバレッジによるビルドのゲート制御、安全な自動補完、コミットの無限ループ回避法。
 keywords:

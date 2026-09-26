@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: أفضل حل i18n لـ Vue في عام 2026 - تقرير قياسي
 description: قارن بين مكتبات تدويل Vue (i18n) مثل vue-i18n وfluent-vue, Tolgee وIntlayer. تقرير أداء مفصل حول حجم الحزمة والتسرب والتفاعل.
 keywords:

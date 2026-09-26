@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-22
 updatedAt: 2026-01-22
+priority: 5
 title: Tài liệu hàm getLocalizedPath | intlayer
 description: Xem cách sử dụng hàm getLocalizedPath cho gói intlayer
 keywords:

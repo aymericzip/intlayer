@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 8
 title: 翻译
 description: 了解如何在您的多语言网站中声明和使用翻译。按照本在线文档中的步骤，在几分钟内设置您的项目。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Di Chuyển Từ next-i18next Sang Intlayer"
 description: "Tìm hiểu cách di chuyển ứng dụng Next.js của bạn từ next-i18next sang Intlayer bằng bộ điều hợp tương thích."
 keywords:

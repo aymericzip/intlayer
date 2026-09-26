@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-11
 updatedAt: 2026-01-11
+priority: 4
 title: "`vite-env-only` & Intlayer – galat positif palsu: `node:fs` ditolak"
 description: Mengapa vite-env-only melaporkan impor `node:fs` yang ditolak dengan Intlayer + React-Router + Vite dan apa yang harus dilakukan.
 keywords:

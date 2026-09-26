@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: ESLint 插件 | Intlayer 的 Lint 规则
 description: 使用 eslint-plugin-intlayer 捕获硬编码字符串、Intlayer 编译器无法优化的动态调用以及未使用的字典内容。支持 ESLint 和 oxlint，适用于 React、Vue、Svelte、Angular 和 Astro。
 keywords:

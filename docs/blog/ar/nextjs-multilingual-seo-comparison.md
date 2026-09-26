@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-28
 updatedAt: 2025-09-28
+priority: 8
 title: تحسين محركات البحث والتدويل في Next.js
 description: تعلّم كيفية إعداد تحسين محركات البحث متعدد اللغات في تطبيق Next.js الخاص بك باستخدام next-intl و next-i18next و Intlayer.
 keywords:

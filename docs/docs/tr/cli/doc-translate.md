@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Belgeyi Çevir
 description: AI çeviri servislerini kullanarak dokümantasyon dosyalarının otomatik olarak nasıl çevrileceğini öğrenin.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Ist next-intl im Jahr 2026 veraltet?
 description: next-intl wurde zur Standardlösung für den Next.js App Router. Doch unter der Haube verursacht es Runtime-Bundle-Overhead und aufwendiges manuelles Namespace-Management.
 keywords:

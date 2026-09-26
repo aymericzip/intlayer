@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Sözlükleri İzle
 description: İçerik bildirim dosyalarınızdaki değişiklikleri nasıl izleyeceğinizi ve sözlükleri otomatik olarak nasıl oluşturacağınızı öğrenin.
 keywords:

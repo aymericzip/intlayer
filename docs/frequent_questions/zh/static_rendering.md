@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Next.js 中带有 i18n 的静态渲染与动态渲染
 description: 学习如何在 Next.js 中使用带有 i18n 的静态渲染与动态渲染。
 keywords:

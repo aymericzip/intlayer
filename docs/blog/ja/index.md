@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
+priority: 5
 title: ブログ
 description: Intlayer、国際化、その他に関連するすべてのトピックを発見します
 keywords:

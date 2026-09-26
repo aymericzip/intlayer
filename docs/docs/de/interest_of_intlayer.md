@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-14
 updatedAt: 2026-08-30
+priority: 8
 title: Bedeutung von Intlayer
 description: Entdecken Sie die Vorteile und Vorzüge der Verwendung von Intlayer in Ihren Projekten. Verstehen Sie, warum Intlayer sich von anderen Frameworks abhebt.
 keywords:

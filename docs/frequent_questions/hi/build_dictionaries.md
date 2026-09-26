@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: शब्दकोश कैसे बनाएं?
 description: सीखें कि शब्दकोश कैसे बनाएं।
 keywords:

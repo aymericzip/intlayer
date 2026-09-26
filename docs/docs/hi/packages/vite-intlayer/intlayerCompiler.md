@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerCompiler Vite प्लगइन दस्तावेज़ | vite-intlayer
 description: Vite प्लगइन जो घटक फ़ाइलों से इनलाइन Intlayer सामग्री घोषणाओं को निकालता है और उन्हें बिल्ड/ट्रांसफ़ॉर्म समय पर शब्दकोश JSON फ़ाइलों में लिखता है।
 keywords:

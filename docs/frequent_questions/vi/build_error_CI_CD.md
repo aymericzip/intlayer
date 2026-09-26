@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Lỗi build trong CI/CD
 description: Tìm hiểu cách sửa lỗi build xảy ra trong môi trường CI/CD.
 keywords:

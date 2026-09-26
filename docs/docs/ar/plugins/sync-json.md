@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2026-06-21
+priority: 6
 title: مكون مزامنة JSON
 description: مزامنة قواميس Intlayer مع ملفات JSON الخاصة بالتدويل من طرف ثالث (i18next، next-intl، react-intl، vue-i18n، والمزيد). احتفظ بنظام التدويل الحالي لديك أثناء استخدام Intlayer لإدارة وترجمة واختبار رسائلك.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: ESLint 플러그인 | Intlayer 린트 규칙
 description: eslint-plugin-intlayer를 사용하여 하드코딩된 문자열, Intlayer 컴파일러가 최적화할 수 없는 동적 호출, 사용되지 않는 사전 콘텐츠를 감지하세요. React, Vue, Svelte, Angular 및 Astro 전반에서 ESLint 및 oxlint와 함께 작동합니다.
 keywords:

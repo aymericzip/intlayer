@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: Dokumentasi paket react-native-intlayer
 description: Dukungan React Native untuk Intlayer, menyediakan provider, hook, polyfill, dan konfigurasi Metro.
 keywords:

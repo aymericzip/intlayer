@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook दस्तावेज़ | solid-intlayer
 description: जानें कि solid-intlayer पैकेज से usePathname हुक का उपयोग कैसे करें
 keywords:

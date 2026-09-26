@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 누락된 번역 테스트
 description: 사전에서 누락된 번역을 테스트하고 식별하는 방법을 알아보세요.
 keywords:

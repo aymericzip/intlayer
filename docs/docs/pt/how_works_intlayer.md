@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-12
 updatedAt: 2026-09-19
+priority: 8
 title: Como o Intlayer funciona
 description: Aprenda como o Intlayer opera internamente. Compreenda a arquitetura e os componentes que tornam o Intlayer poderoso.
 keywords:

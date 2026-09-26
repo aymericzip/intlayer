@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-01-06
+priority: 5
 title: Daftar File Deklarasi Konten
 description: Pelajari cara mendaftar semua file deklarasi konten dalam proyek Anda.
 keywords:

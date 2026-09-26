@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Tôi nhận được lỗi module not found khi sử dụng bun
 description: Sửa lỗi khi sử dụng bun.
 keywords:

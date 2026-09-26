@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: getDictionary 函数文档 | intlayer
 description: 查看如何在 intlayer package 中使用 getDictionary 函数
 keywords:

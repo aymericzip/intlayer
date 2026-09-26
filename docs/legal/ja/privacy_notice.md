@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-09-22
+priority: 1
 title: Intlayer プライバシー通知
 description: Intlayer がウェブサイトおよび CMS を通じて収集した情報をどのように取り扱うかをご紹介します。さまざまな形式やユースケースを理解するためにドキュメントをご参照ください。
 keywords:

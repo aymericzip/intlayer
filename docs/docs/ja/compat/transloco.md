@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "TranslocoからIntlayerへの移行"
 description: "compatアダプターを使用してAngularアプリケーションをTranslocoからIntlayerに移行する方法を学びます。"
 keywords:

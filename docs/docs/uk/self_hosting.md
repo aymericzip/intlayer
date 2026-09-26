@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-30
 updatedAt: 2026-09-21
+priority: 8
 title: Власний хостинг Intlayer
 description: "Запускайте Intlayer на власній інфраструктурі: як десктопний застосунок, єдиний Docker-контейнер all-in-one або масштабований стек Docker Compose. Обліковий запис Intlayer Cloud не потрібен."
 keywords:

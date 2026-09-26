@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: Документация пакета adonis-intlayer
 description: Промежуточное ПО AdonisJS для Intlayer, предоставляющее функции перевода и обнаружения локали.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: إضافة ESLint | قواعد الفحص (Lint) لـ Intlayer
 description: اكتشف النصوص المكتوبة يدويًا (hardcoded)، والاستدعاءات الديناميكية التي لا يمكن لمترجم Intlayer تحسينها، ومحتوى القواميس غير المستخدم، باستخدام eslint-plugin-intlayer. متوافقة مع ESLint و oxlint عبر React و Vue و Svelte و Angular و Astro.
 keywords:

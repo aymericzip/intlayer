@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: Comandi dell'Editor
 description: Scopri come utilizzare i comandi dell'editor di Intlayer.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: Documentação do Pacote adonis-intlayer
 description: Middleware AdonisJS para Intlayer, fornecendo funções de tradução e detecção de locale.
 keywords:

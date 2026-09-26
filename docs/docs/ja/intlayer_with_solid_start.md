@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-06
 updatedAt: 2026-09-20
+priority: 9
 title: "Solid Start i18n - アプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）SolidStartアプリを構築するためのガイド。サーバーレンダリングされたロケールルーティング、hreflang、サイトマップ、AI支援翻訳。"
 keywords:

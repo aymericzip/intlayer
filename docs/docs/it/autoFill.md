@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-09-20
+priority: 8
 title: Compilazione Automatica
 description: Scopri come utilizzare la funzionalità di compilazione automatica in Intlayer per popolare automaticamente i contenuti basati su modelli predefiniti. Segui questa documentazione per implementare efficacemente le funzionalità di compilazione automatica nel tuo progetto.
 keywords:

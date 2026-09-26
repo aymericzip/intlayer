@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer 包 文档
 description: Intlayer 的核心包，为国际化提供基础函数和类型，用于多语言内容管理。
 keywords:

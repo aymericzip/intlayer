@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: "@intlayer/babel 包文档"
 description: 用于 Intlayer 的 Babel 插件，处理构建期间的内容提取、导入优化、删除未使用字段以及混淆字段名称。
 keywords:

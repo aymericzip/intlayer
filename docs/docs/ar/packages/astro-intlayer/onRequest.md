@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: توثيق البرمجية الوسيطة onRequest | astro-intlayer
 description: تعرّف على كيفية استخدام البرمجية الوسيطة onRequest في تطبيقات Astro لتحديد لغة الطلب وملء Astro.locals.intlayer.
 keywords:

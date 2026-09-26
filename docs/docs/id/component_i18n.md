@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-09-30
+priority: 8
 title: Membuat komponen multibahasa (perpustakaan i18n) di React dan Next.js
 description: Pelajari cara mendeklarasikan dan mengambil konten yang dilokalkan untuk membangun komponen React atau Next.js multibahasa dengan Intlayer.
 keywords:

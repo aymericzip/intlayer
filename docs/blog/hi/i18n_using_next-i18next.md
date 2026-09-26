@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-01
 updatedAt: 2026-05-31
+priority: 9
 title: "next-i18next का उपयोग करके अपने Next.js एप्लिकेशन का अंतरराष्ट्रीयकरण कैसे करें - अनुवाद का पूर्ण गाइड: Translate Next.js 16 with next-i18next — App Router Setup"
 description: बंडल साइज़, SEO, परफॉर्मेंस & मेंटेनेबिलिटी के लिए सबसे अच्छा समाधान। 2026 में अपने Next.js 16 वेबसाइट को बहुभाषी बनाएं, LLM ट्रांसलेशन, Agent Skills & MCP.
 keywords:

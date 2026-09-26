@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация плагина intlayer для Fastify | fastify-intlayer
 description: Как использовать плагин intlayer для пакета fastify-intlayer
 keywords:

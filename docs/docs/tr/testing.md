@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-01
 updatedAt: 2025-09-20
+priority: 8
 title: İçeriğinizi test etme
 description: Intlayer ile içeriğinizi nasıl test edeceğinizi keşfedin.
 keywords:

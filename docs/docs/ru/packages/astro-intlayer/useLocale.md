@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Документация хука useLocale | astro-intlayer
 description: Узнайте, как использовать хук useLocale в приложениях Astro для доступа к текущей локали и управления ею.
 keywords:

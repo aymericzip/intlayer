@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
+priority: 8
 title: File
 description: Learn how to embed external files into your content dictionary using the `file` function. This documentation explains how Intlayer links and manages file content dynamically.
 keywords:

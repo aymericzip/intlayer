@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 4
 title: 如何限制 Claude Code 生成翻译时的 Token 消耗
 description: 为什么使用 Claude Code 进行翻译会大量消耗 Token，Intlayer 如何取而代之（过滤已翻译的键、切分 JSON、逐块翻译 Markdown），以及如何通过 claude setup-token 复用 Claude 订阅。
 keywords:

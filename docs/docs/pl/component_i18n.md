@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-09-30
+priority: 8
 title: Uczyń komponent wielojęzycznym (biblioteka i18n) w React i Next.js
 description: Dowiedz się, jak zadeklarować i pobrać zlokalizowaną treść, aby zbudować wielojęzyczny komponent React lub Next.js z Intlayer.
 keywords:

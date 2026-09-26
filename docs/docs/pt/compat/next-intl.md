@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrar de next-intl para Intlayer"
 description: "Aprenda como migrar sua aplicação Next.js de next-intl para Intlayer usando o adaptador de compatibilidade."
 keywords:

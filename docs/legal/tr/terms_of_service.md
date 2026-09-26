@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 1
 title: Intlayer Hizmet Koşulları
 description: Intlayer'ın web sitesi ve CMS üzerinden topladığı bilgileri nasıl işlediğini öğrenin. Farklı formatlar ve kullanım durumları için dokümantasyonu takip edin.
 keywords:

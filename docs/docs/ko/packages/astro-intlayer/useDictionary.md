@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useDictionary 훅 문서 | astro-intlayer
 description: Astro 컴포넌트 및 스크립트에서 useDictionary 훅을 사용하여 사전 객체를 확인하는 방법을 알아봅니다.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
+priority: 8
 title: SEO و التدويل
 description: تعرّف على كيفية تحسين موقعك متعدد اللغات لمحركات البحث وتحسين SEO.
 keywords:

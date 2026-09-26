@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl vs @intlayer/next-intl: Cùng API, Bundle Khác Nhau"
 description: Những thay đổi khi các import next-intl của một ứng dụng Next.js được phục vụ bởi compat adapter @intlayer/next-intl. Kích thước bundle, rò rỉ, kích thước component và hydration được đo lường trên cùng một code, cộng với những gì adapter giữ lại, bỏ qua và không thể thay thế.
 keywords:

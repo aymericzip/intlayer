@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next vs @intlayer/i18next: 同じAPI、異なるバンドルサイズ"
 description: ReactやNext.jsアプリがi18next、react-i18next、next-i18nextの呼び出しを維持したまま、@intlayer/i18nextアダプターを経由して提供された場合に何が変わるのか。同一コードで測定されたページごとのJavaScript、コンポーネントサイズ、文字列リーク、ハイドレーション、そしてアダプターが保持・無視・置換できない機能を解説します。
 keywords:

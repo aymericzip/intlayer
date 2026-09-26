@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-09-02
+priority: 7
 title: Angular i18n - why the official one is build-time
 description: How @angular/localize compiles one bundle per locale, why that blocks in-app language switching, and when ngx-translate, Transloco or Intlayer fit better.
 keywords:

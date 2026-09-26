@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-20
 updatedAt: 2026-09-21
+priority: 8
 title: HTML Content
 description: Learn how to declare and use HTML content with custom components in Intlayer. Follow this documentation to embed rich HTML-like content with dynamic component replacement in your internationalised project.
 keywords:

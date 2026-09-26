@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: Lệnh Editor
 description: Tìm hiểu cách sử dụng các lệnh editor của Intlayer.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: توثيق خطاف useI18n | react-intlayer
 description: تعلّم كيفية استخدام خطاف useI18n في حزمة react-intlayer
 keywords:

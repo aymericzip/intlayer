@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: vite-intlayer Paket Dokümantasyonu
 description: Intlayer için Vite eklentisi, sözlük alias'ları ve watcher'lar sağlar.
 keywords:

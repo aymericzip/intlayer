@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 5
 title: CLI - Tingkatkan Paket Intlayer
 description: Pelajari cara menggunakan perintah upgrade Intlayer CLI untuk mencantumkan setiap paket Intlayer dari proyek atau monorepo Anda dan meningkatkannya ke versi terbaru.
 keywords:

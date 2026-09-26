@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: intlayer ミドルウェアのドキュメント | remix-intlayer
 description: Remix 3 で intlayer ミドルウェアを使用してロケールを検出し、リダイレクトを処理し、リクエストコンテキストに Intlayer 状態を注入する方法を学びます。
 keywords:

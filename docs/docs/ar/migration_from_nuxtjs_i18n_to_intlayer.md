@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "الترحيل من @nuxtjs/i18n إلى Intlayer | التدويل (i18n)"
 description: "تعرّف على كيفية ترحيل تطبيق Nuxt الخاص بك من @nuxtjs/i18n إلى Intlayer — خطوة بخطوة، دون كسر الكود الموجود. استخدم محول التوافق @intlayer/vue-i18n للانتقال بدون انقطاع."
 keywords:

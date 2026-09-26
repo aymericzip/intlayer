@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: Documentación de la Función getIntlayer | intlayer
 description: Ve cómo usar la función getIntlayer para el paquete intlayer
 keywords:

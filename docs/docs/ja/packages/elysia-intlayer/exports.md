@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: elysia-intlayer パッケージドキュメント
 description: Intlayer 用の Elysia プラグイン。翻訳関数とロケール検出を提供します。
 keywords:

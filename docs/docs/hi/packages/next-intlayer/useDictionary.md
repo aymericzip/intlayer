@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: useDictionary हुक दस्तावेज़ | next-intlayer
 description: next-intlayer पैकेज के लिए useDictionary हुक का उपयोग कैसे करें देखें
 keywords:

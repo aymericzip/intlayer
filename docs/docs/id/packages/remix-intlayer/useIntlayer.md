@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentasi Hook useIntlayer | remix-intlayer
 description: Lihat cara menggunakan hook useIntlayer dalam aplikasi Remix 3 untuk mengakses konten yang dilokalisasi berdasarkan kunci.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-06-29
+priority: 8
 title: Intlayer CMS | আপনার কন্টেন্ট Intlayer CMS-এ এক্সটার্নালাইজ করুন
 description: আপনার টিমের কাছে কন্টেন্ট ম্যানেজমেন্ট অর্পণ করতে Intlayer CMS-এ আপনার কন্টেন্ট এক্সটার্নালাইজ করুন।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 8
 title: Pobieranie funkcji
 description: Dowiedz się, jak deklarować i używać pobierania funkcji na swojej wielojęzycznej stronie internetowej. Postępuj zgodnie z krokami w tej dokumentacji online, aby skonfigurować swój projekt w kilka minut.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Tài liệu usePathname Hook | react-intlayer
 description: Tìm hiểu cách sử dụng hook usePathname từ gói react-intlayer để lấy đường dẫn (pathname) của URL hiện tại mà không có phân đoạn locale.
 keywords:

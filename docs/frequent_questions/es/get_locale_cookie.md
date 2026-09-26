@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Cómo recuperar la configuración regional desde las cookies / encabezados
 description: Aprende cómo recuperar la configuración regional desde las cookies / encabezados.
 keywords:

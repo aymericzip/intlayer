@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 管理配置
 description: 了解如何获取并推送您的 Intlayer 配置到 CMS。
 keywords:

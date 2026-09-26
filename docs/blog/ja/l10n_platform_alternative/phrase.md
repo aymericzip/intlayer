@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Phrase の代替となる L10n プラットフォーム
 description: ニーズに合った Phrase の L10n プラットフォーム代替を見つける
 keywords:

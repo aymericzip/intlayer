@@ -67,6 +67,8 @@ export type FileMetadata = {
   keywords: string[];
   updatedAt: string;
   createdAt: string;
+  /** Page importance from 1 (lowest) to 10 (highest), used by the sitemap. */
+  priority?: number;
   author?: string;
   youtubeVideo?: string;
   applicationTemplate?: string;

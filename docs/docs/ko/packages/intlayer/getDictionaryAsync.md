@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: getDictionaryAsync 함수 문서 | intlayer
 description: intlayer 패키지의 getDictionaryAsync 함수 사용 방법 알아보기
 keywords:

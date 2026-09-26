@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl vs @intlayer/next-intl: Один и тот же API, разный Bundle"
 description: Что меняется, когда импорты next-intl приложения Next.js обслуживаются адаптером совместимости @intlayer/next-intl. Размер bundle, утечки, размер компонента и гидратация, измеренные на одном коде, плюс то, что адаптер сохраняет, игнорирует и не может заменить.
 keywords:

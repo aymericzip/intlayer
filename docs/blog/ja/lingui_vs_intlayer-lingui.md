@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "Lingui vs @intlayer/lingui: 同じマクロ、異なるランタイム"
 description: "ReactアプリがLinguiのマクロをそのまま維持しながら@intlayer/lingui互換アダプター経由で配信すると何が変わるのか。同一のTanStack Startコード上で測定されたコンポーネントサイズ、ハイドレーション、リーク率、ページあたりのJavaScript量、およびアダプターが劣るポイントを解説します。"
 keywords:

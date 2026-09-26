@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: intlayer मिडलवेयर प्रलेखन | remix-intlayer
 description: जानें कि Remix 3 में लोकेल का पता लगाने, रीडायरेक्ट्स संभालने, और अनुरोध संदर्भ में Intlayer स्थिति इंजेक्ट करने के लिए intlayer मिडलवेयर का उपयोग कैसे करें।
 keywords:

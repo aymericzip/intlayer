@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 8
 title: Déclaration de contenu `Par-Langue` dans Intlayer
 description: Découvrez comment déclarer du contenu par langue dans Intlayer. Suivez la documentation pour comprendre les différents formats et cas d'utilisation.
 keywords:

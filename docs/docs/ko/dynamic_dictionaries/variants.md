@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-08-04
+priority: 8
 title: 변형
 description: Intlayer 콘텐츠 파일에서 variant 메타데이터 필드를 사용하여 이름이 지정되었거나 구조화된 콘텐츠 대안 — A/B 테스트, 시즌 배너, 기능 플래그 텍스트, CMS 레코드, 사용자별 콘텐츠 — 을 선언하고 코드 변경 없이 런타임에 전환합니다.
 keywords:

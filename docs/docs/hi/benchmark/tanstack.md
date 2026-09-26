@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: 2026 में TanStack Start के लिए सर्वश्रेष्ठ i18n समाधान - बेंचमार्क रिपोर्ट
 description: react-i18next, use-intl और Intlayer जैसे TanStack Start अंतर्राष्ट्रीयकरण लाइब्रेरीज़ की तुलना करें। बंडल आकार, लीकेज और रिएक्टिविटी पर विस्तृत परफॉरमेंस रिपोर्ट।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Next.jsにおけるi18nの静的レンダリングと動的レンダリングの比較
 description: Next.jsでのi18nを用いた静的レンダリングと動的レンダリングの使い方を学びます。
 keywords:

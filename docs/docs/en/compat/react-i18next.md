@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrate from react-i18next to Intlayer"
 description: "Learn how to migrate your React application from react-i18next to Intlayer using the compat adapter."
 keywords:

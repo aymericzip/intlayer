@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "vue-i18n vs @intlayer/vue-i18n：相同的 API，不同的 Bundle"
 description: 当 Vue 3 应用保持其 vue-i18n 调用但通过 @intlayer/vue-i18n compat 适配器提供服务时会发生什么变化。在相同的 Vite + Vue 代码上测量的每页 JavaScript、运行时大小、组件大小和泄漏，以及适配器保留、忽略和无法替换的内容。
 keywords:

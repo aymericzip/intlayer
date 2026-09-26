@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Automating translations in CI/CD without shipping bad copy"
 description: Three places to automate i18n, pre-push, pull request and runtime. How to gate a build on coverage, auto-fill safely, and avoid the CI loop that commits forever.
 keywords:

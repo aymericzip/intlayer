@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "Migrer de vue-i18n à Intlayer | Internationalisation (i18n)"
 description: "Découvrez comment migrer votre application Vue ou Nuxt de vue-i18n à Intlayer — étape par étape, sans casser votre code existant. Utilisez l'adaptateur de compatibilité @intlayer/vue-i18n pour une transition en douceur."
 keywords:

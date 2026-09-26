@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayerPrune Vite 플러그인 문서 | vite-intlayer
 description: vite-intlayer 패키지에서 intlayerPrune 플러그인을 사용하는 방법을 확인하세요
 keywords:

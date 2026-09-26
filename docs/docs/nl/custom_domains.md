@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-02
 updatedAt: 2026-04-02
+priority: 8
 title: Aangepaste domeinen
 description: Leer hoe u domeingebaseerde locale routing configureert in Intlayer om verschillende locales te bedienen vanaf speciale hostnames.
 keywords:

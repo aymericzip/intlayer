@@ -41,6 +41,8 @@ type VectorStoreEl = {
   embedding?: number[];
   docUrl?: string;
   docName?: string;
+  /** Front matter `priority` of the source file, from 1 to 10. */
+  priority?: number;
 };
 
 /**
@@ -58,6 +60,8 @@ const vectorStore: VectorStoreEl[] = [];
  */
 const MAX_RELEVANT_CHUNKS_NB: number = 15; // Maximum number of relevant chunks to attach to chatGPT context
 const MIN_RELEVANT_CHUNKS_SIMILARITY: number = 0.42; // Minimum similarity required for a chunk to be considered relevant
+const DEFAULT_DOC_PRIORITY: number = 5; // Priority assumed for a file without `priority` front matter
+const PRIORITY_SIMILARITY_WEIGHT: number = 0.04; // Similarity bonus of a priority 10 file, kept low so relevance still leads
 
 /*
  * Embedding model configuration
@@ -166,6 +170,7 @@ export const loadMarkdownFiles = async (): Promise<void> => {
       title?: string;
       slugs?: (string | number)[];
       description?: string;
+      priority?: number;
     }>(files[fileKey as keyof typeof files] as string);
 
     const slugs = (fileMetadata.slugs ?? []).map(String);
@@ -231,6 +236,7 @@ export const loadMarkdownFiles = async (): Promise<void> => {
         content: fileChunk,
         docUrl,
         docName: fileMetadata.title,
+        priority: fileMetadata.priority,
       });
 
       logger.info(`- Loaded: ${fileKey}/${chunkKeyName}/${chunksNumber}`);
@@ -243,6 +249,21 @@ export const loadMarkdownFiles = async (): Promise<void> => {
 // self-hosted mode the routes are not registered and the embeddings are not
 // shipped, so skip loading ~130 MB of vectors at boot.
 if (!isSelfHosted()) loadMarkdownFiles();
+
+/**
+ * Weights a chunk similarity by the priority of its source file.
+ *
+ * The bonus only reorders chunks of close relevance, e.g. a framework guide
+ * ahead of a package reference answering the same query.
+ *
+ * @param similarity - Cosine similarity between the query and the chunk.
+ * @param priority - Front matter priority of the source file, from 1 to 10.
+ * @returns The ranking score of the chunk.
+ */
+const getRankingScore = (
+  similarity: number,
+  priority: number = DEFAULT_DOC_PRIORITY
+): number => similarity + (PRIORITY_SIMILARITY_WEIGHT * priority) / 10;
 
 /**
  * Searches the indexed documents for the most relevant chunks based on a query.
@@ -259,31 +280,24 @@ export const searchChunkReference = async (
   // Generate an embedding for the user's query
   const queryEmbedding = await generateEmbedding(query);
 
-  // Calculate similarity scores between the query embedding and each document's embedding
-  const selection = vectorStore
+  // Relevance gates the selection, priority only weighs in on the ranking
+  const rankedChunks = vectorStore
     .filter((chunk) => chunk.embedding)
-    .map((chunk) => ({
-      ...chunk,
-      similarity: cosineSimilarity(queryEmbedding, chunk.embedding!), // Add similarity score to each doc
-    }))
-    .filter((chunk) => chunk.similarity > minSimilarity) // Filter out documents with low similarity scores
-    .sort((a, b) => b.similarity - a.similarity) // Sort documents by highest similarity first
-    .slice(0, maxResults); // Select the top 6 most similar documents
+    .map((chunk) => {
+      const similarity = cosineSimilarity(queryEmbedding, chunk.embedding!);
 
-  const orderedDocKeys = new Set(selection.map((chunk) => chunk.fileKey));
+      return {
+        chunk,
+        similarity,
+        rankingScore: getRankingScore(similarity, chunk.priority),
+      };
+    })
+    .filter(({ similarity }) => similarity > minSimilarity)
+    .sort((chunkA, chunkB) => chunkB.rankingScore - chunkA.rankingScore)
+    .slice(0, maxResults);
 
-  const orderedVectorStore = vectorStore.sort((a, _b) =>
-    orderedDocKeys.has(a.fileKey) ? -1 : 1
-  );
-
-  const results = orderedVectorStore.filter((chunk) =>
-    selection.some(
-      (v) => v.fileKey === chunk.fileKey && v.chunkNumber === chunk.chunkNumber
-    )
-  );
-
-  // Return the content of the top matching documents
-  return results;
+  // Best match first, so callers deduplicating by file keep the ranking
+  return rankedChunks.map(({ chunk }) => chunk);
 };
 
 const CHAT_GPT_PROMPT = readFileSync(join(__dirname, './PROMPT.md'), 'utf-8');

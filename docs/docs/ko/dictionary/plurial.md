@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-04
 updatedAt: 2026-05-04
+priority: 8
 title: 복수형 (Plural)
 description: 다국어 웹사이트에서 로케일에 맞는 복수형 콘텐츠(CLDR 기반)를 선언하고 사용하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 안에 프로젝트를 설정하십시오.
 keywords:

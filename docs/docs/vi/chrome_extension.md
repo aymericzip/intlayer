@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
+priority: 6
 title: Tiện ích mở rộng Chrome & Firefox, Trình quét i18n & SEO
 description: Kiểm tra cấu hình i18n của bất kỳ trang web nào bằng tiện ích mở rộng Intlayer cho Chrome. Phát hiện framework, thư viện i18n, ngôn ngữ, thẻ hreflang và SEO, đồng thời chạy kiểm tra toàn diện i18n SEO.
 keywords:

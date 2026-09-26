@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 1
 title: Điều Khoản Dịch Vụ Intlayer
 description: Tìm hiểu cách Intlayer xử lý thông tin thu thập qua trang web và CMS của chúng tôi. Theo dõi tài liệu để hiểu các định dạng và trường hợp sử dụng khác nhau.
 keywords:

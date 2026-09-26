@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: Documentación de la función getDictionary | intlayer
 description: Consulta cómo usar la función getDictionary para el paquete intlayer
 keywords:

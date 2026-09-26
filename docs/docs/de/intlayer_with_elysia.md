@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-30
+priority: 9
 title: "Elysia i18n - Vollständiger Leitfaden zum Übersetzen deiner App"
 description: "Kein i18next mehr. Der 2026er Leitfaden zum Erstellen einer mehrsprachigen (i18n) Elysia-App. Übersetze mit KI-Agenten und optimiere die Bundle-Größe, SEO und Leistung."
 keywords:

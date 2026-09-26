@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
+priority: 8
 title: كيفية أتمتة ترجمات JSON الخاصة بـ react-intl باستخدام Intlayer
 description: أتمتة ترجمات JSON الخاصة بك باستخدام Intlayer و react-intl لتعزيز التدويل في تطبيقات React.
 keywords:

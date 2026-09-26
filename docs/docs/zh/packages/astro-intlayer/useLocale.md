@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useLocale 钩子文档 | astro-intlayer
 description: 了解如何在 Astro 应用程序中使用 useLocale 钩子访问和管理当前语言环境。
 keywords:

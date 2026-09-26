@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
+priority: 8
 title: Plik
 description: Dowiedz się, jak osadzić zewnętrzne pliki w słowniku treści za pomocą funkcji `file`. Ta dokumentacja wyjaśnia, jak Intlayer dynamicznie łączy i zarządza zawartością plików.
 keywords:

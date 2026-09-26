@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Ekstrak string
 description: Pelajari cara mengekstrak string dari komponen Anda ke file .content yang berada dekat dengan komponen.
 keywords:

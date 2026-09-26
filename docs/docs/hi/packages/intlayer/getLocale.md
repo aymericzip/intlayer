@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: getLocale फ़ंक्शन दस्तावेज़ | intlayer
 description: देखें कि intlayer पैकेज के लिए getLocale फ़ंक्शन का उपयोग कैसे करें
 keywords:

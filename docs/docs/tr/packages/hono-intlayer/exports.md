@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: hono-intlayer Paket Dokümantasyonu
 description: Intlayer için Hono ara yazılımı, çeviri fonksiyonları ve yerel ayar algılama sağlar.
 keywords:

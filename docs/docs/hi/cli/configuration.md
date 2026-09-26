@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: कॉन्फ़िगरेशन प्रबंधित करें
 description: जानें कि अपनी Intlayer कॉन्फ़िगरेशन को CMS में कैसे प्राप्त और पुश करें।
 keywords:

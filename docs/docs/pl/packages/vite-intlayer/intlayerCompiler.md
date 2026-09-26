@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Dokumentacja wtyczki Vite intlayerCompiler | vite-intlayer
 description: Wtyczka Vite, która ekstrahuje wbudowane deklaracje zawartości Intlayer z plików komponentów i zapisuje je do plików JSON słownika w czasie budowania/transformacji.
 keywords:

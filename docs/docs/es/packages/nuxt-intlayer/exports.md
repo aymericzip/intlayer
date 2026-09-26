@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Paquete nuxt-intlayer
 description: Integración de Nuxt para Intlayer, proporcionando un módulo para aplicaciones Nuxt.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer Fastify 插件文档 | fastify-intlayer
 description: 了解如何在 fastify-intlayer 包中使用 intlayer 插件
 keywords:

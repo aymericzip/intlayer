@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
+priority: 6
 title: Ekstensi Chrome & Firefox, Pemindai i18n & SEO
 description: Periksa konfigurasi i18n dari situs web mana pun dengan ekstensi Chrome Intlayer. Deteksi framework, pustaka i18n, lokal, tag hreflang dan SEO, serta jalankan audit SEO i18n lengkap.
 keywords:

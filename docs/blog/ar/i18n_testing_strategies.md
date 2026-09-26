@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "كيف تختبر الترجمات دون كتابة اختبارات هشة"
 description: ما يستحق الاختبار في تطبيق يدعم i18n وما لا يستحق. اختبارات العرض القائمة على الموفرات (Providers)، والتوطين الزائف (pseudolocalization)، وتغطية RTL والجموع، وفخ لقطات الشاشة (snapshots).
 keywords:

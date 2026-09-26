@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 8
 title: "Hreflang, 다국어 SEO 가이드"
 description: "hreflang이 무엇인지, 검색 엔진이 적용하는 규칙, x-default가 거의 항상 잘못된 이유, 그리고 Next.js와 TanStack Start에서 올바른 태그를 생성하는 방법."
 keywords:

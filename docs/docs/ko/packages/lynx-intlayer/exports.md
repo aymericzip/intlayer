@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: lynx-intlayer 패키지 문서
 description: Intlayer를 위한 Lynx 지원으로 로케일 지원을 위한 폴리필을 제공합니다.
 keywords:

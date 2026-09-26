@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: توثيق وسيط intlayer لـ Hono | hono-intlayer
 description: تعرف على كيفية استخدام وسيط intlayer لحزمة hono-intlayer
 keywords:

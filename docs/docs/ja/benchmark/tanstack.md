@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: 2026年におけるTanStack Startの最適なi18nソリューション - ベンチマークレポート
 description: react-i18next、use-intl、IntlayerなどのTanStack Start国際化ライブラリを比較。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: 条件内容
 description: Intlayerで条件付きコンテンツを使用し、特定の条件に基づいて動的にコンテンツを表示する方法を学びます。このドキュメントに従って、効率的に条件を実装しましょう。
 keywords:

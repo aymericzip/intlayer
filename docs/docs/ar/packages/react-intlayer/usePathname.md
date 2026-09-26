@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: توثيق الخطاف usePathname | react-intlayer
 description: تعرف على كيفية استخدام الخطاف usePathname من حزمة react-intlayer للحصول على مسار URL الحالي بدون جزء الإعداد المحلي (locale).
 keywords:

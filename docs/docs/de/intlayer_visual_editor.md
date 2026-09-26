@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-08-30
+priority: 8
 title: Intlayer Visual Editor | Bearbeiten Sie Ihren Inhalt mit einem visuellen Editor
 description: Erfahren Sie, wie Sie den Intlayer-Editor zur Verwaltung Ihrer mehrsprachigen Website nutzen können. Befolgen Sie die Schritte in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
 keywords:

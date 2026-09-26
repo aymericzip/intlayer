@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Команда intlayer не визначена
 description: Дізнайтеся, як виправити помилку «команда intlayer не визначена».
 keywords:
@@ -142,7 +143,7 @@ npm --version
     If you're using an outdated version, consider updating Node.js and npm.
 
 11. **Перевірте проблеми з дозволами**
-    Якщо ви отримуєте помилки доступу:
+Якщо ви отримуєте помилки доступу:
 
     ```bash
     # Для Unix-подібних систем

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Sözlükleri Çekme
 description: Intlayer editöründen ve CMS'den sözlüklerin nasıl çekileceğini öğrenin.
 keywords:

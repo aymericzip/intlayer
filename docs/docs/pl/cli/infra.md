@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-21
 updatedAt: 2026-09-21
+priority: 5
 title: CLI - Init Infra
 description: Dowiedz się, jak używać polecenia init infra interfejsu Intlayer CLI, aby zainstalować aplikację desktopową lub samodzielnie hostować Intlayer CMS z użyciem Dockera (kontener all-in-one lub stos Docker Compose).
 keywords:

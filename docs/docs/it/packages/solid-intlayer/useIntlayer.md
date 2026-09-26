@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-05-06
+priority: 5
 title: Documentazione dell'hook useIntlayer | solid-intlayer
 description: Scopri come usare l'hook useIntlayer per il pacchetto solid-intlayer
 keywords:

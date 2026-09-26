@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация пакета vite-intlayer
 description: Плагин Vite для Intlayer, обеспечивающий псевдонимы словарей и наблюдатели.
 keywords:

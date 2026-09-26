@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: next-intl è obsoleto nel 2026?
 description: next-intl è diventato il riferimento per Next.js App Router. Tuttavia comporta ancora un aumento del bundle a runtime e la gestione manuale complessa dei namespace.
 keywords:

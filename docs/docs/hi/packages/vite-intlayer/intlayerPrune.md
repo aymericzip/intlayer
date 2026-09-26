@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayerPrune Vite प्लगइन दस्तावेज़ | vite-intlayer
 description: देखें कि vite-intlayer पैकेज के लिए intlayerPrune प्लगइन का उपयोग कैसे करें
 keywords:

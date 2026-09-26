@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-02-26
 updatedAt: 2026-02-26
+priority: 9
 title: "Arti i18n: Apa itu Internasionalisasi dan Mengapa Itu Penting?"
 description: "Temukan arti i18n yang sebenarnya dalam pengembangan perangkat lunak. Pelajari apa itu internasionalisasi, mengapa disingkat menjadi i18n, dan bagaimana pengaruhnya terhadap jangkauan global."
 keywords:

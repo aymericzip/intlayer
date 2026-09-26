@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: bunを使用するとモジュールが見つからないエラーが発生する
 description: bun使用時のエラーを修正する方法。
 keywords:

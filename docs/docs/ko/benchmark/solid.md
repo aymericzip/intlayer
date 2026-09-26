@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: 2026년 Solid를 위한 최고의 i18n 솔루션 - 벤치마크 리포트
 description: solid-primitives, solid-i18next, Tolgee, Intlayer와 같은 Solid 국제화(i18n) 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
 keywords:

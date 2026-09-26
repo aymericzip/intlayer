@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: getIntlayer Function Documentation | intlayer
 description: Siehe, wie du die getIntlayer-Funktion für das intlayer-Paket verwendest
 keywords:

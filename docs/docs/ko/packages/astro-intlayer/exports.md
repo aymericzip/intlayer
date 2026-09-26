@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: astro-intlayer 패키지 문서
 description: 로케일 기반 라우팅, 미들웨어, 훅, 클라이언트 스토어 및 사전 관리를 위한 설정을 제공하는 Intlayer의 Astro 통합.
 keywords:

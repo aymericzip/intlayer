@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 5
 title: Tài liệu Hook useIntlayer | react-intlayer
 description: Xem cách sử dụng hook useIntlayer cho gói react-intlayer
 keywords:

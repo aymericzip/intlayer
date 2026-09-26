@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Adaptadores de Compatibilidade Intlayer"
 description: "Migre sua solução i18n existente para Intlayer sem atrito usando adaptadores de compatibilidade."
 keywords:

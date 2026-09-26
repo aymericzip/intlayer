@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Paquete vue-intlayer - Documentación
 description: Integración específica para Vue de Intlayer, que proporciona plugins y composables para aplicaciones Vue.
 keywords:

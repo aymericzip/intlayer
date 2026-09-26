@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 5
 title: CLI - Nâng cấp các gói Intlayer
 description: Tìm hiểu cách sử dụng lệnh upgrade của Intlayer CLI để liệt kê từng gói Intlayer trong dự án hoặc monorepo của bạn và nâng cấp chúng lên phiên bản mới nhất.
 keywords:

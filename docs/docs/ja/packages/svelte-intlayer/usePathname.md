@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname 関数ドキュメント | svelte-intlayer
 description: svelte-intlayer パッケージの usePathname 関数の使用方法
 keywords:

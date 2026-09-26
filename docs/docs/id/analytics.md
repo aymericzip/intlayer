@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-08-22
+priority: 8
 title: Intlayer Analytics | Lacak paparan konten dan jalankan pengujian A/B (A/B testing)
 description: Temukan bagaimana @intlayer/analytics melacak tampilan halaman/lokal dan paparan konten, dan bagaimana menggunakannya untuk menjalankan pengujian A/B (A/B testing) pada konten Intlayer Anda.
 keywords:

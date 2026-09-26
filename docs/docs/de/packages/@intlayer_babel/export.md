@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: "@intlayer/babel-Paketdokumentation"
 description: Babel-Plugins für Intlayer zur Handhabung der Inhaltsextraktion, Importoptimierung, Bereinigung ungenutzter Felder und Maskierung von Feldnamen während des Builds.
 keywords:

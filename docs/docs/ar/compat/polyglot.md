@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: الترحيل من Polyglot.js إلى Intlayer
 description: تعرّف على كيفية الترحيل من Polyglot.js إلى Intlayer باستخدام محول التوافق.
 keywords:

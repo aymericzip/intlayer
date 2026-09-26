@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-01-06
+priority: 5
 title: コンテンツ宣言ファイルの一覧表示
 description: プロジェクト内のすべてのコンテンツ宣言ファイルを一覧表示する方法を学びます。
 keywords:

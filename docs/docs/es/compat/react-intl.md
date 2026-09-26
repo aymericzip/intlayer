@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrar de React Intl a Intlayer"
 description: "Aprende cómo migrar tu aplicación React desde react-intl a Intlayer usando el adaptador de compatibilidad."
 keywords:

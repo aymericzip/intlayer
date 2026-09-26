@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-10
+priority: 6
 title: Intlayer LSP 서버
 description: Intlayer 언어 서버가 정의로 이동, 참조 찾기, 호버 미리보기, 키 자동 완성, 진단 기능을 IDE와 AI 에이전트에 제공하는 방법을 알아보세요.
 keywords:

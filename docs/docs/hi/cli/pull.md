@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: शब्दकोश खींचें
 description: जानें कि Intlayer संपादक और CMS से शब्दकोश कैसे खींचें।
 keywords:

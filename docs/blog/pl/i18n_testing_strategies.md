@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Jak testować tłumaczenia bez pisania kruchych testów"
 description: Co warto testować w aplikacji i18n, a czego nie. Testy renderowania oparte na providerach, pseudolokalizacja, pokrycie RTL i form liczby mnogiej oraz pułapka snapshotów.
 keywords:

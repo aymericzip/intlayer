@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentacja pakietu vite-intlayer
 description: Wtyczka Vite dla Intlayer, dostarczająca aliasy słowników i obserwatory.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-01
 updatedAt: 2026-05-31
+priority: 9
 title: next-i18nextを使ったNext.jsアプリケーションの国際化方法 - 完全な翻訳ガイド： Translate Next.js 16 with next-i18next — App Router Setup
 description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にNext.js 16 ウェブサイトを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:

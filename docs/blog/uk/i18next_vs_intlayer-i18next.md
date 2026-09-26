@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next проти @intlayer/i18next: Однаковий API, інший bundle"
 description: "Що змінюється, коли додаток React або Next.js зберігає виклики i18next, react-i18next та next-i18next, але обслуговує їх через адаптери @intlayer/i18next. JavaScript на сторінку, розмір компонентів, витоки рядків та гідратація, виміряні на одному коді, а також те, що адаптери зберігають, ігнорують і не можуть замінити."
 keywords:

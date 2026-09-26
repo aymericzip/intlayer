@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerMinify Viteプラグインドキュメント | vite-intlayer
 description: コンパイルされたIntlayer辞書JSONファイルを圧縮（ミニファイ）し、必要に応じてコンテンツフィールド名を難読化してバンドルサイズを削減するViteプラグイン。
 keywords:

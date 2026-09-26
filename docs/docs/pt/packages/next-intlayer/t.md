@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 5
 title: Documentação da Função t | next-intlayer
 description: Veja como usar a função t para o pacote next-intlayer
 keywords:

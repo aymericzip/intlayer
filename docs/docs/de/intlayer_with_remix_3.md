@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-21
+priority: 9
 title: "Remix 3 i18n - Vollständige Anleitung zur Übersetzung Ihrer App"
 description: "Vergessen Sie i18next. Der Leitfaden 2026 zur Erstellung einer mehrsprachigen (i18n) Remix 3-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Leistung."
 keywords:

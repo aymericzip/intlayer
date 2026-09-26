@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-26
+priority: 8
 title: 動的辞書
 description: Intlayer の動的辞書機能（コレクションとバリアント）の概要。柔軟でランタイム駆動の i18n コンテンツを構築するために。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: كيفية تكوين التوجيه بناءً على النطاق؟
 description: تعلّم كيفية تكوين التوجيه بناءً على النطاق.
 keywords:

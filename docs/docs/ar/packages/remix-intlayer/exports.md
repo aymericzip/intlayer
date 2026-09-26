@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: توثيق حزمة remix-intlayer
 description: تكامل Remix 3 لـ Intlayer، يوفّر برمجية وسيطة، وسياق، وخطافات، ومنسقات للتوجيه المستند إلى اللغة وإدارة المحتوى.
 keywords:

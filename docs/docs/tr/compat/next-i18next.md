@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "next-i18next'ten Intlayer'a Geçiş Yapın"
 description: "Uyumluluk adaptörünü kullanarak Next.js uygulamanızı next-i18next'ten Intlayer'a nasıl geçireceğinizi öğrenin."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: L10n 플랫폼 대안
 description: 필요에 맞는 최적의 L10n 플랫폼 대안을 찾으세요
 keywords:

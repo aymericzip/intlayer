@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: Tài liệu gói hono-intlayer
 description: Middleware Hono cho Intlayer, cung cấp các hàm dịch và phát hiện ngôn ngữ.
 keywords:

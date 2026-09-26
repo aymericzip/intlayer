@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
+priority: 8
 title: SEO e Internazionalizzazione
 description: Scopri come ottimizzare il tuo sito web multilingue per i motori di ricerca e migliorare il tuo SEO.
 keywords:

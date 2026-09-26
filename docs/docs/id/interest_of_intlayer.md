@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-14
 updatedAt: 2026-05-31
+priority: 8
 title: Ketertarikan pada Intlayer
 description: Temukan manfaat dan keuntungan menggunakan Intlayer dalam proyek Anda. Pahami mengapa Intlayer menonjol di antara kerangka kerja lainnya.
 keywords:

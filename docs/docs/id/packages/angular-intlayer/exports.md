@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentasi Paket angular-intlayer
 description: Integrasi spesifik Angular untuk Intlayer, menyediakan providers dan services untuk aplikasi Angular.
 keywords:

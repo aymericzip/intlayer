@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: vue-intlayer पैकेज दस्तावेज़ीकरण
 description: Intlayer के लिए Vue-विशिष्ट एकीकरण, जो Vue अनुप्रयोगों के लिए प्लगइन और composables प्रदान करता है।
 keywords:

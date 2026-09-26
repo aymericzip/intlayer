@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-20
 updatedAt: 2026-09-21
+priority: 8
 title: Konten HTML
 description: Pelajari cara mendeklarasikan dan menggunakan konten HTML dengan komponen kustom di Intlayer. Ikuti dokumentasi ini untuk menyematkan konten mirip HTML yang kaya dengan penggantian komponen dinamis dalam proyek yang di-internasionalisasi.
 keywords:

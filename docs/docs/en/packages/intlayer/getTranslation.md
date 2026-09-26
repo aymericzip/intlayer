@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 5
 title: getTranslation Function Documentation | intlayer
 description: See how to use the getTranslation function for intlayer package
 keywords:

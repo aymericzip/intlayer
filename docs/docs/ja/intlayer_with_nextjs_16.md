@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2026-09-08
+priority: 10
 title: "Next.js 16 i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Next.js 16アプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:

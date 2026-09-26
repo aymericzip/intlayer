@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: توثيق خطاف useDictionary | astro-intlayer
 description: تعرّف على كيفية استخدام خطاف useDictionary في مكونات وسكربتات Astro لتحليل كائنات القاموس.
 keywords:

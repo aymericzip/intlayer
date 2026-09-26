@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useLocale 훅 문서 | remix-intlayer
 description: Remix 3 애플리케이션에서 useLocale 훅을 사용하여 현재 요청 로케일, 기본 로케일 및 사용 가능한 로케일을 가져오는 방법을 살펴봅니다.
 keywords:

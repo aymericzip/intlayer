@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-09-06
+priority: 8
 title: "기존 Vite 및 React 애플리케이션을 사후에 다국어(i18n)화하는 방법 (2026 가이드)"
 description: "기존 Vite 및 React 앱을 대대적인 리팩토링 없이 다국어(i18n)화하는 2026년 가이드. Intlayer를 활용한 자동 텍스트 추출, AI 번역 및 번들 최적화를 경험하세요."
 keywords:

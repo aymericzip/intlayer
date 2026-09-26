@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-25
+priority: 5
 title: getConfiguration 函数文档 | intlayer
 description: 查看如何使用 intlayer 包中的 getConfiguration 函数
 keywords:

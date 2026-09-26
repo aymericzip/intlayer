@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 8
 title: Apakah Intlayer lebih ringan dari Paraglide?
 description: Paraglide terlihat hampir tanpa beban dalam tolok ukur i18n karena kodenya dibuat langsung di repositori Anda. Berikut analisis ke mana beban tersebut sebenarnya berada, mengapa pembacaan lokal per-node membebani performa, dan bagaimana pemuatan dinamis Intlayer mengirimkan satu bahasa saja alih-alih semuanya.
 keywords:

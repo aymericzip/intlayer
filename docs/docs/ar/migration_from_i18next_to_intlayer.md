@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "الترحيل من i18next إلى Intlayer | التدويل (i18n)"
 description: "تعرّف على كيفية ترحيل تطبيق JavaScript/TypeScript الخاص بك من i18next إلى Intlayer — خطوة بخطوة، دون كسر الكود الموجود. استخدم محول التوافق @intlayer/i18next للانتقال بدون انقطاع."
 keywords:

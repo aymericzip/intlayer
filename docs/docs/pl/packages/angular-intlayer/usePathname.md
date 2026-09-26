@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Dokumentacja hooka usePathname | angular-intlayer
 description: Dowiedz się, jak korzystać z hooka usePathname w pakiecie angular-intlayer
 keywords:

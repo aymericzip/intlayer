@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
+priority: 8
 title: SEO and Internationalization
 description: Discover how to optimise your multilingual website for search engines and improve your SEO.
 keywords:

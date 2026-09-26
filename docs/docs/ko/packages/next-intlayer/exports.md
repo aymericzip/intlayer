@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: next-intlayer 패키지 문서
 description: Next.js 전용 Intlayer 통합을 위한 미들웨어 및 App Router와 Page Router용 제공자들을 제공하는 패키지입니다.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: getDictionaryAsync फ़ंक्शन डॉक्यूमेंटेशन | intlayer
 description: intlayer पैकेज के लिए getDictionaryAsync फ़ंक्शन का उपयोग कैसे करें, यह देखें
 keywords:

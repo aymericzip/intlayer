@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-09-20
+priority: 10
 title: "Vite + React i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Vite + React app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:

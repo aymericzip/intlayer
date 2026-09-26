@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-21
 updatedAt: 2026-09-21
+priority: 5
 title: CLI - Init Infra
 description: Aprenda a usar el comando init infra de la CLI de Intlayer para instalar la aplicación de escritorio o autoalojar el CMS de Intlayer con Docker (contenedor todo en uno o stack de Docker Compose).
 keywords:

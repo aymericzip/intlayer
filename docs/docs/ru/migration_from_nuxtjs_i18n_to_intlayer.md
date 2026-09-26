@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "Миграция с @nuxtjs/i18n на Intlayer | Интернационализация (i18n)"
 description: "Узнайте, как перевести ваше приложение Nuxt с @nuxtjs/i18n на Intlayer — шаг за шагом, не ломая существующий код. Используйте адаптер совместимости @intlayer/vue-i18n для плавного перехода."
 keywords:

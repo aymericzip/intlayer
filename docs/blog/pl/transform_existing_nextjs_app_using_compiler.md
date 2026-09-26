@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-09-06
+priority: 8
 title: "Jak uczynić istniejącą aplikację Next.js wielojęzyczną (i18n) po fakcie (Przewodnik i18n 2026)"
 description: "Przewodnik 2026: jak dodać wielojęzyczność (i18n) do istniejącej aplikacji Next.js bez uciążliwego refaktoryzowania. Poznaj automatyczną ekstrakcję, tłumaczenia AI i routing z Intlayer."
 keywords:

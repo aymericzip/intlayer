@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 8
 title: Numaralandırma
 description: Çok dilli web sitenizde numaralandırmaları nasıl bildireceğinizi ve kullanacağınızı keşfedin. Bu çevrimiçi dokümantasyonun adımlarını takip ederek projenizi birkaç dakikada kurun.
 keywords:

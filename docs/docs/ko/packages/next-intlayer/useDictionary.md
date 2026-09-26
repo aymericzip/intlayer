@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 5
 title: useDictionary 훅 문서 | next-intlayer
 description: next-intlayer 패키지의 useDictionary 훅 사용 방법을 확인하세요
 keywords:

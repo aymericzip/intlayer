@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentacja middleware intlayer | remix-intlayer
 description: Dowiedz się, jak używać middleware intlayer w Remix 3 do wykrywania języka, obsługi przekierowań i wstrzykiwania stanu Intlayer do kontekstu żądania.
 keywords:

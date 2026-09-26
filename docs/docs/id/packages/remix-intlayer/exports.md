@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentasi Paket remix-intlayer
 description: Dokumentasi ekspor paket remix-intlayer, yang menyediakan internasionalisasi (i18n) untuk aplikasi Remix 3.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
+priority: 4
 title: Tipo IntlayerNode. ¿Qué es?
 description: ¿Qué es el tipo IntlayerNode? ¿Por qué mi cadena se transforma en un IntlayerNode&lt;string&gt;?
 keywords:

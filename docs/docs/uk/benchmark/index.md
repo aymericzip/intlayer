@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-11
+priority: 8
 title: Порівняння (Benchmark) бібліотек i18n
 description: Дізнайтеся, як Intlayer порівнюється з іншими бібліотеками i18n за продуктивністю та розміром бандла.
 keywords:

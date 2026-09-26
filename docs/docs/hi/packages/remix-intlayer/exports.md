@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: remix-intlayer पैकेज प्रलेखन
 description: remix-intlayer पैकेज के एक्सपोर्ट्स का प्रलेखन, जो Remix 3 एप्लिकेशनों के लिए अंतर्राष्ट्रीयकरण (i18n) प्रदान करता है।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Отримую помилку module not found при використанні bun
 description: Виправлення помилки при використанні bun.
 keywords:

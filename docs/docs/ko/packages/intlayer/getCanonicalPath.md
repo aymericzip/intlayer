@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-22
 updatedAt: 2026-01-22
+priority: 5
 title: getCanonicalPath 함수 문서 | intlayer
 description: intlayer 패키지에서 getCanonicalPath 함수를 사용하는 방법을 확인하세요
 keywords:

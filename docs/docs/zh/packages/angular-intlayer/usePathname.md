@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook 文档 | angular-intlayer
 description: 了解如何在 angular-intlayer 包中使用 usePathname hook
 keywords:

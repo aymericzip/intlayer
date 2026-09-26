@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-07-30
+priority: 8
 title: Berkas Konten
 description: Pelajari cara menyesuaikan ekstensi untuk berkas deklarasi konten Anda. Ikuti dokumentasi ini untuk mengimplementasikan kondisi secara efisien dalam proyek Anda.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: useIntlayer 훅 문서 | react-intlayer
 description: react-intlayer 패키지에서 useIntlayer 훅을 사용하는 방법을 확인하세요
 keywords:

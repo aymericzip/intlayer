@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: svelte-intlayer パッケージのドキュメント
 description: Svelte向けのIntlayer統合。Svelteアプリケーション向けのセットアップ関数とストアを提供します。
 keywords:

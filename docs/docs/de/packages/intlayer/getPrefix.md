@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-16
 updatedAt: 2025-11-16
+priority: 5
 title: getPrefix Funktionsdokumentation | intlayer
 description: Siehe, wie die Funktion getPrefix für das intlayer-Paket verwendet wird
 keywords:

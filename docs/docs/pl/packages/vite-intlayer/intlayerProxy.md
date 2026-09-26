@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Dokumentacja wtyczki Vite intlayerProxy | vite-intlayer
 description: Oprogramowanie pośredniczące (middleware) do routingu języków dla serwerów deweloperskich i podglądu Vite oraz produkcyjnego SSR. Obsługuje wykrywanie języka, przekierowania URL i wewnętrzne przepisywanie ścieżek.
 keywords:

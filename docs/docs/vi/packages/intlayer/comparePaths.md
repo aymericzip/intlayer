@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Tài liệu hàm comparePaths | intlayer
 description: Xem cách sử dụng hàm comparePaths cho gói intlayer
 keywords:

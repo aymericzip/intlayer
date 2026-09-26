@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-11
 updatedAt: 2026-01-11
+priority: 4
 title: "`vite-env-only` 与 Intlayer, 错误的 `node:fs` 导入被拒绝"
 description: 为什么在 Intlayer + React-Router + Vite 的组合中，vite-env-only 报告 `node:fs` 导入被拒绝，以及应如何处理。
 keywords:

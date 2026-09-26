@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: lynx-intlayer Package Documentation
 description: Lynx support for Intlayer, providing polyfills for locale support.
 keywords:

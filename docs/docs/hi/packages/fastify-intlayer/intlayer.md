@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer Fastify प्लगइन दस्तावेज़ | fastify-intlayer
 description: देखें कि fastify-intlayer पैकेज के लिए intlayer प्लगइन का उपयोग कैसे करें
 keywords:

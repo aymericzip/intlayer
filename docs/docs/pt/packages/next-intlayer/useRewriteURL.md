@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: Documentação do hook useRewriteURL
 description: Hook específico para Next.js para gerir reescritas de URL localizadas no Intlayer.

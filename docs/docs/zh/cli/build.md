@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 构建字典
 description: 了解如何从内容声明文件构建您的 Intlayer 字典。
 keywords:

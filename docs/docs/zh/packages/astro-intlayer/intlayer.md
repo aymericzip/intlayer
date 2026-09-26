@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: intlayer 集成文档 | astro-intlayer
 description: 了解如何在 astro.config.mjs 中配置和使用 intlayer Astro 集成。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Xây dựng Từ điển
 description: Tìm hiểu cách xây dựng từ điển Intlayer của bạn từ các tệp khai báo nội dung.
 keywords:

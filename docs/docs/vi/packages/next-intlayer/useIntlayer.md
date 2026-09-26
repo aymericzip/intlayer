@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-06
+priority: 5
 title: Tài liệu Hook useIntlayer | next-intlayer
 description: Xem cách sử dụng hook useIntlayer cho gói next-intlayer
 keywords:

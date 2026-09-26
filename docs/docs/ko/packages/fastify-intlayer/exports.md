@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: fastify-intlayer 패키지 문서
 description: Intlayer용 Fastify 플러그인으로 번역 함수와 로케일 감지 기능을 제공합니다.
 keywords:

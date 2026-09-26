@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-02
 updatedAt: 2025-06-29
+priority: 5
 title: Tài liệu hàm t | hono-intlayer
 description: Xem cách sử dụng hàm t cho gói hono-intlayer
 keywords:

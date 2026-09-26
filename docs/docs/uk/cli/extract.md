@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Витягнення рядків
 description: Дізнайтеся, як витягувати рядки з ваших компонентів у файл .content поруч із компонентом.
 keywords:

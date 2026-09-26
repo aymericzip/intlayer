@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-16
 updatedAt: 2026-09-12
+priority: 5
 title: CLI - Login
 description: Aprenda como usar o comando de login do Intlayer CLI para autenticar-se no Intlayer CMS e obter credenciais de acesso.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: URL 경로를 번역할 수 있나요?
 description: URL 경로를 번역하는 방법을 알아보세요.
 keywords:

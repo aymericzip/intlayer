@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-02
 updatedAt: 2025-06-29
+priority: 5
 title: Документація функції t | hono-intlayer
 description: Дізнайтеся, як використовувати функцію t для пакета hono-intlayer
 keywords:

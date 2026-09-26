@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer-cli पैकेज प्रलेखन
 description: Intlayer के लिए CLI टूल, जो शब्दकोशों को बिल्ड और ऑडिट करने के लिए कमांड प्रदान करता है।
 keywords:

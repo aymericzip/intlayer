@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Testowanie brakujących tłumaczeń
 description: Dowiedz się, jak testować i identyfikować brakujące tłumaczenia w swoich słownikach.
 keywords:

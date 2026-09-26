@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-25
 updatedAt: 2026-09-16
+priority: 8
 title: i18nバンドルサイズとパフォーマンスの最適化
 description: 国際化（i18n）コンテンツを最適化し、アプリケーションのバンドルサイズを削減します。Intlayerを使用して辞書のツリーシェイキングと遅延読み込みを活用する方法を学びます。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: Documentation du package react-native-intlayer
 description: Support React Native pour Intlayer, fournissant des providers, des hooks, des polyfills et la configuration Metro.
 keywords:

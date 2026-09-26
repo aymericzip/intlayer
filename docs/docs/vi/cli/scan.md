@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: Quét trang web
 description: Tìm hiểu cách sử dụng lệnh scan của Intlayer CLI để đo lường kích thước trang và kiểm toán sức khỏe i18n/SEO của bất kỳ trang web nào.
 keywords:

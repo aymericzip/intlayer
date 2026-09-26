@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-30
 updatedAt: 2026-09-21
+priority: 8
 title: استضافة Intlayer ذاتيًا (Self-Hosting)
 description: "قم بتشغيل Intlayer على بنيتك التحتية الخاصة: كتطبيق سطح مكتب، أو حاوية Docker واحدة شاملة (all-in-one)، أو حزمة Docker Compose قابلة للتطوير. لا يلزم وجود حساب على Intlayer Cloud."
 keywords:

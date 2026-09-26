@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-11
 updatedAt: 2026-01-11
+priority: 4
 title: `vite-env-only` & Intlayer – хибнопозитивна помилка відхилення `node:fs`
 description: Чому vite-env-only повідомляє про відхилений імпорт `node:fs` з Intlayer + React-Router + Vite і що робити.
 keywords:

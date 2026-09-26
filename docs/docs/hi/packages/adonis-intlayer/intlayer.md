@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: intlayer AdonisJS मिडलवेयर दस्तावेज़ीकरण | adonis-intlayer
 description: adonis-intlayer पैकेज के लिए intlayer मिडलवेयर का उपयोग करने का तरीका देखें
 keywords:

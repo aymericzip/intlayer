@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-07-30
+priority: 8
 title: File di Contenuto
 description: Scopri come personalizzare le estensioni per i tuoi file di dichiarazione dei contenuti. Segui questa documentazione per implementare condizioni in modo efficiente nel tuo progetto.
 keywords:

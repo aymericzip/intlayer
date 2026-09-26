@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация компонента IntlayerProvider | solid-intlayer
 description: Узнайте, как использовать компонент IntlayerProvider в пакете solid-intlayer
 keywords:

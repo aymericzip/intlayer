@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-09-22
+priority: 1
 title: Intlayer 隐私声明
 description: 了解 Intlayer 如何处理通过我们的网站和 CMS 收集的信息。请参阅文档以了解不同的格式和使用场景。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-05-31
+priority: 7
 title: "Vue के लिए सबसे अच्छा अंतर्राष्ट्रीयकरण (i18n) और उपकरण - अनुवाद का पूर्ण गाइड: Best Vue i18n Libraries 2026 — Compared by DX & Bundle"
 description: बंडल साइज़, SEO, परफॉर्मेंस & मेंटेनेबिलिटी के लिए सबसे अच्छा समाधान। 2026 में अपने Vue ऐप को बहुभाषी बनाएं, LLM ट्रांसलेशन, Agent Skills & MCP.
 keywords:

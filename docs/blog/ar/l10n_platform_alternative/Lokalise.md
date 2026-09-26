@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: بديل لمنصة L10n لـ Lokalise
 description: اعثر على أفضل بديل لمنصة L10n لـ Lokalise ليناسب احتياجاتك
 keywords:

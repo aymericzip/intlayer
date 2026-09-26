@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 8
 title: Intlayer は Paraglide より軽い？
 description: Paraglide はコードがリポジトリ内に直接生成されるため、i18n ベンチマークではほぼノーコストのように見えます。その容量が実際にはどこに移動しているのか、ノードごとのロケール読み取りがなぜコストになるのか、そして Intlayer の動的読み込みが全言語ではなく必要なロケールのみを配信する仕組みを解説します。
 keywords:

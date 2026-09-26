@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: محولات التوافق في Intlayer
 description: ارحل حل i18n الحالي الخاص بك إلى Intlayer دون احتكاك باستخدام محولات التوافق.
 keywords:

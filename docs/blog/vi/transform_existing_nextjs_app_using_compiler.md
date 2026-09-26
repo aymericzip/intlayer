@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-09-06
+priority: 8
 title: "Cách làm đa ngôn ngữ (i18n) cho ứng dụng Next.js hiện có sau này (Hướng dẫn i18n 2026)"
 description: "Hướng dẫn năm 2026 về cách thêm đa ngôn ngữ (i18n) vào ứng dụng Next.js hiện có mà không cần tái cấu trúc phức tạp. Trích xuất tự động, dịch thuật bằng AI và định tuyến hiệu năng cao với Intlayer."
 keywords:

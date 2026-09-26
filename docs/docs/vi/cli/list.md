@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-01-06
+priority: 5
 title: Liệt kê các tệp khai báo nội dung
 description: Tìm hiểu cách liệt kê tất cả các tệp khai báo nội dung trong dự án của bạn.
 keywords:

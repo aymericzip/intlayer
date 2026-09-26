@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useIntlayer हुक प्रलेखन | astro-intlayer
 description: स्थानीयकृत सामग्री तक पहुँचने के लिए Astro कंपोनेंट्स और क्लाइंट स्क्रिप्ट्स में useIntlayer हुक का उपयोग करने का तरीका देखें।
 keywords:

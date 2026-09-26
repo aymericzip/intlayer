@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: getEnumeration 関数ドキュメント | intlayer
 description: intlayer パッケージの getEnumeration 関数の使い方を確認する
 keywords:

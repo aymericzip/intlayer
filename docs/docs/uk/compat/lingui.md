@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Міграція з Lingui на Intlayer"
 description: "Дізнайтеся, як мігрувати вашу програму з Lingui на Intlayer, використовуючи адаптер сумісності."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-07-08
+priority: 8
 title: 라이브 동기화 | CMS 콘텐츠 변경 사항을 실시간으로 반영
 description: 재빌드나 재배포 없이 Intlayer CMS 콘텐츠 변경 사항을 앱에 실시간으로 반영하세요.
 keywords:

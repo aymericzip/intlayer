@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "Lingui vs @intlayer/lingui : Mêmes Macros, Nouveau Runtime"
 description: Ce qui change lorsqu'une application React conserve ses macros Lingui mais les distribue via l'adaptateur de compatibilité @intlayer/lingui. Taille des composants, hydratation, fuites et JavaScript par page mesurés sur le même code TanStack Start, y compris les points où l'adaptateur est en retrait.
 keywords:

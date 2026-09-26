@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useLocale Hook Documentation | remix-intlayer
 description: See how to use the useLocale hook in Remix applications to get the current request locale, default locale, and available locales.
 keywords:

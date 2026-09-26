@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-06
+priority: 10
 title: Pengenalan
 description: Temukan bagaimana Intlayer bekerja. Lihat langkah-langkah yang digunakan oleh Intlayer di aplikasi Anda. Temukan apa yang dilakukan oleh berbagai paket yang ada.
 keywords:

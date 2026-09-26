@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentasi Hook useDictionary | remix-intlayer
 description: Lihat cara menggunakan hook useDictionary dalam aplikasi Remix 3 untuk menyelesaikan objek kamus untuk locale permintaan saat ini.
 keywords:

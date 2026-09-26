@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-01
 updatedAt: 2025-09-20
+priority: 8
 title: 测试您的内容
 description: 了解如何使用 Intlayer 测试您的内容。
 keywords:

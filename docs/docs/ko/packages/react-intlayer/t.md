@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: t 함수 문서 | react-intlayer
 description: react-intlayer 패키지에서 t 함수 사용법 보기
 keywords:

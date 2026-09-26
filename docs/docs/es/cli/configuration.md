@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Gestionar Configuración
 description: Aprende cómo obtener y enviar tu configuración de Intlayer al CMS.
 keywords:

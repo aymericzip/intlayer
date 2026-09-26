@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: Documentación del hook useRewriteURL
 description: Hook específico de Svelte para gestionar reescrituras de URL localizadas en Intlayer.

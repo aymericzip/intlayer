@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "NuxtJS I18n से Intlayer में माइग्रेट करें"
 description: "सीखें कि अपने Nuxt.js एप्लिकेशन को @nuxtjs/i18n से Intlayer में compat adapter का उपयोग करके कैसे माइग्रेट करें।"
 keywords:

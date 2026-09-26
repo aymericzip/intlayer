@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Otwarte (open-source) rozwiązanie L10n, alternatywa dla Phrase
 description: Znajdź najlepszą platformę L10n jako alternatywę dla Phrase dopasowaną do Twoich potrzeb
 keywords:

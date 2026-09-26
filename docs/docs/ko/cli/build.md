@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 사전 빌드하기
 description: 콘텐츠 선언 파일에서 Intlayer 사전을 빌드하는 방법을 알아보세요.
 keywords:

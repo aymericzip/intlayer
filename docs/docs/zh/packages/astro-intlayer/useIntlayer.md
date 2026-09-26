@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useIntlayer 钩子文档 | astro-intlayer
 description: 了解如何在 Astro 组件和客户端脚本中使用 useIntlayer 钩子访问本地化内容。
 keywords:

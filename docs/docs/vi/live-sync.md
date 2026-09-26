@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-07-08
+priority: 8
 title: Đồng bộ trực tiếp (Live Sync) | Phản ánh thay đổi nội dung CMS theo thời gian thực
 description: Cho phép ứng dụng của bạn phản ánh các thay đổi nội dung của Intlayer CMS ngay khi chạy, không cần build lại hay triển khai lại.
 keywords:

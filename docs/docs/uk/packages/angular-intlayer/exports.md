@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Пакет angular-intlayer, документація
 description: Інтеграція Intlayer, специфічна для Angular; надає провайдери та сервіси для Angular-застосунків.
 keywords:

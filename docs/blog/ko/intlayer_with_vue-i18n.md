@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-10-29
+priority: 8
 title: Intlayer와 vue-i18n
 description: 포괄적인 Vue.js 국제화 솔루션을 위해 Intlayer를 vue-i18n과 통합하기
 keywords:

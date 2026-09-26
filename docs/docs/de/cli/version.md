@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: CLI-Version überprüfen
 description: Erfahren Sie, wie Sie die installierte Intlayer CLI-Version überprüfen.
 keywords:

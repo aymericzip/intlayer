@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useLocale フックドキュメント | astro-intlayer
 description: Astro アプリケーションで useLocale フックを使用して現在のロケールにアクセスし管理する方法を説明します。
 keywords:

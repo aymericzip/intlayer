@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: Tài liệu Composable useRewriteURL
 description: Composable dành cho Vue để quản lý việc viết lại URL theo ngôn ngữ trong Intlayer.

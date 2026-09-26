@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-11
+priority: 8
 title: Benchmark i18n-Bibliotheken
 description: Erfahren Sie, wie Intlayer im Vergleich zu anderen i18n-Bibliotheken in Bezug auf Performance und Bundle-Größe abschneidet.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: solid-intlayer パッケージのドキュメント
 description: Intlayer の Solid 向け統合。Solid アプリケーション向けの providers と hooks を提供します。
 keywords:

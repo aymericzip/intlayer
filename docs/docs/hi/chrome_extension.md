@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
+priority: 6
 title: Chrome और Firefox एक्सटेंशन, i18n और SEO स्कैनर
 description: Intlayer Chrome एक्सटेंशन के साथ किसी भी वेबसाइट के i18n सेटअप का निरीक्षण करें। फ़्रेमवर्क, i18n लाइब्रेरी, लोकेल्स, hreflang और SEO टैग्स का पता लगाएं, और एक पूर्ण i18n SEO ऑडिट चलाएं।
 keywords:

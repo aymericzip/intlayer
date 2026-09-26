@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: angular-intlayer パッケージのドキュメント
 description: Angular アプリケーション向けに Intlayer を統合するための、プロバイダーとサービスを提供する Angular 専用の統合パッケージ。
 keywords:

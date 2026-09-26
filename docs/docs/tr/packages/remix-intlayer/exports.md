@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: remix-intlayer Paketi Dokümantasyonu
 description: Remix 3 uygulamaları için uluslararasılaştırma (i18n) sağlayan remix-intlayer paketi dışa aktarım dokümantasyonu.
 keywords:

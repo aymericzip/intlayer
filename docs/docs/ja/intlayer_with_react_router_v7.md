@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-04
 updatedAt: 2026-09-20
+priority: 10
 title: "React Router v7 i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）React Router v7アプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:

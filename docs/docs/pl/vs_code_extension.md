@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-17
 updatedAt: 2025-09-30
+priority: 6
 title: Oficjalne rozszerzenie VS Code
 description: Dowiedz się, jak korzystać z rozszerzenia Intlayer w VS Code, aby usprawnić swój proces tworzenia oprogramowania. Szybko nawiguj między zlokalizowanymi treściami i efektywnie zarządzaj swoimi słownikami.
 keywords:

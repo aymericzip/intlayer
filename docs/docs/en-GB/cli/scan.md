@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: Scan Website
 description: Learn how to use the Intlayer CLI scan command to measure page size and audit the i18n/SEO health of any website.
 keywords:

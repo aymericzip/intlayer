@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Di Chuyển Từ Vue I18n Sang Intlayer"
 description: "Tìm hiểu cách di chuyển ứng dụng Vue của bạn từ vue-i18n sang Intlayer bằng bộ điều hợp tương thích."
 keywords:

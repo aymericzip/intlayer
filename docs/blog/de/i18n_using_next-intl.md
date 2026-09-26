@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-01
 updatedAt: 2026-05-31
+priority: 9
 title: Wie Sie Ihre Next.js-Anwendung mit next-intl internationalisieren - Vollständiger Leitfaden zur Übersetzung Translate Next.js 16 with next-intl — App Router Setup
 description: Beste Lösung für Bundle-Größe, SEO, Performance & Wartbarkeit. Machen Sie Ihre Next.js 16 Website 2026 mehrsprachig, LLM-Übersetzung, Agent Skills & MCP.
 keywords:

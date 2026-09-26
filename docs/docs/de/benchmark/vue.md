@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: Beste i18n-Lösung für Vue im Jahr 2026 – Benchmark-Bericht
 description: Vergleichen Sie Vue-Internationalisierungsbibliotheken (i18n) wie vue-i18n, fluent-vue, Tolgee und Intlayer. Detaillierter Leistungsbericht zu Bundle-Größe, Leakage und Reaktivität.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-16
 updatedAt: 2026-09-12
+priority: 5
 title: CLI - Anmeldung
 description: Erfahren Sie, wie Sie den Intlayer-CLI-Befehl login verwenden, um sich beim Intlayer CMS zu authentifizieren und Zugangsdaten zu erhalten.
 keywords:

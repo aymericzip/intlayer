@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 9
 title: "htmx i18n - Hướng dẫn hoàn chỉnh dịch ứng dụng của bạn"
 description: "Không còn i18next. Hướng dẫn 2026 để xây dựng ứng dụng htmx đa ngôn ngữ (i18n). Dịch với AI agents và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:

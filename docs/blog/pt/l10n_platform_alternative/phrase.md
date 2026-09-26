@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Plataforma de L10n alternativa ao Phrase
 description: Encontre a melhor plataforma de L10n alternativa ao Phrase para as suas necessidades
 keywords:

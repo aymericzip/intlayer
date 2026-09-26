@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-02-26
 updatedAt: 2026-02-26
+priority: 9
 title: "i18n Meaning: What is Internationalisation and why is it important?"
 description: "Discover the true i18n meaning in software development. Learn what internationalisation is, why it is abbreviated as i18n, and how it impacts global reach."
 keywords:

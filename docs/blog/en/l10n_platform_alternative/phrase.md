@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: L10n Platform Alternative for Phrase
 description: Find the best L10n platform alternative to Phrase for your needs
 keywords:

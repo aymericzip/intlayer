@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Di Chuyển Từ React Intl Sang Intlayer"
 description: "Tìm hiểu cách di chuyển ứng dụng React của bạn từ react-intl sang Intlayer bằng bộ điều hợp tương thích."
 keywords:

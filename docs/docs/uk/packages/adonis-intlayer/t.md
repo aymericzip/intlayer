@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: Документація функції t | adonis-intlayer
 description: Дізнайтеся, як використовувати функцію t для пакета adonis-intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Composable Documentation | vue-intlayer
 description: See how to use the usePathname composable for vue-intlayer package
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2026-06-21
+priority: 6
 title: Plugin Đồng bộ JSON
 description: Đồng bộ từ điển Intlayer với các tệp JSON i18n của bên thứ ba (i18next, next-intl, react-intl, vue-i18n và nhiều hơn nữa). Giữ nguyên i18n hiện có của bạn trong khi sử dụng Intlayer để quản lý, dịch và kiểm tra các thông điệp của bạn.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-02-25
+priority: 5
 title: intlayerMiddleware 文档 | next-intlayer
 description: 查看如何在 next-intlayer 包中使用 intlayerMiddleware 函数
 keywords:

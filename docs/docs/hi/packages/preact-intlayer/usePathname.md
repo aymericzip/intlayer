@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname हुक दस्तावेज़ीकरण | preact-intlayer
 description: जानें कि preact-intlayer पैकेज के लिए usePathname हुक का उपयोग कैसे करें
 keywords:

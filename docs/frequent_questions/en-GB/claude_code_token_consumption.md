@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 4
 title: How to limit Claude Code token consumption to generate translations
 description: Why translating with Claude Code burns tokens, what Intlayer does instead (filters translated keys, chunks JSON, translates markdown block by block), and how to reuse your Claude subscription with claude setup-token.
 keywords:

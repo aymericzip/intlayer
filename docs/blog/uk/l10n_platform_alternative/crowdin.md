@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Альтернатива L10n-платформі
 description: Знайдіть найкращу альтернативу L10n-платформі для ваших потреб
 keywords:

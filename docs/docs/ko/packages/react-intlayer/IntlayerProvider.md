@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: IntlayerProvider 컴포넌트 문서 | react-intlayer
 description: react-intlayer 패키지의 IntlayerProvider 컴포넌트를 사용하는 방법을 확인하세요
 keywords:

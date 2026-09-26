@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
+priority: 9
 title: Apa itu Internasionalisasi (i18n)? Definisi dan tantangan
 description: Temukan mengapa internasionalisasi situs web Anda sangat penting. Pelajari prinsip-prinsip kunci untuk meningkatkan SEO, memperbaiki pengalaman pengguna, dan memperluas jangkauan global Anda.
 keywords:

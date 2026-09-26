@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Documentazione del middleware intlayer | remix-intlayer
 description: Scopri come utilizzare il middleware intlayer nelle applicazioni Remix 3 per il routing basato sulla locale e la gestione del contesto di richiesta.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-10
+priority: 8
 title: "JavaScript i18n Tarihi: 2011'den 2026'ya"
 description: "2011'den 2026'ya frontend uluslararasılaştırmasının gelişimini keşfedin. React, Vue, Next.js, Angular, Svelte ve Solid ekosistemlerindeki sürüm tarihleri, mimari zorluklar ve temel yenilikler."
 keywords:

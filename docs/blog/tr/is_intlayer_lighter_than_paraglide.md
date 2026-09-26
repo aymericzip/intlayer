@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 8
 title: Intlayer, Paraglide'dan daha mı hafif?
 description: Paraglide, kodları doğrudan deponuza ürettiği için i18n kıyaslamalarında neredeyse sıfır maliyetli görünür. Bu boyutun gerçekte nereye gittiğini, düğüm başına dil çözümlemesinin neden maliyetli olduğunu ve Intlayer'ın dinamik yüklemesinin tüm diller yerine neden yalnızca tek bir dili istemciye gönderdiğini inceliyoruz.
 keywords:

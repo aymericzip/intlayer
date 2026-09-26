@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-30
 updatedAt: 2026-07-30
+priority: 8
 title: 基于选择的内容
 description: 了解如何在 Intlayer 中使用基于选择的内容，以根据任意字符串值动态显示内容。按照本指南高效地在项目中实现类似 switch 语句的内容。
 keywords:

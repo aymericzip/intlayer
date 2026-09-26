@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook Documentation | react-intlayer
 description: Learn how to use the usePathname hook from the react-intlayer package to get the current URL pathname without the locale segment.
 keywords:

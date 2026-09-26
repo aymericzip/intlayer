@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: توثيق دالة t | react-intlayer
 description: تعرف على كيفية استخدام دالة t لحزمة react-intlayer
 keywords:

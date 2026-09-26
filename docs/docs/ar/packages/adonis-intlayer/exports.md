@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: توثيق حزمة adonis-intlayer
 description: وسيط AdonisJS لـ Intlayer، يوفر وظائف الترجمة واكتشاف اللغة.
 keywords:

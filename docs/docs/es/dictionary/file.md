@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
+priority: 8
 title: Archivo
 description: Aprende cómo incrustar archivos externos en tu diccionario de contenido usando la función `file`. Esta documentación explica cómo Intlayer enlaza y gestiona el contenido de archivos dinámicamente.
 keywords:

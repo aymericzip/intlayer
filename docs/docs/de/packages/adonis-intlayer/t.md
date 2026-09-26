@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: t-Funktion Dokumentation | adonis-intlayer
 description: Sehen Sie, wie Sie die t-Funktion für das adonis-intlayer-Paket verwenden
 keywords:

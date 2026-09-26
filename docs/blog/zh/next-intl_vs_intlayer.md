@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl vs Intlayer: 2026 基准测试与对比"
 description: Bundle 大小、内容泄漏、locale 切换响应性和开发者体验在 Next.js 和 TanStack Start 上的测量。你应该在 2026 年选择哪个 i18n 库？
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Extraer cadenas
 description: Aprende cómo extraer cadenas de tus componentes a un archivo .content ubicado cerca del componente.
 keywords:

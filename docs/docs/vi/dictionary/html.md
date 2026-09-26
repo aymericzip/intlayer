@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-20
 updatedAt: 2026-09-21
+priority: 8
 title: Nội dung HTML
 description: Tìm hiểu cách khai báo và sử dụng nội dung HTML với các component tùy chỉnh trong Intlayer. Theo dõi tài liệu này để nhúng nội dung giống HTML phong phú với việc thay thế component động trong dự án quốc tế hóa của bạn.
 keywords:

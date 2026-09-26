@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2025-08-20
+priority: 8
 title: Formateadores
 description: Utilidades de formateo conscientes del locale basadas en Intl para números, porcentajes, moneda, fechas, tiempo relativo, unidades y notación compacta. Incluye un helper Intl en caché.
 keywords:

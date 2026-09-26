@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Alternatif Platform L10n
 description: Temukan alternatif platform L10n terbaik untuk kebutuhan Anda
 keywords:

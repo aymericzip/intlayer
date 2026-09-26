@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "如何在 2026 年选择合适的 Vue i18n 国际化库"
 description: Vue 与 Nuxt 国际化选型决策指南。在对比 vue-i18n、@nuxtjs/i18n、fluent-vue、Paraglide 与 Intlayer 之前需要明确的关键问题，以及各方案在打包体积（bundle size）、类型支持（typing）与 SSR 负载方面的成本权衡。
 keywords:

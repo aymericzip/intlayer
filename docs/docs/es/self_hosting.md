@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-30
 updatedAt: 2026-09-21
+priority: 8
 title: Autoalojamiento de Intlayer
 description: "Ejecute Intlayer en su propia infraestructura: como aplicación de escritorio, un contenedor Docker todo en uno o un stack escalable de Docker Compose. No se requiere cuenta de Intlayer Cloud."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-30
 updatedAt: 2026-09-21
+priority: 8
 title: Tự lưu trữ Intlayer (Self-Hosting)
 description: "Chạy Intlayer trên cơ sở hạ tầng của riêng bạn: ứng dụng desktop, một container Docker all-in-one duy nhất hoặc stack Docker Compose có thể mở rộng. Không cần tài khoản Intlayer Cloud."
 keywords:

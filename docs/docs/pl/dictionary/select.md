@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-30
 updatedAt: 2026-07-30
+priority: 8
 title: Treść Oparta na Wyborze (Select)
 description: Dowiedz się, jak używać treści opartej na wyborze w Intlayer do dynamicznego renderowania treści na podstawie dowolnej wartości znakowej (string). Postępuj zgodnie z tą dokumentacją, aby efektywnie zaimplementować zawartość typu switch w swoim projekcie.
 keywords:

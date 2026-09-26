@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-12
+priority: 8
 title: Collections
 description: Use the item metadata field in Intlayer content files to build ordered collections of localised items selectable by index at runtime.
 keywords:

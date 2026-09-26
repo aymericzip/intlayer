@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Tài liệu Hook usePathname | angular-intlayer
 description: Xem cách sử dụng hook usePathname cho gói angular-intlayer
 keywords:

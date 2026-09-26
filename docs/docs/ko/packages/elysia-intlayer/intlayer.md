@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: intlayer Elysia 플러그인 문서 | elysia-intlayer
 description: elysia-intlayer 패키지의 intlayer 플러그인 사용법을 확인하세요
 keywords:

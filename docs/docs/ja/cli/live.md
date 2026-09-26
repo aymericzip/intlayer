@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: ライブ同期コマンド
 description: ランタイムでCMSのコンテンツ変更を反映するためのライブ同期の使い方を学びます。
 keywords:

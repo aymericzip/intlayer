@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: ESBuild 错误
 description: 了解如何修复 ESBuild 错误。
 keywords:

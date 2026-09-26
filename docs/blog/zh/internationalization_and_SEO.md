@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
+priority: 8
 title: SEO和国际化
 description: 了解如何为搜索引擎优化您的多语言网站，并提升您的SEO。
 keywords:

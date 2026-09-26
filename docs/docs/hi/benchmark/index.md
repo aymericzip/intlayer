@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-11
+priority: 8
 title: i18n लाइब्रेरी बेंचमार्क
 description: जानें कि परफॉरमेंस और बंडल आकार के मामले में Intlayer अन्य i18n लाइब्रेरीज़ की तुलना में कैसा है।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 5
 title: Blog
 description: Intlayer, uluslararasılaştırma ve diğer konularla ilgili tüm konuları keşfedin
 keywords:

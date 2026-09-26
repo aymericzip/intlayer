@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 사전 가져오기
 description: Intlayer 에디터와 CMS에서 사전을 가져오는 방법을 알아보세요.
 keywords:

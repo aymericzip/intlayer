@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 辞書の監視
 description: コンテンツ宣言ファイルの変更を監視し、自動的に辞書をビルドする方法を学びます。
 keywords:

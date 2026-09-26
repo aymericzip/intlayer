@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: intlayer AdonisJS 中间件文档 | adonis-intlayer
 description: 了解如何为 adonis-intlayer 包使用 intlayer 中间件
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: Nesting del dizionario
 description: Scopri come utilizzare l’annidamento dei contenuti in Intlayer per riutilizzare e strutturare il tuo contenuto multilingue in modo efficiente. Segui questa documentazione per implementare facilmente l’annidamento nel tuo progetto.
 keywords:

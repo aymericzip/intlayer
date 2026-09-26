@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-14
 updatedAt: 2025-09-27
+priority: 8
 title: Intlayer এর গুরুত্ব
 description: আপনার প্রজেক্টে Intlayer ব্যবহারের সুবিধা এবং লাভগুলো আবিষ্কার করুন। বুঝুন কেন Intlayer অন্যান্য ফ্রেমওয়ার্কের মধ্যে অনন্য।
 keywords:

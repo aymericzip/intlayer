@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Next.js में i18n के साथ स्थैतिक बनाम गतिशील रेंडरिंग
 description: Next.js में i18n के साथ स्थैतिक बनाम गतिशील रेंडरिंग का उपयोग कैसे करें, सीखें।
 keywords:

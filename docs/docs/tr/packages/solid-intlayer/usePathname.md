@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook Dokümantasyonu | solid-intlayer
 description: solid-intlayer paketindeki usePathname hook'unun nasıl kullanılacağını öğrenin
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Localización incorrecta obtenida desde la URL
 description: Aprende cómo solucionar la localización incorrecta obtenida desde la URL.
 keywords:

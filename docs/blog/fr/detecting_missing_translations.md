@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Comment détecter les traductions manquantes avant vos utilisateurs"
 description: Les traductions manquantes échouent en silence. Pourquoi le fallback les dissimule, les quatre niveaux de détection efficaces et comment bloquer un build sur une clé non traduite.
 keywords:

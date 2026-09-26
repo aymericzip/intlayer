@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Documentation du contexte Intlayer | remix-intlayer
 description: Découvrez comment utiliser la clé et la propriété de contexte de requête Intlayer dans les applications Remix 3.
 keywords:

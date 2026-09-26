@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 1
 title: Intlayer 서비스 약관
 description: Intlayer가 웹사이트와 CMS를 통해 수집한 정보를 어떻게 처리하는지 알아보세요. 다양한 형식과 사용 사례를 이해하려면 문서를 참조하세요.
 keywords:

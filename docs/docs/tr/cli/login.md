@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-16
 updatedAt: 2026-09-12
+priority: 5
 title: CLI - Giriş
 description: Intlayer CLI'nin login komutunu kullanarak Intlayer CMS ile nasıl kimlik doğrulaması yapacağınızı ve erişim kimlik bilgileri elde edeceğinizi öğrenin.
 keywords:

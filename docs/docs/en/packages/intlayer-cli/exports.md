@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer-cli Package Documentation
 description: CLI tool for Intlayer, providing commands for building and auditing dictionaries.
 keywords:

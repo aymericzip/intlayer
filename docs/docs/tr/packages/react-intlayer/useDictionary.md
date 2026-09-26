@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 5
 title: useDictionary Hook Dokümantasyonu | react-intlayer
 description: React uygulamalarında Intlayer ile useDictionary hook'unun verimli kullanımı için tam rehber.
 keywords:

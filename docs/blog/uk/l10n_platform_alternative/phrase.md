@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Альтернатива L10n-платформі Phrase
 description: Знайдіть найкращу альтернативу Phrase серед L10n-платформ для ваших потреб
 keywords:

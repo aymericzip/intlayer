@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "How to find missing translations before your users do"
 description: Missing translations fail silently. Why fallback hides them, the four detection layers that actually work, and how to fail a build on an untranslated key.
 keywords:

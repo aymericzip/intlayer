@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: Документація функції getIntlayer | intlayer
 description: Дивіться, як використовувати функцію getIntlayer для пакета intlayer
 keywords:

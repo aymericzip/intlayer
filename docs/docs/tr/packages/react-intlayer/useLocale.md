@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 5
 title: useLocale Hook Dokümantasyonu | react-intlayer
 description: react-intlayer paketi için useLocale hook'unun nasıl kullanılacağını görün
 keywords:

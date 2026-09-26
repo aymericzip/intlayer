@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-07-08
+priority: 8
 title: Sincronizzazione live | Rifletti le modifiche dei contenuti del CMS in tempo reale
 description: Consenti alla tua applicazione di riflettere le modifiche dei contenuti del CMS Intlayer in tempo reale, senza ricompilazione né nuova distribuzione.
 keywords:

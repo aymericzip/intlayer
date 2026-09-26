@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: الترحيل من Vue I18n إلى Intlayer
 description: تعرّف على كيفية ترحيل تطبيق Vue الخاص بك من vue-i18n إلى Intlayer باستخدام محول التوافق.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: Posso tradurre il percorso dell'URL?
 description: Scopri come tradurre il percorso dell'URL.
 keywords:

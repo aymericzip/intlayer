@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Intlayer 컨텍스트 문서 | remix-intlayer
 description: Remix 3 애플리케이션의 Intlayer 요청 컨텍스트 스토리지 키에 대한 문서입니다.
 keywords:

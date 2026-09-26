@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация пакета preact-intlayer
 description: Интеграция Intlayer для Preact, предоставляющая провайдеры и хуки для приложений на Preact.
 keywords:

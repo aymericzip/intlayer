@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
+priority: 8
 title: SEO와 국제화
 description: 검색 엔진을 위해 다국어 웹사이트를 최적화하고 SEO를 개선하는 방법을 알아보세요.
 keywords:

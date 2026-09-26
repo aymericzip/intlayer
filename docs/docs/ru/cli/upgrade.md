@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 5
 title: CLI - Обновление пакетов Intlayer
 description: Узнайте, как использовать команду upgrade в Intlayer CLI для вывода списка всех пакетов Intlayer вашего проекта или монорепозитория и их обновления до последней версии.
 keywords:

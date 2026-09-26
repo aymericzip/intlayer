@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer Express 中间件文档 | express-intlayer
 description: 查看如何在 express-intlayer 包中使用 intlayer 中间件
 keywords:

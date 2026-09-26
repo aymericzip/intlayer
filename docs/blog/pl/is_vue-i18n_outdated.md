@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Czy vue-i18n jest przestarzały w 2026 roku?
 description: vue-i18n był standardem dla ekosystemu Vue i Nuxt przez dekadę. Jednak w naszych testach okazał się najcięższym runtime i18n w sieci. Wyjaśniamy dlaczego.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: التحقق من إصدار CLI
 description: تعلّم كيفية التحقق من إصدار Intlayer CLI المثبت.
 keywords:

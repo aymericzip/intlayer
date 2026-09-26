@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-12
+priority: 8
 title: コレクション
 description: Intlayerのコンテンツファイルでitemメタデータフィールドを使用して、ランタイムにインデックスで選択可能な、ローカライズされたアイテムの順序付きコレクションを構築します。
 keywords:

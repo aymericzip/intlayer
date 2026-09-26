@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-21
+priority: 9
 title: "Remix 3 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "i18next'i unutun. Çok dilli (i18n) bir Remix 3 uygulaması oluşturmak için 2026 rehberi. Yapay zeka ajanlarıyla çeviri yapın, paket boyutunu, SEO'yu ve performansı optimize edin."
 keywords:

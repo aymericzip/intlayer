@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentacja pakietu remix-intlayer
 description: Dokumentacja eksportów pakietu remix-intlayer, zapewniającego internacjonalizację (i18n) dla aplikacji Remix 3.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: توثيق تكامل intlayer | astro-intlayer
 description: تعرّف على كيفية تهيئة واستخدام تكامل Astro intlayer في ملف astro.config.mjs.
 keywords:

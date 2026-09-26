@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Is i18next Outdated in 2026?
 description: i18next powers millions of websites, but its 2011 runtime architecture is showing its age. A look at bundle bloat, tree-shaking limits, and stalled innovation.
 keywords:

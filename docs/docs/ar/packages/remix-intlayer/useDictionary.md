@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: توثيق خطاف useDictionary | remix-intlayer
 description: تعرّف على كيفية استخدام خطاف useDictionary في تطبيقات Remix 3 لتحليل كائنات القاموس وفقًا للغة الطلب الحالية.
 keywords:

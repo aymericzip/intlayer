@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-02-26
 updatedAt: 2026-02-26
+priority: 9
 title: "i18n Anlamı: Uluslararasılaştırma Nedir ve Neden Önemlidir?"
 description: "Yazılım geliştirmede gerçek i18n anlamını keşfedin. Uluslararasılaştırmanın ne olduğunu, neden i18n olarak kısaltıldığını ve küresel erişimi nasıl etkilediğini öğrenin."
 keywords:

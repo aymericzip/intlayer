@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: توثيق خطاف useLocale | astro-intlayer
 description: تعرّف على كيفية استخدام خطاف useLocale في تطبيقات Astro للوصول إلى اللغة الحالية وإدارتها.
 keywords:

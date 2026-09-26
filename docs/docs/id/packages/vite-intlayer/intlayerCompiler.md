@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Dokumentasi Plugin Vite intlayerCompiler | vite-intlayer
 description: Plugin Vite yang mengekstrak deklarasi konten Intlayer inline dari file komponen dan menulisnya ke file JSON kamus pada waktu build/transform.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: comparePaths 함수 문서 | intlayer
 description: intlayer 패키지의 comparePaths 함수 사용법 알아보기
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 9
 title: "ترجمة تطبيق htmx باستخدام Intlayer - دليل كامل"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق htmx متعدد اللغات (i18n). ترجمة مع وكلاء الذكاء الاصطناعي وتحسين حجم الحزمة و SEO والأداء."
 keywords:

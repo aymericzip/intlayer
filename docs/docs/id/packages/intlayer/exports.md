@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentasi Paket intlayer
 description: Paket inti Intlayer, menyediakan fungsi dasar dan tipe untuk internasionalisasi.
 keywords:

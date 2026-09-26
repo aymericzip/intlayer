@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: "@intlayer/babel Paket Dokümantasyonu"
 description: Intlayer için derleme sırasında içerik ayıklama, import optimizasyonu, kullanılmayan alanları temizleme ve alan adlarını karartma işlemlerini gerçekleştiren Babel eklentileri.
 keywords:

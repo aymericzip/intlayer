@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: angular-intlayer Paketi Dokümantasyonu
 description: Intlayer için Angular'a özgü entegrasyon; Angular uygulamaları için sağlayıcılar ve servisler sağlar.
 keywords:

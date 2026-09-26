@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: 2026'da Vue için En İyi i18n Çözümü - Benchmark Raporu
 description: vue-i18n, fluent-vue, Tolgee ve Intlayer gibi Vue uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
 keywords:

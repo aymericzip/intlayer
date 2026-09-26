@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-08-22
+priority: 8
 title: Intlayer Analytics | Theo dõi hiển thị nội dung và chạy thử nghiệm A/B
 description: Khám phá cách @intlayer/analytics theo dõi lượt xem trang/ngôn ngữ và lượt hiển thị nội dung, cũng như cách sử dụng nó để chạy thử nghiệm A/B trên nội dung Intlayer của bạn.
 keywords:

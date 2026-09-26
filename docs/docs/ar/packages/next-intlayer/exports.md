@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: حزمة next-intlayer
 description: تكامل مخصص لـ Next.js مع Intlayer، يوفر ميدلوير ومزودين لكل من App Router و Page Router.
 keywords:

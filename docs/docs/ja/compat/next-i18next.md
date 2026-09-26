@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "next-i18nextからIntlayerへの移行"
 description: "compat アダプターを使用して、Next.js アプリケーションを next-i18next から Intlayer に移行する方法を学びます。"
 keywords:

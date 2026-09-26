@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: comparePaths ফাংশন ডকুমেন্টেশন | intlayer
 description: intlayer প্যাকেজের জন্য comparePaths ফাংশন কীভাবে ব্যবহার করবেন তা দেখুন
 keywords:

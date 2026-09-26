@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Osservare i Dizionari
 description: Scopri come osservare le modifiche nei tuoi file di dichiarazione dei contenuti e costruire automaticamente i dizionari.
 keywords:

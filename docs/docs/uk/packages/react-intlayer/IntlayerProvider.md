@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документація компонента IntlayerProvider | react-intlayer
 description: Дивіться, як використовувати компонент IntlayerProvider для пакета react-intlayer
 keywords:

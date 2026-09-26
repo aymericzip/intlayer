@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 도메인 기반 라우팅 구성 방법
 description: 도메인 기반 라우팅 구성 방법을 알아보세요.
 keywords:

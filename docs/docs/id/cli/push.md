@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Dorong Kamus
 description: Pelajari cara mendorong kamus Anda ke editor dan CMS Intlayer.
 keywords:

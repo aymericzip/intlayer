@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: توثيق دالة getIntlayerAsync | intlayer
 description: انظر كيفية استخدام دالة getIntlayerAsync لحزمة intlayer
 keywords:

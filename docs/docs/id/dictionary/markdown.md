@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-09-21
+priority: 8
 title: Markdown
 description: Pelajari cara mendeklarasikan dan menggunakan konten Markdown di situs web multibahasa Anda dengan Intlayer. Ikuti langkah-langkah dalam dokumentasi online ini untuk mengintegrasikan Markdown dengan mulus ke dalam proyek Anda.
 keywords:

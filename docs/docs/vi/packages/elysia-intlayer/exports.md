@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: Tài liệu gói elysia-intlayer
 description: Plugin Elysia cho Intlayer, cung cấp các hàm dịch và phát hiện locale.
 keywords:

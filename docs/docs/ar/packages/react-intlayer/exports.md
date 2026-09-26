@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: توثيق حزمة react-intlayer
 description: تنفيذ خاص بـ React لـ Intlayer، يوفّر hooks و providers لتطبيقات React.
 keywords:

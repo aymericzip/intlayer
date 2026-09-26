@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 8
 title: Enumerasi
 description: Temukan cara mendeklarasikan dan menggunakan enumerasi di situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi online ini untuk mengatur proyek Anda dalam beberapa menit.
 keywords:

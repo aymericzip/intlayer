@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Cara Memilih Library React i18n yang Tepat di Tahun 2026"
 description: Panduan keputusan untuk internasionalisasi React. Pertanyaan apa yang perlu dijawab sebelum membandingkan react-i18next, react-intl, Lingui, use-intl, Paraglide, dan Intlayer, serta apa dampak setiap pilihan terhadap ukuran bundle, typing, dan pemeliharaan.
 keywords:

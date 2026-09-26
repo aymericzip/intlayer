@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Apakah next-intl Sudah Ketinggalan Zaman di Tahun 2026?
 description: next-intl telah menjadi standar untuk Next.js App Router. Namun di balik itu, beban runtime bundle dan manajemen namespace manual masih menjadi persoalan.
 keywords:

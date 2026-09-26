@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Документація хука useLocale | remix-intlayer
 description: Дізнайтеся, як використовувати хук useLocale у додатках Remix 3 для отримання поточної локалі запиту, локалі за замовчуванням та списку доступних локалей.
 keywords:

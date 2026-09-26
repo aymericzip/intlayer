@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-01-06
+priority: 5
 title: Elencare i progetti Intlayer
 description: Scopri come elencare tutti i progetti Intlayer in una directory o in un repository git.
 keywords:

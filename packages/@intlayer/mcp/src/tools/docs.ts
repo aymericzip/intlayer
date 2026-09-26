@@ -1,8 +1,8 @@
 import { getSearchAPI } from '@intlayer/api';
-import type { DocKey } from '@intlayer/docs';
+import type { DocKey, DocMetadata } from '@intlayer/docs';
 import {
   getDoc,
-  getDocBySlug,
+  getDocMetadataBySlug,
   getDocMetadataRecord,
   getDocsKeys,
 } from '@intlayer/docs';
@@ -26,6 +26,33 @@ export type McpServer = {
 
 type LoadDocsTools = (server: McpServer) => Promise<void>;
 
+/** A documentation chunk returned by the search endpoint with `returnContent`. */
+type SearchDocChunk = Exclude<
+  NonNullable<
+    Awaited<ReturnType<ReturnType<typeof getSearchAPI>['searchDoc']>>['data']
+  >,
+  string[]
+>[number];
+
+/** Priority assumed for a doc without `priority` front matter. */
+const DEFAULT_DOC_PRIORITY = 5;
+
+/**
+ * Orders docs by their `priority` front matter, most important first, so an
+ * agent reads the main guides before the reference pages.
+ *
+ * @param docsMetadata - Metadata of the docs to order.
+ * @returns A new array, sorted by descending priority.
+ */
+const sortByPriority = <MetadataType extends Pick<DocMetadata, 'priority'>>(
+  docsMetadata: MetadataType[]
+): MetadataType[] =>
+  [...docsMetadata].sort(
+    (metadataA, metadataB) =>
+      (metadataB.priority ?? DEFAULT_DOC_PRIORITY) -
+      (metadataA.priority ?? DEFAULT_DOC_PRIORITY)
+  );
+
 export const loadDocsTools: LoadDocsTools = async (server) => {
   const docsKeys = getDocsKeys();
 
@@ -34,7 +61,7 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
     {
       title: 'Get Doc List',
       description:
-        'Get the list of docs names and their metadata to get more details about what doc to retrieve',
+        'Get the list of docs names and their metadata to get more details about what doc to retrieve. Docs are sorted by `priority` (1 to 10, higher is more important): prefer the higher priority docs when several match.',
       inputSchema: {},
       annotations: {
         readOnlyHint: true,
@@ -42,7 +69,11 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
     },
     async () => {
       try {
-        const docsMetadataRecord = await getDocMetadataRecord();
+        const docsMetadataRecord = Object.fromEntries(
+          sortByPriority(Object.values(await getDocMetadataRecord())).map(
+            (docMetadata) => [docMetadata.docKey, docMetadata]
+          )
+        );
 
         return {
           content: [
@@ -98,7 +129,7 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
     {
       title: 'Get Doc by Slug',
       description:
-        'Get an array of docs by their slugs. If not slug is provided, return all docs (1.2Mb). List all docs metadata first to get more details about what doc to retrieve.',
+        'Get an array of docs by their slugs, most important (highest `priority`) first. If not slug is provided, return all docs (1.2Mb). List all docs metadata first to get more details about what doc to retrieve.',
       inputSchema: {
         slug: z
           .optional(z.union([z.string(), z.array(z.string())]))
@@ -117,9 +148,19 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
     },
     async ({ slug, strict }) => {
       try {
-        const doc = await getDocBySlug(slug ?? [], undefined, strict);
+        const docsMetadata = await getDocMetadataBySlug(
+          slug ?? [],
+          undefined,
+          strict
+        );
+        const docs = await Promise.all(
+          sortByPriority(docsMetadata).map(({ docKey }) =>
+            getDoc(docKey as DocKey)
+          )
+        );
+
         return {
-          content: doc.map((d) => ({ type: 'text', text: d })),
+          content: docs.map((doc) => ({ type: 'text', text: doc })),
         };
       } catch (error) {
         const errorMessage =
@@ -138,7 +179,7 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
     {
       title: 'Fetch Doc Chunks',
       description:
-        'Fetch related doc chunks using keywords or questions. This tool will return the most relevant chunks of documentation based on the input query.',
+        'Fetch related doc chunks using keywords or questions. This tool will return the most relevant chunks of documentation based on the input query, best first. Relevance is weighted by the doc `priority` (1 to 10, higher is more important).',
       inputSchema: {
         query: z.string().register(z.globalRegistry, {
           description: 'The keywords or question to search for',
@@ -166,16 +207,17 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
           };
         }
 
-        const chunks = response.data;
+        const chunks = response.data as SearchDocChunk[];
 
         return {
-          content: chunks.map((chunk: any) => ({
+          content: chunks.map((chunk) => ({
             type: 'text',
             text: [
               `File: ${chunk.fileKey}`,
               `Title: ${chunk.docName}`,
               `URL: ${chunk.docUrl}`,
               `Chunk: ${chunk.chunkNumber}`,
+              `Priority: ${chunk.priority ?? DEFAULT_DOC_PRIORITY}`,
               `Content:`,
               chunk.content,
             ].join('\n'),

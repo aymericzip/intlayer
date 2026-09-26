@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: SDK سطر الأوامر
 description: تعلّم كيفية استخدام SDK سطر أوامر Intlayer في كودك الخاص.
 keywords:

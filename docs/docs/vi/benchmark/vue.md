@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: Giải pháp i18n tốt nhất cho Vue năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa (i18n) Vue như vue-i18n, fluent-vue, Tolgee và Intlayer. Báo cáo hiệu suất chi tiết về kích thước bundle, rò rỉ và tính phản ứng.
 keywords:

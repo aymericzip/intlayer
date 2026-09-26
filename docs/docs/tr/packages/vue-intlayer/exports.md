@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: vue-intlayer Paket Dokümantasyonu
 description: Vue uygulamaları için pluginler ve composables sağlayan Intlayer için Vue'ya özgü entegrasyon.
 keywords:

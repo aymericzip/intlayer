@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Documentazione del plugin Vite intlayerMinify | vite-intlayer
 description: Plugin Vite che minifica i file JSON del dizionario Intlayer compilati e opzionalmente maschera i nomi dei campi di contenuto per ridurre la dimensione del bundle.
 keywords:

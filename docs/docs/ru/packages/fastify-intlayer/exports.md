@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация пакета fastify-intlayer
 description: Плагин Fastify для Intlayer, предоставляющий функции перевода и определение локали.
 keywords:

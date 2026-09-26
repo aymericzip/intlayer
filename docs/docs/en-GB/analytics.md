@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-08-22
+priority: 8
 title: Intlayer Analytics | Track content exposure and run A/B tests
 description: Discover how @intlayer/analytics tracks page/locale views and content exposure, and how to use it to run A/B tests on your Intlayer content.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrate from Transloco to Intlayer"
 description: "Learn how to migrate your Angular application from Transloco to Intlayer using the compat adapter."
 keywords:

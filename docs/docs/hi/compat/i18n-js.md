@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "i18n-js से Intlayer में माइग्रेट करें"
 description: "compat adapter का उपयोग करके अपने application को i18n-js से Intlayer में माइग्रेट करने का तरीका जानें।"
 keywords:

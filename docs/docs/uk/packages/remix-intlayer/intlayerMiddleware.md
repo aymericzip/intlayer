@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Документація middleware intlayer | remix-intlayer
 description: Дізнайтеся, як використовувати middleware intlayer у Remix 3 для визначення локалі, обробки перенаправлень та додавання стану Intlayer до контексту запиту.
 keywords:

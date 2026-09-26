@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-02
 updatedAt: 2026-04-02
+priority: 8
 title: Vlastní domény
 description: Naučte se konfigurovat směrování lokalit na základě domén v Intlayer, abyste mohli obsluhovat různé lokality z vyhrazených hostitelských jmen.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Czy i18next jest przestarzały w 2026 roku?
 description: i18next napędza miliony stron internetowych, ale jego architektura runtime z 2011 roku zaczyna odstawać od standardów. Spojrzenie na rozmiar bundle, ograniczenia tree-shakingu i spowolniony rozwój.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: vue-intlayer 패키지 문서
 description: Vue 애플리케이션을 위한 플러그인과 composables를 제공하는 Intlayer의 Vue 전용 통합입니다.
 keywords:

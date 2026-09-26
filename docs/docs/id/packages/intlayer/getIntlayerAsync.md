@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: Dokumentasi Fungsi getIntlayerAsync | intlayer
 description: Lihat cara menggunakan fungsi getIntlayerAsync untuk package intlayer
 keywords:

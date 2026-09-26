@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: useRewriteURL हुक प्रलेखन
 description: Intlayer में स्थानीयकृत URL रीव्राइट्स को प्रबंधित करने के लिए React-विशिष्ट हुक।

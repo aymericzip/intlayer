@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
+priority: 4
 title: IntlayerNode tipi. Nedir bu?
 description: IntlayerNode tipi nedir? Neden dizgim bir IntlayerNode&lt;string&gt; olarak dönüştürülüyor?
 keywords:

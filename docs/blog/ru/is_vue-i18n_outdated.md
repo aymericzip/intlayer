@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Устарел ли vue-i18n в 2026 году?
 description: vue-i18n был стандартом для Vue и Nuxt целое десятилетие. Однако в наших бенчмарках он оказался самым тяжелым runtime i18n в вебе. Разбираем причины.
 keywords:

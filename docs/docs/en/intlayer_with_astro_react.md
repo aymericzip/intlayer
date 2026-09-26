@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-09-21
+priority: 9
 title: "Astro + React i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Astro + React app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:

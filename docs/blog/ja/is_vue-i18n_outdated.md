@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: 2026年においてvue-i18nは時代遅れなのか？
 description: vue-i18nは10年以上にわたりVueとNuxtの標準として親しまれてきました。しかしベンチマークではWebで最も重いi18nランタイムという結果に。その理由を紐解きます。
 keywords:

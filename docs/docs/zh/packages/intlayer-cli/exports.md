@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer-cli 包文档
 description: Intlayer 的 CLI 工具，提供用于构建和审计字典的命令。
 keywords:

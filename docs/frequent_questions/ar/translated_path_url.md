@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: هل يمكنني ترجمة مسار الرابط؟
 description: تعرف على كيفية ترجمة مسار الرابط.
 keywords:

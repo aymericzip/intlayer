@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: getMultilingualUrls फ़ंक्शन दस्तावेज़ीकरण | intlayer
 description: intlayer पैकेज के लिए getMultilingualUrls फ़ंक्शन का उपयोग कैसे करें देखें
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook 文档 | solid-intlayer
 description: 了解如何使用 solid-intlayer 包中的 usePathname hook
 keywords:

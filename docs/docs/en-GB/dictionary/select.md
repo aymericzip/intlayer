@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-30
 updatedAt: 2026-07-30
+priority: 8
 title: Select Content
 description: Learn how to use select content in Intlayer to dynamically render content based on an arbitrary string value. Follow this documentation to implement switch-like content efficiently in your project.
 keywords:

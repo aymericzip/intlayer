@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2026-09-16
+priority: 9
 title: react-i18next बनाम react-intl बनाम Intlayer
 description: React ऐप के अंतरराष्ट्रीयकरण (i18n) के लिए react-i18next को next-intl और Intlayer के साथ एकीकृत करें
 keywords:

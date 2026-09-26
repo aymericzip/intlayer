@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Jak wybrać odpowiednią bibliotekę i18n dla Solid w 2026 roku"
 description: Przewodnik decyzyjny dotyczący internacjonalizacji w SolidJS i SolidStart. Na jakie pytania odpowiedzieć przed porównaniem @solid-primitives/i18n, solid-i18next, Paraglide, Lingui oraz Intlayer, i co każdy wybór kosztuje pod względem reaktywności, bundle size oraz typowania.
 keywords:

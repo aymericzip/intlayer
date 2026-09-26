@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: astro-intlayer パッケージのドキュメント
 description: ロケールベースのルーティング、ミドルウェア、フック、クライアントストア、辞書管理の設定を提供する Intlayer の Astro 統合。
 keywords:

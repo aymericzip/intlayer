@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 5
 title: CLI - 升级 Intlayer 软件包
 description: 了解如何使用 Intlayer CLI upgrade 命令列出项目或 monorepo 中的每个 Intlayer 软件包，并将它们升级到最新版本。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-22
+priority: 8
 title: vue-i18n против Intlayer
 description: Сравнение vue-i18n и Intlayer для интернационализации (i18n) в приложениях Vue/Nuxt
 keywords:

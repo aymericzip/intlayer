@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 5
 title: Hook useDictionary - Documentazione React Intlayer
 description: Guida completa all'uso del hook useDictionary nelle applicazioni React con Intlayer per una gestione efficiente dei contenuti localizzati senza editor visuale.
 keywords:

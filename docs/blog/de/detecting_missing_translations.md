@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Fehlende Übersetzungen aufspüren, bevor es Ihre Nutzer tun"
 description: Fehlende Übersetzungen schlagen geräuschlos fehl. Warum Fallbacks sie verschleiern, welche vier Erkennungsebenen wirklich funktionieren und wie man Builds bei unübersetzten Schlüsseln abbricht.
 keywords:

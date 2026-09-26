@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Tài liệu Plugin Vite intlayerMinify | vite-intlayer
 description: Plugin Vite giúp nén (minify) các tệp JSON từ điển Intlayer đã biên dịch và tùy chọn mã hóa các tên trường nội dung để giảm kích thước gói bundle.
 keywords:

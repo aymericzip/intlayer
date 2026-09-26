@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "从 react-i18next / i18next 迁移到 Intlayer | 国际化 (i18n)"
 description: "了解如何逐步将您的 React 或 Next.js 应用从 react-i18next 或 i18next 迁移到 Intlayer，无需破坏现有代码。使用 @intlayer/react-i18next 和 @intlayer/i18next 兼容适配器实现零中断过渡。"
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-20
 updatedAt: 2026-09-21
+priority: 8
 title: HTMLコンテンツ
 description: IntlayerでHTMLコンテンツを宣言し、カスタムコンポーネントとともに使用する方法を学びます。このドキュメントに従い、国際化されたプロジェクト内で動的にコンポーネントを置換可能なリッチなHTMLライクコンテンツを埋め込む方法を解説します。
 keywords:

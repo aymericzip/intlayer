@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-09-22
+priority: 1
 title: Intlayer 개인정보 보호 고지
 description: Intlayer가 웹사이트와 CMS를 통해 수집한 정보를 어떻게 처리하는지 알아보세요. 다양한 형식과 사용 사례를 이해하기 위해 문서를 따라가세요.
 keywords:

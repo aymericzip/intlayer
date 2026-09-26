@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-01
 updatedAt: 2026-05-31
+priority: 9
 title: Translate Next.js 16 with next-i18next — App Router Setup Guide
 description: Best solution for bundle size, SEO, performances & maintainability. Make your Next.js 16 website multilingual in 2026, LLM translation, Agent Skills & MCP.
 keywords:

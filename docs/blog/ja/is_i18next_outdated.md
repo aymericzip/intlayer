@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: 2026年においてi18nextは時代遅れなのか？
 description: i18nextは数百万のWebサイトで利用されていますが、2011年設計のランタイムアーキテクチャには限界も見え始めています。バンドルサイズ、Tree-shakingの制約、進化の停滞を分析します。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: react-intlayer पैकेज प्रलेखन
 description: Intlayer का React-विशिष्ट इम्प्लिमेंटेशन, जो React एप्लिकेशन के लिए hooks और providers प्रदान करता है।
 keywords:

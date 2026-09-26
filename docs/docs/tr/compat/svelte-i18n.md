@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Svelte I18n'den Intlayer'a Geçiş Yapın"
 description: "Uyumluluk adaptörünü kullanarak Svelte uygulamanızı svelte-i18n'den Intlayer'a nasıl geçireceğinizi öğrenin."
 keywords:

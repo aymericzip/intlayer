@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Cách kiểm thử bản dịch mà không tạo ra các bài test dễ vỡ"
 description: Những gì đáng để kiểm thử trong một ứng dụng i18n và những gì không nên. Kiểm thử render dựa trên Provider, giả bản địa hóa (pseudolocalization), độ bao phủ RTL và số nhiều, cùng bẫy snapshot.
 keywords:

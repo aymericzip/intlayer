@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Niepoprawny lokalizator pobrany z URL
 description: Dowiedz się, jak naprawić problem z niepoprawnym lokalizatorem pobieranym z URL.
 keywords:

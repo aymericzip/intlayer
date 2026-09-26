@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl vs @intlayer/next-intl: समान API, विभिन्न Bundle"
 description: जब एक Next.js ऐप्लिकेशन के next-intl imports को @intlayer/next-intl compat adapter द्वारा परोसा जाता है तो क्या बदलता है। Bundle size, leakage, component size और hydration को समान कोड पर मापा गया है, साथ ही adapter क्या रखता है, अनदेखा करता है और क्या प्रतिस्थापित नहीं कर सकता है।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "壊れやすいテストを作らずに翻訳をテストする方法"
 description: i18n対応アプリにおいてテストする価値があるものとないもの。Providerベースのレンダリングテスト、疑似多言語化、RTLと複数形のカバレッジ、そしてスナップショットの罠。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: vite-intlayer 包文档
 description: 用于 Intlayer 的 Vite 插件，提供字典别名和监听器。
 keywords:

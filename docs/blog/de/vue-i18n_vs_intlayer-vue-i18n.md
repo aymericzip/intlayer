@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "vue-i18n vs @intlayer/vue-i18n: Gleiche API, Anderes Bundle"
 description: Was sich ändert, wenn eine Vue 3-App ihre vue-i18n-Aufrufe beibehält, aber sie über den @intlayer/vue-i18n Compat-Adapter bereitstellt. Pro-Seite JavaScript, Laufzeit-Größe, Komponenten-Größe und Leakage gemessen auf demselben Vite + Vue Code, plus was der Adapter behält, ignoriert und nicht ersetzen kann.
 keywords:

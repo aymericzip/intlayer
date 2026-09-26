@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-26
+priority: 8
 title: Diccionarios dinámicos
 description: Resumen de las funciones de diccionarios dinámicos de Intlayer — colecciones y variantes — para crear contenido i18n flexible y dirigido en tiempo de ejecución.
 keywords:

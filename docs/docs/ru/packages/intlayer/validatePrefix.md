@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация функции validatePrefix | intlayer
 description: Посмотрите, как использовать функцию validatePrefix в пакете intlayer
 keywords:

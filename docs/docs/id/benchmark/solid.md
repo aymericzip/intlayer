@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: Solusi i18n Terbaik untuk Solid di Tahun 2026 - Laporan Benchmark
 description: Bandingkan pustaka internasionalisasi (i18n) Solid seperti solid-primitives, solid-i18next, Tolgee, dan Intlayer. Laporan performa mendetail tentang ukuran bundle, kebocoran, dan reaktivitas.
 keywords:

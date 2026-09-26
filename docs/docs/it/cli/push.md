@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Push Dizionari
 description: Scopri come inviare i tuoi dizionari all'editor e CMS di Intlayer.
 keywords:

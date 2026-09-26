@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Wie kann man die Liste der Sprachen anpassen?
 description: Erfahren Sie, wie Sie die Liste der Sprachen anpassen können.
 keywords:

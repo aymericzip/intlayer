@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-21
+priority: 6
 title: Dokumentacja Serwera MCP
 description: Poznaj funkcje i konfigurację Serwera MCP, aby zoptymalizować zarządzanie i działanie serwera.
 keywords:

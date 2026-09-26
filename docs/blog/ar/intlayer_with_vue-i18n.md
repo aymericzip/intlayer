@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-10-29
+priority: 8
 title: إنتلاير و vue-i18n
 description: دمج إنتلاير مع vue-i18n لحل شامل للتدويل في Vue.js
 keywords:

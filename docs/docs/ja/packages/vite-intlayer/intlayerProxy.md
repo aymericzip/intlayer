@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerProxy Viteプラグインドキュメント | vite-intlayer
 description: Viteの開発/プレビューサーバーおよび本番SSR用の言語ルーティングミドルウェア。言語検出、URLリダイレクト、および内部書き換えを処理します。
 keywords:

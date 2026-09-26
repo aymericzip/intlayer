@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-09-20
+priority: 9
 title: "Vite + Lit i18n - Kompletní průvodce překladem vaší aplikace"
 description: "Žádný i18next. Průvodce 2026 pro vytváření vícejazyčné (i18n) aplikace Vite + Lit. Překládejte pomocí agentů AI a optimalizujte velikost bundlu, SEO a výkon."
 keywords:

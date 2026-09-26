@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-09-22
+priority: 1
 title: Aviso de Privacidad de Intlayer
 description: Descubre cómo Intlayer maneja la información recopilada a través de nuestro sitio web y CMS. Sigue la documentación para entender los diferentes formatos y casos de uso.
 keywords:

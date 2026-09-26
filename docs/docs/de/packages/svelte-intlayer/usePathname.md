@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Funktion Dokumentation | svelte-intlayer
 description: Sehen Sie, wie Sie die Funktion usePathname für das Paket svelte-intlayer verwenden
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-24
 updatedAt: 2025-11-24
+priority: 8
 title: Derleyici Tabanlı ve Deklaratif i18n Karşılaştırması
 description: '"Sihirli" derleyici tabanlı uluslararasılaştırma ile açık deklaratif içerik yönetimi arasındaki mimari ödünleşimleri keşfetmek.'
 keywords:

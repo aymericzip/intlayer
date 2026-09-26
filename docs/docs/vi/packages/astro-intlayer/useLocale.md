@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Tài liệu Hook useLocale | astro-intlayer
 description: Xem cách sử dụng hook useLocale trong các ứng dụng Astro để truy cập và quản lý ngôn ngữ hiện tại.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "Lingui vs Intlayer: Tolok Ukur & Perbandingan 2026"
 description: "Dua pustaka i18n berbasis kompiler diuji pada Next.js dan TanStack Start. Ukuran bundle, kebocoran konten, ukuran komponen, hidrasi, reaktivitas pergantian lokal, dan pengalaman pengembang."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Intlayer-Befehl nicht definiert
 description: Erfahren Sie, wie Sie den Fehler "intlayer command undefined" beheben können.
 keywords:
@@ -142,7 +143,7 @@ npm --version
     Wenn Sie eine veraltete Version verwenden, sollten Sie ein Update von Node.js und npm in Betracht ziehen.
 
 11. **Überprüfen Sie Berechtigungsprobleme**  
-    Wenn Sie Berechtigungsfehler erhalten:
+Wenn Sie Berechtigungsfehler erhalten:
 
     ```bash
     # Für Unix-basierte Systeme

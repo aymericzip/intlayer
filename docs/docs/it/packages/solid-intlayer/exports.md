@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Pacchetto solid-intlayer
 description: Integrazione specifica per Solid di Intlayer, che fornisce provider e hook per applicazioni Solid.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: क्या 2026 में next-intl पुराना हो चुका है?
 description: next-intl, Next.js App Router का डिफ़ॉल्ट समाधान बन चुका है। लेकिन यह अभी भी रनटाइम बंडल ओवरहेड और मैन्युअल नेमस्पेस प्रबंधन का बोझ उठाता है।
 keywords:

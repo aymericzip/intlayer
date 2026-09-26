@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: Debug Perintah Intlayer
 description: Pelajari cara melakukan debug dan memecahkan masalah CLI Intlayer.
 keywords:

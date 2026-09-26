@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-06
+priority: 10
 title: はじめに
 description: Intlayerの仕組みを発見しましょう。アプリケーションでIntlayerが使用するステップを確認します。異なるパッケージが何を行うかを発見します。
 keywords:

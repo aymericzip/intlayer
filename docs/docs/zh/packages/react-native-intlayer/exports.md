@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: react-native-intlayer 包文档
 description: 为 Intlayer 提供的 React Native 支持，包含 provider、hook、polyfill 和 Metro 配置。
 keywords:

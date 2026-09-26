@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Perintah Live Sync
 description: Pelajari cara menggunakan Live Sync untuk mencerminkan perubahan konten CMS saat runtime.
 keywords:

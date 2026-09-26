@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: L10n Platform Alternative for Lokalise
 description: Знайдіть найкращу L10n-платформу як альтернативу Lokalise відповідно до ваших потреб
 keywords:

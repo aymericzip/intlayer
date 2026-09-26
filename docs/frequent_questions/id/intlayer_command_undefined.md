@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Perintah Intlayer tidak terdefinisi
 description: Pelajari cara memperbaiki error perintah intlayer tidak terdefinisi.
 keywords:
@@ -142,7 +143,7 @@ npm --version
     Jika Anda menggunakan versi yang sudah usang, pertimbangkan untuk memperbarui Node.js dan npm.
 
 11. **Periksa masalah izin**  
-    Jika Anda mendapatkan kesalahan izin:
+Jika Anda mendapatkan kesalahan izin:
 
     ```bash
     # Untuk sistem berbasis Unix

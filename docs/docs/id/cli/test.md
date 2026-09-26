@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Uji Terjemahan yang Hilang
 description: Pelajari cara menguji dan mengidentifikasi terjemahan yang hilang dalam kamus Anda.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
+priority: 8
 title: Einfügung
 description: Erfahren Sie, wie Sie Einfügeplatzhalter in Ihren Inhalten deklarieren und verwenden. Diese Dokumentation führt Sie durch die Schritte, um Werte dynamisch innerhalb vordefinierter Inhaltsstrukturen einzufügen.
 keywords:

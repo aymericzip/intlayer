@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Hatalı Metinler Göndermeden CI/CD'de Çevirileri Otomatikleştirmek"
 description: i18n'i otomatikleştirebileceğiniz üç yer, pre-push, pull request ve çalışma zamanı. Bir derlemeyi kapsam üzerinden nasıl denetleyeceğinizi, güvenle otomatik dolduracağınızı ve sonsuz CI döngülerinden nasıl kaçınacağınızı öğrenin.
 keywords:

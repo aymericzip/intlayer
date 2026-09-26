@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
+priority: 8
 title: Как автоматизировать перевод JSON для next-intl с помощью Intlayer
 description: Автоматизируйте перевод JSON с помощью Intlayer и next-intl для улучшенной интернационализации в приложениях Next.js.
 keywords:

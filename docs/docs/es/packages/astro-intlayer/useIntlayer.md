@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Documentación del hook useIntlayer | astro-intlayer
 description: Descubre cómo usar el hook useIntlayer en componentes y scripts de cliente de Astro para acceder a contenido localizado.
 keywords:

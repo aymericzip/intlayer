@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-09-06
+priority: 8
 title: "Cara Membuat Multibahasa (i18n) Aplikasi Vite dan React yang Sudah Ada Setelahnya (Panduan i18n 2026)"
 description: "Panduan 2026 untuk menambahkan dukungan multibahasa (i18n) pada aplikasi Vite dan React yang sudah berjalan tanpa refaktor rumit. Ekstraksi otomatis, terjemahan AI, dan bundle optimal dengan Intlayer."
 keywords:

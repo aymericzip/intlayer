@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-05-31
+priority: 7
 title: Meilleures outils d'internationalisation (i18n) pour Vue - Guide complet pour traduire Best Vue i18n Libraries 2026 — Compared by DX & Bundle
 description: Meilleure solution pour la taille du bundle, le SEO, les performances & la maintenabilité. Rendez votre Vue application multilingue en 2026, traduction LLM, Agent Skills & MCP.
 keywords:

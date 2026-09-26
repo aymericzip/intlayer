@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useDictionary フックのドキュメント | remix-intlayer
 description: Remix 3 アプリケーションで useDictionary フックを使用して、現在のリクエストロケールに対応する辞書オブジェクトを解決する方法を説明します。
 keywords:

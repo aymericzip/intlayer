@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: Документація хука useRewriteURL
 description: Хук для Svelte для керування локалізованими переписуваннями URL в Intlayer.

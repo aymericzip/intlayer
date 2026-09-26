@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: 2026 年，vue-i18n 已经过时了吗？
 description: vue-i18n 在过去十年中一直是 Vue 和 Nuxt 的标准配置。但在我们的基准测试中，它却是主流框架中最庞大的 i18n 运行时。本文将探讨其深层原因。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Wörterbücher füllen
 description: Erfahren Sie, wie Sie Ihre Wörterbücher mit KI füllen, prüfen und übersetzen.
 keywords:

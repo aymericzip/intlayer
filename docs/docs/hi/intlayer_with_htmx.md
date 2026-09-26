@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 9
 title: "htmx i18n - अपने ऐप्लिकेशन को अनुवाद करने के लिए संपूर्ण गाइड"
 description: "अब और i18next नहीं। 2026 की बहुभाषी (i18n) htmx ऐप्लिकेशन बनाने की गाइड। AI agents के साथ अनुवाद करें और bundle size, SEO और प्रदर्शन को अनुकूलित करें।"
 keywords:

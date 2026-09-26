@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-09-06
+priority: 8
 title: "Mevcut Bir Next.js Uygulamasını Sonradan Çok Dilli (i18n) Yapma Rehberi (2026)"
 description: "Mevcut bir Next.js uygulamasını kapsamlı bir yeniden yapılandırma olmadan sonradan çok dilli (i18n) yapma rehberi (2026). Intlayer ile otomatik içerik çıkarma, yapay zeka çevirisi ve yönlendirme."
 keywords:

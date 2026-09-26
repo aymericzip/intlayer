@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-09-22
+priority: 1
 title: Informativa sulla Privacy di Intlayer
 description: Scopri come Intlayer gestisce le informazioni raccolte tramite il nostro sito web e CMS. Segui la documentazione per comprendere i diversi formati e casi d'uso.
 keywords:

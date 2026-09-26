@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Push словників
 description: Дізнайтеся, як передати ваші словники до редактора Intlayer та CMS.
 keywords:

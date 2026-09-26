@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-10
 updatedAt: 2026-05-10
+priority: 6
 title: Plugin Sync PO
 description: Đồng bộ hóa từ điển Intlayer với các tệp Gettext PO. Giữ nguyên i18n hiện tại của bạn trong khi sử dụng Intlayer để quản lý, dịch và kiểm tra các tin nhắn của bạn.
 keywords:

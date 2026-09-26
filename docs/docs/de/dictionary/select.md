@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-30
 updatedAt: 2026-07-30
+priority: 8
 title: Auswahlbasierter Inhalt
 description: Erfahren Sie, wie Sie auswahlbasierten Inhalt in Intlayer verwenden, um Inhalte basierend auf einem beliebigen Zeichenfolgenwert dynamisch anzuzeigen. Folgen Sie dieser Dokumentation, um Switch-ähnliche Inhalte effizient in Ihrem Projekt zu implementieren.
 keywords:

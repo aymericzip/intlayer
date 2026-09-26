@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-10
 updatedAt: 2026-05-10
+priority: 6
 title: Sync PO eklentisi
 description: Intlayer sözlüklerini Gettext PO dosyalarıyla senkronize edin. Mesajlarınızı yönetmek, çevirmek ve test etmek için Intlayer'ı kullanırken mevcut i18n yapınızı koruyun.
 keywords:

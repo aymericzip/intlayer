@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Monitorar Dicionários
 description: Aprenda como monitorar alterações nos seus arquivos de declaração de conteúdo e construir dicionários automaticamente.
 keywords:

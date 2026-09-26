@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-21
+priority: 6
 title: MCPサーバー ドキュメント
 description: MCPサーバーの機能とセットアップを探り、サーバー管理と運用を最適化します。
 keywords:

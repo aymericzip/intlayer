@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerMinify Vite Eklenti Dokümantasyonu | vite-intlayer
 description: Derlenmiş Intlayer sözlük JSON dosyalarını sıkıştıran (minify) ve paket boyutunu küçültmek için isteğe bağlı olarak içerik alanı adlarını karartan Vite eklentisi.
 keywords:

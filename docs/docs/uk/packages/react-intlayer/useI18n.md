@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
+priority: 5
 title: Документація хуку useI18n | react-intlayer
 description: Дізнайтесь, як використовувати хук useI18n у пакеті react-intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer पैकेज प्रलेखन
 description: Intlayer का कोर पैकेज, जो अंतरराष्ट्रीयकरण के लिए बुनियादी फंक्शंस और टाइप्स प्रदान करता है।
 keywords:

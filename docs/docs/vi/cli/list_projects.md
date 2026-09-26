@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-01-06
+priority: 5
 title: Liệt kê các dự án Intlayer
 description: Tìm hiểu cách liệt kê tất cả dự án Intlayer trong một thư mục hoặc kho git.
 keywords:

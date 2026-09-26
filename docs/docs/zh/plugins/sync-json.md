@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2026-06-21
+priority: 6
 title: 同步 JSON 插件
 description: 将 Intlayer 字典与第三方 i18n JSON 文件（如 i18next、next-intl、react-intl、vue-i18n 等）同步。保持您现有的 i18n，同时使用 Intlayer 管理、翻译和测试您的消息。
 keywords:

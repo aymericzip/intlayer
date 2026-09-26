@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Lệnh Live Sync
 description: Tìm hiểu cách sử dụng Live Sync để phản ánh các thay đổi nội dung CMS trong thời gian chạy.
 keywords:

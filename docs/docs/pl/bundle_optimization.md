@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-25
 updatedAt: 2026-09-16
+priority: 8
 title: Optymalizacja Rozmiaru Paczki i Wydajności i18n
 description: Zmniejsz rozmiar paczki swojej aplikacji, optymalizując treści umiędzynarodowienia (i18n). Dowiedz się, jak wykorzystać tree shaking i leniwe ładowanie (lazy loading) dla słowników dzięki Intlayer.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Documentazione dell'hook useDictionary | remix-intlayer
 description: Scopri come utilizzare l'hook useDictionary nelle applicazioni Remix 3 per risolvere oggetti dizionario per la locale della richiesta corrente.
 keywords:

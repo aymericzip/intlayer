@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-02-25
+priority: 5
 title: intlayerMiddleware Documentation | next-intlayer
 description: See how to use the intlayerMiddleware function for next-intlayer package
 keywords:

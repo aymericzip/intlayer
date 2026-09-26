@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: getIntlayerAsync Function Documentation | intlayer
 description: getIntlayer パッケージの getIntlayerAsync 関数の使用方法を確認する
 keywords:

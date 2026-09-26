@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "깨지기 쉬운 테스트 없이 번역을 검증하는 방법"
 description: 다국어(i18n) 앱에서 테스트할 가치가 있는 것과 그렇지 않은 것. Provider 기반 렌더링 테스트, 의사 현지화(pseudolocalization), RTL 및 복수형 커버리지, 스냅샷의 함정.
 keywords:

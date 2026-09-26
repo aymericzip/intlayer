@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Cách chọn thư viện i18n phù hợp cho Svelte vào năm 2026"
 description: Hướng dẫn đưa ra quyết định quốc tế hóa cho Svelte và SvelteKit. Những câu hỏi cần trả lời trước khi so sánh svelte-i18n, Paraglide, typesafe-i18n, wuchale và Intlayer, cùng chi phí của từng lựa chọn về bundle size, typing và an toàn SSR.
 keywords:

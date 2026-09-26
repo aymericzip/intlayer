@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrar de NGX-Translate a Intlayer"
 description: "Aprende cómo migrar tu aplicación Angular desde ngx-translate a Intlayer usando el adaptador de compatibilidad."
 keywords:

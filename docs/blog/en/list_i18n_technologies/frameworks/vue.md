@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-09-02
+priority: 7
 title: Vue i18n - how it works and where it breaks at scale
 description: How vue-i18n works in Vue 3, the three places it hurts once your app grows (key sprawl, untyped keys, bundle size), and the alternatives worth a look.
 keywords:

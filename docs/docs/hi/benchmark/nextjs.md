@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: 2026 में Next.js के लिए सर्वश्रेष्ठ i18n समाधान - बेंचमार्क रिपोर्ट
 description: next-intl, next-i18next और Intlayer जैसे Next.js अंतर्राष्ट्रीयकरण (i18n) लाइब्रेरीज़ की तुलना करें। बंडल आकार, लीकेज और रिएक्टिविटी पर विस्तृत परफॉरमेंस रिपोर्ट।
 keywords:

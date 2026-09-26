@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: CI/CD 中的构建错误
 description: 了解如何修复在 CI/CD 环境中发生的构建错误。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Documentazione dell'Hook usePathname | react-intlayer
 description: Scopri come utilizzare l'hook usePathname dal pacchetto react-intlayer per ottenere il percorso dell'URL corrente senza il segmento della lingua.
 keywords:

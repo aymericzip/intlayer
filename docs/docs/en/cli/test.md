@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Test Missing Translations
 description: Learn how to test and identify missing translations in your dictionaries.
 keywords:

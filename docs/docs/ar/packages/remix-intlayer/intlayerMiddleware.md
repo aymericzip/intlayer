@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: توثيق البرمجية الوسيطة intlayer | remix-intlayer
 description: تعرّف على كيفية استخدام البرمجية الوسيطة intlayer في Remix 3 لاكتشاف اللغة والتعامل مع عمليات إعادة التوجيه وحقن حالة Intlayer في سياق الطلب.
 keywords:

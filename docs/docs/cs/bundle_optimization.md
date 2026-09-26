@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-25
 updatedAt: 2026-09-16
+priority: 8
 title: Optimalizace Velikosti Bundle & Výkonu i18n
 description: Zmenšete velikost svého aplikačního bundlu optimalizací obsahu pro internacionalizaci (i18n). Zjistěte, jak v Intlayer využít tree shaking a líné načítání (lazy loading) pro slovníky.
 keywords:

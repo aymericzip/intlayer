@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-28
 updatedAt: 2025-09-28
+priority: 8
 title: Next.js에서의 SEO와 i18n
 description: next-intl, next-i18next, Intlayer를 사용하여 Next.js 앱에서 다국어 SEO를 설정하는 방법을 배우세요.
 keywords:

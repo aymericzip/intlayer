@@ -21,7 +21,11 @@ import {
 } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
-import { createDocSearchIndex, getSearchableDocs } from './docSearchIndex';
+import {
+  createDocSearchIndex,
+  getSearchableDocs,
+  searchDocIndex,
+} from './docSearchIndex';
 
 const NO_DOCS: DocMetadata[] = [];
 
@@ -105,11 +109,7 @@ const SearchViewContent: FC<{
     onSearch: (searchQuery: string) => {
       if (!fuse) return;
 
-      const fuseSearchResults = fuse
-        .search(searchQuery)
-        .map((result) => result.item);
-
-      setFrontendResults(fuseSearchResults);
+      setFrontendResults(searchDocIndex(fuse, searchQuery));
       setSelectedIndex(-1);
     },
   });

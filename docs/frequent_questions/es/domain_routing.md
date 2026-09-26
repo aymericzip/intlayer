@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: ¿Cómo configurar el enrutamiento basado en dominios?
 description: Aprende cómo configurar el enrutamiento basado en dominios.
 keywords:

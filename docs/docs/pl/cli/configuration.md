@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Zarządzanie konfiguracją
 description: Dowiedz się, jak pobrać i przesłać swoją konfigurację Intlayer do CMS.
 keywords:

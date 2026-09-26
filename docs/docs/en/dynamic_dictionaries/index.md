@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-26
+priority: 8
 title: Dynamic Dictionaries
 description: Overview of Intlayer's dynamic dictionary features — collections and variants — for building flexible, runtime-driven i18n content.
 keywords:

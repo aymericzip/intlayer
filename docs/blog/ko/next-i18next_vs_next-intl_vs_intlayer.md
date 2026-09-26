@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-16
+priority: 9
 title: "next-i18next vs next-intl vs Intlayer - 완전한 번역 가이드: next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: 번들 크기, SEO, 성능 및 유지보수성을 위한 최고의 솔루션. 2026년에 Next.js 웹사이트를 다국어로 만드세요, LLM 번역, Agent Skills & MCP.
 keywords:

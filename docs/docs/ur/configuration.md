@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2026-08-22
+priority: 8
 title: ترتیب (Configuration)
 description: سیکھیں کہ اپنی ایپلیکیشن کے لیے Intlayer کو کیسے ترتیب دینا ہے۔ اپنی ضروریات کے مطابق Intlayer کو اپنی مرضی کے مطابق بنانے کے لیے دستیاب مختلف ترتیبات اور اختیارات کو سمجھیں۔
 keywords:

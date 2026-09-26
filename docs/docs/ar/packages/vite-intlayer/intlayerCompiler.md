@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: توثيق إضافي لـ intlayerCompiler Vite | vite-intlayer
 description: إضافة Vite التي تستخرج إعلانات محتوى Intlayer المضمنة من ملفات المكونات وتكتبها في ملفات JSON للقاموس في وقت البناء/التحويل.
 keywords:

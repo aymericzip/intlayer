@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useDictionary हुक प्रलेखन | remix-intlayer
 description: Remix 3 एप्लिकेशनों में वर्तमान अनुरोध लोकेल के लिए शब्दकोश ऑब्जेक्ट्स को हल करने के लिए useDictionary हुक का उपयोग करने का तरीका देखें।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-07-08
+priority: 8
 title: Live-Synchronisation | CMS-Inhaltsänderungen zur Laufzeit übernehmen
 description: Lassen Sie Ihre Anwendung CMS-Inhaltsänderungen zur Laufzeit widerspiegeln — ohne Neuerstellung oder erneutes Deployment.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-05-06
+priority: 5
 title: Документация хука useIntlayer | solid-intlayer
 description: Узнайте, как использовать хук useIntlayer в пакете solid-intlayer
 keywords:

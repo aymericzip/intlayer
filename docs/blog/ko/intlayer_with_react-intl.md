@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
+priority: 8
 title: Intlayer를 사용하여 react-intl JSON 번역 자동화하는 방법
 description: React 애플리케이션에서 향상된 국제화를 위해 Intlayer와 react-intl을 사용하여 JSON 번역을 자동화하세요.
 keywords:

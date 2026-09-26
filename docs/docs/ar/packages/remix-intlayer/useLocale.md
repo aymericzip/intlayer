@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: توثيق خطاف useLocale | remix-intlayer
 description: تعرّف على كيفية استخدام خطاف useLocale في تطبيقات Remix 3 للحصول على لغة الطلب الحالية واللغة الافتراضية واللغات المتاحة.
 keywords:

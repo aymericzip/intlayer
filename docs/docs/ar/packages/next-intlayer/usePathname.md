@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: توثيق Hook usePathname | next-intlayer
 description: تعرف على كيفية استخدام Hook usePathname لحزمة next-intlayer
 keywords:

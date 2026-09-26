@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-07-08
+priority: 8
 title: Sinkronisasi langsung | Refleksikan perubahan konten CMS saat runtime
 description: Biarkan aplikasi Anda merefleksikan perubahan konten Intlayer CMS saat runtime, tanpa perlu build ulang atau deploy ulang.
 keywords:

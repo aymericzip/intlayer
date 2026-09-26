@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: lynx-intlayer पैकेज दस्तावेज़ीकरण
 description: Intlayer के लिए Lynx समर्थन, लोकल सपोर्ट के लिए polyfills प्रदान करता है।
 keywords:

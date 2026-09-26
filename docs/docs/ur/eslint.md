@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: ESLint پلگ ان | Intlayer کے لیے لنٹ قواعد
 description: eslint-plugin-intlayer کے ذریعے ہارڈ کوڈ شدہ سٹرنگز، ایسی ڈائنامک کالز جنہیں Intlayer کمپائلر بہتر نہیں بنا سکتا، اور غیر استعمال شدہ ڈکشنری مواد کو پکڑیں۔ React، Vue، Svelte، Angular اور Astro میں ESLint اور oxlint کے ساتھ کام کرتا ہے۔
 keywords:

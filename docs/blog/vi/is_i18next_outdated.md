@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Liệu i18next Đã Lỗi Thời Vào Năm 2026?
 description: i18next đang vận hành hàng triệu trang web, nhưng kiến trúc runtime từ năm 2011 đang bộc lộ giới hạn. Phân tích về dung lượng bundle, hạn chế tree-shaking và tốc độ đổi mới.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Ошибка сборки в CI/CD
 description: Узнайте, как исправить ошибки сборки, возникающие в средах CI/CD.
 keywords:

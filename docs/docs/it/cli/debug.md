@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: Debug del comando Intlayer
 description: Scopri come eseguire il debug e risolvere i problemi della CLI di Intlayer.
 keywords:

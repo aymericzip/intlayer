@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-07-08
+priority: 8
 title: Canlı senkronizasyon | CMS içerik değişikliklerini çalışma zamanında yansıtın
 description: Uygulamanızın, yeniden derleme veya yeniden dağıtım gerektirmeden Intlayer CMS içerik değişikliklerini çalışma zamanında yansıtmasını sağlayın.
 keywords:

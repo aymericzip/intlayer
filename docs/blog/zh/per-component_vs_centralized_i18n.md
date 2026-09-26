@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2026-09-16
+priority: 8
 title: 每组件（Per-Component）与集中式（Centralized）i18n：Intlayer 的新方法
 description: 深入探讨 React 国际化策略，对比集中式、按键（per-key）和按组件（per-component）方法，并介绍 Intlayer。
 keywords:

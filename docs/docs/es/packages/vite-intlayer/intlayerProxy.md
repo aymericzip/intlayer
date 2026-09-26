@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Documentación del plugin Vite intlayerProxy | vite-intlayer
 description: Middleware de enrutamiento de idiomas para los servidores dev/preview de Vite y SSR de producción. Maneja la detección de idioma, redireccionamientos de URL y reescrituras internas.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: astro-intlayer पैकेज प्रलेखन
 description: Intlayer के लिए Astro एकीकरण, जो लोकेल-आधारित रूटिंग, मिडलवेयर, हुक्स, क्लाइंट स्टोर और शब्दकोश प्रबंधन के लिए सेटअप प्रदान करता है।
 keywords:

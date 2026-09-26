@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Documentación del hook useDictionary | astro-intlayer
 description: Descubre cómo usar el hook useDictionary en componentes y scripts de Astro para resolver objetos de diccionario.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu gói intlayer
 description: Gói lõi của Intlayer, cung cấp các hàm và kiểu cơ bản cho quốc tế hóa.
 keywords:

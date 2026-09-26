@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-10
+priority: 8
 title: "Sejarah i18n JavaScript: Dari 2011 hingga 2026"
 description: Pelajari evolusi internasionalisasi frontend dari tahun 2011 hingga 2026. Temukan tanggal rilis, tantangan arsitektur, dan inovasi utama di React, Vue, Next.js, Angular, Svelte, dan Solid.
 keywords:

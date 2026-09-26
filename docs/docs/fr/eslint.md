@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: Plugin ESLint | Règles de lint pour Intlayer
 description: Détectez les chaînes codées en dur, les appels dynamiques que le compilateur Intlayer ne peut pas optimiser et le contenu de dictionnaire inutilisé, avec eslint-plugin-intlayer. Compatible ESLint et oxlint, sur React, Vue, Svelte, Angular et Astro.
 keywords:

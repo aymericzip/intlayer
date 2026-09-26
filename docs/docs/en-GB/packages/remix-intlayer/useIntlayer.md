@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useIntlayer Hook Documentation | remix-intlayer
 description: See how to use the useIntlayer hook in Remix 3 applications to access localised content by key.
 keywords:

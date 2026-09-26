@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-16
 updatedAt: 2026-09-12
+priority: 5
 title: CLI - ログイン
 description: Intlayer CLI の login コマンドを使用して Intlayer CMS に認証し、アクセス認証情報を取得する方法を学びます。
 keywords:

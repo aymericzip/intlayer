@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-10
 updatedAt: 2026-05-10
+priority: 6
 title: Плагин Sync PO
 description: Синхронизируйте словари Intlayer с файлами Gettext PO. Сохраняйте существующую i18n, используя Intlayer для управления, перевода и тестирования ваших сообщений.
 keywords:

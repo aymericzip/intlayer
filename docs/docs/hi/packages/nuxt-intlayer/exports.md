@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: nuxt-intlayer पैकेज दस्तावेज़ीकरण
 description: Intlayer के लिए Nuxt एकीकरण, Nuxt एप्लिकेशन के लिए एक मॉड्यूल प्रदान करता है।
 keywords:

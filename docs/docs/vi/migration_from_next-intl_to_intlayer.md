@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "Chuyển từ next-intl sang Intlayer | Quốc tế hóa (i18n)"
 description: "Tìm hiểu cách chuyển Next.js app của bạn từ next-intl sang Intlayer — từng bước một, mà không phá vỡ mã hiện có của bạn. Sử dụng bộ chuyển đổi tương thích @intlayer/next-intl để thực hiện quá trình chuyển đổi không gián đoạn."
 keywords:

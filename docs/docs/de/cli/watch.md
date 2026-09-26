@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Wörterbücher beobachten
 description: Erfahren Sie, wie Sie Änderungen in Ihren Inhaltsdeklarationsdateien überwachen und Wörterbücher automatisch erstellen.
 keywords:

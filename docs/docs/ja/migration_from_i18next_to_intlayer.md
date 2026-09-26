@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "i18nextからIntlayerへの移行 | 国際化 (i18n)"
 description: "JavaScript/TypeScriptアプリケーションをi18nextからIntlayerに移行する方法を学びます — 既存のコードを壊すことなく、ステップバイステップで解説します。シームレスな移行のために@intlayer/i18next互換性アダプターを使用してください。"
 keywords:

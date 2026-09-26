@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-25
 updatedAt: 2026-09-16
+priority: 8
 title: Optimisation de la taille et des performances du bundle i18n
 description: Réduisez la taille du bundle de votre application en optimisant le contenu d'internationalisation (i18n). Apprenez à exploiter le tree shaking et le lazy loading pour les dictionnaires avec Intlayer.
 keywords:

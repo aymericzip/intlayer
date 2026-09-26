@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 辞書の補完
 description: AIを使って辞書を補完、監査、翻訳する方法を学びます。
 keywords:

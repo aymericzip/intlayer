@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 8
 title: إعلان محتوى "لكل لغة" في Intlayer
 description: اكتشف كيفية إعلان المحتوى لكل لغة في Intlayer. اتبع الوثائق لفهم التنسيقات المختلفة وحالات الاستخدام.
 keywords:

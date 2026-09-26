@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "Lingui vs Intlayer: Điểm chuẩn & So sánh 2026"
 description: "Hai thư viện i18n dựa trên trình biên dịch được đo lường trên Next.js và TanStack Start. Kích thước bundle, rò rỉ nội dung, kích thước component, quá trình hydrate, độ phản hồi chuyển đổi ngôn ngữ và trải nghiệm lập trình viên."
 keywords:

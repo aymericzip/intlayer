@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: Documentação do Middleware intlayer para AdonisJS | adonis-intlayer
 description: Veja como usar o middleware intlayer para o pacote adonis-intlayer
 keywords:

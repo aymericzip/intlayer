@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-09-21
+priority: 5
 title: 初始化 Intlayer
 description: 了解如何在您的项目中初始化 Intlayer。
 keywords:

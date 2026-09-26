@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-08-13
+priority: 8
 title: تكامل CI/CD
 description: تعلّم كيفية دمج Intlayer في خط أنابيب CI/CD الخاص بك لإدارة المحتوى والنشر بشكل آلي.
 keywords:

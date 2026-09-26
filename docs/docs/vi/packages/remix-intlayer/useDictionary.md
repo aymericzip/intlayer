@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Tài liệu Hook useDictionary | remix-intlayer
 description: Xem cách sử dụng hook useDictionary trong các ứng dụng Remix 3 để giải quyết các đối tượng từ điển cho locale hiện tại của yêu cầu.
 keywords:

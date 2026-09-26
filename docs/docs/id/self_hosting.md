@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-30
 updatedAt: 2026-09-21
+priority: 8
 title: Self-Hosting Intlayer
 description: "Jalankan Intlayer di infrastruktur Anda sendiri: aplikasi desktop, kontainer Docker all-in-one tunggal, atau stack Docker Compose yang dapat diskalakan. Tidak memerlukan akun Intlayer Cloud."
 keywords:

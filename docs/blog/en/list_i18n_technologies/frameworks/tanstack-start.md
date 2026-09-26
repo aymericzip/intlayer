@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 7
 title: "TanStack Start i18n: locale routing, SSR and the type tax"
 description: How to wire i18n into TanStack Start, a $locale route segment, beforeLoad negotiation, SSR and prerender, and why the generated route tree fights back.
 keywords:

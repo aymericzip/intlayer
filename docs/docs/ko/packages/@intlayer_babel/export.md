@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: "@intlayer/babel 패키지 문서"
 description: 빌드 중에 콘텐츠 추출, 가져오기 최적화, 사용되지 않는 필드 정리, 필드 이름 난독화를 처리하기 위한 Intlayer용 Babel 플러그인입니다.
 keywords:

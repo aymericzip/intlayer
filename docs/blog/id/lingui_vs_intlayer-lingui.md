@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "Lingui vs @intlayer/lingui: Makro Sama, Runtime Berbeda"
 description: "Apa yang berubah ketika aplikasi React mempertahankan makro Lingui tetapi menyajikannya melalui adaptor kompatibilitas @intlayer/lingui. Ukuran komponen, hidrasi, kebocoran, dan JavaScript per halaman diukur pada kode TanStack Start yang sama, termasuk area di mana adaptor tertinggal."
 keywords:

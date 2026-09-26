@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: getDictionaryAsync 関数ドキュメント | intlayer
 description: intlayer パッケージの getDictionaryAsync 関数の使用方法を確認してください
 keywords:

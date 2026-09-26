@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Documentation du Hook usePathname | preact-intlayer
 description: Découvrez comment utiliser le hook usePathname avec le package preact-intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu gói lynx-intlayer
 description: Hỗ trợ Intlayer cho Lynx, cung cấp các polyfill để hỗ trợ locale.
 keywords:

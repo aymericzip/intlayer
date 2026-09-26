@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
+priority: 8
 title: 构建一个基于RAG的文档助手（分块、嵌入和搜索）
 description: 构建一个基于RAG的文档助手（分块、嵌入和搜索）
 keywords:

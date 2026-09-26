@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu Plugin intlayerPrune cho Vite | vite-intlayer
 description: Xem cách sử dụng plugin intlayerPrune cho gói vite-intlayer
 keywords:

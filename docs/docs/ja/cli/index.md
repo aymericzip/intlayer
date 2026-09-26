@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-23
+priority: 8
 title: CLI - 多言語サイトのためのすべてのIntlayer CLIコマンド
 description: 多言語サイトを管理するためのIntlayer CLIの使用方法をご紹介します。このオンラインドキュメントに従って、数分でプロジェクトをセットアップしてください。
 keywords:

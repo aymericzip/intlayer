@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: getIntlayer Function Documentation | intlayer
 description: intlayer パッケージの getIntlayer 関数を使用する方法を参照してください
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-09-21
+priority: 5
 title: Inicializar Intlayer
 description: Saiba como inicializar o Intlayer no seu projeto.
 keywords:

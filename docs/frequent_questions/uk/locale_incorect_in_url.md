@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Некоректна локаль, отримана з URL
 description: Дізнайтеся, як виправити некоректну локаль, отриману з URL.
 keywords:

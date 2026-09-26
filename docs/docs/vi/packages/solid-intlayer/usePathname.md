@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Tài liệu Hook usePathname | solid-intlayer
 description: Tìm hiểu cách sử dụng hook usePathname từ gói solid-intlayer
 keywords:

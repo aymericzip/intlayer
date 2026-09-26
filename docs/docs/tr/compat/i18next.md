@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "i18next'ten Intlayer'a Geçiş Yapın"
 description: "Uyumluluk adaptörünü kullanarak Vanilla JS/TS uygulamanızı i18next'ten Intlayer'a nasıl geçireceğinizi öğrenin."
 keywords:

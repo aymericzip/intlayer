@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: Web Sitesini Tara
 description: Herhangi bir web sitesinin sayfa boyutunu ölçmek ve i18n/SEO durumunu denetlemek için Intlayer CLI scan komutunu nasıl kullanacağınızı öğrenin.
 keywords:

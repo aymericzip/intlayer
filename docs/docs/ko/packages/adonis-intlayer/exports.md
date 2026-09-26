@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: adonis-intlayer 패키지 문서
 description: Intlayer용 AdonisJS 미들웨어, 번역 기능 및 로케일 감지 제공.
 keywords:

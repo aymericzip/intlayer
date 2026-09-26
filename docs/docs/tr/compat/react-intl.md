@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "React Intl'den Intlayer'a Geçiş Yapın"
 description: "Uyumluluk adaptörünü kullanarak React uygulamanızı react-intl'den Intlayer'a nasıl geçireceğinizi öğrenin."
 keywords:

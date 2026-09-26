@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-06
 updatedAt: 2026-09-20
+priority: 9
 title: "Solid Start i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng SolidStart đa ngôn ngữ (i18n). Định tuyến locale được render trên server, hreflang, sitemap và dịch thuật với sự hỗ trợ của AI."
 keywords:

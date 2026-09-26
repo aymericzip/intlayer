@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: intlayer एकीकरण प्रलेखन | astro-intlayer
 description: astro.config.mjs में intlayer Astro एकीकरण को कॉन्फ़िगर और उपयोग करने का तरीका देखें।
 keywords:

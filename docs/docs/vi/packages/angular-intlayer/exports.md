@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu gói angular-intlayer
 description: Tích hợp dành cho Angular của Intlayer, cung cấp providers và services cho các ứng dụng Angular.
 keywords:

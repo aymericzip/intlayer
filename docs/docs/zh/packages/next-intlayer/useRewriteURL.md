@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: useRewriteURL Hook 文档
 description: 针对 Next.js 的 Hook，用于在 Intlayer 中管理本地化 URL 重写。

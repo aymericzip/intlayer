@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: onRequest 中间件文档 | astro-intlayer
 description: 了解如何在 Astro 应用程序中使用 onRequest 中间件解析请求语言环境并填充 Astro.locals.intlayer。
 keywords:

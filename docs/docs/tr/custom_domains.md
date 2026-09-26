@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-02
 updatedAt: 2026-06-23
+priority: 8
 title: Özel Alan Adları
 description: Farklı yerel ayarları özel ana makine adlarından sunmak için Intlayer'da alan adı tabanlı yerel ayar yönlendirmesini nasıl yapılandıracağınızı öğrenin.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: توثيق حزمة @intlayer/babel
 description: إضافات Babel لـ Intlayer تُعالج استخراج المحتوى، وتحسين الاستيراد، وتنقية الحقول غير المستخدمة، وتصغير أسماء الحقول أثناء البناء.
 keywords:

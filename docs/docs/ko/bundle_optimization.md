@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-25
 updatedAt: 2026-09-16
+priority: 8
 title: i18n 번들 크기 및 성능 최적화
 description: 국제화(i18n) 콘텐츠를 최적화하여 애플리케이션 번들 크기를 줄이세요. Intlayer를 통해 사전(dictionary)의 트리 쉐이킹(tree shaking)과 지연 로딩(lazy loading)을 활용하는 방법을 알아봅니다.
 keywords:

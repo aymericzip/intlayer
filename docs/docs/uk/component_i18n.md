@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-09-30
+priority: 8
 title: Зробити компонент багатомовним (i18n) у React і Next.js
 description: Дізнайтеся, як оголошувати та отримувати локалізований вміст для створення багатомовного компонента React або Next.js за допомогою Intlayer.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-06
 updatedAt: 2026-09-20
+priority: 9
 title: "Solid Start i18n - अपने ऐप का अनुवाद करने का पूर्ण गाइड"
 description: "अब i18next की आवश्यकता नहीं। 2026 में बहुभाषी (i18n) SolidStart ऐप बनाने की गाइड। सर्वर-रेंडर्ड लोकेल रूटिंग, hreflang, साइटमैप और AI-सहायता प्राप्त अनुवाद।"
 keywords:

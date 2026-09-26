@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "كيفية اختيار مكتبة Solid i18n المناسبة في عام 2026"
 description: دليل اتخاذ القرار لتدويل تطبيقات SolidJS و SolidStart. ما هي الأسئلة التي يجب الإجابة عليها قبل المقارنة بين @solid-primitives/i18n و solid-i18next و Paraglide و Lingui و Intlayer، وتكلفة كل خيار من حيث التفاعلية (reactivity) وحجم الحزمة (bundle size) ونظام الأنواع (typing).
 keywords:

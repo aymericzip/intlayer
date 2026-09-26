@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "vue-i18n बनाम Intlayer: 2026 बेंचमार्क"
 description: एक ही Vite + Vue 3 ऐप पर vue-i18n और Intlayer को मापा गया। लाइब्रेरी का आकार, प्रति पेज JavaScript, कंटेंट लीकेज, कंपोनेंट का आकार और लोकेल-स्विच रिएक्टिविटी, संख्याओं की व्याख्या के साथ।
 keywords:

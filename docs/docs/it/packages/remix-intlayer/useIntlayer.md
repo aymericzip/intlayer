@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Documentazione dell'hook useIntlayer | remix-intlayer
 description: Scopri come utilizzare l'hook useIntlayer nelle applicazioni Remix 3 per accedere ai contenuti localizzati tramite chiave.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu gói solid-intlayer
 description: Tích hợp chuyên biệt cho Solid cho Intlayer, cung cấp các providers và hooks cho ứng dụng Solid.
 keywords:

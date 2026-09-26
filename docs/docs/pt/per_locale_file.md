@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 8
 title: Declaração de Conteúdo `Por Localidade` no Intlayer
 description: Descubra como declarar conteúdo por localidade no Intlayer. Siga a documentação para entender os diferentes formatos e casos de uso.
 keywords:

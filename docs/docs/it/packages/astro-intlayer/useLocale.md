@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Documentazione dell'hook useLocale | astro-intlayer
 description: Scopri come utilizzare l'hook useLocale nelle applicazioni Astro per accedere e gestire il locale corrente.
 keywords:

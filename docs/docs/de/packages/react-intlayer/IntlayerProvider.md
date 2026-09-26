@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: IntlayerProvider-Komponentendokumentation | react-intlayer
 description: Anleitung zur Verwendung der IntlayerProvider-Komponente im react-intlayer-Paket
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: MarkdownRenderer 컴포넌트 문서 | react-intlayer
 description: react-intlayer 패키지의 MarkdownRenderer 컴포넌트 사용 방법을 확인하세요
 keywords:

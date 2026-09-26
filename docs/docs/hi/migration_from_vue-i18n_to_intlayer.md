@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "vue-i18n से Intlayer में माइग्रेट करें | अंतर्राष्ट्रीयकरण (i18n)"
 description: "सीखें कि अपने Vue या Nuxt ऐप को vue-i18n से Intlayer में कैसे माइग्रेट करें — चरण दर चरण, बिना अपने मौजूदा कोड को तोड़े। शून्य-व्यवधान संक्रमण के लिए @intlayer/vue-i18n compat एडॉप्टर का उपयोग करें।"
 keywords:

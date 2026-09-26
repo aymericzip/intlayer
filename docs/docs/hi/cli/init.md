@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-09-21
+priority: 5
 title: Intlayer प्रारंभ करें (Initialize Intlayer)
 description: अपने प्रोजेक्ट में Intlayer को प्रारंभ करने का तरीका जानें।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-21
 updatedAt: 2026-09-21
+priority: 5
 title: CLI - Init Infra
 description: تعرف على كيفية استخدام أمر init infra في واجهة سطر أوامر Intlayer لتثبيت تطبيق سطح المكتب أو الاستضافة الذاتية لـ Intlayer CMS باستخدام Docker (حاوية الكل في واحد أو مكدس Docker Compose).
 keywords:

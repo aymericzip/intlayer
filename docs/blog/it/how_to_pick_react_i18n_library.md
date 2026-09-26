@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Come scegliere la giusta libreria i18n per React nel 2026"
 description: Una guida decisionale per l'internazionalizzazione in React. Quali domande porsi prima di confrontare react-i18next, react-intl, Lingui, use-intl, Paraglide e Intlayer, e cosa comporta ogni scelta in termini di bundle size, typing e manutenzione.
 keywords:

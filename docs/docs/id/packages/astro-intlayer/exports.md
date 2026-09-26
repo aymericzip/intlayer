@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentasi Paket astro-intlayer
 description: Integrasi Astro untuk Intlayer, menyediakan konfigurasi perutean berbasis lokal, middleware, hooks, store klien, dan manajemen kamus.
 keywords:

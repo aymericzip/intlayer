@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Vue I18nからIntlayerへの移行"
 description: "compatアダプタを使用してVueアプリケーションをvue-i18nからIntlayerに移行する方法を学びます。"
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: الترحيل من Transloco إلى Intlayer
 description: تعرّف على كيفية ترحيل تطبيق Angular الخاص بك من Transloco إلى Intlayer باستخدام محول التوافق.
 keywords:

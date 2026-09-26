@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-11
 updatedAt: 2026-01-11
+priority: 4
 title: `vite-env-only` و Intlayer – خطأ رفض زائف `node:fs`
 description: لماذا تبلغ vite-env-only عن رفض استيراد `node:fs` عند استخدام Intlayer + React-Router + Vite وماذا تفعل.
 keywords:

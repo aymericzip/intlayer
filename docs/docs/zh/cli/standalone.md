@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 独立 Bundle (Standalone Bundle)
 description: 了解如何为应用程序内容创建独立的 JavaScript bundle。
 keywords:

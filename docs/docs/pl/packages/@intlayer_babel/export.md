@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: "Dokumentacja pakietu @intlayer/babel"
 description: Wtyczki Babel dla Intlayer do obsługi ekstrakcji zawartości, optymalizacji importu, oczyszczania nieużywanych pól i maskowania nazw pól podczas budowania.
 keywords:

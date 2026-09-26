@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: fastify-intlayer 包文档
 description: Intlayer 的 Fastify 插件，提供翻译函数和 locale 检测。
 keywords:

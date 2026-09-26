@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Bun kullanırken modül bulunamadı hatası alıyorum
 description: Bun kullanırken oluşan hatayı düzeltin.
 keywords:

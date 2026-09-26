@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Документація хука useDictionary | remix-intlayer
 description: Дізнайтеся, як використовувати хук useDictionary у додатках Remix 3 для отримання вмісту об'єктів словників для поточної локалі запиту.
 keywords:

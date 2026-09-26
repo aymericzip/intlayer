@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: وثائق حزمة elysia-intlayer
 description: مُكون إضافي لـ Elysia لـ Intlayer يوفر دوال ترجمة واكتشاف اللغة.
 keywords:

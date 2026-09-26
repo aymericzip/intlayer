@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: intlayer Hono 미들웨어 문서 | hono-intlayer
 description: hono-intlayer 패키지의 intlayer 미들웨어 사용법 알아보기
 keywords:

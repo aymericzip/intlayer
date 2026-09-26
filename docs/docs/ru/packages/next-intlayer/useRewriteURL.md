@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: Документация по хуку useRewriteURL
 description: Хук для Next.js, предназначенный для управления локализованными переадресациями URL в Intlayer.

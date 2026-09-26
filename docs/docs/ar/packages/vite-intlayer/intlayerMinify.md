@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: توثيق إضافة intlayerMinify Vite | vite-intlayer
 description: إضافة لـ Vite تقوم بتصغير ملفات قاموس Intlayer JSON المترجمة وتغيير أسماء حقول المحتوى اختياريًا لتقليل حجم الحزمة.
 keywords:

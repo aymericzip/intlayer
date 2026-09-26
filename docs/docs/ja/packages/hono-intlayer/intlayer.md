@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: intlayer Hono ミドルウェア ドキュメント | hono-intlayer
 description: hono-intlayer パッケージでの intlayer ミドルウェアの使用方法を確認する
 keywords:

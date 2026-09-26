@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-09-20
+priority: 8
 title: Remplissage automatique
 description: Apprenez à utiliser la fonctionnalité de remplissage automatique dans Intlayer pour remplir automatiquement le contenu en fonction de modèles prédéfinis. Suivez cette documentation pour implémenter efficacement les fonctionnalités de remplissage automatique dans votre projet.
 keywords:

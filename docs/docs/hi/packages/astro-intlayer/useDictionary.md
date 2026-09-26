@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useDictionary हुक प्रलेखन | astro-intlayer
 description: शब्दकोश ऑब्जेक्ट्स को हल करने के लिए Astro कंपोनेंट्स और स्क्रिप्ट्स में useDictionary हुक का उपयोग करने का तरीका देखें।
 keywords:

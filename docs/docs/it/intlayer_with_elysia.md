@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-30
+priority: 9
 title: "Elysia i18n - Guida completa per tradurre la tua app"
 description: "Niente più i18next. La guida 2026 per costruire un'app Elysia multilingue (i18n). Traduci con agenti AI e ottimizza dimensione del bundle, SEO e performance."
 keywords:

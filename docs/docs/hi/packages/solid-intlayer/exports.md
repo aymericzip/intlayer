@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: solid-intlayer पैकेज दस्तावेज़
 description: Solid-विशिष्ट एकीकरण जो Solid एप्लिकेशनों के लिए Intlayer के providers और hooks प्रदान करता है।
 keywords:

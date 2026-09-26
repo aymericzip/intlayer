@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: توثيق حزمة angular-intlayer
 description: تكامل مخصص لـ Angular مع Intlayer، يوفر providers و services لتطبيقات Angular.
 keywords:

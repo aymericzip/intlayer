@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerMinify Vite 插件文档 | vite-intlayer
 description: Vite 插件，用于压缩编译后的 Intlayer 字典 JSON 文件，并可选地混淆内容字段名称以减小包大小。
 keywords:

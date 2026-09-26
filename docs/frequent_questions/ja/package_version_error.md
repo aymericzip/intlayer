@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: サブパッケージ @intlayer/* に関連するエラーが発生する
 description: サブパッケージ @intlayer/* に関連するエラーの修正方法。
 keywords:

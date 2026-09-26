@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Документація middleware onRequest | astro-intlayer
 description: Дізнайтеся, як використовувати middleware onRequest у додатках Astro для визначення локалі запиту та заповнення Astro.locals.intlayer.
 keywords:

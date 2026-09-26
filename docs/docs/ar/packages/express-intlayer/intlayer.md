@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: توثيق Middleware الخاص بـ intlayer في Express | express-intlayer
 description: تعرف على كيفية استخدام Middleware الخاص بـ intlayer لحزمة express-intlayer
 keywords:

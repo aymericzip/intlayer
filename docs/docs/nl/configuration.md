@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2026-08-22
+priority: 8
 title: Configuratie (Configuration)
 description: Leer hoe u Intlayer configureert voor uw applicatie. Begrijp de verschillende instellingen en opties die beschikbaar zijn om Intlayer aan uw behoeften aan te passen.
 keywords:

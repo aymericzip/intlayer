@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Cách chọn đúng thư viện Solid i18n năm 2026"
 description: Hướng dẫn ra quyết định cho việc quốc tế hóa (i18n) SolidJS và SolidStart. Những câu hỏi cần trả lời trước khi so sánh @solid-primitives/i18n, solid-i18next, Paraglide, Lingui và Intlayer, cùng chi phí của từng lựa chọn về tính phản ứng (reactivity), bundle size và typing.
 keywords:

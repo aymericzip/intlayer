@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Отправка словарей
 description: Узнайте, как отправлять ваши словари в редактор и CMS Intlayer.
 keywords:

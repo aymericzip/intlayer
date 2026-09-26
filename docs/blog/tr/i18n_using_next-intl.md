@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-01
 updatedAt: 2026-05-31
+priority: 9
 title: "next-intl kullanarak Next.js uygulamanızı nasıl uluslararasılaştırırsınız - Eksiksiz çeviri rehberi: Translate Next.js 16 with next-intl — App Router Setup"
 description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Next.js 16 web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:

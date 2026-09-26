@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-08-13
+priority: 8
 title: Интеграция CI/CD
 description: Узнайте, как интегрировать Intlayer в ваш CI/CD конвейер для автоматизированного управления контентом и развертывания.
 keywords:

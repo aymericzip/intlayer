@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: Najlepsze rozwiązanie i18n dla TanStack Start w 2026 r. - Raport Benchmark
 description: Porównaj biblioteki internacjonalizacji dla TanStack Start, takie jak react-i18next, use-intl i Intlayer. Szczegółowy raport wydajności dotyczący rozmiaru pakietu, wycieków i reaktywności.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-07-30
+priority: 8
 title: Inhaltsdatei
 description: Erfahren Sie, wie Sie die Erweiterungen für Ihre Inhaltsdeklarationsdateien anpassen können. Folgen Sie dieser Dokumentation, um Bedingungen effizient in Ihrem Projekt umzusetzen.
 keywords:

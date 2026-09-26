@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-06
+priority: 10
 title: 소개
 description: Intlayer의 작동 방식을 알아보세요. Intlayer가 애플리케이션에서 사용하는 단계를 확인하세요. 다양한 패키지가 어떤 역할을 하는지 알아보세요.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: adonis-intlayer パッケージドキュメント
 description: Intlayer 用の AdonisJS ミドルウェア。翻訳機能とロケール検出を提供します。
 keywords:

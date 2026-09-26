@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: L10n プラットフォームの代替
 description: ニーズに合った最適な L10n プラットフォームの代替を見つける
 keywords:

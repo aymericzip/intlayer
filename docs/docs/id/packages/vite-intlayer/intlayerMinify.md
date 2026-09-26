@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Dokumentasi Plugin Vite intlayerMinify | vite-intlayer
 description: Plugin Vite yang meminifikasi file JSON kamus Intlayer yang dikompilasi dan secara opsional mengaburkan nama bidang konten untuk mengurangi ukuran bundel.
 keywords:

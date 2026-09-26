@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: 2026年においてnext-intlは時代遅れなのか？
 description: next-intlはNext.js App Routerの定番となりました。しかし、ランタイムによるバンドルの肥大化や手動での名前空間管理という課題は残されています。
 keywords:

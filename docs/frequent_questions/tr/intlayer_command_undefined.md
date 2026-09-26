@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 4
 title: Intlayer komutu tanımsız
 description: Intlayer komutu tanımsız hatasını nasıl düzelteceğinizi öğrenin.
 keywords:
@@ -142,7 +143,7 @@ npm --version
     Eski sürüm kullanıyorsanız Node.js ve npm'i güncelleyin.
 
 11. **İzin sorunlarını kontrol edin**
-    İzin hatası alıyorsanız:
+İzin hatası alıyorsanız:
 
     ```bash
     # macOS/Linux için

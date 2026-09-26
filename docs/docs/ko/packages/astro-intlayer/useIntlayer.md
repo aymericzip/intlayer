@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useIntlayer 훅 문서 | astro-intlayer
 description: Astro 컴포넌트 및 클라이언트 스크립트에서 useIntlayer 훅을 사용하여 현지화된 콘텐츠에 액세스하는 방법을 알아봅니다.
 keywords:

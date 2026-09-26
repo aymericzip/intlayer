@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "vue-i18n vs @intlayer/vue-i18n: API yang Sama, Bundle Berbeda"
 description: Apa yang berubah ketika aplikasi Vue 3 menyimpan panggilan vue-i18n-nya tetapi melayaninya melalui adapter kompatibilitas @intlayer/vue-i18n. JavaScript per halaman, ukuran runtime, ukuran komponen dan kebocoran diukur pada kode Vite + Vue yang sama, ditambah apa yang adapter simpan, abaikan dan tidak dapat gantikan.
 keywords:

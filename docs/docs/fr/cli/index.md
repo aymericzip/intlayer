@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-23
+priority: 8
 title: CLI - Toutes les commandes CLI Intlayer pour votre site multilingue
 description: Découvrez comment utiliser le CLI Intlayer pour gérer votre site multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "품질 저하 없이 CI/CD 파이프라인에서 번역을 자동화하는 방법"
 description: i18n을 자동화할 수 있는 3단계 (pre-push, pull request, 런타임). 커버리지를 기반으로 빌드를 제어(gate)하고, 안전하게 자동 채우기를 수행하며, 무한 커밋 루프를 방지하는 방법.
 keywords:

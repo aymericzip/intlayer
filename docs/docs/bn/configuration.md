@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2026-08-22
+priority: 8
 title: কনফিগারেশন (Configuration)
 description: আপনার অ্যাপ্লিকেশনের জন্য Intlayer কীভাবে কনফিগার করবেন তা শিখুন। আপনার প্রয়োজন অনুযায়ী Intlayer কাস্টমাইজ করতে উপলব্ধ বিভিন্ন সেটিংস এবং বিকল্পগুলি বুঝুন।
 keywords:

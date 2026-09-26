@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Formattare date e numeri per lingua con Intl"
 description: Probabilmente non hai bisogno di una libreria di formattazione esterna. Come Intl gestisce date, numeri, valute e liste per locale, il costo di caching e il bug di timezone in produzione.
 keywords:

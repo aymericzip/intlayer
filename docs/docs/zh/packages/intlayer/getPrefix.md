@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-16
 updatedAt: 2025-11-16
+priority: 5
 title: getPrefix 函数文档 | intlayer
 description: 查看如何使用 intlayer 包中的 getPrefix 函数
 keywords:

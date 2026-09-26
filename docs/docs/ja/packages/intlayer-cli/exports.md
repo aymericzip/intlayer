@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer-cli パッケージドキュメント
 description: Intlayer 用の CLI ツール。辞書のビルドや監査用コマンドを提供します。
 keywords:

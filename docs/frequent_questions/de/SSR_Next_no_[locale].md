@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Ist es möglich, Intlayer mit Next.js ohne `[locale]` im Seitenpfad zu verwenden?
 description: Erfahren Sie, wie Sie Intlayer mit Next.js ohne `[locale]` im Seitenpfad verwenden können.
 keywords:

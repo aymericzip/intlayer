@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Tự động hóa dịch thuật trong CI/CD mà không xuất bản nội dung kém chất lượng"
 description: Ba giai đoạn tự động hóa i18n, pre-push, pull request và runtime. Cách chặn build dựa trên độ bao phủ, tự động điền an toàn và tránh vòng lặp commit vô tận trong CI.
 keywords:

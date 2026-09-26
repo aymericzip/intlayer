@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "i18n-jsからIntlayerへの移行"
 description: "compatアダプタを使用してアプリケーションをi18n-jsからIntlayerに移行する方法を学びます。"
 keywords:

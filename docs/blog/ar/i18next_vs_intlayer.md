@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next مقابل Intlayer: اختبار الأداء والمقارنة الشاملة لعام 2026"
 description: "قياس أداء react-i18next و next-i18next ومقارنتهما مع Intlayer على Next.js و TanStack Start. حجم الحزمة (Bundle size)، تسرب المحتوى، سرعة الاستجابة عند تبديل اللغة، وتجربة المطور."
 keywords:

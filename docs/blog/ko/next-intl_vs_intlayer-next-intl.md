@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl vs @intlayer/next-intl: 동일한 API, 다른 번들"
 description: Next.js 앱의 next-intl imports가 @intlayer/next-intl compat adapter에 의해 제공될 때 어떤 변화가 생기는지 알아봅니다. 동일한 코드에서 측정된 번들 크기, leakage, 컴포넌트 크기 및 hydration, 그리고 adapter가 유지하는 것, 무시하는 것 및 대체할 수 없는 것.
 keywords:

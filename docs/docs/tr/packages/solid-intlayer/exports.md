@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: solid-intlayer Paket Dokümantasyonu
 description: Solid uygulamaları için Intlayer'a özgü entegrasyon; Solid uygulamaları için provider'lar ve hook'lar sunar.
 keywords:

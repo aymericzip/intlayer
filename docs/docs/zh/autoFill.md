@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-09-20
+priority: 8
 title: 自动填充
 description: 了解如何在 Intlayer 中使用自动填充功能，根据预定义模式自动填充内容。按照本说明文档高效实现自动填充功能。
 keywords:

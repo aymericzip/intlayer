@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: useIntlayer Hook 文档 | react-intlayer
 description: 查看如何在 react-intlayer 包中使用 useIntlayer 钩子
 keywords:

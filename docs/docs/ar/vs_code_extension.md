@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-17
 updatedAt: 2025-09-30
+priority: 6
 title: ملحق VS Code الرسمي
 description: تعلّم كيفية استخدام ملحق Intlayer في VS Code لتعزيز سير عمل التطوير الخاص بك. تنقل بسرعة بين المحتوى المحلي وأدر قواميسك بكفاءة.
 keywords:

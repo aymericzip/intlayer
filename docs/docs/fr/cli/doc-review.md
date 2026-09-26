@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Revue de Document
 description: Apprenez comment revoir les fichiers de documentation pour la qualité, la cohérence et l'exhaustivité à travers différentes locales.
 keywords:

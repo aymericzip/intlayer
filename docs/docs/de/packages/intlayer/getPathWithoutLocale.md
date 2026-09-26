@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: getPathWithoutLocale Funktionsdokumentation | intlayer
 description: Sehen Sie, wie die Funktion getPathWithoutLocale für das intlayer-Paket verwendet wird
 keywords:

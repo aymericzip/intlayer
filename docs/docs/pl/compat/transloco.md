@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migracja z Transloco do Intlayer"
 description: "Dowiedz się, jak przeprowadzić migrację aplikacji Angular z Transloco do Intlayer za pomocą adaptera kompatybilności."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: 2026 年，i18next 已经过时了吗？
 description: i18next 为数百万个网站提供多语言支持，但其始于 2011 年的运行时架构已显老态。本文深入剖析其打包体积膨胀、Tree-shaking 限制与创新停滞问题。
 keywords:

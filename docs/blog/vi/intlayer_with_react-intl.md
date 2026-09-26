@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
+priority: 8
 title: Cách tự động hóa dịch JSON react-intl của bạn bằng Intlayer
 description: Tự động hóa dịch JSON của bạn với Intlayer và react-intl để nâng cao quốc tế hóa trong các ứng dụng React.
 keywords:

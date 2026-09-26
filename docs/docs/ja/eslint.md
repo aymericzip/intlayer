@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: ESLint プラグイン | Intlayer 用 Lint ルール
 description: eslint-plugin-intlayer を使用して、ハードコードされた文字列、Intlayer コンパイラが最適化できない動的呼び出し、未使用の辞書コンテンツを検出します。React、Vue、Svelte、Angular、Astro に対応し、ESLint および oxlint で動作します。
 keywords:

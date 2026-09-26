@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: CI/CD में बिल्ड त्रुटि
 description: जानें कि CI/CD वातावरण में होने वाली बिल्ड त्रुटियों को कैसे ठीक करें।
 keywords:

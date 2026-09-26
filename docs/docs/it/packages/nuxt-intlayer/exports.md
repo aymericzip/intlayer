@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Documentazione del pacchetto nuxt-intlayer
 description: Integrazione Nuxt per Intlayer, fornisce un modulo per applicazioni Nuxt.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: ドキュメントのレビュー
 description: 異なるロケール間での品質、一貫性、完全性を確認するためのドキュメントファイルのレビュー方法を学びます。
 keywords:

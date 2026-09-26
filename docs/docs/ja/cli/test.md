@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 翻訳の欠落をテストする
 description: 辞書内の翻訳の欠落をテストし特定する方法を学びます。
 keywords:

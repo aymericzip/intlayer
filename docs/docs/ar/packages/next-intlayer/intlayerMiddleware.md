@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-02-25
+priority: 5
 title: توثيق intlayerMiddleware | next-intlayer
 description: اطّلع على كيفية استخدام دالة intlayerMiddleware لحزمة next-intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentation des intlayer-cli-Pakets
 description: CLI-Tool für Intlayer, das Befehle zum Erstellen und Prüfen von Wörterbüchern bereitstellt.
 keywords:

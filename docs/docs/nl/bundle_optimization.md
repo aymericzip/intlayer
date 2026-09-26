@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-25
 updatedAt: 2026-09-16
+priority: 8
 title: i18n Bundelgrootte & Prestatie-optimalisatie
 description: Verklein de bundelgrootte van uw applicatie door internationalisatie (i18n) content te optimaliseren. Leer hoe u tree shaking en lazy loading kunt inzetten voor woordenboeken met Intlayer.
 keywords:

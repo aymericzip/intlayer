@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: nuxt-intlayer 包文档
 description: Intlayer 的 Nuxt 集成，为 Nuxt 应用提供一个模块。
 keywords:

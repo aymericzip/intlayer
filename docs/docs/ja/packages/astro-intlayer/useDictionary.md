@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useDictionary フックドキュメント | astro-intlayer
 description: Astro コンポーネントとスクリプトで useDictionary フックを使用して辞書オブジェクトを解決する方法を説明します。
 keywords:

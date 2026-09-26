@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: getIntlayerAsync Function Documentation | intlayer
 description: getIntlayerAsync फ़ंक्शन को intlayer पैकेज के लिए कैसे उपयोग करें यह देखें
 keywords:

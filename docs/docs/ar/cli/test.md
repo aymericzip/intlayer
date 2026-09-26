@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: اختبار الترجمات المفقودة
 description: تعلّم كيفية اختبار وتحديد الترجمات المفقودة في قواميسك.
 keywords:

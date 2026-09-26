@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-08-13
+priority: 8
 title: CI/CD 統合
 description: Intlayer を CI/CD パイプラインに統合して、自動化されたコンテンツ管理とデプロイメントを実現する方法を学びます。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl vs Intlayer: Tolok Ukur & Perbandingan 2026"
 description: "Perbandingan mendalam antara next-intl dan Intlayer pada Next.js App Router dan TanStack Start. Ukuran bundle, kebocoran konten, ukuran komponen, hidrasi, dan pengalaman pengembang."
 keywords:

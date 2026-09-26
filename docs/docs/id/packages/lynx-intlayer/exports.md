@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Paket lynx-intlayer
 description: Dukungan Lynx untuk Intlayer, menyediakan polyfill untuk dukungan locale.
 keywords:

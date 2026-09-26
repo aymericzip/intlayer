@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: शब्दकोश भरें
 description: AI का उपयोग करके अपने शब्दकोशों को कैसे भरें, ऑडिट करें, और अनुवाद करें, यह जानें।
 keywords:

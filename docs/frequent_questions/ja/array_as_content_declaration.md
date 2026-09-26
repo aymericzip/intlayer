@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 配列をコンテンツ宣言として使えますか？
 description: 配列をコンテンツ宣言として使う方法を学びます。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Wie man die Locale aus Cookies / Headern ausliest
 description: Lernen Sie, wie man die Locale aus Cookies / Headern ausliest.
 keywords:

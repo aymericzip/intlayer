@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: react-intlayer 包文档
 description: 面向 React 的 Intlayer 实现，为 React 应用提供 hooks 和 providers。
 keywords:

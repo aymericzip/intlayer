@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "2026年に最適なReact i18nライブラリを選ぶ方法"
 description: Reactの国際化（i18n）に関する意思決定ガイド。react-i18next、react-intl、Lingui、use-intl、Paraglide、Intlayerを比較する前に答えるべき質問と、バンドルサイズ、型安全性、メンテナンスコストにおける各選択肢のトレードオフを解説します。
 keywords:

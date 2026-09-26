@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 4
 title: CI/CD'de Derleme Hatası
 description: CI/CD ortamlarında oluşan derleme hatalarını nasıl düzelteceğinizi öğrenin.
 keywords:

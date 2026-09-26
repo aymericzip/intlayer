@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-02-25
+priority: 5
 title: intlayerMiddleware 문서 | next-intlayer
 description: next-intlayer 패키지를 위한 intlayerMiddleware 함수 사용 방법을 확인하세요
 keywords:

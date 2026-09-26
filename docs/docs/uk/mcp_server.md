@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-21
+priority: 6
 title: Документація MCP Server
 description: Дослідіть функції та налаштування MCP Server, щоб оптимізувати управління сервером і операції.
 keywords:

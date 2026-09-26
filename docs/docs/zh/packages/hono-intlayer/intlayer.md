@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: intlayer Hono 中间件文档 | hono-intlayer
 description: 了解如何为 hono-intlayer 包使用 intlayer 中间件
 keywords:

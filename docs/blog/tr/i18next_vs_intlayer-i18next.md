@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next vs @intlayer/i18next: Aynı API, Farklı Paket Boyutu"
 description: Bir React veya Next.js uygulaması i18next, react-i18next ve next-i18next çağrılarını koruyup bunları @intlayer/i18next bağdaştırıcıları aracılığıyla sunduğunda ne değişir? Aynı kod üzerinde ölçülen sayfa başına JavaScript, bileşen boyutu, metin sızıntısı ve hidrasyon performansı.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-08-04
+priority: 8
 title: Varianten
 description: Verwenden Sie das variant-Metadatenfeld in Intlayer-Inhaltsdateien, um benannte oder strukturierte Inhaltsalternativen zu deklarieren — A/B-Tests, saisonale Banner, Feature-Flag-Texte, CMS-Datensätze, benutzerspezifische Inhalte — und zur Laufzeit ohne Codeänderungen zwischen ihnen zu wechseln.
 keywords:

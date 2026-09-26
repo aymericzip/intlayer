@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-21
+priority: 6
 title: Documentação do Servidor MCP
 description: Explore os recursos e a configuração do Servidor MCP para otimizar o gerenciamento e as operações do seu servidor.
 keywords:

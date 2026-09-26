@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Apakah i18next Sudah Ketinggalan Zaman di Tahun 2026?
 description: i18next memberdayakan jutaan situs web, tetapi arsitektur runtime buatan 2011 mulai menunjukkan usianya. Analisis ukuran bundle, batas tree-shaking, dan laju inovasi.
 keywords:

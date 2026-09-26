@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2026-09-16
+priority: 8
 title: "Per-Komponen vs. i18n Terpusat: Pendekatan Baru dengan Intlayer"
 description: Tinjauan mendalam tentang strategi internasionalisasi di React, membandingkan pendekatan terpusat, per-key, dan per-komponen, serta memperkenalkan Intlayer.
 keywords:

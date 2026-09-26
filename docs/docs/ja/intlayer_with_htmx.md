@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 9
 title: "htmx i18n - アプリを翻訳するための完全ガイド"
 description: "i18nextはもう不要。2026年の多言語（i18n）htmxアプリ構築ガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:

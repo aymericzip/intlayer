@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-25
 updatedAt: 2026-09-16
+priority: 8
 title: i18n Paket Boyutu ve Performans Optimizasyonu
 description: Uluslararasılaştırma (i18n) içeriğini optimize ederek uygulama paket boyutunuzu küçültün. Intlayer ile sözlükler için tree shaking ve lazy loading'i nasıl kullanacağınızı öğrenin.
 keywords:

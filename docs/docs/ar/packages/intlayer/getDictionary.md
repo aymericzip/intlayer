@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: وثائق دالة getDictionary | intlayer
 description: اطلع على كيفية استخدام دالة getDictionary لحزمة intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: Tài liệu gói react-native-intlayer
 description: Hỗ trợ React Native cho Intlayer, cung cấp provider, hook, polyfill và cấu hình Metro.
 keywords:

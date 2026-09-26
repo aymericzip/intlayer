@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "Lingui vs Intlayer: Benchmark e Comparativo 2026"
 description: "Duas bibliotecas de i18n baseadas em compilador avaliadas no Next.js e TanStack Start. Tamanho do bundle, vazamento de conteúdo, tamanho dos componentes, hidratação, reatividade na troca de idioma e experiência do desenvolvedor."
 keywords:

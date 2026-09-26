@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrar de Lingui a Intlayer"
 description: "Aprende cómo migrar tu aplicación desde Lingui a Intlayer usando el adaptador de compatibilidad."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 辞書のビルド方法
 description: 辞書のビルド方法を学ぶ
 keywords:

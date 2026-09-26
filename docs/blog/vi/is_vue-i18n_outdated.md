@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Liệu vue-i18n Đã Lỗi Thời Vào Năm 2026?
 description: vue-i18n là chuẩn mực cho Vue và Nuxt suốt cả thập kỷ. Nhưng trong các bài kiểm tra benchmark, nó lại là runtime i18n nặng nhất trên web. Tìm hiểu nguyên nhân tại đây.
 keywords:

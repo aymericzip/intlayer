@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: Dokumentasi Paket elysia-intlayer
 description: Plugin Elysia untuk Intlayer, menyediakan fungsi terjemahan dan deteksi locale.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-24
 updatedAt: 2025-11-24
+priority: 8
 title: Trình Biên Dịch so với i18n Khai Báo
 description: Khám phá các đánh đổi kiến trúc giữa quốc tế hóa dựa trên trình biên dịch "ma thuật" và quản lý nội dung khai báo rõ ràng.
 keywords:

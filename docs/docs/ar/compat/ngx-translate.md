@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: الترحيل من NGX-Translate إلى Intlayer
 description: تعرّف على كيفية ترحيل تطبيق Angular الخاص بك من ngx-translate إلى Intlayer باستخدام محول التوافق.
 keywords:

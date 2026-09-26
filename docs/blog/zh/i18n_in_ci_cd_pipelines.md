@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "在 CI/CD 中自动化翻译而不发布糟糕文案"
 description: 在三个阶段自动化 i18n，pre-push、pull request 与运行时。如何基于覆盖率拦截构建、安全自动补全并避免无限提交循环。
 keywords:

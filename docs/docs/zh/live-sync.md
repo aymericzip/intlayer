@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-07-08
+priority: 8
 title: 实时同步（Live Sync）| 让应用实时反映 CMS 内容变更
 description: 让您的应用在运行时实时反映 Intlayer CMS 的内容变更，无需重新构建或重新部署。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: intlayer Hono मिडलवेयर दस्तावेज़ीकरण | hono-intlayer
 description: देखें कि hono-intlayer पैकेज के लिए intlayer मिडलवेयर का उपयोग कैसे करें
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: intlayer Elysia Eklenti Dokümantasyonu | elysia-intlayer
 description: elysia-intlayer paketindeki intlayer eklentisinin nasıl kullanılacağını görün
 keywords:

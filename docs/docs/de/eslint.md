@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: ESLint Plugin | Linting-Regeln für Intlayer
 description: Erkennen Sie hartcodierte Zeichenketten, dynamische Aufrufe, die der Intlayer-Compiler nicht optimieren kann, und ungenutzte Wörterbuchinhalte mit eslint-plugin-intlayer. Funktioniert mit ESLint und oxlint für React, Vue, Svelte, Angular und Astro.
 keywords:

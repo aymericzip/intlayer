@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 8
 title: Declaración de contenido `Por-Locale` en Intlayer
 description: Descubre cómo declarar contenido por locale en Intlayer. Sigue la documentación para entender los diferentes formatos y casos de uso.
 keywords:

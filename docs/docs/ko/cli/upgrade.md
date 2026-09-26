@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 5
 title: CLI - Intlayer 패키지 업그레이드
 description: Intlayer CLI upgrade 명령어를 사용하여 프로젝트 또는 모노레포의 모든 Intlayer 패키지를 나열하고 최신 버전으로 업그레이드하는 방법을 알아봅니다.
 keywords:

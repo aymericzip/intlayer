@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Obtengo un error relacionado con los sub-paquetes `@intlayer/*`
 description: Soluciona el error relacionado con los sub-paquetes `@intlayer/*`.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
+priority: 6
 title: Chrome & Firefox 확장 프로그램, i18n & SEO 스캐너
 description: Intlayer Chrome 확장 프로그램을 사용하여 모든 웹사이트의 i18n 설정을 검사하세요. 프레임워크, i18n 라이브러리, 로케일, hreflang 및 SEO 태그를 감지하고 전체 i18n SEO 감사를 실행합니다.
 keywords:

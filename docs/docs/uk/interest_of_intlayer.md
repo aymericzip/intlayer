@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-14
 updatedAt: 2026-05-31
+priority: 8
 title: Переваги Intlayer
 description: Відкрийте для себе переваги та користь використання Intlayer у ваших проектах. Зрозумійте, чому Intlayer виділяється серед інших фреймворків.
 keywords:

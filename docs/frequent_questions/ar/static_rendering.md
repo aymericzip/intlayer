@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: العرض الثابت مقابل العرض الديناميكي مع i18n في Next.js
 description: تعلم كيفية استخدام العرض الثابت مقابل العرض الديناميكي مع i18n في Next.js.
 keywords:

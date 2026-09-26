@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: エディターコマンド
 description: Intlayerのエディターコマンドの使い方を学びます。
 keywords:

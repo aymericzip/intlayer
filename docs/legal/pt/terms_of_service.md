@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 1
 title: Termos de Serviço do Intlayer
 description: Descubra como o Intlayer lida com as informações coletadas através do nosso site e CMS. Siga a documentação para entender os diferentes formatos e casos de uso.
 keywords:

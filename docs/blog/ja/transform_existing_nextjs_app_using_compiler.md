@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-09-06
+priority: 8
 title: "既存のNext.jsアプリケーションを後から多言語化（i18n）する方法（2026年版ガイド）"
 description: "2026年に既存のNext.jsアプリを後から多言語化（i18n）するためのガイド。大規模なリファクタリングなしに、Intlayerによる自動抽出、AI翻訳、高性能ルーティングを実現します。"
 keywords:

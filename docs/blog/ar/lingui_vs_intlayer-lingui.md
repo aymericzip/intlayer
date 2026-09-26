@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "Lingui مقابل @intlayer/lingui: نفس وحدات الماكرو، بيئة تشغيل مختلفة"
 description: "ما الذي يتغير عندما يحتفظ تطبيق React بوحدات ماكرو Lingui مع تشغيلها عبر محول التوافق @intlayer/lingui. حجم المكونات، والترطيب (hydration)، والتسرب وحجم JavaScript لكل صفحة على نفس تطبيق TanStack Start، بما في ذلك النقاط التي يتراجع فيها المحول."
 keywords:

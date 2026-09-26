@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Cara Memilih Library Vue i18n yang Tepat di Tahun 2026"
 description: Panduan pengambilan keputusan untuk internasionalisasi Vue dan Nuxt. Pertanyaan apa saja yang perlu dijawab sebelum membandingkan vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide, dan Intlayer, serta konsekuensi masing-masing pilihan terhadap bundle size, typing, dan SSR payload.
 keywords:

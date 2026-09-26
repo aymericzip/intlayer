@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 9
 title: Uluslararasılaştırma (i18n) Nedir? Tanım ve zorluklar
 description: Web sitenizi uluslararasılaştırmanın neden gerekli olduğunu keşfedin. SEO'yu artırmak, kullanıcı deneyimini geliştirmek ve küresel erişiminizi genişletmek için temel ilkeleri öğrenin.
 keywords:

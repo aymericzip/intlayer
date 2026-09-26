@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: क्या Next.js के साथ पेज पाथ में `[locale]` के बिना Intlayer का उपयोग करना संभव है?
 description: जानें कि Next.js के साथ पेज पाथ में `[locale]` के बिना Intlayer का उपयोग कैसे करें।
 keywords:

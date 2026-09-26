@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-04
 updatedAt: 2026-05-04
+priority: 8
 title: Jamak (Plural)
 description: Pelajari cara mendeklarasikan dan menggunakan konten jamak yang sadar lokal (berbasis CLDR) di situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi online ini untuk menyiapkan proyek Anda dalam beberapa menit.
 keywords:

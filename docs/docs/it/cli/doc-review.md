@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Revisione Documento
 description: Scopri come revisionare i file di documentazione per qualità, coerenza e completezza tra diverse localizzazioni.
 keywords:

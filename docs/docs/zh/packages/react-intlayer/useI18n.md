@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: useI18n Hook 文档 | react-intlayer
 description: 学习如何在 react-intlayer 包中使用 useI18n Hook
 keywords:

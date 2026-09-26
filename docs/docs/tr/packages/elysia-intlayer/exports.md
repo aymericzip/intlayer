@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: elysia-intlayer Paket Dokümantasyonu
 description: Intlayer için Elysia eklentisi; çeviri fonksiyonları ve locale algılama sağlar.
 keywords:

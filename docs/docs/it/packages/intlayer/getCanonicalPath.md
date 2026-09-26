@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-22
 updatedAt: 2026-01-22
+priority: 5
 title: Documentazione della funzione getCanonicalPath | intlayer
 description: Scopri come usare la funzione getCanonicalPath del pacchetto intlayer
 keywords:

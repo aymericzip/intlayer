@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: vue-i18n est-il obsolète en 2026 ?
 description: vue-i18n est la référence des applications Vue et Nuxt depuis dix ans. Pourtant, nos benchmarks révèlent qu'il s'agit du runtime i18n le plus lourd du web. Explications.
 keywords:

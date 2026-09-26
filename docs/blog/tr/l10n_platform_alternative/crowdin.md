@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: L10n Platformu Alternatifi
 description: İhtiyaçlarınız için en iyi L10n platformu alternatifini bulun
 keywords:

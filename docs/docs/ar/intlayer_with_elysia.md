@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-24
+priority: 9
 title: "Elysia i18n - دليل شامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل عام 2026 لبناء تطبيق Elysia متعدد اللغات (i18n). ترجم باستخدام وكلاء AI وحسّن حجم الحزمة وSEO والأداء."
 keywords:

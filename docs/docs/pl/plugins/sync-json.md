@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2026-06-21
+priority: 6
 title: Wtyczka Sync JSON
 description: Synchronizuj słowniki Intlayer z zewnętrznymi plikami JSON i18n (i18next, next-intl, react-intl, vue-i18n i inne). Zachowaj istniejące i18n, korzystając z Intlayer do zarządzania, tłumaczenia i testowania swoich komunikatów.
 keywords:

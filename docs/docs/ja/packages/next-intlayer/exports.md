@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: next-intlayer パッケージ ドキュメント
 description: App Router と Page Router 向けのミドルウェアおよびプロバイダーを提供する、Intlayer の Next.js 専用統合パッケージ。
 keywords:

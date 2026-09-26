@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-08-13
+priority: 8
 title: CI/CD-Integration
 description: Erfahren Sie, wie Sie Intlayer in Ihre CI/CD-Pipeline für automatisiertes Content-Management und Deployment integrieren.
 keywords:

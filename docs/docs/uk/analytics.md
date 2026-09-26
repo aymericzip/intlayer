@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-08-22
+priority: 8
 title: Intlayer Analytics | Відстеження показів контенту та проведення A/B-тестування
 description: Дізнайтеся, як @intlayer/analytics відстежує перегляди сторінок/локалей та покази контенту, і як використовувати це для проведення A/B-тестування вашого контенту в Intlayer.
 keywords:

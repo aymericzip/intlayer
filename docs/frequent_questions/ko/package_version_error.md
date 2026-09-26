@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 서브 패키지 @intlayer/* 관련 오류가 발생합니다
 description: 서브 패키지 @intlayer/* 관련 오류 해결 방법입니다.
 keywords:

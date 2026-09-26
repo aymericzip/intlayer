@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2026-08-22
+priority: 8
 title: Cấu hình (Configuration)
 description: Tìm hiểu cách cấu hình Intlayer cho ứng dụng của bạn. Hiểu các cài đặt và tùy chọn khác nhau có sẵn để tùy chỉnh Intlayer theo nhu cầu của bạn.
 keywords:

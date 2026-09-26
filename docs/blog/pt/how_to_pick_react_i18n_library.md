@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Como escolher a biblioteca de i18n certa para React em 2026"
 description: Um guia de decisão para internacionalização em React. Quais perguntas responder antes de comparar react-i18next, react-intl, Lingui, use-intl, Paraglide e Intlayer, e o que cada escolha custa em tamanho de bundle, tipagem e manutenção.
 keywords:

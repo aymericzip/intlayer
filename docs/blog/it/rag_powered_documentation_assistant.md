@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
+priority: 8
 title: Costruire un Assistente alla Documentazione Potenziato da RAG (Chunking, Embeddings e Ricerca)
 description: Costruire un Assistente alla Documentazione Potenziato da RAG (Chunking, Embeddings e Ricerca)
 keywords:

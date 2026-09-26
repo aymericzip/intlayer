@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: توثيق الـ composable useRewriteURL
 description: Composable خاص بـ Vue لإدارة إعادة كتابة عناوين URL المحلية في Intlayer.

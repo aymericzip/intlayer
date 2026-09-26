@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl vs @intlayer/next-intl: 同じAPI、異なるBundle"
 description: Next.js アプリケーションの next-intl インポートが @intlayer/next-intl compat アダプターによって提供される場合に何が変わるかを説明します。Bundle サイズ、リーケージ、コンポーネントサイズ、および同じコードで測定されたハイドレーション、およびアダプターが保持、無視、および置き換えることができない内容。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-06
 updatedAt: 2026-09-20
+priority: 9
 title: "Solid Start i18n — полное руководство по переводу вашего приложения"
 description: "Забудьте про i18next. Руководство 2026 года по созданию многоязычного (i18n) приложения на SolidStart. Серверная маршрутизация локалей, hreflang, sitemap и перевод с помощью ИИ."
 keywords:

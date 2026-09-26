@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-08-22
+priority: 8
 title: Intlayer Analytics | 콘텐츠 노출 추적 및 A/B 테스트 실행
 description: "@intlayer/analytics가 페이지/로케일 뷰와 콘텐츠 노출을 추적하는 방법, 그리고 이를 활용해 Intlayer 콘텐츠에서 A/B 테스트를 실행하는 방법을 알아보세요."
 keywords:

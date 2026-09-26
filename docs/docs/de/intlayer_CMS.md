@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-08-30
+priority: 8
 title: Intlayer CMS | Externalisieren Sie Ihre Inhalte in das Intlayer CMS
 description: Externalisieren Sie Ihre Inhalte in das Intlayer CMS, um die Verwaltung Ihrer Inhalte an Ihr Team zu delegieren.
 keywords:

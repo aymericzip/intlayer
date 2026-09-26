@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2026-09-08
+priority: 10
 title: "Next.js 16 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Next.js 16 uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:

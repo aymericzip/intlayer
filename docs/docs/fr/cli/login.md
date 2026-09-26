@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-16
 updatedAt: 2026-09-12
+priority: 5
 title: CLI - Connexion
 description: Apprenez à utiliser la commande login de l'Intlayer CLI pour vous authentifier auprès du CMS Intlayer et obtenir des identifiants d'accès.
 keywords:

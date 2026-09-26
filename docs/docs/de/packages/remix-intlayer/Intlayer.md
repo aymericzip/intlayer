@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Intlayer Kontext Dokumentation | remix-intlayer
 description: Erfahren Sie, wie Sie den Intlayer-Request-Kontextschlüssel und die Eigenschaft in Remix 3-Anwendungen verwenden.
 keywords:

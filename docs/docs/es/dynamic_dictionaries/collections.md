@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-12
+priority: 8
 title: Colecciones
 description: Utilice el campo de metadatos item en los archivos de contenido de Intlayer para crear colecciones ordenadas de elementos localizados seleccionables por índice en tiempo de ejecución.
 keywords:

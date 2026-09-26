@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
+priority: 4
 title: Тип IntlayerNode. Что это такое?
 description: Что такое тип IntlayerNode? Почему моя строка преобразуется в IntlayerNode&lt;string&gt;?
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-17
 updatedAt: 2025-09-30
+priority: 6
 title: 공식 VS 코드 확장
 description: VS 코드에서 Intlayer 확장을 사용하여 개발 워크플로우를 향상시키는 방법을 알아보세요. 현지화된 콘텐츠 간 빠른 탐색과 사전 관리를 효율적으로 수행할 수 있습니다.
 keywords:

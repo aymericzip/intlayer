@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: getLocale Fonksiyon Dokümantasyonu | intlayer
 description: intlayer paketi için getLocale fonksiyonunun nasıl kullanılacağını görün
 keywords:

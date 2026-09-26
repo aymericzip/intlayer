@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-01
 updatedAt: 2026-05-31
+priority: 9
 title: كيفية تعريب تطبيق Next.js الخاص بك باستخدام next-intl - الدليل الكامل لترجمة Translate Next.js 16 with next-intl — App Router Setup
 description: أفضل حل لحجم الحزمة وتحسين محركات البحث والأداء والصيانة. اجعل Next.js 16 موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: ESLint 外掛 | Intlayer 的 Lint 規則
 description: 使用 eslint-plugin-intlayer 捕捉硬編碼字串、Intlayer 編譯器無法最佳化的動態呼叫以及未使用的字典內容。支援 ESLint 與 oxlint，適用於 React、Vue、Svelte、Angular 與 Astro。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "vue-i18n vs Intlayer: Benchmark 2026"
 description: vue-i18n e Intlayer medidos na mesma app Vite + Vue 3. Tamanho da biblioteca, JavaScript por página, vazamento de conteúdo, tamanho dos componentes e reatividade da troca de locale, com os números explicados.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-12
+priority: 8
 title: 集合
 description: 在 Intlayer 内容文件中使用 item 元数据字段来构建本地化项目的有序集合，这些项目在运行时可以通过索引进行选择。
 keywords:

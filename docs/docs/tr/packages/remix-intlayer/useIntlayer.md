@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useIntlayer Hook Dokümantasyonu | remix-intlayer
 description: Remix 3 uygulamalarında anahtara göre yerelleştirilmiş içeriğe erişmek için useIntlayer hook'unu nasıl kullanacağınızı görün.
 keywords:

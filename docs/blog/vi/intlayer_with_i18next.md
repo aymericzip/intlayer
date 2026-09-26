@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-11-01
+priority: 8
 title: Cách tự động hóa bản dịch JSON i18next của bạn bằng Intlayer
 description: Tự động hóa bản dịch JSON của bạn với Intlayer và i18next để nâng cao quốc tế hóa trong các ứng dụng JavaScript.
 keywords:

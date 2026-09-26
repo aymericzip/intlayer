@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "next-intl बनाम Intlayer: 2026 बेंचमार्क और तुलना"
 description: "Next.js App Router और TanStack Start पर next-intl और Intlayer की तुलना। बंडल साइज़, कंटेंट लीकेज, कंपोनेंट साइज़, हाइड्रेशन, लोकेल स्विचिंग और डेवलपर अनुभव।"
 keywords:

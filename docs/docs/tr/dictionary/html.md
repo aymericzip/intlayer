@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-20
 updatedAt: 2026-09-21
+priority: 8
 title: HTML İçeriği
 description: Intlayer içinde HTML içeriğini nasıl tanımlayıp özel bileşenlerle kullanacağınızı öğrenin. Bu dokümantasyonu izleyerek çok dilli projenizde dinamik bileşen değiştirme ile zengin HTML benzeri içeriği entegre edin.
 keywords:

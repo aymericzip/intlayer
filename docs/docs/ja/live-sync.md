@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-07-08
+priority: 8
 title: ライブ同期 | CMSコンテンツの変更をリアルタイムに反映
 description: リビルドや再デプロイなしで、Intlayer CMS のコンテンツ変更をアプリにリアルタイムで反映させます。
 keywords:

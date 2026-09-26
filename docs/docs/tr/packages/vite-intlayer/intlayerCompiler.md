@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerCompiler Vite Eklenti Dokümantasyonu | vite-intlayer
 description: Bileşen dosyalarından satır içi Intlayer içerik bildirimlerini ayıklayan ve bunları derleme/dönüştürme zamanında sözlük JSON dosyalarına yazan Vite eklentisi.
 keywords:

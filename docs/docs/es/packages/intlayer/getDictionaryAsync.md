@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: Documentación de la función getDictionaryAsync | intlayer
 description: Ve cómo usar la función getDictionaryAsync para el paquete intlayer
 keywords:

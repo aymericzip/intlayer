@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-21
+priority: 6
 title: MCP Server Documentation
 description: Explore the features and setup of the MCP Server to optimize your server management and operations.
 keywords:

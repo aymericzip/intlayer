@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Dokumentace funkce comparePaths | intlayer
 description: Zjistěte, jak používat funkci comparePaths z balíčku intlayer
 keywords:

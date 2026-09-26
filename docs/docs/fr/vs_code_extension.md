@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-17
 updatedAt: 2025-09-30
+priority: 6
 title: Extension officielle VS Code
 description: Apprenez à utiliser l'extension Intlayer dans VS Code pour améliorer votre flux de travail de développement. Naviguez rapidement entre les contenus localisés et gérez efficacement vos dictionnaires.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: useI18n フック ドキュメント | react-intlayer
 description: react-intlayer パッケージで useI18n フックを使用する方法を学ぶ
 keywords:

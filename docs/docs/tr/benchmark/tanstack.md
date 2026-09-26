@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: 2026'da TanStack Start için En İyi i18n Çözümü - Benchmark Raporu
 description: react-i18next, use-intl ve Intlayer gibi TanStack Start uluslararasılaştırma kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
 keywords:

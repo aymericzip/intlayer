@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: useDictionary Hook 文档 | next-intlayer
 description: 查看如何使用 next-intlayer 包中的 useDictionary 钩子
 keywords:

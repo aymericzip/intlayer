@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-11
 updatedAt: 2026-01-11
+priority: 4
 title: "`vite-env-only` & Intlayer – yanlış pozitif `node:fs` reddedildi hatası"
 description: "vite-env-only'nin Intlayer + React-Router + Vite ile `node:fs` importunu neden reddettiğini ve yapılması gerekenleri."
 keywords:

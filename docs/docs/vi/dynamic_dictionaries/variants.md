@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-08-04
+priority: 8
 title: Biến thể
 description: Dùng trường metadata variant trong các tệp nội dung Intlayer để khai báo các lựa chọn nội dung được đặt tên hoặc có cấu trúc — thử nghiệm A/B, banner theo mùa, nội dung gắn feature flag, bản ghi CMS, nội dung riêng theo người dùng — và chuyển đổi giữa chúng trong thời gian chạy mà không cần đổi mã.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Documentación del plugin Vite de intlayer | vite-intlayer
 description: Vea cómo usar el plugin intlayer para el paquete vite-intlayer
 keywords:

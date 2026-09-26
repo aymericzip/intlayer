@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: useLocale Hook Documentation | solid-intlayer
 description: See how to use the useLocale hook for solid-intlayer package
 keywords:

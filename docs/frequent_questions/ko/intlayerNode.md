@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
+priority: 4
 title: IntlayerNode 타입. 무엇인가요?
 description: IntlayerNode 타입은 무엇인가요? 왜 내 문자열이 IntlayerNode&lt;string&gt;으로 변환되나요?
 keywords:

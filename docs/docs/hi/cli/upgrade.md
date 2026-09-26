@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 5
 title: CLI - Intlayer पैकेज अपग्रेड करें
 description: अपने प्रोजेक्ट या मोनोरेपो के प्रत्येक Intlayer पैकेज को सूचीबद्ध करने और उन्हें नवीनतम संस्करण में अपग्रेड करने के लिए Intlayer CLI upgrade कमांड का उपयोग करना सीखें।
 keywords:

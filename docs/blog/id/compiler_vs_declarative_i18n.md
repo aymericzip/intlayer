@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-24
 updatedAt: 2025-11-24
+priority: 8
 title: Compiler vs. Deklaratif i18n
 description: Menjelajahi pertukaran arsitektural antara internasionalisasi berbasis compiler "ajaib" dan manajemen konten deklaratif yang eksplisit.
 keywords:

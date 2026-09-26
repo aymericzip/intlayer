@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 5
 title: useDictionary 훅 - React Intlayer 문서
 description: 시각적 편집기 없이 지역화된 콘텐츠를 효율적으로 처리하기 위한 React 애플리케이션에서 useDictionary 훅 사용에 대한 완벽한 가이드입니다.
 keywords:

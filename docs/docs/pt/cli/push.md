@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Enviar Dicionários
 description: Aprenda como enviar seus dicionários para o editor e CMS do Intlayer.
 keywords:

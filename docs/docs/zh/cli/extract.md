@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 提取字符串
 description: 了解如何将组件中的字符串提取到靠近组件的 .content 文件中。
 keywords:

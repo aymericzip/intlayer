@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
+priority: 8
 title: Construyendo un Asistente de Documentación Potenciado por RAG (Fragmentación, Embeddings y Búsqueda)
 description: Construyendo un Asistente de Documentación Potenciado por RAG (Fragmentación, Embeddings y Búsqueda)
 keywords:

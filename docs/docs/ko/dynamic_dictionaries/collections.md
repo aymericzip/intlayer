@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-12
+priority: 8
 title: 컬렉션
 description: 런타임 시 인덱스로 선택 가능한 정렬된 번역 항목 컬렉션을 구축하기 위해 Intlayer 콘텐츠 파일에서 item 메타데이터 필드를 사용합니다.
 keywords:

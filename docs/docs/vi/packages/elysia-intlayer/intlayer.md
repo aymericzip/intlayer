@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: Tài liệu Plugin intlayer cho Elysia | elysia-intlayer
 description: Xem cách sử dụng plugin intlayer của gói elysia-intlayer
 keywords:

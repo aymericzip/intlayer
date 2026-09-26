@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-30
 updatedAt: 2026-09-21
+priority: 8
 title: Intlayer Kendi Kendine Barındırma (Self-Hosting)
 description: "Intlayer'ı kendi altyapınızda çalıştırın: masaüstü uygulaması, tek hepsi-bir-arada Docker kapsayıcısı veya ölçeklenebilir bir Docker Compose yığını. Intlayer Cloud hesabı gerekmez."
 keywords:

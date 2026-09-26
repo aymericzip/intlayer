@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: getPathWithoutLocale 函数文档 | intlayer
 description: 查看如何使用 intlayer 包中的 getPathWithoutLocale 函数
 keywords:

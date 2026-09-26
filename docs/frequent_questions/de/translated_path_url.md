@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: Kann ich den URL-Pfad übersetzen?
 description: Erfahren Sie, wie Sie den URL-Pfad übersetzen.
 keywords:

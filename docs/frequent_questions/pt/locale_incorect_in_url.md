@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Locale Incorreto Recuperado da URL
 description: Aprenda como corrigir o locale incorreto recuperado da URL.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-05-31
+priority: 7
 title: "Mejores herramientas de internacionalización (i18n) para React Native - Guía completa para traducir React Native i18n 2026: Best Tools for Expo & TypeScript"
 description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su React Native aplicación móvil en 2026, traducción LLM, Agent Skills & MCP.
 keywords:

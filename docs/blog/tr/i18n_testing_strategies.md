@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Kırılgan Testler Yazmadan Çevirileri Test Etme Yöntemleri"
 description: Çok dilli bir uygulamada nelerin test edilmeye değer olduğu ve nelerin olmadığı. Provider tabanlı render testleri, sahte yerelleştirme (pseudolocalization), RTL ve çoğul kapsamı ile anlık görüntü (snapshot) tuzağı.
 keywords:

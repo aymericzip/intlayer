@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2026-08-22
+priority: 8
 title: Konfigurace (Configuration)
 description: Naučte se, jak nakonfigurovat Intlayer pro vaši aplikaci. Porozumějte různým nastavením a možnostem dostupným pro přizpůsobení Intlayer vašim potřebám.
 keywords:

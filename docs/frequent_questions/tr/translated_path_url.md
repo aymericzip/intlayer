@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2026-01-22
+priority: 4
 title: URL yolunu çevirebilir miyim?
 description: URL yolunun nasıl çevrileceğini öğrenin.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: intlayer 미들웨어 문서 | remix-intlayer
 description: Remix 3에서 intlayer 미들웨어를 사용하여 로케일을 감지하고, 리다이렉션을 처리하며, 요청 컨텍스트에 Intlayer 상태를 주입하는 방법을 알아봅니다.
 keywords:

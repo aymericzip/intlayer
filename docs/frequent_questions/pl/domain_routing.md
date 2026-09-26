@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Jak skonfigurować routing oparty na domenach?
 description: Dowiedz się, jak skonfigurować routing oparty na domenach.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "NGX-Translate से Intlayer में माइग्रेट करें"
 description: "compat adapter का उपयोग करके अपने Angular एप्लिकेशन को ngx-translate से Intlayer में माइग्रेट करना सीखें।"
 keywords:

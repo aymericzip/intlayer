@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "如何在 2026 年选择合适的 Svelte i18n 库"
 description: "Svelte 与 SvelteKit 国际化选型决策指南。在对比 svelte-i18n、Paraglide、typesafe-i18n、wuchale 和 Intlayer 之前需要回答的关键问题，以及各方案在 bundle size、类型支持和 SSR 安全性方面的权衡与代价。"
 keywords:

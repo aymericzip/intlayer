@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 5
 title: useDictionary Hook Dokümantasyonu | next-intlayer
 description: next-intlayer paketi için useDictionary hook'unun nasıl kullanılacağını görün
 keywords:

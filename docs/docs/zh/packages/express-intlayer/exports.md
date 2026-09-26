@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: express-intlayer 包文档
 description: Intlayer 的 Express 中间件，提供翻译函数和语言环境检测。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Dokumentation des intlayer-Pakets
 description: Das Kernpaket von Intlayer, das die grundlegenden Funktionen und Typen für die Internationalisierung bereitstellt.
 keywords:

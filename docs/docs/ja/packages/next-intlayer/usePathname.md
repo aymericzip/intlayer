@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname フック ドキュメント | next-intlayer
 description: next-intlayer パッケージの usePathname フックの使用方法を学びます
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: Conditional Content
 description: Learn how to use conditional content in Intlayer to dynamically display content based on specific conditions. Follow this documentation to implement conditions efficiently in your project.
 keywords:

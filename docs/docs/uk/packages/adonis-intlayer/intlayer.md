@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: Документація проміжного ПЗ intlayer для AdonisJS | adonis-intlayer
 description: Дізнайтеся, як використовувати проміжне ПЗ intlayer для пакета adonis-intlayer
 keywords:

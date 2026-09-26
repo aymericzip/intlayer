@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-05-06
+priority: 5
 title: useIntlayer हुक दस्तावेज़ | next-intlayer
 description: next-intlayer पैकेज के लिए useIntlayer हुक का उपयोग कैसे करें देखें
 keywords:

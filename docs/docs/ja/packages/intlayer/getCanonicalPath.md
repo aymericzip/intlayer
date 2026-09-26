@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-22
 updatedAt: 2026-01-22
+priority: 5
 title: getCanonicalPath 関数ドキュメント | intlayer
 description: intlayer パッケージの getCanonicalPath 関数の使い方
 keywords:

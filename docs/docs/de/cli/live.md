@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Live-Sync-Befehle
 description: Erfahren Sie, wie Sie Live Sync verwenden, um CMS-Inhaltsänderungen zur Laufzeit widerzuspiegeln.
 keywords:

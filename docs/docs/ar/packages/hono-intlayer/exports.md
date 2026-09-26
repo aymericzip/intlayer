@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: توثيق حزمة hono-intlayer
 description: وسيط Hono لـ Intlayer، يوفر دوال الترجمة واكتشاف اللغة.
 keywords:

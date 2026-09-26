@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: Website Scannen
 description: Leer hoe u het Intlayer CLI scan-commando gebruikt om de paginagrootte te meten en de i18n/SEO-status van een website te controleren.
 keywords:

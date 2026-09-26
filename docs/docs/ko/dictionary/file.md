@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-06-29
+priority: 8
 title: 파일
 description: `file` 함수를 사용하여 외부 파일을 콘텐츠 사전에 임베드하는 방법을 알아보세요. 이 문서는 Intlayer가 파일 콘텐츠를 동적으로 연결하고 관리하는 방식을 설명합니다.
 keywords:

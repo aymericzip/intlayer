@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 8
 title: Intlayer에서 `지역별` 콘텐츠 선언 방법
 description: Intlayer에서 지역별로 콘텐츠를 선언하는 방법을 알아보세요. 다양한 형식과 사용 사례를 이해하기 위해 문서를 따라가세요.
 keywords:

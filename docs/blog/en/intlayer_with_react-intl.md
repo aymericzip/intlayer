@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-11-06
+priority: 8
 title: How to automate your react-intl JSON translations using Intlayer
 description: Automate your JSON translations with Intlayer and react-intl for enhanced internationalization in React applications.
 keywords:

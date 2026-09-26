@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: onRequest Ara Yazılım Dokümantasyonu | astro-intlayer
 description: İstek yerel ayarını çözümlemek ve Astro.locals.intlayer'ı doldurmak için Astro uygulamalarında onRequest ara yazılımının nasıl kullanılacağını görün.
 keywords:

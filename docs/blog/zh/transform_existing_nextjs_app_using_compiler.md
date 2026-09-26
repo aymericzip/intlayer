@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-09-06
+priority: 8
 title: "如何在事后为现有 Next.js 应用程序实现多语言（i18n 指南 2026）"
 description: "2026 年现有 Next.js 应用的多语言 (i18n) 改造指南。无需繁琐重构，借助 Intlayer 体验自动内容提取、AI 翻译与高性能路由。"
 keywords:

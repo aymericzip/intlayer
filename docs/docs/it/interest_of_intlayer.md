@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-14
 updatedAt: 2026-08-30
+priority: 8
 title: Interesse per Intlayer
 description: Scopri i vantaggi e i benefici dell'utilizzo di Intlayer nei tuoi progetti. Comprendi perché Intlayer si distingue tra gli altri framework.
 keywords:

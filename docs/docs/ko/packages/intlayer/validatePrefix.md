@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: validatePrefix 함수 문서 | intlayer
 description: intlayer 패키지의 validatePrefix 함수 사용법을 확인하세요
 keywords:

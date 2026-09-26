@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация пакета solid-intlayer
 description: Интеграция Intlayer, специфичная для Solid, предоставляющая провайдеры и хуки для приложений на Solid.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 文字列の抽出
 description: コンポーネントの近くに .content ファイルを作成して、コンポーネントから文字列を抽出する方法を学びます。
 keywords:

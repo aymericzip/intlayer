@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-10-29
+priority: 8
 title: Intlayer dan next-i18next
 description: Integrasikan Intlayer dengan next-i18next untuk solusi internasionalisasi Next.js yang komprehensif
 keywords:

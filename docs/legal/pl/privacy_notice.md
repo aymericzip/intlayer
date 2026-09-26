@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-09-22
+priority: 1
 title: Informacja o prywatności Intlayer
 description: Dowiedz się, jak Intlayer przetwarza informacje zbierane za pośrednictwem naszej strony internetowej i CMS. Przejdź przez dokumentację, aby zrozumieć różne formaty i przypadki użycia.
 keywords:

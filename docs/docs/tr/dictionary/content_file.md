@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-07-30
+priority: 8
 title: İçerik Dosyası
 description: İçerik bildirim dosyalarınız için uzantıları nasıl özelleştireceğinizi öğrenin. Projenizde koşulları verimli bir şekilde uygulamak için bu dokümantasyonu takip edin.
 keywords:

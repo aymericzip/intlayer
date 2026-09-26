@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "2026年に最適なSvelte i18nライブラリを選ぶ方法"
 description: SvelteおよびSvelteKitの国際化（i18n）に関する意思決定ガイド。svelte-i18n、Paraglide、typesafe-i18n、wuchale、Intlayerを比較する前に答えるべき質問と、バンドルサイズ、型定義、SSR安全性における各選択肢のコストを解説します。
 keywords:

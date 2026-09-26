@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-16
+priority: 9
 title: "next-i18next проти next-intl проти Intlayer - Повний посібник з перекладу next-i18next vs next-intl vs Intlayer: 2026 Comparison"
 description: Найкраще рішення для розміру бандлу, SEO, продуктивності & підтримуваності. Зробіть Next.js сайт багатомовним у 2026, переклад LLM, Agent Skills & MCP.
 keywords:

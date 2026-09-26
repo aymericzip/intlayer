@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: Documentación de la función getLocaleLang | intlayer
 description: Vea cómo usar la función getLocaleLang para el paquete intlayer
 keywords:

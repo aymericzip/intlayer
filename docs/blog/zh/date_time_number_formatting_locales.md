@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "使用 Intl 针对不同语言环境格式化日期和数字"
 description: 你很可能不需要单独引入格式化库。深入解析 Intl 如何处理各语言环境下的日期、数字、货币和列表，实例缓存的开销，以及只在生产环境爆发的时区 Bug。
 keywords:

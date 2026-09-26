@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-06
+priority: 10
 title: تعارف
 description: دریافت کریں کہ Intlayer کیسے کام کرتا ہے۔ وہ اقدامات دیکھیں جو Intlayer آپ کی ایپلیکیشن میں استعمال کرتا ہے۔ جانیں कि مختلف پیکجز کیا کرتے ہیں۔
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Trích xuất chuỗi
 description: Tìm hiểu cách trích xuất chuỗi từ các component của bạn vào một tệp .content nằm gần component.
 keywords:

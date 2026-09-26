@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Ist i18next im Jahr 2026 veraltet?
 description: i18next treibt Millionen Websites an, aber seine Runtime-Architektur von 2011 zeigt ihr Alter. Ein Blick auf Bundle-Overhead, Tree-Shaking-Grenzen und verlangsamte Innovation.
 keywords:

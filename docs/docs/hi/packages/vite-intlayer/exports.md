@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: vite-intlayer पैकेज प्रलेखन
 description: Intlayer के लिए Vite प्लगइन, जो शब्दकोश उपनाम और वॉचर्स प्रदान करता है।
 keywords:

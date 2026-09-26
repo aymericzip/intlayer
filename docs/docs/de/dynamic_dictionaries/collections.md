@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-12
+priority: 8
 title: Sammlungen
 description: Verwenden Sie das Metadatenfeld item in Intlayer-Inhaltsdateien, um geordnete Sammlungen lokalisierter Elemente zu erstellen, die zur Laufzeit über einen Index ausgewählt werden können.
 keywords:

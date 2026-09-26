@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2025-08-20
+priority: 8
 title: Formattatori
 description: Utilità di formattazione sensibili alla localizzazione basate su Intl per numeri, percentuali, valuta, date, tempo relativo, unità e notazione compatta. Include un helper Intl con cache.
 keywords:

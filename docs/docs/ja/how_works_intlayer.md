@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-12
 updatedAt: 2026-09-19
+priority: 8
 title: Intlayerの仕組み
 description: Intlayerが内部でどのように機能するかを学びます。Intlayerを強力にするアーキテクチャとコンポーネントを理解しましょう。
 keywords:

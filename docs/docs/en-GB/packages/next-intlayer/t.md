@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: t Function Documentation | next-intlayer
 description: See how to use the t function for next-intlayer package
 keywords:

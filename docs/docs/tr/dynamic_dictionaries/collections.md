@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-12
 updatedAt: 2026-06-12
+priority: 8
 title: Koleksiyonlar
 description: Çalışma zamanında dizine (index) göre seçilebilen yerelleştirilmiş öğelerin sıralı koleksiyonlarını oluşturmak için Intlayer içerik dosyalarındaki item meta veri alanını kullanın.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-09-20
+priority: 9
 title: "Vite + Vanilla JS i18n - اپنی ایپ کو ترجمہ کرنے کا مکمل گائیڈ"
 description: "اب i18next کی ضرورت نہیں۔ 2026 میں Vite + Vanilla JS ایپ کو کثیر لسانی (i18n) بنانے کا گائیڈ۔ AI ایجنٹس سے ترجمہ کریں اور بنڈل سائز، SEO اور پرفارمنس بہتر بنائیں۔"
 keywords:

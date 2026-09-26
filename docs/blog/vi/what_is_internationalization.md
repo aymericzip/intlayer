@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
+priority: 9
 title: Internationalization (i18n) là gì? Định nghĩa và những thách thức
 description: Khám phá lý do tại sao việc quốc tế hóa trang web của bạn là điều cần thiết. Tìm hiểu các nguyên tắc chính để tăng cường SEO, cải thiện trải nghiệm người dùng và mở rộng phạm vi toàn cầu.
 keywords:

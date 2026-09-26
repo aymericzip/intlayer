@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: "Documentation du Hook useRewriteURL"
 description: "Hook spécifique à Next.js pour gérer les réécritures d'URL localisées dans Intlayer."

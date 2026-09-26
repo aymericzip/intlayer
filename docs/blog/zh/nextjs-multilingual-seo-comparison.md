@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-28
 updatedAt: 2025-09-28
+priority: 8
 title: Next.js 中的 SEO 和国际化
 description: 学习如何使用 next-intl、next-i18next 和 Intlayer 在你的 Next.js 应用中设置多语言 SEO。
 keywords:

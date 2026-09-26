@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-01-06
+priority: 5
 title: İçerik Beyan Dosyalarını Listele
 description: Projenizdeki tüm içerik beyan dosyalarını nasıl listeleyeceğinizi öğrenin.
 keywords:

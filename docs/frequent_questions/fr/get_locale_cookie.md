@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Comment récupérer la locale depuis les cookies / headers ?
 description: Apprenez comment récupérer la locale depuis les cookies / headers.
 keywords:

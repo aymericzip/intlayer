@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2026-06-21
+priority: 6
 title: Plugin Sinkronisasi JSON
 description: Sinkronkan kamus Intlayer dengan file JSON i18n pihak ketiga (i18next, next-intl, react-intl, vue-i18n, dan lainnya). Pertahankan i18n Anda yang sudah ada sambil menggunakan Intlayer untuk mengelola, menerjemahkan, dan menguji pesan Anda.
 keywords:

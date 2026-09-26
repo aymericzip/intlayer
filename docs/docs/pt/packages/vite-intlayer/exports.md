@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Documentação do pacote vite-intlayer
 description: Plugin Vite para o Intlayer, fornecendo aliases de dicionário e watchers.
 keywords:

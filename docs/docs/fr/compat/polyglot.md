@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrer de Polyglot.js vers Intlayer"
 description: "Apprenez à migrer de Polyglot.js vers Intlayer en utilisant l'adaptateur de compatibilité."
 keywords:

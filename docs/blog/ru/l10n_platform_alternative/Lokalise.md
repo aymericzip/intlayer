@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Open-Source альтернатива Lokalise для L10n
 description: Найдите лучшую платформу L10n в качестве альтернативы Lokalise для ваших задач
 keywords:

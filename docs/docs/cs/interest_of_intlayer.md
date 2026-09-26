@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-14
 updatedAt: 2026-05-31
+priority: 8
 title: Výhody Intlayer
 description: Objevte výhody a přednosti používání Intlayer ve vašich projektech. Pochopte, proč Intlayer vyniká mezi ostatními frameworky.
 keywords:

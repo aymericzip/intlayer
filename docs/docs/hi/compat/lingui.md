@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Lingui से Intlayer में माइग्रेट करें"
 description: "Lingui से Intlayer में अपने एप्लिकेशन को माइग्रेट करना सीखें compat adapter का उपयोग करके।"
 keywords:

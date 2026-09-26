@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrasi dari Transloco ke Intlayer"
 description: "Pelajari cara migrasi aplikasi Angular Anda dari Transloco ke Intlayer menggunakan adapter kompatibilitas."
 keywords:

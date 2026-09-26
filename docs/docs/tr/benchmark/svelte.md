@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: 2026'da Svelte için En İyi i18n Çözümü - Benchmark Raporu
 description: svelte-i18n, Paraglide, Tolgee ve Intlayer gibi Svelte uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
 keywords:

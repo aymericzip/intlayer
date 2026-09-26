@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: getIntlayerAsync Function Documentation | intlayer
 description: intlayer package의 getIntlayerAsync 함수를 사용하는 방법을 알아보세요
 keywords:

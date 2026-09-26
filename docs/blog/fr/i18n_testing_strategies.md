@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Comment tester les traductions sans écrire de tests fragiles"
 description: Ce qui vaut la peine d'être testé dans une application i18n et ce qui ne l'est pas. Tests de rendu avec provider, pseudolocalisation, couverture RTL et pluriels, et le piège des snapshots.
 keywords:

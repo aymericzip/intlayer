@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
+priority: 8
 title: Building a RAG-Powered Documentation Assistant (Chunking, Embeddings, and Search)
 description: Building a RAG-Powered Documentation Assistant (Chunking, Embeddings, and Search)
 keywords:

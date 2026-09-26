@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next vs Intlayer: Đo kiểm và So sánh chi tiết năm 2026"
 description: "Đo lường react-i18next và next-i18next so với Intlayer trên Next.js và TanStack Start. Kích thước bundle, rò rỉ nội dung, tốc độ phản hồi khi chuyển ngôn ngữ và trải nghiệm lập trình viên."
 keywords:

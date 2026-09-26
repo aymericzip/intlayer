@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useDictionary Hook Dokümantasyonu | astro-intlayer
 description: Sözlük nesnelerini çözümlemek için Astro bileşenlerinde ve komut dosyalarında useDictionary hook'unun nasıl kullanılacağını görün.
 keywords:

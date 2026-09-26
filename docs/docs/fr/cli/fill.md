@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Remplir les dictionnaires
 description: Apprenez à remplir, auditer et traduire vos dictionnaires en utilisant l'IA.
 keywords:

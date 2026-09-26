@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
+priority: 9
 title: "Angular 22 i18n - Kompletní průvodce překladem vaší aplikace"
 description: "Žádný i18next. Průvodce 2026 pro vytváření vícejazyčné (i18n) aplikace Angular 22. Překládejte pomocí agentů AI a optimalizujte velikost bundlu, SEO a výkon."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 8
 title: Deklaracja zawartości `Per-Locale` w Intlayer
 description: Dowiedz się, jak deklarować zawartość per locale w Intlayer. Postępuj zgodnie z dokumentacją, aby zrozumieć różne formaty i przypadki użycia.
 keywords:

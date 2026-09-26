@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 4
 title: Wie man den Token-Verbrauch von Claude Code bei Übersetzungen begrenzt
 description: Warum das Übersetzen mit Claude Code Tokens verbrennt, was Intlayer stattdessen tut (bereits übersetzte Schlüssel filtern, JSON aufteilen, Markdown blockweise übersetzen) und wie Sie Ihr Claude-Abonnement mit claude setup-token wiederverwenden.
 keywords:

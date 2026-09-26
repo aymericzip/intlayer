@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2026-06-21
+priority: 6
 title: Sync JSON プラグイン
 description: Intlayerの辞書をサードパーティのi18n JSONファイル（i18next、next-intl、react-intl、vue-i18nなど）と同期します。既存のi18nを維持しながら、Intlayerでメッセージの管理、翻訳、テストを行えます。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: إدارة التكوين
 description: تعلّم كيفية الحصول على تكوين Intlayer الخاص بك ودفعه إلى نظام إدارة المحتوى (CMS).
 keywords:

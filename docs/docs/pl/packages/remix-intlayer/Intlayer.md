@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentacja kontekstu Intlayer | remix-intlayer
 description: Dokumentacja klucza magazynu kontekstu żądania Intlayer w aplikacjach Remix 3.
 keywords:

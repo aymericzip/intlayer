@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-11-01
+priority: 8
 title: Cara mengotomatisasi terjemahan JSON i18next Anda menggunakan Intlayer
 description: Otomatiskan terjemahan JSON Anda dengan Intlayer dan i18next untuk meningkatkan internasionalisasi dalam aplikasi JavaScript.
 keywords:

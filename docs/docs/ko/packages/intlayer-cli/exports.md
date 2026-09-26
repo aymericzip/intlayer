@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer-cli 패키지 문서
 description: Intlayer용 CLI 도구로, 딕셔너리 빌드 및 감사 명령을 제공합니다.
 keywords:

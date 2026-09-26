@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: Dokumentacja pakietu adonis-intlayer
 description: Middleware AdonisJS dla Intlayer, zapewniający funkcje tłumaczenia i wykrywanie ustawień regionalnych.
 keywords:

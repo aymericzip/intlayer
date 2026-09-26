@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Sözlükleri Gönder
 description: Sözlüklerinizi Intlayer editörüne ve CMS'ye nasıl göndereceğinizi öğrenin.
 keywords:

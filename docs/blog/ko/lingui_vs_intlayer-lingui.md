@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 8
 title: "Lingui vs @intlayer/lingui: 동일한 매크로, 다른 런타임"
 description: "React 앱이 Lingui 매크로를 유지한 채 @intlayer/lingui 호환 어댑터를 통해 제공할 때 일어나는 변화. 컴포넌트 크기, 하이드레이션, 누수율 및 페이지당 JavaScript 용량을 동일한 TanStack Start 코드베이스에서 측정하고, 어댑터가 불리한 부분까지 함께 분석합니다."
 keywords:

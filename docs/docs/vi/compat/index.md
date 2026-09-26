@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Bộ Điều Hợp Tương Thích Intlayer"
 description: "Di chuyển giải pháp i18n hiện có của bạn sang Intlayer một cách dễ dàng bằng các bộ điều hợp tương thích."
 keywords:

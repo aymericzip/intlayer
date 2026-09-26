@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: أفضل حل i18n لـ TanStack Start في 2026 - تقرير المقارنة
 description: قارن بين مكتبات تدويل TanStack Start مثل react-i18next و use-intl و Intlayer. تقرير مفصل للأداء حول حجم الحزمة، التسرب، والتفاعلية.
 keywords:

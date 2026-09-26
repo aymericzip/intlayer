@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
+priority: 1
 title: Conditions de Service d'Intlayer
 description: Découvrez comment Intlayer gère les informations collectées via notre site web et CMS. Suivez la documentation pour comprendre les différents formats et cas d'utilisation.
 keywords:

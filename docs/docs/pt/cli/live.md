@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Comandos Live Sync
 description: Aprenda como usar o Live Sync para refletir mudanças de conteúdo do CMS em tempo de execução.
 keywords:

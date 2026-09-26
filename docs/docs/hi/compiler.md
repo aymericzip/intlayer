@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-09-08
+priority: 8
 title: Intlayer Compiler | i18n के लिए स्वचालित सामग्री निष्कर्षण
 description: Intlayer Compiler के साथ अपने अंतरराष्ट्रीयकरण प्रक्रिया को स्वचालित करें। Vite, Next.js, और अन्य में तेज़, अधिक कुशल i18n के लिए सीधे अपने कंपोनेंट्स से सामग्री निकालें।
 keywords:

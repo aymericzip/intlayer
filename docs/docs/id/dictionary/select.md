@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-30
 updatedAt: 2026-07-30
+priority: 8
 title: Konten Berbasis Pilihan (Select)
 description: Pelajari cara menggunakan konten berbasis pilihan di Intlayer untuk menampilkan konten secara dinamis berdasarkan nilai string sembarang. Ikuti dokumentasi ini untuk mengimplementasikan konten mirip switch secara efisien dalam proyek Anda.
 keywords:

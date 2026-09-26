@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu gói nuxt-intlayer
 description: Tích hợp Intlayer cho Nuxt, cung cấp một module cho ứng dụng Nuxt.
 keywords:

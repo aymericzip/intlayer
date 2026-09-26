@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
+priority: 8
 title: Xây dựng Trợ lý Tài liệu được hỗ trợ bởi RAG (Phân đoạn, Embeddings và Tìm kiếm)
 description: Xây dựng Trợ lý Tài liệu được hỗ trợ bởi RAG (Phân đoạn, Embeddings và Tìm kiếm)
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook 문서 | react-intlayer
 description: react-intlayer 패키지의 usePathname hook을 사용하여 로케일 세그먼트가 없는 현재 URL 경로 이름(pathname)을 가져오는 방법을 알아보세요.
 keywords:

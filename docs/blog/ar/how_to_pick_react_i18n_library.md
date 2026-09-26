@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "كيفية اختيار مكتبة React i18n المناسبة في عام 2026"
 description: دليل اتخاذ القرار لتدويل تطبيقات React. ما هي الأسئلة التي يجب الإجابة عليها قبل المقارنة بين react-i18next و react-intl و Lingui و use-intl و Paraglide و Intlayer، وتكلفة كل خيار من حيث حجم الحزمة (bundle size) والأمان البرمجي (typing) والصيانة.
 keywords:

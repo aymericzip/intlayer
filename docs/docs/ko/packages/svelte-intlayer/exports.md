@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: svelte-intlayer 패키지 문서
 description: Svelte 애플리케이션을 위한 Intlayer 통합으로, Svelte용 설정 함수와 스토어를 제공합니다.
 keywords:

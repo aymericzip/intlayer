@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Команди Live Sync
 description: Дізнайтеся, як використовувати Live Sync для відображення змін контенту CMS під час виконання.
 keywords:

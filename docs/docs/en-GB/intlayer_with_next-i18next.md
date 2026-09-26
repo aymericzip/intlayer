@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2026-05-31
+priority: 7
 title: "next-i18next i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) next-i18next app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:

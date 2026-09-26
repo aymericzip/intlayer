@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: 2026년에도 vue-i18n을 계속 써야 할까요?
 description: vue-i18n은 지난 10년간 Vue 및 Nuxt 생태계의 표준이었습니다. 하지만 벤치마크 결과 웹에서 가장 무거운 i18n 런타임으로 나타났습니다. 그 원인을 분석합니다.
 keywords:

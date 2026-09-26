@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: 2026年におけるNext.jsの最適なi18nソリューション - ベンチマークレポート
 description: next-intl、next-i18next、IntlayerなどのNext.js国際化（i18n）ライブラリを比較。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
 keywords:

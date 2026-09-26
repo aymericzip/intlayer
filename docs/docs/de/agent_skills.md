@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-02-09
 updatedAt: 2026-03-03
+priority: 6
 title: Agent Skills
 description: Erfahren Sie, wie Sie die Intlayer Agent Skills nutzen können, um das Verständnis Ihres AI-Agenten für Ihr Projekt zu verbessern, einschließlich umfassender Setup-Anleitungen für Metadaten, Sitemaps und Server-Aktionen.
 keywords:

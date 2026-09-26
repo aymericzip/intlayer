@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: शब्दकोश पुश करें
 description: जानें कि अपने शब्दकोशों को Intlayer संपादक और CMS में कैसे पुश करें।
 keywords:

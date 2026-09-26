@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: vue-intlayer 包文档
 description: 针对 Vue 的 Intlayer 集成，为 Vue 应用提供插件和 composables。
 keywords:

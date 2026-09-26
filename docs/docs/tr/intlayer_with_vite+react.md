@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-09-20
+priority: 10
 title: "Vite + React i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Vite + React uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: intlayer Elysia Plugin Documentation | elysia-intlayer
 description: See how to use the intlayer plugin for elysia-intlayer package
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "2026'da Doğru Svelte i18n Kütüphanesini Seçme Rehberi"
 description: Svelte ve SvelteKit uluslararasılaştırması için bir karar rehberi. svelte-i18n, Paraglide, typesafe-i18n, wuchale ve Intlayer'ı karşılaştırmadan önce yanıtlanması gereken sorular ve her seçeneğin bundle boyutu, typing ve SSR güvenliği açısından maliyetleri.
 keywords:

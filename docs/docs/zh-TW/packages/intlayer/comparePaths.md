@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: comparePaths 函式文件 | intlayer
 description: 了解如何使用 intlayer 套件中的 comparePaths 函式
 keywords:

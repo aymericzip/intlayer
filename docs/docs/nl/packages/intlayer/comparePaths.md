@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Documentatie voor de functie comparePaths | intlayer
 description: Bekijk hoe u de functie comparePaths gebruikt voor het intlayer-pakket
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-14
 updatedAt: 2026-05-31
+priority: 8
 title: Voordelen van Intlayer
 description: Ontdek de voordelen en troeven van het gebruik van Intlayer in uw projecten. Begrijp waarom Intlayer zich onderscheidt van andere frameworks.
 keywords:

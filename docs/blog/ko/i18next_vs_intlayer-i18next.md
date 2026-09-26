@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next vs @intlayer/i18next: 동일한 API, 완전히 다른 번들 크기"
 description: React 또는 Next.js 앱이 기존의 i18next, react-i18next, next-i18next 호출을 그대로 유지하면서 @intlayer/i18next 어댑터를 통해 제공될 때 무엇이 달라지는지 알아봅니다. 동일한 코드에서 측정한 페이지별 JavaScript 용량, 컴포넌트 크기, 문자열 누수 및 하이드레이션 성능과 어댑터의 지원 범위를 상세히 분석합니다.
 keywords:

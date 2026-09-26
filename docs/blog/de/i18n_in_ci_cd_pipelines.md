@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Übersetzungen in CI/CD automatisieren ohne fehlerhafte Texte auszuliefern"
 description: Drei Ebenen zur i18n-Automatisierung, Pre-Push, Pull Request und Laufzeit. Wie man Builds über Abdeckung absichert, sicher automatisch befüllt und endlose CI-Commit-Schleifen vermeidet.
 keywords:

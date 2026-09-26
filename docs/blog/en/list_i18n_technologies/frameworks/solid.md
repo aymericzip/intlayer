@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 7
 title: "Solid i18n: why translations freeze on locale change"
 description: Why Solid components capture translations as constants, how @solid-primitives/i18n works, lazy catalogs, SolidStart locale routing, and what Intlayer changes.
 keywords:

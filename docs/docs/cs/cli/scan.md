@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-11
 updatedAt: 2026-09-12
+priority: 5
 title: Scan Website
 description: Naučte se používat příkaz scan v Intlayer CLI pro měření velikosti stránky a audit i18n/SEO zdraví jakéhokoli webu.
 keywords:

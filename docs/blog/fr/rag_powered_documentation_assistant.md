@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
+priority: 8
 title: Création d’un assistant de documentation propulsé par RAG (Segmentation, Embeddings et Recherche)
 description: Création d’un assistant de documentation propulsé par RAG (Segmentation, Embeddings et Recherche)
 keywords:

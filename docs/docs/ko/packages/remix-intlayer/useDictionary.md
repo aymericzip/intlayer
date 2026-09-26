@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useDictionary 훅 문서 | remix-intlayer
 description: Remix 3 애플리케이션에서 useDictionary 훅을 사용하여 현재 요청 로케일에 맞게 사전 객체를 처리하는 방법을 살펴봅니다.
 keywords:

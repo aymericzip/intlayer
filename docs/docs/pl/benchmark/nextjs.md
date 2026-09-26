@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: Najlepsze rozwiązanie i18n dla Next.js w 2026 r. - Raport Benchmark
 description: Porównaj biblioteki internacjonalizacji (i18n) dla Next.js, takie jak next-intl, next-i18next i Intlayer. Szczegółowy raport wydajności dotyczący rozmiaru pakietu, wycieków i reaktywności.
 keywords:

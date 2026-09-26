@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-01-06
+priority: 5
 title: Listar Arquivos de Declaração de Conteúdo
 description: Aprenda como listar todos os arquivos de declaração de conteúdo no seu projeto.
 keywords:

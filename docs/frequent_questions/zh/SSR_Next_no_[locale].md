@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 是否可以在页面路径中不使用 `[locale]` 来搭配 Next.js 使用 Intlayer？
 description: 了解如何在页面路径中不使用 `[locale]` 来搭配 Next.js 使用 Intlayer。
 keywords:

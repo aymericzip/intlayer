@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "i18next vs Intlayer: Benchmark & Vergleich 2026"
 description: "react-i18next und next-i18next im Benchmark gegen Intlayer auf Next.js und TanStack Start. Bundle-Größe, Inhaltslecks, Reaktivität beim Sprachwechsel und Entwicklererfahrung."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-07-08
+priority: 8
 title: Synchronizacja na żywo | Odzwierciedlaj zmiany treści CMS w czasie rzeczywistym
 description: Pozwól swojej aplikacji odzwierciedlać zmiany treści w Intlayer CMS w czasie działania, bez konieczności przebudowy czy ponownego wdrożenia.
 keywords:

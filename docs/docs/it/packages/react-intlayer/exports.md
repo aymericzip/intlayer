@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Documentazione del pacchetto react-intlayer
 description: Implementazione specifica per React di Intlayer, che fornisce hook e provider per applicazioni React.
 keywords:

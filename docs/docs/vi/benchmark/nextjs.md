@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: Giải pháp i18n tốt nhất cho Next.js năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa (i18n) cho Next.js như next-intl, next-i18next và Intlayer. Báo cáo hiệu năng chi tiết về kích thước bundle bundle, rò rỉ dữ liệu và tính phản ứng.
 keywords:

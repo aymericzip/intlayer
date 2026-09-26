@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: एडिटर कमांड्स
 description: Intlayer एडिटर कमांड्स का उपयोग कैसे करें, जानें।
 keywords:

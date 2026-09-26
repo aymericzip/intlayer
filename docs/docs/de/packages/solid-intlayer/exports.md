@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: solid-intlayer Paketdokumentation
 description: Solid-spezifische Integration für Intlayer, die Provider und Hooks für Solid-Anwendungen bereitstellt.
 keywords:

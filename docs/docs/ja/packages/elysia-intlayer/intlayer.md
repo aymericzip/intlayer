@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: intlayer Elysia プラグインドキュメント | elysia-intlayer
 description: elysia-intlayer パッケージの intlayer プラグインの使い方を確認します
 keywords:

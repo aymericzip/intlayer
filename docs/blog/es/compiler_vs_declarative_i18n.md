@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-24
 updatedAt: 2025-11-24
+priority: 8
 title: Compilador vs. i18n Declarativo
 description: Explorando las compensaciones arquitectónicas entre la internacionalización "mágica" basada en compilador y la gestión explícita y declarativa de contenido.
 keywords:

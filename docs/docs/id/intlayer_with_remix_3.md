@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-21
+priority: 9
 title: "Remix 3 i18n - Panduan Lengkap Menerjemahkan Aplikasi Anda"
 description: "Lupakan i18next. Panduan 2026 untuk membangun aplikasi Remix 3 multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, serta performa."
 keywords:

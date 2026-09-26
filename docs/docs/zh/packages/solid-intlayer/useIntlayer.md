@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-05-06
+priority: 5
 title: useIntlayer Hook 文档 | solid-intlayer
 description: 查看如何在 solid-intlayer 包中使用 useIntlayer hook
 keywords:

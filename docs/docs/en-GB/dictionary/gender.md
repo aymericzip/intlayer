@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-07-27
 updatedAt: 2025-07-27
+priority: 8
 title: Gender-Based Content
 description: Learn how to use gender-based content in Intlayer to dynamically display content based on gender. Follow this documentation to implement gender-specific content efficiently in your project.
 keywords:

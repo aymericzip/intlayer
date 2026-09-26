@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: Solusi i18n Terbaik untuk Svelte di Tahun 2026 - Laporan Benchmark
 description: Bandingkan pustaka internasionalisasi (i18n) Svelte seperti svelte-i18n, Paraglide, Tolgee, dan Intlayer. Laporan performa mendetail tentang ukuran bundle, kebocoran, dan reaktivitas.
 keywords:

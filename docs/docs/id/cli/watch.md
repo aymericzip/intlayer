@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Pantau Kamus
 description: Pelajari cara memantau perubahan pada file deklarasi konten Anda dan secara otomatis membangun kamus.
 keywords:

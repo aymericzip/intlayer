@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-09-22
+priority: 1
 title: Intlayer Datenschutzhinweis
 description: Entdecken Sie, wie Intlayer Informationen verarbeitet, die über unsere Website und das CMS gesammelt werden. Folgen Sie der Dokumentation, um die verschiedenen Formate und Anwendungsfälle zu verstehen.
 keywords:

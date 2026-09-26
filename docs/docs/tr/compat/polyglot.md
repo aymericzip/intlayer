@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Polyglot.js'den Intlayer'a Geçiş Yapın"
 description: "Uyumluluk adaptörünü kullanarak Polyglot.js'den Intlayer'a nasıl geçiş yapacağınızı öğrenin."
 keywords:

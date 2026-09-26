@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Intlayer コマンドが未定義
 description: intlayer コマンド未定義エラーの修正方法を学びます。
 keywords:
@@ -141,7 +142,7 @@ npm --version
     古いバージョンを使用している場合は、Node.jsとnpmのアップデートを検討してください。
 
 11. **権限の問題を確認する**  
-    権限エラーが発生している場合は、以下を試してください：
+権限エラーが発生している場合は、以下を試してください：
 
 ```bash
 # Unix系システムの場合

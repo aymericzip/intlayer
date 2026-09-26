@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-09-22
+priority: 1
 title: Pemberitahuan Privasi Intlayer
 description: Temukan bagaimana Intlayer menangani informasi yang dikumpulkan melalui situs web dan CMS kami. Ikuti dokumentasi untuk memahami berbagai format dan kasus penggunaan.
 keywords:

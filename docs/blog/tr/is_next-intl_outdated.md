@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: next-intl 2026'da Güncelliğini Yitirdi mi?
 description: next-intl, Next.js App Router için varsayılan çözüm haline geldi. Ancak arka planda çalışma zamanı paket şişkinliği ve manuel ad alanı yükü taşımayı sürdürüyor.
 keywords:

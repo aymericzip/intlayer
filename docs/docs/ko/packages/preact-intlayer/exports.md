@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: preact-intlayer 패키지 문서
 description: Preact 전용 Intlayer 통합으로, Preact 애플리케이션을 위한 providers 및 hooks를 제공합니다.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
+priority: 5
 title: Intlayer শুরু করুন (Initialize Intlayer)
 description: আপনার প্রজেক্টে কীভাবে Intlayer শুরু করবেন তা শিখুন।
 keywords:

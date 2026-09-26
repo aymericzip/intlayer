@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Перейти з i18next на Intlayer"
 description: "Дізнайтеся, як перенести вашу програму Vanilla JS/TS з i18next на Intlayer, використовуючи адаптер сумісності."
 keywords:

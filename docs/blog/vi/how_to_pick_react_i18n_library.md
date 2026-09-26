@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Cách chọn đúng thư viện React i18n năm 2026"
 description: Hướng dẫn ra quyết định cho việc quốc tế hóa (i18n) React. Những câu hỏi cần trả lời trước khi so sánh react-i18next, react-intl, Lingui, use-intl, Paraglide và Intlayer, cùng chi phí của từng lựa chọn về bundle size, typing và bảo trì.
 keywords:

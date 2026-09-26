@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-09-21
+priority: 5
 title: Khởi tạo Intlayer
 description: Tìm hiểu cách khởi tạo Intlayer trong dự án của bạn.
 keywords:

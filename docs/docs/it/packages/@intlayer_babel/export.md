@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: "Documentazione del pacchetto @intlayer/babel"
 description: Plugin Babel per Intlayer per gestire l'estrazione del contenuto, l'ottimizzazione dell'importazione, l'eliminazione dei campi non utilizzati e il mascheramento dei nomi dei campi durante la build.
 keywords:

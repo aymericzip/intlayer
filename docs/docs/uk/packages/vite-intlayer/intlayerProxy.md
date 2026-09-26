@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Документація плагина Vite intlayerProxy | vite-intlayer
 description: Middleware локалізації роутингу для серверів dev/preview у Vite та серверного рендерингу (SSR) у продакшені. Обробляє визначення мови, перенаправлення URL та внутрішні перезаписи шляхів.
 keywords:

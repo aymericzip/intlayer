@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: Tài liệu Hook useRewriteURL
 description: Hook dành cho Next.js để quản lý việc viết lại URL đã được bản địa hóa trong Intlayer.

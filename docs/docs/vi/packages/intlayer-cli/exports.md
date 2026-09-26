@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu gói intlayer-cli
 description: Công cụ CLI cho Intlayer, cung cấp các lệnh để xây dựng và kiểm toán từ điển.
 keywords:

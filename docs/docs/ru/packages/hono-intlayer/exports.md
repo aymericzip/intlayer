@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: Документация пакета hono-intlayer
 description: Промежуточное ПО Hono для Intlayer, предоставляющее функции перевода и определение локали.
 keywords:

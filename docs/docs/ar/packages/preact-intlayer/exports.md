@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: توثيق حزمة preact-intlayer
 description: تكامل خاص بـ Preact لـ Intlayer، يوفر providers و hooks لتطبيقات Preact.
 keywords:

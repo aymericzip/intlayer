@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 4
 title: Bilinmeyen komut
 description: Bilinmeyen komut hatasını nasıl düzelteceğinizi öğrenin.
 keywords:

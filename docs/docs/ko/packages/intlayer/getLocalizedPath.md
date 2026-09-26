@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-22
 updatedAt: 2026-01-22
+priority: 5
 title: getLocalizedPath 함수 문서 | intlayer
 description: intlayer 패키지의 getLocalizedPath 함수 사용법 보기
 keywords:

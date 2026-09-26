@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: useI18n हुक दस्तावेज़ | react-intlayer
 description: react-intlayer पैकेज में useI18n हुक का उपयोग कैसे करें, जानें
 keywords:

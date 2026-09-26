@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-17
 updatedAt: 2025-09-30
+priority: 6
 title: 公式 VS Code 拡張機能
 description: VS Code で Intlayer 拡張機能を使用して開発ワークフローを強化する方法を学びます。ローカライズされたコンテンツ間を素早く移動し、辞書を効率的に管理できます。
 keywords:

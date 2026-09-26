@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Polyglot.js से Intlayer में माइग्रेट करें"
 description: "Compat adapter का उपयोग करके Polyglot.js से Intlayer में माइग्रेट करने का तरीका जानें।"
 keywords:

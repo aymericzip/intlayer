@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-05-31
+priority: 7
 title: Лучшие инструменты интернационализации (i18n) для Svelte - Полное руководство по переводу Best Svelte i18n Libraries 2026 — Compared by DX & Bundle
 description: Лучшее решение для размера бандла, SEO, производительности & поддерживаемости. Сделайте Svelte приложение многоязычным в 2026, перевод LLM, Agent Skills & MCP.
 keywords:

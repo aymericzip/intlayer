@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayerPrune Vite Eklentisi Dokümantasyonu | vite-intlayer
 description: vite-intlayer paketi için intlayerPrune eklentisinin nasıl kullanılacağını görün
 keywords:

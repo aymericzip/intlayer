@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Comment personnaliser la liste des langues ?
 description: Apprenez comment personnaliser la liste des langues.
 keywords:

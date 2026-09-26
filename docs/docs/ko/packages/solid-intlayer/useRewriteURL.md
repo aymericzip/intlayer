@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: useRewriteURL 훅 문서
 description: Intlayer에서 지역화된 URL 리라이트를 관리하기 위한 Solid 전용 훅.

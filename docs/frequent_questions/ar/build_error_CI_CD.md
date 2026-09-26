@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: خطأ في البناء في CI/CD
 description: تعلّم كيفية إصلاح أخطاء البناء التي تحدث في بيئات CI/CD.
 keywords:

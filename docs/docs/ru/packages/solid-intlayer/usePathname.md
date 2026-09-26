@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: Документация хука usePathname | solid-intlayer
 description: Узнайте, как использовать хук usePathname из пакета solid-intlayer
 keywords:

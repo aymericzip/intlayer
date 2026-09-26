@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-23
 updatedAt: 2026-09-23
+priority: 5
 title: CLI - Intlayer-Pakete aktualisieren
 description: Erfahren Sie, wie Sie mit dem Befehl upgrade des Intlayer-CLI alle Intlayer-Pakete Ihres Projekts oder Monorepos auflisten und auf die neueste Version aktualisieren.
 keywords:

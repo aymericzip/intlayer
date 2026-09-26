@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: fastify-intlayer पैकेज दस्तावेज़ीकरण
 description: Intlayer के लिए Fastify प्लगइन, जो अनुवाद फ़ंक्शन और locale का पता लगाने की सुविधाएँ प्रदान करता है।
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-13
 updatedAt: 2025-10-14
+priority: 8
 title: Bộ định dạng
 description: Các tiện ích định dạng nhận biết ngôn ngữ dựa trên Intl cho số, phần trăm, tiền tệ, ngày tháng, thời gian tương đối, đơn vị và ký hiệu gọn. Bao gồm một helper Intl được lưu trong bộ nhớ đệm.
 keywords:

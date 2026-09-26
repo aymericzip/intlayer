@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Dokumentasi Plugin Vite intlayerProxy | vite-intlayer
 description: Middleware perutean bahasa untuk server dev/preview Vite dan SSR produksi. Menangani deteksi bahasa, pengalihan URL, dan penulisan ulang internal.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Di Chuyển Từ i18next Sang Intlayer"
 description: "Tìm hiểu cách di chuyển ứng dụng Vanilla JS/TS của bạn từ i18next sang Intlayer bằng bộ điều hợp tương thích."
 keywords:

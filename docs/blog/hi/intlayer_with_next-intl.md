@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
+priority: 8
 title: Intlayer का उपयोग करके अपने next-intl JSON अनुवादों को स्वचालित कैसे करें
 description: Next.js अनुप्रयोगों में बेहतर अंतरराष्ट्रीयकरण के लिए Intlayer और next-intl के साथ अपने JSON अनुवादों को स्वचालित करें।
 keywords:

@@ -1,5 +1,6 @@
 ---
 updatedAt: 2025-08-23
+priority: 5
 createdAt: 2025-08-23
 title: "useRewriteURL フックのドキュメント"
 description: "Intlayer におけるローカライズされた URL リライトをクライアント側で管理するための Solid 専用フック。"

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useIntlayer 훅 문서 | remix-intlayer
 description: Remix 3 애플리케이션에서 useIntlayer 훅을 사용하여 키별로 현지화된 콘텐츠에 접근하는 방법을 살펴봅니다.
 keywords:

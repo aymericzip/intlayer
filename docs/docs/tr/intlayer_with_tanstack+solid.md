@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-25
 updatedAt: 2026-09-20
+priority: 9
 title: "TanStack Start + Solid i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) TanStack Start + Solid uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:

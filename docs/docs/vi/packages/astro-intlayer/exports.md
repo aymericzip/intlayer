@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: Tài liệu Gói astro-intlayer
 description: Tích hợp Astro cho Intlayer, cung cấp cấu hình định tuyến theo ngôn ngữ, middleware, hooks, client store và quản lý từ điển.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Tài liệu Hook useLocale | remix-intlayer
 description: Xem cách sử dụng hook useLocale trong các ứng dụng Remix 3 để lấy locale của yêu cầu hiện tại, locale mặc định và danh sách các locale có sẵn.
 keywords:

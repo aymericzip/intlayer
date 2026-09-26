@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Apakah mungkin menggunakan Intlayer dengan Next.js tanpa `[locale]` di jalur halaman?
 description: Pelajari cara menggunakan Intlayer dengan Next.js tanpa `[locale]` di jalur halaman.
 keywords:

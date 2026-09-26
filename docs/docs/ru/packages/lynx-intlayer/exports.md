@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Документация пакета lynx-intlayer
 description: Поддержка Intlayer в Lynx, предоставляющая полифилы для поддержки локалей.
 keywords:

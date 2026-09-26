@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-06-29
+priority: 5
 title: مدونة
 description: اكتشف جميع المواضيع ذات صلة مع Intlayer، التدويل الدولي وغيرها
 keywords:

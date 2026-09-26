@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: comparePaths 関数のドキュメント | intlayer
 description: intlayer パッケージの comparePaths 関数の使い方を学びます
 keywords:

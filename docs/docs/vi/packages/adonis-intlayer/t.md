@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: Tài liệu hàm t | adonis-intlayer
 description: Xem cách sử dụng hàm t cho gói adonis-intlayer
 keywords:

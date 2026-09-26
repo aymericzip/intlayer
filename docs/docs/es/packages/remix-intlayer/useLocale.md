@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Documentación del hook useLocale | remix-intlayer
 description: Vea cómo utilizar el hook useLocale en aplicaciones Remix 3 para obtener la locale de la solicitud actual, la locale predeterminada y las locales disponibles.
 keywords:

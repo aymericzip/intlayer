@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-04
 updatedAt: 2026-09-20
+priority: 10
 title: "React Router v7 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) React Router v7 uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:

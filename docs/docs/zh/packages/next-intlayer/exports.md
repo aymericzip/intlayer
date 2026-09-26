@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: next-intlayer 包文档
 description: Next.js 专用的 Intlayer 集成，提供用于 App Router 和 Page Router 的中间件与提供者。
 keywords:

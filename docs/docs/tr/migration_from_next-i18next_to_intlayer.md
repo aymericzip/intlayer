@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "next-i18next'ten Intlayer'a Geçiş | Uluslararasılaştırma (i18n)"
 description: "Next.js uygulamanızı next-i18next'ten Intlayer'a nasıl taşıyacağınızı adım adım, mevcut kodunuzu bozmadan öğrenin. Sorunsuz bir geçiş için @intlayer/next-i18next uyumluluk adaptörünü kullanın."
 keywords:

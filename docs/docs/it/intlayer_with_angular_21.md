@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-09-21
+priority: 9
 title: "Angular 22 i18n - Guida completa per tradurre la tua applicazione"
 description: "Niente più i18next. La guida 2026 per creare un'applicazione Angular 22 multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:

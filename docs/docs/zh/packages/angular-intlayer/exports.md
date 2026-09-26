@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: angular-intlayer 包 文档
 description: 针对 Angular 的 Intlayer 集成，为 Angular 应用提供 providers 和 services。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2026-09-02
+priority: 7
 title: React i18n - how the provider model works and what it costs
 description: React has no built-in i18n. How the context-provider model works, why t("a.b") has no types, how plurals and lazy loading behave, and how the libraries differ.
 keywords:

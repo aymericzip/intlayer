@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: Documentazione della funzione getLocalizedUrl | intlayer
 description: Scopri come utilizzare la funzione getLocalizedUrl per il pacchetto intlayer
 keywords:

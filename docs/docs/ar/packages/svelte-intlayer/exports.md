@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: توثيق حزمة svelte-intlayer
 description: تكامل خاص بـ Svelte مع Intlayer، يوفر دوال إعداد وstores لتطبيقات Svelte.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook 文档 | react-intlayer
 description: 了解如何使用 react-intlayer 包中的 usePathname hook 获取当前 URL 的 pathname（移除了区域设置段）。
 keywords:

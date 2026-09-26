@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: Bedingte Inhalte
 description: Erfahren Sie, wie Sie bedingte Inhalte in Intlayer nutzen können, um Inhalte dynamisch basierend auf bestimmten Bedingungen anzuzeigen. Folgen Sie dieser Dokumentation, um Bedingungen effizient in Ihr Projekt zu integrieren.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-02-25
+priority: 5
 title: intlayerMiddleware दस्तावेज़ीकरण | next-intlayer
 description: next-intlayer पैकेज के लिए intlayerMiddleware फ़ंक्शन का उपयोग करने का तरीका देखें
 keywords:

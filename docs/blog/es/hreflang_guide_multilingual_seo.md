@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 8
 title: "Hreflang, guía para SEO multilingüe"
 description: "Qué es hreflang, las reglas que aplican los motores de búsqueda, por qué x-default casi siempre está mal, y cómo generar etiquetas correctas en Next.js y TanStack Start."
 keywords:

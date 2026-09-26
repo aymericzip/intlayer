@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Отримати словники
 description: Дізнайтеся, як витягувати словники з редактора Intlayer та CMS.
 keywords:

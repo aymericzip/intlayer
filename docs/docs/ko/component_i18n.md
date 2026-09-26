@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-09-30
+priority: 8
 title: React 및 Next.js에서 컴포넌트를 다국어(i18n)로 만들기
 description: Intlayer를 사용하여 다국어 React 또는 Next.js 컴포넌트를 만들기 위해 현지화된 콘텐츠를 선언하고 가져오는 방법을 배우세요.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-10
+priority: 6
 title: Intlayer LSP Server
 description: Learn how the Intlayer Language Server brings Go-to-Definition, Find References, hover previews, key autocompletion, and diagnostics to your IDE and AI agent.
 keywords:

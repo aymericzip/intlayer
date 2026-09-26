@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "كيفية اختيار مكتبة Vue i18n المناسبة في عام 2026"
 description: دليل لاتخاذ القرار حول تدويل Vue وNuxt. ما هي الأسئلة التي يجب الإجابة عليها قبل المقارنة بين vue-i18n و@nuxtjs/i18n وfluent-vue وParaglide وIntlayer، وما تكلفة كل خيار في حجم الحزمة وتحديد الأنواع (typing) وحمولة SSR.
 keywords:

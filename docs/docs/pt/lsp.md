@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-10
+priority: 6
 title: Servidor LSP do Intlayer
 description: Saiba como o servidor de linguagem do Intlayer traz Go-to-Definition, busca de referências, pré-visualizações ao passar o cursor, autocompletar de chaves e diagnósticos para o seu IDE e o seu agente de IA.
 keywords:

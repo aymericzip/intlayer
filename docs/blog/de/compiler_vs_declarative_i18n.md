@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-24
 updatedAt: 2025-11-24
+priority: 8
 title: Compiler vs. deklarative i18n
 description: Untersuchung der architektonischen Kompromisse zwischen "magischer" compilerbasierter Internationalisierung und explizitem deklarativem Content-Management.
 keywords:

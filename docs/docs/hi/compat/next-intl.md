@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "next-intl से Intlayer में माइग्रेट करें"
 description: "जानें कि compat adapter का उपयोग करके अपने Next.js एप्लिकेशन को next-intl से Intlayer में कैसे माइग्रेट करें।"
 keywords:

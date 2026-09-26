@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayerPrune Vite プラグイン ドキュメント | vite-intlayer
 description: vite-intlayer パッケージの intlayerPrune プラグインの使い方
 keywords:

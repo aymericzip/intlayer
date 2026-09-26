@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Bisakah saya menggunakan array sebagai deklarasi konten?
 description: Pelajari cara menggunakan array sebagai deklarasi konten.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-16
 updatedAt: 2026-09-12
+priority: 5
 title: CLI - Đăng nhập
 description: Tìm hiểu cách sử dụng lệnh login của Intlayer CLI để xác thực với Intlayer CMS và lấy thông tin truy cập.
 keywords:

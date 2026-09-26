@@ -17,6 +17,7 @@ import { useLocale } from 'react-intlayer';
 import {
   createDocSearchIndex,
   getSearchableDocs,
+  searchDocIndex,
 } from '~/components/DocPage/Search/docSearchIndex';
 
 const DEFAULT_SEARCH_LIMIT = 8;
@@ -108,9 +109,7 @@ export const useWebsiteWebMCPTools = (): AnyWebMCPTool[] => {
         MAX_SEARCH_LIMIT
       );
       const docs = await getSearchableDocs(locale);
-      const results = createDocSearchIndex(docs)
-        .search(query)
-        .map((result) => result.item);
+      const results = searchDocIndex(createDocSearchIndex(docs), query);
 
       // The semantic backend search complements the fuzzy title match; it is
       // best effort and must not take the whole search down.

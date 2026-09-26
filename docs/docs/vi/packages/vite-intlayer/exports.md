@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu gói vite-intlayer
 description: Plugin Vite cho Intlayer, cung cấp bí danh từ điển và watchers.
 keywords:

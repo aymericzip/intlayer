@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: intlayer Ara Yazılım Dokümantasyonu | remix-intlayer
 description: Remix 3'te yerel ayarları algılamak, yönlendirmeleri yönetmek ve Intlayer durumunu istek bağlamına eklemek için intlayer ara yazılımını nasıl kullanacağınızı öğrenin.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: Dokumentasi Fungsi t | adonis-intlayer
 description: Lihat cara menggunakan fungsi t untuk paket adonis-intlayer
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useDictionary Hook Dokümantasyonu | remix-intlayer
 description: Remix 3 uygulamalarında geçerli istek yerel ayarı için sözlük nesnelerini çözümlemek üzere useDictionary hook'unun nasıl kullanılacağını görün.
 keywords:

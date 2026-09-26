@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Como testar traduções sem criar testes frágeis"
 description: O que vale a pena testar em uma aplicação i18n e o que não vale. Testes de renderização baseados em provider, pseudolocalização, cobertura de RTL e plurais, e a armadilha dos snapshots.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-12
 updatedAt: 2026-08-13
+priority: 6
 title: ESLint Eklentisi | Intlayer için Lint Kuralları
 description: eslint-plugin-intlayer ile sabit kodlanmış metinleri, Intlayer derleyicisinin optimize edemediği dinamik çağrıları ve kullanılmayan sözlük içeriğini yakalayın. React, Vue, Svelte, Angular ve Astro genelinde ESLint ve oxlint ile çalışır.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-10-25
 updatedAt: 2026-09-08
+priority: 9
 title: "Next.js 15 i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Next.js 15 multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:

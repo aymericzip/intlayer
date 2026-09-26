@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Kéo Từ Điển
 description: Tìm hiểu cách kéo từ điển từ trình chỉnh sửa Intlayer và CMS.
 keywords:

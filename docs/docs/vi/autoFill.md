@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-13
 updatedAt: 2025-09-20
+priority: 8
 title: Tự Động Điền
 description: Tìm hiểu cách sử dụng chức năng tự động điền trong Intlayer để tự động điền nội dung dựa trên các mẫu định sẵn. Theo dõi tài liệu này để triển khai các tính năng tự động điền một cách hiệu quả trong dự án của bạn.
 keywords:

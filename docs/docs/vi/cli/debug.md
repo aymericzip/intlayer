@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: Gỡ lỗi lệnh Intlayer
 description: Tìm hiểu cách gỡ lỗi và khắc phục sự cố CLI của Intlayer.
 keywords:

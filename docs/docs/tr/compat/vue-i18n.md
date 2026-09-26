@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Vue I18n'den Intlayer'a Geçiş Yapın"
 description: "Uyumluluk adaptörünü kullanarak Vue uygulamanızı vue-i18n'den Intlayer'a nasıl geçireceğinizi öğrenin."
 keywords:

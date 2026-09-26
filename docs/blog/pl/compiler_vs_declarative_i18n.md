@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-24
 updatedAt: 2025-11-24
+priority: 8
 title: Kompilator kontra deklaratywne i18n
 description: Eksploracja kompromisów architektonicznych między "magiczna" internacjonalizacją opartą na kompilatorze a eksplicytnym, deklaratywnym zarządzaniem treścią.
 keywords:

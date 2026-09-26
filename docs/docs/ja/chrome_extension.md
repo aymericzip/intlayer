@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-22
 updatedAt: 2026-09-22
+priority: 6
 title: Chrome & Firefox拡張機能、i18n & SEOスキャナー
 description: Intlayer Chrome拡張機能を使用して、あらゆるWebサイトのi18n設定を検査します。フレームワーク、i18nライブラリ、ロケール、hreflangおよびSEOタグを検出し、完全なi18n SEO監査を実行します。
 keywords:

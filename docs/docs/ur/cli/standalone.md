@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: اسٹینڈ اکیلے بنڈل (Standalone Bundle)
 description: سیکھیں کہ ایپ کے مواد کے لیے اسٹینڈ اکیلے JavaScript بنڈل کیسے تیار کیا جائے۔
 keywords:

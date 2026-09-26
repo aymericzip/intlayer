@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-09-21
+priority: 8
 title: Markdown
 description: Intlayerを使用して多言語Webサイトでマークダウンコンテンツを宣言および使用する方法を学びます。このオンラインドキュメントの手順に従って、マークダウンをプロジェクトにシームレスに統合します。
 keywords:

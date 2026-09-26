@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
+priority: 4
 title: IntlayerNode प्रकार। यह क्या है?
 description: IntlayerNode प्रकार क्या है? मेरी स्ट्रिंग IntlayerNode&lt;string&gt; में क्यों बदल गई है?
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 7
 title: Nuxt i18n - routing strategies and the SSR payload cost
 description: How to configure @nuxtjs/i18n routing strategies for SEO, why SSR makes you ship every translation twice, and what lazy loading with langDir really does.
 keywords:

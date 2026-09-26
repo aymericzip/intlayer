@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: 调试 Intlayer 命令
 description: 学习如何调试和排查 Intlayer CLI 问题。
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-09-30
+priority: 8
 title: Tornar um componente multilíngue (biblioteca i18n) em React e Next.js
 description: Aprenda como declarar e recuperar conteúdo localizado para construir um componente multilíngue em React ou Next.js com Intlayer.
 keywords:

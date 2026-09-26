@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: Tài liệu Plugin Vite intlayerProxy | vite-intlayer
 description: Middleware định tuyến ngôn ngữ cho các máy chủ dev/preview của Vite và SSR production. Xử lý phát hiện locale, chuyển hướng URL và viết lại (rewrite) nội bộ.
 keywords:

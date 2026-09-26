@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 8
 title: Dosya
 description: `file` fonksiyonunu kullanarak içerik sözlüğünüzde harici dosyaları nasıl gömeceğinizi öğrenin. Bu dokümantasyon, Intlayer'ın dosya içeriğini nasıl bağladığını ve dinamik olarak yönettiğini açıklar.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "Cách chọn đúng thư viện Vue i18n năm 2026"
 description: Hướng dẫn ra quyết định cho việc quốc tế hóa (i18n) Vue và Nuxt. Những câu hỏi cần trả lời trước khi so sánh vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide và Intlayer, cùng chi phí của từng lựa chọn về bundle size, typing và SSR payload.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: Liệu next-intl Đã Lỗi Thời Vào Năm 2026?
 description: next-intl đã trở thành lựa chọn phổ biến cho Next.js App Router. Nhưng nó vẫn mang gánh nặng bundle lúc runtime và yêu cầu quản lý namespace thủ công.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-02-25
+priority: 5
 title: Dokumentasi intlayerMiddleware | next-intlayer
 description: Lihat cara menggunakan fungsi intlayerMiddleware untuk paket next-intlayer
 keywords:

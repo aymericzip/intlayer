@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-02
+priority: 8
 title: "Datums- und Zahlenformatierung nach Locale mit Intl"
 description: Sie brauchen wahrscheinlich keine externe Formatierungsbibliothek. Wie Intl Daten, Zahlen, Währungen und Listen nach Locale handhabt, Caching-Aufwand und Hydration-Bugs in Produktion.
 keywords:

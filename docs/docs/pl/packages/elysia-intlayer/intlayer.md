@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: Dokumentacja wtyczki intlayer dla Elysia | elysia-intlayer
 description: Zobacz, jak używać wtyczki intlayer z pakietu elysia-intlayer
 keywords:

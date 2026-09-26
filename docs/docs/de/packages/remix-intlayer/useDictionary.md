@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: useDictionary Hook Dokumentation | remix-intlayer
 description: Erfahren Sie, wie Sie den useDictionary-Hook in Remix 3-Anwendungen verwenden, um Wörterbuchobjekte für die aktuelle Request-Locale aufzulösen.
 keywords:

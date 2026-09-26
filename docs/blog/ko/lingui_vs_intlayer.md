@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-22
+priority: 8
 title: "Lingui vs Intlayer: 2026년 벤치마크 및 종합 비교"
 description: "Next.js 및 TanStack Start 환경에서 측정된 두 컴파일러 기반 i18n 라이브러리. 번들 크기, 콘텐츠 누수, 컴포넌트 크기, 하이드레이션, 언어 전환 반응성 및 개발자 경험 비교."
 keywords:

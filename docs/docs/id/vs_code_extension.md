@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-03-17
 updatedAt: 2025-09-30
+priority: 6
 title: Ekstensi VS Code Resmi
 description: Pelajari cara menggunakan ekstensi Intlayer di VS Code untuk meningkatkan alur kerja pengembangan Anda. Navigasi cepat antar konten yang dilokalisasi dan kelola kamus Anda dengan efisien.
 keywords:

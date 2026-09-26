@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-21
+priority: 9
 title: "Remix 3 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn cần đến i18next. Hướng dẫn năm 2026 để xây dựng ứng dụng Remix 3 đa ngôn ngữ (i18n). Dịch bằng các tác tử AI và tối ưu hóa kích thước gói bundle, SEO và hiệu năng."
 keywords:

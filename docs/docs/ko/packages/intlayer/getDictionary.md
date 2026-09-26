@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-23
+priority: 5
 title: getDictionary 함수 문서 | intlayer
 description: intlayer 패키지의 getDictionary 함수를 사용하는 방법을 참조하세요
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-25
 updatedAt: 2026-06-25
+priority: 5
 title: intlayerProxy Vite प्लगइन दस्तावेज़ | vite-intlayer
 description: Vite dev/preview सर्वर और उत्पादन SSR के लिए लोकेल-रूटिंग मिडलवेयर। लोकेल डिटेक्शन, URL रीडायरेक्ट और आंतरिक पुनर्लेखन को संभालता है।
 keywords:

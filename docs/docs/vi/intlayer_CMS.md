@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-07-08
+priority: 8
 title: Intlayer CMS | Đưa nội dung của bạn ra ngoài vào Intlayer CMS
 description: Đưa nội dung của bạn ra ngoài vào Intlayer CMS để ủy quyền quản lý nội dung cho nhóm của bạn.
 keywords:

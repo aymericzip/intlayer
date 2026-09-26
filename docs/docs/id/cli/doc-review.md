@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Tinjau Dokumen
 description: Pelajari cara meninjau file dokumentasi untuk kualitas, konsistensi, dan kelengkapan di berbagai lokal.
 keywords:

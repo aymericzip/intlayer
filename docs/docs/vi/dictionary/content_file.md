@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2026-07-30
+priority: 8
 title: Tệp Nội Dung
 description: Tìm hiểu cách tùy chỉnh các phần mở rộng cho các tệp khai báo nội dung của bạn. Theo dõi tài liệu này để triển khai các điều kiện một cách hiệu quả trong dự án của bạn.
 keywords:

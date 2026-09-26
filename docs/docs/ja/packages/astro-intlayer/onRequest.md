@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: onRequest ミドルウェアドキュメント | astro-intlayer
 description: Astro アプリケーションで onRequest ミドルウェアを使用してリクエストロケールを解決し、Astro.locals.intlayer を設定する方法を説明します。
 keywords:

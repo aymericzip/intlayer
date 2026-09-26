@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
+priority: 8
 title: Ekleme
 description: İçeriğinizde ekleme yer tutucularını nasıl bildireceğinizi ve kullanacağınızı öğrenin. Bu dokümantasyon, önceden tanımlanmış içerik yapıları içinde değerleri dinamik olarak ekleme adımlarında size rehberlik eder.
 keywords:

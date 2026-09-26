@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-28
 updatedAt: 2025-09-28
+priority: 8
 title: Next.js'te SEO ve i18n
 description: next-intl, next-i18next ve Intlayer kullanarak Next.js uygulamanızda çok dilli SEO nasıl kurulur öğrenin.
 keywords:

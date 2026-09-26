@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-16
 updatedAt: 2025-06-29
+priority: 9
 title: O que é internacionalização (i18n)? Definição e desafios
 description: Descubra por que internacionalizar seu site é essencial. Aprenda os princípios-chave para acelerar o SEO, melhorar a experiência do usuário e expandir a sua alcance global.
 keywords:

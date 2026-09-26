@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: Komenda Intlayer niezdefiniowana
 description: Dowiedz się, jak naprawić błąd niezdefiniowanej komendy intlayer.
 keywords:
@@ -142,7 +143,7 @@ npm --version
     Jeśli używasz przestarzałej wersji, rozważ aktualizację Node.js i npm.
 
 11. **Sprawdź problemy z uprawnieniami**  
-    Jeśli pojawiają się błędy związane z uprawnieniami:
+Jeśli pojawiają się błędy związane z uprawnieniami:
 
     ```bash
     # Dla systemów opartych na Unix

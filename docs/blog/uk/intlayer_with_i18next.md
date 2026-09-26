@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-24
 updatedAt: 2025-11-06
+priority: 8
 title: Як автоматизувати JSON-переклади i18next за допомогою Intlayer
 description: Автоматизуйте ваші JSON-переклади за допомогою Intlayer та i18next для покращеної інтернаціоналізації в JavaScript-додатках.
 keywords:

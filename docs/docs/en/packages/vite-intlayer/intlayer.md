@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: intlayer Vite Plugin Documentation | vite-intlayer
 description: Complete guide to the intlayer() Vite plugin – dictionary preparation, aliases, dev watcher, locale-routing proxy, and compiler.
 keywords:

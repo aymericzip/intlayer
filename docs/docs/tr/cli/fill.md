@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Sözlükleri Doldurma
 description: Sözlüklerinizi AI kullanarak nasıl dolduracağınızı, denetleyeceğinizi ve çevireceğinizi öğrenin.
 keywords:

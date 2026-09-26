@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-29
 updatedAt: 2026-08-29
+priority: 9
 title: "htmx i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026er-Leitfaden zum Erstellen einer mehrsprachigen (i18n) htmx-App. Übersetzen Sie mit KI-Agenten und optimieren Sie die Bundle-Größe, SEO und Leistung."
 keywords:

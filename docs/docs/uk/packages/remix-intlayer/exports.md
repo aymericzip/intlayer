@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Документація пакета remix-intlayer
 description: Документація щодо експортів пакета remix-intlayer, що забезпечує інтернаціоналізацію (i18n) для додатків Remix 3.
 keywords:

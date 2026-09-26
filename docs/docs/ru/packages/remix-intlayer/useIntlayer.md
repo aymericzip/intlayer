@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Документация хука useIntlayer | remix-intlayer
 description: Узнайте, как использовать хук useIntlayer в приложениях Remix 3 для доступа к локализованному контенту по ключу.
 keywords:

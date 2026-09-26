@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "Migrar de next-i18next a Intlayer | Internacionalización (i18n)"
 description: "Aprende cómo migrar tu aplicación Next.js de next-i18next a Intlayer — paso a paso, sin romper tu código existente. Utiliza el adaptador de compatibilidad @intlayer/next-i18next para una transición sin interrupciones."
 keywords:

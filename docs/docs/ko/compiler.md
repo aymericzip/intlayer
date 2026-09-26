@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-09-08
+priority: 8
 title: Intlayer 컴파일러 | i18n을 위한 자동화된 콘텐츠 추출
 description: Intlayer 컴파일러로 국제화 프로세스를 자동화하세요. Vite, Next.js 등에서 더 빠르고 효율적인 i18n을 위해 컴포넌트에서 직접 콘텐츠를 추출합니다.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-21
+priority: 6
 title: Dokumentasi Server MCP
 description: Jelajahi fitur dan pengaturan Server MCP untuk mengoptimalkan manajemen dan operasi server Anda.
 keywords:

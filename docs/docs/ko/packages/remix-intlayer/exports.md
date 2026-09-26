@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: remix-intlayer 패키지 문서
 description: Remix 3 애플리케이션에 국제화(i18n)를 제공하는 remix-intlayer 패키지의 내보내기 문서입니다.
 keywords:

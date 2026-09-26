@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-07-27
 updatedAt: 2025-07-27
+priority: 8
 title: Bộ ánh xạ Locale
 description: Tìm hiểu cách Bộ ánh xạ Locale hoạt động. Xem các bước được Bộ ánh xạ Locale sử dụng trong ứng dụng của bạn. Xem các gói khác nhau thực hiện những gì.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 如何从 Cookie / 头信息中获取语言环境？
 description: 学习如何从 Cookie / 头信息中获取语言环境。
 keywords:

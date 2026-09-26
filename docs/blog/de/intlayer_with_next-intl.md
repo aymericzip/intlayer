@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
+priority: 8
 title: So automatisieren Sie Ihre next-intl JSON-Übersetzungen mit Intlayer
 description: Automatisieren Sie Ihre JSON-Übersetzungen mit Intlayer und next-intl für eine verbesserte Internationalisierung in Next.js-Anwendungen.
 keywords:

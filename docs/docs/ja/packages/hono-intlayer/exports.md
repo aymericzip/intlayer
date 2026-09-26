@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-29
 updatedAt: 2026-01-29
+priority: 5
 title: hono-intlayer パッケージ ドキュメント
 description: 翻訳関数とロケール検出を提供する Intlayer 用の Hono ミドルウェア。
 keywords:

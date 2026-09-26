@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-06
 updatedAt: 2026-09-20
+priority: 9
 title: "تدويل Solid Start - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق SolidStart متعدد اللغات (i18n). توجيه اللغة المقدم من الخادم، وhreflang، وخريطة الموقع (sitemap)، والترجمة بمساعدة الذكاء الاصطناعي."
 keywords:

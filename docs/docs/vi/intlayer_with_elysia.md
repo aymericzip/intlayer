@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-24
+priority: 9
 title: "Elysia i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next. Hướng dẫn năm 2026 để xây dựng ứng dụng Elysia đa ngôn ngữ (i18n). Dịch với các tác nhân AI và tối ưu hóa kích thước gói, SEO và hiệu suất."
 keywords:

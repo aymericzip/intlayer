@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-05-10
 updatedAt: 2026-05-10
+priority: 6
 title: Sync PO 插件
 description: 将 Intlayer 字典与 Gettext PO 文件同步。在使用 Intlayer 管理、翻译和测试消息的同时，保留现有的 i18n。
 keywords:

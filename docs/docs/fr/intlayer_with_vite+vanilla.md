@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-09-20
+priority: 9
 title: "Vite + Vanilla JS i18n - Guide complet pour traduire votre application"
 description: "Oubliez i18next. Le guide 2026 pour créer une application Vite + Vanilla JS multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:

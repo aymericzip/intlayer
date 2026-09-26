@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Migrate from Lingui to Intlayer"
 description: "Learn how to migrate your application from Lingui to Intlayer using the compat adapter."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-07-08
+priority: 8
 title: Sincronización en vivo | Refleja los cambios de contenido del CMS en tiempo real
 description: Permite que tu aplicación refleje los cambios de contenido del CMS de Intlayer en tiempo de ejecución, sin necesidad de reconstruir ni volver a implementar.
 keywords:

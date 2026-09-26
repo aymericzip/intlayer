@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: 2026年 Vue向けの最高のi18nソリューション - ベンチマークレポート
 description: vue-i18n、fluent-vue、IntlayerなどのVue国際化（i18n）ライブラリを比較します。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
 keywords:

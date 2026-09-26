@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-02
 updatedAt: 2025-06-29
+priority: 5
 title: t Function Documentation | express-intlayer
 description: See how to use the t function for express-intlayer package
 keywords:

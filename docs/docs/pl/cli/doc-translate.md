@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Tłumaczenie dokumentu
 description: Dowiedz się, jak automatycznie tłumaczyć pliki dokumentacji za pomocą usług tłumaczenia AI.
 keywords:

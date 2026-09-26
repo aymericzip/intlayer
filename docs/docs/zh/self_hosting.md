@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-30
 updatedAt: 2026-09-21
+priority: 8
 title: 自行托管 Intlayer
 description: "在您自己的基础设施上运行 Intlayer：作为桌面应用、单个多合一 Docker 容器或可扩展的 Docker Compose 堆栈。无需 Intlayer Cloud 账户。"
 keywords:

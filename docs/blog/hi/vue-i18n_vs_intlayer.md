@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-22
+priority: 8
 title: vue-i18n बनाम Intlayer
 description: Vue/Nuxt ऐप्स में अंतरराष्ट्रीयकरण (i18n) के लिए vue-i18n की तुलना Intlayer से करें
 keywords:

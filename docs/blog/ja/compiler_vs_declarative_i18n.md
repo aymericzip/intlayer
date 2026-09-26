@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-11-24
 updatedAt: 2025-11-24
+priority: 8
 title: コンパイラー vs 宣言的 i18n
 description: 「魔法の」コンパイラー ベースの国際化と明示的な宣言的コンテンツ管理の間のアーキテクチャ上のトレードオフを探る。
 keywords:

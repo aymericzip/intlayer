@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: CI/CD에서 빌드 오류
 description: CI/CD 환경에서 발생하는 빌드 오류를 해결하는 방법을 알아보세요.
 keywords:

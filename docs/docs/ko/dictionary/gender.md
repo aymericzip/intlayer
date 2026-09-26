@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-07-27
 updatedAt: 2025-07-27
+priority: 8
 title: 성별 기반 콘텐츠
 description: Intlayer에서 성별 기반 콘텐츠를 사용하여 성별에 따라 동적으로 콘텐츠를 표시하는 방법을 알아보세요. 이 문서를 따라 프로젝트에서 성별별 콘텐츠를 효율적으로 구현할 수 있습니다.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "Di chuyển từ vue-i18n sang Intlayer | Quốc tế hóa (i18n)"
 description: "Tìm hiểu cách di chuyển ứng dụng Vue hoặc Nuxt của bạn từ vue-i18n sang Intlayer — từng bước, mà không làm hỏng mã hiện có của bạn. Sử dụng adapter tương thích @intlayer/vue-i18n cho quá trình chuyển đổi không gián đoạn."
 keywords:

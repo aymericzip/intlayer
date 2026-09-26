@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-14
 updatedAt: 2026-05-31
+priority: 8
 title: Intlayer 的重要性
 description: 探索在項目中使用 Intlayer 的好處和優勢。了解為什麼 Intlayer 在其他框架中脫穎而出。
 keywords:

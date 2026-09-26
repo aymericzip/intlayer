@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-06
+priority: 10
 title: مقدمة
 description: اكتشف كيف يعمل Intlayer. تعرف على الخطوات التي يستخدمها Intlayer في تطبيقك. اكتشف ما تفعله الحزم المختلفة.
 keywords:

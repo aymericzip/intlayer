@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-07-27
 updatedAt: 2025-07-27
+priority: 8
 title: Locale Mapper
 description: Discover how Locale Mapper works. See the steps used by Locale Mapper in your application. See what the different packages do.
 keywords:

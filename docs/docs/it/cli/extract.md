@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: Estrai stringhe
 description: Scopri come estrarre le stringhe dai tuoi componenti in un file .content vicino al componente.
 keywords:

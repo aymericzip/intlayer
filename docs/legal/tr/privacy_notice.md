@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2026-09-22
+priority: 1
 title: Intlayer Gizlilik Bildirimi
 description: Intlayer'ın web sitesi ve CMS üzerinden topladığı bilgileri nasıl işlediğini öğrenin. Farklı formatlar ve kullanım durumları için dokümantasyonu takip edin.
 keywords:

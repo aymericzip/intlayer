@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-22
 updatedAt: 2026-01-22
+priority: 5
 title: Hàm getCanonicalPath. Tài liệu | intlayer
 description: Xem cách sử dụng hàm getCanonicalPath cho package intlayer
 keywords:

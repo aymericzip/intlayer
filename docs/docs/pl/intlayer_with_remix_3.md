@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-09
 updatedAt: 2026-09-21
+priority: 9
 title: "Remix 3 i18n - Kompletny przewodnik po tłumaczeniu aplikacji"
 description: "Zapomnij o i18next. Przewodnik 2026 po tworzeniu wielojęzycznej (i18n) aplikacji Remix 3. Tłumacz za pomocą agentów AI i optymalizuj rozmiar paczki, SEO oraz wydajność."
 keywords:

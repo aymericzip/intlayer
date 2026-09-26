@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-05-06
+priority: 5
 title: useIntlayer Hook Dokümantasyonu | solid-intlayer
 description: solid-intlayer paketi için useIntlayer hook'unun nasıl kullanılacağını görün
 keywords:

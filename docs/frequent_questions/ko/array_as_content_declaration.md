@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2025-06-29
+priority: 4
 title: 배열을 콘텐츠 선언으로 사용할 수 있나요?
 description: 배열을 콘텐츠 선언으로 사용하는 방법을 알아보세요.
 keywords:

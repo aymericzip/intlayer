@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-09-06
+priority: 10
 title: Giriş
 description: Intlayer'ın nasıl çalıştığını keşfedin. Uygulamanızda Intlayer tarafından kullanılan adımları görün. Farklı paketlerin ne yaptığını öğrenin.
 keywords:

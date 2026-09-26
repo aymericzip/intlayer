@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-30
 updatedAt: 2026-01-30
+priority: 5
 title: adonis-intlayer पैकेज दस्तावेज़ीकरण
 description: Intlayer के लिए AdonisJS मिडलवेयर, अनुवाद फ़ंक्शन और लोकेल डिटेक्शन प्रदान करता है।
 keywords:

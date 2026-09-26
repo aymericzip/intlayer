@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-06-25
+priority: 5
 title: وثائق حزمة react-native-intlayer
 description: دعم React Native لـ Intlayer، يوفر موفّرين وخطافات وpolyfills وتكوين Metro.
 keywords:

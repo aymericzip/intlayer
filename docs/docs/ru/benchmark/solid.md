@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-09-23
+priority: 8
 title: Лучшее i18n решение для Solid в 2026 году - Отчет о бенчмарке
 description: Сравните библиотеки интернационализации (i18n) для Solid, такие как solid-primitives, solid-i18next, Tolgee и Intlayer. Подробный отчет о производительности, размере бандла, утечках и реактивности.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook Dokumentation | solid-intlayer
 description: Erfahren Sie, wie Sie den usePathname Hook aus dem Paket solid-intlayer verwenden.
 keywords:

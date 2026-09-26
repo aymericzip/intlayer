@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: Contenuto Condizionale
 description: Scopri come utilizzare il contenuto condizionale in Intlayer per visualizzare dinamicamente contenuti in base a condizioni specifiche. Segui questa documentazione per implementare condizioni in modo efficiente nel tuo progetto.
 keywords:

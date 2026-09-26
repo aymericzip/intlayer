@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: 2026 年，next-intl 已经过时了吗？
 description: next-intl 已成为 Next.js App Router 的主流国际化方案。然而，其运行时打包体积开销以及繁琐的手动命名空间拆分依然是不可忽视的短板。
 keywords:

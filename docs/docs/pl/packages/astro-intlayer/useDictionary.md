@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentacja hooka useDictionary | astro-intlayer
 description: Zobacz, jak używać hooka useDictionary w komponentach i skryptach Astro do przetwarzania obiektów słowników.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-02
 updatedAt: 2026-09-16
+priority: 8
 title: ¿Está i18next obsoleto en 2026?
 description: i18next impulsa millones de sitios web, pero su arquitectura en tiempo de ejecución de 2011 muestra su antigüedad. Un vistazo al peso del bundle, los límites del tree-shaking y la falta de innovación.
 keywords:

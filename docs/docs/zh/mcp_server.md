@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-06-07
 updatedAt: 2026-08-21
+priority: 6
 title: MCP 服务器文档
 description: 探索 MCP 服务器的功能和设置，以优化您的服务器管理和操作。
 keywords:

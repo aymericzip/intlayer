@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Transloco에서 Intlayer로 마이그레이션"
 description: "compat adapter를 사용하여 Angular 애플리케이션을 Transloco에서 Intlayer로 마이그레이션하는 방법을 알아보세요."
 keywords:

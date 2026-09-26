@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
+priority: 8
 title: Nội dung có điều kiện
 description: Tìm hiểu cách sử dụng nội dung có điều kiện trong Intlayer để hiển thị nội dung một cách động dựa trên các điều kiện cụ thể. Theo dõi tài liệu này để triển khai điều kiện một cách hiệu quả trong dự án của bạn.
 keywords:

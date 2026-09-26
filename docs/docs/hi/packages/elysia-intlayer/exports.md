@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-24
 updatedAt: 2026-08-24
+priority: 5
 title: elysia-intlayer पैकेज दस्तावेज़ीकरण
 description: Intlayer के लिए Elysia प्लगइन, जो अनुवाद फ़ंक्शन और locale का पता लगाने की सुविधाएँ प्रदान करता है।
 keywords:

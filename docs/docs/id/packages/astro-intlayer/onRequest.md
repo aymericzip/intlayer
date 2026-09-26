@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Dokumentasi Middleware onRequest | astro-intlayer
 description: Pelajari cara menggunakan middleware onRequest di aplikasi Astro untuk menentukan lokal permintaan dan mengisi Astro.locals.intlayer.
 keywords:

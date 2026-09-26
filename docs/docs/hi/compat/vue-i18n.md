@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-13
 updatedAt: 2026-06-13
+priority: 7
 title: "Vue I18n से Intlayer में माइग्रेट करें"
 description: "सीखें कि compat adapter का उपयोग करके अपने Vue एप्लिकेशन को vue-i18n से Intlayer में कैसे माइग्रेट करें।"
 keywords:

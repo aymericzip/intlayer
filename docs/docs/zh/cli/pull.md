@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-09-12
+priority: 5
 title: 拉取词典
 description: 了解如何从 Intlayer 编辑器和 CMS 拉取词典。
 keywords:

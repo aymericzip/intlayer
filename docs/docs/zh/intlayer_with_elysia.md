@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-08-23
 updatedAt: 2026-08-30
+priority: 9
 title: "Elysia i18n - 完整指南翻译你的应用"
 description: "不再使用 i18next。2026 年构建多语言 (i18n) Elysia 应用的指南。使用 AI 代理翻译并优化 bundle 大小、SEO 和性能。"
 keywords:

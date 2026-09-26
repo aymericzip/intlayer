@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-12-02
 updatedAt: 2025-06-29
+priority: 5
 title: t 函数文档 | express-intlayer
 description: 了解如何使用 express-intlayer 包中的 t 函数
 keywords:

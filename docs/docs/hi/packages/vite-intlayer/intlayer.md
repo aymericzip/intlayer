@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: intlayer Vite प्लगइन दस्तावेज़ीकरण | vite-intlayer
 description: vite-intlayer पैकेज के लिए intlayer प्लगइन का उपयोग कैसे करें देखें
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: Документация хука useIntlayer | astro-intlayer
 description: Узнайте, как использовать хук useIntlayer в компонентах Astro и клиентских скриптах для доступа к локализованному контенту.
 keywords:

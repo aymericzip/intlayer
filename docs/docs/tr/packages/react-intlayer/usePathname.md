@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-22
 updatedAt: 2026-06-22
+priority: 5
 title: usePathname Hook Dokümantasyonu | react-intlayer
 description: react-intlayer paketinden usePathname hook'unu kullanarak yerel ayar (locale) segmenti olmadan mevcut URL yolunu nasıl alacağınızı öğrenin.
 keywords:

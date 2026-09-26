@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-16
 updatedAt: 2026-09-16
+priority: 8
 title: "2026年に最適なVue i18nライブラリの選び方"
 description: VueおよびNuxtの国際化（i18n）決定ガイド。vue-i18n、@nuxtjs/i18n、fluent-vue、Paraglide、Intlayerを比較する前に答えるべき質問と、各選択肢のバンドルサイズ、型定義、SSRペイロードのトレードオフを解説します。
 keywords:

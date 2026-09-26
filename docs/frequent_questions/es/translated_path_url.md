@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-05-20
 updatedAt: 2026-01-22
+priority: 4
 title: ¿Puedo traducir la ruta de la URL?
 description: Aprende cómo traducir la ruta de la URL.
 keywords:

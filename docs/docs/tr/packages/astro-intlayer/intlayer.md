@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-09-19
+priority: 5
 title: intlayer Entegrasyon Dokümantasyonu | astro-intlayer
 description: astro.config.mjs dosyasında intlayer Astro entegrasyonunu nasıl yapılandıracağınızı ve kullanacağınızı öğrenin.
 keywords:

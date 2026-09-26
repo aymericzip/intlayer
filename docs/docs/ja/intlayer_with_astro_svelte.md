@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-09-21
+priority: 9
 title: "Astro + Svelte i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Astro + Svelteアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:

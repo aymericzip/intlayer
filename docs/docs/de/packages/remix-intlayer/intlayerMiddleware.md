@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-19
 updatedAt: 2026-09-19
+priority: 5
 title: intlayer Middleware Dokumentation | remix-intlayer
 description: Erfahren Sie, wie Sie die intlayer-Middleware in Remix 3-Anwendungen für sprachenbasiertes Routing und Request-Kontextverwaltung verwenden.
 keywords:

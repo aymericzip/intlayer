@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
+priority: 5
 title: Налагодження команди Intlayer
 description: Дізнайтеся, як налагоджувати та усувати неполадки в Intlayer CLI.
 keywords:

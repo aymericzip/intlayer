@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: preact-intlayer Paket Dokümantasyonu
 description: Intlayer için Preact'e özgü entegrasyon; Preact uygulamaları için provider'lar ve hook'lar sağlar.
 keywords:

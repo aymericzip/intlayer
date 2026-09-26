@@ -1,6 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
+priority: 5
 title: Documentação do Hook useIntlayer | react-intlayer
 description: Veja como usar o hook useIntlayer para o pacote react-intlayer
 keywords:

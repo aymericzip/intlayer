@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-09-13
 updatedAt: 2026-09-13
+priority: 4
 title: Çeviri üretirken Claude Code token tüketimi nasıl sınırlandırılır
 description: Claude Code ile çeviri yapmanın neden aşırı token harcadığı, Intlayer'ın bunun yerine ne yaptığı (çevrilmiş anahtarları filtreler, JSON'u parçalar, markdown'ı blok blok çevirir) ve claude setup-token ile Claude aboneliğinizi nasıl yeniden kullanabileceğiniz.
 keywords:

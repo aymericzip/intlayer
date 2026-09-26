@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-06-05
 updatedAt: 2026-06-05
+priority: 7
 title: "Migrazione da react-i18next / i18next a Intlayer | Internazionalizzazione (i18n)"
 description: "Scopri come migrare la tua applicazione React o Next.js da react-i18next o i18next a Intlayer — passo dopo passo, senza interrompere il tuo codice esistente. Utilizza gli adattatori di compatibilità @intlayer/react-i18next e @intlayer/i18next per una transizione fluida."
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-09-06
+priority: 8
 title: How to Make Multilingual (i18n) an Existing Next.js Application Afterward (i18n Guide 2026)
 description: The 2026 guide to making an existing Next.js app multilingual (i18n) without tedious refactoring. Discover zero-effort content extraction, AI translation, and high-performance routing with Intlayer.
 keywords:

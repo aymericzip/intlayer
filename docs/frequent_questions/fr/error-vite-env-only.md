@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-11
 updatedAt: 2026-01-11
+priority: 4
 title: "`vite-env-only` & Intlayer – faux positif : import `node:fs` refusé"
 description: Pourquoi vite-env-only signale un import `node:fs` refusé avec Intlayer + React-Router + Vite et que faire.
 keywords:

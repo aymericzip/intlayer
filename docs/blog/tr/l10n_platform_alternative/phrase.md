@@ -1,6 +1,7 @@
 ---
 createdAt: 2025-12-18
 updatedAt: 2025-11-06
+priority: 8
 title: Phrase için L10n Platformu Alternatifi
 description: İhtiyaçlarınız için Phrase'e en uygun L10n platform alternatifini bulun
 keywords:

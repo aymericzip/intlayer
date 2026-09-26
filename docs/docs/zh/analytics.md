@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-07-08
 updatedAt: 2026-08-22
+priority: 8
 title: Intlayer Analytics | 跟踪内容曝光并运行 A/B 测试
 description: 探索 @intlayer/analytics 如何跟踪页面/区域设置浏览量和内容曝光，以及如何使用它对您的 Intlayer 内容运行 A/B 测试。
 keywords:

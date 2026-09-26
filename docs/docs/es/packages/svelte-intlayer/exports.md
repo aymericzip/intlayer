@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Documentación del paquete svelte-intlayer
 description: Integración específica para Svelte de Intlayer, que proporciona funciones de configuración y stores para aplicaciones Svelte.
 keywords:

@@ -1,6 +1,7 @@
 ---
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
+priority: 5
 title: Tài liệu hàm getLocale | intlayer
 description: Xem cách sử dụng hàm getLocale cho package intlayer
 keywords:
