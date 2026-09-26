@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-26
 priority: 5
 title: Scan Website
 description: Узнайте, как использовать команду scan в Intlayer CLI для измерения размера страницы и аудита i18n/SEO любого веб-сайта.
@@ -19,6 +19,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.11
+    date: 2026-09-26
+    changes: "Определение стратегии маршрутизации и i18n-стека (библиотеки, TMS); добавление проверок взаимности hreflang, og:locale и переключателя языков; поддержка карт сайта из robots.txt, индексов sitemap и sitemap в формате gzip"
   - version: 9.5.2
     date: 2026-09-12
     changes: "Добавлен флаг `--ci`"
@@ -30,7 +33,9 @@ author: aymericzip
 
 # Scan Website
 
-Команда `scan` запрашивает публичный URL, измеряет общий размер страницы и проверяет состояние i18n и SEO страницы. Она создает отчет с оценкой (0–100), охватывающий HTML-атрибуты, канонические ссылки, теги hreflang, robots.txt, sitemap.xml, локализованные внутренние ссылки и вес локалей в JavaScript-бандле.
+Команда `scan` запрашивает публичный URL, измеряет общий размер страницы и проверяет состояние i18n и SEO страницы. Она создает отчет с оценкой (0–100), охватывающий HTML-атрибуты, канонические ссылки, теги hreflang и обратные ссылки на них, robots.txt, карты сайта, локализованные внутренние ссылки и вес локалей в JavaScript-бандле.
+
+Она также сообщает, как сайт кодирует локаль в URL (стратегия маршрутизации), а также какой фреймворк, библиотеку i18n, систему управления переводами (TMS) или прокси переводов использует. Те же проверки работают в [онлайн i18n SEO-сканере](https://intlayer.org/i18n-seo-scanner) и в расширении Intlayer для Chrome.
 
 Никаких дополнительных зависимостей не требуется. Если установлен [puppeteer](https://pptr.dev/), сканирование может фиксировать лениво загружаемые (lazy-loaded) JavaScript-чанки для более точного анализа сборки; в противном случае оно проверяет только скрипты, объявленные в HTML для немедленной загрузки.
 
@@ -61,24 +66,37 @@ npx intlayer scan https://example.com
 Пример вывода:
 
 ```
-🔍 Scanned https://example.com (basic mode)
+🔍 Scanned https://example.com/fr (basic mode)
 
-Score: 90/100
+Score: 91/100
 Page size: 10.60 MB (HTML 42.31 KB)
-Locales: en, fr, es, de, …
+Locales: fr, en, es, de
+Routing: locale prefix except for the default locale (every hreflang alternate but "en" starts with a locale segment, default locale: en)
+
+Stack:
+  Framework Next.js 15.1.0 (window.next.version)
+  i18n library next-intl (JavaScript bundle contains "X-NEXT-INTL-LOCALE")
+  TMS Crowdin (loads https://distributions.crowdin.net/…)
 
 Checks:
   ✓ html lang attribute
   ✓ html dir attribute
+  ✓ locale signals consistent (lang, URL, hreflang)
+  ⚠ og:locale meta tag
+      Missing <meta property="og:locale">: social previews default to en_US
   ✓ canonical link
   ✓ hreflang tags
   ✓ x-default hreflang
+  ✓ hreflang alternates link back
+  ✓ unused bundle locale content
   ✓ localized internal links
-  ⚠ all internal links localized
-  ✓ current locale detected
+  ⚠ all internal links keep the locale
+      2 internal links leave the "fr" locale (0 to another locale, 2 without locale)
+        <a href="/pricing">Tarifs</a>
+  ✓ crawlable language switcher
   ✓ robots.txt present
-  ✓ robots.txt keeps locale paths crawlable
-  ✓ sitemap.xml present
+  ✓ robots.txt keeps localized URLs crawlable
+  ✓ sitemap present
   ✓ sitemap lists every locale
   ✓ sitemap has alternate links
   ✓ sitemap has x-default
@@ -120,27 +138,49 @@ Bundle locale weight:
 - **`--verbose`** — Включить подробное логирование (по умолчанию включено в режиме CLI).
 - **`--prefix`** — Кастомный префикс для логов.
 
+## Стратегия маршрутизации
+
+Шаблон локалей, общий для альтернатив hreflang страницы, показывает, как сайт маршрутизирует свои локали. Без альтернатив используется только сканируемый URL (низкий уровень уверенности).
+
+| Стратегия           | Пример                                      |
+| ------------------- | ------------------------------------------- |
+| `prefix-all`        | `/en/about`, `/fr/about`                    |
+| `prefix-no-default` | `/about` (локаль по умолчанию), `/fr/about` |
+| `search-params`     | `/about?lang=fr`                            |
+| `subdomain`         | `fr.example.com`                            |
+| `domain`            | `example.fr`, `example.de`                  |
+| `no-prefix`         | Один URL для всех локалей (cookie)          |
+
+Проверки ссылок, канонических URL, robots.txt и карты сайта анализируют каждый URL через эту стратегию. Например, ссылка без префикса корректна для локали по умолчанию на сайте с `prefix-no-default`, а ссылка без `?lang=` приводит к выходу из локали на сайте с `search-params`.
+
+## Обнаруженный стек
+
+Фреймворки, библиотеки интернационализации (Intlayer, i18next, react-i18next, next-i18next, next-intl, use-intl, react-intl, vue-i18n, @nuxtjs/i18n, Lingui, svelte-i18n, Paraglide, ngx-translate, Transloco, Polylang, WPML…), системы управления переводами (Crowdin, Phrase, Lokalise, locize, Transifex, Tolgee, Localazy, SimpleLocalize, Localizely, Smartling, Intlayer CMS) и прокси переводов (Weglot, Localize, GTranslate…) определяются по HTML, загруженным ресурсам и JavaScript-бандлам. В глубоком режиме также проверяются глобальные переменные window и cookie.
+
 ## Что проверяется
 
-| Проверка                  | Описание                                                      | Вес в оценке |
-| ------------------------- | ------------------------------------------------------------- | ------------ |
-| `html lang`               | Наличие атрибута `<html lang="…">`                            | 9            |
-| `html dir`                | Наличие атрибута `<html dir="…">`                             | 3            |
-| `canonical`               | Наличие тега `<link rel="canonical">`                         | 10           |
-| `hreflang`                | Наличие тегов `<link rel="alternate" hreflang="…">`           | 9            |
-| `x-default hreflang`      | Наличие альтернативного тега hreflang `x-default`             | 7            |
-| `localized links`         | Хотя бы одна внутренняя ссылка содержит сегмент локали        | 5            |
-| `all links localized`     | Каждая внутренняя ссылка содержит сегмент локали              | 5            |
-| `current locale`          | Локаль страницы может быть определена                         | 3            |
-| `robots.txt present`      | `/robots.txt` возвращает ответ 200                            | 10           |
-| `robots.txt locale paths` | Отсутствие блокировок путей локалей в robots.txt              | 10           |
-| `sitemap.xml present`     | `/sitemap.xml` возвращает ответ 200                           | 10           |
-| `sitemap locale coverage` | Каждая обнаруженная локаль представлена в карте сайта         | 10           |
-| `sitemap alternates`      | Карта сайта содержит альтернативные ссылки `hreflang`         | 5            |
-| `sitemap x-default`       | Карта сайта содержит альтернативную ссылку `x-default`        | 5            |
-| `unused bundle content`   | JS-бандл не содержит избыточных неиспользуемых данных локалей | 9            |
+| Проверка                        | Описание                                                                                           | Вес в оценке |
+| ------------------------------- | -------------------------------------------------------------------------------------------------- | ------------ |
+| `html lang`                     | `<html lang>` присутствует и содержит корректный тег BCP 47                                        | 9            |
+| `html dir`                      | `dir="rtl"` задан для языков с письмом справа налево (`ltr` используется по умолчанию)             | 3            |
+| `locale signals consistent`     | `<html lang>`, локаль URL и собственная запись hreflang согласуются между собой                    | 5            |
+| `og:locale`                     | `og:locale` задан и совпадает с `<html lang>`                                                      | 3            |
+| `canonical`                     | Каноническая ссылка существует и не указывает на версию для другой локали                          | 10           |
+| `hreflang`                      | Теги hreflang присутствуют с валидными кодами, абсолютными URL, без дубликатов и с ссылкой на себя | 9            |
+| `x-default hreflang`            | Присутствует альтернативный hreflang `x-default`                                                   | 7            |
+| `hreflang alternates link back` | Альтернативные страницы отвечают кодом 200, не перенаправляют, ссылаются в ответ и объявляют язык  | 8            |
+| `localized links`               | Внутренние ссылки указывают на текущую локаль страницы                                             | 8            |
+| `all links keep the locale`     | Ни одна внутренняя ссылка не переключает и не сбрасывает локаль                                    | 6            |
+| `language switcher`             | Присутствуют доступные для сканирования ссылки `<a href>` на другие языковые версии страницы       | 6            |
+| `robots.txt present`            | `/robots.txt` возвращает ответ 200                                                                 | 10           |
+| `robots.txt localized URLs`     | Ни сайт, ни его локализованные URL не заблокированы для Googlebot                                  | 8            |
+| `sitemap present`               | Карта сайта найдена (директивы `Sitemap:` в robots.txt, `/sitemap.xml`, `/sitemap_index.xml`)      | 10           |
+| `sitemap locale coverage`       | Каждая локаль указана, а записи с альтернативами содержат ссылку на самих себя                     | 9            |
+| `sitemap alternates`            | Карта сайта содержит альтернативные ссылки `hreflang`                                              | 8            |
+| `sitemap x-default`             | Карта сайта содержит альтернативную ссылку `x-default`                                             | 7            |
+| `unused bundle content`         | Основной JS-бандл не содержит переводов для других локалей                                         | 8            |
 
-Итоговая оценка представляет собой средневзвешенную сумму всех пройденных проверок, выраженную в процентах (0–100).
+Предупреждение дает половину веса оценки. Итоговая оценка представляет собой средневзвешенную сумму всех выполненных проверок, выраженную в процентах (0–100). Непройденные проверки выводят первые обнаруженные проблемы; используйте `--json` для получения полной информации.
 
 ## Использование функции сканирования в коде
 

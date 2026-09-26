@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-26
 priority: 5
 title: वेबसाइट स्कैन करें
 description: किसी भी वेबसाइट के पेज आकार को मापने और i18n/SEO स्वास्थ्य का ऑडिट करने के लिए Intlayer CLI scan कमांड का उपयोग करने का तरीका जानें।
@@ -19,6 +19,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.11
+    date: 2026-09-26
+    changes: "रूटिंग रणनीति और i18n स्टैक (लाइब्रेरी, TMS) का पता लगाना; hreflang पारस्परिकता, og:locale और भाषा स्विचर की जाँच जोड़ना; robots.txt साइटमैप, साइटमैप इंडेक्स और gzip संपीड़ित साइटमैप को ट्रैक करना"
   - version: 9.5.2
     date: 2026-09-12
     changes: "`--ci` फ़्लैग जोड़ा गया"
@@ -30,7 +33,9 @@ author: aymericzip
 
 # वेबसाइट स्कैन करें
 
-`scan` कमांड एक सार्वजनिक URL प्राप्त करता है, कुल पेज आकार को मापता है, और पेज के i18n और SEO स्वास्थ्य का ऑडिट करता है। यह एक स्कोर रिपोर्ट (0-100) तैयार करता है जिसमें HTML विशेषताएँ, कैनोनिकल लिंक, hreflang टैग, robots.txt, sitemap.xml, स्थानीयकृत आंतरिक लिंक और JavaScript बंडल में स्थानीयकरण डेटा का भार शामिल होता है।
+`scan` कमांड एक सार्वजनिक URL प्राप्त करता है, कुल पेज आकार को मापता है, और पेज के i18n और SEO स्वास्थ्य का ऑडिट करता है। यह एक स्कोर रिपोर्ट (0-100) तैयार करता है जिसमें HTML विशेषताएँ, कैनोनिकल लिंक, hreflang टैग और उनके रिटर्न लिंक, robots.txt, साइटमैप, स्थानीयकृत आंतरिक लिंक और JavaScript बंडल में स्थानीयकरण डेटा का भार शामिल होता है।
+
+यह यह भी रिपोर्ट करता है कि साइट अपने URL में भाषा (locale) को कैसे एनकोड करती है (रूटिंग रणनीति) और कौन सा फ्रेमवर्क, i18n लाइब्रेरी, अनुवाद प्रबंधन प्रणाली (TMS) या अनुवाद प्रॉक्सी उपयोग करती है। यही जाँच [ऑनलाइन i18n SEO स्कैनर](https://intlayer.org/i18n-seo-scanner) और Intlayer Chrome एक्सटेंशन को संचालित करती है।
 
 किसी अतिरिक्त निर्भरता की आवश्यकता नहीं है। जब [puppeteer](https://pptr.dev/) स्थापित होता है, तो स्कैन अधिक सटीक बंडल विश्लेषण के लिए धीरे-धीरे लोड होने वाले (lazy-loaded) JavaScript टुकड़ों को कैप्चर कर सकता है; अन्यथा यह HTML में घोषित सीधे लोड होने वाली लिपियों के निरीक्षण पर वापस आ जाता है।
 
@@ -61,24 +66,37 @@ npx intlayer scan https://example.com
 नमूना आउटपुट:
 
 ```
-🔍 Scanned https://example.com (basic mode)
+🔍 Scanned https://example.com/fr (basic mode)
 
-Score: 90/100
+Score: 91/100
 Page size: 10.60 MB (HTML 42.31 KB)
-Locales: en, fr, es, de, …
+Locales: fr, en, es, de
+Routing: locale prefix except for the default locale (every hreflang alternate but "en" starts with a locale segment, default locale: en)
+
+Stack:
+  Framework Next.js 15.1.0 (window.next.version)
+  i18n library next-intl (JavaScript bundle contains "X-NEXT-INTL-LOCALE")
+  TMS Crowdin (loads https://distributions.crowdin.net/…)
 
 Checks:
   ✓ html lang attribute
   ✓ html dir attribute
+  ✓ locale signals consistent (lang, URL, hreflang)
+  ⚠ og:locale meta tag
+      Missing <meta property="og:locale">: social previews default to en_US
   ✓ canonical link
   ✓ hreflang tags
   ✓ x-default hreflang
+  ✓ hreflang alternates link back
+  ✓ unused bundle locale content
   ✓ localized internal links
-  ⚠ all internal links localized
-  ✓ current locale detected
+  ⚠ all internal links keep the locale
+      2 internal links leave the "fr" locale (0 to another locale, 2 without locale)
+        <a href="/pricing">Tarifs</a>
+  ✓ crawlable language switcher
   ✓ robots.txt present
-  ✓ robots.txt keeps locale paths crawlable
-  ✓ sitemap.xml present
+  ✓ robots.txt keeps localized URLs crawlable
+  ✓ sitemap present
   ✓ sitemap lists every locale
   ✓ sitemap has alternate links
   ✓ sitemap has x-default
@@ -120,27 +138,49 @@ puppeteer उपलब्ध होने पर भी मूल मोड क�
 - **`--verbose`** — विस्तृत लॉगिंग सक्षम करें (CLI मोड में डिफ़ॉल्ट)।
 - **`--prefix`** — कस्टम लॉग उपसर्ग।
 
+## रूटिंग रणनीति
+
+पेज के hreflang विकल्पों द्वारा साझा किया गया भाषा पैटर्न यह दर्शाता है कि साइट अपनी भाषाओं को कैसे रूट करती है। विकल्पों के बिना, केवल स्कैन किए गए URL का उपयोग किया जाता है (कम विश्वसनीयता)।
+
+| रणनीति              | उदाहरण                                  |
+| ------------------- | --------------------------------------- |
+| `prefix-all`        | `/en/about`, `/fr/about`                |
+| `prefix-no-default` | `/about` (डिफ़ॉल्ट भाषा), `/fr/about`   |
+| `search-params`     | `/about?lang=fr`                        |
+| `subdomain`         | `fr.example.com`                        |
+| `domain`            | `example.fr`, `example.de`              |
+| `no-prefix`         | प्रत्येक भाषा के लिए एक ही URL (cookie) |
+
+लिंक, कैनोनिकल, robots.txt और साइटमैप की जाँच इस रणनीति के माध्यम से प्रत्येक URL का विश्लेषण करती है। उदाहरण के लिए, एक बिना उपसर्ग वाला लिंक `prefix-no-default` साइट की डिफ़ॉल्ट भाषा पर सही है, और बिना `?lang=` वाला लिंक `search-params` साइट पर भाषा से बाहर निकलता है।
+
+## पहचाना गया स्टैक
+
+फ्रेमवर्क, i18n लाइब्रेरीज़ (Intlayer, i18next, react-i18next, next-i18next, next-intl, use-intl, react-intl, vue-i18n, @nuxtjs/i18n, Lingui, svelte-i18n, Paraglide, ngx-translate, Transloco, Polylang, WPML…), अनुवाद प्रबंधन प्रणालियाँ (Crowdin, Phrase, Lokalise, locize, Transifex, Tolgee, Localazy, SimpleLocalize, Localizely, Smartling, Intlayer CMS) और अनुवाद प्रॉक्सी (Weglot, Localize, GTranslate…) HTML, लोड किए गए संसाधनों और JavaScript बंडलों से पहचाने जाते हैं। डीप मोड window ग्लोबल वेरिएबल्स और कुकीज़ को भी पढ़ता है।
+
 ## क्या जाँच की जाती है
 
-| जाँच                      | विवरण                                               | स्कोर भार |
-| ------------------------- | --------------------------------------------------- | --------- |
-| `html lang`               | `<html lang="…">` विशेषता मौजूद है                  | 9         |
-| `html dir`                | `<html dir="…">` विशेषता मौजूद है                   | 3         |
-| `canonical`               | `<link rel="canonical">` मौजूद है                   | 10        |
-| `hreflang`                | `<link rel="alternate" hreflang="…">` टैग मौजूद हैं | 9         |
-| `x-default hreflang`      | एक `x-default` hreflang विकल्प मौजूद है             | 7         |
-| `localized links`         | कम से कम एक आंतरिक लिंक में भाषा खंड शामिल है       | 5         |
-| `all links localized`     | प्रत्येक आंतरिक लिंक में भाषा खंड शामिल है          | 5         |
-| `current locale`          | पेज की भाषा का पता लगाया जा सकता है                 | 3         |
-| `robots.txt present`      | `/robots.txt` एक 200 प्रतिक्रिया देता है            | 10        |
-| `robots.txt locale paths` | robots.txt में कोई भी भाषा पथ अवरुद्ध नहीं है       | 10        |
-| `sitemap.xml present`     | `/sitemap.xml` एक 200 प्रतिक्रिया देता है           | 10        |
-| `sitemap locale coverage` | प्रत्येक पहचानी गई भाषा साइटमैप में दिखाई देती है   | 10        |
-| `sitemap alternates`      | साइटमैप में `hreflang` वैकल्पिक लिंक शामिल हैं      | 5         |
-| `sitemap x-default`       | साइटमैप में `x-default` hreflang शामिल है           | 5         |
-| `unused bundle content`   | JS बंडल अत्यधिक अप्रयुक्त भाषा डेटा नहीं ले जाता है | 9         |
+| जाँच                            | विवरण                                                                                                     | स्कोर भार |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------- | --------- |
+| `html lang`                     | `<html lang>` मौजूद है और एक मान्य BCP 47 टैग है                                                          | 9         |
+| `html dir`                      | दाएँ से बाएँ लिखी जाने वाली भाषाओं के लिए `dir="rtl"` सेट है (`ltr` डिफ़ॉल्ट है)                          | 3         |
+| `locale signals consistent`     | `<html lang>`, URL की भाषा और स्वयं-संदर्भ hreflang प्रविष्टि एक दूसरे से मेल खाते हैं                    | 5         |
+| `og:locale`                     | `og:locale` सेट है और `<html lang>` से मेल खाता है                                                        | 3         |
+| `canonical`                     | एक कैनोनिकल लिंक मौजूद है और किसी अन्य भाषा संस्करण की ओर इंगित नहीं करता है                              | 10        |
+| `hreflang`                      | मान्य कोड, पूर्ण URL, बिना दोहराव और स्वयं-संदर्भ के साथ hreflang टैग मौजूद हैं                           | 9         |
+| `x-default hreflang`            | एक `x-default` hreflang विकल्प मौजूद है                                                                   | 7         |
+| `hreflang alternates link back` | विकल्प 200 के साथ उत्तर देते हैं, पुनर्निर्देशित नहीं होते हैं, वापस लिंक करते हैं और भाषा घोषित करते हैं | 8         |
+| `localized links`               | आंतरिक लिंक पेज की भाषा की ओर इंगित करते हैं                                                              | 8         |
+| `all links keep the locale`     | कोई भी आंतरिक लिंक भाषा को बदलता या हटाता नहीं है                                                         | 6         |
+| `language switcher`             | अन्य भाषा संस्करणों के लिए क्रॉल करने योग्य `<a href>` लिंक मौजूद हैं                                     | 6         |
+| `robots.txt present`            | `/robots.txt` एक 200 प्रतिक्रिया देता है                                                                  | 10        |
+| `robots.txt localized URLs`     | न तो साइट और न ही इसके स्थानीयकृत URL Googlebot के लिए अवरुद्ध हैं                                        | 8         |
+| `sitemap present`               | एक साइटमैप पाया जाता है (robots.txt `Sitemap:` निर्देश, `/sitemap.xml`, `/sitemap_index.xml`)             | 10        |
+| `sitemap locale coverage`       | प्रत्येक भाषा सूचीबद्ध है, और विकल्पों वाली प्रविष्टियाँ स्वयं को भी सूचीबद्ध करती हैं                    | 9         |
+| `sitemap alternates`            | साइटमैप में `hreflang` वैकल्पिक लिंक शामिल हैं                                                            | 8         |
+| `sitemap x-default`             | साइटमैप में एक `x-default` hreflang शामिल है                                                              | 7         |
+| `unused bundle content`         | मुख्य JS बंडल अन्य भाषाओं के अनुवाद नहीं ले जाता है                                                       | 8         |
 
-अंतिम स्कोर उत्तीर्ण की गई सभी जाँचों का भारित योग प्रतिशत में (0-100) होता है।
+चेतावनी को आधा भार मिलता है। अंतिम स्कोर चलाए गए परीक्षणों का भारित योग प्रतिशत (0-100) के रूप में होता है। असफल परीक्षण पहली मिली समस्याओं को प्रिंट करते हैं; पूर्ण विवरण के लिए `--json` का उपयोग करें।
 
 ## प्रोग्रामेटिक रूप से स्कैन फ़ंक्शन का उपयोग करना
 

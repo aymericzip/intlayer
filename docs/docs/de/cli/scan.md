@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-26
 priority: 5
 title: Website scannen
 description: Erfahren Sie, wie Sie den Intlayer-CLI-Scanbefehl verwenden, um die Seitengröße zu messen und die i18n/SEO-Gesundheit einer beliebigen Website zu überprüfen.
@@ -19,6 +19,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.11
+    date: 2026-09-26
+    changes: "Routing-Strategie und i18n-Stack (Bibliotheken, TMS) erkennen; Überprüfungen für hreflang-Gegenseitigkeit, og:locale und Sprachumschalter hinzufügen; robots.txt-Sitemaps, Sitemap-Indizes und gzip-komprimierten Sitemaps folgen"
   - version: 9.5.2
     date: 2026-09-12
     changes: "Flag `--ci` hinzugefügt"
@@ -30,7 +33,9 @@ author: aymericzip
 
 # Website scannen
 
-Der Befehl `scan` ruft eine öffentliche URL ab, misst die Gesamtseitengröße und überprüft die i18n- und SEO-Gesundheit der Seite. Er erstellt einen bewerteten Bericht (0–100), der HTML-Attribute, kanonische Links, hreflang-Tags, robots.txt, sitemap.xml, lokalisierte interne Links und das Gewicht der Lokalisierungsdaten im JavaScript-Bundle abdeckt.
+Der Befehl `scan` ruft eine öffentliche URL ab, misst die Gesamtseitengröße und überprüft die i18n- und SEO-Gesundheit der Seite. Er erstellt einen bewerteten Bericht (0–100), der HTML-Attribute, kanonische Links, hreflang-Tags und deren Rückverweise, robots.txt, Sitemaps, lokalisierte interne Links und das Gewicht der Lokalisierungsdaten im JavaScript-Bundle abdeckt.
+
+Er berichtet außerdem darüber, wie die Website die Locale in ihren URLs kodiert (Routing-Strategie) und welches Framework, welche i18n-Bibliothek, welches Translation-Management-System (TMS) oder welcher Übersetzungsproxy verwendet wird. Dieselben Überprüfungen treiben den [Online-i18n-SEO-Scanner](https://intlayer.org/i18n-seo-scanner) und die Intlayer Chrome-Erweiterung an.
 
 Es sind keine zusätzlichen Abhängigkeiten erforderlich. Wenn [puppeteer](https://pptr.dev/) installiert ist, kann der Scan träge geladene (lazy-loaded) JavaScript-Chunks erfassen, um eine präzisere Bundle-Analyse durchzuführen. Andernfalls fällt er auf die Überprüfung der im HTML deklarierten, direkt geladenen Skripte zurück.
 
@@ -61,24 +66,37 @@ npx intlayer scan https://example.com
 Beispielausgabe:
 
 ```
-🔍 Scanned https://example.com (basic mode)
+🔍 Scanned https://example.com/fr (basic mode)
 
-Score: 90/100
+Score: 91/100
 Page size: 10.60 MB (HTML 42.31 KB)
-Locales: en, fr, es, de, …
+Locales: fr, en, es, de
+Routing: locale prefix except for the default locale (every hreflang alternate but "en" starts with a locale segment, default locale: en)
+
+Stack:
+  Framework Next.js 15.1.0 (window.next.version)
+  i18n library next-intl (JavaScript bundle contains "X-NEXT-INTL-LOCALE")
+  TMS Crowdin (loads https://distributions.crowdin.net/…)
 
 Checks:
   ✓ html lang attribute
   ✓ html dir attribute
+  ✓ locale signals consistent (lang, URL, hreflang)
+  ⚠ og:locale meta tag
+      Missing <meta property="og:locale">: social previews default to en_US
   ✓ canonical link
   ✓ hreflang tags
   ✓ x-default hreflang
+  ✓ hreflang alternates link back
+  ✓ unused bundle locale content
   ✓ localized internal links
-  ⚠ all internal links localized
-  ✓ current locale detected
+  ⚠ all internal links keep the locale
+      2 internal links leave the "fr" locale (0 to another locale, 2 without locale)
+        <a href="/pricing">Tarifs</a>
+  ✓ crawlable language switcher
   ✓ robots.txt present
-  ✓ robots.txt keeps locale paths crawlable
-  ✓ sitemap.xml present
+  ✓ robots.txt keeps localized URLs crawlable
+  ✓ sitemap present
   ✓ sitemap lists every locale
   ✓ sitemap has alternate links
   ✓ sitemap has x-default
@@ -120,27 +138,49 @@ Gibt das vollständige Scan-Ergebnis als JSON-Objekt anstelle eines formatierten
 - **`--verbose`** — Ausführliche Protokollierung aktivieren (Standardwert im CLI-Modus).
 - **`--prefix`** — Benutzerdefiniertes Protokollpräfix.
 
+## Routing-Strategie
+
+Das Locale-Muster, das sich die hreflang-Alternativen der Seite teilen, zeigt, wie die Website ihre Locales routet. Ohne Alternativen wird nur die gescannte URL verwendet (geringe Konfidenz).
+
+| Strategie           | Beispiel                                |
+| ------------------- | --------------------------------------- |
+| `prefix-all`        | `/en/about`, `/fr/about`                |
+| `prefix-no-default` | `/about` (Standard-Locale), `/fr/about` |
+| `search-params`     | `/about?lang=fr`                        |
+| `subdomain`         | `fr.example.com`                        |
+| `domain`            | `example.fr`, `example.de`              |
+| `no-prefix`         | Eine URL für jede Locale (Cookie)       |
+
+Überprüfungen von Links, kanonischen URLs, robots.txt und Sitemaps lesen jede URL über diese Strategie. Beispielsweise ist ein Link ohne Präfix auf der Standard-Locale einer `prefix-no-default`-Website korrekt, während ein Link ohne `?lang=` auf einer `search-params`-Website die Locale verlässt.
+
+## Erkannter Stack
+
+Frameworks, i18n-Bibliotheken (Intlayer, i18next, react-i18next, next-i18next, next-intl, use-intl, react-intl, vue-i18n, @nuxtjs/i18n, Lingui, svelte-i18n, Paraglide, ngx-translate, Transloco, Polylang, WPML…), Translation-Management-Systeme (Crowdin, Phrase, Lokalise, locize, Transifex, Tolgee, Localazy, SimpleLocalize, Localizely, Smartling, Intlayer CMS) und Übersetzungsproxys (Weglot, Localize, GTranslate…) werden aus dem HTML, den geladenen Ressourcen und den JavaScript-Bundles identifiziert. Der Tiefenmodus liest auch globale window-Variablen und Cookies aus.
+
 ## Was überprüft wird
 
-| Überprüfung               | Beschreibung                                                    | Gewichtung der Bewertung |
-| ------------------------- | --------------------------------------------------------------- | ------------------------ |
-| `html lang`               | Das Attribut `<html lang="…">` ist vorhanden                    | 9                        |
-| `html dir`                | Das Attribut `<html dir="…">` ist vorhanden                     | 3                        |
-| `canonical`               | `<link rel="canonical">` ist vorhanden                          | 10                       |
-| `hreflang`                | `<link rel="alternate" hreflang="…">`-Tags sind vorhanden       | 9                        |
-| `x-default hreflang`      | Ein `x-default` hreflang-Alternativlink ist vorhanden           | 7                        |
-| `localized links`         | Mindestens ein interner Link enthält ein Sprachsegment          | 5                        |
-| `all links localized`     | Jeder interne Link enthält ein Sprachsegment                    | 5                        |
-| `current locale`          | Die Sprache der Seite kann erkannt werden                       | 3                        |
-| `robots.txt present`      | `/robots.txt` gibt eine 200-Antwort zurück                      | 10                       |
-| `robots.txt locale paths` | Kein Sprachpfad wird in robots.txt blockiert                    | 10                       |
-| `sitemap.xml present`     | `/sitemap.xml` gibt eine 200-Antwort zurück                     | 10                       |
-| `sitemap locale coverage` | Jede erkannte Sprache erscheint in der Sitemap                  | 10                       |
-| `sitemap alternates`      | Die Sitemap enthält `hreflang`-Alternativlinks                  | 5                        |
-| `sitemap x-default`       | Die Sitemap enthält einen `x-default` hreflang                  | 5                        |
-| `unused bundle content`   | Das JS-Bundle enthält keine übermäßigen ungenutzten Sprachdaten | 9                        |
+| Überprüfung                     | Beschreibung                                                                                              | Gewichtung der Bewertung |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------ |
+| `html lang`                     | `<html lang>` ist vorhanden und ein gültiger BCP 47-Tag                                                   | 9                        |
+| `html dir`                      | `dir="rtl"` ist für von rechts nach links geschriebene Sprachen gesetzt (`ltr` ist der Standardwert)      | 3                        |
+| `locale signals consistent`     | `<html lang>`, die URL-Locale und der eigene hreflang-Eintrag stimmen überein                             | 5                        |
+| `og:locale`                     | `og:locale` ist gesetzt und stimmt mit `<html lang>` überein                                              | 3                        |
+| `canonical`                     | Ein kanonischer Link existiert und verweist nicht auf eine andere Sprachversion                           | 10                       |
+| `hreflang`                      | hreflang-Tags existieren, mit gültigen Codes, absoluten URLs, ohne Duplikate und mit einer Selbstreferenz | 9                        |
+| `x-default hreflang`            | Ein `x-default` hreflang-Alternativlink ist vorhanden                                                     | 7                        |
+| `hreflang alternates link back` | Alternativen antworten mit 200, werden nicht weitergeleitet, verlinken zurück und deklarieren die Sprache | 8                        |
+| `localized links`               | Interne Links verweisen auf die Locale der Seite                                                          | 8                        |
+| `all links keep the locale`     | Kein interner Link wechselt oder verliert die Locale                                                      | 6                        |
+| `language switcher`             | Crawlbare `<a href>`-Links zu den anderen Sprachversionen existieren                                      | 6                        |
+| `robots.txt present`            | `/robots.txt` gibt eine 200-Antwort zurück                                                                | 10                       |
+| `robots.txt localized URLs`     | Weder die Website noch ihre lokalisierten URLs sind für den Googlebot blockiert                           | 8                        |
+| `sitemap present`               | Eine Sitemap wird gefunden (robots.txt `Sitemap:`-Direktiven, `/sitemap.xml`, `/sitemap_index.xml`)       | 10                       |
+| `sitemap locale coverage`       | Jede Locale ist aufgeführt, und Einträge mit Alternativen führen sich selbst auf                          | 9                        |
+| `sitemap alternates`            | Die Sitemap enthält `hreflang`-Alternativlinks                                                            | 8                        |
+| `sitemap x-default`             | Die Sitemap enthält einen `x-default` hreflang                                                            | 7                        |
+| `unused bundle content`         | Das Haupt-JS-Bundle liefert keine Übersetzungen anderer Locales aus                                       | 8                        |
 
-Die endgültige Bewertung ist die gewichtete Summe aller erfolgreichen Überprüfungen, ausgedrückt als Prozentsatz (0–100).
+Eine Warnung erhält die Hälfte der Gewichtung. Die endgültige Bewertung ist die gewichtete Summe der ausgeführten Überprüfungen, ausgedrückt als Prozentsatz (0–100). Fehlgeschlagene Überprüfungen geben die ersten gefundenen Probleme aus; verwenden Sie `--json` für alle Details.
 
 ## Verwendung der Scan-Funktion im Code (programmatisch)
 

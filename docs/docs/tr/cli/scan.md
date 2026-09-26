@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-26
 priority: 5
 title: Web Sitesini Tara
 description: Herhangi bir web sitesinin sayfa boyutunu ölçmek ve i18n/SEO durumunu denetlemek için Intlayer CLI scan komutunu nasıl kullanacağınızı öğrenin.
@@ -19,6 +19,9 @@ slugs:
   - cli
   - scan
 history:
+  - version: 9.5.11
+    date: 2026-09-26
+    changes: "Yönlendirme stratejisini ve i18n yığınını (kütüphaneler, TMS) tespit edin; hreflang karşılıklılığı, og:locale ve dil değiştirici kontrolleri ekleyin; robots.txt site haritalarını, site haritası dizinlerini ve gzip sıkıştırmalı site haritalarını takip edin"
   - version: 9.5.2
     date: 2026-09-12
     changes: "`--ci` bayrağı eklendi"
@@ -30,7 +33,9 @@ author: aymericzip
 
 # Web Sitesini Tara
 
-`scan` komutu, herkese açık bir URL'yi getirir, toplam sayfa boyutunu ölçer ve sayfanın i18n ile SEO durumunu denetler. HTML özniteliklerini, kurallı (canonical) bağlantıları, hreflang etiketlerini, robots.txt, sitemap.xml dosyalarını, yerelleştirilmiş dahili bağlantıları ve JavaScript paketi dil ağırlığını kapsayan puanlı bir rapor (0–100) üretir.
+`scan` komutu, herkese açık bir URL'yi getirir, toplam sayfa boyutunu ölçer ve sayfanın i18n ile SEO durumunu denetler. HTML özniteliklerini, kurallı (canonical) bağlantıları, hreflang etiketlerini ve dönüş bağlantılarını, robots.txt dosyasını, site haritalarını, yerelleştirilmiş dahili bağlantıları ve JavaScript paketindeki yerel ayar ağırlığını kapsayan puanlı bir rapor (0–100) üretir.
+
+Ayrıca sitenin URL'lerinde yerel ayarı nasıl kodladığını (yönlendirme stratejisi) ve hangi çerçeveyi, i18n kütüphanesini, çeviri yönetim sistemini (TMS) veya çeviri vekil sunucusunu kullandığını raporlar. Aynı kontroller [çevrimiçi i18n SEO tarayıcısını](https://intlayer.org/i18n-seo-scanner) ve Intlayer Chrome uzantısını güçlendirir.
 
 Ekstra bağımlılık gerekmez. [puppeteer](https://pptr.dev/) kurulu olduğunda tarama işlemi, daha hassas bir paket analizi için geç yüklenen (lazy-loaded) JavaScript parçalarını yakalayabilir; aksi takdirde HTML'de bildirilen doğrudan yüklenen betikleri incelemeye geri döner.
 
@@ -61,24 +66,37 @@ npx intlayer scan https://example.com
 Örnek çıktı:
 
 ```
-🔍 Scanned https://example.com (basic mode)
+🔍 Scanned https://example.com/fr (basic mode)
 
-Score: 90/100
+Score: 91/100
 Page size: 10.60 MB (HTML 42.31 KB)
-Locales: en, fr, es, de, …
+Locales: fr, en, es, de
+Routing: locale prefix except for the default locale (every hreflang alternate but "en" starts with a locale segment, default locale: en)
+
+Stack:
+  Framework Next.js 15.1.0 (window.next.version)
+  i18n library next-intl (JavaScript bundle contains "X-NEXT-INTL-LOCALE")
+  TMS Crowdin (loads https://distributions.crowdin.net/…)
 
 Checks:
   ✓ html lang attribute
   ✓ html dir attribute
+  ✓ locale signals consistent (lang, URL, hreflang)
+  ⚠ og:locale meta tag
+      Missing <meta property="og:locale">: social previews default to en_US
   ✓ canonical link
   ✓ hreflang tags
   ✓ x-default hreflang
+  ✓ hreflang alternates link back
+  ✓ unused bundle locale content
   ✓ localized internal links
-  ⚠ all internal links localized
-  ✓ current locale detected
+  ⚠ all internal links keep the locale
+      2 internal links leave the "fr" locale (0 to another locale, 2 without locale)
+        <a href="/pricing">Tarifs</a>
+  ✓ crawlable language switcher
   ✓ robots.txt present
-  ✓ robots.txt keeps locale paths crawlable
-  ✓ sitemap.xml present
+  ✓ robots.txt keeps localized URLs crawlable
+  ✓ sitemap present
   ✓ sitemap lists every locale
   ✓ sitemap has alternate links
   ✓ sitemap has x-default
@@ -120,27 +138,49 @@ Biçimlendirilmiş bir rapor yerine tarama sonucunun tamamını bir JSON nesnesi
 - **`--verbose`** — Ayrıntılı günlüğe kaydetmeyi etkinleştirir (CLI modunda varsayılan).
 - **`--prefix`** — Özel günlük ön eki.
 
+## Yönlendirme stratejisi
+
+Sayfanın hreflang alternatifleri tarafından paylaşılan yerel ayar deseni, sitenin dillerini nasıl yönlendirdiğini ortaya çıkarır. Alternatifler olmadığında yalnızca taranan URL kullanılır (düşük güvenilirlik).
+
+| Strateji            | Örnek                                  |
+| ------------------- | -------------------------------------- |
+| `prefix-all`        | `/en/about`, `/fr/about`               |
+| `prefix-no-default` | `/about` (varsayılan dil), `/fr/about` |
+| `search-params`     | `/about?lang=fr`                       |
+| `subdomain`         | `fr.example.com`                       |
+| `domain`            | `example.fr`, `example.de`             |
+| `no-prefix`         | Her dil için tek URL (çerez)           |
+
+Bağlantı, canonical, robots.txt ve site haritası kontrolleri her URL'yi bu strateji üzerinden okur. Örneğin, ön eksiz bir bağlantı `prefix-no-default` bir sitenin varsayılan dilinde doğrudur, `search-params` bir sitede ise `?lang=` içermeyen bir bağlantı dilden ayrılır.
+
+## Tespit edilen yığın
+
+Çerçeveler, i18n kütüphaneleri (Intlayer, i18next, react-i18next, next-i18next, next-intl, use-intl, react-intl, vue-i18n, @nuxtjs/i18n, Lingui, svelte-i18n, Paraglide, ngx-translate, Transloco, Polylang, WPML…), çeviri yönetim sistemleri (Crowdin, Phrase, Lokalise, locize, Transifex, Tolgee, Localazy, SimpleLocalize, Localizely, Smartling, Intlayer CMS) ve çeviri vekilleri (Weglot, Localize, GTranslate…) HTML'den, yüklenen kaynaklardan ve JavaScript paketlerinden tanımlanır. Derin mod ayrıca window genel değişkenlerini ve çerezleri de okur.
+
 ## Neler kontrol edilir?
 
-| Kontrol                   | Açıklama                                                    | Puan Ağırlığı |
-| ------------------------- | ----------------------------------------------------------- | ------------- |
-| `html lang`               | `<html lang="…">` özniteliği mevcut                         | 9             |
-| `html dir`                | `<html dir="…">` özniteliği mevcut                          | 3             |
-| `canonical`               | `<link rel="canonical">` mevcut                             | 10            |
-| `hreflang`                | `<link rel="alternate" hreflang="…">` etiketleri mevcut     | 9             |
-| `x-default hreflang`      | Bir `x-default` hreflang alternatifi mevcut                 | 7             |
-| `localized links`         | En az bir dahili bağlantı bir dil segmenti içeriyor         | 5             |
-| `all links localized`     | Her dahili bağlantı bir dil segmenti içeriyor               | 5             |
-| `current locale`          | Sayfa dili algılanabiliyor                                  | 3             |
-| `robots.txt present`      | `/robots.txt` 200 yanıtı döndürüyor                         | 10            |
-| `robots.txt locale paths` | robots.txt dosyasında hiçbir dil yolu engellenmemiş         | 10            |
-| `sitemap.xml present`     | `/sitemap.xml` 200 yanıtı döndürüyor                        | 10            |
-| `sitemap locale coverage` | Algılanan her dil site haritasında görünüyor                | 10            |
-| `sitemap alternates`      | Site haritası `hreflang` alternatif bağlantılarını içeriyor | 5             |
-| `sitemap x-default`       | Site haritası bir `x-default` hreflang içeriyor             | 5             |
-| `unused bundle content`   | JS paketi aşırı kullanılmayan dil verisi taşımıyor          | 9             |
+| Kontrol                         | Açıklama                                                                                               | Puan Ağırlığı |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------- |
+| `html lang`                     | `<html lang>` mevcut ve geçerli bir BCP 47 etiketidir                                                  | 9             |
+| `html dir`                      | Sağdan sola yazılan diller için `dir="rtl"` ayarlanmıştır (`ltr` varsayılandır)                        | 3             |
+| `locale signals consistent`     | `<html lang>`, URL dili ve kendi kendine başvuran hreflang girdisi birbiriyle uyuşuyor                 | 5             |
+| `og:locale`                     | `og:locale` ayarlanmış ve `<html lang>` ile eşleşiyor                                                  | 3             |
+| `canonical`                     | Bir canonical bağlantı mevcut ve başka bir dil sürümüne işaret etmiyor                                 | 10            |
+| `hreflang`                      | Geçerli kodlar, mutlak URL'ler, yinelemesiz ve kendi kendine başvuru içeren hreflang etiketleri mevcut | 9             |
+| `x-default hreflang`            | Bir `x-default` hreflang alternatifi mevcut                                                            | 7             |
+| `hreflang alternates link back` | Alternatifler 200 ile yanıt veriyor, yönlendirilmiyor, geri bağlantı sağlıyor ve dili bildiriyor       | 8             |
+| `localized links`               | Dahili bağlantılar sayfa diline işaret ediyor                                                          | 8             |
+| `all links keep the locale`     | Hiçbir dahili bağlantı dili değiştirmiyor veya bırakmıyor                                              | 6             |
+| `language switcher`             | Diğer dil sürümlerine yönlendiren taranabilir `<a href>` bağlantıları mevcut                           | 6             |
+| `robots.txt present`            | `/robots.txt` 200 yanıtı döndürüyor                                                                    | 10            |
+| `robots.txt localized URLs`     | Ne site ne de yerelleştirilmiş URL'leri Googlebot için engellenmemiş                                   | 8             |
+| `sitemap present`               | Bir site haritası bulundu (robots.txt `Sitemap:` yönergeleri, `/sitemap.xml`, `/sitemap_index.xml`)    | 10            |
+| `sitemap locale coverage`       | Her dil listelenmiş ve alternatifleri olan girdiler kendilerini de listeliyor                          | 9             |
+| `sitemap alternates`            | Site haritası `hreflang` alternatif bağlantılarını içeriyor                                            | 8             |
+| `sitemap x-default`             | Site haritası bir `x-default` hreflang içeriyor                                                        | 7             |
+| `unused bundle content`         | Ana JS paketi diğer dillerin çevirilerini taşımıyor                                                    | 8             |
 
-Nihai puan, geçen tüm kontrollerin ağırlıklı yüzdelik toplamıdır (0–100).
+Bir uyarı ağırlığın yarısını kazandırır. Nihai puan, çalıştırılan kontrollerin ağırlıklı toplamının yüzde olarak ifadesidir (0–100). Başarısız kontroller ilk bulunan sorunları yazdırır; tüm ayrıntılar için `--json` kullanın.
 
 ## Tarama işlevini programlı olarak kullanma
 
