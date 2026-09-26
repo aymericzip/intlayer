@@ -78,10 +78,15 @@ export const nuxtjsI18nModule: NuxtModule<NuxtI18nOptions> =
         filePath: RUNTIME_MODULE,
       });
 
-      addPlugin({
-        src: resolver.resolve('./runtime/nuxtPlugin'),
-        mode: 'all',
-      });
+      // Appended: it must run after nuxt-intlayer's plugin, which installs
+      // the intlayer client (`addPlugin` prepends by default).
+      addPlugin(
+        {
+          src: resolver.resolve('./runtime/nuxtPlugin'),
+          mode: 'all',
+        },
+        { append: true }
+      );
     },
   });
 

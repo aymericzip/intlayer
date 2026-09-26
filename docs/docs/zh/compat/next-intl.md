@@ -23,7 +23,7 @@ author: aymericzip
 
 # 从 next-intl 迁移到 Intlayer
 
-有关完整详细的分步教程，请参阅我们完整的 [next-intl 迁移指南](../migration_from_next-intl_to_intlayer.md)。
+有关完整详细的分步教程，请参阅我们完整的 [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md)。
 
 从 `next-intl` 迁移到 Intlayer，让您的应用程序路由和语法完全不受干扰。
 

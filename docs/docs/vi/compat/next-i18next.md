@@ -23,7 +23,7 @@ author: aymericzip
 
 # Di Chuyển Từ next-i18next Sang Intlayer
 
-Để có hướng dẫn từng bước đầy đủ và chi tiết, vui lòng xem [Hướng Dẫn Di Chuyển next-i18next](../migration_from_next-i18next_to_intlayer.md) đầy đủ của chúng tôi.
+Để có hướng dẫn từng bước đầy đủ và chi tiết, vui lòng xem [Hướng Dẫn Di Chuyển next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-i18next_to_intlayer.md) đầy đủ của chúng tôi.
 
 Intlayer xử lý tất cả các triển khai Next.js Pages Router và App Router một cách minh bạch. Sử dụng bộ điều hợp cho phép bạn di chuyển triển khai `next-i18next` mà không cần viết lại bất kỳ code nào.
 

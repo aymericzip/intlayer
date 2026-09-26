@@ -1,0 +1,9 @@
+{
+  "title": "¡Hola, Angular 22!",
+  "subtitle": "Esta aplicación conserva su código ngx-translate, impulsada por Intlayer",
+  "pipeSection": "Pipe y directiva",
+  "greeting": "Bienvenido {{ name }}",
+  "countIs": "El recuento es {{ count }}",
+  "serviceSection": "API del servicio",
+  "instant": "Idioma actual: {{ lang }}"
+}

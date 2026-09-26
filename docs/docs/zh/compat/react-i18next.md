@@ -23,7 +23,7 @@ author: aymericzip
 
 # 从 react-i18next 迁移到 Intlayer
 
-有关完整详细的分步教程，请参阅我们完整的 [react-i18next 迁移指南](../migration_from_react-i18next_to_intlayer.md)。
+有关完整详细的分步教程，请参阅我们完整的 [react-i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_react-i18next_to_intlayer.md)。
 
 使用 Intlayer 的兼容适配器，您可以从 `react-i18next` 迁移，而无需对源代码导入进行任何更改。
 

@@ -23,7 +23,7 @@ author: aymericzip
 
 # Переміщення з next-intl на Intlayer
 
-Для повного та детального покрокового посібника, будь ласка, см. наш повний [посібник з міграції next-intl](../migration_from_next-intl_to_intlayer.md).
+Для повного та детального покрокового посібника, будь ласка, см. наш повний [посібник з міграції next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md).
 
 Переміщення з `next-intl` на Intlayer дозволяє вам повністю зберегти маршрутизацію та синтаксис вашої програми без змін.
 

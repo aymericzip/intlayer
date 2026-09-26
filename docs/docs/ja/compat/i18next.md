@@ -25,7 +25,7 @@ author: aymericzip
 
 # i18nextからIntlayerへの移行
 
-詳細なステップバイステップのチュートリアルについては、[i18next Migration Guide](../migration_from_i18next_to_intlayer.md)をご覧ください。
+詳細なステップバイステップのチュートリアルについては、[i18next Migration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)をご覧ください。
 
 Intlayerは`i18next`のコア実行時特性を完全に複製します。compatパッケージを利用することで、Vanillaアプリケーションまたは内部モジュールは引き続き馴染みのある構文を活用できます。
 

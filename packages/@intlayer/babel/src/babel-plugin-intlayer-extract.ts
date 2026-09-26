@@ -1,5 +1,5 @@
 import { relative } from 'node:path';
-import type { PluginObject, PluginPass } from '@babel/core';
+import type { PluginObject, PluginPass, PluginTarget } from '@babel/core';
 import { parse } from '@babel/parser';
 import type * as BabelTypes from '@babel/types';
 import * as ANSIColors from '@intlayer/config/colors';
@@ -58,7 +58,7 @@ type State = PluginPass & { opts: ExtractPluginOptions };
  * };
  * ```
  */
-export const intlayerExtractBabelPlugin = (_babel: {
+const extractBabelPlugin = (_babel: {
   types: typeof BabelTypes;
 }): PluginObject<State> => {
   return {
@@ -151,3 +151,15 @@ export const intlayerExtractBabelPlugin = (_babel: {
     },
   };
 };
+
+/**
+ * Intlayer extract Babel plugin (see `extractBabelPlugin`), typed as Babel's
+ * `PluginTarget`.
+ *
+ * Babel types tuple options as `object` (`[PluginTarget<object>, object]`), so
+ * a plugin whose handlers read typed `this.opts` is rejected in
+ * `plugins: [[plugin, options]]` under `strict`. The options passed in the
+ * tuple are the typed options read by the handlers.
+ */
+export const intlayerExtractBabelPlugin: PluginTarget =
+  extractBabelPlugin as PluginTarget;

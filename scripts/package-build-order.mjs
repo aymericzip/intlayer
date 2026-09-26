@@ -54,4 +54,7 @@ export const packageBuildOrder = [
   'compat/next-intl',
   'compat/next-i18next',
   'compat/vue-i18n',
+  'compat/svelte-i18n',
+  'compat/nuxtjs-i18n',
+  'compat/ngx-translate',
 ];

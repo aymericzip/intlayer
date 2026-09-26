@@ -23,7 +23,7 @@ author: aymericzip
 
 # next-intl에서 Intlayer로 마이그레이션
 
-완전하고 상세한 단계별 튜토리얼을 보려면 전체 [next-intl 마이그레이션 가이드](../migration_from_next-intl_to_intlayer.md)를 참조하세요.
+완전하고 상세한 단계별 튜토리얼을 보려면 전체 [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)를 참조하세요.
 
 `next-intl`에서 Intlayer로 마이그레이션하면 애플리케이션의 라우팅과 구문을 완전히 유지할 수 있습니다.
 

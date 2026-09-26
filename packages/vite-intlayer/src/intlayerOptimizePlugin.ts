@@ -13,6 +13,7 @@ import {
   renameFieldsInSourceFile,
   SOURCE_FILE_REGEX,
 } from '@intlayer/babel';
+import { requiresDictionaryRegistry } from '@intlayer/config/callers';
 import * as ANSIColors from '@intlayer/config/colors';
 import { IMPORT_MODE } from '@intlayer/config/defaultValues';
 import {
@@ -141,6 +142,13 @@ export const intlayerOptimize = async (
 
     const isAnalysisEnabled = (_config: unknown, env: { command: string }) =>
       (!!purge || !!minify) && isBuildOptimizeEnabled(_config, env);
+
+    // Compat callers the optimize pass cannot bind (`$_('home.title')`, a
+    // bare `useI18n()`) still read the runtime registry: emptying it would
+    // leave those call sites with no dictionary at all.
+    const keepsDictionaryRegistry = requiresDictionaryRegistry(
+      compatCallers ?? []
+    );
 
     let partiallyMinifiedDictionariesCount = 0;
 
@@ -700,9 +708,9 @@ export const intlayerOptimize = async (
               ),
               importMode,
               filesList: transformableFilesList,
-              replaceDictionaryEntry: isBuildOptimizeEnabled(null, {
-                command: 'build',
-              }),
+              replaceDictionaryEntry:
+                isBuildOptimizeEnabled(null, { command: 'build' }) &&
+                !keepsDictionaryRegistry,
               nestingDictionaryKeys,
               dictionaryModeMap: dictionaryKeyToImportModeMap,
               isServer: options?.ssr === true,

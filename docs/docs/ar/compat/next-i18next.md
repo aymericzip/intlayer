@@ -23,7 +23,7 @@ author: aymericzip
 
 # الترحيل من next-i18next إلى Intlayer
 
-للحصول على برنامج تعليمي مفصل وكامل خطوة بخطوة، يرجى مراجعة [دليل الترحيل الكامل من next-i18next](../migration_from_next-i18next_to_intlayer.md).
+للحصول على برنامج تعليمي مفصل وكامل خطوة بخطوة، يرجى مراجعة [دليل الترحيل الكامل من next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-i18next_to_intlayer.md).
 
 يتعامل Intlayer مع جميع تنفيذات Next.js Pages Router و App Router بشكل شفاف. يسمح استخدام المحول بترحيل تنفيذ `next-i18next` الخاص بك دون إعادة كتابة رمز.
 

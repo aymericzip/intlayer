@@ -25,7 +25,7 @@ author: aymericzip
 
 # i18next से Intlayer में माइग्रेट करें
 
-विस्तृत चरण-दर-चरण ट्यूटोरियल के लिए, कृपया हमारी संपूर्ण [i18next Migration Guide](../migration_from_i18next_to_intlayer.md) देखें।
+विस्तृत चरण-दर-चरण ट्यूटोरियल के लिए, कृपया हमारी संपूर्ण [i18next Migration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md) देखें।
 
 Intlayer perfectly replicates the core runtime characteristics of `i18next`. compat package का उपयोग करके, आपके Vanilla applications या internal modules परिचित syntax का लाभ उठाना जारी रख सकते हैं।
 

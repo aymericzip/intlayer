@@ -1,0 +1,41 @@
+{
+  "name": "compat-ngx-translate-app",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "packageManager": "npm@12.0.2",
+  "dependencies": {
+    "@angular/common": "22.1.7",
+    "@angular/compiler": "22.1.7",
+    "@angular/core": "22.1.7",
+    "@angular/forms": "22.1.7",
+    "@angular/platform-browser": "22.1.7",
+    "@angular/router": "22.1.7",
+    "@intlayer/ngx-translate": "workspace:*",
+    "@ngx-translate/core": "18.0.0",
+    "angular-intlayer": "workspace:*",
+    "intlayer": "workspace:*",
+    "rxjs": "~7.8.2",
+    "tslib": "2.8.1"
+  },
+  "devDependencies": {
+    "@angular-builders/custom-esbuild": "22.0.1",
+    "@angular/build": "22.1.8",
+    "@angular/cli": "22.1.8",
+    "@angular/compiler-cli": "22.1.7",
+    "@intlayer/sync-json-plugin": "workspace:*",
+    "@tailwindcss/postcss": "4.3.3",
+    "jsdom": "30.0.1",
+    "postcss": "8.5.28",
+    "prettier": "3.9.8",
+    "tailwindcss": "4.3.3",
+    "typescript": "~6.0.3",
+    "vitest": "5.0.2"
+  }
+}

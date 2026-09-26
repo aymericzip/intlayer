@@ -18,6 +18,7 @@ For both:
 - Always update `updatedAt` in frontmatter after update
 - add <TOC> for long posts
 - <Tabs>, <Step>, <Accordion>, <FAQ> where pertinent
+- Links between docs should be like (`https://github.com/aymericzip/intlayer/blob/main/docs/.../.md`, no `./.../.md`, no `https://intlayer.org/...`)
 - avoid '---' to separate sections
 - add links to other benchmarks docs and links to other docs, compat adapters etc where possible
 - For translations check `docs/tools/prompts/CUSTOM_INSTRUCTIONS.md`

@@ -49,6 +49,24 @@ export const isRewritableCaller = (descriptor: CallerDescriptor): boolean =>
   descriptor.matchAsMethod !== true;
 
 /**
+ * Whether a registry slice leaves call sites that resolve through the runtime
+ * dictionary registry (`@intlayer/dictionaries-entry`) in an optimized build.
+ *
+ * That is the case for callers the optimize pass never rewrites (message-id
+ * callers such as svelte-i18n's `$_` or ngx-translate's `instant`) and for
+ * root-scope callers (a bare `useI18n()`), whose dictionary is only known
+ * from each key at runtime. The build must then keep the registry instead of
+ * replacing it with an empty map.
+ */
+export const requiresDictionaryRegistry = (
+  descriptors: readonly CallerDescriptor[]
+): boolean =>
+  descriptors.some(
+    (descriptor) =>
+      !isRewritableCaller(descriptor) || descriptor.allowRootScope === true
+  );
+
+/**
  * Returns the callers of a registry slice that the optimize pass can rewrite
  * at build time. See {@link isRewritableCaller}.
  */

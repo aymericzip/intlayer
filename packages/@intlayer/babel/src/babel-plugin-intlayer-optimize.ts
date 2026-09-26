@@ -1,5 +1,5 @@
 import { dirname, join, relative } from 'node:path';
-import type { PluginObject, PluginPass } from '@babel/core';
+import type { PluginObject, PluginPass, PluginTarget } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
 import type { CallerDescriptor } from '@intlayer/config/callers';
 import { normalizePath } from '@intlayer/config/utils';
@@ -504,7 +504,7 @@ const buildDictionaryImportDeclarations = (
  * const content2 = getIntlayer(_dicHash);
  * ```
  */
-export const intlayerOptimizeBabelPlugin = (babel: {
+const optimizeBabelPlugin = (babel: {
   types: typeof BabelTypes;
 }): PluginObject<State> => {
   const { types: t } = babel;
@@ -984,3 +984,15 @@ export const intlayerOptimizeBabelPlugin = (babel: {
     },
   };
 };
+
+/**
+ * Intlayer optimize Babel plugin (see `optimizeBabelPlugin`), typed as Babel's
+ * `PluginTarget`.
+ *
+ * Babel types tuple options as `object` (`[PluginTarget<object>, object]`), so
+ * a plugin whose handlers read typed `this.opts` is rejected in
+ * `plugins: [[plugin, options]]` under `strict`. The options passed in the
+ * tuple are the typed options read by the handlers.
+ */
+export const intlayerOptimizeBabelPlugin: PluginTarget =
+  optimizeBabelPlugin as PluginTarget;

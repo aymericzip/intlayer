@@ -32,6 +32,8 @@ vi.mock('vue-intlayer', () => {
   };
 });
 
+vi.mock('#components', () => ({ NuxtLink: { name: 'NuxtLink' } }));
+
 vi.mock('@intlayer/dictionaries-entry', () => ({
   getDictionaries: () => ({}),
 }));

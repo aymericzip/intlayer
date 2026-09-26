@@ -23,7 +23,7 @@ author: aymericzip
 
 # Migrer de next-intl vers Intlayer
 
-Pour un tutoriel complet et détaillé étape par étape, consultez notre [Guide de migration next-intl](../migration_from_next-intl_to_intlayer.md).
+Pour un tutoriel complet et détaillé étape par étape, consultez notre [Guide de migration next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/migration_from_next-intl_to_intlayer.md).
 
 Migrer de `next-intl` vers Intlayer vous permet de maintenir votre routage d'application et votre syntaxe complètement inchangés.
 

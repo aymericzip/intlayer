@@ -31,8 +31,7 @@
     "./utils/*",
     "./examples/*",
     "./plugins/*",
-    "./compat/*",
-    "./compat-comming/*"
+    "./compat/*"
   ],
   "scripts": {
     "build": "turbo build '--filter=./packages/**' '--filter=./docs' '--filter=./apps/backend'",

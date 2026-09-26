@@ -1,9 +1,10 @@
 // @ts-nocheck -- Nuxt runtime types are provided at application level
 
+import { internationalization, routing } from '@intlayer/config/built';
 import type { Locale } from '@intlayer/types/allLocales';
 import { createIntlayerClient, installIntlayer } from 'vue-intlayer';
 import { defineNuxtPlugin } from '#app';
-import { useRoute } from '#imports';
+import { useRoute, useRouter } from '#imports';
 
 /**
  * Nuxt client plugin injected by `nuxt-intlayer` module.
@@ -23,19 +24,31 @@ export default defineNuxtPlugin((nuxtApp) => {
   // locale reactively whenever the route changes.
   const { setLocale } = createIntlayerClient();
 
-  const route = useRoute();
+  // With prefixed routing, a route without `:locale` is the default locale.
+  // Resetting it matters on the server, where the client singleton outlives
+  // the request: `/` rendered after `/fr` would otherwise stay in French.
+  const isPrefixedRouting =
+    routing?.mode === 'prefix-no-default' || routing?.mode === 'prefix-all';
 
-  // Helper that applies the `:locale` route param (if any) to Intlayer.
-  const syncLocale = () => {
-    const localeParam = route.params.locale as Locale | undefined;
-    if (localeParam) setLocale(localeParam);
+  /** Applies a route's `:locale` param (if any) to Intlayer. */
+  const syncLocale = (localeParam: Locale | undefined) => {
+    if (localeParam) {
+      setLocale(localeParam);
+    } else if (isPrefixedRouting) {
+      setLocale(internationalization.defaultLocale);
+    }
   };
 
   // Initial sync (client & server) once the plugin is executed.
-  syncLocale();
+  syncLocale(useRoute().params.locale as Locale | undefined);
 
-  // Keep Intlayer locale in sync on every navigation.
-  nuxtApp.hook('page:start', () => {
-    syncLocale();
+  // Keep Intlayer locale in sync on every navigation. The target route is
+  // read from the router: `useRoute()` still holds the previous route until
+  // the new page has rendered, so plain links (`/fr`, back / forward) would
+  // otherwise keep the old locale.
+  useRouter().afterEach((to, _from, failure) => {
+    if (failure) return;
+
+    syncLocale(to.params.locale as Locale | undefined);
   });
 });

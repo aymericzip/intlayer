@@ -23,7 +23,7 @@ author: aymericzip
 
 # next-i18nextからIntlayerへの移行
 
-完全で詳細なステップバイステップのチュートリアルについては、[next-i18next移行ガイド](../migration_from_next-i18next_to_intlayer.md)をご参照ください。
+完全で詳細なステップバイステップのチュートリアルについては、[next-i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-i18next_to_intlayer.md)をご参照ください。
 
 Intlayerは、Next.js Pages RouterとApp Routerのすべての実装を透過的に処理します。アダプターを使用することで、`next-i18next`の実装をコードの書き換えなしで移行できます。
 

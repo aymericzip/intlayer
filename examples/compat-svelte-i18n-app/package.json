@@ -1,0 +1,27 @@
+{
+  "name": "compat-svelte-i18n-app",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@intlayer/svelte-i18n": "workspace:*",
+    "intlayer": "workspace:*",
+    "svelte-i18n": "4.0.1"
+  },
+  "devDependencies": {
+    "@intlayer/sync-json-plugin": "workspace:*",
+    "@sveltejs/vite-plugin-svelte": "7.3.0",
+    "@tsconfig/svelte": "5.0.8",
+    "@types/node": "^22",
+    "svelte": "5.56.8",
+    "svelte-check": "4.7.5",
+    "typescript": "6.0.3",
+    "vite": "8.3.1"
+  }
+}

@@ -23,7 +23,7 @@ author: aymericzip
 
 # react-i18next から Intlayer への移行
 
-完全で詳細なステップバイステップチュートリアルについては、[react-i18next 移行ガイド](../migration_from_react-i18next_to_intlayer.md)をご覧ください。
+完全で詳細なステップバイステップチュートリアルについては、[react-i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md)をご覧ください。
 
 Intlayer の compat adapter を使用することで、ソースコードのインポート変更なしに `react-i18next` から移行できます。
 

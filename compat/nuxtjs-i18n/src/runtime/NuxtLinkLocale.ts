@@ -1,10 +1,5 @@
-import {
-  type Component,
-  defineComponent,
-  h,
-  type PropType,
-  resolveComponent,
-} from 'vue';
+import { defineComponent, h, type PropType } from 'vue';
+import { NuxtLink } from '#components';
 import type { RouteLocationGeneric } from '../types';
 import { useLocalePath } from './routing';
 
@@ -31,7 +26,6 @@ export const NuxtLinkLocale = defineComponent({
   },
   setup(props, { slots, attrs }) {
     const localePath = useLocalePath();
-    const link = resolveComponent('NuxtLink');
 
     return () => {
       const target = props.to ?? props.href ?? '/';
@@ -41,19 +35,7 @@ export const NuxtLinkLocale = defineComponent({
         ? target
         : localePath(target, props.locale);
 
-      if (typeof link === 'string') {
-        return h(
-          'a',
-          { ...attrs, href: localizedTarget as string },
-          slots.default?.()
-        );
-      }
-
-      return h(
-        link as Component,
-        { ...attrs, to: localizedTarget },
-        slots.default
-      );
+      return h(NuxtLink, { ...attrs, to: localizedTarget }, slots.default);
     };
   },
 });

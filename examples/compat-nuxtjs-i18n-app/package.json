@@ -1,0 +1,21 @@
+{
+  "name": "compat-nuxtjs-i18n-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "@intlayer/nuxtjs-i18n": "workspace:*",
+    "intlayer": "workspace:*",
+    "nuxt": "4.5.2",
+    "vue": "3.5.43",
+    "vue-router": "5.3.1"
+  },
+  "devDependencies": {
+    "@intlayer/sync-json-plugin": "workspace:*"
+  }
+}

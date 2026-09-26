@@ -2322,41 +2322,21 @@ const docDataContent: Dictionary = {
           default: getDocMetadata('./docs/en/compat/vue-i18n.md'),
           frameworks: ['vue'],
         },
-        // 'nuxt-i18n': {
-        //   title: '@nuxt/i18n',
-        //   default: getDocMetadata('./docs/en/compat/nuxtjs-i18n.md'),
-        //   frameworks: ['nuxt', 'vue'],
-        // },
-        // transloco: {
-        //   title: 'Transloco',
-        //   default: getDocMetadata('./docs/en/compat/transloco.md'),
-        //   frameworks: ['angular'],
-        // },
-        // 'ngx-translate': {
-        //   title: 'ngx-translate',
-        //   default: getDocMetadata('./docs/en/compat/ngx-translate.md'),
-        //   frameworks: ['angular'],
-        // },
-        // 'svelte-i18n': {
-        //   title: 'svelte-i18n',
-        //   default: getDocMetadata('./docs/en/compat/svelte-i18n.md'),
-        //   frameworks: ['svelte'],
-        // },
-        // polyglot: {
-        //   title: 'Polyglot.js',
-        //   default: getDocMetadata('./docs/en/compat/polyglot.md'),
-        //   frameworks: ['vanilla'],
-        // },
-        // 'next-translate': {
-        //   title: 'next-translate',
-        //   default: getDocMetadata('./docs/en/compat/next-translate.md'),
-        //   frameworks: ['nextjs', 'react'],
-        // },
-        // 'i18n-js': {
-        //   title: 'i18n-js',
-        //   default: getDocMetadata('./docs/en/compat/i18n-js.md'),
-        //   frameworks: ['vanilla', 'nextjs', 'react'],
-        // },
+        'nuxt-i18n': {
+          title: '@nuxt/i18n',
+          default: getDocMetadata('./docs/en/compat/nuxtjs-i18n.md'),
+          frameworks: ['nuxt', 'vue'],
+        },
+        'ngx-translate': {
+          title: 'ngx-translate',
+          default: getDocMetadata('./docs/en/compat/ngx-translate.md'),
+          frameworks: ['angular'],
+        },
+        'svelte-i18n': {
+          title: 'svelte-i18n',
+          default: getDocMetadata('./docs/en/compat/svelte-i18n.md'),
+          frameworks: ['svelte'],
+        },
       },
     },
   },

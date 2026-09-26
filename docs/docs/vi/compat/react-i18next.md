@@ -23,7 +23,7 @@ author: aymericzip
 
 # Di Chuyển Từ react-i18next Sang Intlayer
 
-Để có hướng dẫn từng bước đầy đủ và chi tiết, vui lòng xem [Hướng Dẫn Di Chuyển react-i18next](../migration_from_react-i18next_to_intlayer.md) đầy đủ của chúng tôi.
+Để có hướng dẫn từng bước đầy đủ và chi tiết, vui lòng xem [Hướng Dẫn Di Chuyển react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_react-i18next_to_intlayer.md) đầy đủ của chúng tôi.
 
 Việc sử dụng bộ điều hợp tương thích của Intlayer cho phép bạn di chuyển từ `react-i18next` mà không cần bất kỳ thay đổi nào đối với các import trong source code của bạn.
 

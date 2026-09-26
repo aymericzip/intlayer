@@ -23,7 +23,7 @@ author: aymericzip
 
 # Migrar de next-i18next para Intlayer
 
-Para um tutorial completo e detalhado passo a passo, consulte nosso [Guia de Migração next-i18next](../migration_from_next-i18next_to_intlayer.md).
+Para um tutorial completo e detalhado passo a passo, consulte nosso [Guia de Migração next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_next-i18next_to_intlayer.md).
 
 O Intlayer manipula todas as implementações do Next.js Pages Router e App Router de forma transparente. Usar o adapter permite que você migre sua implementação de `next-i18next` sem reescrever nenhum código.
 

@@ -23,7 +23,7 @@ author: aymericzip
 
 # Migration von react-i18next zu Intlayer
 
-Für ein vollständiges und detailliertes Schritt-für-Schritt-Tutorial lesen Sie bitte unsere vollständige [react-i18next Migrationsanleitung](../migration_from_react-i18next_to_intlayer.md).
+Für ein vollständiges und detailliertes Schritt-für-Schritt-Tutorial lesen Sie bitte unsere vollständige [react-i18next Migrationsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_react-i18next_to_intlayer.md).
 
 Die Verwendung des Compat-Adapters von Intlayer ermöglicht Ihnen die Migration von `react-i18next` ohne Änderungen an den Imports Ihres Quellcodes.
 

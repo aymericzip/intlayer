@@ -25,7 +25,7 @@ author: aymericzip
 
 # 从 i18next 迁移到 Intlayer
 
-有关详细的分步教程，请参阅我们完整的 [i18next 迁移指南](../migration_from_i18next_to_intlayer.md)。
+有关详细的分步教程，请参阅我们完整的 [i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md)。
 
 Intlayer 完美复制了 `i18next` 的核心运行时特性。通过使用兼容 package，您的 Vanilla 应用程序或内部模块可以继续利用熟悉的语法。
 

@@ -15,7 +15,12 @@ import type {
 } from 'vue';
 import { computed, inject } from 'vue';
 import type { createI18n as _createI18n, I18n } from 'vue-i18n';
-import { createIntlayerClient, installIntlayer, useLocale } from 'vue-intlayer';
+import {
+  createIntlayerClient,
+  INTLAYER_SYMBOL,
+  installIntlayer,
+  useLocale,
+} from 'vue-intlayer';
 import {
   type DateTimeFormatsConfig,
   formatDateValue,
@@ -291,9 +296,14 @@ export const createI18n: typeof _createI18n = ((
     mode: options.legacy === true ? 'legacy' : 'composition',
     __optionsMessages: fallbackMessages,
     install(app: App) {
-      installIntlayer(app, {
-        locale: options.locale as LocalesValues,
-      });
+      // A framework integration (nuxt-intlayer) may have installed it already.
+      const isIntlayerInstalled = INTLAYER_SYMBOL in app._context.provides;
+
+      if (!isIntlayerInstalled) {
+        installIntlayer(app, {
+          locale: options.locale as LocalesValues,
+        });
+      }
 
       // Provide under I18nInjectionKey to satisfy inject(I18nInjectionKey) calls
       app.provide(I18nInjectionKey, i18nInstance as unknown as I18n);

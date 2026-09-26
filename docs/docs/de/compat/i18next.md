@@ -25,7 +25,7 @@ author: aymericzip
 
 # Migration von i18next zu Intlayer
 
-Für ein detailliertes Schritt-für-Schritt-Tutorial lesen Sie bitte unsere vollständige [i18next Migrationsanleitung](../migration_from_i18next_to_intlayer.md).
+Für ein detailliertes Schritt-für-Schritt-Tutorial lesen Sie bitte unsere vollständige [i18next Migrationsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_i18next_to_intlayer.md).
 
 Intlayer repliziert die wichtigsten Laufzeiteigenschaften von `i18next` perfekt. Durch die Verwendung des Compat-Pakets können Ihre Vanilla-Anwendungen oder internen Module die vertraute Syntax weiterhin nutzen.
 

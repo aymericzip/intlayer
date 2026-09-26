@@ -23,7 +23,7 @@ author: aymericzip
 
 # next-i18next'ten Intlayer'a Geçiş Yapın
 
-Kapsamlı ve ayrıntılı adım adım eğitim için lütfen tam [next-i18next Göç Kılavuzuna](../migration_from_next-i18next_to_intlayer.md) bakın.
+Kapsamlı ve ayrıntılı adım adım eğitim için lütfen tam [next-i18next Göç Kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-i18next_to_intlayer.md) bakın.
 
 Intlayer, Next.js Pages Router ve App Router uygulamalarını saydam şekilde işler. Adaptörü kullanmak, `next-i18next` uygulamanızı sıfır kod yeniden yazımı olmadan göç etmenize izin verir.
 

@@ -1,0 +1,11 @@
+{
+  "title": "Vite + Svelte + svelte-i18n",
+  "greeting": "Bonjour {name}, cette page utilise Intlayer",
+  "countIs": "{count, plural, =0 {Cliquez pour compter} one {Cliqué # fois} other {Cliqué # fois}}",
+  "today": "Nous sommes le {date, date, full}",
+  "features": [
+    "Gardez votre code svelte-i18n",
+    "Messages compilés au build",
+    "Clés inutilisées retirées du bundle"
+  ]
+}

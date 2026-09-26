@@ -3,8 +3,11 @@ import { transformSync } from '@babel/core';
 import {
   LINGUI_CALLERS,
   NEXT_INTL_CALLERS,
+  NGX_TRANSLATE_CALLERS,
+  NUXTJS_I18N_CALLERS,
   REACT_I18NEXT_CALLERS,
   REACT_INTL_CALLERS,
+  SVELTE_I18N_CALLERS,
   VUE_I18N_CALLERS,
 } from '@intlayer/config/callers';
 import { describe, expect, it, vi } from 'vitest';
@@ -658,6 +661,23 @@ describe('babel-plugin-intlayer-optimize — compat callers', () => {
     });
   });
 
+  describe('@nuxtjs/i18n (option namespace through #i18n)', () => {
+    it('rewrites useI18n imported from #i18n', () => {
+      const code = `
+        import { useI18n } from "#i18n";
+        const { t } = useI18n({ namespace: "about" });
+      `;
+      const output = transform(code, {
+        compatCallers: NUXTJS_I18N_CALLERS,
+      });
+
+      expect(output).toContain(
+        'import { useDictionary as useI18n } from "#i18n";'
+      );
+      expect(output).toContain('useI18n(_dicHash_about, {});');
+    });
+  });
+
   describe('safety', () => {
     it('does not rewrite callers imported from unrelated modules', () => {
       const code = `
@@ -685,6 +705,37 @@ describe('babel-plugin-intlayer-optimize — compat callers', () => {
         'import { useTranslation } from "react-i18next";'
       );
       expect(output).toContain('useTranslation("about");');
+    });
+
+    it('leaves svelte-i18n store imports untouched', () => {
+      // Compiled Svelte: `$_('home.title')` subscribes to the `_` store.
+      const code = `
+        import * as $ from "svelte/internal/client";
+        import { _ } from "svelte-i18n";
+        const $_ = () => $.store_get(_, "$_", $$stores);
+        const title = $_()("home.title");
+      `;
+      const output = transform(code, {
+        compatCallers: SVELTE_I18N_CALLERS,
+      });
+
+      expect(output).toContain('import { _ } from "svelte-i18n";');
+      expect(output).not.toContain('useDictionary');
+    });
+
+    it('leaves ngx-translate imports untouched', () => {
+      const code = `
+        import { TranslateService, translate } from "@ngx-translate/core";
+        const title = translate("home.title");
+      `;
+      const output = transform(code, {
+        compatCallers: NGX_TRANSLATE_CALLERS,
+      });
+
+      expect(output).toContain(
+        'import { TranslateService, translate } from "@ngx-translate/core";'
+      );
+      expect(output).toContain('translate("home.title");');
     });
 
     it('rewrites native and compat callers side by side', () => {

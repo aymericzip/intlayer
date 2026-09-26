@@ -1,0 +1,21 @@
+<app-locale-switcher></app-locale-switcher>
+
+<div class="header">
+  <h1>{{ 'home.title' | translate }}</h1>
+  <p class="subtitle">{{ subtitle() }}</p>
+</div>
+
+<section>
+  <h2>{{ 'home.pipeSection' | translate }}</h2>
+  <p [translate]="'home.greeting'" [translateParams]="{ name: 'Ada' }"></p>
+  <button type="button" (click)="increment()">
+    {{ 'home.countIs' | translate: { count: count() } }}
+  </button>
+</section>
+
+<section>
+  <h2 translate>home.serviceSection</h2>
+  <p>{{ instantMessage }}</p>
+</section>
+
+<router-outlet />

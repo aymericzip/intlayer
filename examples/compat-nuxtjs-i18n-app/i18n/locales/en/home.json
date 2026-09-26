@@ -1,0 +1,8 @@
+{
+  "title": "Hello world",
+  "greeting": "Hello {name}, this Nuxt app keeps its @nuxtjs/i18n code",
+  "countIs": "Click to count | Clicked once | Clicked {count} times",
+  "learnMore": "Learn more",
+  "metaTitle": "Welcome - My Application",
+  "metaDescription": "Discover your multilingual Nuxt app homepage powered by Intlayer."
+}

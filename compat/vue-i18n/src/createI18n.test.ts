@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { ref } from 'vue';
+import { createApp, ref } from 'vue';
+import { INTLAYER_SYMBOL, installIntlayer } from 'vue-intlayer';
 
 const mockLocale = ref('en');
 const mockSetLocale = vi.fn((val) => {
@@ -36,6 +37,7 @@ vi.mock('vue-intlayer', () => ({
     setLocale: mockSetLocale,
   }),
   installIntlayer: vi.fn(),
+  INTLAYER_SYMBOL: Symbol.for('intlayer-test'),
 }));
 
 vi.mock('@intlayer/core/interpreter', async (importOriginal) => ({
@@ -138,5 +140,18 @@ describe('vue-i18n compatibility layer', () => {
     expect(typeof d(new Date('2026-01-15'), { dateStyle: 'medium' })).toBe(
       'string'
     );
+  });
+
+  it('should install intlayer on the app only when not already provided', () => {
+    const freshApp = createApp({});
+    createI18n({ locale: 'en' }).install(freshApp);
+
+    expect(installIntlayer).toHaveBeenCalledTimes(1);
+
+    const appWithIntlayer = createApp({});
+    appWithIntlayer.provide(INTLAYER_SYMBOL, {});
+    createI18n({ locale: 'en' }).install(appWithIntlayer);
+
+    expect(installIntlayer).toHaveBeenCalledTimes(1);
   });
 });

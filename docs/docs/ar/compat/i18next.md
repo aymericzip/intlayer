@@ -25,7 +25,7 @@ author: aymericzip
 
 # الترحيل من i18next إلى Intlayer
 
-للحصول على برنامج تعليمي مفصل خطوة بخطوة، يرجى مراجعة [دليل الترحيل الكامل من i18next](../migration_from_i18next_to_intlayer.md).
+للحصول على برنامج تعليمي مفصل خطوة بخطوة، يرجى مراجعة [دليل الترحيل الكامل من i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md).
 
 يكرّر Intlayer بشكل مثالي خصائص runtime الأساسية لـ `i18next`. باستخدام حزمة التوافق، يمكن لتطبيقاتك Vanilla أو الوحدات الداخلية الاستمرار في الاستفادة من الصيغة المألوفة.
 
