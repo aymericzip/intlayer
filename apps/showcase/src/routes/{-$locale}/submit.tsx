@@ -4,8 +4,30 @@ import { getIntlayerAsync, type Locale } from 'intlayer';
 import { SubmitProjectForm } from '#/components/SubmitProjectForm/SubmitProjectForm';
 import { getAbsoluteUrl, getHreflangLinks } from '#/utils/seo';
 
+/**
+ * Optional form presets, e.g. `/submit?name=Acme&url=https://acme.com`
+ * (used by the Intlayer Chrome extension when it detects Intlayer).
+ */
+export type SubmitSearchParams = {
+  name?: string;
+  url?: string;
+};
+
+/** Keeps a search param only when it is a non-empty string. */
+const toOptionalString = (value: unknown): string | undefined =>
+  typeof value === 'string' && value.trim() !== '' ? value.trim() : undefined;
+
 export const Route = createFileRoute('/{-$locale}/submit')({
   component: SubmitProjectForm,
+  validateSearch: (search: Record<string, unknown>): SubmitSearchParams => {
+    const name = toOptionalString(search.name);
+    const url = toOptionalString(search.url);
+
+    return {
+      ...(name && { name }),
+      ...(url && { url }),
+    };
+  },
   head: async ({ params }) => {
     const { locale } = params as { locale?: Locale };
     const path = Showcase_Submit_Path;

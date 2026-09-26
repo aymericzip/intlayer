@@ -45,6 +45,8 @@ export type PageDetectionResult = {
   urlLocalePrefix: string | null;
   /** Content of the `<meta name="generator">` tag, when present. */
   generator: string | null;
+  /** Site name from `og:site_name` / `application-name` meta tags. */
+  siteName: string | null;
   technologies: DetectedTechnology[];
   localeStorageEntries: LocaleStorageEntry[];
   /** Total number of same-origin anchors found on the page. */

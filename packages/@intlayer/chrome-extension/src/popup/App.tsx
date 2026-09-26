@@ -9,6 +9,7 @@ import { AuditSection } from './components/AuditSection';
 import { I18nTagsSection } from './components/I18nTagsSection';
 import { LocalesSection } from './components/LocalesSection';
 import { PageNavigator } from './components/PageNavigator';
+import { ShowcaseSuggestion } from './components/ShowcaseSuggestion';
 import { SwitchThemeSwitcher } from './components/SwitchThemeSwitcher';
 import { TechnologyList } from './components/TechnologyList';
 import { useActiveTabDetection } from './useActiveTabDetection';
@@ -57,6 +58,10 @@ export const App: FunctionComponent = () => {
   };
 
   const hostname = tabUrl ? new URL(tabUrl).hostname : null;
+  const isIntlayerDetected =
+    detection?.technologies.some(
+      (technology) => technology.id === 'intlayer'
+    ) ?? false;
 
   return (
     <main className="flex max-h-140 flex-col gap-3 overflow-y-auto p-3.5">
@@ -92,6 +97,8 @@ export const App: FunctionComponent = () => {
 
       {detection && (
         <>
+          {isIntlayerDetected && <ShowcaseSuggestion detection={detection} />}
+
           <Section title={sectionTitles.technologies}>
             <TechnologyList technologies={detection.technologies} />
           </Section>

@@ -61,6 +61,12 @@ export const detectPage = (): PageDetectionResult => {
 
   const generator = readMetaContent('meta[name="generator"]');
 
+  const siteName =
+    readMetaContent('meta[property="og:site_name"]')?.trim() ||
+    readMetaContent('meta[name="application-name"]')?.trim() ||
+    readMetaContent('meta[name="apple-mobile-web-app-title"]')?.trim() ||
+    null;
+
   /* ------------------------------ Locales ------------------------------- */
 
   const localeSet = new Set<string>();
@@ -440,6 +446,7 @@ export const detectPage = (): PageDetectionResult => {
     detectedLocales: Array.from(localeSet),
     urlLocalePrefix,
     generator,
+    siteName,
     technologies,
     localeStorageEntries,
     internalAnchorCount,

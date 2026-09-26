@@ -3,6 +3,7 @@ import { Container } from '@intlayer/design-system/container';
 import { Form, FormButton, useForm } from '@intlayer/design-system/form';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Auth_SignIn } from '@intlayer/design-system/routes';
+import { useSearch } from '@tanstack/react-router';
 import { ArrowLeft } from 'lucide-react';
 import { type FC, type FocusEvent, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -18,6 +19,7 @@ export const SubmitProjectForm: FC = () => {
   const navigate = useLocalizedNavigate();
   const { session, revalidateSession } = useSession();
   const schema = useSubmitProjectFormSchema();
+  const presetValues = useSearch({ from: '/{-$locale}/submit' });
 
   const {
     formValue,
@@ -32,7 +34,8 @@ export const SubmitProjectForm: FC = () => {
   } = useProjectSubmit();
 
   const { form, isSubmitting } = useForm(schema, {
-    defaultValues: formValue,
+    // Search param presets (`?name=&url=`) win over the persisted draft
+    defaultValues: { ...formValue, ...presetValues },
   });
 
   const content = useIntlayer('submit-project-form');
