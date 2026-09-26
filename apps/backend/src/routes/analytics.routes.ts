@@ -3,6 +3,7 @@ import {
   getAnalyticsOverview,
   getContentStats,
   getExperimentResults,
+  getPageMetadata,
   ingestAnalyticsEvents,
 } from '@controllers/analytics.controller';
 import { analyticsIngestLimiter } from '@utils/rateLimiter';
@@ -40,6 +41,11 @@ export const getAnalyticsRoutes = () =>
       url: `${baseURL()}/experiments/:experimentKey`,
       method: 'GET',
     },
+    getPageMetadata: {
+      urlModel: '/page-metadata',
+      url: `${baseURL()}/page-metadata`,
+      method: 'GET',
+    },
   }) satisfies Routes;
 
 export const analyticsRouter = async (fastify: FastifyInstance) => {
@@ -66,4 +72,5 @@ export const analyticsRouter = async (fastify: FastifyInstance) => {
     getAnalyticsRoutes().getExperimentResults.urlModel,
     getExperimentResults
   );
+  fastify.get(getAnalyticsRoutes().getPageMetadata.urlModel, getPageMetadata);
 };

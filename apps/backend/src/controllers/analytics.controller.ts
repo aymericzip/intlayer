@@ -12,6 +12,7 @@ import type {
   ContentStatRow,
   ExperimentResult,
   IncomingAnalyticsEvent,
+  PageMetadata,
 } from '@/types/analytics.types';
 
 /** Hard cap on events accepted per ingestion request. */
@@ -59,6 +60,7 @@ export type GetAnalyticsOverviewResult = ResponseData<AnalyticsOverviewRow[]>;
 export type GetContentStatsResult = ResponseData<ContentStatRow[]>;
 export type GetExperimentResultsResult = ResponseData<ExperimentResult>;
 export type GetAudienceResult = ResponseData<AudienceStats>;
+export type GetPageMetadataResult = ResponseData<PageMetadata>;
 
 /**
  * Public — ingests a batch of analytics events.
@@ -254,6 +256,58 @@ export const getAnalyticsAudience = async (
       resolveAudienceRange(request.query ?? {})
     );
     return reply.status(200).send(formatResponse<AudienceStats>({ data }));
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+/**
+ * Authenticated — fetches page metadata (title and meta description) for a given page URL.
+ */
+export const getPageMetadata = async (
+  request: FastifyRequest<{ Querystring: { url?: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project } = request.session ?? {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECT_NOT_FOUND');
+  }
+
+  const rawUrl = request.query?.url?.trim();
+  if (!rawUrl) {
+    return reply
+      .status(200)
+      .send(
+        formatResponse<PageMetadata>({ data: { title: '', description: '' } })
+      );
+  }
+
+  let targetUrl = rawUrl;
+  if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
+    const applicationUrl = project.configuration?.editor?.applicationURL;
+    if (applicationUrl) {
+      try {
+        targetUrl = new URL(targetUrl, applicationUrl).href;
+      } catch {
+        return reply.status(200).send(
+          formatResponse<PageMetadata>({
+            data: { title: '', description: '' },
+          })
+        );
+      }
+    } else {
+      return reply
+        .status(200)
+        .send(
+          formatResponse<PageMetadata>({ data: { title: '', description: '' } })
+        );
+    }
+  }
+
+  try {
+    const data = await analyticsService.getPageMetadata(targetUrl);
+    return reply.status(200).send(formatResponse<PageMetadata>({ data }));
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }

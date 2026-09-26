@@ -4,7 +4,11 @@ import type {
   AudienceSeriesPoint,
   AudienceStats,
 } from '@intlayer/backend';
-import { useGetAnalyticsAudience } from '@intlayer/design-system/api';
+import {
+  useGetAnalyticsAudience,
+  useGetPageMetadata,
+  useSession,
+} from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { ExpandCollapse } from '@intlayer/design-system/expand-collapse';
 import { Loader } from '@intlayer/design-system/loader';
@@ -15,6 +19,7 @@ import {
 import { getLocaleName } from 'intlayer';
 import {
   CalendarDays,
+  ExternalLink,
   Eye,
   FileText,
   Globe,
@@ -270,10 +275,10 @@ const BreakdownList: FC<BreakdownListProps> = ({
               key={index}
               className="flex flex-col gap-1"
             >
-              <div className="flex items-center justify-between gap-2 text-sm">
-                <span className="flex min-w-0 items-center gap-2 text-text">
+              <div className="flex items-start justify-between gap-2 text-sm">
+                <div className="flex min-w-0 flex-1 items-start gap-2 text-text">
                   {row.label}
-                </span>
+                </div>
                 <span className="shrink-0 text-neutral text-xs">
                   {formatRowCounters(row, usersLabel, viewsLabel, metric).join(
                     ' · '
@@ -294,6 +299,75 @@ const BreakdownList: FC<BreakdownListProps> = ({
   );
 };
 
+type PageBreakdownRowProps = {
+  pageUrl: string;
+  applicationURL?: string | null;
+};
+
+/**
+ * Breakdown row component for a page: dynamically loads and displays the title
+ * and meta description (cached for 24h), and provides a link to the page.
+ */
+const PageBreakdownRow: FC<PageBreakdownRowProps> = ({
+  pageUrl,
+  applicationURL,
+}) => {
+  const fullUrl = useMemo(() => {
+    if (pageUrl.startsWith('http://') || pageUrl.startsWith('https://')) {
+      return pageUrl;
+    }
+    if (applicationURL) {
+      try {
+        return new URL(pageUrl, applicationURL).href;
+      } catch {
+        const cleanBase = applicationURL.replace(/\/$/, '');
+        const cleanPath = pageUrl.startsWith('/') ? pageUrl : `/${pageUrl}`;
+        return `${cleanBase}${cleanPath}`;
+      }
+    }
+    return pageUrl;
+  }, [pageUrl, applicationURL]);
+
+  const { data } = useGetPageMetadata(fullUrl || pageUrl);
+  const metadata = data?.data;
+  const title = metadata?.title?.trim();
+  const description = metadata?.description?.trim();
+
+  return (
+    <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+      <div className="flex min-w-0 items-center gap-1.5">
+        <FileText className="size-3.5 shrink-0 text-neutral" />
+        <a
+          href={fullUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex min-w-0 items-center gap-1 font-medium text-text hover:underline"
+          title={fullUrl}
+        >
+          <span className="truncate">{title || pageUrl}</span>
+          <ExternalLink className="size-3 shrink-0 text-neutral opacity-60 transition-opacity group-hover:opacity-100" />
+        </a>
+        {title && (
+          <span
+            className="max-w-[160px] shrink-0 truncate font-mono text-neutral text-xs"
+            title={pageUrl}
+          >
+            {pageUrl}
+          </span>
+        )}
+      </div>
+      {description && (
+        <p
+          className="line-clamp-2 pl-5 text-neutral text-xs leading-relaxed"
+          title={description}
+        >
+          {description}
+        </p>
+      )}
+    </div>
+  );
+};
+
 /**
  * Audience analytics section: distinct visitors (today / 7d / range), page
  * views, a visitor-evolution graph, and Locales / Location / Pages breakdown
@@ -304,6 +378,9 @@ const BreakdownList: FC<BreakdownListProps> = ({
 export const DashboardAudience: FC = () => {
   const content = useIntlayer('dashboard-audience');
   const { locale } = useLocale();
+  const { session } = useSession();
+  const applicationURL =
+    session?.project?.configuration?.editor?.applicationURL ?? null;
   const [range, setRange] = useState<AudienceRange>('30d');
   const [tab, setTab] = useState<BreakdownTab>('locales');
 
@@ -395,18 +472,12 @@ export const DashboardAudience: FC = () => {
     () =>
       (audience?.byPage ?? []).map((row) => ({
         label: (
-          <>
-            <FileText className="size-3.5 shrink-0 text-neutral" />
-            {/* Paths outrun the column, so the full value stays on hover. */}
-            <span className="truncate" title={row.key}>
-              {row.key}
-            </span>
-          </>
+          <PageBreakdownRow pageUrl={row.key} applicationURL={applicationURL} />
         ),
         users: row.users,
         views: row.views,
       })),
-    [audience?.byPage]
+    [audience?.byPage, applicationURL]
   );
 
   const hasData =

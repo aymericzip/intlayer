@@ -1,10 +1,11 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type { AudienceSeriesPoint } from '@/types/analytics.types';
 import {
   audienceRangeFromDays,
   bucketDailySeries,
   buildBreakdownRows,
   DEFAULT_AUDIENCE_RANGE,
+  getPageMetadata,
   isAudienceRange,
 } from './analytics.service';
 
@@ -173,5 +174,70 @@ describe('buildBreakdownRows', () => {
 
   it('handles two empty sides', () => {
     expect(buildBreakdownRows(new Map(), new Map())).toEqual([]);
+  });
+});
+
+describe('getPageMetadata', () => {
+  it('extracts title and description from HTML', async () => {
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>My Cool Page</title>
+          <meta name="description" content="This is the page description." />
+        </head>
+        <body>Hello</body>
+      </html>
+    `;
+    const spy = vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      ok: true,
+      headers: new Headers({ 'content-type': 'text/html' }),
+      text: async () => html,
+    } as unknown as Response);
+
+    const result = await getPageMetadata('https://example.com/test-page-1');
+    expect(result).toEqual({
+      title: 'My Cool Page',
+      description: 'This is the page description.',
+    });
+    spy.mockRestore();
+  });
+
+  it('falls back to og:title and og:description if standard tags are missing', async () => {
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta property="og:title" content="OG Title" />
+          <meta property="og:description" content="OG Description" />
+        </head>
+        <body>Hello</body>
+      </html>
+    `;
+    const spy = vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      ok: true,
+      headers: new Headers({ 'content-type': 'text/html' }),
+      text: async () => html,
+    } as unknown as Response);
+
+    const result = await getPageMetadata('https://example.com/test-page-2');
+    expect(result).toEqual({
+      title: 'OG Title',
+      description: 'OG Description',
+    });
+    spy.mockRestore();
+  });
+
+  it('returns empty strings when fetch fails or url is invalid', async () => {
+    const resultInvalid = await getPageMetadata('not-a-url');
+    expect(resultInvalid).toEqual({ title: '', description: '' });
+
+    const spy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockRejectedValue(new Error('Network error'));
+
+    const resultError = await getPageMetadata('https://example.com/error');
+    expect(resultError).toEqual({ title: '', description: '' });
+    spy.mockRestore();
   });
 });

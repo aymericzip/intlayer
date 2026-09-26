@@ -4,6 +4,7 @@ import type {
   GetAudienceResult,
   GetContentStatsResult,
   GetExperimentResultsResult,
+  GetPageMetadataResult,
   IngestAnalyticsBody,
   IngestAnalyticsResult,
 } from '@intlayer/backend';
@@ -101,12 +102,32 @@ export const getAnalyticsAPI = (
       { method: 'GET' }
     );
 
+  /**
+   * Page metadata (title and meta description) for a given url.
+   * @param url - The page url to inspect.
+   * @returns Title and description of the page.
+   */
+  const getPageMetadata = async (
+    url: string,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetPageMetadataResult>(
+      `${ANALYTICS_API_ROUTE}/page-metadata`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'GET',
+        params: { url },
+      }
+    );
+
   return {
     sendEvents,
     getOverview,
     getAudience,
     getContentStats,
     getExperimentResults,
+    getPageMetadata,
   };
 };
 

@@ -226,3 +226,9 @@ export type ExperimentResult = {
   /** The best-performing variant, when there is enough data to pick one. */
   winner: string | null;
 };
+
+/** Page metadata (title and description) extracted from a page URL. */
+export type PageMetadata = {
+  title?: string;
+  description?: string;
+};

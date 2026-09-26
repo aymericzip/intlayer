@@ -71,3 +71,29 @@ export const useGetExperimentResults = (
     ...options,
   });
 };
+
+/**
+ * Fetches page metadata (title and meta description) for a given page URL.
+ * The result is cached for a long time (24h).
+ *
+ * @param url - The page URL or pathname.
+ * @param options - Extra react-query options.
+ */
+export const useGetPageMetadata = (
+  url: string,
+  options?: Partial<UseQueryOptions>
+) => {
+  const analyticsAPI = useAnalyticsAPI();
+
+  return useAppQuery({
+    queryKey: ['analytics', 'page-metadata', url],
+    queryFn: ({ signal }) => analyticsAPI.getPageMetadata(url, { signal }),
+    requireUser: true,
+    requireOrganization: true,
+    requireProject: true,
+    enabled: Boolean(url),
+    staleTime: 1000 * 60 * 60 * 24, // 24 hours
+    gcTime: 1000 * 60 * 60 * 24 * 7, // 7 days
+    ...options,
+  });
+};

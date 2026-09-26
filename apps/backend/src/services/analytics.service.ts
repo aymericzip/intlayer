@@ -5,6 +5,7 @@ import {
   AnalyticsVisitorModel,
 } from '@schemas/analyticsEvent.schema';
 import { ProjectModel } from '@schemas/project.schema';
+import { load } from 'cheerio';
 import type { AnyBulkWriteOperation, Types } from 'mongoose';
 import type {
   AnalyticsOverviewRow,
@@ -20,6 +21,7 @@ import type {
   ExperimentResult,
   ExperimentVariantResult,
   IncomingAnalyticsEvent,
+  PageMetadata,
 } from '@/types/analytics.types';
 
 /**
@@ -981,4 +983,83 @@ export const getAudience = async (
   ]);
 
   return { usersToday, usersLast7Days, ...windowStats };
+};
+
+const PAGE_METADATA_CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+const MAX_METADATA_CACHE_SIZE = 500;
+const pageMetadataCache = new Map<
+  string,
+  { data: PageMetadata; timestamp: number }
+>();
+
+/**
+ * Fetches page metadata (title and meta description) from a target URL.
+ * Parses HTML via Cheerio and extracts title/og:title and description/og:description.
+ * Caches responses in-memory for 24 hours.
+ */
+export const getPageMetadata = async (
+  targetUrl: string
+): Promise<PageMetadata> => {
+  const cached = pageMetadataCache.get(targetUrl);
+  if (cached && Date.now() - cached.timestamp < PAGE_METADATA_CACHE_TTL_MS) {
+    return cached.data;
+  }
+
+  try {
+    const parsedUrl = new URL(targetUrl);
+    if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
+      return { title: '', description: '' };
+    }
+
+    const response = await fetch(targetUrl, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (compatible; IntlayerBot/1.0; +https://intlayer.org)',
+        Accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      },
+      signal: AbortSignal.timeout(6000),
+      redirect: 'follow',
+    });
+
+    if (!response.ok) {
+      return { title: '', description: '' };
+    }
+
+    const contentType = response.headers.get('content-type') ?? '';
+    if (
+      contentType &&
+      !contentType.includes('text/html') &&
+      !contentType.includes('xhtml')
+    ) {
+      return { title: '', description: '' };
+    }
+
+    const html = await response.text();
+    const $ = load(html);
+
+    const title =
+      $('title').first().text().trim() ||
+      $('meta[property="og:title"]').attr('content')?.trim() ||
+      $('meta[name="twitter:title"]').attr('content')?.trim() ||
+      '';
+
+    const description =
+      $('meta[name="description"]').attr('content')?.trim() ||
+      $('meta[property="og:description"]').attr('content')?.trim() ||
+      $('meta[name="twitter:description"]').attr('content')?.trim() ||
+      '';
+
+    const result: PageMetadata = { title, description };
+
+    if (pageMetadataCache.size >= MAX_METADATA_CACHE_SIZE) {
+      const firstKey = pageMetadataCache.keys().next().value;
+      if (firstKey) pageMetadataCache.delete(firstKey);
+    }
+    pageMetadataCache.set(targetUrl, { data: result, timestamp: Date.now() });
+
+    return result;
+  } catch {
+    return { title: '', description: '' };
+  }
 };
