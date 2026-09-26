@@ -147,6 +147,30 @@ export const getLocaleFromStorageClient = (
   }
 };
 
+let isStoredLocaleCached = false;
+let storedLocale: Locale | undefined;
+
+/**
+ * Returns the locale persisted in the browser storage, read with the default
+ * options.
+ *
+ * The read is cached until the next `setLocaleInStorageClient`, so callers can
+ * use it on every render without reading the cookie each time. On the server
+ * nothing is cached: module state is shared by every request.
+ */
+export const getCachedLocaleFromStorageClient = (): Locale | undefined => {
+  if (typeof window === 'undefined') {
+    return getLocaleFromStorageClient(localeStorageOptions);
+  }
+
+  if (!isStoredLocaleCached) {
+    storedLocale = getLocaleFromStorageClient(localeStorageOptions);
+    isStoredLocaleCached = true;
+  }
+
+  return storedLocale;
+};
+
 /**
  * Stores the locale in browser storage mechanisms
  * (cookies, localStorage, sessionStorage).
@@ -157,6 +181,9 @@ export const setLocaleInStorageClient = (
   options?: LocaleStorageClientOptions
 ): void => {
   if (options?.isCookieEnabled === false) return;
+
+  // The next cached read must see this write
+  isStoredLocaleCached = false;
 
   if (!TREE_SHAKE_STORAGE_COOKIES && routing.storage.cookies) {
     for (let i = 0; i < routing.storage.cookies.length; i++) {

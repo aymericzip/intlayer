@@ -5,6 +5,7 @@ import type {
   LocalesValues,
   ProviderVariant,
 } from '@intlayer/types/module_augmentation';
+import { getLocaleInStorage } from './useLocaleStorage';
 
 export class IntlayerProvider {
   isCookieEnabled = signal(true);
@@ -55,8 +56,11 @@ export const createIntlayerClient = (
 
   instance = new IntlayerProvider();
 
-  if (locale) {
-    instance.setLocale(locale);
+  // Returning visitors keep their language when no locale is passed
+  const initialLocale = locale ?? getLocaleInStorage();
+
+  if (initialLocale) {
+    instance.setLocale(initialLocale);
   }
   if (variant !== undefined) {
     instance.setVariant(variant);

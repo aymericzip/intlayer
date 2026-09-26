@@ -1,4 +1,5 @@
 import {
+  getCachedLocaleFromStorageClient,
   getLocaleFromStorageClient,
   LocaleStorageClient,
   localeStorageOptions,
@@ -6,6 +7,14 @@ import {
 } from '@intlayer/core/utils';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { readable } from 'svelte/store';
+
+/**
+ * Reads the locale persisted in the browser storage (cookie, localStorage…).
+ *
+ * Unlike `localeInStorage`, read on first call rather than at import, then
+ * cached until the next `setLocaleInStorage`. Never cached on the server.
+ */
+export const getLocaleInStorage = getCachedLocaleFromStorageClient;
 
 /**
  * Get the locale cookie

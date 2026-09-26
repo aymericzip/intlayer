@@ -8,6 +8,7 @@ import { useAnalytics } from '../analytics/useAnalytics';
 import { useEditor } from '../editor/useEditor';
 import { setIntlayerContext } from './intlayerContext';
 import { intlayerStore } from './intlayerStore';
+import { getLocaleInStorage } from './useLocaleStorage';
 
 /**
  * Setups Intlayer in your Svelte application.
@@ -39,18 +40,21 @@ export const setupIntlayer = (
   initialLocale?: LocalesValues,
   initialVariant?: ProviderVariant
 ) => {
+  // Returning visitors keep their language when no locale is passed
+  const startLocale = initialLocale ?? getLocaleInStorage();
+
   setIntlayerIdentifier();
   useEditor();
   useAnalytics();
 
   // Create Reactive State (Svelte 5)
   // We make the locale a "rune" so updates propagate
-  let locale = $state(initialLocale);
+  let locale = $state(startLocale);
   let variant = $state(initialVariant);
 
   // Keep intlayerStore in sync so useEditor can subscribe to it
-  if (initialLocale) {
-    intlayerStore.setLocale(initialLocale);
+  if (startLocale) {
+    intlayerStore.setLocale(startLocale);
   }
 
   // Define the Context Object

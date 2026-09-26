@@ -5,6 +5,7 @@ import type {
   ProviderVariant,
 } from '@intlayer/types/module_augmentation';
 import { useEditor } from '../editor/useEditor';
+import { getLocaleInStorage } from './useLocaleStorage';
 
 type LocaleListener = (locale: LocalesValues) => void;
 
@@ -23,8 +24,11 @@ export class IntlayerClient {
 
     setIntlayerIdentifier();
 
+    // Returning visitors keep their language when no locale is passed
     this._locale =
-      (locale as LocalesValues) ?? (defaultLocale as LocalesValues);
+      (locale as LocalesValues) ??
+      getLocaleInStorage() ??
+      (defaultLocale as LocalesValues);
     this._variant = variant;
     this.isCookieEnabled = isCookieEnabled;
   }

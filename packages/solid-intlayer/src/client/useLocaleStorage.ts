@@ -1,29 +1,20 @@
 import {
+  getCachedLocaleFromStorageClient,
   getLocaleFromStorageClient,
   LocaleStorageClient,
   localeStorageOptions,
   setLocaleInStorageClient as setLocaleInStorageCore,
 } from '@intlayer/core/utils';
-import type { Locale } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { createMemo } from 'solid-js';
 
-let hasReadLocaleInStorage = false;
-let storedLocale: Locale | undefined;
-
 /**
- * Reads the locale persisted in the browser storage (cookie, localStorage…)
- * on first call, then serves that value — like `localeInStorage`, without
- * reading storage at import time.
+ * Reads the locale persisted in the browser storage (cookie, localStorage…).
+ *
+ * Unlike `localeInStorage`, read on first call rather than at import, then
+ * cached until the next `setLocaleInStorage`. Never cached on the server.
  */
-export const getLocaleInStorage = (): Locale | undefined => {
-  if (!hasReadLocaleInStorage) {
-    storedLocale = getLocaleFromStorageClient(localeStorageOptions);
-    hasReadLocaleInStorage = true;
-  }
-
-  return storedLocale;
-};
+export const getLocaleInStorage = getCachedLocaleFromStorageClient;
 
 /**
  * Get the locale cookie

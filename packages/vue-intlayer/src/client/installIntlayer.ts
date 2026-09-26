@@ -6,6 +6,7 @@ import type {
   ProviderVariant,
 } from '@intlayer/types/module_augmentation';
 import { type App, type Ref, readonly, ref } from 'vue';
+import { getLocaleInStorage } from './useLocaleStorage';
 
 export const INTLAYER_SYMBOL = Symbol('intlayer');
 
@@ -40,7 +41,10 @@ export const createIntlayerClient = (
 
   const { defaultLocale } = internationalization ?? {};
 
-  const targetLocale = ref<Locale>((locale as Locale) ?? defaultLocale);
+  // Returning visitors keep their language when no locale is passed
+  const targetLocale = ref<Locale>(
+    (locale as Locale) ?? getLocaleInStorage() ?? defaultLocale
+  );
 
   const setLocale = (newLocale: LocalesValues) => {
     targetLocale.value = newLocale as Locale;

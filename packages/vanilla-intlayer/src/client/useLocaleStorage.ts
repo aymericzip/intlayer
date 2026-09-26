@@ -1,10 +1,19 @@
 import {
+  getCachedLocaleFromStorageClient,
   getLocaleFromStorageClient,
   LocaleStorageClient,
   localeStorageOptions,
   setLocaleInStorageClient as setLocaleInStorageCore,
 } from '@intlayer/core/utils';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+
+/**
+ * Reads the locale persisted in the browser storage (cookie, localStorage…).
+ *
+ * Unlike `localeInStorage`, read on first call rather than at import, then
+ * cached until the next `setLocaleInStorage`. Never cached on the server.
+ */
+export const getLocaleInStorage = getCachedLocaleFromStorageClient;
 
 /**
  * Get the current locale from storage (cookie or localStorage).
