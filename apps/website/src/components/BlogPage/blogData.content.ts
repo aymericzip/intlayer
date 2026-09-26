@@ -413,13 +413,6 @@ const blogDataContent: Dictionary = {
               ),
               frameworks: ['astro'],
             },
-            vite: {
-              title: 'Vite',
-              default: getBlogMetadata(
-                './blog/en/list_i18n_technologies/build-tools/vite.md'
-              ),
-              frameworks: ['vite'],
-            },
           },
         },
       },
