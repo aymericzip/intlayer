@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: Übersetzung
-description: Entdecken Sie, wie Sie Übersetzungen in Ihrer mehrsprachigen Website deklarieren und verwenden können. Folgen Sie den Schritten in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
+title: "Übersetzungsinhalte: die t()-Funktion"
+description: "Deklarieren Sie Übersetzungen pro Locale mit der t()-Funktion von Intlayer, mit Typprüfung, die fehlende Locales beim Build meldet."
 keywords:
   - Übersetzung
   - Internationalisierung

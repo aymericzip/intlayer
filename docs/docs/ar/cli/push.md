@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: دفع القواميس
-description: تعلّم كيفية دفع القواميس الخاصة بك إلى محرر Intlayer ونظام إدارة المحتوى.
+title: "intlayer push: إرسال القواميس إلى CMS"
+description: "ارفع قواميس Intlayer المحلية إلى المحرّر المرئي وCMS ليتمكن المترجمون ومديرو المحتوى من تعديلها."
 keywords:
   - دفع
   - قواميس

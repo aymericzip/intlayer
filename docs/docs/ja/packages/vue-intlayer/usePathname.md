@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname 関数のドキュメント | vue-intlayer
-description: vue-intlayer パッケージの usePathname 関数の使用方法について
+description: "Vue の usePathname で、ロケールセグメントを除いた現在のパスを computed ref として取得し、ロケール対応のナビゲーションに使います。"
 keywords:
   - usePathname
   - pathname
@@ -106,5 +106,5 @@ const pathname = usePathname();
 
 ## 関連事項
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vue-intlayer/useLocale.md) — 現在のロケール + ロケールスイッチャー
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md) — このフックで使用される基盤となるユーティリティ
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vue-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md)

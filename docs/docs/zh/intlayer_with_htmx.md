@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-09-27
 priority: 9
 title: "htmx i18n - 完整的应用翻译指南"
-description: "不再使用 i18next。2026 年构建多语言 (i18n) htmx 应用的指南。使用 AI 代理进行翻译，优化 bundle 大小、SEO 和性能。"
+description: "在 htmx 中使用 Intlayer：在服务器端渲染翻译后的 HTML 片段，按请求检测语言，无需 SPA 即可切换语言。"
 keywords:
   - Internationalization
   - Documentation
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译您的 htmx 应用 | 国际化 (i18n)
+# 使用 Intlayer 翻译您的 htmx 应用
 
 htmx 不渲染任何自己的内容。访问者读到的每个标签都是您的服务器生成的 HTML，每次交换都是一个单独的 HTTP 请求。因此，国际化 htmx 应用是一个服务器问题：需要在每个请求上解析 locale，并且每个片段都必须以该 locale 呈现。
 

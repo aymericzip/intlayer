@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi getLocalizedPath | intlayer
-description: Lihat cara menggunakan fungsi getLocalizedPath untuk paket intlayer
+description: "Gunakan getLocalizedPath untuk mengubah path internal menjadi bentuk terlokalisasi, menerapkan aturan penulisan ulang dan prefiks locale."
 keywords:
   - getLocalizedPath
   - terjemahan
@@ -162,5 +162,5 @@ getLocalizedPath("/about");
 
 ## Fungsi Terkait
 
-- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getCanonicalPath.md): Mengembalikan path yang dilokalkan ke canonical path internalnya.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md): Menghasilkan URL yang sepenuhnya dilokalkan (termasuk protokol, host, dan prefiks locale).
+- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getCanonicalPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm comparePaths | intlayer
-description: Xem cách sử dụng hàm comparePaths cho gói intlayer
+description: "Dùng comparePaths để kiểm tra hai URL có cùng trỏ đến một trang, bỏ qua locale, host, query string, hash và dấu gạch chéo cuối."
 keywords:
   - comparePaths
   - normalizePath
@@ -145,9 +145,9 @@ normalizePath("https://example.com/ru/path"); // "/path"
 
 ## Các hàm liên quan
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md): Loại bỏ phần locale khỏi một URL hoặc đường dẫn.
-- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPrefix.md): Xác định tiền tố URL cho một locale cụ thể.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md): Tạo ra một URL đã được bản địa hóa cho một locale cụ thể.
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md)
+- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPrefix.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md)
 
 ## TypeScript
 

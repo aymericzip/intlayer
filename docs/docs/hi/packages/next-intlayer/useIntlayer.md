@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2026-05-06
 priority: 5
 title: useIntlayer हुक दस्तावेज़ | next-intlayer
-description: next-intlayer पैकेज के लिए useIntlayer हुक का उपयोग कैसे करें देखें
+description: "Next.js में useIntlayer से Client और Server Components में डिक्शनरी का स्थानीयकृत कंटेंट key से पढ़ें।"
 keywords:
   - useIntlayer
   - शब्दकोश

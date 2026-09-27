@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: 初始化 Intlayer
-description: 了解如何在您的项目中初始化 Intlayer。
+title: "intlayer init：在项目中配置 Intlayer"
+description: "运行 intlayer init 为现有项目添加 Intlayer：自动检测框架、安装依赖并写入配置文件。"
 keywords:
   - 初始化
   - CLI

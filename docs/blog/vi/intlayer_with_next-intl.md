@@ -2,7 +2,7 @@
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
 priority: 8
-title: Cách tự động hóa bản dịch JSON next-intl của bạn bằng Intlayer
+title: "Tự động hóa bản dịch JSON next-intl với Intlayer"
 description: Tự động hóa bản dịch JSON của bạn với Intlayer và next-intl để nâng cao khả năng quốc tế hóa trong các ứng dụng Next.js.
 keywords:
   - Intlayer
@@ -30,7 +30,7 @@ author: aymericzip
 
 <iframe title="Cách tự động hóa bản dịch JSON next-intl của bạn bằng Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-# Table of Contents
+## Table of Contents
 
 <TOC/>
 
@@ -52,6 +52,10 @@ Trong khi Intlayer cung cấp một giải pháp i18n độc lập xuất sắc 
 **Vì vậy, Intlayer có thể được triển khai như một bộ chuyển đổi (adapter) cho next-intl để giúp tự động hóa các bản dịch JSON của bạn trong CLI hoặc các pipeline CI/CD, kiểm thử bản dịch, và nhiều hơn nữa.**
 
 Hướng dẫn này sẽ chỉ cho bạn cách tận dụng hệ thống khai báo nội dung vượt trội của Intlayer trong khi vẫn giữ được khả năng tương thích với next-intl.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Mục lục
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
-title: CLI - Çok dilli web siteniz için tüm Intlayer CLI komutları
+title: "Intlayer CLI: çok dilli uygulamalar için tüm komutlar"
 description: Çok dilli web sitenizi yönetmek için Intlayer CLI'yı nasıl kullanacağınızı keşfedin. Projenizi birkaç dakika içinde kurmak için bu çevrimiçi belgelerdeki adımları izleyin.
 keywords:
   - CLI
@@ -137,19 +137,19 @@ Mevcut dillerin veya diğer parametrelerin nasıl yapılandırılacağını öğ
 
 ### Temel Komutlar
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/build.md)** - İçerik bildirimi dosyalarından sözlüklerinizi oluşturun
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/watch.md)** - Değişiklikleri izleyin ve sözlükleri otomatik olarak yeniden oluşturun
-- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/standalone.md)** - Intlayer ve belirtilen paketleri içeren bağımsız bir JavaScript paketi oluşturun
-- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/version.md)** - Kurulu Intlayer CLI sürümünü kontrol edin
-- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/list_projects.md)** - Bir dizindeki veya git deposundaki tüm Intlayer projelerini listeleyin
+- [Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/build.md)
+- [Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/watch.md)
+- [Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/standalone.md)
+- [Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/version.md)
+- [List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/list_projects.md)
 
 ### Sözlük Yönetimi
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/push.md)** - Sözlükleri Intlayer düzenleyicisine ve CMS'ye gönderin
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/pull.md)** - Intlayer düzenleyicisinden ve CMS'den sözlükleri alın
-- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md)** - Yapay zeka kullanarak sözlükleri doldurun, denetleyin ve çevirin
-- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/test.md)** - Eksik çevirileri test edin ve belirleyin
-- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/list.md)** - Projenizdeki tüm içerik bildirimi dosyalarını listeleyin
+- [Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/push.md)
+- [Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/pull.md)
+- [Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md)
+- [Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/test.md)
+- [List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/list.md)
 
 ### Bileşen Yönetimi
 
@@ -157,20 +157,20 @@ Mevcut dillerin veya diğer parametrelerin nasıl yapılandırılacağını öğ
 
 ### Yapılandırma
 
-- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/init.md)** - Otomatik yapılandırma ile projenizde Intlayer'ı kurun
-- **[Altyapıyı Kur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/infra.md)** - Masaüstü uygulamasını yükleyin veya Docker (hepsi bir arada veya Compose) ile CMS'yi kendi sunucunuzda barındırın
-- **[Intlayer Paketlerini Yükseltme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/upgrade.md)** - Her `package.json` dosyasındaki Intlayer paketlerini listeleyin ve bunları en son sürüme yükseltin
-- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/configuration.md)** - Intlayer yapılandırmanızı alın ve CMS'ye gönderin
+- [Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/init.md)
+- [Altyapıyı Kur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/infra.md)
+- [Intlayer Paketlerini Yükseltme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/upgrade.md)
+- [Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/configuration.md)
 
 ### Belge Yönetimi
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/doc-translate.md)** - Yapay zeka kullanarak belge dosyalarını otomatik olarak çevirin
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/doc-review.md)** - Belge dosyalarını kalite ve tutarlılık açısından inceleyin
+- [Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/doc-translate.md)
+- [Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/doc-review.md)
 
 ### Düzenleyici ve Canlı Senkronizasyon (Live Sync)
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/editor.md)** - Intlayer düzenleyici komutlarını kullanın
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md)** - CMS'den gelen içerik değişikliklerini çalışma zamanında uygulamak için Live Sync'i kullanın
+- [Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/editor.md)
+- [Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md)
 
 ### Denetim & Teşhis
 
@@ -178,8 +178,8 @@ Mevcut dillerin veya diğer parametrelerin nasıl yapılandırılacağını öğ
 
 ### Geliştirici Araçları
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/sdk.md)** - Kendi kodunuzda Intlayer CLI SDK'sını kullanın
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/debug.md)** - Intlayer CLI sorunlarını ayıklayın ve düzeltin
+- [CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/sdk.md)
+- [Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/debug.md)
 
 ## `package.json` dosyanızda intlayer komutlarını kullanın
 

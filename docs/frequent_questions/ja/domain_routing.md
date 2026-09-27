@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: ドメインベースのルーティングを設定する方法
-description: ドメインベースのルーティングの設定方法を学びます。
+description: "Intlayer のドメインベースのルーティングで、ロケールごとに専用ドメインから配信。intlayer.config.ts で設定し、リダイレクトも自動で処理します。"
 keywords:
   - ドメイン
   - ルーティング

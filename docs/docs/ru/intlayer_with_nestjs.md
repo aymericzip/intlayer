@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "NestJS i18n - Полное руководство по переводу вашего приложения"
-description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения NestJS. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
+description: "Настройка Intlayer в NestJS: определение локали для каждого запроса, перевод ответов контроллеров и сообщений валидации с типизацией."
 keywords:
   - Интернационализация
   - Документация
@@ -30,7 +30,7 @@ history:
     changes: "Начальная версия документа"
 ---
 
-# Переведите ваш Nest backend с Intlayer | Интернационализация (i18n)
+# Переведите ваш Nest backend с Intlayer
 
 `express-intlayer`, это мощный middleware для интернационализации (i18n) в приложениях на Express, разработанный для того, чтобы сделать ваши бэкенд-сервисы доступными по всему миру, предоставляя локализованные ответы в зависимости от предпочтений клиента. Поскольку NestJS построен поверх Express, вы можете без проблем интегрировать `express-intlayer` в ваши приложения на NestJS для эффективной работы с многоязычным контентом.
 
@@ -195,9 +195,9 @@ export class AppService {
 
 `express-intlayer` полностью совместим с:
 
-- [`react-intlayer`](/doc/packages/react-intlayer) для приложений на React
-- [`next-intlayer`](/doc/packages/next-intlayer) для приложений на Next.js
-- [`vite-intlayer`](/doc/packages/vite-intlayer) для приложений на Vite
+- [`react-intlayer`](/doc/packages/react-intlayer)
+- [`next-intlayer`](/doc/packages/next-intlayer)
+- [`vite-intlayer`](/doc/packages/vite-intlayer)
 
 Он также без проблем работает с любыми решениями для интернационализации в различных средах, включая браузеры и API-запросы. Вы можете настроить промежуточное ПО для определения локали через заголовки или куки:
 

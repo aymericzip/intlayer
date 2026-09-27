@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n في Next.js 16 باستخدام Lingui: دليل إعداد App Router"
 description: "إعداد Lingui في Next.js 16 App Router: مكونات الخادم، ماكرو SWC، توجيه الوكيل، generateMetadata، hreflang، sitemap و robots.txt، مع بيانات القياس المعياري."
@@ -45,9 +45,24 @@ author: aymericzip
 - **التقديم الثابت (Static rendering)** لكل لغة باستخدام `generateStaticParams`.
 - **تحسين محركات البحث (SEO) الكامل متعدد اللغات**: دالة `generateMetadata` المترجمة، والرابط الأساسي (canonical)، و `hreflang` مع `x-default`، ولغات Open Graph، و JSON-LD، و `sitemap.ts`، و `robots.ts`، وصفحات 404 المترجمة.
 
-> هل تبحث عن مكتبة أخرى؟ راجع [دليل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_next-intl.md)، أو [دليل next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_next-i18next.md)، أو [دليل Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md).
+> هل تبحث عن مكتبة أخرى؟
 
-> هل تستخدم TanStack Start؟ راجع [دليل TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_lingui.md). هل تقارن بين المكتبات؟ اقرأ [Lingui مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md) و [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md).
+- [دليل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_next-intl.md)
+- [دليل next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_next-i18next.md)
+- [دليل Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
+
+> هل تستخدم TanStack Start؟
+
+- [دليل TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_lingui.md)
+
+> هل تقارن بين المكتبات؟
+
+- [Lingui مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md)
+- [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md)
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## ماذا يقول اختبار الأداء والقياس المعياري عن Lingui في Next.js؟
 
@@ -96,7 +111,11 @@ author: aymericzip
 
 > تأتي أحجام وقت التشغيل من [اختبار قياس Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md). للمزيد من التفاصيل، اقرأ [Lingui مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md).
 
-> أدلة Next.js أخرى: [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_next-intl.md)، و[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_next-i18next.md)، و[Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md).
+> أدلة Next.js أخرى:
+
+- [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_next-intl.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_next-i18next.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_16.md)
 
 ## الممارسات التي يجب عليك اتباعها
 
@@ -109,7 +128,9 @@ author: aymericzip
 - **استخدام روابط حقيقية لمبدل اللغة**، حتى تتمكن برامج الزحف من اكتشاف كل لغة.
 - **تشغيل `lingui extract` في التكامل المستمر (CI)** حتى لا يتم نشر أي رسالة جديدة غير مترجمة.
 
-> راجع دليلنا حول [التدويل وتحسين محركات البحث](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/internationalization_and_SEO.md)، و[دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md)، و[مقارنة SEO متعدد اللغات في Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/nextjs-multilingual-seo-comparison.md).
+- [التدويل وتحسين محركات البحث](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/internationalization_and_SEO.md)
+- [دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md)
+- [مقارنة SEO متعدد اللغات في Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/nextjs-multilingual-seo-comparison.md)
 
 ## دليل خطوة بخطوة لإعداد Lingui في تطبيق Next.js
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Preact i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
-description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Vite + Preact. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
+description: "Konfiguracja Intlayer w aplikacji Vite i Preact: typowana treść per komponent, przełącznik języka, zlokalizowane trasy i małe bundle."
 keywords:
   - Internacjonalizacja
   - Dokumentacja
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Przetłumacz swoją stronę Vite i Preact za pomocą Intlayer | Internacjonalizacja (i18n)
+# Przetłumacz swoją stronę Vite i Preact za pomocą Intlayer
 
 ## Spis treści
 

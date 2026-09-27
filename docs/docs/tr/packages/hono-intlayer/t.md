@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
 title: t Fonksiyonu Dokümantasyonu | hono-intlayer
-description: hono-intlayer paketi için t fonksiyonunun nasıl kullanılacağını görün
+description: "hono-intlayer'ın t fonksiyonuyla Hono'da, her istek için algılanan locale'e göre yerelleştirilmiş yanıtlar döndürün."
 keywords:
   - t
   - çeviri

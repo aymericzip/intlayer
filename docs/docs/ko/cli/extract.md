@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 문자열 추출
+title: "intlayer extract: 컴포넌트에서 문자열 추출"
 description: 컴포넌트 근처에 .content 파일로 컴포넌트의 문자열을 추출하는 방법을 알아보세요.
 keywords:
   - 추출

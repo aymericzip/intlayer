@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: Документація хуку useI18n | react-intlayer
-description: Дізнайтесь, як використовувати хук useI18n у пакеті react-intlayer
+description: "Використовуйте useI18n у React, щоб отримати функцію перекладу, прив'язану до словника, це зручно під час міграції з бібліотек на ключах."
 keywords:
   - useI18n
   - i18n

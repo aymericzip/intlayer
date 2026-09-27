@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Express ミドルウェア ドキュメント | express-intlayer
-description: express-intlayer パッケージの intlayer ミドルウェアの使用方法を確認する
+description: "Express 向け intlayer ミドルウェアは、ユーザーのロケールを検出し、ハンドラー内で res.locals を通じて t と getIntlayer を提供します。"
 keywords:
   - intlayer
   - express

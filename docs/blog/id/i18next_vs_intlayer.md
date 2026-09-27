@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "i18next vs Intlayer: Benchmark & Perbandingan 2026"
 description: "react-i18next dan next-i18next diuji terhadap Intlayer pada Next.js dan TanStack Start. Ukuran bundle, kebocoran konten, responsivitas pergantian bahasa, dan pengalaman pengembang."
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# i18next VS Intlayer | Benchmark Internasionalisasi (i18n) React & Next.js
+# i18next VS Intlayer: Benchmark Internasionalisasi (i18n) React & Next.js
 
 ![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -523,25 +523,42 @@ Benchmark yang sama, pustaka lain:
 
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer.md)
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md)
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Mendalami i18next lebih lanjut:
 
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer-i18next.md), perbandingan adaptor yang diukur pada aplikasi yang sama
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer-i18next.md)
 - [Apakah i18next sudah ketinggalan zaman?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_i18next_outdated.md)
-- [Menggunakan Intlayer dengan i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/intlayer_with_i18next.md) dan [dengan react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/intlayer_with_react-i18next.md)
+- [Menggunakan Intlayer dengan i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/intlayer_with_i18next.md)
+- [dengan react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/intlayer_with_react-i18next.md)
 - [Cara menginternasionalkan aplikasi Next.js dengan next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-i18next.md)
 
 Dokumentasi referensi:
 
-- [Laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md) dan [laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
-- Adaptor kompatibilitas: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-i18next.md)
-- Panduan migrasi: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-i18next_to_intlayer.md)
-- [Optimasi bundel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+- [Laporan benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md)
+- [laporan benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
+- [Optimasi bundel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
+- [kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
 - [i18n per komponen vs terpusat](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md)
 - [i18n berbasis kompilator vs deklaratif](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
+
+Adaptor kompatibilitas:
+
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/i18next.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/react-i18next.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/next-i18next.md)
+
+Panduan migrasi:
+
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_react-i18next_to_intlayer.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-i18next_to_intlayer.md)
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Bintang GitHub
 

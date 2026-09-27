@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "next-i18next'ten Intlayer'a Geçiş Yapın"
-description: "Uyumluluk adaptörünü kullanarak Next.js uygulamanızı next-i18next'ten Intlayer'a nasıl geçireceğinizi öğrenin."
+title: "@intlayer/next-i18next: next-i18next için uyumluluk adaptörü"
+description: "next-i18next kodunuzu koruyun ve Intlayer ile sunun: @intlayer/next-i18next paketini kurun, import'lar için alias tanımlayın ve adaptörün arka planda neyi değiştirdiğini görün."
 keywords:
   - next-i18next
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# next-i18next'ten Intlayer'a Geçiş Yapın
+# @intlayer/next-i18next: next-i18next için uyumluluk adaptörü
 
 Kapsamlı ve ayrıntılı adım adım eğitim için lütfen tam [next-i18next Göç Kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-i18next_to_intlayer.md) bakın.
 
@@ -56,3 +56,7 @@ Arka Planda:
 
 - **`serverSideTranslations` & `appWithTranslation`:** Artık Intlayer'ın iç yükleyicileri için wrapper'lar olarak işlev gördüğünden, büyük statik JSON enjeksiyonunu ortadan kaldırır.
 - **Client Hook'ları:** Tüm biçimlendirme, çoğullaştırma ve iç içe ad alanı özelliklerini koruyarak `@intlayer/react-i18next`'e hemen delege eder.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)

@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: 関数フェッチング
-description: 多言語ウェブサイトで関数フェッチングを宣言し使用する方法を紹介します。このオンラインドキュメントの手順に従って、数分でプロジェクトをセットアップしましょう。
+title: "Function fetching：関数からコンテンツを読み込む"
+description: "同期または非同期の関数から Intlayer のコンテンツを宣言します。たとえばビルド時に API から翻訳を取得できます。"
 keywords:
   - 関数フェッチング
   - 国際化

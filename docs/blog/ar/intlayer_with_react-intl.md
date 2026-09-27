@@ -2,7 +2,7 @@
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
 priority: 8
-title: كيفية أتمتة ترجمات JSON الخاصة بـ react-intl باستخدام Intlayer
+title: "أتمتة ترجمات JSON في react-intl باستخدام Intlayer"
 description: أتمتة ترجمات JSON الخاصة بك باستخدام Intlayer و react-intl لتعزيز التدويل في تطبيقات React.
 keywords:
   - react-intl
@@ -53,6 +53,10 @@ author: aymericzip
 **لهذا، يمكن تنفيذ Intlayer كمحول لـ react-intl للمساعدة في أتمتة ترجمات JSON الخاصة بك في واجهة الأوامر أو خطوط أنابيب CI/CD، اختبار ترجماتك، والمزيد.**
 
 يوضح هذا الدليل كيفية الاستفادة من نظام إعلان المحتوى المتفوق الخاص بـ Intlayer مع الحفاظ على التوافق مع react-intl.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## دليل خطوة بخطوة لإعداد Intlayer مع react-intl
 

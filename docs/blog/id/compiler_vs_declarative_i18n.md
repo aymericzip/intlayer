@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-24
-updatedAt: 2025-11-24
+updatedAt: 2026-09-27
 priority: 8
 title: Compiler vs. Deklaratif i18n
 description: Menjelajahi pertukaran arsitektural antara internasionalisasi berbasis compiler "ajaib" dan manajemen konten deklaratif yang eksplisit.
@@ -65,6 +65,10 @@ Dengan demikian, i18n berbasis Compiler lahir.
 > - angular-i18n (Pendekatan asli Angular, ahead-of-time yang menggabungkan file XLIFF langsung ke dalam template selama build)
 > - Tolgee (Menggabungkan kode deklaratif dengan SDK dalam konteks untuk pengeditan "klik-untuk-menerjemahkan" langsung di UI)
 > - Intlayer (Pendekatan per-komponen, menggunakan file deklarasi konten yang memungkinkan tree-shaking native dan validasi TypeScript)
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Kompiler Intlayer
 

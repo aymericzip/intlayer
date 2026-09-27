@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Remix 3 i18n - 完整的应用多语言国际化翻译指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Remix 3 应用的权威指南。借助 AI 智能体完成翻译，并优化打包体积、SEO 和性能。"
+description: "在 Remix 3 中配置 Intlayer：在路由中间件中检测语言，翻译路由处理器和视图，并生成本地化 URL。"
 keywords:
   - 国际化
   - 文档
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译您的 Remix 3 网站 | 国际化 (i18n)
+# 使用 Intlayer 翻译您的 Remix 3 网站
 
 本指南演示了如何将 **Intlayer** 集成到 **Remix 3** 应用中以实现无缝的国际化，涵盖基于语言的路由、类型安全的内容声明、服务端渲染的 JSX 组件以及对 Node.js、Bun、Deno 和 Cloudflare Workers 的跨运行时支持。
 

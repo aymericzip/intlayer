@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
-title: CLI - جميع أوامر Intlayer CLI لموقعك متعدد اللغات
+title: "واجهة سطر أوامر Intlayer: كل الأوامر للتطبيقات متعددة اللغات"
 description: اكتشف كيفية استخدام Intlayer CLI لإدارة موقعك متعدد اللغات. اتبع الخطوات الواردة في هذه الوثائق عبر الإنترنت لإعداد مشروعك في دقائق معدودة.
 keywords:
   - CLI
@@ -137,19 +137,19 @@ bun add intlayer-cli -g
 
 ### الأوامر الأساسية
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/build.md)** - بناء القواميس الخاصة بك من ملفات تصريح المحتوى
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/watch.md)** - مراقبة التغييرات وإعادة بناء القواميس تلقائيًا
-- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/standalone.md)** - إنشاء حزمة JavaScript مستقلة تحتوي على Intlayer والحزم المحددة
-- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/version.md)** - التحقق من إصدار Intlayer CLI المثبت
-- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/list_projects.md)** - سرد جميع مشاريع Intlayer في دليل أو مستودع git
+- [Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/build.md)
+- [Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/watch.md)
+- [Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/standalone.md)
+- [Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/version.md)
+- [List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/list_projects.md)
 
 ### إدارة القواميس
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/push.md)** - إرسال القواميس إلى محرر Intlayer و CMS
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/pull.md)** - جلب القواميس من محرر Intlayer و CMS
-- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md)** - ملء القواميس ومراجعتها وترجمتها باستخدام الذكاء الاصطناعي
-- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/test.md)** - اختبار وتحديد الترجمات المفقودة
-- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/list.md)** - سرد جميع ملفات تصريح المحتوى في مشروعك
+- [Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/push.md)
+- [Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/pull.md)
+- [Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md)
+- [Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/test.md)
+- [List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/list.md)
 
 ### إدارة المكونات
 
@@ -157,20 +157,20 @@ bun add intlayer-cli -g
 
 ### التكوين
 
-- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/init.md)** - إعداد Intlayer في مشروعك بتكوين تلقائي
-- **[إعداد البنية التحتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/infra.md)** - تثبيت تطبيق سطح المكتب أو الاستضافة الذاتية لـ CMS باستخدام Docker (الكل في واحد أو Compose)
-- **[ترقية حزم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/upgrade.md)** - سرد حزم Intlayer لكل `package.json` وترقيتها إلى أحدث إصدار
-- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/configuration.md)** - الحصول على تكوين Intlayer الخاص بك وإرساله إلى CMS
+- [Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/init.md)
+- [إعداد البنية التحتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/infra.md)
+- [ترقية حزم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/upgrade.md)
+- [Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/configuration.md)
 
 ### إدارة الوثائق
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/doc-translate.md)** - ترجمة ملفات الوثائق تلقائيًا باستخدام الذكاء الاصطناعي
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/doc-review.md)** - مراجعة ملفات الوثائق للجودة والاتساق
+- [Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/doc-translate.md)
+- [Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/doc-review.md)
 
 ### المحرر والمزامنة المباشرة (Live Sync)
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/editor.md)** - استخدام أوامر محرر Intlayer
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/live.md)** - استخدام المزامنة المباشرة لتطبيق تغييرات المحتوى من CMS في وقت التشغيل
+- [Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/editor.md)
+- [Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/live.md)
 
 ### التدقيق والتشخيص
 
@@ -178,8 +178,8 @@ bun add intlayer-cli -g
 
 ### أدوات التطوير
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/sdk.md)** - استخدام Intlayer CLI SDK في الكود الخاص بك
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/debug.md)** - تصحيح أخطاء وحل مشكلات Intlayer CLI
+- [CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/sdk.md)
+- [Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/debug.md)
 
 ## استخدم أوامر intlayer في ملف `package.json` الخاص بك
 

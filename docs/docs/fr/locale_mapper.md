@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: Locale Mapper
-description: Découvrez comment fonctionne Locale Mapper. Voyez les étapes utilisées par Locale Mapper dans votre application. Découvrez ce que font les différents packages.
+title: "Locale Mapper : localeMap, localeFlatMap, localeRecord"
+description: "Transformez les données de locale avec localeMap, localeFlatMap et localeRecord pour générer routes, paramètres statiques et objets par locale."
 keywords:
   - Locale Mapper
   - Démarrer

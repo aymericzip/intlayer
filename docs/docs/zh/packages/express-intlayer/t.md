@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
 title: t 函数文档 | express-intlayer
-description: 了解如何使用 express-intlayer 包中的 t 函数
+description: "使用 express-intlayer 的 t 函数，根据每个请求检测到的语言在 Express 中返回本地化响应。"
 keywords:
   - t
   - 翻译

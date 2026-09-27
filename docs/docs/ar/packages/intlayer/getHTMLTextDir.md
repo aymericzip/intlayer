@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: توثيق دالة getHTMLTextDir | intlayer
-description: تعرف على كيفية استخدام دالة getHTMLTextDir لحزمة intlayer
+description: "استخدم getHTMLTextDir للحصول على اتجاه نص اللغة (ltr أو rtl أو auto) وضبط السمة dir في HTML."
 keywords:
   - getHTMLTextDir
   - الترجمة

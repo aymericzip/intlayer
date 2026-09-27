@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق مكوّن intlayer لـ Fastify | fastify-intlayer
-description: اطلع على كيفية استخدام مكوّن intlayer لحزمة fastify-intlayer
+description: "تكتشف إضافة intlayer لـ Fastify لغة المستخدم وتضيف دوال الترجمة من Intlayer إلى كل طلب."
 keywords:
   - intlayer
   - fastify

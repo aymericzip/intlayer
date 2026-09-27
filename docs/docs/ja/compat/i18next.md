@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "i18nextからIntlayerへの移行"
-description: "compat adapterを使用して、Vanilla JS/TSアプリケーションをi18nextからIntlayerに移行する方法を学びます。"
+title: "@intlayer/i18next：i18next 互換アダプター"
+description: "i18next のコードはそのままで Intlayer から配信：@intlayer/i18next をインストールし、インポートにエイリアスを設定して、アダプターが内部で何を変えるかを確認します。"
 keywords:
   - i18next
   - vanilla
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# i18nextからIntlayerへの移行
+# @intlayer/i18next：i18next 互換アダプター
 
 詳細なステップバイステップのチュートリアルについては、[i18next Migration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)をご覧ください。
 
@@ -58,3 +58,7 @@ export default defineConfig({
 - **補間:** `{{name}}` 置換と `$t(key)` ネストの再帰的なネイティブサポート。
 - **コンテキスト & 複数形:** `key_male` や `key_one`/`key_other` のようなサフィックス形式を識別・解決し、標準 `Intl.PluralRules` に対して評価します。
 - **オブジェクト返却:** `returnObjects: true` モードは Intlayer 辞書からツリーを安全に抽出します。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)

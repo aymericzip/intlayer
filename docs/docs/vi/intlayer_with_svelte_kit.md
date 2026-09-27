@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "SvelteKit i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng SvelteKit đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong SvelteKit: định tuyến locale bằng hooks, nội dung dịch trong hàm load và component, hreflang và sitemap."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web SvelteKit của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web SvelteKit của bạn bằng Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Mã nguồn" value="code">
@@ -768,8 +768,8 @@ Khuyến nghị bỏ qua các tệp được tạo bởi Intlayer.
 
 ### Đi xa hơn
 
-- **Trình chỉnh sửa trực quan**: Tích hợp [Trình chỉnh sửa trực quan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) để chỉnh sửa bản dịch trực tiếp từ giao diện người dùng.
-- **CMS**: Đưa việc quản lý nội dung của bạn ra bên ngoài bằng cách sử dụng [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
+- [Trình chỉnh sửa trực quan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
 
 ## Các Câu Hỏi Thường Gặp
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Помилка ESBuild
-description: Дізнайтеся, як виправляти помилки ESBuild.
+title: "Як виправити помилки ESBuild з Intlayer"
+description: "Виправте помилки ESBuild під час збирання Intlayer, зазвичай спричинені відсутнім або неправильно налаштованим плагіном збирача для вашого фреймворку."
 keywords:
   - esbuild
   - error

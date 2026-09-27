@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: useIntlayer हुक दस्तावेज़ | react-intlayer
-description: react-intlayer पैकेज के लिए useIntlayer हुक का उपयोग कैसे करें देखें
+description: "React में useIntlayer से डिक्शनरी का स्थानीयकृत कंटेंट key से पढ़ें, जिसके टाइप कंटेंट डिक्लेरेशन फ़ाइलों से आते हैं।"
 keywords:
   - useIntlayer
   - शब्दकोश

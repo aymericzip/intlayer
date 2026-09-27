@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: useIntlayer 훅 문서 | react-intlayer
-description: react-intlayer 패키지에서 useIntlayer 훅을 사용하는 방법을 확인하세요
+description: "React의 useIntlayer로 사전의 현지화된 콘텐츠를 키로 읽습니다. 콘텐츠 선언 파일에서 타입이 지정됩니다."
 keywords:
   - useIntlayer
   - dictionary

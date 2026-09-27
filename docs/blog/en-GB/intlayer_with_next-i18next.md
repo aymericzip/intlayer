@@ -63,6 +63,10 @@ This guide explains how to leverage Intlayer as an **adapter for i18next**, allo
 - Automate your JSON translations in CLI or CI/CD pipelines.
 - Test, sync, and manage translations more effectively.
 
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/history_of_i18n.md)
+
 ## Step-by-Step Guide to Set Up Intlayer with next-i18next
 
 <Steps>

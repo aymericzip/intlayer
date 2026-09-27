@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - 로그인
+title: "intlayer login: CMS 인증"
 description: Intlayer CLI의 login 명령을 사용하여 Intlayer CMS에 인증하고 액세스 자격증명을 얻는 방법을 알아보세요.
 keywords:
   - CLI
@@ -240,10 +240,10 @@ bun x intlayer login --verbose
 1. 자격 증명을 `.env` 파일에 추가하세요
 2. 자격 증명을 사용하여 `intlayer.config.*` 파일을 구성하세요
 3. 딕셔너리 관리를 위해 CLI 명령어를 사용하세요:
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/push.md) - 딕셔너리를 CMS에 푸시합니다
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/pull.md) - CMS에서 딕셔너리를 가져옵니다
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md) - 누락된 번역을 채웁니다
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md) - 누락된 번역 채우기
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/pull.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md)
 
 ## 참고
 

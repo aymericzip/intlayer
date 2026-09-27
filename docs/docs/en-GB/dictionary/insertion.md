@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Insertion
-description: Learn how to declare and use insertion placeholders in your content. This documentation guides you through the steps to dynamically insert values within predefined content structures.
+title: "Insertion: Variables in Translated Content"
+description: "Insert dynamic values into translated strings with Intlayer's insert() node and {{placeholders}}, typed from your content declaration."
 keywords:
   - Insertion
   - Dynamic Content

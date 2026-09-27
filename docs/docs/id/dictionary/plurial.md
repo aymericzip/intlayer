@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-05-04
-updatedAt: 2026-05-04
+updatedAt: 2026-09-27
 priority: 8
-title: Jamak (Plural)
-description: Pelajari cara mendeklarasikan dan menggunakan konten jamak yang sadar lokal (berbasis CLDR) di situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi online ini untuk menyiapkan proyek Anda dalam beberapa menit.
+title: "Konten jamak: aturan jamak CLDR"
+description: "Deklarasikan bentuk jamak sesuai locale di Intlayer dengan kategori CLDR (zero, one, two, few, many, other), di-resolve dari sebuah angka."
 keywords:
   - Jamak
   - Pluralisasi

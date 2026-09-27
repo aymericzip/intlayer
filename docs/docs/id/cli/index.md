@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
-title: CLI - Semua perintah Intlayer CLI untuk situs web multibahasa Anda
+title: "CLI Intlayer: semua perintah untuk aplikasi multibahasa"
 description: Pelajari cara menggunakan Intlayer CLI untuk mengelola situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi online ini untuk menyiapkan proyek Anda dalam hitungan menit.
 keywords:
   - CLI
@@ -137,19 +137,19 @@ Untuk mempelajari cara mengonfigurasi bahasa yang tersedia atau parameter lainny
 
 ### Perintah Utama
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/build.md)** - Bangun kamus Anda dari file deklarasi konten
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/watch.md)** - Pantau perubahan dan bangun kembali kamus secara otomatis
-- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/standalone.md)** - Buat bundel JavaScript mandiri yang berisi Intlayer dan paket yang ditentukan
-- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/version.md)** - Periksa versi Intlayer CLI yang terinstal
-- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/list_projects.md)** - Daftar semua proyek Intlayer dalam direktori atau repositori git
+- [Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/build.md)
+- [Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/watch.md)
+- [Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/standalone.md)
+- [Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/version.md)
+- [List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/list_projects.md)
 
 ### Manajemen Kamus
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/push.md)** - Kirim kamus ke Editor Intlayer dan CMS
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/pull.md)** - Ambil kamus dari Editor Intlayer dan CMS
-- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill.md)** - Isi, audit, dan terjemahkan kamus menggunakan AI
-- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/test.md)** - Uji dan identifikasi terjemahan yang hilang
-- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/list.md)** - Daftar semua file deklarasi konten dalam proyek Anda
+- [Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/push.md)
+- [Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/pull.md)
+- [Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill.md)
+- [Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/test.md)
+- [List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/list.md)
 
 ### Manajemen Komponen
 
@@ -157,20 +157,20 @@ Untuk mempelajari cara mengonfigurasi bahasa yang tersedia atau parameter lainny
 
 ### Konfigurasi
 
-- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/init.md)** - Siapkan Intlayer di proyek Anda dengan konfigurasi otomatis
-- **[Menyiapkan Infrastruktur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/infra.md)** - Instal aplikasi desktop atau self-host CMS dengan Docker (all-in-one atau Compose)
-- **[Tingkatkan Paket Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/upgrade.md)** - Cantumkan paket Intlayer dari setiap `package.json` dan tingkatkan ke versi terbaru
-- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/configuration.md)** - Dapatkan konfigurasi Intlayer Anda dan kirimkan ke CMS
+- [Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/init.md)
+- [Menyiapkan Infrastruktur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/infra.md)
+- [Tingkatkan Paket Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/upgrade.md)
+- [Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/configuration.md)
 
 ### Manajemen Dokumen
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/doc-translate.md)** - Terjemahkan file dokumen secara otomatis menggunakan AI
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/doc-review.md)** - Tinjau file dokumen untuk kualitas dan konsistensi
+- [Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/doc-translate.md)
+- [Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/doc-review.md)
 
 ### Editor dan Live Sync
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/editor.md)** - Gunakan perintah editor Intlayer
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live.md)** - Gunakan Live Sync untuk menerapkan perubahan konten dari CMS saat runtime
+- [Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/editor.md)
+- [Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live.md)
 
 ### Audit & Diagnostik
 
@@ -178,8 +178,8 @@ Untuk mempelajari cara mengonfigurasi bahasa yang tersedia atau parameter lainny
 
 ### Alat Pengembang
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/sdk.md)** - Gunakan Intlayer CLI SDK di kode Anda sendiri
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/debug.md)** - Debug dan selesaikan masalah dengan Intlayer CLI
+- [CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/sdk.md)
+- [Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/debug.md)
 
 ## Gunakan perintah intlayer di `package.json` Anda
 

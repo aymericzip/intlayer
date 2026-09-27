@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "Vite + Vanilla JS i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Vite + Vanilla JS 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+title: "Vite + Vanilla JS i18n：完整翻译指南"
+description: "在不使用框架的 Vite 应用中配置 Intlayer：翻译 DOM、切换语言，并在 .content 文件中保持类型化内容。"
 keywords:
   - 国际化
   - 文档
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译您的 Vite 和 Vanilla JS 网站 | 国际化 (i18n)
+# 使用 Intlayer 翻译您的 Vite 和 Vanilla JS 网站
 
 <Tabs defaultTab="code">
   <Tab label="代码" value="code">

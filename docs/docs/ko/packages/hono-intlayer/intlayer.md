@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-01-29
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Hono 미들웨어 문서 | hono-intlayer
-description: hono-intlayer 패키지의 intlayer 미들웨어 사용법 알아보기
+description: "Hono용 intlayer 미들웨어는 사용자 로케일을 감지하고 요청 컨텍스트에 Intlayer 번역 함수를 추가합니다."
 keywords:
   - intlayer
   - hono

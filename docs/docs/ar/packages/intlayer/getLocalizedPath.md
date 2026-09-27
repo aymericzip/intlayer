@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق الدالة getLocalizedPath | intlayer
-description: تعرف على كيفية استخدام الدالة getLocalizedPath لحزمة intlayer
+description: "استخدم getLocalizedPath لتحويل مسار داخلي إلى صيغته المترجمة، مع تطبيق قواعد إعادة الكتابة وبادئة اللغة."
 keywords:
   - getLocalizedPath
   - الترجمة
@@ -161,5 +161,5 @@ getLocalizedPath("/about");
 
 ## الدوال ذات الصلة
 
-- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getCanonicalPath.md): يُعيد مسارًا مترجمًا إلى مساره القانوني الداخلي.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md): يولِّد عنوان URL مُحَلَّى بالكامل (بما في ذلك البروتوكول والمضيف وبادئة اللغة).
+- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getCanonicalPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md)

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
-title: はじめに
+title: "Intlayer を始める：あらゆるフレームワークの i18n"
 description: Intlayerの仕組みを発見しましょう。アプリケーションでIntlayerが使用するステップを確認します。異なるパッケージが何を行うかを発見します。
 keywords:
   - はじめに
@@ -211,8 +211,8 @@ Intlayerは、最新のWeb開発のニーズに合わせたさまざまな機能
 - **[AdonisJS と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_adonisjs.md)**
 - **[Elysia と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_elysia.md)**
 - **[Storybook と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_storybook.md)**
-- **[next-intl と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_next-intl.md)**
-- **[next-i18next と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_next-i18next.md)**
+- **[next-intl と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/intlayer_with_next-intl.md)**
+- **[next-i18next と Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/intlayer_with_next-i18next.md)**
 
 各統合ガイドには、**サーバーサイドレンダリング**、**ダイナミックルーティング**、または**クライアントサイドレンダリング**など、Intlayerの機能を使用するためのベストプラクティスが含まれており、高速でSEOフレンドリーかつスケーラビリティの高いアプリケーションを維持できます。
 

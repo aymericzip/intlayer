@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: getLocale 함수 문서 | intlayer
-description: intlayer 패키지에서 getLocale 함수를 사용하는 방법을 확인하세요
+description: "getLocale로 URL이나 경로 같은 문자열에서 로케일을 감지하고, 없으면 기본 로케일로 대체합니다."
 keywords:
   - getLocale
   - translation

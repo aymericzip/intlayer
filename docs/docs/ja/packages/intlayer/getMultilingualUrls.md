@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getMultilingualUrls 関数ドキュメント | intlayer
-description: intlayer パッケージの getMultilingualUrls 関数の使い方をご覧ください
+description: "getMultilingualUrls で対応する全ロケール分のローカライズされた URL を生成し、hreflang タグやサイトマップに使います。"
 keywords:
   - getMultilingualUrls
   - 翻訳

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-10
+updatedAt: 2026-09-27
 priority: 8
 title: "JavaScript i18n의 역사: 2011년부터 2026년까지"
-description: "2011년부터 2026년까지 프론트엔드 국제화(i18n)의 발전 과정을 살펴봅니다. React, Vue, Next.js, Angular, Svelte, Solid 생태계의 출시 역사, 아키텍처 과제 및 핵심 혁신을 정리합니다."
+description: "2011년부터 2026년까지 프런트엔드 i18n의 발전: React, Vue, Next.js, Angular, Svelte, Solid의 출시 시점, 아키텍처 문제, 핵심 혁신."
 keywords:
   - i18n 역사
   - JavaScript 국제화
@@ -49,8 +49,6 @@ author: aymericzip
 해결책은 큰 변화를 겪었습니다. 전역 객체와 `t('key')` 문자열 조회에서 시작하여 프레임워크 전용 라이브러리, 컴파일 타임 추출, TypeScript 기반 정적 타입 생성, Server Components, Tree-shaking, 그리고 번역 콘텐츠를 빌드 타임에 최적화된 코드로 직접 변환하는 컴파일러 기반 접근 방식에 이르렀습니다.
 
 이 글에서는 2011년부터 2026년까지의 진화 과정을 정리합니다. 각 세대의 도구들이 해결하고자 했던 과제, 성공 요인과 한계, 그리고 프론트엔드 아키텍처의 발전이 오늘날 우리가 i18n을 다루는 방식에 미친 영향을 살펴봅니다.
-
-![JavaScript 국제화 라이브러리 생태계 변천사](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 목차
 
@@ -143,6 +141,8 @@ Jan Mühlemann은 고차 컴포넌트(`withTranslation`)와 React Context를 도
 ## 프레임워크 시대: 생태계별 발전 과정
 
 2016년부터 2026년 사이 프론트엔드 아키텍처는 비약적으로 발전했습니다. TypeScript가 사실상의 표준이 되었고, 컴포넌트 기반 아키텍처가 정착되었으며, Webpack, Vite, Turbopack을 통한 세밀한 코드 분할이 보편화되었습니다. React Server Components는 렌더링 일부를 다시 서버로 되돌렸고, 컴파일러가 애플리케이션 코드를 직접 분석하기 시작했습니다.
+
+![JavaScript 국제화 라이브러리 생태계 변천사](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 다음 탭에서는 각 프레임워크 생태계가 이러한 흐름에 발맞추어 어떻게 발전해왔는지를 정리합니다. 이들 생태계 전반에서 `react-intlayer` 및 동등한 패키지들(`next-intlayer`, `vue-intlayer`, `angular-intlayer`, `svelte-intlayer`, `solid-intlayer`)은 각 런타임 환경에 맞춤 설계된 고성능 구현체를 제공합니다.
 

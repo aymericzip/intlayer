@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: 번역
-description: 다국어 웹사이트에서 번역을 선언하고 사용하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 만에 프로젝트를 설정할 수 있습니다.
+title: "번역 콘텐츠: t() 함수"
+description: "Intlayer의 t() 함수로 로케일별 번역을 선언합니다. 타입 검사가 빌드 시 누락된 로케일을 알려 줍니다."
 keywords:
   - 번역
   - 국제화

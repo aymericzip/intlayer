@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "SvelteKit i18n - 앱을 번역하는 완전 가이드"
-description: "i18next는 이제 그만. 2026년 다국어 (i18n) SvelteKit 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
+description: "SvelteKit에 Intlayer 설정: hooks로 로케일 라우팅, load 함수와 컴포넌트의 번역 콘텐츠, hreflang과 사이트맵."
 keywords:
   - 국제화
   - 문서
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer를 사용하여 SvelteKit 웹사이트 번역하기 | 국제화(i18n)
+# Intlayer를 사용하여 SvelteKit 웹사이트 번역하기
 
 <Tabs defaultTab="code">
   <Tab label="코드" value="code">
@@ -772,8 +772,8 @@ Intlayer가 생성한 파일은 무시하는 것이 권장됩니다.
 
 ### 더 나아가기
 
-- **비주얼 에디터**: UI에서 직접 번역을 편집할 수 있도록 [Intlayer 비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 통합하세요.
-- **CMS**: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠 관리를 외부화하세요.
+- [Intlayer 비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
 
 ## 자주 묻는 질문
 

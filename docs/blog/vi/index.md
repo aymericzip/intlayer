@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
-title: Blog
-description: Khám phá tất cả các chủ đề liên quan đến Intlayer, quốc tế hóa và các chủ đề khác
+title: "Tìm kiếm trên blog Intlayer"
+description: "Tìm kiếm mọi bài viết trên blog Intlayer về quốc tế hóa, bản địa hóa, thư viện i18n, SEO và quy trình dịch."
 keywords:
   - Intlayer
   - Quốc tế hóa

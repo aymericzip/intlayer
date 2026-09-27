@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "如何在 2026 年选择合适的 Solid i18n 库"
-description: "SolidJS 与 SolidStart 国际化选型指南。在对比 @solid-primitives/i18n、solid-i18next、Paraglide、Lingui 和 Intlayer 之前需要明确的关键问题，以及各方案在响应性、bundle size 与类型支持方面的权衡。"
+description: "SolidJS 与 SolidStart i18n 选型指南：在比较 @solid-primitives/i18n、solid-i18next、Paraglide、Lingui 和 Intlayer 之前需要回答的问题。"
 keywords:
   - solidjs i18n
   - solid start i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Solid 的响应式模型改变了 i18n 库所需承担的工作。组件仅运行一次，因此在 setup 阶段存储在 `const` 中的翻译只是一段冻结的静态字符串；而一个向你返回普通字符串而非 accessor 的库，会导致页面在切换语言时，除了那三个写了冻结字符串的组件之外其他地方都更新了。为 Solid 选择 i18n 库，一方面取决于 API 设计，另一方面取决于哪一个库能让你更难写出这种错误。
 
 本指南列出了选型前需要明确的核心问题，并将它们映射到适用于 Vite + Solid 及 SolidStart 的 `@solid-primitives/i18n`、`solid-i18next`、Paraglide、`@lingui/solid` 和 Intlayer。
-
-![Solid i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目录
 
@@ -88,6 +86,8 @@ Paraglide 为每条消息生成一个独立函数。Intlayer 在 `.content.ts` �
 
 各库的大小数据来自 [Solid 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md)：在包含 10 个页面、10 种语言环境的应用中，空组件内引入 provider 加上 accessor，经过打包、tree-shaking 和压缩（minification）后的体积。翻译内容单独计算。
 
+![Solid i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | 库                       | 内容模型                       | 语言切换时的响应性                   | 类型安全                   | Scoping 与 Lazy Loading      | 库体积                             |
 | :----------------------- | :----------------------------- | :----------------------------------- | :------------------------- | :--------------------------- | :--------------------------------- |
 | `@solid-primitives/i18n` | 自行维护的扁平 dictionary      | Signal，translator 返回 accessor     | 3/5 — 从源 dictionary 推导 | 无内置支持                   | ~0.6 kB                            |
@@ -116,7 +116,7 @@ Paraglide 接近于零的库体积是由其架构决定的：运行时代码直�
 </Accordion>
 <Accordion header="采用带 locale 前缀路由与 SSR 的 SolidStart">
 
-Locale 必须在服务端从 URL 中获取，以确保双端一致；在客户端才检测语言环境为时已晚。`@solid-primitives/i18n` 和 `solid-i18next` 将 `[[locale]]` 路由、`matchFilters`、重定向以及 `entry-server.tsx` 标签完全留给你自行处理。Paraglide 提供了一个处理路由的 Vite 插件。Intlayer 则直接内置了中间件与路由辅助工具。无论选择哪个方案，都请将 `<html lang>` 和 `hreflang` 放在 `entry-server.tsx` 中；在 SolidStart v2 中，`@solidjs/meta` 是在 hydration 之后才在客户端生效的。[Solid i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/solid.md) 详细介绍了该配置流程。
+Locale 必须在服务端从 URL 中获取，以确保双端一致；在客户端才检测语言环境为时已晚。`@solid-primitives/i18n` 和 `solid-i18next` 将 `[[locale]]` 路由、`matchFilters`、重定向以及 `entry-server.tsx` 标签完全留给你自行处理。Paraglide 提供了一个处理路由的 Vite 插件。Intlayer 则直接内置了中间件与路由辅助工具。无论选择哪个方案，都请将 `<html lang>` 和 `hreflang` 放在 `entry-server.tsx` 中；在 SolidStart v2 中，`@solidjs/meta` 是在 hydration 之后才在客户端生效的。[Solid i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_solid_start.md) 详细介绍了该配置流程。
 
 </Accordion>
 <Accordion header="语言切换必须即时且细粒度">
@@ -456,11 +456,17 @@ AI Agent 在处理 i18n 时仍面临挑战：容易遗漏 locale、凭空捏造 
 ## 深入了解
 
 - [Solid i18n 基准测试：bundle 大小、泄漏与语言切换耗时](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md)
-- [Solid i18n：为什么切换语言时翻译会冻结](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/solid.md)
-- [即插即用的 i18next 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/i18next.md) 与 [i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md)
+- [即插即用的 i18next 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/i18next.md)
+- [i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md)
 - [JavaScript i18n 发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 - [编译器与声明式 i18n 对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
 - [组件级与集中式 i18n 对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)
 - [构建时 bundle 优化原理](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
-- [在 Vite + Solid 应用中配置 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+solid.md) 与 [在 SolidStart 应用中配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_solid_start.md)
-- 同系列指南：[React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_react_i18n_library.md)、[Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_vue_i18n_library.md) 与 [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_svelte_i18n_library.md)
+- [在 Vite + Solid 应用中配置 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+solid.md)
+- [在 SolidStart 应用中配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_solid_start.md)
+
+同系列指南：
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_svelte_i18n_library.md)

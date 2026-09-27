@@ -3,7 +3,7 @@ createdAt: 2024-12-06
 updatedAt: 2026-06-23
 priority: 9
 title: "Next.js 14 i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की जरूरत नहीं। 2026 में Next.js 14 ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
+description: "Next.js 14 App Router में Intlayer सेट करें: लोकेल रूटिंग मिडलवेयर, Server और Client Components, स्थानीयकृत मेटाडेटा और साइटमैप।"
 keywords:
   - अंतर्राष्ट्रीयकरण
   - शक्ति
@@ -25,7 +25,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer का उपयोग करके अपनी Next.js 14 और App Router वेबसाइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
+# Intlayer का उपयोग करके अपनी Next.js 14 और App Router वेबसाइट का अनुवाद करें
 
 ## विषय-सूची
 

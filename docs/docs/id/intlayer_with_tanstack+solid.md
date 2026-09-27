@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "TanStack Start + Solid i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi TanStack Start + Solid multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+title: "i18n TanStack Start + Solid: panduan terjemahan lengkap"
+description: "Siapkan Intlayer di TanStack Start dengan Solid: parameter locale di rute, konten terjemahan reaktif, metadata head terlokalisasi, dan hreflang."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs web Tanstack Start + Solid.js Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web Tanstack Start + Solid.js Anda menggunakan Intlayer
 
 ## Daftar Isi
 

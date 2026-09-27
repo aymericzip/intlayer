@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "TanStack Start i18n với Lingui: Hướng dẫn thiết lập toàn diện 2026"
 description: "Dịch ứng dụng TanStack Start của bạn với Lingui: macro, catalog PO, SSR, định tuyến ngôn ngữ, hreflang, sitemap và robots.txt, cùng dữ liệu benchmark kích thước bundle thực tế."
@@ -42,9 +42,23 @@ TanStack Start không đi kèm sẵn một tầng i18n, do đó hướng dẫn n
 - **Mỗi ngôn ngữ một catalog, được tải theo nhu cầu (on demand)**, và một instance `I18n` riêng cho mỗi lần render để các yêu cầu SSR đồng thời không bao giờ chia sẻ trạng thái ngôn ngữ.
 - **SEO đa ngôn ngữ hoàn chỉnh**: `<title>` và description đã dịch, URL chuẩn (canonical), `hreflang` với `x-default`, Open Graph locales, JSON-LD, sitemap, `robots.txt`, pre-rendering và các trang 404 được bản địa hóa.
 
-> Bạn đang tìm kiếm một bộ công nghệ khác? Xem [hướng dẫn TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_use-intl.md), [hướng dẫn TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_paraglide.md), hoặc [hướng dẫn TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md).
+> Bạn đang tìm kiếm một bộ công nghệ khác?
 
-> Bạn đang sử dụng Next.js? Xem [hướng dẫn Next.js + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_nextjs_lingui.md). So sánh các thư viện? Đọc bài viết [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md).
+- [hướng dẫn TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_use-intl.md)
+- [hướng dẫn TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_paraglide.md)
+- [hướng dẫn TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
+
+> Bạn đang sử dụng Next.js?
+
+- [hướng dẫn Next.js + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_nextjs_lingui.md)
+
+> So sánh các thư viện?
+
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md)
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Benchmark nói gì về Lingui trên TanStack Start
 
@@ -92,7 +106,11 @@ Cách Lingui so sánh với các thư viện khác thường dùng trên TanStac
 
 > Các số liệu về kích thước runtime và rò rỉ đến từ [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md). Rò rỉ được đo trên cấu hình tối ưu nhất của từng thư viện.
 
-> Các hướng dẫn khác cho TanStack Start: [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_use-intl.md), [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_paraglide.md), và [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md).
+> Các hướng dẫn khác cho TanStack Start:
+
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_use-intl.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
 
 ## Các thực hành tốt nhất bạn nên tuân thủ
 
@@ -106,7 +124,8 @@ Cách Lingui so sánh với các thư viện khác thường dùng trên TanStac
 - **Tạo sitemap và robots.txt đa ngôn ngữ**, và pre-render mọi ngôn ngữ.
 - **Sử dụng các thẻ liên kết thật cho bộ chuyển đổi ngôn ngữ**, để trình thu thập dữ liệu (crawlers) có thể khám phá mọi ngôn ngữ.
 
-> Xem hướng dẫn của chúng tôi về [quốc tế hóa và SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/internationalization_and_SEO.md) và [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md).
+- [quốc tế hóa và SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/internationalization_and_SEO.md)
+- [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md)
 
 ## Hướng dẫn từng bước để thiết lập Lingui trong ứng dụng TanStack Start
 

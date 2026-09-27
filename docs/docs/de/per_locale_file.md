@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Deklaration von `Per-Locale` Inhaltsdeklaration in Intlayer
+title: "Inhaltsdeklarationsdateien pro Locale"
 description: Entdecken Sie, wie Inhalte pro Gebietsschema in Intlayer deklariert werden. Folgen Sie der Dokumentation, um die verschiedenen Formate und Anwendungsfälle zu verstehen.
 keywords:
   - Internationalisierung

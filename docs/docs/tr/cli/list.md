@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
 title: İçerik Beyan Dosyalarını Listele
-description: Projenizdeki tüm içerik beyan dosyalarını nasıl listeleyeceğinizi öğrenin.
+description: "Intlayer CLI ile projenizdeki tüm içerik bildirim dosyalarını listeleyin ve sözlüklerinizin nerede tanımlandığını görün."
 keywords:
   - Listele
   - İçerik Beyanı

@@ -3,7 +3,7 @@ createdAt: 2026-09-13
 updatedAt: 2026-09-22
 priority: 8
 title: "vue-i18n vs @intlayer/vue-i18n: 동일한 API, 다른 Bundle"
-description: Vue 3 앱이 vue-i18n 호출을 유지하면서 @intlayer/vue-i18n compat adapter를 통해 제공할 때 어떤 변화가 발생하는지 알아봅니다. 동일한 Vite + Vue 코드에서 페이지별 JavaScript, runtime 크기, 컴포넌트 크기 및 누수를 측정하고, adapter가 유지하는 것, 무시하는 것, 그리고 대체할 수 없는 것을 비교합니다.
+description: "Vue 3 앱이 vue-i18n 호출을 유지한 채 @intlayer/vue-i18n 어댑터로 제공됩니다. 페이지별 JavaScript, 런타임과 컴포넌트 크기, 누출을 측정했습니다."
 keywords:
   - vue-i18n
   - "@intlayer/vue-i18n"
@@ -24,13 +24,11 @@ slugs:
 author: aymericzip
 ---
 
-# vue-i18n VS @intlayer/vue-i18n | 동일한 API, 다른 Bundle
-
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+# vue-i18n VS @intlayer/vue-i18n: 동일한 API, 다른 Bundle
 
 `@intlayer/vue-i18n`은 compat 어댑터입니다: `vue-i18n` API (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...)를 노출하고 Intlayer에 의해 컴파일된 딕셔너리에서 제공합니다. 당신의 `.vue` 파일은 변경되지 않습니다. `t("footer.github")`가 바인딩되는 대상만 변경됩니다.
 
-이 문서는 동일한 Vite + Vue 3 애플리케이션에서 `vue-i18n`으로 빌드한 경우와 어댑터로 빌드한 경우의 성능 변화를 측정합니다. 수치는 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)에서 나왔습니다. `vue-i18n`과 Intlayer를 라이브러리로 비교하려면 [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)와 [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer_benchmark.md)를 읽으세요. 이 문서는 컴포넌트를 그대로 유지했을 때 어댑터가 어떤 변화를 가져오는지에 관한 것입니다.
+이 문서는 동일한 Vite + Vue 3 애플리케이션에서 `vue-i18n`으로 빌드한 경우와 어댑터로 빌드한 경우의 성능 변화를 측정합니다. 수치는 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)에서 나왔습니다. `vue-i18n`과 Intlayer를 라이브러리로 비교하려면 [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)와 [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)를 읽으세요. 이 문서는 컴포넌트를 그대로 유지했을 때 어댑터가 어떤 변화를 가져오는지에 관한 것입니다.
 
 <TOC/>
 
@@ -359,6 +357,8 @@ export const i18n = createI18n({ locale: "en" });
 
 ## 관련 비교
 
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 동일한 어댑터 시리즈:
 
 - [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer-next-intl.md)
@@ -367,18 +367,25 @@ export const i18n = createI18n({ locale: "en" });
 
 직접 비교된 라이브러리:
 
-- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md), features and DX
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)
 - [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_vue-i18n_outdated.md)
 - [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_vue_i18n_library.md)
 
 참조 문서:
 
-- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/vue-i18n.md)
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/nuxtjs-i18n.md)
 - [마이그레이션 가이드: vue-i18n에서 Intlayer로](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_vue-i18n_to_intlayer.md)
 - [Vue 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)
-- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md) 및 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
-- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md) 및 [AI 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+- [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+- [AI 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## 결론
 

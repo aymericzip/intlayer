@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
 title: Intlayer có nhẹ hơn Paraglide không?
-description: Paraglide trông gần như miễn phí trong các bài kiểm chuẩn i18n vì mã nguồn của nó được tạo trực tiếp vào kho lưu trữ của bạn. Cùng tìm hiểu xem dung lượng đó thực sự đi đâu, tại sao việc đọc locale trên từng nút lại gây tốn tài nguyên và cách tải động của Intlayer chỉ gửi một ngôn ngữ thay vì tất cả.
+description: "Paraglide trông gần như miễn phí trong các benchmark i18n vì mã của nó được sinh vào repo của bạn. Khối lượng đó đi đâu và so với Intlayer thế nào."
 keywords:
   - Paraglide
   - Intlayer
@@ -287,3 +287,7 @@ bunx intlayer init --interactive
 - [Tối ưu hóa Bundle và `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
 - [Cách chọn thư viện i18n phù hợp cho React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_react_i18n_library.md)
 - [Lợi ích của quốc tế hóa dựa trên trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)

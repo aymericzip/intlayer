@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Перевод документа
+title: "intlayer doc translate: перевод Markdown-документации"
 description: Узнайте, как автоматически переводить файлы документации с помощью сервисов AI-перевода.
 keywords:
   - Перевод

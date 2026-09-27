@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Logowanie
+title: "intlayer login: logowanie do CMS"
 description: Dowiedz się, jak użyć polecenia login w Intlayer CLI, aby uwierzytelnić się w Intlayer CMS i uzyskać dane dostępowe.
 keywords:
   - CLI
@@ -240,9 +240,9 @@ Po zakończeniu logowania:
 1. Dodaj poświadczenia do pliku `.env`
 2. Skonfiguruj plik `intlayer.config.*`, używając tych poświadczeń
 3. Użyj poleceń CLI do zarządzania słownikami:
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/push.md) - Prześlij słowniki do CMS
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/pull.md) - Pobierz słowniki z CMS
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md) - Wypełnij brakujące tłumaczenia
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/pull.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/fill.md)
 
 ## Zobacz także
 

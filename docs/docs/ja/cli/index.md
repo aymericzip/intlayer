@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
-title: CLI - 多言語サイトのためのすべてのIntlayer CLIコマンド
+title: "Intlayer CLI：多言語アプリのための全コマンド"
 description: 多言語サイトを管理するためのIntlayer CLIの使用方法をご紹介します。このオンラインドキュメントに従って、数分でプロジェクトをセットアップしてください。
 keywords:
   - CLI
@@ -137,19 +137,19 @@ Intlayerは、複数の設定ファイル形式をサポートしています：
 
 ### コアコマンド
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/build.md)** - コンテンツ宣言ファイルからディクショナリをビルドします。
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/watch.md)** - 変更を監視し、ディクショナリを自動的に再ビルドします。
-- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/standalone.md)** - Intlayerと指定したパッケージを含むスタンドアロンJavaScriptバンドルを作成します。
-- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/version.md)** - インストールされているIntlayer CLIのバージョンを確認します。
-- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/list_projects.md)** - ディレクトリまたはGitリポジトリ内のすべてのIntlayerプロジェクトを一覧表示します。
+- [Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/build.md)
+- [Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/watch.md)
+- [Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/standalone.md)
+- [Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/version.md)
+- [List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/list_projects.md)
 
 ### ディクショナリ管理
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/push.md)** - ディクショナリをIntlayerエディターおよびCMSに送信します。
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/pull.md)** - IntlayerエディターおよびCMSからディクショナリを取得します。
-- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)** - AIを使用してディクショナリを埋め、監査し、翻訳します。
-- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/test.md)** - 翻訳の欠落をテストして特定します。
-- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/list.md)** - プロジェクト内のすべてのコンテンツ宣言ファイルを一覧表示します。
+- [Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/push.md)
+- [Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/pull.md)
+- [Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)
+- [Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/test.md)
+- [List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/list.md)
 
 ### コンポーネント管理
 
@@ -157,20 +157,20 @@ Intlayerは、複数の設定ファイル形式をサポートしています：
 
 ### 設定
 
-- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/init.md)** - 自動設定を使用してプロジェクトでIntlayerをセットアップします。
-- **[インフラストラクチャの設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/infra.md)** - デスクトップアプリのインストールまたはDocker（オールインワンまたはCompose）によるCMSのセルフホスト
-- **[Intlayerパッケージのアップグレード](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/upgrade.md)** - すべての `package.json` のIntlayerパッケージを一覧表示し、最新バージョンにアップグレードします
-- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/configuration.md)** - Intlayer設定を取得し、CMSに送信します。
+- [Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/init.md)
+- [インフラストラクチャの設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/infra.md)
+- [Intlayerパッケージのアップグレード](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/upgrade.md)
+- [Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/configuration.md)
 
 ### ドキュメント管理
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/doc-translate.md)** - AIを使用してドキュメントファイルを自動的に翻訳します。
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/doc-review.md)** - ドキュメントファイルの品質と一貫性をレビューします。
+- [Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/doc-translate.md)
+- [Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/doc-review.md)
 
 ### エディターとライブ同期
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/editor.md)** - Intlayerエディターのコマンドを使用します。
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)** - Live Syncを使用して、CMSからのコンテンツ変更を実行時に反映させます。
+- [Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/editor.md)
+- [Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)
 
 ### 監査と診断
 
@@ -178,8 +178,8 @@ Intlayerは、複数の設定ファイル形式をサポートしています：
 
 ### 開発ツール
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/sdk.md)** - 独自のコード内でIntlayer CLI SDKを使用します。
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/debug.md)** - Intlayer CLIの問題をデバッグして修正します。
+- [CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/sdk.md)
+- [Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/debug.md)
 
 ## `package.json` での Intlayer コマンドの使用
 

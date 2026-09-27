@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 如何配置基于域名的路由？
-description: 学习如何配置基于域名的路由。
+description: "使用 Intlayer 的基于域名的路由，让每种语言使用独立域名，在 intlayer.config.ts 中配置，重定向自动处理。"
 keywords:
   - 域名
   - 路由

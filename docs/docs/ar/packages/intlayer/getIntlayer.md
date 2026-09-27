@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق دالة getIntlayer | intlayer
-description: انظر كيفية استخدام دالة getIntlayer لحزمة intlayer
+description: "استخدم getIntlayer لقراءة محتوى قاموس للغة معيّنة في أي مكان، النسخة المستقلة عن إطار العمل من الخطاف useIntlayer."
 keywords:
   - getIntlayer
   - dictionary
@@ -164,9 +164,9 @@ const banner = getIntlayer("banner", { variant: "black-friday", locale: "fr" });
 
 ## الدوال ذات الصلة
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayerAsync.md): نظير غير متزامن يحمل مجموعة منطقة واحدة.
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getDictionary.md): يفسر كائن القاموس الذي تمرره بنفسك، بدلاً من البحث عنه حسب المفتاح.
-- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md): معادل React hook، يقرأ المنطقة من موفر الخدمة.
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getDictionary.md)
+- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md)
 
 ## TypeScript
 

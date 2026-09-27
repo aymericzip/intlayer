@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Đẩy Từ Điển
-description: Tìm hiểu cách đẩy từ điển của bạn lên trình chỉnh sửa và CMS của Intlayer.
+title: "intlayer push: đẩy từ điển lên CMS"
+description: "Tải từ điển Intlayer cục bộ lên trình chỉnh sửa trực quan và CMS để người dịch và quản lý nội dung có thể chỉnh sửa."
 keywords:
   - Đẩy
   - Từ điển

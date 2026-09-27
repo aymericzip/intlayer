@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: 我可以翻译 URL 路径吗？
-description: 了解如何翻译 URL 路径。
+description: "可以：Intlayer 能翻译 URL 路径，例如将 /about 变为 /zh/guanyu，通过按语言配置 URL 重写实现。"
 keywords:
   - 数组
   - 内容

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Có thể sử dụng Intlayer với Next.js mà không có `[locale]` trong đường dẫn trang không?
+title: "Dùng Intlayer trong Next.js không có [locale] trong đường dẫn"
 description: Tìm hiểu cách sử dụng Intlayer với Next.js mà không có `[locale]` trong đường dẫn trang.
 keywords:
   - locale

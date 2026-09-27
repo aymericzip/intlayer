@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-08
+updatedAt: 2026-09-27
 priority: 10
 title: "Next.js 16 i18n - Повний посібник з перекладу вашого застосунку"
-description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Next.js 16. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
+description: "Налаштування Intlayer у Next.js 16 App Router: маршрутизація за локалями через proxy, Server і Client Components, локалізовані метадані, sitemap і статичні сторінки."
 keywords:
   - Інтернаціоналізація
   - Документація
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# Перекладіть ваш вебсайт на Next.js 16 за допомогою Intlayer | Інтернаціоналізація (i18n)
+# Перекладіть ваш вебсайт на Next.js 16 за допомогою Intlayer
 
 <Tabs defaultTab="video">
   <Tab label="Відео" value="video">

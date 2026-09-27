@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Nuxt i18n - Guía completa para traducir tu aplicación"
-description: "Sin más i18next. La guía 2026 para crear una aplicación Nuxt multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
+description: "Configura Intlayer en Nuxt: contenido tipado por componente, enrutamiento y detección de locale, metaetiquetas SEO localizadas y sitemap multilingüe."
 keywords:
   - Internacionalización
   - Documentación
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Traduce tu sitio web Nuxt y Vue usando Intlayer | Internacionalización (i18n)
+# Traduce tu sitio web Nuxt y Vue usando Intlayer
 
 ## Tabla de Contenidos
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Wörterbücher füllen
-description: Erfahren Sie, wie Sie Ihre Wörterbücher mit KI füllen, prüfen und übersetzen.
+title: "intlayer fill: Wörterbücher mit KI übersetzen"
+description: "Fehlende Übersetzungen ergänzen, bestehende prüfen und Ihre Intlayer-Wörterbücher per KI über die CLI übersetzen, lokal oder in CI."
 keywords:
   - Füllen
   - Prüfen

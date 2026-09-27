@@ -3,7 +3,7 @@ createdAt: 2026-03-31
 updatedAt: 2026-05-31
 priority: 9
 title: "تدويل Vanilla JS - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Vanilla JS متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في JavaScript الخالص دون إطار عمل: ترجم صفحة HTML ثابتة، وبدّل اللغة، وحافظ على محتوى مُنمَّط."
 keywords:
   - تدويل
   - وثائق
@@ -28,7 +28,7 @@ history:
 author: aymericzip
 ---
 
-# ترجمة موقع Vanilla JS الخاص بك باستخدام Intlayer | التدويل (i18n)
+# ترجمة موقع Vanilla JS الخاص بك باستخدام Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="كود" value="code">

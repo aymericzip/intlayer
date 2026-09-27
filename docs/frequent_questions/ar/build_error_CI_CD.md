@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: خطأ في البناء في CI/CD
-description: تعلّم كيفية إصلاح أخطاء البناء التي تحدث في بيئات CI/CD.
+title: "إصلاح أخطاء بناء Intlayer في CI/CD"
+description: "أصلح أخطاء عرض Server Components التي تحدث في CI/CD فقط، بالتأكد من بناء قواميس Intlayer أثناء مرحلة البناء."
 keywords:
   - بناء
   - خطأ

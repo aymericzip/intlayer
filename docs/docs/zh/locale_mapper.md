@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: 本地化映射器
-description: 了解本地化映射器的工作原理。查看本地化映射器在您的应用程序中使用的步骤。了解不同包的功能。
+title: "Locale Mapper：localeMap、localeFlatMap、localeRecord"
+description: "使用 localeMap、localeFlatMap 和 localeRecord 转换语言数据，生成路由、静态参数和按语言组织的对象。"
 keywords:
   - 本地化映射器
   - 入门

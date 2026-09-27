@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja oprogramowania pośredniczącego intlayer dla AdonisJS | adonis-intlayer
-description: Zobacz, jak używać middleware intlayer w pakiecie adonis-intlayer
+description: "Middleware intlayer dla AdonisJS wykrywa locale użytkownika i udostępnia funkcje tłumaczenia przez kontekst żądania."
 keywords:
   - intlayer
   - adonisjs

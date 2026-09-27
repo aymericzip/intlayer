@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
 title: 列出内容声明文件
-description: 了解如何列出项目中的所有内容声明文件。
+description: "使用 Intlayer CLI 列出项目中所有内容声明文件，查看字典在哪里声明。"
 keywords:
   - 列表
   - 内容声明

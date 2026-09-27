@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Documentación de la función getDictionaryAsync | intlayer
-description: Ve cómo usar la función getDictionaryAsync para el paquete intlayer
+description: "Usa getDictionaryAsync para cargar una sola locale de un diccionario y leer su contenido interpretado, sin los demás idiomas."
 keywords:
   - getDictionaryAsync
   - dictionary
@@ -130,9 +130,9 @@ Un mapa de loader simple se recorre a lo largo de la misma cadena de fallback qu
 
 ## Funciones Relacionadas
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getIntlayerAsync.md): La función que las aplicaciones llaman; los plugins de compilación la reescriben en `getDictionaryAsync`.
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getDictionary.md): Contraparte síncrona que toma un diccionario completo.
-- [Diccionarios dinámicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/index.md): Colecciones y variantes, y los mapas de cargadores que generan.
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getDictionary.md)
+- [Diccionarios dinámicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/index.md)
 
 ## TypeScript
 

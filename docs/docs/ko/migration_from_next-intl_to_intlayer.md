@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "next-intl에서 Intlayer로 마이그레이션하기 | 국제화 (i18n)"
-description: "기존 코드를 손상시키지 않고 단계별로 Next.js 애플리케이션을 next-intl에서 Intlayer로 마이그레이션하는 방법을 알아봅니다. 원활한 전환을 위해 @intlayer/next-intl 호환성 어댑터를 사용하세요."
+title: "next-intl에서 Intlayer로 마이그레이션"
+description: "Next.js 앱을 next-intl에서 Intlayer로 단계별로 마이그레이션합니다. 먼저 @intlayer/next-intl 어댑터로 아무것도 깨뜨리지 않고 시작하세요."
 keywords:
   - next-intl
   - intlayer
@@ -62,6 +62,10 @@ Intlayer는 단순한 i18n 솔루션을 넘어, 자체 호스팅이 가능한 **
 
 </Accordion>
 </AccordionGroup>
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## 마이그레이션 전략
 
@@ -328,8 +332,8 @@ Intlayer가 생성한 디렉토리를 `.gitignore`에 추가하세요:
 
 ## 더 알아보기
 
-- **시각적 에디터** — 브라우저에서 시각적으로 번역을 관리하세요: [Intlayer 시각적 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
-- **CMS** — 콘텐츠를 외부로 분리하고 원격으로 관리하세요: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
-- **VS Code 확장** — 실시간 번역 자동 완성 및 오류 감지를 경험하세요: [Intlayer VS Code 확장](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
-- **CLI 레퍼런스** — 사용 가능한 CLI 명령어 목록: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
-- **Intlayer와 Next.js** — Next.js의 전체 설정 가이드: [intlayer_with_nextjs_16.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
+- [Intlayer 시각적 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+- [Intlayer VS Code 확장](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
+- [Intlayer와 Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)

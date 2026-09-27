@@ -2,8 +2,8 @@
 createdAt: 2025-09-07
 updatedAt: 2025-09-07
 priority: 8
-title: Biçimlendiriciler
-description: Sayılar, yüzdeler, para birimi, tarihler, göreceli zaman, birimler ve kompakt gösterim için Intl tabanlı yerel ayar duyarlı biçimlendirme yardımcıları. Önbelleğe alınmış Intl yardımcısı içerir.
+title: "Biçimlendiriciler: locale'e göre sayı, tarih ve para birimi"
+description: "Intlayer'ın önbellekli Intl yardımcılarıyla sayıları, yüzdeleri, para birimlerini, tarihleri, göreli zamanı ve birimleri locale'e göre biçimlendirin."
 keywords:
   - Biçimlendiriciler
   - Intl

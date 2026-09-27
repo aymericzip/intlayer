@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname Hook ドキュメント | solid-intlayer
-description: solid-intlayer パッケージの usePathname フックの使い方
+description: "Solid の usePathname で、ロケールセグメントを除いた現在のパスをアクセサーとして取得し、ロケール対応のナビゲーションに使います。"
 keywords:
   - usePathname
   - pathname
@@ -117,5 +117,5 @@ export default Sidebar;
 
 ## 関連事項
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/solid-intlayer/useLocale.md) — 現在のロケール + ロケールスイッチャー
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md) — このフックの内部で使用されるユーティリティ
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/solid-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md)

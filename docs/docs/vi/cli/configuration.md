@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Quản lý Cấu hình
-description: Tìm hiểu cách lấy và đẩy cấu hình Intlayer của bạn lên CMS.
+title: "intlayer configuration: lấy và đẩy cấu hình"
+description: "Dùng CLI Intlayer để in cấu hình đã giải quyết và đẩy lên Intlayer CMS, giúp bảng điều khiển và dự án luôn đồng bộ."
 keywords:
   - Cấu hình
   - Config

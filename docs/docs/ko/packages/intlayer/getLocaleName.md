@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getLocaleName 함수 문서 | intlayer
-description: intlayer 패키지의 getLocaleName 함수 사용법 보기
+description: "getLocaleName으로 로케일 이름을 다른 언어로 가져옵니다. 예: 'French' 또는 'français'. 언어 전환기 라벨에 사용하세요."
 keywords:
   - getLocaleName
   - 번역

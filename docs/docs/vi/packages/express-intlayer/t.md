@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm t | express-intlayer
-description: Xem cách sử dụng hàm t cho gói express-intlayer
+description: "Dùng hàm t của express-intlayer để trả về phản hồi bản địa hóa trong Express theo locale được nhận diện cho mỗi request."
 keywords:
   - t
   - dịch thuật

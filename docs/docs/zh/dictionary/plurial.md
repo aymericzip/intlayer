@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-05-04
-updatedAt: 2026-05-04
+updatedAt: 2026-09-27
 priority: 8
-title: 复数 (Plural)
-description: 了解如何在多语言网站中声明和使用区分语言区域的复数内容（基于 CLDR）。按照此在线文档中的步骤，在几分钟内完成项目设置。
+title: "复数内容：CLDR 复数规则"
+description: "在 Intlayer 中使用 CLDR 类别（zero、one、two、few、many、other）声明按语言环境变化的复数形式，根据数量解析。"
 keywords:
   - 复数
   - 复数化

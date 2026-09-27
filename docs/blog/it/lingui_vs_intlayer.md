@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui vs Intlayer: Benchmark & Confronto 2026"
-description: "Due librerie di i18n basate su compilatore misurate su Next.js e TanStack Start. Dimensioni del bundle, leakage dei contenuti, dimensioni dei componenti, idratazione, reattività al cambio lingua ed esperienza sviluppatore."
+description: "Due librerie i18n basate su compilatore misurate su Next.js e TanStack Start: bundle, leakage dei contenuti, dimensione dei componenti, hydration e cambio di locale."
 keywords:
   - Lingui
   - Intlayer
@@ -23,9 +23,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui VS Intlayer | Benchmark di Internazionalizzazione (i18n) per React & Next.js
-
-![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+# Lingui VS Intlayer: Benchmark di Internazionalizzazione (i18n) per React & Next.js
 
 Lingui e Intlayer sono le uniche due librerie in questo benchmark che si affidano a un **compilatore** piuttosto che a un semplice runtime. Lingui estrae i messaggi dalle macro in fase di compilazione e compila cataloghi per lingua. Intlayer compila dizionari per componente e applica il tree-shaking per lingua. Sulla carta dovrebbero essere molto simili. I numeri mostrano dove divergono.
 
@@ -451,26 +449,34 @@ Rimangono per le macro e scompaiono per i contenuti nativi di Intlayer. I dizion
 
 ## Confronti correlati
 
+![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 Stesso benchmark, altre librerie:
 
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/next-intl_vs_intlayer.md)
 - [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/i18next_vs_intlayer.md)
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/vue-i18n_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/next-i18next_vs_next-intl_vs_intlayer.md)
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Approfondimenti:
 
-- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/lingui_vs_intlayer-lingui.md), l'adattatore misurato sulla stessa applicazione
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/lingui_vs_intlayer-lingui.md)
 - [Compiler-driven vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/compiler_vs_declarative_i18n.md)
 - [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/per-component_vs_centralized_i18n.md)
 - [ICU message format explained](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 Documenti di riferimento:
 
-- [Report di benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/nextjs.md) e [report di benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/tanstack.md)
+- [Report di benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/nextjs.md)
+- [report di benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/tanstack.md)
 - [Compat adapter: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compat/lingui.md)
-- [Ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md) e [il compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md)
+- [Ottimizzazione del bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/bundle_optimization.md)
+- [il compilatore Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md)
+
+> Per capire da dove vengono queste librerie, leggi la storia dell'i18n in JavaScript.
+
+- [La storia dell'i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/history_of_i18n.md)
 
 ## Stelle su GitHub
 

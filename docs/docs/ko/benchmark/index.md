@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
-title: i18n 라이브러리 벤치마크
+title: "i18n 라이브러리 벤치마크: 번들과 성능"
 description: Intlayer 가 성능 및 번들 크기 측면에서 다른 i18n 라이브러리와 어떻게 비교되는지 알아보세요.
 keywords:
   - benchmark
@@ -40,3 +40,7 @@ Benchmark Bloom은 여러 React 프레임워크와 로딩 전략에서 i18n(국�
 - [**Vue Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
 - [**Solid Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md)
 - [**Svelte Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)

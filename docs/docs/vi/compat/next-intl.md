@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Di Chuyển Từ next-intl Sang Intlayer"
-description: "Tìm hiểu cách di chuyển ứng dụng Next.js của bạn từ next-intl sang Intlayer bằng bộ điều hợp tương thích."
+title: "@intlayer/next-intl: bộ chuyển đổi tương thích cho next-intl"
+description: "Giữ nguyên mã next-intl và phục vụ bằng Intlayer: cài @intlayer/next-intl, đặt alias cho các import và xem bộ chuyển đổi thay đổi gì bên dưới."
 keywords:
   - next-intl
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Di Chuyển Từ next-intl Sang Intlayer
+# @intlayer/next-intl: bộ chuyển đổi tương thích cho next-intl
 
 Để có hướng dẫn từng bước đầy đủ và chi tiết, vui lòng xem [Hướng Dẫn Di Chuyển next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-intl_to_intlayer.md) đầy đủ của chúng tôi.
 
@@ -58,3 +58,7 @@ Bên dưới:
 - **`useTranslations()` & `getTranslations()`:** Các lời gọi phạm vi đơn giản trích xuất đoạn key đầu tiên làm định danh từ điển chính xác. Các namespace lồng nhau được tách một cách uyển chuyển thành các đường dẫn từ điển và tiền tố.
 - **Định dạng phong phú:** Cả `t.rich()` và `t.markup()` đều được triển khai gốc đầy đủ, chuyển đổi các nút dạng HTML thành các chunk React được hiển thị.
 - **`useFormatter`:** `relativeTime`, `list`, `dateTimeRange` và các định dạng được đặt tên từ cấu hình kết nối với các formatter `Intl` gốc của core.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)

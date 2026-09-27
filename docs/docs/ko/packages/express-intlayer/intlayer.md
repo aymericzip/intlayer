@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Express 미들웨어 문서 | express-intlayer
-description: express-intlayer 패키지용 intlayer 미들웨어 사용 방법을 확인하세요
+description: "Express용 intlayer 미들웨어는 사용자 로케일을 감지하고 핸들러에서 res.locals를 통해 t와 getIntlayer를 제공합니다."
 keywords:
   - intlayer
   - express

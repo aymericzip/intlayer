@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "i18next से Intlayer में माइग्रेट करें"
-description: "Learn how to migrate your Vanilla JS/TS application from i18next to Intlayer using the compat adapter."
+title: "@intlayer/i18next: i18next के लिए संगतता एडैप्टर"
+description: "अपना i18next कोड बनाए रखें और उसे Intlayer से चलाएँ: @intlayer/i18next इंस्टॉल करें, imports के लिए alias सेट करें, और देखें कि एडैप्टर अंदर क्या बदलता है।"
 keywords:
   - i18next
   - vanilla
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# i18next से Intlayer में माइग्रेट करें
+# @intlayer/i18next: i18next के लिए संगतता एडैप्टर
 
 विस्तृत चरण-दर-चरण ट्यूटोरियल के लिए, कृपया हमारी संपूर्ण [i18next Migration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_i18next_to_intlayer.md) देखें।
 
@@ -58,3 +58,7 @@ export default defineConfig({
 - **Interpolation:** `{{name}}` replacements और `$t(key)` nesting के लिए native support recursively।
 - **Context & Plurals:** `key_male` और `key_one`/`key_other` जैसे suffix formats को identify और resolve करता है, standard `Intl.PluralRules` के विरुद्ध evaluate करते हुए।
 - **Return objects:** `returnObjects: true` mode safely Intlayer dictionaries से trees को extract करता है।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)

@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: Dokumentasi Hook useIntlayer | react-intlayer
-description: Lihat cara menggunakan hook useIntlayer untuk paket react-intlayer
+description: "Gunakan useIntlayer di React untuk membaca konten terlokalisasi dari kamus berdasarkan key, bertipe dari file deklarasi konten Anda."
 keywords:
   - useIntlayer
   - kamus

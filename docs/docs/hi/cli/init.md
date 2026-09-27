@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: Intlayer प्रारंभ करें (Initialize Intlayer)
-description: अपने प्रोजेक्ट में Intlayer को प्रारंभ करने का तरीका जानें।
+title: "intlayer init: प्रोजेक्ट में Intlayer सेट करें"
+description: "मौजूदा प्रोजेक्ट में Intlayer जोड़ने के लिए intlayer init चलाएँ: यह फ़्रेमवर्क पहचानता है, पैकेज इंस्टॉल करता है और कॉन्फ़िगरेशन लिखता है।"
 keywords:
   - प्रारंभ
   - CLI

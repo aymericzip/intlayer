@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname Hook 文档 | solid-intlayer
-description: 了解如何使用 solid-intlayer 包中的 usePathname hook
+description: "在 Solid 中使用 usePathname，以 accessor 的形式获取去掉语言段的当前路径，用于支持语言的导航。"
 keywords:
   - usePathname
   - pathname
@@ -116,5 +116,5 @@ export default Sidebar;
 
 ## 相关文档
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useLocale.md) — 当前语言区域 + 切换语言区域
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md) — 此 Hook 底层使用的工具函数
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md)

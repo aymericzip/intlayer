@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: t 함수 문서 | react-intlayer
-description: react-intlayer 패키지에서 t 함수 사용법 보기
+description: "react-intlayer의 t 함수로 별도의 콘텐츠 파일 없이 React 컴포넌트 안에서 직접 번역을 선언합니다."
 keywords:
   - t
   - 번역

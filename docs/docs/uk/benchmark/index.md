@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
-title: Порівняння (Benchmark) бібліотек i18n
+title: "Бенчмарк i18n-бібліотек: бандл і продуктивність"
 description: Дізнайтеся, як Intlayer порівнюється з іншими бібліотеками i18n за продуктивністю та розміром бандла.
 keywords:
   - benchmark
@@ -40,3 +40,7 @@ Benchmark Bloom - це набір тестів продуктивності, я�
 - [**Vue Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
 - [**Solid Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md)
 - [**Svelte Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)

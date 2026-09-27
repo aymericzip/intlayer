@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Erreur de build en CI/CD
-description: Apprenez comment corriger les erreurs de build qui surviennent dans les environnements CI/CD.
+title: "Corriger les erreurs de build Intlayer en CI/CD"
+description: "Corrigez les erreurs de rendu des Server Components qui n'arrivent qu'en CI/CD, en vous assurant que les dictionnaires Intlayer sont construits pendant le build."
 keywords:
   - build
   - erreur

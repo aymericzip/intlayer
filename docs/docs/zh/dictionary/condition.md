@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: 条件内容
-description: 了解如何在Intlayer中使用条件内容，以根据特定条件动态显示内容。按照本文档的步骤高效实现条件。
+title: "Intlayer 中的条件内容"
+description: "使用 Intlayer 的 cond() 节点，根据布尔条件显示不同内容，只需声明一次，渲染时解析。"
 keywords:
   - 条件内容
   - 动态渲染

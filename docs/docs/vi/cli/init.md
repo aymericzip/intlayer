@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: Khởi tạo Intlayer
-description: Tìm hiểu cách khởi tạo Intlayer trong dự án của bạn.
+title: "intlayer init: thiết lập Intlayer trong dự án"
+description: "Chạy intlayer init để thêm Intlayer vào dự án hiện có: lệnh phát hiện framework, cài gói và ghi file cấu hình."
 keywords:
   - Khởi tạo
   - CLI

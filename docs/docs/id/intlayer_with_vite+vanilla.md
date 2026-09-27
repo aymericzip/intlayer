@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "Vite + Vanilla JS i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Vite + Vanilla JS multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+title: "i18n Vite + Vanilla JS: panduan terjemahan lengkap"
+description: "Siapkan Intlayer di aplikasi Vite tanpa framework: terjemahkan DOM, ganti locale, dan simpan konten bertipe di file .content."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs web Vite dan Vanilla JS Anda dengan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web Vite dan Vanilla JS Anda dengan Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Kode" value="code">

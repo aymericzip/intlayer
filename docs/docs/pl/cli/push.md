@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Wysyłanie słowników
-description: Dowiedz się, jak wysyłać swoje słowniki do edytora Intlayer i CMS.
+title: "intlayer push: wysyłanie słowników do CMS"
+description: "Wyślij lokalne słowniki Intlayer do edytora wizualnego i CMS, aby tłumacze i menedżerowie treści mogli je edytować."
 keywords:
   - Wysyłanie
   - Słowniki

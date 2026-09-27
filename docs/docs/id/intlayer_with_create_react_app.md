@@ -2,8 +2,8 @@
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 3
-title: "Create React App i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Create React App multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+title: "i18n Create React App: panduan terjemahan lengkap"
+description: "Siapkan Intlayer di proyek Create React App: konten bertipe di samping komponen, pengalih bahasa, dan terjemahan yang dimuat per locale."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs web Create React App Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web Create React App Anda menggunakan Intlayer
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"

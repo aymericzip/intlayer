@@ -3,7 +3,7 @@ createdAt: 2026-09-13
 updatedAt: 2026-09-22
 priority: 8
 title: "vue-i18n बनाम @intlayer/vue-i18n: समान API, विभिन्न Bundle"
-description: जब एक Vue 3 ऐप अपनी vue-i18n कॉल को रखता है लेकिन @intlayer/vue-i18n compat adapter के माध्यम से उन्हें serve करता है तो क्या बदलता है। प्रति-पेज JavaScript, runtime size, component size और leakage को same Vite + Vue code पर मापा गया है, साथ ही adapter क्या रखता है, क्या ignore करता है और क्या replace नहीं कर सकता है।
+description: "एक Vue 3 ऐप अपने vue-i18n कॉल रखता है, जिन्हें @intlayer/vue-i18n एडैप्टर परोसता है। प्रति पेज JavaScript, रनटाइम और कंपोनेंट आकार, लीकेज मापे गए।"
 keywords:
   - vue-i18n
   - "@intlayer/vue-i18n"
@@ -24,13 +24,11 @@ slugs:
 author: aymericzip
 ---
 
-# vue-i18n बनाम @intlayer/vue-i18n | समान API, विभिन्न Bundle
-
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+# vue-i18n बनाम @intlayer/vue-i18n: समान API, विभिन्न Bundle
 
 `@intlayer/vue-i18n` एक compat adapter है: यह `vue-i18n` API (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...) को expose करता है और इसे Intlayer द्वारा compiled dictionaries से serve करता है। आपकी `.vue` files नहीं बदलती हैं। जो `t("footer.github")` से bound है, वह बदलता है।
 
-यह लेख एक ही Vite + Vue 3 एप्लिकेशन पर इस स्वैप को मापता है, एक बार `vue-i18n` के साथ और एक बार एडेप्टर के साथ निर्मित। संख्याएँ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) से आती हैं। `vue-i18n` और Intlayer की तुलना लाइब्रेरी के रूप में करने के लिए, [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md) और [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer_benchmark.md) पढ़ें। यह इस बारे में है कि जब आप अपने components को वैसे ही रखते हैं तो एडेप्टर क्या बदलता है।
+यह लेख एक ही Vite + Vue 3 एप्लिकेशन पर इस स्वैप को मापता है, एक बार `vue-i18n` के साथ और एक बार एडेप्टर के साथ निर्मित। संख्याएँ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) से आती हैं। `vue-i18n` और Intlayer की तुलना लाइब्रेरी के रूप में करने के लिए, [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md) और [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md) पढ़ें। यह इस बारे में है कि जब आप अपने components को वैसे ही रखते हैं तो एडेप्टर क्या बदलता है।
 
 <TOC/>
 
@@ -359,6 +357,8 @@ export const i18n = createI18n({ locale: "en" });
 
 ## संबंधित तुलनाएं
 
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 समान एडाप्टर श्रृंखला:
 
 - [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer-next-intl.md)
@@ -367,18 +367,25 @@ export const i18n = createI18n({ locale: "en" });
 
 लाइब्रेरी की आमने-सामने तुलना:
 
-- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md), features and DX
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md)
 - [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_vue-i18n_outdated.md)
 - [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_vue_i18n_library.md)
 
 संदर्भ दस्तावेज़:
 
-- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md)
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/vue-i18n.md)
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/nuxtjs-i18n.md)
 - [माइग्रेशन गाइड: vue-i18n से Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_vue-i18n_to_intlayer.md)
 - [Vue बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md)
-- [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
-- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) और [AI अनुवाद](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md)
+- [बंडल अनुकूलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
+- [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+- [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+- [AI अनुवाद](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/autoFill.md)
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 
 ## निष्कर्ष
 

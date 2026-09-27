@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 6
 title: "Storybook i18n - あなたのアプリを翻訳する完全ガイド"
-description: "i18nextはもう不要。2026年に多言語（i18n）Storybookアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+description: "Storybook に Intlayer を導入：多言語のストーリーデコレーターとロケール切り替えを、アプリと同じ型付きコンテンツで。"
 keywords:
   - 国際化
   - ドキュメント

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Build-Fehler in CI/CD
-description: Erfahren Sie, wie Sie Build-Fehler beheben, die in CI/CD-Umgebungen auftreten.
+title: "Intlayer-Build-Fehler in CI/CD beheben"
+description: "Beheben Sie Renderfehler von Server Components, die nur in CI/CD auftreten, indem Sie sicherstellen, dass die Intlayer-Wörterbücher beim Build erzeugt werden."
 keywords:
   - build
   - fehler

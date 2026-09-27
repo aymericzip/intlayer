@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: コンテンツファイル
-description: コンテンツ宣言ファイルの拡張機能をカスタマイズする方法を学びます。このドキュメントに従って、プロジェクトで効率的に条件を実装しましょう。
+title: "コンテンツ宣言ファイル（.content.ts）"
+description: "コンポーネントの隣の .content ファイルで多言語コンテンツを宣言：対応フォーマット、拡張子、Intlayer による検出方法。"
 keywords:
   - コンテンツファイル
   - ドキュメント

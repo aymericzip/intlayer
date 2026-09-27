@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-02-09
-updatedAt: 2026-03-03
+updatedAt: 2026-09-27
 priority: 6
-title: Agent Skills
-description: Tìm hiểu cách sử dụng Intlayer Agent Skills để cải thiện khả năng AI agent hiểu về dự án của bạn, bao gồm các hướng dẫn thiết lập toàn diện cho Metadata, Sitemaps và Server Actions.
+title: "Intlayer Agent Skills cho agent lập trình AI"
+description: "Trang bị kỹ năng Intlayer cho agent lập trình AI của bạn: hướng dẫn thiết lập nội dung, metadata, sitemap và server actions."
 keywords:
   - Intlayer
   - Agent Skills

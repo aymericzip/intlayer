@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: توثيق دالة getTranslation | intlayer
-description: تعرف على كيفية استخدام دالة getTranslation لحزمة intlayer
+description: "استخدم getTranslation (الاسم البديل t) لاختيار محتوى لغة معيّنة من خريطة ترجمات، مع الرجوع إلى اللغة الافتراضية."
 keywords:
   - getTranslation
   - الترجمة

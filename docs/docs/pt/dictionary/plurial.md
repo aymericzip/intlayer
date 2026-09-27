@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-05-04
-updatedAt: 2026-05-04
+updatedAt: 2026-09-27
 priority: 8
-title: Plural
-description: Descubra como declarar e usar conteúdo plural sensível à localidade (baseado em CLDR) em seu site multilíngue. Siga as etapas nesta documentação on-line para configurar seu projeto em poucos minutos.
+title: "Conteúdo plural: regras de plural CLDR"
+description: "Declare plurais adequados a cada locale no Intlayer com as categorias CLDR (zero, one, two, few, many, other), resolvidas a partir de um número."
 keywords:
   - Plural
   - Pluralização

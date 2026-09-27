@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "AdonisJS i18n - Guia completo para traduzir seu aplicativo"
-description: "Sem mais i18next. O guia 2026 para criar uma aplicação AdonisJS multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
+description: "Configure o Intlayer no AdonisJS: detecte o locale por requisição com middleware, traduza respostas de API e views, e mantenha o conteúdo tipado."
 keywords:
   - Internacionalização
   - Documentação
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Traduza seu backend AdonisJS usando Intlayer | Internacionalização (i18n)
+# Traduza seu backend AdonisJS usando Intlayer
 
 O `adonis-intlayer` é um poderoso pacote de internacionalização (i18n) para aplicações AdonisJS, projetado para tornar seus serviços de backend acessíveis globalmente, fornecendo respostas localizadas com base nas preferências do cliente.
 
@@ -248,9 +248,9 @@ export default class ExampleController {
 
 O `adonis-intlayer` é totalmente compatível com:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/index.md) para aplicações React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/next-intlayer/index.md) para aplicações Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/vite-intlayer/index.md) para aplicações Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/vite-intlayer/index.md)
 
 Também funciona perfeitamente com qualquer solução de internacionalização em vários ambientes, incluindo navegadores e requisições de API. Você pode personalizar o middleware para detectar a localidade por meio de cabeçalhos ou cookies:
 

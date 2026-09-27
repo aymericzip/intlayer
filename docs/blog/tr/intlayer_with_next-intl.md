@@ -2,7 +2,7 @@
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
 priority: 8
-title: Intlayer kullanarak next-intl JSON çevirilerinizi nasıl otomatikleştirirsiniz
+title: "Intlayer ile next-intl JSON çevirilerini otomatikleştirin"
 description: Next.js uygulamalarında gelişmiş uluslararasılaştırma için Intlayer ve next-intl ile JSON çevirilerinizi otomatikleştirin.
 keywords:
   - Intlayer
@@ -30,7 +30,7 @@ author: aymericzip
 
 <iframe title="Intlayer kullanarak next-intl JSON çevirilerinizi nasıl otomatikleştirirsiniz" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-# İçindekiler Tablosu
+## İçindekiler Tablosu
 
 <TOC/>
 
@@ -52,6 +52,10 @@ Intlayer mükemmel bir bağımsız i18n çözümü sunarken (bakınız [Next.js 
 **Bunun için, Intlayer, JSON çevirilerinizi CLI veya CI/CD boru hatlarında otomatikleştirmeye, çevirilerinizi test etmeye ve daha fazlasına yardımcı olmak için next-intl için bir adaptör olarak uygulanabilir.**
 
 Bu rehber, Intlayer'ın üstün içerik beyan sistemi avantajlarından yararlanırken next-intl ile uyumluluğu nasıl koruyacağınızı gösterir.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## İçindekiler
 

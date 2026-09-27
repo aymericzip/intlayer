@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-06
 priority: 5
 title: Tài liệu Hook useIntlayer | next-intlayer
-description: Xem cách sử dụng hook useIntlayer cho gói next-intlayer
+description: "Dùng useIntlayer trong Next.js để đọc nội dung bản địa hóa của từ điển theo key trong Client và Server Components."
 keywords:
   - useIntlayer
   - dictionary

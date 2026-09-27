@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi getTranslation | intlayer
-description: Lihat cara menggunakan fungsi getTranslation untuk paket intlayer
+description: "Gunakan getTranslation (alias t) untuk memilih konten locale tertentu dari peta terjemahan, dengan fallback ke locale default."
 keywords:
   - getTranslation
   - terjemahan

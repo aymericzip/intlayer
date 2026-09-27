@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
-title: "Що таке інтернаціоналізація (i18n)? Значення, визначення та виклики"
+title: "Що таке інтернаціоналізація (i18n)? Значення та виклики"
 description: "Що означає i18n? Дізнайтеся, що таке інтернаціоналізація, чому її скорочують до i18n, чим вона відрізняється від локалізації (l10n) і з якими труднощами стикаються під час її впровадження."
 keywords:
   - значення i18n
@@ -183,11 +183,11 @@ author: aymericzip
 
 Якщо ви шукаєте відповідну i18n-бібліотеку для свого стеку, ознайомтеся з такими посібниками:
 
-- React: [Як вибрати i18n-бібліотеку для React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_react_i18n_library.md)
-- Vue: [Як вибрати i18n-бібліотеку для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_vue_i18n_library.md)
-- Svelte: [Як вибрати i18n-бібліотеку для Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_svelte_i18n_library.md)
-- Solid: [Як вибрати i18n-бібліотеку для Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_solid_i18n_library.md)
-- Next.js: [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Як вибрати i18n-бібліотеку для React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_react_i18n_library.md)
+- [Як вибрати i18n-бібліотеку для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_vue_i18n_library.md)
+- [Як вибрати i18n-бібліотеку для Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_svelte_i18n_library.md)
+- [Як вибрати i18n-бібліотеку для Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_solid_i18n_library.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## Висновок
 

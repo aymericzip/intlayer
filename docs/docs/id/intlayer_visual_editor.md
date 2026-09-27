@@ -2,7 +2,7 @@
 createdAt: 2025-08-23
 updatedAt: 2025-09-23
 priority: 8
-title: Intlayer Visual Editor | Edit konten Anda menggunakan editor visual
+title: "Editor visual Intlayer: edit konten langsung di tempat"
 description: Temukan cara menggunakan Intlayer Editor untuk mengelola situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi online ini untuk mengatur proyek Anda dalam beberapa menit.
 keywords:
   - Editor

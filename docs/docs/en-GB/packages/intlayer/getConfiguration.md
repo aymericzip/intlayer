@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-25
+updatedAt: 2026-09-27
 priority: 5
 title: getConfiguration Function Documentation | intlayer
-description: See how to use the getConfiguration function for intlayer package
+description: "Use getConfiguration to read your resolved Intlayer configuration, including locales and routing, on the client or the server."
 keywords:
   - getConfiguration
   - translation

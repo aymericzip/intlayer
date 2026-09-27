@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Wörterbücher beobachten
+title: "intlayer watch: Wörterbücher bei Änderungen neu bauen"
 description: Erfahren Sie, wie Sie Änderungen in Ihren Inhaltsdeklarationsdateien überwachen und Wörterbücher automatisch erstellen.
 keywords:
   - Beobachten

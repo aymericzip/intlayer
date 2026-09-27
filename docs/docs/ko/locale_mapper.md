@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: 로케일 매퍼
-description: 로케일 매퍼가 어떻게 작동하는지 알아보세요. 애플리케이션에서 로케일 매퍼가 사용하는 단계를 확인하세요. 다양한 패키지가 하는 역할을 확인하세요.
+title: "Locale Mapper: localeMap, localeFlatMap, localeRecord"
+description: "localeMap, localeFlatMap, localeRecord로 로케일 데이터를 변환해 라우트, 정적 파라미터, 로케일별 객체를 생성합니다."
 keywords:
   - 로케일 매퍼
   - 시작하기

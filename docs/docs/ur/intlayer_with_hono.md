@@ -225,9 +225,9 @@ export default app;
 
 `hono-intlayer` مکمل طور پر مطابقت رکھتا ہے:
 
-- React ایپلی کیشنز کے لیے [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/packages/react-intlayer/index.md)
-- Next.js ایپلی کیشنز کے لیے [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/packages/next-intlayer/index.md)
-- Vite ایپلی کیشنز کے لیے [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/packages/vite-intlayer/index.md)
 
 یہ براؤزر اور API درخواستوں سمیت مختلف ماحولوں میں کسی بھی بین الاقوامی حل کے ساتھ بغیر کسی رکاوٹ کے کام کرتا ہے۔ آپ ہیڈر یا کوکیز کے ذریعے مقام (locale) کا پتہ لگانے کے لیے مڈل ویئر کو اپنی مرضی کے مطابق بنا سکتے ہیں:
 

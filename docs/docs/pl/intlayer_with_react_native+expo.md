@@ -2,8 +2,8 @@
 createdAt: 2025-06-18
 updatedAt: 2026-06-25
 priority: 9
-title: "Expo + React Native i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
-description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Expo + React Native. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
+title: "i18n w Expo + React Native: pełny przewodnik"
+description: "Konfiguracja Intlayer w Expo i React Native: typowana treść per komponent, wykrywanie języka urządzenia, przełącznik języka i bundling przez Metro."
 keywords:
   - Internacjonalizacja
   - Dokumentacja
@@ -36,7 +36,7 @@ history:
 author: aymericzip
 ---
 
-# Przetłumacz swoją aplikację Expo i React Native | Internacjonalizacja (i18n)
+# Przetłumacz swoją aplikację Expo i React Native
 
 <Tabs defaultTab="code">
   <Tab label="Kod" value="code">
@@ -497,9 +497,9 @@ Aby uzyskać więcej informacji o korzystaniu z rozszerzenia, zapoznaj się z [d
 
 ## Idź dalej
 
-- **Edytor wizualny**: Użyj [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) do wizualnego zarządzania tłumaczeniami.
-- **Integracja z CMS**: Możesz również zewnętrznie przechowywać i pobierać zawartość swojego słownika z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
-- **Polecenia CLI**: Poznaj [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md) do zadań takich jak **wyodrębnianie tłumaczeń** lub **sprawdzanie brakujących kluczy**.
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)
 
 Ciesz się tworzeniem swoich aplikacji **React Native** z pełnym wsparciem i18n dzięki **Intlayer**!
 

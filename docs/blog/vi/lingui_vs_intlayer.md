@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui vs Intlayer: Điểm chuẩn & So sánh 2026"
-description: "Hai thư viện i18n dựa trên trình biên dịch được đo lường trên Next.js và TanStack Start. Kích thước bundle, rò rỉ nội dung, kích thước component, quá trình hydrate, độ phản hồi chuyển đổi ngôn ngữ và trải nghiệm lập trình viên."
+description: "Hai thư viện i18n dựa trên trình biên dịch được đo trên Next.js và TanStack Start: bundle, rò rỉ nội dung, kích thước component, hydration và chuyển ngôn ngữ."
 keywords:
   - Lingui
   - Intlayer
@@ -23,9 +23,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui VS Intlayer | Điểm chuẩn quốc tế hóa (i18n) trên React & Next.js
-
-![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+# Lingui VS Intlayer: Điểm chuẩn quốc tế hóa (i18n) trên React & Next.js
 
 Lingui và Intlayer là hai thư viện trong bài đánh giá điểm chuẩn này dựa trên một **trình biên dịch (compiler)** thay vì một runtime thuần túy. Lingui trích xuất các thông điệp từ macro trong thời gian build và biên dịch các danh mục theo từng ngôn ngữ. Intlayer biên dịch các từ điển theo từng component và thực hiện tree-shake chúng theo từng ngôn ngữ. Về mặt lý thuyết, chúng phải rất gần nhau. Các con số cho thấy chúng bắt đầu phân kỳ ở đâu.
 
@@ -451,26 +449,34 @@ Chúng được giữ lại cho macro và biến mất đối với nội dung r
 
 ## So sánh liên quan
 
+![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 Cùng benchmark, các thư viện khác:
 
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer.md)
 - [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer.md)
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Tìm hiểu thêm:
 
-- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer-lingui.md), adapter được đo lường trên cùng một ứng dụng
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer-lingui.md)
 - [Compiler-driven vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
 - [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md)
 - [ICU message format explained](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 Tài liệu tham khảo:
 
-- [Báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md) và [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
+- [Báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+- [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 - [Compat adapter: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
-- [Tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [Tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+- [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Ngôi sao GitHub
 

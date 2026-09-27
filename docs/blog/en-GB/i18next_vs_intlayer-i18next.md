@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: "i18next vs @intlayer/i18next: Same API, Different Bundle"
-description: What changes when a React or Next.js app keeps its i18next, react-i18next and next-i18next calls but serves them through the @intlayer/i18next adapters. Per-page JavaScript, component size, leakage and hydration measured on the same code, plus what the adapters keep, ignore and cannot replace.
+description: "A React or Next.js app keeps its i18next calls, served through the @intlayer/i18next adapters. Per-page JavaScript, component size and leakage measured."
 keywords:
   - i18next
   - react-i18next
@@ -27,7 +27,7 @@ slugs:
 author: aymericzip
 ---
 
-# i18next VS @intlayer/i18next | Same API, Different Bundle
+# i18next VS @intlayer/i18next: Same API, Different Bundle
 
 ![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -451,18 +451,36 @@ Same adapter series:
 
 The libraries compared head to head:
 
-- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18next_vs_intlayer.md), same benchmark
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18next_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/next-i18next_vs_next-intl_vs_intlayer.md)
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/react-i18next_vs_react-intl_vs_intlayer.md)
 - [Is i18next outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/is_i18next_outdated.md)
 
 Reference docs:
 
-- Compat adapters: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/next-i18next.md)
-- Migration guides: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_next-i18next_to_intlayer.md)
-- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md) and [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md)
-- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md)
-- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md) and [AI translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/autoFill.md)
+- [Next.js benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/nextjs.md)
+- [TanStack Start benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md)
+- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/bundle_optimization.md)
+- [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md)
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)
+- [AI translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/autoFill.md)
+
+Compat adapters:
+
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/i18next.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/react-i18next.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compat/next-i18next.md)
+
+Migration guides:
+
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_i18next_to_intlayer.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_react-i18next_to_intlayer.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/migration_from_next-i18next_to_intlayer.md)
+
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/history_of_i18n.md)
 
 ## Conclusion
 

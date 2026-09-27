@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: Dokumentasi Fungsi getMultilingualUrls | intlayer
-description: Lihat cara menggunakan fungsi getMultilingualUrls untuk paket intlayer
+description: "Gunakan getMultilingualUrls untuk membuat versi terlokalisasi sebuah URL untuk setiap locale yang didukung, untuk tag hreflang dan sitemap."
 keywords:
   - getMultilingualUrls
   - terjemahan

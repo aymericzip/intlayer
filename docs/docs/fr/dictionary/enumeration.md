@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: Énumération
-description: Découvrez comment déclarer et utiliser des énumérations dans votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.
+title: "Énumération : messages selon une quantité"
+description: "Utilisez les énumérations Intlayer pour afficher un contenu différent selon un nombre ou un intervalle, avec le nœud enu() et des conditions comme '<-1' ou '>5'."
 keywords:
   - Énumération
   - Internationalisation

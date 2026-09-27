@@ -2,8 +2,8 @@
 createdAt: 2024-08-13
 updatedAt: 2025-08-20
 priority: 8
-title: Formatters
-description: Locale-aware formatting utilities based on Intl for numbers, percentages, currency, dates, relative time, units, and compact notation. Includes a cached Intl helper.
+title: "Formatters: Numbers, Dates and Currency by Locale"
+description: "Format numbers, percentages, currency, dates, relative time and units by locale with Intlayer's cached Intl helpers."
 keywords:
   - Formatters
   - Intl

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Błąd ESBuild
-description: Dowiedz się, jak naprawić błędy ESBuild.
+title: "Jak naprawić błędy ESBuild z Intlayer"
+description: "Napraw błędy ESBuild podczas builda Intlayer, zwykle spowodowane brakującym lub źle skonfigurowanym pluginem bundlera dla Twojego frameworka."
 keywords:
   - esbuild
   - błąd

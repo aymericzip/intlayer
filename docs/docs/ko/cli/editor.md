@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: 에디터 명령어
-description: Intlayer 에디터 명령어 사용법을 알아보세요.
+title: "intlayer editor: 비주얼 에디터 명령어"
+description: "CLI에서 Intlayer 비주얼 에디터를 시작하고 설정하여 실행 중인 애플리케이션에서 바로 콘텐츠를 편집합니다."
 keywords:
   - 에디터
   - 비주얼 에디터

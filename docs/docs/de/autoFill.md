@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-09-20
+updatedAt: 2026-09-27
 priority: 8
-title: Automatisches Ausfüllen
-description: Erfahren Sie, wie Sie die Funktion zum automatischen Ausfüllen in Intlayer verwenden, um Inhalte basierend auf vordefinierten Mustern automatisch zu befüllen. Folgen Sie dieser Dokumentation, um Funktionen zum automatischen Ausfüllen effizient in Ihrem Projekt zu implementieren.
+title: "Auto Fill: fehlende Inhalte automatisch übersetzen"
+description: "Nutzen Sie Intlayer Auto Fill, um fehlende Übersetzungen aus Ihrer Ausgangssprache zu erzeugen und in die richtigen Inhaltsdateien zu schreiben."
 keywords:
   - Automatisches Ausfüllen
   - Inhaltsautomatisierung

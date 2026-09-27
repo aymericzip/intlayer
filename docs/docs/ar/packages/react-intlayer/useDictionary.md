@@ -3,7 +3,7 @@ createdAt: 2025-02-07
 updatedAt: 2025-06-29
 priority: 5
 title: هوك useDictionary - توثيق React Intlayer
-description: دليل كامل لاستخدام هوك useDictionary في تطبيقات React مع Intlayer لإدارة المحتوى المحلي بكفاءة بدون محرر بصري.
+description: "استخدم useDictionary في React لتفسير كائن قاموس تعرّفه بنفسك، مع حسم الترجمات والتعدادات وغيرها."
 keywords:
   - useDictionary
   - React

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 3
-title: "Create React App i18n - Guía completa para traducir tu aplicación"
-description: "Sin más i18next. La guía 2026 para crear una aplicación Create React App multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
+title: "i18n en Create React App: guía completa de traducción"
+description: "Configura Intlayer en un proyecto Create React App: contenido tipado junto a los componentes, selector de idioma y traducciones cargadas por locale."
 keywords:
   - Internacionalización
   - Documentación
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Traduce tu Create React App con Intlayer | Internacionalización (i18n)
+# Traduce tu Create React App con Intlayer
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"

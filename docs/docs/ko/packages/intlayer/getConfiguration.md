@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-25
+updatedAt: 2026-09-27
 priority: 5
 title: getConfiguration 함수 문서 | intlayer
-description: intlayer 패키지의 getConfiguration 함수 사용법 안내
+description: "getConfiguration으로 로케일과 라우팅을 포함한 해석된 Intlayer 설정을 클라이언트나 서버에서 읽습니다."
 keywords:
   - getConfiguration
   - 번역

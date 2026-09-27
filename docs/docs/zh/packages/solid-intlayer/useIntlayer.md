@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-06
+updatedAt: 2026-09-27
 priority: 5
 title: useIntlayer Hook 文档 | solid-intlayer
-description: 查看如何在 solid-intlayer 包中使用 useIntlayer hook
+description: "在 Solid 中使用 useIntlayer 按键读取字典的本地化内容，返回随语言变化而更新的响应式值。"
 keywords:
   - useIntlayer
   - 字典

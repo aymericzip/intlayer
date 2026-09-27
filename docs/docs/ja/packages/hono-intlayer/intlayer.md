@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-01-29
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Hono ミドルウェア ドキュメント | hono-intlayer
-description: hono-intlayer パッケージでの intlayer ミドルウェアの使用方法を確認する
+description: "Hono 向け intlayer ミドルウェアは、ユーザーのロケールを検出し、リクエストコンテキストに Intlayer の翻訳関数を追加します。"
 keywords:
   - intlayer
   - hono

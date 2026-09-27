@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-09-27
 priority: 8
-title: 自定义 URL 重写
+title: "自定义 URL 重写：本地化路径"
 description: 了解如何在 Intlayer 中配置并使用自定义 URL 重写，以定义特定于 locale 的路径。
 keywords:
   - 自定义 URL 重写

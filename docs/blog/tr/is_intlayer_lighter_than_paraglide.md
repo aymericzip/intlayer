@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
 title: Intlayer, Paraglide'dan daha mı hafif?
-description: Paraglide, kodları doğrudan deponuza ürettiği için i18n kıyaslamalarında neredeyse sıfır maliyetli görünür. Bu boyutun gerçekte nereye gittiğini, düğüm başına dil çözümlemesinin neden maliyetli olduğunu ve Intlayer'ın dinamik yüklemesinin tüm diller yerine neden yalnızca tek bir dili istemciye gönderdiğini inceliyoruz.
+description: "Paraglide, kodu deponuza üretildiği için i18n benchmark'larında neredeyse ücretsiz görünür. Bu ağırlık nereye gidiyor ve Intlayer ile nasıl karşılaştırılıyor."
 keywords:
   - Paraglide
   - Intlayer
@@ -287,3 +287,7 @@ bunx intlayer init --interactive
 - [Paket Optimizasyonu ve `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
 - [React İçin Doğru i18n Kütüphanesi Nasıl Seçilir?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_react_i18n_library.md)
 - [Derleyici Tabanlı ve Bildirimsel Uluslararasılaştırma Kıyaslaması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)

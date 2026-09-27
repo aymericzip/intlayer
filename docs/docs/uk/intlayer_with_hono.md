@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 9
 title: "Hono i18n - Повний посібник з перекладу вашого застосунку"
-description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Hono. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
+description: "Налаштування Intlayer у Hono: визначення локалі для кожного запиту через middleware, переклад відповідей API на Node, Bun або edge-рантаймах."
 keywords:
   - інтернаціоналізація
   - документація
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Перекладіть свій бекенд на Hono за допомогою Intlayer | Інтернаціоналізація (i18n)
+# Перекладіть свій бекенд на Hono за допомогою Intlayer
 
 `hono-intlayer`, це потужне проміжне ПЗ (middleware) для інтернаціоналізації (i18n) додатків Hono, розроблене для того, щоб зробити ваші бекенд-сервіси доступними в усьому світі, надаючи локалізовані відповіді на основі вподобань клієнта.
 
@@ -226,9 +226,9 @@ export default app;
 
 `hono-intlayer` повністю сумісний із:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/index.md) для React-додатків
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/index.md) для Next.js-додатків
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md) для Vite-додатків
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md)
 
 Він також безперешкодно працює з будь-яким рішенням для інтернаціоналізації в різних середовищах, включаючи браузери та API-запити. Ви можете налаштувати проміжне ПЗ для виявлення локалі через заголовки або файли cookie:
 

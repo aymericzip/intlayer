@@ -2,7 +2,7 @@
 createdAt: 2026-04-02
 updatedAt: 2026-06-23
 priority: 8
-title: Tên miền tùy chỉnh
+title: "Tên miền tùy chỉnh: mỗi locale một tên miền"
 description: Tìm hiểu cách cấu hình điều hướng ngôn ngữ dựa trên tên miền trong Intlayer để phục vụ các ngôn ngữ khác nhau từ các tên miền riêng biệt.
 keywords:
   - Tên miền tùy chỉnh

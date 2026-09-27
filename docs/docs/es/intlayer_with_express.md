@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Express i18n - Guía completa para traducir tu aplicación"
-description: "Sin más i18next. La guía 2026 para crear una aplicación Express multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
+description: "Configura Intlayer en Express: detección de la locale por petición con middleware, traducción de respuestas API y errores, tipado de extremo a extremo."
 keywords:
   - Internacionalización
   - Documentación
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Traduce tu Express backend con Intlayer | Internacionalización (i18n)
+# Traduce tu Express backend con Intlayer
 
 `express-intlayer` es un middleware potente de internacionalización (i18n) para aplicaciones Express, diseñado para hacer que tus servicios backend sean accesibles globalmente al proporcionar respuestas localizadas basadas en las preferencias del cliente.
 
@@ -210,9 +210,9 @@ app.listen(3000, () => console.log(`Escuchando en el puerto 3000`));
 
 `express-intlayer` es totalmente compatible con:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md) para aplicaciones React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/index.md) para aplicaciones Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/index.md) para aplicaciones Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/index.md)
   También funciona perfectamente con cualquier solución de internacionalización en diversos entornos, incluidos navegadores y solicitudes API. Puedes personalizar el middleware para detectar la configuración regional a través de encabezados o cookies:
 
 También funciona sin problemas con cualquier solución de internacionalización en varios entornos, incluidos navegadores y solicitudes de API. Puedes personalizar el middleware para detectar la configuración regional a través de encabezados o cookies:

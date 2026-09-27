@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Error de compilación en CI/CD
-description: Aprende cómo solucionar errores de compilación que ocurren en entornos CI/CD.
+title: "Corregir errores de build de Intlayer en CI/CD"
+description: "Corrige errores de renderizado de Server Components que solo ocurren en CI/CD, asegurando que los diccionarios de Intlayer se construyen durante el build."
 keywords:
   - compilación
   - error

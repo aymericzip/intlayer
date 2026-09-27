@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: 2026年においてi18nextは時代遅れなのか？
 description: i18nextは数百万のWebサイトで利用されていますが、2011年設計のランタイムアーキテクチャには限界も見え始めています。バンドルサイズ、Tree-shakingの制約、進化の停滞を分析します。
@@ -74,6 +74,10 @@ GitHubのスター数は過去の実績を示す指標であり、現在の技�
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 成熟したライブラリは安定性という価値を提供します。しかし、i18nツールの基準は進化しています。ビルド時に不要なコンテンツを排除し、CIでLLMによる自動翻訳を行い、開発環境ではLanguage Server（LSP）やAIエージェントと統合される時代です。ランタイムに特化した従来の設計では、こうした技術的進展を取り入れるのが困難です。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## バンドルへの影響検証
 

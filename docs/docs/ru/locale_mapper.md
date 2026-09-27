@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: Отображатель локалей
-description: Узнайте, как работает Отображатель локалей. Посмотрите шаги, которые использует Отображатель локалей в вашем приложении. Узнайте, что делают разные пакеты.
+title: "Locale Mapper: localeMap, localeFlatMap, localeRecord"
+description: "Преобразуйте данные локалей с помощью localeMap, localeFlatMap и localeRecord, чтобы генерировать маршруты, статические параметры и объекты по локалям."
 keywords:
   - Отображатель локалей
   - Начало работы

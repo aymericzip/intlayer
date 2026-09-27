@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Lệnh Editor
-description: Tìm hiểu cách sử dụng các lệnh editor của Intlayer.
+title: "intlayer editor: lệnh của trình chỉnh sửa trực quan"
+description: "Khởi động và cấu hình trình chỉnh sửa trực quan Intlayer từ CLI để sửa nội dung ngay trong ứng dụng đang chạy."
 keywords:
   - Editor
   - Visual Editor

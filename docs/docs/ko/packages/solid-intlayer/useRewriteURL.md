@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: useRewriteURL 훅 문서
-description: Intlayer에서 지역화된 URL 리라이트를 관리하기 위한 Solid 전용 훅.
+title: "useRewriteURL 훅 문서 | solid-intlayer"
+description: "SolidJS의 useRewriteURL로 설정의 URL 재작성 규칙에 따라 브라우저 URL을 현지화된 버전으로 바꿉니다."
 keywords:
   - useRewriteURL
   - solid-intlayer

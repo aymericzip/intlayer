@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer CMS | コンテンツをIntlayer CMSに外部化する
+title: "Intlayer CMS：多言語コンテンツを外部化する"
 description: コンテンツ管理をチームに委任するために、コンテンツをIntlayer CMSに外部化します。
 keywords:
   - CMS

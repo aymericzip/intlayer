@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: useDictionary 훅 문서 | next-intlayer
-description: next-intlayer 패키지의 useDictionary 훅 사용 방법을 확인하세요
+description: "Next.js의 useDictionary로 직접 선언한 사전 객체를 해석하고 현재 로케일의 번역을 가져옵니다."
 keywords:
   - useDictionary
   - dictionary

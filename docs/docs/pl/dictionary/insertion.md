@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Wstawianie
-description: Dowiedz się, jak deklarować i używać miejsc na wstawki w swojej treści. Ta dokumentacja przeprowadzi Cię przez kroki umożliwiające dynamiczne wstawianie wartości w zdefiniowanych strukturach treści.
+title: "Wstawianie: zmienne w przetłumaczonej treści"
+description: "Wstawiaj dynamiczne wartości do przetłumaczonych tekstów za pomocą węzła insert() w Intlayer i {{placeholderów}}, typowanych z deklaracji treści."
 keywords:
   - Wstawianie
   - Dynamiczna Treść

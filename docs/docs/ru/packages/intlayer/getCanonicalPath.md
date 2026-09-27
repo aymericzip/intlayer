@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: "Документация: функция getCanonicalPath | intlayer"
-description: Инструкция по использованию функции getCanonicalPath в пакете intlayer
+description: "Используйте getCanonicalPath, чтобы сопоставить локализованный путь вроде /o-nas с внутренним маршрутом вроде /about для маршрутизации."
 keywords:
   - getCanonicalPath
   - перевод
@@ -121,5 +121,5 @@ getCanonicalPath("/contactez-nous", Locales.FRENCH, manualRules);
 
 ## Связанные функции
 
-- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedPath.md): Преобразует канонический путь в его локализованный эквивалент.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md): Генерирует полностью локализованный URL (включая протокол, хост и префикс локали).
+- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md)

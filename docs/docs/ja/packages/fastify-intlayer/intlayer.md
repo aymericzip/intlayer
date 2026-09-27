@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Fastify プラグインドキュメント | fastify-intlayer
-description: fastify-intlayer パッケージの intlayer プラグインの使用方法
+description: "Fastify 向け intlayer プラグインは、ユーザーのロケールを検出し、各リクエストに Intlayer の翻訳関数を追加します。"
 keywords:
   - intlayer
   - fastify

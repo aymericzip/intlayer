@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-18
-updatedAt: 2025-11-06
+updatedAt: 2026-09-27
 priority: 8
-title: L10n 플랫폼 대안
-description: 필요에 맞는 최적의 L10n 플랫폼 대안을 찾으세요
+title: "Crowdin을 대체할 오픈소스 현지화 도구"
+description: "Crowdin과 오픈소스 번역 관리 시스템 Intlayer 비교: 워크플로, 개발자 통합, AI 번역, 가격."
 keywords:
   - L10n
   - TMS
@@ -25,19 +25,19 @@ author: aymericzip
 
 <TOC/>
 
-# 번역 관리 시스템 (Translation Management System)
+## 번역 관리 시스템 (Translation Management System)
 
 번역 관리 시스템(Translation Management System, TMS)은 번역 및 로컬라이제이션(L10n) 프로세스를 자동화하고 간소화하도록 설계된 소프트웨어 플랫폼입니다. 전통적으로 TMS는 콘텐츠를 업로드하고 정리하며 인간 번역가에게 할당하는 중앙 허브 역할을 합니다. 워크플로를 관리하고, 번역 메모리(같은 문장을 두 번 번역하는 것을 방지)를 저장하며, 번역된 파일을 개발자나 콘텐츠 관리자에게 전달하는 작업을 처리합니다.
 
 요컨대, TMS는 기술적 코드(문자열이 존재하는 곳)와 문화적 맥락을 이해하는 인간 언어 전문가(linguists) 사이의 가교 역할을 해왔습니다.
 
-# Crowdin
+## Crowdin
 
 Crowdin은 이 분야의 베테랑입니다. 2009년에 설립되었으며, 로컬라이제이션의 주요 과제였던 연결성(connectivity)이 핵심이던 시기에 등장했습니다. 그 사명은 명확했습니다: 카피라이터, 번역가, 그리고 프로젝트 소유자들을 효과적으로 연결하는 것.
 
 10년 넘게 Crowdin은 로컬라이제이션 관리를 위한 업계 표준이었습니다. 팀이 `.po`, `.xml`, 또는 `.yaml` 파일을 업로드하고 번역가들이 클라우드 인터페이스에서 작업할 수 있도록 허용함으로써 분절화(fragmentation) 문제를 해결했습니다. 견고한 워크플로 자동화를 바탕으로 명성을 쌓아, 기업들이 스프레드시트에 파묻히지 않고 한 언어에서 열 언어로 확장할 수 있게 했습니다.
 
-# Intlayer
+## Intlayer
 
 Intlayer는 주로 i18n 솔루션으로 알려져 있지만 CMS도 통합합니다. 기존 i18n 설정의 래퍼 역할에 국한된 Crowdin과 달리, Intlayer는 번들링 레이어부터 원격 콘텐츠 전달에 이르기까지 전체 스택을 제어하여 콘텐츠 흐름을 보다 원활하고 효율적으로 만듭니다.
 
@@ -61,7 +61,7 @@ Intlayer는 AI 시대에 태어난 솔루션입니다. 2026년에는 원시 번�
 
 Intlayer를 사용하면 번역은 추론 비용으로 생성됩니다. 플랫폼의 가격 모델에 묶이지 않으며, 공급자(OpenAI, Anthropic, Mistral 등)와 모델을 선택하고 CI(Continuous Integration), CLI 또는 통합된 CMS를 통해 번역할 수 있습니다. 이는 번역가에 대한 접근(access to translators)에서 문맥 관리(management of context)로 가치를 전환합니다.
 
-# 나란히 비교
+## 나란히 비교
 
 | 기능          | Crowdin (레거시 TMS)                         | Intlayer (AI-Native)                     |
 | :------------ | :------------------------------------------- | :--------------------------------------- |

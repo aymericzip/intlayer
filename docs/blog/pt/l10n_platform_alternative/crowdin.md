@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-18
-updatedAt: 2025-11-06
+updatedAt: 2026-09-27
 priority: 8
-title: Alternativa de Plataforma L10n
-description: Encontre a melhor alternativa de plataforma L10n para as suas necessidades
+title: "Alternativa open source ao Crowdin para localização"
+description: "Crowdin comparado ao Intlayer, um sistema de gestão de traduções open source: fluxo de trabalho, integração para devs, tradução com IA e preços."
 keywords:
   - L10n
   - TMS
@@ -25,19 +25,19 @@ author: aymericzip
 
 <TOC/>
 
-# Crowdin
+## Crowdin
 
 Um Sistema de Gestão de Tradução (TMS) é uma plataforma de software projetada para automatizar e agilizar o processo de tradução e localização (L10n). Tradicionalmente, um TMS funciona como um hub centralizado onde o conteúdo é carregado, organizado e atribuído a tradutores humanos. Ele gere fluxos de trabalho, armazena memórias de tradução (para evitar traduzir a mesma frase duas vezes) e trata da entrega dos ficheiros traduzidos de volta aos desenvolvedores ou gestores de conteúdo.
 
 Em essência, um TMS tem sido historicamente a ponte entre o código técnico (onde as strings residem) e os linguistas humanos (que entendem a cultura).
 
-# Crowdin
+## Crowdin
 
 Crowdin é um veterano neste domínio. Fundada em 2009, surgiu numa altura em que o principal desafio da localização era a conectividade. A sua missão era clara: colocar copywriters, tradutores e responsáveis de projeto em relação uns com os outros de forma eficaz.
 
 Durante mais de uma década, o Crowdin tem sido o padrão da indústria para gerir a localização. Resolveu o problema da fragmentação ao permitir que equipas carreguem ficheiros `.po`, `.xml` ou `.yaml` e que os tradutores trabalhem neles numa interface na nuvem. Construiu a sua reputação numa automação sólida dos fluxos de trabalho, permitindo às empresas escalar de uma língua para dez sem se afogarem em folhas de cálculo.
 
-# Intlayer
+## Intlayer
 
 O Intlayer é conhecido principalmente como uma solução de i18n, mas também integra um CMS. Ao contrário do Crowdin, que se limita a atuar como um wrapper em torno da sua configuração de i18n existente, o Intlayer controla toda a stack, desde a camada de bundling até a entrega remota de conteúdo, resultando num fluxo de conteúdo mais fluido e eficiente.
 
@@ -61,7 +61,7 @@ Portanto, o Intlayer não se posiciona meramente como um TMS, mas como uma solu�
 
 Com o Intlayer, você gera suas traduções ao custo das suas inferências. Você não está preso ao modelo de preços de uma plataforma; você escolhe o provedor (OpenAI, Anthropic, Mistral, etc.), escolhe o modelo e traduz via CI (Continuous Integration), CLI, ou diretamente através do CMS integrado. Isso desloca o valor do acesso a tradutores para a gestão do contexto.
 
-# Comparação lado a lado
+## Comparação lado a lado
 
 | Funcionalidade           | Crowdin (TMS Legado)                                                 | Intlayer (Nativo em IA)                                               |
 | :----------------------- | :------------------------------------------------------------------- | :-------------------------------------------------------------------- |

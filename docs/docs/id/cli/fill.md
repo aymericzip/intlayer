@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Isi Kamus
-description: Pelajari cara mengisi, mengaudit, dan menerjemahkan kamus Anda menggunakan AI.
+title: "intlayer fill: terjemahkan kamus dengan AI"
+description: "Lengkapi terjemahan yang hilang, audit yang sudah ada, dan terjemahkan kamus Intlayer dengan AI dari CLI, secara lokal atau di CI."
 keywords:
   - Isi
   - Audit

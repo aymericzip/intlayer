@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-08
+updatedAt: 2026-09-27
 priority: 8
 title: Intlayer Compiler | Automated Content Extraction for i18n
-description: Automate your internationalization process with the Intlayer Compiler. Extract content directly from your components for faster, more efficient i18n in Vite, Next.js, and more.
+description: "Extract content from your components automatically with the Intlayer Compiler, for faster i18n in Vite, Next.js and more."
 keywords:
   - Intlayer
   - Compiler
@@ -36,7 +36,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer Compiler | Automated Content Extraction for i18n
+# Intlayer Compiler: Automated Content Extraction for i18n
 
 ## What is the Intlayer Compiler?
 

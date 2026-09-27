@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Lỗi build trong CI/CD
-description: Tìm hiểu cách sửa lỗi build xảy ra trong môi trường CI/CD.
+title: "Sửa lỗi build Intlayer trong CI/CD"
+description: "Sửa lỗi render Server Components chỉ xảy ra trong CI/CD bằng cách đảm bảo từ điển Intlayer được build trong bước build."
 keywords:
   - build
   - lỗi

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrer de @nuxtjs/i18n à Intlayer | Internationalisation (i18n)"
-description: "Découvrez comment migrer votre application Nuxt de @nuxtjs/i18n à Intlayer — étape par étape, sans casser votre code existant. Utilisez l'adaptateur de compatibilité @intlayer/vue-i18n pour une transition en douceur."
+title: "Migrer de @nuxtjs/i18n vers Intlayer"
+description: "Migrez une app Nuxt de @nuxtjs/i18n vers Intlayer pas à pas, en commençant par l'adaptateur @intlayer/vue-i18n pour ne rien casser."
 keywords:
   - "@nuxtjs/i18n"
   - vue-i18n
@@ -63,6 +63,10 @@ Plus qu'une simple solution i18n, Intlayer fournit un **[éditeur visuel](https:
 
 </Accordion>
 </AccordionGroup>
+
+> Pour comprendre d'où viennent ces bibliothèques, lisez l'histoire de l'i18n en JavaScript.
+
+- [L'histoire de l'i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/history_of_i18n.md)
 
 ## Stratégies de migration
 
@@ -293,9 +297,9 @@ Ajoutez le répertoire généré par Intlayer à votre `.gitignore` :
 
 ## Aller plus loin
 
-- **Éditeur visuel** — Gérez les traductions visuellement dans votre navigateur : [Éditeur visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)
-- **CMS** — Externalisez et gérez le contenu à distance : [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
-- **Extension VS Code** — Obtenez l'autocomplétion et la détection d'erreurs de traduction en temps réel : [Extension VS Code Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md)
-- **Référence CLI** — Liste complète des commandes CLI : [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)
-- **Intlayer avec Nuxt** — Guide d'installation complet pour Nuxt : [intlayer_with_nuxt.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nuxt.md)
-- **Intlayer avec Vue** — Guide d'installation complet pour Vue : [intlayer_with_vite+vue.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+vue.md)
+- [Éditeur visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
+- [Extension VS Code Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)
+- [Intlayer avec Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nuxt.md)
+- [Intlayer avec Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+vue.md)

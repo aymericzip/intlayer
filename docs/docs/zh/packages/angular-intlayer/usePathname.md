@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname Hook 文档 | angular-intlayer
-description: 了解如何在 angular-intlayer 包中使用 usePathname hook
+description: "在 Angular 中使用 usePathname，以 signal 的形式获取去掉语言段的当前路径，用于支持语言的导航。"
 keywords:
   - usePathname
   - pathname
@@ -116,5 +116,5 @@ export class SidebarComponent {
 
 ## 相关
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/angular-intlayer/exports.md) — 当前的区域设置 + 区域设置切换器
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md) — 此 hook 使用的底层实用程序
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/angular-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md)

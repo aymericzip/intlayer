@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: ESBuild त्रुटि
-description: ESBuild त्रुटियों को कैसे ठीक करें, जानें।
+title: "Intlayer में ESBuild त्रुटियाँ ठीक करें"
+description: "Intlayer बिल्ड के दौरान ESBuild त्रुटियाँ ठीक करें, जो आमतौर पर आपके फ़्रेमवर्क के बंडलर प्लगइन के न होने या गलत कॉन्फ़िगर होने से होती हैं।"
 keywords:
   - esbuild
   - त्रुटि

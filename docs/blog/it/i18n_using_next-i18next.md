@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n in Next.js 16 con next-i18next: guida alla configurazione dell’App Router"
 description: "Configura next-i18next e i18next passo dopo passo in un'app Next.js 16 con App Router: namespace, routing per locale, componenti server e client, e metadati SEO."
@@ -44,6 +44,10 @@ Con questo approccio, puoi:
 > In alternativa, puoi anche fare riferimento alla [guida next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/i18n_using_next-intl.md), oppure utilizzare direttamente [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md).
 
 > Vedi il confronto in [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/next-i18next_vs_next-intl_vs_intlayer.md).
+
+> Per capire da dove vengono queste librerie, leggi la storia dell'i18n in JavaScript.
+
+- [La storia dell'i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/history_of_i18n.md)
 
 ## Cosa dice il benchmark su next-i18next con Next.js
 

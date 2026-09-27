@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق Hook usePathname | solid-intlayer
-description: تعرف على كيفية استخدام hook usePathname من حزمة solid-intlayer
+description: "استخدم usePathname في Solid لقراءة المسار الحالي دون جزء اللغة كـ accessor للتنقل حسب اللغة."
 keywords:
   - usePathname
   - pathname
@@ -116,5 +116,5 @@ export default Sidebar;
 
 ## مواضيع ذات صلة
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/useLocale.md) — اللغة الحالية + مفتاح تغيير اللغة
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPathWithoutLocale.md) — الأداة الأساسية التي يستخدمها هذا الـ hook
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPathWithoutLocale.md)

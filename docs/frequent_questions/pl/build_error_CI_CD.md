@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Błąd kompilacji w CI/CD
-description: Dowiedz się, jak naprawić błędy kompilacji występujące w środowiskach CI/CD.
+title: "Jak naprawić błędy builda Intlayer w CI/CD"
+description: "Napraw błędy renderowania Server Components występujące tylko w CI/CD, upewniając się, że słowniki Intlayer są budowane podczas builda."
 keywords:
   - build
   - error

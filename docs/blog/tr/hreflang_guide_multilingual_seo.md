@@ -288,8 +288,8 @@ Tek bir locale listesinden seti türet, server tarafında renderla, canonical'ı
 
 ### Daha Fazlasını Keşfet
 
-- [SEO ve Uluslararasılaştırma](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md) — daha geniş çok dilli SEO resmi
-- [SEO ve i18n in Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/nextjs-multilingual-seo-comparison.md) — `next-intl` vs `next-i18next` vs Intlayer
+- [SEO ve Uluslararasılaştırma](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md)
+- [SEO ve i18n in Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/nextjs-multilingual-seo-comparison.md)
 - [Next.js 16 i18n rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
 - [TanStack Start i18n rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md)
 - [Locale başına özel alanlar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/custom_domains.md)

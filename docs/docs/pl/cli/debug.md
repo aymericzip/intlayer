@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Debugowanie polecenia Intlayer
-description: Dowiedz się, jak debugować i rozwiązywać problemy z CLI Intlayer.
+title: "Debugowanie CLI Intlayer"
+description: "Rozwiązywanie problemów z CLI Intlayer: sprawdź zainstalowaną wersję, włącz szczegółowe logi i napraw typowe błędy poleceń i konfiguracji."
 keywords:
   - Debugowanie
   - Rozwiązywanie problemów

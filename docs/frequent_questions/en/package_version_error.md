@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: I get an error related to sub-packages @intlayer/*
-description: Fix error related to sub-packages @intlayer/*.
+description: "Fix errors from mismatched @intlayer/* sub-package versions: align every Intlayer package to the same version and clear your lockfile cache."
 keywords:
   - @intlayer/*
   - sub-packages

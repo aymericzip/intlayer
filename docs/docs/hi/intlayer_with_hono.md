@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 9
 title: "Hono i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की जरूरत नहीं। 2026 में Hono ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
+description: "Hono में Intlayer सेट करें: मिडलवेयर से हर रिक्वेस्ट पर लोकेल पहचानें, API रिस्पॉन्स का अनुवाद करें, Node, Bun या edge रनटाइम पर।"
 keywords:
   - अंतर्राष्ट्रीयकरण
   - दस्तावेज़ीकरण
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer का उपयोग करके अपनी Hono बैकएंड वेबसाइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
+# Intlayer का उपयोग करके अपनी Hono बैकएंड वेबसाइट का अनुवाद करें
 
 `hono-intlayer` Hono अनुप्रयोगों के लिए एक शक्तिशाली अंतर्राष्ट्रीयकरण (i18n) मिडलवेयर है, जिसे क्लाइंट की प्राथमिकताओं के आधार पर स्थानीयकृत प्रतिक्रियाएं प्रदान करके आपकी बैकएंड सेवाओं को वैश्विक रूप से सुलभ बनाने के लिए डिज़ाइन किया गया है।
 
@@ -226,9 +226,9 @@ export default app;
 
 `hono-intlayer` इनके साथ पूरी तरह से संगत है:
 
-- React अनुप्रयोगों के लिए [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/index.md)
-- Next.js अनुप्रयोगों के लिए [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/index.md)
-- Vite अनुप्रयोगों के लिए [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/index.md)
 
 यह ब्राउज़र और एपीआई अनुरोधों सहित विभिन्न वातावरणों में किसी भी अंतर्राष्ट्रीयकरण समाधान के साथ निर्बाध रूप से काम करता है। आप हेडर या कुकीज़ के माध्यम से लोकेल का पता लगाने के लिए मिडलवेयर को कस्टमाइज़ कर सकते हैं:
 

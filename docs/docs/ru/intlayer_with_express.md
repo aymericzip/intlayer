@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Express i18n - Полное руководство по переводу вашего приложения"
-description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения Express. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
+description: "Настройка Intlayer в Express: определение локали для каждого запроса через middleware, перевод ответов API и ошибок, сквозная типизация."
 keywords:
   - Интернационализация
   - Документация
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Переведите ваш Express backend с Intlayer | Интернационализация (i18n)
+# Переведите ваш Express backend с Intlayer
 
 `express-intlayer` , это мощное промежуточное программное обеспечение для интернационализации (i18n) приложений Express, разработанное для того, чтобы сделать ваши серверные службы доступными по всему миру, предоставляя локализованные ответы на основе предпочтений клиента.
 
@@ -209,9 +209,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` полностью совместим с:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/index.md) для приложений React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/index.md) для приложений Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/index.md) для приложений Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/index.md)
 
 Он также безупречно работает с любыми решениями для интернационализации в различных средах, включая браузеры и API-запросы. Вы можете настроить middleware для определения локали через заголовки или cookies:
 

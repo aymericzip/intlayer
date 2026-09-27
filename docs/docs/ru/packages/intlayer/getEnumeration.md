@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Документация функции getEnumeration | intlayer
-description: Узнайте, как использовать функцию getEnumeration для пакета intlayer
+description: "Используйте getEnumeration (алиас enu), чтобы выбрать контент, соответствующий количеству, из объекта перечисления по его условиям."
 keywords:
   - getEnumeration
   - перевод

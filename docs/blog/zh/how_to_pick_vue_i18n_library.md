@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "如何在 2026 年选择合适的 Vue i18n 国际化库"
-description: Vue 与 Nuxt 国际化选型决策指南。在对比 vue-i18n、@nuxtjs/i18n、fluent-vue、Paraglide 与 Intlayer 之前需要明确的关键问题，以及各方案在打包体积（bundle size）、类型支持（typing）与 SSR 负载方面的成本权衡。
+description: "Vue 与 Nuxt i18n 选型指南：在比较 vue-i18n、@nuxtjs/i18n、fluent-vue、Paraglide 和 Intlayer 之前需要回答的问题。"
 keywords:
   - vue i18n
   - vue internationalization
@@ -24,8 +24,6 @@ author: aymericzip
 "Vue i18n" 既是一个通用术语，也是几乎所有人都会安装的库的名称。这既方便又容易产生误解：`vue-i18n` 是一个不错的默认选择，但它并非唯一选项。而在执行 `npm install` 之前，往往很少有人会先思考那些决定技术选型的关键问题（是否使用 SSR、页面数量有多少、谁来编写翻译）。
 
 本指南将首先梳理这些问题，然后将答案映射到适用于原生 Vite + Vue 以及 Nuxt 的库。
-
-![Vue i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目录
 
@@ -87,6 +85,8 @@ Paraglide 为每个 message 生成一个独立函数，并交由打包工具（b
 
 库体积数据来自 [Vue 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)：在包含 10 个页面、10 种语言的应用中，空 component 中引入 plugin 加上 composable，在打包、tree-shaking 和代码压缩后的体积。内容大小单独计算。
 
+![Vue i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | 库             | 内容模型                                            | 类型安全                       | Message 格式                        | 按路由代码拆分        | 库体积                             |
 | :------------- | :-------------------------------------------------- | :----------------------------- | :---------------------------------- | :-------------------- | :--------------------------------- |
 | `vue-i18n`     | 每个 locale 集中式 catalog，可选 SFC `<i18n>` block | 2/5 — 通过 schema 泛型手动启用 | 自定义（管道符复数）                | 否                    | ~24.3 kB                           |
@@ -110,7 +110,7 @@ Paraglide 接近于零的运行时体积源于其架构设计：运行时代码�
 </Accordion>
 <Accordion header="具备 locale 路由、sitemap 和 hreflang 的 Nuxt 应用">
 
-`@nuxtjs/i18n` 开箱即用地提供了路由策略、`hreflang` 标签和 locale 检测功能，单凭这一点就足以让它成为页面较少的内容类网站的理想之选。它的限制在于按 locale 管理的 catalog：超过 10 个页面后，SSR payload 就会携带所有页面的文案。如果属于这种情况，要么手动为 `vue-i18n` 配置按路由拆分 message，要么转向局部作用域内容方案。[Nuxt i18n 文章](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/nuxt.md)首先详细介绍了路由策略的选择。
+`@nuxtjs/i18n` 开箱即用地提供了路由策略、`hreflang` 标签和 locale 检测功能，单凭这一点就足以让它成为页面较少的内容类网站的理想之选。它的限制在于按 locale 管理的 catalog：超过 10 个页面后，SSR payload 就会携带所有页面的文案。如果属于这种情况，要么手动为 `vue-i18n` 配置按路由拆分 message，要么转向局部作用域内容方案。[Nuxt i18n 文章](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md)首先详细介绍了路由策略的选择。
 
 </Accordion>
 <Accordion header="翻译来自 TMS 或交付 ICU 格式的翻译机构">
@@ -439,11 +439,17 @@ AI Agent 在处理 i18n 时仍常遇到困难：容易遗漏 locale、捏造 key
 ## 延伸阅读
 
 - [Vue i18n 基准测试：打包体积、泄漏分析与语言切换耗时](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
-- [Vue i18n：vue-i18n 的工作原理与痛点](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/vue.md) 与 [Nuxt i18n 文章](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/nuxt.md)
-- [vue-i18n vs Intlayer 功能逐项对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md) 与 [vue-i18n vs Intlayer 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer 功能逐项对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md)
+- [vue-i18n vs Intlayer 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md)
 - [vue-i18n 过时了吗？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_vue-i18n_outdated.md)
 - [JavaScript i18n 发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 - [编译器对比声明式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
 - [组件级对比集中式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)
-- [在 Vite + Vue 应用中配置 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+vue.md) 与 [在 Nuxt 应用中配置 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md)
-- 针对其他框架的选型指南：[React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_react_i18n_library.md)、[Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_svelte_i18n_library.md) 以及 [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_solid_i18n_library.md)
+- [在 Vite + Vue 应用中配置 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+vue.md)
+- [在 Nuxt 应用中配置 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md)
+
+针对其他框架的选型指南：
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_react_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_solid_i18n_library.md)

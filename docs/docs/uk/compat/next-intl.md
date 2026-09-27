@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Міграція з next-intl на Intlayer"
-description: "Дізнайтеся, як мігрувати вашу Next.js програму з next-intl на Intlayer за допомогою адаптера сумісності."
+title: "@intlayer/next-intl: адаптер сумісності для next-intl"
+description: "Збережіть код на next-intl і обслуговуйте його через Intlayer: встановіть @intlayer/next-intl, налаштуйте аліаси імпортів і дізнайтеся, що адаптер змінює під капотом."
 keywords:
   - next-intl
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Переміщення з next-intl на Intlayer
+# @intlayer/next-intl: адаптер сумісності для next-intl
 
 Для повного та детального покрокового посібника, будь ласка, см. наш повний [посібник з міграції next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-intl_to_intlayer.md).
 
@@ -58,3 +58,7 @@ The bundler wrapper замінює переклади, але **залишає �
 - **`useTranslations()` & `getTranslations()`:** Виклики без області видимості витягують перший сегмент ключа як правильний ідентифікатор словника. Вкладені простори імен грацильно розділяються на шляхи словника та префікси.
 - **Rich formatting:** Обидва `t.rich()` і `t.markup()` повністю рідко реалізовані, перетворюючи HTML-подібні вузли на відтворені React-куски.
 - **`useFormatter`:** `relativeTime`, `list`, `dateTimeRange` та названі формати з конфігурації переходять до основних нативних форматерів `Intl`.
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n TanStack Start dengan use-intl: Panduan Penyiapan Lengkap 2026"
 description: "Terjemahkan aplikasi TanStack Start Anda dengan use-intl: perutean lokal, pesan bertipe, SSR, hreflang, sitemap dan robots.txt, serta data benchmark ukuran bundle nyata."
@@ -41,9 +41,17 @@ TanStack Start tidak menyertakan lapisan i18n bawaan. Perutean, deteksi lokal, m
 - **Server rendering dan hidrasi** tanpa ketidakcocokan teks (text mismatches).
 - **SEO multibahasa lengkap**: `<title>` dan deskripsi yang diterjemahkan, canonical URL, alternatif `hreflang` dengan `x-default`, Open Graph locales, JSON-LD, sitemap dengan alternatif `xhtml:link`, `robots.txt`, dan pra-rendering setiap lokal.
 
-> Mencari stack lain? Lihat [panduan TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_paraglide.md), [panduan TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_lingui.md), atau [panduan TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md).
+> Mencari stack lain?
+
+- [panduan TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_paraglide.md)
+- [panduan TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_lingui.md)
+- [panduan TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)
 
 > Menggunakan Next.js sebagai gantinya? Lihat [panduan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-intl.md).
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Apa yang dikatakan tolok ukur (benchmark) tentang use-intl di TanStack Start
 
@@ -91,7 +99,11 @@ Perbandingan `use-intl` dengan library lain yang umum digunakan pada TanStack St
 
 > Angka ukuran runtime dan kebocoran berasal dari [Benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md). Kebocoran diukur pada setup terbaik dari setiap library.
 
-> Panduan TanStack Start lainnya: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_lingui.md), [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_paraglide.md), dan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md).
+> Panduan TanStack Start lainnya:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_lingui.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)
 
 ## Praktik yang harus Anda ikuti
 
@@ -105,7 +117,8 @@ Perbandingan `use-intl` dengan library lain yang umum digunakan pada TanStack St
 - **Gunakan tautan nyata untuk pengalih lokal**, bukan `<select>`, agar perayap (crawlers) dapat menemukan setiap bahasa.
 - **Berikan tipe pada pesan Anda** sehingga kunci yang hilang akan memicu error pada waktu kompilasi.
 
-> Lihat panduan kami tentang [internasionalisasi dan SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/internationalization_and_SEO.md) dan [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md).
+- [internasionalisasi dan SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/internationalization_and_SEO.md)
+- [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md)
 
 ## Panduan Langkah demi Langkah Menyiapkan use-intl dalam Aplikasi TanStack Start
 

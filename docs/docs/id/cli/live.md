@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Perintah Live Sync
-description: Pelajari cara menggunakan Live Sync untuk mencerminkan perubahan konten CMS saat runtime.
+title: "intlayer live: sinkronkan konten CMS saat runtime"
+description: "Gunakan Live Sync Intlayer untuk menerapkan perubahan dari CMS ke aplikasi yang berjalan tanpa build ulang atau deploy ulang."
 keywords:
   - Live Sync
   - CMS

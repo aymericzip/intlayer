@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: SDK CLI
-description: Scopri come utilizzare l'SDK CLI di Intlayer nel tuo codice.
+title: "SDK della CLI di Intlayer: comandi dal codice"
+description: "Esegui comandi della CLI di Intlayer come build, push, pull e fill dai tuoi script Node.js con l'SDK della CLI."
 keywords:
   - SDK
   - CLI

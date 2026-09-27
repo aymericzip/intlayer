@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "i18next vs Intlayer: 2026年基准测试与深度对比"
 description: "在 Next.js 和 TanStack Start 上对比评测 react-i18next、next-i18next 与 Intlayer。涵盖打包体积、多余内容泄露、语言切换响应速度及开发体验。"
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# i18next VS Intlayer | React & Next.js 国际化 (i18n) 基准测试对比
+# i18next VS Intlayer：React & Next.js 国际化 (i18n) 基准测试对比
 
 ![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -523,25 +523,42 @@ export default defineConfig({
 
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer.md)
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/react-i18next_vs_react-intl_vs_intlayer.md)
 
 深入探索 i18next 与 Intlayer：
 
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer-i18next.md)，在相同应用下的适配器性能实测
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer-i18next.md)
 - [i18next 已经过时了吗？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_i18next_outdated.md)
-- [在 i18next 中使用 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_i18next.md) 以及[在 react-i18next 中使用](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_react-i18next.md)
+- [在 i18next 中使用 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_i18next.md)
+- [在 react-i18next 中使用](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_react-i18next.md)
 - [如何使用 next-i18next 实现 Next.js 应用国际化](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-i18next.md)
 
 核心参考文档：
 
-- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md) 与 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
-- 兼容适配器：[i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/i18next.md)、[react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-i18next.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-i18next.md)
-- 迁移指南：[i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md)、[react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_react-i18next_to_intlayer.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-i18next_to_intlayer.md)
-- [包体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 与 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+- [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
+- [包体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+- [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 - [组件级 vs 集中式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)
 - [编译器驱动 vs 声明式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
+
+兼容适配器：
+
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/i18next.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/react-i18next.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/next-i18next.md)
+
+迁移指南：
+
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_i18next_to_intlayer.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_react-i18next_to_intlayer.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-i18next_to_intlayer.md)
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## GitHub 关注度趋势 (STARs)
 

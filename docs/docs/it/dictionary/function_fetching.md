@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: Recupero Funzioni
-description: Scopri come dichiarare e utilizzare il recupero di funzioni nel tuo sito web multilingue. Segui i passaggi in questa documentazione online per configurare il tuo progetto in pochi minuti.
+title: "Function fetching: caricare contenuti da funzioni"
+description: "Dichiara contenuti Intlayer da funzioni sincrone o asincrone, ad esempio per recuperare traduzioni da un'API durante la build."
 keywords:
   - Recupero Funzioni
   - Internazionalizzazione

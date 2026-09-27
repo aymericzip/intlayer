@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Errore ESBuild
-description: Scopri come risolvere gli errori di ESBuild.
+title: "Correggere gli errori ESBuild con Intlayer"
+description: "Correggi gli errori ESBuild durante una build di Intlayer, di solito dovuti a un plugin del bundler mancante o mal configurato per il tuo framework."
 keywords:
   - esbuild
   - errore

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: 不明なコマンド
-description: 不明なコマンドエラーの修正方法を学ぶ。
+title: "Intlayer の「unknown command」エラーを直す"
+description: "Intlayer CLI の「unknown command」エラーを修正：コマンド名、CLI のバージョン、バイナリの呼び出し方を確認します。"
 keywords:
   - 不明
   - コマンド

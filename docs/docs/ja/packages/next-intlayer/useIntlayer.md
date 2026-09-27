@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2026-05-06
 priority: 5
 title: useIntlayer フック ドキュメント | next-intlayer
-description: next-intlayer パッケージの useIntlayer フックの使い方を説明します
+description: "Next.js の useIntlayer で、Client Components と Server Components の両方で辞書のローカライズされたコンテンツをキーで取得します。"
 keywords:
   - useIntlayer
   - 辞書

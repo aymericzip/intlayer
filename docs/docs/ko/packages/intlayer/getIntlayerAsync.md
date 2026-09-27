@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
-title: getIntlayerAsync Function Documentation | intlayer
-description: intlayer package의 getIntlayerAsync 함수를 사용하는 방법을 알아보세요
+title: "getIntlayerAsync 함수 문서 | intlayer"
+description: "getIntlayerAsync로 사전 콘텐츠를 하나의 로케일만 로드해 읽습니다. 다른 언어는 번들에 포함되지 않습니다."
 keywords:
   - getIntlayerAsync
   - dictionary
@@ -106,9 +106,9 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## 관련 함수
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayer.md): 병합된 딕셔너리를 읽는 동기 동등물.
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getDictionaryAsync.md): 빌드 플러그인이 이 호출을 다시 작성하는 하위 수준 함수.
-- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocale.md): 들어오는 요청의 로케일을 감지합니다.
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getDictionaryAsync.md)
+- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocale.md)
 
 ## TypeScript
 

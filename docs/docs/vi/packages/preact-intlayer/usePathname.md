@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu về usePathname Hook | preact-intlayer
-description: Xem cách sử dụng usePathname hook cho gói preact-intlayer
+description: "Dùng usePathname trong Preact để đọc đường dẫn hiện tại không có phân đoạn locale, cho điều hướng theo locale và liên kết đang hoạt động."
 keywords:
   - usePathname
   - pathname
@@ -114,5 +114,5 @@ export default Sidebar;
 
 ## Các mục liên quan
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/preact-intlayer/exports.md) — locale hiện tại + bộ chuyển đổi locale
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md) — tiện ích nền tảng được sử dụng bởi hook này
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/preact-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md)

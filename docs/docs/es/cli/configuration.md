@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Gestionar Configuración
-description: Aprende cómo obtener y enviar tu configuración de Intlayer al CMS.
+title: "intlayer configuration: obtener y subir la config"
+description: "Usa la CLI de Intlayer para mostrar tu configuración resuelta y subirla al CMS de Intlayer, para que el panel y tu proyecto estén sincronizados."
 keywords:
   - Configuración
   - Config

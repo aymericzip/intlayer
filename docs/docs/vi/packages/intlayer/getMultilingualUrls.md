@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: Tài liệu hàm getMultilingualUrls | intlayer
-description: Xem cách sử dụng hàm getMultilingualUrls cho gói intlayer
+description: "Dùng getMultilingualUrls để tạo phiên bản bản địa hóa của một URL cho mọi locale được hỗ trợ, dùng cho thẻ hreflang và sitemap."
 keywords:
   - getMultilingualUrls
   - dịch thuật

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Incorrect Locale Retrieved from URL
-description: Learn how to fix the incorrect locale retrieved from the URL.
+description: 'Fix a wrong locale read from the URL in Next.js, such as "about" instead of "en", by using the [locale] folder structure Intlayer expects.'
 keywords:
   - locale
   - url

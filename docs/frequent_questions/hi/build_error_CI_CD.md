@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: CI/CD में बिल्ड त्रुटि
-description: जानें कि CI/CD वातावरण में होने वाली बिल्ड त्रुटियों को कैसे ठीक करें।
+title: "CI/CD में Intlayer बिल्ड त्रुटियाँ ठीक करें"
+description: "सिर्फ़ CI/CD में आने वाली Server Components रेंडर त्रुटियाँ ठीक करें, यह सुनिश्चित करके कि बिल्ड के दौरान Intlayer डिक्शनरी बनें।"
 keywords:
   - build
   - error

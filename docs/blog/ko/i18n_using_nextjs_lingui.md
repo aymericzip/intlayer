@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "Lingui를 활용한 Next.js 16 i18n: App Router 설정 가이드"
 description: "Next.js 16 App Router에서 Lingui 설정하기: Server Components, SWC 매크로, 프록시 라우팅, generateMetadata, hreflang, sitemap 및 robots.txt, 벤치마크 데이터 포함."
@@ -43,9 +43,21 @@ author: aymericzip
 - `generateStaticParams`를 통한 모든 로케일의 **정적 렌더링**.
 - **완벽한 다국어 SEO**: 번역된 `generateMetadata`, canonical, `x-default`가 포함된 `hreflang`, Open Graph 로케일, JSON-LD, `sitemap.ts`, `robots.ts` 및 현지화된 404 페이지.
 
-> 다른 라이브러리를 찾고 계신가요? [next-intl 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-intl.md), [next-i18next 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-i18next.md), 또는 [Next.js + Intlayer 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)를 확인하세요.
+> 다른 라이브러리를 찾고 계신가요?
 
-> TanStack Start를 사용 중이신가요? [TanStack Start + Lingui 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_tanstack-start_lingui.md)를 확인하세요. 라이브러리 비교는 [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md) 및 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)를 참고하세요.
+- [next-intl 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-intl.md)
+- [next-i18next 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-i18next.md)
+- [Next.js + Intlayer 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
+
+> TanStack Start를 사용 중이신가요?
+
+- [TanStack Start + Lingui 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_tanstack-start_lingui.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## Next.js에서 Lingui에 대한 벤치마크 결과
 
@@ -94,7 +106,11 @@ Next.js App Router 프로젝트에서 일반적으로 필요한 기능에 대해
 
 > 런타임 크기는 [Next.js 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)에서 가져왔습니다. 자세한 내용은 [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md)를 읽어보세요.
 
-> 다른 Next.js 가이드: [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-intl.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-i18next.md), [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md).
+> 다른 Next.js 가이드:
+
+- [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-intl.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-i18next.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
 
 ## 권장 모범 사례
 
@@ -107,7 +123,9 @@ Next.js App Router 프로젝트에서 일반적으로 필요한 기능에 대해
 - 검색 크롤러가 모든 언어를 발견할 수 있도록 **로케일 전환기에 실제 링크를 사용하세요**.
 - 새 메시지가 번역되지 않은 상태로 배포되지 않도록 **CI에서 `lingui extract`를 실행하세요**.
 
-> [국제화 및 SEO 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/internationalization_and_SEO.md), [hreflang 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/hreflang_guide_multilingual_seo.md), 그리고 [Next.js 다국어 SEO 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/nextjs-multilingual-seo-comparison.md)를 참고하세요.
+- [국제화 및 SEO 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/internationalization_and_SEO.md)
+- [hreflang 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/hreflang_guide_multilingual_seo.md)
+- [Next.js 다국어 SEO 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/nextjs-multilingual-seo-comparison.md)
 
 ## Next.js 애플리케이션에서 Lingui를 설정하는 단계별 가이드
 

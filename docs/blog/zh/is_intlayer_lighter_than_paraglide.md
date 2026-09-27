@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
 title: Intlayer 比 Paraglide 更轻量吗？
-description: Paraglide 在 i18n 基准测试中看起来几乎没有开销，因为其代码是直接生成到你的代码库中的。本文将深入分析其实际体积去了哪里、为什么按节点读取语言会带来性能损耗，以及 Intlayer 的动态加载如何做到仅下发单一语言而非全量语言包。
+description: "Paraglide 在 i18n 基准测试中看似几乎零成本，因为它的代码生成在你的仓库中。这些体积去了哪里，以及与 Intlayer 的对比。"
 keywords:
   - Paraglide
   - Intlayer
@@ -287,3 +287,7 @@ bunx intlayer init --interactive
 - [Bundle 优化与 `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
 - [如何挑选合适的 React i18n 库](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_react_i18n_library.md)
 - [编译器驱动与声明式国际化的优劣权衡](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)

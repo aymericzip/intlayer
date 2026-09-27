@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 4
-title: Jak ograniczyć zużycie tokenów Claude Code podczas generowania tłumaczeń
-description: Dlaczego tłumaczenie z Claude Code zużywa nadmierną liczbę tokenów, co zamiast tego robi Intlayer (filtruje przetłumaczone klucze, dzieli JSON na fragmenty, tłumaczy markdown blok po bloku) oraz jak ponownie wykorzystać subskrypcję Claude za pomocą claude setup-token.
+title: "Jak ograniczyć zużycie tokenów Claude Code przy tłumaczeniu"
+description: "Dlaczego tłumaczenie z Claude Code zużywa dużo tokenów, co zamiast tego robi Intlayer i jak wykorzystać subskrypcję Claude do tłumaczeń."
 keywords:
   - claude code
   - tokens

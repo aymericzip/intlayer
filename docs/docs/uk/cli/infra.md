@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-21
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Init Infra
-description: Дізнайтеся, як використовувати команду init infra CLI Intlayer для встановлення десктопного застосунку або запуску Intlayer CMS на власній інфраструктурі за допомогою Docker (all-in-one контейнер або стек Docker Compose).
+title: "intlayer init infra: власний хостинг Intlayer CMS"
+description: "Встановіть десктопний застосунок Intlayer або розгорніть Intlayer CMS у себе в Docker: єдиним контейнером або стеком Docker Compose."
 keywords:
   - CLI
   - Інфраструктура
@@ -158,6 +158,6 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 
 ## Пов'язані посилання
 
-- [Посібник із власного хостингу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md) - Архітектура, перші кроки та обмеження кожного режиму
-- [Ініціалізація Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/init.md) - Батьківська команда `init` та її інтерактивний чеклист
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md) - Можливості щойно встановленої панелі керування
+- [Посібник із власного хостингу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/self_hosting.md)
+- [Ініціалізація Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/init.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)

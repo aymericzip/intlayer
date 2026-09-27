@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-27
 priority: 8
 title: "Formater les dates et les nombres par locale avec Intl"
-description: Vous n'avez probablement pas besoin d'une bibliothèque de formatage. Comment Intl gère les dates, nombres, devises et listes par locale, le coût de mise en cache et le bug de fuseau horaire en production.
+description: "Avez-vous besoin d'une bibliothèque de formatage ? Comment Intl formate dates, nombres, devises et listes par locale, son coût de cache, et un bug de fuseau horaire en production."
 keywords:
   - formater date par locale
   - Intl.DateTimeFormat

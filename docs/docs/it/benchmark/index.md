@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
-title: Benchmark delle librerie i18n
+title: "Benchmark delle librerie i18n: bundle e prestazioni"
 description: Scopri come Intlayer si confronta con altre librerie i18n in termini di prestazioni e dimensioni del bundle.
 keywords:
   - benchmark
@@ -40,3 +40,7 @@ Di seguito trovi i rapporti dettagliati e la documentazione tecnica per ciascun 
 - [**Vue Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
 - [**Solid Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md)
 - [**Svelte Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
+
+> Per capire da dove vengono queste librerie, leggi la storia dell'i18n in JavaScript.
+
+- [La storia dell'i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/history_of_i18n.md)

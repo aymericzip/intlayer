@@ -2,8 +2,8 @@
 createdAt: 2026-06-12
 updatedAt: 2026-08-04
 priority: 8
-title: 变体
-description: 在 Intlayer 内容文件中使用 variant 元数据字段来声明具名或结构化的内容替代项——A/B 测试、季节性横幅、功能开关文案、CMS 记录、用户特定内容——并在运行时无需更改代码即可在它们之间切换。
+title: "变体：A/B 测试与替代内容"
+description: "使用 Intlayer 变体声明具名的替代内容，用于 A/B 测试、季节性横幅、功能开关或按用户定制的文案。"
 keywords:
   - 变体
   - A/B 测试

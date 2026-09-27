@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Anmeldung
+title: "intlayer login: beim CMS anmelden"
 description: Erfahren Sie, wie Sie den Intlayer-CLI-Befehl login verwenden, um sich beim Intlayer CMS zu authentifizieren und Zugangsdaten zu erhalten.
 keywords:
   - CLI
@@ -236,10 +236,10 @@ Nach dem Abschluss der Anmeldung:
 1. Fügen Sie die Anmeldeinformationen zu Ihrer `.env`-Datei hinzu
 2. Konfigurieren Sie Ihre `intlayer.config.*`-Datei mit den Anmeldeinformationen
 3. Verwenden Sie CLI-Befehle, um Ihre Wörterbücher zu verwalten:
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/push.md) - Wörterbücher in das CMS pushen
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/pull.md) - Wörterbücher aus dem CMS pullen
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/fill.md) - Fehlende Übersetzungen auffüllen
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/fill.md) - Fehlende Übersetzungen auffüllen
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/pull.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/fill.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/fill.md)
 
 ## Siehe auch
 

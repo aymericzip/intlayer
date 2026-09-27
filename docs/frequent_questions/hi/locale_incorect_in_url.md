@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: URL से गलत लोकल प्राप्त हुआ
-description: URL से गलत लोकल प्राप्त होने की समस्या को कैसे ठीक करें, जानें।
+description: 'Next.js में URL से गलत लोकेल पढ़े जाने की समस्या ठीक करें, जैसे "en" की जगह "about", Intlayer के अपेक्षित [locale] फ़ोल्डर ढाँचे से।'
 keywords:
   - locale
   - url

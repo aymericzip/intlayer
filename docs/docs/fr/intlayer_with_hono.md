@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-29
+updatedAt: 2026-09-27
 priority: 9
 title: "Hono i18n - Guide complet pour traduire votre application"
-description: "Oubliez i18next. Le guide 2026 pour créer une application Hono multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
+description: "Configurez Intlayer dans Hono : détection de la locale par requête avec un middleware, traduction des réponses API, sur Node, Bun ou en edge."
 keywords:
   - Internationalisation
   - Documentation
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Traduisez votre site web backend Hono en utilisant Intlayer | Internationalisation (i18n)
+# Traduisez votre site web backend Hono en utilisant Intlayer
 
 `hono-intlayer` est un puissant middleware d'internationalisation (i18n) pour les applications Hono, conçu pour rendre vos services backend accessibles mondialement en fournissant des réponses localisées basées sur les préférences du client.
 
@@ -225,9 +225,9 @@ export default app;
 
 `hono-intlayer` est entièrement compatible avec :
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/index.md) pour les applications React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/index.md) pour les applications Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/index.md) pour les applications Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/index.md)
 
 Il fonctionne également sans problème avec n'importe quelle solution d'internationalisation dans divers environnements, y compris les navigateurs et les requêtes API. Vous pouvez personnaliser le middleware pour détecter la langue via les en-têtes ou les cookies :
 

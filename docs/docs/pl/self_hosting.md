@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: Self-hosting Intlayer
-description: "Uruchom Intlayer na własnej infrastrukturze: jako aplikację desktopową, pojedynczy kontener Docker all-in-one lub skalowalny stos Docker Compose. Konto Intlayer Cloud nie jest wymagane."
+title: "Własny hosting Intlayer w Dockerze"
+description: "Uruchamiaj Intlayer na własnej infrastrukturze: aplikacja desktopowa, kontener Docker all-in-one lub stos Docker Compose, bez konta w chmurze."
 keywords:
   - Self-Hosting
   - Docker

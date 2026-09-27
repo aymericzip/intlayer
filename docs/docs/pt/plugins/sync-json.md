@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-06-21
+updatedAt: 2026-09-27
 priority: 6
-title: Plugin Sync JSON
-description: Sincronize os dicionários Intlayer com arquivos JSON i18n de terceiros (i18next, next-intl, react-intl, vue-i18n e mais). Mantenha seu i18n existente enquanto usa o Intlayer para gerenciar, traduzir e testar suas mensagens.
+title: "Plugin Sync JSON: mantenha seus arquivos JSON de i18n"
+description: "Sincronize os dicionários do Intlayer com seus JSON do i18next, next-intl, react-intl ou vue-i18n, e gerencie, traduza e teste-os com o Intlayer."
 keywords:
   - Intlayer
   - Sync JSON

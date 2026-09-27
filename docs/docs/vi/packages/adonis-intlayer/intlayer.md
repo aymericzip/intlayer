@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu Middleware intlayer cho AdonisJS | adonis-intlayer
-description: Xem cách sử dụng middleware intlayer cho gói adonis-intlayer
+description: "Middleware intlayer cho AdonisJS nhận diện locale của người dùng và cung cấp các hàm dịch qua ngữ cảnh request."
 keywords:
   - intlayer
   - adonisjs

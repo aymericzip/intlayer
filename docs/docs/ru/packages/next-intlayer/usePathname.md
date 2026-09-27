@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Документация хука usePathname | next-intlayer
-description: Узнайте, как использовать хук usePathname в пакете next-intlayer
+description: "Используйте usePathname в Next.js, чтобы получить текущий путь без сегмента локали для локализованной навигации и активных ссылок."
 keywords:
   - usePathname
   - pathname
@@ -133,5 +133,5 @@ export default Sidebar;
 
 ## Связанные ресурсы
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/useLocale.md) — текущая локаль + переключатель локали (также предоставляет `pathWithoutLocale`)
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getPathWithoutLocale.md) — базовая утилита, используемая этим хуком
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getPathWithoutLocale.md)

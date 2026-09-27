@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 9
 title: "Express i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Express multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di Express: deteksi locale per request dengan middleware, terjemahkan respons API dan pesan error, bertipe dari ujung ke ujung."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan website backend Express Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan website backend Express Anda menggunakan Intlayer
 
 `express-intlayer` adalah middleware internasionalisasi (i18n) yang kuat untuk aplikasi Express, dirancang untuk membuat layanan backend Anda dapat diakses secara global dengan menyediakan respons yang dilokalisasi berdasarkan preferensi klien.
 
@@ -207,9 +207,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` sepenuhnya kompatibel dengan:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/index.md) untuk aplikasi React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/index.md) untuk aplikasi Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/index.md) untuk aplikasi Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/index.md)
 
 Ini juga bekerja dengan mulus dengan solusi internasionalisasi apa pun di berbagai lingkungan, termasuk browser dan permintaan API. Anda dapat menyesuaikan middleware untuk mendeteksi locale melalui header atau cookie:
 

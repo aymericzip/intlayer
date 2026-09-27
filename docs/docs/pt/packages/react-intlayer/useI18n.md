@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: Documentação do Hook useI18n | react-intlayer
-description: Aprenda como usar o hook useI18n no pacote react-intlayer
+description: "Use useI18n no React para obter uma função de tradução ligada a um dicionário, útil ao migrar de bibliotecas baseadas em chaves."
 keywords:
   - useI18n
   - i18n

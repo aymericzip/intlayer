@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: Documentación de la función getCanonicalPath | intlayer
-description: Vea cómo usar la función getCanonicalPath del paquete intlayer
+description: "Usa getCanonicalPath para convertir una ruta localizada como /acerca-de en su ruta interna como /about para el enrutamiento."
 keywords:
   - getCanonicalPath
   - traducción
@@ -121,5 +121,5 @@ getCanonicalPath("/contactez-nous", Locales.FRENCH, manualRules);
 
 ## Funciones relacionadas
 
-- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocalizedPath.md): Resuelve una ruta canónica en su equivalente localizado.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocalizedUrl.md): Genera una URL completamente localizada (incluye protocolo, host y prefijo de locale).
+- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocalizedPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocalizedUrl.md)

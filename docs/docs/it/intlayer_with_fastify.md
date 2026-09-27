@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Fastify i18n - Guida completa per tradurre la tua applicazione"
-description: "Niente più i18next. La guida 2026 per creare un'applicazione Fastify multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
+description: "Configura Intlayer in Fastify: rileva la locale per richiesta con il plugin, traduci risposte API ed errori, tipizzato end-to-end."
 keywords:
   - Internazionalizzazione
   - Documentazione
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Traduci il sito web del tuo backend Fastify usando Intlayer | Internazionalizzazione (i18n)
+# Traduci il sito web del tuo backend Fastify usando Intlayer
 
 `fastify-intlayer` è un potente plugin di internazionalizzazione (i18n) per applicazioni Fastify, progettato per rendere i tuoi servizi backend accessibili a livello globale fornendo risposte localizzate in base alle preferenze del client.
 

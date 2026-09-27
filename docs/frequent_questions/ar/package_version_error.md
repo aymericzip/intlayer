@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: أحصل على خطأ متعلق بالحزم الفرعية @intlayer/*
-description: إصلاح الخطأ المتعلق بالحزم الفرعية @intlayer/*.
+description: "أصلح الأخطاء الناتجة عن اختلاف إصدارات الحزم الفرعية @intlayer/*: وحّد جميع حزم Intlayer على الإصدار نفسه وامسح ذاكرة التخزين المؤقت."
 keywords:
   - @intlayer/*
   - الحزم الفرعية

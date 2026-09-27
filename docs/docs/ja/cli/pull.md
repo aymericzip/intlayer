@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 辞書のプル
-description: IntlayerエディターとCMSから辞書をプルする方法を学びます。
+title: "intlayer pull：CMS から辞書を取得"
+description: "Intlayer のビジュアルエディターや CMS で編集された辞書をプロジェクトにダウンロードし、リモートの変更をコードに取り込みます。"
 keywords:
   - プル
   - 辞書

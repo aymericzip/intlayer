@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n TanStack Start avec Lingui : Guide de Configuration Complet 2026"
 description: "Traduisez votre application TanStack Start avec Lingui : macros, catalogues PO, SSR, routage par locale, hreflang, sitemap et robots.txt, ainsi que des données réelles de benchmark de taille de bundle."
@@ -42,9 +42,23 @@ TanStack Start n'intègre pas de couche d'i18n par défaut, ce guide configure d
 - **Un catalogue par locale, chargé à la demande**, et une instance `I18n` par rendu afin que les requêtes SSR concurrentes ne partagent jamais de locale.
 - **SEO multilingue complet** : `<title>` et description traduits, URL canonique, `hreflang` avec `x-default`, locales Open Graph, JSON-LD, sitemap, `robots.txt`, pré-rendu et pages 404 localisées.
 
-> Vous recherchez une autre stack ? Consultez le [guide TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_use-intl.md), le [guide TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_paraglide.md) ou le [guide TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_tanstack.md).
+> Vous recherchez une autre stack ?
 
-> Vous utilisez Next.js ? Consultez le [guide Next.js + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_nextjs_lingui.md). Vous comparez les bibliothèques ? Lisez [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/lingui_vs_intlayer.md).
+- [guide TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_use-intl.md)
+- [guide TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_paraglide.md)
+- [guide TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_tanstack.md)
+
+> Vous utilisez Next.js ?
+
+- [guide Next.js + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_nextjs_lingui.md)
+
+> Vous comparez les bibliothèques ?
+
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/lingui_vs_intlayer.md)
+
+> Pour comprendre d'où viennent ces bibliothèques, lisez l'histoire de l'i18n en JavaScript.
+
+- [L'histoire de l'i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/history_of_i18n.md)
 
 ## Ce que dit le benchmark sur Lingui avec TanStack Start
 
@@ -92,7 +106,11 @@ Comment Lingui se compare aux autres bibliothèques couramment utilisées sur Ta
 
 > Les chiffres de taille de runtime et de fuite proviennent du [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/tanstack.md). La fuite est mesurée sur la meilleure configuration de chaque bibliothèque.
 
-> Autres guides TanStack Start : [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_use-intl.md), [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_paraglide.md), et [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_tanstack.md).
+> Autres guides TanStack Start :
+
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_use-intl.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_tanstack.md)
 
 ## Bonnes pratiques à suivre
 
@@ -106,7 +124,8 @@ Comment Lingui se compare aux autres bibliothèques couramment utilisées sur Ta
 - **Générez un sitemap multilingue et un robots.txt**, et pré-rendez chaque locale.
 - **Utilisez de vrais liens pour le sélecteur de langue**, afin que les robots d'indexation découvrent chaque langue.
 
-> Consultez notre guide sur l'[internationalisation et le SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/internationalization_and_SEO.md) et le [guide hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/hreflang_guide_multilingual_seo.md).
+- [internationalisation et le SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/internationalization_and_SEO.md)
+- [guide hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/hreflang_guide_multilingual_seo.md)
 
 ## Guide étape par étape pour configurer Lingui dans une application TanStack Start
 

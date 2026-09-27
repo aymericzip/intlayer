@@ -3,7 +3,7 @@ createdAt: 2024-12-06
 updatedAt: 2026-06-23
 priority: 9
 title: "Next.js 14 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Next.js 14 đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong Next.js 14 App Router: middleware định tuyến locale, Server và Client Components, metadata và sitemap bản địa hóa."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -43,7 +43,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web Next.js 14 và App Router của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web Next.js 14 và App Router của bạn bằng Intlayer
 
 ## Mục lục
 

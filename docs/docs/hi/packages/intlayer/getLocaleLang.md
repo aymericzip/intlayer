@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getLocaleLang फ़ंक्शन दस्तावेज़ीकरण | intlayer
-description: intlayer पैकेज के लिए getLocaleLang फ़ंक्शन का उपयोग कैसे करें देखें
+description: "getLocaleLang से en-US जैसे लोकेल स्ट्रिंग से भाषा कोड निकालें, देश कोड के साथ या बिना।"
 keywords:
   - getLocaleLang
   - अनुवाद

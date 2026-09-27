@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "2026년 올바른 Vue i18n 라이브러리를 선택하는 방법"
-description: Vue 및 Nuxt 국제화를 위한 결정 가이드. vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide, Intlayer를 비교하기 전에 답해야 할 질문들과 각 선택이 번들 크기, 타이핑 및 SSR 페이로드에 미치는 영향을 알아봅니다.
+description: "Vue와 Nuxt i18n 선택 가이드: vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide, Intlayer를 비교하기 전에 답해야 할 질문들."
 keywords:
   - vue i18n
   - vue internationalization
@@ -24,8 +24,6 @@ author: aymericzip
 "Vue i18n"은 일반적인 용어이자 거의 모든 사람이 설치하는 라이브러리의 이름이기도 합니다. 이는 편리하면서도 동시에 오해를 불러일으킬 수 있습니다. `vue-i18n`은 훌륭한 기본 선택지이지만 유일한 옵션은 아니며, 선택을 주도해야 하는 질문들(SSR 사용 여부, 페이지 수, 번역 작성 주체 등)은 `npm install`을 실행하기 전에 거의 고려되지 않습니다.
 
 이 가이드는 이러한 질문들을 먼저 던진 후, 순수 Vite + Vue 및 Nuxt 환경에 맞는 라이브러리로 답변을 매핑합니다.
-
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 목차
 
@@ -87,6 +85,8 @@ Paraglide는 메시지당 하나의 함수를 생성하고 번들러가 나머�
 
 라이브러리 크기는 10개 페이지, 10개 로케일 앱에서 번들링, 트리 셰이킹, 압축(minification)을 거친 후 빈 컴포넌트 내 플러그인과 composable을 측정한 [Vue 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md) 기준입니다. 콘텐츠는 별도로 측정됩니다.
 
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | 라이브러리     | 콘텐츠 모델                                      | 타입 안전성                           | 메시지 포맷                         | 라우트별 분할                 | 라이브러리 크기                              |
 | :------------- | :----------------------------------------------- | :------------------------------------ | :---------------------------------- | :---------------------------- | :------------------------------------------- |
 | `vue-i18n`     | 로케일별 중앙 카탈로그, 선택적 SFC `<i18n>` 블록 | 2/5 — 스키마 generic을 통한 선택 적용 | 자체 포맷 (파이프 복수형)           | 지원 안 함                    | ~24.3 kB                                     |
@@ -110,7 +110,7 @@ Composition 모드(`legacy: false`)의 `vue-i18n`과 `@intlify/unplugin-vue-i18n
 </Accordion>
 <Accordion header="로케일 라우팅, sitemap 및 hreflang이 필요한 Nuxt">
 
-`@nuxtjs/i18n`은 코드 작성 없이 라우팅 전략, `hreflang` 태그, 로케일 감지를 제공하므로, 몇 개 페이지로 구성된 콘텐츠 사이트라면 이것만으로도 선택할 이유가 충분합니다. 한계는 로케일별 카탈로그입니다. 대략 10개 이상의 페이지가 넘어가면 SSR 페이로드가 모든 라우트의 텍스트를 포함하게 됩니다. 이러한 경우 `vue-i18n`을 라우트별 메시지와 수동으로 연결하거나 스코프 지정된 콘텐츠로 전환하세요. [Nuxt i18n 포스트](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/list_i18n_technologies/frameworks/nuxt.md)에서 라우팅 전략 선택을 먼저 안내합니다.
+`@nuxtjs/i18n`은 코드 작성 없이 라우팅 전략, `hreflang` 태그, 로케일 감지를 제공하므로, 몇 개 페이지로 구성된 콘텐츠 사이트라면 이것만으로도 선택할 이유가 충분합니다. 한계는 로케일별 카탈로그입니다. 대략 10개 이상의 페이지가 넘어가면 SSR 페이로드가 모든 라우트의 텍스트를 포함하게 됩니다. 이러한 경우 `vue-i18n`을 라우트별 메시지와 수동으로 연결하거나 스코프 지정된 콘텐츠로 전환하세요. [Nuxt i18n 포스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)에서 라우팅 전략 선택을 먼저 안내합니다.
 
 </Accordion>
 <Accordion header="번역이 TMS 또는 ICU를 전달하는 에이전시로부터 오는 경우">
@@ -439,11 +439,14 @@ const { title, items } = useIntlayer("cart-summary");
 ## 더 알아보기
 
 - [Vue i18n 벤치마크: 번들 크기, 누수 및 로케일 전환 타이밍](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)
-- [Vue i18n: vue-i18n의 동작 방식과 한계점](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/list_i18n_technologies/frameworks/vue.md) 및 [Nuxt i18n 포스트](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/list_i18n_technologies/frameworks/nuxt.md)
-- [vue-i18n vs Intlayer 기능별 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md) 및 [vue-i18n vs Intlayer 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer 기능별 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)
+- [vue-i18n vs Intlayer 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)
 - [vue-i18n은 구식인가요?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_vue-i18n_outdated.md)
 - [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 - [컴파일러 vs 선언적 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
 - [컴포넌트별 vs 중앙 집중식 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)
-- [Vite + Vue 앱에서 i18n 설정하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vue.md) 및 [Nuxt 앱에서 설정하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)
-- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_react_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_svelte_i18n_library.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_solid_i18n_library.md) 가이드
+- [Vite + Vue 앱에서 i18n 설정하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+vue.md)
+- [Nuxt 앱에서 설정하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nuxt.md)
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_react_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_solid_i18n_library.md)

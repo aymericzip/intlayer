@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2026-05-06
 priority: 5
 title: توثيق هوك useIntlayer | next-intlayer
-description: تعرف على كيفية استخدام هوك useIntlayer لحزمة next-intlayer
+description: "استخدم useIntlayer في Next.js لقراءة المحتوى المترجم لقاموس عبر مفتاحه في Client وServer Components."
 keywords:
   - useIntlayer
   - dictionary

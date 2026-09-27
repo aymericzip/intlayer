@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Preact i18n - Guida completa per tradurre la tua applicazione"
-description: "Niente più i18next. La guida 2026 per creare un'applicazione Vite + Preact multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
+description: "Configura Intlayer in un'app Vite e Preact: contenuti tipizzati per componente, selettore di lingua, route localizzate e bundle leggeri."
 keywords:
   - Internazionalizzazione
   - Documentazione
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Traduci la tua Vite and Preact con Intlayer | Internazionalizzazione (i18n)
+# Traduci la tua Vite and Preact con Intlayer
 
 ## Table of Contents
 

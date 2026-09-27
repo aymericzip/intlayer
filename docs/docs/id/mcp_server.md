@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-21
+updatedAt: 2026-09-27
 priority: 6
-title: Dokumentasi Server MCP
-description: Jelajahi fitur dan pengaturan Server MCP untuk mengoptimalkan manajemen dan operasi server Anda.
+title: "Server MCP Intlayer untuk asisten AI"
+description: "Hubungkan server MCP Intlayer ke Cursor, VS Code, atau Claude Desktop agar asisten AI Anda membaca dokumentasi dan membantu menyiapkan Intlayer."
 keywords:
   - Server MCP
   - Manajemen Server

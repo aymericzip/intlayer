@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-19
+updatedAt: 2026-09-27
 priority: 8
-title: Cara Kerja Intlayer
+title: "Cara kerja Intlayer: gambaran arsitektur"
 description: Pelajari bagaimana Intlayer beroperasi secara internal. Pahami arsitektur dan komponen yang membuat Intlayer kuat.
 keywords:
   - Intlayer

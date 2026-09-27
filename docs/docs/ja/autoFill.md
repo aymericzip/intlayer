@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-09-20
+updatedAt: 2026-09-27
 priority: 8
-title: 自動入力
-description: Intlayerの自動入力機能を使用して、事前定義されたパターンに基づいてコンテンツを自動的に入力する方法を学びます。このドキュメントに従って、プロジェクトで自動入力機能を効率的に実装してください。
+title: "Auto Fill：不足しているコンテンツを自動翻訳"
+description: "Intlayer の auto fill で、ソースロケールから不足している翻訳を生成し、適切なコンテンツファイルに書き込みます。"
 keywords:
   - 自動入力
   - コンテンツ自動化

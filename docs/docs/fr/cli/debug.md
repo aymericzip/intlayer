@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Déboguer la commande Intlayer
-description: Apprenez à déboguer et résoudre les problèmes de la CLI Intlayer.
+title: "Déboguer la CLI Intlayer"
+description: "Dépannez la CLI Intlayer : vérifiez la version installée, activez les logs détaillés et corrigez les erreurs courantes de commande et de configuration."
 keywords:
   - Déboguer
   - Résoudre les problèmes

@@ -2,8 +2,8 @@
 createdAt: 2025-03-01
 updatedAt: 2025-09-20
 priority: 8
-title: İçeriğinizi test etme
-description: Intlayer ile içeriğinizi nasıl test edeceğinizi keşfedin.
+title: "Intlayer ile çevirilerinizi test edin"
+description: "Intlayer içeriğinizi test edin: eksik çevirileri tespit edin, sözlükleri CI'da doğrulayın ve birim testlerinde bileşenleri locale başına render edin."
 keywords:
   - Test Etme
   - Intlayer

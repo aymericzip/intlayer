@@ -21,7 +21,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-intl बनाम Intlayer | React और Next.js अंतर्राष्ट्रीयकरण (i18n) बेंचमार्क
+# next-intl बनाम Intlayer: React और Next.js अंतर्राष्ट्रीयकरण (i18n) बेंचमार्क
 
 ![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -478,24 +478,31 @@ export default withIntlayer(nextConfig);
 
 - [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer.md)
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer.md)
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md)
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/react-i18next_vs_react-intl_vs_intlayer.md)
 
 next-intl पर गहराई से जानें:
 
-- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer-next-intl.md), उसी ऐप पर मापा गया एडेप्टर
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer-next-intl.md)
 - [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_next-intl_outdated.md)
 - [Using Intlayer with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/intlayer_with_next-intl.md)
 - [How to internationalize a Next.js app with next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_next-intl.md)
 
 संदर्भ दस्तावेज़:
 
-- [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md) और [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
-- [कम्पैटिबिलिटी एडेप्टर: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-intl.md) और [माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md)
-- [बंडल ऑप्टिमाइज़ेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md) और [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
+- [Next.js बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md)
+- [TanStack Start बेंचमार्क रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
+- [कम्पैटिबिलिटी एडेप्टर: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/next-intl.md)
+- [माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md)
+- [बंडल ऑप्टिमाइज़ेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
+- [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
 - [प्रति-कंपोनेंट बनाम केंद्रीकृत i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md)
 - [कंपाइलर-संचालित बनाम घोषणात्मक i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 
 ## GitHub STARS
 

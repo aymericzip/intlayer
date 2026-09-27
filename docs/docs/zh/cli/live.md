@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 实时同步命令
-description: 了解如何使用实时同步在运行时反映 CMS 内容更改。
+title: "intlayer live：运行时同步 CMS 内容"
+description: "使用 Intlayer Live Sync，将 CMS 中的内容修改应用到运行中的应用，无需重新构建或部署。"
 keywords:
   - 实时同步
   - CMS

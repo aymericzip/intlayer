@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Przegląd dokumentu
+title: "intlayer doc review: przegląd przetłumaczonej dokumentacji"
 description: Dowiedz się, jak przeglądać pliki dokumentacji pod kątem jakości, spójności i kompletności w różnych lokalizacjach.
 keywords:
   - Przegląd

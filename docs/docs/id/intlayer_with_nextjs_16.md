@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-08
+updatedAt: 2026-09-27
 priority: 10
 title: "Next.js 16 i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Next.js 16 multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di Next.js 16 App Router: routing locale dengan proxy, Server dan Client Components, metadata terlokalisasi, sitemap, dan halaman statis."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs web Next.js 16 Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web Next.js 16 Anda menggunakan Intlayer
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">

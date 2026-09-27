@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: Documentazione della funzione t | next-intlayer
-description: Scopri come utilizzare la funzione t per il pacchetto next-intlayer
+description: "Usa la funzione t di next-intlayer per dichiarare le traduzioni direttamente nei componenti Next.js, senza un file di contenuto separato."
 keywords:
   - t
   - traduzione

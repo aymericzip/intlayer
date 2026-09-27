@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Svelte i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
-description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Vite + Svelte-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
+description: "Intlayer in einer Vite- und Svelte-App einrichten: übersetzte Inhalte über Stores, Sprachumschalter, lokalisierte Routen und typisierte Wörterbücher."
 keywords:
   - Internationalisierung
   - Dokumentation
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Übersetzen Sie Ihre Vite- und Svelte-Website mit Intlayer | Internationalisierung (i18n)
+# Übersetzen Sie Ihre Vite- und Svelte-Website mit Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Code" value="code">

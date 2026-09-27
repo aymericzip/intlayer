@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-16
-updatedAt: 2025-11-16
+updatedAt: 2026-09-27
 priority: 5
 title: getPrefix Fonksiyon Dokümantasyonu | intlayer
-description: intlayer paketi için getPrefix fonksiyonunun nasıl kullanılacağını görün
+description: "getPrefix ile yönlendirme modunuza göre bir locale'in URL önekini, bağlantılar ve rotalar için hazır üç biçimde alın."
 keywords:
   - getPrefix
   - prefix
@@ -170,8 +170,8 @@ console.log(`Mevcut locale: ${localePrefix}`);
 
 ## İlgili Fonksiyonlar
 
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md): Belirli bir locale için lokalize URL oluşturur
-- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getMultilingualUrls.md): Tüm yapılandırılmış locale'ler için URL'ler oluşturur
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)
+- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getMultilingualUrls.md)
 
 ## TypeScript
 

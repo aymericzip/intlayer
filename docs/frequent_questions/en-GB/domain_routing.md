@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: How to configure domain-based routing?
-description: Learn how to configure domain-based routing.
+description: "Serve each locale from its own domain with Intlayer's domain-based routing, configured in intlayer.config.ts with redirects handled for you."
 keywords:
   - domain
   - routing

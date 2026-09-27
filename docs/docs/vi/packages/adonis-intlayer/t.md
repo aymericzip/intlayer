@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm t | adonis-intlayer
-description: Xem cách sử dụng hàm t cho gói adonis-intlayer
+description: "Dùng hàm t của adonis-intlayer để trả về phản hồi bản địa hóa trong AdonisJS theo locale được nhận diện cho mỗi request."
 keywords:
   - t
   - dịch

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: 词典嵌套
-description: 了解如何在Intlayer中使用内容嵌套，以高效地重用和构造您的多语言内容。按照本文档的步骤无缝实施嵌套。
+title: "嵌套：在字典之间复用内容"
+description: "使用 Intlayer 的 nest() 节点从一个字典引用另一个字典，复用共享内容而无需重复翻译。"
 keywords:
   - Nesting
   - 内容重用

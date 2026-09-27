@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-10
+updatedAt: 2026-09-27
 priority: 6
-title: Intlayer LSP サーバー
+title: "IDE 向け Intlayer 言語サーバー（LSP）"
 description: Intlayer 言語サーバーが、定義へ移動・参照の検索・ホバープレビュー・キーの自動補完・診断を、IDE と AI エージェントにもたらす方法を紹介します。
 keywords:
   - LSP

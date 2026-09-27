@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + Svelte i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Astro + Svelte multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di Astro dengan island Svelte: komponen terjemahan, rute terlokalisasi dan hreflang, dengan konten bertipe per komponen."
 keywords:
   - internasionalisasi
   - dokumentasi
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan Situs Astro + Svelte Anda dengan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan Situs Astro + Svelte Anda dengan Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Kode" value="code">

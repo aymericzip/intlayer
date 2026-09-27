@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-27
 priority: 8
-title: RAG 기반 문서 지원 도우미 구축하기 (청킹, 임베딩, 검색)
-description: RAG 기반 문서 지원 도우미 구축하기 (청킹, 임베딩, 검색)
+title: "RAG 기반 문서 어시스턴트 만들기"
+description: "문서용 AI 어시스턴트를 만든 방법: 마크다운 청킹, 임베딩, 벡터 검색, 프롬프트, 그리고 그 과정의 트레이드오프."
 keywords:
   - RAG
   - 문서

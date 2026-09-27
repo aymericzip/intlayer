@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Plik
-description: Dowiedz się, jak osadzić zewnętrzne pliki w słowniku treści za pomocą funkcji `file`. Ta dokumentacja wyjaśnia, jak Intlayer dynamicznie łączy i zarządza zawartością plików.
+title: "Treść z pliku: osadzanie plików zewnętrznych"
+description: "Osadzaj zewnętrzne pliki, jak markdown czy tekst, w słownikach Intlayer za pomocą funkcji file(), zsynchronizowane z plikiem źródłowym."
 keywords:
   - Plik
   - Internacjonalizacja

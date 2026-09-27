@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-10
+updatedAt: 2026-09-27
 priority: 8
 title: "Sejarah i18n JavaScript: Dari 2011 hingga 2026"
-description: Pelajari evolusi internasionalisasi frontend dari tahun 2011 hingga 2026. Temukan tanggal rilis, tantangan arsitektur, dan inovasi utama di React, Vue, Next.js, Angular, Svelte, dan Solid.
+description: "Evolusi i18n frontend dari 2011 hingga 2026: tanggal rilis, masalah arsitektur, dan inovasi penting di React, Vue, Next.js, Angular, Svelte, dan Solid."
 keywords:
   - sejarah i18n
   - internasionalisasi JavaScript
@@ -49,8 +49,6 @@ Pertanyaan tersebut telah membentuk arah pengembangan JavaScript i18n selama leb
 Solusinya telah banyak berubah. Kita beralih dari objek global JavaScript dan pemanggilan `t('some.key')`, ke pustaka khusus framework, ekstraksi waktu kompilasi (compile-time), tipe yang dibuat oleh TypeScript, komponen server, tree-shaking, hingga pendekatan berbasis compiler di mana terjemahan diubah menjadi kode JavaScript selama proses build.
 
 Artikel ini mengulas evolusi tersebut dari sekitar tahun 2011 hingga 2026: apa yang dicoba diselesaikan oleh setiap generasi alat, apa yang berhasil, apa yang tidak, dan bagaimana arsitektur aplikasi frontend memengaruhi cara kita menangani i18n saat ini.
-
-![Ekosistem Pustaka Internasionalisasi JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Daftar Isi
 
@@ -143,6 +141,8 @@ Kamus disimpan dalam file JSON terpusat yang jauh dari komponen yang menampilkan
 ## Era Framework: Evolusi di Berbagai Ekosistem
 
 Antara tahun 2016 dan 2026, arsitektur frontend berubah secara mendasar. TypeScript menjadi standar industri, arsitektur berbasis komponen semakin matang, bundler seperti Webpack, Vite, dan Turbopack memperkenalkan code-splitting, React Server Components mengembalikan rendering ke server, dan compiler mulai menganalisis kode aplikasi.
+
+![Ekosistem Pustaka Internasionalisasi JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 Tab berikut menyajikan bagaimana setiap framework dan ekosistem menjawab tantangan ini, mendokumentasikan tanggal rilis, motivasi utama, dan inovasi penting dalam tabel perbandingan. Di seluruh ekosistem ini, `react-intlayer` dan seluruh padanannya (`next-intlayer`, `vue-intlayer`, `angular-intlayer`, `svelte-intlayer`, dan `solid-intlayer`) merupakan implementasi berkinerja tinggi yang dirancang khusus untuk lingkungan runtime masing-masing.
 

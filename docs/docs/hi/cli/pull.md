@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: शब्दकोश खींचें
-description: जानें कि Intlayer संपादक और CMS से शब्दकोश कैसे खींचें।
+title: "intlayer pull: CMS से डिक्शनरी खींचें"
+description: "Intlayer विज़ुअल एडिटर या CMS में बदली गई डिक्शनरी अपने प्रोजेक्ट में डाउनलोड करें, ताकि रिमोट बदलाव कोड में आ जाएँ।"
 keywords:
   - खींचें
   - शब्दकोश

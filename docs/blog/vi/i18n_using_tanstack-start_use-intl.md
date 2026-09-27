@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "TanStack Start i18n với use-intl: Hướng Dẫn Thiết Lập Đầy Đủ 2026"
 description: "Bản địa hóa ứng dụng TanStack Start của bạn với use-intl: định tuyến ngôn ngữ, thông điệp định kiểu, SSR, hreflang, sitemap và robots.txt, cùng dữ liệu đo điểm chuẩn dung lượng bundle thực tế."
@@ -42,9 +42,17 @@ TanStack Start không đi kèm sẵn tầng i18n. Việc định tuyến, phát 
 - **Server rendering và hydration** không xảy ra lỗi bất đồng bộ văn bản (text mismatch).
 - **SEO đa ngôn ngữ hoàn chỉnh**: `<title>` và description đã dịch, canonical URL, các thẻ thay thế `hreflang` cùng `x-default`, Open Graph locales, JSON-LD, sitemap với thẻ thay thế `xhtml:link`, `robots.txt` và prerender cho mọi ngôn ngữ.
 
-> Bạn đang tìm kiếm một stack công nghệ khác? Xem [hướng dẫn TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_paraglide.md), [hướng dẫn TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_lingui.md), hoặc [hướng dẫn TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md).
+> Bạn đang tìm kiếm một stack công nghệ khác?
+
+- [hướng dẫn TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_paraglide.md)
+- [hướng dẫn TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_lingui.md)
+- [hướng dẫn TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
 
 > Sử dụng Next.js thay thế? Xem [hướng dẫn next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-intl.md).
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Đo điểm chuẩn benchmark nói gì về use-intl trên TanStack Start
 
@@ -92,7 +100,11 @@ Cách `use-intl` so sánh với các thư viện khác thường được sử d
 
 > Kích thước runtime và số liệu rò rỉ được lấy từ [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md). Rò rỉ được đo trên cấu hình tối ưu nhất của từng thư viện.
 
-> Các hướng dẫn TanStack Start khác: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_lingui.md), [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_paraglide.md), và [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md).
+> Các hướng dẫn TanStack Start khác:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_lingui.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
 
 ## Các thực hành tốt bạn nên tuân theo
 
@@ -106,7 +118,8 @@ Cách `use-intl` so sánh với các thư viện khác thường được sử d
 - **Sử dụng các liên kết thực sự cho bộ chọn ngôn ngữ**, không dùng `<select>`, để bot thu thập dữ liệu có thể tìm thấy mọi phiên bản ngôn ngữ.
 - **Định kiểu cho thông điệp (TypeScript typing)** để mọi key bị thiếu hoặc sai chính tả đều bị báo lỗi tại thời điểm biên dịch.
 
-> Xem hướng dẫn của chúng tôi về [quốc tế hóa và SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/internationalization_and_SEO.md) cùng [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md).
+- [quốc tế hóa và SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/internationalization_and_SEO.md)
+- [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md)
 
 ## Hướng dẫn từng bước thiết lập use-intl trong ứng dụng TanStack Start
 

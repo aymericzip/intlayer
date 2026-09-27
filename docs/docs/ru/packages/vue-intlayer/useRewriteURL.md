@@ -2,7 +2,7 @@
 updatedAt: 2025-08-23
 priority: 5
 createdAt: 2025-08-23
-title: Документация composable useRewriteURL
+title: "Документация composable useRewriteURL | vue-intlayer"
 description: Composable для Vue, предназначенный для управления локализованными перезаписями URL в Intlayer.
 keywords:
   - useRewriteURL

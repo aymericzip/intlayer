@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: Documentação da Função getLocalizedUrl | intlayer
-description: Veja como usar a função getLocalizedUrl para o pacote intlayer
+description: "Use getLocalizedUrl para prefixar uma URL relativa ou absoluta com um locale, conforme seu modo de roteamento e locale padrão."
 keywords:
   - getLocalizedUrl
   - tradução

@@ -3,7 +3,7 @@ createdAt: 2025-06-18
 updatedAt: 2026-05-31
 priority: 9
 title: "Nuxt i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Nuxt đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong Nuxt: nội dung có kiểu theo component, định tuyến và nhận diện locale, thẻ meta SEO bản địa hóa và sitemap đa ngôn ngữ."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web Nuxt và Vue của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web Nuxt và Vue của bạn bằng Intlayer
 
 ## Mục lục
 

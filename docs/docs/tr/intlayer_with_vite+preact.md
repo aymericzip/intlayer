@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Preact i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Vite + Preact uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Vite ve Preact uygulamasında Intlayer kurulumu: bileşen başına tipli içerik, dil seçici, yerelleştirilmiş rotalar ve küçük bundle'lar."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer kullanarak Vite ve Preact web sitenizi çevirin | Uluslararasılaştırma (i18n)
+# Intlayer kullanarak Vite ve Preact web sitenizi çevirin
 
 ## İçindekiler
 

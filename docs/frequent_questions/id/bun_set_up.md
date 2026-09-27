@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Saya mendapatkan error module not found saat menggunakan bun
-description: Memperbaiki error saat menggunakan bun.
+description: 'Perbaiki error "Cannot find package" saat memakai Intlayer dengan Bun, yang disebabkan cara Bun membatasi require(), dengan konfigurasi yang menyelesaikannya.'
 keywords:
   - bun
   - module not found

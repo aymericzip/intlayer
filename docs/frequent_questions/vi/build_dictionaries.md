@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Cách xây dựng từ điển?
-description: Tìm hiểu cách xây dựng từ điển.
+description: "Khi nào Intlayer tự động build từ điển, cách build thủ công bằng CLI và các file được sinh ra nằm ở đâu."
 keywords:
   - xây dựng
   - từ điển

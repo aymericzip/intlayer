@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: أوامر المحرر
-description: تعلّم كيفية استخدام أوامر محرر Intlayer.
+title: "intlayer editor: أوامر المحرّر المرئي"
+description: "شغّل المحرّر المرئي لـ Intlayer واضبطه من سطر الأوامر لتعديل المحتوى في سياقه مباشرة داخل تطبيقك."
 keywords:
   - محرر
   - محرر بصري

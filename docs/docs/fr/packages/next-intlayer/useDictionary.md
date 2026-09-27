@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: Documentation du Hook useDictionary | next-intlayer
-description: Découvrez comment utiliser le hook useDictionary pour le package next-intlayer
+description: "Utilisez useDictionary dans Next.js pour interpréter un objet dictionnaire que vous déclarez vous-même, avec les traductions résolues pour la locale courante."
 keywords:
   - useDictionary
   - dictionnaire

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: lynx-intlayer 패키지 문서
-description: Intlayer를 위한 Lynx 지원으로 로케일 지원을 위한 폴리필을 제공합니다.
+description: "lynx-intlayer 패키지는 Lynx 앱에 Intlayer를 통합하고, 모바일에서 로케일을 지원하는 데 필요한 폴리필과 헬퍼를 제공합니다."
 keywords:
   - lynx-intlayer
   - lynx

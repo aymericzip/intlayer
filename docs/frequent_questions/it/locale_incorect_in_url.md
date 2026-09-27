@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Locale Errato Recuperato dall'URL
-description: Scopri come correggere il locale errato recuperato dall'URL.
+description: "Correggi una locale errata letta dall'URL in Next.js, come «about» invece di «en», usando la struttura di cartelle [locale] prevista da Intlayer."
 keywords:
   - locale
   - url

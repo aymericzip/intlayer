@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: 알 수 없는 명령어
-description: 알 수 없는 명령어 오류를 해결하는 방법을 알아보세요.
+title: "Intlayer 'unknown command' 오류 해결"
+description: "Intlayer CLI의 'unknown command' 오류를 해결하세요: 명령어 이름, CLI 버전, 실행 방식을 확인합니다."
 keywords:
   - 알 수 없음
   - 명령어

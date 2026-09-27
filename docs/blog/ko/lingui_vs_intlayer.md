@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui vs Intlayer: 2026년 벤치마크 및 종합 비교"
-description: "Next.js 및 TanStack Start 환경에서 측정된 두 컴파일러 기반 i18n 라이브러리. 번들 크기, 콘텐츠 누수, 컴포넌트 크기, 하이드레이션, 언어 전환 반응성 및 개발자 경험 비교."
+description: "컴파일러 기반 i18n 라이브러리 두 가지를 Next.js와 TanStack Start에서 측정: 번들, 콘텐츠 누출, 컴포넌트 크기, 하이드레이션, 언어 전환."
 keywords:
   - Lingui
   - Intlayer
@@ -23,9 +23,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui VS Intlayer | React & Next.js 국제화 (i18n) 벤치마크 비교
-
-![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+# Lingui VS Intlayer: React & Next.js 국제화 (i18n) 벤치마크 비교
 
 Lingui와 Intlayer는 이번 벤치마크에서 단순한 런타임 대신 **컴파일러**를 기반으로 작동하는 두 라이브러리입니다. Lingui는 빌드 시 매크로에서 메시지를 추출하여 언어별 카탈로그를 컴파일합니다. Intlayer는 컴포넌트 단위로 딕셔너리를 컴파일하고 언어별로 Tree-shaking을 적용합니다. 이론상 두 라이브러리의 성능은 매우 유사해야 하지만, 실제 측정 데이터는 명확한 차이점을 보여줍니다.
 
@@ -451,26 +449,34 @@ export default defineConfig({
 
 ## 관련 비교 자료
 
+![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 동일한 벤치마크, 다른 라이브러리:
 
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer.md)
 - [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer.md)
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/react-i18next_vs_react-intl_vs_intlayer.md)
 
 더 알아보기:
 
-- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer-lingui.md), 동일한 앱에서 측정된 어댑터
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer-lingui.md)
 - [Compiler-driven vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
 - [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)
 - [ICU message format explained](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 참조 문서:
 
-- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md) 및 [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
+- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+- [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 - [Compat adapter: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
-- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md) 및 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+- [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## GitHub 스타 추이
 

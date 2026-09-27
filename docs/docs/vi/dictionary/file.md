@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Tệp tin
-description: Tìm hiểu cách nhúng các tệp tin bên ngoài vào từ điển nội dung của bạn bằng cách sử dụng hàm `file`. Tài liệu này giải thích cách Intlayer liên kết và quản lý nội dung tệp tin một cách động.
+title: "Nội dung file: nhúng file bên ngoài"
+description: "Nhúng file bên ngoài như markdown hoặc văn bản vào từ điển Intlayer bằng hàm file(), luôn đồng bộ với file nguồn."
 keywords:
   - Tệp tin
   - Quốc tế hóa

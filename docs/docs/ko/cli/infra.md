@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-21
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Init Infra
-description: Intlayer CLI init infra 명령어를 사용하여 데스크톱 앱을 설치하거나 Docker(올인원 컨테이너 또는 Docker Compose 스택)로 Intlayer CMS를 셀프 호스팅하는 방법을 알아봅니다.
+title: "intlayer init infra: Intlayer CMS 셀프 호스팅"
+description: "Intlayer 데스크톱 앱을 설치하거나 Docker(올인원 컨테이너 또는 Docker Compose 스택)로 Intlayer CMS를 셀프 호스팅합니다."
 keywords:
   - CLI
   - 인프라
@@ -158,6 +158,6 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 
 ## 관련 문서
 
-- [셀프 호스팅 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md) - 각 모드의 아키텍처, 초기 실행 단계 및 제한 사항
-- [Intlayer 초기화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/init.md) - 상위 `init` 명령어 및 대화형 체크리스트
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md) - 방금 설치한 대시보드의 기능
+- [셀프 호스팅 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/self_hosting.md)
+- [Intlayer 초기화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/init.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)

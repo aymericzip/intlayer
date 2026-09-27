@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm getHTMLTextDir | intlayer
-description: Xem cách sử dụng hàm getHTMLTextDir cho gói intlayer
+description: "Dùng getHTMLTextDir để lấy hướng văn bản của locale (ltr, rtl hoặc auto) và đặt thuộc tính dir cho HTML."
 keywords:
   - getHTMLTextDir
   - dịch thuật

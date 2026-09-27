@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Locale yang Salah Diambil dari URL
-description: Pelajari cara memperbaiki locale yang salah diambil dari URL.
+description: 'Perbaiki locale yang salah terbaca dari URL di Next.js, seperti "about" alih-alih "en", dengan struktur folder [locale] yang diharapkan Intlayer.'
 keywords:
   - locale
   - url

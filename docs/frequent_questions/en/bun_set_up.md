@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: I get module not found error when using bun
-description: Fix error when using bun.
+description: 'Fix the "Cannot find package" error when running Intlayer with Bun, caused by how Bun scopes require(), with the configuration that solves it.'
 keywords:
   - bun
   - module not found

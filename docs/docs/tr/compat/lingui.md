@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Lingui'den Intlayer'a Geçiş Yapın"
 description: "Uyumluluk adaptörünü kullanarak uygulamanızı Lingui'den Intlayer'a nasıl geçireceğinizi öğrenin."
@@ -43,3 +43,7 @@ Arka Planda:
 - **Macro'lar:** Kaynak sözdiziminde hiçbir kesinti olmadan tamamen daha önce yaptığı gibi derlenir.
 - **Runtime Çeviri:** Takma ad atanan `i18n._()` Intlayer sözlüklerini kullanır. Hem açıkça adlandırılan ID'ler hem de karma hash ID'ler Intlayer'ın `.po` sync plugin'lerini kullanarak anahtarları güvenli şekilde toplamak ve budamak için tamamen eşlenir.
 - **ICU Yetenekleri:** Çoğullaştırma, seçim ve ICU varyantları desteği, Intlayer'ın birleştirilmiş ICU ayrıştırıcısı sayesinde güçlü kalır, aynı render çıktılarını sağlar.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 8
-title: Tłumaczenie
-description: Dowiedz się, jak deklarować i używać tłumaczeń na swojej wielojęzycznej stronie internetowej. Postępuj zgodnie z krokami w tej dokumentacji online, aby skonfigurować swój projekt w kilka minut.
+title: "Tłumaczenia: funkcja t()"
+description: "Deklaruj tłumaczenia dla każdego locale funkcją t() w Intlayer, z typowaniem, które wskazuje brakujące locale podczas budowania."
 keywords:
   - Tłumaczenie
   - Internacjonalizacja

@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getHTMLTextDir फ़ंक्शन दस्तावेज़ीकरण | intlayer
-description: intlayer पैकेज के लिए getHTMLTextDir फ़ंक्शन का उपयोग कैसे करें देखें
+description: "getHTMLTextDir से किसी लोकेल की टेक्स्ट दिशा (ltr, rtl या auto) पाएँ और अपने HTML का dir एट्रिब्यूट सेट करें।"
 keywords:
   - getHTMLTextDir
   - अनुवाद

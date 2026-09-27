@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 我遇到了与子包 @intlayer/* 相关的错误
-description: 解决与子包 @intlayer/* 相关的错误。
+description: "修复 @intlayer/* 子包版本不一致导致的错误：将所有 Intlayer 包统一到同一版本并清除缓存。"
 keywords:
   - @intlayer/*
   - 子包

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer 비주얼 편집기 | 비주얼 편집기를 사용하여 콘텐츠를 편집합니다
+title: "Intlayer 비주얼 에디터: 콘텐츠를 현장에서 편집"
 description: Intlayer 편집기를 사용하여 다국어 웹사이트를 관리하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 만에 프로젝트를 설정하세요.
 keywords:
   - 편집기

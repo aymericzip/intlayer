@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Jak dostosować listę lokalizacji?
-description: Dowiedz się, jak dostosować listę lokalizacji.
+description: "Dostosuj listę locale obsługiwanych przez Intlayer w intlayer.config.ts, w tym warianty regionalne i domyślne locale."
 keywords:
   - lokalizacje
   - lista

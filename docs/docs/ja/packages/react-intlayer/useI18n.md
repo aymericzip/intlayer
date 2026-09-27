@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: useI18n フック ドキュメント | react-intlayer
-description: react-intlayer パッケージで useI18n フックを使用する方法を学ぶ
+description: "React の useI18n で辞書にひも付いた翻訳関数を取得。キーベースのライブラリからの移行時に便利です。"
 keywords:
   - useI18n
   - i18n

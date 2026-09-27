@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + Lit i18n - Complete guide to translate your app"
-description: "No more i18next. The 2026 guide to building a multilingual (i18n) Astro + Lit app. Translate with AI agents and optimise bundle size, SEO and performances."
+description: "Set up Intlayer in Astro with Lit islands: translated web components, localised routes and hreflang, with typed per-component content."
 keywords:
   - internationalisation
   - documentation
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Translate your Astro + Lit site with Intlayer | Internationalisation (i18n)
+# Translate your Astro + Lit site with Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Code" value="code">

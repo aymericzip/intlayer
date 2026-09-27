@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui vs @intlayer/lingui: 同じマクロ、異なるランタイム"
-description: "ReactアプリがLinguiのマクロをそのまま維持しながら@intlayer/lingui互換アダプター経由で配信すると何が変わるのか。同一のTanStack Startコード上で測定されたコンポーネントサイズ、ハイドレーション、リーク率、ページあたりのJavaScript量、およびアダプターが劣るポイントを解説します。"
+description: "React アプリが Lingui のマクロをそのまま残し、@intlayer/lingui アダプター経由で配信。コンポーネントサイズ、ハイドレーション、リーク、ページごとの JavaScript を計測。"
 keywords:
   - Lingui
   - "@intlayer/lingui"
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui VS @intlayer/lingui | 同じマクロ、異なるランタイム
+# Lingui VS @intlayer/lingui：同じマクロ、異なるランタイム
 
 `@intlayer/lingui` は、`@lingui/core` および `@lingui/react` 向けの互換アダプターです。`` t`...` ``、`<Trans>`、`useLingui()`、`i18n._()` の呼び出しは一切変更する必要がなく、マクロもそのままコンパイルされます。変化するのは、実行時にメッセージがどこから提供されるかという点です。ロケールごとに1つにまとめられたカタログではなく、各呼び出し箇所ごとに専用コンパイルされたIntlayerディクショナリへとバインドされます。
 
@@ -289,12 +289,16 @@ export default defineConfig({
 
 ## 関連する比較記事
 
-- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer.md)（ライブラリ本体の詳細比較、同一ベンチマーク）
-- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer-next-intl.md)（アダプター比較シリーズ）
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer-i18next.md)（アダプター比較シリーズ）
-- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer-vue-i18n.md)（アダプター比較シリーズ）
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer-next-intl.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer-i18next.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer-vue-i18n.md)
 - [互換アダプターリファレンス: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/lingui.md)
 - [コンパイラ型 vs 宣言型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## 結論
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Penanaman Kamus
-description: Pelajari cara menggunakan penanaman konten di Intlayer untuk menggunakan kembali dan menyusun konten multibahasa Anda secara efisien. Ikuti dokumentasi ini untuk mengimplementasikan penanaman dengan mulus dalam proyek Anda.
+title: "Nesting: gunakan ulang konten antar kamus"
+description: "Rujuk satu kamus dari kamus lain dengan node nest() Intlayer untuk menggunakan ulang konten bersama tanpa menduplikasi terjemahan."
 keywords:
   - Penanaman
   - Penggunaan Kembali Konten

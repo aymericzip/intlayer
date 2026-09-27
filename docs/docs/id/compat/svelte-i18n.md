@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Migrasi dari Svelte I18n ke Intlayer"
 description: "Pelajari cara migrasi aplikasi Svelte Anda dari svelte-i18n ke Intlayer menggunakan adapter kompatibilitas."
@@ -46,3 +46,7 @@ Di balik layar:
 - **Sintaks ICU:** Ditangani sepenuhnya oleh resolver ICU bersama (parsing setara `intl-messageformat`).
 - **Formatter:** Panggilan `$date`, `$time`, `$number` dialihkan dengan aman ke formatter inti native Intlayer.
 - **Analisis Babel/SWC:** Analyzer Intlayer membaca pemanggil store Svelte (`$_`) di dalam file sumber `.svelte` Anda sebelum kompilasi untuk secara otomatis membangun chunk kamus yang relevan.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)

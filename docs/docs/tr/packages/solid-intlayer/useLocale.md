@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: useLocale Hook Dokümantasyonu | solid-intlayer
-description: solid-intlayer paketi için useLocale hookunun nasıl kullanılacağını görün
+description: "Solid'de useLocale ile geçerli, varsayılan ve kullanılabilir locale'leri okuyun ve herhangi bir bileşenden locale değiştirin."
 keywords:
   - useLocale
   - locale

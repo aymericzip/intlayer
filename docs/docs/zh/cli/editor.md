@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: 编辑器命令
-description: 了解如何使用 Intlayer 编辑器命令。
+title: "intlayer editor：可视化编辑器命令"
+description: "通过 CLI 启动和配置 Intlayer 可视化编辑器，直接在运行中的应用上就地编辑内容。"
 keywords:
   - 编辑器
   - 可视化编辑器

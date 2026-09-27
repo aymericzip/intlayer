@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi getEnumeration | intlayer
-description: Lihat cara menggunakan fungsi getEnumeration untuk paket intlayer
+description: "Gunakan getEnumeration (alias enu) untuk memilih konten yang sesuai dengan jumlah dari objek enumerasi berdasarkan kondisinya."
 keywords:
   - getEnumeration
   - terjemahan

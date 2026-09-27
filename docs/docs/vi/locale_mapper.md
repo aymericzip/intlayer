@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: Bộ ánh xạ Locale
-description: Tìm hiểu cách Bộ ánh xạ Locale hoạt động. Xem các bước được Bộ ánh xạ Locale sử dụng trong ứng dụng của bạn. Xem các gói khác nhau thực hiện những gì.
+title: "Locale Mapper: localeMap, localeFlatMap, localeRecord"
+description: "Biến đổi dữ liệu locale bằng localeMap, localeFlatMap và localeRecord để tạo route, tham số tĩnh và đối tượng theo locale."
 keywords:
   - Bộ ánh xạ Locale
   - Bắt đầu

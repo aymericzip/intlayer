@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Extract strings
+title: "intlayer extract: Extract Strings from Components"
 description: Learn how to extract strings from your components into a .content file close to the component.
 keywords:
   - Extract

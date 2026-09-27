@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-27
 priority: 8
 title: "Formatowanie dat i liczb według lokalizacji za pomocą Intl"
-description: Prawdopodobnie nie potrzebujesz zewnętrznej biblioteki do formatowania. Jak Intl obsługuje daty, liczby, waluty i listy per locale, koszt cache'owania oraz błąd strefy czasowej na produkcji.
+description: "Potrzebujesz biblioteki do formatowania? Jak Intl formatuje daty, liczby, waluty i listy według locale, koszt cache'owania i błąd stref czasowych tylko na produkcji."
 keywords:
   - formatowanie daty per locale
   - Intl.DateTimeFormat

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Перейти з i18next на Intlayer"
-description: "Дізнайтеся, як перенести вашу програму Vanilla JS/TS з i18next на Intlayer, використовуючи адаптер сумісності."
+title: "@intlayer/i18next: адаптер сумісності для i18next"
+description: "Збережіть код на i18next і обслуговуйте його через Intlayer: встановіть @intlayer/i18next, налаштуйте аліаси імпортів і дізнайтеся, що адаптер змінює під капотом."
 keywords:
   - i18next
   - vanilla
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# Міграція з i18next на Intlayer
+# @intlayer/i18next: адаптер сумісності для i18next
 
 Для детального покрокового посібника дивіться наш повний [Посібник з міграції з i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_i18next_to_intlayer.md).
 
@@ -58,3 +58,7 @@ export default defineConfig({
 - **Інтерполяція:** Нативна підтримка замін `{{name}}` та вкладеного `$t(key)` рекурсивно.
 - **Контекст і плюралізація:** Визначає та розв'язує формати суфіксів на кшталт `key_male` та `key_one`/`key_other`, оцінюючи їх за стандартом `Intl.PluralRules`.
 - **Повернення об'єктів:** Режим `returnObjects: true` безпечно витягує дерева з словників Intlayer.
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)

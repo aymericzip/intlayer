@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-25
+updatedAt: 2026-09-27
 priority: 5
 title: getConfiguration 函数文档 | intlayer
-description: 查看如何使用 intlayer 包中的 getConfiguration 函数
+description: "使用 getConfiguration 在客户端或服务器读取解析后的 Intlayer 配置，包括语言和路由。"
 keywords:
   - getConfiguration
   - 翻译

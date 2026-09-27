@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "Cara Memilih Library Solid i18n yang Tepat di Tahun 2026"
-description: Panduan keputusan untuk internasionalisasi SolidJS dan SolidStart. Pertanyaan apa yang perlu dijawab sebelum membandingkan @solid-primitives/i18n, solid-i18next, Paraglide, Lingui, dan Intlayer, serta apa dampak setiap pilihan terhadap reactivity, ukuran bundle, dan typing.
+description: "Panduan memilih i18n untuk SolidJS dan SolidStart: pertanyaan sebelum membandingkan @solid-primitives/i18n, solid-i18next, Paraglide, Lingui, dan Intlayer."
 keywords:
   - solidjs i18n
   - solid start i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Model reactivity milik Solid mengubah apa yang perlu dilakukan oleh library i18n. Komponen hanya berjalan sekali, sehingga terjemahan yang disimpan dalam `const` saat setup menjadi string yang beku (frozen string), dan library yang mengembalikan string alih-alih accessor akan menghasilkan halaman yang berganti bahasa di mana-mana kecuali di tiga komponen tempat seseorang melakukan hal tersebut. Memilih library untuk Solid sebagian adalah tentang API, dan sebagian lagi tentang mana yang membuat kesalahan tersebut sulit dibuat.
 
 Panduan ini mencantumkan pertanyaan yang harus dijawab terlebih dahulu, lalu memetakannya ke `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid`, dan Intlayer, untuk Vite + Solid dan untuk SolidStart.
-
-![Ekosistem library Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Daftar Isi
 
@@ -88,6 +86,8 @@ Jika jawaban Anda untuk pertanyaan 4 adalah "banyak halaman", pertimbangkan bagi
 
 Ukuran library diambil dari [benchmark Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/solid.md): provider ditambah accessor dalam komponen kosong, setelah bundling, tree-shaking, dan minifikasi, pada aplikasi 10 halaman dan 10 locale. Konten diukur secara terpisah.
 
+![Ekosistem library Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Library                  | Model konten                              | Reactivity pada pergantian locale           | Keamanan tipe                           | Scoping dan lazy loading      | Ukuran library                                           |
 | :----------------------- | :---------------------------------------- | :------------------------------------------ | :-------------------------------------- | :---------------------------- | :------------------------------------------------------- |
 | `@solid-primitives/i18n` | Kamus flat yang Anda kelola               | Signal, accessor dikembalikan translator    | 3/5 — Di-infer dari kamus sumber        | Tidak ada bawaan              | ~0.6 kB                                                  |
@@ -116,7 +116,7 @@ Ukuran library Paraglide yang hampir nol didapat dari rancangannya: runtime di-g
 </Accordion>
 <Accordion header="SolidStart dengan route berawalan locale dan SSR">
 
-Locale harus berasal dari URL di server agar kedua sisi selaras; mendeteksinya di client sudah terlambat. `@solid-primitives/i18n` dan `solid-i18next` menyerahkan route `[[locale]]`, `matchFilters`, redirect, dan tag `entry-server.tsx` kepada Anda. Paraglide memiliki plugin Vite yang menangani routing. Intlayer menyediakan middleware dan helper route. Mana pun yang Anda pilih, letakkan `<html lang>` dan `hreflang` di `entry-server.tsx`; `@solidjs/meta` diterapkan di client setelah hydration di SolidStart v2. Artikel [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/list_i18n_technologies/frameworks/solid.md) memandu penyiapan tersebut.
+Locale harus berasal dari URL di server agar kedua sisi selaras; mendeteksinya di client sudah terlambat. `@solid-primitives/i18n` dan `solid-i18next` menyerahkan route `[[locale]]`, `matchFilters`, redirect, dan tag `entry-server.tsx` kepada Anda. Paraglide memiliki plugin Vite yang menangani routing. Intlayer menyediakan middleware dan helper route. Mana pun yang Anda pilih, letakkan `<html lang>` dan `hreflang` di `entry-server.tsx`; `@solidjs/meta` diterapkan di client setelah hydration di SolidStart v2. Artikel [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_solid_start.md) memandu penyiapan tersebut.
 
 </Accordion>
 <Accordion header="Perubahan locale harus instan dan fine-grained">
@@ -456,11 +456,17 @@ Secara tidak langsung. Crawler memperhatikan routing, `hreflang`, `<html lang>`,
 ## Pelajari lebih lanjut
 
 - [Benchmark Solid i18n: ukuran bundle, leakage, dan waktu pergantian locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/solid.md)
-- [Solid i18n: mengapa terjemahan membeku saat perubahan locale](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/list_i18n_technologies/frameworks/solid.md)
-- [Adapter kompatibilitas i18next drop-in](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/i18next.md) dan [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md)
+- [Adapter kompatibilitas i18next drop-in](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/i18next.md)
+- [panduan migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md)
 - [Sejarah JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 - [Compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
 - [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md)
 - [Bagaimana optimasi bundle bekerja saat build time](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
-- [Siapkan i18n dalam aplikasi Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+solid.md) dan dalam [aplikasi SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_solid_start.md)
-- Panduan serupa untuk [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_react_i18n_library.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_vue_i18n_library.md), dan [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_svelte_i18n_library.md)
+- [Siapkan i18n dalam aplikasi Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+solid.md)
+- [aplikasi SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_solid_start.md)
+
+Panduan serupa untuk
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_svelte_i18n_library.md)

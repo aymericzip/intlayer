@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-18
-updatedAt: 2025-11-06
+updatedAt: 2026-09-27
 priority: 8
-title: Plataforma de L10n alternativa ao Phrase
-description: Encontre a melhor plataforma de L10n alternativa ao Phrase para as suas necessidades
+title: "Alternativa open source ao Phrase para localização"
+description: "Phrase comparado ao Intlayer, um sistema de gestão de traduções open source: fluxo de trabalho, integração para devs, tradução com IA e preços."
 keywords:
   - L10n
   - TMS
@@ -25,19 +25,19 @@ author: aymericzip
 
 <TOC/>
 
-# Sistema de Gestão de Tradução
+## Sistema de Gestão de Tradução
 
 Um Translation Management System (TMS) é uma plataforma de software projetada para automatizar e simplificar o processo de tradução e localização (L10n). Tradicionalmente, um TMS funciona como um hub centralizado onde o conteúdo é carregado, organizado e atribuído a tradutores humanos. Ele gere fluxos de trabalho, armazena memórias de tradução (para evitar retraduzir a mesma frase duas vezes) e trata da entrega dos ficheiros traduzidos de volta aos desenvolvedores ou gestores de conteúdo.
 
 Essencialmente, um TMS tem sido historicamente a ponte entre o código técnico (onde as strings vivem) e os linguistas humanos (que compreendem a cultura).
 
-# Phrase (anteriormente PhraseApp)
+## Phrase (anteriormente PhraseApp)
 
 Phrase é um jogador de peso no espaço de localização empresarial. Originalmente conhecida como PhraseApp, cresceu significativamente, especialmente após a sua fusão com a Memsource. Posiciona-se como uma Localization Suite abrangente, concebida para a localização de software, oferecendo capacidades robustas de API e amplo suporte a formatos.
 
 Phrase foi construída para escalar. É a escolha de referência para grandes empresas que precisam gerir fluxos de trabalho complexos, vastas memórias de tradução e processos rígidos de garantia de qualidade entre várias equipas. A sua força reside na capacidade de lidar com tarefas de localização "heavy duty", oferecendo um ecossistema tudo-em-um tanto para strings de software como para tradução de documentos.
 
-# Intlayer
+## Intlayer
 
 Intlayer é conhecido principalmente como uma solução i18n, mas também integra um headless CMS. Ao contrário do Phrase, que funciona como uma grande suíte empresarial externa, o Intlayer atua como uma camada ágil integrada ao código. Controla toda a stack, desde a camada de bundling até à entrega remota de conteúdo, resultando num fluxo de conteúdo mais fluido e eficiente para aplicações web modernas.
 
@@ -59,7 +59,7 @@ O Intlayer é uma solução nascida na era da IA, concebida especificamente para
 2.  **Developer Experience (DX):** O Phrase depende fortemente de ferramentas CLI e chamadas de API para sincronizar arquivos. O Intlayer integra-se diretamente ao bundler e ao runtime. Isso significa que suas definições são estritamente tipadas (TypeScript), e chaves ausentes são detectadas em tempo de compilação, não em produção.
 3.  **Velocidade de entrega:** O Intlayer remove a "caixa preta" do TMS. Você não envia arquivos para fora e espera que eles voltem. Você gera traduções instantaneamente via IA no seu pipeline de CI ou no ambiente local, mantendo o ciclo de desenvolvimento enxuto.
 
-# Comparação lado a lado
+## Comparação lado a lado
 
 | Funcionalidade          | Phrase (TMS Empresarial)                           | Intlayer (Nativo em IA)                                      |
 | :---------------------- | :------------------------------------------------- | :----------------------------------------------------------- |

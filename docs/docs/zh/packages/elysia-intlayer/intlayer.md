@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Elysia 插件文档 | elysia-intlayer
-description: 了解如何使用 elysia-intlayer 包中的 intlayer 插件
+description: "Elysia 的 intlayer 插件会检测用户语言，并将翻译函数注入每个请求的路由上下文。"
 keywords:
   - intlayer
   - elysia

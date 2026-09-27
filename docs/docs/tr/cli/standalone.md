@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Bağımsız Paket (Standalone Bundle)
-description: Uygulama içeriğinin bağımsız bir JavaScript paketini nasıl oluşturacağınızı öğrenin.
+title: "intlayer standalone: her sayfa için Intlayer"
+description: "Intlayer ve ihtiyacınız olan paketlerden tek bir JavaScript bundle oluşturun; paket yöneticisi veya bundler olmayan sayfalarda kullanın."
 keywords:
   - Standalone
   - Paket

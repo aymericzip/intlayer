@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: Markdown
-description: Intlayer를 사용하여 다국어 웹사이트에서 Markdown 콘텐츠를 선언하고 사용하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 Markdown을 프로젝트에 원활하게 통합하세요.
+title: "Intlayer의 마크다운 콘텐츠"
+description: "md() 또는 .content.md 파일로 번역된 마크다운을 선언하고 어떤 프레임워크에서든 직접 만든 컴포넌트로 렌더링합니다."
 keywords:
   - Markdown
   - Internationalization

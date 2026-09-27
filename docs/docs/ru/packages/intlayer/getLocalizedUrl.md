@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: Документация функции getLocalizedUrl | intlayer
-description: Узнайте, как использовать функцию getLocalizedUrl для пакета intlayer
+description: "Используйте getLocalizedUrl, чтобы добавить префикс локали к относительному или абсолютному URL согласно режиму маршрутизации и локали по умолчанию."
 keywords:
   - getLocalizedUrl
   - перевод

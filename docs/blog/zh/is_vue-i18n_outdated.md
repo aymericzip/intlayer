@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: 2026 年，vue-i18n 已经过时了吗？
 description: vue-i18n 在过去十年中一直是 Vue 和 Nuxt 的标准配置。但在我们的基准测试中，它却是主流框架中最庞大的 i18n 运行时。本文将探讨其深层原因。
@@ -68,6 +68,10 @@ author: aymericzip
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 久经考验的库往往代表稳定，但现代化前端开发已全面转向构建期 AST 转换、无用代码精简和 AI 赋能。受制于纯运行时的架构设计，旧模型较难自如融入这些革新。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 基于 Vite + Vue 的实测数据
 

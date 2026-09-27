@@ -3,7 +3,7 @@ createdAt: 2026-08-23
 updatedAt: 2026-08-24
 priority: 9
 title: "Elysia i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next. Hướng dẫn năm 2026 để xây dựng ứng dụng Elysia đa ngôn ngữ (i18n). Dịch với các tác nhân AI và tối ưu hóa kích thước gói, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong Elysia: nhận diện locale theo từng request bằng plugin, dịch phản hồi API và giữ nội dung có kiểu trên Bun."
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web backend Elysia của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web backend Elysia của bạn bằng Intlayer
 
 `elysia-intlayer` là một plugin quốc tế hóa (i18n) mạnh mẽ cho các ứng dụng Elysia, được thiết kế để làm cho các dịch vụ backend của bạn có thể truy cập được trên toàn cầu bằng cách cung cấp các phản hồi được bản địa hóa dựa trên tùy chọn của máy khách.
 
@@ -269,9 +269,9 @@ curl -H "Accept-Language: es" http://localhost:3000/
 
 `elysia-intlayer` hoàn toàn tương thích với:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/index.md) cho các ứng dụng React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/index.md) cho các ứng dụng Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/index.md) cho các ứng dụng Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/index.md)
 
 Nó cũng hoạt động liền mạch với bất kỳ giải pháp quốc tế hóa nào trong các môi trường khác nhau, bao gồm trình duyệt và các yêu cầu API.
 

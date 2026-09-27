@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "TanStack Start i18n với Paraglide JS: Hướng dẫn thiết lập 2026"
 description: "Dịch ứng dụng TanStack Start của bạn với Paraglide JS: chiến lược URL, router rewrite, SSR middleware, hreflang, sitemap và robots.txt, cùng dữ liệu benchmark thực tế."
@@ -43,9 +43,17 @@ Paraglide là phương pháp tiếp cận i18n được sử dụng trong các v
 
 Hướng dẫn này sẽ thiết lập cả ba thành phần trên, sau đó trình bày tất cả những gì Paraglide để bạn tự xử lý: `lang` và `dir`, bộ chuyển đổi ngôn ngữ (locale switcher), metadata được dịch, `canonical`, `hreflang` với `x-default`, Open Graph, JSON-LD, sitemap, `robots.txt`, pre-rendering và các trang 404 được bản địa hóa.
 
-> Bạn đang tìm kiếm một tech stack khác? Hãy xem [Hướng dẫn TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_use-intl.md), [Hướng dẫn TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_lingui.md), hoặc [Hướng dẫn TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md).
+> Bạn đang tìm kiếm một tech stack khác?
+
+- [Hướng dẫn TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_use-intl.md)
+- [Hướng dẫn TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_lingui.md)
+- [Hướng dẫn TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
 
 > So sánh hai phương pháp tiếp cận dựa trên trình biên dịch? Đọc bài viết [Intlayer có nhẹ hơn Paraglide không?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_intlayer_lighter_than_paraglide.md).
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Dữ liệu benchmark nói gì về Paraglide trên TanStack Start
 
@@ -95,7 +103,11 @@ Cách Paraglide JS so sánh với các thư viện khác thường được dùn
 
 > Kích thước runtime và số liệu rò rỉ đến từ [Benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md). Độ rò rỉ được đo trên thiết lập tối ưu nhất của từng thư viện.
 
-> Các hướng dẫn TanStack Start khác: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_lingui.md), [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_use-intl.md), và [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md).
+> Các hướng dẫn TanStack Start khác:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_lingui.md)
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_use-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
 
 ## Các nguyên tắc thực hành bạn nên tuân theo
 
@@ -108,7 +120,8 @@ Cách Paraglide JS so sánh với các thư viện khác thường được dùn
 - **Tạo sitemap đa ngôn ngữ và robots.txt**, và pre-render mọi ngôn ngữ.
 - **Sử dụng các liên kết thực cho bộ chuyển đổi ngôn ngữ**, để crawler phát hiện được tất cả các ngôn ngữ.
 
-> Xem hướng dẫn của chúng tôi về [quốc tế hóa và SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/internationalization_and_SEO.md) và [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md).
+- [quốc tế hóa và SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/internationalization_and_SEO.md)
+- [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md)
 
 ## Hướng dẫn từng bước thiết lập Paraglide JS trong ứng dụng TanStack Start
 

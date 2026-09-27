@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Monitorar Dicionários
+title: "intlayer watch: reconstruir dicionários ao alterar"
 description: Aprenda como monitorar alterações nos seus arquivos de declaração de conteúdo e construir dicionários automaticamente.
 keywords:
   - Monitorar

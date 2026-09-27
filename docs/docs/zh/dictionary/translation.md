@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: 翻译
-description: 了解如何在您的多语言网站中声明和使用翻译。按照本在线文档中的步骤，在几分钟内设置您的项目。
+title: "翻译内容：t() 函数"
+description: "使用 Intlayer 的 t() 函数按语言环境声明翻译，类型检查会在构建时提示缺失的语言。"
 keywords:
   - 翻译
   - 国际化

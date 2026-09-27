@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "next-i18next vs next-intl vs Intlayer: 2026 Karşılaştırması"
-description: "Next.js için hangi i18n kütüphanesini seçmelisiniz? next-i18next, next-intl ve Intlayer; bundle boyutu, TypeScript güvenliği, Server Components, yönlendirme ve geliştirici deneyimi açısından karşılaştırılıyor."
+description: "Next.js için hangi i18n kütüphanesi seçilmeli? next-i18next, next-intl ve Intlayer; bundle, TypeScript, Server Components, yönlendirme ve DX açısından karşılaştırıldı."
 keywords:
   - next-intl
   - next-i18next
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-i18next VS next-intl VS intlayer | Next.js Uluslararasılaştırma (i18n)
+# next-i18next VS next-intl VS intlayer
 
 ![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -79,6 +79,10 @@ Bu tam bir eğitim değil. Seçim yapmanıza yardımcı olacak bir karşılaşt�
 Next.js, uluslararasılaştırılmış routing (örneğin, locale segmentleri) için yerleşik destek sağlar. Ancak bu özellik kendi başına çeviriler yapmaz. Yine de kullanıcılarınıza yerelleştirilmiş içerik sunmak için bir kütüphaneye ihtiyacınız vardır.
 
 Birçok i18n kütüphanesi mevcuttur, ancak günümüzde Next.js dünyasında üçü popüler hale gelmektedir: next-i18next, next-intl ve Intlayer.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## Mimari & ölçeklenebilirlik
 

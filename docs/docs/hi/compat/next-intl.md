@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "next-intl से Intlayer में माइग्रेट करें"
-description: "जानें कि compat adapter का उपयोग करके अपने Next.js एप्लिकेशन को next-intl से Intlayer में कैसे माइग्रेट करें।"
+title: "@intlayer/next-intl: next-intl के लिए संगतता एडैप्टर"
+description: "अपना next-intl कोड बनाए रखें और उसे Intlayer से चलाएँ: @intlayer/next-intl इंस्टॉल करें, imports के लिए alias सेट करें, और देखें कि एडैप्टर अंदर क्या बदलता है।"
 keywords:
   - next-intl
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# next-intl से Intlayer में माइग्रेट करें
+# @intlayer/next-intl: next-intl के लिए संगतता एडैप्टर
 
 एक संपूर्ण और विस्तृत चरण-दर-चरण ट्यूटोरियल के लिए, कृपया हमारी पूरी [next-intl माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-intl_to_intlayer.md) देखें।
 
@@ -58,3 +58,7 @@ export default withIntlayer(nextConfig);
 - **`useTranslations()` & `getTranslations()`:** bare scope कॉल्स पहले key सेगमेंट को सही dictionary identifier के रूप में निकालते हैं। Nested namespaces gracefully dictionary paths और prefixes में विभाजित होते हैं।
 - **Rich formatting:** `t.rich()` और `t.markup()` दोनों पूरी तरह से natively लागू किए गए हैं, HTML-जैसे नोड्स को rendered React chunks में परिवर्तित करते हैं।
 - **`useFormatter`:** `relativeTime`, `list`, `dateTimeRange`, और कॉन्फ़िगरेशन से named formats core native `Intl` formatters को bridge करते हैं।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)

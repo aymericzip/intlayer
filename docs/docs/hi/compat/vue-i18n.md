@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Vue I18n से Intlayer में माइग्रेट करें"
-description: "सीखें कि compat adapter का उपयोग करके अपने Vue एप्लिकेशन को vue-i18n से Intlayer में कैसे माइग्रेट करें।"
+title: "@intlayer/vue-i18n: vue-i18n के लिए संगतता एडैप्टर"
+description: "अपना vue-i18n कोड बनाए रखें और उसे Intlayer से चलाएँ: @intlayer/vue-i18n इंस्टॉल करें, imports के लिए alias सेट करें, और देखें कि एडैप्टर अंदर क्या बदलता है।"
 keywords:
   - vue-i18n
   - vue
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Vue I18n से Intlayer में माइग्रेट करें
+# @intlayer/vue-i18n: vue-i18n के लिए संगतता एडैप्टर
 
 यदि आपका Vue एप्लिकेशन वर्तमान में `vue-i18n` का उपयोग करता है, तो आप अपने components को फिर से लिखे बिना या translating hooks के बिना Intlayer में माइग्रेट कर सकते हैं। Intlayer एक compat adapter प्रदान करता है जो `vue-i18n` के API को perfectly mirror करता है जबकि hood के तहत Intlayer की शक्तिशाली features का लाभ उठाता है।
 
@@ -57,3 +57,7 @@ export default defineConfig({
 - **Directives:** `v-t` directive को register किया जाता है और सामान्य रूप से कार्य करता है।
 
 आपका application पहले की तरह ही बिल्कुल rendering करता रहता है, लेकिन content आपके Intlayer dictionaries द्वारा powered होता है, जो आपको type safety, बेहतर bundle optimization, और seamless CMS integration देता है।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)

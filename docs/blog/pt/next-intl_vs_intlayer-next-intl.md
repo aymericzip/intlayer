@@ -3,7 +3,7 @@ createdAt: 2026-09-13
 updatedAt: 2026-09-22
 priority: 8
 title: "next-intl vs @intlayer/next-intl: Mesma API, Bundle Diferente"
-description: O que muda quando as importações next-intl de um aplicativo Next.js são servidas pelo adaptador de compatibilidade @intlayer/next-intl. Tamanho do bundle, vazamento, tamanho do componente e hidratação medidos no mesmo código, além do que o adaptador mantém, ignora e não pode substituir.
+description: "Um app Next.js mantém seus imports do next-intl, servidos pelo adaptador @intlayer/next-intl. Tamanho do bundle, vazamento, componentes e hidratação medidos."
 keywords:
   - next-intl
   - use-intl
@@ -25,7 +25,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-intl VS @intlayer/next-intl | Mesma API, Bundle Diferente
+# next-intl VS @intlayer/next-intl: Mesma API, Bundle Diferente
 
 ![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -398,7 +398,7 @@ Mesma série de adaptadores:
 
 As bibliotecas comparadas diretamente:
 
-- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-intl_vs_intlayer.md), mesmo benchmark
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-intl_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-i18next_vs_next-intl_vs_intlayer.md)
 - [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/is_next-intl_outdated.md)
 
@@ -406,9 +406,17 @@ Documentação de referência:
 
 - [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compat/next-intl.md)
 - [Guia de migração: next-intl para Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_next-intl_to_intlayer.md)
-- [Relatório de benchmark do Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/nextjs.md) e [relatório de benchmark do TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md)
-- [Otimização de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md) e [o compilador Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md)
-- [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md) e [tradução por IA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/autoFill.md)
+- [Relatório de benchmark do Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/nextjs.md)
+- [relatório de benchmark do TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/tanstack.md)
+- [Otimização de bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/bundle_optimization.md)
+- [o compilador Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md)
+- [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
+- [tradução por IA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/autoFill.md)
+
+> Para entender de onde vêm essas bibliotecas, leia a história do i18n em JavaScript.
+
+- [A história do i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/history_of_i18n.md)
 
 ## Conclusão
 

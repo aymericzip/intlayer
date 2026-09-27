@@ -53,6 +53,10 @@ Bunun için, Intlayer, JSON çevirilerinizi CLI veya CI/CD boru hatlarında otom
 
 Bu rehber, Intlayer'ın üstün içerik beyan sistemi avantajlarından yararlanırken next-i18next ile uyumluluğu nasıl koruyacağınızı gösterir.
 
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
+
 ## Intlayer'ı next-i18next ile Kurmak İçin Adım Adım Rehber
 
 <Steps>

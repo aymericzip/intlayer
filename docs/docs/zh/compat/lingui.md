@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "从 Lingui 迁移到 Intlayer"
 description: "了解如何使用兼容适配器将您的应用程序从 Lingui 迁移到 Intlayer。"
@@ -43,3 +43,7 @@ Lingui 利用宏（如 `` t`Hello ${name}` `` 和 `<Trans>`），这些宏被编
 - **宏：** 与之前完全一致地编译，确保源代码语法不受任何干扰。
 - **运行时翻译：** 别名化的 `i18n._()` 使用 Intlayer 字典。显式命名的 ID 和哈希 ID 都通过 Intlayer 的 `.po` 同步插件完全映射，以安全地聚合和修剪键值。
 - **ICU 能力：** 由于 Intlayer 的统一 ICU 解析器，对复数化、选择和 ICU 变体的支持保持稳健，确保输出结果完全一致。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)

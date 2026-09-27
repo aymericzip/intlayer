@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Belgeyi Çevir
+title: "intlayer doc translate: Markdown dokümanları çevirin"
 description: AI çeviri servislerini kullanarak dokümantasyon dosyalarının otomatik olarak nasıl çevrileceğini öğrenin.
 keywords:
   - Çeviri

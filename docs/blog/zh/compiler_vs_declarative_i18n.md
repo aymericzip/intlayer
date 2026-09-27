@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-24
-updatedAt: 2025-11-24
+updatedAt: 2026-09-27
 priority: 8
 title: 编译器与声明式国际化的对比
 description: 探讨“魔法”编译器驱动的国际化与显式声明式内容管理之间的架构权衡。
@@ -65,6 +65,10 @@ author: aymericzip
 > - angular-i18n（Angular 原生的预编译方法，在构建时将 XLIFF 文件直接合并到模板中）
 > - Tolgee（结合声明式代码和上下文 SDK，实现 UI 中的“点击翻译”编辑）
 > - Intlayer（基于每个组件的方法，使用内容声明文件，实现原生的 tree-shaking 和 TypeScript 校验）
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## Intlayer 编译器
 

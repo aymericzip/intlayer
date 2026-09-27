@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: getCanonicalPath Function Documentation | intlayer
-description: See how to use the getCanonicalPath function for intlayer package
+description: "Use getCanonicalPath to map a localized URL path such as /a-propos back to its internal route such as /about for routing."
 keywords:
   - getCanonicalPath
   - translation
@@ -121,5 +121,5 @@ getCanonicalPath("/contactez-nous", Locales.FRENCH, manualRules);
 
 ## Related Functions
 
-- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedPath.md): Resolves a canonical path into its localized equivalent.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md): Generates a fully localized URL (including protocol, host, and locale prefix).
+- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)

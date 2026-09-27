@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: İçerik Dosyası
-description: İçerik bildirim dosyalarınız için uzantıları nasıl özelleştireceğinizi öğrenin. Projenizde koşulları verimli bir şekilde uygulamak için bu dokümantasyonu takip edin.
+title: "İçerik bildirim dosyaları (.content.ts)"
+description: "Çok dilli içeriği bileşenlerinizin yanındaki .content dosyalarında tanımlayın: desteklenen formatlar, dosya uzantıları ve Intlayer'ın bunları nasıl bulduğu."
 keywords:
   - İçerik Dosyası
   - Dokümantasyon

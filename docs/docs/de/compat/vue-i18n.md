@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Migration von Vue I18n zu Intlayer"
-description: "Erfahren Sie, wie Sie Ihre Vue-Anwendung von vue-i18n zu Intlayer mithilfe des Compat-Adapters migrieren."
+title: "@intlayer/vue-i18n: Kompatibilitätsadapter für vue-i18n"
+description: "Behalten Sie Ihren vue-i18n-Code und liefern Sie ihn mit Intlayer aus: @intlayer/vue-i18n installieren, Imports umleiten und sehen, was der Adapter intern ändert."
 keywords:
   - vue-i18n
   - vue
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Migration von Vue I18n zu Intlayer
+# @intlayer/vue-i18n: Kompatibilitätsadapter für vue-i18n
 
 Wenn Ihre Vue-Anwendung derzeit `vue-i18n` verwendet, können Sie zu Intlayer migrieren, ohne Ihre Komponenten umzuschreiben oder Hooks zu übersetzen. Intlayer bietet einen Compat-Adapter, der die API von `vue-i18n` perfekt spiegelt und dabei die leistungsstarken Funktionen von Intlayer im Hintergrund nutzt.
 
@@ -57,3 +57,7 @@ Das `vueI18nVitePlugin` injiziert einen Modul-Alias in Ihren Bundler. Jeder Impo
 - **Direktiven:** Die `v-t`-Direktive ist registriert und funktioniert normal.
 
 Ihre Anwendung rendert weiterhin genau wie zuvor, aber der Inhalt wird von Ihren Intlayer-Wörterbüchern bereitgestellt, was Ihnen Typsicherheit, bessere Bundle-Optimierung und nahtlose CMS-Integration bietet.
+
+> Um zu verstehen, woher diese Bibliotheken kommen, lesen Sie die Geschichte von i18n in JavaScript.
+
+- [Die Geschichte von i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/history_of_i18n.md)

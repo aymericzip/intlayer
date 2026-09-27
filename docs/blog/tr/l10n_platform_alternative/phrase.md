@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-18
-updatedAt: 2025-11-06
+updatedAt: 2026-09-27
 priority: 8
-title: Phrase için L10n Platformu Alternatifi
-description: İhtiyaçlarınız için Phrase'e en uygun L10n platform alternatifini bulun
+title: "Yerelleştirme için açık kaynaklı Phrase alternatifi"
+description: "Phrase ile açık kaynaklı çeviri yönetim sistemi Intlayer karşılaştırması: iş akışı, geliştirici entegrasyonu, yapay zeka çevirisi ve fiyatlar."
 keywords:
   - L10n
   - TMS
@@ -25,19 +25,19 @@ author: aymericzip
 
 <TOC/>
 
-# Çeviri Yönetim Sistemi
+## Çeviri Yönetim Sistemi
 
 Çeviri Yönetim Sistemi (TMS), çeviri ve lokalizasyon (L10n) sürecini otomatikleştirmek ve kolaylaştırmak için tasarlanmış bir yazılım platformudur. Geleneksel olarak, bir TMS içeriklerin yüklendiği, düzenlendiği ve insan çevirmenlere atandığı merkezi bir platform olarak hizmet verir. Çalışma akışlarını yönetir, çeviri hafızalarını depolar (aynı cümlenin tekrar çevrilmesini önlemek için) ve çevrilmiş dosyaların geliştiricilere veya içerik yöneticilerine geri teslim edilmesini sağlar.
 
 Özünde, TMS tarihsel olarak teknik kod (string'lerin bulunduğu yer) ile kültürü anlayan insan dil uzmanları arasında bir köprü olmuştur.
 
-# Phrase (eski adıyla PhraseApp)
+## Phrase (eski adıyla PhraseApp)
 
 Phrase, kurumsal lokalizasyon alanında önemli bir oyuncudur. Eskiden PhraseApp olarak bilinen Phrase, özellikle Memsource ile birleşmesinin ardından önemli ölçüde büyümüştür. Kendini, güçlü API yetenekleri ve geniş format desteği sunan, yazılım lokalizasyonu için tasarlanmış kapsamlı bir Localization Suite olarak konumlandırır.
 
 Phrase, ölçek için inşa edilmiştir. Çok sayıda farklı ekip arasında karmaşık iş akışlarını, geniş çeviri hafızalarını ve sıkı kalite güvence süreçlerini yönetmesi gereken büyük kuruluşların tercih ettiği çözümdür. Gücü, hem yazılım string'leri hem de belge çevirisi için hepsi bir arada bir ekosistem sunarak "heavy duty" lokalizasyon görevlerini yönetebilme yeteneğindedir.
 
-# Intlayer
+## Intlayer
 
 Intlayer esas olarak bir i18n çözümü olarak bilinse de aynı zamanda bir headless CMS ile entegre çalışır. Büyük, harici bir kurumsal paket olarak işlev gören Phrase'in aksine, Intlayer çevik ve koda entegre bir katman olarak hareket eder. Paketleme katmanından uzak içerik teslimine kadar tüm stack'i kontrol ederek modern web uygulamaları için daha akıcı ve verimli bir içerik akışı sağlar.
 
@@ -59,7 +59,7 @@ Intlayer, Yapay Zeka çağında doğmuş, özellikle modern JavaScript/TypeScrip
 2.  **Geliştirici Deneyimi (DX):** Phrase dosyaları senkronize etmek için büyük ölçüde CLI araçlarına ve API çağrılarına dayanır. Intlayer derleyiciye (bundler) ve çalışma zamanına doğrudan entegre olur. Bu, tanımlarınızın sıkı tipli (TypeScript) olduğu ve eksik anahtarların üretimde değil derleme zamanında yakalandığı anlamına gelir.
 3.  **Piyasaya Hız:** Intlayer TMS'nin "kara kutu"sunu ortadan kaldırır. Dosyaları gönderip geri gelmelerini beklemezsiniz. CI hattınızda veya yerel ortamınızda AI ile çevirileri anında üreterek geliştirme döngüsünü sıkı tutarsınız.
 
-# Yan yana karşılaştırma
+## Yan yana karşılaştırma
 
 | Özellik                  | Phrase (Kurumsal TMS)                      | Intlayer (AI-Native)                                      |
 | :----------------------- | :----------------------------------------- | :-------------------------------------------------------- |

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-27
 priority: 8
-title: Building a RAG-Powered Documentation Assistant (Chunking, Embeddings, and Search)
-description: Building a RAG-Powered Documentation Assistant (Chunking, Embeddings, and Search)
+title: "Building a RAG Documentation Assistant"
+description: "How we built an AI assistant for our docs: chunking markdown, generating embeddings, vector search and prompting, with the trade-offs we hit along the way."
 keywords:
   - RAG
   - Documentation

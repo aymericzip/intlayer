@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-02-09
-updatedAt: 2026-03-03
+updatedAt: 2026-09-27
 priority: 6
-title: Agent Skills
-description: Aprenda a usar las Agent Skills de Intlayer para mejorar la comprensión de su proyecto por parte de su agente de IA, incluyendo guías de configuración completas para Metadatos, Sitemaps y Acciones del Servidor.
+title: "Agent Skills de Intlayer para agentes de código IA"
+description: "Dale a tu agente de código IA las skills de Intlayer: guías de configuración para contenido, metadatos, sitemaps y server actions."
 keywords:
   - Intlayer
   - Agent Skills

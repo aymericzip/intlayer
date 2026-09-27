@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Bộ Điều Hợp Tương Thích Intlayer"
+title: "Adapter tương thích Intlayer cho các thư viện i18n"
 description: "Di chuyển giải pháp i18n hiện có của bạn sang Intlayer một cách dễ dàng bằng các bộ điều hợp tương thích."
 keywords:
   - compat
@@ -31,6 +31,10 @@ Các gói điều hợp này cung cấp **chính xác cùng một API công khai
 Khi bạn sử dụng một bộ điều hợp tương thích, bạn không cần phải viết lại các lệnh import trong ứng dụng hoặc thay đổi cách bạn sử dụng các hook và component dịch thuật. Thay vào đó, các plugin bundler của Intlayer tự động tạo bí danh cho các import hiện có của bạn sang các gói tương thích Intlayer.
 
 Ví dụ, một nhà phát triển thay thế `import { useTranslation } from 'react-i18next'` bằng `import { useTranslation } from '@intlayer/react-i18next'` (được thực hiện tự động thông qua plugin bundler), và ứng dụng tiếp tục hoạt động với các bản dịch nay được cung cấp từ từ điển Intlayer. Các key cũng được đánh kiểu dựa trên từ điển Intlayer của bạn!
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Các Bộ Điều Hợp Tương Thích Có Sẵn
 

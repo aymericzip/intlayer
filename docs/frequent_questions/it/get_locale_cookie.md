@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Come recuperare la locale dai cookie / header?
-description: Scopri come recuperare la locale dai cookie / header.
+description: "Leggi la locale corrente da cookie o header della richiesta con Intlayer, sul server o in un middleware, per mostrare la lingua giusta."
 keywords:
   - cookie
   - header

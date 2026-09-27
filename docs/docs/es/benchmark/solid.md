@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: La mejor solución i18n para Solid en 2026 - Informe de Benchmark
 description: Compara bibliotecas de internacionalización (i18n) para Solid como solid-primitives, solid-i18next, Tolgee e Intlayer. Informe de rendimiento detallado sobre el tamaño del bundle, fugas y reactividad.
@@ -69,6 +69,10 @@ A medida que su aplicación crece, ese problema puede aumentar rápidamente el J
 En la práctica, para las implementaciones menos optimizadas, una página internacionalizada puede terminar siendo varias veces más pesada que la versión sin i18n.
 
 El otro impacto es en la experiencia del desarrollador (DX): cómo se declara el contenido, los tipos, la organización de los namespaces, la carga dinámica y la reactividad cuando cambia el idioma.
+
+> Para entender de dónde vienen estas bibliotecas, lee la historia del i18n en JavaScript.
+
+- [La historia del i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md)
 
 ## TL;DR
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Wörterbücher erstellen
+title: "intlayer build: Wörterbücher bauen"
 description: Erfahren Sie, wie Sie Ihre Intlayer-Wörterbücher aus Inhaltsdeklarationsdateien erstellen.
 keywords:
   - Erstellen

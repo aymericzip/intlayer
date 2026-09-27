@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: 检查 CLI 版本
-description: 了解如何检查已安装的 Intlayer CLI 版本。
+title: "intlayer version：查看已安装的 CLI"
+description: "查看项目中安装的 Intlayer CLI 及其依赖包的版本，便于排查版本不一致的错误。"
 keywords:
   - 版本
   - CLI

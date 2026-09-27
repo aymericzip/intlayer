@@ -2,7 +2,7 @@
 createdAt: 2024-08-14
 updatedAt: 2026-05-31
 priority: 8
-title: Lợi ích của Intlayer
+title: "Vì sao chọn Intlayer? Ưu điểm so với các thư viện i18n khác"
 description: Khám phá những lợi ích và ưu điểm của việc sử dụng Intlayer trong các dự án của bạn. Hiểu tại sao Intlayer nổi bật giữa các khung khác.
 keywords:
   - Lợi ích
@@ -222,6 +222,10 @@ Cách tiếp cận này cho phép bạn:
 
 6. **Tối ưu hóa hiệu suất tải**
    - Nếu một component được lazy-loaded, nội dung liên quan của nó sẽ được tải cùng lúc
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Các tính năng bổ sung của Intlayer
 

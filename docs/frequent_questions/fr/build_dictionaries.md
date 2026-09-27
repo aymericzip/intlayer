@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Comment construire des dictionnaires ?
-description: Apprenez comment construire des dictionnaires.
+description: "Quand Intlayer construit les dictionnaires automatiquement, comment lancer un build manuel avec la CLI, et où les fichiers générés sont écrits."
 keywords:
   - construire
   - dictionnaires

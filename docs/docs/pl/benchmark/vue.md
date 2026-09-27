@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: Najlepsze rozwiązanie i18n dla Vue w 2026 r. - raport z benchmarku
 description: Porównaj biblioteki internacjonalizacji (i18n) dla Vue, takie jak vue-i18n, fluent-vue, Tolgee i Intlayer. Szczegółowy raport wydajności dotyczący rozmiaru paczki, wycieków i reaktywności.
@@ -69,6 +69,10 @@ W miarę rozwoju aplikacji problem ten może szybko zwiększyć ilość JavaScri
 W praktyce, w przypadku najmniej zoptymalizowanych implementacji, strona zinternacjonalizowana może okazać się kilkukrotnie cięższa niż wersja bez i18n.
 
 Innym skutkiem jest wpływ na doświadczenie programisty (DX): sposób deklarowania treści, typy, organizacja przestrzeni nazw (namespaces), dynamiczne ładowanie i reaktywność przy zmianie lokalizacji.
+
+> Aby zrozumieć, skąd wzięły się te biblioteki, przeczytaj historię i18n w JavaScript.
+
+- [Historia i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/history_of_i18n.md)
 
 ## TL;DR
 

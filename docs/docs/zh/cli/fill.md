@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 填充字典
-description: 学习如何使用 AI 填充、审核和翻译您的字典。
+title: "intlayer fill：用 AI 翻译字典"
+description: "通过 CLI 在本地或 CI 中补全缺失的翻译、审查已有翻译，并用 AI 翻译 Intlayer 字典。"
 keywords:
   - 填充
   - 审核

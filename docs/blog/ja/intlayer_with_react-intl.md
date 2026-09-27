@@ -2,7 +2,7 @@
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
 priority: 8
-title: Intlayerを使ってreact-intlのJSON翻訳を自動化する方法
+title: "Intlayer で react-intl の JSON 翻訳を自動化する"
 description: Reactアプリケーションの国際化を強化するために、Intlayerとreact-intlを使ってJSON翻訳を自動化する方法。
 keywords:
   - react-intl
@@ -53,6 +53,10 @@ Intlayerは優れた単独のi18nソリューションを提供します（[Reac
 **そのために、Intlayerはreact-intlのアダプターとして実装可能であり、CLIやCI/CDパイプラインでのJSON翻訳の自動化、翻訳のテストなどを支援します。**
 
 このガイドでは、react-intlとの互換性を維持しながら、Intlayerの優れたコンテンツ宣言システムを活用する方法を説明します。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## react-intlとIntlayerをセットアップするステップバイステップガイド
 

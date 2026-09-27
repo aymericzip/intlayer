@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "SvelteKit i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) SvelteKit uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "SvelteKit'te Intlayer kurulumu: hooks ile locale yönlendirme, load fonksiyonlarında ve bileşenlerde çevrilmiş içerik, hreflang ve sitemap."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer kullanarak SvelteKit web sitenizi çevirin | Uluslararasılaştırma (i18n)
+# Intlayer kullanarak SvelteKit web sitenizi çevirin
 
 <Tabs defaultTab="code">
   <Tab label="Kod" value="code">
@@ -768,8 +768,8 @@ Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir.
 
 ### Daha İleri Gitmek İçin
 
-- **Görsel Editör**: Çevirileri doğrudan kullanıcı arayüzünden düzenlemek için [Intlayer Görsel Editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) ile entegre olun.
-- **CMS**: İçerik yönetiminizi dışa aktararak [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanın.
+- [Intlayer Görsel Editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
 
 ## Sıkça Sorulan Sorular
 

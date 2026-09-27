@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-12
+updatedAt: 2026-09-27
 priority: 8
-title: Coleções
+title: "Coleções: listas ordenadas de itens localizados"
 description: Use o campo de metadados item em arquivos de conteúdo do Intlayer para criar coleções ordenadas de itens localizados selecionáveis por índice em tempo de execução.
 keywords:
   - Coleções

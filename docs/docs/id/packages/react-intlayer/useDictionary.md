@@ -3,7 +3,7 @@ createdAt: 2025-02-07
 updatedAt: 2025-06-29
 priority: 5
 title: Hook useDictionary - Dokumentasi React Intlayer
-description: Panduan lengkap untuk menggunakan hook useDictionary dalam aplikasi React dengan Intlayer untuk penanganan konten lokal yang efisien tanpa editor visual.
+description: "Gunakan useDictionary di React untuk menginterpretasi objek kamus yang Anda deklarasikan sendiri, dengan terjemahan, enumerasi, dan lainnya."
 keywords:
   - useDictionary
   - React

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Arquivo
-description: Aprenda como incorporar arquivos externos no seu dicionário de conteúdo usando a função `file`. Esta documentação explica como o Intlayer vincula e gerencia o conteúdo de arquivos dinamicamente.
+title: "Conteúdo de arquivo: incorporar arquivos externos"
+description: "Incorpore arquivos externos como markdown ou texto nos dicionários do Intlayer com a função file(), sincronizados com o arquivo de origem."
 keywords:
   - Arquivo
   - Internacionalização

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "Cómo elegir la librería de i18n adecuada para React en 2026"
-description: Una guía de decisión para la internacionalización en React. Qué preguntas responder antes de comparar react-i18next, react-intl, Lingui, use-intl, Paraglide e Intlayer, y qué cuesta cada opción en tamaño de bundle, tipado y mantenimiento.
+description: "Una guía de decisión para i18n en React: las preguntas a responder antes de comparar react-i18next, react-intl, Lingui, use-intl, Paraglide e Intlayer."
 keywords:
   - react i18n
   - react internationalization
@@ -25,8 +25,6 @@ author: aymericzip
 React no incluye ninguna primitiva de i18n. La librería que elijas el primer día decide cómo se almacenan las traducciones, cómo llegan al bundle y cuánto trabajo seguirá siendo tuyo durante los próximos años. La mayoría de los equipos eligen por popularidad y luego descubren las desventajas al llegar a las 2.000 claves.
 
 Esta guía sigue el camino inverso: responde primero a unas pocas preguntas sobre tu proyecto y luego asigna las respuestas a las librerías adecuadas. Se centra en React puro (Vite, React Router, TanStack Start). Next.js tiene sus propias restricciones, cubiertas en la [comparativa de Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/next-i18next_vs_next-intl_vs_intlayer.md).
-
-![Ecosistema de librerías React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Tabla de contenidos
 
@@ -97,6 +95,8 @@ Si tu respuesta a la pregunta 3 fue "muchos locales, muchas páginas", dale más
 
 Los tamaños de las librerías provienen del [benchmark de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md): provider más hook en un componente vacío, tras bundling, tree-shaking y minificación, 10 páginas y 10 locales. El contenido se mide por separado.
 
+![Ecosistema de librerías React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Librería                | Ola          | Modelo de contenido                     | Seguridad de tipos                  | Formato de mensaje            | Tamaño de librería                                |
 | :---------------------- | :----------- | :-------------------------------------- | :---------------------------------- | :---------------------------- | :------------------------------------------------ |
 | `react-i18next`         | Runtime      | JSON central, namespaces                | 2/5 — Opt-in (`CustomTypeOptions`)  | i18next (plurales sufijo)     | ~18.4 kB                                          |
@@ -147,7 +147,7 @@ Entonces un JSON centralizado ya no es un requisito, ya que no hay un TMS al que
 </Accordion>
 <Accordion header="Es posible que migres a Next.js App Router más adelante">
 
-El contexto de React no cruza la frontera entre cliente y servidor. Las librerías construidas únicamente sobre un hook de cliente (`react-i18next`, `react-intl`) necesitarán una API de servidor paralela el día que adoptes RSC. `use-intl` (como `next-intl`) e Intlayer (como `next-intlayer`) ya cuentan con esa división. Lee el [artículo sobre i18n en Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/list_i18n_technologies/frameworks/nextjs.md) antes de estandarizar un patrón.
+El contexto de React no cruza la frontera entre cliente y servidor. Las librerías construidas únicamente sobre un hook de cliente (`react-i18next`, `react-intl`) necesitarán una API de servidor paralela el día que adoptes RSC. `use-intl` (como `next-intl`) e Intlayer (como `next-intlayer`) ya cuentan con esa división. Lee el [artículo sobre i18n en Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/next-i18next_vs_next-intl_vs_intlayer.md) antes de estandarizar un patrón.
 
 </Accordion>
 </AccordionGroup>
@@ -559,8 +559,8 @@ Indirectamente. Lo que ven los rastreadores está determinado por el enrutamient
 
 ## Para ir más lejos
 
-- [Benchmark de librerías de i18n: tamaño del bundle, fugas y tiempos de cambio de locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md) y el [informe de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md)
-- [React i18n: cómo funciona el modelo de providers y cuánto cuesta](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/list_i18n_technologies/frameworks/react.md)
+- [Benchmark de librerías de i18n: tamaño del bundle, fugas y tiempos de cambio de locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md)
+- [informe de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md)
 - [react-i18next vs react-intl vs Intlayer, característica por característica](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/react-i18next_vs_react-intl_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/next-i18next_vs_next-intl_vs_intlayer.md)
 - [La historia de la i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md)
@@ -568,4 +568,9 @@ Indirectamente. Lo que ven los rastreadores está determinado por el enrutamient
 - [i18n por componente vs. centralizado](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/per-component_vs_centralized_i18n.md)
 - [Cómo funciona la optimización del bundle en tiempo de build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/bundle_optimization.md)
 - [Configurar i18n en una app Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md)
-- Misma guía para [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/how_to_pick_vue_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/how_to_pick_svelte_i18n_library.md) y [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/how_to_pick_solid_i18n_library.md)
+
+Misma guía para
+
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/how_to_pick_solid_i18n_library.md)

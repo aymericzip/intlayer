@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: 调试 Intlayer 命令
-description: 学习如何调试和排查 Intlayer CLI 问题。
+title: "调试 Intlayer CLI"
+description: "排查 Intlayer CLI 问题：检查已安装的版本、启用详细日志，并修复常见的命令和配置错误。"
 keywords:
   - 调试
   - 排查

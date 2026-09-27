@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Zawartość warunkowa
-description: Dowiedz się, jak używać zawartości warunkowej w Intlayer, aby dynamicznie wyświetlać treści na podstawie określonych warunków. Postępuj zgodnie z tą dokumentacją, aby efektywnie wdrażać warunki w swoim projekcie.
+title: "Treść warunkowa w Intlayer"
+description: "Wyświetlaj różne treści w zależności od warunku logicznego za pomocą węzła cond() w Intlayer, deklarowanego raz i rozwiązywanego przy renderowaniu."
 keywords:
   - Zawartość warunkowa
   - Dynamiczne renderowanie

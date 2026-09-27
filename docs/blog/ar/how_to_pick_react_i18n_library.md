@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "كيفية اختيار مكتبة React i18n المناسبة في عام 2026"
-description: دليل اتخاذ القرار لتدويل تطبيقات React. ما هي الأسئلة التي يجب الإجابة عليها قبل المقارنة بين react-i18next و react-intl و Lingui و use-intl و Paraglide و Intlayer، وتكلفة كل خيار من حيث حجم الحزمة (bundle size) والأمان البرمجي (typing) والصيانة.
+description: "دليل لاختيار i18n في React: الأسئلة التي يجب الإجابة عنها قبل مقارنة react-i18next وreact-intl وLingui وuse-intl وParaglide وIntlayer."
 keywords:
   - react i18n
   - react internationalization
@@ -25,8 +25,6 @@ author: aymericzip
 لا توفر React أي عنصر أولي (primitive) مدمج للتدويل (i18n). المكتبة التي تختارها من اليوم الأول تحدد كيفية تخزين الترجمات، وكيفية وصولها إلى الحزمة (bundle)، ومقدار العمل اليدوي الذي سيبقى على عاتقك للسنوات القليلة القادمة. تختار معظم الفرق بناءً على الشعبية فقط، ثم تكتشف التنازلات المعمارية عند الوصول إلى 2,000 مفتاح.
 
 يسلك هذا الدليل الاتجاه المعاكس: أجب عن بعض الأسئلة حول مشروعك أولاً، ثم طابق الإجابات مع المكتبات المناسبة. يركز هذا الدليل على تطبيقات React البسيطة (Vite و React Router و TanStack Start). لدى Next.js قيودها الخاصة، والتي تم تناولها في [مقارنة Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md).
-
-![النظام البيئي لمكتبات React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## جدول المحتويات
 
@@ -97,6 +95,8 @@ author: aymericzip
 
 أحجام المكتبات مأخوذة من [اختبار أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md): الـ provider بالإضافة إلى الـ hook في مكون فارغ، بعد التجميع والـ tree-shaking والـ minification، لـ 10 صفحات و10 لغات. يتم قياس المحتوى بشكل منفصل.
 
+![النظام البيئي لمكتبات React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | المكتبة                 | الموجة       | نموذج المحتوى                         | أمان الأنواع                        | تنسيق الرسائل                 | حجم المكتبة                                        |
 | :---------------------- | :----------- | :------------------------------------ | :---------------------------------- | :---------------------------- | :------------------------------------------------- |
 | `react-i18next`         | وقت التشغيل  | JSON مركزي، namespaces                | 2/5 — اختياري (`CustomTypeOptions`) | i18next (لواحق الجمع)         | ~18.4 kB                                           |
@@ -147,7 +147,7 @@ author: aymericzip
 </Accordion>
 <Accordion header="قد تنتقل إلى Next.js App Router لاحقاً">
 
-لا يعبر سياق React حدود الخادم/العميل. ستحتاج المكتبات المبنية على خطاف عميل فقط (`react-i18next` و `react-intl`) إلى واجهة برمجة تطبيقات موازية للخادم فور اعتمادك لـ RSC. تمتلك `use-intl` (باسم `next-intl`) و Intlayer (باسم `next-intlayer`) هذا التقسيم بالفعل. اقرأ [مقال Next.js i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/frameworks/nextjs.md) قبل اعتماد نمط موحد.
+لا يعبر سياق React حدود الخادم/العميل. ستحتاج المكتبات المبنية على خطاف عميل فقط (`react-i18next` و `react-intl`) إلى واجهة برمجة تطبيقات موازية للخادم فور اعتمادك لـ RSC. تمتلك `use-intl` (باسم `next-intl`) و Intlayer (باسم `next-intlayer`) هذا التقسيم بالفعل. اقرأ [مقال Next.js i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md) قبل اعتماد نمط موحد.
 
 </Accordion>
 </AccordionGroup>
@@ -565,8 +565,8 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 ## للمزيد من التفاصيل
 
-- [اختبار أداء مكتبات i18n: حجم الحزمة والتسريب وتوقيت تبديل اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md) و [تقرير TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
-- [React i18n: كيف يعمل نموذج المزود (provider) وتكلفته](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/frameworks/react.md)
+- [اختبار أداء مكتبات i18n: حجم الحزمة والتسريب وتوقيت تبديل اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)
+- [تقرير TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
 - [react-i18next مقابل react-intl مقابل Intlayer، ميزة بميزة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/react-i18next_vs_react-intl_vs_intlayer.md)
 - [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md)
 - [تاريخ JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
@@ -574,4 +574,9 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 - [الـ i18n لكل مكون مقابل المركزي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md)
 - [كيف يعمل تحسين الحزمة في وقت البناء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
 - [إعداد i18n في تطبيق Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react.md)
-- نفس الدليل لكل من [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_vue_i18n_library.md)، و [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_svelte_i18n_library.md)، و [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_solid_i18n_library.md)
+
+نفس الدليل لكل من
+
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_solid_i18n_library.md)

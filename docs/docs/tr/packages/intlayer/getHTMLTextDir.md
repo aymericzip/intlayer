@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 5
 title: getHTMLTextDir Fonksiyonu Dokümantasyonu | intlayer
-description: intlayer paketinde getHTMLTextDir fonksiyonunun nasıl kullanılacağını görün
+description: "getHTMLTextDir ile bir locale'in yazı yönünü (ltr, rtl veya auto) alın ve HTML'inizin dir niteliğini ayarlayın."
 keywords:
   - getHTMLTextDir
   - çeviri

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrate from next-intl to Intlayer"
-description: "Learn how to migrate your Next.js application from next-intl to Intlayer using the compat adapter."
+title: "@intlayer/next-intl: Compat Adapter for next-intl"
+description: "Keep your next-intl code and serve it from Intlayer: install @intlayer/next-intl, alias the imports, and see what the adapter changes under the hood."
 keywords:
   - next-intl
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Migrate from next-intl to Intlayer
+# @intlayer/next-intl: Compat Adapter for next-intl
 
 For a complete and detailed step-by-step tutorial, please see our full [next-intl Migration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/migration_from_next-intl_to_intlayer.md).
 
@@ -58,3 +58,7 @@ Under the hood:
 - **`useTranslations()` & `getTranslations()`:** The bare scope calls extract the first key segment as the correct dictionary identifier. Nested namespaces gracefully split into dictionary paths and prefixes.
 - **Rich formatting:** Both `t.rich()` and `t.markup()` are fully natively implemented, converting HTML-like nodes into rendered React chunks.
 - **`useFormatter`:** `relativeTime`, `list`, `dateTimeRange`, and named formats from the configuration bridge to the core native `Intl` formatters.
+
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md)

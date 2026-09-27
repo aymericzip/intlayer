@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-09-27
 priority: 8
-title: Słowniki dynamiczne
+title: "Dynamiczne słowniki: kolekcje i warianty"
 description: Przegląd funkcji słowników dynamicznych Intlayer — kolekcji i wariantów — do tworzenia elastycznej, sterowanej w czasie wykonywania treści i18n.
 keywords:
   - Słowniki dynamiczne

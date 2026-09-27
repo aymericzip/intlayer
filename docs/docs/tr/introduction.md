@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
-title: Giriş
+title: "Intlayer'a başlayın: her framework için i18n"
 description: Intlayer'ın nasıl çalıştığını keşfedin. Uygulamanızda Intlayer tarafından kullanılan adımları görün. Farklı paketlerin ne yaptığını öğrenin.
 keywords:
   - Giriş
@@ -211,8 +211,8 @@ Intlayer'ı esnekliği göz önünde bulundurarak geliştirdik; popüler çerçe
 - **[AdonisJS ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_adonisjs.md)**
 - **[Elysia ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_elysia.md)**
 - **[Storybook ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_storybook.md)**
-- **[next-intl ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_next-intl.md)**
-- **[next-i18next ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_next-i18next.md)**
+- **[next-intl ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/intlayer_with_next-intl.md)**
+- **[next-i18next ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/intlayer_with_next-i18next.md)**
 
 Her entegrasyon kılavuzu, hızlı, SEO dostu ve son derece ölçeklenebilir bir uygulama sunabilmeniz için **sunucu tarafı oluşturma (SSR)**, **dinamik yönlendirme** veya **istemci tarafı oluşturma** gibi Intlayer'ın özelliklerini kullanmaya yönelik en iyi uygulamaları içerir.
 

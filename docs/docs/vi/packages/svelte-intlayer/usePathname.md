@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm usePathname | svelte-intlayer
-description: Tìm hiểu cách sử dụng hàm usePathname từ gói svelte-intlayer
+description: "Dùng usePathname trong Svelte để đọc đường dẫn hiện tại không có phân đoạn locale, dưới dạng readable store cho điều hướng theo locale."
 keywords:
   - usePathname
   - pathname
@@ -100,5 +100,5 @@ import { usePathname } from "svelte-intlayer";
 
 ## Các tài liệu liên quan
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/svelte-intlayer/useLocale.md) — locale hiện tại + bộ chuyển đổi locale
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md) — tiện ích nền tảng được sử dụng bởi hook này
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/svelte-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md)

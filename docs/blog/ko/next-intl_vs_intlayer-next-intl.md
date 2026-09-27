@@ -3,7 +3,7 @@ createdAt: 2026-09-13
 updatedAt: 2026-09-22
 priority: 8
 title: "next-intl vs @intlayer/next-intl: 동일한 API, 다른 번들"
-description: Next.js 앱의 next-intl imports가 @intlayer/next-intl compat adapter에 의해 제공될 때 어떤 변화가 생기는지 알아봅니다. 동일한 코드에서 측정된 번들 크기, leakage, 컴포넌트 크기 및 hydration, 그리고 adapter가 유지하는 것, 무시하는 것 및 대체할 수 없는 것.
+description: "Next.js 앱이 next-intl import를 유지한 채 @intlayer/next-intl 어댑터로 제공됩니다. 번들 크기, 누출, 컴포넌트 크기, 하이드레이션을 측정했습니다."
 keywords:
   - next-intl
   - use-intl
@@ -25,7 +25,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-intl VS @intlayer/next-intl | 동일한 API, 다른 번들
+# next-intl VS @intlayer/next-intl: 동일한 API, 다른 번들
 
 ![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -398,7 +398,7 @@ Intlayer 코어 위에 `next-intl` API 표면(`useFormatter`, `t.rich`, ICU 해�
 
 두 라이브러리 직접 비교:
 
-- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer.md), 동일한 벤치마크
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
 - [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/is_next-intl_outdated.md)
 
@@ -406,9 +406,17 @@ Intlayer 코어 위에 `next-intl` API 표면(`useFormatter`, `t.rich`, ICU 해�
 
 - [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/next-intl.md)
 - [마이그레이션 가이드: next-intl에서 Intlayer로](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)
-- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md) 및 [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
-- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md) 및 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
-- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md) 및 [AI 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)
+- [Next.js 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+- [TanStack Start 벤치마크 보고서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+- [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+- [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+- [AI 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## 결론
 

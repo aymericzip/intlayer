@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: Tài liệu Hook useI18n | react-intlayer
-description: Tìm hiểu cách sử dụng hook useI18n trong gói react-intlayer
+description: "Dùng useI18n trong React để lấy hàm dịch gắn với một từ điển, tiện lợi khi chuyển từ các thư viện dựa trên key."
 keywords:
   - useI18n
   - i18n

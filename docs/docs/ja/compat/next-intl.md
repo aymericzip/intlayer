@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "next-intl から Intlayer への移行"
-description: "compat アダプタを使用して、Next.js アプリケーションを next-intl から Intlayer に移行する方法を学びます。"
+title: "@intlayer/next-intl：next-intl 互換アダプター"
+description: "next-intl のコードはそのままで Intlayer から配信：@intlayer/next-intl をインストールし、インポートにエイリアスを設定して、アダプターが内部で何を変えるかを確認します。"
 keywords:
   - next-intl
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# next-intl から Intlayer への移行
+# @intlayer/next-intl：next-intl 互換アダプター
 
 完全で詳細なステップバイステップチュートリアルについては、[next-intl 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)を参照してください。
 
@@ -58,3 +58,7 @@ bundlerラッパーは翻訳を置き換えますが、**`next-intl/navigation`�
 - **`useTranslations()` & `getTranslations()`:** ベアスコープの呼び出しは、最初のキーセグメントを正しい辞書識別子として抽出します。ネストされた名前空間は、辞書パスとプレフィックスに適切に分割されます。
 - **Rich formatting:** `t.rich()`と`t.markup()`の両方が完全にネイティブに実装され、HTML風のノードをレンダリングされたReactチャンクに変換します。
 - **`useFormatter`:** `relativeTime`、`list`、`dateTimeRange`、および設定からの名前付きフォーマットが、コアのネイティブな`Intl`フォーマッターにブリッジされます。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)

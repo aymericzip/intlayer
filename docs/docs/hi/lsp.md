@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-10
+updatedAt: 2026-09-27
 priority: 6
-title: Intlayer LSP सर्वर
+title: "आपके IDE के लिए Intlayer लैंग्वेज सर्वर (LSP)"
 description: जानें कि Intlayer लैंग्वेज सर्वर आपके IDE और AI एजेंट में परिभाषा पर जाना, संदर्भ खोजना, होवर पूर्वावलोकन, कुंजी ऑटोकम्प्लीशन और डायग्नोस्टिक्स कैसे लाता है।
 keywords:
   - LSP

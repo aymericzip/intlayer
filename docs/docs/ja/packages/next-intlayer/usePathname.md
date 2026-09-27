@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname フック ドキュメント | next-intlayer
-description: next-intlayer パッケージの usePathname フックの使用方法を学びます
+description: "Next.js の usePathname で、ロケールセグメントを除いた現在のパスを取得し、ロケール対応のナビゲーションやアクティブリンクに使います。"
 keywords:
   - usePathname
   - pathname
@@ -133,5 +133,5 @@ export default Sidebar;
 
 ## 関連
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useLocale.md) — 現在のロケール + ロケールスイッチャー（`pathWithoutLocale` も公開）
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md) — このフックで使用される基礎的なユーティリティ
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md)

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
-title: Intlayer プロジェクトを一覧表示
+title: "intlayer projects list：Intlayer プロジェクトを探す"
 description: ディレクトリまたは git リポジトリ内のすべての Intlayer プロジェクトを一覧表示する方法を学びます。
 keywords:
   - 一覧

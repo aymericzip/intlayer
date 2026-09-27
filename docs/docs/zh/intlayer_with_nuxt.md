@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Nuxt i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Nuxt 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在 Nuxt 中配置 Intlayer：按组件的类型化内容、语言路由与检测、本地化 SEO 元标签和多语言站点地图。"
 keywords:
   - 国际化
   - 文档
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译您的 Nuxt 和 Vue 网站 | 国际化 (i18n)
+# 使用 Intlayer 翻译您的 Nuxt 和 Vue 网站
 
 ## 目录
 

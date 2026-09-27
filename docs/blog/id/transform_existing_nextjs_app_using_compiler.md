@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 8
-title: "Cara Membuat Multibahasa (i18n) Aplikasi Next.js yang Sudah Ada Setelahnya (Panduan i18n 2026)"
-description: "Panduan 2026 untuk menambahkan dukungan multibahasa (i18n) pada aplikasi Next.js yang sudah berjalan tanpa refaktor rumit. Ekstraksi otomatis, terjemahan AI, dan routing dengan Intlayer."
+title: "Membuat aplikasi Next.js yang ada menjadi multibahasa"
+description: "Tambahkan i18n ke aplikasi Next.js yang ada tanpa menulis ulang: ekstrak teks hardcoded secara otomatis, terjemahkan dengan AI, dan atur routing terlokalisasi."
 keywords:
   - Next.js i18n
   - Internasionalisasi

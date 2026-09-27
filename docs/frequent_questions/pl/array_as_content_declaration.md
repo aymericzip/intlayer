@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Czy mogę użyć tablicy jako deklaracji zawartości?
-description: Dowiedz się, jak używać tablicy jako deklaracji zawartości.
+description: "Tak: tablica może być deklaracją treści w Intlayer. Jak ją zadeklarować, przetłumaczyć każdy element i odczytać w komponentach."
 keywords:
   - tablica
   - zawartość

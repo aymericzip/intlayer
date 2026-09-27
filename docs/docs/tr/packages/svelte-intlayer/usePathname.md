@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname Fonksiyonu Dokümantasyonu | svelte-intlayer
-description: svelte-intlayer paketindeki usePathname fonksiyonunun nasıl kullanılacağını öğrenin
+description: "Svelte'te usePathname ile locale segmenti olmadan geçerli yolu okunabilir bir store olarak alın, locale'e duyarlı gezinme için kullanın."
 keywords:
   - usePathname
   - pathname
@@ -100,5 +100,5 @@ import { usePathname } from "svelte-intlayer";
 
 ## İlgili
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/svelte-intlayer/useLocale.md) — mevcut locale + locale değiştirici
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPathWithoutLocale.md) — bu hook tarafından kullanılan temel yardımcı program
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/svelte-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPathWithoutLocale.md)

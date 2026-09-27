@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 로케일 목록을 어떻게 사용자 정의하나요?
-description: 로케일 목록을 사용자 정의하는 방법을 알아보세요.
+description: "intlayer.config.ts에서 Intlayer가 지원하는 로케일 목록을 지역 변형과 기본 로케일을 포함해 사용자 정의하세요."
 keywords:
   - 로케일
   - 목록

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "Paraglide JS ile TanStack Start i18n: 2026 Kurulum Rehberi"
 description: "TanStack Start uygulamanızı Paraglide JS ile yerelleştirin: URL stratejisi, router rewrite, SSR middleware, hreflang, sitemap ve robots.txt, ayrıca gerçek karşılaştırma verileri."
@@ -43,9 +43,17 @@ Paraglide, resmi TanStack Router örneklerinde kullanılan i18n yaklaşımıdır
 
 Bu rehber her üç parçanın da kurulumunu yapar, ardından Paraglide'ın size bıraktığı tüm konuları ele alır: `lang` ve `dir`, dil değiştirici (locale switcher), çevrilmiş meta veriler, `canonical`, `x-default` ile `hreflang`, Open Graph, JSON-LD, sitemap, `robots.txt`, önceden oluşturma (pre-rendering) ve yerelleştirilmiş 404 sayfaları.
 
-> Başka bir yığın mı arıyorsunuz? [TanStack Start + use-intl rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_use-intl.md), [TanStack Start + Lingui rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_lingui.md) veya [TanStack Start + Intlayer rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md) göz atın.
+> Başka bir yığın mı arıyorsunuz?
+
+- [TanStack Start + use-intl rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_use-intl.md)
+- [TanStack Start + Lingui rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_lingui.md)
+- [TanStack Start + Intlayer rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md)
 
 > İki derleyici tabanlı yaklaşımı mı karşılaştırıyorsunuz? [Intlayer Paraglide'dan daha mı hafif?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_intlayer_lighter_than_paraglide.md) makalesini okuyun.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## Karşılaştırma Testi (Benchmark) TanStack Start Üzerinde Paraglide Hakkında Ne Söylüyor?
 
@@ -95,7 +103,11 @@ Paraglide JS'nin TanStack Start'ta yaygın olarak kullanılan diğer kütüphane
 
 > Çalışma zamanı boyutu ve sızıntı rakamları [TanStack Start karşılaştırmasından](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) alınmıştır. Sızıntı, her kütüphanenin en iyi kurulumu üzerinden ölçülmüştür.
 
-> Diğer TanStack Start rehberleri: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_lingui.md), [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_use-intl.md) ve [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md).
+> Diğer TanStack Start rehberleri:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_lingui.md)
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_use-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md)
 
 ## İzlemeniz Gereken En İyi Uygulamalar
 
@@ -108,7 +120,8 @@ Paraglide JS'nin TanStack Start'ta yaygın olarak kullanılan diğer kütüphane
 - **Çok dilli bir sitemap ve robots.txt oluşturun** ve her dili önceden oluşturun (pre-render).
 - **Dil değiştirici için gerçek bağlantılar (`<a>`) kullanın**, böylece arama motoru botları tüm dilleri keşfedebilir.
 
-> [Uluslararasılaşma ve SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md) rehberimize ve [hreflang rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md) göz atın.
+- [Uluslararasılaşma ve SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md)
+- [hreflang rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md)
 
 ## TanStack Start Uygulamasında Paraglide JS Kurulumu İçin Adım Adım Rehber
 

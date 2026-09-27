@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja funkcji getLocaleLang | intlayer
-description: Zobacz, jak używać funkcji getLocaleLang w pakiecie intlayer
+description: "Użyj getLocaleLang, aby wyodrębnić kod języka z locale takiego jak en-US, z kodem kraju lub bez."
 keywords:
   - getLocaleLang
   - tłumaczenie

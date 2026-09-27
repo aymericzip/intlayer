@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: Dokumentasi Hook useI18n | react-intlayer
-description: Pelajari cara menggunakan hook useI18n dalam paket react-intlayer
+description: "Gunakan useI18n di React untuk mendapatkan fungsi terjemahan yang terikat ke sebuah kamus, berguna saat migrasi dari library berbasis key."
 keywords:
   - useI18n
   - i18n

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Review Document
+title: "intlayer doc review: Review Translated Docs"
 description: Learn how to review documentation files for quality, consistency, and completeness across different locales.
 keywords:
   - Review

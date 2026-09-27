@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: 2026年においてnext-intlは時代遅れなのか？
 description: next-intlはNext.js App Routerの定番となりました。しかし、ランタイムによるバンドルの肥大化や手動での名前空間管理という課題は残されています。
@@ -70,6 +70,10 @@ Crowdinの公式パートナーであるため、CLIに完全無料で使える�
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 成熟したライブラリは安心感をもたらします。しかし現在のi18n環境は大きく変化しました。ビルド時に不要文言を自動削除し、CI環境でLLMが翻訳を行い、開発者はLanguage Server（LSP）やAIエージェントの支援を受けます。ランタイムに頼る設計では、こうした新しい恩恵を十分に享受できません。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## Next.js 16 App Routerでの性能測定
 

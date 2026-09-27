@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Tôi có thể sử dụng mảng làm khai báo nội dung không?
-description: Tìm hiểu cách sử dụng mảng làm khai báo nội dung.
+description: "Có: mảng có thể là khai báo nội dung trong Intlayer. Cách khai báo, dịch từng phần tử và đọc chúng trong component."
 keywords:
   - mảng
   - nội dung

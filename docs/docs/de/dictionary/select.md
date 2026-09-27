@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-07-30
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: Auswahlbasierter Inhalt
-description: Erfahren Sie, wie Sie auswahlbasierten Inhalt in Intlayer verwenden, um Inhalte basierend auf einem beliebigen Zeichenfolgenwert dynamisch anzuzeigen. Folgen Sie dieser Dokumentation, um Switch-ähnliche Inhalte effizient in Ihrem Projekt zu implementieren.
+title: "Auswahlbasierte Inhalte in Intlayer"
+description: "Wählen Sie Inhalte anhand eines beliebigen Stringwerts mit dem select-Knoten von Intlayer, eine switch-artige Lösung für Status, Rollen oder Varianten."
 keywords:
   - Auswahlbasierter Inhalt
   - Select Content

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-25
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق دالة getConfiguration | intlayer
-description: تعرف على كيفية استخدام دالة getConfiguration لحزمة intlayer
+description: "استخدم getConfiguration لقراءة إعدادات Intlayer النهائية، بما فيها اللغات والتوجيه، على العميل أو الخادم."
 keywords:
   - getConfiguration
   - الترجمة

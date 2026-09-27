@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-18
-updatedAt: 2025-11-06
+updatedAt: 2026-09-27
 priority: 8
-title: Alternatif Platform L10n
-description: Temukan alternatif platform L10n terbaik untuk kebutuhan Anda
+title: "Alternatif open source untuk Crowdin dalam lokalisasi"
+description: "Crowdin dibandingkan dengan Intlayer, sistem manajemen terjemahan open source: alur kerja, integrasi developer, terjemahan AI, dan harga."
 keywords:
   - L10n
   - TMS
@@ -25,19 +25,19 @@ author: aymericzip
 
 <TOC/>
 
-# Sistem Manajemen Terjemahan
+## Sistem Manajemen Terjemahan
 
 Sistem Manajemen Terjemahan (TMS) adalah platform perangkat lunak yang dirancang untuk mengotomatisasi dan menyederhanakan proses terjemahan dan lokalisasi (L10n). Secara tradisional, sebuah TMS berfungsi sebagai pusat di mana konten diunggah, diorganisir, dan ditugaskan kepada penerjemah manusia. Ia mengelola alur kerja, menyimpan memori terjemahan (untuk menghindari menerjemahkan ulang kalimat yang sama), dan menangani pengiriman berkas terjemahan kembali kepada pengembang atau manajer konten.
 
 Intinya, secara historis TMS menjadi jembatan antara kode teknis (di mana string berada) dan ahli bahasa manusia (yang memahami konteks budaya).
 
-# Crowdin
+## Crowdin
 
 Crowdin adalah pemain veteran di bidang ini. Didirikan pada 2009, ia muncul pada masa ketika tantangan utama lokalisasi adalah konektivitas. Misinya jelas: menghubungkan copywriter, penerjemah, dan pemilik proyek satu sama lain secara efektif.
 
 Selama lebih dari satu dekade, Crowdin telah menjadi standar industri untuk mengelola lokalisasi. Ia menyelesaikan masalah fragmentasi dengan memungkinkan tim mengunggah berkas `.po`, `.xml`, atau `.yaml` dan membuat penerjemah bekerja pada berkas-berkas tersebut melalui antarmuka cloud. Ia membangun reputasinya pada otomasi alur kerja yang solid, memungkinkan perusahaan berkembang dari satu bahasa menjadi sepuluh tanpa tenggelam dalam spreadsheet.
 
-# Intlayer
+## Intlayer
 
 Intlayer dikenal terutama sebagai solusi i18n, tetapi juga mengintegrasikan sebuah CMS. Berbeda dengan Crowdin, yang terbatas berfungsi sebagai wrapper di sekitar setup i18n Anda yang sudah ada, Intlayer mengendalikan seluruh stack, dari lapisan bundling hingga pengiriman konten jarak jauh, sehingga menghasilkan alur konten yang lebih mulus dan efisien.
 
@@ -61,7 +61,7 @@ Oleh karena itu, Intlayer tidak memposisikan dirinya sekadar sebagai TMS, melain
 
 Dengan Intlayer, Anda menghasilkan terjemahan Anda dengan biaya inferensi Anda. Anda tidak terkunci pada model harga sebuah platform; Anda memilih penyedia (OpenAI, Anthropic, Mistral, dll.), Anda memilih modelnya, dan Anda menerjemahkan melalui CI (Continuous Integration), CLI, atau langsung melalui CMS terintegrasi. Ini menggeser nilai dari akses ke penerjemah ke pengelolaan konteks.
 
-# Perbandingan berdampingan
+## Perbandingan berdampingan
 
 | Fitur             | Crowdin (Legacy TMS)                                       | Intlayer (AI-Native)                                    |
 | :---------------- | :--------------------------------------------------------- | :------------------------------------------------------ |

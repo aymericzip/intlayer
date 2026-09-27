@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: getDictionaryAsync फ़ंक्शन डॉक्यूमेंटेशन | intlayer
-description: intlayer पैकेज के लिए getDictionaryAsync फ़ंक्शन का उपयोग कैसे करें, यह देखें
+description: "getDictionaryAsync से डिक्शनरी का सिर्फ़ एक लोकेल लोड करें और उसका व्याख्यायित कंटेंट पढ़ें, बाकी भाषाओं के बिना।"
 keywords:
   - getDictionaryAsync
   - dictionary
@@ -130,9 +130,9 @@ const promoBanner = await getDictionaryAsync(bannerLoaderMap, "banner", {
 
 ## संबंधित फंक्शन
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayerAsync.md): वह फंक्शन जिसे एप्लिकेशन कॉल करती हैं; बिल्ड प्लगइन इसे `getDictionaryAsync` में फिर से लिखते हैं।
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getDictionary.md): सिंक्रोनस समकक्ष जो पूरी dictionary लेता है।
-- [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md): संग्रह और variants, और loader maps जो वे जेनरेट करते हैं।
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getDictionary.md)
+- [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/index.md)
 
 ## TypeScript
 

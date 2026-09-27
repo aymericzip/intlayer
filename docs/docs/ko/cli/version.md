@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: CLI 버전 확인
-description: 설치된 Intlayer CLI 버전을 확인하는 방법을 알아보세요.
+title: "intlayer version: 설치된 CLI 확인"
+description: "프로젝트에 설치된 Intlayer CLI와 패키지 버전을 확인합니다. 버전 불일치 오류를 디버깅할 때 유용합니다."
 keywords:
   - 버전
   - CLI

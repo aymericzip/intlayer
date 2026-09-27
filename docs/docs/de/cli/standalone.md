@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Eigenständiges Bundle (Standalone)
-description: Erfahren Sie, wie Sie ein eigenständiges JavaScript-Bundle für Ihren Anwendungsinhalt erstellen.
+title: "intlayer standalone: Intlayer für jede Seite bündeln"
+description: "Erstellen Sie ein einzelnes JavaScript-Bundle aus Intlayer und den benötigten Paketen, für Seiten ohne Paketmanager oder Bundler."
 keywords:
   - Standalone
   - Bundle

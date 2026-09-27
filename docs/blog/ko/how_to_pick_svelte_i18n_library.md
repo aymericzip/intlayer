@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "2026년 올바른 Svelte i18n 라이브러리를 선택하는 방법"
-description: Svelte 및 SvelteKit 국제화를 위한 결정 가이드. svelte-i18n, Paraglide, typesafe-i18n, wuchale, Intlayer를 비교하기 전에 답해야 할 질문들과 각 선택이 번들 크기, 타입 정의 및 SSR 안전성에 미치는 영향을 알아봅니다.
+description: "Svelte와 SvelteKit i18n 선택 가이드: svelte-i18n, Paraglide, typesafe-i18n, wuchale, Intlayer를 비교하기 전에 답해야 할 질문들."
 keywords:
   - svelte i18n
   - sveltekit i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Svelte는 기본적으로 i18n 관련 기능을 내장하고 있지 않습니다. `$t`도 없고, 로케일 프리미티브나 메시지 포맷도 없습니다. 모든 옵션은 서드파티 라이브러리를 선택해야 하며, Svelte 생태계는 컴파일 타임 i18n이 가장 발전한 곳이기 때문에 후보군 간의 차이가 React나 Vue보다 훨씬 큽니다.
 
 이 가이드에서는 먼저 답해야 할 질문들을 정리한 다음, 그 답변을 바탕으로 Vite + Svelte 및 SvelteKit 환경에서 `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale`, Intlayer를 매핑합니다.
-
-![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 목차
 
@@ -88,6 +86,8 @@ Paraglide는 각 메시지를 export된 함수로 컴파일하여 번들러가 �
 
 라이브러리 크기는 [Svelte 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)를 기준으로 합니다. 10개 페이지, 10개 로케일 앱에서 번들링, tree-shaking 및 minification을 거친 빈 컴포넌트 내 store 및 접근자 크기입니다. 콘텐츠는 별도로 측정됩니다.
 
+![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | 라이브러리      | 메시지 저장 위치                 | 로케일 상태                              | 타입 안전성               | 메시지 포맷                   | 라우트별 분할            | 라이브러리 크기                              |
 | :-------------- | :------------------------------- | :--------------------------------------- | :------------------------ | :---------------------------- | :----------------------- | :------------------------------------------- |
 | `svelte-i18n`   | 로케일별 JSON 카탈로그           | 모듈 수준 Svelte store                   | 2/5 — 수동 union 타입     | ICU                           | 지원 안 함               | ~16.6 kB                                     |
@@ -111,7 +111,7 @@ Paraglide의 0에 가까운 라이브러리 크기는 구조적인 결과입니�
 </Accordion>
 <Accordion header="로케일 라우팅 및 SSR이 포함된 SvelteKit">
 
-상태 공유 문제가 결정적인 요인입니다. `svelte-i18n`은 SvelteKit에서 작동하지만 요청별 연동(`hooks.server.ts`, `locals`, `load`, 그리고 `setContext`)을 직접 작성해야 하며 미묘한 실수가 발생하기 쉽습니다. Paraglide는 라우팅을 처리하고 호출 시마다 로케일을 읽는 SvelteKit 통합을 제공하여 싱글톤 문제를 우회합니다. Intlayer는 `load` 데이터의 로케일을 context에 설정합니다. [SvelteKit i18n 포스트](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/list_i18n_technologies/frameworks/sveltekit.md)에서 라이브러리를 선택하기 전에 먼저 결정해야 하는 `[[lang]]` 대 `reroute` 선택을 설명합니다.
+상태 공유 문제가 결정적인 요인입니다. `svelte-i18n`은 SvelteKit에서 작동하지만 요청별 연동(`hooks.server.ts`, `locals`, `load`, 그리고 `setContext`)을 직접 작성해야 하며 미묘한 실수가 발생하기 쉽습니다. Paraglide는 라우팅을 처리하고 호출 시마다 로케일을 읽는 SvelteKit 통합을 제공하여 싱글톤 문제를 우회합니다. Intlayer는 `load` 데이터의 로케일을 context에 설정합니다. [SvelteKit i18n 포스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_svelte_kit.md)에서 라이브러리를 선택하기 전에 먼저 결정해야 하는 `[[lang]]` 대 `reroute` 선택을 설명합니다.
 
 </Accordion>
 <Accordion header="번역이 TMS나 ICU를 제공하는 에이전시에서 오는 경우">
@@ -445,11 +445,13 @@ Rune은 자체 로케일 상태의 문법을 바꿀 뿐 상태 공유 문제를 
 ## 더 알아보기
 
 - [Svelte i18n 벤치마크: 번들 크기, 데이터 누출 및 로케일 전환 시간](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)
-- [Svelte i18n: store, rune 그리고 모듈 수준의 함정](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/list_i18n_technologies/frameworks/svelte.md) 및 [SvelteKit i18n: 라우팅, SSR 그리고 공유 상태](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/list_i18n_technologies/frameworks/sveltekit.md)
 - [드롭인 `svelte-i18n` 호환 어댑터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/svelte-i18n.md)
 - [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 - [컴파일러 vs 선언적 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
 - [컴포넌트별 vs 중앙집중식 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)
 - [빌드 타임 번들 최적화 작동 방식](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
-- [Vite + Svelte 앱에 i18n 설정하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+svelte.md) 및 [SvelteKit 앱에 i18n 설정하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_svelte_kit.md)
-- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_react_i18n_library.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_vue_i18n_library.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_solid_i18n_library.md)를 위한 동일한 가이드
+- [Vite + Svelte 앱에 i18n 설정하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+svelte.md)
+- [SvelteKit 앱에 i18n 설정하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_svelte_kit.md)
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_vue_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_solid_i18n_library.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui बनाम @intlayer/lingui: समान मैक्रोज़, अलग रनटाइम"
-description: "क्या बदलता है जब एक React ऐप अपने Lingui मैक्रोज़ को बनाए रखता है लेकिन उन्हें @intlayer/lingui कम्पैट एडॉप्टर के माध्यम से प्रस्तुत करता है। घटक आकार, हाइड्रेशन, लीकेज और प्रति-पेज जावास्क्रिप्ट उसी TanStack Start कोड पर मापा गया, जिसमें यह भी शामिल है कि एडॉप्टर कहाँ पिछड़ता है।"
+description: "एक React ऐप अपने Lingui मैक्रो रखता है, जिन्हें @intlayer/lingui एडैप्टर परोसता है। कंपोनेंट आकार, हाइड्रेशन, लीकेज और प्रति पेज JavaScript मापे गए।"
 keywords:
   - Lingui
   - "@intlayer/lingui"
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui बनाम @intlayer/lingui | समान मैक्रोज़, अलग रनटाइम
+# Lingui बनाम @intlayer/lingui: समान मैक्रोज़, अलग रनटाइम
 
 `@intlayer/lingui`, `@lingui/core` और `@lingui/react` के लिए एक कम्पैट एडॉप्टर (संगतता एडॉप्टर) है। आपके `` t`...` ``, `<Trans>`, `useLingui()` और `i18n._()` कॉल्स बिल्कुल वैसे ही बने रहते हैं; मैक्रोज़ पहले की तरह कंपाइल होते रहते हैं; जो बदलता है वह यह है कि रनटाइम पर संदेश कहाँ से आते हैं। प्रति भाषा एक संकलित कैटलॉग के बजाय, प्रत्येक कॉल साइट इसके लिए विशेष रूप से संकलित Intlayer डिक्शनरी से बंधी होती है।
 
@@ -289,12 +289,16 @@ export default defineConfig({
 
 ## संबंधित तुलनात्मक लेख
 
-- [Lingui बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer.md) (समान बेंचमार्क पर दोनों लाइब्रेरीज़ की सीधी तुलना)
-- [next-intl बनाम @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer-next-intl.md) (कम्पैट एडॉप्टर तुलना श्रृंखला)
-- [i18next बनाम @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer-i18next.md) (कम्पैट एडॉप्टर तुलना श्रृंखला)
-- [vue-i18n बनाम @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer-vue-i18n.md) (कम्पैट एडॉप्टर तुलना श्रृंखला)
+- [Lingui बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/lingui_vs_intlayer.md)
+- [next-intl बनाम @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-intl_vs_intlayer-next-intl.md)
+- [i18next बनाम @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18next_vs_intlayer-i18next.md)
+- [vue-i18n बनाम @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer-vue-i18n.md)
 - [कम्पैट एडॉप्टर संदर्भ: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/lingui.md)
 - [कंपाइलर बनाम घोषणात्मक i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 
 ## निष्कर्ष
 

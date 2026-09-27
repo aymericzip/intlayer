@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: الترحيل من Svelte I18n إلى Intlayer
 description: تعرّف على كيفية ترحيل تطبيق Svelte الخاص بك من svelte-i18n إلى Intlayer باستخدام محول التوافق.
@@ -46,3 +46,7 @@ npx intlayer init --interactive
 - **صيغة ICU:** يتم التعامل بالكامل من خلال محلل ICU المشترك (تحليل مكافئ `intl-messageformat`).
 - **المحولات:** تنتقل استدعاءات `$date` و `$time` و `$number` بأمان إلى محولات Intlayer الأساسية الأصلية.
 - **تحليل Babel/SWC:** يقرأ محلل Intlayer مستدعيات متجر Svelte (`$_`) داخل ملفات `.svelte` المصدرية قبل الترجمة لبناء أجزاء القاموس ذات الصلة تلقائياً.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)

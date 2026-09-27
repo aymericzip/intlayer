@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Svelte I18n'den Intlayer'a Geçiş Yapın"
 description: "Uyumluluk adaptörünü kullanarak Svelte uygulamanızı svelte-i18n'den Intlayer'a nasıl geçireceğinizi öğrenin."
@@ -46,3 +46,7 @@ Arka Planda:
 - **ICU Sözdizimi:** Paylaşılan ICU çözümleyicisi tarafından tamamen işlenir (`intl-messageformat` eşdeğer ayrıştırma).
 - **Formatter'lar:** `$date`, `$time`, `$number` çağrıları Intlayer'ın yerel core formatter'larına güvenli şekilde yönlendirilir.
 - **Babel/SWC Analizi:** Intlayer analizörü, ilgili sözlük chunk'larını otomatik olarak oluşturmak için compilation öncesi `.svelte` kaynak dosyalarındaki Svelte store çağırıcılarını (`$_`) okur.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)

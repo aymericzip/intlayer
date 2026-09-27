@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Alt paketlerle ilgili @intlayer/* hatası alıyorum
-description: Alt paketlerle ilgili @intlayer/* hatasını düzeltme.
+description: "@intlayer/* alt paketlerinin farklı sürümlerinden kaynaklanan hataları düzeltin: tüm Intlayer paketlerini aynı sürüme getirin ve önbelleği temizleyin."
 keywords:
   - @intlayer/*
   - alt paketler

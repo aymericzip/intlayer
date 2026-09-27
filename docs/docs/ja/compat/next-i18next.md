@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "next-i18nextからIntlayerへの移行"
-description: "compat アダプターを使用して、Next.js アプリケーションを next-i18next から Intlayer に移行する方法を学びます。"
+title: "@intlayer/next-i18next：next-i18next 互換アダプター"
+description: "next-i18next のコードはそのままで Intlayer から配信：@intlayer/next-i18next をインストールし、インポートにエイリアスを設定して、アダプターが内部で何を変えるかを確認します。"
 keywords:
   - next-i18next
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# next-i18nextからIntlayerへの移行
+# @intlayer/next-i18next：next-i18next 互換アダプター
 
 完全で詳細なステップバイステップのチュートリアルについては、[next-i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-i18next_to_intlayer.md)をご参照ください。
 
@@ -56,3 +56,7 @@ export default withIntlayer(nextConfig);
 
 - **`serverSideTranslations` & `appWithTranslation`:** これらは Intlayer の内部ローダーのラッパーとして機能し、大規模な静的 JSON インジェクションを回避します。
 - **Client hooks:** `@intlayer/react-i18next` に直接委譲され、すべてのフォーマット、複数形、およびネストされた namespace 機能を保持します。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)

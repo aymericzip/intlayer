@@ -3,7 +3,7 @@ createdAt: 2026-09-13
 updatedAt: 2026-09-22
 priority: 8
 title: "vue-i18n vs @intlayer/vue-i18n: API Giống Nhau, Bundle Khác"
-description: Những thay đổi khi một ứng dụng Vue 3 giữ các lệnh gọi vue-i18n của nó nhưng phục vụ chúng qua bộ điều hợp tương thích @intlayer/vue-i18n. JavaScript mỗi trang, kích thước runtime, kích thước thành phần và rò rỉ được đo lường trên cùng một mã Vite + Vue, cộng với những gì bộ điều hợp giữ lại, bỏ qua và không thể thay thế.
+description: "Ứng dụng Vue 3 giữ nguyên lệnh gọi vue-i18n, được phục vụ qua adapter @intlayer/vue-i18n. Đo JavaScript mỗi trang, kích thước runtime, component và rò rỉ."
 keywords:
   - vue-i18n
   - "@intlayer/vue-i18n"
@@ -24,13 +24,11 @@ slugs:
 author: aymericzip
 ---
 
-# vue-i18n VS @intlayer/vue-i18n | API Giống Nhau, Bundle Khác
-
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+# vue-i18n VS @intlayer/vue-i18n: API Giống Nhau, Bundle Khác
 
 `@intlayer/vue-i18n` là một compat adapter: nó expose API của `vue-i18n` (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...) và phục vụ nó từ các dictionaries được biên dịch bởi Intlayer. Các file `.vue` của bạn không thay đổi. Cái mà `t("footer.github")` được bind tới thì có.
 
-Bài viết này đo lường việc thay thế đó trên cùng một ứng dụng Vite + Vue 3, được xây dựng một lần với `vue-i18n` và một lần với adapter. Các con số đến từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Để so sánh `vue-i18n` và Intlayer như các thư viện, hãy đọc [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md) và [benchmark vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer_benchmark.md). Bài này nói về những gì adapter thay đổi khi bạn giữ các component của mình như cũ.
+Bài viết này đo lường việc thay thế đó trên cùng một ứng dụng Vite + Vue 3, được xây dựng một lần với `vue-i18n` và một lần với adapter. Các con số đến từ [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Để so sánh `vue-i18n` và Intlayer như các thư viện, hãy đọc [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md) và [benchmark vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md). Bài này nói về những gì adapter thay đổi khi bạn giữ các component của mình như cũ.
 
 <TOC/>
 
@@ -359,6 +357,8 @@ Có. Bất kỳ component nào cũng có thể chuyển từ `useI18n()` sang `u
 
 ## Những so sánh liên quan
 
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 Cùng loạt adapter:
 
 - [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer-next-intl.md)
@@ -367,18 +367,25 @@ Cùng loạt adapter:
 
 Các thư viện được so sánh trực tiếp:
 
-- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md), features and DX
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md)
 - [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_vue-i18n_outdated.md)
 - [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_vue_i18n_library.md)
 
 Tài liệu tham khảo:
 
-- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md)
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/vue-i18n.md)
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/nuxtjs-i18n.md)
 - [Hướng dẫn di chuyển: vue-i18n sang Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_vue-i18n_to_intlayer.md)
 - [Báo cáo benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md)
-- [Tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
-- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) và [dịch thuật AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md)
+- [Tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+- [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+- [dịch thuật AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md)
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Kết luận
 

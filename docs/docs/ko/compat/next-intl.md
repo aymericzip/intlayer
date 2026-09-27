@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "next-intl에서 Intlayer로 마이그레이션"
-description: "compat adapter를 사용하여 Next.js 애플리케이션을 next-intl에서 Intlayer로 마이그레이션하는 방법을 알아보세요."
+title: "@intlayer/next-intl: next-intl 호환 어댑터"
+description: "next-intl 코드를 그대로 두고 Intlayer로 제공하세요. @intlayer/next-intl를 설치하고 import에 별칭을 지정한 뒤, 어댑터가 내부적으로 무엇을 바꾸는지 확인하세요."
 keywords:
   - next-intl
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# next-intl에서 Intlayer로 마이그레이션
+# @intlayer/next-intl: next-intl 호환 어댑터
 
 완전하고 상세한 단계별 튜토리얼을 보려면 전체 [next-intl 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-intl_to_intlayer.md)를 참조하세요.
 
@@ -58,3 +58,7 @@ bundler wrapper는 번역을 교체하지만 **`next-intl/navigation` 기능은 
 - **`useTranslations()` & `getTranslations()`:** bare scope 호출은 첫 번째 key segment를 올바른 dictionary identifier로 추출합니다. Nested namespaces는 dictionary paths와 prefixes로 우아하게 분할됩니다.
 - **Rich formatting:** `t.rich()`와 `t.markup()` 모두 완전히 네이티브로 구현되어 HTML 같은 노드를 렌더링된 React chunks로 변환합니다.
 - **`useFormatter`:** `relativeTime`, `list`, `dateTimeRange`, 설정의 named formats는 core native `Intl` formatters로 연결됩니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)

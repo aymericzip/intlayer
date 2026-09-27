@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: getDictionaryAsync 関数ドキュメント | intlayer
-description: intlayer パッケージの getDictionaryAsync 関数の使用方法を確認してください
+description: "getDictionaryAsync で辞書の 1 つのロケールだけを読み込み、他の言語なしで解釈済みのコンテンツを取得します。"
 keywords:
   - getDictionaryAsync
   - dictionary
@@ -130,9 +130,9 @@ const promoBanner = await getDictionaryAsync(bannerLoaderMap, "banner", {
 
 ## 関連する関数
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayerAsync.md): アプリケーションが呼び出す関数。ビルドプラグインはこれを `getDictionaryAsync` に書き換えます。
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getDictionary.md): 完全な辞書を取得する同期的な対応関数。
-- [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md): コレクションとバリアント、およびそれらが生成するローダーマップ。
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getDictionary.md)
+- [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/index.md)
 
 ## TypeScript
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: Maper Lokalizacji
-description: Odkryj, jak działa Maper Lokalizacji. Zobacz kroki używane przez Maper Lokalizacji w Twojej aplikacji. Zobacz, co robią różne pakiety.
+title: "Locale Mapper: localeMap, localeFlatMap, localeRecord"
+description: "Przekształcaj dane locale za pomocą localeMap, localeFlatMap i localeRecord, aby generować trasy, parametry statyczne i obiekty per locale."
 keywords:
   - Maper Lokalizacji
   - Pierwsze kroki

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق دالة usePathname | svelte-intlayer
-description: تعرف على كيفية استخدام دالة usePathname من حزمة svelte-intlayer
+description: "استخدم usePathname في Svelte لقراءة المسار الحالي دون جزء اللغة كمخزن قابل للقراءة للتنقل حسب اللغة."
 keywords:
   - usePathname
   - pathname
@@ -100,5 +100,5 @@ import { usePathname } from "svelte-intlayer";
 
 ## مواضيع ذات صلة
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/svelte-intlayer/useLocale.md) — الـ locale الحالي + مبدّل الـ locale
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPathWithoutLocale.md) — الأداة الأساسية المُستخدمة داخل هذا الـ hook
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/svelte-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPathWithoutLocale.md)

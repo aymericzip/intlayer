@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-21
+updatedAt: 2026-09-27
 priority: 6
-title: توثيق خادم MCP
-description: استكشف ميزات وإعداد خادم MCP لتحسين إدارة وتشغيل الخادم الخاص بك.
+title: "خادم MCP من Intlayer لمساعدي الذكاء الاصطناعي"
+description: "اربط خادم MCP من Intlayer بـ Cursor أو VS Code أو Claude Desktop ليقرأ مساعد الذكاء الاصطناعي التوثيق ويساعد في إعداد Intlayer."
 keywords:
   - خادم MCP
   - إدارة الخادم

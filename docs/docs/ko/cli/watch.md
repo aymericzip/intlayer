@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 사전 감시
+title: "intlayer watch: 변경 시 사전 재빌드"
 description: 콘텐츠 선언 파일의 변경 사항을 감시하고 자동으로 사전을 빌드하는 방법을 알아보세요.
 keywords:
   - 감시

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق دالة getDictionaryAsync | intlayer
-description: اطلع على كيفية استخدام دالة getDictionaryAsync لحزمة intlayer
+description: "استخدم getDictionaryAsync لتحميل لغة واحدة من قاموس وقراءة محتواه المفسَّر، دون اللغات الأخرى."
 keywords:
   - getDictionaryAsync
   - dictionary
@@ -130,9 +130,9 @@ const promoBanner = await getDictionaryAsync(bannerLoaderMap, "banner", {
 
 ## الدوال ذات الصلة
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayerAsync.md): الدالة التي تستدعيها التطبيقات؛ تعيد كتابتها بواسطة مكونات البناء إلى `getDictionaryAsync`.
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getDictionary.md): نظير متزامن يأخذ قاموس كامل.
-- [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md): المجموعات والمتغيرات، وخرائط المحملات التي تولدها.
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getDictionary.md)
+- [القواميس الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/index.md)
 
 ## TypeScript
 

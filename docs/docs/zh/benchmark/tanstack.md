@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
-title: 2026 年 TanStack Start 最佳 i18n 解决方案 - 基准测试报告
+title: "TanStack Start 最佳 i18n 方案：2026 基准测试"
 description: 对比 react-i18next、use-intl 和 Intlayer 等 TanStack Start 国际化库。关于打包体积、泄漏和响应性的详细性能报告。
 keywords:
   - benchmark
@@ -69,6 +69,10 @@ history:
 实际上，在优化程度最低的实现中，国际化后的页面体积可能比无 i18n 的版本重数倍。
 
 另一个影响是开发体验（DX）：内容声明方式、类型、命名空间组织、动态加载以及语言环境更改时的响应性。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## TL;DR
 

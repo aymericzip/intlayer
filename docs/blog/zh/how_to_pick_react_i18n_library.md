@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "如何在 2026 年选择合适的 React i18n 库"
-description: "React 国际化选型指南。在对比 react-i18next、react-intl、Lingui、use-intl、Paraglide 和 Intlayer 之前需要回答的关键问题，以及各方案在 bundle size、类型支持和维护成本方面的权衡。"
+description: "React i18n 选型指南：在比较 react-i18next、react-intl、Lingui、use-intl、Paraglide 和 Intlayer 之前需要回答的问题。"
 keywords:
   - React i18n
   - React 国际化
@@ -25,8 +25,6 @@ author: aymericzip
 React 本身并没有提供内置的 i18n 原语。你在项目第一天选择的库，将决定翻译如何存储、如何打包进 bundle，以及未来几年需要承担多少维护工作。大多数团队通常根据流行度来选型，随后在翻译键达到 2,000 个时才发现各种妥协与限制。
 
 本指南采用另一种思路：先回答关于你项目的几个核心问题，然后将答案映射到最契合的库。本文重点关注纯 React 生态（Vite、React Router、TanStack Start）。Next.js 有其专属的约束，已在 [Next.js 对比文章](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md) 中详细介绍。
-
-![React i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目录
 
@@ -97,6 +95,8 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 
 各库的体积数据来源于 [TanStack Start 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)：空组件中的 provider 加上 hook，在经过打包、tree-shaking 和压缩后的体积（基于 10 个页面和 10 个语言环境）。内容体积单独计算。
 
+![React i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | 库                      | 演进浪潮   | 内容模型                                | 类型安全                           | 消息格式                      | 库体积                             |
 | :---------------------- | :--------- | :-------------------------------------- | :--------------------------------- | :---------------------------- | :--------------------------------- |
 | `react-i18next`         | 运行时     | 集中式 JSON，namespaces                 | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (后缀复数)            | ~18.4 kB                           |
@@ -147,7 +147,7 @@ React 本身并没有提供内置的 i18n 原语。你在项目第一天选择�
 </Accordion>
 <Accordion header="未来可能迁移至 Next.js App Router">
 
-React context 无法跨越服务端/客户端边界。仅依赖客户端 Hook 构建的库（`react-i18next`、`react-intl`）在引入 RSC 时需要配套的服务端 API。`use-intl`（作为 `next-intl`）和 Intlayer（作为 `next-intlayer`）已经实现了这种架构拆分。在统一规范前，建议阅读 [Next.js i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/nextjs.md)。
+React context 无法跨越服务端/客户端边界。仅依赖客户端 Hook 构建的库（`react-i18next`、`react-intl`）在引入 RSC 时需要配套的服务端 API。`use-intl`（作为 `next-intl`）和 Intlayer（作为 `next-intlayer`）已经实现了这种架构拆分。在统一规范前，建议阅读 [Next.js i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)。
 
 </Accordion>
 </AccordionGroup>
@@ -565,8 +565,8 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 ## 延伸阅读
 
-- [i18n 库基准测试：bundle 大小、泄漏与语言切换耗时](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md) 及 [TanStack Start 评测报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
-- [React i18n：Provider 模式的工作原理及性能开销](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/react.md)
+- [i18n 库基准测试：bundle 大小、泄漏与语言切换耗时](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
+- [TanStack Start 评测报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 - [react-i18next vs react-intl vs Intlayer 全方位特性对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/react-i18next_vs_react-intl_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
 - [JavaScript i18n 发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
@@ -574,4 +574,9 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 - [按组件管理 vs 集中式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)
 - [构建时 bundle 优化机制](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
 - [在 Vite + React 应用中配置 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)
-- 对应指南：[Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_vue_i18n_library.md)、[Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_svelte_i18n_library.md) 与 [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_solid_i18n_library.md)
+
+对应指南：
+
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_solid_i18n_library.md)

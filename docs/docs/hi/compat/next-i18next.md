@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "next-i18next से Intlayer में माइग्रेट करें"
-description: "compat adapter का उपयोग करके अपने Next.js एप्लिकेशन को next-i18next से Intlayer में माइग्रेट करना सीखें।"
+title: "@intlayer/next-i18next: next-i18next के लिए संगतता एडैप्टर"
+description: "अपना next-i18next कोड बनाए रखें और उसे Intlayer से चलाएँ: @intlayer/next-i18next इंस्टॉल करें, imports के लिए alias सेट करें, और देखें कि एडैप्टर अंदर क्या बदलता है।"
 keywords:
   - next-i18next
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# next-i18next से Intlayer में माइग्रेट करें
+# @intlayer/next-i18next: next-i18next के लिए संगतता एडैप्टर
 
 एक संपूर्ण और विस्तृत चरण-दर-चरण ट्यूटोरियल के लिए, कृपया हमारी पूरी [next-i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_next-i18next_to_intlayer.md) देखें।
 
@@ -56,3 +56,7 @@ export default withIntlayer(nextConfig);
 
 - **`serverSideTranslations` & `appWithTranslation`:** ये अब Intlayer के आंतरिक लोडर्स के लिए wrappers के रूप में कार्य करते हैं, बड़े static JSON इंजेक्शन को रोकते हुए।
 - **Client hooks:** तुरंत `@intlayer/react-i18next` को डेलीगेट करते हैं सभी formatting, plurals, और nested namespace features को बनाए रखते हुए।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: هل أصبحت مكتبة vue-i18n قديمة في عام 2026؟
 description: ظلت vue-i18n المعيار الأساسي لـ Vue وNuxt لعقد كامل. لكن في اختباراتنا الميدانية، تبين أنها أثقل بيئة تشغيل للتدويل على الويب. نوضح الأسباب هنا.
@@ -68,6 +68,10 @@ author: aymericzip
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 المكتبة العريقة تمنح شعوراً بالاستقرار. لكن تطوير الواجهات الحديثة بات يستند إلى تحويلات شجرة الإعراب (AST) أثناء البناء، والتخلص من الشيفرات الخاملة، والترجمة بالذكاء الاصطناعي. ومن الصعب على البنى المحصورة في وقت التشغيل استيعاب هذه الآليات.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## القياسات في بيئة Vite + Vue
 

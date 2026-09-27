@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu Plugin intlayer cho Elysia | elysia-intlayer
-description: Xem cách sử dụng plugin intlayer của gói elysia-intlayer
+description: "Plugin intlayer cho Elysia nhận diện locale của người dùng và đưa các hàm dịch vào ngữ cảnh route của mỗi request."
 keywords:
   - intlayer
   - elysia

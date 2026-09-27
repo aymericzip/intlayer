@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: Inisialisasi Intlayer
-description: Pelajari cara menginisialisasi Intlayer di proyek Anda.
+title: "intlayer init: siapkan Intlayer di proyek Anda"
+description: "Jalankan intlayer init untuk menambahkan Intlayer ke proyek yang ada: mendeteksi framework, memasang paket, dan menulis konfigurasi."
 keywords:
   - Inisialisasi
   - CLI

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "next-i18next에서 Intlayer로 마이그레이션"
-description: "compat adapter를 사용하여 Next.js 애플리케이션을 next-i18next에서 Intlayer로 마이그레이션하는 방법을 알아보세요."
+title: "@intlayer/next-i18next: next-i18next 호환 어댑터"
+description: "next-i18next 코드를 그대로 두고 Intlayer로 제공하세요. @intlayer/next-i18next를 설치하고 import에 별칭을 지정한 뒤, 어댑터가 내부적으로 무엇을 바꾸는지 확인하세요."
 keywords:
   - next-i18next
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# next-i18next에서 Intlayer로 마이그레이션
+# @intlayer/next-i18next: next-i18next 호환 어댑터
 
 완전하고 상세한 단계별 튜토리얼을 보려면 전체 [next-i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_next-i18next_to_intlayer.md)를 참고하세요.
 
@@ -56,3 +56,7 @@ export default withIntlayer(nextConfig);
 
 - **`serverSideTranslations` & `appWithTranslation`:** 이제 Intlayer의 내부 loaders를 위한 wrapper 함수로 작동하여 대규모 정적 JSON injection을 우회합니다.
 - **Client hooks:** 즉시 `@intlayer/react-i18next`로 위임하여 모든 formatting, plurals, nested namespace 기능을 유지합니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)

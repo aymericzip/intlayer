@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-07
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
-title: "Next.js Page Router i18n - あなたのアプリを翻訳する完全ガイド"
-description: "i18nextはもう不要。2026年に多言語（i18n）Next.js Page Routerアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+title: "Next.js Pages Router の i18n：翻訳の完全ガイド"
+description: "Next.js の Pages Router に Intlayer を導入：getStaticPaths によるローカライズされたルート、翻訳済みのページとコンポーネント、hreflang とサイトマップ。"
 keywords:
   - 国際化
   - ドキュメント
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# IntlayerでNext.js and Page Routerを翻訳する | 国際化（i18n）
+# IntlayerでNext.js and Page Routerを翻訳する
 
 <Tabs defaultTab="code">
   <Tab label="コード" value="code">

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Cách cấu hình định tuyến dựa trên tên miền?
-description: Tìm hiểu cách cấu hình định tuyến dựa trên tên miền.
+description: "Phục vụ mỗi locale từ tên miền riêng với định tuyến theo tên miền của Intlayer, cấu hình trong intlayer.config.ts và tự xử lý chuyển hướng."
 keywords:
   - domain
   - routing

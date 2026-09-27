@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: validatePrefix Fonksiyon Dokümantasyonu | intlayer
-description: intlayer paketindeki validatePrefix fonksiyonunun nasıl kullanılacağını görün
+description: "validatePrefix ile bir URL segmentinin Intlayer yapılandırmanıza göre geçerli bir locale öneki olup olmadığını kontrol edin."
 keywords:
   - validatePrefix
   - translation

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Solid i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की जरूरत नहीं। 2026 में Vite + Solid ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
+description: "Vite और Solid ऐप में Intlayer सेट करें: रिएक्टिव अनुवादित कंटेंट, भाषा स्विचर, स्थानीयकृत रूट और टाइप्ड डिक्शनरी।"
 keywords:
   - अंतरराष्ट्रीयकरण
   - दस्तावेज़ीकरण
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer के साथ अपना Vite and Solid अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
+# Intlayer के साथ अपना Vite and Solid अनुवाद करें
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">

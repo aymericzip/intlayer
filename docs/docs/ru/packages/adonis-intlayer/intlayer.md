@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: Документация промежуточного ПО AdonisJS Intlayer | adonis-intlayer
-description: Узнайте, как использовать промежуточное ПО intlayer для пакета adonis-intlayer
+description: "Middleware intlayer для AdonisJS определяет локаль пользователя и предоставляет функции перевода через контекст запроса."
 keywords:
   - intlayer
   - adonisjs

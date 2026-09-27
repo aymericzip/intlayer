@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
 title: Intlayer легче, чем Paraglide?
-description: Paraglide кажется практически невесомым в бенчмарках i18n, поскольку его код генерируется прямо в ваш репозиторий. Разбираемся, куда на самом деле уходит этот вес, почему чтение локали для каждого узла обходится дорого и как динамическая загрузка Intlayer отправляет одну локаль вместо всех.
+description: "Paraglide кажется почти бесплатным в i18n-бенчмарках, потому что его код генерируется в ваш репозиторий. Куда уходит этот вес и как он соотносится с Intlayer."
 keywords:
   - Paraglide
   - Intlayer
@@ -287,3 +287,7 @@ bunx intlayer init --interactive
 - [Оптимизация бандла и `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/bundle_optimization.md)
 - [Как выбрать библиотеку i18n для React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/how_to_pick_react_i18n_library.md)
 - [Аргументы в пользу компиляторного подхода к интернационализации](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md)
+
+> Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
+
+- [История i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)

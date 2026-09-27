@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
-title: "Per-Component vs. Centralized i18n: A New Approach with Intlayer"
+title: "Per-Component vs Centralized i18n in React"
 description: A deep dive into internationalization strategies in React, comparing centralized, per-key, and per-component approaches, and introducing Intlayer.
 keywords:
   - i18n
@@ -98,6 +98,10 @@ But from all that solution, it's clear that the most popular approach is the cen
 - Then, once a library is widely adopted, it becomes difficult to shift the ecosystem to other patterns.
 - Using a centralized approach also makes things easier in Translation Management Systems such as Crowdin, Phrase, or Localized.
 - The logic behind a per-component approach is more complex than a centralized one and takes extra time to develop, especially when you have to solve problems like identifying where the content is located.
+
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/history_of_i18n.md)
 
 ### Ok, but why not just stick to a Centralized approach?
 

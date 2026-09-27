@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Migracja z Lingui do Intlayer"
 description: "Dowiedz się, jak przeprowadzić migrację aplikacji z Lingui do Intlayer za pomocą adaptera kompatybilności."
@@ -43,3 +43,7 @@ Za kulisami:
 - **Makra:** Kompilują się dokładnie jak wcześniej, zapewniając brak przerwy w składni źródła.
 - **Tłumaczenie czasu wykonywania:** Alias `i18n._()` korzysta ze słowników Intlayer. Zarówno jawnie nazwane identyfikatory jak i zahaszowane identyfikatory są w pełni mapowane używając wtyczek synchronizacji Intlayer `.po` aby agregować i usuwać klucze bezpiecznie.
 - **Możliwości ICU:** Obsługa pluralizacji, selekcji i wariantów ICU pozostaje solidna dzięki ujednoliconemu parserowi ICU Intlayer, zapewniając identyczne wyniki renderowania.
+
+> Aby zrozumieć, skąd wzięły się te biblioteki, przeczytaj historię i18n w JavaScript.
+
+- [Historia i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/history_of_i18n.md)

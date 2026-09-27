@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Pantau Kamus
+title: "intlayer watch: build ulang kamus saat berubah"
 description: Pelajari cara memantau perubahan pada file deklarasi konten Anda dan secara otomatis membangun kamus.
 keywords:
   - Pantau

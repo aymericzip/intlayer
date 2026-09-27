@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-27
 priority: 8
 title: "Memformat Tanggal dan Angka Berdasarkan Bahasa dengan Intl"
-description: Anda kemungkinan besar tidak memerlukan pustaka pemformatan pihak ketiga. Cara Intl menangani tanggal, angka, mata uang, dan daftar per locale, biaya caching, dan bug zona waktu di produksi.
+description: "Perlukah library format? Cara Intl memformat tanggal, angka, mata uang, dan daftar per locale, biaya cache-nya, dan bug zona waktu yang hanya muncul di produksi."
 keywords:
   - format tanggal berdasarkan bahasa
   - Intl.DateTimeFormat

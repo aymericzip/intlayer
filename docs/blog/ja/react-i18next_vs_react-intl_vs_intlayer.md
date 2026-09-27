@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: Reactアプリの国際化（i18n）のためにreact-i18nextをnext-intlおよびIntlayerと統合する方法
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# react-Intl VS react-i18next VS intlayer | Reactの国際化（i18n）
+# react-Intl VS react-i18next VS intlayer
 
 本ガイドでは、**React**向けの3つの確立されたi18nオプション、**react-intl**（FormatJS）、**react-i18next**（i18next）、および**Intlayer**を比較します。  
 対象は**プレーンなReact**アプリケーション（例：Vite、CRA、SPA）です。Next.jsを使用している場合は、専用のNext.js比較をご覧ください。
@@ -43,6 +43,10 @@ author: aymericzip
 - **react-intl** - ICU優先で、標準に準拠したフォーマット（日付／数値／複数形）を持つ成熟したAPI。カタログは通常集中管理され、キーの安全性やビルド時の検証は主にユーザーの責任です。
 - **react-i18next** - 非常に人気があり柔軟性が高い。ネームスペース、検出器、多数のプラグイン（ICU、バックエンドなど）を備えています。強力ですが、プロジェクトの規模が大きくなると設定が複雑化することがあります。
 - **Intlayer** - React向けのコンポーネント中心のコンテンツモデル、**厳格なTS型付け**、**ビルド時チェック**、**ツリーシェイク**、さらに**ビジュアルエディター／CMS**と**AI支援翻訳**を備えています。React Router、Vite、CRAなどと連携可能です。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## 機能マトリックス（Reactにフォーカス）
 
@@ -153,10 +157,19 @@ TanStack Start 上の標準的な React 実装を計測した [Benchmark Bloom](
 
 ## 関連資料とベンチマーク
 
-- ベンチマークレポート：[i18n ベンチマーク概要](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)、[TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)、[Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)、[Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)、[Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)、[Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/svelte.md)
 - [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18next_vs_intlayer-i18next.md)
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer.md)
-- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) と [Intlayer コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+- [Intlayer コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+
+ベンチマークレポート：
+
+- [i18n ベンチマーク概要](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/svelte.md)
 
 ## GitHub STARs
 

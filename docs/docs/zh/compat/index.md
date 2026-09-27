@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Intlayer 兼容适配器"
+title: "适用于现有 i18n 库的 Intlayer 兼容适配器"
 description: "使用兼容适配器将您现有的 i18n 解决方案零摩擦迁移到 Intlayer。"
 keywords:
   - 兼容
@@ -31,6 +31,10 @@ author: aymericzip
 使用兼容适配器时，您无需重写应用程序的导入或更改翻译 hook 和组件的使用方式。相反，Intlayer 的 bundler 插件会自动将您现有的导入别名指向 Intlayer 兼容 package。
 
 例如，开发者将 `import { useTranslation } from 'react-i18next'` 替换为 `import { useTranslation } from '@intlayer/react-i18next'`（通过 bundler 插件自动完成），应用程序继续工作，翻译现在由 Intlayer 字典提供。键值也会与您的 Intlayer 字典进行类型检查！
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 可用兼容适配器
 

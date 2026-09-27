@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer 的重要性
+title: "为什么选择 Intlayer？相比其他 i18n 库的优势"
 description: 探索在项目中使用 Intlayer 的好处和优势。了解为什么 Intlayer 在其他框架中脱颖而出。
 keywords:
   - 好处
@@ -221,6 +221,10 @@ export const ComponentExample = () => {
 
 6. **优化加载性能**
    - 如果一个组件是懒加载的，其相关内容将在同一时间被加载
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## Intlayer 附加功能
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Adaptadores de Compatibilidade Intlayer"
+title: "Adaptadores de compatibilidade do Intlayer para bibliotecas i18n"
 description: "Migre sua solução i18n existente para Intlayer sem atrito usando adaptadores de compatibilidade."
 keywords:
   - compat
@@ -31,6 +31,10 @@ Esses pacotes de adaptadores expõem a **mesma API pública exata** das suas bib
 Quando você usa um compat adapter, não precisa reescrever as importações da sua aplicação ou mudar como você usa seus hooks e componentes de tradução. Em vez disso, os plugins bundler do Intlayer fazem automaticamente um alias das suas importações existentes para os pacotes compat do Intlayer.
 
 Por exemplo, um desenvolvedor substitui `import { useTranslation } from 'react-i18next'` por `import { useTranslation } from '@intlayer/react-i18next'` (feito automaticamente via plugin bundler), e a aplicação continua funcionando com traduções agora servidas a partir dos dicionários do Intlayer. As chaves também são tipadas contra seus dicionários do Intlayer!
+
+> Para entender de onde vêm essas bibliotecas, leia a história do i18n em JavaScript.
+
+- [A história do i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/history_of_i18n.md)
 
 ## Adaptadores Compat Disponíveis
 

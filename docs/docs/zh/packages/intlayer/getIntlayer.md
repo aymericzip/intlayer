@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: getIntlayer 函数文档 | intlayer
-description: 了解如何使用 intlayer package 中的 getIntlayer 函数
+description: "使用 getIntlayer 在任何地方读取某个语言的字典内容，是 useIntlayer hook 的框架无关版本。"
 keywords:
   - getIntlayer
   - dictionary
@@ -164,9 +164,9 @@ const banner = getIntlayer("banner", { variant: "black-friday", locale: "fr" });
 
 ## 相关函数
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayerAsync.md): 异步版本，加载单个语言块。
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getDictionary.md): 解释你自己传递的字典对象，而不是按键查找。
-- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md): React hook 等效版本，从 provider 读取语言设置。
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getDictionary.md)
+- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)
 
 ## TypeScript
 

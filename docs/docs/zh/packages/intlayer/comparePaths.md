@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: comparePaths 函数文档 | intlayer
-description: 了解如何使用 intlayer 包中的 comparePaths 函数
+description: "使用 comparePaths 判断两个 URL 是否指向同一页面，忽略语言段、主机、查询字符串、hash 和结尾斜杠。"
 keywords:
   - comparePaths
   - normalizePath
@@ -145,9 +145,9 @@ normalizePath("https://example.com/ru/path"); // "/path"
 
 ## 相关函数
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md): 从 URL 或路径中删除区域设置段。
-- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPrefix.md): 获取给定区域设置的 URL 前缀。
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md): 为特定区域设置生成本地化 URL。
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md)
+- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPrefix.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)
 
 ## TypeScript
 

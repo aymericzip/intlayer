@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "TanStack Start + Solid i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की जरूरत नहीं। 2026 में TanStack Start + Solid ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
+title: "TanStack Start + Solid i18n: पूरी अनुवाद गाइड"
+description: "Solid वाले TanStack Start में Intlayer सेट करें: रूट में लोकेल पैरामीटर, रिएक्टिव अनुवादित कंटेंट, स्थानीयकृत head मेटाडेटा और hreflang।"
 keywords:
   - अंतर्राष्ट्रीयकरण
   - दस्तावेज़ीकरण
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer का उपयोग करके Solid.js के साथ अपनी Tanstack Start वेबसाइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
+# Intlayer का उपयोग करके Solid.js के साथ अपनी Tanstack Start वेबसाइट का अनुवाद करें
 
 ## विषय सूची
 

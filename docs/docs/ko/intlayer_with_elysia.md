@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Elysia i18n - 앱을 번역하기 위한 완벽한 가이드"
-description: "더 이상 i18next는 없습니다. 다국어(i18n) Elysia 앱을 빌드하기 위한 2026년 가이드입니다. AI 에이전트로 번역하고 번들 크기, SEO 및 성능을 최적화하세요."
+description: "Elysia에 Intlayer 설정: 플러그인으로 요청마다 로케일을 감지하고, API 응답을 번역하며, Bun에서 콘텐츠를 타입 안전하게 유지합니다."
 keywords:
   - Internationalization
   - Documentation
@@ -269,9 +269,9 @@ curl -H "Accept-Language: es" http://localhost:3000/
 
 `elysia-intlayer`는 다음과 완전히 호환됩니다:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/index.md) React 애플리케이션용
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/index.md) Next.js 애플리케이션용
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/index.md) Vite 애플리케이션용
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/index.md)
 
 또한 브라우저 및 API 요청을 포함한 다양한 환경에서 모든 국제화 솔루션과 원활하게 작동합니다.
 

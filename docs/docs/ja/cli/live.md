@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: ライブ同期コマンド
-description: ランタイムでCMSのコンテンツ変更を反映するためのライブ同期の使い方を学びます。
+title: "intlayer live：CMS コンテンツを実行時に同期"
+description: "Intlayer の Live Sync で、CMS での変更を再ビルドや再デプロイなしに実行中のアプリケーションへ反映します。"
 keywords:
   - ライブ同期
   - CMS

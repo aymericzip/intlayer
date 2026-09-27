@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: 辞書のネスト
-description: Intlayerでコンテンツのネストを使用して、多言語コンテンツを効率的に再利用および構造化する方法を学びます。このドキュメントに従って、ネストを簡単に実装しましょう。
+title: "ネスト：辞書間でコンテンツを再利用"
+description: "Intlayer の nest() ノードで辞書から別の辞書を参照し、翻訳を重複させずに共通コンテンツを再利用します。"
 keywords:
   - Nesting
   - コンテンツの再利用

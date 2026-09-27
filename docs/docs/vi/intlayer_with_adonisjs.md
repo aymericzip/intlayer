@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 9
 title: "AdonisJS i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng AdonisJS đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong AdonisJS: nhận diện locale theo từng request bằng middleware, dịch phản hồi API và view, giữ nội dung có kiểu."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch website backend AdonisJS của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch website backend AdonisJS của bạn bằng Intlayer
 
 `adonis-intlayer` là một gói quốc tế hóa (i18n) mạnh mẽ cho các ứng dụng AdonisJS, được thiết kế để làm cho các dịch vụ backend của bạn có thể truy cập toàn cầu bằng cách cung cấp các phản hồi được bản địa hóa dựa trên sở thích của khách hàng.
 
@@ -248,9 +248,9 @@ export default class ExampleController {
 
 `adonis-intlayer` hoàn toàn tương thích với:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/index.md) cho các ứng dụng React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/index.md) cho các ứng dụng Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/index.md) cho các ứng dụng Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/index.md)
 
 Nó cũng hoạt động liền mạch với bất kỳ giải pháp quốc tế hóa nào trên nhiều môi trường khác nhau, bao gồm trình duyệt và yêu cầu API. Bạn có thể tùy chỉnh middleware để phát hiện ngôn ngữ thông qua header hoặc cookie:
 

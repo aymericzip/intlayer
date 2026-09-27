@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Tôi nhận được lỗi module not found khi sử dụng bun
-description: Sửa lỗi khi sử dụng bun.
+description: 'Sửa lỗi "Cannot find package" khi dùng Intlayer với Bun, do cách Bun giới hạn phạm vi require(), với cấu hình khắc phục.'
 keywords:
   - bun
   - module not found

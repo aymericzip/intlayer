@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: 内容文件
-description: 学习如何自定义内容声明文件的扩展。按照本指南高效地在项目中实现条件。
+title: "内容声明文件（.content.ts）"
+description: "在组件旁的 .content 文件中声明多语言内容：支持的格式、文件扩展名，以及 Intlayer 如何发现它们。"
 keywords:
   - 内容文件
   - 文档

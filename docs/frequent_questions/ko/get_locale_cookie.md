@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 쿠키 / 헤더에서 로케일을 가져오는 방법
-description: 쿠키 / 헤더에서 로케일을 가져오는 방법을 알아보세요.
+description: "Intlayer로 쿠키나 요청 헤더에서 현재 로케일을 읽어 서버나 미들웨어에서 올바른 언어를 렌더링하세요."
 keywords:
   - 쿠키
   - 헤더

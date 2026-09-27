@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-13
+updatedAt: 2026-09-27
 priority: 6
 title: ESLint प्लगइन | Intlayer के लिए लिंट नियम
-description: eslint-plugin-intlayer के साथ हार्डकोडेड स्ट्रिंग्स, ऐसे डायनामिक कॉल्स जिन्हें Intlayer कंपाइलर ऑप्टिमाइज़ नहीं कर सकता, और अप्रयुक्त शब्दकोश सामग्री का पता लगाएं। React, Vue, Svelte, Angular और Astro में ESLint और oxlint के साथ काम करता है।
+description: "eslint-plugin-intlayer से हार्डकोडेड टेक्स्ट, ऐसे डायनेमिक कॉल जिन्हें Intlayer कंपाइलर ऑप्टिमाइज़ नहीं कर सकता, और अप्रयुक्त कंटेंट पकड़ें, ESLint और oxlint के लिए।"
 keywords:
   - Intlayer
   - ESLint

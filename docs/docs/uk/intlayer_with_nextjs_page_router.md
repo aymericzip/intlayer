@@ -2,8 +2,8 @@
 createdAt: 2024-12-07
 updatedAt: 2026-06-23
 priority: 9
-title: "Next.js Page Router i18n - Повний посібник з перекладу вашого застосунку"
-description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Next.js Page Router. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
+title: "i18n у Next.js Pages Router: повний посібник"
+description: "Налаштування Intlayer у Pages Router Next.js: локалізовані маршрути з getStaticPaths, перекладені сторінки й компоненти, hreflang і sitemap."
 keywords:
   - Інтернаціоналізація
   - Документація
@@ -35,7 +35,7 @@ history:
 author: aymericzip
 ---
 
-# Перекладіть свій вебсайт на Next.js із Page Router за допомогою Intlayer | Інтернаціоналізація (i18n)
+# Перекладіть свій вебсайт на Next.js із Page Router за допомогою Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Код" value="code">

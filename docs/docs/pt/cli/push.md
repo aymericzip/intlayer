@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Enviar Dicionários
-description: Aprenda como enviar seus dicionários para o editor e CMS do Intlayer.
+title: "intlayer push: enviar dicionários ao CMS"
+description: "Envie seus dicionários locais do Intlayer ao editor visual e ao CMS para que tradutores e gestores de conteúdo possam editá-los."
 keywords:
   - Enviar
   - Dicionários

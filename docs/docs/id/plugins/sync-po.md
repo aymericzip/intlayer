@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-05-10
-updatedAt: 2026-05-10
+updatedAt: 2026-09-27
 priority: 6
-title: Plugin Sync PO
+title: "Plugin Sync PO: file Gettext dengan Intlayer"
 description: Sinkronkan kamus Intlayer dengan file Gettext PO. Pertahankan i18n Anda yang sudah ada sambil menggunakan Intlayer untuk mengelola, menerjemahkan, dan menguji pesan Anda.
 keywords:
   - Intlayer

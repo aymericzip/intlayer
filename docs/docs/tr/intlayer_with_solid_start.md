@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Solid Start i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. Çok dilli (i18n) bir SolidStart uygulaması oluşturmak için 2026 kılavuzu. Sunucu tarafında işlenen yerel ayar yönlendirmesi, hreflang, sitemap ve yapay zeka destekli çeviri."
+description: "SolidStart'ta Intlayer kurulumu: sunucuda render edilen locale yönlendirme, reaktif çevrilmiş içerik, hreflang ve çok dilli sitemap."
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer Kullanarak SolidStart Web Sitenizi Çevirin | Uluslararasılaştırma (i18n)
+# Intlayer Kullanarak SolidStart Web Sitenizi Çevirin
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">

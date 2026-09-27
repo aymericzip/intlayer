@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-06
+updatedAt: 2026-09-27
 priority: 5
 title: useIntlayer Hook Documentation | solid-intlayer
-description: See how to use the useIntlayer hook for the solid-intlayer package
+description: "Use useIntlayer in Solid to read a dictionary's localised content by key, as reactive values that update when the locale changes."
 keywords:
   - useIntlayer
   - dictionary

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Di Chuyển Từ react-i18next Sang Intlayer"
-description: "Tìm hiểu cách di chuyển ứng dụng React của bạn từ react-i18next sang Intlayer bằng bộ điều hợp tương thích."
+title: "@intlayer/react-i18next: bộ chuyển đổi tương thích cho react-i18next"
+description: "Giữ nguyên mã react-i18next và phục vụ bằng Intlayer: cài @intlayer/react-i18next, đặt alias cho các import và xem bộ chuyển đổi thay đổi gì bên dưới."
 keywords:
   - react-i18next
   - i18next
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Di Chuyển Từ react-i18next Sang Intlayer
+# @intlayer/react-i18next: bộ chuyển đổi tương thích cho react-i18next
 
 Để có hướng dẫn từng bước đầy đủ và chi tiết, vui lòng xem [Hướng Dẫn Di Chuyển react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_react-i18next_to_intlayer.md) đầy đủ của chúng tôi.
 
@@ -57,3 +57,7 @@ Bên dưới:
 - **Số nhiều & Ngữ cảnh:** Xử lý số nhiều dựa trên hậu tố của i18next (`key_one`, `key_other`) bằng cách sử dụng `Intl.PluralRules` gốc và các hậu tố ngữ cảnh (`key_male`).
 - **Component `<Trans>`:** Được triển khai lại để hỗ trợ prop `components`, dạng đối tượng và mảng, và các thẻ được đánh số `<1>...</1>` ánh xạ trực tiếp đến các React node của bạn.
 - **Instance `i18n`:** Giải quyết các key trực tiếp từ Intlayer mà không cần tải các file JSON lớn, dẫn đến kích thước bundle nhỏ hơn đáng kể.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)

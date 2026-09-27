@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Migration von next-intl zu Intlayer"
-description: "Erfahren Sie, wie Sie Ihre Next.js-Anwendung von next-intl zu Intlayer mithilfe des Compat-Adapters migrieren."
+title: "@intlayer/next-intl: Kompatibilitätsadapter für next-intl"
+description: "Behalten Sie Ihren next-intl-Code und liefern Sie ihn mit Intlayer aus: @intlayer/next-intl installieren, Imports umleiten und sehen, was der Adapter intern ändert."
 keywords:
   - next-intl
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Migration von next-intl zu Intlayer
+# @intlayer/next-intl: Kompatibilitätsadapter für next-intl
 
 Für ein vollständiges und detailliertes Schritt-für-Schritt-Tutorial lesen Sie bitte unsere vollständige [next-intl Migrationsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/migration_from_next-intl_to_intlayer.md).
 
@@ -58,3 +58,7 @@ Im Hintergrund:
 - **`useTranslations()` & `getTranslations()`:** Die einfachen Scope-Aufrufe extrahieren das erste Schlüsselsegment als korrekten Wörterbuch-Bezeichner. Verschachtelte Namespaces werden elegant in Wörterbuchpfade und Präfixe aufgeteilt.
 - **Rich Formatting:** Sowohl `t.rich()` als auch `t.markup()` sind vollständig nativ implementiert und konvertieren HTML-ähnliche Knoten in gerenderte React-Abschnitte.
 - **`useFormatter`:** `relativeTime`, `list`, `dateTimeRange` und benannte Formate aus der Konfiguration überbrücken zu den nativen `Intl`-Formatierern des Kerns.
+
+> Um zu verstehen, woher diese Bibliotheken kommen, lesen Sie die Geschichte von i18n in JavaScript.
+
+- [Die Geschichte von i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/history_of_i18n.md)

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 8
-title: Editor Visual Intlayer | Modifica il tuo contenuto utilizzando un editor visuale
+title: "Editor visuale di Intlayer: modifica i contenuti nel contesto"
 description: Scopri come utilizzare l’Editor Intlayer per gestire il tuo sito web multilingue. Segui i passi in questa documentazione online per configurare il tuo progetto in pochi minuti.
 keywords:
   - Editor

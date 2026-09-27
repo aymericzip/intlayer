@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: मुझे सब-पैकेजेस @intlayer/* से संबंधित त्रुटि मिलती है
-description: सब-पैकेजेस @intlayer/* से संबंधित त्रुटि को ठीक करें।
+description: "@intlayer/* सब-पैकेज के अलग वर्ज़न से होने वाली त्रुटियाँ ठीक करें: सभी Intlayer पैकेज एक ही वर्ज़न पर लाएँ और कैश साफ़ करें।"
 keywords:
   - @intlayer/*
   - सब-पैकेजेस

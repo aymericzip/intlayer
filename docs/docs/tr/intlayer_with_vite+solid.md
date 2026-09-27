@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Solid i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Vite + Solid uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Vite ve Solid uygulamasında Intlayer kurulumu: reaktif çevrilmiş içerik, dil seçici, yerelleştirilmiş rotalar ve tipli sözlükler."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer ile Vite and Solid çevirin | Uluslararasılaştırma (i18n)
+# Intlayer ile Vite and Solid çevirin
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
 title: Intlayer は Paraglide より軽い？
-description: Paraglide はコードがリポジトリ内に直接生成されるため、i18n ベンチマークではほぼノーコストのように見えます。その容量が実際にはどこに移動しているのか、ノードごとのロケール読み取りがなぜコストになるのか、そして Intlayer の動的読み込みが全言語ではなく必要なロケールのみを配信する仕組みを解説します。
+description: "Paraglide はコードがリポジトリ内に生成されるため、i18n ベンチマークではほぼゼロコストに見えます。その重さがどこに行くのか、Intlayer との比較を解説。"
 keywords:
   - Paraglide
   - Intlayer
@@ -287,3 +287,7 @@ bunx intlayer init --interactive
 - [バンドル最適化と `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 - [React 向け i18n ライブラリの選び方](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_react_i18n_library.md)
 - [コンパイラ駆動型国際化のメリットとデメリット](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)

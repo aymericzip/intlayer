@@ -2,7 +2,7 @@
 createdAt: 2025-08-23
 updatedAt: 2025-10-29
 priority: 8
-title: Intlayer и vue-i18n
+title: "Автоматизация JSON-переводов vue-i18n с Intlayer"
 description: Интеграция Intlayer с vue-i18n для комплексного решения интернационализации Vue.js
 keywords:
   - vue-i18n
@@ -53,6 +53,10 @@ author: aymericzip
 **Для этого Intlayer может быть реализован как адаптер для vue-i18n, чтобы помочь автоматизировать ваши JSON-переводы в CLI или CI/CD пайплайнах, тестировать переводы и многое другое.**
 
 Это руководство показывает, как использовать превосходную систему декларации контента Intlayer, сохраняя при этом совместимость с vue-i18n.
+
+> Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
+
+- [История i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)
 
 ## Пошаговое руководство по настройке Intlayer с vue-i18n
 

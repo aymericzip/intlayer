@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
 title: コンテンツ宣言ファイルの一覧表示
-description: プロジェクト内のすべてのコンテンツ宣言ファイルを一覧表示する方法を学びます。
+description: "Intlayer CLI でプロジェクト内のすべてのコンテンツ宣言ファイルを一覧表示し、辞書がどこで宣言されているかを確認します。"
 keywords:
   - 一覧表示
   - コンテンツ宣言

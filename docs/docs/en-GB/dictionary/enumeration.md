@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: Enumeration
-description: Discover how to declare and use enumerations in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
+title: "Enumeration Content: Quantity-Based Messages"
+description: "Use Intlayer enumerations to show different content depending on a number or range, with the enu() node and conditions like '<-1' or '>5'."
 keywords:
   - Enumeration
   - Internationalisation

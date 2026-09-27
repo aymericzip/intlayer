@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-01-11
-updatedAt: 2026-01-11
+updatedAt: 2026-09-27
 priority: 4
-title: `vite-env-only` & Intlayer – 오탐지된 `node:fs` 거부 오류
+title: "vite-env-only: Intlayer의 node:fs 오탐 오류"
 description: Intlayer + React-Router + Vite 환경에서 vite-env-only가 `node:fs` import를 거부한다고 보고하는 이유와 해결 방법.
 keywords:
   - intlayer
@@ -16,7 +16,7 @@ keywords:
 slugs:
   - frequent-questions
   - vite-env-only-node-fs-false-positive
-author: aymericzip 
+author: aymericzip
 ---
 
 # Intlayer에서 vite-env-only가 `node:fs`를 거부함

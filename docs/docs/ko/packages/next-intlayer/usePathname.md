@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname 훅 문서 | next-intlayer
-description: next-intlayer 패키지의 usePathname 훅 사용 방법
+description: "Next.js의 usePathname으로 로케일 세그먼트를 뺀 현재 경로를 읽어 로케일 인식 내비게이션과 활성 링크에 사용합니다."
 keywords:
   - usePathname
   - pathname
@@ -133,5 +133,5 @@ export default Sidebar;
 
 ## 관련
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useLocale.md) — 현재 로케일 + 로케일 스위처 (`pathWithoutLocale`도 노출)
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPathWithoutLocale.md) — 이 훅에서 사용하는 기본 유틸리티
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPathWithoutLocale.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-27
 priority: 8
 title: "Intl ile Dillere Göre Tarih ve Sayı Formatlama"
-description: Muhtemelen ayrı bir formatlama kütüphanesine ihtiyacınız yok. Intl'in dillere göre tarih, sayı, para birimi ve listeleri nasıl işlediğini, önbelleğe alma maliyetini ve canlı ortamdaki saat dilimi hatasını öğrenin.
+description: "Bir biçimlendirme kütüphanesine ihtiyacınız var mı? Intl tarih, sayı, para birimi ve listeleri locale'e göre nasıl biçimlendirir, önbellek maliyeti ve yalnızca prodüksiyonda görülen saat dilimi hatası."
 keywords:
   - dile göre tarih formatla
   - Intl.DateTimeFormat

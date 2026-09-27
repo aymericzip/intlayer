@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n Next.js 16 dengan next-i18next: panduan penyiapan App Router"
 description: "Siapkan next-i18next dan i18next langkah demi langkah di aplikasi Next.js 16 App Router: namespace, routing locale, komponen server dan klien, serta metadata SEO."
@@ -44,6 +44,10 @@ Dengan pendekatan ini, Anda dapat:
 > Sebagai alternatif, Anda juga dapat merujuk ke [panduan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-intl.md), atau langsung menggunakan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
 
 > Lihat perbandingan di [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Apa kata benchmark tentang next-i18next di Next.js
 

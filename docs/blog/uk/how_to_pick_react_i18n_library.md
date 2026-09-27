@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "Як вибрати правильну бібліотеку i18n для React у 2026 році"
-description: Практичний посібник з вибору інструментів інтернаціоналізації для React. На які запитання відповісти перед порівнянням react-i18next, react-intl, Lingui, use-intl, Paraglide та Intlayer, і скільки кожен варіант коштує у плані розміру bundle, типізації та підтримки.
+description: "Посібник з вибору i18n для React: питання, на які варто відповісти, перш ніж порівнювати react-i18next, react-intl, Lingui, use-intl, Paraglide та Intlayer."
 keywords:
   - react i18n
   - react інтернаціоналізація
@@ -25,8 +25,6 @@ author: aymericzip
 React не має вбудованих примітивів для i18n. Бібліотека, яку ви оберете в перший день, визначає, як зберігатимуться переклади, як вони потраплять у bundle і скільки роботи залишиться за вами на найближчі кілька років. Більшість команд обирають за популярністю, а потім стикаються з компромісами, коли база перекладів досягає 2 000 ключів.
 
 Цей посібник пропонує піти від зворотного: спочатку дайте відповідь на кілька запитань про ваш проєкт, а потім зіставте відповіді з бібліотеками, які вам підходять. Він орієнтований на чистий React (Vite, React Router, TanStack Start). Next.js має власні обмеження, розглянуті у [порівнянні Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md).
-
-![Екосистема бібліотек i18n для React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -97,6 +95,8 @@ JSON-каталоги, завантажені в пам'ять, пошук `t("a
 
 Розміри бібліотек взяті з [бенчмарку TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md): провайдер плюс хук у порожньому компоненті після збірки, tree-shaking та мініфікації, для 10 сторінок і 10 локалей. Контент вимірюється окремо.
 
+![Екосистема бібліотек i18n для React](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Бібліотека              | Хвиля        | Модель контенту                               | Типобезпечність                               | Формат повідомлень            | Розмір бібліотеки                                        |
 | :---------------------- | :----------- | :-------------------------------------------- | :-------------------------------------------- | :---------------------------- | :------------------------------------------------------- |
 | `react-i18next`         | Runtime      | Центральний JSON, namespaces                  | 2/5 — Opt-in (`CustomTypeOptions`)            | i18next (суфікси множини)     | ~18.4 kB                                                 |
@@ -147,7 +147,7 @@ JSON-каталоги, завантажені в пам'ять, пошук `t("a
 </Accordion>
 <Accordion header="У майбутньому можливий перехід на Next.js App Router">
 
-React Context не перетинає межу між сервером і клієнтом. Бібліотеки, побудовані лише на клієнтських хуках (`react-i18next`, `react-intl`), потребуватимуть паралельного server API у той день, коли ви перейдете на RSC. `use-intl` (як `next-intl`) та Intlayer (як `next-intlayer`) уже мають такий розподіл. Ознайомтеся зі статтею про [i18n у Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/list_i18n_technologies/frameworks/nextjs.md), перш ніж стандартизувати архітектурний патерн.
+React Context не перетинає межу між сервером і клієнтом. Бібліотеки, побудовані лише на клієнтських хуках (`react-i18next`, `react-intl`), потребуватимуть паралельного server API у той день, коли ви перейдете на RSC. `use-intl` (як `next-intl`) та Intlayer (як `next-intlayer`) уже мають такий розподіл. Ознайомтеся зі статтею про [i18n у Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md), перш ніж стандартизувати архітектурний патерн.
 
 </Accordion>
 </AccordionGroup>
@@ -559,8 +559,8 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 ## Поглиблені матеріали
 
-- [Бенчмарк бібліотек i18n: розмір bundle, витоки та час перемикання локалі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md) та [звіт про TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
-- [React i18n: як працює модель провайдера та скільки вона коштує](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/list_i18n_technologies/frameworks/react.md)
+- [Бенчмарк бібліотек i18n: розмір bundle, витоки та час перемикання локалі](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md)
+- [звіт про TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
 - [react-i18next проти react-intl проти Intlayer, детальне порівняння можливостей](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/react-i18next_vs_react-intl_vs_intlayer.md)
 - [next-i18next проти next-intl проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-i18next_vs_next-intl_vs_intlayer.md)
 - [Історія JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
@@ -568,4 +568,9 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 - [Per-component проти централізованого i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/per-component_vs_centralized_i18n.md)
 - [Як працює оптимізація bundle під час збірки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
 - [Налаштування i18n у застосунку на Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)
-- Аналогічні посібники для [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_vue_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_svelte_i18n_library.md) та [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_solid_i18n_library.md)
+
+Аналогічні посібники для
+
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/how_to_pick_solid_i18n_library.md)

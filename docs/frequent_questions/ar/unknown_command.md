@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: أمر غير معروف
-description: تعلّم كيفية إصلاح خطأ الأمر غير المعروف.
+title: 'إصلاح خطأ "unknown command" في Intlayer'
+description: 'أصلح خطأ "unknown command" في واجهة سطر أوامر Intlayer: تحقّق من اسم الأمر وإصدار واجهة سطر الأوامر وطريقة استدعاء الملف التنفيذي.'
 keywords:
   - غير معروف
   - أمر

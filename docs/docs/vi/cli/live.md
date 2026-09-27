@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Lệnh Live Sync
-description: Tìm hiểu cách sử dụng Live Sync để phản ánh các thay đổi nội dung CMS trong thời gian chạy.
+title: "intlayer live: đồng bộ nội dung CMS khi chạy"
+description: "Dùng Live Sync của Intlayer để áp dụng thay đổi từ CMS vào ứng dụng đang chạy mà không cần build lại hay deploy lại."
 keywords:
   - Live Sync
   - CMS

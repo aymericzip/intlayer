@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "next-i18next ile Next.js 16 i18n: App Router kurulum rehberi"
 description: "Next.js 16 App Router uygulamasında next-i18next ve i18next'i adım adım kurun: namespace'ler, locale yönlendirme, sunucu ve istemci bileşenleri ve SEO meta verileri."
@@ -44,6 +44,10 @@ Bu yaklaşımla şunları yapabilirsiniz:
 > Alternatif olarak, [next-intl rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md) veya doğrudan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md) kullanımına da başvurabilirsiniz.
 
 > Karşılaştırmayı [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) sayfasında görebilirsiniz.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## Benchmark, Next.js üzerinde next-i18next hakkında ne söylüyor
 

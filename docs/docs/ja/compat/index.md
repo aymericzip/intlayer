@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Intlayer Compat アダプター"
+title: "既存の i18n ライブラリ向け Intlayer 互換アダプター"
 description: "既存の i18n ソリューションを、compat アダプターを使用して、ゼロの摩擦で Intlayer に移行してください。"
 keywords:
   - compat
@@ -31,6 +31,10 @@ author: aymericzip
 compat アダプターを使用する場合、アプリケーションのインポートを書き直したり、翻訳フックとコンポーネントの使用方法を変更したりする必要はありません。代わりに、Intlayer のバンドラープラグインが既存のインポートを自動的に Intlayer compat パッケージにエイリアスします。
 
 例えば、開発者は `import { useTranslation } from 'react-i18next'` を `import { useTranslation } from '@intlayer/react-i18next'` に置き換えます (バンドラープラグインが自動的に行います)。すると、アプリケーションは Intlayer 辞書から提供される翻訳で動作し続けます。キーは Intlayer 辞書に対しても型付けされています！
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## 利用可能な互換性アダプター
 

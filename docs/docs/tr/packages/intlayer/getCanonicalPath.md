@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: getCanonicalPath Fonksiyon Dokümantasyonu | intlayer
-description: intlayer paketi için getCanonicalPath fonksiyonunun nasıl kullanılacağını görün
+description: "getCanonicalPath ile /a-propos gibi yerelleştirilmiş bir yolu yönlendirme için /about gibi dahili rotasına geri çevirin."
 keywords:
   - getCanonicalPath
   - çeviri
@@ -121,5 +121,5 @@ getCanonicalPath("/contactez-nous", Locales.FRENCH, manualRules);
 
 ## İlgili Fonksiyonlar
 
-- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedPath.md): Bir canonical path'i yerelleştirilmiş eşdeğerine çözer.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md): Tamamen yerelleştirilmiş bir URL üretir (protokol, host ve locale öneki dahil).
+- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)

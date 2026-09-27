@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getPathWithoutLocale 함수 문서 | intlayer
-description: intlayer 패키지의 getPathWithoutLocale 함수 사용법을 확인하세요
+description: "getPathWithoutLocale로 URL이나 경로에서 로케일 세그먼트를 제거합니다. 절대 URL과 상대 경로 모두 지원합니다."
 keywords:
   - getPathWithoutLocale
   - 번역

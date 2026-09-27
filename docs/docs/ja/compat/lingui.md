@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Linguiからintlayerへの移行"
 description: "compat adapterを使用してLinguiアプリケーションからIntlayerへ移行する方法を学びます。"
@@ -43,3 +43,7 @@ Linguiは、マクロ（`` t`Hello ${name}` ``および`<Trans>`など）を使�
 - **マクロ:** これらは以前と同じようにコンパイルされ、ソース構文の中断がないことを保証します。
 - **ランタイム翻訳:** エイリアス化された`i18n._()`はIntlayerの辞書を使用します。明示的に名付けられたIDとハッシュ化されたIDの両方が、Intlayerの`.po`同期プラグインを使用して完全にマップされ、キーを安全に集約およびプルーニングします。
 - **ICU機能:** 複数形化、選択、およびICUバリアントのサポートは、Intlayerの統一されたICUパーサーにより堅牢であり、同じレンダリング出力を保証します。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)

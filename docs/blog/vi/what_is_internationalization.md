@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
-title: "Quốc tế hóa (i18n) là gì? Ý nghĩa, định nghĩa và thách thức"
+title: "Quốc tế hóa (i18n) là gì? Ý nghĩa và thách thức"
 description: "i18n nghĩa là gì? Tìm hiểu quốc tế hóa là gì, vì sao được viết tắt là i18n, khác gì với bản địa hóa (l10n) và những thách thức thường gặp khi triển khai."
 keywords:
   - ý nghĩa i18n
@@ -184,11 +184,11 @@ Việc lựa chọn công cụ phù hợp với nhu cầu và lên kế hoạch 
 
 Nếu bạn đang tìm thư viện i18n phù hợp cho stack của mình, hãy xem các hướng dẫn sau:
 
-- React: [Cách chọn thư viện i18n cho React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_react_i18n_library.md)
-- Vue: [Cách chọn thư viện i18n cho Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_vue_i18n_library.md)
-- Svelte: [Cách chọn thư viện i18n cho Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_svelte_i18n_library.md)
-- Solid: [Cách chọn thư viện i18n cho Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_solid_i18n_library.md)
-- Next.js: [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Cách chọn thư viện i18n cho React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_react_i18n_library.md)
+- [Cách chọn thư viện i18n cho Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_vue_i18n_library.md)
+- [Cách chọn thư viện i18n cho Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_svelte_i18n_library.md)
+- [Cách chọn thư viện i18n cho Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_solid_i18n_library.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## Kết luận
 

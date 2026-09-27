@@ -53,6 +53,10 @@ Bien qu'Intlayer offre une excellente solution i18n autonome (voir notre [guide 
 
 Ce guide vous montre comment tirer parti du système supérieur de déclaration de contenu d'Intlayer tout en maintenant la compatibilité avec next-i18next.
 
+> Pour comprendre d'où viennent ces bibliothèques, lisez l'histoire de l'i18n en JavaScript.
+
+- [L'histoire de l'i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/history_of_i18n.md)
+
 ## Guide étape par étape pour configurer Intlayer avec next-i18next
 
 <Steps>

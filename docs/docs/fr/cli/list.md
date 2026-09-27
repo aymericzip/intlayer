@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
 title: Lister les fichiers de déclaration de contenu
-description: Apprenez à lister tous les fichiers de déclaration de contenu dans votre projet.
+description: "Listez tous les fichiers de déclaration de contenu de votre projet avec la CLI Intlayer, pour savoir où vos dictionnaires sont déclarés."
 keywords:
   - Liste
   - Déclaration de contenu

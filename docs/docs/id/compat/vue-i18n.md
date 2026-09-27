@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrasi dari Vue I18n ke Intlayer"
-description: "Pelajari cara migrasi aplikasi Vue Anda dari vue-i18n ke Intlayer menggunakan adapter kompatibilitas."
+title: "@intlayer/vue-i18n: adaptor kompatibilitas untuk vue-i18n"
+description: "Pertahankan kode vue-i18n Anda dan sajikan lewat Intlayer: pasang @intlayer/vue-i18n, buat alias untuk import, dan lihat apa yang diubah adaptor di balik layar."
 keywords:
   - vue-i18n
   - vue
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Migrasi dari Vue I18n ke Intlayer
+# @intlayer/vue-i18n: adaptor kompatibilitas untuk vue-i18n
 
 Jika aplikasi Vue Anda saat ini menggunakan `vue-i18n`, Anda dapat migrasi ke Intlayer tanpa menulis ulang komponen atau hook terjemahan Anda. Intlayer menyediakan adapter kompatibilitas yang sempurna mencerminkan API `vue-i18n` sambil memanfaatkan fitur powerful Intlayer di balik layar.
 
@@ -57,3 +57,7 @@ export default defineConfig({
 - **Direktif:** Direktif `v-t` terdaftar dan berfungsi secara normal.
 
 Aplikasi Anda terus merender persis seperti sebelumnya, tetapi kontennya didukung oleh kamus Intlayer Anda, memberikan keamanan tipe, optimasi bundle yang lebih baik, dan integrasi CMS yang mulus.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)

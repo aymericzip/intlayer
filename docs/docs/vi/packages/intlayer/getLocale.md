@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm getLocale | intlayer
-description: Xem cách sử dụng hàm getLocale cho package intlayer
+description: "Dùng getLocale để nhận diện locale từ một chuỗi như URL hoặc đường dẫn, có dự phòng về locale mặc định."
 keywords:
   - getLocale
   - dịch

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Lit i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की जरूरत नहीं। 2026 में Vite + Lit ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
+description: "Vite और Lit ऐप में Intlayer सेट करें: रिएक्टिव कंट्रोलर से अनुवादित वेब कंपोनेंट, भाषा स्विचर और टाइप्ड कंटेंट।"
 keywords:
   - अंतर्राष्ट्रीयकरण
   - दस्तावेज़
@@ -28,7 +28,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer का उपयोग करके अपनी Vite और Lit वेबसाइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
+# Intlayer का उपयोग करके अपनी Vite और Lit वेबसाइट का अनुवाद करें
 
 <Tabs defaultTab="code">
   <Tab label="कोड" value="code">

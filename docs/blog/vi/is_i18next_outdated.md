@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: Liệu i18next Đã Lỗi Thời Vào Năm 2026?
 description: i18next đang vận hành hàng triệu trang web, nhưng kiến trúc runtime từ năm 2011 đang bộc lộ giới hạn. Phân tích về dung lượng bundle, hạn chế tree-shaking và tốc độ đổi mới.
@@ -74,6 +74,10 @@ Hoạt động phát triển trong 12 tháng qua:
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Một thư viện trưởng thành mang lại sự an tâm. Tuy nhiên, các tiêu chuẩn của công cụ i18n đã thay đổi: bundler hiện đại loại bỏ nội dung không sử dụng khi build, LLM tự động dịch trên CI, và lập trình viên tận dụng Language Server (LSP) cùng AI agent. Mô hình chỉ dựa vào runtime của i18next gặp khó khăn trong việc đón nhận những tiến bộ này.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Đo Lường Tác Động Lên Bundle
 

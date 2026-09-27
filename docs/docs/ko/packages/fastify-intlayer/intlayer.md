@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Fastify 플러그인 문서 | fastify-intlayer
-description: fastify-intlayer 패키지용 intlayer 플러그인 사용 방법을 확인하세요
+description: "Fastify용 intlayer 플러그인은 사용자 로케일을 감지하고 각 요청에 Intlayer 번역 함수를 추가합니다."
 keywords:
   - intlayer
   - fastify

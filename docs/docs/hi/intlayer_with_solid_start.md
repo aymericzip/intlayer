@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Solid Start i18n - अपने ऐप का अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की आवश्यकता नहीं। 2026 में बहुभाषी (i18n) SolidStart ऐप बनाने की गाइड। सर्वर-रेंडर्ड लोकेल रूटिंग, hreflang, साइटमैप और AI-सहायता प्राप्त अनुवाद।"
+description: "SolidStart में Intlayer सेट करें: सर्वर पर रेंडर होने वाली लोकेल रूटिंग, रिएक्टिव अनुवादित कंटेंट, hreflang और बहुभाषी साइटमैप।"
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer का उपयोग करके अपनी SolidStart वेबसाइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
+# Intlayer का उपयोग करके अपनी SolidStart वेबसाइट का अनुवाद करें
 
 <Tabs defaultTab="video">
   <Tab label="वीडियो" value="video">

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Live Sync Commands
-description: Learn how to use Live Sync to reflect CMS content changes at runtime.
+title: "intlayer live: Sync CMS Content at Runtime"
+description: "Use Intlayer Live Sync to push content changes made in the CMS to your running application without rebuilding or redeploying it."
 keywords:
   - Live Sync
   - CMS

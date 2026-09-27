@@ -3,7 +3,7 @@ createdAt: 2025-02-07
 updatedAt: 2025-06-29
 priority: 5
 title: useDictionary हुक - React Intlayer दस्तावेज़ीकरण
-description: React अनुप्रयोगों में Intlayer के साथ useDictionary हुक का उपयोग करने के लिए पूर्ण मार्गदर्शिका, जो बिना विज़ुअल एडिटर के स्थानीयकृत सामग्री को कुशलतापूर्वक संभालने में मदद करता है।
+description: "React में useDictionary से अपना घोषित डिक्शनरी ऑब्जेक्ट व्याख्यायित करें, अनुवाद, एन्यूमरेशन और अन्य के साथ।"
 keywords:
   - useDictionary
   - React

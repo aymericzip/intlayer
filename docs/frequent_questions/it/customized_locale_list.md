@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Come personalizzare la lista delle localizzazioni?
-description: Scopri come personalizzare la lista delle localizzazioni.
+description: "Personalizza l'elenco delle locale supportate da Intlayer in intlayer.config.ts, incluse le varianti regionali e la locale predefinita."
 keywords:
   - localizzazioni
   - lista

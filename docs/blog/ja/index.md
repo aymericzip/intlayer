@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
-title: ブログ
-description: Intlayer、国際化、その他に関連するすべてのトピックを発見します
+title: "Intlayer ブログを検索"
+description: "国際化、ローカライズ、i18n ライブラリ、SEO、翻訳ワークフローに関する Intlayer ブログのすべての記事を検索できます。"
 keywords:
   - Intlayer
   - 国際化

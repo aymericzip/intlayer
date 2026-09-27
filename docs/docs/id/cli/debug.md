@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Debug Perintah Intlayer
-description: Pelajari cara melakukan debug dan memecahkan masalah CLI Intlayer.
+title: "Debug CLI Intlayer"
+description: "Atasi masalah CLI Intlayer: cek versi yang terpasang, aktifkan log detail, dan perbaiki error perintah dan konfigurasi yang umum."
 keywords:
   - Debug
   - Memecahkan Masalah

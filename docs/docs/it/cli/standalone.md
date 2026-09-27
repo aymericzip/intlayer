@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Bundle Standalone
-description: Impara come creare un bundle JavaScript standalone del contenuto dell'applicazione.
+title: "intlayer standalone: Intlayer per qualsiasi pagina"
+description: "Crea un unico bundle JavaScript di Intlayer e dei pacchetti necessari, da usare in pagine senza gestore di pacchetti né bundler."
 keywords:
   - Standalone
   - Bundle

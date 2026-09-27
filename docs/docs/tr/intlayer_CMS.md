@@ -2,7 +2,7 @@
 createdAt: 2025-08-23
 updatedAt: 2026-07-08
 priority: 8
-title: Intlayer CMS | İçeriğinizi Intlayer CMS'ye Dışa Aktarın
+title: "Intlayer CMS: çok dilli içeriğinizi dışarı taşıyın"
 description: İçeriğinizin yönetimini ekibinize devretmek için içeriğinizi Intlayer CMS'ye dışa aktarın.
 keywords:
   - CMS

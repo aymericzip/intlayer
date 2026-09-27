@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Angular 19 i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Angular 19 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在使用 Angular CLI 的 Angular 19 中配置 Intlayer：组件旁的类型化内容、运行时语言切换和本地化路由。"
 keywords:
   - 国际化
   - 文档
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译你的 Angular 19 (Webpack) 网站 | 国际化 (i18n)
+# 使用 Intlayer 翻译你的 Angular 19 (Webpack) 网站
 
 ## 目录
 

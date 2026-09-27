@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: 2026年 Solid向けの最高のi18nソリューション - ベンチマークレポート
 description: solid-primitives、solid-i18next、Tolgee、IntlayerなどのSolid国際化（i18n）ライブラリを比較します。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
@@ -69,6 +69,10 @@ style="border:none;"
 実際、最適化が不十分な実装では、国際化されたページがi18nなしのバージョンよりも数倍重くなることがあります。
 
 もう一つの影響は、開発者エクスペリエンス（DX）です。コンテンツの宣言方法、型、名前空間の構成、動的ロード、ロケール変更時の反応性などが含まれます。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## TL;DR
 

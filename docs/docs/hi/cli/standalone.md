@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: स्टैंडअलोन बंडल (Standalone Bundle)
-description: एप्लिकेशन सामग्री का स्टैंडअलोन JavaScript बंडल बनाने का तरीका जानें।
+title: "intlayer standalone: किसी भी पेज के लिए Intlayer"
+description: "Intlayer और ज़रूरी पैकेज का एक JavaScript बंडल बनाएँ, उन पेजों के लिए जहाँ पैकेज मैनेजर या बंडलर नहीं है।"
 keywords:
   - Standalone
   - बंडल

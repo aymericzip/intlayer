@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "TanStack Start i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi TanStack Start multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di TanStack Start: parameter locale di rute, konten terjemahan yang aman untuk SSR, metadata head terlokalisasi, hreflang, dan sitemap."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -51,7 +51,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs web TanStack Start Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web TanStack Start Anda menggunakan Intlayer
 
 ## Daftar Isi
 

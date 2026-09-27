@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: 枚举
-description: 了解如何在您的多语言网站中声明和使用枚举。按照本在线文档中的步骤，几分钟内即可设置您的项目。
+title: "枚举：按数量显示消息"
+description: "使用 Intlayer 枚举，根据数字或区间显示不同内容，配合 enu() 节点和 '<-1'、'>5' 等条件。"
 keywords:
   - 枚举
   - 国际化

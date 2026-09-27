@@ -3,7 +3,7 @@ createdAt: 2025-12-30
 updatedAt: 2026-05-31
 priority: 9
 title: "Fastify i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Fastify multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di Fastify: deteksi locale per request dengan plugin, terjemahkan respons API dan pesan error, bertipe dari ujung ke ujung."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan backend Fastify Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan backend Fastify Anda menggunakan Intlayer
 
 `fastify-intlayer` adalah plugin internasionalisasi (i18n) yang kuat untuk aplikasi Fastify, dirancang untuk membuat layanan backend Anda dapat diakses secara global dengan memberikan respons yang dilokalkan berdasarkan preferensi klien.
 

@@ -284,9 +284,9 @@ Per i progetti che contengono già stringhe ICU, [l'adattatore di compatibilità
 
 ## Risorse utili
 
-- [Contenuti plurali in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/plurial.md): il nodo `plural` basato su CLDR e la relativa tabella delle categorie.
-- [Contenuti basati su select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/select.md): l'equivalente di ICU `select` e quando utilizzare `enu` o `cond`.
-- [Segnaposto di inserimento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion.md): interpolazione con `{{name}}` e rilevamento automatico.
-- [Benchmark delle librerie i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/index.md): confronto su dimensioni dei bundle e prestazioni runtime.
-- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/react-i18next_vs_react-intl_vs_intlayer.md): confronto approfondito tra i tre approcci ai messaggi.
-- [Cos'è l'internazionalizzazione?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/what_is_internationalization.md): l'origine del termine i18n, le differenze rispetto a l10n e la panoramica oltre la formattazione dei messaggi.
+- [Contenuti plurali in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/plurial.md)
+- [Contenuti basati su select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/select.md)
+- [Segnaposto di inserimento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion.md)
+- [Benchmark delle librerie i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/benchmark/index.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Cos'è l'internazionalizzazione?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/what_is_internationalization.md)

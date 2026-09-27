@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Fastify Eklenti Dokümantasyonu | fastify-intlayer
-description: fastify-intlayer paketi için intlayer eklentisinin nasıl kullanılacağını öğrenin
+description: "Fastify için intlayer eklentisi kullanıcının locale'ini algılar ve her isteğe Intlayer çeviri fonksiyonlarını ekler."
 keywords:
   - intlayer
   - fastify

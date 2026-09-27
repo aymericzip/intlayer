@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-12
+updatedAt: 2026-09-27
 priority: 8
-title: Koleksiyonlar
+title: "Koleksiyonlar: yerelleştirilmiş öğelerin sıralı listeleri"
 description: Çalışma zamanında dizine (index) göre seçilebilen yerelleştirilmiş öğelerin sıralı koleksiyonlarını oluşturmak için Intlayer içerik dosyalarındaki item meta veri alanını kullanın.
 keywords:
   - Koleksiyonlar

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm getLocaleLang | intlayer
-description: Xem cách sử dụng hàm getLocaleLang cho gói intlayer
+description: "Dùng getLocaleLang để lấy mã ngôn ngữ từ chuỗi locale như en-US, có hoặc không có mã quốc gia."
 keywords:
   - getLocaleLang
   - dịch thuật

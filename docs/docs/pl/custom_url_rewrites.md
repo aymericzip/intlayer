@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-26
+updatedAt: 2026-09-27
 priority: 8
-title: Niestandardowe przepisywanie adresów URL
+title: "Przepisywanie URL: zlokalizowane ścieżki"
 description: Dowiedz się, jak skonfigurować i używać niestandardowego przepisywania adresów URL w Intlayer, aby definiować ścieżki specyficzne dla lokalizacji.
 keywords:
   - Niestandardowe przepisywanie URL

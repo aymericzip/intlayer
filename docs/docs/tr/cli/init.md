@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: Intlayer'ı Başlat
-description: Projenizde Intlayer'ı nasıl başlatacağınızı öğrenin.
+title: "intlayer init: projenize Intlayer kurun"
+description: "Mevcut bir projeye Intlayer eklemek için intlayer init çalıştırın: framework'ü algılar, paketleri kurar ve yapılandırmayı yazar."
 keywords:
   - Başlatma
   - CLI

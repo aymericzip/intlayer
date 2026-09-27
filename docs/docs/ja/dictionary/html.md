@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: HTMLコンテンツ
-description: IntlayerでHTMLコンテンツを宣言し、カスタムコンポーネントとともに使用する方法を学びます。このドキュメントに従い、国際化されたプロジェクト内で動的にコンポーネントを置換可能なリッチなHTMLライクコンテンツを埋め込む方法を解説します。
+title: "カスタムコンポーネントを使った HTML コンテンツ"
+description: "Intlayer で HTML コンテンツを宣言し、レンダリング時にタグを独自コンポーネントに置き換え。dangerouslySetInnerHTML なしで翻訳済みリッチテキストを表示。"
 keywords:
   - HTML
   - カスタムコンポーネント

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: getIntlayerAsync 函数文档 | intlayer
-description: 了解如何使用 intlayer package 中的 getIntlayerAsync 函数
+description: "使用 getIntlayerAsync 只加载并读取某一个语言的字典内容，不打包其他语言。"
 keywords:
   - getIntlayerAsync
   - dictionary
@@ -106,9 +106,9 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## 相关函数
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayer.md): 同步等效函数，读取合并的字典。
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getDictionaryAsync.md): 构建插件重写此调用的较低级函数。
-- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocale.md): 检测传入请求的语言环境。
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getDictionaryAsync.md)
+- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocale.md)
 
 ## TypeScript
 

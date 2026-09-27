@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 4
 title: İçerik bildirimi olarak dizi kullanabilir miyim?
-description: İçerik bildirimi olarak dizi nasıl kullanılır, öğrenin.
+description: "Evet: Intlayer'da bir dizi içerik bildirimi olabilir. Nasıl tanımlanır, her öğe nasıl çevrilir ve bileşenlerde nasıl okunur."
 keywords:
   - dizi
   - içerik

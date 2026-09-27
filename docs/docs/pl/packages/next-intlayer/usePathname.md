@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja hooka usePathname | next-intlayer
-description: Dowiedz się, jak korzystać z hooka usePathname w pakiecie next-intlayer
+description: "Użyj usePathname w Next.js, aby odczytać bieżącą ścieżkę bez segmentu locale do zlokalizowanej nawigacji i aktywnych linków."
 keywords:
   - usePathname
   - pathname
@@ -133,5 +133,5 @@ export default Sidebar;
 
 ## Powiązane
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/useLocale.md) — aktualna lokalizacja + przełącznik lokalizacji (udostępnia również `pathWithoutLocale`)
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md) — bazowe narzędzie używane przez ten hook
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md)

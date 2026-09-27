@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: bun का उपयोग करते समय मुझे मॉड्यूल नहीं मिला त्रुटि मिलती है
-description: bun का उपयोग करते समय त्रुटि को ठीक करें।
+description: 'Bun के साथ Intlayer चलाने पर आने वाली "Cannot find package" त्रुटि ठीक करें, जो Bun के require() के सीमित दायरे से होती है, सही कॉन्फ़िगरेशन के साथ।'
 keywords:
   - bun
   - मॉड्यूल नहीं मिला

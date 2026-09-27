@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-08
+updatedAt: 2026-09-27
 priority: 10
 title: "Next.js 16 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Next.js 16 uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Next.js 16 App Router'da Intlayer kurulumu: proxy ile locale yönlendirme, Server ve Client Components, yerelleştirilmiş metadata, sitemap ve statik sayfalar."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer kullanarak Next.js 16 web sitenizi çevirin | Uluslararasılaştırma (i18n)
+# Intlayer kullanarak Next.js 16 web sitenizi çevirin
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">

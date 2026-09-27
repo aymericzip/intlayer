@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui مقابل @intlayer/lingui: نفس وحدات الماكرو، بيئة تشغيل مختلفة"
-description: "ما الذي يتغير عندما يحتفظ تطبيق React بوحدات ماكرو Lingui مع تشغيلها عبر محول التوافق @intlayer/lingui. حجم المكونات، والترطيب (hydration)، والتسرب وحجم JavaScript لكل صفحة على نفس تطبيق TanStack Start، بما في ذلك النقاط التي يتراجع فيها المحول."
+description: "تطبيق React يحتفظ بماكروهات Lingui التي يخدمها محوّل @intlayer/lingui. قياس حجم المكوّنات والإماهة والتسرّب وJavaScript لكل صفحة."
 keywords:
   - Lingui
   - "@intlayer/lingui"
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui مقابل @intlayer/lingui | نفس وحدات الماكرو، بيئة تشغيل مختلفة
+# Lingui مقابل @intlayer/lingui: نفس وحدات الماكرو، بيئة تشغيل مختلفة
 
 حزمة `@intlayer/lingui` هي محول توافق (compat adapter) لمكتبتي `@lingui/core` و `@lingui/react`. استدعاءاتك لكل من `` t`...` `` و `<Trans>` و `useLingui()` و `i18n._()` تبقى كما هي تماما؛ تواصل وحدات الماكرو التصريف دون تغيير؛ والشيء الوحيد الذي يتغير هو مصدر النصوص في وقت التشغيل (runtime). بدلا من وجود فهرس مجمع واحد لكل لغة، يرتبط كل موقع استدعاء بقاموس Intlayer تم تجميعه خصيصا له.
 
@@ -289,12 +289,16 @@ export default defineConfig({
 
 ## مقارنات ذات صلة
 
-- [Lingui مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md) (مقارنة مباشرة بين المكتبتين على نفس الاختبار)
-- [next-intl مقابل @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer-next-intl.md) (ضمن سلسلة مقارنات المحولات)
-- [i18next مقابل @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer-i18next.md) (ضمن سلسلة مقارنات المحولات)
-- [vue-i18n مقابل @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer-vue-i18n.md) (ضمن سلسلة مقارنات المحولات)
+- [Lingui مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md)
+- [next-intl مقابل @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer-next-intl.md)
+- [i18next مقابل @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer-i18next.md)
+- [vue-i18n مقابل @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer-vue-i18n.md)
 - [مرجع محول التوافق: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/lingui.md)
 - [النهج المعتمد على المصرف مقابل التدويل التعريفي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## الخاتمة
 

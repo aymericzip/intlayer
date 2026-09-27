@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + React i18n - あなたのアプリを翻訳する完全ガイド"
-description: "i18nextはもう不要。2026年に多言語（i18n）Astro + Reactアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+description: "React アイランドを使う Astro に Intlayer を導入：翻訳済みコンポーネント、ローカライズされたルートと hreflang、コンポーネント単位の型付きコンテンツ。"
 keywords:
   - 国際化
   - ドキュメント
@@ -35,7 +35,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayerを使用したAstro + Reactサイトの翻訳 | 国際化 (i18n)
+# Intlayerを使用したAstro + Reactサイトの翻訳
 
 <Tabs defaultTab="code">
   <Tab label="コード" value="code">

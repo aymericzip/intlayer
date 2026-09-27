@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Express Middleware Dokümantasyonu | express-intlayer
-description: express-intlayer paketi için intlayer middleware'inin nasıl kullanılacağını görün
+description: "Express için intlayer middleware'i kullanıcının locale'ini algılar ve işleyicilerinizde res.locals üzerinden t ve getIntlayer sunar."
 keywords:
   - intlayer
   - express

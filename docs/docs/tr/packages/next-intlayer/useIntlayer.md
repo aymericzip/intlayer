@@ -3,7 +3,7 @@ createdAt: 2025-09-07
 updatedAt: 2026-05-06
 priority: 5
 title: useIntlayer Hook Dokümantasyonu | next-intlayer
-description: next-intlayer paketi için useIntlayer hook'unun nasıl kullanılacağını görün
+description: "Next.js'te useIntlayer ile Client ve Server Components içinde bir sözlüğün yerelleştirilmiş içeriğini anahtarla okuyun."
 keywords:
   - useIntlayer
   - dictionary

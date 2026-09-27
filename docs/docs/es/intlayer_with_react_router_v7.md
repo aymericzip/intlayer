@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "React Router v7 i18n - Guía completa para traducir tu aplicación"
-description: "Sin más i18next. La guía 2026 para construir una aplicación React Router v7 multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
+description: "Configura Intlayer en React Router v7: segmentos de ruta localizados, loaders y componentes traducidos, hreflang y sitemap multilingüe."
 keywords:
   - Internationalization
   - Documentation
@@ -40,7 +40,7 @@ history:
 author: aymericzip
 ---
 
-# Traduce tu sitio web de React Router v7 usando Intlayer | Internacionalización (i18n)
+# Traduce tu sitio web de React Router v7 usando Intlayer
 
 Esta guía demuestra cómo integrar **Intlayer** para internacionalización sin interrupciones en proyectos de React Router v7 con enrutamiento consciente de la configuración regional, soporte de TypeScript y prácticas modernas de desarrollo.
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 3
-title: "Create React App i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Create React App 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+title: "Create React App i18n：完整翻译指南"
+description: "在 Create React App 项目中配置 Intlayer：组件旁的类型化内容、语言切换器以及按语言加载的翻译。"
 keywords:
   - 国际化
   - 文档
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# 使用Intlayer翻译您的Create React App | 国际化(i18n)
+# 使用Intlayer翻译您的Create React App
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"

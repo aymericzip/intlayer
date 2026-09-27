@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Commande Intlayer non définie
-description: Apprenez comment résoudre l'erreur de commande intlayer non définie.
+description: "Corrigez l'erreur « intlayer: command not found » : installez la CLI, lancez-la via votre gestionnaire de paquets et vérifiez votre PATH."
 keywords:
   - intlayer
   - commande

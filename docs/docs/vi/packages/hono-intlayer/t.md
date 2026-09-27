@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm t | hono-intlayer
-description: Xem cách sử dụng hàm t cho gói hono-intlayer
+description: "Dùng hàm t của hono-intlayer để trả về phản hồi bản địa hóa trong Hono theo locale được nhận diện cho mỗi request."
 keywords:
   - t
   - dịch

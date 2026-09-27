@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
-title: قائمة مشاريع Intlayer
+title: "intlayer projects list: العثور على مشاريع Intlayer"
 description: تعرّف كيف تُدرَج جميع مشاريع Intlayer في دليل أو مستودع git.
 keywords:
   - قائمة

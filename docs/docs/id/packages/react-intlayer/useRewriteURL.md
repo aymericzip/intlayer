@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: Dokumentasi Hook useRewriteURL
-description: Hook khusus React untuk mengelola penulisan ulang URL terlokalisasi di Intlayer.
+title: "Dokumentasi Hook useRewriteURL | react-intlayer"
+description: "Gunakan useRewriteURL di React untuk menulis ulang URL browser ke versi terlokalisasinya sesuai aturan penulisan ulang URL di konfigurasi."
 keywords:
   - useRewriteURL
   - react-intlayer

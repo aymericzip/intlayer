@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "NuxtJS I18n से Intlayer में माइग्रेट करें"
-description: "सीखें कि अपने Nuxt.js एप्लिकेशन को @nuxtjs/i18n से Intlayer में compat adapter का उपयोग करके कैसे माइग्रेट करें।"
+title: "@intlayer/nuxt-i18n: @nuxtjs/i18n के लिए संगतता एडैप्टर"
+description: "अपना @nuxtjs/i18n कोड बनाए रखें और उसे Intlayer से चलाएँ: @intlayer/nuxt-i18n इंस्टॉल करें, imports के लिए alias सेट करें, और देखें कि एडैप्टर अंदर क्या बदलता है।"
 keywords:
   - nuxtjs-i18n
   - nuxt
@@ -22,7 +22,7 @@ history:
 author: aymericzip
 ---
 
-# NuxtJS I18n से Intlayer में माइग्रेट करें
+# @intlayer/nuxt-i18n: @nuxtjs/i18n के लिए संगतता एडैप्टर
 
 अपने Nuxt एप्लिकेशन को `@nuxtjs/i18n` से Intlayer में माइग्रेट करना Nuxt adapter मॉड्यूल का उपयोग करके एक सहज प्रक्रिया है।
 
@@ -45,3 +45,7 @@ npx intlayer init --interactive
 - **Translations:** सभी string translation कार्यों के लिए `@intlayer/vue-i18n` compat layer पर नेटिवली निर्भर करता है (`vue-i18n` formats, pipe plurals, और reactivity को पूरी तरह से support करता है)।
 - **Routing:** Intlayer के localized URL helpers का उपयोग करके routing composables को mirror करता है।
 - **Configuration:** आपके `intlayer.config.ts` से सीधे `availableLocales` और default settings को पढ़ता है ताकि Nuxt pages को स्वचालित रूप से coordinate किया जा सके।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)

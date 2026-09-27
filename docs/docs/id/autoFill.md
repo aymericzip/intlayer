@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-09-20
+updatedAt: 2026-09-27
 priority: 8
-title: Isi Otomatis
-description: Pelajari cara menggunakan fungsi isi otomatis di Intlayer untuk mengisi konten secara otomatis berdasarkan pola yang telah ditentukan. Ikuti dokumentasi ini untuk mengimplementasikan fitur isi otomatis secara efisien dalam proyek Anda.
+title: "Auto Fill: terjemahkan konten yang hilang otomatis"
+description: "Gunakan auto fill Intlayer untuk membuat terjemahan yang hilang dari locale sumber dan menuliskannya ke file konten yang tepat."
 keywords:
   - Isi Otomatis
   - Otomatisasi Konten

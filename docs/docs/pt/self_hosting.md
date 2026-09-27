@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: Auto-hospedagem do Intlayer
-description: "Execute o Intlayer em sua própria infraestrutura: como aplicativo desktop, contêiner Docker tudo-em-um ou stack Docker Compose escalável. Nenhuma conta Intlayer Cloud necessária."
+title: "Hospede o Intlayer com Docker"
+description: "Execute o Intlayer na sua própria infraestrutura: app desktop, contêiner Docker tudo em um ou stack Docker Compose, sem conta na nuvem."
 keywords:
   - Auto-hospedagem
   - Docker

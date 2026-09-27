@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "AdonisJS i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
-description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) AdonisJS-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
+description: "Intlayer in AdonisJS einrichten: Locale pro Request per Middleware erkennen, API-Antworten und Views übersetzen, Inhalte typisiert halten."
 keywords:
   - Internationalisierung
   - Dokumentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Übersetzen Sie Ihr AdonisJS-Backend-Website mit Intlayer | Internationalisierung (i18n)
+# Übersetzen Sie Ihr AdonisJS-Backend-Website mit Intlayer
 
 `adonis-intlayer` ist ein leistungsstarkes Internationalisierungs-Paket (i18n) für AdonisJS-Anwendungen, das entwickelt wurde, um Ihre Backend-Dienste weltweit zugänglich zu machen, indem es lokalisierte Antworten basierend auf den Präferenzen des Clients liefert.
 
@@ -247,9 +247,9 @@ export default class ExampleController {
 
 `adonis-intlayer` ist vollständig kompatibel mit:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/index.md) für React-Anwendungen
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/index.md) für Next.js-Anwendungen
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/index.md) für Vite-Anwendungen
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/index.md)
 
 Es funktioniert auch nahtlos mit jeder Internationalisierungslösung über verschiedene Umgebungen hinweg, einschließlich Browsern und API-Anfragen. Sie können die Middleware anpassen, um die Locale über Header oder Cookies zu erkennen:
 

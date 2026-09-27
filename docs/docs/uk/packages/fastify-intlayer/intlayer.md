@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Документація плагіна intlayer для Fastify | fastify-intlayer
-description: Дізнайтеся, як використовувати плагін intlayer для пакету fastify-intlayer
+description: "Плагін intlayer для Fastify визначає локаль користувача та додає функції перекладу Intlayer до кожного запиту."
 keywords:
   - intlayer
   - fastify

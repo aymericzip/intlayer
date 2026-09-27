@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
 title: Daftar File Deklarasi Konten
-description: Pelajari cara mendaftar semua file deklarasi konten dalam proyek Anda.
+description: "Tampilkan semua file deklarasi konten di proyek Anda dengan CLI Intlayer untuk melihat di mana kamus dideklarasikan."
 keywords:
   - Daftar
   - Deklarasi Konten

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname Hook दस्तावेज़ | next-intlayer
-description: next-intlayer पैकेज के लिए usePathname हुक का उपयोग करना सीखें
+description: "Next.js में usePathname से लोकेल सेगमेंट के बिना मौजूदा पाथ पढ़ें, लोकेल-जागरूक नेविगेशन और सक्रिय लिंक के लिए।"
 keywords:
   - usePathname
   - pathname
@@ -133,5 +133,5 @@ export default Sidebar;
 
 ## संबंधित दस्तावेज़
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/useLocale.md) — वर्तमान लोकेल + लोकेल स्विचर (यह `pathWithoutLocale` भी प्रदर्शित करता है)
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getPathWithoutLocale.md) — इस हुक द्वारा उपयोग की जाने वाली अंतर्निहित उपयोगिता
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getPathWithoutLocale.md)

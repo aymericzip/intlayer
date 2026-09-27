@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui vs Intlayer：2026 年基准测试与深度对比"
-description: "在 Next.js 和 TanStack Start 上实测的两款基于编译器的 i18n 库。打包体积、内容泄漏、组件大小、水合性能、语言切换响应速度及开发者体验全面对比。"
+description: "在 Next.js 和 TanStack Start 上测量两个基于编译器的 i18n 库：包体积、内容泄漏、组件大小、水合与语言切换。"
 keywords:
   - Lingui
   - Intlayer
@@ -23,9 +23,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui VS Intlayer | React & Next.js 国际化 (i18n) 基准测试对比
-
-![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+# Lingui VS Intlayer：React & Next.js 国际化 (i18n) 基准测试对比
 
 Lingui 和 Intlayer 是本次基准测试中仅有的两个依赖**编译器**而非纯运行时的国际化库。Lingui 在构建时从宏中提取消息，并为每个语言环境编译目录。Intlayer 按组件编译字典，并按语言环境进行 Tree-shaking。理论上它们的表现应当十分接近，但实际测试数据揭示了它们在哪方面走向了分歧。
 
@@ -451,26 +449,34 @@ export default defineConfig({
 
 ## 相关对比评测
 
+![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 相同基准测试，其他库：
 
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer.md)
 - [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer.md)
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/react-i18next_vs_react-intl_vs_intlayer.md)
 
 深入了解：
 
-- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer-lingui.md), 在同一应用上实测的适配器
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer-lingui.md)
 - [Compiler-driven vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
 - [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)
 - [ICU message format explained](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 参考文档：
 
-- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md) 与 [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
+- [Next.js 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+- [TanStack Start 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
 - [Compat adapter: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
-- [包体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 与 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [包体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+- [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## GitHub 星标发展历程
 

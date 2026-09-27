@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Tarik Kamus
-description: Pelajari cara menarik kamus dari editor dan CMS Intlayer.
+title: "intlayer pull: tarik kamus dari CMS"
+description: "Unduh kamus yang diedit di editor visual atau Intlayer CMS ke proyek Anda agar perubahan jarak jauh masuk ke kode."
 keywords:
   - Tarik
   - Kamus

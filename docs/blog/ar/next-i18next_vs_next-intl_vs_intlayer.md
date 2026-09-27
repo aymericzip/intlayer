@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "next-i18next مقابل next-intl مقابل Intlayer: مقارنة 2026"
-description: "أي مكتبة i18n تختار لـ Next.js؟ مقارنة بين next-i18next وnext-intl وIntlayer من حيث حجم الحزمة، وأمان TypeScript، وServer Components، والتوجيه، وتجربة المطوّر."
+description: "أي مكتبة i18n تختار لـ Next.js؟ مقارنة next-i18next وnext-intl وIntlayer من حيث الحزمة وTypeScript وServer Components والتوجيه وتجربة المطوّر."
 keywords:
   - next-intl
   - next-i18next
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-i18next مقابل next-intl مقابل intlayer | التدويل في Next.js (i18n)
+# next-i18next مقابل next-intl مقابل intlayer
 
 ![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -80,6 +80,10 @@ author: aymericzip
 يوفر Next.js دعمًا مدمجًا للتوجيه الدولي (مثل مقاطع اللغة). لكن هذه الميزة لا تقوم بالترجمة بمفردها. لا يزال يتعين عليك استخدام مكتبة لعرض المحتوى المحلي للمستخدمين.
 
 توجد العديد من مكتبات i18n، ولكن في عالم Next.js اليوم، هناك ثلاث مكتبات تكتسب شعبية: next-i18next، next-intl، و Intlayer.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## الهندسة والقابلية للتوسع
 

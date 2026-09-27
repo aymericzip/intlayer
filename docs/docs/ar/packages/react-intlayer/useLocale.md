@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: توثيق هوك useLocale | react-intlayer
-description: تعرف على كيفية استخدام هوك useLocale لحزمة react-intlayer
+description: "استخدم useLocale في React لقراءة اللغة الحالية والافتراضية والمتاحة، وتبديل اللغة من أي مكوّن."
 keywords:
   - useLocale
   - dictionary

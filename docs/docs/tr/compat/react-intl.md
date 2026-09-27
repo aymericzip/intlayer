@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "React Intl'den Intlayer'a Geçiş Yapın"
 description: "Uyumluluk adaptörünü kullanarak React uygulamanızı react-intl'den Intlayer'a nasıl geçireceğinizi öğrenin."
@@ -54,3 +54,7 @@ Arka Planda:
 - **ICU MessageFormat:** Intlayer, ICU çoğullaştırmasını, seçimini, tarih/sayı biçimlendirmesini ve zengin metin etiketlerini doğal olarak destekleyen `resolveMessage(..., 'icu')` çözümleyicisini kullanır.
 - **Method & JSX Çağırıcılar:** `intl.formatMessage({ id: 'a.b' })` ve `<FormattedMessage id="a.b">` Intlayer compiler plugin'leri (`@intlayer/babel` / `@intlayer/swc`) tarafından tanımlanır, düz noktalı anahtarlar dönüştürülür, böylece ilk segment Intlayer sözlük anahtarına doğru çözülür.
 - **Formatter'lar:** `<FormattedNumber>`, `<FormattedDate>`, vb., `Intl` kullanan yerel `core/formatters`'a köprü atılmaktadır.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)

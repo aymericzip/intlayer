@@ -2,7 +2,7 @@
 createdAt: 2024-08-14
 updatedAt: 2026-05-31
 priority: 8
-title: Intlayer का महत्व
+title: "Intlayer क्यों? अन्य i18n लाइब्रेरी से बेहतर क्या है"
 description: अपने प्रोजेक्ट्स में Intlayer का उपयोग करने के लाभों और फायदों की खोज करें। समझें कि Intlayer अन्य फ्रेमवर्क के बीच क्यों अलग खड़ा है।
 keywords:
   - लाभ
@@ -224,6 +224,10 @@ export const ComponentExample = () => {
 
 6. **Loading performance को optimize करें**
    - यदि कोई component lazy-loaded है, तो इसकी संबंधित content एक ही समय में load होगी
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 
 ## Intlayer की अतिरिक्त विशेषताएं
 

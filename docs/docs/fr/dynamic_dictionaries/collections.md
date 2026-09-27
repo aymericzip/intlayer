@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-12
+updatedAt: 2026-09-27
 priority: 8
-title: Collections
+title: "Collections : listes ordonnées d'éléments localisés"
 description: Utilisez le champ de métadonnées item dans les fichiers de contenu d'Intlayer pour créer des collections ordonnées d'éléments localisés sélectionnables par index au moment de l'exécution.
 keywords:
   - Collections

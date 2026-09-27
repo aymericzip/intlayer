@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-25
+updatedAt: 2026-09-27
 priority: 5
 title: Documentação da Função getConfiguration | intlayer
-description: Veja como usar a função getConfiguration para o pacote intlayer
+description: "Use getConfiguration para ler sua configuração resolvida do Intlayer, incluindo locales e roteamento, no cliente ou no servidor."
 keywords:
   - getConfiguration
   - tradução

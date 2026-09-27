@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "تدويل Vite + Lit - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Vite + Lit متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في تطبيق Vite وLit: مكوّنات ويب مترجمة عبر متحكّم تفاعلي، ومبدّل لغة، ومحتوى مُنمَّط."
 keywords:
   - تدويل
   - توثيق
@@ -28,7 +28,7 @@ history:
 author: aymericzip
 ---
 
-# ترجمة موقع الويب الخاص بك المبني بـ Vite و Lit باستخدام Intlayer | التدويل (i18n)
+# ترجمة موقع الويب الخاص بك المبني بـ Vite و Lit باستخدام Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="كود" value="code">

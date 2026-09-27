@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + Solid i18n - Полное руководство по переводу вашего приложения"
-description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения Astro + Solid. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
+description: "Настройка Intlayer в Astro с островами Solid: переведённые компоненты, локализованные маршруты и hreflang, типизированный контент по компонентам."
 keywords:
   - Интернационализация
   - Документация
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Переводите ваш сайт Astro + Solid с помощью Intlayer | Интернационализация (i18n)
+# Переводите ваш сайт Astro + Solid с помощью Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Код" value="code">

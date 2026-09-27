@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: Enumeration
-description: Erfahren Sie, wie Sie Enumerationen in Ihrer mehrsprachigen Website deklarieren und verwenden. Folgen Sie den Schritten in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
+title: "Enumeration: Nachrichten nach Anzahl"
+description: "Zeigen Sie mit Intlayer-Enumerationen je nach Zahl oder Bereich andere Inhalte, mit dem enu()-Knoten und Bedingungen wie '<-1' oder '>5'."
 keywords:
   - Enumeration
   - Internationalisierung

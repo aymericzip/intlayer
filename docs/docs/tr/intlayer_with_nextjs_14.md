@@ -3,7 +3,7 @@ createdAt: 2024-12-06
 updatedAt: 2026-06-23
 priority: 9
 title: "Next.js 14 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Next.js 14 uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Next.js 14 App Router'da Intlayer kurulumu: locale yönlendirme middleware'i, Server ve Client Components, yerelleştirilmiş metadata ve sitemap."
 keywords:
   - nextjs
   - intlayer
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer ile Next.js 14 and App Router çevirin | Uluslararasılaştırma (i18n)
+# Intlayer ile Next.js 14 and App Router çevirin
 
 ## İçindekiler
 

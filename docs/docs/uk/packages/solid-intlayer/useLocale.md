@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: "Документація хуку useLocale | solid-intlayer"
-description: "Дізнайтеся, як використовувати хук useLocale у пакеті solid-intlayer"
+description: "Використовуйте useLocale у Solid, щоб отримати поточну, стандартну й доступні локалі та перемикати локаль із будь-якого компонента."
 keywords:
   - useLocale
   - locale

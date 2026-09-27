@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-06
+updatedAt: 2026-09-27
 priority: 5
 title: useIntlayer हुक दस्तावेज़ीकरण | solid-intlayer
-description: solid-intlayer पैकेज के लिए useIntlayer हुक का उपयोग कैसे करें
+description: "Solid में useIntlayer से किसी डिक्शनरी का स्थानीयकृत कंटेंट key से पढ़ें, जो लोकेल बदलने पर अपडेट होने वाले रिएक्टिव मान देता है।"
 keywords:
   - useIntlayer
   - dictionary

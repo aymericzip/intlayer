@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 辞書のプッシュ
-description: 辞書をIntlayerエディターとCMSにプッシュする方法を学びます。
+title: "intlayer push：辞書を CMS にプッシュ"
+description: "ローカルの Intlayer 辞書をビジュアルエディターと CMS にアップロードし、翻訳者やコンテンツ担当者が編集できるようにします。"
 keywords:
   - プッシュ
   - 辞書

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-09-27
 priority: 9
 title: "ترجمة تطبيق htmx باستخدام Intlayer - دليل كامل"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق htmx متعدد اللغات (i18n). ترجمة مع وكلاء الذكاء الاصطناعي وتحسين حجم الحزمة و SEO والأداء."
+description: "استخدام Intlayer مع htmx: عرض أجزاء HTML مترجمة على الخادم، واكتشاف اللغة لكل طلب، وتبديل اللغة دون SPA."
 keywords:
   - Internationalization
   - Documentation
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# ترجمة تطبيق htmx باستخدام Intlayer | الدولية (i18n)
+# ترجمة تطبيق htmx باستخدام Intlayer
 
 htmx لا يعرض أي محتوى خاص به. كل تسمية يقرأها الزائر هي HTML أنتجها الخادم، وكل تبديل هو طلب HTTP منفصل. لذا فإن دولي (i18n) لتطبيق htmx يعتبر مسؤولية الخادم: يجب حل locale على كل طلب، وكل جزء يجب أن يتم تصييره في هذا locale.
 

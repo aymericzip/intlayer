@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname フックのドキュメント | preact-intlayer
-description: preact-intlayer パッケージの usePathname フックの使用方法について
+description: "Preact の usePathname で、ロケールセグメントを除いた現在のパスを取得し、ロケール対応のナビゲーションやアクティブリンクに使います。"
 keywords:
   - usePathname
   - pathname
@@ -114,5 +114,5 @@ export default Sidebar;
 
 ## 関連ドキュメント
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/preact-intlayer/exports.md) — 現在のロケールとロケールスイッチャー
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md) — このフックで使われているベースのユーティリティ
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/preact-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md)

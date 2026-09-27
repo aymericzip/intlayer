@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "Міграція з i18next на Intlayer | Інтернаціоналізація (i18n)"
-description: "Дізнайтеся, як перенести вашу JavaScript/TypeScript додаток з i18next на Intlayer — крок за кроком, без порушення вашого існуючого коду. Використовуйте адаптер сумісності @intlayer/i18next для безперебійного переходу."
+title: "Міграція з i18next на Intlayer"
+description: "Покроково перенесіть застосунок на JavaScript чи TypeScript з i18next на Intlayer, почавши з адаптера @intlayer/i18next, щоб нічого не зламати."
 keywords:
   - i18next
   - intlayer
@@ -61,6 +61,10 @@ Intlayer також є рішенням із **найактивнішою роз
 
 </Accordion>
 </AccordionGroup>
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
 
 ## Стратегії міграції
 
@@ -300,7 +304,7 @@ Intlayer використовує module augmentation для забезпече�
 
 ## Йдіть далі
 
-- **Visual Editor** — Керуйте перекладами візуально у вашому браузері: [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
-- **CMS** — Екстерналізуйте та керуйте контентом віддалено: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
-- **VS Code Extension** — Отримайте автозаповнення та виявлення помилок перекладу в реальному часі: [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
-- **CLI Reference** — Повний список команд CLI: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+- [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)

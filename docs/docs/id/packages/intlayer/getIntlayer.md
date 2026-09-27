@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi getIntlayer | intlayer
-description: Lihat cara menggunakan fungsi getIntlayer untuk package intlayer
+description: "Gunakan getIntlayer untuk membaca konten kamus untuk suatu locale di mana saja, padanan hook useIntlayer yang tidak bergantung framework."
 keywords:
   - getIntlayer
   - dictionary
@@ -164,9 +164,9 @@ Dalam pengembangan, meminta kunci yang tidak memiliki kamus yang dihasilkan menc
 
 ## Fungsi Terkait
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayerAsync.md): Counterpart async yang memuat satu chunk locale.
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getDictionary.md): Menginterpretasikan object dictionary yang Anda berikan sendiri, alih-alih yang dicari berdasarkan key.
-- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useIntlayer.md): Equivalent React hook, membaca locale dari provider.
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getDictionary.md)
+- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useIntlayer.md)
 
 ## TypeScript
 

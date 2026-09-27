@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
 title: Lista plików deklaracji zawartości
-description: Dowiedz się, jak wyświetlić listę wszystkich plików deklaracji zawartości w swoim projekcie.
+description: "Wyświetl za pomocą CLI Intlayer wszystkie pliki deklaracji treści w projekcie, aby zobaczyć, gdzie są zadeklarowane słowniki."
 keywords:
   - Lista
   - Deklaracja zawartości

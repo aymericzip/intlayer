@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-07-30
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: 선택 기반 콘텐츠
-description: Intlayer에서 선택 기반 콘텐츠를 사용하여 임의의 문자열 값을 기반으로 콘텐츠를 동적으로 표시하는 방법을 알아보세요. 이 문서를 따라 프로젝트에서 스위치(switch) 유사 콘텐츠를 효율적으로 구현하세요.
+title: "Intlayer의 선택 기반 콘텐츠"
+description: "Intlayer의 select 노드로 임의의 문자열 값에 따라 콘텐츠를 선택합니다. 상태, 역할, 변형을 위한 switch 같은 방식입니다."
 keywords:
   - 선택 기반 콘텐츠
   - Select Content

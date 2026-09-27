@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Commandes Live Sync
-description: Apprenez à utiliser Live Sync pour refléter les modifications de contenu CMS en temps réel.
+title: "intlayer live : synchroniser le contenu du CMS"
+description: "Utilisez Live Sync d'Intlayer pour appliquer les modifications faites dans le CMS à votre application en cours, sans rebuild ni redéploiement."
 keywords:
   - Live Sync
   - CMS

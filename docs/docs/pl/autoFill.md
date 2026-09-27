@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-09-20
+updatedAt: 2026-09-27
 priority: 8
-title: Autouzupełnianie
-description: Dowiedz się, jak korzystać z funkcji autouzupełniania w Intlayer, aby automatycznie wypełniać zawartość na podstawie zdefiniowanych wzorców. Postępuj zgodnie z tą dokumentacją, aby efektywnie wdrożyć funkcje autouzupełniania w swoim projekcie.
+title: "Auto Fill: automatyczne tłumaczenie brakujących treści"
+description: "Użyj auto fill w Intlayer, aby wygenerować brakujące tłumaczenia z locale źródłowego i zapisać je w odpowiednich plikach treści."
 keywords:
   - Autouzupełnianie
   - Automatyzacja treści

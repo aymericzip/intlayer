@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Obserwuj słowniki
+title: "intlayer watch: przebudowa słowników przy zmianach"
 description: Dowiedz się, jak obserwować zmiany w plikach deklaracji treści i automatycznie budować słowniki.
 keywords:
   - Obserwuj

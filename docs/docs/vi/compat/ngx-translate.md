@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Di Chuyển Từ NGX-Translate Sang Intlayer"
 description: "Tìm hiểu cách di chuyển ứng dụng Angular của bạn từ ngx-translate sang Intlayer bằng bộ điều hợp tương thích."
@@ -44,3 +44,7 @@ Bên dưới:
 - **Service:** `TranslateService` bao bọc `getIntlayer` và một observable locale, cung cấp chính xác các phương thức giống nhau.
 - **Pipe & Directive:** Được triển khai lại để giải quyết trực tiếp dựa trên các từ điển Intlayer.
 - **Loader:** Các thiết lập `TranslateHttpLoader` được chuyển đổi thành các stub cảnh báo vì Intlayer vốn đã giải quyết và đóng gói các từ điển của bạn tại thời điểm build (hoặc thông qua các dynamic import tiêu chuẩn), hoàn toàn loại bỏ nhu cầu về HTTP loader.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: كيفية تخصيص قائمة اللغات؟
-description: تعلّم كيفية تخصيص قائمة اللغات.
+description: "خصّص قائمة اللغات التي يدعمها Intlayer في intlayer.config.ts، بما في ذلك المتغيرات الإقليمية واللغة الافتراضية."
 keywords:
   - اللغات
   - القائمة

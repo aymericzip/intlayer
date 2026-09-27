@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-27
 priority: 8
-title: Construyendo un Asistente de Documentación Potenciado por RAG (Fragmentación, Embeddings y Búsqueda)
-description: Construyendo un Asistente de Documentación Potenciado por RAG (Fragmentación, Embeddings y Búsqueda)
+title: "Crear un asistente de documentación RAG"
+description: "Cómo construimos un asistente de IA para nuestra documentación: fragmentación del markdown, embeddings, búsqueda vectorial y prompts, con los compromisos encontrados."
 keywords:
   - RAG
   - Documentación

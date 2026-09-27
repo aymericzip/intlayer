@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: Markdown
-description: تعرف على كيفية الإعلان عن واستخدام محتوى Markdown في موقعك متعدد اللغات باستخدام Intlayer. اتبع الخطوات في هذه الوثائق عبر الإنترنت لدمج Markdown بسلاسة في مشروعك.
+title: "محتوى Markdown في Intlayer"
+description: "عرّف Markdown مترجمًا في Intlayer باستخدام md() أو ملفات .content.md، واعرضه بمكوّناتك في أي إطار عمل."
 keywords:
   - Markdown
   - تدويل

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: 2026'da Solid için En İyi i18n Çözümü - Benchmark Raporu
 description: solid-primitives, solid-i18next, Tolgee ve Intlayer gibi Solid uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
@@ -69,6 +69,10 @@ Uygulamanız büyüdükçe, bu sorun istemciye gönderilen JavaScript'i hızla b
 Pratikte, en az optimize edilmiş uygulamalar için, uluslararasılaştırılmış bir sayfa i18n olmayan sürümden birkaç kat daha ağır olabilir.
 
 Diğer etki geliştirici deneyimi (DX) üzerindedir: içeriği nasıl tanımladığınız, tipler, namespace organizasyonu, dinamik yükleme ve dil değiştiğinde reaktivite.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## TL;DR
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: 文件
-description: 了解如何使用 `file` 函数将外部文件嵌入到您的内容字典中。本文档解释了 Intlayer 如何动态链接和管理文件内容。
+title: "文件内容：嵌入外部文件"
+description: "使用 file() 函数将 Markdown 或文本等外部文件嵌入 Intlayer 字典，并与源文件保持同步。"
 keywords:
   - 文件
   - 国际化

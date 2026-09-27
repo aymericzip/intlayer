@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu Middleware intlayer cho Express | express-intlayer
-description: Xem cách sử dụng middleware intlayer cho package express-intlayer
+description: "Middleware intlayer cho Express nhận diện locale của người dùng và cung cấp t và getIntlayer qua res.locals trong handler."
 keywords:
   - intlayer
   - express

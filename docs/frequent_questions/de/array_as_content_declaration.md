@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Kann ich ein Array als Inhaltsdeklaration verwenden?
-description: Erfahren Sie, wie Sie ein Array als Inhaltsdeklaration verwenden können.
+description: "Ja: Ein Array kann in Intlayer eine Inhaltsdeklaration sein. So deklarieren Sie es, übersetzen jedes Element und lesen es in Ihren Komponenten."
 keywords:
   - array
   - inhalt

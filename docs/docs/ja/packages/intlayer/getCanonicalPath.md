@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: getCanonicalPath 関数ドキュメント | intlayer
-description: intlayer パッケージの getCanonicalPath 関数の使い方
+description: "getCanonicalPath で /a-propos のようなローカライズされたパスを、ルーティング用の /about のような内部ルートに戻します。"
 keywords:
   - getCanonicalPath
   - 翻訳
@@ -121,5 +121,5 @@ getCanonicalPath("/contactez-nous", Locales.FRENCH, manualRules);
 
 ## 関連関数
 
-- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedPath.md): canonical path をローカライズされた等価パスに解決します。
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md): プロトコル、ホスト、ロケールプレフィックスを含む完全にローカライズされたURLを生成します。
+- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)

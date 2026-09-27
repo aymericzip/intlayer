@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-08-13
+updatedAt: 2026-09-27
 priority: 8
-title: تكامل CI/CD
+title: "تكامل Intlayer مع CI/CD للترجمات"
 description: تعلّم كيفية دمج Intlayer في خط أنابيب CI/CD الخاص بك لإدارة المحتوى والنشر بشكل آلي.
 keywords:
   - CI/CD

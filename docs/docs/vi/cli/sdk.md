@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: CLI SDK
-description: Tìm hiểu cách sử dụng Intlayer CLI SDK trong mã của bạn.
+title: "SDK CLI Intlayer: chạy lệnh từ mã nguồn"
+description: "Gọi các lệnh CLI Intlayer như build, push, pull và fill từ script Node.js của riêng bạn bằng SDK CLI."
 keywords:
   - SDK
   - CLI

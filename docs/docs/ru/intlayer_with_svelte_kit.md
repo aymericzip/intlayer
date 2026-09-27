@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "SvelteKit i18n - Полное руководство по переводу вашего приложения"
-description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения SvelteKit. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
+description: "Настройка Intlayer в SvelteKit: маршрутизация по локалям через hooks, переведённый контент в функциях load и компонентах, hreflang и sitemap."
 keywords:
   - Интернационализация
   - Документация
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Перевод вашего сайта на SvelteKit с помощью Intlayer | Интернационализация (i18n)
+# Перевод вашего сайта на SvelteKit с помощью Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Код" value="code">
@@ -768,8 +768,8 @@ bun run build # Or bun run dev
 
 ### Дальнейшие шаги
 
-- **Визуальный редактор**: Интегрируйте [Визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), чтобы редактировать переводы напрямую из пользовательского интерфейса.
-- **CMS**: Вынесите управление контентом с помощью [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
+- [Визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)
+- [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
 
 ## Часто задаваемые вопросы
 

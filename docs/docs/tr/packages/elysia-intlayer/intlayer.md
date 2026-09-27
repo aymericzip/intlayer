@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Elysia Eklenti Dokümantasyonu | elysia-intlayer
-description: elysia-intlayer paketindeki intlayer eklentisinin nasıl kullanılacağını görün
+description: "Elysia için intlayer eklentisi kullanıcının locale'ini algılar ve çeviri fonksiyonlarını her isteğin rota bağlamına ekler."
 keywords:
   - intlayer
   - elysia

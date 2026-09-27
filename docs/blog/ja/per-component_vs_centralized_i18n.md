@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
-title: "コンポーネント単位 vs 集中型 i18n: Intlayer を用いた新しいアプローチ"
+title: "React におけるコンポーネント単位 vs 集中型の i18n"
 description: React の国際化戦略を深掘りし、集中型、キー単位（per-key）、コンポーネント単位の各アプローチを比較し、Intlayer を紹介します。
 keywords:
   - i18n
@@ -98,6 +98,10 @@ extension Localization on String {
 - 次に、一度ライブラリが広く採用されると、エコシステムを他のパターンに移行させるのは難しくなります。
 - 中央集権的なアプローチは、Crowdin、Phrase、Localized のような翻訳管理システムでも扱いやすくなります。
 - コンポーネント単位のアプローチのロジックは中央集権的なものよりも複雑で、特にコンテンツがどこにあるかを特定するといった問題を解決する必要がある場合、開発に余分な時間がかかります。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ### では、なぜ中央集約型アプローチに固執しないのか？
 

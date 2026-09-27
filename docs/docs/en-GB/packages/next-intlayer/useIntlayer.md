@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2026-05-06
 priority: 5
 title: useIntlayer Hook Documentation | next-intlayer
-description: See how to use the useIntlayer hook for next-intlayer package
+description: "Use useIntlayer in Next.js to read a dictionary's localised content by key in Client and Server Components."
 keywords:
   - useIntlayer
   - dictionary

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer 셀프 호스팅
-description: "자체 인프라에서 Intlayer를 실행하세요: 데스크톱 앱, 단일 올인원 Docker 컨테이너 또는 확장 가능한 Docker Compose 스택. Intlayer Cloud 계정이 필요하지 않습니다."
+title: "Docker로 Intlayer 셀프 호스팅"
+description: "데스크톱 앱, 올인원 Docker 컨테이너, Docker Compose 스택으로 클라우드 계정 없이 자체 인프라에서 Intlayer를 운영하세요."
 keywords:
   - 셀프 호스팅
   - Docker

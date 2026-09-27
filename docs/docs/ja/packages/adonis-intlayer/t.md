@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: t 関数ドキュメント | adonis-intlayer
-description: adonis-intlayer パッケージでの t 関数の使用方法を確認してください
+description: "adonis-intlayer の t 関数で、リクエストごとに検出されたロケールに応じて AdonisJS でローカライズされたレスポンスを返します。"
 keywords:
   - t
   - 翻訳

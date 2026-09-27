@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Hook useLocale | react-intlayer
-description: Lihat cara menggunakan hook useLocale untuk paket react-intlayer
+description: "Gunakan useLocale di React untuk membaca locale saat ini, default, dan yang tersedia, serta mengganti bahasa dari komponen mana pun."
 keywords:
   - useLocale
   - dictionary

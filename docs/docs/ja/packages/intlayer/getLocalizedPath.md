@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: getLocalizedPath 関数のドキュメント | intlayer
-description: intlayer パッケージで getLocalizedPath 関数を使用する方法
+description: "getLocalizedPath で内部パスをローカライズされた形に変換。リライトルールとロケールプレフィックスを適用します。"
 keywords:
   - getLocalizedPath
   - translation
@@ -161,5 +161,5 @@ getLocalizedPath("/about");
 
 ## 関連関数
 
-- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getCanonicalPath.md): ローカライズされたパスを内部の正規（canonical）パスに解決します。
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md): プロトコル、ホスト、ロケールプレフィックスを含む完全にローカライズされたURLを生成します。
+- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getCanonicalPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)

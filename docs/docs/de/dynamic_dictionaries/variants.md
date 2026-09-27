@@ -2,8 +2,8 @@
 createdAt: 2026-06-12
 updatedAt: 2026-08-04
 priority: 8
-title: Varianten
-description: Verwenden Sie das variant-Metadatenfeld in Intlayer-Inhaltsdateien, um benannte oder strukturierte Inhaltsalternativen zu deklarieren — A/B-Tests, saisonale Banner, Feature-Flag-Texte, CMS-Datensätze, benutzerspezifische Inhalte — und zur Laufzeit ohne Codeänderungen zwischen ihnen zu wechseln.
+title: "Varianten: A/B-Tests und alternative Inhalte"
+description: "Deklarieren Sie benannte Inhaltsalternativen mit Intlayer-Varianten für A/B-Tests, saisonale Banner, Feature Flags oder nutzerspezifische Texte."
 keywords:
   - Varianten
   - A/B-Tests

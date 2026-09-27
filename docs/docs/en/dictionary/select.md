@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-07-30
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: Select-Based Content
-description: Learn how to use select-based content in Intlayer to dynamically display content based on an arbitrary string value. Follow this documentation to implement switch-like content efficiently in your project.
+title: "Select-Based Content in Intlayer"
+description: "Pick content from an arbitrary string value with Intlayer's select node, a switch-like alternative for statuses, roles or variants."
 keywords:
   - Select-Based Content
   - Switch Content

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Документація функції usePathname | vue-intlayer
-description: Дізнайтеся, як використовувати функцію usePathname з пакета vue-intlayer
+description: "Використовуйте usePathname у Vue, щоб отримати поточний шлях без сегмента локалі як computed ref для локалізованої навігації."
 keywords:
   - usePathname
   - pathname
@@ -106,5 +106,5 @@ const pathname = usePathname();
 
 ## Пов'язане
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vue-intlayer/useLocale.md) — поточна локаль + перемикач локалі
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getPathWithoutLocale.md) — базова утиліта, що використовується цим хуком
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vue-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getPathWithoutLocale.md)

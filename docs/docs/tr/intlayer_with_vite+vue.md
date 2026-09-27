@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Vue i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Vite + Vue uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Vite ve Vue uygulamasında Intlayer kurulumu: composable'larla bileşen başına tipli içerik, dil seçici ve yerelleştirilmiş rotalar."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer kullanarak Vite ve Vue web sitenizi çevirme | Uluslararasılaştırma (i18n)
+# Intlayer kullanarak Vite ve Vue web sitenizi çevirme
 
 ## İçindekiler
 

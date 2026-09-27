@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: t Fonksiyonu Belgeleri | adonis-intlayer
-description: adonis-intlayer paketi için t fonksiyonunun nasıl kullanılacağını görün
+description: "adonis-intlayer'ın t fonksiyonuyla AdonisJS'te, her istek için algılanan locale'e göre yerelleştirilmiş yanıtlar döndürün."
 keywords:
   - t
   - çeviri

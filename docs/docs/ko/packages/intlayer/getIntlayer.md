@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: getIntlayer 함수 문서 | intlayer
-description: intlayer 패키지를 위한 getIntlayer 함수 사용 방법을 알아봅니다
+description: "getIntlayer로 어디서든 로케일에 맞는 사전 콘텐츠를 읽습니다. useIntlayer 훅의 프레임워크 독립적인 버전입니다."
 keywords:
   - getIntlayer
   - dictionary
@@ -164,9 +164,9 @@ const banner = getIntlayer("banner", { variant: "black-friday", locale: "fr" });
 
 ## 관련 함수
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayerAsync.md): 단일 locale 청크를 로드하는 비동기 counterpart입니다.
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getDictionary.md): 키로 조회되는 대신 직접 전달하는 dictionary 객체를 해석합니다.
-- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md): provider에서 locale을 읽는 React hook의 동등물입니다.
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getDictionary.md)
+- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)
 
 ## TypeScript
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 6
 title: "Storybook i18n - Guia completo para traduzir seu aplicativo"
-description: "Sem mais i18next. O guia 2026 para criar uma aplicação Storybook multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
+description: "Configure o Intlayer no Storybook: decorators de stories multilíngues e troca de locale, com o mesmo conteúdo tipado do seu app."
 keywords:
   - Internacionalização
   - Documentação

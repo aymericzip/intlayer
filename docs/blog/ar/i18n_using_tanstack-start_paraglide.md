@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "تدويل TanStack Start مع Paraglide JS: دليل الإعداد لعام 2026"
 description: "قم بترجمة تطبيق TanStack Start الخاص بك باستخدام Paraglide JS: استراتيجية URL، إعادة كتابة الموجه (router rewrite)، برمجيات SSR الوسيطة، hreflang، ملف sitemap و robots.txt، بالإضافة إلى بيانات مقارنة الأداء الحقيقية."
@@ -43,9 +43,17 @@ author: aymericzip
 
 يقوم هذا الدليل بإعداد هذه الأجزاء الثلاثة، ثم يغطي كل ما تتركه Paraglide لك: `lang` و `dir`، ومبدل اللغة، والبيانات الوصفية المترجمة، و `canonical`، و `hreflang` مع `x-default`، و Open Graph، و JSON-LD، وخريطة الموقع sitemap، و `robots.txt`، والعرض المسبق (pre-rendering) وصفحات 404 المترجمة.
 
-> هل تبحث عن حزمة تقنية أخرى؟ راجع [دليل TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_use-intl.md)، أو [دليل TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_lingui.md)، أو [دليل TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md).
+> هل تبحث عن حزمة تقنية أخرى؟
+
+- [دليل TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_use-intl.md)
+- [دليل TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_lingui.md)
+- [دليل TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md)
 
 > هل تقارن بين النهجين المعتمدين على المترجم؟ اقرأ [هل Intlayer أخف من Paraglide؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_intlayer_lighter_than_paraglide.md).
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## ماذا تقول المقارنة المعيارية (Benchmark) عن Paraglide على TanStack Start
 
@@ -95,7 +103,11 @@ author: aymericzip
 
 > أرقام حجم وقت التشغيل والتسرب مأخوذة من [مقارنة أداء TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md). يتم قياس التسرب في أفضل إعداد لكل مكتبة.
 
-> أدلة TanStack Start الأخرى: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_lingui.md)، و [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_use-intl.md)، و [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md).
+> أدلة TanStack Start الأخرى:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_lingui.md)
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_use-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md)
 
 ## الممارسات التي يجب اتباعها
 
@@ -108,7 +120,8 @@ author: aymericzip
 - **إنشاء خريطة موقع sitemap وملف robots.txt متعددي اللغات**، والعرض المسبق (pre-rendering) لكل اللغات.
 - **استخدام روابط حقيقية لمبدل اللغة**، حتى تكتشف محركات البحث جميع اللغات.
 
-> راجع دليلنا حول [التدويل وتحسين محركات البحث (SEO)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/internationalization_and_SEO.md) و[دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md).
+- [التدويل وتحسين محركات البحث (SEO)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/internationalization_and_SEO.md)
+- [دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md)
 
 ## دليل خطوة بخطوة لإعداد Paraglide JS في تطبيق TanStack Start
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 4
 title: Dil listesi nasıl özelleştirilir?
-description: Dil listesini nasıl özelleştireceğinizi öğrenin.
+description: "Intlayer'ın desteklediği locale listesini intlayer.config.ts'te özelleştirin; bölgesel varyantlar ve varsayılan locale dahil."
 keywords:
   - diller
   - liste

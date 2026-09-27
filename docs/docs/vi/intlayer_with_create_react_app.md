@@ -2,8 +2,8 @@
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 3
-title: "Create React App i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Create React App đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+title: "i18n Create React App: hướng dẫn dịch đầy đủ"
+description: "Thiết lập Intlayer trong dự án Create React App: nội dung có kiểu cạnh component, bộ chuyển ngôn ngữ và bản dịch được tải theo locale."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web Create React App của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web Create React App của bạn bằng Intlayer
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"

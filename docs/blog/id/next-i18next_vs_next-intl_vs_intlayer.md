@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "next-i18next vs next-intl vs Intlayer: Perbandingan 2026"
-description: "Library i18n mana yang sebaiknya dipilih untuk Next.js? next-i18next, next-intl, dan Intlayer dibandingkan dari ukuran bundle, keamanan TypeScript, Server Components, routing, dan pengalaman developer."
+description: "Library i18n mana untuk Next.js? next-i18next, next-intl, dan Intlayer dibandingkan dari bundle, TypeScript, Server Components, routing, dan DX."
 keywords:
   - next-intl
   - next-i18next
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-i18next VS next-intl VS intlayer | Internasionalisasi Next.js (i18n)
+# next-i18next VS next-intl VS intlayer
 
 ![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -80,6 +80,10 @@ Kami fokus pada **Next.js 13+ App Router** (dengan **React Server Components**) 
 Next.js memberikan dukungan bawaan untuk routing internasionalisasi (misalnya segmen locale). Namun fitur tersebut tidak melakukan terjemahan secara otomatis. Anda masih memerlukan pustaka untuk menampilkan konten yang dilokalisasi kepada pengguna Anda.
 
 Banyak pustaka i18n yang ada, tetapi di dunia Next.js saat ini, tiga yang sedang naik daun: next-i18next, next-intl, dan Intlayer.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Arsitektur & skalabilitas
 

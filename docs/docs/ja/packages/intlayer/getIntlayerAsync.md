@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
-title: getIntlayerAsync Function Documentation | intlayer
-description: getIntlayer パッケージの getIntlayerAsync 関数の使用方法を確認する
+title: "getIntlayerAsync 関数ドキュメント | intlayer"
+description: "getIntlayerAsync で辞書のコンテンツを 1 つのロケール分だけ読み込み、他の言語をバンドルせずに取得します。"
 keywords:
   - getIntlayerAsync
   - dictionary
@@ -106,9 +106,9 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## 関連する関数
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md): マージされた辞書を読む同期的な同等物。
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getDictionaryAsync.md): ビルドプラグインがこの呼び出しを書き換える低レベルの関数。
-- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocale.md): 受信リクエストのロケールを検出します。
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getDictionaryAsync.md)
+- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocale.md)
 
 ## TypeScript
 

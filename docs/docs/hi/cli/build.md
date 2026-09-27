@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: शब्दकोश बनाएं
+title: "intlayer build: डिक्शनरी बिल्ड करें"
 description: कंटेंट घोषणा फ़ाइलों से अपने Intlayer शब्दकोश बनाने का तरीका सीखें।
 keywords:
   - बनाएं

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-29
+updatedAt: 2026-09-27
 priority: 9
 title: "Elysia i18n - Guide complet pour traduire votre application"
-description: "Fini i18next. Le guide 2026 pour construire une application Elysia multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
+description: "Configurez Intlayer dans Elysia : détection de la locale par requête avec le plugin, traduction des réponses API et contenu typé sur Bun."
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Traduisez votre site backend Elysia à l'aide d'Intlayer | Internationalization (i18n)
+# Traduisez votre site backend Elysia à l'aide d'Intlayer
 
 `elysia-intlayer` est un puissant plugin d'internationalization (i18n) pour les applications Elysia, conçu pour rendre vos services backend mondialement accessibles en fournissant des réponses localisées en fonction des préférences du client.
 
@@ -265,9 +265,9 @@ curl -H "Accept-Language: es" http://localhost:3000/
 
 `elysia-intlayer` est entièrement compatible avec :
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/index.md) pour les applications React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/index.md) pour les applications Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/index.md) pour les applications Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vite-intlayer/index.md)
 
 Elle fonctionne également de manière transparente avec n'importe quelle solution d'internationalisation dans divers environnements, y compris les navigateurs et les requêtes API.
 

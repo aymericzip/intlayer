@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Fastify i18n - 앱을 번역하는 완전 가이드"
-description: "i18next는 이제 그만. 2026년 다국어 (i18n) Fastify 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
+description: "Fastify에 Intlayer 설정: 플러그인으로 요청마다 로케일을 감지하고, API 응답과 오류 메시지를 번역하며, 엔드투엔드 타입을 보장합니다."
 keywords:
   - 국제화
   - 문서
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer를 사용하여 Fastify 백엔드 웹사이트 번역하기 | 국제화 (i18n)
+# Intlayer를 사용하여 Fastify 백엔드 웹사이트 번역하기
 
 `fastify-intlayer`는 Fastify 애플리케이션을 위한 강력한 국제화(i18n) 플러그인으로, 클라이언트의 기본 설정에 따라 현지화된 응답을 제공하여 백엔드 서비스를 전 세계에서 액세스할 수 있도록 설계되었습니다.
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-02-09
-updatedAt: 2026-03-03
+updatedAt: 2026-09-27
 priority: 6
-title: Agent Skills
-description: 了解如何使用 Intlayer Agent Skills 来提高 AI 代理对项目的理解，包括元数据 (Metadata)、站点地图 (Sitemaps) 和服务器操作 (Server Actions) 的全面设置指南。
+title: "面向 AI 编程代理的 Intlayer Agent Skills"
+description: "为你的 AI 编程代理提供 Intlayer 技能：内容、元数据、站点地图和 Server Actions 的配置指南。"
 keywords:
   - Intlayer
   - Agent Skills

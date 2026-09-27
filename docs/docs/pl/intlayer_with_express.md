@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 9
 title: "Express i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
-description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Express. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
+description: "Konfiguracja Intlayer w Express: wykrywanie locale dla każdego żądania przez middleware, tłumaczenie odpowiedzi API i błędów, typowanie end-to-end."
 keywords:
   - Internacjonalizacja
   - Dokumentacja
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Tłumaczenie backendu Express za pomocą Intlayer | Internacjonalizacja (i18n)
+# Tłumaczenie backendu Express za pomocą Intlayer
 
 `express-intlayer` to potężne middleware do internacjonalizacji (i18n) dla aplikacji Express, zaprojektowane, aby uczynić Twoje usługi backendowe globalnie dostępnymi poprzez dostarczanie zlokalizowanych odpowiedzi na podstawie preferencji klienta.
 
@@ -208,9 +208,9 @@ app.listen(3000, () => console.log(`Nasłuchiwanie na porcie 3000`));
 
 `express-intlayer` jest w pełni kompatybilny z:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/index.md) dla aplikacji React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/index.md) dla aplikacji Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/index.md) dla aplikacji Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/index.md)
 
 Działa również bezproblemowo z dowolnym rozwiązaniem do internacjonalizacji w różnych środowiskach, w tym w przeglądarkach i zapytaniach API. Możesz dostosować middleware, aby wykrywać lokalizację za pomocą nagłówków lub ciasteczek:
 

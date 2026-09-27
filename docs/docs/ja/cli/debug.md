@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Intlayerコマンドのデバッグ
-description: Intlayer CLIの問題をデバッグおよびトラブルシューティングする方法を学びます。
+title: "Intlayer CLI のデバッグ"
+description: "Intlayer CLI のトラブルシューティング：インストール済みのバージョン確認、詳細ログの有効化、よくあるコマンドや設定エラーの修正。"
 keywords:
   - デバッグ
   - トラブルシューティング

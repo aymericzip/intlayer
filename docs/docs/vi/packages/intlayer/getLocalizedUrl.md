@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: Tài liệu hàm getLocalizedUrl | intlayer
-description: Xem cách sử dụng hàm getLocalizedUrl cho gói intlayer
+description: "Dùng getLocalizedUrl để thêm tiền tố locale vào URL tương đối hoặc tuyệt đối, theo chế độ định tuyến và locale mặc định."
 keywords:
   - getLocalizedUrl
   - dịch thuật

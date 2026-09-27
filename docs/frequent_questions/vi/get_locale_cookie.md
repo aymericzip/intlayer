@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Cách lấy locale từ cookie / headers?
-description: Tìm hiểu cách lấy locale từ cookie / headers.
+description: "Đọc locale hiện tại từ cookie hoặc header của request bằng Intlayer, trên server hoặc trong middleware, để hiển thị đúng ngôn ngữ."
 keywords:
   - cookie
   - headers

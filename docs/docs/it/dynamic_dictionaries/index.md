@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-09-27
 priority: 8
-title: Dizionari dinamici
+title: "Dizionari dinamici: collezioni e varianti"
 description: Panoramica delle funzionalità dei dizionari dinamici di Intlayer — collezioni e varianti — per creare contenuti i18n flessibili e guidati a runtime.
 keywords:
   - Dizionari dinamici

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-27
 priority: 8
-title: Création d’un assistant de documentation propulsé par RAG (Segmentation, Embeddings et Recherche)
-description: Création d’un assistant de documentation propulsé par RAG (Segmentation, Embeddings et Recherche)
+title: "Créer un assistant de documentation RAG"
+description: "Comment nous avons construit un assistant IA pour notre documentation : découpage du markdown, embeddings, recherche vectorielle et prompts, avec les compromis rencontrés."
 keywords:
   - RAG
   - Documentation

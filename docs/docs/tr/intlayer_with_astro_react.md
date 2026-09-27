@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + React i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Astro + React uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "React adaları kullanan Astro'da Intlayer kurulumu: çevrilmiş bileşenler, yerelleştirilmiş rotalar ve hreflang, bileşen başına tipli içerik."
 keywords:
   - uluslararasılaştırma
   - dokümantasyon
@@ -35,7 +35,7 @@ history:
 author: aymericzip
 ---
 
-# Astro + React Sitenizi Intlayer ile Çevirin | Uluslararasılaştırma (i18n)
+# Astro + React Sitenizi Intlayer ile Çevirin
 
 <Tabs defaultTab="code">
   <Tab label="Kod" value="code">

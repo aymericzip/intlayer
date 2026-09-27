@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-12
+updatedAt: 2026-09-27
 priority: 8
-title: コレクション
+title: "コレクション：ローカライズされた項目の順序付きリスト"
 description: Intlayerのコンテンツファイルでitemメタデータフィールドを使用して、ランタイムにインデックスで選択可能な、ローカライズされたアイテムの順序付きコレクションを構築します。
 keywords:
   - コレクション

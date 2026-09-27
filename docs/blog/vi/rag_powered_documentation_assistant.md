@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-27
 priority: 8
-title: Xây dựng Trợ lý Tài liệu được hỗ trợ bởi RAG (Phân đoạn, Embeddings và Tìm kiếm)
-description: Xây dựng Trợ lý Tài liệu được hỗ trợ bởi RAG (Phân đoạn, Embeddings và Tìm kiếm)
+title: "Xây dựng trợ lý tài liệu dựa trên RAG"
+description: "Cách chúng tôi xây dựng trợ lý AI cho tài liệu: chia nhỏ markdown, tạo embedding, tìm kiếm vector và prompt, cùng những đánh đổi đã gặp."
 keywords:
   - RAG
   - Tài liệu

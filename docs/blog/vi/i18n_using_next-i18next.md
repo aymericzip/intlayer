@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n cho Next.js 16 với next-i18next: hướng dẫn cài đặt App Router"
 description: "Thiết lập next-i18next và i18next từng bước trong ứng dụng Next.js 16 App Router: namespace, định tuyến theo locale, component phía server và client, và metadata SEO."
@@ -44,6 +44,10 @@ Với cách tiếp cận này, bạn có thể:
 > Ngoài ra, bạn cũng có thể tham khảo [hướng dẫn next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-intl.md), hoặc sử dụng trực tiếp [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
 
 > Xem so sánh tại [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Benchmark nói gì về next-i18next trên Next.js
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: useLocale हुक दस्तावेज़ | solid-intlayer
-description: देखें कि solid-intlayer पैकेज में useLocale हुक का उपयोग कैसे करें
+description: "Solid में useLocale से मौजूदा, डिफ़ॉल्ट और उपलब्ध लोकेल पढ़ें और किसी भी कंपोनेंट से लोकेल बदलें।"
 keywords:
   - useLocale
   - locale

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-21
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Init Infra
-description: Masaüstü uygulamasını yüklemek veya Intlayer CMS'yi Docker (hepsi bir arada kapsayıcı veya Docker Compose yığını) ile kendi sunucunuzda barındırmak için Intlayer CLI init infra komutunun nasıl kullanılacağını öğrenin.
+title: "intlayer init infra: Intlayer CMS'i kendiniz barındırın"
+description: "Intlayer masaüstü uygulamasını kurun veya Intlayer CMS'i Docker ile, hepsi bir arada konteyner ya da Docker Compose olarak kendiniz barındırın."
 keywords:
   - CLI
   - Altyapı
@@ -158,6 +158,6 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 
 ## İlgili Bağlantılar
 
-- [Kendi sunucunuzda barındırma kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md) - Mimari, ilk çalıştırma adımları ve her modun sınırlamaları
-- [Intlayer'ı Başlat](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/init.md) - Üst `init` komutu ve etkileşimli kontrol listesi
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) - Yeni yüklediğiniz gösterge panelinin yetenekleri
+- [Kendi sunucunuzda barındırma kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md)
+- [Intlayer'ı Başlat](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/init.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)

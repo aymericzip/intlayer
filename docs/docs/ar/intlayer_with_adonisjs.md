@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 9
 title: "تدويل AdonisJS - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق AdonisJS متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في AdonisJS: اكتشاف اللغة لكل طلب عبر وسيط، وترجمة استجابات API والعروض، ومحتوى مُنمَّط."
 keywords:
   - التدويل
   - الوثائق
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# ترجمة الواجهة الخلفية لـ AdonisJS باستخدام Intlayer | التدويل (i18n)
+# ترجمة الواجهة الخلفية لـ AdonisJS باستخدام Intlayer
 
 `adonis-intlayer` هو حزمة تدويل (i18n) قوية لتطبيقات AdonisJS، مصممة لجعل خدمات الواجهة الخلفية الخاصة بك متاحة عالميًا من خلال تقديم استجابات مترجمة بناءً على تفضيلات العميل.
 
@@ -248,9 +248,9 @@ export default class ExampleController {
 
 `adonis-intlayer` متوافق تمامًا مع:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md) لتطبيقات React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md) لتطبيقات Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md) لتطبيقات Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md)
 
 كما أنه يعمل بسلاسة مع أي حل تدويل عبر بيئات مختلفة، بما في ذلك المتصفحات وطلبات واجهة برمجة التطبيقات. يمكنك تخصيص الوسيط لاكتشاف اللغة من خلال العناوين أو ملفات تعريف الارتباط (cookies):
 

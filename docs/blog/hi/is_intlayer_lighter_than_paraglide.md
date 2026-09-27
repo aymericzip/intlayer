@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
 title: क्या Intlayer, Paraglide से हल्का है?
-description: Paraglide i18n बेंचमार्क में लगभग शून्य भार वाला प्रतीत होता है क्योंकि इसका कोड सीधे आपके रिपॉजिटरी में जेनरेट होता है। जानिए यह वजन वास्तव में कहाँ जाता है, प्रति-नोड लोकेल पढ़ना प्रदर्शन को कैसे प्रभावित करता है, और Intlayer का डायनामिक लोडिंग सभी के बजाय केवल एक लोकेल कैसे लोड करता है।
+description: "i18n बेंचमार्क में Paraglide लगभग मुफ़्त दिखता है क्योंकि इसका कोड आपकी रिपॉज़िटरी में जेनरेट होता है। वह वज़न कहाँ जाता है और Intlayer से तुलना कैसी है।"
 keywords:
   - Paraglide
   - Intlayer
@@ -287,3 +287,7 @@ bunx intlayer init --interactive
 - [बंडल अनुकूलन और `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
 - [React i18n लाइब्रेरी कैसे चुनें](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_react_i18n_library.md)
 - [कंपाइलर-संचालित अंतर्राष्ट्रीयकरण के पक्ष और विपक्ष](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)

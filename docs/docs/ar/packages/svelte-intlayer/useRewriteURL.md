@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: توثيق هوك useRewriteURL
-description: هوك مخصص لـ Svelte لإدارة إعادة كتابة روابط URL المحلية في Intlayer.
+title: "توثيق هوك useRewriteURL | svelte-intlayer"
+description: "استخدم useRewriteURL في Svelte لإعادة كتابة عنوان URL في المتصفح إلى نسخته المترجمة وفق قواعد إعادة الكتابة في إعداداتك."
 keywords:
   - useRewriteURL
   - svelte-intlayer

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: स्ट्रिंग्स निकालना
+title: "intlayer extract: कंपोनेंट से टेक्स्ट निकालें"
 description: अपने कंपोनेंट्स से स्ट्रिंग्स को निकालीए और उन्हें कंपोनेंट के पास .content फ़ाइल में रखें।
 keywords:
   - निकासी

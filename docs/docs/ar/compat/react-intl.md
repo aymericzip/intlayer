@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: الترحيل من React Intl إلى Intlayer
 description: تعرّف على كيفية ترحيل تطبيق React الخاص بك من react-intl إلى Intlayer باستخدام محول التوافق.
@@ -54,3 +54,7 @@ export default defineConfig({
 - **ICU MessageFormat:** يستخدم Intlayer محلل `resolveMessage(..., 'icu')` الذي يدعم بشكل كامل جمع ICU والتحديد وتنسيق التاريخ/الرقم والعلامات النصية الغنية بشكل أصلي.
 - **استدعاءات الطرق و JSX:** يتم تحديد `intl.formatMessage({ id: 'a.b' })` و `<FormattedMessage id="a.b">` بواسطة مكوّنات مترجم Intlayer (`@intlayer/babel` / `@intlayer/swc`)، وتحويل المفاتيح المنقوطة المسطحة بحيث يحل القسم الأول بشكل صحيح إلى مفتاح قاموس Intlayer.
 - **المحولات:** `<FormattedNumber>` و `<FormattedDate>` وما إلى ذلك، تنتقل إلى مصدر `core/formatters` الأصلي باستخدام `Intl`.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)

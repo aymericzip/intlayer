@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: t 函数文档 | adonis-intlayer
-description: 了解如何为 adonis-intlayer 包使用 t 函数
+description: "使用 adonis-intlayer 的 t 函数，根据每个请求检测到的语言在 AdonisJS 中返回本地化响应。"
 keywords:
   - t
   - 翻译

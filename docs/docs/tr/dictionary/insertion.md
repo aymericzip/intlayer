@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 8
-title: Ekleme
-description: İçeriğinizde ekleme yer tutucularını nasıl bildireceğinizi ve kullanacağınızı öğrenin. Bu dokümantasyon, önceden tanımlanmış içerik yapıları içinde değerleri dinamik olarak ekleme adımlarında size rehberlik eder.
+title: "Ekleme: çevrilmiş içerikte değişkenler"
+description: "Intlayer'ın insert() düğümü ve {{placeholder}}'larla çevrilmiş metinlere dinamik değerler ekleyin; tipler içerik bildiriminden gelir."
 keywords:
   - Ekleme
   - Dinamik İçerik

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Insertion
-description: Apprenez à déclarer et utiliser des espaces réservés d'insertion dans votre contenu. Cette documentation vous guide à travers les étapes pour insérer dynamiquement des valeurs dans des structures de contenu prédéfinies.
+title: "Insertion : variables dans le contenu traduit"
+description: "Insérez des valeurs dynamiques dans vos textes traduits avec le nœud insert() d'Intlayer et des {{placeholders}}, typés depuis votre déclaration."
 keywords:
   - Insertion
   - Contenu Dynamique

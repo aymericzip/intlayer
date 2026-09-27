@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "NuxtJS I18n から Intlayer への移行"
-description: "compat アダプターを使用して、Nuxt.js アプリケーションを @nuxtjs/i18n から Intlayer に移行する方法を学びます。"
+title: "@intlayer/nuxt-i18n：@nuxtjs/i18n 互換アダプター"
+description: "@nuxtjs/i18n のコードはそのままで Intlayer から配信：@intlayer/nuxt-i18n をインストールし、インポートにエイリアスを設定して、アダプターが内部で何を変えるかを確認します。"
 keywords:
   - nuxtjs-i18n
   - nuxt
@@ -22,7 +22,7 @@ history:
 author: aymericzip
 ---
 
-# NuxtJS I18n から Intlayer への移行
+# @intlayer/nuxt-i18n：@nuxtjs/i18n 互換アダプター
 
 Nuxt アプリケーションを `@nuxtjs/i18n` から Intlayer に移行することは、Nuxt アダプターモジュールを使用したシームレスなプロセスです。
 
@@ -45,3 +45,7 @@ npx intlayer init --interactive
 - **翻訳:** すべての文字列翻訳タスクのために `@intlayer/vue-i18n` compat レイヤーにネイティブに依存しています (`vue-i18n` フォーマット、pipe複数形、およびリアクティビティを完全にサポート)。
 - **ルーティング:** IntlayerのローカライズされたURL ヘルパーを使用してルーティングコンポーザブルをミラーリングします。
 - **設定:** `intlayer.config.ts` から直接 `availableLocales` とデフォルト設定を読み込み、Nuxtページを自動的に調整します。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)

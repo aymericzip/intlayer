@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + React i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Astro + React 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在使用 React 岛屿的 Astro 中配置 Intlayer：翻译后的组件、本地化路由和 hreflang，以及按组件的类型化内容。"
 keywords:
   - 国际化
   - 文档
@@ -35,7 +35,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译您的 Astro + React 网站 | 国际化 (i18n)
+# 使用 Intlayer 翻译您的 Astro + React 网站
 
 <Tabs defaultTab="code">
   <Tab label="代码" value="code">

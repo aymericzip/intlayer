@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: 사전 중첩
-description: Intlayer에서 콘텐츠 중첩을 사용하여 다국어 콘텐츠를 효율적으로 재사용하고 구조화하는 방법을 알아보세요. 이 문서를 따라 중첩을 원활하게 구현하세요.
+title: "중첩: 사전 간 콘텐츠 재사용"
+description: "Intlayer의 nest() 노드로 한 사전에서 다른 사전을 참조하여 번역을 중복하지 않고 공통 콘텐츠를 재사용합니다."
 keywords:
   - Nesting
   - 콘텐츠 재사용

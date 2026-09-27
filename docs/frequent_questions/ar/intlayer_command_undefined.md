@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: أمر Intlayer غير معرف
-description: تعلّم كيفية إصلاح خطأ أمر intlayer غير معرف.
+description: 'أصلح خطأ "intlayer: command not found": ثبّت واجهة سطر الأوامر، وشغّلها عبر مدير الحزم، وتحقّق من PATH.'
 keywords:
   - intlayer
   - أمر

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 4
-title: كيفية تقليل استهلاك رموز Claude Code (Tokens) لتوليد الترجمات
-description: لماذا يستهلك استخدام Claude Code للترجمة الكثير من الرموز، وماذا يقدم Intlayer بدلاً من ذلك (تصفية المفاتيح المترجمة، تقسيم JSON، ترجمة markdown كتلة بكتلة)، وكيفية إعادة استخدام اشتراك Claude عبر claude setup-token.
+title: "تقليل استهلاك رموز Claude Code عند الترجمة"
+description: "لماذا تستهلك الترجمة باستخدام Claude Code رموزًا كثيرة، وما الذي يفعله Intlayer بدلًا من ذلك، وكيف تعيد استخدام اشتراك Claude للترجمة."
 keywords:
   - claude code
   - tokens

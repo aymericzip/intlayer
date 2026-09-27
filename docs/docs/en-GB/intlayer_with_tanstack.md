@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "TanStack Start i18n - Complete guide to translate your app"
-description: "No more i18next. The 2026 guide to building a multilingual (i18n) TanStack Start app. Translate with AI agents and optimise bundle size, SEO and performances."
+description: "Set up Intlayer in TanStack Start: locale route params, SSR-safe translated content, localised head metadata, hreflang and sitemap."
 keywords:
   - Internationalisation
   - Documentation
@@ -51,7 +51,7 @@ history:
 author: aymericzip
 ---
 
-# Translate your Tanstack Start website using Intlayer | Internationalisation (i18n)
+# Translate your Tanstack Start website using Intlayer
 
 ## Table of Contents
 

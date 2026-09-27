@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-07-30
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: 選択ベースのコンテンツ
-description: Intlayerで選択ベースのコンテンツを使用して、任意の文字列値に基づいて動的にコンテンツを表示する方法を学びます。このドキュメントに従って、プロジェクト内でスイッチのようなコンテンツを効率的に実装しましょう。
+title: "Intlayer の選択ベースのコンテンツ"
+description: "Intlayer の select ノードで任意の文字列値からコンテンツを選択。ステータス、ロール、バリエーション向けの switch のような仕組みです。"
 keywords:
   - 選択ベースのコンテンツ
   - Select Content

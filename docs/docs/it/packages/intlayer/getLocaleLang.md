@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: Documentazione della funzione getLocaleLang | intlayer
-description: Scopri come utilizzare la funzione getLocaleLang per il pacchetto intlayer
+description: "Usa getLocaleLang per estrarre il codice di lingua da una locale come en-US, con o senza codice paese."
 keywords:
   - getLocaleLang
   - traduzione

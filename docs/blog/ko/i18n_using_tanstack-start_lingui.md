@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "Lingui를 활용한 TanStack Start i18n: 2026 완벽 설정 가이드"
 description: "Lingui로 TanStack Start 앱 번역하기: 매크로, PO 카탈로그, SSR, 로케일 라우팅, hreflang, sitemap 및 robots.txt, 실제 번들 크기 벤치마크 데이터 포함."
@@ -42,9 +42,20 @@ TanStack Start에는 내장된 i18n 계층이 없으므로, 이 가이드에서�
 - **로케일당 하나의 카탈로그를 필요 시(on demand) 로드**하고 렌더링당 하나의 `I18n` 인스턴스를 사용하여 동시 SSR 요청이 로케일을 공유하지 않도록 방지.
 - **완벽한 다국어 SEO**: 번역된 `<title>` 및 description, 표준 URL(canonical), `x-default`가 포함된 `hreflang`, Open Graph 로케일, JSON-LD, 사이트맵, `robots.txt`, 사전 렌더링(pre-rendering) 및 현지화된 404 페이지.
 
-> 다른 스택을 찾고 계신가요? [TanStack Start + use-intl 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_tanstack-start_use-intl.md), [TanStack Start + Paraglide 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_tanstack-start_paraglide.md), 또는 [TanStack Start + Intlayer 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)를 확인하세요.
+> 다른 스택을 찾고 계신가요?
 
-> Next.js를 사용 중이신가요? [Next.js + Lingui 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_nextjs_lingui.md)를 확인하세요. 라이브러리 비교는 [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md)를 참고하세요.
+- [TanStack Start + use-intl 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_tanstack-start_use-intl.md)
+- [TanStack Start + Paraglide 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_tanstack-start_paraglide.md)
+- [TanStack Start + Intlayer 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)
+
+> Next.js를 사용 중이신가요?
+
+- [Next.js + Lingui 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_nextjs_lingui.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md)
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## TanStack Start에서 Lingui에 대한 벤치마크 결과
 
@@ -92,7 +103,11 @@ TanStack Start에서 일반적으로 사용되는 다른 라이브러리들과 L
 
 > 런타임 크기 및 누출률 수치는 [TanStack Start 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)에서 가져왔습니다. 누출률은 각 라이브러리의 최적 설정에서 측정되었습니다.
 
-> 기타 TanStack Start 가이드: [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_tanstack-start_use-intl.md), [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_tanstack-start_paraglide.md), 그리고 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md).
+> 기타 TanStack Start 가이드:
+
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_tanstack-start_use-intl.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)
 
 ## 권장 모범 사례
 
@@ -106,7 +121,8 @@ TanStack Start에서 일반적으로 사용되는 다른 라이브러리들과 L
 - **다국어 sitemap과 robots.txt를 생성**하고, 모든 로케일을 사전 렌더링하세요.
 - **로케일 전환기에 실제 링크를 사용**하여 크롤러가 모든 언어를 발견할 수 있도록 하세요.
 
-> [국제화 및 SEO 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/internationalization_and_SEO.md)와 [hreflang 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/hreflang_guide_multilingual_seo.md)를 참고하세요.
+- [국제화 및 SEO 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/internationalization_and_SEO.md)
+- [hreflang 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/hreflang_guide_multilingual_seo.md)
 
 ## TanStack Start 애플리케이션에 Lingui를 설정하는 단계별 가이드
 

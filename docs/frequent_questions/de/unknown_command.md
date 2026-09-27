@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Unbekannter Befehl
-description: Erfahren Sie, wie Sie den Fehler "unbekannter Befehl" beheben können.
+title: "Intlayer-Fehler „unknown command“ beheben"
+description: "Beheben Sie den CLI-Fehler „unknown command“ von Intlayer: Befehlsnamen, CLI-Version und den Aufruf des Binaries prüfen."
 keywords:
   - unbekannt
   - befehl

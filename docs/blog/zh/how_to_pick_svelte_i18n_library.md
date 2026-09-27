@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "如何在 2026 年选择合适的 Svelte i18n 库"
-description: "Svelte 与 SvelteKit 国际化选型决策指南。在对比 svelte-i18n、Paraglide、typesafe-i18n、wuchale 和 Intlayer 之前需要回答的关键问题，以及各方案在 bundle size、类型支持和 SSR 安全性方面的权衡与代价。"
+description: "Svelte 与 SvelteKit i18n 选型指南：在比较 svelte-i18n、Paraglide、typesafe-i18n、wuchale 和 Intlayer 之前需要回答的问题。"
 keywords:
   - svelte i18n
   - sveltekit i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Svelte 本身没有内置任何 i18n 功能。没有 `$t`，没有 locale 原语，也没有消息格式。每一个选项都是第三方方案，而 Svelte 生态正是编译时 i18n 发展得最彻底的领域，因此各候选方案之间的差异比在 React 或 Vue 中更为显著。
 
 本指南列出了在选型前需要优先厘清的几个问题，然后将答案映射到 `svelte-i18n`、Paraglide、`typesafe-i18n`、`wuchale` 和 Intlayer，涵盖 Vite + Svelte 以及 SvelteKit 场景。
-
-![Svelte i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目录
 
@@ -88,6 +86,8 @@ Paraglide 将每条消息编译为导出的函数，以便打包工具对路由�
 
 各库的体积数据来源于 [Svelte 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md)：空组件中的 store 加访问器在经过打包、tree-shaking 和压缩后的体积（基于 10 个页面和 10 个 locale 的应用）。内容体积单独计算。
 
+![Svelte i18n 库生态系统](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | 库              | 消息存放位置                  | Locale 状态                                | 类型安全                 | 消息格式                      | 按路由代码分割        | 库体积                             |
 | :-------------- | :---------------------------- | :----------------------------------------- | :----------------------- | :---------------------------- | :-------------------- | :--------------------------------- |
 | `svelte-i18n`   | 每个 locale 一个 JSON catalog | 模块级 Svelte store                        | 2/5 — 手写 union         | ICU                           | 否                    | ~16.6 kB                           |
@@ -111,7 +111,7 @@ Paraglide 趋近于零的库体积是其架构使然：运行时代码直接生�
 </Accordion>
 <Accordion header="支持 locale 路由与 SSR 的 SvelteKit">
 
-状态共享问题决定了这个选择。`svelte-i18n` 可以在 SvelteKit 上运行，但针对每个请求的隔离配置（`hooks.server.ts`、`locals`、`load`，然后调用 `setContext`）需要你自己编写，稍有不慎就容易出错。Paraglide 提供了处理路由并按每次调用读取 locale 的 SvelteKit 集成，从而避开了单例问题。Intlayer 将 `load` 数据中的 locale 设置到 context 中。[SvelteKit i18n 文章](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/sveltekit.md) 解释了 `[[lang]]` 与 `reroute` 的选择，你应该在选定库之前做好这一决策。
+状态共享问题决定了这个选择。`svelte-i18n` 可以在 SvelteKit 上运行，但针对每个请求的隔离配置（`hooks.server.ts`、`locals`、`load`，然后调用 `setContext`）需要你自己编写，稍有不慎就容易出错。Paraglide 提供了处理路由并按每次调用读取 locale 的 SvelteKit 集成，从而避开了单例问题。Intlayer 将 `load` 数据中的 locale 设置到 context 中。[SvelteKit i18n 文章](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_svelte_kit.md) 解释了 `[[lang]]` 与 `reroute` 的选择，你应该在选定库之前做好这一决策。
 
 </Accordion>
 <Accordion header="翻译来自 TMS 或交付 ICU 的机构">
@@ -445,11 +445,16 @@ Catalog 只会不断增长。Intlayer 的构建流程会清理未使用的字段
 ## 深入阅读
 
 - [Svelte i18n 基准测试：bundle 体积、泄漏与 locale 切换耗时](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md)
-- [Svelte i18n：stores、runes 与模块级陷阱](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/svelte.md) 以及 [SvelteKit i18n：路由、SSR 与共享状态](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/list_i18n_technologies/frameworks/sveltekit.md)
 - [开箱即用的 `svelte-i18n` 兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/svelte-i18n.md)
 - [JavaScript i18n 发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 - [编译器 vs 声明式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
 - [按组件 vs 集中式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)
 - [构建时 bundle 优化原理](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
-- [在 Vite + Svelte 应用中配置 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+svelte.md) 以及 [在 SvelteKit 应用中配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_svelte_kit.md)
-- 针对 [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_react_i18n_library.md)、[Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_vue_i18n_library.md) 和 [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_solid_i18n_library.md) 的同类选型指南
+- [在 Vite + Svelte 应用中配置 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+svelte.md)
+- [在 SvelteKit 应用中配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_svelte_kit.md)
+
+针对
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_vue_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_solid_i18n_library.md)

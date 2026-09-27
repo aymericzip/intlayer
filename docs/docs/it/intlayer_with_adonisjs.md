@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "AdonisJS i18n - Guida completa per tradurre la tua applicazione"
-description: "Niente più i18next. La guida 2026 per creare un'applicazione AdonisJS multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
+description: "Configura Intlayer in AdonisJS: rileva la locale per richiesta con un middleware, traduci risposte API e viste, mantieni i contenuti tipizzati."
 keywords:
   - Internazionalizzazione
   - Documentazione
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Traduci il tuo backend AdonisJS usando Intlayer | Internazionalizzazione (i18n)
+# Traduci il tuo backend AdonisJS usando Intlayer
 
 `adonis-intlayer` è un potente pacchetto di internazionalizzazione (i18n) per applicazioni AdonisJS, progettato per rendere i tuoi servizi backend accessibili a livello globale fornendo risposte localizzate basate sulle preferenze del cliente.
 
@@ -248,9 +248,9 @@ export default class ExampleController {
 
 `adonis-intlayer` è completamente compatibile con:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/index.md) per applicazioni React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/next-intlayer/index.md) per applicazioni Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/index.md) per applicazioni Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/vite-intlayer/index.md)
 
 Funziona anche perfettamente con qualsiasi soluzione di internazionalizzazione in vari ambienti, inclusi browser e richieste API. Puoi personalizzare il middleware per rilevare la locale tramite header o cookie:
 

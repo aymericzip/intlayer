@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Fastify i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Fastify 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在 Fastify 中配置 Intlayer：通过插件按请求检测语言，翻译 API 响应和错误信息，端到端类型安全。"
 keywords:
   - 国际化
   - 文档
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译您的 Fastify 后端网站 | 国际化 (i18n)
+# 使用 Intlayer 翻译您的 Fastify 后端网站
 
 `fastify-intlayer` 是一个强大的 Fastify 应用程序国际化 (i18n) 插件，旨在通过根据客户端的偏好提供本地化响应，使您的后端服务在全球范围内可访问。
 

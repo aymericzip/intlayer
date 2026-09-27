@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Localización incorrecta obtenida desde la URL
-description: Aprende cómo solucionar la localización incorrecta obtenida desde la URL.
+description: "Corrige una locale incorrecta leída de la URL en Next.js, como «about» en lugar de «en», usando la estructura de carpetas [locale] que espera Intlayer."
 keywords:
   - localización
   - url

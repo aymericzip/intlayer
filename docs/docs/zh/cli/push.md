@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 推送词典
-description: 了解如何将您的词典推送到 Intlayer 编辑器和 CMS。
+title: "intlayer push：将字典推送到 CMS"
+description: "将本地 Intlayer 字典上传到可视化编辑器和 CMS，方便译者和内容管理者编辑。"
 keywords:
   - 推送
   - 词典

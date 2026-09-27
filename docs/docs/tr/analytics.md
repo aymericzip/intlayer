@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-08-22
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer Analytics | İçerik gösterimini izleyin ve A/B testleri çalıştırın
+title: "Intlayer Analytics: içerik görünürlüğü ve A/B testleri"
 description: "@intlayer/analytics'in sayfa/yerel ayar görünümlerini ve içerik gösterimini nasıl izlediğini ve Intlayer içeriğiniz üzerinde A/B testleri çalıştırmak için onu nasıl kullanacağınızı keşfedin."
 keywords:
   - Analytics

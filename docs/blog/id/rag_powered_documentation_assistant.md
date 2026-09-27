@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-27
 priority: 8
-title: Membangun Asisten Dokumentasi Bertenaga RAG (Chunking, Embeddings, dan Pencarian)
-description: Membangun Asisten Dokumentasi Bertenaga RAG (Chunking, Embeddings, dan Pencarian)
+title: "Membangun asisten dokumentasi berbasis RAG"
+description: "Cara kami membangun asisten AI untuk dokumentasi: memecah markdown, membuat embedding, pencarian vektor, dan prompt, beserta kompromi yang kami temui."
 keywords:
   - RAG
   - Dokumentasi

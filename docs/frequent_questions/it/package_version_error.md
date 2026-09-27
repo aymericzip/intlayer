@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Ricevo un errore relativo ai sotto-pacchetti @intlayer/*
-description: Risolvi l'errore relativo ai sotto-pacchetti @intlayer/*.
+description: "Correggi gli errori dovuti a versioni diverse dei sottopacchetti @intlayer/*: allinea tutti i pacchetti Intlayer alla stessa versione e svuota la cache."
 keywords:
   - @intlayer/*
   - sotto-pacchetti

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: Intlayerの初期化
-description: プロジェクトでIntlayerを初期化する方法。
+title: "intlayer init：プロジェクトに Intlayer を導入"
+description: "intlayer init で既存プロジェクトに Intlayer を追加：フレームワークを検出し、パッケージをインストールして設定ファイルを書き込みます。"
 keywords:
   - 初期化
   - CLI

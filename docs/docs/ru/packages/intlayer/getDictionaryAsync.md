@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Документация функции getDictionaryAsync | intlayer
-description: Узнайте, как использовать функцию getDictionaryAsync для пакета intlayer
+description: "Используйте getDictionaryAsync, чтобы загрузить одну локаль словаря и прочитать его обработанный контент без других языков."
 keywords:
   - getDictionaryAsync
   - dictionary
@@ -130,9 +130,9 @@ const promoBanner = await getDictionaryAsync(bannerLoaderMap, "banner", {
 
 ## Связанные функции
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayerAsync.md): Функция, которую вызывают приложения; плагины сборки переписывают её в `getDictionaryAsync`.
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getDictionary.md): Синхронный аналог, принимающий полный словарь.
-- [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md): Collections и variants, а также генерируемые ими карты loader.
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getDictionary.md)
+- [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/index.md)
 
 ## TypeScript
 

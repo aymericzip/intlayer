@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Elysia प्लगइन दस्तावेज़ | elysia-intlayer
-description: देखें कि elysia-intlayer पैकेज के intlayer प्लगइन का उपयोग कैसे करें
+description: "Elysia के लिए intlayer प्लगइन उपयोगकर्ता का लोकेल पहचानता है और हर रिक्वेस्ट के रूट कॉन्टेक्स्ट में अनुवाद फ़ंक्शन जोड़ता है।"
 keywords:
   - intlayer
   - elysia

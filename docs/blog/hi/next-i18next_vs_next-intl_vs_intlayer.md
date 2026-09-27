@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "next-i18next बनाम next-intl बनाम Intlayer: 2026 तुलना"
-description: "Next.js के लिए कौन-सी i18n लाइब्रेरी चुनें? next-i18next, next-intl और Intlayer की तुलना बंडल आकार, TypeScript सुरक्षा, Server Components, रूटिंग और डेवलपर अनुभव के आधार पर।"
+description: "Next.js के लिए कौन-सी i18n लाइब्रेरी चुनें? next-i18next, next-intl और Intlayer की तुलना बंडल, TypeScript, Server Components, रूटिंग और DX पर।"
 keywords:
   - next-intl
   - next-i18next
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-i18next बनाम next-intl बनाम intlayer | Next.js अंतरराष्ट्रीयकरण (i18n)
+# next-i18next बनाम next-intl बनाम intlayer
 
 ![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -79,6 +79,10 @@ author: aymericzip
 Next.js आपको अंतर्राष्ट्रीयकृत routing (जैसे locale segments) के लिए built-in support देता है। लेकिन यह feature अपने आप translations नहीं करता। आपको अपने users को localized content render करने के लिए एक library की जरूरत है।
 
 कई i18n libraries मौजूद हैं, लेकिन Next.js की दुनिया में आज, तीन को ध्यान मिल रहा है: next-i18next, next-intl, और Intlayer।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 
 ## आर्किटेक्चर और स्केलेबिलिटी
 

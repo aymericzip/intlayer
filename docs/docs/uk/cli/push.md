@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Push словників
-description: Дізнайтеся, як передати ваші словники до редактора Intlayer та CMS.
+title: "intlayer push: надсилання словників у CMS"
+description: "Надішліть локальні словники Intlayer у візуальний редактор і CMS, щоб перекладачі та контент-менеджери могли їх редагувати."
 keywords:
   - Push
   - Словники

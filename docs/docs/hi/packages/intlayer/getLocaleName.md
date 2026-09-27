@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getLocaleName फ़ंक्शन दस्तावेज़ | intlayer
-description: intlayer पैकेज के लिए getLocaleName फ़ंक्शन का उपयोग कैसे करें देखें
+description: 'getLocaleName से किसी लोकेल का नाम दूसरी भाषा में पाएँ, जैसे "French" या "français", भाषा स्विचर के लेबल के लिए।'
 keywords:
   - getLocaleName
   - अनुवाद

@@ -2,7 +2,7 @@
 createdAt: 2025-08-23
 updatedAt: 2026-07-08
 priority: 8
-title: Intlayer CMS | Zewnętrzne zarządzanie treścią w Intlayer CMS
+title: "Intlayer CMS: wyodrębnij wielojęzyczne treści"
 description: Zewnętrzne zarządzanie treścią w Intlayer CMS, aby delegować zarządzanie treścią do Twojego zespołu.
 keywords:
   - CMS

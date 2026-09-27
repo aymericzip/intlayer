@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Команди редактора
-description: Дізнайтеся, як використовувати команди редактора Intlayer.
+title: "intlayer editor: команди візуального редактора"
+description: "Запускайте й налаштовуйте візуальний редактор Intlayer з CLI, щоб редагувати контент у контексті просто в застосунку."
 keywords:
   - Editor
   - Visual Editor

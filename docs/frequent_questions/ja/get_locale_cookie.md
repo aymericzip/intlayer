@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: クッキー / ヘッダーからロケールを取得する方法
-description: クッキー / ヘッダーからロケールを取得する方法を学びます。
+description: "Intlayer で Cookie やリクエストヘッダーから現在のロケールを読み取り、サーバーやミドルウェアで正しい言語を表示します。"
 keywords:
   - クッキー
   - ヘッダー

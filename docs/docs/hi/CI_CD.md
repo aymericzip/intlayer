@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-08-13
+updatedAt: 2026-09-27
 priority: 8
-title: CI/CD एकीकरण
+title: "अनुवाद के लिए Intlayer CI/CD इंटीग्रेशन"
 description: स्वचालित सामग्री प्रबंधन और परिनियोजन के लिए Intlayer को अपने CI/CD पाइपलाइन में एकीकृत करना सीखें।
 keywords:
   - CI/CD

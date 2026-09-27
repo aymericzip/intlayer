@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-21
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Init Infra
-description: Aprenda a usar el comando init infra de la CLI de Intlayer para instalar la aplicación de escritorio o autoalojar el CMS de Intlayer con Docker (contenedor todo en uno o stack de Docker Compose).
+title: "intlayer init infra: autoalojar el CMS de Intlayer"
+description: "Instala la app de escritorio de Intlayer o autoaloja el CMS de Intlayer con Docker, como contenedor todo en uno o stack de Docker Compose."
 keywords:
   - CLI
   - Infraestructura
@@ -158,6 +158,6 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 
 ## Relacionado
 
-- [Guía de autoalojamiento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md) - Arquitectura, pasos iniciales y limitaciones de cada modo
-- [Inicializar Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/init.md) - El comando principal `init` y su lista de verificación interactiva
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) - Qué hace el panel que acaba de instalar
+- [Guía de autoalojamiento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md)
+- [Inicializar Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/init.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)

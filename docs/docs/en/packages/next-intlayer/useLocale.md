@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-01-26
+updatedAt: 2026-09-27
 priority: 5
 title: useLocale Hook Documentation | next-intlayer
-description: See how to use the useLocale hook for next-intlayer package
+description: "Use useLocale in Next.js to read the current locale and switch languages, updating the localized route automatically."
 keywords:
   - useLocale
   - dictionary

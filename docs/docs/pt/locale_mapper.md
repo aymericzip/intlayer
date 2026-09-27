@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: Mapeador de Locale
-description: Descubra como o Mapeador de Locale funciona. Veja os passos usados pelo Mapeador de Locale na sua aplicação. Veja o que os diferentes pacotes fazem.
+title: "Locale Mapper: localeMap, localeFlatMap, localeRecord"
+description: "Transforme dados de locale com localeMap, localeFlatMap e localeRecord para gerar rotas, parâmetros estáticos e objetos por locale."
 keywords:
   - Mapeador de Locale
   - Começar

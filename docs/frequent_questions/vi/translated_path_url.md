@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: Tôi có thể dịch đường dẫn URL không?
-description: Tìm hiểu cách dịch đường dẫn URL.
+description: "Có: Intlayer có thể dịch đường dẫn URL, như /about thành /vi/gioi-thieu, bằng cách viết lại URL cấu hình theo từng locale."
 keywords:
   - array
   - content

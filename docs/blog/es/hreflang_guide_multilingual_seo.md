@@ -288,8 +288,8 @@ Derive the set from a single locale list, render it server-side, keep canonical 
 
 ### Ir más allá
 
-- [SEO e Internacionalización](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/internationalization_and_SEO.md) — la imagen más amplia del SEO multilingüe
-- [SEO e i18n en Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/nextjs-multilingual-seo-comparison.md) — `next-intl` vs `next-i18next` vs Intlayer
+- [SEO e Internacionalización](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/internationalization_and_SEO.md)
+- [SEO e i18n en Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/nextjs-multilingual-seo-comparison.md)
 - [Guía de i18n de Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_16.md)
 - [Guía de i18n de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack.md)
 - [Dominios personalizados por locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/custom_domains.md)

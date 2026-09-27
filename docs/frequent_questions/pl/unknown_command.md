@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Nieznane polecenie
-description: Dowiedz się, jak naprawić błąd nieznanego polecenia.
+title: "Jak naprawić błąd Intlayer „unknown command”"
+description: "Napraw błąd CLI Intlayer „unknown command”: sprawdź nazwę polecenia, wersję CLI i sposób wywołania pliku binarnego."
 keywords:
   - nieznane
   - polecenie

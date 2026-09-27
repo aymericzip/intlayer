@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Điền Từ điển
-description: Tìm hiểu cách điền, kiểm tra và dịch từ điển của bạn bằng AI.
+title: "intlayer fill: dịch từ điển bằng AI"
+description: "Bổ sung bản dịch còn thiếu, kiểm tra bản dịch hiện có và dịch từ điển Intlayer bằng AI từ CLI, cục bộ hoặc trong CI."
 keywords:
   - Điền
   - Kiểm tra

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "2026'da Doğru Svelte i18n Kütüphanesini Seçme Rehberi"
-description: Svelte ve SvelteKit uluslararasılaştırması için bir karar rehberi. svelte-i18n, Paraglide, typesafe-i18n, wuchale ve Intlayer'ı karşılaştırmadan önce yanıtlanması gereken sorular ve her seçeneğin bundle boyutu, typing ve SSR güvenliği açısından maliyetleri.
+description: "Svelte ve SvelteKit i18n için karar rehberi: svelte-i18n, Paraglide, typesafe-i18n, wuchale ve Intlayer'ı karşılaştırmadan önceki sorular."
 keywords:
   - svelte i18n
   - sveltekit i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Svelte, i18n için yerleşik hiçbir şey sunmaz. `$t` yok, locale primitive'i yok, mesaj formatı yok. Her seçenek bir third-party tercihtir ve Svelte ekosistemi compile-time i18n'in en ileri gittiği yerdir; bu nedenle adaylar birbirinden React veya Vue'dakinden çok daha fazla ayrışır.
 
 Bu rehber önce yanıtlanması gereken soruları listeler, ardından bu yanıtları Vite + Svelte ve SvelteKit için `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale` ve Intlayer ile eşleştirir.
-
-![Svelte i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## İçindekiler
 
@@ -88,6 +86,8 @@ Grafik, 1 ila 10 sayfadan oluşan, 1 ila 10 locale'e çevrilmiş ve sayfa başı
 
 Kütüphane boyutları [Svelte benchmark'ından](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/svelte.md) alınmıştır: 10 sayfalık, 10 locale'li bir uygulamada bundling, tree-shaking ve minification sonrasında boş bir bileşendeki store ve accessor boyutu. İçerik boyutu ayrıca ölçülür.
 
+![Svelte i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Kütüphane       | Mesajların konumu                      | Locale state                              | Tip güvenliği              | Mesaj formatı                 | Route başına splitting | Kütüphane boyutu                                    |
 | :-------------- | :------------------------------------- | :---------------------------------------- | :------------------------- | :---------------------------- | :--------------------- | :-------------------------------------------------- |
 | `svelte-i18n`   | Locale başına JSON katalogları         | Module-level Svelte store                 | 2/5 — Manuel union         | ICU                           | Hayır                  | ~16.6 kB                                            |
@@ -111,7 +111,7 @@ Paraglide'ın sıfıra yakın kütüphane boyutu mimari bir sonuçtur: runtime d
 </Accordion>
 <Accordion header="Locale routing ve SSR içeren SvelteKit">
 
-Bu durumu paylaşım sorunu belirler. `svelte-i18n` SvelteKit üzerinde çalışır, ancak request başına entegrasyonu (`hooks.server.ts`, `locals`, `load`, ardından `setContext`) yazmak sizin sorumluluğunuzdadır ve fark edilmesi zor hatalar yapmak kolaydır. Paraglide, routing'i yöneten ve locale'i çağrı başına okuyarak singleton sorununu ortadan kaldıran bir SvelteKit entegrasyonu sunar. Intlayer ise locale'i `load` verisinden context'e aktarır. [SvelteKit i18n yazısı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/list_i18n_technologies/frameworks/sveltekit.md), kütüphaneyi seçmeden önce karar vermeniz gereken `[[lang]]` ve `reroute` tercihlerini açıklamaktadır.
+Bu durumu paylaşım sorunu belirler. `svelte-i18n` SvelteKit üzerinde çalışır, ancak request başına entegrasyonu (`hooks.server.ts`, `locals`, `load`, ardından `setContext`) yazmak sizin sorumluluğunuzdadır ve fark edilmesi zor hatalar yapmak kolaydır. Paraglide, routing'i yöneten ve locale'i çağrı başına okuyarak singleton sorununu ortadan kaldıran bir SvelteKit entegrasyonu sunar. Intlayer ise locale'i `load` verisinden context'e aktarır. [SvelteKit i18n yazısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_svelte_kit.md), kütüphaneyi seçmeden önce karar vermeniz gereken `[[lang]]` ve `reroute` tercihlerini açıklamaktadır.
 
 </Accordion>
 <Accordion header="Çeviriler bir TMS'den veya ICU teslim eden bir ajanstan geliyorsa">
@@ -445,11 +445,13 @@ Dolaylı olarak. Crawler'lar routing, `hreflang`, `<html lang>` ve metnin sunucu
 ## Daha fazlası
 
 - [Svelte i18n benchmark: bundle boyutu, sızıntı ve locale değiştirme süreleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/svelte.md)
-- [Svelte i18n: store'lar, rune'lar ve modül düzeyindeki tuzak](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/list_i18n_technologies/frameworks/svelte.md) ve [SvelteKit i18n: routing, SSR ve paylaşılan state](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/list_i18n_technologies/frameworks/sveltekit.md)
 - [Doğrudan yerine geçen `svelte-i18n` uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/svelte-i18n.md)
 - [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 - [Compiler ve deklaratif i18n karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
 - [Bileşen başına ve merkezi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md)
 - [Build zamanında bundle optimizasyonu nasıl çalışır](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
-- [Vite + Svelte uygulamasında i18n kurulumu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+svelte.md) ve [SvelteKit uygulamasında kurulum](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_svelte_kit.md)
-- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_react_i18n_library.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_vue_i18n_library.md) ve [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_solid_i18n_library.md) için aynı rehber
+- [Vite + Svelte uygulamasında i18n kurulumu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+svelte.md)
+- [SvelteKit uygulamasında kurulum](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_svelte_kit.md)
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_vue_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_solid_i18n_library.md)

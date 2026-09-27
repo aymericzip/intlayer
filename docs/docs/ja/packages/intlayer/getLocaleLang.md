@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getLocaleLang 関数ドキュメント | intlayer
-description: intlayer パッケージの getLocaleLang 関数の使い方を説明します
+description: "getLocaleLang で en-US のようなロケール文字列から言語コードを抽出します。国コードの有無は問いません。"
 keywords:
   - getLocaleLang
   - 翻訳

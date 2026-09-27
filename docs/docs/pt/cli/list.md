@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
 title: Listar Arquivos de Declaração de Conteúdo
-description: Aprenda como listar todos os arquivos de declaração de conteúdo no seu projeto.
+description: "Liste todos os arquivos de declaração de conteúdo do seu projeto com a CLI do Intlayer, para saber onde seus dicionários estão declarados."
 keywords:
   - Listar
   - Declaração de Conteúdo

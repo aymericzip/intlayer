@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "next-i18next vs next-intl vs Intlayer: confronto 2026"
-description: "Quale libreria i18n scegliere per Next.js? next-i18next, next-intl e Intlayer a confronto su dimensione del bundle, sicurezza TypeScript, Server Components, routing ed esperienza di sviluppo."
+description: "Quale libreria i18n scegliere per Next.js? next-i18next, next-intl e Intlayer a confronto su bundle, TypeScript, Server Components, routing e DX."
 keywords:
   - next-intl
   - next-i18next
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-i18next VS next-intl VS intlayer | Internazionalizzazione (i18n) in Next.js
+# next-i18next VS next-intl VS intlayer
 
 ![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -80,6 +80,10 @@ Ci concentriamo su **Next.js 13+ App Router** (con **React Server Components**) 
 Next.js offre supporto integrato per il routing internazionalizzato (es. segmenti di localizzazione). Ma questa funzionalità non gestisce le traduzioni da sola. Serve comunque una libreria per rendere contenuti localizzati agli utenti.
 
 Esistono molte librerie i18n, ma nel mondo Next.js oggi tre stanno guadagnando popolarità: next-i18next, next-intl e Intlayer.
+
+> Per capire da dove vengono queste librerie, leggi la storia dell'i18n in JavaScript.
+
+- [La storia dell'i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/history_of_i18n.md)
 
 ## Architettura e scalabilità
 

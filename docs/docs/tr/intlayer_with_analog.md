@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Analog i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Analog uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Analog'da Intlayer kurulumu: bileşen başına tipli içerik, locale algılama ve değiştirme, Vite ile Angular için yerelleştirilmiş rotalar."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -27,7 +27,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer kullanarak Analog (Angular) uygulamanızı tercüme edin | Uluslararasılaştırma (i18n)
+# Intlayer kullanarak Analog (Angular) uygulamanızı tercüme edin
 
 <Tabs defaultTab="code">
   <Tab label="Kod" value="code">

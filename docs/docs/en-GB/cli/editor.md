@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Editor Commands
-description: Learn how to use the Intlayer editor commands.
+title: "intlayer editor: Visual Editor CLI Commands"
+description: "Start and configure the Intlayer visual editor from the CLI to edit your content in context, directly on your running application."
 keywords:
   - Editor
   - Visual Editor

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Fastify i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
-description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Fastify-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
+description: "Intlayer in Fastify einrichten: Locale pro Request mit dem Plugin erkennen, API-Antworten und Fehlermeldungen übersetzen, durchgehend typisiert."
 keywords:
   - Internationalisierung
   - Dokumentation
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Übersetzen Sie Ihre Fastify-Backend-Website mit Intlayer | Internationalisierung (i18n)
+# Übersetzen Sie Ihre Fastify-Backend-Website mit Intlayer
 
 `fastify-intlayer` ist ein leistungsfähiges Internationalisierungs-Plugin (i18n) für Fastify-Anwendungen, das entwickelt wurde, um Ihre Backend-Services global zugänglich zu machen, indem es lokalisierte Antworten basierend auf den Präferenzen des Clients bereitstellt.
 

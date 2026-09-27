@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 5
 title: getTranslation Fonksiyonu Dokümantasyonu | intlayer
-description: intlayer paketinde getTranslation fonksiyonunun nasıl kullanılacağını görün
+description: "getTranslation (takma adı t) ile bir çeviri haritasından belirli bir locale'in içeriğini seçin, bulunamazsa varsayılan locale'e dönün."
 keywords:
   - getTranslation
   - çeviri

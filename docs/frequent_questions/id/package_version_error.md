@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Saya mendapatkan error terkait sub-paket @intlayer/*
-description: Memperbaiki error terkait sub-paket @intlayer/*.
+description: "Perbaiki error akibat versi sub-paket @intlayer/* yang berbeda: samakan semua paket Intlayer ke versi yang sama dan bersihkan cache."
 keywords:
   - @intlayer/*
   - sub-paket

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: Nội dung HTML
-description: Tìm hiểu cách khai báo và sử dụng nội dung HTML với các component tùy chỉnh trong Intlayer. Theo dõi tài liệu này để nhúng nội dung giống HTML phong phú với việc thay thế component động trong dự án quốc tế hóa của bạn.
+title: "Nội dung HTML với component tùy chỉnh"
+description: "Khai báo nội dung HTML trong Intlayer và thay thẻ bằng component của bạn khi render, để hiển thị văn bản giàu định dạng đã dịch mà không cần dangerouslySetInnerHTML."
 keywords:
   - HTML
   - Component tùy chỉnh

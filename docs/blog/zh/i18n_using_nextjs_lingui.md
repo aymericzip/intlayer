@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "Next.js 16 i18n 与 Lingui：App Router 配置指南"
 description: "在 Next.js 16 App Router 中配置 Lingui：Server Components、SWC 宏、proxy 路由、generateMetadata、hreflang、sitemap 和 robots.txt，附带基准测试数据。"
@@ -43,9 +43,24 @@ author: aymericzip
 - 使用 `generateStaticParams` 对每个语言环境进行**静态渲染**。
 - **完整的多语言 SEO 支持**：翻译后的 `generateMetadata`、canonical 规范链接、带 `x-default` 的 `hreflang`、Open Graph 本地化标签、JSON-LD、`sitemap.ts`、`robots.ts` 以及本地化的 404 页面。
 
-> 想要了解其他国际化库？请参阅 [next-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-intl.md)、[next-i18next 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-i18next.md) 或 [Next.js + Intlayer 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)。
+> 想要了解其他国际化库？
 
-> 正在使用 TanStack Start？请参阅 [TanStack Start + Lingui 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_lingui.md)。对比不同方案？请阅读 [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md) 以及 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)。
+- [next-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-intl.md)
+- [next-i18next 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-i18next.md)
+- [Next.js + Intlayer 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
+
+> 正在使用 TanStack Start？
+
+- [TanStack Start + Lingui 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_lingui.md)
+
+> 对比不同方案？
+
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## Next.js 上 Lingui 的基准测试表现
 
@@ -94,7 +109,11 @@ author: aymericzip
 
 > 运行时体积来自 [Next.js 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)。更深入的讨论请阅读 [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)。
 
-> 其他 Next.js 指南：[next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-intl.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-i18next.md) 和 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)。
+> 其他 Next.js 指南：
+
+- [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-intl.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-i18next.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
 
 ## 你应该遵循的最佳实践
 
@@ -107,7 +126,9 @@ author: aymericzip
 - **语言切换器使用真实的链接元素**，以便搜索引擎爬虫发现所有语言版本。
 - **在 CI 中运行 `lingui extract`**，确保新消息不会在未翻译的情况下发布。
 
-> 请参阅我们的[国际化与 SEO 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md)、[hreflang 多语言 SEO 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)以及 [Next.js 多语言 SEO 方案对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/nextjs-multilingual-seo-comparison.md)。
+- [国际化与 SEO 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md)
+- [hreflang 多语言 SEO 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)
+- [Next.js 多语言 SEO 方案对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/nextjs-multilingual-seo-comparison.md)
 
 ## 在 Next.js 应用中配置 Lingui 的分步指南
 

@@ -284,9 +284,9 @@ Si provienes de una base de código que ya contiene cadenas ICU reales, el [adap
 
 ## Para profundizar
 
-- [Contenido de plural en Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plurial.md): el nodo `plural` respaldado por CLDR y su tabla de categorías.
-- [Contenido basado en select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/select.md): el equivalente a `select` de ICU y cuándo usar `enu` o `cond`.
-- [Marcadores de inserción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/insertion.md): interpolación con `{{name}}` y detección automática.
-- [Benchmark de bibliotecas i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md): tamaño de paquete y coste de ejecución en las soluciones analizadas.
-- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/react-i18next_vs_react-intl_vs_intlayer.md): una comparación exhaustiva de los tres modelos de mensajes.
-- [¿Qué es la internacionalización?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/what_is_internationalization.md): el origen del término i18n, sus diferencias con l10n y el panorama general más allá del formato de mensajes.
+- [Contenido de plural en Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plurial.md)
+- [Contenido basado en select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/select.md)
+- [Marcadores de inserción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/insertion.md)
+- [Benchmark de bibliotecas i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/index.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/react-i18next_vs_react-intl_vs_intlayer.md)
+- [¿Qué es la internacionalización?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/what_is_internationalization.md)

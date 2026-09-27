@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Analog i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Analog đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong Analog: nội dung có kiểu theo component, nhận diện và chuyển locale, route bản địa hóa cho Angular với Vite."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -27,7 +27,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch ứng dụng Analog (Angular) của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch ứng dụng Analog (Angular) của bạn bằng Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Mã nguồn" value="code">

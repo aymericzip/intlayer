@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-10
+updatedAt: 2026-09-27
 priority: 6
-title: Serwer LSP Intlayer
+title: "Serwer językowy Intlayer (LSP) dla Twojego IDE"
 description: Dowiedz się, jak serwer języka Intlayer wnosi przejście do definicji, wyszukiwanie referencji, podglądy po najechaniu kursorem, autouzupełnianie kluczy i diagnostykę do Twojego IDE oraz agenta AI.
 keywords:
   - LSP

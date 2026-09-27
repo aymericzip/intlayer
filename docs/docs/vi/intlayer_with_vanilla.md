@@ -3,7 +3,7 @@ createdAt: 2026-03-31
 updatedAt: 2026-05-31
 priority: 9
 title: "Vanilla JS i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Vanilla JS đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong JavaScript thuần không framework: dịch một trang HTML tĩnh, chuyển locale và giữ nội dung có kiểu."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -28,7 +28,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web Vanilla JS của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web Vanilla JS của bạn bằng Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Mã nguồn" value="code">

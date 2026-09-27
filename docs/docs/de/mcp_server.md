@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-21
+updatedAt: 2026-09-27
 priority: 6
-title: MCP Server Dokumentation
-description: Entdecken Sie die Funktionen und die Einrichtung des MCP Servers, um Ihre Serververwaltung und -betrieb zu optimieren.
+title: "Intlayer MCP-Server für KI-Assistenten"
+description: "Verbinden Sie den Intlayer MCP-Server mit Cursor, VS Code oder Claude Desktop, damit Ihr KI-Assistent die Doku liest und bei der Einrichtung hilft."
 keywords:
   - MCP Server
   - Serververwaltung

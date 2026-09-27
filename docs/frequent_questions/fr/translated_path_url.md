@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: Puis-je traduire le chemin de l'URL ?
-description: Apprenez comment traduire le chemin de l'URL.
+description: "Oui : Intlayer peut traduire les chemins d'URL, comme /about en /fr/a-propos, grâce aux réécritures d'URL configurées par locale."
 keywords:
   - tableau
   - contenu

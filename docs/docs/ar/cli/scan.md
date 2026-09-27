@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 5
-title: مسح موقع الويب
+title: "intlayer scan: تدقيق i18n وتحسين محركات البحث لموقع"
 description: تعرف على كيفية استخدام أمر scan في Intlayer CLI لقياس حجم الصفحة وتدقيق صحة i18n/SEO لأي موقع ويب.
 keywords:
   - مسح

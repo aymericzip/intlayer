@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
-title: "Czym jest internacjonalizacja (i18n)? Znaczenie, definicja i wyzwania"
+title: "Czym jest internacjonalizacja (i18n)? Znaczenie i wyzwania"
 description: "Co oznacza i18n? Dowiedz się, czym jest internacjonalizacja, dlaczego skraca się ją do i18n, czym różni się od lokalizacji (l10n) i jakie wyzwania niesie jej wdrożenie."
 keywords:
   - i18n znaczenie
@@ -183,11 +183,11 @@ Ważne jest, aby wybrać odpowiednie narzędzie do swoich potrzeb i zaplanować 
 
 Jeśli szukasz odpowiedniej biblioteki i18n dla swojego stacku, zapoznaj się z poniższymi przewodnikami:
 
-- React: [Jak wybrać bibliotekę i18n dla React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_react_i18n_library.md)
-- Vue: [Jak wybrać bibliotekę i18n dla Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_vue_i18n_library.md)
-- Svelte: [Jak wybrać bibliotekę i18n dla Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_svelte_i18n_library.md)
-- Solid: [Jak wybrać bibliotekę i18n dla Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_solid_i18n_library.md)
-- Next.js: [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Jak wybrać bibliotekę i18n dla React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_react_i18n_library.md)
+- [Jak wybrać bibliotekę i18n dla Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_vue_i18n_library.md)
+- [Jak wybrać bibliotekę i18n dla Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_svelte_i18n_library.md)
+- [Jak wybrać bibliotekę i18n dla Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_solid_i18n_library.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## Podsumowanie
 

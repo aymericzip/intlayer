@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: ESBuild エラー
-description: ESBuild エラーの修正方法を学ぶ。
+title: "Intlayer の ESBuild エラーを直す"
+description: "Intlayer のビルド中に起きる ESBuild エラーを修正。多くの場合、フレームワーク用のバンドラープラグインが未設定か誤って設定されています。"
 keywords:
   - esbuild
   - エラー

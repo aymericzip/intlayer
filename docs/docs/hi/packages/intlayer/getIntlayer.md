@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: getIntlayer फंक्शन डॉक्यूमेंटेशन | intlayer
-description: intlayer पैकेज के लिए getIntlayer फंक्शन का उपयोग कैसे करें देखें
+description: "getIntlayer से किसी लोकेल के लिए डिक्शनरी कंटेंट कहीं भी पढ़ें, यह useIntlayer हुक का फ़्रेमवर्क-स्वतंत्र रूप है।"
 keywords:
   - getIntlayer
   - dictionary
@@ -164,9 +164,9 @@ const banner = getIntlayer("banner", { variant: "black-friday", locale: "fr" });
 
 ## संबंधित फ़ंक्शन
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayerAsync.md): एक single locale chunk को लोड करने वाला Async counterpart।
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getDictionary.md): एक dictionary object को interpret करता है जो आप स्वयं पास करते हैं, key द्वारा देखे गए object के बजाय।
-- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useIntlayer.md): React hook का समतुल्य, provider से locale को पढ़ता है।
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getDictionary.md)
+- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useIntlayer.md)
 
 ## TypeScript
 

@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: توثيق دالة t | react-intlayer
-description: تعرف على كيفية استخدام دالة t لحزمة react-intlayer
+description: "استخدم الدالة t من react-intlayer لتعريف الترجمات مباشرة داخل مكوّنات React، دون ملف محتوى منفصل."
 keywords:
   - t
   - الترجمة

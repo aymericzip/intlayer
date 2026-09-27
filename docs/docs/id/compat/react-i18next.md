@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrasi dari react-i18next ke Intlayer"
-description: "Pelajari cara migrasi aplikasi React Anda dari react-i18next ke Intlayer menggunakan adapter kompatibilitas."
+title: "@intlayer/react-i18next: adaptor kompatibilitas untuk react-i18next"
+description: "Pertahankan kode react-i18next Anda dan sajikan lewat Intlayer: pasang @intlayer/react-i18next, buat alias untuk import, dan lihat apa yang diubah adaptor di balik layar."
 keywords:
   - react-i18next
   - i18next
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Migrasi dari react-i18next ke Intlayer
+# @intlayer/react-i18next: adaptor kompatibilitas untuk react-i18next
 
 Untuk tutorial langkah demi langkah yang lengkap dan terperinci, silakan lihat [Panduan Migrasi react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_react-i18next_to_intlayer.md) lengkap kami.
 
@@ -57,3 +57,7 @@ Di balik layar:
 - **Plural & Konteks:** Menangani pluralisasi berbasis sufiks i18next (`key_one`, `key_other`) menggunakan `Intl.PluralRules` native dan sufiks konteks (`key_male`).
 - **Komponen `<Trans>`:** Diimplementasikan ulang untuk mendukung prop `components`, bentuk objek dan array, serta tag bernomor `<1>...</1>` yang langsung dipetakan ke node React Anda.
 - **Instance `i18n`:** Menyelesaikan kunci langsung dari Intlayer tanpa mengambil file JSON yang besar, menghasilkan ukuran bundle yang jauh lebih kecil.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)

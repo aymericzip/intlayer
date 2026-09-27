@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: क्या 2026 में next-intl पुराना हो चुका है?
 description: next-intl, Next.js App Router का डिफ़ॉल्ट समाधान बन चुका है। लेकिन यह अभी भी रनटाइम बंडल ओवरहेड और मैन्युअल नेमस्पेस प्रबंधन का बोझ उठाता है।
@@ -70,6 +70,10 @@ Crowdin का आधिकारिक पार्टनर होने क�
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 एक स्थापित लाइब्रेरी सुरक्षा का अनुभव कराती है। लेकिन आधुनिक i18n की दुनिया बदल चुकी है: कंपाइलर्स अप्रयुक्त टेक्स्ट को बिल्ड के समय हटाते हैं, एलएलएम सीआई पाइपलाइन में अनुवाद करते हैं, और डेवलपर्स लैंग्वेज सर्वर (LSP) और एआई एजेंट्स की मदद लेते हैं। रनटाइम-केंद्रित लाइब्रेरी इन सुविधाओं को आसानी से आत्मसात नहीं कर पाती।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 
 ## Next.js 16 App Router परफॉर्मेंस टेस्ट
 

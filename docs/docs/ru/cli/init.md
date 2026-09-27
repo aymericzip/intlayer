@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: Инициализация Intlayer
-description: Узнайте, как инициализировать Intlayer в вашем проекте.
+title: "intlayer init: настройка Intlayer в проекте"
+description: "Запустите intlayer init, чтобы добавить Intlayer в существующий проект: команда определит фреймворк, установит пакеты и запишет конфигурацию."
 keywords:
   - Инициализация
   - CLI

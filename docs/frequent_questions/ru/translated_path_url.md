@@ -3,7 +3,7 @@ createdAt: 2025-05-20
 updatedAt: 2025-06-29
 priority: 4
 title: Можно ли перевести путь URL?
-description: Узнайте, как перевести путь URL.
+description: "Да: Intlayer умеет переводить пути URL, например /about в /ru/o-nas, с помощью перезаписи URL, настроенной для каждой локали."
 keywords:
   - массив
   - контент

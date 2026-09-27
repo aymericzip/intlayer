@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 10
 title: "Astro i18n - Guida completa per tradurre la tua applicazione"
-description: "Niente più i18next. La guida 2026 per creare un'applicazione Astro multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
+description: "Configura Intlayer in Astro: route localizzate, pagine .astro e isole tradotte, tag hreflang e sitemap multilingue."
 keywords:
   - internazionalizzazione
   - documentazione
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# Tradurre il tuo sito Astro con Intlayer | Internazionalizzazione (i18n)
+# Tradurre il tuo sito Astro con Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Codice" value="code">
@@ -496,12 +496,12 @@ export const GET: APIRoute = ({ site }) => {
 
 Continua a costruire la tua applicazione utilizzando il framework che preferisci.
 
-- Intlayer + React: [Intlayer con React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_astro_react.md)
-- Intlayer + Vue: [Intlayer con Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_astro_vue.md)
-- Intlayer + Svelte: [Intlayer con Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_astro_svelte.md)
-- Intlayer + Solid: [Intlayer con Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_astro_solid.md)
-- Intlayer + Preact: [Intlayer con Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_astro_preact.md)
-- Intlayer + Lit: [Intlayer con Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_astro_lit.md)
+- [Intlayer con React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_astro_react.md)
+- [Intlayer con Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_astro_vue.md)
+- [Intlayer con Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_astro_svelte.md)
+- [Intlayer con Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_astro_solid.md)
+- [Intlayer con Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_astro_preact.md)
+- [Intlayer con Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}>

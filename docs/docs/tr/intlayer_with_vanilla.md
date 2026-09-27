@@ -3,7 +3,7 @@ createdAt: 2026-03-31
 updatedAt: 2026-05-31
 priority: 9
 title: "Vanilla JS i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Vanilla JS uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Framework olmadan saf JavaScript'te Intlayer kurulumu: statik bir HTML sayfasını çevirin, locale değiştirin ve içeriği tipli tutun."
 keywords:
   - Uluslararasılaştırma
   - Belgeler
@@ -28,7 +28,7 @@ history:
 author: aymericzip
 ---
 
-# Vanilla JS web sitenizi Intlayer kullanarak çevirin | Uluslararasılaştırma (i18n)
+# Vanilla JS web sitenizi Intlayer kullanarak çevirin
 
 <Tabs defaultTab="code">
   <Tab label="Kod" value="code">

@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-01-11
-updatedAt: 2026-01-11
+updatedAt: 2026-09-27
 priority: 4
-title: `vite-env-only` & Intlayer – 偽陽性の `node:fs` インポート拒否エラー
+title: "vite-env-only：Intlayer での node:fs 誤検知エラー"
 description: Intlayer + React-Router + Vite 環境で vite-env-only が `node:fs` のインポートを拒否すると報告する理由と、その対処法。
 keywords:
   - intlayer
@@ -16,7 +16,7 @@ keywords:
 slugs:
   - frequent-questions
   - vite-env-only-node-fs-false-positive
-author: aymericzip 
+author: aymericzip
 ---
 
 # Intlayer 環境で `vite-env-only` が `node:fs` を拒否する

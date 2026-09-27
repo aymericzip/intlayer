@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 서브 패키지 @intlayer/* 관련 오류가 발생합니다
-description: 서브 패키지 @intlayer/* 관련 오류 해결 방법입니다.
+description: "@intlayer/* 하위 패키지 버전 불일치로 인한 오류를 해결하세요: 모든 Intlayer 패키지를 같은 버전으로 맞추고 캐시를 지웁니다."
 keywords:
   - @intlayer/*
   - 서브 패키지

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
-title: getIntlayerAsync Function Documentation | intlayer
-description: getIntlayerAsync फ़ंक्शन को intlayer पैकेज के लिए कैसे उपयोग करें यह देखें
+title: "getIntlayerAsync फ़ंक्शन दस्तावेज़ | intlayer"
+description: "getIntlayerAsync से किसी डिक्शनरी का कंटेंट सिर्फ़ एक लोकेल के लिए लोड करके पढ़ें, बाकी भाषाएँ बंडल में न जाएँ।"
 keywords:
   - getIntlayerAsync
   - dictionary
@@ -106,9 +106,9 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## संबंधित Functions
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayer.md): Synchronous equivalent जो merged dictionary को पढ़ता है।
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getDictionaryAsync.md): The lower-level function जिसे build plugins इस call को rewrite करते हैं।
-- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocale.md): Incoming request की locale को detect करता है।
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getDictionaryAsync.md)
+- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocale.md)
 
 ## TypeScript
 

@@ -3,7 +3,7 @@ createdAt: 2025-02-07
 updatedAt: 2025-06-29
 priority: 5
 title: Хук useDictionary, документація React Intlayer
-description: Повний посібник із використання хуку useDictionary у React-застосунках з Intlayer для ефективної роботи з локалізованим контентом без візуального редактора.
+description: "Використовуйте useDictionary у React, щоб обробити оголошений вами об'єкт словника з перекладами, переліченнями тощо."
 keywords:
   - useDictionary
   - React

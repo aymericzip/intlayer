@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 审核文档
+title: "intlayer doc review：审阅已翻译的文档"
 description: 学习如何审核不同语言版本的文档文件，以确保质量、一致性和完整性。
 keywords:
   - 审核

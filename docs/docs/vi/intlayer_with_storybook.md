@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 6
 title: "Storybook i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Storybook đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong Storybook: decorator story đa ngôn ngữ và chuyển locale, dùng cùng nội dung có kiểu như ứng dụng của bạn."
 keywords:
   - Quốc tế hóa
   - Tài liệu

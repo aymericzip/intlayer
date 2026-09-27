@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: Konten Berdasarkan Gender
-description: Pelajari cara menggunakan konten berdasarkan gender di Intlayer untuk menampilkan konten secara dinamis berdasarkan gender. Ikuti dokumentasi ini untuk mengimplementasikan konten spesifik gender secara efisien dalam proyek Anda.
+title: "Konten berbasis gender di Intlayer"
+description: "Sesuaikan pesan dengan gender pembaca menggunakan node gender() Intlayer: varian laki-laki, perempuan, dan default di satu tempat."
 keywords:
   - Konten Berdasarkan Gender
   - Rendering Dinamis

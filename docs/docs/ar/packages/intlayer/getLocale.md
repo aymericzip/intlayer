@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق دالة getLocale | intlayer
-description: اطلع على كيفية استخدام دالة getLocale لحزمة intlayer
+description: "استخدم getLocale لاكتشاف اللغة من سلسلة مثل عنوان URL أو مسار، مع الرجوع إلى اللغة الافتراضية."
 keywords:
   - getLocale
   - translation

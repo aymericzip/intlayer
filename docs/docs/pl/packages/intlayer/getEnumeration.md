@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja funkcji getEnumeration | intlayer
-description: Zobacz, jak używać funkcji getEnumeration w pakiecie intlayer
+description: "Użyj getEnumeration (alias enu), aby wybrać treść odpowiadającą liczbie z obiektu enumeracji na podstawie jego warunków."
 keywords:
   - getEnumeration
   - tłumaczenie

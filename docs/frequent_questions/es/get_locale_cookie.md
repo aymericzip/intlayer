@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Cómo recuperar la configuración regional desde las cookies / encabezados
-description: Aprende cómo recuperar la configuración regional desde las cookies / encabezados.
+description: "Lee la locale actual desde las cookies o las cabeceras de la petición con Intlayer, en el servidor o en un middleware, para mostrar el idioma correcto."
 keywords:
   - cookie
   - encabezados

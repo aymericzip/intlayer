@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 사전 푸시하기
-description: Intlayer 에디터와 CMS에 사전을 푸시하는 방법을 알아보세요.
+title: "intlayer push: 사전을 CMS에 푸시"
+description: "로컬 Intlayer 사전을 비주얼 에디터와 CMS에 업로드하여 번역가와 콘텐츠 관리자가 편집할 수 있게 합니다."
 keywords:
   - 푸시
   - 사전

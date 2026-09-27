@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-09-30
+updatedAt: 2026-09-27
 priority: 8
-title: Rendere un componente multilingue (libreria i18n) in React e Next.js
+title: "Rendere multilingue un componente React o Next.js"
 description: Impara come dichiarare e recuperare contenuti localizzati per costruire un componente React o Next.js multilingue con Intlayer.
 keywords:
   - i18n

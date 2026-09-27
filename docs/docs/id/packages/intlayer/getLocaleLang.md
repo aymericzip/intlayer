@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi getLocaleLang | intlayer
-description: Lihat cara menggunakan fungsi getLocaleLang untuk paket intlayer
+description: "Gunakan getLocaleLang untuk mengambil kode bahasa dari string locale seperti en-US, dengan atau tanpa kode negara."
 keywords:
   - getLocaleLang
   - terjemahan

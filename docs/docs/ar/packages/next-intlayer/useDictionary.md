@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: توثيق هوك useDictionary | next-intlayer
-description: تعرف على كيفية استخدام هوك useDictionary لحزمة next-intlayer
+description: "استخدم useDictionary في Next.js لتفسير كائن قاموس تعرّفه بنفسك، مع حسم الترجمات للغة الحالية."
 keywords:
   - useDictionary
   - dictionary

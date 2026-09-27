@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Konfiguration verwalten
-description: Erfahren Sie, wie Sie Ihre Intlayer-Konfiguration abrufen und in das CMS hochladen.
+title: "intlayer configuration: Konfiguration lesen und pushen"
+description: "Geben Sie mit der Intlayer CLI Ihre aufgelöste Konfiguration aus und pushen Sie sie ins Intlayer CMS, damit Dashboard und Projekt synchron bleiben."
 keywords:
   - Konfiguration
   - Config

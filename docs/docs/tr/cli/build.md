@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Sözlükleri Oluşturma
+title: "intlayer build: sözlükleri derleyin"
 description: İçerik beyan dosyalarından Intlayer sözlüklerinizi nasıl oluşturacağınızı öğrenin.
 keywords:
   - Oluşturma

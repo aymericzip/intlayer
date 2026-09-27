@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi getDictionaryAsync | intlayer
-description: Lihat cara menggunakan fungsi getDictionaryAsync untuk paket intlayer
+description: "Gunakan getDictionaryAsync untuk memuat satu locale dari sebuah kamus dan membaca konten yang sudah diinterpretasi, tanpa bahasa lain."
 keywords:
   - getDictionaryAsync
   - dictionary
@@ -130,9 +130,9 @@ Peta loader biasa berjalan sepanjang rantai fallback yang sama seperti mode sink
 
 ## Fungsi Terkait
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayerAsync.md): Fungsi yang dipanggil aplikasi; plugin build menulisnya kembali menjadi `getDictionaryAsync`.
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getDictionary.md): Rekan sinkron yang menerima kamus lengkap.
-- [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md): Koleksi dan varian, serta peta loader yang mereka hasilkan.
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getDictionary.md)
+- [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/index.md)
 
 ## TypeScript
 

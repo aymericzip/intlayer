@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-09-27
 priority: 8
-title: Réécritures d'URL personnalisées
+title: "Réécriture d'URL : chemins localisés"
 description: Découvrez comment configurer et utiliser des réécritures d'URL personnalisées dans Intlayer pour définir des chemins spécifiques à une locale.
 keywords:
   - Réécritures d'URL personnalisées

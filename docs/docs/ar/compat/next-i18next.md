@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: الترحيل من next-i18next إلى Intlayer
-description: تعرّف على كيفية ترحيل تطبيق Next.js الخاص بك من next-i18next إلى Intlayer باستخدام محول التوافق.
+title: "@intlayer/next-i18next: محوّل توافق لـ next-i18next"
+description: "احتفظ بشيفرة next-i18next وقدّمها عبر Intlayer: ثبّت @intlayer/next-i18next، واضبط أسماء بديلة للاستيرادات، واكتشف ما يغيّره المحوّل داخليًا."
 keywords:
   - next-i18next
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# الترحيل من next-i18next إلى Intlayer
+# @intlayer/next-i18next: محوّل توافق لـ next-i18next
 
 للحصول على برنامج تعليمي مفصل وكامل خطوة بخطوة، يرجى مراجعة [دليل الترحيل الكامل من next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-i18next_to_intlayer.md).
 
@@ -56,3 +56,7 @@ export default withIntlayer(nextConfig);
 
 - **`serverSideTranslations` و `appWithTranslation`:** يعملان الآن كـ wrappers لمحملات Intlayer الداخلية، متجاوزين حقن JSON الثابتة الكبيرة.
 - **خطافات العميل:** تفوّض فوراً إلى `@intlayer/react-i18next` مع الحفاظ على جميع ميزات التنسيق والجمع والـ namespace المتداخلة.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)

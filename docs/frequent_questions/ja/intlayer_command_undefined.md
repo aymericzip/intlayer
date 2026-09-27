@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Intlayer コマンドが未定義
-description: intlayer コマンド未定義エラーの修正方法を学びます。
+description: "「intlayer: command not found」エラーの修正：CLI をインストールし、パッケージマネージャー経由で実行し、PATH を確認します。"
 keywords:
   - intlayer
   - コマンド

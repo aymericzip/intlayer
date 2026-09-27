@@ -53,6 +53,10 @@ Intlayerは優れた単独のi18nソリューションを提供します（[Next
 
 このガイドでは、next-i18nextとの互換性を維持しながら、Intlayerの優れたコンテンツ宣言システムを活用する方法を示します。
 
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
+
 ## next-i18nextとIntlayerをセットアップするステップバイステップガイド
 
 <Steps>

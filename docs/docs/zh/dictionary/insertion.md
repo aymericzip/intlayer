@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: 插入
-description: 学习如何在内容中声明和使用插入占位符。本指南将引导您通过步骤，在预定义的内容结构中动态插入值。
+title: "插值：翻译内容中的变量"
+description: "使用 Intlayer 的 insert() 节点和 {{占位符}} 向翻译文本中插入动态值，类型来自内容声明。"
 keywords:
   - 插入
   - 动态内容

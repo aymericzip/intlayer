@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: next-intl è obsoleto nel 2026?
 description: next-intl è diventato il riferimento per Next.js App Router. Tuttavia comporta ancora un aumento del bundle a runtime e la gestione manuale complessa dei namespace.
@@ -70,6 +70,10 @@ Attività negli ultimi 12 mesi:
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Una libreria matura può risultare stabile. Tuttavia, l'i18n frontend si è trasformata: i compilatori escludono i testi superflui in fase di build, i modelli LLM automatizzano le traduzioni in CI e gli ambienti di sviluppo sfruttano Language Server (LSP) e agenti intelligenti. Un'architettura basata sul runtime difficilmente recepisce tali vantaggi.
+
+> Per capire da dove vengono queste librerie, leggi la storia dell'i18n in JavaScript.
+
+- [La storia dell'i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/history_of_i18n.md)
 
 ## Misurazione delle performance in Next.js 16 App Router
 

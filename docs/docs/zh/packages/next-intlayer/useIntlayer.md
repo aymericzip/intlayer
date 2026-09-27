@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2026-05-06
 priority: 5
 title: useIntlayer Hook 文档 | next-intlayer
-description: 查看如何使用 next-intlayer 包中的 useIntlayer hook
+description: "在 Next.js 中使用 useIntlayer，在 Client 和 Server Components 中按键读取字典的本地化内容。"
 keywords:
   - useIntlayer
   - 字典

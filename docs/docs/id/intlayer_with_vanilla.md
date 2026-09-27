@@ -3,7 +3,7 @@ createdAt: 2026-03-31
 updatedAt: 2026-05-31
 priority: 9
 title: "Vanilla JS i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Vanilla JS multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di JavaScript murni tanpa framework: terjemahkan halaman HTML statis, ganti locale, dan jaga konten tetap bertipe."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -28,7 +28,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs web Vanilla JS Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web Vanilla JS Anda menggunakan Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Kode" value="code">

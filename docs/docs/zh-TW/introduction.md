@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
 title: 簡介
 description: 了解 Intlayer 的工作原理。查看 Intlayer 在您的應用程式中使用的步驟。了解不同的套件各自的功能。
@@ -213,8 +213,8 @@ Intlayer 提供了多種功能，旨在滿足現代 Web 開發的需求。以下
 - **[Intlayer 與 AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_adonisjs.md)**
 - **[Intlayer 與 Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_elysia.md)**
 - **[Intlayer 與 Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_storybook.md)**
-- **[Intlayer 與 next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_next-intl.md)**
-- **[Intlayer 與 next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_with_next-i18next.md)**
+- **[Intlayer 與 next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh-TW/intlayer_with_next-intl.md)**
+- **[Intlayer 與 next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh-TW/intlayer_with_next-i18next.md)**
 
 每篇整合指南都包含了使用 Intlayer 功能的最佳實踐，例如 **伺服器端渲染**、**動態路由** 或 **客戶端渲染**，以便您可以維護一個快速、SEO 友善且高度可擴展的應用程式。
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "TanStack Start i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
-description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) TanStack Start-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
+description: "Intlayer in TanStack Start einrichten: Locale-Routenparameter, SSR-sichere übersetzte Inhalte, lokalisierte Head-Metadaten, hreflang und Sitemap."
 keywords:
   - Internationalisierung
   - Dokumentation
@@ -52,7 +52,7 @@ history:
 author: aymericzip
 ---
 
-# Übersetzen Sie Ihre Tanstack Start-Website mit Intlayer | Internationalisierung (i18n)
+# Übersetzen Sie Ihre Tanstack Start-Website mit Intlayer
 
 ## Inhaltsverzeichnis
 

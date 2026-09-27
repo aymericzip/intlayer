@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 3
 title: "Lynx + React i18n - あなたのアプリを翻訳する完全ガイド"
-description: "i18nextはもう不要。2026年に多言語（i18n）Lynx + Reactアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+description: "Lynx と React のモバイルアプリに Intlayer を導入：コンポーネント単位の型付きコンテンツ、端末ロケールの検出、言語切り替え。"
 keywords:
   - 国際化
   - ドキュメンテーション
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# IntlayerでLynx and React mobile appを翻訳する | 国際化（i18n）
+# IntlayerでLynx and React mobile appを翻訳する
 
 [アプリケーションテンプレート](https://github.com/aymericzip/intlayer-lynx-template)をGitHubで見る。
 
@@ -476,8 +476,8 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 
 ## さらに進む
 
-- **ビジュアルエディター**: [Intlayerビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を使用して翻訳を視覚的に管理します。
-- **CMS統合**: 辞書コンテンツを[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)から外部化して取得することもできます。
-- **CLIコマンド**: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)を使用して、**翻訳の抽出**や**欠落キーの確認**などのタスクを実行します。
+- [Intlayerビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
 
 ---

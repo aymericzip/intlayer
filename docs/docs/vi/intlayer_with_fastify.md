@@ -3,7 +3,7 @@ createdAt: 2025-12-30
 updatedAt: 2026-05-31
 priority: 9
 title: "Fastify i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Fastify đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong Fastify: nhận diện locale theo từng request bằng plugin, dịch phản hồi API và thông báo lỗi, có kiểu từ đầu đến cuối."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web backend Fastify của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web backend Fastify của bạn bằng Intlayer
 
 `fastify-intlayer` là một plugin quốc tế hóa (i18n) mạnh mẽ cho các ứng dụng Fastify, được thiết kế để làm cho dịch vụ backend của bạn có thể truy cập toàn cầu bằng cách cung cấp các phản hồi được địa phương hóa dựa trên sở thích của khách hàng.
 

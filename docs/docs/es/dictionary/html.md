@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: Contenido HTML
-description: Aprende a declarar y utilizar contenido HTML con componentes personalizados en Intlayer. Sigue esta documentación para incrustar contenido enriquecido tipo HTML con reemplazo dinámico de componentes en tu proyecto internacionalizado.
+title: "Contenido HTML con componentes personalizados"
+description: "Declara contenido HTML en Intlayer y sustituye etiquetas por tus componentes al renderizar, para texto enriquecido traducido sin dangerouslySetInnerHTML."
 keywords:
   - HTML
   - Componentes Personalizados

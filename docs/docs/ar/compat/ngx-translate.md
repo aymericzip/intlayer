@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: الترحيل من NGX-Translate إلى Intlayer
 description: تعرّف على كيفية ترحيل تطبيق Angular الخاص بك من ngx-translate إلى Intlayer باستخدام محول التوافق.
@@ -44,3 +44,7 @@ npx intlayer init --interactive
 - **الخدمات:** `TranslateService` يغلّف `getIntlayer` و observable محلية، مما يوفر بالضبط نفس الأساليب.
 - **Pipes والتوجيهات:** معاد تنفيذها لحل مقابل قواميس Intlayer مباشرة.
 - **Loaders:** إعدادات `TranslateHttpLoader` يتم تحويلها إلى stubs تحذيرات لأن Intlayer بشكل متأصل يحل ويجمّع قواميسك في وقت البناء (أو من خلال الواردات الديناميكية القياسية)، مما يلغي تماماً الحاجة إلى محملات HTTP.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)

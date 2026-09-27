@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer AdonisJS मिडलवेयर दस्तावेज़ीकरण | adonis-intlayer
-description: adonis-intlayer पैकेज के लिए intlayer मिडलवेयर का उपयोग करने का तरीका देखें
+description: "AdonisJS के लिए intlayer मिडलवेयर उपयोगकर्ता का लोकेल पहचानता है और रिक्वेस्ट कॉन्टेक्स्ट से अनुवाद फ़ंक्शन देता है।"
 keywords:
   - intlayer
   - adonisjs

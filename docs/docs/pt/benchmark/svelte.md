@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: Melhor solução i18n para Svelte em 2026 - Relatório de Benchmark
 description: Compare bibliotecas de internacionalização (i18n) para Svelte como svelte-i18n, Paraglide, Tolgee e Intlayer. Relatório de desempenho detalhado sobre tamanho do bundle, vazamento e reatividade.
@@ -69,6 +69,10 @@ As soluções de internacionalização estão entre as dependências mais pesada
 Na prática, para as implementações menos otimizadas, uma página internacionalizada pode acabar sendo várias vezes mais pesada do que a versão sem i18n.
 
 O outro impacto é na experiência do desenvolvedor (DX): como você declara conteúdo, tipos, organização de namespaces, carregamento dinâmico e reatividade quando o local muda.
+
+> Para entender de onde vêm essas bibliotecas, leia a história do i18n em JavaScript.
+
+- [A história do i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/history_of_i18n.md)
 
 ## TL;DR
 

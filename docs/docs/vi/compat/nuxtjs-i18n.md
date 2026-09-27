@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Di Chuyển Từ NuxtJS I18n Sang Intlayer"
-description: "Tìm hiểu cách di chuyển ứng dụng Nuxt.js của bạn từ @nuxtjs/i18n sang Intlayer bằng bộ điều hợp tương thích."
+title: "@intlayer/nuxt-i18n: bộ chuyển đổi tương thích cho @nuxtjs/i18n"
+description: "Giữ nguyên mã @nuxtjs/i18n và phục vụ bằng Intlayer: cài @intlayer/nuxt-i18n, đặt alias cho các import và xem bộ chuyển đổi thay đổi gì bên dưới."
 keywords:
   - nuxtjs-i18n
   - nuxt
@@ -22,7 +22,7 @@ history:
 author: aymericzip
 ---
 
-# Di Chuyển Từ NuxtJS I18n Sang Intlayer
+# @intlayer/nuxt-i18n: bộ chuyển đổi tương thích cho @nuxtjs/i18n
 
 Việc di chuyển ứng dụng Nuxt của bạn từ `@nuxtjs/i18n` sang Intlayer là một quá trình liền mạch bằng cách sử dụng module Nuxt adapter.
 
@@ -45,3 +45,7 @@ Bên dưới:
 - **Bản dịch:** Phụ thuộc gốc vào lớp tương thích `@intlayer/vue-i18n` cho tất cả các tác vụ dịch thuật chuỗi (hỗ trợ đầy đủ các định dạng `vue-i18n`, số nhiều kiểu pipe và reactivity).
 - **Routing:** Phản chiếu các composable routing bằng cách sử dụng các helper URL được bản địa hóa của Intlayer.
 - **Cấu hình:** Đọc `availableLocales` và các cài đặt mặc định trực tiếp từ `intlayer.config.ts` của bạn để tự động phối hợp các trang Nuxt.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)

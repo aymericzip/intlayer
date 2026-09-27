@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 8
-title: Function Fetching
-description: Discover how to declare and use function fetching in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
+title: "Function Fetching: Load Content from Functions"
+description: "Declare Intlayer content from synchronous or asynchronous functions, for example to fetch translations from an API at build time."
 keywords:
   - Function Fetching
   - Internationalization

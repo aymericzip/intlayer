@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "TanStack Start i18n with use-intl: Complete 2026 Setup Guide"
 description: "Translate your TanStack Start app with use-intl: locale routing, typed messages, SSR, hreflang, sitemap and robots.txt, plus real bundle-size benchmark data."
@@ -41,9 +41,17 @@ TanStack Start does not ship an i18n layer. Routing, locale detection, SEO metad
 - **Server rendering and hydration** without text mismatches.
 - **Complete multilingual SEO**: translated `<title>` and description, canonical URL, `hreflang` alternates with `x-default`, Open Graph locales, JSON-LD, sitemap with `xhtml:link` alternates, `robots.txt` and pre-rendering of every locale.
 
-> Looking for another stack? See the [TanStack Start + Paraglide guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18n_using_tanstack-start_paraglide.md), the [TanStack Start + Lingui guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18n_using_tanstack-start_lingui.md), or the [TanStack Start + Intlayer guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_tanstack.md).
+> Looking for another stack?
+
+- [TanStack Start + Paraglide guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18n_using_tanstack-start_paraglide.md)
+- [TanStack Start + Lingui guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18n_using_tanstack-start_lingui.md)
+- [TanStack Start + Intlayer guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_tanstack.md)
 
 > Using Next.js instead? See the [next-intl guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18n_using_next-intl.md).
+
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/history_of_i18n.md)
 
 ## What the benchmark says about use-intl on TanStack Start
 
@@ -91,7 +99,11 @@ How `use-intl` compares with the other libraries commonly used on TanStack Start
 
 > Runtime size and leak figures come from the [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/benchmark/tanstack.md). Leak is measured on the best setup of each library.
 
-> Other TanStack Start guides: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18n_using_tanstack-start_lingui.md), [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18n_using_tanstack-start_paraglide.md), and [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_tanstack.md).
+> Other TanStack Start guides:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18n_using_tanstack-start_lingui.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_with_tanstack.md)
 
 ## Practices you should follow
 
@@ -105,7 +117,8 @@ How `use-intl` compares with the other libraries commonly used on TanStack Start
 - **Use real links for the locale switcher**, not a `<select>`, so crawlers can discover every language.
 - **Type your messages** so a missing key fails at compile time.
 
-> See our guide on [internationalisation and SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/internationalization_and_SEO.md) and the [hreflang guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/hreflang_guide_multilingual_seo.md).
+- [internationalisation and SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/internationalization_and_SEO.md)
+- [hreflang guide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/hreflang_guide_multilingual_seo.md)
 
 ## Step-by-Step Guide to Set Up use-intl in a TanStack Start Application
 

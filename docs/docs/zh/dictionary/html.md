@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: HTML 内容
-description: 了解如何在 Intlayer 中声明和使用带有自定义组件的 HTML 内容。按照本指南在你的国际化项目中嵌入具有动态组件替换功能的丰富类 HTML 内容。
+title: "使用自定义组件的 HTML 内容"
+description: "在 Intlayer 中声明 HTML 内容，并在渲染时将标签替换为你的组件，无需 dangerouslySetInnerHTML 即可显示翻译后的富文本。"
 keywords:
   - HTML
   - 自定义组件

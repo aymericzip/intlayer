@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi t | express-intlayer
-description: Lihat cara menggunakan fungsi t untuk paket express-intlayer
+description: "Gunakan fungsi t dari express-intlayer untuk mengembalikan respons terlokalisasi di Express sesuai locale yang terdeteksi per request."
 keywords:
   - t
   - terjemahan

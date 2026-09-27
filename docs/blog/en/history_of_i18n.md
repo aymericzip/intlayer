@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-09
+updatedAt: 2026-09-27
 priority: 8
 title: "The History of JavaScript i18n: From 2011 to 2026"
-description: Explore the evolution of frontend internationalization from 2011 to 2026. Discover the release dates, architectural problems, and key innovations across React, Vue, Next.js, Angular, Svelte, and Solid.
+description: "How frontend i18n evolved from 2011 to 2026: release dates, architectural problems and key innovations across React, Vue, Next.js, Angular, Svelte and Solid."
 keywords:
   - i18n history
   - JavaScript internationalization
@@ -49,8 +49,6 @@ That question has shaped JavaScript i18n for more than a decade.
 The solutions have changed considerably. We went from global JavaScript objects and `t('some.key')` calls, to framework-specific libraries, compile-time extraction, TypeScript-generated types, server components, tree-shaking, and eventually compiler-based approaches where translations are turned into JavaScript during the build.
 
 This article looks at that evolution from roughly 2011 to 2026: what each generation of tools tried to solve, what worked, what didn't, and how the architecture of frontend applications influenced the way we handle i18n today.
-
-![JavaScript Internationalization Library Ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -143,6 +141,8 @@ Dictionaries were stored in centralized JSON files distant from the components t
 ## The Framework Era: Evolution Across Ecosystems
 
 Between 2016 and 2026, frontend architecture transformed. TypeScript became the standard, component-based architectures matured, bundlers like Webpack, Vite, and Turbopack introduced code splitting, React Server Components shifted rendering back to the server, and compilers began parsing application code.
+
+![JavaScript Internationalization Library Ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 The following tabs present how each framework and ecosystem addressed these challenges, documenting release dates, core motivations, and major innovations in comparative tables. Across these ecosystems, `react-intlayer` and all its framework equivalents (`next-intlayer`, `vue-intlayer`, `angular-intlayer`, `svelte-intlayer`, and `solid-intlayer`) are high-performance implementations tailored specifically for their related runtime environments.
 

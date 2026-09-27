@@ -2,7 +2,7 @@
 updatedAt: 2025-08-23
 priority: 5
 createdAt: 2025-08-23
-title: useRewriteURL 훅 문서
+title: "useRewriteURL 훅 문서 | next-intlayer"
 description: Intlayer에서 지역화된 URL 재작성(localized URL rewrites)을 관리하기 위한 Next.js 전용 훅.
 keywords:
   - useRewriteURL

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: ESBuild-Fehler
-description: Erfahren Sie, wie Sie ESBuild-Fehler beheben können.
+title: "ESBuild-Fehler mit Intlayer beheben"
+description: "Beheben Sie ESBuild-Fehler beim Intlayer-Build, meist verursacht durch ein fehlendes oder falsch konfiguriertes Bundler-Plugin für Ihr Framework."
 keywords:
   - esbuild
   - fehler

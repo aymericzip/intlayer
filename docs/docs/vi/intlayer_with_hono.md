@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 9
 title: "Hono i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Hono đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong Hono: nhận diện locale theo từng request bằng middleware, dịch phản hồi API, chạy trên Node, Bun hoặc edge runtime."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch website backend Hono của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch website backend Hono của bạn bằng Intlayer
 
 `hono-intlayer` là một middleware quốc tế hóa (i18n) mạnh mẽ cho các ứng dụng Hono, được thiết kế để làm cho các dịch vụ backend của bạn có thể truy cập toàn cầu bằng cách cung cấp các phản hồi được bản địa hóa dựa trên sở thích của khách hàng.
 
@@ -226,9 +226,9 @@ export default app;
 
 `hono-intlayer` tương thích hoàn toàn với:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/index.md) cho các ứng dụng React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/index.md) cho các ứng dụng Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/index.md) cho các ứng dụng Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vite-intlayer/index.md)
 
 Nó cũng hoạt động trơn tru với bất kỳ giải pháp quốc tế hóa nào trên các môi trường khác nhau, bao gồm trình duyệt và yêu cầu API. Bạn có thể tùy chỉnh middleware để phát hiện ngôn ngữ thông qua tiêu đề hoặc cookie:
 

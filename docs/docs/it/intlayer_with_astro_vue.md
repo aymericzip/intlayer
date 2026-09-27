@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + Vue i18n - Guida completa per tradurre la tua applicazione"
-description: "Niente più i18next. La guida 2026 per creare un'applicazione Astro + Vue multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
+description: "Configura Intlayer in Astro con isole Vue: componenti tradotti, route localizzate e hreflang, con contenuti tipizzati per componente."
 keywords:
   - internazionalizzazione
   - documentazione
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Tradurre il tuo sito Astro + Vue con Intlayer | Internazionalizzazione (i18n)
+# Tradurre il tuo sito Astro + Vue con Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Codice" value="code">

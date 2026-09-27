@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-11-16
+updatedAt: 2026-09-27
 priority: 5
 title: getMultilingualUrls Function Documentation | intlayer
-description: See how to use the getMultilingualUrls function for intlayer package
+description: "Use getMultilingualUrls to generate the localized version of a URL for every supported locale, for hreflang tags and sitemaps."
 keywords:
   - getMultilingualUrls
   - translation

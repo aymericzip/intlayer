@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-13
+updatedAt: 2026-09-27
 priority: 6
 title: Plugin ESLint | Aturan Lint untuk Intlayer
-description: Deteksi string hardcoded, panggilan dinamis yang tidak dapat dioptimalkan oleh compiler Intlayer, dan konten kamus yang tidak terpakai dengan eslint-plugin-intlayer. Bekerja dengan ESLint dan oxlint di seluruh React, Vue, Svelte, Angular, dan Astro.
+description: "Temukan teks hardcoded, panggilan dinamis yang tidak bisa dioptimalkan compiler Intlayer, dan konten tak terpakai dengan eslint-plugin-intlayer, untuk ESLint dan oxlint."
 keywords:
   - Intlayer
   - ESLint

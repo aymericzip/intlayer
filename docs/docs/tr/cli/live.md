@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Canlı Senkronizasyon Komutları
-description: Canlı Senkronizasyonu kullanarak CMS içerik değişikliklerini çalışma zamanında nasıl yansıtacağınızı öğrenin.
+title: "intlayer live: CMS içeriğini çalışma anında senkronize edin"
+description: "Intlayer Live Sync ile CMS'te yapılan değişiklikleri yeniden derleme veya dağıtım yapmadan çalışan uygulamanıza yansıtın."
 keywords:
   - Canlı Senkronizasyon
   - CMS

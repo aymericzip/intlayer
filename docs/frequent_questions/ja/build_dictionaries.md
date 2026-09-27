@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 辞書のビルド方法
-description: 辞書のビルド方法を学ぶ
+description: "Intlayer が辞書を自動でビルドするタイミング、CLI で手動ビルドする方法、生成ファイルの出力先を解説します。"
 keywords:
   - ビルド
   - 辞書

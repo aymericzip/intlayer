@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: Dokumentasi Hook useDictionary | next-intlayer
-description: Lihat cara menggunakan hook useDictionary untuk paket next-intlayer
+description: "Gunakan useDictionary di Next.js untuk menginterpretasi objek kamus yang Anda deklarasikan sendiri, dengan terjemahan untuk locale saat ini."
 keywords:
   - useDictionary
   - kamus

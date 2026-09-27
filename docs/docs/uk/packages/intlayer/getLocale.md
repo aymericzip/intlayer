@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Документація функції getLocale | intlayer
-description: Дивіться, як використовувати функцію getLocale у пакеті intlayer
+description: "Використовуйте getLocale, щоб визначити локаль за рядком на кшталт URL чи шляху, з відкатом на локаль за замовчуванням."
 keywords:
   - getLocale
   - translation

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrasi dari NuxtJS I18n ke Intlayer"
-description: "Pelajari cara migrasi aplikasi Nuxt.js Anda dari @nuxtjs/i18n ke Intlayer menggunakan adapter kompatibilitas."
+title: "@intlayer/nuxt-i18n: adaptor kompatibilitas untuk @nuxtjs/i18n"
+description: "Pertahankan kode @nuxtjs/i18n Anda dan sajikan lewat Intlayer: pasang @intlayer/nuxt-i18n, buat alias untuk import, dan lihat apa yang diubah adaptor di balik layar."
 keywords:
   - nuxtjs-i18n
   - nuxt
@@ -22,7 +22,7 @@ history:
 author: aymericzip
 ---
 
-# Migrasi dari NuxtJS I18n ke Intlayer
+# @intlayer/nuxt-i18n: adaptor kompatibilitas untuk @nuxtjs/i18n
 
 Migrasi aplikasi Nuxt Anda dari `@nuxtjs/i18n` ke Intlayer adalah proses yang mulus menggunakan modul adapter Nuxt.
 
@@ -45,3 +45,7 @@ Di balik layar:
 - **Terjemahan:** Bergantung secara native pada lapisan kompatibilitas `@intlayer/vue-i18n` untuk semua tugas terjemahan string (mendukung sepenuhnya format `vue-i18n`, plural pipe, dan reaktivitas).
 - **Routing:** Mencerminkan composable routing menggunakan helper URL yang dilokalisasi Intlayer.
 - **Konfigurasi:** Membaca `availableLocales` dan pengaturan default langsung dari `intlayer.config.ts` Anda untuk mengkoordinasikan halaman Nuxt secara otomatis.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)

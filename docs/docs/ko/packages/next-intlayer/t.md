@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: t 함수 문서 | next-intlayer
-description: next-intlayer 패키지의 t 함수 사용법을 확인하세요
+description: "next-intlayer의 t 함수로 별도의 콘텐츠 파일 없이 Next.js 컴포넌트 안에서 직접 번역을 선언합니다."
 keywords:
   - t
   - 번역

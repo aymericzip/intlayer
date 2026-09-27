@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-08-21
+updatedAt: 2026-09-27
 priority: 6
-title: MCP Sunucu Dokümantasyonu
-description: Sunucu yönetimini ve işlemlerinizi optimize etmek için MCP Sunucusu'nun özelliklerini ve kurulumunu keşfedin.
+title: "Yapay zeka asistanları için Intlayer MCP sunucusu"
+description: "Intlayer MCP sunucusunu Cursor, VS Code veya Claude Desktop'a bağlayın; yapay zeka asistanınız dokümanları okuyup Intlayer kurulumuna yardım etsin."
 keywords:
   - MCP Sunucu
   - Sunucu Yönetimi

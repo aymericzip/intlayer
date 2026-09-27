@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
-title: Intlayer प्रोजेक्ट्स की सूची
+title: "intlayer projects list: Intlayer प्रोजेक्ट खोजें"
 description: जानें कि किसी डायरेक्टरी या git रिपोजिटरी में सभी Intlayer प्रोजेक्ट्स की सूची कैसे बनाएं।
 keywords:
   - सूची

@@ -3,7 +3,7 @@ createdAt: 2025-09-07
 updatedAt: 2025-09-07
 priority: 5
 title: getLocalizedUrl Fonksiyonu Dokümantasyonu | intlayer
-description: intlayer paketinde getLocalizedUrl fonksiyonunun nasıl kullanılacağını görün
+description: "getLocalizedUrl ile göreli veya mutlak bir URL'ye, yönlendirme modunuza ve varsayılan locale ayarlarınıza göre locale öneki ekleyin."
 keywords:
   - getLocalizedUrl
   - çeviri

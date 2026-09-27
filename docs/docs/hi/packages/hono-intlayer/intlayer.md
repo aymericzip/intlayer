@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-01-29
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Hono मिडलवेयर दस्तावेज़ीकरण | hono-intlayer
-description: देखें कि hono-intlayer पैकेज के लिए intlayer मिडलवेयर का उपयोग कैसे करें
+description: "Hono के लिए intlayer मिडलवेयर उपयोगकर्ता का लोकेल पहचानता है और रिक्वेस्ट कॉन्टेक्स्ट में Intlayer अनुवाद फ़ंक्शन जोड़ता है।"
 keywords:
   - intlayer
   - hono

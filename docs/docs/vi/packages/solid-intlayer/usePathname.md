@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu Hook usePathname | solid-intlayer
-description: Tìm hiểu cách sử dụng hook usePathname từ gói solid-intlayer
+description: "Dùng usePathname trong Solid để đọc đường dẫn hiện tại không có phân đoạn locale, dưới dạng accessor cho điều hướng theo locale."
 keywords:
   - usePathname
   - pathname
@@ -116,5 +116,5 @@ export default Sidebar;
 
 ## Các tài liệu liên quan
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useLocale.md) — locale hiện tại + bộ chuyển đổi locale
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md) — tiện ích nền tảng được sử dụng bởi hook này
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja Hooka usePathname | solid-intlayer
-description: Zobacz, jak korzystać z hooka usePathname z pakietu solid-intlayer
+description: "Użyj usePathname w Solid, aby odczytać bieżącą ścieżkę bez segmentu locale jako accessor do zlokalizowanej nawigacji."
 keywords:
   - usePathname
   - pathname
@@ -116,5 +116,5 @@ export default Sidebar;
 
 ## Powiązane
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/solid-intlayer/useLocale.md) — bieżący locale + przełącznik locale
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md) — narzędzie pomocnicze, na którym opiera się ten hook
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/solid-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md)

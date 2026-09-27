@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: Tích hợp react-i18next với next-intl và Intlayer cho việc quốc tế hóa (i18n) của ứng dụng React
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# react-Intl VS react-i18next VS intlayer | Quốc tế hóa React (i18n)
+# react-Intl VS react-i18next VS intlayer: Quốc tế hóa React (i18n)
 
 Hướng dẫn này so sánh ba lựa chọn i18n đã được thiết lập cho **React**: **react-intl** (FormatJS), **react-i18next** (i18next), và **Intlayer**.
 Chúng tôi tập trung vào các ứng dụng **React thuần** (ví dụ: Vite, CRA, SPA). Nếu bạn đang sử dụng Next.js, hãy xem so sánh dành riêng cho Next.js của chúng tôi.
@@ -43,6 +43,10 @@ Chúng tôi đánh giá:
 - **react-intl** - Định dạng ưu tiên ICU, tuân thủ tiêu chuẩn (ngày/tháng/số/dạng số nhiều) với API trưởng thành. Các catalog thường được tập trung; an toàn khóa và kiểm tra tại thời điểm build phần lớn phụ thuộc vào bạn.
 - **react-i18next** - Rất phổ biến và linh hoạt; hỗ trợ namespace, bộ phát hiện, và nhiều plugin (ICU, backend). Mạnh mẽ, nhưng cấu hình có thể phức tạp khi dự án mở rộng.
 - **Intlayer** - Mô hình nội dung tập trung vào component cho React, **kiểu TypeScript nghiêm ngặt**, **kiểm tra tại thời điểm build**, **tree-shaking**, cộng với **Visual Editor/CMS** và **dịch thuật hỗ trợ AI**. Hoạt động với React Router, Vite, CRA, v.v.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Ma trận tính năng (tập trung React)
 
@@ -153,10 +157,19 @@ Sử dụng `intlayer`, bạn có thể khai báo nội dung theo định dạng
 
 ## Đọc thêm & benchmark
 
-- Báo cáo benchmark: [Tổng quan Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/solid.md) và [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/svelte.md)
 - [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer-i18next.md)
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer.md)
-- [Tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [Tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+- [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+
+Báo cáo benchmark:
+
+- [Tổng quan Benchmark i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/solid.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/svelte.md)
 
 ## Sao trên GitHub
 

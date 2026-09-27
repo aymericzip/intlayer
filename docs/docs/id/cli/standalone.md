@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Bundel Mandiri (Standalone Bundle)
-description: Pelajari cara membuat bundel JavaScript mandiri untuk konten aplikasi.
+title: "intlayer standalone: Intlayer untuk halaman apa pun"
+description: "Buat satu bundle JavaScript berisi Intlayer dan paket yang dibutuhkan untuk halaman tanpa package manager atau bundler."
 keywords:
   - Standalone
   - Bundel

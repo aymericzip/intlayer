@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-06
 priority: 5
 title: useIntlayer 훅 문서 | next-intlayer
-description: next-intlayer 패키지의 useIntlayer 훅 사용법을 확인하세요
+description: "Next.js의 useIntlayer로 Client 및 Server Components에서 사전의 현지화된 콘텐츠를 키로 읽습니다."
 keywords:
   - useIntlayer
   - dictionary

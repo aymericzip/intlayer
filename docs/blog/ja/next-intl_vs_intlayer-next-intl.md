@@ -3,7 +3,7 @@ createdAt: 2026-09-13
 updatedAt: 2026-09-22
 priority: 8
 title: "next-intl vs @intlayer/next-intl: 同じAPI、異なるBundle"
-description: Next.js アプリケーションの next-intl インポートが @intlayer/next-intl compat アダプターによって提供される場合に何が変わるかを説明します。Bundle サイズ、リーケージ、コンポーネントサイズ、および同じコードで測定されたハイドレーション、およびアダプターが保持、無視、および置き換えることができない内容。
+description: "Next.js アプリが next-intl のインポートを残し、@intlayer/next-intl アダプター経由で配信。バンドルサイズ、リーク、コンポーネントサイズ、ハイドレーションを計測。"
 keywords:
   - next-intl
   - use-intl
@@ -25,7 +25,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-intl VS @intlayer/next-intl | 同じAPI、異なるBundle
+# next-intl VS @intlayer/next-intl：同じAPI、異なるBundle
 
 ![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -399,7 +399,7 @@ Intlayer コアの上に `next-intl` API サーフェス（`useFormatter`、`t.r
 
 両ライブラリの直接比較：
 
-- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer.md), 同じベンチマーク
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)
 - [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/is_next-intl_outdated.md)
 
@@ -407,9 +407,17 @@ Intlayer コアの上に `next-intl` API サーフェス（`useFormatter`、`t.r
 
 - [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/next-intl.md)
 - [移行ガイド：next-intl から Intlayer へ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_next-intl_to_intlayer.md)
-- [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) および [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
-- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) および [Intlayer コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
-- [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) および [AI 翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)
+- [Next.js ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md)
+- [TanStack Start ベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
+- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+- [Intlayer コンパイラー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+- [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+- [AI 翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## 結論
 

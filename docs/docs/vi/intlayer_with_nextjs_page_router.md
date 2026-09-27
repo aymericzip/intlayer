@@ -2,8 +2,8 @@
 createdAt: 2024-12-07
 updatedAt: 2026-06-23
 priority: 9
-title: "Next.js Page Router i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Next.js Page Router đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+title: "i18n Next.js Pages Router: hướng dẫn dịch đầy đủ"
+description: "Thiết lập Intlayer trong Pages Router của Next.js: route bản địa hóa với getStaticPaths, trang và component đã dịch, hreflang và sitemap."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -35,7 +35,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web Next.js và Page Router của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web Next.js và Page Router của bạn bằng Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Mã nguồn" value="code">

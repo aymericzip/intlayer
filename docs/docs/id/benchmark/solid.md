@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: Solusi i18n Terbaik untuk Solid di Tahun 2026 - Laporan Benchmark
 description: Bandingkan pustaka internasionalisasi (i18n) Solid seperti solid-primitives, solid-i18next, Tolgee, dan Intlayer. Laporan performa mendetail tentang ukuran bundle, kebocoran, dan reaktivitas.
@@ -69,6 +69,10 @@ Seiring berkembangnya aplikasi Anda, masalah tersebut dapat dengan cepat membeng
 Dalam praktiknya, untuk implementasi yang paling tidak dioptimalkan, halaman yang diinternasionalisasi bisa berakhir beberapa kali lebih berat daripada versi tanpa i18n.
 
 Dampak lainnya adalah pada pengalaman pengembang (DX): bagaimana Anda mendeklarasikan konten, tipe data, organisasi namespace, pemuatan dinamis, dan reaktivitas saat bahasa berubah.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## TL;DR
 

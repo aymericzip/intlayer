@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Unknown command
-description: Learn how to fix the unknown command error.
+title: "Fix the Intlayer 'Unknown Command' Error"
+description: "Fix the Intlayer CLI 'unknown command' error: check the command name, your CLI version and how you call the binary."
 keywords:
   - unknown
   - command

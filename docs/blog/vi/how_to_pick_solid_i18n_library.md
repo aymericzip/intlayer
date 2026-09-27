@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "Cách chọn đúng thư viện Solid i18n năm 2026"
-description: Hướng dẫn ra quyết định cho việc quốc tế hóa (i18n) SolidJS và SolidStart. Những câu hỏi cần trả lời trước khi so sánh @solid-primitives/i18n, solid-i18next, Paraglide, Lingui và Intlayer, cùng chi phí của từng lựa chọn về tính phản ứng (reactivity), bundle size và typing.
+description: "Hướng dẫn chọn i18n cho SolidJS và SolidStart: những câu hỏi trước khi so sánh @solid-primitives/i18n, solid-i18next, Paraglide, Lingui và Intlayer."
 keywords:
   - solidjs i18n
   - solid start i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Mô hình phản ứng (reactivity) của Solid làm thay đổi hoàn toàn những gì một thư viện i18n cần phải làm. Các component chỉ chạy một lần duy nhất, vì vậy bản dịch được lưu trong một `const` lúc setup sẽ trở thành một chuỗi bị đóng băng (frozen string), và một thư viện trả về chuỗi thay vì accessors sẽ tạo ra một trang web chuyển đổi ngôn ngữ ở khắp mọi nơi ngoại trừ ba component mà ai đó đã viết như vậy. Việc chọn thư viện cho Solid một phần là về API, và một phần là về việc thư viện nào giúp bạn tránh mắc phải sai lầm đó nhất.
 
 Hướng dẫn này liệt kê các câu hỏi cần trả lời trước, sau đó đối chiếu chúng với `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid` và Intlayer, dành cho Vite + Solid và cho SolidStart.
-
-![Hệ sinh thái thư viện Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Mục lục
 
@@ -88,6 +86,8 @@ Nếu câu trả lời của bạn cho câu hỏi 4 là "nhiều trang", hãy c�
 
 Kích thước thư viện được lấy từ [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/solid.md): provider kèm accessor trong một component trống, sau khi bundling, tree-shaking và minification, trên ứng dụng 10 trang và 10 locale. Nội dung được đo lường riêng biệt.
 
+![Hệ sinh thái thư viện Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Thư viện                 | Mô hình nội dung                           | Tính phản ứng khi đổi locale               | An toàn kiểu                        | Scoping và lazy loading            | Kích thước thư viện                                |
 | :----------------------- | :----------------------------------------- | :----------------------------------------- | :---------------------------------- | :--------------------------------- | :------------------------------------------------- |
 | `@solid-primitives/i18n` | Dictionary phẳng do bạn làm chủ            | Signal, accessors trả về từ translator     | 3/5 — Suy luận từ source dictionary | Không có sẵn                       | ~0.6 kB                                            |
@@ -116,7 +116,7 @@ Kích thước thư viện gần như bằng 0 của Paraglide là do bản ch�
 </Accordion>
 <Accordion header="SolidStart với route có tiền tố locale và SSR">
 
-Locale phải được lấy từ URL phía server để cả hai bên đồng bộ; việc phát hiện locale ở client là quá muộn. `@solid-primitives/i18n` và `solid-i18next` để bạn tự xử lý route `[[locale]]`, `matchFilters`, redirect và các thẻ trong `entry-server.tsx`. Paraglide có một plugin Vite giúp xử lý routing. Intlayer cung cấp sẵn middleware và các helper cho route. Dù chọn giải pháp nào, hãy đặt `<html lang>` và `hreflang` trong `entry-server.tsx`; `@solidjs/meta` chỉ áp dụng trên client sau khi hydration trong SolidStart v2. Bài viết [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/list_i18n_technologies/frameworks/solid.md) hướng dẫn chi tiết cách thiết lập này.
+Locale phải được lấy từ URL phía server để cả hai bên đồng bộ; việc phát hiện locale ở client là quá muộn. `@solid-primitives/i18n` và `solid-i18next` để bạn tự xử lý route `[[locale]]`, `matchFilters`, redirect và các thẻ trong `entry-server.tsx`. Paraglide có một plugin Vite giúp xử lý routing. Intlayer cung cấp sẵn middleware và các helper cho route. Dù chọn giải pháp nào, hãy đặt `<html lang>` và `hreflang` trong `entry-server.tsx`; `@solidjs/meta` chỉ áp dụng trên client sau khi hydration trong SolidStart v2. Bài viết [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_solid_start.md) hướng dẫn chi tiết cách thiết lập này.
 
 </Accordion>
 <Accordion header="Việc đổi locale phải tức thì và phân mảnh chi tiết (fine-grained)">
@@ -443,11 +443,17 @@ Có, một cách gián tiếp. Các công cụ tìm kiếm quan tâm đến rout
 ## Tìm hiểu thêm
 
 - [Solid i18n benchmark: kích thước bundle, độ rò rỉ và thời gian chuyển đổi locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/solid.md)
-- [Solid i18n: tại sao bản dịch bị đóng băng khi đổi locale](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/list_i18n_technologies/frameworks/solid.md)
-- [Drop-in i18next compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/i18next.md) và [hướng dẫn chuyển đổi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md)
+- [Drop-in i18next compat adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/i18next.md)
+- [hướng dẫn chuyển đổi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md)
 - [Lịch sử JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 - [i18n dạng compiler so với declarative](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
 - [i18n theo từng component so với tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md)
 - [Cách tối ưu hóa bundle hoạt động tại thời điểm build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
-- [Thiết lập i18n trong ứng dụng Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+solid.md) và trong [ứng dụng SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_solid_start.md)
-- Hướng dẫn tương tự cho [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_react_i18n_library.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_vue_i18n_library.md) và [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_svelte_i18n_library.md)
+- [Thiết lập i18n trong ứng dụng Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+solid.md)
+- [ứng dụng SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_solid_start.md)
+
+Hướng dẫn tương tự cho
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_svelte_i18n_library.md)

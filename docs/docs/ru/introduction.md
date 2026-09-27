@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
-title: Введение
+title: "Начало работы с Intlayer: i18n для любого фреймворка"
 description: Узнайте, как работает Intlayer. Ознакомьтесь с этапами, которые использует Intlayer в вашем приложении. Узнайте, для чего предназначены различные пакеты.
 keywords:
   - Введение
@@ -211,8 +211,8 @@ Intlayer предлагает множество функций, адаптир�
 - **[Intlayer с AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_adonisjs.md)**
 - **[Intlayer с Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_elysia.md)**
 - **[Intlayer с Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_storybook.md)**
-- **[Intlayer с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_next-intl.md)**
-- **[Intlayer с next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_next-i18next.md)**
+- **[Intlayer с next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/intlayer_with_next-intl.md)**
+- **[Intlayer с next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/intlayer_with_next-i18next.md)**
 
 Каждое руководство по интеграции содержит лучшие практики использования функций Intlayer, такие как **рендеринг на стороне сервера (SSR)**, **динамическая маршрутизация** или **рендеринг на стороне клиента**, чтобы вы могли поддерживать быстрое, SEO-оптимизированное и высокомасштабируемое приложение.
 

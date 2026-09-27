@@ -2,8 +2,8 @@
 createdAt: 2025-06-18
 updatedAt: 2026-06-25
 priority: 9
-title: "Expo + React Native i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Expo + React Native đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+title: "i18n Expo + React Native: hướng dẫn dịch đầy đủ"
+description: "Thiết lập Intlayer trong Expo và React Native: nội dung có kiểu theo component, nhận diện ngôn ngữ thiết bị, bộ chuyển ngôn ngữ và bundling bằng Metro."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -36,7 +36,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch ứng dụng Expo và React Native của bạn | Quốc tế hóa (i18n)
+# Dịch ứng dụng Expo và React Native của bạn
 
 <Tabs defaultTab="code">
   <Tab label="Mã nguồn" value="code">
@@ -497,9 +497,9 @@ Tiện ích mở rộng này cung cấp:
 
 ## Đi xa hơn
 
-- **Trình chỉnh sửa trực quan**: Sử dụng [Trình chỉnh sửa trực quan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) để quản lý bản dịch một cách trực quan.
-- **Tích hợp CMS**: Bạn cũng có thể tách riêng và lấy nội dung từ từ điển của mình từ một [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
-- **Lệnh CLI**: Khám phá [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) cho các tác vụ như **trích xuất bản dịch** hoặc **kiểm tra các khóa bị thiếu**.
+- [Trình chỉnh sửa trực quan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
 
 Chúc bạn xây dựng các ứng dụng **React Native** với i18n đầy đủ sức mạnh thông qua **Intlayer**!
 

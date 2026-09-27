@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-10
+updatedAt: 2026-09-27
 priority: 6
-title: LSP-сервер Intlayer
+title: "Языковой сервер Intlayer (LSP) для вашей IDE"
 description: Узнайте, как языковой сервер Intlayer добавляет переход к определению, поиск ссылок, всплывающие подсказки, автодополнение ключей и диагностику в вашу IDE и вашего ИИ-агента.
 keywords:
   - LSP

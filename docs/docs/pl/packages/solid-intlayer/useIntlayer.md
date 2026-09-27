@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-06
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja hooka useIntlayer | solid-intlayer
-description: Zobacz, jak używać hooka useIntlayer w pakiecie solid-intlayer
+description: "Użyj useIntlayer w Solid, aby odczytać zlokalizowaną treść słownika po kluczu jako reaktywne wartości podążające za locale."
 keywords:
   - useIntlayer
   - słownik

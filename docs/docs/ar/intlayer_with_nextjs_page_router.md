@@ -2,8 +2,8 @@
 createdAt: 2024-12-07
 updatedAt: 2026-06-23
 priority: 9
-title: "تدويل Next.js Page Router - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Next.js Page Router متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+title: "i18n في Next.js Pages Router: دليل الترجمة الكامل"
+description: "إعداد Intlayer في Pages Router في Next.js: مسارات مترجمة باستخدام getStaticPaths، وصفحات ومكوّنات مترجمة، وhreflang وخريطة موقع."
 keywords:
   - التدويل
   - التوثيق
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# ترجم Next.js and Page Router باستخدام Intlayer | التدويل (i18n)
+# ترجم Next.js and Page Router باستخدام Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="كود" value="code">

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "TanStack Start 使用 use-intl 实现 i18n：2026 完整配置指南"
 description: "使用 use-intl 为你的 TanStack Start 应用实现国际化：语言路由、类型安全消息、SSR、hreflang、sitemap 与 robots.txt，以及真实的打包体积基准测试数据。"
@@ -41,9 +41,17 @@ TanStack Start 本身不包含 i18n 层。路由、语言检测、SEO 元数据�
 - **服务端渲染与注水（Hydration）**：避免文本不一致导致的注水错误。
 - **完整的多语言 SEO**：已翻译的 `<title>` 和描述、规范链接（canonical URL）、带 `x-default` 的 `hreflang` 备用链接、Open Graph 语言标签、JSON-LD、带有 `xhtml:link` 备用链接的站点地图、`robots.txt` 以及所有语言的预渲染。
 
-> 想要寻找其他技术栈？请参阅 [TanStack Start + Paraglide 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_paraglide.md)、[TanStack Start + Lingui 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_lingui.md) 或 [TanStack Start + Intlayer 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)。
+> 想要寻找其他技术栈？
+
+- [TanStack Start + Paraglide 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_paraglide.md)
+- [TanStack Start + Lingui 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_lingui.md)
+- [TanStack Start + Intlayer 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
 
 > 使用 Next.js？请参阅 [next-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-intl.md)。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 关于 TanStack Start 上的 use-intl 基准测试数据
 
@@ -91,7 +99,11 @@ TanStack Start 本身不包含 i18n 层。路由、语言检测、SEO 元数据�
 
 > 运行时体积和代码泄露数据来自 [TanStack Start 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。泄露率基于每个库的最佳配置进行测量。
 
-> 其他 TanStack Start 指南：[Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_lingui.md)、[Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_paraglide.md) 以及 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)。
+> 其他 TanStack Start 指南：
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_lingui.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
 
 ## 推荐遵循的最佳实践
 
@@ -105,7 +117,8 @@ TanStack Start 本身不包含 i18n 层。路由、语言检测、SEO 元数据�
 - **语言切换器使用真实链接**：避免仅使用 `<select>` 标签，以便搜索引擎爬虫能够发现每种语言版本。
 - **为消息添加类型声明**：使缺失的翻译键在编译阶段即可报错提示。
 
-> 请参阅我们的[国际化与 SEO 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md)以及 [hreflang 完整指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)。
+- [国际化与 SEO 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md)
+- [hreflang 完整指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)
 
 ## 在 TanStack Start 应用中配置 use-intl 的分步指南
 

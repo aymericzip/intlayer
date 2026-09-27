@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: "CLI - लॉगिन"
+title: "intlayer login: CMS में लॉग इन करें"
 description: "Intlayer CLI के `login` कमांड का उपयोग करके Intlayer CMS के साथ प्रमाणीकृत होने और एक्सेस क्रेडेंशियल प्राप्त करने का तरीका जानें।"
 keywords:
   - CLI
@@ -234,9 +234,9 @@ bun x intlayer login --verbose
 1. क्रेडेंशियल को अपनी `.env` फ़ाइल में जोड़ें
 2. क्रेडेंशियल के साथ अपनी `intlayer.config.*` फ़ाइल कॉन्फ़िगर करें
 3. डिक्शनरी प्रबंधित करने के लिए CLI कमांड का उपयोग करें:
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/push.md) - डिक्शनरी को CMS में पुश करें
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/pull.md) - CMS से डिक्शनरी खींचें
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md) - लापता अनुवाद भरें
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/pull.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/fill.md)
 
 ## इन्हें भी देखें
 

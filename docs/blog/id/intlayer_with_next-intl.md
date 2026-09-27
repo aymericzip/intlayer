@@ -2,7 +2,7 @@
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
 priority: 8
-title: Cara mengotomatisasi terjemahan JSON next-intl Anda menggunakan Intlayer
+title: "Otomatiskan terjemahan JSON next-intl dengan Intlayer"
 description: Otomatiskan terjemahan JSON Anda dengan Intlayer dan next-intl untuk peningkatan internasionalisasi dalam aplikasi Next.js.
 keywords:
   - Intlayer
@@ -30,7 +30,7 @@ author: aymericzip
 
 <iframe title="Cara mengotomatisasi terjemahan JSON next-intl Anda menggunakan Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-# Daftar Isi
+## Daftar Isi
 
 <TOC/>
 
@@ -52,6 +52,10 @@ Meskipun Intlayer menyediakan solusi i18n mandiri yang sangat baik (lihat [pandu
 **Untuk itu, Intlayer dapat diimplementasikan sebagai adapter untuk next-intl guna membantu mengotomatisasi terjemahan JSON Anda dalam CLI atau pipeline CI/CD, menguji terjemahan Anda, dan lainnya.**
 
 Panduan ini menunjukkan cara memanfaatkan sistem deklarasi konten unggulan Intlayer sambil mempertahankan kompatibilitas dengan next-intl.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Daftar Isi
 

@@ -14,9 +14,9 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
-description: Documentation for the useLocale hook in the next-intlayer package
+description: "Next.js'te useLocale ile geçerli locale'i okuyun ve dili değiştirin; yerelleştirilmiş rota otomatik güncellenir."
 createdAt: 2025-09-07
-updatedAt: 2026-01-26
+updatedAt: 2026-09-27
 priority: 5
 title: useLocale Hook Dokümantasyonu | next-intlayer
 history:

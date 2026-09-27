@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Editör Komutları
-description: Intlayer editör komutlarının nasıl kullanılacağını öğrenin.
+title: "intlayer editor: görsel editör komutları"
+description: "Intlayer görsel editörünü CLI'dan başlatıp yapılandırın ve içeriği çalışan uygulamanızda doğrudan bağlamında düzenleyin."
 keywords:
   - Editör
   - Görsel Editör

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: getDictionary 함수 문서 | intlayer
-description: intlayer 패키지의 getDictionary 함수를 사용하는 방법을 참조하세요
+description: "getDictionary로 직접 전달한 사전 객체를 해석하고, 모든 콘텐츠 플러그인을 적용해 로케일별 콘텐츠를 가져옵니다."
 keywords:
   - getDictionary
   - dictionary
@@ -124,9 +124,9 @@ const allItems = getDictionary(blogPostGroup, { locale: "fr" });
 
 ## 관련 함수
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayer.md): 동일한 해석이지만, 생성된 registry에서 key로 dictionary를 조회합니다.
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getDictionaryAsync.md): locale별 loader maps의 대응 함수입니다.
-- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useDictionary.md): React hook 동등물로, provider에서 locale을 읽습니다.
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getDictionaryAsync.md)
+- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useDictionary.md)
 
 ## TypeScript
 

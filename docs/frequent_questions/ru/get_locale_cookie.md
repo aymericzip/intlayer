@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Как получить локаль из cookies / заголовков?
-description: Узнайте, как получить локаль из cookies / заголовков.
+description: "Читайте текущую локаль из cookie или заголовков запроса с Intlayer на сервере или в middleware, чтобы показывать нужный язык."
 keywords:
   - cookie
   - заголовки

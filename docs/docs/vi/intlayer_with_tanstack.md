@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "TanStack Start i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng TanStack Start đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong TanStack Start: tham số locale trong route, nội dung dịch an toàn với SSR, metadata head bản địa hóa, hreflang và sitemap."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -51,7 +51,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web Tanstack Start của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web Tanstack Start của bạn bằng Intlayer
 
 ## Mục lục
 

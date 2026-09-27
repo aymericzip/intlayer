@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Lingui에서 Intlayer로 마이그레이션"
 description: "compat adapter를 사용하여 애플리케이션을 Lingui에서 Intlayer로 마이그레이션하는 방법을 알아보세요."
@@ -43,3 +43,7 @@ Lingui는 macros (`` t`Hello ${name}` ``과 `<Trans>` 같은)를 사용하며, �
 - **Macros:** 이전과 정확히 동일하게 컴파일되어 소스 구문에 중단이 없음을 보장합니다.
 - **Runtime translation:** aliased `i18n._()`은 Intlayer dictionaries를 사용합니다. 명시적으로 이름이 지정된 IDs와 hashed IDs 모두 Intlayer의 `.po` sync plugins을 사용하여 완전히 매핑되며 keys를 안전하게 aggregate하고 prune합니다.
 - **ICU capabilities:** pluralization, selection, ICU variants에 대한 지원은 Intlayer의 unified ICU parser 덕분에 강력하게 유지되어 동일한 렌더링 출력을 보장합니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)

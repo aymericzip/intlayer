@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 8
-title: Yerel Ayar Eşleyici
-description: Yerel Ayar Eşleyici'nin nasıl çalıştığını keşfedin. Uygulamanızda Yerel Ayar Eşleyici tarafından kullanılan adımları görün. Farklı paketlerin ne yaptığını görün.
+title: "Locale Mapper: localeMap, localeFlatMap, localeRecord"
+description: "localeMap, localeFlatMap ve localeRecord ile locale verilerini dönüştürün; rotalar, statik parametreler ve locale başına nesneler oluşturun."
 keywords:
   - Yerel Ayar Eşleyici
   - Başlarken

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Perintah Intlayer tidak terdefinisi
-description: Pelajari cara memperbaiki error perintah intlayer tidak terdefinisi.
+description: 'Perbaiki error "intlayer: command not found": pasang CLI, jalankan melalui package manager, dan periksa PATH Anda.'
 keywords:
   - intlayer
   - perintah

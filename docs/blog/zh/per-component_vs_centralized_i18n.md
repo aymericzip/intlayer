@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
-title: 每组件（Per-Component）与集中式（Centralized）i18n：Intlayer 的新方法
+title: "React 中按组件与集中式 i18n 的对比"
 description: 深入探讨 React 国际化策略，对比集中式、按键（per-key）和按组件（per-component）方法，并介绍 Intlayer。
 keywords:
   - i18n
@@ -98,6 +98,10 @@ extension Localization on String {
 - 此外，一旦某个库被广泛采用，就很难将生态系统转向其他模式。
 - 在 Crowdin、Phrase 或 Localized 等翻译管理系统中，使用集中式方法也更为方便。
 - 按组件（per-component）方法背后的逻辑比集中式更复杂，开发需要更多时间，尤其是在需要解决诸如识别内容位置等问题时。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ### 好的，但为什么不直接坚持集中式方法？
 

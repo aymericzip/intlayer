@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: Маппер локалей
-description: Дізнайтеся, як працює Маппер локалей. Перегляньте кроки, які виконує Маппер локалей у вашому застосунку. Дізнайтеся, що роблять різні пакети.
+title: "Locale Mapper: localeMap, localeFlatMap, localeRecord"
+description: "Перетворюйте дані локалей за допомогою localeMap, localeFlatMap і localeRecord, щоб генерувати маршрути, статичні параметри й об'єкти за локалями."
 keywords:
   - Locale Mapper
   - Початок роботи

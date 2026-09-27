@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 5
 title: getEnumeration Fonksiyonu Dokümantasyonu | intlayer
-description: intlayer paketinde getEnumeration fonksiyonunun nasıl kullanılacağını görün
+description: "getEnumeration (takma adı enu) ile bir numaralandırma nesnesinden, koşullarına göre bir miktara karşılık gelen içeriği seçin."
 keywords:
   - getEnumeration
   - çeviri

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 5
 title: t Fonksiyonu Dokümantasyonu | express-intlayer
-description: express-intlayer paketi için t fonksiyonunun nasıl kullanılacağını görün
+description: "express-intlayer'ın t fonksiyonuyla Express'te, her istek için algılanan locale'e göre yerelleştirilmiş yanıtlar döndürün."
 keywords:
   - t
   - çeviri

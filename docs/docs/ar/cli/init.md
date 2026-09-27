@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: تهيئة Intlayer
-description: تعرف على كيفية تهيئة Intlayer في مشروعك.
+title: "intlayer init: إعداد Intlayer في مشروعك"
+description: "شغّل intlayer init لإضافة Intlayer إلى مشروع موجود: يكتشف إطار العمل، ويثبّت الحزم، ويكتب ملفات الإعداد."
 keywords:
   - تهيئة
   - CLI

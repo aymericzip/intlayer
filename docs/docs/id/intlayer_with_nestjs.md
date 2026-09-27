@@ -3,7 +3,7 @@ createdAt: 2025-09-09
 updatedAt: 2026-05-31
 priority: 9
 title: "NestJS i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi NestJS multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di NestJS: deteksi locale per request, terjemahkan respons controller dan pesan validasi, dengan tipe yang aman."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -31,7 +31,7 @@ history:
     changes: "Dokumen awal"
 ---
 
-# Terjemahkan website backend Nest Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan website backend Nest Anda menggunakan Intlayer
 
 `express-intlayer` adalah middleware internasionalisasi (i18n) yang kuat untuk aplikasi Express, dirancang untuk membuat layanan backend Anda dapat diakses secara global dengan menyediakan respons yang dilokalisasi berdasarkan preferensi klien. Karena NestJS dibangun di atas Express, Anda dapat dengan mudah mengintegrasikan `express-intlayer` ke dalam aplikasi NestJS Anda untuk menangani konten multibahasa secara efektif.
 
@@ -196,9 +196,9 @@ export class AppService {
 
 `express-intlayer` sepenuhnya kompatibel dengan:
 
-- [`react-intlayer`](/doc/packages/react-intlayer) untuk aplikasi React
-- [`next-intlayer`](/doc/packages/next-intlayer) untuk aplikasi Next.js
-- [`vite-intlayer`](/doc/packages/vite-intlayer) untuk aplikasi Vite
+- [`react-intlayer`](/doc/packages/react-intlayer)
+- [`next-intlayer`](/doc/packages/next-intlayer)
+- [`vite-intlayer`](/doc/packages/vite-intlayer)
 
 Ini juga bekerja dengan mulus dengan solusi internasionalisasi apa pun di berbagai lingkungan, termasuk browser dan permintaan API. Anda dapat menyesuaikan middleware untuk mendeteksi locale melalui header atau cookie:
 

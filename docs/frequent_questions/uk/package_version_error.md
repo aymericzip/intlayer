@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Отримую помилку, пов'язану з підпакетами `@intlayer/*`
-description: Виправлення помилки, пов'язаної з підпакетами @intlayer/*.
+description: "Виправте помилки через різні версії підпакетів @intlayer/*: приведіть усі пакети Intlayer до однієї версії та очистьте кеш."
 keywords:
   - @intlayer/*
   - підпакети

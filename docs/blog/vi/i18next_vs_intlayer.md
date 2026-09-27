@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "i18next vs Intlayer: Đo kiểm và So sánh chi tiết năm 2026"
 description: "Đo lường react-i18next và next-i18next so với Intlayer trên Next.js và TanStack Start. Kích thước bundle, rò rỉ nội dung, tốc độ phản hồi khi chuyển ngôn ngữ và trải nghiệm lập trình viên."
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# i18next VS Intlayer | Đo kiểm đa ngôn ngữ (i18n) cho React & Next.js
+# i18next VS Intlayer: Đo kiểm đa ngôn ngữ (i18n) cho React & Next.js
 
 ![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -523,25 +523,42 @@ Cùng benchmark, các thư viện khác:
 
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer.md)
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md)
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Tìm hiểu sâu hơn về i18next:
 
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer-i18next.md), đo lường adapter trên cùng một ứng dụng
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer-i18next.md)
 - [i18next có bị lỗi thời không?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_i18next_outdated.md)
-- [Sử dụng Intlayer với i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_i18next.md) và [với react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_react-i18next.md)
+- [Sử dụng Intlayer với i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_i18next.md)
+- [với react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_react-i18next.md)
 - [Cách quốc tế hóa ứng dụng Next.js với next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-i18next.md)
 
 Tài liệu tham khảo:
 
-- [Báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md) và [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
-- Adapter tương thích: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-i18next.md)
-- Hướng dẫn di chuyển: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-i18next_to_intlayer.md)
-- [Tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md) và [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
+- [Báo cáo benchmark Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md)
+- [báo cáo benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
+- [Tối ưu hóa bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
+- [trình biên dịch Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md)
 - [i18n theo component vs i18n tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md)
 - [i18n dựa trên compiler vs khai báo](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
+
+Adapter tương thích:
+
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/i18next.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/react-i18next.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/next-i18next.md)
+
+Hướng dẫn di chuyển:
+
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_react-i18next_to_intlayer.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-i18next_to_intlayer.md)
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Lượt gắn sao trên GitHub
 

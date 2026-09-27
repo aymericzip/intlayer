@@ -3,7 +3,7 @@ createdAt: 2025-02-07
 updatedAt: 2025-06-29
 priority: 5
 title: useDictionary フック - React Intlayer ドキュメント
-description: Intlayerを使用したReactアプリケーションでのuseDictionaryフックの使用方法に関する完全ガイド。ビジュアルエディタなしでローカライズされたコンテンツを効率的に扱う方法を解説。
+description: "React の useDictionary で自分で宣言した辞書オブジェクトを解釈し、翻訳や列挙などを解決します。"
 keywords:
   - useDictionary
   - React

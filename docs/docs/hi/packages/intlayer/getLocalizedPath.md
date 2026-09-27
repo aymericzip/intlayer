@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: getLocalizedPath फ़ंक्शन प्रलेखन | intlayer
-description: देखें कि intlayer पैकेज के लिए getLocalizedPath फ़ंक्शन का उपयोग कैसे करें
+description: "getLocalizedPath से आंतरिक पाथ को स्थानीयकृत रूप में बदलें, अपने रीराइट नियम और लोकेल प्रीफ़िक्स लागू करते हुए।"
 keywords:
   - getLocalizedPath
   - अनुवाद
@@ -161,5 +161,5 @@ getLocalizedPath("/about");
 
 ## संबंधित फ़ंक्शन
 
-- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getCanonicalPath.md): स्थानीयकृत पथ को उसके आंतरिक canonical path में वापस हल करता है।
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md): एक पूरी तरह स्थानीयकृत URL जनरेट करता है (जिसमें protocol, host, और locale prefix शामिल हैं)।
+- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getCanonicalPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md)

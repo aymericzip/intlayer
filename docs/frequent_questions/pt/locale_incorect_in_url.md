@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Locale Incorreto Recuperado da URL
-description: Aprenda como corrigir o locale incorreto recuperado da URL.
+description: "Corrija um locale errado lido da URL no Next.js, como «about» em vez de «en», usando a estrutura de pastas [locale] que o Intlayer espera."
 keywords:
   - locale
   - url

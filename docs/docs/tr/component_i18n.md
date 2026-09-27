@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-09-30
+updatedAt: 2026-09-27
 priority: 8
-title: React ve Next.js'te bir bileşeni çok dilli (i18n kütüphanesi) yapma
+title: "Bir React veya Next.js bileşenini çok dilli yapmak"
 description: Intlayer ile çok dilli bir React veya Next.js bileşeni oluşturmak için yerelleştirilmiş içeriğin nasıl beyan edileceğini ve alınacağını öğrenin.
 keywords:
   - i18n

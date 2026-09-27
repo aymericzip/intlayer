@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: getIntlayerAsync Function Documentation | intlayer
-description: See how to use the getIntlayerAsync function for intlayer package
+description: "Use getIntlayerAsync to load and read a dictionary's content for a single locale, without bundling the other languages."
 keywords:
   - getIntlayerAsync
   - dictionary
@@ -106,9 +106,9 @@ Both accept the same arguments and return the same content: switching from one t
 
 ## Related Functions
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getIntlayer.md): Synchronous equivalent reading the merged dictionary.
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getDictionaryAsync.md): The lower-level function the build plugins rewrite this call into.
-- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getLocale.md): Detects the locale of an incoming request.
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getDictionaryAsync.md)
+- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getLocale.md)
 
 ## TypeScript
 

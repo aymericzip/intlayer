@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrate from react-i18next / i18next to Intlayer | Internationalization (i18n)"
-description: "Learn how to migrate your React or Next.js app from react-i18next or i18next to Intlayer — step by step, without breaking your existing code. Use the @intlayer/react-i18next and @intlayer/i18next compat adapters for a zero-disruption transition."
+title: "Chuyển từ react-i18next sang Intlayer"
+description: "Chuyển ứng dụng React hoặc Next.js từ react-i18next sang Intlayer từng bước, bắt đầu với các adapter tương thích để không làm hỏng gì."
 keywords:
   - react-i18next
   - i18next
@@ -63,6 +63,10 @@ Hơn chỉ là một giải pháp i18n, Intlayer cung cấp một **[visual edit
 
 </Accordion>
 </AccordionGroup>
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Chiến lược di chuyển
 
@@ -347,9 +351,9 @@ Thêm thư mục được tạo bởi Intlayer vào `.gitignore` của bạn:
 
 ## Đi Xa Hơn
 
-- **Visual Editor** — Quản lý bản dịch một cách trực quan trong trình duyệt của bạn: [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
-- **CMS** — Externalize và quản lý nội dung từ xa: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
-- **VS Code Extension** — Nhận tính năng tự động hoàn thành và phát hiện lỗi dịch trong thời gian thực: [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
-- **CLI Reference** — Danh sách đầy đủ các lệnh CLI: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
-- **Intlayer with React** — Hướng dẫn thiết lập đầy đủ cho React: [intlayer_with_vite+react.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md)
-- **Intlayer with Next.js** — Hướng dẫn thiết lập đầy đủ cho Next.js: [intlayer_with_nextjs_16.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+- [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
+- [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md)
+- [Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)

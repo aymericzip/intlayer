@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 8
-title: Sözlüklerin iç içe yerleştirilmesi
-description: Intlayer'da içerik iç içe yerleştirmeyi kullanarak çok dilli içeriğinizi yeniden kullanmayı ve yapılandırmayı verimli bir şekilde nasıl yapacağınızı öğrenin. Bu dokümantasyonu takip ederek projenizde iç içe yerleştirmeyi sorunsuz bir şekilde uygulayın.
+title: "İç içe yerleştirme: sözlükler arası içerik paylaşımı"
+description: "Intlayer'ın nest() düğümüyle bir sözlükten diğerine başvurun; çevirileri çoğaltmadan ortak içeriği yeniden kullanın."
 keywords:
   - İç İçe Yerleştirme
   - İçerik Yeniden Kullanılabilirliği

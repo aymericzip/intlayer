@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 9
 title: "Express i18n - Повний посібник з перекладу вашого застосунку"
-description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Express. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
+description: "Налаштування Intlayer в Express: визначення локалі для кожного запиту через middleware, переклад відповідей API й помилок, наскрізна типізація."
 keywords:
   - Інтернаціоналізація
   - Документація
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Перекладіть свій бекенд на Express за допомогою Intlayer | Інтернаціоналізація (i18n)
+# Перекладіть свій бекенд на Express за допомогою Intlayer
 
 `express-intlayer`, потужний middleware для інтернаціоналізації (i18n) для додатків Express, призначений зробити ваші бекенд-сервіси доступними глобально, надаючи локалізовані відповіді відповідно до переваг клієнта.
 
@@ -210,9 +210,9 @@ app.listen(3000, () => console.log(`Сервер запущено на порт�
 
 `express-intlayer` повністю сумісний з:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/index.md) для додатків React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/index.md) для додатків Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md) для додатків Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md)
 
 Воно також безшовно працює з будь-яким рішенням для інтернаціоналізації в різних середовищах, включно з браузерами та API-запитами. Ви можете налаштувати middleware для визначення локалі через headers або cookies:
 

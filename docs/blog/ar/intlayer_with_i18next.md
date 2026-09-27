@@ -2,7 +2,7 @@
 createdAt: 2024-12-24
 updatedAt: 2025-11-01
 priority: 8
-title: كيفية أتمتة ترجمات JSON الخاصة بـ i18next باستخدام Intlayer
+title: "أتمتة ترجمات JSON في i18next باستخدام Intlayer"
 description: أتمتة ترجمات JSON الخاصة بك باستخدام Intlayer و i18next لتعزيز التدويل في تطبيقات جافا سكريبت.
 keywords:
   - Intlayer
@@ -57,6 +57,10 @@ author: aymericzip
 **لهذا، يمكن تنفيذ Intlayer كمحول لـ i18next للمساعدة في أتمتة ترجمات JSON الخاصة بك في سطر الأوامر أو خطوط أنابيب CI/CD، اختبار ترجماتك، والمزيد.**
 
 يوضح هذا الدليل كيفية الاستفادة من نظام إعلان المحتوى المتفوق في Intlayer مع الحفاظ على التوافق مع i18next.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## جدول المحتويات
 

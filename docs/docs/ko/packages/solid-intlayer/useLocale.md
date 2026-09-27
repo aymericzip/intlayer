@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: useLocale 훅 문서 | solid-intlayer
-description: solid-intlayer 패키지의 useLocale 훅 사용 방법 보기
+description: "Solid의 useLocale로 현재, 기본, 사용 가능한 로케일을 읽고 어떤 컴포넌트에서든 로케일을 전환합니다."
 keywords:
   - useLocale
   - locale

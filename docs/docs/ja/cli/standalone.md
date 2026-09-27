@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: スタンドアロンバンドル
-description: アプリケーションコンテンツのスタンドアロンJavaScriptバンドルを作成する方法。
+title: "intlayer standalone：どのページでも Intlayer を"
+description: "Intlayer と必要なパッケージを 1 つの JavaScript バンドルにまとめ、パッケージマネージャーやバンドラーのないページで利用します。"
 keywords:
   - Standalone
   - Bundle

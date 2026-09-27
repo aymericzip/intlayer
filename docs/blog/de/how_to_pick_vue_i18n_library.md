@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "So wählst du die richtige Vue i18n-Bibliothek im Jahr 2026"
-description: Ein Entscheidungsleitfaden für die Internationalisierung von Vue und Nuxt. Welche Fragen vor dem Vergleich von vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide und Intlayer beantwortet werden sollten und was jede Wahl bei Bundle-Größe, Typisierung und SSR-Payload kostet.
+description: "Ein Entscheidungsleitfaden für Vue- und Nuxt-i18n: die Fragen vor dem Vergleich von vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide und Intlayer."
 keywords:
   - vue i18n
   - vue internationalisierung
@@ -24,8 +24,6 @@ author: aymericzip
 "Vue i18n" ist sowohl ein generischer Begriff als auch der Name der Bibliothek, die fast jeder installiert. Das ist praktisch und irreführend zugleich: `vue-i18n` ist ein solider Standard, aber nicht die einzige Option, und die Fragen, die die Entscheidung leiten sollten (SSR oder nicht, wie viele Seiten, wer schreibt die Übersetzungen), werden vor dem `npm install` selten gestellt.
 
 Dieser Leitfaden stellt diese Fragen zuerst und ordnet die Antworten dann den passenden Bibliotheken zu, sowohl für reines Vite + Vue als auch für Nuxt.
-
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Inhaltsverzeichnis
 
@@ -87,6 +85,8 @@ Der [Vue-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/d
 
 Die Bibliotheksgrößen stammen aus dem [Vue-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/vue.md): Plugin plus Composable in einer leeren Komponente, nach Bundling, Tree-Shaking und Minifizierung, bei einer App mit 10 Seiten und 10 Locales. Content wird separat gemessen.
 
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Bibliothek     | Content-Modell                                              | Typsicherheit                        | Nachrichtenformat                   | Aufteilung pro Route | Bibliotheksgröße                                |
 | :------------- | :---------------------------------------------------------- | :----------------------------------- | :---------------------------------- | :------------------- | :---------------------------------------------- |
 | `vue-i18n`     | Zentrale Kataloge pro Locale, optionale SFC `<i18n>`-Blöcke | 2/5 — Opt-in über ein Schema-Generic | Eigener Standard (Pipe-Plurale)     | Nein                 | ~24.3 kB                                        |
@@ -110,7 +110,7 @@ Paraglides Bibliotheksgröße von nahezu null ist konstruktionsbedingt: Die Runt
 </Accordion>
 <Accordion header="Nuxt mit Locale-Routing, Sitemap und hreflang">
 
-`@nuxtjs/i18n` liefert Routing-Strategie, `hreflang`-Tags und Locale-Erkennung ohne zusätzlichen Code, was es allein für Content-Websites mit wenigen Seiten rechtfertigt. Das Limit liegt beim katalogbasierten Ansatz pro Locale: Ab etwa zehn Seiten transportiert der SSR-Payload die Texte aller Routes. Ist das bei dir der Fall, binde `vue-i18n` manuell mit Nachrichten pro Route ein oder wechsle zu Scoped Content. Der [Nuxt i18n-Beitrag](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/list_i18n_technologies/frameworks/nuxt.md) führt zuerst durch die Wahl der Routing-Strategie.
+`@nuxtjs/i18n` liefert Routing-Strategie, `hreflang`-Tags und Locale-Erkennung ohne zusätzlichen Code, was es allein für Content-Websites mit wenigen Seiten rechtfertigt. Das Limit liegt beim katalogbasierten Ansatz pro Locale: Ab etwa zehn Seiten transportiert der SSR-Payload die Texte aller Routes. Ist das bei dir der Fall, binde `vue-i18n` manuell mit Nachrichten pro Route ein oder wechsle zu Scoped Content. Der [Nuxt i18n-Beitrag](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nuxt.md) führt zuerst durch die Wahl der Routing-Strategie.
 
 </Accordion>
 <Accordion header="Übersetzungen stammen aus einem TMS oder einer Agentur mit ICU">
@@ -439,11 +439,17 @@ Indirekt. Crawler achten auf Routing, `hreflang`, `<html lang>` und darauf, ob T
 ## Weiterführende Links
 
 - [Vue i18n Benchmark: Bundle-Größe, Leakage und Zeiten beim Sprachwechsel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/vue.md)
-- [Vue i18n: Wie vue-i18n funktioniert und wo die Grenzen liegen](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/list_i18n_technologies/frameworks/vue.md) und der [Nuxt i18n-Beitrag](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/list_i18n_technologies/frameworks/nuxt.md)
-- [vue-i18n vs. Intlayer im Detailvergleich](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer.md) und der [vue-i18n vs. Intlayer Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs. Intlayer im Detailvergleich](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer.md)
+- [vue-i18n vs. Intlayer Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/vue-i18n_vs_intlayer.md)
 - [Ist vue-i18n veraltet?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/is_vue-i18n_outdated.md)
 - [Die Geschichte der JavaScript-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/history_of_i18n.md)
 - [Compilerbasierte vs. deklarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/compiler_vs_declarative_i18n.md)
 - [Komponentenbasierte vs. zentralisierte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/per-component_vs_centralized_i18n.md)
-- [Einrichten von i18n in einer Vite + Vue App](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+vue.md) und in einer [Nuxt App](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nuxt.md)
-- Derselbe Leitfaden für [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_react_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_svelte_i18n_library.md) und [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_solid_i18n_library.md)
+- [Einrichten von i18n in einer Vite + Vue App](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+vue.md)
+- [Nuxt App](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nuxt.md)
+
+Derselbe Leitfaden für
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_react_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_solid_i18n_library.md)

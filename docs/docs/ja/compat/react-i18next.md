@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "react-i18nextからIntlayerへの移行"
-description: "compatアダプターを使用して、ReactアプリケーションをReact-i18nextからIntlayerに移行する方法を学びます。"
+title: "@intlayer/react-i18next：react-i18next 互換アダプター"
+description: "react-i18next のコードはそのままで Intlayer から配信：@intlayer/react-i18next をインストールし、インポートにエイリアスを設定して、アダプターが内部で何を変えるかを確認します。"
 keywords:
   - react-i18next
   - i18next
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# react-i18next から Intlayer への移行
+# @intlayer/react-i18next：react-i18next 互換アダプター
 
 完全で詳細なステップバイステップチュートリアルについては、[react-i18next 移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_react-i18next_to_intlayer.md)をご覧ください。
 
@@ -57,3 +57,7 @@ export default defineConfig({
 - **Plurals & Context:** i18next のサフィックスベースの複数形処理 (`key_one`、`key_other`) をネイティブ `Intl.PluralRules` とコンテキストサフィックス (`key_male`) を使用して処理します。
 - **`<Trans>` Component:** `components` プロップ、object と array の形式、および番号付きタグ `<1>...</1>` をサポートするように再実装され、React ノードに直接マップされます。
 - **`i18n` instance:** 大規模な JSON ファイルを取得せずに Intlayer からキーを直接リゾルブするため、バンドルサイズが大幅に削減されます。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 3
 title: "Lynx + React i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Lynx + React multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di aplikasi mobile Lynx dan React: konten bertipe per komponen, deteksi bahasa perangkat, dan pengalih bahasa."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs aplikasi mobile Lynx dan React Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs aplikasi mobile Lynx dan React Anda menggunakan Intlayer
 
 Lihat [Application Template](https://github.com/aymericzip/intlayer-lynx-template) di GitHub.
 
@@ -470,8 +470,8 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokument
 
 ## Melangkah Lebih Jauh
 
-- **Editor Visual**: Gunakan [Editor Visual Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) untuk mengelola terjemahan secara visual.
-- **Integrasi CMS**: Anda juga dapat mengeksternalisasi dan mengambil konten kamus Anda dari sebuah [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-- **Perintah CLI**: Jelajahi [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk tugas seperti **mengekstrak terjemahan** atau **memeriksa kunci yang hilang**.
+- [Editor Visual Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
 
 ---

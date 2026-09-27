@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق دالة t | express-intlayer
-description: تعرف على كيفية استخدام دالة t لحزمة express-intlayer
+description: "استخدم الدالة t من express-intlayer لإرجاع استجابات مترجمة في Express حسب اللغة المكتشفة لكل طلب."
 keywords:
   - t
   - الترجمة

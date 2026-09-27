@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: ترجمة المستند
+title: "intlayer doc translate: ترجمة توثيق Markdown"
 description: تعلّم كيفية ترجمة ملفات التوثيق تلقائيًا باستخدام خدمات الترجمة بالذكاء الاصطناعي.
 keywords:
   - ترجمة

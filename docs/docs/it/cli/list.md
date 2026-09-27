@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
 title: Elencare i file di dichiarazione del contenuto
-description: Scopri come elencare tutti i file di dichiarazione del contenuto nel tuo progetto.
+description: "Elenca tutti i file di dichiarazione dei contenuti del tuo progetto con la CLI di Intlayer, per sapere dove sono dichiarati i dizionari."
 keywords:
   - Elenco
   - Dichiarazione del contenuto

@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 5
-title: Scan Website
+title: "intlayer scan: Audit a Website's i18n and SEO"
 description: Learn how to use the Intlayer CLI scan command to measure page size and audit the i18n/SEO health of any website.
 keywords:
   - Scan

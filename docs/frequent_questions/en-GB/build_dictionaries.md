@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: How to build dictionaries?
-description: Learn how to build dictionaries.
+description: "When Intlayer builds dictionaries automatically, how to trigger a build manually with the CLI, and where the generated files are written."
 keywords:
   - build
   - dictionaries

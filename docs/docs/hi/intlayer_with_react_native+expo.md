@@ -2,8 +2,8 @@
 createdAt: 2025-06-18
 updatedAt: 2026-06-25
 priority: 9
-title: "Expo + React Native i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की जरूरत नहीं। 2026 में Expo + React Native ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
+title: "Expo + React Native i18n: पूरी अनुवाद गाइड"
+description: "Expo और React Native में Intlayer सेट करें: प्रति कंपोनेंट टाइप्ड कंटेंट, डिवाइस भाषा पहचान, भाषा स्विचर और Metro बंडलिंग।"
 keywords:
   - अंतरराष्ट्रीयकरण
   - दस्तावेज़ीकरण
@@ -36,7 +36,7 @@ history:
 author: aymericzip
 ---
 
-# अपने Expo और React Native ऐप का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
+# अपने Expo और React Native ऐप का अनुवाद करें
 
 <Tabs defaultTab="code">
   <Tab label="कोड" value="code">
@@ -497,9 +497,9 @@ Intlayer के साथ अपने विकास अनुभव को �
 
 ## आगे बढ़ें
 
-- **विज़ुअल एडिटर**: अनुवादों को दृश्य रूप से प्रबंधित करने के लिए [Intlayer विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) का उपयोग करें।
-- **CMS एकीकरण**: आप अपने शब्दकोश की सामग्री को एक [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) से बाहरी रूप से प्रबंधित और प्राप्त भी कर सकते हैं।
-- **CLI कमांड्स**: ऐसे कार्यों के लिए [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) का अन्वेषण करें जैसे **अनुवाद निकालना** या **गुम हुए कुंजियों की जांच करना**।
+- [Intlayer विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
 
 **Intlayer** के माध्यम से पूरी तरह से सशक्त i18n के साथ अपने **React Native** ऐप्स का निर्माण करें!
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 配列をコンテンツ宣言として使えますか？
-description: 配列をコンテンツ宣言として使う方法を学びます。
+description: "はい、Intlayer では配列をコンテンツ宣言にできます。宣言方法、各項目の翻訳、コンポーネントからの読み取り方を解説します。"
 keywords:
   - 配列
   - コンテンツ

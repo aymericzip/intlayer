@@ -3,7 +3,7 @@ createdAt: 2026-08-23
 updatedAt: 2026-08-24
 priority: 9
 title: "Elysia i18n - Panduan lengkap untuk menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Elysia multibahasa (i18n). Terjemahkan dengan AI agents dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di Elysia: deteksi locale per request dengan plugin, terjemahkan respons API, dan jaga konten tetap bertipe di Bun."
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan website backend Elysia Anda menggunakan Intlayer | Internationalization (i18n)
+# Terjemahkan website backend Elysia Anda menggunakan Intlayer
 
 `elysia-intlayer` adalah plugin internationalization (i18n) yang powerful untuk aplikasi Elysia, dirancang untuk membuat layanan backend Anda dapat diakses secara global dengan menyediakan respons yang terlokalisasi berdasarkan preferensi klien.
 
@@ -269,9 +269,9 @@ curl -H "Accept-Language: es" http://localhost:3000/
 
 `elysia-intlayer` sepenuhnya kompatibel dengan:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/index.md) untuk aplikasi React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/index.md) untuk aplikasi Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/index.md) untuk aplikasi Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/index.md)
 
 Ini juga bekerja dengan mulus dengan solusi internasionalisasi apa pun di berbagai lingkungan, termasuk browser dan permintaan API.
 

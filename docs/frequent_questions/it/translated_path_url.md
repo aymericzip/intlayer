@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: Posso tradurre il percorso dell'URL?
-description: Scopri come tradurre il percorso dell'URL.
+description: "Sì: Intlayer può tradurre i percorsi degli URL, come /about in /it/chi-siamo, con riscritture degli URL configurate per locale."
 keywords:
   - array
   - contenuto

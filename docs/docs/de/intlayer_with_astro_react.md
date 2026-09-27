@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + React i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
-description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Astro + React-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
+description: "Intlayer in Astro mit React-Islands einrichten: übersetzte Komponenten, lokalisierte Routen und hreflang, mit typisierten Inhalten pro Komponente."
 keywords:
   - Internationalisierung
   - Dokumentation
@@ -35,7 +35,7 @@ history:
 author: aymericzip
 ---
 
-# Übersetzen Sie Ihre Astro + React Website mit Intlayer | Internationalisierung (i18n)
+# Übersetzen Sie Ihre Astro + React Website mit Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Code" value="code">

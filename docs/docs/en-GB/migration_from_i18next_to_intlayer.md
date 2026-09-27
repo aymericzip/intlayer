@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrate from i18next to Intlayer | Internationalization (i18n)"
-description: "Learn how to migrate your JavaScript/TypeScript app from i18next to Intlayer — step by step, without breaking your existing code. Use the @intlayer/i18next compat adapter for a zero-disruption transition."
+title: "Migrate from i18next to Intlayer"
+description: "Migrate a JavaScript or TypeScript app from i18next to Intlayer step by step, starting with the @intlayer/i18next compat adapter so nothing breaks."
 keywords:
   - i18next
   - intlayer
@@ -61,6 +61,10 @@ More than just an i18n solution, Intlayer provides a **self-hosted [visual edito
 
 </Accordion>
 </AccordionGroup>
+
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/history_of_i18n.md)
 
 ## Migration strategies
 
@@ -300,7 +304,7 @@ Add Intlayer's generated directory to your `.gitignore`:
 
 ## Go Further
 
-- **Visual Editor** — Manage translations visually in your browser: [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md)
-- **CMS** — Externalise and manage content remotely: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)
-- **VS Code Extension** — Get autocompletion and real-time translation error detection: [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md)
-- **CLI Reference** — Full list of CLI commands: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md)
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md)
+- [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md)

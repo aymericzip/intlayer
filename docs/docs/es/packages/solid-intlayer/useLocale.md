@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Documentación del hook useLocale | solid-intlayer
-description: Vea cómo usar el hook useLocale para el paquete solid-intlayer
+description: "Usa useLocale en Solid para leer la locale actual, la predeterminada y las disponibles, y cambiar la locale desde cualquier componente."
 keywords:
   - useLocale
   - locale

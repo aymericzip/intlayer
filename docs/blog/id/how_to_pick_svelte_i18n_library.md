@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "Cara Memilih Library Svelte i18n yang Tepat di Tahun 2026"
-description: Panduan keputusan untuk internasionalisasi Svelte dan SvelteKit. Pertanyaan apa yang perlu dijawab sebelum membandingkan svelte-i18n, Paraglide, typesafe-i18n, wuchale, dan Intlayer, serta apa dampak setiap pilihan terhadap ukuran bundle, typing, dan keamanan SSR.
+description: "Panduan memilih i18n untuk Svelte dan SvelteKit: pertanyaan sebelum membandingkan svelte-i18n, Paraglide, typesafe-i18n, wuchale, dan Intlayer."
 keywords:
   - svelte i18n
   - sveltekit i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Svelte tidak menyediakan fitur bawaan untuk i18n. Tidak ada `$t`, tidak ada primitif locale, tidak ada format pesan. Setiap opsi merupakan pilihan pihak ketiga (third-party), dan ekosistem Svelte adalah tempat di mana i18n waktu kompilasi (compile-time) telah berkembang paling jauh, sehingga kandidat-kandidatnya lebih berbeda satu sama lain dibandingkan di React atau Vue.
 
 Panduan ini mencantumkan pertanyaan yang harus dijawab terlebih dahulu, lalu memetakan jawabannya ke `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale`, dan Intlayer, untuk Vite + Svelte dan untuk SvelteKit.
-
-![Ekosistem library Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Daftar Isi
 
@@ -88,6 +86,8 @@ Jika jawaban Anda untuk pertanyaan 3 adalah "banyak halaman", pertimbangkan bagi
 
 Ukuran library diambil dari [benchmark Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/svelte.md): store ditambah accessor dalam komponen kosong, setelah bundling, tree-shaking, dan minifikasi, pada aplikasi 10 halaman dan 10 locale. Konten diukur secara terpisah.
 
+![Ekosistem library Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Library         | Tempat konten berada                 | State locale                                          | Keamanan tipe              | Format pesan                  | Pemisahan per route  | Ukuran library                                           |
 | :-------------- | :----------------------------------- | :---------------------------------------------------- | :------------------------- | :---------------------------- | :------------------- | :------------------------------------------------------- |
 | `svelte-i18n`   | Katalog JSON per locale              | Store Svelte tingkat modul                            | 2/5 — Union manual         | ICU                           | Tidak                | ~16.6 kB                                                 |
@@ -111,7 +111,7 @@ Ukuran library Paraglide yang hampir nol diperoleh dari rancangannya: runtime di
 </Accordion>
 <Accordion header="SvelteKit dengan routing locale dan SSR">
 
-Masalah pembagian data (sharing problem) menentukan pilihan ini. `svelte-i18n` berfungsi di SvelteKit tetapi integrasi per-request (`hooks.server.ts`, `locals`, `load`, lalu `setContext`) harus Anda tulis sendiri dan mudah salah dalam penerapannya. Paraglide menyediakan integrasi SvelteKit yang menangani routing dan membaca locale pada setiap pemanggilan, yang menghindari masalah singleton. Intlayer menetapkan locale dari data `load` ke dalam context. [Artikel SvelteKit i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/list_i18n_technologies/frameworks/sveltekit.md) menjelaskan pilihan antara `[[lang]]` dan `reroute`, yang sebaiknya Anda putuskan sebelum memilih library.
+Masalah pembagian data (sharing problem) menentukan pilihan ini. `svelte-i18n` berfungsi di SvelteKit tetapi integrasi per-request (`hooks.server.ts`, `locals`, `load`, lalu `setContext`) harus Anda tulis sendiri dan mudah salah dalam penerapannya. Paraglide menyediakan integrasi SvelteKit yang menangani routing dan membaca locale pada setiap pemanggilan, yang menghindari masalah singleton. Intlayer menetapkan locale dari data `load` ke dalam context. [Artikel SvelteKit i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_svelte_kit.md) menjelaskan pilihan antara `[[lang]]` dan `reroute`, yang sebaiknya Anda putuskan sebelum memilih library.
 
 </Accordion>
 <Accordion header="Terjemahan berasal dari TMS atau agensi yang mengirimkan ICU">
@@ -445,11 +445,16 @@ Secara tidak langsung. Web crawler memperhatikan routing, `hreflang`, `<html lan
 ## Melangkah lebih jauh
 
 - [Benchmark Svelte i18n: ukuran bundle, kebocoran, dan waktu peralihan locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/svelte.md)
-- [Svelte i18n: store, rune, dan jebakan level modul](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/list_i18n_technologies/frameworks/svelte.md) dan [SvelteKit i18n: routing, SSR, dan shared state](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/list_i18n_technologies/frameworks/sveltekit.md)
 - [Adaptor kompatibilitas `svelte-i18n` drop-in](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/svelte-i18n.md)
 - [Sejarah JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 - [i18n compiler vs deklaratif](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
 - [i18n per komponen vs terpusat](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md)
 - [Cara kerja optimasi bundle pada waktu build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
-- [Menyiapkan i18n di aplikasi Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+svelte.md) dan di [aplikasi SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_svelte_kit.md)
-- Panduan yang sama untuk [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_react_i18n_library.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_vue_i18n_library.md), dan [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_solid_i18n_library.md)
+- [Menyiapkan i18n di aplikasi Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+svelte.md)
+- [aplikasi SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_svelte_kit.md)
+
+Panduan yang sama untuk
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_vue_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_solid_i18n_library.md)

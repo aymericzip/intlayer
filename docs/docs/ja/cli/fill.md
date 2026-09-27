@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 辞書の補完
-description: AIを使って辞書を補完、監査、翻訳する方法を学びます。
+title: "intlayer fill：AI で辞書を翻訳する"
+description: "CLI から、ローカルでも CI でも、不足している翻訳の補完、既存翻訳の監査、Intlayer 辞書の AI 翻訳を行います。"
 keywords:
   - 補完
   - 監査

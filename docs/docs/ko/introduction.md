@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
-title: 소개
+title: "Intlayer 시작하기: 모든 프레임워크를 위한 i18n"
 description: Intlayer의 작동 방식을 알아보세요. Intlayer가 애플리케이션에서 사용하는 단계를 확인하세요. 다양한 패키지가 어떤 역할을 하는지 알아보세요.
 keywords:
   - 소개
@@ -211,8 +211,8 @@ Intlayer는 현대 웹 개발의 요구를 충족하도록 설계된 다양한 �
 - **[Intlayer와 AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_adonisjs.md)**
 - **[Intlayer와 Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_elysia.md)**
 - **[Intlayer와 Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_storybook.md)**
-- **[Intlayer와 next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_next-intl.md)**
-- **[Intlayer와 next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_next-i18next.md)**
+- **[Intlayer와 next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_next-intl.md)**
+- **[Intlayer와 next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/intlayer_with_next-i18next.md)**
 
 각 통합 가이드에는 **서버 사이드 렌더링(SSR)**, **동적 라우팅**, **클라이언트 사이드 렌더링**과 같은 Intlayer의 기능을 사용하기 위한 모범 사례가 포함되어 있어 빠르고 SEO 친화적이며 확장성이 높은 애플리케이션을 유지할 수 있습니다.
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "React Intl에서 Intlayer로 마이그레이션"
 description: "compat adapter를 사용하여 React 애플리케이션을 react-intl에서 Intlayer로 마이그레이션하는 방법을 알아보세요."
@@ -54,3 +54,7 @@ bundler plugin은 `react-intl`을 `@intlayer/react-intl`로 alias합니다. 큰 
 - **ICU MessageFormat:** Intlayer는 ICU pluralization, selection, date/number formatting, rich text tags를 네이티브로 완벽하게 지원하는 `resolveMessage(..., 'icu')` resolver를 사용합니다.
 - **Method & JSX callers:** `intl.formatMessage({ id: 'a.b' })`와 `<FormattedMessage id="a.b">`는 Intlayer compiler plugins (`@intlayer/babel` / `@intlayer/swc`)로 식별되어 flat dotted keys를 변환하므로 첫 번째 segment가 올바른 Intlayer dictionary key로 resolve됩니다.
 - **Formatters:** `<FormattedNumber>`, `<FormattedDate>` 등은 `Intl`을 사용하는 native `core/formatters`로 연결됩니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)

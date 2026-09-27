@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n Next.js 16 dengan next-intl: panduan penyiapan App Router"
 description: "Siapkan next-intl langkah demi langkah di aplikasi Next.js 16 App Router: routing locale, pemuatan pesan per halaman, komponen server dan klien, serta metadata SEO."
@@ -32,9 +32,13 @@ author: aymericzip
 
 **next-intl** adalah perpustakaan internasionalisasi (i18n) yang populer yang dirancang khusus untuk Next.js App Router. Ini menyediakan cara yang mulus untuk membangun aplikasi Next.js multibahasa dengan dukungan TypeScript yang sangat baik dan optimasi bawaan.
 
-> Jika Anda mau, Anda juga dapat merujuk ke [panduan next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-i18next.md), atau langsung menggunakan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_next-intl.md).
+> Jika Anda mau, Anda juga dapat merujuk ke [panduan next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-i18next.md), atau langsung menggunakan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
 
 > Lihat perbandingan di [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Apa kata benchmark tentang next-intl di Next.js
 

@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2026-05-31
 priority: 9
 title: "تدويل Express - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Express متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في Express: اكتشاف اللغة لكل طلب عبر وسيط، وترجمة استجابات API ورسائل الأخطاء، مع أنواع من البداية إلى النهاية."
 keywords:
   - دولية
   - توثيق
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# ترجم Express backend باستخدام Intlayer | التدويل (i18n)
+# ترجم Express backend باستخدام Intlayer
 
 `express-intlayer` هو وسيط قوي للتدويل (i18n) لتطبيقات Express، مصمم لجعل خدماتك الخلفية متاحة عالميًا من خلال توفير استجابات محلية بناءً على تفضيلات العميل.
 
@@ -211,9 +211,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` متوافق تمامًا مع:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md) لتطبيقات React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md) لتطبيقات Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md) لتطبيقات Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md)
   يعمل أيضًا بسلاسة مع أي حل للتدويل عبر بيئات مختلفة، بما في ذلك المتصفحات وطلبات API. يمكنك تخصيص الوسيط لاكتشاف اللغة من خلال الرؤوس أو ملفات تعريف الارتباط:
 
 كما أنها تعمل بسلاسة مع أي حل دولي عبر بيئات مختلفة، بما في ذلك المتصفحات وطلبات API. يمكنك تخصيص middleware للكشف عن locale من خلال الرؤوس أو cookies:

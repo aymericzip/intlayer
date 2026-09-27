@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
-title: i18nライブラリのベンチマーク
+title: "i18n ライブラリのベンチマーク：バンドルと性能"
 description: パフォーマンスとバンドルサイズの観点から、Intlayerが他のi18nライブラリとどのように比較されるかをご覧ください。
 keywords:
   - benchmark
@@ -40,3 +40,7 @@ Benchmark Bloom は、複数の React フレームワークとロード戦略に
 - [**Vue ベンチマークレポート**](./vue.md)
 - [**Solid ベンチマークレポート**](./solid.md)
 - [**Svelte ベンチマークレポート**](./svelte.md)
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)

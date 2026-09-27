@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "从 NGX-Translate 迁移到 Intlayer"
 description: "了解如何使用兼容适配器将您的 Angular 应用程序从 ngx-translate 迁移到 Intlayer。"
@@ -44,3 +44,7 @@ npx intlayer init --interactive
 - **服务：** `TranslateService` 包装了 `getIntlayer` 和一个语言环境可观察对象，提供完全相同的方法。
 - **管道和指令：** 重新实现以直接针对 Intlayer 字典进行解析。
 - **加载器：** `TranslateHttpLoader` 设置被转换为警告存根，因为 Intlayer 在构建时（或通过标准动态导入）固有地解析和 bundle 您的字典，完全消除了对 HTTP 加载器的需求。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-05-04
-updatedAt: 2026-05-04
+updatedAt: 2026-09-27
 priority: 8
-title: Liczba mnoga
-description: Dowiedz się, jak deklarować i używać treści w liczbie mnogiej zależnych od języka (opartych na CLDR) w swojej wielojęzycznej witrynie. Postępuj zgodnie z krokami w tej dokumentacji online, aby skonfigurować swój projekt w kilka minut.
+title: "Liczba mnoga: reguły CLDR"
+description: "Deklaruj formy liczby mnogiej zależne od locale w Intlayer z kategoriami CLDR (zero, one, two, few, many, other), rozwiązywane na podstawie liczby."
 keywords:
   - Liczba mnoga
   - Pluralizacja

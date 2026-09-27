@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
 title: Intlayer는 Paraglide보다 가벼운가요?
-description: Paraglide는 코드가 저장소 내부로 생성되기 때문에 i18n 벤치마크에서 거의 무료처럼 보입니다. 그 용량이 실제로 어디로 가는지, 노드별 로케일 조회가 성능을 저하시키는 이유, 그리고 Intlayer의 동적 로딩이 모든 언어 대신 단 하나의 로케일만 번들에 포함시키는 방식을 살펴봅니다.
+description: "Paraglide는 코드가 저장소에 생성되기 때문에 i18n 벤치마크에서 거의 무료처럼 보입니다. 그 무게가 어디로 가는지, Intlayer와 어떻게 비교되는지 살펴봅니다."
 keywords:
   - Paraglide
   - Intlayer
@@ -287,3 +287,7 @@ bunx intlayer init --interactive
 - [번들 최적화 및 `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
 - [React i18n 라이브러리 선택 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_react_i18n_library.md)
 - [컴파일러 기반 국제화의 장단점](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)

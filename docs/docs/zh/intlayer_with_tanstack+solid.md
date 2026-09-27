@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "TanStack Start + Solid i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) TanStack Start + Solid 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+title: "TanStack Start + Solid i18n：完整翻译指南"
+description: "在使用 Solid 的 TanStack Start 中配置 Intlayer：路由中的语言参数、响应式翻译内容、本地化 head 元数据和 hreflang。"
 keywords:
   - 国际化
   - 文档
@@ -35,7 +35,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译您的 Tanstack Start + Solid.js 网站 | 国际化 (i18n)
+# 使用 Intlayer 翻译您的 Tanstack Start + Solid.js 网站
 
 ## 目录
 

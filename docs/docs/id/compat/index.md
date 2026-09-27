@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Adapter Kompatibilitas Intlayer"
+title: "Adaptor kompatibilitas Intlayer untuk library i18n"
 description: "Migrasikan solusi i18n Anda yang sudah ada ke Intlayer tanpa hambatan menggunakan adapter kompatibilitas."
 keywords:
   - compat
@@ -31,6 +31,10 @@ Paket adapter ini mengekspos **API publik yang sama persis** dengan library i18n
 Ketika Anda menggunakan adapter kompatibilitas, Anda tidak perlu menulis ulang impor aplikasi atau mengubah cara Anda menggunakan hook dan komponen terjemahan. Sebagai gantinya, plugin bundler Intlayer secara otomatis mengaliaskan impor yang ada ke paket kompatibilitas Intlayer.
 
 Sebagai contoh, seorang pengembang mengganti `import { useTranslation } from 'react-i18next'` dengan `import { useTranslation } from '@intlayer/react-i18next'` (dilakukan secara otomatis melalui plugin bundler), dan aplikasi terus bekerja dengan terjemahan yang kini disajikan dari kamus Intlayer. Kunci juga diketik terhadap kamus Intlayer Anda!
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Adapter Kompatibilitas yang Tersedia
 

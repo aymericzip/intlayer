@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Preact i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Vite + Preact multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di aplikasi Vite dan Preact: konten bertipe per komponen, pengalih bahasa, rute terlokalisasi, dan bundle kecil."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs web Vite dan Preact Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web Vite dan Preact Anda menggunakan Intlayer
 
 ## Daftar Isi
 

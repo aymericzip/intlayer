@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: अज्ञात कमांड
-description: अज्ञात कमांड त्रुटि को कैसे ठीक करें, जानें।
+title: 'Intlayer की "unknown command" त्रुटि ठीक करें'
+description: 'Intlayer CLI की "unknown command" त्रुटि ठीक करें: कमांड का नाम, CLI वर्ज़न और बाइनरी चलाने का तरीका जाँचें।'
 keywords:
   - अज्ञात
   - कमांड

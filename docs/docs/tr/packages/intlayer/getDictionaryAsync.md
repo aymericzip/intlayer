@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
-title: getDictionaryAsync Function Documentation | intlayer
-description: getDictionaryAsync fonksiyonunun intlayer paketi için nasıl kullanılacağını görün
+title: "getDictionaryAsync Fonksiyon Dokümantasyonu | intlayer"
+description: "getDictionaryAsync ile bir sözlüğün yalnızca tek bir locale'ini yükleyip yorumlanmış içeriğini okuyun, diğer diller olmadan."
 keywords:
   - getDictionaryAsync
   - dictionary
@@ -130,9 +130,9 @@ Düz bir loader haritası, senkron mod ile aynı fallback zinciri boyunca yürü
 
 ## İlgili Fonksiyonlar
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getIntlayerAsync.md): Uygulamaların çağırdığı fonksiyon; build eklentileri bunu `getDictionaryAsync` olarak yeniden yazar.
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getDictionary.md): Tam bir sözlük alan senkron karşılığı.
-- [Dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md): Koleksiyonlar ve varyantlar, ve oluşturdukları loader haritaları.
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getDictionary.md)
+- [Dinamik sözlükler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/index.md)
 
 ## TypeScript
 

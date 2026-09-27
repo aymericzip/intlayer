@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: 基于性别的内容
-description: 了解如何在 Intlayer 中使用基于性别的内容，根据性别动态显示内容。按照本指南高效地在项目中实现性别特定内容。
+title: "Intlayer 中按性别区分的内容"
+description: "使用 Intlayer 的 gender() 节点根据读者性别调整消息：男性、女性和默认变体集中声明。"
 keywords:
   - 基于性别的内容
   - 动态渲染

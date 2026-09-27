@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Statyczne vs dynamiczne renderowanie z i18n w Next.js
-description: Dowiedz się, jak używać statycznego i dynamicznego renderowania z i18n w Next.js.
+description: "Dlaczego helpery next-intl sprawiają, że trasy i18n w Next.js są dynamiczne, i jak zachować statyczne renderowanie zlokalizowanych stron."
 keywords:
   - statyczne
   - dynamiczne

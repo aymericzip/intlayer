@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-19
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer 작동 방식
+title: "Intlayer 작동 방식: 아키텍처 개요"
 description: Intlayer가 내부적으로 어떻게 작동하는지 알아보세요. Intlayer를 강력하게 만드는 아키텍처와 구성 요소를 이해하십시오.
 keywords:
   - Intlayer

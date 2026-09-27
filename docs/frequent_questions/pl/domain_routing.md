@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Jak skonfigurować routing oparty na domenach?
-description: Dowiedz się, jak skonfigurować routing oparty na domenach.
+description: "Serwuj każde locale z własnej domeny dzięki routingowi opartemu na domenach w Intlayer, skonfigurowanemu w intlayer.config.ts razem z przekierowaniami."
 keywords:
   - domena
   - routing

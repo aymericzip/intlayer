@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Lỗi ESBuild
-description: Tìm hiểu cách sửa lỗi ESBuild.
+title: "Sửa lỗi ESBuild với Intlayer"
+description: "Sửa lỗi ESBuild khi build Intlayer, thường do plugin bundler cho framework của bạn bị thiếu hoặc cấu hình sai."
 keywords:
   - esbuild
   - lỗi

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: "توثيق الدالة getCanonicalPath | intlayer"
-description: "اطّلع على كيفية استخدام الدالة getCanonicalPath لحزمة intlayer"
+description: "استخدم getCanonicalPath لإرجاع مسار مترجم مثل /a-propos إلى مساره الداخلي مثل /about لأغراض التوجيه."
 keywords:
   - getCanonicalPath
   - الترجمة
@@ -121,5 +121,5 @@ getCanonicalPath("/contactez-nous", Locales.FRENCH, manualRules);
 
 ## الدوال ذات الصلة
 
-- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedPath.md): يحوّل مسارًا canonical إلى ما يعادله محليًا.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md): ينشئ URL مُعربًا بالكامل (بما في ذلك البروتوكول والمضيف وبادئة اللغة).
+- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md)

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-28
-updatedAt: 2025-09-28
+updatedAt: 2026-09-27
 priority: 8
-title: Next.js 中的 SEO 和国际化
+title: "Next.js 中的 SEO 与 i18n：hreflang、元数据和站点地图"
 description: 学习如何使用 next-intl、next-i18next 和 Intlayer 在你的 Next.js 应用中设置多语言 SEO。
 keywords:
   - Intlayer
@@ -360,3 +360,7 @@ export default robots;
 它从底层为 Next.js 设计，因此您可以减少调试配置的时间，更多地专注于发布。
 
 如果您的目标不仅是翻译，而是无障碍地扩展多语言 SEO，Intlayer 为您提供了最简洁、最具未来保障的解决方案。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)

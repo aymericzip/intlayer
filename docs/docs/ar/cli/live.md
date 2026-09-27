@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: أوامر المزامنة الحية
-description: تعلّم كيفية استخدام المزامنة الحية لعكس تغييرات محتوى CMS أثناء وقت التشغيل.
+title: "intlayer live: مزامنة محتوى CMS أثناء التشغيل"
+description: "استخدم Live Sync في Intlayer لتطبيق تغييرات CMS على تطبيقك أثناء تشغيله دون إعادة البناء أو النشر."
 keywords:
   - المزامنة الحية
   - CMS

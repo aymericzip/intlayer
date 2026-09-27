@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
 title: "Next.js 16 i18n - Complete guide to translate your app"
-description: "No more i18next. The 2026 guide to building a multilingual (i18n) Next.js 16 app. Translate with AI agents and optimize bundle size, SEO and performances."
+description: "Set up Intlayer in Next.js 16 App Router: locale routing with the proxy, Server and Client Components, localized metadata, sitemap and static pages."
 keywords:
   - Internationalization
   - Documentation
@@ -37,7 +37,7 @@ history:
 author: aymericzip
 ---
 
-# Translate your Next.js 16 website using Intlayer | Internationalization (i18n)
+# Translate your Next.js 16 website using Intlayer
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">

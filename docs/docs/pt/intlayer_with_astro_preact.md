@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + Preact i18n - Guia completo para traduzir seu aplicativo"
-description: "Sem mais i18next. O guia 2026 para criar uma aplicação Astro + Preact multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
+description: "Configure o Intlayer no Astro com ilhas Preact: componentes traduzidos, rotas localizadas e hreflang, com conteúdo tipado por componente."
 keywords:
   - internacionalização
   - documentação
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Traduza o seu site Astro + Preact com o Intlayer | Internacionalização (i18n)
+# Traduza o seu site Astro + Preact com o Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Código" value="code">

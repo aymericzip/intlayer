@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-21
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Init Infra
-description: تعرف على كيفية استخدام أمر init infra في واجهة سطر أوامر Intlayer لتثبيت تطبيق سطح المكتب أو الاستضافة الذاتية لـ Intlayer CMS باستخدام Docker (حاوية الكل في واحد أو مكدس Docker Compose).
+title: "intlayer init infra: استضافة Intlayer CMS ذاتيًا"
+description: "ثبّت تطبيق Intlayer لسطح المكتب أو استضف Intlayer CMS ذاتيًا عبر Docker، كحاوية متكاملة أو مجموعة Docker Compose."
 keywords:
   - CLI
   - البنية التحتية
@@ -158,6 +158,6 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 
 ## ذات صلة
 
-- [دليل الاستضافة الذاتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md) - البنية وخطوات التشغيل الأولى والقيود لكل وضع
-- [تهيئة Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/init.md) - أمر `init` الأصلي وقائمة التحقق التفاعلية الخاصة به
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) - وظائف لوحة التحكم التي قمت بتثبيتها للتو
+- [دليل الاستضافة الذاتية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/self_hosting.md)
+- [تهيئة Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/init.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)

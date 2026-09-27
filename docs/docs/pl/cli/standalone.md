@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Samodzielny Pakiet (Standalone Bundle)
-description: Dowiedz się, jak utworzyć samodzielny pakiet JavaScript z treściami aplikacji.
+title: "intlayer standalone: Intlayer dla dowolnej strony"
+description: "Zbuduj jeden bundle JavaScript z Intlayer i potrzebnymi pakietami, do użycia na stronach bez menedżera pakietów i bundlera."
 keywords:
   - Standalone
   - Bundle

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Documentazione della funzione validatePrefix | intlayer
-description: Scopri come utilizzare la funzione validatePrefix per il pacchetto intlayer
+description: "Usa validatePrefix per verificare se un segmento di URL è un prefisso di locale valido secondo la configurazione di Intlayer."
 keywords:
   - validatePrefix
   - traduzione

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n cho Next.js 16 với next-intl: hướng dẫn cài đặt App Router"
 description: "Thiết lập next-intl từng bước trong ứng dụng Next.js 16 App Router: định tuyến theo locale, tải thông điệp theo từng trang, component phía server và client, và metadata SEO."
@@ -32,9 +32,13 @@ author: aymericzip
 
 **next-intl** là một thư viện quốc tế hóa (i18n) phổ biến được thiết kế đặc biệt cho Next.js App Router. Nó cung cấp một cách liền mạch để xây dựng các ứng dụng Next.js đa ngôn ngữ với hỗ trợ TypeScript xuất sắc và các tối ưu hóa tích hợp sẵn.
 
-> Nếu bạn muốn, bạn cũng có thể tham khảo [hướng dẫn next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-i18next.md), hoặc sử dụng trực tiếp [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_next-intl.md).
+> Nếu bạn muốn, bạn cũng có thể tham khảo [hướng dẫn next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-i18next.md), hoặc sử dụng trực tiếp [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
 
 > Xem so sánh tại [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Benchmark nói gì về next-intl trên Next.js
 

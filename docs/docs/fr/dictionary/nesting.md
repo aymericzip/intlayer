@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Imbrication du dictionnaire
-description: Découvrez comment utiliser l’imbrication de contenu dans Intlayer pour réutiliser et structurer efficacement votre contenu multilingue. Suivez cette documentation pour implémenter l’imbrication facilement dans votre projet.
+title: "Imbrication : réutiliser du contenu entre dictionnaires"
+description: "Référencez un dictionnaire depuis un autre avec le nœud nest() d'Intlayer pour réutiliser du contenu partagé sans dupliquer les traductions."
 keywords:
   - Nesting
   - Réutilisation de contenu

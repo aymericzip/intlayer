@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: 2026년에도 vue-i18n을 계속 써야 할까요?
 description: vue-i18n은 지난 10년간 Vue 및 Nuxt 생태계의 표준이었습니다. 하지만 벤치마크 결과 웹에서 가장 무거운 i18n 런타임으로 나타났습니다. 그 원인을 분석합니다.
@@ -68,6 +68,10 @@ Vite + Vue 기반의 가벼운 기본 애플리케이션(31.5 KB)에 `vue-i18n`�
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 오래된 라이브러리는 안정성이 뛰어납니다. 하지만 오늘날의 프론트엔드는 빌드 타임 AST 변환, 데드 코드 제거, AI 자동화에 기반하고 있습니다. 런타임에 종속된 구조로는 이러한 혁신을 온전히 따라잡기 어렵습니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## Vite + Vue 성능 측정 결과
 

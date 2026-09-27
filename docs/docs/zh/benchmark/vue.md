@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: 2026 年 Vue 最佳 i18n 解决方案 - 基准报告
 description: 比较 Vue 国际化（i18n）库，如 vue-i18n、fluent-vue, Tolgee 和 Intlayer。关于Bundle 大小、泄漏和反应性的详细性能报告。
@@ -69,6 +69,10 @@ style="border:none;"
 实际上，对于优化最差的实现，国际化页面的重量可能是非 i18n 版本的几倍。
 
 另一个影响是开发者体验（DX）：如何声明内容、类型、命名空间组织、动态加载以及语言更改时的反应性。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## TL;DR
 

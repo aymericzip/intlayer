@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Міграція з next-i18next на Intlayer"
-description: "Дізнайтеся, як перенести своє Next.js додаток з next-i18next на Intlayer за допомогою адаптера сумісності."
+title: "@intlayer/next-i18next: адаптер сумісності для next-i18next"
+description: "Збережіть код на next-i18next і обслуговуйте його через Intlayer: встановіть @intlayer/next-i18next, налаштуйте аліаси імпортів і дізнайтеся, що адаптер змінює під капотом."
 keywords:
   - next-i18next
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Міграція з next-i18next на Intlayer
+# @intlayer/next-i18next: адаптер сумісності для next-i18next
 
 Для повного та детального покрокового посібника, будь ласка, див. наш [Посібник з міграції next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_next-i18next_to_intlayer.md).
 
@@ -56,3 +56,7 @@ export default withIntlayer(nextConfig);
 
 - **`serverSideTranslations` & `appWithTranslation`:** Тепер вони функціонують як обгортки для внутрішніх завантажувачів Intlayer, обходячи велику статичну ін'єкцію JSON.
 - **Client hooks:** Негайно делегує до `@intlayer/react-i18next`, збереження всі функції форматування, множин та вкладених просторів імен.
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)

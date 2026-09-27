@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Intlayer 명령어 디버깅
-description: Intlayer CLI 문제를 디버깅하고 문제를 해결하는 방법을 알아보세요.
+title: "Intlayer CLI 디버깅"
+description: "Intlayer CLI 문제 해결: 설치된 버전 확인, 자세한 로그 활성화, 흔한 명령어와 설정 오류 수정."
 keywords:
   - 디버깅
   - 문제해결

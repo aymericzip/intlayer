@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
-title: مدونة
-description: اكتشف جميع المواضيع ذات صلة مع Intlayer، التدويل الدولي وغيرها
+title: "البحث في مدونة Intlayer"
+description: "ابحث في جميع مقالات مدونة Intlayer حول التدويل والتوطين ومكتبات i18n وتحسين محركات البحث وسير عمل الترجمة."
 keywords:
   - Intlayer
   - التدويل

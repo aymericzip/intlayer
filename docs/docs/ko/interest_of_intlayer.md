@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer의 장점
+title: "왜 Intlayer인가? 다른 i18n 라이브러리 대비 장점"
 description: 프로젝트에서 Intlayer를 사용할 때의 이점과 장점을 알아보세요. 다른 프레임워크 중에서 Intlayer가 왜 뛰어난지 이해해보세요.
 keywords:
   - 이점
@@ -221,6 +221,10 @@ export const ComponentExample = () => {
 
 6. **로딩 성능 최적화**
    - 컴포넌트가 지연 로딩(lazy-loading)되면 해당 컴포넌트에 매핑된 다국어 사전 콘텐츠도 완벽히 동기화되어 필요한 시점에 함께 지연 로드됨
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## Intlayer의 추가 기능
 

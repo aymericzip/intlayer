@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-12
+updatedAt: 2026-09-27
 priority: 8
-title: Collezioni
+title: "Collezioni: liste ordinate di elementi localizzati"
 description: Utilizza il campo dei metadati item nei file di contenuto di Intlayer per creare collezioni ordinate di elementi localizzati selezionabili per indice a runtime.
 keywords:
   - Collezioni

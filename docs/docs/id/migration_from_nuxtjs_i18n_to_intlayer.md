@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrasi dari @nuxtjs/i18n ke Intlayer | Internasionalisasi (i18n)"
-description: "Pelajari cara migrasi aplikasi Nuxt Anda dari @nuxtjs/i18n ke Intlayer — langkah demi langkah, tanpa merusak kode yang sudah ada. Gunakan adapter kompatibilitas @intlayer/vue-i18n untuk transisi tanpa gangguan."
+title: "Migrasi dari @nuxtjs/i18n ke Intlayer"
+description: "Migrasikan aplikasi Nuxt dari @nuxtjs/i18n ke Intlayer langkah demi langkah, dimulai dengan adaptor @intlayer/vue-i18n agar tidak ada yang rusak."
 keywords:
   - "@nuxtjs/i18n"
   - vue-i18n
@@ -63,6 +63,10 @@ Lebih dari sekadar solusi i18n, Intlayer menyediakan **[visual editor](https://g
 
 </Accordion>
 </AccordionGroup>
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Strategi Migrasi
 
@@ -293,9 +297,9 @@ Tambahkan direktori yang dihasilkan oleh Intlayer ke `.gitignore` Anda:
 
 ## Langkah Selanjutnya
 
-- **Visual Editor** — Kelola terjemahan secara visual di browser Anda: [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
-- **CMS** — Eksternalisasi dan kelola konten dari jarak jauh: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
-- **VS Code Extension** — Dapatkan autocompletion dan deteksi kesalahan terjemahan real-time: [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)
-- **CLI Reference** — Daftar lengkap perintah CLI: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
-- **Intlayer with Nuxt** — Panduan setup lengkap untuk Nuxt: [intlayer_with_nuxt.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md)
-- **Intlayer with Vue** — Panduan setup lengkap untuk Vue: [intlayer_with_vite+vue.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue.md)
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+- [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
+- [Intlayer with Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md)
+- [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue.md)

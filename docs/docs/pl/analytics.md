@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-08-22
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer Analytics | Śledzenie ekspozycji treści i testy A/B
+title: "Intlayer Analytics: ekspozycja treści i testy A/B"
 description: Dowiedz się, w jaki sposób @intlayer/analytics śledzi wyświetlenia stron/języków i ekspozycję treści oraz jak z niego korzystać do przeprowadzania testów A/B zawartości Intlayer.
 keywords:
   - Analytics (Analityka)

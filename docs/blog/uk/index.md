@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
-title: Блог
-description: Дізнайтеся про всі теми, пов'язані з Intlayer, інтернаціоналізацією та іншим
+title: "Пошук у блозі Intlayer"
+description: "Шукайте серед усіх статей блогу Intlayer про інтернаціоналізацію, локалізацію, i18n-бібліотеки, SEO та процеси перекладу."
 keywords:
   - Intlayer
   - Інтернаціоналізація

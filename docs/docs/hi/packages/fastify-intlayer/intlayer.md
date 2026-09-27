@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Fastify प्लगइन दस्तावेज़ | fastify-intlayer
-description: देखें कि fastify-intlayer पैकेज के लिए intlayer प्लगइन का उपयोग कैसे करें
+description: "Fastify के लिए intlayer प्लगइन उपयोगकर्ता का लोकेल पहचानता है और हर रिक्वेस्ट में Intlayer अनुवाद फ़ंक्शन जोड़ता है।"
 keywords:
   - intlayer
   - fastify

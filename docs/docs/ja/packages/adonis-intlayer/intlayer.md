@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer AdonisJS ミドルウェアドキュメント | adonis-intlayer
-description: adonis-intlayer パッケージの intlayer ミドルウェアの使用方法を確認してください
+description: "AdonisJS 向け intlayer ミドルウェアは、ユーザーのロケールを検出し、リクエストコンテキストを通じて翻訳関数を提供します。"
 keywords:
   - intlayer
   - adonisjs

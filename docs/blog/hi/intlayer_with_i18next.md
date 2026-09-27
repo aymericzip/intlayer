@@ -2,7 +2,7 @@
 createdAt: 2024-12-24
 updatedAt: 2025-11-01
 priority: 8
-title: Intlayer का उपयोग करके अपने i18next JSON अनुवादों को स्वचालित कैसे करें
+title: "Intlayer से i18next JSON अनुवाद स्वचालित करें"
 description: JavaScript अनुप्रयोगों में बेहतर अंतरराष्ट्रीयकरण के लिए Intlayer और i18next के साथ अपने JSON अनुवादों को स्वचालित करें।
 keywords:
   - Intlayer
@@ -57,6 +57,10 @@ author: aymericzip
 **इसके लिए, Intlayer को i18next के लिए एक एडेप्टर के रूप में लागू किया जा सकता है ताकि CLI या CI/CD पाइपलाइनों में आपके JSON अनुवादों को स्वचालित करने, आपके अनुवादों का परीक्षण करने, और अन्य कार्यों में मदद मिल सके।**
 
 यह गाइड आपको दिखाता है कि कैसे Intlayer की श्रेष्ठ सामग्री घोषणा प्रणाली का लाभ उठाते हुए i18next के साथ संगतता बनाए रखी जाए।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 
 ## सामग्री सूची
 

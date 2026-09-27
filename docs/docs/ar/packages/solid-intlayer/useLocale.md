@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق Hook useLocale | solid-intlayer
-description: اطلع على كيفية استخدام hook useLocale لحزمة solid-intlayer
+description: "استخدم useLocale في Solid لقراءة اللغة الحالية والافتراضية والمتاحة، وتبديل اللغة من أي مكوّن."
 keywords:
   - useLocale
   - locale

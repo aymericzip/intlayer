@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Wie konfiguriere ich domänenbasiertes Routing?
-description: Erfahren Sie, wie Sie domänenbasiertes Routing konfigurieren.
+description: "Liefern Sie jede Locale mit dem domainbasierten Routing von Intlayer über eine eigene Domain aus, konfiguriert in intlayer.config.ts inklusive Weiterleitungen."
 keywords:
   - domäne
   - routing

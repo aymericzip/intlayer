@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: أفضل حل i18n لـ Next.js في 2026 - تقرير المقارنة
 description: قارن بين مكتبات تدويل (i18n) Next.js مثل next-intl و next-i18next و Intlayer. تقرير مفصل للأداء حول حجم الحزمة، التسرب، والتفاعلية.
@@ -73,6 +73,10 @@ style="border:none;"
 بما أن المشكلة صعبة، توجد العديد من الحلول - بعضها يركز على تجربة المطور (DX)، والبعض الآخر على الأداء أو القابلية للتوسع، وهكذا.
 
 يحاول Intlayer التحسين عبر هذه الأبعاد.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## TL;DR
 

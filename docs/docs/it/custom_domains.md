@@ -2,7 +2,7 @@
 createdAt: 2026-04-02
 updatedAt: 2026-06-23
 priority: 8
-title: Domini personalizzati
+title: "Domini personalizzati: un dominio per locale"
 description: Impara come configurare il routing delle locale basato su dominio in Intlayer per servire diverse locale da hostname dedicati.
 keywords:
   - Domini personalizzati

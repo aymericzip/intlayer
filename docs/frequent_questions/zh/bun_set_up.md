@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 使用 bun 时出现模块未找到错误
-description: 解决使用 bun 时的错误。
+description: "修复在 Bun 中使用 Intlayer 时出现的「Cannot find package」错误，原因是 Bun 限制了 require() 的作用域，并给出解决配置。"
 keywords:
   - bun
   - 模块未找到

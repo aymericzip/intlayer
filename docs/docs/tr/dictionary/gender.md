@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 8
-title: Cinsiyete Dayalı İçerik
-description: Intlayer'da cinsiyete dayalı içeriği kullanarak cinsiyete göre içeriği dinamik olarak nasıl görüntüleyeceğinizi öğrenin. Bu dokümantasyonu takip ederek projenizde cinsiyete özel içeriği verimli bir şekilde uygulayın.
+title: "Intlayer'da cinsiyete göre içerik"
+description: "Intlayer'ın gender() düğümüyle mesajları okuyucunun cinsiyetine uyarlayın: erkek, kadın ve varsayılan varyantlar tek yerde."
 keywords:
   - Cinsiyete Dayalı İçerik
   - Dinamik Oluşturma

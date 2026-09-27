@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Migration von Svelte I18n zu Intlayer"
 description: "Erfahren Sie, wie Sie Ihre Svelte-Anwendung von svelte-i18n zu Intlayer mithilfe des Compat-Adapters migrieren."
@@ -46,3 +46,7 @@ Im Hintergrund:
 - **ICU-Syntax:** Vollständig durch den gemeinsamen ICU-Resolver behandelt (äquivalentes `intl-messageformat`-Parsing).
 - **Formatter:** `$date`-, `$time`- und `$number`-Aufrufe leiten sicher zu Intlayers nativen Kern-Formatierern weiter.
 - **Babel/SWC-Analyse:** Der Intlayer-Analyzer liest die Svelte-Store-Aufrufer (`$_`) in Ihren `.svelte`-Quelldateien vor der Kompilierung, um automatisch die relevanten Wörterbuch-Chunks zu erstellen.
+
+> Um zu verstehen, woher diese Bibliotheken kommen, lesen Sie die Geschichte von i18n in JavaScript.
+
+- [Die Geschichte von i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/history_of_i18n.md)

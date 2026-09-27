@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-09-20
+updatedAt: 2026-09-27
 priority: 8
-title: Otomatik Doldurma
-description: Intlayer'da önceden tanımlanmış kalıplara göre içeriği otomatik doldurmak için otomatik doldurma işlevinin nasıl kullanılacağını öğrenin. Projenizde otomatik doldurma özelliklerini verimli bir şekilde uygulamak için bu dokümantasyonu takip edin.
+title: "Auto Fill: eksik içeriği otomatik çevirin"
+description: "Intlayer auto fill ile kaynak locale'den eksik çevirileri oluşturun ve doğru içerik dosyalarına yazın."
 keywords:
   - Otomatik Doldurma
   - İçerik Otomasyonu

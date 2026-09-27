@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
 title: Documentation de la fonction t | express-intlayer
-description: Découvrez comment utiliser la fonction t pour le package express-intlayer
+description: "Utilisez la fonction t d'express-intlayer pour renvoyer des réponses localisées dans Express, selon la locale détectée pour chaque requête."
 keywords:
   - t
   - traduction

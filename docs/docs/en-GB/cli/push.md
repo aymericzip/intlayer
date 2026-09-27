@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Push Dictionaries
-description: Learn how to push your dictionaries to the Intlayer editor and CMS.
+title: "intlayer push: Push Dictionaries to the CMS"
+description: "Upload your local Intlayer dictionaries to the visual editor and CMS so translators and content managers can edit them."
 keywords:
   - Push
   - Dictionaries

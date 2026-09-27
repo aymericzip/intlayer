@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: توثيق هوك useIntlayer | react-intlayer
-description: تعرف على كيفية استخدام هوك useIntlayer لحزمة react-intlayer
+description: "استخدم useIntlayer في React لقراءة المحتوى المترجم لقاموس عبر مفتاحه، بأنواع مستمدة من ملفات تعريف المحتوى."
 keywords:
   - useIntlayer
   - dictionary

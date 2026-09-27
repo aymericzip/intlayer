@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: 2026 年 Next.js 最佳 i18n 解决方案 - 基准测试报告
 description: 对比 next-intl、next-i18next 和 Intlayer 等 Next.js 国际化 (i18n) 库。关于打包体积、泄漏和响应性的详细性能报告。
@@ -73,6 +73,10 @@ i18n 库的另一个影响是开发速度变慢。将组件转换为支持多语
 因为这个问题很棘手，所以存在许多解决方案--有些侧重于 DX（开发体验），有些侧重于性能或可扩展性等。
 
 Intlayer 尝试在这些维度上进行优化。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## TL;DR
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Dokument überprüfen
+title: "intlayer doc review: übersetzte Doku prüfen"
 description: Erfahren Sie, wie Sie Dokumentationsdateien auf Qualität, Konsistenz und Vollständigkeit in verschiedenen Sprachversionen überprüfen.
 keywords:
   - Überprüfung

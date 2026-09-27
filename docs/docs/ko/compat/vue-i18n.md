@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Vue I18n에서 Intlayer로 마이그레이션"
-description: "compat adapter를 사용하여 Vue 애플리케이션을 vue-i18n에서 Intlayer로 마이그레이션하는 방법을 알아보세요."
+title: "@intlayer/vue-i18n: vue-i18n 호환 어댑터"
+description: "vue-i18n 코드를 그대로 두고 Intlayer로 제공하세요. @intlayer/vue-i18n를 설치하고 import에 별칭을 지정한 뒤, 어댑터가 내부적으로 무엇을 바꾸는지 확인하세요."
 keywords:
   - vue-i18n
   - vue
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Vue I18n에서 Intlayer로 마이그레이션
+# @intlayer/vue-i18n: vue-i18n 호환 어댑터
 
 Vue 애플리케이션이 현재 `vue-i18n`을 사용하고 있다면 컴포넌트나 translation hooks를 다시 작성하지 않고 Intlayer로 마이그레이션할 수 있습니다. Intlayer는 내부적으로 Intlayer의 강력한 기능을 활용하면서 `vue-i18n`의 API를 완벽하게 반영하는 compat adapter를 제공합니다.
 
@@ -57,3 +57,7 @@ export default defineConfig({
 - **Directives:** `v-t` directive는 등록되고 정상적으로 작동합니다.
 
 애플리케이션은 이전과 정확히 동일하게 계속 렌더링되지만 콘텐츠는 Intlayer dictionaries로 제공되어 type safety, 더 나은 bundle optimization, seamless CMS integration을 제공합니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)

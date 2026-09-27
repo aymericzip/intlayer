@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "تدويل Analog - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Analog متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في Analog: محتوى مُنمَّط لكل مكوّن، واكتشاف اللغة وتبديلها، ومسارات مترجمة لـ Angular مع Vite."
 keywords:
   - Internationalization
   - Documentation
@@ -27,7 +27,7 @@ history:
 author: aymericzip
 ---
 
-# ترجمة تطبيق Analog (Angular) الخاص بك باستخدام Intlayer | التدويل (i18n)
+# ترجمة تطبيق Analog (Angular) الخاص بك باستخدام Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="كود" value="code">

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "Cara Memilih Library Vue i18n yang Tepat di Tahun 2026"
-description: Panduan pengambilan keputusan untuk internasionalisasi Vue dan Nuxt. Pertanyaan apa saja yang perlu dijawab sebelum membandingkan vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide, dan Intlayer, serta konsekuensi masing-masing pilihan terhadap bundle size, typing, dan SSR payload.
+description: "Panduan memilih i18n untuk Vue dan Nuxt: pertanyaan sebelum membandingkan vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide, dan Intlayer."
 keywords:
   - vue i18n
   - vue internationalization
@@ -24,8 +24,6 @@ author: aymericzip
 "Vue i18n" adalah istilah umum sekaligus nama library yang dipasang oleh hampir semua orang. Hal ini praktis sekaligus menyesatkan pada saat yang sama: `vue-i18n` adalah opsi default yang bagus, tetapi bukan satu-satunya pilihan, dan pertanyaan yang seharusnya mendasari keputusan tersebut (SSR atau tidak, berapa banyak halaman, siapa yang menulis terjemahan) jarang diajukan sebelum menjalankan `npm install`.
 
 Panduan ini membahas pertanyaan-pertanyaan tersebut terlebih dahulu, lalu memetakan jawabannya ke library yang sesuai, baik untuk Vite + Vue murni maupun untuk Nuxt.
-
-![Ekosistem library Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Daftar Isi
 
@@ -87,6 +85,8 @@ Grafik berikut memperkirakan payload untuk aplikasi teoritis dengan 1 hingga 10 
 
 Ukuran library diambil dari [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md): plugin ditambah composable dalam komponen kosong, setelah proses bundling, tree-shaking, dan minifikasi, pada aplikasi 10 halaman dan 10 locale. Konten diukur secara terpisah.
 
+![Ekosistem library Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Library        | Model konten                                              | Keamanan tipe                          | Format pesan                        | Splitting per-route     | Ukuran library                                              |
 | :------------- | :-------------------------------------------------------- | :------------------------------------- | :---------------------------------- | :---------------------- | :---------------------------------------------------------- |
 | `vue-i18n`     | Katalog terpusat per locale, opsional SFC `<i18n>` blocks | 2/5 — Opt-in via schema generic        | Khusus (pipe plurals)               | Tidak                   | ~24.3 kB                                                    |
@@ -110,7 +110,7 @@ Ukuran library Paraglide yang mendekati nol dicapai melalui konstruksinya: runti
 </Accordion>
 <Accordion header="Nuxt dengan locale routing, sitemap, dan hreflang">
 
-`@nuxtjs/i18n` memberi Anda strategi routing, tag `hreflang`, dan deteksi locale tanpa perlu menulis kode tambahan, dan itu saja sudah cukup untuk membenarkan penggunaannya pada situs konten dengan beberapa halaman. Batasannya adalah katalog per-locale: jika sudah melewati sekitar sepuluh halaman, SSR payload akan membawa teks setiap route. Jika itu kasus Anda, hubungkan `vue-i18n` secara manual dengan pesan per-route, atau beralihlah ke scoped content. Artikel [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/list_i18n_technologies/frameworks/nuxt.md) membahas pemilihan strategi routing terlebih dahulu.
+`@nuxtjs/i18n` memberi Anda strategi routing, tag `hreflang`, dan deteksi locale tanpa perlu menulis kode tambahan, dan itu saja sudah cukup untuk membenarkan penggunaannya pada situs konten dengan beberapa halaman. Batasannya adalah katalog per-locale: jika sudah melewati sekitar sepuluh halaman, SSR payload akan membawa teks setiap route. Jika itu kasus Anda, hubungkan `vue-i18n` secara manual dengan pesan per-route, atau beralihlah ke scoped content. Artikel [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md) membahas pemilihan strategi routing terlebih dahulu.
 
 </Accordion>
 <Accordion header="Terjemahan berasal dari TMS atau agensi yang menyediakan ICU">
@@ -433,11 +433,17 @@ Secara tidak langsung. Web crawler memperhatikan routing, `hreflang`, `<html lan
 ## Pelajari lebih lanjut
 
 - [Benchmark Vue i18n: ukuran bundle, kebocoran, dan waktu peralihan locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md)
-- [Vue i18n: cara kerja vue-i18n dan titik kelemahannya](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/list_i18n_technologies/frameworks/vue.md) dan [artikel Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/list_i18n_technologies/frameworks/nuxt.md)
-- [vue-i18n vs Intlayer, fitur demi fitur](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md) dan [benchmark vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer, fitur demi fitur](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md)
+- [benchmark vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md)
 - [Apakah vue-i18n sudah ketinggalan zaman?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_vue-i18n_outdated.md)
 - [Sejarah JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 - [Compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
 - [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md)
-- [Menyiapkan i18n di aplikasi Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue.md) dan di [aplikasi Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md)
-- Panduan serupa untuk [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_react_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_svelte_i18n_library.md), dan [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_solid_i18n_library.md)
+- [Menyiapkan i18n di aplikasi Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue.md)
+- [aplikasi Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md)
+
+Panduan serupa untuk
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_react_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_solid_i18n_library.md)

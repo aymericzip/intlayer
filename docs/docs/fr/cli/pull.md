@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Récupérer des Dictionnaires
-description: Apprenez comment récupérer des dictionnaires depuis l'éditeur Intlayer et le CMS.
+title: "intlayer pull : récupérer les dictionnaires du CMS"
+description: "Téléchargez dans votre projet les dictionnaires modifiés dans l'éditeur visuel ou le CMS Intlayer, pour intégrer les changements distants à votre code."
 keywords:
   - Récupérer
   - Dictionnaires

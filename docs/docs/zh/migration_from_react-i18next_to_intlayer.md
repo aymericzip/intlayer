@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "从 react-i18next / i18next 迁移到 Intlayer | 国际化 (i18n)"
-description: "了解如何逐步将您的 React 或 Next.js 应用从 react-i18next 或 i18next 迁移到 Intlayer，无需破坏现有代码。使用 @intlayer/react-i18next 和 @intlayer/i18next 兼容适配器实现零中断过渡。"
+title: "从 react-i18next 迁移到 Intlayer"
+description: "逐步将 React 或 Next.js 应用从 react-i18next 迁移到 Intlayer，先使用兼容适配器，确保不破坏现有代码。"
 keywords:
   - react-i18next
   - i18next
@@ -63,6 +63,10 @@ Intlayer 不仅是一个 i18n 方案，它还提供**自托管的[可视化编�
 
 </Accordion>
 </AccordionGroup>
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 迁移策略
 
@@ -347,9 +351,9 @@ Intlayer 使用模块扩展来为您的翻译键提供完整的 TypeScript intel
 
 ## 进一步了解
 
-- **Visual Editor** — 在浏览器中直观地管理翻译：[Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
-- **CMS** — 外部化和远程管理内容：[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
-- **VS Code Extension** — 获取自动完成和实时翻译错误检测：[Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
-- **CLI Reference** — 完整的 CLI 命令列表：[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
-- **Intlayer with React** — React 的完整设置指南：[intlayer_with_vite+react.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)
-- **Intlayer with Next.js** — Next.js 的完整设置指南：[intlayer_with_nextjs_16.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+- [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+- [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)
+- [Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "TanStack Start + Solid i18n - Полное руководство по переводу вашего приложения"
-description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения TanStack Start + Solid. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
+title: "i18n в TanStack Start + Solid: полное руководство"
+description: "Настройка Intlayer в TanStack Start с Solid: параметр локали в маршрутах, реактивный переведённый контент, локализованные head-метаданные и hreflang."
 keywords:
   - Интернационализация
   - Документация
@@ -35,7 +35,7 @@ history:
 author: aymericzip
 ---
 
-# Переведите ваш сайт на Tanstack Start с Solid.js, используя Intlayer | Интернационализация (i18n)
+# Переведите ваш сайт на Tanstack Start с Solid.js, используя Intlayer
 
 ## Содержание
 

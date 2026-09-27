@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm t | react-intlayer
-description: Xem cách sử dụng hàm t cho gói react-intlayer
+description: "Dùng hàm t của react-intlayer để khai báo bản dịch trực tiếp trong component React, không cần file nội dung riêng."
 keywords:
   - t
   - dịch thuật

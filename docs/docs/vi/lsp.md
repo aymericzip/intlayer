@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-10
+updatedAt: 2026-09-27
 priority: 6
-title: Máy chủ LSP Intlayer
+title: "Language server Intlayer (LSP) cho IDE của bạn"
 description: Tìm hiểu cách máy chủ ngôn ngữ Intlayer mang đến khả năng đi tới định nghĩa, tìm tham chiếu, xem trước khi rê chuột, tự động hoàn thành khóa và chẩn đoán cho IDE và tác nhân AI của bạn.
 keywords:
   - LSP

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Vue i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Vite + Vue 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在 Vite 和 Vue 应用中配置 Intlayer：通过组合式函数提供按组件的类型化内容、语言切换器和本地化路由。"
 keywords:
   - 国际化
   - 文档
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# 使用Intlayer翻译您的Vite and Vue | 国际化(i18n)
+# 使用Intlayer翻译您的Vite and Vue
 
 ## 目录
 

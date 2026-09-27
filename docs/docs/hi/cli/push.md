@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: शब्दकोश पुश करें
-description: जानें कि अपने शब्दकोशों को Intlayer संपादक और CMS में कैसे पुश करें।
+title: "intlayer push: डिक्शनरी CMS पर भेजें"
+description: "अपनी लोकल Intlayer डिक्शनरी विज़ुअल एडिटर और CMS पर अपलोड करें, ताकि अनुवादक और कंटेंट मैनेजर उन्हें बदल सकें।"
 keywords:
   - पुश
   - शब्दकोश

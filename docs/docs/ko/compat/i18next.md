@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "i18next에서 Intlayer로 마이그레이션"
-description: "compat adapter를 사용하여 Vanilla JS/TS 애플리케이션을 i18next에서 Intlayer로 마이그레이션하는 방법을 알아보세요."
+title: "@intlayer/i18next: i18next 호환 어댑터"
+description: "i18next 코드를 그대로 두고 Intlayer로 제공하세요. @intlayer/i18next를 설치하고 import에 별칭을 지정한 뒤, 어댑터가 내부적으로 무엇을 바꾸는지 확인하세요."
 keywords:
   - i18next
   - vanilla
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# i18next에서 Intlayer로 마이그레이션
+# @intlayer/i18next: i18next 호환 어댑터
 
 상세한 단계별 튜토리얼은 [i18next 마이그레이션 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/migration_from_i18next_to_intlayer.md)를 참고하세요.
 
@@ -58,3 +58,7 @@ export default defineConfig({
 - **Interpolation:** `{{name}}` 대체 및 `$t(key)` nesting 재귀에 대한 기본 지원.
 - **Context & Plurals:** `key_male` 및 `key_one`/`key_other` 같은 접미사 형식을 식별하고 해결하며 표준 `Intl.PluralRules`에 대해 평가합니다.
 - **Return objects:** `returnObjects: true` 모드는 Intlayer dictionary에서 트리를 안전하게 추출합니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)

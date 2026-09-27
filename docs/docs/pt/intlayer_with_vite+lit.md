@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Lit i18n - Guia completo para traduzir seu aplicativo"
-description: "Sem mais i18next. O guia 2026 para criar uma aplicação Vite + Lit multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
+description: "Configure o Intlayer em um app Vite e Lit: web components traduzidos com um controller reativo, seletor de idioma e conteúdo tipado."
 keywords:
   - Internacionalização
   - Documentação
@@ -28,7 +28,7 @@ history:
 author: aymericzip
 ---
 
-# Traduza o seu website Vite e Lit usando Intlayer | Internacionalização (i18n)
+# Traduza o seu website Vite e Lit usando Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Código" value="code">

@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: توثيق دالة getEnumeration | intlayer
-description: تعرف على كيفية استخدام دالة getEnumeration لحزمة intlayer
+description: "استخدم getEnumeration (الاسم البديل enu) لاختيار المحتوى المطابق لكمية من كائن تعداد وفق شروطه."
 keywords:
   - getEnumeration
   - ترجمة

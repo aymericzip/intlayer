@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: validatePrefix 関数のドキュメント | intlayer
-description: intlayer パッケージでの validatePrefix 関数の使用方法
+description: "validatePrefix で URL セグメントが Intlayer の設定上有効なロケールプレフィックスかどうかを確認します。"
 keywords:
   - validatePrefix
   - 翻訳

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "Интернационализация TanStack Start с помощью Paraglide JS: руководство по настройке 2026 года"
 description: "Переведите ваше приложение TanStack Start с помощью Paraglide JS: стратегия URL, переписывание маршрутизатора, middleware для SSR, hreflang, sitemap и robots.txt, а также реальные данные бенчмарков."
@@ -43,9 +43,17 @@ Paraglide - это подход к i18n, используемый в офици�
 
 В этом руководстве настраиваются все три компонента, а затем рассматривается все, что Paraglide оставляет на ваше усмотрение: `lang` и `dir`, переключатель локалей, переведенные метаданные, `canonical`, `hreflang` с `x-default`, Open Graph, JSON-LD, sitemap, `robots.txt`, предварительный рендеринг и локализованные страницы 404.
 
-> Ищете другой стек? См. [руководство по TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_tanstack-start_use-intl.md), [руководство по TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_tanstack-start_lingui.md) или [руководство по TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_tanstack.md).
+> Ищете другой стек?
+
+- [руководство по TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_tanstack-start_use-intl.md)
+- [руководство по TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_tanstack-start_lingui.md)
+- [руководство по TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_tanstack.md)
 
 > Сравниваете два подхода на основе компилятора? Читайте [легче ли Intlayer, чем Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/is_intlayer_lighter_than_paraglide.md).
+
+> Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
+
+- [История i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)
 
 ## Что говорит бенчмарк о Paraglide на TanStack Start
 
@@ -95,7 +103,11 @@ Paraglide - это подход к i18n, используемый в офици�
 
 > Данные о размере рантайма и утечках взяты из [бенчмарка TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/tanstack.md). Утечка измеряется при наилучшей настройке каждой библиотеки.
 
-> Другие руководства по TanStack Start: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_tanstack-start_lingui.md), [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_tanstack-start_use-intl.md) и [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_tanstack.md).
+> Другие руководства по TanStack Start:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_tanstack-start_lingui.md)
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_tanstack-start_use-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_tanstack.md)
 
 ## Практики, которым следует следовать
 
@@ -108,7 +120,8 @@ Paraglide - это подход к i18n, используемый в офици�
 - **Генерируйте мультиязычный sitemap и robots.txt**, а также предварительно рендерите каждую локаль.
 - **Используйте настоящие ссылки для переключателя локалей**, чтобы поисковые роботы могли обнаружить каждый язык.
 
-> См. наше руководство по [интернационализации и SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/internationalization_and_SEO.md) и [руководство по hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/hreflang_guide_multilingual_seo.md).
+- [интернационализации и SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/internationalization_and_SEO.md)
+- [руководство по hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/hreflang_guide_multilingual_seo.md)
 
 ## Пошаговое руководство по настройке Paraglide JS в приложении TanStack Start
 

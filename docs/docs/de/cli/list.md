@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
 title: Inhaltsdeklarationsdateien auflisten
-description: Erfahren Sie, wie Sie alle Inhaltsdeklarationsdateien in Ihrem Projekt auflisten können.
+description: "Listen Sie alle Inhaltsdeklarationsdateien Ihres Projekts mit der Intlayer CLI auf, um zu sehen, wo Ihre Wörterbücher deklariert sind."
 keywords:
   - Auflisten
   - Inhaltsdeklaration

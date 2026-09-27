@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Elysia プラグインドキュメント | elysia-intlayer
-description: elysia-intlayer パッケージの intlayer プラグインの使い方を確認します
+description: "Elysia 向け intlayer プラグインは、ユーザーのロケールを検出し、各リクエストのルートコンテキストに翻訳関数を注入します。"
 keywords:
   - intlayer
   - elysia

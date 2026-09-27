@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Solid i18n - Complete guide to translate your app"
-description: "No more i18next. The 2026 guide to building a multilingual (i18n) Vite + Solid app. Translate with AI agents and optimise bundle size, SEO and performances."
+description: "Set up Intlayer in a Vite and Solid app: reactive translated content, a locale switcher, localised routes and typed dictionaries."
 keywords:
   - Internationalisation
   - Documentation

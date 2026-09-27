@@ -145,9 +145,9 @@ normalizePath("https://example.com/ru/path"); // "/path"
 
 ## Gerelateerde functies
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/packages/intlayer/getPathWithoutLocale.md): Verwijdert het locale-segment van een URL of pad.
-- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/packages/intlayer/getPrefix.md): Bepaalt de URL-prefix voor een gegeven locale.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/packages/intlayer/getLocalizedUrl.md): Genereert een gelokaliseerde URL voor een specifieke locale.
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/packages/intlayer/getPathWithoutLocale.md)
+- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/packages/intlayer/getPrefix.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/packages/intlayer/getLocalizedUrl.md)
 
 ## TypeScript
 

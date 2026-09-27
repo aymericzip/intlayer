@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Документація хука usePathname | solid-intlayer
-description: Дізнайтеся, як використовувати хук usePathname з пакета solid-intlayer
+description: "Використовуйте usePathname у Solid, щоб отримати поточний шлях без сегмента локалі як accessor для локалізованої навігації."
 keywords:
   - usePathname
   - pathname
@@ -116,5 +116,5 @@ export default Sidebar;
 
 ## Пов'язані хуки
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/solid-intlayer/useLocale.md) — поточна локаль + перемикач локалей
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getPathWithoutLocale.md) — базова утиліта, яку використовує цей хук
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/solid-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getPathWithoutLocale.md)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "next-intl ile Next.js 16 i18n: App Router kurulum rehberi"
 description: "Next.js 16 App Router uygulamasında next-intl'i adım adım kurun: locale yönlendirme, sayfa bazında mesaj yükleme, sunucu ve istemci bileşenleri ve SEO meta verileri."
@@ -32,9 +32,13 @@ author: aymericzip
 
 **next-intl**, özellikle Next.js App Router için tasarlanmış popüler bir uluslararasılaştırma (i18n) kütüphanesidir. Mükemmel TypeScript desteği ve yerleşik optimizasyonlarla çok dilli Next.js uygulamaları oluşturmanın sorunsuz bir yolunu sağlar.
 
-> Tercih ederseniz, ayrıca [next-i18next rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-i18next.md) veya doğrudan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_next-intl.md) kullanmaya da başvurabilirsiniz.
+> Tercih ederseniz, ayrıca [next-i18next rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-i18next.md) veya doğrudan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md) kullanmaya da başvurabilirsiniz.
 
 > Karşılaştırmayı [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) sayfasında görebilirsiniz.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## Benchmark, Next.js üzerinde next-intl hakkında ne söylüyor
 

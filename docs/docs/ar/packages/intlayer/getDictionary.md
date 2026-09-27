@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: وثائق دالة getDictionary | intlayer
-description: اطلع على كيفية استخدام دالة getDictionary لحزمة intlayer
+description: "استخدم getDictionary لتفسير كائن قاموس تمرّره بنفسك والحصول على محتواه للغة معيّنة مع تطبيق جميع إضافات المحتوى."
 keywords:
   - getDictionary
   - dictionary
@@ -124,9 +124,9 @@ const allItems = getDictionary(blogPostGroup, { locale: "fr" });
 
 ## الدوال ذات الصلة
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayer.md): نفس التفسير، لكن يتم البحث عن القاموس حسب المفتاح في السجل المُنشأ.
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getDictionaryAsync.md): نظير خرائط المحمّل لكل لغة.
-- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useDictionary.md): معادل React hook، يقرأ اللغة من الموفر.
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getDictionaryAsync.md)
+- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useDictionary.md)
 
 ## TypeScript
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Hono i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Hono 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在 Hono 中配置 Intlayer：通过中间件按请求检测语言，翻译 API 响应，可运行在 Node、Bun 或边缘运行时。"
 keywords:
   - 国际化
   - 文档
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译您的 Hono 后端网站 | 国际化 (i18n)
+# 使用 Intlayer 翻译您的 Hono 后端网站
 
 `hono-intlayer` 是一个功能强大的 Hono 应用程序国际化 (i18n) 中间件，旨在通过根据客户端的首选项提供本地化响应，使您的后端服务能够被全球用户访问。
 
@@ -225,9 +225,9 @@ export default app;
 
 `hono-intlayer` 与以下项完全兼容：
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md) 用于 React 应用程序
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md) 用于 Next.js 应用程序
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md) 用于 Vite 应用程序
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md)
 
 它还可以与各种环境中的任何国际化解决方案无缝协作，包括浏览器和 API 请求。您可以自定义中间件以通过标头或 cookie 检测语言：
 

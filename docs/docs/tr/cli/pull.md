@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Sözlükleri Çekme
-description: Intlayer editöründen ve CMS'den sözlüklerin nasıl çekileceğini öğrenin.
+title: "intlayer pull: sözlükleri CMS'ten çekin"
+description: "Intlayer görsel editöründe veya CMS'te düzenlenen sözlükleri projenize indirin; uzak değişiklikler kodunuza gelsin."
 keywords:
   - Çekme
   - Sözlükler

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-21
+updatedAt: 2026-09-27
 priority: 6
-title: Documentação do Servidor MCP
-description: Explore os recursos e a configuração do Servidor MCP para otimizar o gerenciamento e as operações do seu servidor.
+title: "Servidor MCP do Intlayer para assistentes de IA"
+description: "Conecte o servidor MCP do Intlayer ao Cursor, VS Code ou Claude Desktop para que seu assistente de IA leia a documentação e ajude a configurar o Intlayer."
 keywords:
   - Servidor MCP
   - Gerenciamento de Servidor

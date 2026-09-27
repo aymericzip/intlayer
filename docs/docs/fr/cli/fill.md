@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Remplir les dictionnaires
-description: Apprenez à remplir, auditer et traduire vos dictionnaires en utilisant l'IA.
+title: "intlayer fill : traduire les dictionnaires avec l'IA"
+description: "Complétez les traductions manquantes, auditez les existantes et traduisez vos dictionnaires Intlayer par IA depuis la CLI, en local ou en CI."
 keywords:
   - Remplir
   - Auditer

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: Is vue-i18n Outdated in 2026?
 description: vue-i18n has been the standard for Vue and Nuxt apps for a decade. But in our benchmarks, it proved to be the heaviest i18n runtime on the web. Here is why.
@@ -68,6 +68,10 @@ Trailing twelve months:
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 A mature library can be complete. But modern frontends now leverage build-time AST transformations, bundler dead-code elimination, and AI-driven localization. A runtime-bound architecture cannot easily adopt these paradigms.
+
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md)
 
 ## Measuring Performance in Vite + Vue
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "2026年に最適なSvelte i18nライブラリを選ぶ方法"
-description: SvelteおよびSvelteKitの国際化（i18n）に関する意思決定ガイド。svelte-i18n、Paraglide、typesafe-i18n、wuchale、Intlayerを比較する前に答えるべき質問と、バンドルサイズ、型定義、SSR安全性における各選択肢のコストを解説します。
+description: "Svelte と SvelteKit の i18n を選ぶための判断ガイド。svelte-i18n、Paraglide、typesafe-i18n、wuchale、Intlayer を比較する前に答えるべき問い。"
 keywords:
   - svelte i18n
   - sveltekit i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Svelteにはi18n用の機能が標準で用意されていません。`$t`も、ロケールプリミティブも、メッセージフォーマットもありません。すべての選択肢がサードパーティ製であり、Svelteエコシステムはコンパイル時i18nが最も進んでいる領域であるため、各候補の違いはReactやVue以上に大きくなります。
 
 本ガイドでは、まず確認すべき質問事項を整理し、それらに基づいて`svelte-i18n`、Paraglide、`typesafe-i18n`、`wuchale`、Intlayerを、Vite + SvelteおよびSvelteKitの両方の環境で比較・マッピングしていきます。
-
-![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目次
 
@@ -88,6 +86,8 @@ Paraglideは各メッセージをエクスポート関数にコンパイルし�
 
 ライブラリのサイズは、10ページ・10ロケールのアプリを対象にした[Svelteベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/svelte.md)（バンドル、ツリーシェイキング、minify後の空コンポーネントにおけるストア＋アクセサ）の数値です。コンテンツのサイズは個別に測定しています。
 
+![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | ライブラリ      | メッセージの配置場所                 | ロケール状態                               | 型安全性                         | メッセージフォーマット        | ルートごとの分割               | ライブラリサイズ                                 |
 | :-------------- | :----------------------------------- | :----------------------------------------- | :------------------------------- | :---------------------------- | :----------------------------- | :----------------------------------------------- |
 | `svelte-i18n`   | ロケールごとのJSONカタログ           | モジュールレベルのSvelteストア             | 2/5 — 手動Union型                | ICU                           | なし                           | 約16.6 kB                                        |
@@ -111,7 +111,7 @@ Paraglideのライブラリサイズがほぼゼロである理由は構造に�
 </Accordion>
 <Accordion header="ロケールルーティングとSSRを伴うSvelteKit">
 
-共有問題が決定打となります。`svelte-i18n`はSvelteKitでも動作しますが、リクエストごとの連携（`hooks.server.ts`、`locals`、`load`、そして`setContext`）は自前で記述する必要があり、微妙なミスが起きやすいです。Paraglideはルーティングを処理し呼び出しごとにロケールを読み取るSvelteKit統合を提供しており、シングルトンの問題を回避できます。Intlayerは`load`データからコンテキストへとロケールを設定します。[SvelteKit i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/list_i18n_technologies/frameworks/sveltekit.md)では`[[lang]]`と`reroute`の選択について解説しています。ライブラリを選ぶ前に決めておきましょう。
+共有問題が決定打となります。`svelte-i18n`はSvelteKitでも動作しますが、リクエストごとの連携（`hooks.server.ts`、`locals`、`load`、そして`setContext`）は自前で記述する必要があり、微妙なミスが起きやすいです。Paraglideはルーティングを処理し呼び出しごとにロケールを読み取るSvelteKit統合を提供しており、シングルトンの問題を回避できます。Intlayerは`load`データからコンテキストへとロケールを設定します。[SvelteKit i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_svelte_kit.md)では`[[lang]]`と`reroute`の選択について解説しています。ライブラリを選ぶ前に決めておきましょう。
 
 </Accordion>
 <Accordion header="翻訳がTMSまたはICUを納品する翻訳会社から提供される場合">
@@ -448,11 +448,13 @@ Runesはロケール状態の記述構文を変えるものであり、共有問
 ## さらに詳しく
 
 - [Svelte i18nベンチマーク: バンドルサイズ、リーク、ロケール切り替え時間](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/svelte.md)
-- [Svelte i18n: ストア、Runes、モジュールレベルの罠](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/list_i18n_technologies/frameworks/svelte.md)および[SvelteKit i18n: ルーティング、SSR、共有状態](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/list_i18n_technologies/frameworks/sveltekit.md)
 - [そのまま使えるsvelte-i18n互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/svelte-i18n.md)
 - [JavaScript i18nの歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 - [コンパイラ vs 宣言型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)
 - [コンポーネント単位 vs 集中管理型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)
 - [ビルド時におけるバンドル最適化の仕組み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
-- [Vite + Svelteアプリでのi18n設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+svelte.md)および[SvelteKitアプリでの設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_svelte_kit.md)
-- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_react_i18n_library.md)、[Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_vue_i18n_library.md)、[Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_solid_i18n_library.md)向けの同様のガイド
+- [Vite + Svelteアプリでのi18n設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+svelte.md)
+- [SvelteKitアプリでの設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_svelte_kit.md)
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_vue_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_solid_i18n_library.md)

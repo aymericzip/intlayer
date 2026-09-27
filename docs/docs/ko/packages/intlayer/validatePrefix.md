@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: validatePrefix 함수 문서 | intlayer
-description: intlayer 패키지의 validatePrefix 함수 사용법을 확인하세요
+description: "validatePrefix로 URL 세그먼트가 Intlayer 설정상 유효한 로케일 접두사인지 확인합니다."
 keywords:
   - validatePrefix
   - translation

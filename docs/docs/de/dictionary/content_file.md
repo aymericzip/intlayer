@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: Inhaltsdatei
-description: Erfahren Sie, wie Sie die Erweiterungen für Ihre Inhaltsdeklarationsdateien anpassen können. Folgen Sie dieser Dokumentation, um Bedingungen effizient in Ihrem Projekt umzusetzen.
+title: "Inhaltsdeklarationsdateien (.content.ts)"
+description: "Deklarieren Sie mehrsprachige Inhalte in .content-Dateien neben Ihren Komponenten: unterstützte Formate, Dateiendungen und wie Intlayer sie findet."
 keywords:
   - Inhaltsdatei
   - Dokumentation

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Вход
+title: "intlayer login: вход в CMS"
 description: Узнайте, как использовать команду login в Intlayer CLI для аутентификации в Intlayer CMS и получения учетных данных доступа.
 keywords:
   - CLI
@@ -234,9 +234,9 @@ bun x intlayer login --verbose
 1. Добавьте учетные данные в файл `.env`
 2. Настройте файл `intlayer.config.*`, указав учетные данные
 3. Используйте команды CLI для управления словарями:
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/push.md) - Отправить словари в CMS
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/pull.md) - Получить словари из CMS
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/fill.md) - Заполнить отсутствующие переводы
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/pull.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/fill.md)
 
 ## См. также
 

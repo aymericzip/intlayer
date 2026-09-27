@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Elysia i18n - 完整指南翻译你的应用"
-description: "不再使用 i18next。2026 年构建多语言 (i18n) Elysia 应用的指南。使用 AI 代理翻译并优化 bundle 大小、SEO 和性能。"
+description: "在 Elysia 中配置 Intlayer：通过插件按请求检测语言，翻译 API 响应，并在 Bun 上保持内容类型安全。"
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译您的 Elysia 后端网站 | 国际化 (i18n)
+# 使用 Intlayer 翻译您的 Elysia 后端网站
 
 `elysia-intlayer` 是一个强大的国际化 (i18n) 插件，为 Elysia 应用程序设计，旨在通过根据客户端偏好提供本地化响应，使您的后端服务全球可访问。
 
@@ -269,9 +269,9 @@ curl -H "Accept-Language: es" http://localhost:3000/
 
 `elysia-intlayer` 完全兼容：
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md) 用于 React 应用
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md) 用于 Next.js 应用
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md) 用于 Vite 应用
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md)
 
 它也能与各种环境中的任何国际化解决方案无缝协作，包括浏览器和 API 请求。
 

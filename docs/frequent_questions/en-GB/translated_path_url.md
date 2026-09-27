@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: Can I translate the URL path?
-description: Learn how to translate the URL path.
+description: "Yes: Intlayer can translate URL paths, like /about to /fr/a-propos, with custom URL rewrites configured per locale."
 keywords:
   - array
   - content

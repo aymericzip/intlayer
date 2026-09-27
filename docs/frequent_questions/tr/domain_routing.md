@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 4
 title: Alan adına göre yönlendirme nasıl yapılır?
-description: Alan adına göre yönlendirme nasıl yapılır, öğrenin.
+description: "Intlayer'ın alan adı tabanlı yönlendirmesiyle her locale'i kendi alan adından sunun; intlayer.config.ts'te yapılandırılır, yönlendirmeler otomatik yapılır."
 keywords:
   - alan adı
   - yönlendirme

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayerにおける「ロケール別」コンテンツ宣言
+title: "ロケールごとのコンテンツ宣言ファイル"
 description: Intlayerでロケール別にコンテンツを宣言する方法を解説します。異なるフォーマットやユースケースを理解するためのドキュメントに従ってください。
 keywords:
   - 国際化

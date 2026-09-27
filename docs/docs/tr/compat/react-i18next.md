@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "react-i18next'ten Intlayer'a Geçiş Yapın"
-description: "Uyumluluk adaptörünü kullanarak React uygulamanızı react-i18next'ten Intlayer'a nasıl geçireceğinizi öğrenin."
+title: "@intlayer/react-i18next: react-i18next için uyumluluk adaptörü"
+description: "react-i18next kodunuzu koruyun ve Intlayer ile sunun: @intlayer/react-i18next paketini kurun, import'lar için alias tanımlayın ve adaptörün arka planda neyi değiştirdiğini görün."
 keywords:
   - react-i18next
   - i18next
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# react-i18next'ten Intlayer'a Geçiş Yapın
+# @intlayer/react-i18next: react-i18next için uyumluluk adaptörü
 
 Kapsamlı ve ayrıntılı adım adım eğitim için lütfen tam [react-i18next Göç Kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md) bakın.
 
@@ -57,3 +57,7 @@ Arka Planda:
 - **Çoğullar & Bağlam:** i18next'in sonek tabanlı çoğullaştırmasını (`key_one`, `key_other`) yerel `Intl.PluralRules` ve bağlam sonekleri (`key_male`) kullanarak işler.
 - **`<Trans>` Bileşeni:** `components` prop'u, object ve array biçimlerini ve sayılı etiketleri `<1>...</1>` doğrudan React düğümlerinize eşlemesini desteklemek için yeniden uygulanmıştır.
 - **`i18n` Instance:** Anahtarları büyük JSON dosyalarını getirmek olmadan doğrudan Intlayer'dan çözer, önemli ölçüde daha düşük bundle boyutlarına neden olur.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)

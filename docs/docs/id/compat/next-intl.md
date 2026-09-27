@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrasi dari next-intl ke Intlayer"
-description: "Pelajari cara migrasi aplikasi Next.js Anda dari next-intl ke Intlayer menggunakan adapter kompatibilitas."
+title: "@intlayer/next-intl: adaptor kompatibilitas untuk next-intl"
+description: "Pertahankan kode next-intl Anda dan sajikan lewat Intlayer: pasang @intlayer/next-intl, buat alias untuk import, dan lihat apa yang diubah adaptor di balik layar."
 keywords:
   - next-intl
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Migrasi dari next-intl ke Intlayer
+# @intlayer/next-intl: adaptor kompatibilitas untuk next-intl
 
 Untuk tutorial langkah demi langkah yang lengkap dan terperinci, silakan lihat [Panduan Migrasi next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_next-intl_to_intlayer.md) lengkap kami.
 
@@ -58,3 +58,7 @@ Di balik layar:
 - **`useTranslations()` & `getTranslations()`:** Panggilan scope bare mengekstrak segmen kunci pertama sebagai pengenal kamus yang benar. Namespace bersarang secara elegan dibagi menjadi jalur kamus dan prefiks.
 - **Pemformatan kaya:** Baik `t.rich()` maupun `t.markup()` diimplementasikan secara native sepenuhnya, mengonversi node mirip HTML menjadi chunk React yang dirender.
 - **`useFormatter`:** `relativeTime`, `list`, `dateTimeRange`, dan format bernama dari konfigurasi dijembatani ke formatter `Intl` native inti.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)

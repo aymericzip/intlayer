@@ -2,8 +2,8 @@
 createdAt: 2025-03-01
 updatedAt: 2025-09-20
 priority: 8
-title: Testando seu conteúdo
-description: Descubra como testar seu conteúdo com Intlayer.
+title: "Testar suas traduções com o Intlayer"
+description: "Teste seu conteúdo do Intlayer: detecte traduções ausentes, valide os dicionários em CI e renderize componentes por locale nos testes."
 keywords:
   - Testes
   - Intlayer

@@ -2,7 +2,7 @@
 createdAt: 2024-08-14
 updatedAt: 2026-05-31
 priority: 8
-title: Ketertarikan pada Intlayer
+title: "Mengapa Intlayer? Keunggulan dibanding library i18n lain"
 description: Temukan manfaat dan keuntungan menggunakan Intlayer dalam proyek Anda. Pahami mengapa Intlayer menonjol di antara kerangka kerja lainnya.
 keywords:
   - Manfaat
@@ -222,6 +222,10 @@ Pendekatan ini memungkinkan Anda untuk:
 
 6. **Optimalkan kinerja loading**
    - Jika komponen di-lazy-load, konten terkaitnya akan dimuat pada saat yang sama
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Fitur Tambahan Intlayer
 

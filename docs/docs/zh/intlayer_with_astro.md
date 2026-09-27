@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 10
 title: "Astro i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Astro 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在 Astro 中配置 Intlayer：本地化路由、翻译后的 .astro 页面和岛屿组件、hreflang 标签以及多语言站点地图。"
 keywords:
   - 国际化
   - 文档
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译您的 Astro 网站 | 国际化 (i18n)
+# 使用 Intlayer 翻译您的 Astro 网站
 
 <Tabs defaultTab="code">
   <Tab label="代码" value="code">
@@ -496,12 +496,12 @@ export const GET: APIRoute = ({ site }) => {
 
 继续使用您选择的框架构建您的应用程序。
 
-- Intlayer + React: [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_react.md)
-- Intlayer + Vue: [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_vue.md)
-- Intlayer + Svelte: [Intlayer with Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_svelte.md)
-- Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_solid.md)
-- Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_preact.md)
-- Intlayer + Lit: [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_lit.md)
+- [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_react.md)
+- [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_vue.md)
+- [Intlayer with Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_svelte.md)
+- [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_solid.md)
+- [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_preact.md)
+- [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="提取组件中的内容" isOptional={true}>

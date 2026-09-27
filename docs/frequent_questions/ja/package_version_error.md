@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: サブパッケージ @intlayer/* に関連するエラーが発生する
-description: サブパッケージ @intlayer/* に関連するエラーの修正方法。
+description: "@intlayer/* サブパッケージのバージョン不一致によるエラーを修正：すべての Intlayer パッケージを同じバージョンに揃え、キャッシュをクリアします。"
 keywords:
   - @intlayer/*
   - サブパッケージ

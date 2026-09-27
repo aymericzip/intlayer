@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname Composable Documentation | vue-intlayer
-description: See how to use the usePathname composable for vue-intlayer package
+description: "Use usePathname in Vue to read the current pathname without its locale segment, as a computed ref for locale-aware navigation."
 keywords:
   - usePathname
   - pathname
@@ -106,5 +106,5 @@ const pathname = usePathname();
 
 ## Related
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vue-intlayer/exports.md) — current locale + locale switcher
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md) — the underlying utility used by this composable
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vue-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md)

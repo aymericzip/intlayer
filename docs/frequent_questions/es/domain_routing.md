@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: ¿Cómo configurar el enrutamiento basado en dominios?
-description: Aprende cómo configurar el enrutamiento basado en dominios.
+description: "Sirve cada locale desde su propio dominio con el enrutamiento por dominio de Intlayer, configurado en intlayer.config.ts con las redirecciones incluidas."
 keywords:
   - dominio
   - enrutamiento

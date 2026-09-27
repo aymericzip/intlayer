@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: ドキュメントの翻訳
+title: "intlayer doc translate：Markdown ドキュメントを翻訳"
 description: AI翻訳サービスを使用してドキュメントファイルを自動的に翻訳する方法を学びます。
 keywords:
   - 翻訳

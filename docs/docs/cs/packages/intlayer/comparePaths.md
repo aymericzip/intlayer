@@ -145,9 +145,9 @@ normalizePath("https://example.com/ru/path"); // "/path"
 
 ## Související funkce
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/intlayer/getPathWithoutLocale.md): Odstraní segment jazyka z URL nebo cesty.
-- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/intlayer/getPrefix.md): Získá URL prefix pro daný jazyk (locale).
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/intlayer/getLocalizedUrl.md): Vygeneruje lokalizovanou URL pro konkrétní jazyk.
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/intlayer/getPathWithoutLocale.md)
+- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/intlayer/getPrefix.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/packages/intlayer/getLocalizedUrl.md)
 
 ## TypeScript
 

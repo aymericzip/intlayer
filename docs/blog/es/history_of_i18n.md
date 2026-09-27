@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-09
+updatedAt: 2026-09-27
 priority: 8
 title: "La historia de la i18n en JavaScript: de 2011 a 2026"
-description: "Explora la evolución de la internacionalización frontend desde 2011 hasta 2026. Descubre fechas de lanzamiento, desafíos arquitectónicos e innovaciones clave en React, Vue, Next.js, Angular, Svelte y Solid."
+description: "Cómo evolucionó la i18n frontend de 2011 a 2026: fechas de lanzamiento, problemas de arquitectura e innovaciones clave en React, Vue, Next.js, Angular, Svelte y Solid."
 keywords:
   - historia i18n
   - internacionalización JavaScript
@@ -49,8 +49,6 @@ Esa cuestión ha guiado la evolución de la i18n en JavaScript durante más de u
 Las soluciones han cambiado considerablemente. Pasamos de objetos globales y llamadas `t('clave')`, a librerías específicas por framework, extracción en tiempo de compilación, tipos generados con TypeScript, Server Components, tree-shaking y, finalmente, enfoques basados en compiladores donde las traducciones se convierten en JavaScript optimizado durante el build.
 
 Este artículo repasa esa evolución desde aproximadamente 2011 hasta 2026: qué intentó resolver cada generación de herramientas, qué funcionó, qué no y cómo la arquitectura del frontend influyó en nuestra manera de gestionar la i18n hoy en día.
-
-![Ecosistema de librerías de internacionalización en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Tabla de contenidos
 
@@ -143,6 +141,8 @@ Los diccionarios se guardaban en archivos JSON centralizados muy alejados de los
 ## La era de los frameworks: evolución por ecosistema
 
 Entre 2016 y 2026, la arquitectura del frontend experimentó un salto cualitativo. TypeScript se consolidó como estándar, los componentes maduraron, empaquetadores como Webpack, Vite y Turbopack generalizaron el code splitting, React Server Components devolvió parte del renderizado al servidor y los compiladores comenzaron a procesar el código de aplicación directamente.
+
+![Ecosistema de librerías de internacionalización en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 Las siguientes pestañas muestran cómo abordó cada ecosistema estos desafíos, detallando fechas de lanzamiento, motivaciones centrales e innovaciones en tablas comparativas. En estos entornos, `react-intlayer` y sus equivalentes (`next-intlayer`, `vue-intlayer`, `angular-intlayer`, `svelte-intlayer` y `solid-intlayer`) ofrecen implementaciones de alto rendimiento diseñadas para cada runtime.
 

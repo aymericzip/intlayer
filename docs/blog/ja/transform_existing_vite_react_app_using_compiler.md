@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 8
-title: "既存のVite & Reactアプリケーションを後から多言語化（i18n）する方法（2026年版ガイド）"
-description: "2026年に既存のVite & Reactアプリを後から多言語化（i18n）するためのガイド。大規模なリファクタリングなしに、Intlayerによる自動抽出、AI翻訳、バンドル最適化を実現します。"
+title: "既存の Vite + React アプリを多言語化する"
+description: "既存の Vite と React アプリを書き直さずに i18n 対応：ハードコードされた文字列を自動抽出し、AI で翻訳し、バンドルを小さく保つ。"
 keywords:
   - Vite i18n
   - React i18n

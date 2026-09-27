@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: URL에서 잘못된 로케일이 검색됨
-description: URL에서 잘못된 로케일이 검색되는 문제를 해결하는 방법을 알아보세요.
+description: "Next.js에서 URL에서 'en' 대신 'about' 같은 잘못된 로케일이 읽히는 문제를 Intlayer가 기대하는 [locale] 폴더 구조로 해결합니다."
 keywords:
   - 로케일
   - url

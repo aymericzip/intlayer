@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n TanStack Start avec use-intl : Guide de configuration complet 2026"
 description: "Traduisez votre application TanStack Start avec use-intl : routage par locale, messages typés, SSR, hreflang, sitemap et robots.txt, ainsi que de véritables données de benchmark de taille de bundle."
@@ -41,9 +41,17 @@ TanStack Start n'intègre pas de couche i18n native. Le routage, la détection d
 - **Rendu côté serveur et hydratation** sans incohérence de texte.
 - **SEO multilingue complet** : `<title>` et description traduits, URL canonique, balises alternatives `hreflang` avec `x-default`, locales Open Graph, JSON-LD, sitemap avec alternatives `xhtml:link`, `robots.txt` et pré-rendu de chaque locale.
 
-> Vous cherchez une autre stack ? Consultez le [guide TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_paraglide.md), le [guide TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_lingui.md) ou le [guide TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_tanstack.md).
+> Vous cherchez une autre stack ?
+
+- [guide TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_paraglide.md)
+- [guide TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_lingui.md)
+- [guide TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_tanstack.md)
 
 > Vous utilisez plutôt Next.js ? Consultez le [guide next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_next-intl.md).
+
+> Pour comprendre d'où viennent ces bibliothèques, lisez l'histoire de l'i18n en JavaScript.
+
+- [L'histoire de l'i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/history_of_i18n.md)
 
 ## Ce que dit le benchmark à propos de use-intl sur TanStack Start
 
@@ -91,7 +99,11 @@ Comment `use-intl` se positionne face aux autres bibliothèques couramment utili
 
 > Les chiffres de taille de runtime et de fuite proviennent du [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/tanstack.md). La fuite est mesurée sur la meilleure configuration de chaque bibliothèque.
 
-> Autres guides TanStack Start : [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_lingui.md), [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_paraglide.md) et [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_tanstack.md).
+> Autres guides TanStack Start :
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_lingui.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_tanstack.md)
 
 ## Bonnes pratiques à respecter
 
@@ -105,7 +117,8 @@ Comment `use-intl` se positionne face aux autres bibliothèques couramment utili
 - **Utilisez de vrais liens pour le sélecteur de langue**, pas un simple `<select>`, afin que les robots d'indexation puissent découvrir toutes les langues.
 - **Typez vos messages** pour qu'une clé manquante échoue dès la compilation.
 
-> Consultez notre guide sur [l'internationalisation et le SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/internationalization_and_SEO.md) et le [guide hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/hreflang_guide_multilingual_seo.md).
+- [l'internationalisation et le SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/internationalization_and_SEO.md)
+- [guide hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/hreflang_guide_multilingual_seo.md)
 
 ## Guide étape par étape pour configurer use-intl dans une application TanStack Start
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-27
 priority: 8
 title: "Formatting dates and numbers by locale with Intl"
-description: You probably do not need a formatting library. How Intl handles dates, numbers, currency and lists per locale, the caching cost, and the timezone bug that only breaks in production.
+description: "Do you need a formatting library? How Intl formats dates, numbers, currency and lists per locale, its caching cost, and a timezone bug that only hits production."
 keywords:
   - format date by locale
   - Intl.DateTimeFormat

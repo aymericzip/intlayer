@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Solid Start i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi SolidStart multibahasa (i18n). Pengarahan lokal yang dirender server, hreflang, peta situs, dan terjemahan dibantu AI."
+description: "Siapkan Intlayer di SolidStart: routing locale yang dirender di server, konten terjemahan reaktif, hreflang, dan sitemap multibahasa."
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs web SolidStart Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web SolidStart Anda menggunakan Intlayer
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">

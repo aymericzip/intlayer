@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "Wie man 2026 die richtige Svelte i18n-Bibliothek auswählt"
-description: Ein Entscheidungsleitfaden für die Svelte- und SvelteKit-Internationalisierung. Welche Fragen vor dem Vergleich von svelte-i18n, Paraglide, typesafe-i18n, wuchale und Intlayer zu beantworten sind und was jede Wahl bei Bundle-Größe, Typisierung und SSR-Sicherheit kostet.
+description: "Ein Entscheidungsleitfaden für Svelte- und SvelteKit-i18n: die Fragen vor dem Vergleich von svelte-i18n, Paraglide, typesafe-i18n, wuchale und Intlayer."
 keywords:
   - svelte i18n
   - sveltekit i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Svelte liefert von Haus aus nichts für i18n mit. Kein `$t`, keine Locale-Primitive, kein Nachrichtenformat. Jede Option ist eine Drittanbieter-Lösung, und das Svelte-Ökosystem ist der Ort, an dem Compile-Time-i18n am weitesten vorangetrieben wurde. Daher unterscheiden sich die Kandidaten stärker voneinander als in React oder Vue.
 
 Dieser Leitfaden listet die Fragen auf, die Sie zuerst beantworten sollten, und ordnet die Antworten anschließend `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale` und Intlayer zu, sowohl für Vite + Svelte als auch für SvelteKit.
-
-![Svelte i18n-Bibliotheken-Ökosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Inhaltsverzeichnis
 
@@ -88,6 +86,8 @@ Wenn Ihre Antwort auf Frage 3 "viele Seiten" war, gewichten Sie diesen Abschnitt
 
 Die Bibliotheksgrößen stammen aus dem [Svelte-Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/svelte.md): Store plus Accessor in einer leeren Komponente nach Bundling, Tree-Shaking und Minifizierung bei einer App mit 10 Seiten und 10 Sprachen. Der Inhalt wird separat gemessen.
 
+![Svelte i18n-Bibliotheken-Ökosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Bibliothek      | Nachrichten liegen in                | Locale-State                               | Typsicherheit             | Nachrichtenformat             | Per-Route-Splitting  | Bibliotheksgröße                                |
 | :-------------- | :----------------------------------- | :----------------------------------------- | :------------------------ | :---------------------------- | :------------------- | :---------------------------------------------- |
 | `svelte-i18n`   | JSON-Kataloge pro Sprache            | Svelte-Store auf Modulebene                | 2/5 — Manuelle Union      | ICU                           | Nein                 | ~16,6 kB                                        |
@@ -111,7 +111,7 @@ Paraglides Bibliotheksgröße von nahezu null ist konstruktionsbedingt: Die Runt
 </Accordion>
 <Accordion header="SvelteKit mit Locale-Routing und SSR">
 
-Das Problem des geteilten Zustands entscheidet hier. `svelte-i18n` funktioniert unter SvelteKit, aber das Per-Request-Setup (`hooks.server.ts`, `locals`, `load`, dann `setContext`) müssen Sie selbst schreiben, was fehleranfällig ist. Paraglide bietet eine SvelteKit-Integration, die das Routing übernimmt und die Locale pro Aufruf liest, wodurch das Singleton-Problem umgangen wird. Intlayer setzt die Locale aus `load`-Daten in den Context. Der [SvelteKit i18n-Beitrag](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/list_i18n_technologies/frameworks/sveltekit.md) erklärt die Entscheidung zwischen `[[lang]]` und `reroute`, die Sie vor der Wahl der Bibliothek treffen sollten.
+Das Problem des geteilten Zustands entscheidet hier. `svelte-i18n` funktioniert unter SvelteKit, aber das Per-Request-Setup (`hooks.server.ts`, `locals`, `load`, dann `setContext`) müssen Sie selbst schreiben, was fehleranfällig ist. Paraglide bietet eine SvelteKit-Integration, die das Routing übernimmt und die Locale pro Aufruf liest, wodurch das Singleton-Problem umgangen wird. Intlayer setzt die Locale aus `load`-Daten in den Context. Der [SvelteKit i18n-Beitrag](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_svelte_kit.md) erklärt die Entscheidung zwischen `[[lang]]` und `reroute`, die Sie vor der Wahl der Bibliothek treffen sollten.
 
 </Accordion>
 <Accordion header="Übersetzungen stammen von einem TMS oder einer Agentur, die ICU liefert">
@@ -445,11 +445,16 @@ Indirekt. Was Crawler sehen, hängt von Routing, `hreflang`, `<html lang>` und d
 ## Weiterführende Links
 
 - [Svelte i18n-Benchmark: Bundle-Größe, Leakage und Sprachwechsel-Timings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/svelte.md)
-- [Svelte i18n: Stores, Runes und die Modul-Falle](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/list_i18n_technologies/frameworks/svelte.md) und [SvelteKit i18n: Routing, SSR und geteilter Zustand](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/list_i18n_technologies/frameworks/sveltekit.md)
 - [Drop-in `@intlayer/svelte-i18n` Compat-Adapter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compat/svelte-i18n.md)
 - [Die Geschichte von JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/history_of_i18n.md)
 - [Compiler vs. deklarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/compiler_vs_declarative_i18n.md)
 - [Per-Komponente vs. Zentralisiertes i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/per-component_vs_centralized_i18n.md)
 - [Wie Bundle-Optimierung zur Build-Zeit funktioniert](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/bundle_optimization.md)
-- [i18n in einer Vite + Svelte-App einrichten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+svelte.md) und in einer [SvelteKit-App](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_svelte_kit.md)
-- Der gleiche Leitfaden für [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_react_i18n_library.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_vue_i18n_library.md) und [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_solid_i18n_library.md)
+- [i18n in einer Vite + Svelte-App einrichten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_vite+svelte.md)
+- [SvelteKit-App](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_svelte_kit.md)
+
+Der gleiche Leitfaden für
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_vue_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_solid_i18n_library.md)

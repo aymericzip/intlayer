@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-29
+updatedAt: 2026-09-27
 priority: 9
 title: "AdonisJS i18n - Complete guide to translate your app"
-description: "No more i18next. The 2026 guide to building a multilingual (i18n) AdonisJS app. Translate with AI agents and optimize bundle size, SEO and performances."
+description: "Set up Intlayer in AdonisJS: detect the locale per request with middleware, translate API responses and views, and keep content typed."
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Translate your AdonisJS backend website using Intlayer | Internationalization (i18n)
+# Translate your AdonisJS backend website using Intlayer
 
 `adonis-intlayer` is a powerful internationalization (i18n) package for AdonisJS applications, designed to make your backend services globally accessible by providing localized responses based on the client's preferences.
 
@@ -244,9 +244,9 @@ export default class ExampleController {
 
 `adonis-intlayer` is fully compatible with:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md) for React applications
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md) for Next.js applications
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md) for Vite applications
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md)
 
 It also works seamlessly with any internationalization solution across various environments, including browsers and API requests. You can customize the middleware to detect locale through headers or cookies:
 

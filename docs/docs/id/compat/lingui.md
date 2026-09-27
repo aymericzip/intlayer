@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Migrasi dari Lingui ke Intlayer"
 description: "Pelajari cara migrasi aplikasi Anda dari Lingui ke Intlayer menggunakan adapter kompatibilitas."
@@ -43,3 +43,7 @@ Di balik layar:
 - **Macro:** Mereka dikompilasi persis seperti sebelumnya, memastikan tidak ada gangguan dalam sintaks sumber Anda.
 - **Terjemahan runtime:** `i18n._()` yang dialiaskan menggunakan kamus Intlayer. ID yang diberi nama secara eksplisit maupun ID yang di-hash sepenuhnya dipetakan menggunakan plugin sinkronisasi `.po` Intlayer untuk mengagregasi dan memangkas kunci secara aman.
 - **Kemampuan ICU:** Dukungan untuk pluralisasi, seleksi, dan varian ICU tetap kuat berkat parser ICU terpadu Intlayer, memastikan output rendering yang identik.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)

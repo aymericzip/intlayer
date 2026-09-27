@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-05-04
-updatedAt: 2026-05-04
+updatedAt: 2026-09-27
 priority: 8
-title: Pluriel
-description: Découvrez comment déclarer et utiliser du contenu au pluriel adapté à la locale (basé sur CLDR) dans votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.
+title: "Contenu pluriel : règles de pluriel CLDR"
+description: "Déclarez des pluriels adaptés à chaque locale dans Intlayer avec les catégories CLDR (zero, one, two, few, many, other), résolues à partir d'un nombre."
 keywords:
   - Pluriel
   - Pluralisation

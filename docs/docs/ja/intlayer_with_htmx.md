@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-09-27
 priority: 9
 title: "htmx i18n - アプリを翻訳するための完全ガイド"
-description: "i18nextはもう不要。2026年の多言語（i18n）htmxアプリ構築ガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+description: "htmx で Intlayer を使う：翻訳済みの HTML フラグメントをサーバーで描画し、リクエストごとにロケールを検出、SPA なしで言語を切り替え。"
 keywords:
   - Internationalization
   - Documentation
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayerを使用してhtmxアプリケーションを翻訳する | 国際化（i18n）
+# Intlayerを使用してhtmxアプリケーションを翻訳する
 
 htmxはそれ自体のコンテンツをレンダリングしません。訪問者が読むすべてのラベルはサーバーが生成したHTMLであり、すべてのスワップは別のHTTPリクエストです。したがって、htmxアプリの国際化はサーバーの関心事です。ロケールは各リクエストで解決される必要があり、各フラグメントはそのロケールでレンダリングされる必要があります。
 

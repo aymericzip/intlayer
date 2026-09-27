@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
 title: Apakah Intlayer lebih ringan dari Paraglide?
-description: Paraglide terlihat hampir tanpa beban dalam tolok ukur i18n karena kodenya dibuat langsung di repositori Anda. Berikut analisis ke mana beban tersebut sebenarnya berada, mengapa pembacaan lokal per-node membebani performa, dan bagaimana pemuatan dinamis Intlayer mengirimkan satu bahasa saja alih-alih semuanya.
+description: "Paraglide tampak hampir gratis di benchmark i18n karena kodenya dihasilkan di repositori Anda. Ke mana bobot itu pergi dan bagaimana perbandingannya dengan Intlayer."
 keywords:
   - Paraglide
   - Intlayer
@@ -287,3 +287,7 @@ bunx intlayer init --interactive
 - [Optimasi Bundle dan `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
 - [Cara Memilih Pustaka i18n untuk React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_react_i18n_library.md)
 - [Alasan Memilih Internasionalisasi Berbasis Kompilator](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)

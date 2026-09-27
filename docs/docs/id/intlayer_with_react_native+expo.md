@@ -2,8 +2,8 @@
 createdAt: 2025-06-18
 updatedAt: 2026-06-25
 priority: 9
-title: "Expo + React Native i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Expo + React Native multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+title: "i18n Expo + React Native: panduan terjemahan lengkap"
+description: "Siapkan Intlayer di Expo dan React Native: konten bertipe per komponen, deteksi bahasa perangkat, pengalih bahasa, dan bundling Metro."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -36,7 +36,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan aplikasi Expo dan React Native Anda | Internasionalisasi (i18n)
+# Terjemahkan aplikasi Expo dan React Native Anda
 
 <Tabs defaultTab="code">
   <Tab label="Kode" value="code">
@@ -497,9 +497,9 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokument
 
 ## Melangkah Lebih Jauh
 
-- **Visual Editor**: Gunakan [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) untuk mengelola terjemahan secara visual.
-- **Integrasi CMS**: Anda juga dapat mengeksternalisasi dan mengambil konten kamus Anda dari sebuah [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-- **Perintah CLI**: Jelajahi [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk tugas seperti **mengekstrak terjemahan** atau **memeriksa kunci yang hilang**.
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
 
 Nikmati membangun aplikasi **React Native** Anda dengan i18n yang sepenuhnya didukung melalui **Intlayer**!
 

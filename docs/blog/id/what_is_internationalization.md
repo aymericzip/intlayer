@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
-title: "Apa itu Internasionalisasi (i18n)? Arti, Definisi, dan Tantangan"
+title: "Apa itu internasionalisasi (i18n)? Arti dan tantangannya"
 description: "Apa arti i18n? Pelajari apa itu internasionalisasi, mengapa disingkat menjadi i18n, apa bedanya dengan lokalisasi (l10n), dan tantangan umum dalam menerapkannya."
 keywords:
   - arti i18n
@@ -182,11 +182,11 @@ Penting untuk memilih alat yang tepat sesuai kebutuhan Anda dan merencanakan str
 
 Jika Anda mencari library i18n yang tepat untuk stack Anda, lihat panduan berikut:
 
-- React: [Cara memilih library i18n untuk React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_react_i18n_library.md)
-- Vue: [Cara memilih library i18n untuk Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_vue_i18n_library.md)
-- Svelte: [Cara memilih library i18n untuk Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_svelte_i18n_library.md)
-- Solid: [Cara memilih library i18n untuk Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_solid_i18n_library.md)
-- Next.js: [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Cara memilih library i18n untuk React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_react_i18n_library.md)
+- [Cara memilih library i18n untuk Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_vue_i18n_library.md)
+- [Cara memilih library i18n untuk Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_svelte_i18n_library.md)
+- [Cara memilih library i18n untuk Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_solid_i18n_library.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## Kesimpulan
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "Інтернаціоналізація TanStack Start за допомогою use-intl: повний посібник з налаштування у 2026 році"
 description: "Перекладіть ваш застосунок TanStack Start за допомогою use-intl: локалізована маршрутизація, типізовані повідомлення, SSR, hreflang, sitemap та robots.txt, а також реальні дані бенчмарку розміру бандла."
@@ -41,9 +41,17 @@ TanStack Start не містить вбудованого шару i18n. Мар�
 - **Серверний рендеринг та гідратація** без розбіжностей у тексті.
 - **Повне багатомовне SEO**: перекладені `<title>` та description, канонічна URL-адреса, альтернативи `hreflang` з `x-default`, локалі Open Graph, JSON-LD, sitemap з альтернативами `xhtml:link`, `robots.txt` та пререндеринг кожної локалі.
 
-> Шукаєте інший стек? Перегляньте [посібник з TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_paraglide.md), [посібник з TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_lingui.md) або [посібник з TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md).
+> Шукаєте інший стек?
+
+- [посібник з TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_paraglide.md)
+- [посібник з TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_lingui.md)
+- [посібник з TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md)
 
 > Використовуєте Next.js? Перегляньте [посібник з next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_next-intl.md).
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
 
 ## Що показує бенчмарк про use-intl на TanStack Start
 
@@ -91,7 +99,11 @@ TanStack Start не містить вбудованого шару i18n. Мар�
 
 > Показники розміру runtime та витоків взяті з [бенчмарку TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md). Витік вимірювався для найкращої конфігурації кожної бібліотеки.
 
-> Інші посібники з TanStack Start: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_lingui.md), [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_paraglide.md) та [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md).
+> Інші посібники з TanStack Start:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_lingui.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md)
 
 ## Практики, яких варто дотримуватися
 
@@ -105,7 +117,8 @@ TanStack Start не містить вбудованого шару i18n. Мар�
 - **Використовуйте справжні посилання для перемикача мов**, а не `<select>`, щоб пошукові роботи могли виявити кожну мовну версію.
 - **Типізуйте повідомлення**, щоб відсутній ключ призводив до помилки під час компіляції.
 
-> Перегляньте наш посібник з [інтернаціоналізації та SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/internationalization_and_SEO.md) та [посібник з hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/hreflang_guide_multilingual_seo.md).
+- [інтернаціоналізації та SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/internationalization_and_SEO.md)
+- [посібник з hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/hreflang_guide_multilingual_seo.md)
 
 ## Покроковий посібник з налаштування use-intl у застосунку TanStack Start
 

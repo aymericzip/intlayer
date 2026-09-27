@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: Archivo de Contenido
-description: Aprende a personalizar las extensiones para tus archivos de declaración de contenido. Sigue esta documentación para implementar condiciones de manera eficiente en tu proyecto.
+title: "Archivos de declaración de contenido (.content.ts)"
+description: "Declara tu contenido multilingüe en archivos .content junto a tus componentes: formatos soportados, extensiones y cómo los descubre Intlayer."
 keywords:
   - Archivo de Contenido
   - Documentación

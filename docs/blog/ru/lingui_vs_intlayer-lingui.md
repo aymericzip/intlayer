@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui против @intlayer/lingui: те же макросы, другой рантайм"
-description: "Что меняется, когда приложение React сохраняет макросы Lingui, но обслуживает их через адаптер совместимости @intlayer/lingui. Размер компонентов, гидратация, утечки и объем JavaScript на страницу, измеренные на одном коде TanStack Start, включая аспекты, где адаптер уступает."
+description: "Приложение React сохраняет макросы Lingui, которые обслуживает адаптер @intlayer/lingui. Измерены размер компонентов, гидратация, утечки и JavaScript на страницу."
 keywords:
   - Lingui
   - "@intlayer/lingui"
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui против @intlayer/lingui | Те же макросы, другой рантайм
+# Lingui против @intlayer/lingui: Те же макросы, другой рантайм
 
 `@intlayer/lingui` - это адаптер совместимости для `@lingui/core` и `@lingui/react`. Ваши вызовы `` t`...` ``, `<Trans>`, `useLingui()` и `i18n._()` остаются в первозданном виде; макросы компилируются как обычно; меняется лишь источник сообщений во время выполнения. Вместо одного общего скомпилированного каталога на каждую локаль каждый вызов связывается со словарем Intlayer, скомпилированным индивидуально для него.
 
@@ -289,12 +289,16 @@ export default defineConfig({
 
 ## Похожие сравнения
 
-- [Lingui против Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/lingui_vs_intlayer.md) (сравнение библиотек в рамках того же бенчмарка)
-- [next-intl против @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer-next-intl.md) (материал из серии об адаптерах)
-- [i18next против @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer-i18next.md) (материал из серии об адаптерах)
-- [vue-i18n против @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/vue-i18n_vs_intlayer-vue-i18n.md) (материал из серии об адаптерах)
+- [Lingui против Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/lingui_vs_intlayer.md)
+- [next-intl против @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-intl_vs_intlayer-next-intl.md)
+- [i18next против @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18next_vs_intlayer-i18next.md)
+- [vue-i18n против @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/vue-i18n_vs_intlayer-vue-i18n.md)
 - [Справочник по адаптеру совместимости: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compat/lingui.md)
 - [Компилятор против декларативной i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/compiler_vs_declarative_i18n.md)
+
+> Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
+
+- [История i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)
 
 ## Заключение
 

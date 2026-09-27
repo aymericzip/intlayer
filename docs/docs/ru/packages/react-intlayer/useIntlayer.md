@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: Документация по хуку useIntlayer | react-intlayer
-description: Узнайте, как использовать хук useIntlayer в пакете react-intlayer
+description: "Используйте useIntlayer в React, чтобы читать локализованный контент словаря по ключу с типами из файлов объявления контента."
 keywords:
   - useIntlayer
   - словарь

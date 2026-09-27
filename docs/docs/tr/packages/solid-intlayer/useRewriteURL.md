@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: useRewriteURL Hook Dokümantasyonu
-description: Intlayer'da yerelleştirilmiş URL yeniden yazmalarını yönetmek için Solid'e özgü hook.
+title: "useRewriteURL Hook Dokümantasyonu | solid-intlayer"
+description: "SolidJS'te useRewriteURL ile tarayıcı URL'sini yapılandırmanızdaki URL yeniden yazma kurallarına göre yerelleştirilmiş sürümüne çevirin."
 keywords:
   - useRewriteURL
   - solid-intlayer

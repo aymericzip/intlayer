@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 배열을 콘텐츠 선언으로 사용할 수 있나요?
-description: 배열을 콘텐츠 선언으로 사용하는 방법을 알아보세요.
+description: "네, Intlayer에서는 배열도 콘텐츠 선언이 될 수 있습니다. 선언 방법, 각 항목 번역, 컴포넌트에서 읽는 방법을 알아보세요."
 keywords:
   - 배열
   - 콘텐츠

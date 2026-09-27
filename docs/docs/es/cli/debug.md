@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Depurar comando Intlayer
-description: Aprende cómo depurar y solucionar problemas del CLI de Intlayer.
+title: "Depurar la CLI de Intlayer"
+description: "Soluciona problemas de la CLI de Intlayer: comprueba la versión instalada, activa los logs detallados y corrige errores comunes de comandos y configuración."
 keywords:
   - Depurar
   - Solucionar problemas

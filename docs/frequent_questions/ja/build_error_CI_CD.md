@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: CI/CDでのビルドエラー
-description: CI/CD環境で発生するビルドエラーの修正方法を学びます。
+title: "CI/CD での Intlayer ビルドエラーを直す"
+description: "CI/CD でだけ発生する Server Components のレンダリングエラーを、ビルド時に Intlayer の辞書が生成されるようにして解消します。"
 keywords:
   - ビルド
   - エラー

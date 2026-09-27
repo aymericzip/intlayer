@@ -294,8 +294,8 @@ const sitemap = generateSitemap(
 
 ### さらに詳しく
 
-- [SEO と国際化](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/internationalization_and_SEO.md) — より広い多言語 SEO の全体像
-- [SEO と Next.js での i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/nextjs-multilingual-seo-comparison.md) — `next-intl` vs `next-i18next` vs Intlayer
+- [SEO と国際化](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/internationalization_and_SEO.md)
+- [SEO と Next.js での i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/nextjs-multilingual-seo-comparison.md)
 - [Next.js 16 i18n ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
 - [TanStack Start i18n ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)
 - [ロケールごとのカスタムドメイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/custom_domains.md)

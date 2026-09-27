@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: getLocale 関数ドキュメント | intlayer
-description: intlayer パッケージの getLocale 関数の使い方
+description: "getLocale で URL やパスなどの文字列からロケールを検出し、見つからなければデフォルトロケールにフォールバックします。"
 keywords:
   - getLocale
   - 翻訳

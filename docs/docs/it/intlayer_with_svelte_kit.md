@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "SvelteKit i18n - Guida completa per tradurre la tua applicazione"
-description: "Niente più i18next. La guida 2026 per creare un'applicazione SvelteKit multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
+description: "Configura Intlayer in SvelteKit: routing per locale con gli hook, contenuti tradotti in funzioni load e componenti, hreflang e sitemap."
 keywords:
   - Internazionalizzazione
   - Documentazione
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Traduci il tuo sito SvelteKit usando Intlayer | Internazionalizzazione (i18n)
+# Traduci il tuo sito SvelteKit usando Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Codice" value="code">
@@ -768,8 +768,8 @@ Si consiglia di ignorare i file generati da Intlayer.
 
 ### Vai oltre
 
-- **Visual Editor**: integra il [Visual Editor di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) per modificare le traduzioni direttamente dall'interfaccia utente.
-- **CMS**: esternalizza la gestione dei tuoi contenuti utilizzando il [CMS di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
+- [Visual Editor di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md)
+- [CMS di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md)
 
 ## Domande frequenti
 

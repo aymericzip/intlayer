@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: Чи можна перекласти шлях URL?
-description: Дізнайтеся, як перекласти шлях URL.
+description: "Так: Intlayer вміє перекладати шляхи URL, наприклад /about на /uk/pro-nas, за допомогою перезапису URL, налаштованого для кожної локалі."
 keywords:
   - масив
   - контент

@@ -2,7 +2,7 @@
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
 priority: 8
-title: So automatisieren Sie Ihre next-intl JSON-Übersetzungen mit Intlayer
+title: "next-intl-JSON-Übersetzungen mit Intlayer automatisieren"
 description: Automatisieren Sie Ihre JSON-Übersetzungen mit Intlayer und next-intl für eine verbesserte Internationalisierung in Next.js-Anwendungen.
 keywords:
   - Intlayer
@@ -30,7 +30,7 @@ author: aymericzip
 
 <iframe title="So automatisieren Sie Ihre next-intl JSON-Übersetzungen mit Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-# Inhaltsverzeichnis
+## Inhaltsverzeichnis
 
 <TOC/>
 
@@ -51,6 +51,10 @@ Während Intlayer eine hervorragende eigenständige i18n-Lösung bietet (siehe u
 **Dafür kann Intlayer als Adapter für next-intl implementiert werden, um Ihre JSON-Übersetzungen in CLI- oder CI/CD-Pipelines zu automatisieren, Ihre Übersetzungen zu testen und mehr.**
 
 Dieser Leitfaden zeigt Ihnen, wie Sie das überlegene Content-Deklarationssystem von Intlayer nutzen können, während die Kompatibilität mit next-intl erhalten bleibt.
+
+> Um zu verstehen, woher diese Bibliotheken kommen, lesen Sie die Geschichte von i18n in JavaScript.
+
+- [Die Geschichte von i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/history_of_i18n.md)
 
 ## Inhaltsverzeichnis
 

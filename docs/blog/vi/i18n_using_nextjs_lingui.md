@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "Next.js 16 i18n với Lingui: Hướng dẫn thiết lập App Router"
 description: "Thiết lập Lingui trong Next.js 16 App Router: Server Components, SWC macros, định tuyến proxy, generateMetadata, hreflang, sitemap và robots.txt, kèm dữ liệu benchmark."
@@ -43,9 +43,24 @@ Hướng dẫn này sẽ thiết lập Lingui trong một dự án **Next.js 16 
 - **Render tĩnh (Static rendering)** cho mọi ngôn ngữ với `generateStaticParams`.
 - **SEO đa ngôn ngữ hoàn chỉnh**: `generateMetadata` đã dịch, URL chuẩn canonical, `hreflang` với `x-default`, Open Graph locales, JSON-LD, `sitemap.ts`, `robots.ts` và trang 404 được bản địa hóa.
 
-> Bạn đang tìm kiếm một thư viện khác? Hãy xem [hướng dẫn next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-intl.md), [hướng dẫn next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-i18next.md), hoặc [hướng dẫn Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
+> Bạn đang tìm kiếm một thư viện khác?
 
-> Đang sử dụng TanStack Start? Xem [hướng dẫn TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_lingui.md). Cần so sánh các thư viện? Đọc bài viết [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md) và [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
+- [hướng dẫn next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-intl.md)
+- [hướng dẫn next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-i18next.md)
+- [hướng dẫn Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
+
+> Đang sử dụng TanStack Start?
+
+- [hướng dẫn TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_tanstack-start_lingui.md)
+
+> Cần so sánh các thư viện?
+
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Dữ liệu benchmark nói gì về Lingui trên Next.js
 
@@ -94,7 +109,11 @@ Bảng so sánh Lingui với `next-intl` và Intlayer về các tính năng mà 
 
 > Kích thước runtime được lấy từ [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/nextjs.md). Để thảo luận chi tiết hơn, hãy đọc [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md).
 
-> Các hướng dẫn Next.js khác: [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-intl.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-i18next.md) và [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md).
+> Các hướng dẫn Next.js khác:
+
+- [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-intl.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18n_using_next-i18next.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
 
 ## Các thực hành bạn nên tuân theo
 
@@ -107,7 +126,9 @@ Bảng so sánh Lingui với `next-intl` và Intlayer về các tính năng mà 
 - **Sử dụng các liên kết thực cho bộ chuyển đổi ngôn ngữ**, để các bot tìm kiếm có thể khám phá mọi ngôn ngữ.
 - **Chạy `lingui extract` trong CI** để đảm bảo không có thông điệp mới nào được triển khai mà chưa được dịch.
 
-> Xem hướng dẫn của chúng tôi về [quốc tế hóa và SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/internationalization_and_SEO.md), [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md) và [so sánh SEO đa ngôn ngữ trên Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/nextjs-multilingual-seo-comparison.md).
+- [quốc tế hóa và SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/internationalization_and_SEO.md)
+- [hướng dẫn hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/hreflang_guide_multilingual_seo.md)
+- [so sánh SEO đa ngôn ngữ trên Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/nextjs-multilingual-seo-comparison.md)
 
 ## Hướng dẫn từng bước thiết lập Lingui trong ứng dụng Next.js
 

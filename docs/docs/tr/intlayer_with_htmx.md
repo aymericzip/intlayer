@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-09-27
 priority: 9
 title: "htmx i18n - Uygulamanızı çevirmek için kapsamlı rehber"
-description: "Artık i18next yok. 2026 çok dilli (i18n) htmx uygulaması oluşturmak için rehber. AI aracıları ile çeviri yapın ve bundle boyutunu, SEO'yu ve performansı optimize edin."
+description: "htmx ile Intlayer: çevrilmiş HTML parçalarını sunucuda render edin, her istekte locale algılayın ve SPA olmadan dil değiştirin."
 keywords:
   - Internationalization
   - Documentation
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer kullanarak htmx uygulamanızı çevirin | Uluslararasılaştırma (i18n)
+# Intlayer kullanarak htmx uygulamanızı çevirin
 
 htmx kendi içeriğini render etmez. Bir ziyaretçinin okuduğu her etiket sunucunuzun ürettiği HTML'dir ve her swap ayrı bir HTTP isteğidir. Bu nedenle, bir htmx uygulamasını uluslararasılaştırmak bir sunucu sorumluluğudur: locale her istekte çözülmeli ve her fragment o locale'de render edilmelidir.
 

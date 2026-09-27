@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Trích xuất chuỗi
+title: "intlayer extract: trích xuất chuỗi từ component"
 description: Tìm hiểu cách trích xuất chuỗi từ các component của bạn vào một tệp .content nằm gần component.
 keywords:
   - Trích xuất

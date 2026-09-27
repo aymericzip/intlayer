@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm usePathname | vue-intlayer
-description: Tìm hiểu cách sử dụng hàm usePathname từ gói vue-intlayer
+description: "Dùng usePathname trong Vue để đọc đường dẫn hiện tại không có phân đoạn locale, dưới dạng computed ref cho điều hướng theo locale."
 keywords:
   - usePathname
   - pathname
@@ -106,5 +106,5 @@ const pathname = usePathname();
 
 ## Liên quan
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vue-intlayer/useLocale.md) — locale hiện tại + bộ chuyển đổi locale
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md) — tiện ích cốt lõi mà hook này đang sử dụng
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vue-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md)

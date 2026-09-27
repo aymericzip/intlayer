@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-09-27
 priority: 9
 title: "htmx i18n - Hướng dẫn hoàn chỉnh dịch ứng dụng của bạn"
-description: "Không còn i18next. Hướng dẫn 2026 để xây dựng ứng dụng htmx đa ngôn ngữ (i18n). Dịch với AI agents và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Dùng Intlayer với htmx: render đoạn HTML đã dịch trên server, nhận diện locale theo từng request và đổi ngôn ngữ không cần SPA."
 keywords:
   - Internationalization
   - Documentation
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch ứng dụng htmx của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch ứng dụng htmx của bạn bằng Intlayer
 
 htmx không render bất kỳ nội dung nào của riêng nó. Mọi nhãn mà khách truy cập đọc được đều là HTML mà máy chủ của bạn tạo ra, và mọi swap là một yêu cầu HTTP riêng biệt. Quốc tế hóa một ứng dụng htmx do đó là một mối quan tâm của máy chủ: locale phải được giải quyết trên mỗi yêu cầu, và mỗi fragment phải được render ở locale đó.
 

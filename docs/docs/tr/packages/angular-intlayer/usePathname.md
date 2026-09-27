@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname Hook Belgeleri | angular-intlayer
-description: angular-intlayer paketinde usePathname hook'unun nasıl kullanılacağını öğrenin
+description: "Angular'da usePathname ile locale segmenti olmadan geçerli yolu signal olarak alın, locale'e duyarlı gezinme için kullanın."
 keywords:
   - usePathname
   - pathname
@@ -116,5 +116,5 @@ export class SidebarComponent {
 
 ## İlgili
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/angular-intlayer/exports.md) — mevcut yerel ayar + yerel ayar değiştirici
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPathWithoutLocale.md) — bu hook tarafından kullanılan temel yardımcı program
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/angular-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPathWithoutLocale.md)

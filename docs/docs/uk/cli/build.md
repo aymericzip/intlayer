@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Побудова словників
+title: "intlayer build: збирання словників"
 description: Дізнайтеся, як побудувати словники Intlayer зі файлів декларації контенту.
 keywords:
   - Build

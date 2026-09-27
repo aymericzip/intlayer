@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Solid Start i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) SolidStart 应用的指南。包含服务端渲染的语言路由、hreflang、sitemap 和 AI 辅助翻译。"
+description: "在 SolidStart 中配置 Intlayer：服务端渲染的语言路由、响应式翻译内容、hreflang 和多语言站点地图。"
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译你的 SolidStart 网站 | 国际化 (i18n)
+# 使用 Intlayer 翻译你的 SolidStart 网站
 
 <Tabs defaultTab="video">
   <Tab label="视频" value="video">

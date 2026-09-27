@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 如何构建字典？
-description: 学习如何构建字典。
+description: "Intlayer 何时自动构建字典，如何用 CLI 手动触发构建，以及生成的文件写入到哪里。"
 keywords:
   - 构建
   - 字典

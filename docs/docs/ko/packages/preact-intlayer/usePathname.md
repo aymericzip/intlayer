@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname 훅 문서 | preact-intlayer
-description: preact-intlayer 패키지에서 usePathname 훅을 사용하는 방법을 알아보세요
+description: "Preact의 usePathname으로 로케일 세그먼트를 뺀 현재 경로를 읽어 로케일 인식 내비게이션과 활성 링크에 사용합니다."
 keywords:
   - usePathname
   - pathname
@@ -114,5 +114,5 @@ export default Sidebar;
 
 ## 관련 항목
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/preact-intlayer/exports.md) — 현재 로케일 + 로케일 스위처
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPathWithoutLocale.md) — 이 훅에서 사용되는 기본 유틸리티
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/preact-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPathWithoutLocale.md)

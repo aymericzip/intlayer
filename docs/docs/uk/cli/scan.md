@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 5
-title: Scan Website
+title: "intlayer scan: аудит i18n та SEO сайту"
 description: Дізнайтеся, як використовувати команду scan в Intlayer CLI для вимірювання розміру сторінки та аудиту стану i18n/SEO будь-якого вебсайту.
 keywords:
   - Scan

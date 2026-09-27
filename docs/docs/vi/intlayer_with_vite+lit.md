@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Lit i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Vite + Lit đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong ứng dụng Vite và Lit: web component đã dịch với controller phản ứng, bộ chuyển ngôn ngữ và nội dung có kiểu."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -28,7 +28,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web Vite và Lit của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web Vite và Lit của bạn bằng Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Mã nguồn" value="code">

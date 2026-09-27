@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: useI18n 훅 문서 | react-intlayer
-description: react-intlayer 패키지에서 useI18n 훅을 사용하는 방법을 알아보세요
+description: "React의 useI18n으로 사전에 연결된 번역 함수를 가져옵니다. 키 기반 라이브러리에서 마이그레이션할 때 유용합니다."
 keywords:
   - useI18n
   - i18n

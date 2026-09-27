@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-27
 priority: 8
-title: Budowanie asystenta dokumentacji opartego na RAG (dzielenie na fragmenty, osadzenia i wyszukiwanie)
-description: Budowanie asystenta dokumentacji opartego na RAG (dzielenie na fragmenty, osadzenia i wyszukiwanie)
+title: "Budowa asystenta dokumentacji opartego na RAG"
+description: "Jak zbudowaliśmy asystenta AI dla dokumentacji: dzielenie markdown na fragmenty, embeddingi, wyszukiwanie wektorowe i prompty, wraz z napotkanymi kompromisami."
 keywords:
   - RAG
   - Dokumentacja

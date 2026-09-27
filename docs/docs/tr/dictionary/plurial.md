@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-05-04
-updatedAt: 2026-05-04
+updatedAt: 2026-09-27
 priority: 8
-title: Çoğul
-description: Çok dilli web sitenizde yerele duyarlı çoğul içeriği (CLDR tabanlı) nasıl tanımlayacağınızı ve kullanacağınızı keşfedin. Projenizi birkaç dakika içinde kurmak için bu çevrimiçi belgelerdeki adımları izleyin.
+title: "Çoğul içerik: CLDR çoğul kuralları"
+description: "Intlayer'da CLDR kategorileriyle (zero, one, two, few, many, other) locale'e uygun çoğul biçimleri tanımlayın, bir sayıdan çözümlensin."
 keywords:
   - Çoğul
   - Çoğullaştırma

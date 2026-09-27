@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: الترحيل من Lingui إلى Intlayer
 description: تعرّف على كيفية ترحيل تطبيقك من Lingui إلى Intlayer باستخدام محول التوافق.
@@ -43,3 +43,7 @@ npx intlayer init --interactive
 - **Macros:** يتم ترجمتها بدقة كما حدث من قبل، مما يضمن عدم وجود انقطاع في صيغة المصدر الخاصة بك.
 - **الترجمة في وقت التشغيل:** يستخدم `i18n._()` المُسمى بـ اسم مستعار قواميس Intlayer. يتم تعيين المعرّفات المسماة بشكل صريح والمعرّفات المُجزأة بالكامل باستخدام مكوّنات مزامنة `.po` في Intlayer لتجميع وحذف المفاتيح بشكل آمن.
 - **قدرات ICU:** يبقى الدعم لـ pluralization والتحديد ومتغيرات ICU قوياً بفضل محلل ICU الموحد في Intlayer، مما يضمن نتائج الإخراج المطابقة.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)

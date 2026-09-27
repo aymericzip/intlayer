@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-25
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm getConfiguration | intlayer
-description: Xem cách sử dụng hàm getConfiguration cho gói intlayer
+description: "Dùng getConfiguration để đọc cấu hình Intlayer đã giải quyết, gồm locale và định tuyến, ở client hoặc server."
 keywords:
   - getConfiguration
   - dịch thuật

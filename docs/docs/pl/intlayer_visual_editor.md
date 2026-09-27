@@ -2,7 +2,7 @@
 createdAt: 2025-08-23
 updatedAt: 2025-09-23
 priority: 8
-title: Intlayer Visual Editor | Edytuj swoją zawartość za pomocą edytora wizualnego
+title: "Edytor wizualny Intlayer: edycja treści w kontekście"
 description: Odkryj, jak korzystać z Intlayer Editor do zarządzania swoją wielojęzyczną stroną internetową. Postępuj zgodnie z krokami w tej dokumentacji online, aby skonfigurować swój projekt w kilka minut.
 keywords:
   - Edytor

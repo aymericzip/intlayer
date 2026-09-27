@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Theo dõi Từ điển
+title: "intlayer watch: build lại từ điển khi thay đổi"
 description: Tìm hiểu cách theo dõi các thay đổi trong các tệp khai báo nội dung của bạn và tự động xây dựng từ điển.
 keywords:
   - Theo dõi

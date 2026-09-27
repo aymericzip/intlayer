@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Editor-Befehle
-description: Erfahren Sie, wie Sie die Intlayer-Editor-Befehle verwenden.
+title: "intlayer editor: Befehle für den visuellen Editor"
+description: "Starten und konfigurieren Sie den visuellen Intlayer-Editor über die CLI, um Inhalte im Kontext direkt in Ihrer laufenden App zu bearbeiten."
 keywords:
   - Editor
   - Visueller Editor

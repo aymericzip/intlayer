@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Polecenia edytora
-description: Dowiedz się, jak używać poleceń edytora Intlayer.
+title: "intlayer editor: polecenia edytora wizualnego"
+description: "Uruchamiaj i konfiguruj edytor wizualny Intlayer z CLI, aby edytować treść w kontekście, bezpośrednio w działającej aplikacji."
 keywords:
   - Edytor
   - Edytor wizualny

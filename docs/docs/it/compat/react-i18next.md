@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrare da react-i18next a Intlayer"
-description: "Scopri come migrare la tua applicazione React da react-i18next a Intlayer utilizzando l'adapter di compatibilità."
+title: "@intlayer/react-i18next: adattatore di compatibilità per react-i18next"
+description: "Mantieni il tuo codice react-i18next e servilo con Intlayer: installa @intlayer/react-i18next, reindirizza gli import e scopri cosa cambia l'adattatore dietro le quinte."
 keywords:
   - react-i18next
   - i18next
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Migrare da react-i18next a Intlayer
+# @intlayer/react-i18next: adattatore di compatibilità per react-i18next
 
 Per un tutorial completo e dettagliato passo dopo passo, consulta la nostra [Guida alla migrazione da react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/migration_from_react-i18next_to_intlayer.md).
 
@@ -57,3 +57,7 @@ Sotto il cofano:
 - **Plurali & Contesto:** Gestisce la pluralizzazione basata su suffissi di i18next (`key_one`, `key_other`) utilizzando `Intl.PluralRules` nativo e suffissi di contesto (`key_male`).
 - **Componente `<Trans>`:** Re-implementato per supportare il prop `components`, forme oggetto e array, e tag numerati `<1>...</1>` che mappano direttamente ai tuoi nodi React.
 - **Istanza `i18n`:** Risolve le chiavi direttamente da Intlayer senza recuperare grandi file JSON, risultando in dimensioni di bundle significativamente inferiori.
+
+> Per capire da dove vengono queste librerie, leggi la storia dell'i18n in JavaScript.
+
+- [La storia dell'i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/history_of_i18n.md)

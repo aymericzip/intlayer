@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Sözlükleri Gönder
-description: Sözlüklerinizi Intlayer editörüne ve CMS'ye nasıl göndereceğinizi öğrenin.
+title: "intlayer push: sözlükleri CMS'e gönderin"
+description: "Yerel Intlayer sözlüklerinizi görsel editöre ve CMS'e yükleyin; çevirmenler ve içerik yöneticileri düzenleyebilsin."
 keywords:
   - Gönder
   - Sözlükler

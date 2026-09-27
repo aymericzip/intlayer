@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 9
 title: "Hono i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
-description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Hono. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
+description: "Konfiguracja Intlayer w Hono: wykrywanie locale dla każdego żądania przez middleware, tłumaczenie odpowiedzi API na Node, Bun lub runtime'ach edge."
 keywords:
   - Internacjonalizacja
   - Dokumentacja
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Przetłumacz swój backend Hono używając Intlayer | Internacjonalizacja (i18n)
+# Przetłumacz swój backend Hono używając Intlayer
 
 `hono-intlayer` to potężne oprogramowanie pośredniczące (middleware) do internacjonalizacji (i18n) dla aplikacji Hono, zaprojektowane w celu udostępnienia usług backendowych globalnie poprzez dostarczanie zlokalizowanych odpowiedzi opartych na preferencjach klienta.
 
@@ -226,9 +226,9 @@ export default app;
 
 `hono-intlayer` jest w pełni kompatybilny z:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/index.md) dla aplikacji React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/index.md) dla aplikacji Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/index.md) dla aplikacji Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/index.md)
 
 Działa również bezproblemowo z dowolnym rozwiązaniem do internacjonalizacji w różnych środowiskach, w tym w przeglądarkach i żądaniach API. Możesz dostosować middleware, aby wykrywał język poprzez nagłówki lub pliki cookie:
 

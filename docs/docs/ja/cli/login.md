@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - ログイン
+title: "intlayer login：CMS に認証する"
 description: Intlayer CLI の login コマンドを使用して Intlayer CMS に認証し、アクセス認証情報を取得する方法を学びます。
 keywords:
   - CLI
@@ -236,9 +236,9 @@ bun x intlayer login --verbose
 1. 認証情報を `.env` ファイルに追加する
 2. 認証情報を使って `intlayer.config.*` ファイルを設定する
 3. 辞書を管理するためにCLIコマンドを使用する:
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/push.md) - 辞書をCMSにプッシュする
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/pull.md) - 辞書をCMSからプルする
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md) - 不足している翻訳を埋める
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/pull.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)
 
 ## 関連項目
 

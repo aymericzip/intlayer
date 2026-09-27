@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 4
-title: Come limitare il consumo di token di Claude Code per generare traduzioni
-description: Perché tradurre con Claude Code spreca token, cosa fa invece Intlayer (filtra le chiavi già tradotte, suddivide il JSON in blocchi, traduce il markdown blocco per blocco) e come riutilizzare il tuo abbonamento Claude con claude setup-token.
+title: "Limitare i token di Claude Code per tradurre"
+description: "Perché tradurre con Claude Code consuma molti token, cosa fa invece Intlayer e come riutilizzare il tuo abbonamento Claude per le traduzioni."
 keywords:
   - claude code
   - token

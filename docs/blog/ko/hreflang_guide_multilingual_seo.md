@@ -288,8 +288,8 @@ const sitemap = generateSitemap(
 
 ### 더 알아보기
 
-- [SEO 및 국제화](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/internationalization_and_SEO.md) — 더 넓은 다국어 SEO 그림
-- [Next.js의 SEO 및 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/nextjs-multilingual-seo-comparison.md) — `next-intl` vs `next-i18next` vs Intlayer
+- [SEO 및 국제화](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/internationalization_and_SEO.md)
+- [Next.js의 SEO 및 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/nextjs-multilingual-seo-comparison.md)
 - [Next.js 16 i18n 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)
 - [TanStack Start i18n 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_tanstack.md)
 - [로케일별 커스텀 도메인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/custom_domains.md)

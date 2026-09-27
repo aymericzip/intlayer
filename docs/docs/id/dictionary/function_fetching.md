@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 8
-title: Pengambilan Fungsi
-description: Temukan cara mendeklarasikan dan menggunakan pengambilan fungsi di situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi online ini untuk mengatur proyek Anda dalam beberapa menit.
+title: "Function fetching: muat konten dari fungsi"
+description: "Deklarasikan konten Intlayer dari fungsi sinkron atau asinkron, misalnya untuk mengambil terjemahan dari API saat build."
 keywords:
   - Pengambilan Fungsi
   - Internasionalisasi

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: 성별 기반 콘텐츠
-description: Intlayer에서 성별 기반 콘텐츠를 사용하여 성별에 따라 동적으로 콘텐츠를 표시하는 방법을 알아보세요. 이 문서를 따라 프로젝트에서 성별별 콘텐츠를 효율적으로 구현할 수 있습니다.
+title: "Intlayer의 성별 기반 콘텐츠"
+description: "Intlayer의 gender() 노드로 독자의 성별에 맞게 메시지를 조정합니다. 남성, 여성, 기본 변형을 한곳에서 선언합니다."
 keywords:
   - 성별 기반 콘텐츠
   - 동적 렌더링

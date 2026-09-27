@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: vue-i18n est-il obsolète en 2026 ?
 description: vue-i18n est la référence des applications Vue et Nuxt depuis dix ans. Pourtant, nos benchmarks révèlent qu'il s'agit du runtime i18n le plus lourd du web. Explications.
@@ -68,6 +68,10 @@ Activité sur les douze derniers mois :
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Une bibliothèque éprouvée a l'avantage de la maturité. Cependant, les stacks modernes s'appuient sur la transformation AST au build, l'élimination du code mort et la localisation assistée par IA. Un système reposant principalement sur l'exécution dynamique peine à intégrer ces gains.
+
+> Pour comprendre d'où viennent ces bibliothèques, lisez l'histoire de l'i18n en JavaScript.
+
+- [L'histoire de l'i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/history_of_i18n.md)
 
 ## Mesure des performances avec Vite + Vue
 

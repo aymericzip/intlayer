@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-09-27
 priority: 8
-title: Dictionnaires dynamiques
+title: "Dictionnaires dynamiques : collections et variantes"
 description: Vue d'ensemble des fonctionnalités de dictionnaires dynamiques d'Intlayer — collections et variantes — pour créer du contenu i18n flexible et piloté à l'exécution.
 keywords:
   - Dictionnaires dynamiques

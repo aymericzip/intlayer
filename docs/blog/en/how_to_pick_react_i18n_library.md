@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "How to pick the right React i18n library in 2026"
-description: A decision guide for React internationalization. Which questions to answer before comparing react-i18next, react-intl, Lingui, use-intl, Paraglide and Intlayer, and what each choice costs in bundle size, typing and maintenance.
+description: "A decision guide for React i18n: the questions to answer before comparing react-i18next, react-intl, Lingui, use-intl, Paraglide and Intlayer."
 keywords:
   - react i18n
   - react internationalization
@@ -25,8 +25,6 @@ author: aymericzip
 React ships no i18n primitive. The library you pick on day one decides how translations are stored, how they reach the bundle, and how much of the work stays yours for the next few years. Most teams pick by popularity, then discover the trade-offs at 2,000 keys.
 
 This guide goes the other way: answer a few questions about your project first, then map the answers to the libraries that fit. It focuses on plain React (Vite, React Router, TanStack Start). Next.js has its own constraints, covered in the [Next.js comparison](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
-
-![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Table of Contents
 
@@ -97,6 +95,8 @@ If your answer to question 3 was "many locales, many pages", weigh this section 
 
 Library sizes come from the [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md): provider plus hook in an empty component, after bundling, tree-shaking and minification, 10 pages and 10 locales. Content is measured separately.
 
+![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Library                 | Wave         | Content model                          | Type safety                        | Message format                | Library size                                      |
 | :---------------------- | :----------- | :------------------------------------- | :--------------------------------- | :---------------------------- | :------------------------------------------------ |
 | `react-i18next`         | Runtime      | Central JSON, namespaces               | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (suffix plurals)      | ~18.4 kB                                          |
@@ -147,7 +147,7 @@ Then a centralized JSON is no longer a requirement, since there is no TMS to imp
 </Accordion>
 <Accordion header="You may move to Next.js App Router later">
 
-React context does not cross the server/client boundary. Libraries built on a client hook alone (`react-i18next`, `react-intl`) will need a parallel server API the day you adopt RSC. `use-intl` (as `next-intl`) and Intlayer (as `next-intlayer`) already have that split. Read the [Next.js i18n post](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/nextjs.md) before standardizing a pattern.
+React context does not cross the server/client boundary. Libraries built on a client hook alone (`react-i18next`, `react-intl`) will need a parallel server API the day you adopt RSC. `use-intl` (as `next-intl`) and Intlayer (as `next-intlayer`) already have that split. Read the [Next.js i18n post](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) before standardizing a pattern.
 
 </Accordion>
 </AccordionGroup>
@@ -559,8 +559,8 @@ Indirectly. What crawlers see is decided by routing, `hreflang`, `<html lang>` a
 
 ## Going further
 
-- [i18n library benchmark: bundle size, leakage and locale-switch timings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md) and the [TanStack Start report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
-- [React i18n: how the provider model works and what it costs](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/list_i18n_technologies/frameworks/react.md)
+- [i18n library benchmark: bundle size, leakage and locale-switch timings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/index.md)
+- [TanStack Start report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
 - [react-i18next vs react-intl vs Intlayer, feature by feature](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/react-i18next_vs_react-intl_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md)
 - [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md)
@@ -568,4 +568,9 @@ Indirectly. What crawlers see is decided by routing, `hreflang`, `<html lang>` a
 - [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/per-component_vs_centralized_i18n.md)
 - [How bundle optimization works at build time](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/bundle_optimization.md)
 - [Set up i18n in a Vite + React app](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react.md)
-- Same guide for [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/how_to_pick_vue_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/how_to_pick_svelte_i18n_library.md) and [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/how_to_pick_solid_i18n_library.md)
+
+Same guide for
+
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/how_to_pick_solid_i18n_library.md)

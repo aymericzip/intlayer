@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-21
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Init Infra
-description: Tìm hiểu cách sử dụng lệnh init infra của Intlayer CLI để cài đặt ứng dụng máy tính để bàn hoặc tự lưu trữ Intlayer CMS với Docker (vùng chứa tất cả trong một hoặc ngăn xếp Docker Compose).
+title: "intlayer init infra: tự host Intlayer CMS"
+description: "Cài ứng dụng desktop Intlayer hoặc tự host Intlayer CMS bằng Docker, dưới dạng container all-in-one hoặc stack Docker Compose."
 keywords:
   - CLI
   - Cơ sở hạ tầng
@@ -158,6 +158,6 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 
 ## Liên quan
 
-- [Hướng dẫn tự lưu trữ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md) - Kiến trúc, các bước khởi chạy đầu tiên và giới hạn của từng chế độ
-- [Khởi tạo Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/init.md) - Lệnh `init` cha và danh sách kiểm tra tương tác của nó
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) - Bảng điều khiển bạn vừa cài đặt làm được những gì
+- [Hướng dẫn tự lưu trữ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/self_hosting.md)
+- [Khởi tạo Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/init.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)

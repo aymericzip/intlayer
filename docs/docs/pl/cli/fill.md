@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Wypełnianie słowników
-description: Dowiedz się, jak wypełniać, audytować i tłumaczyć swoje słowniki za pomocą AI.
+title: "intlayer fill: tłumaczenie słowników z AI"
+description: "Uzupełniaj brakujące tłumaczenia, sprawdzaj istniejące i tłumacz słowniki Intlayer za pomocą AI z CLI, lokalnie lub w CI."
 keywords:
   - Wypełnianie
   - Audyt

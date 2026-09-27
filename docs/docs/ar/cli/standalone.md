@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: الحزمة المستقلة (Standalone Bundle)
-description: تعرف على كيفية إنشاء حزمة JavaScript مستقلة لمحتوى التطبيق.
+title: "intlayer standalone: Intlayer لأي صفحة"
+description: "أنشئ حزمة JavaScript واحدة تضم Intlayer والحزم التي تحتاجها، لاستخدامها في صفحات بلا مدير حزم أو أداة تجميع."
 keywords:
   - Standalone
   - Bundle

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2025-10-05
+updatedAt: 2026-09-27
 priority: 8
-title: Menguji konten Anda
-description: Temukan cara menguji konten Anda dengan Intlayer.
+title: "Menguji terjemahan dengan Intlayer"
+description: "Uji konten Intlayer Anda: deteksi terjemahan yang hilang, validasi kamus di CI, dan render komponen per locale dalam unit test."
 keywords:
   - Pengujian
   - Intlayer

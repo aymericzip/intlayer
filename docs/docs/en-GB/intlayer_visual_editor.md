@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer Visual Editor | Edit your content using a visual editor
+title: "Intlayer Visual Editor: Edit Content In Context"
 description: Discover how to use the Intlayer Editor to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
   - Editor

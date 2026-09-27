@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: Dokumentasi Fungsi getLocalizedUrl | intlayer
-description: Lihat cara menggunakan fungsi getLocalizedUrl untuk paket intlayer
+description: "Gunakan getLocalizedUrl untuk menambahkan prefiks locale ke URL relatif atau absolut, mengikuti mode routing dan locale default Anda."
 keywords:
   - getLocalizedUrl
   - terjemahan

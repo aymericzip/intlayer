@@ -289,8 +289,8 @@ Deriva l'insieme da un singolo elenco di locale, renderizzalo lato server, manti
 
 ### Approfondimenti
 
-- [SEO e Internazionalizzazione](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/internationalization_and_SEO.md) — il quadro più ampio della SEO multilingue
-- [SEO e i18n in Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/nextjs-multilingual-seo-comparison.md) — `next-intl` vs `next-i18next` vs Intlayer
+- [SEO e Internazionalizzazione](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/internationalization_and_SEO.md)
+- [SEO e i18n in Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/nextjs-multilingual-seo-comparison.md)
 - [Guida Next.js 16 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_16.md)
 - [Guida i18n TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_tanstack.md)
 - [Domini personalizzati per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/custom_domains.md)

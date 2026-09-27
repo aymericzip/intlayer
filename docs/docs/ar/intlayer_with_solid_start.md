@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "تدويل Solid Start - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق SolidStart متعدد اللغات (i18n). توجيه اللغة المقدم من الخادم، وhreflang، وخريطة الموقع (sitemap)، والترجمة بمساعدة الذكاء الاصطناعي."
+description: "إعداد Intlayer في SolidStart: توجيه لغات يُعرض على الخادم، ومحتوى مترجم تفاعلي، وhreflang، وخريطة موقع متعددة اللغات."
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# ترجم موقع SolidStart الخاص بك باستخدام Intlayer | التدويل (i18n)
+# ترجم موقع SolidStart الخاص بك باستخدام Intlayer
 
 <Tabs defaultTab="video">
   <Tab label="فيديو" value="video">

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Perintah Editor
-description: Pelajari cara menggunakan perintah editor Intlayer.
+title: "intlayer editor: perintah editor visual"
+description: "Jalankan dan konfigurasikan editor visual Intlayer dari CLI untuk mengedit konten langsung di aplikasi yang sedang berjalan."
 keywords:
   - Editor
   - Visual Editor

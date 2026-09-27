@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Rendu statique vs dynamique avec i18n dans Next.js
-description: Apprenez à utiliser le rendu statique vs dynamique avec i18n dans Next.js.
+description: "Pourquoi les helpers next-intl rendent dynamiques les routes i18n de Next.js, et comment garder vos pages localisées en rendu statique."
 keywords:
   - statique
   - dynamique

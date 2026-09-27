@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: Apakah next-intl Sudah Ketinggalan Zaman di Tahun 2026?
 description: next-intl telah menjadi standar untuk Next.js App Router. Namun di balik itu, beban runtime bundle dan manajemen namespace manual masih menjadi persoalan.
@@ -70,6 +70,10 @@ Catatan tahun terakhir:
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Pustaka yang matang memang memberikan rasa aman. Namun dunia i18n telah berubah: kompiler menghapus teks tak terpakai saat build, LLM menerjemahkan teks di CI, dan pengembang dibantu oleh Language Server (LSP) serta AI agent. Pustaka yang terpaku pada runtime sulit memanfaatkan inovasi ini.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Pengujian Performa di Next.js 16 App Router
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Commande inconnue
-description: Apprenez comment corriger l'erreur de commande inconnue.
+title: "Corriger l'erreur Intlayer « unknown command »"
+description: "Corrigez l'erreur « unknown command » de la CLI Intlayer : vérifiez le nom de la commande, la version de la CLI et la façon d'appeler le binaire."
 keywords:
   - inconnu
   - commande

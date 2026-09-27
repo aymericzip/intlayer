@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: Giải pháp i18n tốt nhất cho Next.js năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa (i18n) cho Next.js như next-intl, next-i18next và Intlayer. Báo cáo hiệu năng chi tiết về kích thước bundle bundle, rò rỉ dữ liệu và tính phản ứng.
@@ -73,6 +73,10 @@ Một tác động khác của các thư viện i18n là làm chậm quá trình
 Vì bài toán này khó, nên có nhiều giải pháp tồn tại - một số tập trung vào trải nghiệm phát triển (DX), một số khác vào hiệu năng hoặc khả năng mở rộng, v.v.
 
 Intlayer cố gắng tối ưu hóa trên tất cả các khía cạnh này.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## TL;DR
 

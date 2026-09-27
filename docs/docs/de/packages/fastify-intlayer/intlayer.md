@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Fastify Plugin Dokumentation | fastify-intlayer
-description: Anleitung zur Verwendung des intlayer-Plugins für das fastify-intlayer-Paket
+description: "Das intlayer-Plugin für Fastify erkennt die Locale des Nutzers und ergänzt jeden Request um die Übersetzungsfunktionen von Intlayer."
 keywords:
   - intlayer
   - fastify

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
-title: "Expo + React Native i18n - Guia completo para traduzir seu aplicativo"
-description: "Sem mais i18next. O guia 2026 para criar uma aplicação Expo + React Native multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
+title: "i18n no Expo + React Native: guia completo de tradução"
+description: "Configure o Intlayer no Expo e React Native: conteúdo tipado por componente, detecção do idioma do dispositivo, seletor de idioma e bundling com Metro."
 keywords:
   - Internacionalização
   - Documentação
@@ -36,7 +36,7 @@ history:
 author: aymericzip
 ---
 
-# Traduza seu aplicativo Expo e React Native | Internacionalização (i18n)
+# Traduza seu aplicativo Expo e React Native
 
 <Tabs defaultTab="code">
   <Tab label="Código" value="code">
@@ -497,9 +497,9 @@ Para mais detalhes sobre como usar a extensão, consulte a [documentação da Ex
 
 ## Ir Além
 
-- **Editor Visual**: Use o [Editor Visual Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) para gerenciar traduções visualmente.
-- **Integração com CMS**: Você também pode externalizar e buscar o conteúdo do seu dicionário a partir de um [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
-- **Comandos CLI**: Explore o [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md) para tarefas como **extrair traduções** ou **verificar chaves faltantes**.
+- [Editor Visual Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md)
 
 Aproveite para construir seus aplicativos **React Native** com i18n totalmente potencializado através do **Intlayer**!
 

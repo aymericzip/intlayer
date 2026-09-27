@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "React Intl から Intlayer への移行"
 description: "compat アダプターを使用して、React アプリケーションを react-intl から Intlayer に移行する方法を学びます。"
@@ -54,3 +54,7 @@ bundler プラグインは `react-intl` を `@intlayer/react-intl` にエイリ�
 - **ICU MessageFormat:** Intlayer は `resolveMessage(..., 'icu')` リゾルバを使用しており、ICU の複数形化、選択、日付/数値フォーマット、リッチテキストタグをネイティブに完全にサポートしています。
 - **Method & JSX callers:** `intl.formatMessage({ id: 'a.b' })` と `<FormattedMessage id="a.b">` は Intlayer コンパイラプラグイン (`@intlayer/babel` / `@intlayer/swc`) によって識別され、フラットなドット記号キーを変換して最初のセグメントが Intlayer ディクショナリキーに正しく解決されるようにします。
 - **Formatters:** `<FormattedNumber>`、`<FormattedDate>` など、ネイティブな `core/formatters` を `Intl` を使用してブリッジします。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)

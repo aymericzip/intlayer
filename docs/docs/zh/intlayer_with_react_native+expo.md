@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
-title: "Expo + React Native i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Expo + React Native 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+title: "Expo + React Native i18n：完整翻译指南"
+description: "在 Expo 和 React Native 中配置 Intlayer：按组件的类型化内容、设备语言检测、语言切换器和 Metro 打包。"
 keywords:
   - 国际化
   - 文档
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# 翻译您的 Expo and React Native 应用 | 国际化（i18n）
+# 翻译您的 Expo and React Native 应用
 
 <Tabs defaultTab="code">
   <Tab label="代码" value="code">
@@ -494,9 +494,9 @@ Intlayer 会在一个隐藏文件夹中（默认是 `.intlayer`）生成类型�
 
 ## 深入了解
 
-- **可视化编辑器**：使用[Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)来可视化管理翻译。
-- **CMS 集成**：您还可以将词典内容外部化，并从 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 中获取。
-- **CLI 命令**：探索 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)，用于执行诸如**提取翻译**或**检查缺失键**等任务。
+- [Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
 
 享受通过 **Intlayer** 为您的 **React Native** 应用构建强大国际化支持的乐趣！
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: 2026年におけるNext.jsの最適なi18nソリューション - ベンチマークレポート
 description: next-intl、next-i18next、IntlayerなどのNext.js国際化（i18n）ライブラリを比較。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
@@ -73,6 +73,10 @@ style="border:none;"
 この問題の解決は難しいため、DX（開発体験）にフォーカスしたもの、パフォーマンスやスケーラビリティにフォーカスしたものなど、さまざまなソリューションが存在します。
 
 Intlayerは、これらの各側面において最適化を試みています。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## TL;DR
 

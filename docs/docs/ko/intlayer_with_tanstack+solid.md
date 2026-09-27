@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "TanStack Start + Solid i18n - 앱을 번역하는 완전 가이드"
-description: "i18next는 이제 그만. 2026년 다국어 (i18n) TanStack Start + Solid 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
+title: "TanStack Start + Solid i18n: 완벽한 번역 가이드"
+description: "Solid를 사용하는 TanStack Start에 Intlayer 설정: 라우트의 로케일 파라미터, 반응형 번역 콘텐츠, 현지화된 head 메타데이터와 hreflang."
 keywords:
   - 국제화
   - 문서
@@ -35,7 +35,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer를 사용하여 Solid.js 기반 Tanstack Start 웹사이트 번역하기 | 국제화 (i18n)
+# Intlayer를 사용하여 Solid.js 기반 Tanstack Start 웹사이트 번역하기
 
 ## 목차
 

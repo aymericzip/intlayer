@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 独立 Bundle (Standalone Bundle)
-description: 了解如何为应用程序内容创建独立的 JavaScript bundle。
+title: "intlayer standalone：为任意页面打包 Intlayer"
+description: "将 Intlayer 及所需包打包为单个 JavaScript 文件，用于没有包管理器或打包工具的页面。"
 keywords:
   - Standalone
   - Bundle

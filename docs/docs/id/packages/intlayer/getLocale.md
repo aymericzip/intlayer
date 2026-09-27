@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi getLocale | intlayer
-description: Lihat cara menggunakan fungsi getLocale untuk paket intlayer
+description: "Gunakan getLocale untuk mendeteksi locale dari string seperti URL atau path, dengan fallback ke locale default Anda."
 keywords:
   - getLocale
   - terjemahan

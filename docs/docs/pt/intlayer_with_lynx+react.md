@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 3
 title: "Lynx + React i18n - Guia completo para traduzir seu aplicativo"
-description: "Sem mais i18next. O guia 2026 para criar uma aplicação Lynx + React multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
+description: "Configure o Intlayer em um app móvel Lynx e React: conteúdo tipado por componente, detecção do idioma do dispositivo e seletor de idioma."
 keywords:
   - Internacionalização
   - Documentação
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Traduza seu Lynx and React mobile app com Intlayer | Internacionalização (i18n)
+# Traduza seu Lynx and React mobile app com Intlayer
 
 Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-lynx-template) no GitHub.
 
@@ -480,8 +480,8 @@ Esta extensão oferece:
 
 ## Vá Além
 
-- **Editor Visual**: Use o [Editor Visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) para gerenciar traduções visualmente.
-- **Integração com CMS**: Você também pode externalizar e buscar o conteúdo do seu dicionário a partir de um [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
-- **Comandos CLI**: Explore o [CLI do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md) para tarefas como **extrair traduções** ou **verificar chaves faltantes**.
+- [Editor Visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
+- [CLI do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md)
 
 ---

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "TanStack Start i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) TanStack Start 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在 TanStack Start 中配置 Intlayer：路由中的语言参数、兼容 SSR 的翻译内容、本地化 head 元数据、hreflang 与站点地图。"
 keywords:
   - 国际化
   - 文档
@@ -52,7 +52,7 @@ history:
 author: aymericzip
 ---
 
-# 使用Intlayer翻译您的Tanstack Start | 国际化(i18n)
+# 使用Intlayer翻译您的Tanstack Start
 
 ## 目录
 

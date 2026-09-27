@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 10
 title: "Astro i18n - 앱을 번역하는 완전 가이드"
-description: "i18next는 이제 그만. 2026년 다국어 (i18n) Astro 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
+description: "Astro에 Intlayer 설정: 현지화된 라우트, 번역된 .astro 페이지와 아일랜드, hreflang 태그, 다국어 사이트맵."
 keywords:
   - 국제화
   - 문서
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer를 사용하여 Astro 사이트 번역하기 | 국제화 (i18n)
+# Intlayer를 사용하여 Astro 사이트 번역하기
 
 <Tabs defaultTab="code">
   <Tab label="코드" value="code">
@@ -496,12 +496,12 @@ export const GET: APIRoute = ({ site }) => {
 
 선호하는 프레임워크를 사용하여 애플리케이션을 계속 빌드하세요.
 
-- Intlayer + React: [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_react.md)
-- Intlayer + Vue: [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_vue.md)
-- Intlayer + Svelte: [Intlayer with Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_svelte.md)
-- Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_solid.md)
-- Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_preact.md)
-- Intlayer + Lit: [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_lit.md)
+- [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_react.md)
+- [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_vue.md)
+- [Intlayer with Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_svelte.md)
+- [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_solid.md)
+- [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_preact.md)
+- [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="컴포넌트에서 콘텐츠 추출" isOptional={true}>

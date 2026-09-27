@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm getTranslation | intlayer
-description: Xem cách sử dụng hàm getTranslation cho gói intlayer
+description: "Dùng getTranslation (bí danh t) để chọn nội dung của một locale từ bảng dịch, có dự phòng về locale mặc định."
 keywords:
   - getTranslation
   - dịch thuật

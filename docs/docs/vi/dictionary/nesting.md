@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Lồng từ điển
-description: Tìm hiểu cách sử dụng lồng nội dung trong Intlayer để tái sử dụng và cấu trúc nội dung đa ngôn ngữ của bạn một cách hiệu quả. Theo dõi tài liệu này để triển khai lồng nội dung một cách liền mạch trong dự án của bạn.
+title: "Lồng ghép: tái sử dụng nội dung giữa các từ điển"
+description: "Tham chiếu một từ điển từ từ điển khác với node nest() của Intlayer để tái sử dụng nội dung chung mà không lặp lại bản dịch."
 keywords:
   - Lồng nội dung
   - Tái sử dụng nội dung

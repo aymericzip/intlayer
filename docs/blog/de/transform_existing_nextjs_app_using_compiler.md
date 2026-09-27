@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 8
-title: "So machen Sie eine bestehende Next.js-Anwendung nachträglich mehrsprachig (i18n-Leitfaden 2026)"
-description: "Der Leitfaden für 2026, um eine bestehende Next.js-App nachträglich mehrsprachig (i18n) zu machen. Automatische Extraktion, KI-Übersetzung und Routing mit Intlayer."
+title: "Eine bestehende Next.js-App mehrsprachig machen"
+description: "i18n in eine bestehende Next.js-App bringen, ohne sie umzuschreiben: fest codierte Texte automatisch extrahieren, mit KI übersetzen und lokalisiertes Routing einrichten."
 keywords:
   - Next.js i18n
   - Internationalisierung

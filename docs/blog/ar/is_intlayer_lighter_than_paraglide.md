@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
 title: هل Intlayer أخف من Paraglide؟
-description: يبدو Paraglide شبه مجاني في اختبارات أداء التدويل (i18n) لأن كوده يتم توليده مباشرة في مستودع مشروعك. نوضح هنا إلى أين يذهب ذلك الحجم فعلياً، ولماذا يكلفك فحص اللغة لكل عقدة أداءً إضافياً، وكيف يشحن التحميل الديناميكي في Intlayer لغة واحدة بدلاً من جميع اللغات.
+description: "يبدو Paraglide شبه مجاني في اختبارات أداء i18n لأن شيفرته تُولَّد داخل مستودعك. أين يذهب هذا الحجم وكيف يقارن بـ Intlayer."
 keywords:
   - Paraglide
   - Intlayer
@@ -287,3 +287,7 @@ bunx intlayer init --interactive
 - [تحسين الحزم و `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
 - [كيفية اختيار مكتبة i18n المناسبة لـ React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_react_i18n_library.md)
 - [دواعي ومبررات التدويل المعتمد على المترجم](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)

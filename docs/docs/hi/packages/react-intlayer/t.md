@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: t फ़ंक्शन दस्तावेज़ीकरण | react-intlayer
-description: react-intlayer पैकेज के लिए t फ़ंक्शन का उपयोग कैसे करें देखें
+description: "react-intlayer के t फ़ंक्शन से अलग कंटेंट फ़ाइल के बिना सीधे React कंपोनेंट में अनुवाद घोषित करें।"
 keywords:
   - t
   - अनुवाद

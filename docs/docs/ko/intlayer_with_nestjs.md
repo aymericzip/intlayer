@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "NestJS i18n - 앱을 번역하는 완전 가이드"
-description: "i18next는 이제 그만. 2026년 다국어 (i18n) NestJS 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
+description: "NestJS에 Intlayer 설정: 요청마다 로케일을 감지하고, 컨트롤러 응답과 검증 메시지를 번역하며, 타입을 보장합니다."
 keywords:
   - 국제화
   - 문서
@@ -30,7 +30,7 @@ history:
     changes: "초기 문서"
 ---
 
-# Intlayer로 Nest backend 번역하기 | 국제화(i18n)
+# Intlayer로 Nest backend 번역하기
 
 `express-intlayer`는 Express 애플리케이션을 위한 강력한 국제화(i18n) 미들웨어로, 클라이언트의 선호도에 따라 현지화된 응답을 제공하여 백엔드 서비스를 전 세계적으로 접근 가능하게 만듭니다. NestJS는 Express 위에 구축되었기 때문에, `express-intlayer`를 NestJS 애플리케이션에 원활하게 통합하여 다국어 콘텐츠를 효과적으로 처리할 수 있습니다.
 
@@ -195,9 +195,9 @@ export class AppService {
 
 `express-intlayer`는 다음과 완벽하게 호환됩니다:
 
-- React 애플리케이션용 [`react-intlayer`](/doc/packages/react-intlayer)
-- Next.js 애플리케이션용 [`next-intlayer`](/doc/packages/next-intlayer)
-- Vite 애플리케이션용 [`vite-intlayer`](/doc/packages/vite-intlayer)
+- [`react-intlayer`](/doc/packages/react-intlayer)
+- [`next-intlayer`](/doc/packages/next-intlayer)
+- [`vite-intlayer`](/doc/packages/vite-intlayer)
 
 또한 브라우저와 API 요청을 포함한 다양한 환경에서 모든 국제화 솔루션과 원활하게 작동합니다. 미들웨어를 사용자 정의하여 헤더나 쿠키를 통해 로케일을 감지할 수 있습니다:
 

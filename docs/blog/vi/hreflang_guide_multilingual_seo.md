@@ -288,8 +288,8 @@ Lấy tập hợp từ một danh sách locale duy nhất, render nó phía serv
 
 ### Đi sâu hơn
 
-- [SEO và Quốc tế hóa](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/internationalization_and_SEO.md) — bức tranh SEO đa ngôn ngữ rộng hơn
-- [SEO và i18n trong Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/nextjs-multilingual-seo-comparison.md) — `next-intl` vs `next-i18next` vs Intlayer
+- [SEO và Quốc tế hóa](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/internationalization_and_SEO.md)
+- [SEO và i18n trong Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/nextjs-multilingual-seo-comparison.md)
 - [Hướng dẫn i18n Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
 - [Hướng dẫn i18n TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_tanstack.md)
 - [Các domain tùy chỉnh cho từng locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/custom_domains.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 사전 채우기
-description: AI를 사용하여 사전을 채우고, 감사하며, 번역하는 방법을 알아보세요.
+title: "intlayer fill: AI로 사전 번역하기"
+description: "CLI에서 로컬 또는 CI로 누락된 번역을 채우고, 기존 번역을 점검하며, Intlayer 사전을 AI로 번역합니다."
 keywords:
   - 채우기
   - 감사

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Est-il possible d'utiliser Intlayer avec Next.js sans `[locale]` dans le chemin de la page ?
+title: "Utiliser Intlayer dans Next.js sans [locale] dans le chemin"
 description: Apprenez comment utiliser Intlayer avec Next.js sans `[locale]` dans le chemin de la page.
 keywords:
   - locale

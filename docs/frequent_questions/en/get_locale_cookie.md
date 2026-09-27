@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: How to retrieve the locale from the cookies / headers?
-description: Learn how to retrieve the locale from the cookies / headers.
+description: "Read the current locale from cookies or request headers with Intlayer, on the server or in middleware, to render the right language."
 keywords:
   - cookie
   - headers

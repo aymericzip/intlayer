@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: t 関数ドキュメント | react-intlayer
-description: react-intlayer パッケージの t 関数の使い方を参照してください
+description: "react-intlayer の t 関数で、別のコンテンツファイルなしに React コンポーネント内で直接翻訳を宣言します。"
 keywords:
   - t
   - 翻訳

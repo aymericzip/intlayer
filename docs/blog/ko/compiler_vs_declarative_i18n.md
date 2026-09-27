@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-24
-updatedAt: 2025-11-24
+updatedAt: 2026-09-27
 priority: 8
 title: 컴파일러 기반 i18n 대 선언적 i18n
 description: '"매직" 컴파일러 기반 국제화와 명시적 선언적 콘텐츠 관리 간의 아키텍처적 트레이드오프 탐구.'
@@ -65,6 +65,10 @@ author: aymericzip
 > - angular-i18n (빌드 시 XLIFF 파일을 템플릿에 직접 병합하는 Angular의 네이티브 선행 처리 방식)
 > - Tolgee (선언적 코드를 UI 내에서 직접 "클릭하여 번역" 편집이 가능한 인컨텍스트 SDK와 결합)
 > - Intlayer (컴포넌트별 접근 방식으로, 네이티브 트리 쉐이킹과 TypeScript 검증을 가능하게 하는 콘텐츠 선언 파일 사용)
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## Intlayer 컴파일러
 

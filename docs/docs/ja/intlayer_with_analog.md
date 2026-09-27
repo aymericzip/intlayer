@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Analog i18n - あなたのアプリを翻訳する完全ガイド"
-description: "i18nextはもう不要。2026年に多言語（i18n）Analogアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+description: "Analog に Intlayer を導入：コンポーネント単位の型付きコンテンツ、ロケールの検出と切り替え、Vite を使った Angular のローカライズされたルート。"
 keywords:
   - 国際化
   - ドキュメント
@@ -27,7 +27,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayerを使用したAnalog (Angular) アプリの翻訳 | 国際化 (i18n)
+# Intlayerを使用したAnalog (Angular) アプリの翻訳
 
 <Tabs defaultTab="code">
   <Tab label="コード" value="code">

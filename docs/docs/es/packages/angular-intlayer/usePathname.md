@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Documentación del Hook usePathname | angular-intlayer
-description: Descubre cómo utilizar el hook usePathname en el paquete angular-intlayer
+description: "Usa usePathname en Angular para leer la ruta actual sin el segmento de locale, como signal para una navegación localizada."
 keywords:
   - usePathname
   - pathname
@@ -116,5 +116,5 @@ export class SidebarComponent {
 
 ## Relacionado
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/angular-intlayer/exports.md) — idioma actual + selector de idiomas
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getPathWithoutLocale.md) — la utilidad subyacente utilizada por este hook
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/angular-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getPathWithoutLocale.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: getTranslation Function Documentation | intlayer
-description: See how to use the getTranslation function for intlayer package
+description: "Use getTranslation (alias t) to pick the content of a given locale from a translation map, with a fallback to the default locale."
 keywords:
   - getTranslation
   - translation

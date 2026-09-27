@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
 title: ভূমিকা
 description: Intlayer কীভাবে কাজ করে তা আবিষ্কার করুন। আপনার অ্যাপ্লিকেশনে Intlayer যে পদক্ষেপগুলি ব্যবহার করে তা দেখুন। বিভিন্ন প্যাকেজগুলি কী করে তা জানুন।
@@ -211,8 +211,8 @@ Intlayer আধুনিক ওয়েব ডেভেলপমেন্টে
 - **[AdonisJS এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_adonisjs.md)**
 - **[Elysia এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_elysia.md)**
 - **[Storybook এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_storybook.md)**
-- **[next-intl এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_next-intl.md)**
-- **[next-i18next এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/intlayer_with_next-i18next.md)**
+- **[next-intl এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/bn/intlayer_with_next-intl.md)**
+- **[next-i18next এর সাথে Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/bn/intlayer_with_next-i18next.md)**
 
 প্রতিটি ইন্টিগ্রেশন গাইডে Intlayer-এর বৈশিষ্ট্যগুলি ব্যবহার করার জন্য সর্বোত্তম অনুশীলন (best practices) অন্তর্ভুক্ত রয়েছে, যেমন **সার্ভার-সাইড রেন্ডারিং (SSR)**, **ডায়নামিক রাউটিং**, বা **ক্লায়েন্ট-সাইড রেন্ডারিং**, যাতে আপনি একটি দ্রুত, SEO-বান্ধব এবং অত্যন্ত স্কেলেবল অ্যাপ্লিকেশন বজায় রাখতে পারেন।
 

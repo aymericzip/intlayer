@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: Fichier de Contenu
-description: Apprenez à personnaliser les extensions pour vos fichiers de déclaration de contenu. Suivez cette documentation pour implémenter efficacement des conditions dans votre projet.
+title: "Fichiers de déclaration de contenu (.content.ts)"
+description: "Déclarez votre contenu multilingue dans des fichiers .content à côté de vos composants : formats supportés, extensions et découverte par Intlayer."
 keywords:
   - Fichier de Contenu
   - Documentation

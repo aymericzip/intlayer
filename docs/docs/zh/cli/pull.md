@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 拉取词典
-description: 了解如何从 Intlayer 编辑器和 CMS 拉取词典。
+title: "intlayer pull：从 CMS 拉取字典"
+description: "将在 Intlayer 可视化编辑器或 CMS 中编辑的字典下载到项目中，把远程修改同步到代码里。"
 keywords:
   - 拉取
   - 词典

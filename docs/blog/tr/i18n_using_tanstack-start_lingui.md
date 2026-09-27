@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "Lingui ile TanStack Start i18n: Kapsamlı 2026 Kurulum Rehberi"
 description: "TanStack Start uygulamanızı Lingui ile yerelleştirin: makrolar, PO katalogları, SSR, yerel tabanlı yönlendirme, hreflang, sitemap, robots.txt ve gerçek paket boyutu karşılaştırma verileri."
@@ -42,9 +42,23 @@ TanStack Start yerleşik bir i18n katmanı sunmaz, bu nedenle bu rehber Lingui'y
 - **Her yerel için talep üzerine yüklenen tek katalog** ve eşzamanlı SSR isteklerinin asla aynı yereli paylaşmaması için render başına bir `I18n` örneği.
 - **Eksiksiz çok dilli SEO**: çevrilmiş `<title>` ve açıklama, canonical URL, `x-default` ile `hreflang`, Open Graph yerelleri, JSON-LD, sitemap, `robots.txt`, ön işleme (pre-rendering) ve yerelleştirilmiş 404 sayfaları.
 
-> Başka bir teknoloji yığını mı arıyorsunuz? [TanStack Start + use-intl rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_use-intl.md), [TanStack Start + Paraglide rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_paraglide.md) veya [TanStack Start + Intlayer rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md) göz atın.
+> Başka bir teknoloji yığını mı arıyorsunuz?
 
-> Next.js mi kullanıyorsunuz? [Next.js + Lingui rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_nextjs_lingui.md) sayfasına bakın. Kütüphaneleri karşılaştırmak ister misiniz? [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md) yazısını okuyun.
+- [TanStack Start + use-intl rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_use-intl.md)
+- [TanStack Start + Paraglide rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_paraglide.md)
+- [TanStack Start + Intlayer rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md)
+
+> Next.js mi kullanıyorsunuz?
+
+- [Next.js + Lingui rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_nextjs_lingui.md)
+
+> Kütüphaneleri karşılaştırmak ister misiniz?
+
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md)
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## TanStack Start Üzerinde Lingui Karşılaştırma Testleri Ne Söylüyor?
 
@@ -92,7 +106,11 @@ Lingui'nin TanStack Start üzerinde yaygın olarak kullanılan diğer kütüphan
 
 > Çalışma zamanı boyutu ve sızıntı verileri [TanStack Start karşılaştırma testinden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) alınmıştır. Sızıntı, her kütüphanenin en iyi yapılandırmasında ölçülmüştür.
 
-> Diğer TanStack Start rehberleri: [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_use-intl.md), [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_paraglide.md) ve [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md).
+> Diğer TanStack Start rehberleri:
+
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_use-intl.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md)
 
 ## Uygulamanız Gereken En İyi Pratikler
 
@@ -106,7 +124,8 @@ Lingui'nin TanStack Start üzerinde yaygın olarak kullanılan diğer kütüphan
 - **Çok dilli bir sitemap ve robots.txt oluşturun** ve her yereli önceden işleyin (pre-render).
 - **Dil değiştirici için gerçek bağlantılar (links) kullanın**, böylece arama motoru tarayıcıları tüm dilleri keşfedebilir.
 
-> [Uluslararasılaşma ve SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md) rehberimize ve [hreflang rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md) göz atın.
+- [Uluslararasılaşma ve SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md)
+- [hreflang rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md)
 
 ## TanStack Start Uygulamasında Lingui Kurulumu İçin Adım Adım Rehber
 

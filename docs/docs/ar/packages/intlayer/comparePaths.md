@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: وثائق دالة comparePaths | intlayer
-description: تعرف على كيفية استخدام دالة comparePaths لحزمة intlayer
+description: "استخدم comparePaths للتحقق مما إذا كان عنوانا URL يشيران إلى الصفحة نفسها، مع تجاهل اللغة والمضيف وسلسلة الاستعلام والـ hash والشرطة المائلة الأخيرة."
 keywords:
   - comparePaths
   - normalizePath
@@ -145,9 +145,9 @@ normalizePath("https://example.com/ru/path"); // "/path"
 
 ## دوال ذات صلة
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPathWithoutLocale.md): يزيل جزء اللغة من عنوان URL أو مسار.
-- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPrefix.md): يحدد بادئة URL للغة معينة.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md): يولد عنوان URL محلي للغة معينة.
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPathWithoutLocale.md)
+- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPrefix.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md)
 
 ## TypeScript
 

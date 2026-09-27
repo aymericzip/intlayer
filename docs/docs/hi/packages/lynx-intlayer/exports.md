@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: lynx-intlayer पैकेज दस्तावेज़ीकरण
-description: Intlayer के लिए Lynx समर्थन, लोकल सपोर्ट के लिए polyfills प्रदान करता है।
+description: "lynx-intlayer पैकेज Intlayer को Lynx ऐप में जोड़ता है, मोबाइल पर लोकेल समर्थन के लिए ज़रूरी पॉलीफ़िल और हेल्पर के साथ।"
 keywords:
   - lynx-intlayer
   - lynx

@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2026-05-31
 priority: 9
 title: "Express i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की जरूरत नहीं। 2026 में Express ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
+description: "Express में Intlayer सेट करें: मिडलवेयर से हर रिक्वेस्ट पर लोकेल पहचानें, API रिस्पॉन्स और त्रुटि संदेशों का अनुवाद करें, पूरी तरह टाइप्ड।"
 keywords:
   - आंतरराष्ट्रीयकरण
   - दस्तावेज़ीकरण
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer के साथ अपना Express backend अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
+# Intlayer के साथ अपना Express backend अनुवाद करें
 
 `express-intlayer` Express अनुप्रयोगों के लिए एक शक्तिशाली अंतरराष्ट्रीयकरण (i18n) मिडलवेयर है, जिसे क्लाइंट की प्राथमिकताओं के आधार पर स्थानीयकृत प्रतिक्रियाएँ प्रदान करके आपके बैकएंड सेवाओं को वैश्विक रूप से सुलभ बनाने के लिए डिज़ाइन किया गया है।
 
@@ -210,9 +210,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` पूरी तरह से संगत है:
 
-- React अनुप्रयोगों के लिए [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/index.md)
-- Next.js अनुप्रयोगों के लिए [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/index.md)
-- Vite अनुप्रयोगों के लिए [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/index.md)
   यह किसी भी अंतर्राष्ट्रीयकरण समाधान के साथ विभिन्न वातावरणों में, जिसमें ब्राउज़र और API अनुरोध शामिल हैं, सहजता से काम करता है। आप मिडलवेयर को हेडर या कुकीज़ के माध्यम से लोकल का पता लगाने के लिए अनुकूलित कर सकते हैं:
 
 यह किसी भी अंतरराष्ट्रीयकरण समाधान के साथ विभिन्न वातावरणों में, जिसमें ब्राउज़र और API अनुरोध शामिल हैं, सहजता से काम करता है। आप मिडलवेयर को हेडर या कुकी के माध्यम से लोकल का पता लगाने के लिए अनुकूलित कर सकते हैं:

@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: توثيق دالة getLocaleLang | intlayer
-description: تعرف على كيفية استخدام دالة getLocaleLang لحزمة intlayer
+description: "استخدم getLocaleLang لاستخراج رمز اللغة من سلسلة لغة مثل en-US، مع رمز الدولة أو بدونه."
 keywords:
   - getLocaleLang
   - الترجمة

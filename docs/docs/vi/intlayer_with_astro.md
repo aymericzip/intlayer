@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 10
 title: "Astro i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Astro đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong Astro: route bản địa hóa, trang .astro và island đã dịch, thẻ hreflang và sitemap đa ngôn ngữ."
 keywords:
   - đa ngôn ngữ
   - tài liệu
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web Astro của bạn với Intlayer | Đa ngôn ngữ (i18n)
+# Dịch trang web Astro của bạn với Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Mã nguồn" value="code">
@@ -496,12 +496,12 @@ export const GET: APIRoute = ({ site }) => {
 
 Tiếp tục xây dựng ứng dụng của bạn bằng cách sử dụng framework mà bạn chọn.
 
-- Intlayer + React: [Intlayer với React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_react.md)
-- Intlayer + Vue: [Intlayer với Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_vue.md)
-- Intlayer + Svelte: [Intlayer với Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_svelte.md)
-- Intlayer + Solid: [Intlayer với Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_solid.md)
-- Intlayer + Preact: [Intlayer với Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_preact.md)
-- Intlayer + Lit: [Intlayer với Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_lit.md)
+- [Intlayer với React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_react.md)
+- [Intlayer với Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_vue.md)
+- [Intlayer với Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_svelte.md)
+- [Intlayer với Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_solid.md)
+- [Intlayer với Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_preact.md)
+- [Intlayer với Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>

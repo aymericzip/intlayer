@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 如何从 Cookie / 头信息中获取语言环境？
-description: 学习如何从 Cookie / 头信息中获取语言环境。
+description: "使用 Intlayer 从 cookie 或请求头中读取当前语言，在服务器或中间件中渲染正确的语言。"
 keywords:
   - cookie
   - headers

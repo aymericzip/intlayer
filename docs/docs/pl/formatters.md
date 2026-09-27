@@ -2,8 +2,8 @@
 createdAt: 2024-08-13
 updatedAt: 2025-10-14
 priority: 8
-title: Formatery
-description: Narzędzia do formatowania uwzględniające lokalizację oparte na Intl dla liczb, procentów, walut, dat, czasu względnego, jednostek i notacji skróconej. Zawiera pamięć podręczną pomocnika Intl.
+title: "Formattery: liczby, daty i waluty według locale"
+description: "Formatuj liczby, procenty, waluty, daty, czas względny i jednostki według locale za pomocą cache'owanych helperów Intl w Intlayer."
 keywords:
   - Formatery
   - Intl

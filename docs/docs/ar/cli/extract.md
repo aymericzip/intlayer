@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: استخراج السلاسل
+title: "intlayer extract: استخراج النصوص من المكوّنات"
 description: تعلم كيفية استخراج السلاسل من مكوناتك إلى ملف .content بجانب المكون.
 keywords:
   - استخراج

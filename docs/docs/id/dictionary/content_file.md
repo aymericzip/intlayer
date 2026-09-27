@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: Berkas Konten
-description: Pelajari cara menyesuaikan ekstensi untuk berkas deklarasi konten Anda. Ikuti dokumentasi ini untuk mengimplementasikan kondisi secara efisien dalam proyek Anda.
+title: "File deklarasi konten (.content.ts)"
+description: "Deklarasikan konten multibahasa dalam file .content di samping komponen: format yang didukung, ekstensi file, dan cara Intlayer menemukannya."
 keywords:
   - Berkas Konten
   - Dokumentasi

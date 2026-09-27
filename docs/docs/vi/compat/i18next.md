@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Di Chuyển Từ i18next Sang Intlayer"
-description: "Tìm hiểu cách di chuyển ứng dụng Vanilla JS/TS của bạn từ i18next sang Intlayer bằng bộ điều hợp tương thích."
+title: "@intlayer/i18next: bộ chuyển đổi tương thích cho i18next"
+description: "Giữ nguyên mã i18next và phục vụ bằng Intlayer: cài @intlayer/i18next, đặt alias cho các import và xem bộ chuyển đổi thay đổi gì bên dưới."
 keywords:
   - i18next
   - vanilla
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# Di Chuyển Từ i18next Sang Intlayer
+# @intlayer/i18next: bộ chuyển đổi tương thích cho i18next
 
 Để có hướng dẫn từng bước chi tiết, vui lòng xem [Hướng Dẫn Di Chuyển i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_i18next_to_intlayer.md) đầy đủ của chúng tôi.
 
@@ -58,3 +58,7 @@ Bên dưới:
 - **Nội suy:** Hỗ trợ gốc cho các thay thế `{{name}}` và lồng `$t(key)` theo đệ quy.
 - **Ngữ cảnh & Số nhiều:** Xác định và giải quyết các định dạng hậu tố như `key_male` và `key_one`/`key_other` đánh giá dựa trên `Intl.PluralRules` tiêu chuẩn.
 - **Trả về đối tượng:** Chế độ `returnObjects: true` an toàn trích xuất cây từ các từ điển Intlayer.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)

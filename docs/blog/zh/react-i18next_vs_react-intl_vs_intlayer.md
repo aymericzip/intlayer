@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: 将 react-i18next 与 next-intl 和 Intlayer 集成，用于 React 应用的国际化 (i18n)
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# react-Intl VS react-i18next VS intlayer | React 国际化 (i18n)
+# react-Intl VS react-i18next VS intlayer
 
 本指南比较了三种成熟的 **React** 国际化方案：**react-intl**（FormatJS）、**react-i18next**（i18next）和 **Intlayer**。
 我们重点关注 **纯 React** 应用（例如 Vite、CRA、SPA）。如果您使用的是 Next.js，请参阅我们专门的 Next.js 比较。
@@ -43,6 +43,10 @@ author: aymericzip
 - **react-intl** - 以 ICU 为先，符合标准的格式化（日期/数字/复数），拥有成熟的 API。目录通常是集中管理的；键的安全性和构建时验证主要由你负责。
 - **react-i18next** - 极其流行且灵活；支持命名空间、检测器和许多插件（ICU、后端等）。功能强大，但随着项目规模扩大，配置可能变得复杂。
 - **Intlayer** - 面向组件的 React 内容模型，**严格的 TS 类型**，**构建时检查**，**支持 Tree-shaking**，以及 **可视化编辑器/CMS** 和 **AI 辅助翻译**。兼容 React Router、Vite、CRA 等。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 功能矩阵（React 重点）
 
@@ -153,10 +157,19 @@ author: aymericzip
 
 ## 延伸阅读与基准测试
 
-- 基准测试报告：[i18n 基准测试概览](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)、[TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)、[Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)、[Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)、[Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md) 和 [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md)
 - [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer-i18next.md)
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer.md)
-- [Bundle 优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) 和 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [Bundle 优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+- [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+
+基准测试报告：
+
+- [i18n 基准测试概览](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md)
 
 ## GitHub STARs
 

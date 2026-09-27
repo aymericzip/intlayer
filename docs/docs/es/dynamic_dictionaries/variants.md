@@ -2,8 +2,8 @@
 createdAt: 2026-06-12
 updatedAt: 2026-08-04
 priority: 8
-title: Variantes
-description: Use el campo de metadatos variant en los archivos de contenido de Intlayer para declarar alternativas de contenido con nombre o estructuradas — pruebas A/B, banners de temporada, copia con feature flag, registros de CMS, contenido específico de usuario — y cambiar entre ellas en tiempo de ejecución sin cambios de código.
+title: "Variantes: tests A/B y contenido alternativo"
+description: "Declara alternativas de contenido con nombre con las variantes de Intlayer para tests A/B, banners de temporada, feature flags o textos por usuario."
 keywords:
   - Variantes
   - Pruebas A/B

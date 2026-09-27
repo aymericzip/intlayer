@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Di Chuyển Từ React Intl Sang Intlayer"
 description: "Tìm hiểu cách di chuyển ứng dụng React của bạn từ react-intl sang Intlayer bằng bộ điều hợp tương thích."
@@ -54,3 +54,7 @@ Bên dưới:
 - **ICU MessageFormat:** Intlayer sử dụng resolver `resolveMessage(..., 'icu')` hỗ trợ đầy đủ số nhiều ICU, lựa chọn, định dạng ngày/số và các thẻ rich text một cách gốc.
 - **Người gọi Method & JSX:** `intl.formatMessage({ id: 'a.b' })` và `<FormattedMessage id="a.b">` được xác định bởi các plugin biên dịch Intlayer (`@intlayer/babel` / `@intlayer/swc`), chuyển đổi các key dấu chấm phẳng để đoạn đầu tiên giải quyết chính xác đến key từ điển Intlayer.
 - **Formatter:** `<FormattedNumber>`, `<FormattedDate>`, v.v., kết nối với các `core/formatters` gốc bằng cách sử dụng `Intl`.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)

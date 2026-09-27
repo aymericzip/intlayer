@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-06-21
+updatedAt: 2026-09-27
 priority: 6
-title: सिंक JSON प्लगइन
-description: Intlayer शब्दकोशों को तृतीय-पक्ष i18n JSON फ़ाइलों (i18next, next-intl, react-intl, vue-i18n, और अन्य) के साथ सिंक्रनाइज़ करें। अपने मौजूदा i18n को बनाए रखें जबकि Intlayer का उपयोग करके अपने संदेशों का प्रबंधन, अनुवाद और परीक्षण करें।
+title: "Sync JSON प्लगइन: अपनी i18n JSON फ़ाइलें रखें"
+description: "Intlayer डिक्शनरी को i18next, next-intl, react-intl या vue-i18n JSON फ़ाइलों से सिंक करें और Intlayer से उन्हें प्रबंधित, अनुवादित और टेस्ट करें।"
 keywords:
   - Intlayer
   - सिंक JSON

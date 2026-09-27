@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "2026'da Doğru Solid i18n Kütüphanesini Seçme Rehberi"
-description: SolidJS ve SolidStart uluslararasılaştırması için bir karar rehberi. @solid-primitives/i18n, solid-i18next, Paraglide, Lingui ve Intlayer'ı karşılaştırmadan önce yanıtlanması gereken sorular ve her seçeneğin reaktivite, bundle boyutu ve typing açısından maliyetleri.
+description: "SolidJS ve SolidStart i18n için karar rehberi: @solid-primitives/i18n, solid-i18next, Paraglide, Lingui ve Intlayer'ı karşılaştırmadan önceki sorular."
 keywords:
   - solidjs i18n
   - solid start i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Solid'in reaktivite modeli, bir i18n kütüphanesinin yapması gerekenleri değiştirir. Bileşenler yalnızca bir kez çalışır; bu nedenle setup aşamasında bir `const` içinde saklanan bir çeviri donmuş bir string (frozen string) haline gelir. Size accessor yerine string veren bir kütüphane, birinin bu hatayı yaptığı üç bileşen haricinde her yerde dil değiştiren bir sayfa üretir. Solid için bir kütüphane seçmek kısmen API ile, kısmen de hangisinin bu hatayı yapmayı zorlaştırdığıyla ilgilidir.
 
 Bu rehber, önce yanıtlanması gereken soruları listeler, ardından bunları Vite + Solid ve SolidStart için `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid` ve Intlayer ile eşleştirir.
-
-![Solid i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## İçindekiler
 
@@ -88,6 +86,8 @@ Grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 locale'e çevril
 
 Kütüphane boyutları [Solid benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md) çalışmasından alınmıştır: 10 sayfalık, 10 locale'e sahip bir uygulamada; bundling, tree-shaking ve minification sonrasında boş bir bileşendeki provider artı accessor. İçerik ayrıca ölçülür.
 
+![Solid i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Kütüphane                | İçerik modeli                                 | Locale değişiminde reaktivite                         | Tip güvenliği                                      | Scoping ve lazy loading             | Kütüphane boyutu                                    |
 | :----------------------- | :-------------------------------------------- | :---------------------------------------------------- | :------------------------------------------------- | :---------------------------------- | :-------------------------------------------------- |
 | `@solid-primitives/i18n` | Size ait düz sözlük                           | Signal, translator tarafından döndürülen accessor'lar | 3/5 — Kaynak sözlükten infer edilir                | Yerleşik olarak yok                 | ~0.6 kB                                             |
@@ -116,7 +116,7 @@ Paraglide'ın sıfıra yakın kütüphane boyutu yapısı gereğidir: runtime do
 </Accordion>
 <Accordion header="Locale önekli route'lar ve SSR ile SolidStart">
 
-Her iki tarafın da uyuşması için locale'in sunucuda URL'den gelmesi gerekir; bunu istemcide tespit etmek çok geçtir. `@solid-primitives/i18n` ve `solid-i18next`, `[[locale]]` route'unu, `matchFilters` yapısını, redirect'i ve `entry-server.tsx` etiketlerini size bırakır. Paraglide, routing'i yöneten bir Vite eklentisine sahiptir. Intlayer, middleware ve route yardımcılarını hazır olarak sunar. Hangisini seçerseniz seçin, `<html lang>` ve `hreflang` etiketlerini `entry-server.tsx` içine yerleştirin; SolidStart v2'de `@solidjs/meta` istemcide hydration sonrasında uygulanır. [Solid i18n yazısı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/list_i18n_technologies/frameworks/solid.md) bu kurulumu adım adım açıklar.
+Her iki tarafın da uyuşması için locale'in sunucuda URL'den gelmesi gerekir; bunu istemcide tespit etmek çok geçtir. `@solid-primitives/i18n` ve `solid-i18next`, `[[locale]]` route'unu, `matchFilters` yapısını, redirect'i ve `entry-server.tsx` etiketlerini size bırakır. Paraglide, routing'i yöneten bir Vite eklentisine sahiptir. Intlayer, middleware ve route yardımcılarını hazır olarak sunar. Hangisini seçerseniz seçin, `<html lang>` ve `hreflang` etiketlerini `entry-server.tsx` içine yerleştirin; SolidStart v2'de `@solidjs/meta` istemcide hydration sonrasında uygulanır. [Solid i18n yazısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_solid_start.md) bu kurulumu adım adım açıklar.
 
 </Accordion>
 <Accordion header="Locale değişimi anlık ve fine-grained olmalıdır">
@@ -456,11 +456,14 @@ Dolaylı olarak etkiler. Arama motoru botları (crawler'lar) routing, `hreflang`
 ## Daha fazlası
 
 - [Solid i18n benchmark: bundle boyutu, sızıntı ve locale geçiş süreleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md)
-- [Solid i18n: locale değişiminde çeviriler neden donar](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/list_i18n_technologies/frameworks/solid.md)
-- [Tak-çalıştır i18next uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18next.md) ve [i18next geçiş rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+- [Tak-çalıştır i18next uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18next.md)
+- [i18next geçiş rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
 - [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 - [Derleyici ve deklaratif i18n karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
 - [Bileşen başına ve merkezi i18n karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md)
 - [Build zamanında bundle optimizasyonu nasıl çalışır](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
-- [Vite + Solid uygulamasında i18n kurulumu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+solid.md) ve [SolidStart uygulamasında kurulum](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_solid_start.md)
-- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_react_i18n_library.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_vue_i18n_library.md) ve [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_svelte_i18n_library.md) için aynı rehber
+- [Vite + Solid uygulamasında i18n kurulumu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+solid.md)
+- [SolidStart uygulamasında kurulum](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_solid_start.md)
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_svelte_i18n_library.md)

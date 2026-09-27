@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: getCanonicalPath 函数文档 | intlayer
-description: 了解如何在 intlayer 包中使用 getCanonicalPath 函数
+description: "使用 getCanonicalPath 将 /a-propos 这类本地化路径还原为 /about 这类内部路由，用于路由匹配。"
 keywords:
   - getCanonicalPath
   - 翻译
@@ -121,5 +121,5 @@ getCanonicalPath("/contactez-nous", Locales.FRENCH, manualRules);
 
 ## 相关函数
 
-- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedPath.md): 将 canonical 路径解析为其本地化的等价路径。
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md): 生成完整本地化的 URL（包括协议、主机和语言前缀）。
+- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)

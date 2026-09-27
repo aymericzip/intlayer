@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Solid i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Vite + Solid multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di aplikasi Vite dan Solid: konten terjemahan reaktif, pengalih bahasa, rute terlokalisasi, dan kamus bertipe."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs web Vite dan Solid Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web Vite dan Solid Anda menggunakan Intlayer
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">

@@ -129,19 +129,19 @@ Intlayer کئی کنفیگریشن فائل فارمیٹس قبول کرتا ہ�
 
 ### بنیادی کمانڈز
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/build.md)** - اپنے مواد کے اعلان والی فائلوں سے اپنی لغات بنائیں
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/watch.md)** - تبدیلیوں کی نگرانی کریں اور لغات کو خود بخود دوبارہ بنائیں
-- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/standalone.md)** - Intlayer اور متعین پیکیجز پر مشتمل ایک اسٹینڈ اکیلے JavaScript بنڈل تیار کریں
-- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/version.md)** - نصب شدہ Intlayer CLI ورژن چیک کریں
-- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/list_projects.md)** - ڈائریکٹری یا گٹ ریپوزٹری میں موجود تمام Intlayer پروجیکٹس کی فہرست دیکھیں
+- [Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/build.md)
+- [Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/watch.md)
+- [Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/standalone.md)
+- [Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/version.md)
+- [List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/list_projects.md)
 
 ### لغت کا انتظام
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/push.md)** - لغات کو Intlayer ایڈیٹر اور CMS پر بھیجیں
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/pull.md)** - Intlayer ایڈیٹر اور CMS سے لغات لائیں (fetch)
-- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/fill.md)** - AI کا استعمال کرتے ہوئے لغات کو پُر کریں، آڈٹ کریں اور ترجمہ کریں
-- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/test.md)** - لاپتہ تراجم کی جانچ اور نشاندہی کریں
-- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/list.md)** - اپنے پروجیکٹ میں مواد کے اعلان والی تمام فائلوں کی فہرست دیکھیں
+- [Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/push.md)
+- [Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/pull.md)
+- [Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/fill.md)
+- [Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/test.md)
+- [List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/list.md)
 
 ### جزو کا انتظام (Component Management)
 
@@ -154,13 +154,13 @@ Intlayer کئی کنفیگریشن فائل فارمیٹس قبول کرتا ہ�
 
 ### دستاویز کا انتظام (Doc Management)
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/doc-translate.md)** - AI کا استعمال کرتے ہوئے دستاویزات کی فائلوں کا خودکار ترجمہ کریں
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/doc-review.md)** - معیار اور مطابقت کے لیے دستاویزات کی فائلوں کا جائزہ لیں
+- [Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/doc-translate.md)
+- [Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/doc-review.md)
 
 ### ایڈیٹر اور لائیو سنک (Live Sync)
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/editor.md)** - Intlayer ایڈیٹر کمانڈز استعمال کریں
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/live.md)** - CMS سے مواد کی تبدیلیوں کو ریئل ٹائم میں لاگو کرنے کے لیے لائیو سنک کا استعمال کریں
+- [Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/editor.md)
+- [Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/live.md)
 
 ### آڈٹ اور تشخیصی عمل
 
@@ -168,8 +168,8 @@ Intlayer کئی کنفیگریشن فائل فارمیٹس قبول کرتا ہ�
 
 ### ڈویلپر ٹولز
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/sdk.md)** - اپنے کوڈ میں Intlayer CLI SDK استعمال کریں
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/debug.md)** - Intlayer CLI کے مسائل کوڈیبگ کریں اور حل کریں
+- [CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/sdk.md)
+- [Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/cli/debug.md)
 
 ## اپنی `package.json` فائل میں intlayer کمانڈز استعمال کریں
 

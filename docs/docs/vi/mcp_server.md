@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-21
+updatedAt: 2026-09-27
 priority: 6
-title: Tài liệu Máy chủ MCP
-description: Khám phá các tính năng và cách thiết lập Máy chủ MCP để tối ưu hóa quản lý và vận hành máy chủ của bạn.
+title: "Máy chủ MCP Intlayer cho trợ lý AI"
+description: "Kết nối máy chủ MCP Intlayer với Cursor, VS Code hoặc Claude Desktop để trợ lý AI đọc tài liệu và hỗ trợ thiết lập Intlayer."
 keywords:
   - Máy chủ MCP
   - Quản lý máy chủ

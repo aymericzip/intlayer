@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "Paraglide JS के साथ TanStack Start i18n: 2026 सेटअप गाइड"
 description: "Paraglide JS के साथ अपने TanStack Start ऐप का अनुवाद करें: URL रणनीति, router rewrite, SSR middleware, hreflang, sitemap और robots.txt, साथ ही वास्तविक बेंचमार्क डेटा।"
@@ -43,9 +43,17 @@ Paraglide आधिकारिक TanStack Router उदाहरणों म�
 
 यह गाइड इन तीनों को सेट अप करती है, फिर उन सभी चीज़ों को कवर करती है जो Paraglide आप पर छोड़ता है: `lang` और `dir`, लोकेल स्विचर, अनुवादित मेटाडेटा, `canonical`, `x-default` के साथ `hreflang`, Open Graph, JSON-LD, साइटमैप, `robots.txt`, प्री-रेंडरिंग और स्थानीयकृत 404 पेज।
 
-> क्या आप किसी अन्य स्टैक की तलाश में हैं? [TanStack Start + use-intl गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_tanstack-start_use-intl.md), [TanStack Start + Lingui गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_tanstack-start_lingui.md), या [TanStack Start + Intlayer गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md) देखें।
+> क्या आप किसी अन्य स्टैक की तलाश में हैं?
+
+- [TanStack Start + use-intl गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_tanstack-start_use-intl.md)
+- [TanStack Start + Lingui गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_tanstack-start_lingui.md)
+- [TanStack Start + Intlayer गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md)
 
 > दो कंपाइलर-आधारित दृष्टिकोणों की तुलना कर रहे हैं? [क्या Intlayer, Paraglide से हल्का है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_intlayer_lighter_than_paraglide.md) पढ़ें।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 
 ## TanStack Start पर Paraglide के बारे में बेंचमार्क क्या कहता है
 
@@ -95,7 +103,11 @@ TanStack Start पर आमतौर पर उपयोग की जाने
 
 > रनटाइम आकार और लीक के आंकड़े [TanStack Start बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) से लिए गए हैं। लीक को प्रत्येक लाइब्रेरी के सर्वोत्तम सेटअप पर मापा गया है।
 
-> अन्य TanStack Start गाइड: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_tanstack-start_lingui.md), [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_tanstack-start_use-intl.md), और [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md)।
+> अन्य TanStack Start गाइड:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_tanstack-start_lingui.md)
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/i18n_using_tanstack-start_use-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_tanstack.md)
 
 ## सर्वोत्तम प्रथाएं जिनका आपको पालन करना चाहिए
 
@@ -108,7 +120,8 @@ TanStack Start पर आमतौर पर उपयोग की जाने
 - **एक बहुभाषी साइटमैप और robots.txt जनरेट करें**, और प्रत्येक लोकेल को प्री-रेंडर करें।
 - **लोकेल स्विचर के लिए वास्तविक लिंक्स का उपयोग करें**, ताकि क्रॉलर्स हर भाषा को खोज सकें।
 
-> [अंतर्राष्ट्रीयकरण और SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/internationalization_and_SEO.md) और [hreflang गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/hreflang_guide_multilingual_seo.md) पर हमारी गाइड देखें।
+- [अंतर्राष्ट्रीयकरण और SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/internationalization_and_SEO.md)
+- [hreflang गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/hreflang_guide_multilingual_seo.md)
 
 ## TanStack Start एप्लिकेशन में Paraglide JS सेट अप करने के लिए चरण-दर-चरण गाइड
 

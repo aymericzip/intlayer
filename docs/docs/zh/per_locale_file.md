@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer 中的“每语言”内容声明
+title: "按语言环境拆分的内容声明文件"
 description: 了解如何在 Intlayer 中按语言声明内容。遵循文档以理解不同格式和使用场景。
 keywords:
   - 国际化

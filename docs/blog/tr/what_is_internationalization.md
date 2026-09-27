@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
-title: "Uluslararasılaştırma (i18n) Nedir? Anlamı, Tanımı ve Zorlukları"
+title: "Uluslararasılaştırma (i18n) nedir? Anlamı ve zorlukları"
 description: "i18n ne anlama gelir? Uluslararasılaştırmanın ne olduğunu, neden i18n olarak kısaltıldığını, yerelleştirmeden (l10n) farkını ve uygulamadaki yaygın zorlukları öğrenin."
 keywords:
   - i18n anlamı
@@ -183,11 +183,11 @@ Bu zorluklar göz önüne alındığında, içeriği dışa aktarmak ve çeviri 
 
 Stack'iniz için doğru i18n kütüphanesini arıyorsanız aşağıdaki rehberlere göz atın:
 
-- React: [React için i18n kütüphanesi nasıl seçilir](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_react_i18n_library.md)
-- Vue: [Vue için i18n kütüphanesi nasıl seçilir](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_vue_i18n_library.md)
-- Svelte: [Svelte için i18n kütüphanesi nasıl seçilir](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_svelte_i18n_library.md)
-- Solid: [Solid için i18n kütüphanesi nasıl seçilir](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_solid_i18n_library.md)
-- Next.js: [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
+- [React için i18n kütüphanesi nasıl seçilir](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_react_i18n_library.md)
+- [Vue için i18n kütüphanesi nasıl seçilir](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_vue_i18n_library.md)
+- [Svelte için i18n kütüphanesi nasıl seçilir](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_svelte_i18n_library.md)
+- [Solid için i18n kütüphanesi nasıl seçilir](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_solid_i18n_library.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## Sonuç
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 辞書の監視
+title: "intlayer watch：変更時に辞書を再ビルド"
 description: コンテンツ宣言ファイルの変更を監視し、自動的に辞書をビルドする方法を学びます。
 keywords:
   - 監視

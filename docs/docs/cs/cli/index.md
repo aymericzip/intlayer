@@ -129,19 +129,19 @@ Chcete-li se dozvědět, jak nakonfigurovat dostupné jazyky nebo jiné parametr
 
 ### Základní příkazy
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/build.md)** - Sestavte své slovníky ze souborů s deklarací obsahu
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/watch.md)** - Sledujte změny a automaticky znovu sestavujte slovníky
-- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/standalone.md)** - Vytvořte samostatný balíček JavaScriptu obsahující Intlayer a specifikované balíčky.
-- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/version.md)** - Zkontrolujte nainstalovanou verzi Intlayer CLI
-- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/list_projects.md)** - Vypište všechny projekty Intlayer v adresáři nebo git repositáři
+- [Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/build.md)
+- [Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/watch.md)
+- [Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/standalone.md)
+- [Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/version.md)
+- [List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/list_projects.md)
 
 ### Správa slovníků
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/push.md)** - Odešlete slovníky do editoru a CMS Intlayer
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/pull.md)** - Stáhněte slovníky z editoru a CMS Intlayer
-- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/fill.md)** - Doplňte, auditujte a překládejte slovníky pomocí AI
-- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/test.md)** - Otestujte a identifikujte chybějící překlady
-- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/list.md)** - Vypište všechny soubory s deklarací obsahu ve vašem projektu
+- [Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/push.md)
+- [Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/pull.md)
+- [Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/fill.md)
+- [Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/test.md)
+- [List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/list.md)
 
 ### Správa komponent
 
@@ -154,13 +154,13 @@ Chcete-li se dozvědět, jak nakonfigurovat dostupné jazyky nebo jiné parametr
 
 ### Správa dokumentů
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/doc-translate.md)** - Automaticky překládejte soubory dokumentace pomocí AI
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/doc-review.md)** - Zkontrolujte kvalitu a konzistenci souborů dokumentace
+- [Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/doc-translate.md)
+- [Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/doc-review.md)
 
 ### Editor a Live Sync
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/editor.md)** - Používejte příkazy editoru Intlayer
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/live.md)** - Používejte Live Sync k aplikování změn obsahu z CMS v reálném čase
+- [Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/editor.md)
+- [Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/live.md)
 
 ### Audit a diagnostika
 
@@ -168,8 +168,8 @@ Chcete-li se dozvědět, jak nakonfigurovat dostupné jazyky nebo jiné parametr
 
 ### Vývojářské nástroje
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/sdk.md)** - Používejte Intlayer CLI SDK ve svém vlastním kódu
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/debug.md)** - Ladění a řešení problémů s Intlayer CLI
+- [CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/sdk.md)
+- [Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/debug.md)
 
 ## Používejte příkazy intlayer ve svém souboru `package.json`
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
-title: Intlayer 프로젝트 목록
+title: "intlayer projects list: Intlayer 프로젝트 찾기"
 description: 디렉터리 또는 Git 저장소에서 모든 Intlayer 프로젝트를 나열하는 방법을 알아봅니다.
 keywords:
   - List

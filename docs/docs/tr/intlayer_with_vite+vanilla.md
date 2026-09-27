@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "Vite + Vanilla JS i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Vite + Vanilla JS uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+title: "Vite + Vanilla JS i18n: eksiksiz çeviri rehberi"
+description: "Framework olmadan bir Vite uygulamasında Intlayer kurulumu: DOM'u çevirin, locale değiştirin ve tipli içeriği .content dosyalarında tutun."
 keywords:
   - Uluslararasılaştırma
   - Belgeler
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer kullanarak Vite ve Vanilla JS web sitenizi çevirin | Uluslararasılaştırma (i18n)
+# Intlayer kullanarak Vite ve Vanilla JS web sitenizi çevirin
 
 <Tabs defaultTab="code">
   <Tab label="Kod" value="code">

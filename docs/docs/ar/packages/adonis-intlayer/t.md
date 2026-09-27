@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق دالة t | adonis-intlayer
-description: تعرف على كيفية استخدام دالة t لحزمة adonis-intlayer
+description: "استخدم الدالة t من adonis-intlayer لإرجاع استجابات مترجمة في AdonisJS حسب اللغة المكتشفة لكل طلب."
 keywords:
   - t
   - ترجمة

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu Hook usePathname | angular-intlayer
-description: Xem cách sử dụng hook usePathname cho gói angular-intlayer
+description: "Dùng usePathname trong Angular để đọc đường dẫn hiện tại không có phân đoạn locale, dưới dạng signal cho điều hướng theo locale."
 keywords:
   - usePathname
   - pathname
@@ -116,5 +116,5 @@ export class SidebarComponent {
 
 ## Liên quan
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/angular-intlayer/exports.md) — ngôn ngữ hiện tại + trình chuyển đổi ngôn ngữ
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md) — tiện ích cơ bản được sử dụng bởi hook này
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/angular-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md)

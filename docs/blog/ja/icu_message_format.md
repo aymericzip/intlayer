@@ -283,9 +283,9 @@ ICUの概念との対応は非常に明確です。
 
 ## 関連リソース
 
-- [Intlayerの複数形コンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md): CLDRに準拠した`plural`ノードとカテゴリ一覧。
-- [Selectベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/select.md): ICUの`select`に相当する機能、`enu`や`cond`の使い分け。
-- [挿入プレースホルダー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md): `{{name}}`による補間と自動検出。
-- [i18nライブラリのベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md): 各ライブラリのバンドルサイズと実行時オーバーヘッド比較。
-- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/react-i18next_vs_react-intl_vs_intlayer.md): 3つのメッセージングモデルの詳細比較。
-- [国際化（i18n）とは？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/what_is_internationalization.md): i18nの語源、l10nとの違い、メッセージ整形を超えた広いスコープについて。
+- [Intlayerの複数形コンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plurial.md)
+- [Selectベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/select.md)
+- [挿入プレースホルダー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)
+- [i18nライブラリのベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/react-i18next_vs_react-intl_vs_intlayer.md)
+- [国際化（i18n）とは？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/what_is_internationalization.md)

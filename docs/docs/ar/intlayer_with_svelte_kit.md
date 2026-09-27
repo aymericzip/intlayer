@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "تدويل SvelteKit - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق SvelteKit متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في SvelteKit: توجيه اللغات عبر hooks، ومحتوى مترجم في دوال load والمكوّنات، وhreflang وخريطة موقع."
 keywords:
   - التدويل
   - الوثائق
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# ترجمة موقع SvelteKit الخاص بك باستخدام Intlayer | التدويل (i18n)
+# ترجمة موقع SvelteKit الخاص بك باستخدام Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="كود" value="code">
@@ -768,8 +768,8 @@ bun run build # Or bun run dev
 
 ### التعمق أكثر
 
-- **المحرر المرئي**: دمج [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) لتحرير الترجمات مباشرة من واجهة المستخدم.
-- **نظام إدارة المحتوى (CMS)**: قم بفصل إدارة المحتوى الخاصة بك باستخدام [نظام إدارة المحتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+- [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [نظام إدارة المحتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
 
 ## الأسئلة الشائعة
 

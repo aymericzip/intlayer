@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getTranslation 함수 문서 | intlayer
-description: intlayer 패키지의 getTranslation 함수 사용법 안내
+description: "getTranslation(별칭 t)으로 번역 맵에서 특정 로케일의 콘텐츠를 선택하고, 없으면 기본 로케일로 대체합니다."
 keywords:
   - getTranslation
   - 번역

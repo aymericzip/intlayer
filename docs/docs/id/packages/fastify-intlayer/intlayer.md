@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: "Dokumentasi Plugin intlayer untuk Fastify | fastify-intlayer"
-description: "Lihat cara menggunakan plugin intlayer untuk paket fastify-intlayer"
+description: "Plugin intlayer untuk Fastify mendeteksi locale pengguna dan menambahkan fungsi terjemahan Intlayer ke setiap request."
 keywords:
   - intlayer
   - fastify

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-16
-updatedAt: 2025-11-16
+updatedAt: 2026-09-27
 priority: 5
 title: getPrefix 関数ドキュメント | intlayer
-description: intlayer パッケージの getPrefix 関数の使い方を確認する
+description: "getPrefix でルーティングモードに応じたロケールの URL プレフィックスを取得。リンクやルートにそのまま使える 3 つの形式を返します。"
 keywords:
   - getPrefix
   - prefix
@@ -170,8 +170,8 @@ console.log(`現在のロケール: ${localePrefix}`);
 
 ## 関連関数
 
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md): 特定のロケール用のローカライズされたURLを生成
-- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getMultilingualUrls.md): 設定されたすべてのロケール用のURLを生成
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)
+- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getMultilingualUrls.md)
 
 ## TypeScript
 

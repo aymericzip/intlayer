@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 8
-title: "Come rendere multilingue (i18n) un'applicazione Next.js esistente a posteriori (Guida i18n 2026)"
-description: "La guida 2026 per rendere multilingue (i18n) un'app Next.js esistente senza complesse refactoring. Scopri l'estrazione automatica, traduzione AI e routing con Intlayer."
+title: "Rendere multilingue un'app Next.js esistente"
+description: "Aggiungi l'i18n a un'app Next.js esistente senza riscriverla: estrai automaticamente i testi fissi, traducili con l'IA e configura il routing localizzato."
 keywords:
   - Next.js i18n
   - Internazionalizzazione

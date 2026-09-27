@@ -3,7 +3,7 @@ createdAt: 2024-12-06
 updatedAt: 2026-06-23
 priority: 9
 title: "تدويل Next.js 14 - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Next.js 14 متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في Next.js 14 App Router: وسيط توجيه اللغات، وServer وClient Components، وبيانات وصفية وخريطة موقع مترجمة."
 keywords:
   - التدوين الدولي
   - الوثائق
@@ -25,7 +25,7 @@ history:
 author: aymericzip
 ---
 
-# ترجمة موقع Next.js 14 و App Router الخاص بك باستخدام Intlayer | Internationalization (i18n)
+# ترجمة موقع Next.js 14 و App Router الخاص بك باستخدام Intlayer
 
 ## جدول المحتويات
 

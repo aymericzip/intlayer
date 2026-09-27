@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
-title: 2026年におけるTanStack Startの最適なi18nソリューション - ベンチマークレポート
+title: "TanStack Start に最適な i18n：2026年ベンチマーク"
 description: react-i18next、use-intl、IntlayerなどのTanStack Start国際化ライブラリを比較。バンドルサイズ、リーク、反応性に関する詳細なパフォーマンスレポート。
 keywords:
   - benchmark
@@ -69,6 +69,10 @@ history:
 実際、最適化が不十分な実装では、国際化されたページがi18nなしのバージョンよりも数倍重くなることがあります。
 
 もう一つの影響は開発体験（DX）への影響です。コンテンツの宣言方法、型、ネームスペースの構成、動的ロード、およびロケール変更時の反応性などが挙げられます。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## TL;DR
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Documentación de la función getLocale | intlayer
-description: Cómo usar la función getLocale del paquete intlayer
+description: "Usa getLocale para detectar la locale a partir de una cadena como una URL o una ruta, con respaldo a tu locale por defecto."
 keywords:
   - getLocale
   - traducción

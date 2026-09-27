@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Obtengo un error relacionado con los sub-paquetes `@intlayer/*`
-description: Soluciona el error relacionado con los sub-paquetes `@intlayer/*`.
+description: "Corrige errores por versiones distintas de los subpaquetes @intlayer/*: alinea todos los paquetes de Intlayer en la misma versión y limpia la caché."
 keywords:
   - @intlayer/*
   - sub-paquetes

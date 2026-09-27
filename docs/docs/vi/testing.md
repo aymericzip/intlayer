@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2025-10-05
+updatedAt: 2026-09-27
 priority: 8
-title: Kiểm thử nội dung của bạn
-description: Khám phá cách kiểm thử nội dung của bạn với Intlayer.
+title: "Kiểm thử bản dịch với Intlayer"
+description: "Kiểm thử nội dung Intlayer: phát hiện bản dịch còn thiếu, xác thực từ điển trong CI và render component theo locale trong unit test."
 keywords:
   - Kiểm thử
   - Intlayer

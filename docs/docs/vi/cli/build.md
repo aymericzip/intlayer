@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Xây dựng Từ điển
+title: "intlayer build: build các từ điển"
 description: Tìm hiểu cách xây dựng từ điển Intlayer của bạn từ các tệp khai báo nội dung.
 keywords:
   - Xây dựng

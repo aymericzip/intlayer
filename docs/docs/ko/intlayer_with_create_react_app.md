@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 3
-title: "Create React App i18n - 앱을 번역하는 완전 가이드"
-description: "i18next는 이제 그만. 2026년 다국어 (i18n) Create React App 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
+title: "Create React App i18n: 완벽한 번역 가이드"
+description: "Create React App 프로젝트에 Intlayer 설정: 컴포넌트 옆의 타입 콘텐츠, 언어 전환기, 로케일별로 로드되는 번역."
 keywords:
   - 국제화
   - 문서
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer로 Create React App 번역하기 | 국제화(i18n)
+# Intlayer로 Create React App 번역하기
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "TanStack Start i18n - Полное руководство по переводу вашего приложения"
-description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения TanStack Start. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
+description: "Настройка Intlayer в TanStack Start: параметр локали в маршрутах, совместимый с SSR переведённый контент, локализованные head-метаданные, hreflang и sitemap."
 keywords:
   - Интернационализация
   - Документация
@@ -52,7 +52,7 @@ history:
 author: aymericzip
 ---
 
-# Переведите ваш Tanstack Start с Intlayer | Интернационализация (i18n)
+# Переведите ваш Tanstack Start с Intlayer
 
 ## Содержание
 

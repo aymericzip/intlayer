@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 독립 실행형 번들 (Standalone Bundle)
-description: 애플리케이션 콘텐츠의 독립 실행형 JavaScript 번들을 만드는 방법을 알아봅니다.
+title: "intlayer standalone: 어떤 페이지에서도 Intlayer 사용"
+description: "Intlayer와 필요한 패키지를 하나의 JavaScript 번들로 만들어 패키지 매니저나 번들러가 없는 페이지에서 사용합니다."
 keywords:
   - Standalone
   - Bundle

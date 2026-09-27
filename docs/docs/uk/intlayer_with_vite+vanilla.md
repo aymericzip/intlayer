@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "Vite + Vanilla JS i18n - Повний посібник з перекладу вашого застосунку"
-description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Vite + Vanilla JS. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
+title: "i18n у Vite + Vanilla JS: повний посібник з перекладу"
+description: "Налаштування Intlayer у застосунку Vite без фреймворку: перекладіть DOM, перемикайте локаль і зберігайте типізований контент у файлах .content."
 keywords:
   - Інтернаціоналізація
   - Документація
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Перекладіть свій веб-сайт Vite та Vanilla JS за допомогою Intlayer | Інтернаціоналізація (i18n)
+# Перекладіть свій веб-сайт Vite та Vanilla JS за допомогою Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Код" value="code">

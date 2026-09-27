@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: useRewriteURL Hook Documentation
-description: Svelte-specific hook for managing localised URL rewrites in Intlayer.
+title: "useRewriteURL Hook Documentation | svelte-intlayer"
+description: "Use useRewriteURL in Svelte to rewrite the browser URL to its localised version, following the custom URL rewrites of your configuration."
 keywords:
   - useRewriteURL
   - svelte-intlayer

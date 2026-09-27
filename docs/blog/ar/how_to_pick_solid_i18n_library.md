@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "كيفية اختيار مكتبة Solid i18n المناسبة في عام 2026"
-description: دليل اتخاذ القرار لتدويل تطبيقات SolidJS و SolidStart. ما هي الأسئلة التي يجب الإجابة عليها قبل المقارنة بين @solid-primitives/i18n و solid-i18next و Paraglide و Lingui و Intlayer، وتكلفة كل خيار من حيث التفاعلية (reactivity) وحجم الحزمة (bundle size) ونظام الأنواع (typing).
+description: "دليل لاختيار i18n في SolidJS وSolidStart: الأسئلة قبل مقارنة @solid-primitives/i18n وsolid-i18next وParaglide وLingui وIntlayer."
 keywords:
   - solidjs i18n
   - solid start i18n
@@ -25,8 +25,6 @@ author: aymericzip
 يغير نموذج التفاعلية (reactivity model) في Solid ما يجب أن تفعله مكتبة الـ i18n. تعمل المكونات (components) مرة واحدة فقط، لذا فإن الترجمة المخزنة في `const` أثناء مرحلة الإعداد (setup) تصبح نصاً مجمداً (frozen string)، وأي مكتبة تمنحك نصوصاً عادية بدلاً من الدوال الموصولة (accessors) ستنتج صفحة تغير اللغة في كل مكان باستثناء المكونات الثلاثة التي قام فيها شخص ما بذلك. إن اختيار مكتبة لـ Solid يتعلق جزئياً بواجهة برمجة التطبيقات (API)، وجزئياً بالمكتبة التي تجعل ارتكاب هذا الخطأ صعباً برمجياً.
 
 يسرد هذا الدليل الأسئلة التي يجب الإجابة عليها أولاً، ثم يطابقها مع `@solid-primitives/i18n` و `solid-i18next` و Paraglide و `@lingui/solid` و Intlayer، لكل من Vite + Solid و SolidStart.
-
-![النظام البيئي لمكتبات Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## جدول المحتويات
 
@@ -88,6 +86,8 @@ author: aymericzip
 
 أحجام المكتبات مأخوذة من [اختبار أداء Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/solid.md): الـ provider بالإضافة إلى الـ accessor في مكون فارغ، بعد التجميع والـ tree-shaking والـ minification، في تطبيق مكون من 10 صفحات و10 لغات. يتم قياس المحتوى بشكل منفصل.
 
+![النظام البيئي لمكتبات Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | المكتبة                  | نموذج المحتوى                      | التفاعلية عند تغيير اللغة                       | أمان الأنواع                          | تحديد النطاق والتحميل الكسول       | حجم المكتبة                                      |
 | :----------------------- | :--------------------------------- | :---------------------------------------------- | :------------------------------------ | :--------------------------------- | :----------------------------------------------- |
 | `@solid-primitives/i18n` | قاموس مسطح تملكه                   | Signal، دوال accessors تُرجع من translator      | 3/5 — مستنتجة من قاموس المصدر         | لا يوجد بشكل مدمج                  | ~0.6 kB                                          |
@@ -116,7 +116,7 @@ author: aymericzip
 </Accordion>
 <Accordion header="تطبيق SolidStart مع مسارات ذات بادئة لغوية وتصيير على الخادم (SSR)">
 
-يجب أن تأتي اللغة من عنوان URL على الخادم حتى يتطابق كلا الجانبين؛ فاكتشافها على جانب العميل يكون متأخراً جداً. تترك كل من `@solid-primitives/i18n` و `solid-i18next` مسار `[[locale]]` و `matchFilters` وإعادة التوجيه وعلامات `entry-server.tsx` لتنفذها بنفسك. تحتوي Paraglide على إضافة Vite تعالج التوجيه. بينما توفر Intlayer البرمجيات الوسيطة (middleware) ومساعدات التوجيه المدمجة. أياً كان اختيارك، ضع `<html lang>` و `hreflang` في `entry-server.tsx`؛ حيث يتم تطبيق `@solidjs/meta` على العميل بعد التروية (hydration) في SolidStart v2. يشرح مقال [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/frameworks/solid.md) هذا الإعداد بالتفصيل.
+يجب أن تأتي اللغة من عنوان URL على الخادم حتى يتطابق كلا الجانبين؛ فاكتشافها على جانب العميل يكون متأخراً جداً. تترك كل من `@solid-primitives/i18n` و `solid-i18next` مسار `[[locale]]` و `matchFilters` وإعادة التوجيه وعلامات `entry-server.tsx` لتنفذها بنفسك. تحتوي Paraglide على إضافة Vite تعالج التوجيه. بينما توفر Intlayer البرمجيات الوسيطة (middleware) ومساعدات التوجيه المدمجة. أياً كان اختيارك، ضع `<html lang>` و `hreflang` في `entry-server.tsx`؛ حيث يتم تطبيق `@solidjs/meta` على العميل بعد التروية (hydration) في SolidStart v2. يشرح مقال [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_solid_start.md) هذا الإعداد بالتفصيل.
 
 </Accordion>
 <Accordion header="يجب أن يكون تغيير اللغة فورياً ودقيقاً للغاية (fine-grained)">
@@ -443,11 +443,17 @@ export const CartSummary: Component<{ count: number }> = (props) => {
 ## للمزيد من المعلومات
 
 - [اختبار أداء Solid i18n: حجم الحزمة والتسريب وتوقيتات تبديل اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/solid.md)
-- [Solid i18n: لماذا تتجمد الترجمات عند تغيير اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/frameworks/solid.md)
-- [محول توافق i18next الفوري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/i18next.md) و [دليل الترحيل من i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md)
+- [محول توافق i18next الفوري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/i18next.md)
+- [دليل الترحيل من i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md)
 - [تاريخ JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 - [المترجم مقابل الـ i18n التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
 - [الـ i18n لكل مكون مقابل المركزي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md)
 - [كيف يعمل تحسين الحزم أثناء وقت البناء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
-- [إعداد i18n في تطبيق Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+solid.md) وفي [تطبيق SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_solid_start.md)
-- نفس الدليل لكل من [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_react_i18n_library.md) و [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_vue_i18n_library.md) و [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_svelte_i18n_library.md)
+- [إعداد i18n في تطبيق Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+solid.md)
+- [تطبيق SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_solid_start.md)
+
+نفس الدليل لكل من
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_svelte_i18n_library.md)

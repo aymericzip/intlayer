@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق Hook usePathname | next-intlayer
-description: تعرف على كيفية استخدام Hook usePathname لحزمة next-intlayer
+description: "استخدم usePathname في Next.js لقراءة المسار الحالي دون جزء اللغة، للتنقل حسب اللغة والروابط النشطة."
 keywords:
   - usePathname
   - pathname
@@ -133,5 +133,5 @@ export default Sidebar;
 
 ## ذو صلة
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useLocale.md) — اللغة الحالية + مبدل اللغة (كما يوفر `pathWithoutLocale`)
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPathWithoutLocale.md) — الأداة الأساسية التي يعتمد عليها هذا الخطاف
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPathWithoutLocale.md)

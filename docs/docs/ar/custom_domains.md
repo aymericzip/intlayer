@@ -2,7 +2,7 @@
 createdAt: 2026-04-02
 updatedAt: 2026-06-23
 priority: 8
-title: نطاقات مخصصة (Custom Domains)
+title: "نطاقات مخصّصة: نطاق لكل لغة"
 description: تعرف على كيفية تكوين توجيه اللغات القائم على النطاق في Intlayer لخدمة لغات مختلفة من أسماء مضيفين مخصصة.
 keywords:
   - نطاقات مخصصة

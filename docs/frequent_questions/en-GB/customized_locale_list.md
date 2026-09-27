@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: How to customise the locale list?
-description: Learn how to customise the locale list.
+description: "Customise the list of locales Intlayer supports in intlayer.config.ts, including regional variants and the default locale."
 keywords:
   - locales
   - list

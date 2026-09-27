@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 8
-title: Interés de Intlayer
+title: "¿Por qué Intlayer? Ventajas frente a otras bibliotecas i18n"
 description: Descubre los beneficios y ventajas de usar Intlayer en tus proyectos. Comprende por qué Intlayer se destaca entre otros frameworks.
 keywords:
   - Beneficios
@@ -221,6 +221,10 @@ Este enfoque te permite:
 
 6. **Optimizar el rendimiento de la carga**
    - Si un componente se carga de forma diferida (lazy-loaded), su contenido relacionado se cargará al mismo tiempo
+
+> Para entender de dónde vienen estas bibliotecas, lee la historia del i18n en JavaScript.
+
+- [La historia del i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md)
 
 ## Características adicionales de Intlayer
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-12
+updatedAt: 2026-09-27
 priority: 8
-title: Kolekcje
+title: "Kolekcje: uporządkowane listy zlokalizowanych elementów"
 description: Użyj pola metadanych item w plikach zawartości Intlayer, aby budować uporządkowane kolekcje zlokalizowanych elementów wybieranych według indeksu w czasie wykonywania.
 keywords:
   - Kolekcje

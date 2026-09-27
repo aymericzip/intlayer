@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "Cách chọn thư viện i18n phù hợp cho Svelte vào năm 2026"
-description: Hướng dẫn đưa ra quyết định quốc tế hóa cho Svelte và SvelteKit. Những câu hỏi cần trả lời trước khi so sánh svelte-i18n, Paraglide, typesafe-i18n, wuchale và Intlayer, cùng chi phí của từng lựa chọn về bundle size, typing và an toàn SSR.
+description: "Hướng dẫn chọn i18n cho Svelte và SvelteKit: những câu hỏi trước khi so sánh svelte-i18n, Paraglide, typesafe-i18n, wuchale và Intlayer."
 keywords:
   - svelte i18n
   - sveltekit i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Svelte không cung cấp sẵn bất kỳ công cụ nào cho i18n. Không có `$t`, không có primitive cho locale, không có định dạng message. Mọi lựa chọn đều đến từ bên thứ ba, và hệ sinh thái Svelte là nơi i18n tại compile-time phát triển mạnh mẽ nhất, do đó các ứng viên khác biệt nhau nhiều hơn so với bên React hoặc Vue.
 
 Hướng dẫn này liệt kê các câu hỏi cần trả lời trước tiên, sau đó đối chiếu câu trả lời với `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale` và Intlayer, dành cho Vite + Svelte và SvelteKit.
-
-![Hệ sinh thái thư viện Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Mục lục
 
@@ -88,6 +86,8 @@ Nếu câu trả lời của bạn cho câu hỏi 3 là "nhiều trang", hãy c�
 
 Kích thước thư viện được lấy từ [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/svelte.md): store cùng với accessor trong một component rỗng, sau khi bundle, tree-shaking và minification, trên một ứng dụng 10 trang, 10 locale. Nội dung được đo lường riêng biệt.
 
+![Hệ sinh thái thư viện Svelte i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Thư viện        | Nơi lưu trữ message               | Trạng thái locale                           | An toàn kiểu                   | Định dạng message             | Tách theo route            | Kích thước thư viện                                |
 | :-------------- | :-------------------------------- | :------------------------------------------ | :----------------------------- | :---------------------------- | :------------------------- | :------------------------------------------------- |
 | `svelte-i18n`   | JSON catalog theo từng locale     | Module-level Svelte store                   | 2/5 — Union thủ công           | ICU                           | Không                      | ~16.6 kB                                           |
@@ -111,7 +111,7 @@ Kích thước thư viện gần như bằng 0 của Paraglide là do cấu trú
 </Accordion>
 <Accordion header="SvelteKit với định tuyến locale và SSR">
 
-Vấn đề chia sẻ state sẽ quyết định trường hợp này. `svelte-i18n` hoạt động trên SvelteKit nhưng cấu hình theo từng request (`hooks.server.ts`, `locals`, `load`, sau đó là `setContext`) bạn phải tự viết và rất dễ mắc lỗi tinh vi. Paraglide cung cấp sẵn tích hợp cho SvelteKit giúp xử lý routing và đọc locale theo từng lệnh gọi, tránh được vấn đề singleton. Intlayer thiết lập locale từ dữ liệu của `load` vào context. Bài viết [SvelteKit i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/list_i18n_technologies/frameworks/sveltekit.md) giải thích sự lựa chọn giữa `[[lang]]` và `reroute`, điều bạn nên cân nhắc trước khi chọn thư viện.
+Vấn đề chia sẻ state sẽ quyết định trường hợp này. `svelte-i18n` hoạt động trên SvelteKit nhưng cấu hình theo từng request (`hooks.server.ts`, `locals`, `load`, sau đó là `setContext`) bạn phải tự viết và rất dễ mắc lỗi tinh vi. Paraglide cung cấp sẵn tích hợp cho SvelteKit giúp xử lý routing và đọc locale theo từng lệnh gọi, tránh được vấn đề singleton. Intlayer thiết lập locale từ dữ liệu của `load` vào context. Bài viết [SvelteKit i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_svelte_kit.md) giải thích sự lựa chọn giữa `[[lang]]` và `reroute`, điều bạn nên cân nhắc trước khi chọn thư viện.
 
 </Accordion>
 <Accordion header="Bản dịch đến từ TMS hoặc agency cung cấp chuỗi ICU">
@@ -439,11 +439,16 @@ Chúng thay đổi cú pháp của locale state của riêng bạn, chứ không
 ## Tìm hiểu thêm
 
 - [Svelte i18n benchmark: kích thước bundle, độ rò rỉ và thời gian chuyển đổi locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/svelte.md)
-- [Svelte i18n: store, rune và cái bẫy module-level](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/list_i18n_technologies/frameworks/svelte.md) và [SvelteKit i18n: định tuyến, SSR và shared state](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/list_i18n_technologies/frameworks/sveltekit.md)
 - [Compat adapter thay thế trực tiếp cho `svelte-i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/svelte-i18n.md)
 - [Lịch sử JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 - [Compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
 - [i18n theo component vs tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md)
 - [Cách thức tối ưu hóa bundle khi build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
-- [Thiết lập i18n trong ứng dụng Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+svelte.md) và trong [ứng dụng SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_svelte_kit.md)
-- Hướng dẫn tương tự cho [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_react_i18n_library.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_vue_i18n_library.md) và [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_solid_i18n_library.md)
+- [Thiết lập i18n trong ứng dụng Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+svelte.md)
+- [ứng dụng SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_svelte_kit.md)
+
+Hướng dẫn tương tự cho
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_vue_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_solid_i18n_library.md)

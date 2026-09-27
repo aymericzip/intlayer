@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Debug Intlayer Command
-description: Learn how to debug and troubleshoot Intlayer CLI issues.
+title: "Debug the Intlayer CLI"
+description: "Troubleshoot the Intlayer CLI: check the installed version, enable verbose logs and fix common command and configuration errors."
 keywords:
   - Debug
   - Troubleshoot

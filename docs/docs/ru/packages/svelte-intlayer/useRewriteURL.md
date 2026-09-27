@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: Документация хука useRewriteURL
-description: Svelte-специфичный хук для управления локализованными перезаписями URL в Intlayer.
+title: "Документация хука useRewriteURL | svelte-intlayer"
+description: "Используйте useRewriteURL в Svelte, чтобы переписать URL браузера в локализованный вид согласно правилам перезаписи URL в конфигурации."
 keywords:
   - useRewriteURL
   - svelte-intlayer

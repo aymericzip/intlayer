@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-09-30
+updatedAt: 2026-09-27
 priority: 8
-title: Eine Komponente mehrsprachig machen (i18n-Bibliothek) in React und Next.js
+title: "Eine React- oder Next.js-Komponente mehrsprachig machen"
 description: Lernen Sie, wie Sie lokalisierten Inhalt deklarieren und abrufen, um eine mehrsprachige React- oder Next.js-Komponente mit Intlayer zu erstellen.
 keywords:
   - i18n

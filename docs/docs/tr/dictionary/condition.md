@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 8
-title: Koşullu İçerik
-description: Intlayer'da koşullu içeriği kullanarak belirli koşullara göre içeriği dinamik olarak nasıl görüntüleyeceğinizi öğrenin. Bu dokümantasyonu takip ederek projenizde koşulları verimli bir şekilde uygulayın.
+title: "Intlayer'da koşullu içerik"
+description: "Intlayer'ın cond() düğümüyle bir boolean koşula göre farklı içerik gösterin; bir kez tanımlanır, render sırasında çözümlenir."
 keywords:
   - Koşullu İçerik
   - Dinamik Oluşturma

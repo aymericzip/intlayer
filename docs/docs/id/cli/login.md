@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Masuk
+title: "intlayer login: masuk ke CMS"
 description: Pelajari cara menggunakan perintah login Intlayer CLI untuk mengautentikasi dengan Intlayer CMS dan memperoleh kredensial akses.
 keywords:
   - CLI
@@ -234,9 +234,9 @@ Setelah menyelesaikan login:
 1. Tambahkan kredensial ke file `.env` Anda
 2. Konfigurasikan file `intlayer.config.*` Anda dengan kredensial tersebut
 3. Gunakan perintah CLI untuk mengelola kamus Anda:
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/push.md) - Push kamus ke CMS
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/pull.md) - Pull kamus dari CMS
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill.md) - Isi terjemahan yang hilang
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/pull.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill.md)
 
 ## Lihat Juga
 

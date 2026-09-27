@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getLocaleName 関数のドキュメント | intlayer
-description: intlayer パッケージの getLocaleName 関数の使い方を見る
+description: "getLocaleName でロケール名を別の言語で取得します。たとえば「French」や「français」など、言語切り替えのラベルに使えます。"
 keywords:
   - getLocaleName
   - 翻訳

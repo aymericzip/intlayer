@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-16
-updatedAt: 2025-11-16
+updatedAt: 2026-09-27
 priority: 5
 title: getPrefix 函数文档 | intlayer
-description: 查看如何使用 intlayer 包中的 getPrefix 函数
+description: "使用 getPrefix 按路由模式获取某个语言的 URL 前缀，提供可直接用于链接和路由的三种格式。"
 keywords:
   - getPrefix
   - prefix
@@ -171,8 +171,8 @@ console.log(`当前语言环境: ${localePrefix}`);
 
 ## 相关函数
 
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md): 为特定语言环境生成本地化 URL
-- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getMultilingualUrls.md): 为所有配置的语言环境生成 URL
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)
+- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getMultilingualUrls.md)
 
 ## TypeScript
 

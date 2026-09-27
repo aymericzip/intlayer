@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getEnumeration 関数ドキュメント | intlayer
-description: intlayer パッケージの getEnumeration 関数の使い方を確認する
+description: "getEnumeration（別名 enu）で、列挙オブジェクトの条件に基づき数量に対応するコンテンツを選択します。"
 keywords:
   - getEnumeration
   - 翻訳

@@ -285,9 +285,9 @@ Mevcut projenizde hazır ICU metinleri bulunuyorsa, [react-intl uyumluluk bağda
 
 ## Daha fazlası
 
-- [Intlayer'da Çoğul İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md): CLDR destekli `plural` düğümü ve kategori tablosu.
-- [Select Tabanlı İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/select.md): ICU `select` karşılığı ve `enu` ile `cond` kullanımı.
-- [Yerleştirme Belirteçleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md): `{{name}}` enterpolasyonu ve otomatik algılama.
-- [i18n Kütüphane Kıyaslaması](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md): Paket boyutu ve çalışma zamanı performansı karşılaştırması.
-- [react-i18next, react-intl ve Intlayer Karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/react-i18next_vs_react-intl_vs_intlayer.md): Üç mesaj modelinin kapsamlı analizi.
-- [Uluslararasılaştırma (i18n) Nedir?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/what_is_internationalization.md): Terimin kökeni, l10n ile farkları ve mesaj biçimlendirmenin ötesindeki geniş kapsam.
+- [Intlayer'da Çoğul İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plurial.md)
+- [Select Tabanlı İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/select.md)
+- [Yerleştirme Belirteçleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md)
+- [i18n Kütüphane Kıyaslaması](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
+- [react-i18next, react-intl ve Intlayer Karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Uluslararasılaştırma (i18n) Nedir?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/what_is_internationalization.md)

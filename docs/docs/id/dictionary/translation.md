@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 8
-title: Terjemahan
-description: Temukan cara mendeklarasikan dan menggunakan terjemahan di situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi online ini untuk mengatur proyek Anda dalam beberapa menit.
+title: "Konten terjemahan: fungsi t()"
+description: "Deklarasikan terjemahan per locale dengan fungsi t() Intlayer, dengan pemeriksaan tipe yang menandai locale yang hilang saat build."
 keywords:
   - Terjemahan
   - Internasionalisasi

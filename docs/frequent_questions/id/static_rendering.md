@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Rendering Statis vs Dinamis dengan i18n di Next.js
-description: Pelajari cara menggunakan rendering statis vs dinamis dengan i18n di Next.js.
+description: "Mengapa helper next-intl membuat rute i18n Next.js menjadi dinamis, dan cara menjaga halaman terlokalisasi tetap dirender statis."
 keywords:
   - statis
   - dinamis

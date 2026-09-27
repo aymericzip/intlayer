@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
-title: Solusi i18n terbaik untuk TanStack Start tahun 2026 - Laporan Benchmark
+title: "Solusi i18n terbaik untuk TanStack Start: benchmark 2026"
 description: Bandingkan library internasionalisasi TanStack Start seperti react-i18next, use-intl, dan Intlayer. Laporan performa terperinci tentang ukuran bundle, kebocoran, dan reaktivitas.
 keywords:
   - benchmark
@@ -69,6 +69,10 @@ Seiring berkembangnya aplikasi Anda, masalah tersebut dapat dengan cepat meledak
 Dalam praktiknya, untuk implementasi yang paling tidak dioptimalkan, halaman yang diinternasionalisasi bisa menjadi beberapa kali lebih berat daripada versi tanpa i18n.
 
 Dampak lainnya adalah pada pengalaman pengembang (DX): bagaimana Anda mendeklarasikan konten, tipe, organisasi namespace, pemuatan dinamis, dan reaktivitas saat lokal berubah.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## TL;DR
 

@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2026-05-31
 priority: 3
-title: "Create React App i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की जरूरत नहीं। 2026 में Create React App ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
+title: "Create React App i18n: पूरी अनुवाद गाइड"
+description: "Create React App प्रोजेक्ट में Intlayer सेट करें: कंपोनेंट के पास टाइप्ड कंटेंट, भाषा स्विचर और लोकेल के अनुसार लोड होने वाले अनुवाद।"
 keywords:
   - अंतर्राष्ट्रीयकरण
   - डॉक्यूमेंटेशन
@@ -24,7 +24,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer के साथ अपना Create React App अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
+# Intlayer के साथ अपना Create React App अनुवाद करें
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"

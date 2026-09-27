@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 設定の管理
-description: Intlayerの設定をCMSに取得およびプッシュする方法を学びます。
+title: "intlayer configuration：設定の取得とプッシュ"
+description: "Intlayer CLI で解決済みの設定を表示し、Intlayer CMS にプッシュして、ダッシュボードとプロジェクトを同期させます。"
 keywords:
   - 設定
   - コンフィグ

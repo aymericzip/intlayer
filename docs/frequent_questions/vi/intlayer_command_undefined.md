@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Lệnh Intlayer không xác định
-description: Tìm hiểu cách khắc phục lỗi lệnh intlayer không xác định.
+description: 'Sửa lỗi "intlayer: command not found": cài CLI, chạy qua trình quản lý gói và kiểm tra PATH.'
 keywords:
   - intlayer
   - lệnh

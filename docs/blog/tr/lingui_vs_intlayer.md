@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui ve Intlayer Karşılaştırması: 2026 Kıyaslama Testi"
-description: "Next.js ve TanStack Start üzerinde ölçülen derleyici tabanlı iki i18n kütüphanesi. Paket boyutu, içerik sızıntısı, bileşen boyutu, hidrasyon, dil değiştirme tepkiselliği ve geliştirici deneyimi."
+description: "Derleyici tabanlı iki i18n kütüphanesi Next.js ve TanStack Start üzerinde ölçüldü: bundle, içerik sızıntısı, bileşen boyutu, hydration ve dil değişimi."
 keywords:
   - Lingui
   - Intlayer
@@ -23,9 +23,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui ve Intlayer Karşılaştırması | React & Next.js Uluslararasılaşma (i18n) Testi
-
-![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+# Lingui ve Intlayer Karşılaştırması: React & Next.js Uluslararasılaşma (i18n) Testi
 
 Lingui ve Intlayer, bu karşılaştırmada saf bir çalışma zamanı (runtime) yerine bir **derleyiciye (compiler)** dayanan iki kütüphanedir. Lingui derleme sırasında makrolardan mesajları çıkarır ve her dil için kataloglar derler. Intlayer ise bileşen başına sözlükler derler ve bunları dil başına tree-shake eder. Kağıt üzerinde birbirine çok yakın görünmelidirler. Ancak sayılar nerede ayrıştıklarını açıkça ortaya koyuyor.
 
@@ -451,26 +449,34 @@ Makrolar için kalır, Intlayer'ın kendi içeriği için ortadan kalkar. `.cont
 
 ## İlgili karşılaştırmalar
 
+![JavaScript i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 Aynı benchmark, diğer kütüphaneler:
 
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md)
 - [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer.md)
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/react-i18next_vs_react-intl_vs_intlayer.md)
 
 Daha fazlası:
 
-- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer-lingui.md), aynı uygulamada ölçülen bağdaştırıcı
+- [Lingui vs @intlayer/lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer-lingui.md)
 - [Compiler-driven vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
 - [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md)
 - [ICU message format explained](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/icu_message_format.md)
 
 Referans belgeler:
 
-- [Next.js benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) ve [TanStack Start benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+- [Next.js benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+- [TanStack Start benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 - [Compat adapter: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md)
-- [Paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [Paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+- [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## GitHub Yıldızları
 

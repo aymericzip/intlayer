@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
-title: Najlepsze rozwiązanie i18n dla TanStack Start w 2026 r. - Raport Benchmark
+title: "Najlepsze rozwiązanie i18n dla TanStack Start: benchmark 2026"
 description: Porównaj biblioteki internacjonalizacji dla TanStack Start, takie jak react-i18next, use-intl i Intlayer. Szczegółowy raport wydajności dotyczący rozmiaru pakietu, wycieków i reaktywności.
 keywords:
   - benchmark
@@ -69,6 +69,10 @@ W miarę rozwoju aplikacji problem ten może szybko spowodować gwałtowny wzros
 W praktyce, w przypadku najmniej zoptymalizowanych implementacji, strona zinternacjonalizowana może okazać się kilka razy cięższa niż wersja bez i18n.
 
 Inny wpływ dotyczy doświadczenia programisty (DX): sposobu deklarowania treści, typów, organizacji przestrzeni nazw, ładowania dynamicznego i reaktywności przy zmianie lokalizacji.
+
+> Aby zrozumieć, skąd wzięły się te biblioteki, przeczytaj historię i18n w JavaScript.
+
+- [Historia i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/history_of_i18n.md)
 
 ## TL;DR
 

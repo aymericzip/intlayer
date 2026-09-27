@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Migrasi dari React Intl ke Intlayer"
 description: "Pelajari cara migrasi aplikasi React Anda dari react-intl ke Intlayer menggunakan adapter kompatibilitas."
@@ -54,3 +54,7 @@ Di balik layar:
 - **ICU MessageFormat:** Intlayer menggunakan resolver `resolveMessage(..., 'icu')` yang mendukung sepenuhnya pluralisasi ICU, seleksi, pemformatan tanggal/angka, dan tag teks kaya secara native.
 - **Pemanggil method & JSX:** `intl.formatMessage({ id: 'a.b' })` dan `<FormattedMessage id="a.b">` diidentifikasi oleh plugin compiler Intlayer (`@intlayer/babel` / `@intlayer/swc`), mengonversi kunci bertitik datar sehingga segmen pertama dengan benar menyelesaikan kunci kamus Intlayer.
 - **Formatter:** `<FormattedNumber>`, `<FormattedDate>`, dll., dijembatani ke `core/formatters` native menggunakan `Intl`.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)

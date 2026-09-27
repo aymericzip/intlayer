@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-16
-updatedAt: 2025-11-16
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi getPrefix | intlayer
-description: Lihat cara menggunakan fungsi getPrefix untuk paket intlayer
+description: "Gunakan getPrefix untuk mendapatkan prefiks URL suatu locale sesuai mode routing, dalam tiga format siap pakai untuk tautan dan rute."
 keywords:
   - getPrefix
   - prefix
@@ -170,8 +170,8 @@ console.log(`Current locale: ${localePrefix}`);
 
 ## Fungsi Terkait
 
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md): Menghasilkan URL yang dilokalkan untuk locale tertentu
-- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getMultilingualUrls.md): Menghasilkan URL untuk semua locale yang dikonfigurasi
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md)
+- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getMultilingualUrls.md)
 
 ## TypeScript
 

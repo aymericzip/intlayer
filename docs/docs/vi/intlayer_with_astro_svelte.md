@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + Svelte i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Astro + Svelte đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong Astro với island Svelte: component đã dịch, route bản địa hóa và hreflang, nội dung có kiểu theo component."
 keywords:
   - đa ngôn ngữ
   - tài liệu
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web Astro + Svelte của bạn với Intlayer | Đa ngôn ngữ (i18n)
+# Dịch trang web Astro + Svelte của bạn với Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Mã nguồn" value="code">

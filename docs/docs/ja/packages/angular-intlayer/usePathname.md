@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname Hook ドキュメント | angular-intlayer
-description: angular-intlayer パッケージでの usePathname フックの使用方法について
+description: "Angular の usePathname で、ロケールセグメントを除いた現在のパスをシグナルとして取得し、ロケール対応のナビゲーションに使います。"
 keywords:
   - usePathname
   - pathname
@@ -116,5 +116,5 @@ export class SidebarComponent {
 
 ## 関連情報
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/angular-intlayer/exports.md) — 現在のロケール + ロケールスイッチャー
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md) — このフックで内部的に使用されているユーティリティ
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/angular-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md)

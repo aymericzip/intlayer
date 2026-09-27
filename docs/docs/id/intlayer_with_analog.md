@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Analog i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Analog multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di Analog: konten bertipe per komponen, deteksi dan pergantian locale, serta rute terlokalisasi untuk Angular dengan Vite."
 keywords:
   - Internationalization
   - Documentation
@@ -27,7 +27,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan aplikasi Analog (Angular) Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan aplikasi Analog (Angular) Anda menggunakan Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Kode" value="code">

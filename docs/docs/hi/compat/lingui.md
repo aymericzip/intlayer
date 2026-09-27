@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Lingui से Intlayer में माइग्रेट करें"
 description: "Lingui से Intlayer में अपने एप्लिकेशन को माइग्रेट करना सीखें compat adapter का उपयोग करके।"
@@ -43,3 +43,7 @@ Lingui macros (जैसे `` t`Hello ${name}` `` और `<Trans>`) का उ�
 - **Macros:** वे पहले की तरह ही compile होते हैं, जिससे आपके source syntax में कोई व्यवधान नहीं होता है।
 - **Runtime translation:** aliased `i18n._()` Intlayer dictionaries का उपयोग करता है। explicitly named IDs और hashed IDs दोनों को पूरी तरह से Intlayer के `.po` sync plugins का उपयोग करके mapped किया जाता है ताकि keys को securely aggregate और prune किया जा सके।
 - **ICU capabilities:** pluralization, selection, और ICU variants के लिए support Intlayer के unified ICU parser की वजह से robust रहता है, जिससे identical rendering outputs सुनिश्चित होते हैं।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)

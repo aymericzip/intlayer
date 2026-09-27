@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 8
-title: Dosya
-description: `file` fonksiyonunu kullanarak içerik sözlüğünüzde harici dosyaları nasıl gömeceğinizi öğrenin. Bu dokümantasyon, Intlayer'ın dosya içeriğini nasıl bağladığını ve dinamik olarak yönettiğini açıklar.
+title: "Dosya içeriği: harici dosyaları gömün"
+description: "Markdown veya metin gibi harici dosyaları file() fonksiyonuyla Intlayer sözlüklerine gömün; kaynak dosyayla senkron kalır."
 keywords:
   - Dosya
   - Uluslararasılaştırma
@@ -21,7 +21,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Geçmiş başlatıldı"
-author: aymericzip 
+author: aymericzip
 ---
 
 # Dosya İçeriği / Intlayer'da Dosyaları Gömme

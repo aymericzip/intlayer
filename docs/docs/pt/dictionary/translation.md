@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: Tradução
-description: Descubra como declarar e usar tradução no seu site multilíngue. Siga os passos nesta documentação online para configurar seu projeto em poucos minutos.
+title: "Conteúdo traduzido: a função t()"
+description: "Declare traduções por locale com a função t() do Intlayer, com tipagem que aponta os locales ausentes no build."
 keywords:
   - Tradução
   - Internacionalização

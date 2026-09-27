@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-16
-updatedAt: 2025-11-16
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm getPrefix | intlayer
-description: Xem cách sử dụng hàm getPrefix cho gói intlayer
+description: "Dùng getPrefix để lấy tiền tố URL của một locale theo chế độ định tuyến, ở ba định dạng sẵn sàng cho liên kết và route."
 keywords:
   - getPrefix
   - prefix
@@ -170,8 +170,8 @@ console.log(`Current locale: ${localePrefix}`);
 
 ## Các Hàm Liên Quan
 
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md): Tạo URL có địa phương hóa cho một locale cụ thể
-- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getMultilingualUrls.md): Tạo các URL cho tất cả các locale đã cấu hình
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md)
+- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getMultilingualUrls.md)
 
 ## TypeScript
 

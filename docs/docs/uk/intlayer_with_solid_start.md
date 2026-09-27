@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Solid Start i18n - Повний посібник з перекладу вашого застосунку"
-description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку SolidStart. Серверна маршрутизація локалей, hreflang, карта сайту та переклад за допомогою ШІ."
+description: "Налаштування Intlayer у SolidStart: серверна маршрутизація за локалями, реактивний перекладений контент, hreflang і багатомовна карта сайту."
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Перекладіть свій вебсайт SolidStart за допомогою Intlayer | Інтернаціоналізація (i18n)
+# Перекладіть свій вебсайт SolidStart за допомогою Intlayer
 
 <Tabs defaultTab="video">
   <Tab label="Відео" value="video">

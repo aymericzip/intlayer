@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: محتوى HTML
-description: تعلّم كيفية إعلان واستخدام محتوى HTML مع مكونات مخصصة في Intlayer. اتبع هذه الوثائق لتضمين محتوى غني يشبه HTML مع استبدال المكونات ديناميكيًا في مشروعك متعدد اللغات.
+title: "محتوى HTML بمكوّنات مخصّصة"
+description: "عرّف محتوى HTML في Intlayer واستبدل الوسوم بمكوّناتك عند العرض، لنص منسّق مترجم دون dangerouslySetInnerHTML."
 keywords:
   - HTML
   - مكونات مخصصة

@@ -2,16 +2,19 @@
 createdAt: 2025-09-07
 updatedAt: 2026-09-22
 priority: 8
-title: vue-i18n vs Intlayer
-description: vue-i18n'i Intlayer ile Vue/Nuxt uygulamalarında uluslararasılaştırma (i18n) için karşılaştırın
+title: "vue-i18n ve Intlayer Karşılaştırması: 2026 Kıyaslama Testi"
+description: "vue-i18n ve Intlayer aynı Vite + Vue 3 uygulamasında ölçüldü: kütüphane boyutu, sayfa başına JavaScript, sızıntı, bileşen boyutu ve reaktivite."
 keywords:
   - vue-i18n
   - Intlayer
   - Internationalization
   - i18n
+  - Benchmark
+  - Bundle size
   - Blog
   - Vue
   - Nuxt
+  - Vite
   - JavaScript
 slugs:
   - blog
@@ -19,333 +22,333 @@ slugs:
 author: aymericzip
 ---
 
-# vue-i18n VS Intlayer | Vue Uluslararasılaştırma (i18n)
+# vue-i18n VS Intlayer
 
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+`vue-i18n`, Vue için referans i18n kütüphanesidir. Intlayer ise derleyici tabanlı, bileşen kapsamlı bir alternatiftir ve bir Vue entegrasyonu (`vue-intlayer`) sunar. Bu yazı, uygulama derlendikten sonra her birinin neye mal olduğuna bakıyor.
 
-Bu rehber, **Vue 3** (ve **Nuxt**) için iki popüler i18n seçeneğini karşılaştırır: **vue-i18n** ve **Intlayer**.
-Modern Vue araçlarına (Vite, Composition API) odaklanıyoruz ve şunları değerlendiriyoruz:
-
-1. **Mimari ve içerik organizasyonu**
-2. **TypeScript ve güvenlik**
-3. **Eksik çeviri işleme**
-4. **Yönlendirme ve URL stratejisi**
-5. **Performans ve yükleme davranışı**
-6. **Geliştirici deneyimi (DX), araçlar ve bakım**
-7. **SEO ve büyük proje ölçeklenebilirliği**
+Veriler, her kütüphaneyle aynı uygulamayı derleyen ve tarayıcının gerçekte ne indirip çalıştırdığını kaydeden açık kaynaklı bir paket olan [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)'dan geliyor.
 
 <TOC/>
 
-> **tl;dr**: İkisi de Vue uygulamalarını yerelleştirebilir. **Bileşen kapsamlı içerik**, **katı TypeScript türleri**, **derleme zamanı eksik anahtar kontrolleri**, **ağaç sallanan sözlükler** ve **pil dahil yönlendirici/SEO yardımcıları** artı **Görsel Düzenleyici ve AI çevirileri** istiyorsanız, **Intlayer** daha kapsamlı, modern seçimdir.
+> **tl;dr**: Aynı Vite + Vue 3 uygulamasında `vue-i18n`, i18n'siz uygulamanın **41,3 KB**'ına karşılık sayfa başına **134,9 KB** gzip'lenmiş JavaScript gönderiyor. Intlayer **57,1 KB** gönderiyor. `vue-i18n` runtime'ı tek başına **24,3 KB gzip** (Intlayer'ın 3,9 KB'ının 6 katı), her sayfa **diğer sayfaların dizelerinin %90'ını** taşıyor ve izole derlenen bir bileşen, global mesaj ağacına bağlı olduğu için **196 KB** sürüklüyor. `@intlayer/vue-i18n` adaptörü `vue-i18n` API'sini koruyor ve sayfa başına **47,0 KB** ölçtü.
 
-## Yüksek düzey konumlandırma
+## Kısaca
 
-- **vue-i18n** - Vue için de-facto i18n kütüphanesi. Esnek mesaj formatlaması (ICU tarzı), yerel mesajlar için SFC `<i18n>` blokları ve büyük bir ekosistem. Güvenlik ve büyük ölçekli bakım çoğunlukla sizin sorumluluğunuzdur.
-- **Intlayer** - Vue/Vite/Nuxt için bileşen merkezli içerik modeli, **katı TS yazımı**, **derleme zamanı kontrolleri**, **ağaç sallama**, **yönlendirici ve SEO yardımcıları**, isteğe bağlı **Görsel Düzenleyici/CMS** ve **AI destekli çeviriler**.
+- **vue-i18n** - Vue 2 / Vue 3 için fiili i18n kütüphanesi ve `@nuxtjs/i18n`'in çekirdeği. ICU tarzı mesajlar, SFC `<i18n>` blokları, `v-t` direktifi, `d()` / `n()` biçimlendiricileri, geniş ekosistem. Mesajlar `createI18n()` sırasında global bir örneğe kaydedilir; locale başına lazy loading manuel bir `setLocaleMessage()` desenidir ve rota başına bölme sizin inşa etmeniz gereken bir şeydir.
+- **Intlayer** - Bileşen merkezli içerik modeli. `.content.ts` sözlükleri hizmet ettikleri bileşenin yanında durur, derleme zamanı derleyicisi (`vite-intlayer`) bunları bileşen ve locale başına tree-shake eder ve lazy load eder, içeriğinizden katı TypeScript tipleri üretilir ve eksik çeviriler derleme zamanında hata verir. Router / SEO yardımcıları, Görsel Düzenleyici / CMS ve yapay zeka destekli çeviri ile gelir.
 
-## Derleme zamanında maliyeti nedir
+| Kütüphane             | GitHub Yıldızları                                                                                                                                                              | Toplam Commit                                                                                                                                                                      | Son Commit                                                                                                                                          | İlk Sürüm  | NPM Sürümü                                                                                                  | NPM İndirmeleri                                                                                                        |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `aymericzip/intlayer` | [![GitHub Repo stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/aymericzip/intlayer/stargazers) | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=for-the-badge&label=commits)](https://github.com/aymericzip/intlayer/commits) | [![Last Commit](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge)](https://github.com/aymericzip/intlayer/commits) | Nisan 2024 | [![npm](https://img.shields.io/npm/v/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer) | [![npm downloads](https://img.shields.io/npm/dm/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer) |
+| `intlify/vue-i18n`    | [![GitHub Repo stars](https://img.shields.io/github/stars/intlify/vue-i18n?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/intlify/vue-i18n/stargazers)       | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/intlify/vue-i18n?style=for-the-badge&label=commits)](https://github.com/intlify/vue-i18n/commits)       | [![Last Commit](https://img.shields.io/github/last-commit/intlify/vue-i18n?style=for-the-badge)](https://github.com/intlify/vue-i18n/commits)       | Ara 2016   | [![npm](https://img.shields.io/npm/v/vue-i18n?style=for-the-badge)](https://www.npmjs.com/package/vue-i18n) | [![npm downloads](https://img.shields.io/npm/dm/vue-i18n?style=for-the-badge)](https://www.npmjs.com/package/vue-i18n) |
 
-Özellik tablolarından önce, ölçülen kısım. [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) aynı Vite + Vue 3 uygulamasını (10 sayfa, 10 dil) her kütüphaneyle derler ve tarayıcının indirdiklerini kaydeder:
+> Rozetler otomatik olarak güncellenir. Anlık görüntüler zamanla değişecektir.
 
-<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
+## Yan yana özellik karşılaştırması
 
-| Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
-| -------------------- | ------------: | ---------------: | --------: | -----------------: |
-| **base** (no i18n)   |        0.0 KB |          41.3 KB |         - |             1.1 KB |
-| `vue-i18n`           |       24.3 KB |         134.9 KB |     90.0% |           196.0 KB |
-| `@intlayer/vue-i18n` |        7.9 KB |          47.0 KB |      0.0% |             8.4 KB |
-| **`vue-intlayer`**   |    **3.9 KB** |      **57.1 KB** |  **0.0%** |         **7.7 KB** |
+| Özellik                                               | `vue-intlayer` (Intlayer)                                       | `vue-i18n`                                                                       |
+| ----------------------------------------------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **Bileşenlere yakın çeviriler**                       | ✅ Evet, `.content.ts` her bileşenle aynı yerde                 | ✅ SFC `<i18n>` blokları ile (isteğe bağlı); global kataloglar yaygın kurulumdur |
+| **TypeScript entegrasyonu**                           | ✅ İçerikten otomatik üretilen katı tipler                      | ✅ İyi tipler; katı anahtar güvenliği şema tipleme ve disiplin gerektirir        |
+| **Eksik çeviri tespiti**                              | ✅ TypeScript hatası + derleme zamanı hata/uyarısı              | ⚠️ Runtime fallback + konsol uyarısı                                             |
+| **Zengin içerik (bileşenler / Markdown)**             | ✅ Doğrudan destek                                              | ⚠️ `<i18n-t>` bileşen interpolasyonu; Markdown harici eklentilerle               |
+| **ICU desteği**                                       | ⚠️ Devam ediyor                                                 | ✅ Evet                                                                          |
+| **Biçimlendirme (tarih, sayı, para birimi)**          | ✅ Intl tabanlı biçimlendiriciler                               | ✅ `datetimeFormats` / `numberFormats` ile `d()` / `n()`                         |
+| **Yerelleştirilmiş yönlendirme**                      | ✅ Vue Router / Nuxt için yardımcılar, `getMultilingualUrls`    | ⚠️ Çekirdekte değil (`@nuxtjs/i18n` veya özel router kurulumu)                   |
+| **SEO yardımcıları (hreflang, sitemap, robots)**      | ✅ Yerleşik yardımcılar                                         | ❌ Çekirdekte değil                                                              |
+| **Tree-shaking (yalnızca kullanılan içeriği gönder)** | ✅ Bileşen başına, locale başına, derleyici tarafından otomatik | ⚠️ Manuel: katalogları böl, rota başına `setLocaleMessage()`                     |
+| **Lazy loading**                                      | ✅ `importMode: 'dynamic'` (tek satır yapılandırma)             | ✅ Manuel `import()` + `setLocaleMessage()`                                      |
+| **Kullanılmayan içeriği temizleme**                   | ✅ Ölü sözlükler derleme zamanında atılır                       | ❌ Yerleşik değil                                                                |
+| **Eksik çevirileri test etme (CLI / CI)**             | ✅ `npx intlayer content test`                                  | ⚠️ Üçüncü taraf (`vue-i18n-extract`)                                             |
+| **Yapay zeka destekli çeviri**                        | ✅ Yerleşik, kendi sağlayıcı anahtarlarınızı kullanır           | ❌ Hayır                                                                         |
+| **Görsel Düzenleyici / CMS**                          | ✅ Ücretsiz Görsel Düzenleyici + isteğe bağlı CMS               | ❌ Hayır (harici yerelleştirme platformları)                                     |
+| **MCP sunucusu ve Agent Skills**                      | ✅ Evet                                                         | ❌ Hayır                                                                         |
+| **Ekosistem / topluluk**                              | ⚠️ Daha küçük ama hızla büyüyor                                 | ✅ Vue ekosisteminde büyük ve olgun                                              |
 
-`vue-i18n` çalışma zamanı tek başına Intlayer'ın **6 katı** büyüklüğündedir, her sayfa **%90 oranında yabancı sayfa dizgisi** taşır ve tek başına derlenen bir bileşen, `useI18n()` onu genel mesaj ağacına bağladığı için **196 KB** yük getirir. Reaktivite ve sayfa yükleme sürelerini içeren tam rapor [vue-i18n vs Intlayer karşılaştırmasında](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer_benchmark.md) yer almaktadır.
+## Benchmark
+
+### Ne ölçüldü
+
+[Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) paketi, her kütüphaneyle **aynı Vite + Vue 3 uygulamasını** derler: **10 sayfa** (home, about, blog, careers, contact, FAQ, pricing, products, settings, team), **10 locale** (`en`, `fr`, `es`, `de`, `it`, `pt`, `zh`, `ja`, `ko`, `ru`), aynı bileşenler ve aynı içerik. Sayfalar `en` ve `fr` dillerinde ölçülür.
+
+Her iki kütüphane de çoğu Vue projesinin yayınladığı **static** yapılandırmada test edildi: `vue-i18n` için her locale'in JSON'u içe aktarılıp `createI18n({ messages })`'a geçirildi; Intlayer için varsayılan `importMode: 'static'`. Bu modda Intlayer da tüm locale'leri paketler, ancak derleyici içeriği yine de **bileşen başına** kapsamlandırır, dolayısıyla bir sayfa yalnızca render ettiği bileşenlerin sözlüklerini taşır.
+
+Her derleme için paket şunları kaydeder:
+
+- **Lib size**: Yalnızca i18n kütüphanesini içe aktaran boş bir bileşenin gzip boyutu. Runtime'ın sabit maliyeti.
+- **Page JS**: Sayfa başına indirilen gzip JavaScript, tüm sayfalar ve locale'ler üzerinden ortalaması alınmış.
+- **Locale leak %**: İndirilen JS'de bulunan çevrilmiş dizelerden, kullanıcının görüntüle**me**diği bir locale'e ait olanların payı (`en` ve `fr` üzerinde parmak izi alındığından %50, "diğer ölçülen locale tamamen mevcut" anlamına gelir; 10 locale paketlendiğinde gerçek israf daha yüksektir).
+- **Page leak %**: İndirilen JS'de bulunan çevrilmiş dizelerden, kullanıcının **bulunmadığı** bir sayfaya ait olanların payı.
+- **Component avg**: İzole derlenen her bileşenin ortalama gzip boyutu. Tek bir bileşenin ne kadar i18n runtime'ı ve katalog sürüklediğini gösterir.
+- **E2E reactivity**: Yeni bir locale seçilmesi ile DOM'da `html[lang]`'in güncellenmesi arasındaki gerçek süre (Playwright, 5 yineleme).
+- **Page load**: `PerformanceNavigationTiming.duration`.
+
+> Aşağıdaki rakamlar `vue-i18n` 11.4.0 ve `intlayer` 9.5.0 / 9.5.1 ile **2026-09-12** tarihli çalıştırmadan gelmektedir. Test uygulaması kasıtlı olarak küçüktür (locale başına birkaç düzine dize), bu nedenle sızıntı yüzdeleri bir **desen** tanımlar: içeriğinizle birlikte büyürler, runtime maliyeti ise sabit kalır.
+
+### Vite + Vue 3 üzerindeki sonuçlar
+
+İlgilendiğiniz metrikleri ve kütüphaneleri seçin:
+
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
+
+| Kütüphane                     | Strateji | Lib size (gz) | Lib size (min) | Page JS ort. (gz) | Locale leak | Page leak | Component ort. (gz) | E2E reaktivite | Page load |
+| ----------------------------- | -------- | ------------: | -------------: | ----------------: | ----------: | --------: | ------------------: | -------------: | --------: |
+| **base** (i18n yok)           | -        |        0,0 KB |         0,0 KB |           41,3 KB |        %0,0 |         - |              1,1 KB |         1,8 ms |   10,8 ms |
+| `vue-i18n`                    | static   |       24,3 KB |        83,2 KB |          134,9 KB |       %50,0 |     %90,0 |            196,0 KB |         2,8 ms |   13,6 ms |
+| **`vue-intlayer`**            | static   |    **3,9 KB** |    **11,1 KB** |       **57,1 KB** |       %56,8 |  **%0,0** |          **7,7 KB** |     **4,5 ms** |   13,8 ms |
+| `@intlayer/vue-i18n` (compat) | static   |        7,9 KB |        23,2 KB |           47,0 KB |       %15,0 |      %0,0 |              8,4 KB |         1,5 ms |    9,3 ms |
+
+> Temel uygulamanın page-leak sütunu boş bırakılmıştır: i18n kütüphanesi olmadan parmak izi, paylaşılan chunk'lardaki sabit kodlanmış dizeleri yakalar ve sayı anlamlı değildir.
+
+**Nasıl okunmalı**
+
+- **Runtime maliyeti.** `vue-i18n`, tüm benchmark'taki en ağır runtime'lardan biri: yalnızca onu içe aktaran boş bir bileşen için **24,3 KB gzip / 83,2 KB minified**. `vue-intlayer` 3,9 KB gzip'e mal oluyor. Bu fark, kaç dizeniz olursa olsun her sayfada ödeniyor.
+- **Sayfa başına JavaScript.** i18n'siz uygulama 41,3 KB. `vue-i18n` bunu üç katından fazlasına, **134,9 KB**'a çıkarıyor; Intlayer **57,1 KB**'da kalıyor, +15,8 KB, bunun çoğu paketlenen on locale (bir sonraki noktaya bakın).
+- **Sızıntı.** `createI18n({ messages: { en, fr, ... } })` ile her sayfa tüm locale'leri ve tüm sayfaların dizelerini gönderir: **%50 locale sızıntısı** (parmak izi alınan iki locale'de) ve **%90 sayfa sızıntısı**. Intlayer'ın `static` modu da tüm locale'leri paketler (dolayısıyla karşılaştırılabilir locale sızıntısı rakamı) ama **%0 sayfa sızıntısına** sahiptir: bir sayfa yalnızca render ettiği bileşenlerin sözlüklerini çeker. `importMode: 'dynamic'`'e geçmek locale sızıntısını da ortadan kaldırır; bu yapılandırma bu Vue çalıştırmasının parçası değildi.
+- **Bileşen boyutu mimarinin kendini gösterdiği yer.** `useI18n()` çağıran bir bileşen ortalama **196 KB**'a derlenir, çünkü `t()` her locale'in her mesajını tutan global örneğe bağlıdır. Aynı bileşen `useIntlayer()` ile **7,7 KB**'a derlenir: yalnızca kendi sözlüğüne ulaşır.
+- **Reaktivite** her ikisi için de sorun değil (2-5 ms). Mesajlar bellekte olduğunda Vue'nun reaktivite sistemi locale değiştirmeyi ucuz hale getirir.
+- **`@intlayer/vue-i18n`**, drop-in adaptör, `vue-i18n` API'sini korur ve uygulama koduna dokunulmadan **sayfa başına 47,0 KB** ve **bileşen başına 8,4 KB** ölçtü.
+
+> Referans olarak, aynı çalıştırma `fluent-vue`'yu sayfa başına 171,8 KB, 29,7 KB runtime ve bileşen başına 217 KB olarak ölçtü.
 
 <ClickToOpenIframe
-src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
-width="100%"
-height="600px"
-style="border:none;"
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
 />
 
-> Tam tablo [Vue kıyaslama raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md).
+> Tüm kütüphaneleri ve tüm stratejileri içeren tam tablo, [Vue benchmark raporunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md).
 
-## Yan Yana Özellik Karşılaştırması (Vue odaklı)
+## Fark neden? Global örnek vs derlenmiş sözlükler
 
-| Özellik                                                 | **Intlayer**                                                                                   | **vue-i18n**                                                                             |
-| ------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| **Bileşenlere yakın çeviriler**                         | ✅ Evet, bileşen başına birlikte yerleştirilmiş içerik (örneğin, `MyComp.content.ts`)          | ✅ Evet, SFC `<i18n>` blokları aracılığıyla (isteğe bağlı)                               |
-| **TypeScript entegrasyonu**                             | ✅ Gelişmiş, otomatik olarak oluşturulan **katı** türler ve anahtar otomatik tamamlama         | ✅ İyi yazımlar; **katı anahtar güvenliği ekstra kurulum/disiplin gerektirir**           |
-| **Eksik çeviri algılama**                               | ✅ **Derleme zamanı** uyarılar/hatalar ve TS yüzeyleme                                         | ⚠️ Çalışma zamanı geri dönüşleri/uyarılar                                                |
-| **Zengin içerik (bileşenler/Markdown)**                 | ✅ Zengin düğümler ve Markdown içerik dosyaları için doğrudan destek                           | ⚠️ Sınırlı (bileşenler `<i18n-t>` aracılığıyla, Markdown harici eklentiler aracılığıyla) |
-| **AI destekli çeviri**                                  | ✅ Kendi AI sağlayıcı anahtarlarınızı kullanarak yerleşik iş akışları                          | ❌ Yerleşik değil                                                                        |
-| **Görsel Düzenleyici / CMS**                            | ✅ Ücretsiz Görsel Düzenleyici ve isteğe bağlı CMS                                             | ❌ Yerleşik değil (harici platformları kullanın)                                         |
-| **Yerelleştirilmiş yönlendirme**                        | ✅ Yerelleştirilmiş yollar, URL'ler ve `hreflang` oluşturmak için Vue Router/Nuxt yardımcıları | ⚠️ Çekirdek değil (Nuxt i18n veya özel Vue Router kurulumunu kullanın)                   |
-| **Dinamik yol oluşturma**                               | ✅ Evet                                                                                        | ❌ Sağlanmadı (Nuxt i18n sağlar)                                                         |
-| **Çoğullaştırma ve formatlama**                         | ✅ Numaralandırma desenleri; Intl tabanlı formatlayıcılar                                      | ✅ ICU tarzı mesajlar; Intl formatlayıcıları                                             |
-| **İçerik formatları**                                   | ✅ `.ts`, `.js`, `.json`, `.md`, `.txt` (YAML WIP)                                             | ✅ `.json`, `.js` (artı SFC `<i18n>` blokları)                                           |
-| **ICU desteği**                                         | ⚠️ WIP                                                                                         | ✅ Evet                                                                                  |
-| **SEO yardımcıları (site haritası, robots, meta veri)** | ✅ Yerleşik yardımcılar (çerçeve agnostik)                                                     | ❌ Çekirdek değil (Nuxt i18n/topluluk)                                                   |
-| **SSR/SSG**                                             | ✅ Vue SSR ve Nuxt ile çalışır; statik oluşturmayı engellemez                                  | ✅ Vue SSR/Nuxt ile çalışır                                                              |
-| **Ağaç sallama (yalnızca kullanılan içeriği gönder)**   | ✅ Derleme zamanında bileşen başına                                                            | ⚠️ Kısmi; manuel kod bölme/zaman uyumsuz mesajlar gerektirir                             |
-| **Tembel yükleme**                                      | ✅ Yerel / sözlük başına                                                                       | ✅ Zaman uyumsuz yerel mesajlar desteklenir                                              |
-| **Kullanılmayan içeriği temizle**                       | ✅ Evet (derleme zamanı)                                                                       | ❌ Yerleşik değil                                                                        |
-| **Büyük proje bakımı**                                  | ✅ Modüler teşvik eder, tasarım sistemi dostu yapı                                             | ✅ Olası, ancak güçlü dosya/ad alanı disiplini gerektirir                                |
-| **Ekosistem / topluluk**                                | ⚠️ Daha küçük ama hızlı büyüyen                                                                | ✅ Vue ekosisteminde büyük ve olgun                                                      |
-
-## Derinlemesine karşılaştırma
-
-<AccordionGroup>
-<Accordion header="1) Mimari ve ölçeklenebilirlik">
-
-- **vue-i18n**: Ortak kurulumlar yerel başına **merkezi kataloglar** kullanır (isteğe bağlı olarak dosyalara/ad alanlarına bölünür). SFC `<i18n>` blokları yerel mesajlara izin verir ancak ekipler projeler büyüdükçe paylaşılan kataloglara geri döner. Bkz. [bileşen başına ve merkezi i18n karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md).
-- **Intlayer**: Hizmet ettikleri bileşenle birlikte **bileşen başına sözlükleri** teşvik eder. Bu, ekip arası çatışmaları azaltır, içeriği keşfedilebilir tutar ve doğal olarak kayma/kullanılmayan anahtarları sınırlandırır.
-
-**Neden önemli:** Büyük Vue uygulamalarında veya tasarım sistemlerinde, **modüler içerik** monolitik kataloglardan daha iyi ölçeklenir.
-
-</Accordion>
-<Accordion header="2) TypeScript ve güvenlik">
-
-- **vue-i18n**: İyi TS desteği; **katı anahtar yazımı** genellikle özel şemalar/genel türler ve dikkatli kurallar gerektirir.
-- **Intlayer**: İçeriğinizden **katı türler oluşturur**, **IDE otomatik tamamlama** ve yazım/eksik anahtarlar için **derleme zamanı hataları** sağlar.
-
-**Neden önemli:** Güçlü yazım, sorunları **çalışma zamanından önce** yakalar.
-
-</Accordion>
-<Accordion header="3) Eksik çeviri yönetimi">
-
-- **vue-i18n**: **Çalışma zamanı** uyarılar/geri dönüşler (örneğin, yerel veya anahtara geri dön). Bkz. [eksik çevirileri tespit etme](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/detecting_missing_translations.md).
-- **Intlayer**: Yerel ve anahtarlar genelinde **derleme zamanı** algılama ile uyarılar/hatalar., artı CI'da `npx intlayer test`.
-
-**Neden önemli:** Derleme zamanı uygulaması, üretim UI'sini temiz ve tutarlı tutar.
-
-</Accordion>
-<Accordion header="4) Yönlendirme ve URL stratejisi (Vue Router/Nuxt)">
-
-- **İkisi de** yerelleştirilmiş yollarla çalışabilir. Bkz. [hreflang kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md).
-- **Intlayer**, **yerelleştirilmiş yollar oluşturmak**, **yerel önekleri yönetmek** ve SEO için **`<link rel="alternate" hreflang>`** yaymak için yardımcılar sağlar. Nuxt ile, çerçevenin yönlendirmesini tamamlar.
-
-**Neden önemli:** Daha az özel yapıştırıcı katman ve yerel genelinde **daha temiz SEO**.
-
-</Accordion>
-<Accordion header="5) Performans ve yükleme davranışı">
-
-- **vue-i18n**: Zaman uyumsuz yerel mesajları destekler; aşırı paketlemeyi önlemek sizin sorumluluğunuzdur (katalogları dikkatlice bölün). Yukarıdaki kıyaslama bunu sayılarla ortaya koyuyor: sayfa başına 134.9 KB'a karşı 57.1 KB.
-- **Intlayer**: **Derleme zamanında ağaç sallar** ve **sözlük/yere göre tembel yükler**. Kullanılmayan içerik gönderilmez.
-
-**Neden önemli:** Çok yerel Vue uygulamaları için daha küçük paketler ve daha hızlı başlatma.
-
-</Accordion>
-<Accordion header="6) Geliştirici deneyimi ve araçlar">
-
-- **vue-i18n**: Olgun dokümantasyon ve topluluk; genellikle düzenleme iş akışları için **harici yerelleştirme platformlarına** güveneceksiniz.
-- **Intlayer**: **Ücretsiz Görsel Düzenleyici**, isteğe bağlı **CMS** (Git dostu veya dışa aktarılmış), **VSCode uzantısı**, **CLI/CI** yardımcıları ve kendi sağlayıcı anahtarlarınızı kullanarak **AI destekli çeviriler** gönderir., bir **MCP sunucusu**
-
-**Neden önemli:** Daha düşük operasyon maliyeti ve geliştiriciler ile içerik yazarları arasındaki döngüyü kısaltır.
-
-</Accordion>
-<Accordion header="7) SEO, SSR ve SSG">
-
-- **İkisi de** Vue SSR ve Nuxt ile çalışır. Bkz. [uluslararasılaştırma ve SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md).
-- **Intlayer**: Vue/Nuxt yapılarıyla iyi uyumlu, çerçeve agnostik **SEO yardımcıları** (site haritaları/meta veri/`hreflang`) ekler.
-
-**Neden önemli:** Özel kablolama olmadan uluslararası SEO.
-
-</Accordion>
-</AccordionGroup>
-
-## Neden Intlayer? (Sorun ve yaklaşım)
-
-![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
-
-Çoğu i18n yığını (**vue-i18n** dahil) **merkezi kataloglardan** başlar:
-
-<Tabs defaultTab="per-locale" group="catalog">
-<Tab label="Dil başına bir dosya" value="per-locale">
+`vue-i18n` bir runtime'dır. `createI18n()`, locale başına bir mesaj ağacı tutan global bir örnek oluşturur; `useI18n()` her bileşeni ona bağlar; `t("footer.github")` anahtarı render zamanında arar. SFC `<i18n>` bloklarını, `v-t`'yi ve runtime mesaj yüklemeyi mümkün kılan şey budur ve her bileşenin bağımlılık grafiğinin tüm ağacı içermesinin nedeni de budur:
 
 ```bash
 .
 ├── locales
 │   ├── en.json
-│   ├── es.json
-│   └── fr.json
+│   ├── fr.json
+│   └── ...                        # locale başına bir dosya, tüm sayfalar içinde
 └── src
+    ├── i18n.ts                    # createI18n({ messages: { en, fr, ... } })
+    ├── main.ts
     └── components
-        └── MyComponent.vue
+        └── Footer.vue             # const { t } = useI18n(); t("footer.github")
 ```
 
-</Tab>
-<Tab label="Dil başına bir klasör" value="per-folder">
+Optimize etmek, `en.json`'u rota başına dosyalara **sizin** bölmeniz, bir router guard'ında `setLocaleMessage()`'ı **sizin** çağırmanız ve bileşenler taşındıkça rota-dosya eşlemesini **sizin** doğru tutmanız anlamına gelir. Runtime bunu sizin için yapamaz çünkü bir bileşenin hangi anahtarları isteyeceği hakkında hiçbir fikri yoktur.
+
+Intlayer bu bilgiyi derlemeye taşır. İçerik bileşenin yanında bildirilir ve `vite-intlayer` hangi bileşenin hangi sözlüğü içe aktardığını çözer:
 
 ```bash
 .
-├── locales
-│   ├── en
-│   │  ├── footer.json
-│   │  └── navbar.json
-│   ├── fr
-│   │  ├── footer.json
-│   │  └── navbar.json
-│   └── es
-│      ├── footer.json
-│      └── navbar.json
+├── intlayer.config.ts
 └── src
+    ├── main.ts                    # createApp(App).use(intlayer)
     └── components
-        └── MyComponent.vue
+        └── Footer
+            ├── Footer.vue         # useIntlayer("footer")
+            └── Footer.content.ts
 ```
 
-</Tab>
-</Tabs>
+Derleyici, sözlük ve locale başına, o bileşenin ihtiyaç duyduğu JSON'u tam olarak üretir ve hiçbir şeyin içe aktarmadığı sözlükleri atar. Rota başına kapsamlandırma, bileşen başına kapsamlandırmanın bir sonucudur, bir görev değil.
 
-Bu klasör her dilde özellik başına bir ad alanıyla büyümeye devam eder:
+> Kullanılmayan locale'leri de atmak için `intlayer.config.ts` içinde `dictionary.importMode: 'dynamic'` ayarlayın. [Bundle optimizasyonu dokümanına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) bakın.
 
-```txt
-locales
-├── EN
-│   ├── blog.json
-│   ├── about.json
-│   ├── auth.json
-│   ├── blog.json
-│   ├── cart.json
-│   ├── categories.json
-│   ├── contact.json
-│   ├── dashboard.json
-│   ├── errors.json
-│   ├── faq.json
-│   ├── footer.json
-│   ├── form.json
-│   ├── home.json
-│   ├── language.json
-│   ├── navbar.json
-│   ├── ... 65 files
-│   └── validation.json
-└── ES
+## Geliştirici deneyimi
+
+### Kurulum
+
+**vue-i18n**
+
+```ts fileName="src/i18n.ts"
+import { createI18n } from "vue-i18n";
+import en from "../locales/en.json";
+import fr from "../locales/fr.json";
+
+export const i18n = createI18n({
+  legacy: false,
+  locale: "en",
+  fallbackLocale: "en",
+  messages: { en, fr },
+});
 ```
 
-Bu, uygulamalar büyüdükçe geliştirmeyi yavaşlatır:
+```ts fileName="src/main.ts"
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import { i18n } from "./i18n";
 
-1. **Yeni bir bileşen için** uzak katalogları oluştur/düzenle, ad alanlarını bağla ve çevir (genellikle AI araçlarından manuel kopyala/yapıştır ile).
-2. **Bileşenleri değiştirirken** paylaşılan anahtarları avla, çevir, yerel'leri senkronize tut, ölü anahtarları kaldır ve JSON yapılarını hizala.
-
-**Intlayer**, içeriği **bileşen başına** kapsüller ve onu **kodun yanında** tutar, zaten CSS, hikayeler, testler ve dokümantasyonla yaptığımız gibi:
-
-```bash
-.
-└── components
-    └── MyComponent
-        ├── MyComponent.content.ts
-        └── MyComponent.vue
+createApp(App).use(router).use(i18n).mount("#app");
 ```
 
-<Tabs defaultTab="intlayer" group="techno">
-<Tab label="vue-i18n" value="vue-i18n">
+**Intlayer**
 
-```json fileName="./locales/en.json"
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [intlayer(), vue()],
+});
+```
+
+```ts fileName="src/main.ts"
+import { createApp } from "vue";
+import { intlayer } from "vue-intlayer";
+import App from "./App.vue";
+import router from "./router";
+
+createApp(App).use(intlayer).use(router).mount("#app");
+```
+
+### Bileşen
+
+**vue-i18n**
+
+```json fileName="locales/en.json"
 {
-  "componentExample": {
-    "greeting": "Hello World"
+  "counter": {
+    "label": "Counter",
+    "increment": "Increment"
   }
 }
 ```
 
-```vue fileName="./components/MyComponent.vue"
+```vue fileName="src/components/Counter.vue"
 <script setup lang="ts">
+import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-const { t } = useI18n();
+const { t, n } = useI18n();
+const count = ref(0);
 </script>
 
 <template>
-  <span>{{ t("componentExample.greeting") }}</span>
+  <div>
+    <p>{{ n(count) }}</p>
+    <button :aria-label="t('counter.label')" @click="count++">
+      {{ t("counter.increment") }}
+    </button>
+  </div>
 </template>
 ```
 
-Her yerel ayar dosyasının elle düzenlenmesi gerekir ve anahtar düz bir metindir: bir yazım hatası üretimde `componentExample.greting` olarak görüntülenir.
+`t('counter.label')`, mesaj şemasını kendiniz tipleyene kadar bir string'dir; bir yazım hatası anahtarı render eder.
 
-</Tab>
-<Tab label="Intlayer" value="intlayer">
+**Intlayer**
 
-```ts fileName="./components/MyComponent/myComponent.content.ts"
+```ts fileName="src/components/Counter/Counter.content.ts"
 import { t, type Dictionary } from "intlayer";
 
-const componentExampleContent = {
-  key: "component-example",
+const counterContent = {
+  key: "counter",
   content: {
-    greeting: t({
-      en: "Hello World",
-      fr: "Bonjour le monde",
-      es: "Hola Mundo",
-    }),
+    label: t({ en: "Counter", fr: "Compteur" }),
+    increment: t({ en: "Increment", fr: "Incrémenter" }),
   },
 } satisfies Dictionary;
 
-export default componentExampleContent;
+export default counterContent;
 ```
 
-```vue fileName="./components/MyComponent/MyComponent.vue"
+```vue fileName="src/components/Counter/Counter.vue"
 <script setup lang="ts">
-import { useIntlayer } from "vue-intlayer"; // Vue integration
+import { ref } from "vue";
+import { useIntlayer } from "vue-intlayer";
+import { useNumber } from "vue-intlayer/format";
 
-const { greeting } = useIntlayer("component-example");
+const { label, increment } = useIntlayer("counter");
+const number = useNumber();
+const count = ref(0);
 </script>
 
 <template>
-  <span>{{ greeting }}</span>
+  <div>
+    <p>{{ number.value(count) }}</p>
+    <button :aria-label="label" @click="count++">
+      {{ increment }}
+    </button>
+  </div>
 </template>
 ```
 
-Tüm diller bileşenin yanında tek bir tiplenmiş dosyada yer alır.
+`label` ve `increment` tiplidir; bir yazım hatası TypeScript hatasıdır, eksik bir Fransızca değer derleme hatasıdır.
 
-</Tab>
-</Tabs>
+### Locale başına lazy loading
 
-Bu yaklaşım:
+**vue-i18n**
 
-- **Geliştirmeyi hızlandırır** (bir kez beyan et; IDE/AI otomatik tamamlar).
-- **Kod tabanını temizler** (1 bileşen = 1 sözlük).
-- **Çoğaltmayı/migrasyonu kolaylaştırır** (bir bileşeni ve içeriğini birlikte kopyala).
-- **Ölü anahtarları önler** (kullanılmayan bileşenler içerik içe aktarmaz).
-- **Yüklemeyi optimize eder** (tembel yüklenen bileşenler içeriklerini yanlarında getirir).
+```ts fileName="src/i18n.ts"
+import { nextTick } from "vue";
+import { createI18n } from "vue-i18n";
 
-## Intlayer'ın ek özellikleri (Vue ilgili)
+export const i18n = createI18n({
+  legacy: false,
+  locale: "en",
+  fallbackLocale: "en",
+});
 
-- **Çapraz çerçeve desteği**: Vue, Nuxt, Vite, React, Express vb. ile çalışır.
-- **JavaScript destekli içerik yönetimi**: Tam esneklikle kodda beyan et.
-- **Yerel başına beyan dosyası**: Tüm yerel'leri tohumla ve geri kalanını araçların oluşturmasına izin ver.
-- **Tip güvenli ortam**: Otomatik tamamlama ile güçlü TS yapılandırması.
-- **Basitleştirilmiş içerik alma**: Bir sözlük için tüm içeriği almak için tek bir hook/composable.
-- **Düzenlenmiş kod tabanı**: Aynı klasörde 1 bileşen = 1 sözlük.
-- **Gelişmiş yönlendirme**: **Vue Router/Nuxt** yerelleştirilmiş yolları ve meta veri için yardımcılar.
-- **Markdown desteği**: Yerel başına uzak/yerel Markdown içe aktar; frontmatter'ı koda göster.
-- **Ücretsiz Görsel Düzenleyici ve isteğe bağlı CMS**: Ücretli yerelleştirme platformu olmadan yazma; Git dostu senk.
-- **Ağaç sallanabilir içerik**: Yalnızca kullanılanı gönderir; tembel yüklemeyi destekler.
-- **Statik oluşturma dostu**: SSG'yi engellemez.
-- **AI destekli çeviriler**: Kendi AI sağlayıcı/API anahtarınızı kullanarak 231 dile çevirin.
-- **MCP sunucusu ve VSCode uzantısı**: IDE'nizde i18n iş akışlarını ve yazmayı otomatikleştirin.
-- **Birlikte çalışabilirlik**: Gerektiğinde **vue-i18n**, **react-i18next** ve **react-intl** ile köprü kurar.
+export const loadLocaleMessages = async (locale: string) => {
+  const messages = await import(`../locales/${locale}.json`);
+  i18n.global.setLocaleMessage(locale, messages.default);
+  await nextTick();
+  i18n.global.locale.value = locale;
+};
+```
+
+Ardından bir router guard'ından `loadLocaleMessages()` çağırın ve sayfa başına kapsamlandırma istiyorsanız `locales/{locale}.json`'u rota başına kendiniz bölün.
+
+**Intlayer**
+
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  // ...
+  dictionary: {
+    importMode: "dynamic",
+  },
+};
+```
+
+## vue-i18n API'sini koruyun, Intlayer'ın çıktısını alın
+
+`@intlayer/vue-i18n` bir drop-in adaptördür: `useI18n()`, `t()`, `d()`, `n()`, `{name}` ve `{0}` interpolasyonu, pipe çoğullar (`"car | cars"`), `v-t` ve `i18n.global.locale` çalışmaya devam eder, `vite-intlayer` tarafından derlenen Intlayer sözlüklerinden sunulur.
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import vueI18nVitePlugin from "@intlayer/vue-i18n/plugin";
+
+export default defineConfig({
+  plugins: [vue(), vueI18nVitePlugin()],
+});
+```
+
+Benchmark'ta aynı uygulamanın compat derlemesi, bileşenlere dokunulmadan sayfa başına **134,9 KB'dan 47,0 KB'a** ve bileşen başına **196 KB'dan 8,4 KB'a** düştü. Mevcut `locales/{locale}.json` dosyalarınız JSON senkronizasyon eklentisi aracılığıyla doğruluk kaynağı olarak kalabilir.
+
+[vue-i18n geçiş rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_vue-i18n_to_intlayer.md) ve [uyumluluk dokümanına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) bakın. Nuxt kullanıcıları [`@nuxtjs/i18n` uyumluluğu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md) üzerinden aynı yola sahiptir.
 
 ## Hangisini ne zaman seçmeli?
 
-<AccordionGroup>
-<Accordion header="vue-i18n'i seçin">
-
-**Standart Vue yaklaşımını** istiyorsanız, katalogları ve ad alanlarını kendiniz yönetmekten memnunsanız ve uygulamanız **küçük veya orta ölçekliyse** (ya da zaten Nuxt i18n kullanıyorsanız). SFC `<i18n>` blokları ve çalışma zamanı `setLocaleMessage()`, Intlayer'ın bilinçli olarak taklit etmediği özelliklerdir.
-
-</Accordion>
-<Accordion header="Intlayer'ı seçin">
-
-**Bileşen kapsamlı içeriğe**, **katı TypeScript desteğine**, **derleme zamanı garantilerine**, **tree-shaking'e** ve yönlendirme, SEO ve düzenleyici araçlarına değer veriyorsanız, özellikle **büyük, modüler Vue/Nuxt kod tabanları** ve tasarım sistemleri için. [Vue ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+vue.md) veya [Nuxt ile](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md) başlayın.
-
-</Accordion>
-<Accordion header="@intlayer/vue-i18n'i seçin">
-
-Şu anda `vue-i18n` kullanıyorsanız ve `.vue` dosyalarını düzenlemeden paket boyutu kazanımı istiyorsanız. [Uyumluluk adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md), `createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t` ve `v-t` çağrılarını korur ve derlenmiş sözlüklerden sunar. [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer-vue-i18n.md) sayfasında yan yana ölçülmüştür.
-
-</Accordion>
-</AccordionGroup>
-
-## vue-i18n ile birlikte çalışabilirlik
-
-`intlayer`, `vue-i18n` ad alanlarınızı yönetmenize de yardımcı olabilir.
-
-`intlayer` kullanarak, içeriğinizi favori i18n kütüphanenizin formatında beyan edebilirsiniz ve intlayer ad alanlarınızı istediğiniz konumda oluşturacaktır (örnek: `/messages/{{locale}}/{{namespace}}.json`). Bkz. [vue-i18n uyumluluk belgeleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) ve [Nuxt i18n adaptörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md).
+- **vue-i18n'i seçin**: standart Vue yaklaşımını istiyorsanız, ICU mesajlarına veya SFC `<i18n>` bloklarına güveniyorsanız, zaten `@nuxtjs/i18n` kullanıyorsanız veya bir çeviri platformu merkezi JSON bekliyorsa. Bundle boyutu önemliyse katalogları bölmek ve rota başına lazy load yapmak için zaman ayırın.
+- **Intlayer'ı seçin**: **bileşen kapsamlı içerik**, **katı TypeScript**, **derleme zamanı eksik anahtar hataları**, **sıfır çabayla tree-shaking ve lazy loading** ve yerleşik editoryal araçlar (Görsel Düzenleyici, CMS, yapay zeka çevirisi, MCP sunucusu) istiyorsanız. Özellikle büyük, modüler Vue / Nuxt kod tabanları ve tasarım sistemleri için önemlidir.
+- **`@intlayer/vue-i18n`'i seçin**: zaten `vue-i18n` üzerindeyseniz ve yeniden yazma olmadan bundle kazanımlarını istiyorsanız.
 
 ## SSS
 
@@ -383,28 +386,46 @@ Yerel ICU desteği geliştirme aşamasındadır. `@intlayer/vue-i18n` adaptörü
 
 </FAQ>
 
-## GitHub YILDIZLARI
+## İlgili karşılaştırmalar
 
-GitHub yıldızları, bir projenin popülaritesinin, topluluk güveninin ve uzun vadeli öneminin güçlü bir göstergesidir. Teknik kalitenin doğrudan bir ölçüsü olmasa da, kaç geliştiricinin projeyi yararlı bulduğunu, ilerlemesini takip ettiğini ve muhtemelen benimsediğini yansıtır. Bir projenin değerini tahmin etmek için yıldızlar, alternatifler arasındaki çekişmeyi karşılaştırmaya ve ekosistem büyümesine ilişkin içgörüler sağlamaya yardımcı olur.
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md)
+- [vue-i18n eskidi mi?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_vue-i18n_outdated.md)
 
-[![Yıldız Geçmişi Grafiği](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+Referans dokümanlar:
+
+- [Uyumluluk adaptörü: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md)
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md)
+- [Geçiş rehberi: vue-i18n'den Intlayer'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_vue-i18n_to_intlayer.md)
+- [Bundle optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+- [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+
+Benchmark raporları:
+
+- [i18n Benchmark Genel Bakış](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/solid.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/svelte.md)
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
+
+## GitHub Yıldızları
+
+GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun vadeli öneminin güçlü bir göstergesidir. Teknik kalitenin doğrudan bir ölçüsü olmasa da, kaç geliştiricinin projeyi yararlı bulduğunu, ilerlemesini takip ettiğini ve benimseme olasılığını yansıtır.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## Sonuç
 
-Hem **vue-i18n** hem de **Intlayer** Vue uygulamalarını iyi yerelleştirir. Fark, sağlam, ölçeklenebilir bir kurulum elde etmek için **ne kadar kendiniz inşa etmeniz gerektiğidir**:
+`vue-i18n` olgun, esnek ve Vue ile derinden entegre. Benchmark, runtime öncelikli tasarımının bir Vite derlemesinde neye mal olduğunu gösteriyor: **24 KB gzip runtime**, i18n'siz 41 KB olan bir uygulama için **sayfa başına 134,9 KB**, her sayfada **%90 diğer sayfa içeriği** ve global mesaj ağacına bağlı oldukları için her biri **196 KB**'a ulaşan bileşenler.
 
-- **Intlayer** ile, **modüler içerik**, **katı TS**, **derleme zamanı güvenliği**, **ağaç sallanan paketler** ve **yönlendirici/SEO/düzenleyici araçları** **kutudan çıkar**.
-- Ekibiniz çok yerel, bileşen odaklı bir Vue/Nuxt uygulamasında **bakım ve hızı** takdir ediyorsa, Intlayer bugün **en kapsamlı** deneyimi sunar.
+Intlayer işi derleyiciye taşır. Bileşen başına sözlükler ve ölü içerik temizleme, birer derleme çıktısıdır, kural değil. Aynı uygulamada: **3,9 KB runtime**, **sayfa başına 57,1 KB**, **%0 sayfa sızıntısı**, **25 kat daha küçük** bileşenler. Ve yeniden yazma masada değilse, `@intlayer/vue-i18n` bileşenlere dokunmadan yolun büyük kısmını alır.
 
-## Daha fazla okuma
+Tüm ham veriler, test uygulamaları ve script'ler [Benchmark Bloom deposunda](https://github.com/intlayer-org/benchmark-bloom). Kendiniz çalıştırın.
 
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer_benchmark.md), the measured run behind the table above
-- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer-vue-i18n.md), the adapter on the same app
-- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_vue-i18n_outdated.md)
-- [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_vue_i18n_library.md)
-- [Using Intlayer with vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/intlayer_with_vue-i18n.md)
-- [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
-- [Migration guide: vue-i18n to Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_vue-i18n_to_intlayer.md)
-- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
-
-Refer to ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) for more details.
+Daha fazla ayrıntı için ['Neden Intlayer?' dokümanına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) bakın.

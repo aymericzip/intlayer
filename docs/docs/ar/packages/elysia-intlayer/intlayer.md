@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق مكوّن intlayer لـ Elysia | elysia-intlayer
-description: تعرّف على كيفية استخدام المكوّن intlayer من حزمة elysia-intlayer
+description: "تكتشف إضافة intlayer لـ Elysia لغة المستخدم وتحقن دوال الترجمة في سياق المسار لكل طلب."
 keywords:
   - intlayer
   - elysia

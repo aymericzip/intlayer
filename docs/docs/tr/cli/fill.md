@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Sözlükleri Doldurma
-description: Sözlüklerinizi AI kullanarak nasıl dolduracağınızı, denetleyeceğinizi ve çevireceğinizi öğrenin.
+title: "intlayer fill: sözlükleri yapay zekayla çevirin"
+description: "CLI'dan, yerelde veya CI'da eksik çevirileri tamamlayın, mevcut olanları denetleyin ve Intlayer sözlüklerini yapay zekayla çevirin."
 keywords:
   - Doldurma
   - Denetleme

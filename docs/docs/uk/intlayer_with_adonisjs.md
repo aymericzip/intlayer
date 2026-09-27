@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 9
 title: "AdonisJS i18n - Повний посібник з перекладу вашого застосунку"
-description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку AdonisJS. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
+description: "Налаштування Intlayer в AdonisJS: визначення локалі для кожного запиту через middleware, переклад відповідей API та представлень, типізований контент."
 keywords:
   - Інтернаціоналізація
   - Документація
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Перекладіть свій бекенд AdonisJS за допомогою Intlayer | Інтернаціоналізація (i18n)
+# Перекладіть свій бекенд AdonisJS за допомогою Intlayer
 
 `adonis-intlayer`, це потужний пакет інтернаціоналізації (i18n) для додатків AdonisJS, розроблений для того, щоб зробити ваші бекенд-сервіси доступними в усьому світі, надаючи локалізовані відповіді на основі вподобань клієнта.
 
@@ -248,9 +248,9 @@ export default class ExampleController {
 
 `adonis-intlayer` повністю сумісний із:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/index.md) для додатків React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/index.md) для додатків Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md) для додатків Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md)
 
 Він також безперешкодно працює з будь-яким рішенням для інтернаціоналізації в різних середовищах, включаючи браузери та API-запити. Ви можете налаштувати middleware для визначення локалі через заголовки або кукі:
 

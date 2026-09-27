@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-06
+updatedAt: 2026-09-27
 priority: 5
 title: useIntlayer Hook Dokümantasyonu | solid-intlayer
-description: solid-intlayer paketi için useIntlayer hook'unun nasıl kullanılacağını görün
+description: "Solid'de useIntlayer ile bir sözlüğün yerelleştirilmiş içeriğini anahtarla okuyun; locale değiştikçe güncellenen reaktif değerler döner."
 keywords:
   - useIntlayer
   - sözlük

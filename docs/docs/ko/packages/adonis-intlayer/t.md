@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: t 함수 문서 | adonis-intlayer
-description: adonis-intlayer 패키지에서 t 함수를 사용하는 방법을 알아보세요
+description: "adonis-intlayer의 t 함수로 요청마다 감지된 로케일에 따라 AdonisJS에서 현지화된 응답을 반환합니다."
 keywords:
   - t
   - 번역

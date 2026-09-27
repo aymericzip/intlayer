@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-08
+updatedAt: 2026-09-27
 priority: 8
 title: Intlayer コンパイラー | i18n のための自動コンテンツ抽出
-description: Intlayer コンパイラーで国際化プロセスを自動化しましょう。コンポーネントから直接コンテンツを抽出し、Vite、Next.js などでより高速かつ効率的な i18n を実現します。
+description: "Intlayer コンパイラでコンポーネントからコンテンツを自動抽出し、Vite や Next.js などでの i18n をより速く。"
 keywords:
   - Intlayer
   - コンパイラー
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer コンパイラー | i18n のための自動コンテンツ抽出
+# Intlayer コンパイラー：i18n のための自動コンテンツ抽出
 
 ## Intlayer コンパイラーとは？
 

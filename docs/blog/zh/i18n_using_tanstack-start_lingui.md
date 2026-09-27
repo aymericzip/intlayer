@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "TanStack Start 使用 Lingui 实现 i18n：2026 完整配置指南"
 description: "使用 Lingui 为你的 TanStack Start 应用实现国际化：宏、PO 语言包、SSR、语言路由、hreflang、sitemap 和 robots.txt，以及真实的打包体积基准测试数据。"
@@ -42,9 +42,23 @@ TanStack Start 本身不包含 i18n 层，因此本指南将从零开始将 Ling
 - **每个语言独立目录按需加载**：每次渲染使用独立的 `I18n` 实例，确保并发 SSR 请求绝不会共享或混淆语言环境。
 - **完整的多语言 SEO**：已翻译的 `<title>` 和描述、规范链接（canonical URL）、带 `x-default` 的 `hreflang`、Open Graph 多语言标签、JSON-LD、sitemap、`robots.txt`、预渲染以及本地化的 404 页面。
 
-> 想要寻找其他技术栈？请参阅 [TanStack Start + use-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_use-intl.md)、[TanStack Start + Paraglide 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_paraglide.md) 或 [TanStack Start + Intlayer 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)。
+> 想要寻找其他技术栈？
 
-> 使用 Next.js？请参阅 [Next.js + Lingui 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_nextjs_lingui.md)。对比不同国际化库？请阅读 [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)。
+- [TanStack Start + use-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_use-intl.md)
+- [TanStack Start + Paraglide 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_paraglide.md)
+- [TanStack Start + Intlayer 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
+
+> 使用 Next.js？
+
+- [Next.js + Lingui 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_nextjs_lingui.md)
+
+> 对比不同国际化库？
+
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 关于 TanStack Start 上的 Lingui 基准测试数据
 
@@ -92,7 +106,11 @@ TanStack Start 本身不包含 i18n 层，因此本指南将从零开始将 Ling
 
 > 运行时体积和资源泄露数据来自 [TanStack Start 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。资源泄露是在每个库的最佳配置下测得的。
 
-> 其他 TanStack Start 指南：[use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_use-intl.md)、[Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_paraglide.md) 以及 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)。
+> 其他 TanStack Start 指南：
+
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_use-intl.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
 
 ## 推荐遵循的最佳实践
 
@@ -106,7 +124,8 @@ TanStack Start 本身不包含 i18n 层，因此本指南将从零开始将 Ling
 - **生成多语言 sitemap 和 robots.txt**：并对每种语言进行预渲染。
 - **在语言切换器中使用真实的链接**：便于搜索引擎爬虫发现所有语言版本。
 
-> 请参阅我们的 [国际化与 SEO 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md) 以及 [hreflang 多语言 SEO 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)。
+- [国际化与 SEO 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md)
+- [hreflang 多语言 SEO 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)
 
 ## 在 TanStack Start 应用中配置 Lingui 的分步指南
 

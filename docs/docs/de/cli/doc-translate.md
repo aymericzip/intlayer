@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Dokument übersetzen
+title: "intlayer doc translate: Markdown-Doku übersetzen"
 description: Erfahren Sie, wie Sie Dokumentationsdateien automatisch mit KI-Übersetzungsdiensten übersetzen können.
 keywords:
   - Übersetzen

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: التحقق من إصدار CLI
-description: تعلّم كيفية التحقق من إصدار Intlayer CLI المثبت.
+title: "intlayer version: التحقق من الإصدار المثبّت"
+description: "تحقّق من إصدار واجهة سطر أوامر Intlayer وحزمها المثبّتة في مشروعك، وهو مفيد عند تصحيح أخطاء عدم تطابق الإصدارات."
 keywords:
   - الإصدار
   - CLI

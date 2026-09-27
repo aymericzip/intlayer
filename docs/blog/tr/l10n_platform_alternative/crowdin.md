@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-18
-updatedAt: 2025-11-06
+updatedAt: 2026-09-27
 priority: 8
-title: L10n Platformu Alternatifi
-description: İhtiyaçlarınız için en iyi L10n platformu alternatifini bulun
+title: "Yerelleştirme için açık kaynaklı Crowdin alternatifi"
+description: "Crowdin ile açık kaynaklı çeviri yönetim sistemi Intlayer karşılaştırması: iş akışı, geliştirici entegrasyonu, yapay zeka çevirisi ve fiyatlar."
 keywords:
   - L10n
   - TMS
@@ -25,19 +25,19 @@ author: aymericzip
 
 <TOC/>
 
-# Çeviri Yönetim Sistemi
+## Çeviri Yönetim Sistemi
 
 Çeviri Yönetim Sistemi (TMS), çeviri ve yerelleştirme (L10n) sürecini otomatikleştirmek ve kolaylaştırmak için tasarlanmış bir yazılım platformudur. Geleneksel olarak bir TMS, içeriğin yüklendiği, düzenlendiği ve insan çevirmenlere atandığı merkezi bir hub olarak hizmet verir. İş akışlarını yönetir, çeviri belleklerini saklar (aynı cümleyi tekrar çevirmemek için) ve çevrilmiş dosyaların geliştiricilere veya içerik yöneticilerine teslim edilmesini sağlar.
 
 Özünde, TMS tarihsel olarak teknik kod (strings'in bulunduğu yer) ile kültürü anlayan insan çevirmenler arasında bir köprü olmuştur.
 
-# Crowdin
+## Crowdin
 
 Crowdin bu alanda deneyimli bir oyuncudur. 2009'da kurulan Crowdin, yerelleştirmenin en büyük zorluğunun bağlantı (connectivity) olduğu bir dönemde ortaya çıktı. Misyonu açıktı: metin yazarlarını, çevirmenleri ve proje sahiplerini birbirleriyle etkili bir şekilde ilişkilendirmek.
 
 On yılı aşkın bir süredir Crowdin, yerelleştirme yönetiminde sektör standardı olmuştur. Ekiplerin `.po`, `.xml` veya `.yaml` dosyalarını yüklemelerine ve çevirmenlerin bunlar üzerinde bulut tabanlı bir arayüzde çalışmasına izin vererek parçalanma sorununu çözdü. Sağlam iş akışı otomasyonuna dayanan itibarıyla, şirketlerin bir dilden ona kadar ölçeklenmesini; elektronik tablolarla boğuşmadan mümkün kıldı.
 
-# Intlayer
+## Intlayer
 
 Intlayer öncelikle bir i18n çözümü olarak bilinir, ancak aynı zamanda bir CMS ile entegre olur. Mevcut i18n kurulumunuzun etrafında bir wrapper olarak görev yapmakla sınırlı olan Crowdin'in aksine, Intlayer tüm yığını kontrol eder, paketleme katmanından uzak içerik teslimine kadar, bu da daha pürüzsüz ve daha verimli bir içerik akışı sağlar.
 
@@ -61,7 +61,7 @@ Bu nedenle Intlayer kendisini sadece bir TMS olarak konumlandırmaz; aksine gör
 
 Intlayer ile çevirilerinizi inference maliyeti karşılığında üretirsiniz. Bir platformun fiyatlandırma modeline bağlı değilsiniz; sağlayıcıyı (OpenAI, Anthropic, Mistral, vb.) seçersiniz, modeli seçersiniz ve çeviriyi CI (Continuous Integration), CLI veya entegre CMS aracılığıyla doğrudan gerçekleştirirsiniz. Değer, çevirmenlere erişimden bağlam yönetimine kayar.
 
-# Yan yana Karşılaştırma
+## Yan yana Karşılaştırma
 
 | Özellik                  | Crowdin (Legacy TMS)                                                 | Intlayer (AI-Native)                                                           |
 | :----------------------- | :------------------------------------------------------------------- | :----------------------------------------------------------------------------- |

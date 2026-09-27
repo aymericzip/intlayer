@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Estrazione Dizionari
-description: Scopri come estrarre dizionari dall'editor Intlayer e dal CMS.
+title: "intlayer pull: scaricare i dizionari dal CMS"
+description: "Scarica nel progetto i dizionari modificati nell'editor visuale o nel CMS di Intlayer, per portare le modifiche remote nel codice."
 keywords:
   - Estrazione
   - Dizionari

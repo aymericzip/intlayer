@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: 콘텐츠 파일
-description: 콘텐츠 선언 파일의 확장자를 사용자 정의하는 방법을 배우세요. 이 문서를 따라 프로젝트에서 조건을 효율적으로 구현하세요.
+title: "콘텐츠 선언 파일 (.content.ts)"
+description: "컴포넌트 옆의 .content 파일에 다국어 콘텐츠를 선언하세요: 지원 형식, 파일 확장자, Intlayer가 파일을 찾는 방식."
 keywords:
   - 콘텐츠 파일
   - 문서

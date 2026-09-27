@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Nuxt i18n - 앱을 번역하는 완전 가이드"
-description: "i18next는 이제 그만. 2026년 다국어 (i18n) Nuxt 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
+description: "Nuxt에 Intlayer 설정: 컴포넌트별 타입 콘텐츠, 로케일 라우팅과 감지, 현지화된 SEO 메타 태그, 다국어 사이트맵."
 keywords:
   - 국제화
   - 문서
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer를 사용하여 Nuxt 및 Vue 웹사이트 번역하기 | 국제화(i18n)
+# Intlayer를 사용하여 Nuxt 및 Vue 웹사이트 번역하기
 
 ## 목차
 

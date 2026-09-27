@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-06
+updatedAt: 2026-09-27
 priority: 5
 title: useIntlayer フック ドキュメント | solid-intlayer
-description: solid-intlayer パッケージの useIntlayer フックの使用方法
+description: "Solid の useIntlayer で辞書のローカライズされたコンテンツをキーで取得。ロケールの変更に追従するリアクティブな値を返します。"
 keywords:
   - useIntlayer
   - 辞書

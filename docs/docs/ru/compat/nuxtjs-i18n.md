@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Миграция с NuxtJS I18n на Intlayer"
-description: "Узнайте, как перенести ваше приложение Nuxt.js с @nuxtjs/i18n на Intlayer, используя адаптер совместимости."
+title: "@intlayer/nuxt-i18n: адаптер совместимости для @nuxtjs/i18n"
+description: "Сохраните код на @nuxtjs/i18n и обслуживайте его через Intlayer: установите @intlayer/nuxt-i18n, настройте алиасы импортов и узнайте, что адаптер меняет под капотом."
 keywords:
   - nuxtjs-i18n
   - nuxt
@@ -22,7 +22,7 @@ history:
 author: aymericzip
 ---
 
-# Миграция с NuxtJS I18n на Intlayer
+# @intlayer/nuxt-i18n: адаптер совместимости для @nuxtjs/i18n
 
 Миграция вашего приложения Nuxt с `@nuxtjs/i18n` на Intlayer - это бесшовный процесс с использованием модуля Nuxt adapter.
 
@@ -45,3 +45,7 @@ npx intlayer init --interactive
 - **Переводы:** Изначально полагается на слой совместимости `@intlayer/vue-i18n` для всех задач перевода строк (полностью поддерживая форматы `vue-i18n`, плюральные трубы и реактивность).
 - **Маршрутизация:** Отражает composables маршрутизации, используя помощников локализованного URL Intlayer.
 - **Конфигурация:** Читает `availableLocales` и параметры по умолчанию прямо из вашего `intlayer.config.ts` для автоматической координации страниц Nuxt.
+
+> Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
+
+- [История i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)

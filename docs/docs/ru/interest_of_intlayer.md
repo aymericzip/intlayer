@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 8
-title: Преимущества Intlayer
+title: "Почему Intlayer? Преимущества перед другими i18n-библиотеками"
 description: Узнайте о преимуществах и достоинствах использования Intlayer в ваших проектах. Поймите, почему Intlayer выделяется среди других фреймворков.
 keywords:
   - Преимущества
@@ -221,6 +221,10 @@ export const ComponentExample = () => {
 
 6. **Оптимизировать производительность загрузки**
    - Если компонент загружается лениво (lazy-loaded), связанный с ним контент будет загружен в то же время
+
+> Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
+
+- [История i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)
 
 ## Дополнительные возможности Intlayer
 

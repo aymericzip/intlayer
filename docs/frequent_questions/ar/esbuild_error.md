@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: خطأ ESBuild
-description: تعلم كيفية إصلاح أخطاء ESBuild.
+title: "إصلاح أخطاء ESBuild مع Intlayer"
+description: "أصلح أخطاء ESBuild أثناء بناء Intlayer، والتي تنتج عادةً عن غياب إضافة أداة التجميع لإطار عملك أو ضبطها بشكل خاطئ."
 keywords:
   - esbuild
   - خطأ

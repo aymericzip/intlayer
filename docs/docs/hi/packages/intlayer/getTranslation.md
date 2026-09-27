@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getTranslation फ़ंक्शन दस्तावेज़ीकरण | intlayer
-description: intlayer पैकेज के लिए getTranslation फ़ंक्शन का उपयोग कैसे करें देखें
+description: "getTranslation (उपनाम t) से अनुवाद मैप में से किसी लोकेल का कंटेंट चुनें, न मिलने पर डिफ़ॉल्ट लोकेल पर लौटें।"
 keywords:
   - getTranslation
   - अनुवाद

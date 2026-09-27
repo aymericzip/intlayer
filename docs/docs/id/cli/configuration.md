@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Kelola Konfigurasi
-description: Pelajari cara mendapatkan dan mengirim konfigurasi Intlayer Anda ke CMS.
+title: "intlayer configuration: ambil dan kirim konfigurasi"
+description: "Gunakan CLI Intlayer untuk menampilkan konfigurasi yang sudah di-resolve dan mengirimnya ke Intlayer CMS agar dashboard dan proyek tetap sinkron."
 keywords:
   - Konfigurasi
   - Config

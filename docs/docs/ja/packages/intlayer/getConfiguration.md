@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-25
+updatedAt: 2026-09-27
 priority: 5
 title: getConfiguration 関数ドキュメント | intlayer
-description: intlayer パッケージの getConfiguration 関数の使い方を解説
+description: "getConfiguration で、ロケールやルーティングを含む解決済みの Intlayer 設定をクライアントでもサーバーでも読み取ります。"
 keywords:
   - getConfiguration
   - 翻訳

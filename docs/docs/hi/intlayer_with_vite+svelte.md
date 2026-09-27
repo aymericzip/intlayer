@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Svelte i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की जरूरत नहीं। 2026 में Vite + Svelte ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
+description: "Vite और Svelte ऐप में Intlayer सेट करें: store से अनुवादित कंटेंट, भाषा स्विचर, स्थानीयकृत रूट और टाइप्ड डिक्शनरी।"
 keywords:
   - अंतरराष्ट्रीयकरण
   - दस्तावेज़
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer का उपयोग करके अपनी Vite और Svelte वेबसाइट का अनुवाद करें | अंतरराष्ट्रीयकरण (i18n)
+# Intlayer का उपयोग करके अपनी Vite और Svelte वेबसाइट का अनुवाद करें
 
 <Tabs defaultTab="code">
   <Tab label="कोड" value="code">

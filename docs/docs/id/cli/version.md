@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Periksa Versi CLI
-description: Pelajari cara memeriksa versi Intlayer CLI yang terpasang.
+title: "intlayer version: cek CLI yang terpasang"
+description: "Cek versi CLI Intlayer dan paketnya yang terpasang di proyek, berguna saat men-debug error ketidakcocokan versi."
 keywords:
   - Versi
   - CLI

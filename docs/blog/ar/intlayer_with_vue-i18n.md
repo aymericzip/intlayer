@@ -2,7 +2,7 @@
 createdAt: 2025-08-23
 updatedAt: 2025-10-29
 priority: 8
-title: إنتلاير و vue-i18n
+title: "أتمتة ترجمات JSON في vue-i18n باستخدام Intlayer"
 description: دمج إنتلاير مع vue-i18n لحل شامل للتدويل في Vue.js
 keywords:
   - vue-i18n
@@ -53,6 +53,10 @@ author: aymericzip
 **لهذا، يمكن تنفيذ Intlayer كمحول لـ vue-i18n لمساعدتك في أتمتة ترجمات JSON الخاصة بك في واجهة الأوامر أو خطوط أنابيب CI/CD، واختبار ترجماتك، وأكثر من ذلك.**
 
 يوضح هذا الدليل كيفية الاستفادة من نظام إعلان المحتوى المتفوق في Intlayer مع الحفاظ على التوافق مع vue-i18n.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## دليل خطوة بخطوة لإعداد Intlayer مع vue-i18n
 

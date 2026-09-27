@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getHTMLTextDir 函数文档 | intlayer
-description: 查看如何使用 intlayer 包中的 getHTMLTextDir 函数
+description: "使用 getHTMLTextDir 获取语言的文字方向（ltr、rtl 或 auto），并设置 HTML 的 dir 属性。"
 keywords:
   - getHTMLTextDir
   - 翻译

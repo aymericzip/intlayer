@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Tinjau Dokumen
+title: "intlayer doc review: tinjau dokumentasi terjemahan"
 description: Pelajari cara meninjau file dokumentasi untuk kualitas, konsistensi, dan kelengkapan di berbagai lokal.
 keywords:
   - Tinjau

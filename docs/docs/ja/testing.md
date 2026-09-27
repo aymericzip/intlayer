@@ -2,8 +2,8 @@
 createdAt: 2025-03-01
 updatedAt: 2025-09-20
 priority: 8
-title: コンテンツのテスト
-description: Intlayerを使ったコンテンツのテスト方法を紹介します。
+title: "Intlayer で翻訳をテストする"
+description: "Intlayer のコンテンツをテスト：不足している翻訳の検出、CI での辞書の検証、ユニットテストでのロケールごとのコンポーネント描画。"
 keywords:
   - テスト
   - Intlayer

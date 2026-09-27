@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Intlayer 명령어 정의되지 않음
-description: intlayer 명령어 정의되지 않음 오류를 해결하는 방법을 알아보세요.
+description: "'intlayer: command not found' 오류 해결: CLI를 설치하고, 패키지 매니저로 실행하고, PATH를 확인하세요."
 keywords:
   - intlayer
   - 명령어

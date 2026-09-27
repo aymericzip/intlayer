@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: هل يمكنني ترجمة مسار الرابط؟
-description: تعرف على كيفية ترجمة مسار الرابط.
+description: "نعم: يستطيع Intlayer ترجمة مسارات URL، مثل /about إلى /ar/man-nahnu، عبر إعادة كتابة عناوين URL المضبوطة لكل لغة."
 keywords:
   - array
   - content

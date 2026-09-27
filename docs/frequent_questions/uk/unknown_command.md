@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Невідома команда
-description: Дізнайтеся, як виправити помилку невідомої команди.
+title: "Як виправити помилку Intlayer «unknown command»"
+description: "Виправте помилку CLI Intlayer «unknown command»: перевірте назву команди, версію CLI та спосіб виклику бінарника."
 keywords:
   - невідома
   - команда

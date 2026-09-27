@@ -2,350 +2,354 @@
 createdAt: 2024-08-11
 updatedAt: 2026-09-22
 priority: 8
-title: vue-i18n vs Intlayer
-description: Porównanie vue-i18n z Intlayer pod kątem internacjonalizacji (i18n) w aplikacjach Vue/Nuxt
+title: "vue-i18n vs Intlayer: Benchmark i Porównanie 2026"
+description: "vue-i18n i Intlayer zmierzone na tej samej aplikacji Vite + Vue 3: rozmiar biblioteki, JavaScript na stronę, wycieki, rozmiar komponentów i reaktywność."
 keywords:
   - vue-i18n
   - Intlayer
-  - Internacjonalizacja
+  - Internationalization
   - i18n
+  - Benchmark
+  - Bundle size
   - Blog
   - Vue
   - Nuxt
+  - Vite
   - JavaScript
+  - Internacjonalizacja
 slugs:
   - blog
   - vue-i18n-vs-intlayer
 author: aymericzip
 ---
 
-# vue-i18n VS Intlayer | Internacjonalizacja Vue (i18n)
+# vue-i18n VS Intlayer: Benchmark internacjonalizacji (i18n) dla Vue
 
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+`vue-i18n` to referencyjna biblioteka i18n dla Vue. Intlayer to alternatywa oparta na kompilatorze, z treścią ograniczoną do komponentu, z integracją z Vue (`vue-intlayer`). Ten artykuł przygląda się temu, ile każda z nich kosztuje po zbudowaniu aplikacji.
 
-Ten przewodnik porównuje dwie popularne opcje i18n dla **Vue 3** (oraz **Nuxt**): **vue-i18n** i **Intlayer**.
-Skupiamy się na nowoczesnych narzędziach Vue (Vite, Composition API) i oceniamy:
-
-1. **Architekturę i organizację treści**
-2. **TypeScript i bezpieczeństwo**
-3. **Obsługę brakujących tłumaczeń**
-4. **Routing i strategię URL**
-5. **Wydajność i zachowanie ładowania**
-6. **Doświadczenie dewelopera (DX), narzędzia i utrzymanie**
-7. **SEO i skalowalność dużych projektów**
+Dane pochodzą z [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom), open-source'owego zestawu, który buduje tę samą aplikację z każdą biblioteką i rejestruje, co przeglądarka faktycznie pobiera i wykonuje.
 
 <TOC/>
 
-> **w skrócie**: Oba rozwiązania mogą lokalizować aplikacje Vue. Jeśli chcesz **treści ograniczonej do komponentu**, **ścisłych typów TypeScript**, **sprawdzania brakujących kluczy w czasie kompilacji**, **słowników poddanych tree-shakingowi**, oraz **wbudowanych helperów do routera/SEO** wraz z **Edytorem Wizualnym i tłumaczeniami AI**, **Intlayer** jest bardziej kompletnym, nowoczesnym wyborem.
+> **tl;dr**: Na tej samej aplikacji Vite + Vue 3 `vue-i18n` dostarcza **134,9 KB** gzipowanego JavaScriptu na stronę wobec **41,3 KB** dla aplikacji bez i18n. Intlayer dostarcza **57,1 KB**. Sam runtime `vue-i18n` waży **24,3 KB gzip** (6x więcej niż 3,9 KB Intlayera), każda strona niesie **90% ciągów z innych stron**, a komponent skompilowany w izolacji wciąga **196 KB**, ponieważ jest związany z globalnym drzewem komunikatów. Adapter `@intlayer/vue-i18n` zachowuje API `vue-i18n` i zmierzył **47,0 KB** na stronę.
 
-## Pozycjonowanie na wysokim poziomie
+## W skrócie
 
-- **vue-i18n** - De facto biblioteka i18n dla Vue. Elastyczne formatowanie wiadomości (w stylu ICU), bloki SFC `<i18n>` dla lokalnych wiadomości oraz duży ekosystem. Bezpieczeństwo i utrzymanie na dużą skalę leżą głównie po twojej stronie.
-- **Intlayer** - Model treści skoncentrowany na komponentach dla Vue/Vite/Nuxt z **ścisłym typowaniem TS**, **sprawdzaniem w czasie kompilacji**, **tree-shakingiem**, **helperami do routera i SEO**, opcjonalnym **Edytorem Wizualnym/CMS** oraz **tłumaczeniami wspomaganymi przez AI**.
+- **vue-i18n** - Faktyczny standard i18n dla Vue 2 / Vue 3 i rdzeń `@nuxtjs/i18n`. Komunikaty w stylu ICU, bloki `<i18n>` w SFC, dyrektywa `v-t`, formatery `d()` / `n()`, duży ekosystem. Komunikaty są rejestrowane na globalnej instancji w `createI18n()`; leniwe ładowanie per locale to ręczny wzorzec `setLocaleMessage()`, a podział per trasa jest do zbudowania samodzielnie.
+- **Intlayer** - Model treści skoncentrowany na komponentach. Słowniki `.content.ts` leżą obok komponentu, któremu służą, kompilator w czasie budowania (`vite-intlayer`) wykonuje tree-shaking i leniwe ładowanie per komponent i per locale, ścisłe typy TypeScript są generowane z treści, a brakujące tłumaczenia powodują błąd w czasie budowania. Zawiera helpery routera / SEO, Visual Editor / CMS oraz tłumaczenie wspomagane AI.
 
-## Ile to kosztuje w czasie budowania
+| Biblioteka            | Gwiazdki GitHub                                                                                                                                                                | Łączna liczba commitów                                                                                                                                                             | Ostatni commit                                                                                                                                      | Pierwsza wersja | Wersja NPM                                                                                                  | Pobrania NPM                                                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `aymericzip/intlayer` | [![GitHub Repo stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/aymericzip/intlayer/stargazers) | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=for-the-badge&label=commits)](https://github.com/aymericzip/intlayer/commits) | [![Last Commit](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge)](https://github.com/aymericzip/intlayer/commits) | Kwiecień 2024   | [![npm](https://img.shields.io/npm/v/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer) | [![npm downloads](https://img.shields.io/npm/dm/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer) |
+| `intlify/vue-i18n`    | [![GitHub Repo stars](https://img.shields.io/github/stars/intlify/vue-i18n?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/intlify/vue-i18n/stargazers)       | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/intlify/vue-i18n?style=for-the-badge&label=commits)](https://github.com/intlify/vue-i18n/commits)       | [![Last Commit](https://img.shields.io/github/last-commit/intlify/vue-i18n?style=for-the-badge)](https://github.com/intlify/vue-i18n/commits)       | Grudzień 2016   | [![npm](https://img.shields.io/npm/v/vue-i18n?style=for-the-badge)](https://www.npmjs.com/package/vue-i18n) | [![npm downloads](https://img.shields.io/npm/dm/vue-i18n?style=for-the-badge)](https://www.npmjs.com/package/vue-i18n) |
 
-Zanim przejdziemy do tabel funkcji, oto część zmierzona. [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) buduje tę samą aplikację Vite + Vue 3 (10 stron, 10 języków) z każdą biblioteką i rejestruje pobierane dane:
+> Odznaki aktualizują się automatycznie. Zrzuty będą się zmieniać w czasie.
 
-<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
+## Porównanie funkcji obok siebie
 
-| Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
-| -------------------- | ------------: | ---------------: | --------: | -----------------: |
-| **base** (no i18n)   |        0.0 KB |          41.3 KB |         - |             1.1 KB |
-| `vue-i18n`           |       24.3 KB |         134.9 KB |     90.0% |           196.0 KB |
-| `@intlayer/vue-i18n` |        7.9 KB |          47.0 KB |      0.0% |             8.4 KB |
-| **`vue-intlayer`**   |    **3.9 KB** |      **57.1 KB** |  **0.0%** |         **7.7 KB** |
+| Funkcja                                               | `vue-intlayer` (Intlayer)                                      | `vue-i18n`                                                                              |
+| ----------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Tłumaczenia blisko komponentów**                    | ✅ Tak, `.content.ts` obok każdego komponentu                  | ✅ Przez bloki SFC `<i18n>` (opcjonalne); globalne katalogi to typowa konfiguracja      |
+| **Integracja z TypeScript**                           | ✅ Ścisłe typy generowane automatycznie z treści               | ✅ Dobre typowania; ścisłe bezpieczeństwo kluczy wymaga typowania schematu i dyscypliny |
+| **Wykrywanie brakujących tłumaczeń**                  | ✅ Błąd TypeScript + błąd/ostrzeżenie w czasie budowania       | ⚠️ Fallback w runtime + ostrzeżenie w konsoli                                           |
+| **Bogata treść (komponenty / Markdown)**              | ✅ Bezpośrednie wsparcie                                       | ⚠️ Interpolacja komponentów `<i18n-t>`; Markdown przez zewnętrzne wtyczki               |
+| **Wsparcie ICU**                                      | ⚠️ W trakcie prac                                              | ✅ Tak                                                                                  |
+| **Formatowanie (daty, liczby, waluty)**               | ✅ Formatery oparte na Intl                                    | ✅ `d()` / `n()` z `datetimeFormats` / `numberFormats`                                  |
+| **Zlokalizowany routing**                             | ✅ Helpery dla Vue Router / Nuxt, `getMultilingualUrls`        | ⚠️ Nie w rdzeniu (`@nuxtjs/i18n` lub własna konfiguracja routera)                       |
+| **Helpery SEO (hreflang, sitemap, robots)**           | ✅ Wbudowane helpery                                           | ❌ Nie w rdzeniu                                                                        |
+| **Tree-shaking (dostarczanie tylko używanej treści)** | ✅ Per komponent, per locale, zautomatyzowane przez kompilator | ⚠️ Ręcznie: podział katalogów, `setLocaleMessage()` per trasa                           |
+| **Leniwe ładowanie**                                  | ✅ `importMode: 'dynamic'` (jedna linia konfiguracji)          | ✅ Ręczny `import()` + `setLocaleMessage()`                                             |
+| **Usuwanie nieużywanej treści**                       | ✅ Martwe słowniki są odrzucane w czasie budowania             | ❌ Nie wbudowane                                                                        |
+| **Testowanie brakujących tłumaczeń (CLI / CI)**       | ✅ `npx intlayer content test`                                 | ⚠️ Zewnętrzne (`vue-i18n-extract`)                                                      |
+| **Tłumaczenie wspomagane AI**                         | ✅ Wbudowane, używa własnych kluczy dostawcy                   | ❌ Nie                                                                                  |
+| **Visual Editor / CMS**                               | ✅ Darmowy Visual Editor + opcjonalny CMS                      | ❌ Nie (zewnętrzne platformy lokalizacyjne)                                             |
+| **Serwer MCP i Agent Skills**                         | ✅ Tak                                                         | ❌ Nie                                                                                  |
+| **Ekosystem / społeczność**                           | ⚠️ Mniejszy, ale szybko rosnący                                | ✅ Duży i dojrzały w ekosystemie Vue                                                    |
 
-Sam runtime `vue-i18n` waży **6 razy** więcej niż Intlayer, każda strona przenosi **90% ciągów znaków obcych stron**, a komponent skompilowany w izolacji pociąga **196 KB**, ponieważ `useI18n()` wiąże go z globalnym drzewem wiadomości. Pełne zestawienie z czasami reaktywności i ładowania strony znajduje się w [benchmarku vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/vue-i18n_vs_intlayer_benchmark.md).
+## Benchmark
+
+### Co zmierzono
+
+Zestaw [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) buduje **tę samą aplikację Vite + Vue 3** z każdą biblioteką: **10 stron** (home, about, blog, careers, contact, FAQ, pricing, products, settings, team), **10 locale** (`en`, `fr`, `es`, `de`, `it`, `pt`, `zh`, `ja`, `ko`, `ru`), identyczne komponenty i identyczna treść. Strony są mierzone w `en` i `fr`.
+
+Obie biblioteki testowano w konfiguracji **static**, tej, którą dostarcza większość projektów Vue: dla `vue-i18n` JSON każdego locale importowany i przekazany do `createI18n({ messages })`; dla Intlayera domyślny `importMode: 'static'`. W tym trybie Intlayer również pakuje wszystkie locale, ale kompilator nadal ogranicza treść **per komponent**, więc strona niesie tylko słowniki komponentów, które renderuje.
+
+Dla każdego builda zestaw rejestruje:
+
+- **Lib size**: rozmiar gzip pustego komponentu, który tylko importuje bibliotekę i18n. Stały koszt runtime'u.
+- **Page JS**: gzipowany JavaScript pobierany na stronę, uśredniony po wszystkich stronach i locale.
+- **Locale leak %**: udział przetłumaczonych ciągów znalezionych w pobranym JS, które należą do locale, którego użytkownik **nie** przegląda (fingerprint na `en` i `fr`, więc 50% oznacza „drugie mierzone locale jest w pełni obecne"; przy 10 spakowanych locale rzeczywista strata jest większa).
+- **Page leak %**: udział przetłumaczonych ciągów znalezionych w pobranym JS, które należą do strony, na której użytkownik **nie** jest.
+- **Component avg**: średni rozmiar gzip każdego komponentu skompilowanego w izolacji. Pokazuje, ile runtime'u i18n i katalogu wciąga pojedynczy komponent.
+- **E2E reactivity**: rzeczywisty czas między wybraniem nowego locale a aktualizacją `html[lang]` w DOM (Playwright, 5 iteracji).
+- **Page load**: `PerformanceNavigationTiming.duration`.
+
+> Poniższe liczby pochodzą z uruchomienia z dnia **2026-09-12** z `vue-i18n` 11.4.0 i `intlayer` 9.5.0 / 9.5.1. Aplikacja testowa jest celowo mała (kilkadziesiąt ciągów na locale), więc procenty wycieku opisują **wzorzec**: rosną wraz z treścią, podczas gdy koszt runtime'u pozostaje stały.
+
+### Wyniki na Vite + Vue 3
+
+Wybierz metryki i biblioteki, które Cię interesują:
+
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
+
+| Biblioteka                    | Strategia | Lib size (gz) | Lib size (min) | Page JS śr. (gz) | Locale leak | Page leak | Component śr. (gz) | Reaktywność E2E | Page load |
+| ----------------------------- | --------- | ------------: | -------------: | ---------------: | ----------: | --------: | -----------------: | --------------: | --------: |
+| **base** (bez i18n)           | -         |        0,0 KB |         0,0 KB |          41,3 KB |        0,0% |         - |             1,1 KB |          1,8 ms |   10,8 ms |
+| `vue-i18n`                    | static    |       24,3 KB |        83,2 KB |         134,9 KB |       50,0% |     90,0% |           196,0 KB |          2,8 ms |   13,6 ms |
+| **`vue-intlayer`**            | static    |    **3,9 KB** |    **11,1 KB** |      **57,1 KB** |       56,8% |  **0,0%** |         **7,7 KB** |      **4,5 ms** |   13,8 ms |
+| `@intlayer/vue-i18n` (compat) | static    |        7,9 KB |        23,2 KB |          47,0 KB |       15,0% |      0,0% |             8,4 KB |          1,5 ms |    9,3 ms |
+
+> Kolumna page-leak aplikacji bazowej jest pusta: bez biblioteki i18n fingerprinting wyłapuje zakodowane na sztywno ciągi w współdzielonych chunkach i liczba nie ma znaczenia.
+
+**Jak to czytać**
+
+- **Koszt runtime'u.** `vue-i18n` to jeden z najcięższych runtime'ów w całym benchmarku: **24,3 KB gzip / 83,2 KB po minifikacji** dla pustego komponentu, który tylko go importuje. `vue-intlayer` kosztuje 3,9 KB gzip. Tę różnicę płaci się na każdej stronie niezależnie od tego, ile masz ciągów.
+- **JavaScript na stronę.** Aplikacja bez i18n waży 41,3 KB. `vue-i18n` ponad trzykrotnie ją zwiększa do **134,9 KB**; Intlayer ląduje na **57,1 KB**, +15,8 KB, z czego większość to dziesięć spakowanych locale (zobacz następny punkt).
+- **Wyciek.** Z `createI18n({ messages: { en, fr, ... } })` każda strona dostarcza wszystkie locale i ciągi wszystkich stron: **50% wycieku locale** (na dwóch fingerprintowanych locale) i **90% wycieku stron**. Tryb `static` Intlayera również pakuje wszystkie locale (stąd porównywalna wartość wycieku locale), ale ma **0% wycieku stron**: strona pobiera tylko słowniki komponentów, które renderuje. Przełączenie na `importMode: 'dynamic'` usuwa również wyciek locale; ta konfiguracja nie była częścią tego uruchomienia Vue.
+- **Rozmiar komponentu to miejsce, gdzie widać architekturę.** Komponent wywołujący `useI18n()` kompiluje się średnio do **196 KB**, ponieważ `t()` jest związane z globalną instancją, która przechowuje każdy komunikat każdego locale. Ten sam komponent z `useIntlayer()` kompiluje się do **7,7 KB**: sięga tylko po własny słownik.
+- **Reaktywność** nie jest problemem dla żadnej z nich (2-5 ms). System reaktywności Vue sprawia, że przełączanie locale jest tanie, gdy komunikaty są już w pamięci.
+- **`@intlayer/vue-i18n`**, adapter drop-in, zachowuje API `vue-i18n` i zmierzył **47,0 KB na stronę** oraz **8,4 KB na komponent**, bez zmian w kodzie aplikacji.
+
+> Dla porównania, to samo uruchomienie zmierzyło `fluent-vue` na 171,8 KB na stronę, 29,7 KB runtime'u i 217 KB na komponent.
 
 <ClickToOpenIframe
-src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
-width="100%"
-height="600px"
-style="border:none;"
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
 />
 
-> Pełna tabela w [raporcie benchmarku Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/vue.md).
+> Pełna tabela, ze wszystkimi bibliotekami i wszystkimi strategiami, w [raporcie benchmarku Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/vue.md).
 
-## Porównanie funkcji obok siebie (skupione na Vue)
+## Skąd ta różnica? Globalna instancja vs skompilowane słowniki
 
-| Funkcja                                                | **Intlayer**                                                                                  | **vue-i18n**                                                                                   |
-| ------------------------------------------------------ | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| **Tłumaczenia blisko komponentów**                     | ✅ Tak, treść współlokowana per komponent (np. `MyComp.content.ts`)                           | ✅ Tak, przez bloki SFC `<i18n>` (opcjonalnie)                                                 |
-| **Integracja z TypeScript**                            | ✅ Zaawansowana, automatycznie generowane **ścisłe** typy i autouzupełnianie kluczy           | ✅ Dobre typowanie; **ścisłe bezpieczeństwo kluczy wymaga dodatkowej konfiguracji/dyscypliny** |
-| **Wykrywanie brakujących tłumaczeń**                   | ✅ Ostrzeżenia/błędy w czasie kompilacji i widoczność w TS                                    | ⚠️ Fallbacki/ostrzeżenia w czasie działania                                                    |
-| **Bogata zawartość (komponenty/Markdown)**             | ✅ Bezpośrednie wsparcie dla bogatych węzłów i plików zawartości Markdown                     | ⚠️ Ograniczone (komponenty przez `<i18n-t>`, Markdown przez zewnętrzne wtyczki)                |
-| **Tłumaczenie wspomagane AI**                          | ✅ Wbudowane workflowy wykorzystujące własne klucze dostawcy AI                               | ❌ Brak wbudowanego wsparcia                                                                   |
-| **Edytor wizualny / CMS**                              | ✅ Darmowy Edytor Wizualny i opcjonalny CMS                                                   | ❌ Brak wbudowanego wsparcia (używaj zewnętrznych platform)                                    |
-| **Lokalizowane routowanie**                            | ✅ Pomocniki dla Vue Router/Nuxt do generowania lokalizowanych ścieżek, URL-i oraz `hreflang` | ⚠️ Nie jest rdzeniem (użyj Nuxt i18n lub własnej konfiguracji Vue Router)                      |
-| **Dynamiczne generowanie tras**                        | ✅ Tak                                                                                        | ❌ Nie dostarczone (dostarcza Nuxt i18n)                                                       |
-| **Pluralizacja i formatowanie**                        | ✅ Wzorce enumeracji; formatery oparte na Intl                                                | ✅ Komunikaty w stylu ICU; formatery Intl                                                      |
-| **Formaty treści**                                     | ✅ `.ts`, `.js`, `.json`, `.md`, `.txt` (YAML W trakcie realizacji)                           | ✅ `.json`, `.js` (plus bloki SFC `<i18n>`)                                                    |
-| **Wsparcie ICU**                                       | ⚠️ W trakcie realizacji                                                                       | ✅ Tak                                                                                         |
-| **Pomocniki SEO (mapa strony, robots, metadane)**      | ✅ Wbudowane pomocniki (niezależne od frameworka)                                             | ❌ Nie jest rdzeniem (Nuxt i18n/społeczność)                                                   |
-| **SSR/SSG**                                            | ✅ Działa z Vue SSR i Nuxt; nie blokuje renderowania statycznego                              | ✅ Działa z Vue SSR/Nuxt                                                                       |
-| **Tree-shaking (wysyłanie tylko używanej zawartości)** | ✅ Na poziomie komponentu podczas budowania                                                   | ⚠️ Częściowo; wymaga ręcznego dzielenia kodu/asynchronicznych wiadomości                       |
-| **Lazy loading**                                       | ✅ Na poziomie lokalizacji / słownika                                                         | ✅ Obsługa asynchronicznych wiadomości lokalizacyjnych                                         |
-| **Usuwanie nieużywanej zawartości**                    | ✅ Tak (podczas budowania)                                                                    | ❌ Brak wbudowanego wsparcia                                                                   |
-| **Utrzymanie dużych projektów**                        | ✅ Zachęca do modularnej, przyjaznej dla systemów designu struktury                           | ✅ Możliwe, ale wymaga silnej dyscypliny w zakresie plików/przestrzeni nazw                    |
-| **Ekosystem / społeczność**                            | ⚠️ Mniejszy, ale szybko rosnący                                                               | ✅ Duży i dojrzały w ekosystemie Vue                                                           |
-
-## Szczegółowe porównanie
-
-<AccordionGroup>
-<Accordion header="1) Architektura i skalowalność">
-
-- **vue-i18n**: Popularne konfiguracje używają **centralizowanych katalogów** dla każdego locale (opcjonalnie podzielonych na pliki/przestrzenie nazw). Bloki SFC `<i18n>` pozwalają na lokalne wiadomości, ale zespoły często wracają do wspólnych katalogów w miarę rozwoju projektów. Zobacz [i18n per-komponent vs scentralizowane](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md).
-- **Intlayer**: Promuje **słowniki per-komponent**, przechowywane obok komponentu, któremu służą. To zmniejsza konflikty między zespołami, utrzymuje zawartość łatwą do odnalezienia i naturalnie ogranicza dryf/nieużywane klucze.
-
-**Dlaczego to ważne:** W dużych aplikacjach Vue lub systemach designu, **modularna zawartość** lepiej się skaluje niż monolityczne katalogi.
-
-</Accordion>
-<Accordion header="2) TypeScript i bezpieczeństwo">
-
-- **vue-i18n**: Dobre wsparcie dla TS; **ścisłe typowanie kluczy** zazwyczaj wymaga niestandardowych schematów/generics i starannych konwencji.
-- **Intlayer**: **Generuje ścisłe typy** na podstawie Twoich treści, zapewniając **autouzupełnianie w IDE** oraz **błędy podczas kompilacji** w przypadku literówek lub brakujących kluczy.
-
-**Dlaczego to ważne:** Silne typowanie wykrywa problemy **przed** uruchomieniem aplikacji.
-
-</Accordion>
-<Accordion header="3) Obsługa brakujących tłumaczeń">
-
-- **vue-i18n**: Ostrzeżenia i mechanizmy zapasowe **w czasie wykonywania** (np. powrót do domyślnego locale lub klucza). Zobacz [wykrywanie brakujących tłumaczeń](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/detecting_missing_translations.md).
-- **Intlayer**: Wykrywanie **w czasie budowania** z ostrzeżeniami/błędami dla wszystkich locale i kluczy., plus `npx intlayer test` w CI.
-
-**Dlaczego to ważne:** Wymuszanie kontroli podczas budowania utrzymuje produkcyjny interfejs czysty i spójny.
-
-</Accordion>
-<Accordion header="4) Strategia routingu i adresów URL (Vue Router/Nuxt)">
-
-- **Oba** mogą działać z lokalizowanymi trasami. Zobacz [przewodnik po hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/hreflang_guide_multilingual_seo.md).
-- **Intlayer** dostarcza narzędzia do **generowania zlokalizowanych ścieżek**, **zarządzania prefiksami lokalizacji** oraz emitowania **`<link rel="alternate" hreflang>`** dla SEO. W przypadku Nuxt uzupełnia routing frameworka.
-
-**Dlaczego to ważne:** Mniej niestandardowych warstw łączących i **czystsze SEO** w różnych lokalizacjach.
-
-</Accordion>
-<Accordion header="5) Wydajność i zachowanie ładowania">
-
-- **vue-i18n**: Obsługuje asynchroniczne wiadomości lokalizacyjne; unikanie nadmiernego pakowania zależy od Ciebie (ostrożnie dziel katalogi). Powyższy benchmark potwierdza to liczbami: 134.9 KB wobec 57.1 KB na stronę.
-- **Intlayer**: **Tree-shaking** podczas budowania oraz **leniwe ładowanie per słownik/lokalizacja**. Nieużywane treści nie są dołączane.
-
-**Dlaczego to ważne:** Mniejsze pakiety i szybsze uruchamianie aplikacji Vue z wieloma lokalizacjami.
-
-</Accordion>
-<Accordion header="6) Doświadczenie programisty i narzędzia">
-
-- **vue-i18n**: Dojrzała dokumentacja i społeczność; zazwyczaj będziesz polegać na **zewnętrznych platformach lokalizacyjnych** do procesów redakcyjnych.
-- **Intlayer**: Dostarcza **bezpłatny Edytor Wizualny**, opcjonalny **CMS** (przyjazny Git lub zewnętrzny), rozszerzenie **VSCode**, narzędzia **CLI/CI** oraz **tłumaczenia wspomagane AI** z wykorzystaniem własnych kluczy dostawcy., **serwer MCP**
-
-**Dlaczego to ważne:** Niższe koszty operacyjne i krótsza pętla między deweloperem a treścią.
-
-</Accordion>
-<Accordion header="7) SEO, SSR i SSG">
-
-- **Oba** działają z Vue SSR i Nuxt. Zobacz [internacjonalizacja i SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/internationalization_and_SEO.md).
-- **Intlayer**: Dodaje **narzędzia SEO** (mapy witryn/metadane/`hreflang`), które są niezależne od frameworka i dobrze współpracują z buildami Vue/Nuxt.
-
-**Dlaczego to ważne:** Międzynarodowe SEO bez konieczności specjalistycznego okablowania.
-
-</Accordion>
-</AccordionGroup>
-
-## Dlaczego Intlayer? (Problem i podejście)
-
-![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
-
-Większość stosów i18n (w tym **vue-i18n**) zaczyna od **scentralizowanych katalogów**:
-
-<Tabs defaultTab="per-locale" group="catalog">
-<Tab label="Jeden plik na język" value="per-locale">
+`vue-i18n` to runtime. `createI18n()` buduje globalną instancję przechowującą drzewo komunikatów per locale; `useI18n()` wiąże z nią każdy komponent; `t("footer.github")` wyszukuje klucz w czasie renderowania. To właśnie umożliwia bloki SFC `<i18n>`, `v-t` i ładowanie komunikatów w runtime, i to również dlatego graf zależności każdego komponentu zawiera całe drzewo:
 
 ```bash
 .
 ├── locales
 │   ├── en.json
-│   ├── es.json
-│   └── fr.json
+│   ├── fr.json
+│   └── ...                        # jeden plik per locale, wszystkie strony w środku
 └── src
+    ├── i18n.ts                    # createI18n({ messages: { en, fr, ... } })
+    ├── main.ts
     └── components
-        └── MyComponent.vue
+        └── Footer.vue             # const { t } = useI18n(); t("footer.github")
 ```
 
-</Tab>
-<Tab label="Jeden folder na język" value="per-folder">
+Optymalizacja oznacza, że **ty** dzielisz `en.json` na pliki per trasa, **ty** wywołujesz `setLocaleMessage()` w strażniku routera i **ty** utrzymujesz poprawne mapowanie trasa-plik, gdy komponenty się przemieszczają. Runtime nie może tego zrobić za ciebie, ponieważ nie ma pojęcia, o jakie klucze komponent poprosi.
+
+Intlayer przenosi tę wiedzę do builda. Treść jest deklarowana obok komponentu, a `vite-intlayer` ustala, który komponent importuje który słownik:
 
 ```bash
 .
-├── locales
-│   ├── en
-│   │  ├── footer.json
-│   │  └── navbar.json
-│   ├── fr
-│   │  ├── footer.json
-│   │  └── navbar.json
-│   └── es
-│      ├── footer.json
-│      └── navbar.json
+├── intlayer.config.ts
 └── src
+    ├── main.ts                    # createApp(App).use(intlayer)
     └── components
-        └── MyComponent.vue
+        └── Footer
+            ├── Footer.vue         # useIntlayer("footer")
+            └── Footer.content.ts
 ```
 
-</Tab>
-</Tabs>
+Kompilator emituje, per słownik i per locale, dokładnie ten JSON, którego potrzebuje dany komponent, i odrzuca słowniki, których nic nie importuje. Ograniczenie per trasa jest konsekwencją ograniczenia per komponent, a nie zadaniem.
 
-Ten folder stale rośnie, jeden namespace na funkcję w każdym języku:
+> Aby odrzucić również nieużywane locale, ustaw `dictionary.importMode: 'dynamic'` w `intlayer.config.ts`. Zobacz [dokumentację optymalizacji bundle'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md).
 
-```txt
-locales
-├── EN
-│   ├── blog.json
-│   ├── about.json
-│   ├── auth.json
-│   ├── blog.json
-│   ├── cart.json
-│   ├── categories.json
-│   ├── contact.json
-│   ├── dashboard.json
-│   ├── errors.json
-│   ├── faq.json
-│   ├── footer.json
-│   ├── form.json
-│   ├── home.json
-│   ├── language.json
-│   ├── navbar.json
-│   ├── ... 65 files
-│   └── validation.json
-└── ES
+## Doświadczenie programisty
+
+### Konfiguracja
+
+**vue-i18n**
+
+```ts fileName="src/i18n.ts"
+import { createI18n } from "vue-i18n";
+import en from "../locales/en.json";
+import fr from "../locales/fr.json";
+
+export const i18n = createI18n({
+  legacy: false,
+  locale: "en",
+  fallbackLocale: "en",
+  messages: { en, fr },
+});
 ```
 
-To często spowalnia rozwój w miarę rozrastania się aplikacji:
+```ts fileName="src/main.ts"
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import { i18n } from "./i18n";
 
-1. **Dla nowego komponentu** tworzysz/edytujesz zdalne katalogi, łączysz przestrzenie nazw i tłumaczysz (często przez ręczne kopiuj/wklej z narzędzi AI).
-2. **Podczas zmiany komponentów** wyszukujesz wspólne klucze, tłumaczysz, synchronizujesz lokalizacje, usuwasz nieużywane klucze i dopasowujesz struktury JSON.
-
-**Intlayer** organizuje zawartość **per-komponent** i przechowuje ją **obok kodu**, tak jak robimy to już z CSS, stories, testami i dokumentacją:
-
-```bash
-.
-└── components
-    └── MyComponent
-        ├── MyComponent.content.ts
-        └── MyComponent.vue
+createApp(App).use(router).use(i18n).mount("#app");
 ```
 
-<Tabs defaultTab="intlayer" group="techno">
-<Tab label="vue-i18n" value="vue-i18n">
+**Intlayer**
 
-```json fileName="./locales/en.json"
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [intlayer(), vue()],
+});
+```
+
+```ts fileName="src/main.ts"
+import { createApp } from "vue";
+import { intlayer } from "vue-intlayer";
+import App from "./App.vue";
+import router from "./router";
+
+createApp(App).use(intlayer).use(router).mount("#app");
+```
+
+### Komponent
+
+**vue-i18n**
+
+```json fileName="locales/en.json"
 {
-  "componentExample": {
-    "greeting": "Hello World"
+  "counter": {
+    "label": "Counter",
+    "increment": "Increment"
   }
 }
 ```
 
-```vue fileName="./components/MyComponent.vue"
+```vue fileName="src/components/Counter.vue"
 <script setup lang="ts">
+import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-const { t } = useI18n();
+const { t, n } = useI18n();
+const count = ref(0);
 </script>
 
 <template>
-  <span>{{ t("componentExample.greeting") }}</span>
+  <div>
+    <p>{{ n(count) }}</p>
+    <button :aria-label="t('counter.label')" @click="count++">
+      {{ t("counter.increment") }}
+    </button>
+  </div>
 </template>
 ```
 
-Każdy plik językowy musi być edytowany ręcznie, a klucz jest zwykłym ciągiem znaków: literówka wyświetli się jako `componentExample.greting` na produkcji.
+`t('counter.label')` jest stringiem, dopóki sam nie otypujesz schematu komunikatów; literówka renderuje klucz.
 
-</Tab>
-<Tab label="Intlayer" value="intlayer">
+**Intlayer**
 
-```ts fileName="./components/MyComponent/myComponent.content.ts"
+```ts fileName="src/components/Counter/Counter.content.ts"
 import { t, type Dictionary } from "intlayer";
 
-const componentExampleContent = {
-  key: "component-example",
+const counterContent = {
+  key: "counter",
   content: {
-    greeting: t({
-      en: "Hello World",
-      fr: "Bonjour le monde",
-      es: "Hola Mundo",
-    }),
+    label: t({ en: "Counter", fr: "Compteur" }),
+    increment: t({ en: "Increment", fr: "Incrémenter" }),
   },
 } satisfies Dictionary;
 
-export default componentExampleContent;
+export default counterContent;
 ```
 
-```vue fileName="./components/MyComponent/MyComponent.vue"
+```vue fileName="src/components/Counter/Counter.vue"
 <script setup lang="ts">
-import { useIntlayer } from "vue-intlayer"; // Vue integration
+import { ref } from "vue";
+import { useIntlayer } from "vue-intlayer";
+import { useNumber } from "vue-intlayer/format";
 
-const { greeting } = useIntlayer("component-example");
+const { label, increment } = useIntlayer("counter");
+const number = useNumber();
+const count = ref(0);
 </script>
 
 <template>
-  <span>{{ greeting }}</span>
+  <div>
+    <p>{{ number.value(count) }}</p>
+    <button :aria-label="label" @click="count++">
+      {{ increment }}
+    </button>
+  </div>
 </template>
 ```
 
-Wszystkie języki znajdują się w jednym typowanym pliku obok komponentu.
+`label` i `increment` są otypowane; literówka to błąd TypeScript, brakująca wartość francuska to błąd builda.
 
-</Tab>
-</Tabs>
+### Leniwe ładowanie per locale
 
-To podejście:
+**vue-i18n**
 
-- **Przyspiesza rozwój** (deklarujesz raz; IDE/AI podpowiada).
-- **Porządkuje bazę kodu** (1 komponent = 1 słownik).
-- **Ułatwia duplikację/migrację** (kopiuj komponent wraz z jego zawartością).
-- **Unika martwych kluczy** (nieużywane komponenty nie importują zawartości).
-- **Optymalizuje ładowanie** (komponenty ładowane leniwie przynoszą ze sobą swoją zawartość).
+```ts fileName="src/i18n.ts"
+import { nextTick } from "vue";
+import { createI18n } from "vue-i18n";
 
-## Dodatkowe funkcje Intlayer (istotne dla Vue)
+export const i18n = createI18n({
+  legacy: false,
+  locale: "en",
+  fallbackLocale: "en",
+});
 
-- **Wsparcie wieloplatformowe**: Działa z Vue, Nuxt, Vite, React, Express i innymi.
-- **Zarządzanie zawartością oparte na JavaScript**: Deklaruj w kodzie z pełną elastycznością.
-- **Plik deklaracji na lokalizację**: Zainicjuj wszystkie lokalizacje i pozwól narzędziom wygenerować resztę.
-- **Środowisko z typami**: Silna konfiguracja TS z autouzupełnianiem.
-- **Uproszczone pobieranie treści**: Jeden hook/composable do pobrania całej zawartości słownika.
-- **Zorganizowana baza kodu**: 1 komponent = 1 słownik w tym samym folderze.
-- **Ulepszone routowanie**: Pomocniki dla **Vue Router/Nuxt** do lokalizowanych ścieżek i metadanych.
-- **Wsparcie Markdown**: Importuj zdalny/lokalny Markdown na lokalizację; udostępniaj frontmatter w kodzie.
-- **Darmowy Edytor Wizualny i opcjonalny CMS**: Tworzenie bez płatnej platformy lokalizacyjnej; synchronizacja przyjazna Git.
-- **Treść możliwa do tree-shakingu**: Dostarcza tylko to, co jest używane; wspiera lazy loading.
-- **Przyjazny dla statycznego renderowania**: Nie blokuje SSG.
-- **Tłumaczenia wspomagane AI**: Tłumacz na 231 języków, korzystając z własnego dostawcy AI/klucza API.
-- **Serwer MCP i rozszerzenie VSCode**: Automatyzuj workflow i18n oraz tworzenie treści bezpośrednio w IDE.
-- **Interoperacyjność**: Mosty z **vue-i18n**, **react-i18next** i **react-intl** w razie potrzeby.
+export const loadLocaleMessages = async (locale: string) => {
+  const messages = await import(`../locales/${locale}.json`);
+  i18n.global.setLocaleMessage(locale, messages.default);
+  await nextTick();
+  i18n.global.locale.value = locale;
+};
+```
+
+Następnie wywołaj `loadLocaleMessages()` ze strażnika routera i samodzielnie podziel `locales/{locale}.json` per trasa, jeśli chcesz ograniczenia per strona.
+
+**Intlayer**
+
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  // ...
+  dictionary: {
+    importMode: "dynamic",
+  },
+};
+```
+
+## Zachowaj API vue-i18n, uzyskaj wynik Intlayera
+
+`@intlayer/vue-i18n` to adapter drop-in: `useI18n()`, `t()`, `d()`, `n()`, interpolacja `{name}` i `{0}`, liczba mnoga z pipe (`"car | cars"`), `v-t` i `i18n.global.locale` nadal działają, serwowane ze słowników Intlayera skompilowanych przez `vite-intlayer`.
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import vueI18nVitePlugin from "@intlayer/vue-i18n/plugin";
+
+export default defineConfig({
+  plugins: [vue(), vueI18nVitePlugin()],
+});
+```
+
+W benchmarku build compat tej samej aplikacji zszedł ze **134,9 KB do 47,0 KB** na stronę i ze **196 KB do 8,4 KB** na komponent, bez zmian w komponentach. Twoje istniejące `locales/{locale}.json` mogą pozostać źródłem prawdy dzięki wtyczce synchronizacji JSON.
+
+Zobacz [przewodnik migracji z vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_vue-i18n_to_intlayer.md) i [dokumentację kompatybilności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/vue-i18n.md). Użytkownicy Nuxt mają tę samą ścieżkę przez [kompatybilność `@nuxtjs/i18n`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/nuxtjs-i18n.md).
 
 ## Kiedy wybrać które?
 
-<AccordionGroup>
-<Accordion header="Wybierz vue-i18n">
-
-Zależy Ci na **standardowym podejściu Vue**, swobodnie zarządzasz katalogami i przestrzeniami nazw we własnym zakresie, a Twoja aplikacja jest **mała lub średnia** (lub korzystasz już z Nuxt i18n). Bloki SFC `<i18n>` oraz `setLocaleMessage()` w czasie wykonywania to funkcje, których Intlayer celowo nie powiela.
-
-</Accordion>
-<Accordion header="Wybierz Intlayer">
-
-Cenisz **treści powiązane z komponentami**, **ścisły TypeScript**, **gwarancje w czasie kompilacji**, **tree-shaking** oraz kompletne narzędzia do routingu, SEO i edycji, zwłaszcza dla **dużych, modułowych baz kodu Vue/Nuxt** i design systemów. Zacznij od [Intlayer z Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+vue.md) lub [z Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nuxt.md).
-
-</Accordion>
-<Accordion header="Wybierz @intlayer/vue-i18n">
-
-Korzystasz z `vue-i18n` i chcesz zmniejszyć rozmiar paczki bez edytowania plików `.vue`. [Adapter zgodności](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/vue-i18n.md) zachowuje `createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t` i `v-t`, serwując je ze skompilowanych słowników. Porównanie znajdziesz w [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/vue-i18n_vs_intlayer-vue-i18n.md).
-
-</Accordion>
-</AccordionGroup>
-
-## Współpraca z vue-i18n
-
-`intlayer` może również pomóc w zarządzaniu przestrzeniami nazw `vue-i18n`.
-
-Korzystając z `intlayer`, możesz zadeklarować swoją zawartość w formacie ulubionej biblioteki i18n, a intlayer wygeneruje Twoje przestrzenie nazw w wybranej lokalizacji (np. `/messages/{{locale}}/{{namespace}}.json`). Zobacz [dokumentację zgodności vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/vue-i18n.md) oraz [adapter Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/nuxtjs-i18n.md).
+- **Wybierz vue-i18n**, jeśli chcesz standardowego podejścia Vue, polegasz na komunikatach ICU lub blokach SFC `<i18n>`, używasz już `@nuxtjs/i18n` lub platforma tłumaczeniowa oczekuje scentralizowanego JSON-a. Zarezerwuj czas na podział katalogów i leniwe ładowanie per trasa, jeśli rozmiar bundle'a ma znaczenie.
+- **Wybierz Intlayer**, jeśli chcesz **treści ograniczonej do komponentu**, **ścisłego TypeScriptu**, **błędów brakujących kluczy w czasie budowania**, **bezwysiłkowego tree-shakingu i leniwego ładowania** oraz wbudowanych narzędzi redakcyjnych (Visual Editor, CMS, tłumaczenie AI, serwer MCP). Szczególnie istotne dla dużych, modularnych baz kodu Vue / Nuxt i design systemów.
+- **Wybierz `@intlayer/vue-i18n`**, jeśli jesteś już na `vue-i18n` i chcesz zysków w rozmiarze bundle'a bez przepisywania.
 
 ## Często zadawane pytania
 
@@ -383,28 +387,46 @@ Natywna obsługa ICU jest w trakcie opracowywania. Adapter `@intlayer/vue-i18n` 
 
 </FAQ>
 
-## Gwiazdki na GitHubie (GitHub STARs)
+## Powiązane porównania
 
-Gwiazdy na GitHubie są silnym wskaźnikiem popularności projektu, zaufania społeczności oraz jego długoterminowej istotności. Choć nie są bezpośrednim miernikiem jakości technicznej, odzwierciedlają, ilu deweloperów uważa projekt za użyteczny, śledzi jego rozwój i jest skłonnych go przyjąć. Przy szacowaniu wartości projektu, gwiazdy pomagają porównać zainteresowanie różnymi alternatywami oraz dostarczają wglądu w rozwój ekosystemu.
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/i18next_vs_intlayer.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/lingui_vs_intlayer.md)
+- [Czy vue-i18n jest przestarzały?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/is_vue-i18n_outdated.md)
 
-[![Wykres historii gwiazd](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+Dokumentacja referencyjna:
+
+- [Adapter compat: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/vue-i18n.md)
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/nuxtjs-i18n.md)
+- [Przewodnik migracji: z vue-i18n do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_vue-i18n_to_intlayer.md)
+- [Optymalizacja bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md)
+- [kompilator Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
+
+Raporty benchmarków:
+
+- [Przegląd benchmarku i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/nextjs.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/tanstack.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/vue.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/solid.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/svelte.md)
+
+> Aby zrozumieć, skąd wzięły się te biblioteki, przeczytaj historię i18n w JavaScript.
+
+- [Historia i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/history_of_i18n.md)
+
+## Gwiazdki GitHub
+
+Gwiazdki GitHub są silnym wskaźnikiem popularności projektu, zaufania społeczności i długoterminowej istotności. Choć nie są bezpośrednią miarą jakości technicznej, odzwierciedlają, ilu programistów uważa projekt za użyteczny, śledzi jego postępy i prawdopodobnie go zaadoptuje.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## Podsumowanie
 
-Zarówno **vue-i18n**, jak i **Intlayer** dobrze lokalizują aplikacje Vue. Różnica polega na tym, **ile musisz sam zbudować**, aby osiągnąć solidną, skalowalną konfigurację:
+`vue-i18n` jest dojrzały, elastyczny i głęboko zintegrowany z Vue. Benchmark pokazuje, ile kosztuje jego projekt runtime-first w buildzie Vite: **runtime 24 KB gzip**, **134,9 KB na stronę** dla aplikacji, która bez i18n waży 41 KB, **90% treści z innych stron** na każdej stronie oraz komponenty, z których każdy sięga **196 KB**, ponieważ wiszą na globalnym drzewie komunikatów.
 
-- W przypadku **Intlayer** **modularna zawartość**, **ścisły TS**, **bezpieczeństwo w czasie kompilacji**, **tree-shaken bundles** oraz **narzędzia do routera/SEO/edytora** są dostępne **od razu po wyjęciu z pudełka**.
-- Jeśli Twój zespół stawia na **łatwość utrzymania i szybkość** w wielojęzycznej aplikacji Vue/Nuxt opartej na komponentach, Intlayer oferuje dziś **najbardziej kompletną** funkcjonalność.
+Intlayer przenosi pracę do kompilatora. Słowniki per komponent i usuwanie martwej treści to wyniki builda, a nie konwencje. Na tej samej aplikacji: **runtime 3,9 KB**, **57,1 KB na stronę**, **0% wycieku stron**, komponenty **25x mniejsze**. A jeśli przepisanie nie wchodzi w grę, `@intlayer/vue-i18n` pokonuje większość tej drogi bez zmian w komponentach.
 
-## Dodatkowe materiały
+Wszystkie surowe dane, aplikacje testowe i skrypty są w [repozytorium Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Uruchom je sam.
 
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/vue-i18n_vs_intlayer_benchmark.md), the measured run behind the table above
-- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/vue-i18n_vs_intlayer-vue-i18n.md), the adapter on the same app
-- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/is_vue-i18n_outdated.md)
-- [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_vue_i18n_library.md)
-- [Using Intlayer with vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/intlayer_with_vue-i18n.md)
-- [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/vue.md)
-- [Migration guide: vue-i18n to Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_vue-i18n_to_intlayer.md)
-- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
-
-Refer to ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md) for more details.
+Więcej szczegółów znajdziesz w [dokumencie „Dlaczego Intlayer?"](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).

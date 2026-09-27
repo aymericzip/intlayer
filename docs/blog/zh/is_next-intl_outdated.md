@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: 2026 年，next-intl 已经过时了吗？
 description: next-intl 已成为 Next.js App Router 的主流国际化方案。然而，其运行时打包体积开销以及繁琐的手动命名空间拆分依然是不可忽视的短板。
@@ -70,6 +70,10 @@ author: aymericzip
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 成熟的库通常让人感到放心，但 i18n 技术范式已经发生转变：构建期借助编译器剔除无用文本，CI 阶段自动调用大模型批量翻译，开发者通过 Language Server (LSP) 与 AI Agent 协助编写。纯运行时的设计难以直接消化这些优势。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## Next.js 16 App Router 基准性能评测
 

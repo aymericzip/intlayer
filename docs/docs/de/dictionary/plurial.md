@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-05-04
-updatedAt: 2026-05-04
+updatedAt: 2026-09-27
 priority: 8
-title: Plural
-description: Erfahren Sie, wie Sie sprachabhängige Pluralinhalte (CLDR-basiert) in Ihrer mehrsprachigen Website deklarieren und verwenden. Folgen Sie den Schritten in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
+title: "Pluralinhalte: CLDR-Pluralregeln"
+description: "Deklarieren Sie localeabhängige Pluralformen in Intlayer mit den CLDR-Kategorien (zero, one, two, few, many, other), aufgelöst aus einer Zahl."
 keywords:
   - Plural
   - Pluralisierung

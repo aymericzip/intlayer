@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: 파일
-description: `file` 함수를 사용하여 외부 파일을 콘텐츠 사전에 임베드하는 방법을 알아보세요. 이 문서는 Intlayer가 파일 콘텐츠를 동적으로 연결하고 관리하는 방식을 설명합니다.
+title: "파일 콘텐츠: 외부 파일 포함하기"
+description: "file() 함수로 마크다운이나 텍스트 같은 외부 파일을 Intlayer 사전에 포함하고 원본 파일과 동기화합니다."
 keywords:
   - 파일
   - 국제화
@@ -21,7 +21,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "초기 이력 작성"
-author: aymericzip 
+author: aymericzip
 ---
 
 # Intlayer의 파일 콘텐츠 / 파일 임베딩

@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getEnumeration 함수 문서 | intlayer
-description: intlayer 패키지의 getEnumeration 함수 사용법을 확인하세요
+description: "getEnumeration(별칭 enu)으로 열거형 객체의 조건에 따라 수량에 맞는 콘텐츠를 선택합니다."
 keywords:
   - getEnumeration
   - 번역

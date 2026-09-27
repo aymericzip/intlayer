@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-24
-updatedAt: 2025-11-24
+updatedAt: 2026-09-27
 priority: 8
 title: コンパイラー vs 宣言的 i18n
 description: 「魔法の」コンパイラー ベースの国際化と明示的な宣言的コンテンツ管理の間のアーキテクチャ上のトレードオフを探る。
@@ -65,6 +65,10 @@ author: aymericzip
 > - angular-i18n（ビルド時にXLIFFファイルをテンプレートに直接マージするAngularのネイティブな先行処理アプローチ）
 > - Tolgee（宣言型コードとインコンテキストSDKを組み合わせ、UI上での「クリックして翻訳」編集を可能にする）
 > - Intlayer（コンポーネント単位のアプローチで、コンテンツ宣言ファイルを使用し、ネイティブのツリーシェイキングとTypeScript検証を実現）
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## Intlayerコンパイラ
 

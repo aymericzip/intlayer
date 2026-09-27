@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n TanStack Start dengan Paraglide JS: Panduan Penyiapan 2026"
 description: "Terjemahkan aplikasi TanStack Start Anda dengan Paraglide JS: strategi URL, penulisan ulang router, middleware SSR, hreflang, sitemap dan robots.txt, beserta data tolok ukur nyata."
@@ -43,9 +43,17 @@ Paraglide adalah pendekatan i18n yang digunakan dalam contoh resmi TanStack Rout
 
 Panduan ini menyiapkan ketiganya, kemudian mencakup semua hal yang diserahkan Paraglide kepada Anda: `lang` dan `dir`, pengalih lokal (locale switcher), metadata yang diterjemahkan, `canonical`, `hreflang` dengan `x-default`, Open Graph, JSON-LD, sitemap, `robots.txt`, pra-rendering, dan halaman 404 yang dilokalkan.
 
-> Mencari tumpukan lain? Lihat [panduan TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_use-intl.md), [panduan TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_lingui.md), atau [panduan TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md).
+> Mencari tumpukan lain?
+
+- [panduan TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_use-intl.md)
+- [panduan TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_lingui.md)
+- [panduan TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)
 
 > Membandingkan dua pendekatan berbasis kompilator? Baca [apakah Intlayer lebih ringan daripada Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_intlayer_lighter_than_paraglide.md).
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Apa kata tolok ukur tentang Paraglide di TanStack Start
 
@@ -95,7 +103,11 @@ Perbandingan Paraglide JS dengan pustaka lain yang umum digunakan di TanStack St
 
 > Angka ukuran runtime dan kebocoran berasal dari [tolok ukur TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md). Kebocoran diukur pada penyiapan terbaik dari setiap pustaka.
 
-> Panduan TanStack Start lainnya: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_lingui.md), [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_use-intl.md), dan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md).
+> Panduan TanStack Start lainnya:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_lingui.md)
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_use-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)
 
 ## Praktik yang harus Anda ikuti
 
@@ -108,7 +120,8 @@ Perbandingan Paraglide JS dengan pustaka lain yang umum digunakan di TanStack St
 - **Hasilkan sitemap dan robots.txt multibahasa**, serta lakukan pra-rendering untuk setiap lokal.
 - **Gunakan tautan nyata untuk pengalih lokal**, sehingga perayap menemukan setiap bahasa.
 
-> Lihat panduan kami tentang [internasionalisasi dan SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/internationalization_and_SEO.md) dan [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md).
+- [internasionalisasi dan SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/internationalization_and_SEO.md)
+- [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md)
 
 ## Panduan Langkah demi Langkah Menyiapkan Paraglide JS di Aplikasi TanStack Start
 

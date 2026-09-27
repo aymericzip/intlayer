@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 3
 title: "Lynx + React i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Lynx + React uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Lynx ve React mobil uygulamasında Intlayer kurulumu: bileşen başına tipli içerik, cihaz dilini algılama ve dil seçici."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer ile Lynx and React mobile app çevirin | Uluslararasılaştırma (i18n)
+# Intlayer ile Lynx and React mobile app çevirin
 
 GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-lynx-template)'na bakın.
 
@@ -469,8 +469,8 @@ Uzantının nasıl kullanılacağı hakkında daha fazla detay için [Intlayer V
 
 ## Daha Fazla Gidin
 
-- **Görsel Düzenleyici**: Çevirileri görsel olarak yönetmek için [Intlayer Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)'yi kullanın.
-- **CMS Entegrasyonu**: Sözlük içeriğinizi bir [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)'den harici hale getirebilir ve getirebilirsiniz.
-- **CLI Komutları**: Çevirileri çıkarma veya eksik anahtarları kontrol etme gibi görevler için [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)'yi keşfedin.
+- [Intlayer Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
 
 ---

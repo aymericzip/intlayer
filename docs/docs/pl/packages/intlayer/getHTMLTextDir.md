@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja funkcji getHTMLTextDir | intlayer
-description: Zobacz, jak używać funkcji getHTMLTextDir w pakiecie intlayer
+description: "Użyj getHTMLTextDir, aby pobrać kierunek tekstu locale (ltr, rtl lub auto) i ustawić atrybut dir w HTML."
 keywords:
   - getHTMLTextDir
   - tłumaczenie

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Revisione Documento
+title: "intlayer doc review: revisionare le doc tradotte"
 description: Scopri come revisionare i file di documentazione per qualità, coerenza e completezza tra diverse localizzazioni.
 keywords:
   - Revisione

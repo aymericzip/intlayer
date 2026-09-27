@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Wie kann man die Liste der Sprachen anpassen?
-description: Erfahren Sie, wie Sie die Liste der Sprachen anpassen können.
+description: "Passen Sie die Liste der von Intlayer unterstützten Locales in intlayer.config.ts an, inklusive regionaler Varianten und Standard-Locale."
 keywords:
   - locales
   - liste

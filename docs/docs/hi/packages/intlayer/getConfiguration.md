@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-25
+updatedAt: 2026-09-27
 priority: 5
 title: getConfiguration फ़ंक्शन दस्तावेज़ीकरण | intlayer
-description: intlayer पैकेज के लिए getConfiguration फ़ंक्शन का उपयोग कैसे करें देखें
+description: "getConfiguration से लोकेल और रूटिंग सहित रिज़ॉल्व हुआ Intlayer कॉन्फ़िगरेशन क्लाइंट या सर्वर पर पढ़ें।"
 keywords:
   - getConfiguration
   - अनुवाद

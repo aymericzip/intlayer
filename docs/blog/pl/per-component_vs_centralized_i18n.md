@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
-title: "i18n per-komponentowy kontra scentralizowany: nowe podejście z Intlayer"
+title: "i18n per komponent czy scentralizowana w React"
 description: Dogłębna analiza strategii internacjonalizacji w React, porównująca podejścia scentralizowane, per-key i per-component oraz wprowadzająca Intlayer.
 keywords:
   - i18n
@@ -97,6 +97,10 @@ Ale z tych wszystkich rozwiązań jasno wynika, że najbardziej popularnym podej
 - Po drugie, gdy biblioteka zostanie szeroko przyjęta, trudno jest przestawić ekosystem na inne wzorce.
 - Stosowanie podejścia scentralizowanego ułatwia też pracę w systemach zarządzania tłumaczeniami (TMS) takich jak Crowdin, Phrase czy Localized.
 - Logika stojąca za podejściem per-component jest bardziej złożona niż w podejściu scentralizowanym i wymaga więcej czasu na rozwój, zwłaszcza gdy trzeba rozwiązywać problemy takie jak identyfikacja miejsca, w którym znajduje się dany content.
+
+> Aby zrozumieć, skąd wzięły się te biblioteki, przeczytaj historię i18n w JavaScript.
+
+- [Historia i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/history_of_i18n.md)
 
 ### Ok, ale dlaczego nie pozostać przy podejściu scentralizowanym?
 

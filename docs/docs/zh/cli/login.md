@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - 登录
+title: "intlayer login：登录 CMS"
 description: 了解如何使用 Intlayer CLI 的 login 命令与 Intlayer CMS 进行身份验证并获取访问凭证。
 keywords:
   - CLI
@@ -234,10 +234,10 @@ bun x intlayer login --verbose
 1. 将凭证添加到您的 `.env` 文件中
 2. 在 `intlayer.config.*` 文件中配置这些凭证
 3. 使用 CLI 命令管理您的词典：
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/push.md) - 将词典推送到 CMS
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/pull.md) - 从 CMS 拉取词典
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md) - 填充缺失的翻译
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md) - 填充缺失的翻译
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/pull.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/fill.md)
 
 ## 另请参阅
 

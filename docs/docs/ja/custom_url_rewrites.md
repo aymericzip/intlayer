@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-09-27
 priority: 8
-title: カスタムURLリライト
+title: "カスタム URL リライト：ローカライズされたパス"
 description: Intlayerでロケール固有のパスを定義するためのカスタムURLリライトの設定と使用方法を学びます。
 keywords:
   - カスタムURLリライト

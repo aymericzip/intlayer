@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "كيفية اختيار مكتبة Vue i18n المناسبة في عام 2026"
-description: دليل لاتخاذ القرار حول تدويل Vue وNuxt. ما هي الأسئلة التي يجب الإجابة عليها قبل المقارنة بين vue-i18n و@nuxtjs/i18n وfluent-vue وParaglide وIntlayer، وما تكلفة كل خيار في حجم الحزمة وتحديد الأنواع (typing) وحمولة SSR.
+description: "دليل لاختيار i18n في Vue وNuxt: الأسئلة قبل مقارنة vue-i18n و@nuxtjs/i18n وfluent-vue وParaglide وIntlayer."
 keywords:
   - vue i18n
   - vue internationalization
@@ -24,8 +24,6 @@ author: aymericzip
 يُعد "Vue i18n" مصطلحاً عاماً واسماً للمكتبة التي يثبتها الجميع تقريباً في نفس الوقت. هذا أمر مريح ومضلل في آن واحد: `vue-i18n` خيار افتراضي جيد، ولكنه ليس الخيار الوحيد، ونادراً ما تُطرح الأسئلة التي يجب أن تقود هذا الاختيار (مثل دعم SSR من عدمه، وعدد الصفحات، ومن يكتب الترجمات) قبل تشغيل `npm install`.
 
 يطرح هذا الدليل هذه الأسئلة أولاً، ثم يطابق الإجابات مع المكتبات المناسبة، لكل من تطبيق Vite + Vue البسيط وتطبيق Nuxt.
-
-![منظومة مكتبات Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## جدول المحتويات
 
@@ -87,6 +85,8 @@ author: aymericzip
 
 أحجام المكتبات مأخوذة من [مقارنة أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md): الملحق بالإضافة إلى composable في مكون فارغ، بعد التجميع (bundling) وtree-shaking والتصغير (minification)، في تطبيق مكون من 10 صفحات و10 لغات. يتم قياس المحتوى بشكل منفصل.
 
+![منظومة مكتبات Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | المكتبة        | نموذج المحتوى                                    | أمان الأنواع                     | تنسيق الرسائل                       | تقسيم حسب المسار (Per-route) | حجم المكتبة                                      |
 | :------------- | :----------------------------------------------- | :------------------------------- | :---------------------------------- | :--------------------------- | :----------------------------------------------- |
 | `vue-i18n`     | قواميس مركزية لكل لغة، كتل SFC `<i18n>` اختيارية | 2/5 — اختياري عبر schema generic | خاص (pipe plurals)                  | لا                           | ~24.3 kB                                         |
@@ -110,7 +110,7 @@ author: aymericzip
 </Accordion>
 <Accordion header="تطبيق Nuxt مع توجيه اللغات، وsitemap، وhreflang">
 
-يوفر لك `@nuxtjs/i18n` استراتيجية التوجيه، ووسوم `hreflang`، والتعرف على لغة المستخدم دون الحاجة لكتابة كود مخصص، وهذا وحده يبرر استخدامه لمواقع المحتوى التي تحتوي على صفحات محدودة. لكن عيبه يكمن في قاموس كل لغة: فبعد تجاوز حوالي عشر صفحات، تحمل حمولة SSR نصوص كل المسارات الأخرى. إذا كان هذا هو وضعك، فإما أن تقوم بإعداد `vue-i18n` يدوياً برسائل مقسمة لكل مسار، أو تنتقل إلى المحتوى محدد النطاق (scoped content). يستعرض منشور [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/frameworks/nuxt.md) خيارات استراتيجية التوجيه أولاً.
+يوفر لك `@nuxtjs/i18n` استراتيجية التوجيه، ووسوم `hreflang`، والتعرف على لغة المستخدم دون الحاجة لكتابة كود مخصص، وهذا وحده يبرر استخدامه لمواقع المحتوى التي تحتوي على صفحات محدودة. لكن عيبه يكمن في قاموس كل لغة: فبعد تجاوز حوالي عشر صفحات، تحمل حمولة SSR نصوص كل المسارات الأخرى. إذا كان هذا هو وضعك، فإما أن تقوم بإعداد `vue-i18n` يدوياً برسائل مقسمة لكل مسار، أو تنتقل إلى المحتوى محدد النطاق (scoped content). يستعرض منشور [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md) خيارات استراتيجية التوجيه أولاً.
 
 </Accordion>
 <Accordion header="الترجمات تأتي من TMS أو وكالة تقدم تنسيق ICU">
@@ -433,11 +433,17 @@ const { title, items } = useIntlayer("cart-summary");
 ## للمزيد من التفاصيل
 
 - [مقارنة أداء Vue i18n: حجم الحزمة، التسريب، وتوقيت تبديل اللغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md)
-- [Vue i18n: كيف يعمل vue-i18n وأين تكمن مشاكله](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/frameworks/vue.md) ومنشور [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/list_i18n_technologies/frameworks/nuxt.md)
-- [مقارنة بين vue-i18n وIntlayer ميزة بميزة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md) و[مقارنة أداء vue-i18n مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer_benchmark.md)
+- [مقارنة بين vue-i18n وIntlayer ميزة بميزة](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md)
+- [مقارنة أداء vue-i18n مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md)
 - [هل أصبح vue-i18n قديماً؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_vue-i18n_outdated.md)
 - [تاريخ تدويل JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 - [المترجم مقابل التدويل التعريفي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
 - [تدويل كل مكون على حدة مقابل التدويل المركزي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md)
-- [إعداد i18n في تطبيق Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md) وفي [تطبيق Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md)
-- الدليل نفسه لـ [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_react_i18n_library.md)، و[Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_svelte_i18n_library.md) و[Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_solid_i18n_library.md)
+- [إعداد i18n في تطبيق Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md)
+- [تطبيق Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md)
+
+الدليل نفسه لـ
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_react_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_solid_i18n_library.md)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "i18next مقابل Intlayer: اختبار الأداء والمقارنة الشاملة لعام 2026"
 description: "قياس أداء react-i18next و next-i18next ومقارنتهما مع Intlayer على Next.js و TanStack Start. حجم الحزمة (Bundle size)، تسرب المحتوى، سرعة الاستجابة عند تبديل اللغة، وتجربة المطور."
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# i18next مقابل Intlayer | اختبار أداء تدويل (i18n) تطبيقات React و Next.js
+# i18next مقابل Intlayer: اختبار أداء تدويل (i18n) تطبيقات React و Next.js
 
 ![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -523,25 +523,42 @@ export default defineConfig({
 
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer.md)
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/lingui_vs_intlayer.md)
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md)
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/react-i18next_vs_react-intl_vs_intlayer.md)
 
 المزيد حول i18next:
 
-- [i18next مقابل @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer-i18next.md)، المحولات مقاسة على نفس التطبيق
+- [i18next مقابل @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18next_vs_intlayer-i18next.md)
 - [هل عفا عليه الزمن i18next؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_i18next_outdated.md)
-- [استخدام Intlayer مع i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_i18next.md) و [مع react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_react-i18next.md)
+- [استخدام Intlayer مع i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_i18next.md)
+- [مع react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_react-i18next.md)
 - [كيفية تدويل تطبيق Next.js باستخدام next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_next-i18next.md)
 
 الوثائق المرجعية:
 
-- [تقرير قياس الأداء لـ Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md) و [تقرير قياس الأداء لـ TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
-- محولات التوافق: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/i18next.md)، [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-i18next.md)، [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-i18next.md)
-- أدلة الترحيل: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md)، [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_react-i18next_to_intlayer.md)، [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-i18next_to_intlayer.md)
-- [تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+- [تقرير قياس الأداء لـ Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/nextjs.md)
+- [تقرير قياس الأداء لـ TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md)
+- [تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+- [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
 - [i18n لكل مكون مقابل المركزية](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/per-component_vs_centralized_i18n.md)
 - [i18n المعتمدة على المترجم مقابل التصريحية](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md)
+
+محولات التوافق:
+
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/i18next.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/react-i18next.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/next-i18next.md)
+
+أدلة الترحيل:
+
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_react-i18next_to_intlayer.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_next-i18next_to_intlayer.md)
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## نجوم GitHub
 

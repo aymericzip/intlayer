@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
-title: परिचय
+title: "Intlayer शुरू करें: हर फ़्रेमवर्क के लिए i18n"
 description: जानें कि Intlayer कैसे काम करता है। देखें कि Intlayer आपके एप्लिकेशन में किन चरणों का उपयोग करता है। खोजें कि विभिन्न पैकेजों का क्या कार्य है।
 keywords:
   - परिचय
@@ -211,8 +211,8 @@ Intlayer आधुनिक वेब विकास की आवश्यक�
 - **[AdonisJS के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_adonisjs.md)**
 - **[Elysia के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_elysia.md)**
 - **[Storybook के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_storybook.md)**
-- **[next-intl के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_next-intl.md)**
-- **[next-i18next के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_next-i18next.md)**
+- **[next-intl के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/intlayer_with_next-intl.md)**
+- **[next-i18next के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/intlayer_with_next-i18next.md)**
 
 प्रत्येक एकीकरण गाइड में Intlayer की सुविधाओं का उपयोग करने के सर्वोत्तम अभ्यास (best practices) शामिल हैं, जैसे **सर्वर-साइड रेंडरिंग (SSR)**, **डायनामिक रूटिंग**, या **क्लाइंट-साइड रेंडरिंग**, ताकि आप एक तेज़, SEO-अनुकूल और उच्च स्केलेबल एप्लिकेशन बनाए रख सकें।
 

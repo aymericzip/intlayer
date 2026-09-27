@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n Next.js 16 dengan Lingui: Panduan Pengaturan App Router"
 description: "Siapkan Lingui di App Router Next.js 16: Server Components, makro SWC, perutean proxy, generateMetadata, hreflang, sitemap, dan robots.txt, lengkap dengan data tolok ukur (benchmark)."
@@ -43,9 +43,24 @@ Panduan ini menyiapkan Lingui dalam proyek **Next.js 16 App Router**, dengan:
 - **Rendering statis** untuk setiap lokal dengan `generateStaticParams`.
 - **SEO multibahasa yang lengkap**: `generateMetadata` yang diterjemahkan, canonical, `hreflang` dengan `x-default`, Open Graph locales, JSON-LD, `sitemap.ts`, `robots.ts`, dan halaman 404 yang dilokalkan.
 
-> Mencari pustaka lain? Lihat [panduan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-intl.md), [panduan next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-i18next.md), atau [panduan Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
+> Mencari pustaka lain?
 
-> Menggunakan TanStack Start? Lihat [panduan TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_lingui.md). Ingin membandingkan pustaka? Baca [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md) dan [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
+- [panduan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-intl.md)
+- [panduan next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-i18next.md)
+- [panduan Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)
+
+> Menggunakan TanStack Start?
+
+- [panduan TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_lingui.md)
+
+> Ingin membandingkan pustaka?
+
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Apa yang Dikatakan Tolok Ukur (Benchmark) Mengenai Lingui di Next.js
 
@@ -94,7 +109,11 @@ Perbandingan Lingui dengan `next-intl` dan Intlayer pada fitur-fitur yang biasan
 
 > Ukuran runtime bersumber dari [Tolok ukur Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/nextjs.md). Untuk pembahasan mendalam, baca [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md).
 
-> Panduan Next.js lainnya: [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-intl.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-i18next.md), dan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md).
+> Panduan Next.js lainnya:
+
+- [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-intl.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_next-i18next.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)
 
 ## Praktik Terbaik yang Harus Anda Ikuti
 
@@ -107,7 +126,9 @@ Perbandingan Lingui dengan `next-intl` dan Intlayer pada fitur-fitur yang biasan
 - **Gunakan tautan nyata untuk pengalih bahasa**, agar mesin perayap (crawler) dapat menemukan setiap versi bahasa.
 - **Jalankan `lingui extract` di CI** agar pesan baru tidak pernah terkirim ke produksi dalam keadaan belum diterjemahkan.
 
-> Lihat panduan kami tentang [internasionalisasi dan SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/internationalization_and_SEO.md), [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md), dan [perbandingan SEO multibahasa Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/nextjs-multilingual-seo-comparison.md).
+- [internasionalisasi dan SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/internationalization_and_SEO.md)
+- [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md)
+- [perbandingan SEO multibahasa Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/nextjs-multilingual-seo-comparison.md)
 
 ## Panduan Langkah demi Langkah untuk Menyiapkan Lingui di Aplikasi Next.js
 

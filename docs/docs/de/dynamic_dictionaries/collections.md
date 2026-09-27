@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-12
+updatedAt: 2026-09-27
 priority: 8
-title: Sammlungen
+title: "Collections: geordnete Listen lokalisierter Einträge"
 description: Verwenden Sie das Metadatenfeld item in Intlayer-Inhaltsdateien, um geordnete Sammlungen lokalisierter Elemente zu erstellen, die zur Laufzeit über einen Index ausgewählt werden können.
 keywords:
   - Sammlungen

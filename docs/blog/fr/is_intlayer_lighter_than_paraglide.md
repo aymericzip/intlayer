@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-23
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
 title: Intlayer est-il plus léger que Paraglide ?
-description: Paraglide semble presque gratuit dans les benchmarks i18n car son code est généré dans votre repo. Voici où se trouve réellement ce poids, pourquoi les lectures de locale par nœud vous coûtent des ressources, et comment le chargement dynamique d'Intlayer n'envoie qu'une seule locale au lieu de toutes.
+description: "Paraglide semble presque gratuit dans les benchmarks i18n car son code est généré dans votre dépôt. Où va ce poids, et comment il se compare à Intlayer."
 keywords:
   - Paraglide
   - Intlayer
@@ -287,3 +287,7 @@ bunx intlayer init --interactive
 - [Optimisation de bundle et `importMode`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md)
 - [Comment choisir une bibliothèque i18n pour React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/how_to_pick_react_i18n_library.md)
 - [Pourquoi choisir une internationalisation basée sur un compilateur](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/compiler_vs_declarative_i18n.md)
+
+> Pour comprendre d'où viennent ces bibliothèques, lisez l'histoire de l'i18n en JavaScript.
+
+- [L'histoire de l'i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/history_of_i18n.md)

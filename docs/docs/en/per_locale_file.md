@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Declaration of `Per-Locale` Content Declaration in Intlayer
+title: "Per-Locale Content Declaration Files"
 description: Discover how to declare content per locale in Intlayer. Follow the documentation to understand the different formats and use cases.
 keywords:
   - Internationalization

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: 2026'da Next.js için En İyi i18n Çözümü - Benchmark Raporu
 description: next-intl, next-i18next ve Intlayer gibi Next.js uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
@@ -73,6 +73,10 @@ i18n kütüphanelerinin bir başka etkisi de geliştirme sürecinin yavaşlamas�
 Sorun zor olduğu için birçok çözüm mevcuttur; bazıları DX'e (geliştirici deneyimi) odaklanırken, diğerleri performans veya ölçeklenebilirliğe odaklanır.
 
 Intlayer tüm bu boyutlarda optimizasyon yapmaya çalışır.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## TL;DR
 

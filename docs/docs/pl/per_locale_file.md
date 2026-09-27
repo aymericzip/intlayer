@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Deklaracja zawartości `Per-Locale` w Intlayer
+title: "Pliki deklaracji treści dla każdego locale"
 description: Dowiedz się, jak deklarować zawartość per locale w Intlayer. Postępuj zgodnie z dokumentacją, aby zrozumieć różne formaty i przypadki użycia.
 keywords:
   - Internacjonalizacja

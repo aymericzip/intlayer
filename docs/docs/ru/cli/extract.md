@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Извлечение строк
+title: "intlayer extract: извлечение строк из компонентов"
 description: Узнайте, как извлекать строки из ваших компонентов в файл .content, расположенный рядом с компонентом.
 keywords:
   - Извлечение

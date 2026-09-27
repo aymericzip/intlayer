@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 8
-title: 設定 (Configuration)
+title: "Intlayer の設定（intlayer.config.ts）"
 description: アプリケーションにIntlayerを設定する方法について説明します。ニーズに合わせてIntlayerをカスタマイズするためのさまざまな設定とオプションを理解してください。
 keywords:
   - 設定

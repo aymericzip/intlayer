@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
-title: getIntlayer Function Documentation | intlayer
-description: intlayer パッケージの getIntlayer 関数を使用する方法を参照してください
+title: "getIntlayer 関数ドキュメント | intlayer"
+description: "getIntlayer で、どこからでもロケールに応じた辞書のコンテンツを取得。useIntlayer フックのフレームワーク非依存版です。"
 keywords:
   - getIntlayer
   - dictionary
@@ -164,9 +164,9 @@ const banner = getIntlayer("banner", { variant: "black-friday", locale: "fr" });
 
 ## 関連関数
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayerAsync.md): 単一のlocaleチャンクをロードするAsync版。
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getDictionary.md): キーで検索する代わりに、自分で渡すdictionaryオブジェクトを解釈する。
-- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md): React hookの同等版で、providerからlocaleを読み取る。
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getDictionary.md)
+- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)
 
 ## TypeScript
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm getLocaleName | intlayer
-description: Xem cách sử dụng hàm getLocaleName cho gói intlayer
+description: 'Dùng getLocaleName để lấy tên của một locale bằng ngôn ngữ khác, ví dụ "French" hoặc "français", cho nhãn bộ chuyển ngôn ngữ.'
 keywords:
   - getLocaleName
   - dịch thuật

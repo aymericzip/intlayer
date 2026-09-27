@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Dorong Kamus
-description: Pelajari cara mendorong kamus Anda ke editor dan CMS Intlayer.
+title: "intlayer push: kirim kamus ke CMS"
+description: "Unggah kamus Intlayer lokal ke editor visual dan CMS agar penerjemah dan pengelola konten bisa mengeditnya."
 keywords:
   - Dorong
   - Kamus

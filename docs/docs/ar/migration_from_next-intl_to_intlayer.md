@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: الترحيل من next-intl إلى Intlayer | التدويل (i18n)
-description: تعرّف على كيفية ترحيل تطبيق Next.js الخاص بك من next-intl إلى Intlayer - خطوة بخطوة، دون كسر الكود الموجود. استخدم محول التوافق @intlayer/next-intl للانتقال بدون انقطاع.
+title: "الانتقال من next-intl إلى Intlayer"
+description: "انقل تطبيق Next.js من next-intl إلى Intlayer خطوة بخطوة، بدءًا بمحوّل @intlayer/next-intl حتى لا يتعطل شيء."
 keywords:
   - next-intl
   - intlayer
@@ -62,6 +62,10 @@ Intlayer هو أيضًا الحل الذي يتمتع بـ **أنشط تطور**
 
 </Accordion>
 </AccordionGroup>
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## استراتيجية الترحيل
 
@@ -328,8 +332,8 @@ export default config;
 
 ## اذهب إلى ما هو أبعد
 
-- **محرر بصري** — إدارة الترجمات بشكل مرئي في المتصفح: [محرر Intlayer البصري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
-- **CMS** — تحويل إلى خارجي وإدارة المحتوى من بعيد: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
-- **VS Code Extension** — احصل على إكمال تلقائي واكتشاف خطأ ترجمة فوري: [ملحق Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
-- **مرجع CLI** — قائمة كاملة بأوامر CLI: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
-- **Intlayer مع Next.js** — دليل الإعداد الكامل لـ Next.js: [intlayer_with_nextjs_16.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)
+- [محرر Intlayer البصري](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [ملحق Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
+- [Intlayer مع Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)

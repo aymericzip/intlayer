@@ -2,8 +2,8 @@
 createdAt: 2025-06-18
 updatedAt: 2026-06-25
 priority: 9
-title: "Expo + React Native i18n - Повний посібник з перекладу вашого застосунку"
-description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Expo + React Native. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
+title: "i18n в Expo + React Native: повний посібник"
+description: "Налаштування Intlayer в Expo та React Native: типізований контент за компонентами, визначення мови пристрою, перемикач мови та збирання через Metro."
 keywords:
   - Інтернаціоналізація
   - Документація
@@ -36,7 +36,7 @@ history:
 author: aymericzip
 ---
 
-# Перекладіть ваш додаток Expo та React Native | Інтернаціоналізація (i18n)
+# Перекладіть ваш додаток Expo та React Native
 
 <Tabs defaultTab="code">
   <Tab label="Код" value="code">
@@ -499,9 +499,9 @@ Intlayer генерує визначення типів у прихованій 
 
 ## Додаткові ресурси
 
-- **Візуальний редактор**: Використовуйте [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) для візуального керування перекладами.
-- **Інтеграція з CMS**: Ви також можете винести та отримувати вміст вашого словника з [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
-- **Команди CLI**: Ознайомтеся з [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md) для завдань, таких як **вилучення перекладів** або **перевірка відсутніх ключів**.
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
 
 Насолоджуйтесь створенням ваших додатків на **React Native** з повноцінною i18n за допомогою **Intlayer**!
 

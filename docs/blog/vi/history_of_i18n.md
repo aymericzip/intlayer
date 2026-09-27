@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-10
+updatedAt: 2026-09-27
 priority: 8
 title: "Lịch sử i18n trong JavaScript: Từ 2011 đến 2026"
-description: Khám phá sự phát triển của quốc tế hóa frontend từ 2011 đến 2026. Tìm hiểu các mốc phát hành, thách thức kiến trúc và các cải tiến quan trọng trên React, Vue, Next.js, Angular, Svelte và Solid.
+description: "Sự phát triển của i18n frontend từ 2011 đến 2026: thời điểm phát hành, vấn đề kiến trúc và đổi mới quan trọng trong React, Vue, Next.js, Angular, Svelte và Solid."
 keywords:
   - lịch sử i18n
   - quốc tế hóa JavaScript
@@ -49,8 +49,6 @@ Câu hỏi đó đã định hình sự phát triển của JavaScript i18n tron
 Các giải pháp đã thay đổi đáng kể. Chúng ta đã đi từ các đối tượng JavaScript toàn cục và các lệnh gọi `t('some.key')`, đến các thư viện chuyên biệt cho từng framework, trích xuất lúc biên dịch (compile-time), các kiểu dữ liệu do TypeScript tạo ra, React Server Components, kỹ thuật loại bỏ mã thừa (tree-shaking), và cuối cùng là các cách tiếp cận dựa trên trình biên dịch (compiler-based) nơi các bản dịch được chuyển đổi thành mã JavaScript ngay trong quá trình build.
 
 Bài viết này xem xét quá trình phát triển đó từ khoảng năm 2011 đến năm 2026: những gì mỗi thế hệ công cụ đã cố gắng giải quyết, những gì hiệu quả, những gì thất bại, và cách kiến trúc ứng dụng frontend đã định hình cách chúng ta xử lý i18n ngày nay.
-
-![Hệ sinh thái thư viện quốc tế hóa JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Mục lục
 
@@ -143,6 +141,8 @@ Các từ điển được lưu trữ trong các tệp JSON tập trung cách xa
 ## Kỷ nguyên Framework: Sự phát triển qua các hệ sinh thái
 
 Từ năm 2016 đến 2026, kiến trúc frontend đã thay đổi sâu sắc. TypeScript trở thành tiêu chuẩn, kiến trúc dựa trên component trưởng thành, các công cụ đóng gói như Webpack, Vite và Turbopack giới thiệu khả năng chia tách mã, React Server Components chuyển việc render trở lại máy chủ, và các trình biên dịch bắt đầu phân tích mã ứng dụng.
+
+![Hệ sinh thái thư viện quốc tế hóa JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 Các tab sau đây trình bày cách mỗi framework và hệ sinh thái giải quyết những thách thức này, ghi nhận ngày phát hành, động lực cốt lõi và các đổi mới quan trọng trong các bảng so sánh. Trong toàn bộ các hệ sinh thái này, `react-intlayer` cùng các giải pháp tương đương (`next-intlayer`, `vue-intlayer`, `angular-intlayer`, `svelte-intlayer`, và `solid-intlayer`) là những triển khai hiệu năng cao được thiết kế riêng cho từng môi trường runtime.
 

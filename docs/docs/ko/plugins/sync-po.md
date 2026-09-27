@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-05-10
-updatedAt: 2026-05-10
+updatedAt: 2026-09-27
 priority: 6
-title: Sync PO 플러그인
+title: "Sync PO 플러그인: Intlayer로 Gettext 파일 사용"
 description: Intlayer 딕셔너리를 Gettext PO 파일과 동기화합니다. Intlayer를 사용하여 메시지를 관리, 번역 및 테스트하면서 기존 i18n을 유지하세요.
 keywords:
   - Intlayer

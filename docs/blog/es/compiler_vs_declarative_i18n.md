@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-24
-updatedAt: 2025-11-24
+updatedAt: 2026-09-27
 priority: 8
 title: Compilador vs. i18n Declarativo
 description: Explorando las compensaciones arquitectónicas entre la internacionalización "mágica" basada en compilador y la gestión explícita y declarativa de contenido.
@@ -65,6 +65,10 @@ Así nació la i18n basada en compiladores.
 > - angular-i18n (El enfoque nativo de Angular, adelantado en tiempo, que fusiona archivos XLIFF directamente en las plantillas durante la compilación)
 > - Tolgee (Combina código declarativo con un SDK en contexto para edición "click-to-translate" directamente en la interfaz de usuario)
 > - Intlayer (Enfoque por componente, usando archivos de declaraciones de contenido que permiten tree-shaking nativo y validación en TypeScript)
+
+> Para entender de dónde vienen estas bibliotecas, lee la historia del i18n en JavaScript.
+
+- [La historia del i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md)
 
 ## El Compilador de Intlayer
 

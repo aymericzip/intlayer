@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Comment personnaliser la liste des langues ?
-description: Apprenez comment personnaliser la liste des langues.
+description: "Personnalisez la liste des locales prises en charge par Intlayer dans intlayer.config.ts, y compris les variantes régionales et la locale par défaut."
 keywords:
   - langues
   - liste

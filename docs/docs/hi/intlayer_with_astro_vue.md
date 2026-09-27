@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + Vue i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की जरूरत नहीं। 2026 में Astro + Vue ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
+description: "Vue आइलैंड वाले Astro में Intlayer सेट करें: अनुवादित कंपोनेंट, स्थानीयकृत रूट और hreflang, प्रति कंपोनेंट टाइप्ड कंटेंट।"
 keywords:
   - अंतर्राष्ट्रीयकरण
   - दस्तावेज़ीकरण
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer के साथ अपनी Astro + Vue साइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
+# Intlayer के साथ अपनी Astro + Vue साइट का अनुवाद करें
 
 <Tabs defaultTab="code">
   <Tab label="कोड" value="code">

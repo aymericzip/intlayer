@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-08-22
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer Analytics | تتبع عرض المحتوى وإجراء اختبارات A/B
+title: "Intlayer Analytics: ظهور المحتوى واختبارات A/B"
 description: اكتشف كيف يقوم @intlayer/analytics بتتبع مشاهدات الصفحات/اللغات وعرض المحتوى، وكيفية استخدامه لإجراء اختبارات A/B على محتوى Intlayer الخاص بك.
 keywords:
   - التحليلات

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-01-29
+updatedAt: 2026-09-27
 priority: 5
 title: Документация промежуточного ПО intlayer для Hono | hono-intlayer
-description: Узнайте, как использовать промежуточное ПО intlayer для пакета hono-intlayer
+description: "Middleware intlayer для Hono определяет локаль пользователя и добавляет функции перевода Intlayer в контекст запроса."
 keywords:
   - intlayer
   - hono

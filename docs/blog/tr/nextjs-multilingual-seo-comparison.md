@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-28
-updatedAt: 2025-09-28
+updatedAt: 2026-09-27
 priority: 8
-title: Next.js'te SEO ve i18n
+title: "Next.js'te SEO ve i18n: hreflang, metadata, sitemap"
 description: next-intl, next-i18next ve Intlayer kullanarak Next.js uygulamanızda çok dilli SEO nasıl kurulur öğrenin.
 keywords:
   - Intlayer
@@ -358,3 +358,7 @@ Meta veriler JSON dosyaları veya özel yardımcı araçlar arasında dağılmak
 Next.js için baştan sona tasarlanmıştır, böylece yapılandırmayı hata ayıklamakla daha az, projeyi teslim etmekle daha çok zaman harcarsınız.
 
 Amacınız sadece çeviri yapmak değil, çok dilli SEO'yu sorunsuz bir şekilde ölçeklendirmekse, Intlayer size en temiz ve en geleceğe dönük kurulumu sunar.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)

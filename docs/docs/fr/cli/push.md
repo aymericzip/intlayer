@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Pousser les dictionnaires
-description: Apprenez comment pousser vos dictionnaires vers l'éditeur Intlayer et le CMS.
+title: "intlayer push : envoyer les dictionnaires au CMS"
+description: "Envoyez vos dictionnaires Intlayer locaux vers l'éditeur visuel et le CMS pour que traducteurs et gestionnaires de contenu puissent les modifier."
 keywords:
   - Pousser
   - Dictionnaires

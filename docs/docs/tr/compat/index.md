@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Intlayer Uyumluluk Adaptörleri"
+title: "i18n kütüphaneleri için Intlayer uyumluluk adaptörleri"
 description: "Mevcut i18n çözümünüzü sıfır zorlukla Intlayer'a geçirin uyumluluk adaptörleri kullanarak."
 keywords:
   - uyumluluk
@@ -31,6 +31,10 @@ Bu adapter paketleri, mevcut i18n kütüphanelerinizle **tamamen aynı genel API
 Bir uyumluluk adaptörü kullandığınızda, uygulamanızın importlarını yeniden yazmanız veya çeviri hook'larınızı ve bileşenlerinizi nasıl kullandığınızı değiştirmenize gerek yoktur. Bunun yerine, Intlayer'ın bundler plugin'leri mevcut importlarınızı otomatik olarak Intlayer uyumluluk paketlerine takma ad olarak atarlar.
 
 Örneğin, bir geliştirici `import { useTranslation } from 'react-i18next'` yerine `import { useTranslation } from '@intlayer/react-i18next'` kullanır (bundler plugin'i tarafından otomatik olarak yapılır) ve uygulama Intlayer sözlüklerinden sunulan çevirilerle çalışmaya devam eder. Anahtarlar ayrıca Intlayer sözlüklerinizle yazılı kontrol edilir\!
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## Kullanılabilir Uyumluluk Adaptörleri
 

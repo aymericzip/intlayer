@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: ESBuild 오류
-description: ESBuild 오류를 해결하는 방법을 알아보세요.
+title: "Intlayer의 ESBuild 오류 해결"
+description: "Intlayer 빌드 중 발생하는 ESBuild 오류를 해결합니다. 대개 프레임워크용 번들러 플러그인이 없거나 잘못 설정된 경우입니다."
 keywords:
   - esbuild
   - 오류

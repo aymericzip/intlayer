@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "تدويل TanStack Start + Solid - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق TanStack Start + Solid متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+title: "i18n في TanStack Start + Solid: دليل الترجمة الكامل"
+description: "إعداد Intlayer في TanStack Start مع Solid: معامل اللغة في المسارات، ومحتوى مترجم تفاعلي، وبيانات head مترجمة، وhreflang."
 keywords:
   - التدويل
   - توثيق
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# ترجم موقعك على Tanstack Start مع Solid.js باستخدام Intlayer | التدويل (i18n)
+# ترجم موقعك على Tanstack Start مع Solid.js باستخدام Intlayer
 
 ## جدول المحتويات
 

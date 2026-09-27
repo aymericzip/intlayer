@@ -14,9 +14,9 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
-description: Documentation for the useLocale hook in the next-intlayer package
+description: "在 Next.js 中使用 useLocale 读取当前语言并切换语言，自动更新本地化路由。"
 createdAt: 2024-08-11
-updatedAt: 2026-01-26
+updatedAt: 2026-09-27
 priority: 5
 title: useLocale 钩子文档 | next-intlayer
 history:

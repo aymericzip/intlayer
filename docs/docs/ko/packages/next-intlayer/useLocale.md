@@ -14,9 +14,9 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
-description: Documentation for the useLocale hook in the next-intlayer package
+description: "Next.js의 useLocale로 현재 로케일을 읽고 언어를 전환하며, 현지화된 라우트를 자동으로 갱신합니다."
 createdAt: 2025-08-23
-updatedAt: 2026-01-26
+updatedAt: 2026-09-27
 priority: 5
 title: useLocale 훅 문서 | next-intlayer
 history:

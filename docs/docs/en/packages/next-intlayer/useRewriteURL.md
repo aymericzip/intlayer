@@ -2,7 +2,7 @@
 updatedAt: 2025-08-23
 priority: 5
 createdAt: 2025-08-23
-title: useRewriteURL Hook Documentation
+title: "useRewriteURL Hook Documentation | next-intlayer"
 description: Next.js-specific hook for managing localized URL rewrites in Intlayer.
 keywords:
   - useRewriteURL

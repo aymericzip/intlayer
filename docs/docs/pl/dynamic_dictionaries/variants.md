@@ -2,8 +2,8 @@
 createdAt: 2026-06-12
 updatedAt: 2026-08-04
 priority: 8
-title: Warianty
-description: Użyj pola metadanych variant w plikach treści Intlayer, aby zadeklarować nazwane lub strukturalne alternatywy treści — testy A/B, banery sezonowe, teksty z feature flag, rekordy CMS, treść zależną od użytkownika — i przełączać się między nimi w czasie wykonywania bez zmian w kodzie.
+title: "Warianty: testy A/B i alternatywne treści"
+description: "Deklaruj nazwane alternatywy treści za pomocą wariantów Intlayer do testów A/B, sezonowych banerów, feature flag czy tekstów per użytkownik."
 keywords:
   - Warianty
   - Testy A/B

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "NuxtJS I18n에서 Intlayer로 마이그레이션"
-description: "compat adapter를 사용하여 Nuxt.js 애플리케이션을 @nuxtjs/i18n에서 Intlayer로 마이그레이션하는 방법을 알아보세요."
+title: "@intlayer/nuxt-i18n: @nuxtjs/i18n 호환 어댑터"
+description: "@nuxtjs/i18n 코드를 그대로 두고 Intlayer로 제공하세요. @intlayer/nuxt-i18n를 설치하고 import에 별칭을 지정한 뒤, 어댑터가 내부적으로 무엇을 바꾸는지 확인하세요."
 keywords:
   - nuxtjs-i18n
   - nuxt
@@ -22,7 +22,7 @@ history:
 author: aymericzip
 ---
 
-# NuxtJS I18n에서 Intlayer로 마이그레이션
+# @intlayer/nuxt-i18n: @nuxtjs/i18n 호환 어댑터
 
 Nuxt 애플리케이션을 `@nuxtjs/i18n`에서 Intlayer로 마이그레이션하는 것은 Nuxt adapter module을 사용하여 매끄러운 프로세스입니다.
 
@@ -45,3 +45,7 @@ npx intlayer init --interactive
 - **Translations:** 모든 문자열 translation 작업에 대해 네이티브로 `@intlayer/vue-i18n` compat layer를 사용합니다 (완벽하게 `vue-i18n` formats, pipe plurals, reactivity를 지원합니다).
 - **Routing:** Intlayer의 localized URL helpers를 사용하여 routing composables를 mirror합니다.
 - **Configuration:** `intlayer.config.ts`에서 `availableLocales`과 기본 설정을 직접 읽어 Nuxt pages를 자동으로 조정합니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)

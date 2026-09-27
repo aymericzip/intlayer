@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm getEnumeration | intlayer
-description: Xem cách sử dụng hàm getEnumeration cho gói intlayer
+description: "Dùng getEnumeration (bí danh enu) để chọn nội dung ứng với một số lượng từ đối tượng enumeration dựa trên các điều kiện của nó."
 keywords:
   - getEnumeration
   - dịch thuật

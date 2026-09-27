@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Giriş
+title: "intlayer login: CMS'e giriş yapın"
 description: Intlayer CLI'nin login komutunu kullanarak Intlayer CMS ile nasıl kimlik doğrulaması yapacağınızı ve erişim kimlik bilgileri elde edeceğinizi öğrenin.
 keywords:
   - CLI
@@ -238,9 +238,9 @@ Giriş işlemini tamamladıktan sonra:
 1. Kimlik bilgilerini `.env` dosyanıza ekleyin
 2. Kimlik bilgileri ile `intlayer.config.*` dosyanızı yapılandırın
 3. Sözlüklerinizi yönetmek için CLI komutlarını kullanın:
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/push.md) - Sözlükleri CMS'ye gönderir
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/pull.md) - CMS'den sözlükleri çeker
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md) - Eksik çevirileri doldur
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/pull.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/fill.md)
 
 ## Ayrıca Bakınız
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Inicio de sesión
+title: "intlayer login: autenticarse en el CMS"
 description: Aprende a usar el comando login del CLI de Intlayer para autenticarte con el CMS de Intlayer y obtener credenciales de acceso.
 keywords:
   - CLI
@@ -234,8 +234,8 @@ Después de completar el inicio de sesión:
 1. Añade las credenciales a tu archivo `.env`
 2. Configura tu archivo `intlayer.config.*` con las credenciales
 3. Usa los comandos de la CLI para gestionar tus diccionarios:
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/push.md) - Enviar diccionarios al CMS
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/pull.md) - Extraer diccionarios del CMS
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/pull.md)
 
 ## Véase también
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Документация функции getTranslation | intlayer
-description: Узнайте, как использовать функцию getTranslation для пакета intlayer
+description: "Используйте getTranslation (алиас t), чтобы выбрать контент нужной локали из карты переводов с откатом на локаль по умолчанию."
 keywords:
   - getTranslation
   - перевод

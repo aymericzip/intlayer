@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-09-20
+updatedAt: 2026-09-27
 priority: 8
-title: Preenchimento Automático
-description: Aprenda a usar a funcionalidade de preenchimento automático no Intlayer para popular conteúdo automaticamente com base em padrões predefinidos. Siga esta documentação para implementar recursos de preenchimento automático de forma eficiente em seu projeto.
+title: "Auto Fill: traduza automaticamente o conteúdo que falta"
+description: "Use o auto fill do Intlayer para gerar as traduções que faltam a partir do seu locale de origem e gravá-las nos arquivos de conteúdo certos."
 keywords:
   - Preenchimento Automático
   - Automação de Conteúdo

@@ -3,7 +3,7 @@ createdAt: 2026-03-31
 updatedAt: 2026-05-31
 priority: 9
 title: "Vanilla JS i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
-description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Vanilla JS. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
+description: "Konfiguracja Intlayer w czystym JavaScripcie bez frameworka: przetłumacz statyczną stronę HTML, zmieniaj locale i utrzymuj typowaną treść."
 keywords:
   - Międzynarodowienie
   - Dokumentacja
@@ -28,7 +28,7 @@ history:
 author: aymericzip
 ---
 
-# Przetłumacz swoją stronę Vanilla JS używając Intlayer | Międzynarodowienie (i18n)
+# Przetłumacz swoją stronę Vanilla JS używając Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Kod" value="code">

@@ -3,7 +3,7 @@ createdAt: 2026-09-13
 updatedAt: 2026-09-22
 priority: 8
 title: "vue-i18n vs @intlayer/vue-i18n: 同じAPI、異なるBundle"
-description: Vue 3アプリが vue-i18n の呼び出しを保持しながら、@intlayer/vue-i18n compat adapterを通じてそれらをサーブする場合の変更点。同じ Vite + Vue コード上での、ページごとのJavaScript、ランタイムサイズ、コンポーネントサイズとリークの測定、およびアダプターが保持、無視、および置き換えることができないものの説明。
+description: "Vue 3 アプリが vue-i18n の呼び出しを残し、@intlayer/vue-i18n アダプター経由で配信。ページごとの JavaScript、ランタイムとコンポーネントのサイズ、リークを計測。"
 keywords:
   - vue-i18n
   - "@intlayer/vue-i18n"
@@ -24,13 +24,11 @@ slugs:
 author: aymericzip
 ---
 
-# vue-i18n VS @intlayer/vue-i18n | 同じAPI、異なるBundle
-
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+# vue-i18n VS @intlayer/vue-i18n：同じAPI、異なるBundle
 
 `@intlayer/vue-i18n` は互換性アダプター：vue-i18n API (`createI18n`、`useI18n`、`t()`、`d()`、`n()`、`$t`、`v-t`、`i18n.global.locale`...) を公開し、Intlayer によってコンパイルされたディクショナリから提供します。`.vue` ファイルは変わりません。`t("footer.github")` がバインドされるものが変わるだけです。
 
-この記事では、同じVite + Vue 3アプリケーションでこのスワップを測定します。このアプリケーションは`vue-i18n`で1回、アダプターで1回ビルドされました。数値は[Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)から取得されています。ライブラリとして比較される`vue-i18n`とIntlayerについては、[vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer.md)と[vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer_benchmark.md)を参照してください。この記事は、コンポーネントをそのまま保つ場合にアダプターが何を変更するかについてです。
+この記事では、同じVite + Vue 3アプリケーションでこのスワップを測定します。このアプリケーションは`vue-i18n`で1回、アダプターで1回ビルドされました。数値は[Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)から取得されています。ライブラリとして比較される`vue-i18n`とIntlayerについては、[vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer.md)と[vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer.md)を参照してください。この記事は、コンポーネントをそのまま保つ場合にアダプターが何を変更するかについてです。
 
 <TOC/>
 
@@ -359,6 +357,8 @@ export const i18n = createI18n({ locale: "en" });
 
 ## 関連する比較
 
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 同じアダプターシリーズ：
 
 - [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-intl_vs_intlayer-next-intl.md)
@@ -367,18 +367,25 @@ export const i18n = createI18n({ locale: "en" });
 
 直接比較されたライブラリ：
 
-- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer.md), features and DX
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/vue-i18n_vs_intlayer.md)
 - [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/is_vue-i18n_outdated.md)
 - [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_vue_i18n_library.md)
 
 リファレンスドキュメント：
 
-- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/nuxtjs-i18n.md)
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/vue-i18n.md)
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/nuxtjs-i18n.md)
 - [移行ガイド：vue-i18n から Intlayer へ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_vue-i18n_to_intlayer.md)
 - [Vueベンチマークレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/vue.md)
-- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md) と [Intlayerコンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
-- [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) および [AI翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)
+- [バンドル最適化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
+- [Intlayerコンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
+- [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+- [AI翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## 結論
 

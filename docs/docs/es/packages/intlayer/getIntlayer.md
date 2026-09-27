@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Documentación de la Función getIntlayer | intlayer
-description: Ve cómo usar la función getIntlayer para el paquete intlayer
+description: "Usa getIntlayer para leer el contenido de un diccionario para una locale en cualquier lugar, el equivalente agnóstico del hook useIntlayer."
 keywords:
   - getIntlayer
   - dictionary
@@ -164,9 +164,9 @@ En desarrollo, solicitar una clave que no tiene un diccionario generado registra
 
 ## Funciones Relacionadas
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getIntlayerAsync.md): Contraparte asincrónica que carga un único chunk de locale.
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getDictionary.md): Interpreta un objeto de diccionario que pasas tú mismo, en lugar de uno buscado por clave.
-- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useIntlayer.md): El equivalente del hook de React, leyendo el locale del provider.
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getDictionary.md)
+- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useIntlayer.md)
 
 ## TypeScript
 

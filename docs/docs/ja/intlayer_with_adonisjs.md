@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "AdonisJS i18n - あなたのアプリを翻訳する完全ガイド"
-description: "i18nextはもう不要。2026年に多言語（i18n）AdonisJSアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+description: "AdonisJS に Intlayer を導入：ミドルウェアでリクエストごとにロケールを検出し、API レスポンスとビューを翻訳、コンテンツを型付きで管理。"
 keywords:
   - 国際化
   - ドキュメント
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer を使用して AdonisJS バックエンドウェブサイトを翻訳する | 国際化 (i18n)
+# Intlayer を使用して AdonisJS バックエンドウェブサイトを翻訳する
 
 `adonis-intlayer` は、AdonisJS アプリケーション向けの強力な国際化 (i18n) パッケージであり、クライアントの好みに基づいてローカライズされたレスポンスを提供することで、バックエンドサービスをグローバルにアクセス可能にするように設計されています。
 
@@ -248,9 +248,9 @@ export default class ExampleController {
 
 `adonis-intlayer` は、以下と完全に互換性があります。
 
-- React アプリケーション向けの [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md)
-- Next.js アプリケーション向けの [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md)
-- Vite アプリケーション向けの [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md)
 
 また、ブラウザや API リクエストを含む、さまざまな環境にわたるあらゆる国際化ソリューションとシームレスに連携します。ヘッダーやクッキーを介してロケールを検出するようにミドルウェアをカスタマイズできます。
 

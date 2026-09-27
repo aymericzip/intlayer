@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 5
 title: getLocaleLang Fonksiyonu Dokümantasyonu | intlayer
-description: intlayer paketinde getLocaleLang fonksiyonunun nasıl kullanılacağını görün
+description: "getLocaleLang ile en-US gibi bir locale dizgesinden dil kodunu çıkarın, ülke kodu olsun ya da olmasın."
 keywords:
   - getLocaleLang
   - çeviri

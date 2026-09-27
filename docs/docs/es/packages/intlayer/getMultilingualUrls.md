@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: Documentación de la función getMultilingualUrls | intlayer
-description: Vea cómo usar la función getMultilingualUrls para el paquete intlayer
+description: "Usa getMultilingualUrls para generar la versión localizada de una URL para cada locale admitida, para etiquetas hreflang y sitemaps."
 keywords:
   - getMultilingualUrls
   - traducción

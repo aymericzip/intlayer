@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Anidación del diccionario
-description: Descubre cómo usar la anidación de contenido en Intlayer para reutilizar y estructurar tu contenido multilingüe de manera eficiente. Sigue esta documentación para implementar la anidación sin problemas en tu proyecto.
+title: "Anidamiento: reutilizar contenido entre diccionarios"
+description: "Referencia un diccionario desde otro con el nodo nest() de Intlayer para reutilizar contenido compartido sin duplicar traducciones."
 keywords:
   - Nesting
   - Reutilización de contenido

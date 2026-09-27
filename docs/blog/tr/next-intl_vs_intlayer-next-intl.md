@@ -3,7 +3,7 @@ createdAt: 2026-09-13
 updatedAt: 2026-09-22
 priority: 8
 title: "next-intl vs @intlayer/next-intl: Aynı API, Farklı Bundle"
-description: next-intl import'larının bir Next.js uygulamasının @intlayer/next-intl compat adapter tarafından sunulduğunda ne değiştiği. Bundle boyutu, sızıntı, bileşen boyutu ve hidrasyon aynı kod üzerinde ölçülmüştür, plus adapter'ın ne tuttuğu, ne göz ardı ettiği ve neyi değiştiremediği.
+description: "Bir Next.js uygulaması next-intl import'larını korur, @intlayer/next-intl adaptörüyle sunulur. Bundle boyutu, sızıntı, bileşen boyutu ve hydration ölçüldü."
 keywords:
   - next-intl
   - use-intl
@@ -25,7 +25,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-intl VS @intlayer/next-intl | Aynı API, Farklı Bundle
+# next-intl VS @intlayer/next-intl: Aynı API, Farklı Bundle
 
 ![next-intl VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -398,7 +398,7 @@ Aynı bağdaştırıcı serisi:
 
 Doğrudan karşılaştırılan kütüphaneler:
 
-- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md), aynı benchmark
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
 - [Is next-intl outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_next-intl_outdated.md)
 
@@ -406,9 +406,17 @@ Referans belgeler:
 
 - [Compat adapter: next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-intl.md)
 - [Geçiş kılavuzu: next-intl'den Intlayer'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md)
-- [Next.js benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) ve [TanStack Start benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
-- [Paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
-- [Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) ve [Yapay Zeka Çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md)
+- [Next.js benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+- [TanStack Start benchmark raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+- [Paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+- [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+- [Yapay Zeka Çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md)
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## Sonuç
 

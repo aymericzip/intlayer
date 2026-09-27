@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: Beste i18n-Lösung für Next.js im Jahr 2026 - Benchmark-Bericht
 description: Vergleichen Sie Next.js Internationalisierungs-Software (i18n) wie next-intl, next-i18next und Intlayer. Detaillierter Performance-Bericht zu Bundle-Größe, Leakage und Reaktivität.
@@ -73,6 +73,10 @@ Ein weiterer Effekt von i18n-Bibliotheken ist die langsamere Entwicklung. Die Um
 Da das Problem komplex ist, gibt es viele Lösungen – einige konzentrieren sich auf die DX (Developer Experience), andere auf Performance oder Skalierbarkeit usw.
 
 Intlayer versucht, über all diese Dimensionen hinweg zu optimieren.
+
+> Um zu verstehen, woher diese Bibliotheken kommen, lesen Sie die Geschichte von i18n in JavaScript.
+
+- [Die Geschichte von i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/history_of_i18n.md)
 
 ## TL;DR
 

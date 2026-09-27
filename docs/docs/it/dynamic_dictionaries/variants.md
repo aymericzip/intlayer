@@ -2,8 +2,8 @@
 createdAt: 2026-06-12
 updatedAt: 2026-08-04
 priority: 8
-title: Varianti
-description: Usa il campo di metadati variant nei file di contenuto Intlayer per dichiarare alternative di contenuto con nome o strutturate — test A/B, banner stagionali, testo con feature flag, record di CMS, contenuti specifici per utente — e passare dall'una all'altra a runtime senza modifiche al codice.
+title: "Varianti: test A/B e contenuti alternativi"
+description: "Dichiara alternative di contenuto con nome tramite le varianti di Intlayer per test A/B, banner stagionali, feature flag o testi per utente."
 keywords:
   - Varianti
   - Test A/B

@@ -2,8 +2,8 @@
 createdAt: 2025-03-01
 updatedAt: 2025-09-20
 priority: 8
-title: Probando tu contenido
-description: Descubre cómo probar tu contenido con Intlayer.
+title: "Probar tus traducciones con Intlayer"
+description: "Prueba tu contenido de Intlayer: detecta traducciones que faltan, valida los diccionarios en CI y renderiza componentes por locale en tus tests."
 keywords:
   - Pruebas
   - Intlayer

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "2026年に最適なSolid i18nライブラリを選ぶ方法"
-description: SolidJSおよびSolidStartの国際化（i18n）に関する意思決定ガイド。@solid-primitives/i18n、solid-i18next、Paraglide、Lingui、Intlayerを比較する前に答えるべき質問と、リアクティビティ、バンドルサイズ、型定義における各選択肢のコストを解説します。
+description: "SolidJS と SolidStart の i18n を選ぶための判断ガイド。@solid-primitives/i18n、solid-i18next、Paraglide、Lingui、Intlayer を比較する前に答えるべき問い。"
 keywords:
   - solidjs i18n
   - solid start i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Solidのリアクティビティモデルは、i18nライブラリに求められる役割を大きく変えます。コンポーネントは一度しか実行されないため、セットアップ時に`const`に格納された翻訳文字列は固定された文字列（frozen string）になります。アクセサ（accessor）ではなく文字列を直接返すライブラリを使用すると、その書き方をした3つのコンポーネントだけ言語が切り替わらないページが出来上がってしまいます。Solid向けのライブラリ選びは、APIの扱いやすさだけでなく、そのようなミスを防ぎやすい設計になっているかどうかも重要な要素です。
 
 本ガイドでは、まず確認すべき質問事項を整理し、それらに基づいて`@solid-primitives/i18n`、`solid-i18next`、Paraglide、`@lingui/solid`、Intlayerを、Vite + SolidおよびSolidStartの両方の環境で比較・マッピングしていきます。
-
-![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目次
 
@@ -88,6 +86,8 @@ Paraglideはメッセージごとに1つの関数を生成します。Intlayer�
 
 ライブラリのサイズは、10ページ・10ロケールのアプリを対象にした[Solidベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)（バンドル、ツリーシェイキング、minify後の空コンポーネントにおけるProvider＋アクセサ）の数値です。コンテンツのサイズは個別に測定しています。
 
+![Solid i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | ライブラリ               | コンテンツモデル                                 | ロケール変更時のリアクティビティ              | 型安全性                         | スコープ管理と遅延ロード         | ライブラリサイズ                                 |
 | :----------------------- | :----------------------------------------------- | :-------------------------------------------- | :------------------------------- | :------------------------------- | :----------------------------------------------- |
 | `@solid-primitives/i18n` | 自身で管理するフラットな辞書                     | シグナル、translatorから返されるアクセサ      | 3/5 — 元の辞書から推論           | 組み込みなし                     | 約0.6 kB                                         |
@@ -116,7 +116,7 @@ Paraglideのライブラリサイズがほぼゼロである理由は構造に�
 </Accordion>
 <Accordion header="SolidStartでロケールプレフィックス付きルートとSSRを扱う場合">
 
-クライアントとサーバーで言語設定を一致させるため、サーバー側のURLからロケールを取得する必要があります。クライアント側で検出していては遅すぎます。`@solid-primitives/i18n`や`solid-i18next`では、`[[locale]]`ルート、`matchFilters`、リダイレクト処理、`entry-server.tsx`のタグ設定をすべて自前で構築する必要があります。Paraglideにはルーティングを処理するViteプラグインが用意されています。Intlayerにはミドルウェアとルートヘルパーが同梱されています。どの選択肢を採用する場合でも、`<html lang>`と`hreflang`は`entry-server.tsx`に記述してください。SolidStart v2では`@solidjs/meta`がクライアント側でハイドレーション後に適用されるためです。詳細なセットアップ手順は[Solid i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/list_i18n_technologies/frameworks/solid.md)を参照してください。
+クライアントとサーバーで言語設定を一致させるため、サーバー側のURLからロケールを取得する必要があります。クライアント側で検出していては遅すぎます。`@solid-primitives/i18n`や`solid-i18next`では、`[[locale]]`ルート、`matchFilters`、リダイレクト処理、`entry-server.tsx`のタグ設定をすべて自前で構築する必要があります。Paraglideにはルーティングを処理するViteプラグインが用意されています。Intlayerにはミドルウェアとルートヘルパーが同梱されています。どの選択肢を採用する場合でも、`<html lang>`と`hreflang`は`entry-server.tsx`に記述してください。SolidStart v2では`@solidjs/meta`がクライアント側でハイドレーション後に適用されるためです。詳細なセットアップ手順は[Solid i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_solid_start.md)を参照してください。
 
 </Accordion>
 <Accordion header="ロケール変更を即座かつきめ細かく（fine-grained）反映させたい場合">
@@ -456,11 +456,14 @@ Solidのコンポーネントは一度しか実行されないためです。セ
 ## さらに詳しく
 
 - [Solid i18nベンチマーク: バンドルサイズ、リーク、ロケール切り替え時間](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/solid.md)
-- [Solid i18n: ロケール変更時に翻訳がフリーズする理由](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/list_i18n_technologies/frameworks/solid.md)
-- [そのまま使えるi18next互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18next.md)および[i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
+- [そのまま使えるi18next互換アダプター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compat/i18next.md)
+- [i18next移行ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/migration_from_i18next_to_intlayer.md)
 - [JavaScript i18nの歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 - [コンパイラ vs 宣言型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/compiler_vs_declarative_i18n.md)
 - [コンポーネント単位 vs 集中管理型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)
 - [ビルド時におけるバンドル最適化の仕組み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
-- [Vite + Solidアプリでのi18n設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+solid.md)および[SolidStartアプリでの設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_solid_start.md)
-- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_react_i18n_library.md)、[Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_vue_i18n_library.md)、[Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_svelte_i18n_library.md)向けの同様のガイド
+- [Vite + Solidアプリでのi18n設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+solid.md)
+- [SolidStartアプリでの設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_solid_start.md)
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_svelte_i18n_library.md)

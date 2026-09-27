@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: getDictionaryAsync 함수 문서 | intlayer
-description: intlayer 패키지의 getDictionaryAsync 함수 사용 방법 알아보기
+description: "getDictionaryAsync로 사전의 한 로케일만 로드해 해석된 콘텐츠를 읽습니다. 다른 언어는 포함되지 않습니다."
 keywords:
   - getDictionaryAsync
   - dictionary
@@ -130,9 +130,9 @@ const promoBanner = await getDictionaryAsync(bannerLoaderMap, "banner", {
 
 ## 관련 함수
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayerAsync.md): 애플리케이션이 호출하는 함수이며, 빌드 플러그인이 이를 `getDictionaryAsync`로 다시 작성합니다.
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getDictionary.md): 전체 사전을 받는 동기 대응 함수입니다.
-- [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md): 컬렉션과 변형, 그리고 이들이 생성하는 로더 맵입니다.
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getDictionary.md)
+- [동적 사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/index.md)
 
 ## TypeScript
 

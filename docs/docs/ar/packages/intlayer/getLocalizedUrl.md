@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: توثيق دالة getLocalizedUrl | intlayer
-description: تعرف على كيفية استخدام دالة getLocalizedUrl لحزمة intlayer
+description: "استخدم getLocalizedUrl لإضافة بادئة اللغة إلى عنوان URL نسبي أو مطلق، وفق وضع التوجيه واللغة الافتراضية لديك."
 keywords:
   - getLocalizedUrl
   - الترجمة

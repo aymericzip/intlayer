@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "NGX-Translate से Intlayer में माइग्रेट करें"
 description: "compat adapter का उपयोग करके अपने Angular एप्लिकेशन को ngx-translate से Intlayer में माइग्रेट करना सीखें।"
@@ -44,3 +44,7 @@ npx intlayer init --interactive
 - **Services:** `TranslateService` `getIntlayer` और एक locale observable को wrap करता है, बिल्कुल वही तरीके प्रदान करता है।
 - **Pipes & Directives:** Intlayer dictionaries के विरुद्ध सीधे resolve करने के लिए पुनः लागू किए गए हैं।
 - **Loaders:** `TranslateHttpLoader` सेटअप को warning stubs में परिवर्तित किया जाता है क्योंकि Intlayer अंतर्निहित रूप से आपके dictionaries को build time पर resolve और bundle करता है (या standard dynamic imports के माध्यम से), HTTP loaders की आवश्यकता को पूरी तरह से समाप्त करता है।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)

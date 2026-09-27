@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Управление конфигурацией
-description: Узнайте, как получить и отправить вашу конфигурацию Intlayer в CMS.
+title: "intlayer configuration: получение и отправка конфигурации"
+description: "Выведите итоговую конфигурацию через CLI Intlayer и отправьте её в Intlayer CMS, чтобы панель и проект оставались синхронизированными."
 keywords:
   - Конфигурация
   - Настройка

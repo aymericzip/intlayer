@@ -3,7 +3,7 @@ createdAt: 2026-09-13
 updatedAt: 2026-09-22
 priority: 8
 title: "vue-i18n vs @intlayer/vue-i18n：相同的 API，不同的 Bundle"
-description: 当 Vue 3 应用保持其 vue-i18n 调用但通过 @intlayer/vue-i18n compat 适配器提供服务时会发生什么变化。在相同的 Vite + Vue 代码上测量的每页 JavaScript、运行时大小、组件大小和泄漏，以及适配器保留、忽略和无法替换的内容。
+description: "Vue 3 应用保留 vue-i18n 调用，由 @intlayer/vue-i18n 适配器提供内容。测量每页 JavaScript、运行时与组件大小以及内容泄漏。"
 keywords:
   - vue-i18n
   - "@intlayer/vue-i18n"
@@ -24,13 +24,11 @@ slugs:
 author: aymericzip
 ---
 
-# vue-i18n VS @intlayer/vue-i18n | 相同的 API，不同的 Bundle
-
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+# vue-i18n VS @intlayer/vue-i18n：相同的 API，不同的 Bundle
 
 `@intlayer/vue-i18n` 是一个兼容适配器：它公开了 `vue-i18n` API（`createI18n`、`useI18n`、`t()`、`d()`、`n()`、`$t`、`v-t`、`i18n.global.locale`...），并从 Intlayer 编译的字典中提供服务。你的 `.vue` 文件不会改变。改变的是 `t("footer.github")` 绑定的内容。
 
-本文在同一个 Vite + Vue 3 应用上测量了这个替换，该应用分别使用 `vue-i18n` 和适配器构建。数据来自 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)。如需了解 `vue-i18n` 和 Intlayer 作为库的对比，请阅读 [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md) 和 [vue-i18n vs Intlayer 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer_benchmark.md)。本文讨论的是当你保持组件不变时，适配器会带来什么改变。
+本文在同一个 Vite + Vue 3 应用上测量了这个替换，该应用分别使用 `vue-i18n` 和适配器构建。数据来自 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)。如需了解 `vue-i18n` 和 Intlayer 作为库的对比，请阅读 [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md) 和 [vue-i18n vs Intlayer 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md)。本文讨论的是当你保持组件不变时，适配器会带来什么改变。
 
 <TOC/>
 
@@ -359,6 +357,8 @@ export const i18n = createI18n({ locale: "en" });
 
 ## 相关比较
 
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 同系列适配器：
 
 - [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer-next-intl.md)
@@ -367,18 +367,25 @@ export const i18n = createI18n({ locale: "en" });
 
 两两直接对比：
 
-- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md), features and DX
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer.md)
 - [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_vue-i18n_outdated.md)
 - [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_vue_i18n_library.md)
 
 参考文档：
 
-- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md)
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)
 - [迁移指南：从 vue-i18n 到 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md)
 - [Vue 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
-- [包体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)与 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
-- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 与 [AI 翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)
+- [包体积优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+- [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+- [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+- [AI 翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 总结
 

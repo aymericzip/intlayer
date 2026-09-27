@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja Hooka usePathname | preact-intlayer
-description: Zobacz, jak korzystać z hooka usePathname z pakietu preact-intlayer
+description: "Użyj usePathname w Preact, aby odczytać bieżącą ścieżkę bez segmentu locale do zlokalizowanej nawigacji i aktywnych linków."
 keywords:
   - usePathname
   - pathname
@@ -114,5 +114,5 @@ export default Sidebar;
 
 ## Powiązane
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/preact-intlayer/exports.md) — bieżący locale + przełącznik locale
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md) — podstawowe narzędzie wykorzystywane przez ten hook
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/preact-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md)

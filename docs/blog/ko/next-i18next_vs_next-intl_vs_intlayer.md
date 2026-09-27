@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "next-i18next vs next-intl vs Intlayer: 2026 비교"
-description: "Next.js에는 어떤 i18n 라이브러리를 선택해야 할까요? next-i18next, next-intl, Intlayer를 번들 크기, TypeScript 안전성, Server Components, 라우팅, 개발자 경험 측면에서 비교합니다."
+description: "Next.js에는 어떤 i18n 라이브러리를 선택해야 할까요? next-i18next, next-intl, Intlayer를 번들, TypeScript, Server Components, 라우팅, DX로 비교합니다."
 keywords:
   - next-intl
   - next-i18next
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-i18next VS next-intl VS intlayer | Next.js 국제화 (i18n)
+# next-i18next VS next-intl VS intlayer
 
 ![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -80,6 +80,10 @@ Next.js를 위한 세 가지 i18n 옵션인 next-i18next, next-intl, Intlayer의
 Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으로 지원합니다. 하지만 이 기능만으로는 번역을 수행하지 않습니다. 사용자에게 현지화된 콘텐츠를 렌더링하려면 여전히 라이브러리가 필요합니다.
 
 많은 i18n 라이브러리가 존재하지만, 현재 Next.js 환경에서는 next-i18next, next-intl, 그리고 Intlayer 세 가지가 주목받고 있습니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## 아키텍처 및 확장성
 

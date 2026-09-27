@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: CLI Sürümünü Kontrol Etme
-description: Yüklü Intlayer CLI sürümünün nasıl kontrol edileceğini öğrenin.
+title: "intlayer version: kurulu CLI'ı kontrol edin"
+description: "Projenizde kurulu Intlayer CLI ve paket sürümlerini kontrol edin; sürüm uyuşmazlığı hatalarını ayıklarken işe yarar."
 keywords:
   - Sürüm
   - CLI

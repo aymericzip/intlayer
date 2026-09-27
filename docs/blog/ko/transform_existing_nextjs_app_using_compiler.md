@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 8
-title: "기존 Next.js 애플리케이션을 사후에 다국어(i18n)화하는 방법 (2026 가이드)"
-description: "기존 Next.js 앱을 대대적인 리팩토링 없이 다국어(i18n)화하는 2026년 가이드. Intlayer를 활용한 자동 텍스트 추출, AI 번역 및 고성능 라우팅을 경험하세요."
+title: "기존 Next.js 앱을 다국어로 만들기"
+description: "기존 Next.js 앱을 다시 작성하지 않고 i18n 추가: 하드코딩된 문자열을 자동 추출하고, AI로 번역하고, 현지화된 라우팅을 설정합니다."
 keywords:
   - Next.js i18n
   - 국제화

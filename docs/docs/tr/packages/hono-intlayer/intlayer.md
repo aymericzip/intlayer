@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-01-29
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Hono Ara Yazılım Dokümantasyonu | hono-intlayer
-description: hono-intlayer paketi için intlayer ara yazılımının nasıl kullanılacağını görün
+description: "Hono için intlayer middleware'i kullanıcının locale'ini algılar ve Intlayer çeviri fonksiyonlarını istek bağlamına ekler."
 keywords:
   - intlayer
   - hono

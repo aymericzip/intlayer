@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Next.js에서 i18n과 함께하는 정적 렌더링과 동적 렌더링
-description: Next.js에서 i18n과 함께 정적 렌더링과 동적 렌더링을 사용하는 방법을 알아보세요.
+description: "next-intl 헬퍼가 Next.js의 i18n 라우트를 동적으로 만드는 이유와 현지화된 페이지를 정적 렌더링으로 유지하는 방법."
 keywords:
   - 정적
   - 동적

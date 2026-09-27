@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-07
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
-title: "Next.js Page Router i18n - Guia completo para traduzir seu aplicativo"
-description: "Sem mais i18next. O guia 2026 para criar uma aplicação Next.js Page Router multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
+title: "i18n no Next.js Pages Router: guia completo de tradução"
+description: "Configure o Intlayer no Pages Router do Next.js: rotas localizadas com getStaticPaths, páginas e componentes traduzidos, hreflang e sitemap."
 keywords:
   - Internacionalização
   - Documentação
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Traduza seu Next.js and Page Router com Intlayer | Internacionalização (i18n)
+# Traduza seu Next.js and Page Router com Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Código" value="code">

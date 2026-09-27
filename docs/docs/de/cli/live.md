@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Live-Sync-Befehle
-description: Erfahren Sie, wie Sie Live Sync verwenden, um CMS-Inhaltsänderungen zur Laufzeit widerzuspiegeln.
+title: "intlayer live: CMS-Inhalte zur Laufzeit synchronisieren"
+description: "Nutzen Sie Intlayer Live Sync, um Inhaltsänderungen aus dem CMS ohne Rebuild oder Redeploy in Ihre laufende Anwendung zu übernehmen."
 keywords:
   - Live Sync
   - CMS

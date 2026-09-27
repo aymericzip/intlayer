@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "从 next-i18next 迁移到 Intlayer | 国际化 (i18n)"
-description: "学习如何将你的 Next.js 应用从 next-i18next 迁移到 Intlayer — 逐步进行，不破坏现有代码。使用 @intlayer/next-i18next 兼容适配器实现零中断过渡。"
+title: "从 next-i18next 迁移到 Intlayer"
+description: "逐步将 Next.js 应用从 next-i18next 迁移到 Intlayer，先使用 @intlayer/next-i18next 适配器，确保不破坏现有代码。"
 keywords:
   - next-i18next
   - react-i18next
@@ -64,6 +64,10 @@ Intlayer 不仅仅是一个 i18n 解决方案，它还提供**自托管[可视�
 
 </Accordion>
 </AccordionGroup>
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 迁移策略
 
@@ -321,8 +325,8 @@ Intlayer 使用模块扩充来为你的翻译键提供完整的 TypeScript intel
 
 ## 进一步学习
 
-- **Visual Editor** — 在浏览器中可视化管理翻译：[Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
-- **CMS** — 外部化和远程管理内容：[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
-- **VS Code Extension** — 获取自动完成和实时翻译错误检测：[Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
-- **CLI Reference** — CLI 命令完整列表：[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
-- **Intlayer with Next.js (Pages Router)** — Next.js 完整设置指南：[intlayer_with_nextjs_page_router.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_page_router.md)
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+- [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+- [Intlayer with Next.js (Pages Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_page_router.md)

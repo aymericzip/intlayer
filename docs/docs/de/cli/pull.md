@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Wörterbücher herunterladen
-description: Erfahren Sie, wie Sie Wörterbücher aus dem Intlayer-Editor und CMS herunterladen.
+title: "intlayer pull: Wörterbücher aus dem CMS laden"
+description: "Laden Sie die im visuellen Editor oder im Intlayer CMS bearbeiteten Wörterbücher in Ihr Projekt, damit Remote-Änderungen im Code landen."
 keywords:
   - Herunterladen
   - Wörterbücher

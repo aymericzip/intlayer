@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getHTMLTextDir 함수 문서 | intlayer
-description: intlayer 패키지의 getHTMLTextDir 함수 사용법을 확인하세요
+description: "getHTMLTextDir로 로케일의 텍스트 방향(ltr, rtl, auto)을 구해 HTML의 dir 속성을 설정합니다."
 keywords:
   - getHTMLTextDir
   - 번역

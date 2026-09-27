@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: Intégrer react-i18next avec next-intl et Intlayer pour l'internationalisation (i18n) d'une application React
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# react-Intl VS react-i18next VS intlayer | Internationalisation React (i18n)
+# react-Intl VS react-i18next VS intlayer
 
 Ce guide compare trois options i18n établies pour **React** : **react-intl** (FormatJS), **react-i18next** (i18next), et **Intlayer**.
 Nous nous concentrons sur les applications **React pures** (par exemple, Vite, CRA, SPA). Si vous utilisez Next.js, consultez notre comparaison dédiée à Next.js.
@@ -43,6 +43,10 @@ Nous évaluons :
 - **react-intl** - Formatage priorisant ICU, conforme aux standards (dates/nombres/pluriels) avec une API mature. Les catalogues sont généralement centralisés ; la sécurité des clés et la validation à la compilation dépendent en grande partie de vous.
 - **react-i18next** - Extrêmement populaire et flexible ; namespaces, détecteurs, et de nombreux plugins (ICU, backends). Puissant, mais la configuration peut devenir complexe à mesure que les projets grandissent.
 - **Intlayer** - Modèle de contenu centré sur les composants pour React, **typage TS strict**, **vérifications à la compilation**, **tree-shaking**, plus **éditeur visuel/CMS** et **traductions assistées par IA**. Fonctionne avec React Router, Vite, CRA, etc.
+
+> Pour comprendre d'où viennent ces bibliothèques, lisez l'histoire de l'i18n en JavaScript.
+
+- [L'histoire de l'i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/history_of_i18n.md)
 
 ## Matrice des fonctionnalités (focus React)
 
@@ -153,10 +157,19 @@ En utilisant `intlayer`, vous pouvez déclarer votre contenu au format de votre 
 
 ## Pour aller plus loin & benchmarks
 
-- Rapports de benchmark : [Vue d'ensemble des benchmarks i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/index.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/tanstack.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/solid.md) et [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/svelte.md)
 - [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/i18next_vs_intlayer-i18next.md)
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/next-intl_vs_intlayer.md)
-- [Optimisation du bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md) et [le compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md)
+- [Optimisation du bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/bundle_optimization.md)
+- [le compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md)
+
+Rapports de benchmark :
+
+- [Vue d'ensemble des benchmarks i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/index.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/tanstack.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/nextjs.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/vue.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/solid.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/svelte.md)
 
 ## Étoiles GitHub
 

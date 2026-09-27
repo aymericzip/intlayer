@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "Chuyển từ next-intl sang Intlayer | Quốc tế hóa (i18n)"
-description: "Tìm hiểu cách chuyển Next.js app của bạn từ next-intl sang Intlayer — từng bước một, mà không phá vỡ mã hiện có của bạn. Sử dụng bộ chuyển đổi tương thích @intlayer/next-intl để thực hiện quá trình chuyển đổi không gián đoạn."
+title: "Chuyển từ next-intl sang Intlayer"
+description: "Chuyển ứng dụng Next.js từ next-intl sang Intlayer từng bước, bắt đầu với adapter @intlayer/next-intl để không làm hỏng gì."
 keywords:
   - next-intl
   - intlayer
@@ -62,6 +62,10 @@ Hơn chỉ là một giải pháp i18n, Intlayer cung cấp một **[trình ch�
 
 </Accordion>
 </AccordionGroup>
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Chiến lược di chuyển
 
@@ -328,8 +332,8 @@ Thêm thư mục được tạo bởi Intlayer vào `.gitignore` của bạn:
 
 ## Đi Xa Hơn
 
-- **Visual Editor** — Quản lý bản dịch trực quan trong trình duyệt: [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
-- **CMS** — Externalize và quản lý nội dung từ xa: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
-- **VS Code Extension** — Nhận autocompletion và phát hiện lỗi dịch theo thời gian thực: [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
-- **CLI Reference** — Danh sách đầy đủ các lệnh CLI: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
-- **Intlayer with Next.js** — Hướng dẫn thiết lập đầy đủ cho Next.js: [intlayer_with_nextjs_16.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+- [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
+- [Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_16.md)

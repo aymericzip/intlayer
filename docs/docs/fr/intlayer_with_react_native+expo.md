@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
-title: "Expo + React Native i18n - Guide complet pour traduire votre application"
-description: "Oubliez i18next. Le guide 2026 pour créer une application Expo + React Native multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
+title: "i18n Expo + React Native : guide complet de traduction"
+description: "Configurez Intlayer dans Expo et React Native : contenu typé par composant, détection de la locale de l'appareil, sélecteur de langue et bundling Metro."
 keywords:
   - Internationalisation
   - Documentation
@@ -36,7 +36,7 @@ history:
 author: aymericzip
 ---
 
-# Traduire votre application Expo et React Native | Internationalisation (i18n)
+# Traduire votre application Expo et React Native
 
 <Tabs defaultTab="code">
   <Tab label="Code" value="code">
@@ -497,9 +497,9 @@ Pour plus de détails sur l'utilisation de l'extension, consultez la [documentat
 
 ## Aller plus loin
 
-- **Éditeur Visuel** : Utilisez le [Éditeur Visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) pour gérer les traductions visuellement.
-- **Intégration CMS** : Vous pouvez également externaliser et récupérer le contenu de votre dictionnaire depuis un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-- **Commandes CLI** : Explorez le [CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) pour des tâches telles que **l'extraction des traductions** ou **la vérification des clés manquantes**.
+- [Éditeur Visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
 
 Profitez de la création de vos applications **React Native** avec une i18n pleinement optimisée grâce à **Intlayer** !
 

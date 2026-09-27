@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: getLocale 函数文档 | intlayer
-description: 了解如何在 intlayer 包中使用 getLocale 函数
+description: "使用 getLocale 从 URL 或路径等字符串中检测语言，找不到时回退到默认语言。"
 keywords:
   - getLocale
   - translation

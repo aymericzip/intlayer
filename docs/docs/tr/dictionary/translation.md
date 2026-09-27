@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 8
-title: Çeviri
-description: Çok dilli web sitenizde çeviriyi nasıl bildireceğinizi ve kullanacağınızı keşfedin. Bu çevrimiçi dokümantasyonun adımlarını takip ederek projenizi birkaç dakikada kurun.
+title: "Çeviri içeriği: t() fonksiyonu"
+description: "Intlayer'ın t() fonksiyonuyla locale başına çevirileri tanımlayın; tip denetimi derleme sırasında eksik locale'leri bildirir."
 keywords:
   - Çeviri
   - Uluslararasılaştırma

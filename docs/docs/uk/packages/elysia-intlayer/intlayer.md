@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-09-27
 priority: 5
 title: Документація плагіна intlayer для Elysia | elysia-intlayer
-description: Дізнайтеся, як використовувати плагін intlayer з пакета elysia-intlayer
+description: "Плагін intlayer для Elysia визначає локаль користувача та додає функції перекладу в контекст маршруту кожного запиту."
 keywords:
   - intlayer
   - elysia

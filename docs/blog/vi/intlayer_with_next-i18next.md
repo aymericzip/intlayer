@@ -53,6 +53,10 @@ Trong khi Intlayer cung cấp một giải pháp i18n độc lập xuất sắc 
 
 Hướng dẫn này sẽ chỉ cho bạn cách tận dụng hệ thống khai báo nội dung vượt trội của Intlayer trong khi vẫn duy trì khả năng tương thích với next-i18next.
 
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
+
 ## Hướng Dẫn Từng Bước Để Thiết Lập Intlayer với next-i18next
 
 <Steps>

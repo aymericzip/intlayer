@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
-title: 列出 Intlayer 项目
+title: "intlayer projects list：查找 Intlayer 项目"
 description: 了解如何在目录或 git 仓库中列出所有 Intlayer 项目。
 keywords:
   - List

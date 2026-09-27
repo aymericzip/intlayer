@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: توثيق دالة t | next-intlayer
-description: تعرف على كيفية استخدام دالة t لحزمة next-intlayer
+description: "استخدم الدالة t من next-intlayer لتعريف الترجمات مباشرة داخل مكوّنات Next.js، دون ملف محتوى منفصل."
 keywords:
   - t
   - الترجمة

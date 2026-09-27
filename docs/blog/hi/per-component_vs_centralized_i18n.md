@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
-title: "प्रति-कम्पोनेंट बनाम केंद्रीकृत i18n: Intlayer के साथ एक नया दृष्टिकोण"
+title: "React में प्रति-कंपोनेंट बनाम केंद्रीकृत i18n"
 description: React में internationalization रणनीतियों का गहन विश्लेषण, centralized, per-key और per-component approaches की तुलना, तथा Intlayer का परिचय।
 keywords:
   - i18n
@@ -98,6 +98,10 @@ extension Localization on String {
 - फिर, एक बार कोई लाइब्रेरी व्यापक रूप से अपनाई जाने के बाद, इकोसिस्टम को अन्य पैटर्न की ओर शिफ्ट करना मुश्किल हो जाता है।
 - केंद्रीयकृत दृष्टिकोण का उपयोग Translation Management Systems जैसे Crowdin, Phrase, या Localized में चीज़ों को भी आसान बनाता है।
 - per-component approach के पीछे की logic केंद्रीय दृष्टिकोण की तुलना में अधिक जटिल है और विकसित करने में अतिरिक्त समय लेती है, खासकर जब आपको यह पहचानने जैसी समस्याओं को हल करना हो कि content कहाँ स्थित है।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 
 ### ठीक है, लेकिन सिर्फ़ Centralized दृष्टिकोण पर क्यों न रहें?
 

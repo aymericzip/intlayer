@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 3
 title: "Lynx + React i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Lynx + React 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在 Lynx 和 React 移动应用中配置 Intlayer：按组件的类型化内容、设备语言检测和语言切换器。"
 keywords:
   - 国际化
   - 文档
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# 使用Intlayer翻译您的Lynx and React mobile app | 国际化(i18n)
+# 使用Intlayer翻译您的Lynx and React mobile app
 
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-lynx-template)。
 
@@ -478,8 +478,8 @@ Intlayer 在一个隐藏文件夹中生成类型定义（默认是 `.intlayer`�
 
 ## 深入了解
 
-- **可视化编辑器**：使用[Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)以可视化方式管理翻译。
-- **CMS 集成**：您还可以将字典内容外部化并从[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)中获取。
-- **CLI 命令**：探索[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)以执行诸如**提取翻译**或**检查缺失键**等任务。
+- [Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
 
 ---

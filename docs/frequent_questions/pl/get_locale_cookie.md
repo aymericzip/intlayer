@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Jak pobrać locale z ciasteczek / nagłówków?
-description: Dowiedz się, jak pobrać locale z ciasteczek / nagłówków.
+description: "Odczytuj bieżące locale z cookies lub nagłówków żądania za pomocą Intlayer, na serwerze lub w middleware, aby wyświetlać właściwy język."
 keywords:
   - cookie
   - headers

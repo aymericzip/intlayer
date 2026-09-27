@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi getHTMLTextDir | intlayer
-description: Lihat cara menggunakan fungsi getHTMLTextDir untuk paket intlayer
+description: "Gunakan getHTMLTextDir untuk mendapatkan arah teks suatu locale (ltr, rtl, atau auto) dan mengatur atribut dir di HTML Anda."
 keywords:
   - getHTMLTextDir
   - terjemahan

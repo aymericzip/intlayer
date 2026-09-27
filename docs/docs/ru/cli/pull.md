@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Загрузка словарей
-description: Узнайте, как загружать словари из редактора Intlayer и CMS.
+title: "intlayer pull: загрузка словарей из CMS"
+description: "Загрузите в проект словари, отредактированные в визуальном редакторе или Intlayer CMS, чтобы удалённые изменения попали в код."
 keywords:
   - Загрузка
   - Словари

@@ -2,7 +2,7 @@
 createdAt: 2024-08-14
 updatedAt: 2026-05-31
 priority: 8
-title: أهمية Intlayer
+title: "لماذا Intlayer؟ مزاياه مقارنة بمكتبات i18n الأخرى"
 description: اكتشف فوائد ومزايا استخدام Intlayer في مشاريعك. افهم لماذا يبرز Intlayer بين الأطر الأخرى.
 keywords:
   - فوائد
@@ -223,6 +223,10 @@ export const ComponentExample = () => {
 
 6. **تحسين أداء التحميل**
    - إذا تم تحميل مكون بشكل كسول (lazy-loaded)، فسيتم تحميل المحتوى المرتبط به في نفس الوقت
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## الميزات الإضافية لـ Intlayer
 

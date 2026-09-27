@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname 関数ドキュメント | svelte-intlayer
-description: svelte-intlayer パッケージの usePathname 関数の使用方法
+description: "Svelte の usePathname で、ロケールセグメントを除いた現在のパスを読み取り可能なストアとして取得し、ロケール対応のナビゲーションに使います。"
 keywords:
   - usePathname
   - pathname
@@ -100,5 +100,5 @@ import { usePathname } from "svelte-intlayer";
 
 ## 関連
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/svelte-intlayer/useLocale.md) — 現在のロケール + ロケールスイッチャー
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md) — このフックで使用される基礎的なユーティリティ
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/svelte-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md)

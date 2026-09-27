@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "TanStack Start 使用 Paraglide JS 实现 i18n：2026 完整配置指南"
 description: "使用 Paraglide JS 为你的 TanStack Start 应用实现国际化：URL 策略、路由重写、SSR 中间件、hreflang、sitemap 和 robots.txt，以及真实的基准测试数据。"
@@ -43,9 +43,17 @@ Paraglide 是 TanStack Router 官方示例中采用的国际化方案，它通�
 
 本指南将完成这三部分的配置，并涵盖 Paraglide 未内置的其他全部功能：`lang` 与 `dir` 属性、语言切换器、已翻译的元数据、`canonical`、带 `x-default` 的 `hreflang`、Open Graph、JSON-LD、sitemap、`robots.txt`、预渲染以及本地化的 404 页面。
 
-> 想要寻找其他技术栈？请参阅 [TanStack Start + use-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_use-intl.md)、[TanStack Start + Lingui 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_lingui.md) 或 [TanStack Start + Intlayer 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)。
+> 想要寻找其他技术栈？
+
+- [TanStack Start + use-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_use-intl.md)
+- [TanStack Start + Lingui 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_lingui.md)
+- [TanStack Start + Intlayer 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
 
 > 对比基于编译器的两种方案？请阅读 [Intlayer 是否比 Paraglide 更轻量？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_intlayer_lighter_than_paraglide.md)。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 关于 TanStack Start 上的 Paraglide 基准测试数据
 
@@ -95,7 +103,11 @@ Paraglide 是 TanStack Router 官方示例中采用的国际化方案，它通�
 
 > 运行时体积和资源泄露数据来自 [TanStack Start 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)。资源泄露是在每个库的最佳配置下测得的。
 
-> 其他 TanStack Start 指南：[Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_lingui.md)、[use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_use-intl.md) 以及 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)。
+> 其他 TanStack Start 指南：
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_lingui.md)
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_tanstack-start_use-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
 
 ## 推荐遵循的最佳实践
 
@@ -108,7 +120,8 @@ Paraglide 是 TanStack Router 官方示例中采用的国际化方案，它通�
 - **生成多语言 sitemap 和 robots.txt**，并对每种语言进行预渲染。
 - **语言切换器使用真实的链接**，以便搜索引擎爬虫能发现所有语言版本。
 
-> 详情请参阅关于[国际化与 SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md)的指南以及 [hreflang 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)。
+- [国际化与 SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md)
+- [hreflang 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)
 
 ## 在 TanStack Start 应用中配置 Paraglide JS 的分步指南
 

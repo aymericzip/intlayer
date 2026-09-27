@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: الترحيل من Vue I18n إلى Intlayer
-description: تعرّف على كيفية ترحيل تطبيق Vue الخاص بك من vue-i18n إلى Intlayer باستخدام محول التوافق.
+title: "@intlayer/vue-i18n: محوّل توافق لـ vue-i18n"
+description: "احتفظ بشيفرة vue-i18n وقدّمها عبر Intlayer: ثبّت @intlayer/vue-i18n، واضبط أسماء بديلة للاستيرادات، واكتشف ما يغيّره المحوّل داخليًا."
 keywords:
   - vue-i18n
   - vue
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# الترحيل من Vue I18n إلى Intlayer
+# @intlayer/vue-i18n: محوّل توافق لـ vue-i18n
 
 إذا كان تطبيق Vue الخاص بك يستخدم حالياً `vue-i18n`، فيمكنك الترحيل إلى Intlayer دون إعادة كتابة المكونات أو خطافات الترجمة. توفر Intlayer محول توافق يعكس بشكل مثالي واجهة برمجية `vue-i18n` بينما يستفيد من الميزات القوية في Intlayer تحت الغطاء.
 
@@ -57,3 +57,7 @@ export default defineConfig({
 - **التوجيهات:** يتم تسجيل directive `v-t` وتعمل بشكل طبيعي.
 
 يستمر تطبيقك في الإخراج بالضبط كما هو سابقاً، لكن المحتوى مدعوم من قواامس Intlayer الخاصة بك، مما يمنحك سلامة الكود والتحسين الأفضل للـ bundle والتكامل السلس مع CMS.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)

@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: useI18n हुक दस्तावेज़ | react-intlayer
-description: react-intlayer पैकेज में useI18n हुक का उपयोग कैसे करें, जानें
+description: "React में useI18n से किसी डिक्शनरी से जुड़ा अनुवाद फ़ंक्शन पाएँ, key आधारित लाइब्रेरी से माइग्रेट करते समय उपयोगी।"
 keywords:
   - useI18n
   - i18n

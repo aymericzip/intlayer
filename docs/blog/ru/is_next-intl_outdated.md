@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: Устарел ли next-intl в 2026 году?
 description: next-intl стал популярным решением для Next.js App Router. Но он по-прежнему создает оверхед в клиентском бандле и требует ручной организации неймспейсов.
@@ -70,6 +70,10 @@ author: aymericzip
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Стабильная библиотека полезна, но подходы к i18n изменились: компиляторы удаляют неиспользуемые строки при сборке, нейросети переводят тексты в CI, а среды разработки подключают LSP и ИИ-помощников. Архитектура, сосредоточенная на времени выполнения, с трудом использует эти возможности.
+
+> Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
+
+- [История i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)
 
 ## Тестирование в Next.js 16 App Router
 

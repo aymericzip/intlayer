@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Extraire des chaînes
+title: "intlayer extract : extraire les textes des composants"
 description: Apprenez comment extraire des chaînes depuis vos composants dans un fichier .content proche du composant.
 keywords:
   - Extraction

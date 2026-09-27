@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Документація функції validatePrefix | intlayer
-description: Дивіться, як використовувати функцію validatePrefix у пакеті intlayer
+description: "Використовуйте validatePrefix, щоб перевірити, чи є сегмент URL допустимим префіксом локалі згідно з конфігурацією Intlayer."
 keywords:
   - validatePrefix
   - translation

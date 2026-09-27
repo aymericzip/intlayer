@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 4
-title: Cara membatasi konsumsi token Claude Code untuk menghasilkan terjemahan
-description: Mengapa menerjemahkan dengan Claude Code menghabiskan banyak token, apa yang dilakukan Intlayer sebagai gantinya (memfilter kunci yang diterjemahkan, memotong JSON, menerjemahkan markdown blok demi blok), dan cara menggunakan kembali langganan Claude Anda dengan claude setup-token.
+title: "Batasi pemakaian token Claude Code saat menerjemahkan"
+description: "Mengapa menerjemahkan dengan Claude Code menghabiskan banyak token, apa yang dilakukan Intlayer sebagai gantinya, dan cara memakai langganan Claude untuk terjemahan."
 keywords:
   - claude code
   - tokens

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: क्या 2026 में vue-i18n पुराना हो चुका है?
 description: vue-i18n एक दशक से Vue और Nuxt का मानक रहा है। लेकिन हमारे बेंचमार्क में यह वेब पर सबसे भारी i18n रनटाइम साबित हुआ। इसके कारणों का विश्लेषण।
@@ -68,6 +68,10 @@ Vite + Vue पर आधारित केवल 31.5 KB के बुनिय
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 एक पुरानी लाइब्रेरी स्थिरता तो देती है, लेकिन आधुनिक फ्रंटएंड अब बिल्ड-टाइम AST ट्रांसफॉर्मेशन, डेड-कोड रिमूवल और एआई ऑटोमेशन पर आधारित है। केवल रनटाइम पर चलने वाली लाइब्रेरी इन आधुनिक तकनीकों को सहजता से नहीं अपना पाती।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 
 ## Vite + Vue परफॉर्मेंस टेस्ट
 

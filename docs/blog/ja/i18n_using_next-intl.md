@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "next-intl による Next.js 16 の i18n：App Router セットアップガイド"
 description: "Next.js 16 App Routerアプリにnext-intlを段階的に導入：ロケールルーティング、ページ単位のメッセージ読み込み、サーバー／クライアントコンポーネント、SEOメタデータ。"
@@ -32,9 +32,13 @@ author: aymericzip
 
 **next-intl** は、Next.js の App Router 向けに特別に設計された人気の国際化（i18n）ライブラリです。優れた TypeScript サポートと組み込みの最適化機能を備え、多言語対応の Next.js アプリケーションをシームレスに構築する方法を提供します。
 
-> ご希望であれば、[next-i18next ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-i18next.md)や、直接 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_next-intl.md) を参照することもできます。
+> ご希望であれば、[next-i18next ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-i18next.md)や、直接 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md) を参照することもできます。
 
 > 比較については、[next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md) をご覧ください。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## Next.js における next-intl のベンチマーク結果
 

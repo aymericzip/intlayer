@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: Markdown
-description: Дізнайтеся, як оголошувати та використовувати вміст Markdown на вашому багатомовному веб-сайті за допомогою Intlayer. Дотримуйтесь інструкцій у цій онлайн-документації, щоб безперешкодно інтегрувати Markdown у ваш проект.
+title: "Markdown-контент в Intlayer"
+description: "Оголошуйте перекладений Markdown в Intlayer через md() або файли .content.md і рендерте його власними компонентами в будь-якому фреймворку."
 keywords:
   - Markdown
   - Інтернаціоналізація

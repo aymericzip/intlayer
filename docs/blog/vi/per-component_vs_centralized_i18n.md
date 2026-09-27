@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
-title: "i18n theo thành phần so với i18n tập trung: Một cách tiếp cận mới với Intlayer"
+title: "i18n theo component và i18n tập trung trong React"
 description: Phân tích sâu các chiến lược quốc tế hóa trong React, so sánh các phương pháp tập trung, theo khóa và theo thành phần, và giới thiệu Intlayer.
 keywords:
   - i18n
@@ -97,6 +97,10 @@ Nhưng từ tất cả các giải pháp đó, rõ ràng rằng cách tiếp c�
 - Sau đó, một khi một thư viện được chấp nhận rộng rãi, sẽ rất khó để chuyển cả hệ sinh thái sang các mô hình khác.
 - Việc sử dụng cách tiếp cận tập trung cũng khiến các công việc trong các hệ thống quản lý bản dịch như Crowdin, Phrase hoặc Localized trở nên dễ dàng hơn.
 - Logic đằng sau cách tiếp cận theo từng component phức tạp hơn so với cách tiếp cận tập trung và tốn thêm thời gian để phát triển, đặc biệt khi phải giải quyết các vấn đề như xác định nội dung nằm ở đâu.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ### Được, nhưng tại sao không chỉ gắn bó với cách tiếp cận tập trung?
 

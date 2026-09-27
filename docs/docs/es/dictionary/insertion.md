@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Inserción
-description: Aprende cómo declarar y usar marcadores de posición de inserción en tu contenido. Esta documentación te guía a través de los pasos para insertar valores dinámicamente dentro de estructuras de contenido predefinidas.
+title: "Inserción: variables en el contenido traducido"
+description: "Inserta valores dinámicos en textos traducidos con el nodo insert() de Intlayer y {{placeholders}}, tipados desde tu declaración de contenido."
 keywords:
   - Inserción
   - Contenido Dinámico

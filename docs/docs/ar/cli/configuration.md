@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: إدارة التكوين
-description: تعلّم كيفية الحصول على تكوين Intlayer الخاص بك ودفعه إلى نظام إدارة المحتوى (CMS).
+title: "intlayer configuration: قراءة الإعدادات وإرسالها"
+description: "استخدم واجهة سطر أوامر Intlayer لعرض إعداداتك النهائية وإرسالها إلى Intlayer CMS لتبقى لوحة التحكم والمشروع متزامنين."
 keywords:
   - التكوين
   - الإعداد

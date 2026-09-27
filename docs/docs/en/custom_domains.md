@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-03
-updatedAt: 2026-08-22
+updatedAt: 2026-09-27
 priority: 8
-title: Custom Domains
+title: "Custom Domains: One Domain per Locale"
 description: Configure domain-based locale routing in Intlayer to serve different locales from dedicated hostnames.
 keywords:
   - Custom Domains

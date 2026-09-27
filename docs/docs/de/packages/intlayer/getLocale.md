@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: getLocale-Funktionsdokumentation | intlayer
-description: Anleitung zur Verwendung der Funktion getLocale des intlayer-Pakets
+description: "Nutzen Sie getLocale, um die Locale aus einem String wie einer URL oder einem Pfad zu erkennen, mit Fallback auf Ihre Standard-Locale."
 keywords:
   - getLocale
   - Übersetzung

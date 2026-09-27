@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-10
+updatedAt: 2026-09-27
 priority: 6
-title: Intlayer LSP Sunucusu
+title: "IDE'niz için Intlayer dil sunucusu (LSP)"
 description: Intlayer dil sunucusunun IDE’nize ve yapay zekâ ajanınıza tanıma gitme, referans arama, imleçle önizleme, anahtar otomatik tamamlama ve tanılama özelliklerini nasıl kazandırdığını öğrenin.
 keywords:
   - LSP

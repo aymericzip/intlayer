@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: Documentazione del hook useRewriteURL
-description: Hook specifico per Solid per gestire le riscritture degli URL localizzati in Intlayer.
+title: "Documentazione del hook useRewriteURL | solid-intlayer"
+description: "Usa useRewriteURL in SolidJS per riscrivere l'URL del browser nella sua versione localizzata, secondo le riscritture URL della configurazione."
 keywords:
   - useRewriteURL
   - solid-intlayer

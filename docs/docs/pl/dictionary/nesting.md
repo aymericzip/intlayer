@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Zagnieżdżanie słowników
-description: Dowiedz się, jak korzystać z zagnieżdżania treści w Intlayer, aby efektywnie ponownie wykorzystywać i strukturyzować wielojęzyczne treści. Postępuj zgodnie z tą dokumentacją, aby bezproblemowo wdrożyć zagnieżdżanie w swoim projekcie.
+title: "Zagnieżdżanie: ponowne użycie treści między słownikami"
+description: "Odwołuj się z jednego słownika do innego za pomocą węzła nest() w Intlayer, aby używać wspólnych treści bez duplikowania tłumaczeń."
 keywords:
   - Zagnieżdżanie
   - Ponowne wykorzystywanie treści

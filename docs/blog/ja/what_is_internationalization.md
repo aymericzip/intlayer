@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
-title: "国際化（i18n）とは？意味・定義・課題"
+title: "国際化（i18n）とは？意味と課題"
 description: "i18nとはどういう意味か？国際化とは何か、なぜi18nと略されるのか、ローカライゼーション（l10n）との違い、そして実装時によくある課題を解説します。"
 keywords:
   - i18n 意味
@@ -182,11 +182,11 @@ i18nのもう一つの重要な利点は、ユーザーエクスペリエンス�
 
 スタックに合ったi18nライブラリをお探しの場合は、次のガイドを参照してください：
 
-- React: [React向けi18nライブラリの選び方](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_react_i18n_library.md)
-- Vue: [Vue向けi18nライブラリの選び方](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_vue_i18n_library.md)
-- Svelte: [Svelte向けi18nライブラリの選び方](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_svelte_i18n_library.md)
-- Solid: [Solid向けi18nライブラリの選び方](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_solid_i18n_library.md)
-- Next.js: [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)
+- [React向けi18nライブラリの選び方](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_react_i18n_library.md)
+- [Vue向けi18nライブラリの選び方](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_vue_i18n_library.md)
+- [Svelte向けi18nライブラリの選び方](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_svelte_i18n_library.md)
+- [Solid向けi18nライブラリの選び方](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_solid_i18n_library.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## 結論
 

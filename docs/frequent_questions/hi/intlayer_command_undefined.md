@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Intlayer कमांड अपरिभाषित
-description: जानें कि Intlayer कमांड अपरिभाषित त्रुटि को कैसे ठीक करें।
+description: '"intlayer: command not found" त्रुटि ठीक करें: CLI इंस्टॉल करें, पैकेज मैनेजर से चलाएँ और अपना PATH जाँचें।'
 keywords:
   - intlayer
   - कमांड

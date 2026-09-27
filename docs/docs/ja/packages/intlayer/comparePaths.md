@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: comparePaths 関数のドキュメント | intlayer
-description: intlayer パッケージの comparePaths 関数の使い方を学びます
+description: "comparePaths で 2 つの URL が同じページを指すかを判定。ロケール、ホスト、クエリ文字列、ハッシュ、末尾のスラッシュを無視します。"
 keywords:
   - comparePaths
   - normalizePath
@@ -145,9 +145,9 @@ normalizePath("https://example.com/ru/path"); // "/path"
 
 ## 関連関数
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md): URL やパス名からロケールセグメントを削除します。
-- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPrefix.md): 指定したロケールの URL プレフィックスを決定します。
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md): 特定のロケールのローカライズされた URL を生成します。
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md)
+- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPrefix.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getLocalizedUrl.md)
 
 ## TypeScript
 

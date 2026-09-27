@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Remix 3 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "i18next'i unutun. Çok dilli (i18n) bir Remix 3 uygulaması oluşturmak için 2026 rehberi. Yapay zeka ajanlarıyla çeviri yapın, paket boyutunu, SEO'yu ve performansı optimize edin."
+description: "Remix 3'te Intlayer kurulumu: router middleware'inde locale algılama, çevrilmiş rota işleyicileri ve görünümler, yerelleştirilmiş URL'ler."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer Kullanarak Remix 3 Web Sitenizi Çevirin | Uluslararasılaştırma (i18n)
+# Intlayer Kullanarak Remix 3 Web Sitenizi Çevirin
 
 Bu kılavuz, yerel ayara duyarlı yönlendirme, tip güvenli içerik bildirimleri, sunucu taraflı işlenen JSX bileşenleri ve Node.js, Bun, Deno ve Cloudflare Workers üzerinde çoklu çalışma zamanı desteği ile **Remix 3** uygulamalarında sorunsuz uluslararasılaştırma için **Intlayer**'ın nasıl entegre edileceğini göstermektedir.
 

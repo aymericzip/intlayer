@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "Lingui を使用した Next.js 16 の i18n：App Router セットアップガイド"
 description: "Next.js 16 App Router で Lingui をセットアップ：Server Components、SWC マクロ、プロキシルーティング、generateMetadata、hreflang、sitemap、robots.txt、およびベンチマークデータ。"
@@ -43,9 +43,21 @@ author: aymericzip
 - `generateStaticParams` によるすべてのロケールの**静的レンダリング**。
 - **完全な多言語 SEO**：翻訳された `generateMetadata`、canonical、`x-default` 付きの `hreflang`、Open Graph ロケール、JSON-LD、`sitemap.ts`、`robots.ts`、およびローカライズされた 404 ページ。
 
-> 他のライブラリをお探しですか？ [next-intl ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-intl.md)、[next-i18next ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-i18next.md)、または [Next.js + Intlayer ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)をご覧ください。
+> 他のライブラリをお探しですか？
 
-> TanStack Start をお使いですか？ [TanStack Start + Lingui ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_tanstack-start_lingui.md)をご覧ください。ライブラリの比較については、[Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer.md) および [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md) をお読みください。
+- [next-intl ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-intl.md)
+- [next-i18next ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-i18next.md)
+- [Next.js + Intlayer ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
+
+> TanStack Start をお使いですか？
+
+- [TanStack Start + Lingui ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_tanstack-start_lingui.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## Next.js における Lingui のベンチマーク結果
 
@@ -94,7 +106,11 @@ Next.js App Router プロジェクトで通常必要とされる機能におい�
 
 > ランタイムサイズは [Next.js ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/nextjs.md) に基づいています。詳細な解説については、[Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/lingui_vs_intlayer.md) をお読みください。
 
-> その他の Next.js ガイド：[next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-intl.md)、[next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-i18next.md)、[Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)。
+> その他の Next.js ガイド：
+
+- [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-intl.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_next-i18next.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_16.md)
 
 ## 推奨される実践プラクティス
 
@@ -107,7 +123,9 @@ Next.js App Router プロジェクトで通常必要とされる機能におい�
 - クローラーがすべての言語バージョンを発見できるように、**言語切り替えには実際のリンク（`<a>`）を使用する**。
 - 新しいメッセージが未翻訳のままリリースされないよう、**CI で `lingui extract` を実行する**。
 
-> [国際化と SEO に関するガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/internationalization_and_SEO.md)、[hreflang ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/hreflang_guide_multilingual_seo.md)、および [Next.js 多言語 SEO 比較](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/nextjs-multilingual-seo-comparison.md) をご覧ください。
+- [国際化と SEO に関するガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/internationalization_and_SEO.md)
+- [hreflang ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/hreflang_guide_multilingual_seo.md)
+- [Next.js 多言語 SEO 比較](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/nextjs-multilingual-seo-comparison.md)
 
 ## Next.js アプリケーションで Lingui をセットアップするためのステップバイステップガイド
 

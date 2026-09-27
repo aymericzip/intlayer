@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: Markdown
-description: Intlayerを使用して多言語Webサイトでマークダウンコンテンツを宣言および使用する方法を学びます。このオンラインドキュメントの手順に従って、マークダウンをプロジェクトにシームレスに統合します。
+title: "Intlayer の Markdown コンテンツ"
+description: "md() または .content.md ファイルで翻訳済み Markdown を宣言し、どのフレームワークでも独自コンポーネントで描画します。"
 keywords:
   - Markdown
   - Internationalization

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrar de next-intl a Intlayer"
-description: "Aprende cómo migrar tu aplicación Next.js desde next-intl a Intlayer usando el adaptador de compatibilidad."
+title: "@intlayer/next-intl: adaptador de compatibilidad para next-intl"
+description: "Conserva tu código de next-intl y sírvelo con Intlayer: instala @intlayer/next-intl, redirige los imports y descubre qué cambia el adaptador internamente."
 keywords:
   - next-intl
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Migrar de next-intl a Intlayer
+# @intlayer/next-intl: adaptador de compatibilidad para next-intl
 
 Para un tutorial completo y detallado paso a paso, por favor consulta nuestra [Guía Completa de Migración de next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/migration_from_next-intl_to_intlayer.md).
 
@@ -58,3 +58,7 @@ Bajo el capó:
 - **`useTranslations`:** Se reimplementa para devolver una función tipada que se vincula automáticamente a tus diccionarios de Intlayer.
 - **`getTranslations`:** En funciones del servidor, obtiene acceso tipado a contenido de Intlayer sin hacer solicitudes de red.
 - **Middleware:** Intlayer proporciona un middleware de routing automático que reconoce locales y gestiona redirecciones.
+
+> Para entender de dónde vienen estas bibliotecas, lee la historia del i18n en JavaScript.
+
+- [La historia del i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md)

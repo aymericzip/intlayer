@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "Vite + Vanilla JS i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की जरूरत नहीं। 2026 में Vite + Vanilla JS ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
+title: "Vite + Vanilla JS i18n: पूरी अनुवाद गाइड"
+description: "बिना फ़्रेमवर्क वाले Vite ऐप में Intlayer सेट करें: DOM का अनुवाद करें, लोकेल बदलें और .content फ़ाइलों में टाइप्ड कंटेंट रखें।"
 keywords:
   - अंतर्राष्ट्रीयकरण
   - दस्तावेज़ीकरण
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer का उपयोग करके अपने Vite और Vanilla JS वेबसाइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
+# Intlayer का उपयोग करके अपने Vite और Vanilla JS वेबसाइट का अनुवाद करें
 
 <Tabs defaultTab="code">
   <Tab label="कोड" value="code">

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Elysia 플러그인 문서 | elysia-intlayer
-description: elysia-intlayer 패키지의 intlayer 플러그인 사용법을 확인하세요
+description: "Elysia용 intlayer 플러그인은 사용자 로케일을 감지하고 각 요청의 라우트 컨텍스트에 번역 함수를 주입합니다."
 keywords:
   - intlayer
   - elysia

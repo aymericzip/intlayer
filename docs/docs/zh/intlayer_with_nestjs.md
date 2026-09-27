@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "NestJS i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) NestJS 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在 NestJS 中配置 Intlayer：按请求检测语言，翻译控制器响应和校验消息，保持类型安全。"
 keywords:
   - 国际化
   - 文档
@@ -30,7 +30,7 @@ history:
     changes: "初始文档"
 ---
 
-# 使用Intlayer翻译您的Nest backend | 国际化(i18n)
+# 使用Intlayer翻译您的Nest backend
 
 `express-intlayer` 是一个强大的国际化 (i18n) 中间件，专为 Express 应用程序设计，旨在通过基于客户端偏好提供本地化响应来使您的后端服务在全球范围内可访问。由于 NestJS 是构建在 Express 之上的，您可以将 `express-intlayer` 无缝集成到您的 NestJS 应用程序中，以有效处理多语言内容。
 
@@ -195,9 +195,9 @@ export class AppService {
 
 `express-intlayer` 完全兼容：
 
-- 适用于 React 应用的 [`react-intlayer`](/doc/packages/react-intlayer)
-- 适用于 Next.js 应用的 [`next-intlayer`](/doc/packages/next-intlayer)
-- 适用于 Vite 应用的 [`vite-intlayer`](/doc/packages/vite-intlayer)
+- [`react-intlayer`](/doc/packages/react-intlayer)
+- [`next-intlayer`](/doc/packages/next-intlayer)
+- [`vite-intlayer`](/doc/packages/vite-intlayer)
 
 它还可以无缝配合各种环境中的任何国际化解决方案，包括浏览器和 API 请求。您可以自定义中间件，通过请求头或 Cookie 来检测语言环境：
 

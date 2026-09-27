@@ -2,7 +2,7 @@
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
 priority: 8
-title: Как автоматизировать ваши JSON-переводы react-i18next с помощью Intlayer
+title: "Автоматизация JSON-переводов react-i18next с Intlayer"
 description: Автоматизируйте ваши JSON-переводы с помощью Intlayer и react-i18next для улучшенной интернационализации в React-приложениях.
 keywords:
   - react-i18next
@@ -51,6 +51,10 @@ author: aymericzip
 **Для этого Intlayer может быть реализован как адаптер для react-i18next, чтобы помочь автоматизировать ваши JSON-переводы в CLI или CI/CD пайплайнах, тестировать переводы и многое другое.**
 
 Это руководство показывает, как использовать превосходную систему декларации контента Intlayer, сохраняя при этом совместимость с react-i18next.
+
+> Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
+
+- [История i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)
 
 ## Содержание
 

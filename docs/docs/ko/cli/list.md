@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
 title: 콘텐츠 선언 파일 목록
-description: 프로젝트 내 모든 콘텐츠 선언 파일을 나열하는 방법을 알아보세요.
+description: "Intlayer CLI로 프로젝트의 모든 콘텐츠 선언 파일을 나열하여 사전이 어디에 선언되어 있는지 확인합니다."
 keywords:
   - 목록
   - 콘텐츠 선언

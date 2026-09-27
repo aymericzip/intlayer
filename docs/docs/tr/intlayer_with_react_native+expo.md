@@ -2,8 +2,8 @@
 createdAt: 2025-09-07
 updatedAt: 2026-06-25
 priority: 9
-title: "Expo + React Native i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Expo + React Native uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+title: "Expo + React Native i18n: eksiksiz çeviri rehberi"
+description: "Expo ve React Native'de Intlayer kurulumu: bileşen başına tipli içerik, cihaz dilini algılama, dil seçici ve Metro ile bundling."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Expo ve React Native uygulamanızı çevirin | Uluslararasılaştırma (i18n)
+# Expo ve React Native uygulamanızı çevirin
 
 <Tabs defaultTab="code">
   <Tab label="Kod" value="code">
@@ -494,9 +494,9 @@ Uzantının nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer 
 
 ## Daha Fazla İlerleyin
 
-- **Görsel Düzenleyici**: Çevirileri görsel olarak yönetmek için [Intlayer Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)'yi kullanın.
-- **CMS Entegrasyonu**: Sözlük içeriğinizi bir [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)'den harici hale getirebilir ve getirebilirsiniz.
-- **CLI Komutları**: Çevirileri çıkarma veya eksik anahtarları kontrol etme gibi görevler için [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)'yi keşfedin.
+- [Intlayer Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)
 
 **Intlayer** ile tam güçlendirilmiş i18n ile **React Native** uygulamalarınızı oluşturmanın keyfini çıkarın!
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Next.js 中带有 i18n 的静态渲染与动态渲染
-description: 学习如何在 Next.js 中使用带有 i18n 的静态渲染与动态渲染。
+description: "为什么 next-intl 的辅助函数会让 Next.js 的 i18n 路由变为动态渲染，以及如何让本地化页面保持静态渲染。"
 keywords:
   - 静态
   - 动态

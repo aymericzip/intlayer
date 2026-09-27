@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 翻译文档
+title: "intlayer doc translate：翻译 Markdown 文档"
 description: 学习如何使用 AI 翻译服务自动翻译文档文件。
 keywords:
   - 翻译

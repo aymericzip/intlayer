@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: 2026년 Next.js를 위한 최고의 i18n 솔루션 - 벤치마크 리포트
 description: next-intl, next-i18next, Intlayer와 같은 Next.js 국제화(i18n) 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
@@ -73,6 +73,10 @@ i18n 라이브러리의 또 다른 영향은 개발 속도 저하입니다. 컴�
 이 문제는 해결하기 어렵기 때문에 DX에 초점을 맞춘 솔루션부터 성능이나 확장성에 초점을 맞춘 솔루션 등 다양한 대안이 존재합니다.
 
 Intlayer는 이러한 모든 차원에서 최적화를 시도합니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## TL;DR
 

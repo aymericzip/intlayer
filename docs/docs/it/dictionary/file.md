@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: File
-description: Scopri come incorporare file esterni nel tuo dizionario di contenuti usando la funzione `file`. Questa documentazione spiega come Intlayer collega e gestisce dinamicamente il contenuto dei file.
+title: "Contenuti da file: incorporare file esterni"
+description: "Incorpora file esterni come markdown o testo nei dizionari di Intlayer con la funzione file(), sincronizzati con il file sorgente."
 keywords:
   - File
   - Internazionalizzazione

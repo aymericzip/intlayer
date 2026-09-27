@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname 함수 문서 | vue-intlayer
-description: vue-intlayer 패키지의 usePathname 함수 사용 방법 알아보기
+description: "Vue의 usePathname으로 로케일 세그먼트를 뺀 현재 경로를 computed ref로 가져와 로케일 인식 내비게이션에 사용합니다."
 keywords:
   - usePathname
   - pathname
@@ -106,5 +106,5 @@ const pathname = usePathname();
 
 ## 관련 문서
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vue-intlayer/useLocale.md) — 현재 로케일 + 로케일 전환기(switcher)
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPathWithoutLocale.md) — 이 훅에서 사용되는 기본 유틸리티
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vue-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPathWithoutLocale.md)

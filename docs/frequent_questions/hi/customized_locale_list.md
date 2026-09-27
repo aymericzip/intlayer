@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: लोकल सूची को कैसे अनुकूलित करें?
-description: लोकल सूची को अनुकूलित करना सीखें।
+description: "intlayer.config.ts में Intlayer द्वारा समर्थित लोकेल की सूची बदलें, क्षेत्रीय वेरिएंट और डिफ़ॉल्ट लोकेल सहित।"
 keywords:
   - लोकल
   - सूची

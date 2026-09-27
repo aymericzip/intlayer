@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Express i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Express 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在 Express 中配置 Intlayer：通过中间件按请求检测语言，翻译 API 响应和错误信息，端到端类型安全。"
 keywords:
   - 国际化
   - 文档
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# 使用Intlayer翻译您的Express backend | 国际化(i18n)
+# 使用Intlayer翻译您的Express backend
 
 `express-intlayer` 是一个强大的国际化 (i18n) 中间件，适用于 Express 应用程序，旨在通过根据客户端的偏好提供本地化响应，使您的后端服务能够全球化访问。
 
@@ -210,9 +210,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` 完全兼容：
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md) 用于 React 应用
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md) 用于 Next.js 应用
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md) 用于 Vite 应用
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md)
   它还可以无缝地与各种环境中的任何国际化解决方案协同工作，包括浏览器和 API 请求。您可以自定义中间件，通过请求头或 Cookie 来检测语言环境：
 
 它与任何国际化解决方案无缝协作,跨越各种环境,包括浏览器和 API 请求。您可以自定义中间件以通过标头或 cookie 检测区域设置:

@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: useRewriteURL 钩子 文档
-description: 用于在 Intlayer 中管理本地化 URL 重写的 React 专用钩子。
+title: "useRewriteURL 钩子 文档 | react-intlayer"
+description: "在 React 中使用 useRewriteURL，按照配置中的 URL 重写规则将浏览器 URL 改写为本地化版本。"
 keywords:
   - useRewriteURL
   - react-intlayer

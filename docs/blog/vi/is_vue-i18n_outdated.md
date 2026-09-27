@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: Liệu vue-i18n Đã Lỗi Thời Vào Năm 2026?
 description: vue-i18n là chuẩn mực cho Vue và Nuxt suốt cả thập kỷ. Nhưng trong các bài kiểm tra benchmark, nó lại là runtime i18n nặng nhất trên web. Tìm hiểu nguyên nhân tại đây.
@@ -68,6 +68,10 @@ Số liệu 12 tháng qua:
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Một thư viện lâu năm luôn có tính ổn định cao. Tuy nhiên, lập trình web ngày nay dựa trên phân tích AST khi build, loại bỏ mã không dùng và dịch tự động bằng AI. Một hệ thống phụ thuộc vào việc thực thi trên trình duyệt khó lòng áp dụng hiệu quả các tiện ích này.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Đo Lường Hiệu Năng Trên Vite + Vue
 

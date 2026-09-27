@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: Récupération par Fonction
-description: Découvrez comment déclarer et utiliser la récupération par fonction dans votre site web multilingue. Suivez les étapes de cette documentation en ligne pour configurer votre projet en quelques minutes.
+title: "Function fetching : charger du contenu via des fonctions"
+description: "Déclarez du contenu Intlayer à partir de fonctions synchrones ou asynchrones, par exemple pour récupérer des traductions depuis une API au build."
 keywords:
   - Récupération par Fonction
   - Internationalisation

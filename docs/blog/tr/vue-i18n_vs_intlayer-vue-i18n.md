@@ -3,7 +3,7 @@ createdAt: 2026-09-13
 updatedAt: 2026-09-22
 priority: 8
 title: "vue-i18n vs @intlayer/vue-i18n: Aynı API, Farklı Bundle"
-description: Bir Vue 3 uygulaması vue-i18n çağrılarını tuttuğunda ancak @intlayer/vue-i18n compat adapter aracılığıyla sunduğunda neler değişiyor. Aynı Vite + Vue kodunda sayfa başına JavaScript, runtime boyutu, component boyutu ve sızıntı ölçüldü; adapter'ın ne tuttuğu, ne yoksaydığı ve neyi değiştiremeyeceği.
+description: "Bir Vue 3 uygulaması vue-i18n çağrılarını korur, @intlayer/vue-i18n adaptörüyle sunulur. Sayfa başına JavaScript, runtime ve bileşen boyutu, sızıntı ölçüldü."
 keywords:
   - vue-i18n
   - "@intlayer/vue-i18n"
@@ -24,13 +24,11 @@ slugs:
 author: aymericzip
 ---
 
-# vue-i18n VS @intlayer/vue-i18n | Aynı API, Farklı Bundle
-
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+# vue-i18n VS @intlayer/vue-i18n: Aynı API, Farklı Bundle
 
 `@intlayer/vue-i18n`, bir uyumluluk adaptörüdür: `vue-i18n` API'sini (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...) ortaya çıkarır ve bunu Intlayer tarafından derlenmiş sözlüklerden sunar. `.vue` dosyalarınız değişmez. `t("footer.github")`'nin bağlı olduğu şey değişir.
 
-Bu makale, aynı Vite + Vue 3 uygulamasında bu değişimi ölçer; bir kez `vue-i18n` ile ve bir kez adapter ile oluşturulmuştur. Sayılar [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) kaynağından gelmektedir. `vue-i18n` ve Intlayer'ı kütüphaneler olarak karşılaştırmak için [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md) ve [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer_benchmark.md) makalesini okuyun. Bu makale, bileşenlerinizi olduğu gibi tuttuğunuzda adapterın ne değiştirdiği hakkındadır.
+Bu makale, aynı Vite + Vue 3 uygulamasında bu değişimi ölçer; bir kez `vue-i18n` ile ve bir kez adapter ile oluşturulmuştur. Sayılar [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) kaynağından gelmektedir. `vue-i18n` ve Intlayer'ı kütüphaneler olarak karşılaştırmak için [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md) ve [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md) makalesini okuyun. Bu makale, bileşenlerinizi olduğu gibi tuttuğunuzda adapterın ne değiştirdiği hakkındadır.
 
 <TOC/>
 
@@ -359,6 +357,8 @@ Evet. Herhangi bir bileşen, aynı dizinde bulunan bir içerik dosyasıyla `useI
 
 ## İlgili karşılaştırmalar
 
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 Aynı adaptör serisi:
 
 - [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer-next-intl.md)
@@ -367,18 +367,25 @@ Aynı adaptör serisi:
 
 Doğrudan karşılaştırılan kütüphaneler:
 
-- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md), features and DX
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md)
 - [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_vue-i18n_outdated.md)
 - [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_vue_i18n_library.md)
 
 Referans belgeler:
 
-- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md)
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/vue-i18n.md)
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/nuxtjs-i18n.md)
 - [Geçiş kılavuzu: vue-i18n'den Intlayer'a](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_vue-i18n_to_intlayer.md)
 - [Vue kıyaslama raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
-- [Paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
-- [Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) ve [yapay zeka çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md)
+- [Paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+- [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [Görsel Düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)
+- [yapay zeka çevirisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md)
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## Sonuç
 

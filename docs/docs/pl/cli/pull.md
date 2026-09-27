@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Pobieranie słowników
-description: Dowiedz się, jak pobierać słowniki z edytora Intlayer i CMS.
+title: "intlayer pull: pobieranie słowników z CMS"
+description: "Pobierz do projektu słowniki edytowane w edytorze wizualnym lub Intlayer CMS, aby zdalne zmiany trafiły do kodu."
 keywords:
   - Pobieranie
   - Słowniki

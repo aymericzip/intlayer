@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: تم استرجاع لغة غير صحيحة من عنوان URL
-description: تعلم كيفية إصلاح استرجاع لغة غير صحيحة من عنوان URL.
+description: 'أصلح قراءة لغة خاطئة من URL في Next.js، مثل "about" بدلًا من "en"، باستخدام بنية المجلد [locale] التي يتوقعها Intlayer.'
 keywords:
   - اللغة
   - عنوان URL

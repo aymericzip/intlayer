@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "تدويل TanStack Start - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق TanStack Start متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في TanStack Start: معامل اللغة في المسارات، ومحتوى مترجم متوافق مع SSR، وبيانات head مترجمة، وhreflang وخريطة موقع."
 keywords:
   - التدويل
   - التوثيق
@@ -51,7 +51,7 @@ history:
 author: aymericzip
 ---
 
-# ترجم موقع TanStack Start الخاص بك باستخدام Intlayer | التدويل (i18n)
+# ترجم موقع TanStack Start الخاص بك باستخدام Intlayer
 
 ## جدول المحتويات
 

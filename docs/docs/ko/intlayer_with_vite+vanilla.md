@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "Vite + Vanilla JS i18n - 앱을 번역하는 완전 가이드"
-description: "i18next는 이제 그만. 2026년 다국어 (i18n) Vite + Vanilla JS 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
+title: "Vite + Vanilla JS i18n: 완벽한 번역 가이드"
+description: "프레임워크 없는 Vite 앱에 Intlayer 설정: DOM을 번역하고, 로케일을 전환하며, .content 파일에 타입 콘텐츠를 유지합니다."
 keywords:
   - 국제화
   - 문서
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer를 사용하여 Vite 및 Vanilla JS 웹사이트 번역하기 | 국제화 (i18n)
+# Intlayer를 사용하여 Vite 및 Vanilla JS 웹사이트 번역하기
 
 <Tabs defaultTab="code">
   <Tab label="코드" value="code">

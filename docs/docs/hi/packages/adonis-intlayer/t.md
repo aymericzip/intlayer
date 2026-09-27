@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: t फ़ंक्शन दस्तावेज़ीकरण | adonis-intlayer
-description: adonis-intlayer पैकेज के लिए t फ़ंक्शन का उपयोग करने का तरीका देखें
+description: "adonis-intlayer के t फ़ंक्शन से AdonisJS में हर रिक्वेस्ट के लिए पहचाने गए लोकेल के अनुसार स्थानीयकृत रिस्पॉन्स लौटाएँ।"
 keywords:
   - t
   - अनुवाद

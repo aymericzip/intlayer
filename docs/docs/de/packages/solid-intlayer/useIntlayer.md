@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-06
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentation des useIntlayer-Hooks | solid-intlayer
-description: Anleitung zur Verwendung des useIntlayer-Hooks im solid-intlayer-Paket
+description: "Nutzen Sie useIntlayer in Solid, um lokalisierte Wörterbuchinhalte per Schlüssel zu lesen, als reaktive Werte, die der Locale folgen."
 keywords:
   - useIntlayer
   - Wörterbuch

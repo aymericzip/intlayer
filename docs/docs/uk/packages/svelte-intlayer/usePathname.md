@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Документація функції usePathname | svelte-intlayer
-description: Дізнайтеся, як використовувати функцію usePathname з пакету svelte-intlayer
+description: "Використовуйте usePathname у Svelte, щоб отримати поточний шлях без сегмента локалі як readable store для локалізованої навігації."
 keywords:
   - usePathname
   - pathname
@@ -100,5 +100,5 @@ import { usePathname } from "svelte-intlayer";
 
 ## Пов'язані функції
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/svelte-intlayer/useLocale.md) — поточна локаль + перемикач локалей
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getPathWithoutLocale.md) — базова утиліта, що використовується цим хуком
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/svelte-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getPathWithoutLocale.md)

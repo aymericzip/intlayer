@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: URLから取得したロケールが誤っている
-description: URLから取得した誤ったロケールを修正する方法を学びます。
+description: "Next.js で URL から「en」ではなく「about」のような誤ったロケールが読まれる問題を、Intlayer が想定する [locale] フォルダー構成で解消します。"
 keywords:
   - ロケール
   - URL

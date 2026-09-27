@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: next-intl 2026'da Güncelliğini Yitirdi mi?
 description: next-intl, Next.js App Router için varsayılan çözüm haline geldi. Ancak arka planda çalışma zamanı paket şişkinliği ve manuel ad alanı yükü taşımayı sürdürüyor.
@@ -70,6 +70,10 @@ Geçtiğimiz 12 ayın özeti:
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Kararlı bir kütüphane güven verir. Fakat i18n dünyası evrildi: derleyiciler çağrılmayan çevirileri build aşamasında atıyor, LLM'ler CI süreçlerinde otomatik çeviri sağlıyor ve editörler özel LSP ile yapay zeka asistanlarından yararlanıyor. Sadece runtime'a bağlı bir kütüphanenin bu dönüşüme uyum sağlaması zordur.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## Next.js 16 App Router Performans Testi
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi t | hono-intlayer
-description: Lihat cara menggunakan fungsi t untuk paket hono-intlayer
+description: "Gunakan fungsi t dari hono-intlayer untuk mengembalikan respons terlokalisasi di Hono sesuai locale yang terdeteksi per request."
 keywords:
   - t
   - terjemahan

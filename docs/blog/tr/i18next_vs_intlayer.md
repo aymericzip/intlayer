@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-22
+updatedAt: 2026-09-27
 priority: 8
 title: "i18next vs Intlayer: 2026 Karşılaştırma ve Benchmark Testi"
 description: "Next.js ve TanStack Start üzerinde Intlayer ile karşılaştırılan react-i18next ve next-i18next ölçümleri. Paket boyutu, içerik sızıntısı, dil değiştirme tepki süresi ve geliştirici deneyimi."
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# i18next VS Intlayer | React & Next.js Uluslararasılaştırma (i18n) Benchmark Karşılaştırması
+# i18next VS Intlayer: React & Next.js Uluslararasılaştırma (i18n) Benchmark Karşılaştırması
 
 ![i18next VS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -523,25 +523,42 @@ Aynı kıyaslama, diğer kütüphaneler:
 
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer.md)
 - [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md)
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
 - [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/react-i18next_vs_react-intl_vs_intlayer.md)
 
 i18next hakkında daha fazlası:
 
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer-i18next.md), aynı uygulamada ölçülen adaptörler
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer-i18next.md)
 - [i18next modası geçti mi?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_i18next_outdated.md)
-- [i18next ile Intlayer Kullanımı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/intlayer_with_i18next.md) ve [react-i18next ile](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/intlayer_with_react-i18next.md)
+- [i18next ile Intlayer Kullanımı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/intlayer_with_i18next.md)
+- [react-i18next ile](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/intlayer_with_react-i18next.md)
 - [next-i18next ile bir Next.js uygulamasını uluslararasılaştırma](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-i18next.md)
 
 Referans belgeleri:
 
-- [Next.js kıyaslama raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) ve [TanStack Start kıyaslama raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
-- Uyumluluk adaptörleri: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18next.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-i18next.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md)
-- Geçiş kılavuzları: [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md), [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-i18next_to_intlayer.md)
-- [Paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md) ve [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
+- [Next.js kıyaslama raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md)
+- [TanStack Start kıyaslama raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
+- [Paket optimizasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
+- [Intlayer derleyicisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 - [Bileşen bazlı ve merkezi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md)
 - [Derleyici güdümlü ve bildirimsel i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
+
+Uyumluluk adaptörleri:
+
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/i18next.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/react-i18next.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/next-i18next.md)
+
+Geçiş kılavuzları:
+
+- [i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_i18next_to_intlayer.md)
+- [react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_react-i18next_to_intlayer.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-i18next_to_intlayer.md)
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## GitHub Yıldızları
 

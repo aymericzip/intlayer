@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Declaração de Conteúdo `Por Localidade` no Intlayer
+title: "Arquivos de declaração de conteúdo por locale"
 description: Descubra como declarar conteúdo por localidade no Intlayer. Siga a documentação para entender os diferentes formatos e casos de uso.
 keywords:
   - Internacionalização

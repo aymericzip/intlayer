@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-21
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Init Infra
-description: 了解如何使用 Intlayer CLI init infra 命令安装桌面应用程序，或使用 Docker（多合一容器或 Docker Compose 堆栈）自行托管 Intlayer CMS。
+title: "intlayer init infra：自托管 Intlayer CMS"
+description: "安装 Intlayer 桌面应用，或使用 Docker 自托管 Intlayer CMS，可选一体化容器或 Docker Compose 部署。"
 keywords:
   - CLI
   - 基础设施
@@ -158,6 +158,6 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 
 ## 相关内容
 
-- [自行托管指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md) - 各模式的架构、首次运行步骤和限制
-- [初始化 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/init.md) - 父级 `init` 命令及其交互式检查清单
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) - 您刚安装的控制面板的功能
+- [自行托管指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)
+- [初始化 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/init.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)

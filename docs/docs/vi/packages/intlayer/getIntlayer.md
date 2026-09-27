@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu Hàm getIntlayer | intlayer
-description: Xem cách sử dụng hàm getIntlayer cho gói intlayer
+description: "Dùng getIntlayer để đọc nội dung từ điển cho một locale ở bất kỳ đâu, phiên bản độc lập framework của hook useIntlayer."
 keywords:
   - getIntlayer
   - dictionary
@@ -164,9 +164,9 @@ Trong quá trình phát triển, yêu cầu một khóa không có từ điển 
 
 ## Các Hàm Liên Quan
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayerAsync.md): Phiên bản async tải một chunk locale duy nhất.
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getDictionary.md): Diễn giải một đối tượng dictionary mà bạn truyền vào, thay vì tìm kiếm theo khóa.
-- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useIntlayer.md): Hook React tương đương, đọc locale từ provider.
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getDictionary.md)
+- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useIntlayer.md)
 
 ## TypeScript
 

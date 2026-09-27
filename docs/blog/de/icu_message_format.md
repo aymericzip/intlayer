@@ -284,9 +284,9 @@ Wer aus einer Codebasis mit vorhandenen ICU-Strings migriert, kann den [react-in
 
 ## Weiterführende Links
 
-- [Pluralinhalte in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plurial.md): Der CLDR-basierte `plural`-Knoten und seine Kategorientabelle.
-- [Select-basierte Inhalte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/select.md): Das Äquivalent zu ICU `select` und wann `enu` oder `cond` die bessere Wahl sind.
-- [Einfüge-Platzhalter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/insertion.md): `{{name}}`-Interpolation und automatische Erkennung.
-- [Benchmark von i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md): Bundle-Größe und Laufzeitkosten im Vergleich.
-- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/react-i18next_vs_react-intl_vs_intlayer.md): Ein ausführlicher Vergleich der drei Nachrichtenmodelle.
-- [Was ist Internationalisierung?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/what_is_internationalization.md): Herkunft des Begriffs i18n, Abgrenzung zu l10n und der ganzheitliche Kontext.
+- [Pluralinhalte in Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plurial.md)
+- [Select-basierte Inhalte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/select.md)
+- [Einfüge-Platzhalter](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/insertion.md)
+- [Benchmark von i18n-Bibliotheken](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/index.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Was ist Internationalisierung?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/what_is_internationalization.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Remix 3 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn cần đến i18next. Hướng dẫn năm 2026 để xây dựng ứng dụng Remix 3 đa ngôn ngữ (i18n). Dịch bằng các tác tử AI và tối ưu hóa kích thước gói bundle, SEO và hiệu năng."
+description: "Thiết lập Intlayer trong Remix 3: nhận diện locale trong middleware của router, handler route và view đã dịch, URL bản địa hóa."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web Remix 3 của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web Remix 3 của bạn bằng Intlayer
 
 Hướng dẫn này minh họa cách tích hợp **Intlayer** để quốc tế hóa liền mạch trong các ứng dụng **Remix 3** với định tuyến theo ngôn ngữ, khai báo nội dung an toàn kiểu dữ liệu, các thành phần JSX kết xuất phía máy chủ và hỗ trợ đa môi trường thực thi trên Node.js, Bun, Deno và Cloudflare Workers.
 

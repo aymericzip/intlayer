@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-29
-updatedAt: 2026-08-29
+updatedAt: 2026-09-27
 priority: 9
 title: "htmx i18n - अपने ऐप्लिकेशन को अनुवाद करने के लिए संपूर्ण गाइड"
-description: "अब और i18next नहीं। 2026 की बहुभाषी (i18n) htmx ऐप्लिकेशन बनाने की गाइड। AI agents के साथ अनुवाद करें और bundle size, SEO और प्रदर्शन को अनुकूलित करें।"
+description: "htmx के साथ Intlayer: सर्वर पर अनुवादित HTML फ़्रैगमेंट रेंडर करें, हर रिक्वेस्ट पर लोकेल पहचानें और SPA के बिना भाषा बदलें।"
 keywords:
   - Internationalization
   - Documentation
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer का उपयोग करके अपने htmx ऐप्लिकेशन का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
+# Intlayer का उपयोग करके अपने htmx ऐप्लिकेशन का अनुवाद करें
 
 htmx अपनी कोई सामग्री render नहीं करता है। हर लेबल जो कोई आगंतुक पढ़ता है, वह HTML है जो आपका server तैयार करता है, और हर swap एक अलग HTTP request है। इसलिए, htmx ऐप को internationalize करना एक server concern है: locale को हर request पर resolve करना होता है, और हर fragment को उस locale में render करना होता है।
 

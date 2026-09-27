@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Làm thế nào để tùy chỉnh danh sách ngôn ngữ?
-description: Tìm hiểu cách tùy chỉnh danh sách ngôn ngữ.
+description: "Tùy chỉnh danh sách locale mà Intlayer hỗ trợ trong intlayer.config.ts, bao gồm biến thể theo vùng và locale mặc định."
 keywords:
   - locales
   - danh sách

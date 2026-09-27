@@ -2,7 +2,7 @@
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
 priority: 8
-title: Intlayer kullanarak react-i18next JSON çevirilerinizi nasıl otomatikleştirirsiniz
+title: "Intlayer ile react-i18next JSON çevirilerini otomatikleştirin"
 description: React uygulamalarında gelişmiş uluslararasılaştırma için Intlayer ve react-i18next ile JSON çevirilerinizi otomatikleştirin.
 keywords:
   - react-i18next
@@ -51,6 +51,10 @@ Intlayer mükemmel bir bağımsız i18n çözümü sunarken (bakınız [React en
 **Bunun için, Intlayer, JSON çevirilerinizi CLI veya CI/CD boru hatlarında otomatikleştirmeye, çevirilerinizi test etmeye ve daha fazlasına yardımcı olmak için react-i18next için bir adaptör olarak uygulanabilir.**
 
 Bu rehber, Intlayer'ın üstün içerik beyan sistemi kullanılırken react-i18next ile uyumluluğun nasıl korunacağını gösterir.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## İçindekiler
 

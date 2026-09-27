@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-19
+updatedAt: 2026-09-27
 priority: 8
-title: Как работает Intlayer
+title: "Как работает Intlayer: обзор архитектуры"
 description: Узнайте, как Intlayer работает внутри. Поймите архитектуру и компоненты, которые делают Intlayer мощным.
 keywords:
   - Intlayer

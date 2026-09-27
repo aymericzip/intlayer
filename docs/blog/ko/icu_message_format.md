@@ -284,9 +284,9 @@ ICU 개념과의 매핑 관계는 직관적입니다.
 
 ## 더 알아보기
 
-- [Intlayer의 복수형 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plurial.md): CLDR 기반 `plural` 노드 및 카테고리 목록.
-- [Select 기반 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/select.md): ICU `select` 대응 기능 및 `enu`, `cond` 활용법.
-- [삽입 플레이스홀더](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md): `{{name}}` 보간 및 자동 감지 기능.
-- [i18n 라이브러리 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md): 각 라이브러리별 번들 크기 및 런타임 성능 비교.
-- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/react-i18next_vs_react-intl_vs_intlayer.md): 세 가지 메시지 처리 모델 상세 비교.
-- [국제화(i18n)란 무엇인가?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/what_is_internationalization.md): i18n 용어의 유래, l10n과의 차이점 및 메시지 서식화를 넘어서는 전체적인 로드맵.
+- [Intlayer의 복수형 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plurial.md)
+- [Select 기반 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/select.md)
+- [삽입 플레이스홀더](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md)
+- [i18n 라이브러리 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/react-i18next_vs_react-intl_vs_intlayer.md)
+- [국제화(i18n)란 무엇인가?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/what_is_internationalization.md)

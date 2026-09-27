@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-09-30
+updatedAt: 2026-09-27
 priority: 8
-title: React और Next.js में एक कंपोनेंट को बहुभाषी (i18n लाइब्रेरी) कैसे बनाएं
+title: "React या Next.js कंपोनेंट को बहुभाषी बनाएँ"
 description: Intlayer के साथ एक बहुभाषी React या Next.js कंपोनेंट बनाने के लिए स्थानीयकृत सामग्री को घोषित और पुनः प्राप्त करना सीखें।
 keywords:
   - i18n

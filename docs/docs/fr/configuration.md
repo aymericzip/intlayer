@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-08-29
+updatedAt: 2026-09-27
 priority: 8
-title: Configuration
+title: "Configuration d'Intlayer (intlayer.config.ts)"
 description: Apprenez à configurer Intlayer pour votre application. Comprenez les différents paramètres et options disponibles pour personnaliser Intlayer selon vos besoins.
 keywords:
   - Configuration

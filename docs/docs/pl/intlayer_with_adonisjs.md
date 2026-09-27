@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 9
 title: "AdonisJS i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
-description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji AdonisJS. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
+description: "Konfiguracja Intlayer w AdonisJS: wykrywanie locale dla każdego żądania przez middleware, tłumaczenie odpowiedzi API i widoków, typowana treść."
 keywords:
   - Międzynarodowienie
   - Dokumentacja
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Przetłumacz swój backend AdonisJS za pomocą Intlayer | Międzynarodowienie (i18n)
+# Przetłumacz swój backend AdonisJS za pomocą Intlayer
 
 `adonis-intlayer` to potężny pakiet do międzynarodowienia (i18n) dla aplikacji AdonisJS, zaprojektowany, aby uczynić Twoje usługi backendowe dostępnymi globalnie poprzez dostarczanie zlokalizowanych odpowiedzi na podstawie preferencji klienta.
 
@@ -248,9 +248,9 @@ export default class ExampleController {
 
 `adonis-intlayer` jest w pełni kompatybilny z:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/index.md) dla aplikacji React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/index.md) dla aplikacji Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/index.md) dla aplikacji Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vite-intlayer/index.md)
 
 Działa również bezproblemowo z dowolnym rozwiązaniem do międzynarodowienia w różnych środowiskach, w tym w przeglądarkach i żądaniach API. Możesz dostosować middleware tak, aby wykrywał lokalizację poprzez nagłówki lub pliki cookie:
 

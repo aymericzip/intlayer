@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Angular 19 i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Angular 19 multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di Angular 19 dengan Angular CLI: konten bertipe di samping komponen, pergantian locale saat runtime, dan routing terlokalisasi."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs web Angular 19 (Webpack) Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web Angular 19 (Webpack) Anda menggunakan Intlayer
 
 ## Daftar Isi
 

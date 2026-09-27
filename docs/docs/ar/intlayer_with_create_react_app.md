@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2026-05-31
 priority: 3
-title: "تدويل Create React App - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Create React App متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+title: "i18n في Create React App: دليل الترجمة الكامل"
+description: "إعداد Intlayer في مشروع Create React App: محتوى مُنمَّط بجانب المكوّنات، ومبدّل لغة، وترجمات تُحمَّل حسب اللغة."
 keywords:
   - التدويل
   - توثيق
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# ترجم Create React App باستخدام Intlayer | التدويل (i18n)
+# ترجم Create React App باستخدام Intlayer
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"

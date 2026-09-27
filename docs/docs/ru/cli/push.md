@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Отправка словарей
-description: Узнайте, как отправлять ваши словари в редактор и CMS Intlayer.
+title: "intlayer push: отправка словарей в CMS"
+description: "Отправьте локальные словари Intlayer в визуальный редактор и CMS, чтобы переводчики и контент-менеджеры могли их редактировать."
 keywords:
   - Отправка
   - Словари

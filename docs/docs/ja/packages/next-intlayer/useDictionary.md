@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: useDictionary フック ドキュメント | next-intlayer
-description: next-intlayer パッケージの useDictionary フックの使い方を解説
+description: "Next.js の useDictionary で自分で宣言した辞書オブジェクトを解釈し、現在のロケールに応じた翻訳を取得します。"
 keywords:
   - useDictionary
   - 辞書

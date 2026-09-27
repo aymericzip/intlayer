@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Intlayer-Befehl nicht definiert
-description: Erfahren Sie, wie Sie den Fehler "intlayer command undefined" beheben können.
+description: "Beheben Sie den Fehler „intlayer: command not found“: CLI installieren, über Ihren Paketmanager ausführen und den PATH prüfen."
 keywords:
   - intlayer
   - befehl

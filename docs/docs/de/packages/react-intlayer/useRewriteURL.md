@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: useRewriteURL-Hook Dokumentation
-description: React-spezifischer Hook zur Verwaltung lokalisierter URL-Umleitungen in Intlayer.
+title: "useRewriteURL-Hook Dokumentation | react-intlayer"
+description: "Nutzen Sie useRewriteURL in React, um die Browser-URL auf ihre lokalisierte Version umzuschreiben, gemäß den URL-Rewrites Ihrer Konfiguration."
 keywords:
   - useRewriteURL
   - react-intlayer

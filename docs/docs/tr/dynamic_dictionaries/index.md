@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-09-27
 priority: 8
-title: Dinamik sözlükler
+title: "Dinamik sözlükler: koleksiyonlar ve varyantlar"
 description: Intlayer'in dinamik sözlük özelliklerine — koleksiyonlar ve varyantlar — genel bakış; esnek, çalışma zamanında yönlendirilen i18n içeriği oluşturmak için.
 keywords:
   - Dinamik sözlükler

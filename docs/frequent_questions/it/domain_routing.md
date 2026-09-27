@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Come configurare il routing basato sul dominio?
-description: Scopri come configurare il routing basato sul dominio.
+description: "Servi ogni locale dal proprio dominio con il routing per dominio di Intlayer, configurato in intlayer.config.ts con i redirect gestiti per te."
 keywords:
   - dominio
   - routing

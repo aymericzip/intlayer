@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-01-29
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق وسيط intlayer لـ Hono | hono-intlayer
-description: تعرف على كيفية استخدام وسيط intlayer لحزمة hono-intlayer
+description: "يكتشف وسيط intlayer لـ Hono لغة المستخدم ويضيف دوال الترجمة من Intlayer إلى سياق الطلب."
 keywords:
   - intlayer
   - hono

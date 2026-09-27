@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: Документація useRewriteURL Hook
-description: Хук для React, який керує локалізованими переписуваннями URL в Intlayer.
+title: "Документація useRewriteURL Hook | react-intlayer"
+description: "Використовуйте useRewriteURL у React, щоб переписати URL браузера в локалізований вигляд згідно з правилами перезапису URL у конфігурації."
 keywords:
   - useRewriteURL
   - react-intlayer

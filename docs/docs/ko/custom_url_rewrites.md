@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-09-27
 priority: 8
-title: 맞춤형 URL 재작성
+title: "사용자 정의 URL 재작성: 현지화된 경로"
 description: Intlayer에서 로케일별 경로를 정의하기 위해 맞춤형 URL 재작성(custom URL rewrites)을 구성하고 사용하는 방법을 알아봅니다.
 keywords:
   - 맞춤형 URL 재작성

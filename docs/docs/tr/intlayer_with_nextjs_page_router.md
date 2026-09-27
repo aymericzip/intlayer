@@ -2,8 +2,8 @@
 createdAt: 2025-09-07
 updatedAt: 2026-06-23
 priority: 9
-title: "Next.js Page Router i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Next.js Page Router uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+title: "Next.js Pages Router i18n: eksiksiz çeviri rehberi"
+description: "Next.js Pages Router'da Intlayer kurulumu: getStaticPaths ile yerelleştirilmiş rotalar, çevrilmiş sayfalar ve bileşenler, hreflang ve sitemap."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -35,7 +35,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer ile Next.js and Page Router çevirin | Uluslararasılaştırma (i18n)
+# Intlayer ile Next.js and Page Router çevirin
 
 <Tabs defaultTab="code">
   <Tab label="Kod" value="code">

@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: Enumeração
-description: Descubra como declarar e usar enumerações no seu site multilíngue. Siga os passos nesta documentação online para configurar seu projeto em poucos minutos.
+title: "Enumeração: mensagens por quantidade"
+description: "Use as enumerações do Intlayer para exibir conteúdo diferente conforme um número ou intervalo, com o nó enu() e condições como '<-1' ou '>5'."
 keywords:
   - Enumeração
   - Internacionalização

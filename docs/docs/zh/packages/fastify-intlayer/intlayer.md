@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: intlayer Fastify 插件文档 | fastify-intlayer
-description: 了解如何在 fastify-intlayer 包中使用 intlayer 插件
+description: "Fastify 的 intlayer 插件会检测用户语言，并为每个请求添加 Intlayer 翻译函数。"
 keywords:
   - intlayer
   - fastify

@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: Tài liệu Hook useRewriteURL
-description: Hook dành cho Solid để quản lý việc viết lại URL theo ngôn ngữ trong Intlayer.
+title: "Tài liệu Hook useRewriteURL | solid-intlayer"
+description: "Dùng useRewriteURL trong SolidJS để viết lại URL trình duyệt thành phiên bản bản địa hóa theo quy tắc viết lại URL trong cấu hình."
 keywords:
   - useRewriteURL
   - solid-intlayer

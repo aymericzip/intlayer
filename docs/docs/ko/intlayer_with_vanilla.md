@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-31
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Vanilla JS i18n - 앱을 번역하는 완전 가이드"
-description: "i18next는 이제 그만. 2026년 다국어 (i18n) Vanilla JS 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
+description: "프레임워크 없는 순수 JavaScript에 Intlayer 설정: 정적 HTML 페이지를 번역하고, 로케일을 전환하며, 콘텐츠를 타입 안전하게 유지합니다."
 keywords:
   - 국제화
   - 문서
@@ -28,7 +28,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer를 사용하여 Vanilla JS 웹사이트 번역하기 | 국제화(i18n)
+# Intlayer를 사용하여 Vanilla JS 웹사이트 번역하기
 
 <Tabs defaultTab="code">
   <Tab label="코드" value="code">

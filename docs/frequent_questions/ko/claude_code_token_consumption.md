@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 4
-title: 번역 생성 시 Claude Code 토큰 소모를 줄이는 방법
-description: Claude Code로 번역할 때 토큰이 낭비되는 이유와 Intlayer가 대신 수행하는 작업(번역된 키 필터링, JSON 청크 분할, 마크다운 블록 단위 번역), claude setup-token으로 Claude 구독을 재사용하는 방법을 알아봅니다.
+title: "번역 시 Claude Code 토큰 사용량 줄이기"
+description: "Claude Code로 번역하면 토큰이 많이 소모되는 이유, Intlayer의 대안, Claude 구독을 번역에 재사용하는 방법."
 keywords:
   - claude code
   - tokens

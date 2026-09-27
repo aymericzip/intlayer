@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getHTMLTextDir 関数ドキュメント | intlayer
-description: intlayer パッケージの getHTMLTextDir 関数の使い方を確認する
+description: "getHTMLTextDir でロケールの文字方向（ltr、rtl、auto）を取得し、HTML の dir 属性を設定します。"
 keywords:
   - getHTMLTextDir
   - 翻訳

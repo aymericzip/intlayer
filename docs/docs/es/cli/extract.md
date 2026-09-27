@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Extraer cadenas
+title: "intlayer extract: extraer textos de componentes"
 description: Aprende cómo extraer cadenas de tus componentes a un archivo .content ubicado cerca del componente.
 keywords:
   - Extraer

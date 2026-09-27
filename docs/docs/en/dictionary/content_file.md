@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: Content File
-description: Learn how to customize the extensions for your content declaration files. Follow this documentation to implement conditions efficiently in your project.
+title: "Content Declaration Files (.content.ts)"
+description: "Declare your multilingual content in .content files next to your components: supported formats, file extensions and how Intlayer discovers them."
 keywords:
   - Content File
   - Documentation

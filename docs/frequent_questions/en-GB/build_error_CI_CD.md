@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Build Error in CI/CD
-description: Learn how to fix build errors that occur in CI/CD environments.
+title: "Fix Intlayer Build Errors in CI/CD"
+description: "Fix Server Components render errors that only happen in CI/CD builds, by making sure Intlayer dictionaries are built during the build step."
 keywords:
   - build
   - error

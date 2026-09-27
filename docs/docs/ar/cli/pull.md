@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: سحب القواميس
-description: تعلّم كيفية سحب القواميس من محرر Intlayer ونظام إدارة المحتوى.
+title: "intlayer pull: سحب القواميس من CMS"
+description: "نزّل إلى مشروعك القواميس المعدّلة في المحرّر المرئي أو Intlayer CMS لتصل التغييرات البعيدة إلى شيفرتك."
 keywords:
   - سحب
   - قواميس

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui проти @intlayer/lingui: Ті самі макроси, інший рантайм"
-description: "Що змінюється, коли застосунок React зберігає макроси Lingui, але обслуговує їх через адаптер сумісності @intlayer/lingui. Розмір компонентів, гідратація, витоки та обсяг JavaScript на сторінку, виміряні на тому самому коді TanStack Start, включно з аспектами, де адаптер поступається."
+description: "Застосунок React зберігає макроси Lingui, які обслуговує адаптер @intlayer/lingui. Виміряно розмір компонентів, гідратацію, витоки та JavaScript на сторінку."
 keywords:
   - Lingui
   - "@intlayer/lingui"
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui проти @intlayer/lingui | Ті самі макроси, інший рантайм
+# Lingui проти @intlayer/lingui: Ті самі макроси, інший рантайм
 
 `@intlayer/lingui` - це адаптер сумісності (compat adapter) для `@lingui/core` та `@lingui/react`. Ваші виклики `` t`...` ``, `<Trans>`, `useLingui()` та `i18n._()` залишаються повністю без змін; макроси продовжують компілюватися як зазвичай; єдине, що змінюється - це джерело повідомлень під час виконання (runtime). Замість одного загального скомпільованого каталогу на локаль кожне місце виклику прив'язується до словника Intlayer, скомпільованого персонально для нього.
 
@@ -289,12 +289,16 @@ export default defineConfig({
 
 ## Схожі порівняльні огляди
 
-- [Lingui проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer.md) (порівняння бібліотек у рамках того самого бенчмарка)
-- [next-intl проти @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer-next-intl.md) (матеріал із серії про адаптери)
-- [i18next проти @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer-i18next.md) (матеріал із серії про адаптери)
-- [vue-i18n проти @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/vue-i18n_vs_intlayer-vue-i18n.md) (матеріал із серії про адаптери)
+- [Lingui проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/lingui_vs_intlayer.md)
+- [next-intl проти @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer-next-intl.md)
+- [i18next проти @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer-i18next.md)
+- [vue-i18n проти @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/vue-i18n_vs_intlayer-vue-i18n.md)
 - [Довідник з адаптера сумісності: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compat/lingui.md)
 - [Компілятор проти декларативної i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md)
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
 
 ## Висновок
 

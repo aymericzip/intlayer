@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: Markdown
-description: Intlayer ile çok dilli web sitenizde Markdown içeriğini nasıl bildireceğinizi ve kullanacağınızı öğrenin. Projenize Markdown'ı sorunsuz bir şekilde entegre etmek için bu çevrimiçi belgelerdeki adımları izleyin.
+title: "Intlayer'da Markdown içeriği"
+description: "Çevrilmiş Markdown'ı Intlayer'da md() veya .content.md dosyalarıyla tanımlayın ve her framework'te kendi bileşenlerinizle render edin."
 keywords:
   - Markdown
   - Uluslararasılaştırma

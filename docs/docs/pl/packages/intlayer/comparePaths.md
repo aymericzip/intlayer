@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja funkcji comparePaths | intlayer
-description: Dowiedz się, jak korzystać z funkcji comparePaths w pakiecie intlayer
+description: "Użyj comparePaths, aby sprawdzić, czy dwa URL prowadzą do tej samej strony, ignorując locale, host, query string, hash i końcowy ukośnik."
 keywords:
   - comparePaths
   - normalizePath
@@ -145,9 +145,9 @@ normalizePath("https://example.com/ru/path"); // "/path"
 
 ## Powiązane funkcje
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md): Usuwa segment locale z adresu URL lub ścieżki.
-- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPrefix.md): Określa prefiks URL dla danego locale.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getLocalizedUrl.md): Generuje zlokalizowany adres URL dla określonego locale.
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md)
+- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPrefix.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getLocalizedUrl.md)
 
 ## TypeScript
 

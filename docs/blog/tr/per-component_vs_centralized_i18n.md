@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
-title: "Bileşen-Başına vs Merkezileştirilmiş i18n: Intlayer ile Yeni Bir Yaklaşım"
+title: "React'te bileşen başına ve merkezi i18n karşılaştırması"
 description: React'te uluslararasılaştırma stratejilerine derinlemesine bir bakış; merkezi, per-key (anahtar-başına) ve bileşen-başına yaklaşımları karşılaştırır ve Intlayer'ı tanıtır.
 keywords:
   - i18n
@@ -97,6 +97,10 @@ Ancak tüm bu çözümlere bakıldığında, en popüler yaklaşımın merkezi (
 - Sonra, bir kütüphane yaygın olarak benimsendiğinde, ekosistemi farklı yaklaşımlara kaydırmak zorlaşır.
 - Merkezi bir yaklaşım kullanmak ayrıca Crowdin, Phrase veya Localized gibi Çeviri Yönetim Sistemlerinde işleri kolaylaştırır.
 - Bileşen başına (per-component) yaklaşımın mantığı merkezi olandan daha karmaşıktır ve geliştirilmesi daha fazla zaman alır, özellikle içeriğin nerede bulunduğunu tespit etmek gibi problemleri çözmeniz gerektiğinde.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ### Peki, ama neden sadece Centralized bir yaklaşıma bağlı kalmayalım?
 

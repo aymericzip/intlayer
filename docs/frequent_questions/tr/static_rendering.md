@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 4
 title: Next.js'de i18n ile Statik ve Dinamik Render
- description: Next.js'de i18n ile statik ve dinamik render nasıl kullanılır, öğrenin.
+description: "next-intl yardımcılarının Next.js i18n rotalarını neden dinamik yaptığı ve yerelleştirilmiş sayfaların statik render edilmeye devam etmesi için ne yapılacağı."
 keywords:
   - statik
   - dinamik
@@ -18,7 +18,7 @@ keywords:
 slugs:
   - frequent-questions
   - static-rendering
-author: aymericzip 
+author: aymericzip
 ---
 
 # Next.js'de i18n ile Statik ve Dinamik Render

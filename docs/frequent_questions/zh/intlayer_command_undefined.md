@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Intlayer 命令未定义
-description: 了解如何修复 intlayer 命令未定义错误。
+description: "修复「intlayer: command not found」错误：安装 CLI，通过包管理器运行，并检查 PATH。"
 keywords:
   - intlayer
   - 命令

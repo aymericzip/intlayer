@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-09-27
 priority: 8
-title: Custom URL Rewrites
+title: "Custom URL Rewrites: Localised Paths"
 description: Learn how to configure and use custom URL rewrites in Intlayer to define locale-specific paths.
 keywords:
   - Custom URL Rewrites

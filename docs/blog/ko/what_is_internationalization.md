@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
-title: "국제화(i18n)란? 의미, 정의 및 과제"
+title: "국제화(i18n)란? 의미와 과제"
 description: "i18n은 무슨 뜻일까요? 국제화가 무엇인지, 왜 i18n으로 줄여 쓰는지, 현지화(l10n)와 어떻게 다른지, 그리고 구현 시 흔히 겪는 과제를 알아보세요."
 keywords:
   - i18n 의미
@@ -182,11 +182,11 @@ i18n의 또 다른 중요한 이점은 사용자 경험의 향상입니다. 사�
 
 스택에 맞는 i18n 라이브러리를 찾고 있다면 다음 가이드를 확인하세요:
 
-- React: [React i18n 라이브러리 선택 방법](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_react_i18n_library.md)
-- Vue: [Vue i18n 라이브러리 선택 방법](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_vue_i18n_library.md)
-- Svelte: [Svelte i18n 라이브러리 선택 방법](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_svelte_i18n_library.md)
-- Solid: [Solid i18n 라이브러리 선택 방법](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_solid_i18n_library.md)
-- Next.js: [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
+- [React i18n 라이브러리 선택 방법](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_react_i18n_library.md)
+- [Vue i18n 라이브러리 선택 방법](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_vue_i18n_library.md)
+- [Svelte i18n 라이브러리 선택 방법](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_svelte_i18n_library.md)
+- [Solid i18n 라이브러리 선택 방법](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_solid_i18n_library.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## 결론
 

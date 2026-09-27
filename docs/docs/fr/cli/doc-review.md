@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Revue de Document
+title: "intlayer doc review : relire les docs traduites"
 description: Apprenez comment revoir les fichiers de documentation pour la qualité, la cohérence et l'exhaustivité à travers différentes locales.
 keywords:
   - Revue

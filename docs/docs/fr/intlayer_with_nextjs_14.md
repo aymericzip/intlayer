@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-08-29
+updatedAt: 2026-09-27
 priority: 9
 title: "Next.js 14 i18n - Guide complet pour traduire votre application"
-description: "Oubliez i18next. Le guide 2026 pour créer une application Next.js 14 multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
+description: "Configurez Intlayer dans Next.js 14 App Router : middleware de routage par locale, Server et Client Components, métadonnées et sitemap localisés."
 keywords:
   - Internationalisation
   - Documentation
@@ -25,7 +25,7 @@ history:
 author: aymericzip
 ---
 
-# Traduisez votre site web Next.js 14 et App Router avec Intlayer | Internationalisation (i18n)
+# Traduisez votre site web Next.js 14 et App Router avec Intlayer
 
 ## Table des matières
 

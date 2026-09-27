@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-10
+updatedAt: 2026-09-27
 priority: 8
 title: "JavaScript i18n の歴史：2011 年から 2026 年までの歩み"
-description: "2011 年から 2026 年までのフロントエンド国際化の変遷を辿ります。React、Vue、Next.js、Angular、Svelte、Solid におけるリリース時期、設計上の課題、主要な革新を徹底解説。"
+description: "2011年から2026年までのフロントエンド i18n の変遷：React、Vue、Next.js、Angular、Svelte、Solid のリリース時期、設計上の課題、主要な革新。"
 keywords:
   - i18n 歴史
   - JavaScript 国際化
@@ -49,8 +49,6 @@ author: aymericzip
 アプローチは劇的に変貌を遂げました。グローバル変数や `t('key')` の文字列検索から始まり、フレームワーク特化型ライブラリ、コンパイル時抽出、TypeScript による厳密な型付け、Server Components、Tree-shaking、そしてビルド時にコンテンツ自体を最適化されたコードへ変換するコンパイラ指向のアプローチへと到達しています。
 
 本記事では、2011 年から 2026 年までの技術進化を総括します。各世代のツールが何を解決しようとし、何が成功し、どこで壁にぶつかったのか、そしてフロントエンドアーキテクチャの変遷が現代の i18n にどう結実しているのかを紐解きます。
-
-![JavaScript 国際化ライブラリのエコシステム](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目次
 
@@ -143,6 +141,8 @@ ICU メッセージ構文の解釈や正規表現による変数展開を実行�
 ## フレームワーク時代：エコシステムごとの進化
 
 2016 年から 2026 年にかけて、フロントエンドの構造は大きく成熟しました。TypeScript が標準化され、コンポーネント設計が洗練され、Webpack、Vite、Turbopack によりきめ細やかなコード分割が普及し、React Server Components がサーバー描画の利点を復活させ、コンパイラがコードを直接解析する時代が訪れました。
+
+![JavaScript 国際化ライブラリのエコシステム](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 以下のタブでは、各エコシステムがこれらの課題にどう向き合ってきたかをまとめています。これらの環境において、`react-intlayer` やその同系列パッケージ（`next-intlayer`、`vue-intlayer`、`angular-intlayer`、`svelte-intlayer`、`solid-intlayer`）は、各フレームワークの実行特性に合わせた高速な実装を提供しています。
 

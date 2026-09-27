@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "2026 में सही React i18n लाइब्रेरी कैसे चुनें"
-description: "React internationalization के लिए एक निर्णय गाइड। react-i18next, react-intl, Lingui, use-intl, Paraglide और Intlayer की तुलना करने से पहले किन सवालों के जवाब देने चाहिए, और प्रत्येक विकल्प bundle size, typing और maintenance में क्या लागत लेता है।"
+description: "React i18n चुनने की गाइड: react-i18next, react-intl, Lingui, use-intl, Paraglide और Intlayer की तुलना से पहले किन सवालों के जवाब देने चाहिए।"
 keywords:
   - react i18n
   - react internationalization
@@ -25,8 +25,6 @@ author: aymericzip
 React में कोई इन-बिल्ट i18n primitive नहीं आता है। पहले दिन आप जो लाइब्रेरी चुनते हैं, वह तय करती है कि अनुवाद कैसे स्टोर होंगे, वे बंडल तक कैसे पहुंचेंगे, और अगले कुछ वर्षों के लिए आपका कितना काम बढ़ जाएगा। अधिकांश टीमें लोकप्रियता के आधार पर चुनाव करती हैं, और फिर 2,000 कुंजियों पर पहुंचने के बाद उन्हें इसके नुकसानों का पता चलता है।
 
 यह गाइड विपरीत दिशा में काम करता है: पहले अपने प्रोजेक्ट के बारे में कुछ सवालों के जवाब दें, और फिर उन जवाबों को उपयुक्त लाइब्रेरी से मिलाएँ। यह सादे React (Vite, React Router, TanStack Start) पर केंद्रित है। Next.js की अपनी बाधाएं हैं, जिन्हें [Next.js तुलना](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md) में शामिल किया गया है।
-
-![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## विषय सूची
 
@@ -97,6 +95,8 @@ SSR और Server Components के आसपास डिज़ाइन कि
 
 लाइब्रेरी के आकार [TanStack Start बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md) से आते हैं: एक खाली घटक में प्रोवाइडर प्लस हुक, बंडलिंग, ट्री-शेकिंग और मिनिफिकेशन के बाद, 10 पेज और 10 लोकेल्स। सामग्री को अलग से मापा जाता है।
 
+![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | लाइब्रेरी               | तरंग          | सामग्री मॉडल                         | टाइप सुरक्षा                        | संदेश प्रारूप                 | लाइब्रेरी का आकार                                |
 | :---------------------- | :------------ | :----------------------------------- | :---------------------------------- | :---------------------------- | :----------------------------------------------- |
 | `react-i18next`         | रनटाइम        | केंद्रीय JSON, नेमस्पेस              | 2/5 — Opt-in (`CustomTypeOptions`)  | i18next (प्रत्यय बहुवचन)      | ~18.4 kB                                         |
@@ -147,7 +147,7 @@ SSR और Server Components के आसपास डिज़ाइन कि
 </Accordion>
 <Accordion header="आप बाद में Next.js App Router पर जा सकते हैं">
 
-React context सर्वर/क्लाइंट सीमा को पार नहीं करता है। केवल एक क्लाइंट हुक पर निर्मित लाइब्रेरीज़ (`react-i18next`, `react-intl`) को जिस दिन आप RSC अपनाते हैं, उस दिन एक समानांतर सर्वर API की आवश्यकता होगी। `use-intl` (`next-intl` के रूप में) और Intlayer (`next-intlayer` के रूप में) में पहले से ही वह विभाजन है। एक पैटर्न को मानकीकृत करने से पहले [Next.js i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/frameworks/nextjs.md) पढ़ें।
+React context सर्वर/क्लाइंट सीमा को पार नहीं करता है। केवल एक क्लाइंट हुक पर निर्मित लाइब्रेरीज़ (`react-i18next`, `react-intl`) को जिस दिन आप RSC अपनाते हैं, उस दिन एक समानांतर सर्वर API की आवश्यकता होगी। `use-intl` (`next-intl` के रूप में) और Intlayer (`next-intlayer` के रूप में) में पहले से ही वह विभाजन है। एक पैटर्न को मानकीकृत करने से पहले [Next.js i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md) पढ़ें।
 
 </Accordion>
 </AccordionGroup>
@@ -565,8 +565,8 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 
 ## आगे पढ़ना
 
-- [i18n लाइब्रेरी बेंचमार्क: बंडल आकार, रिसाव और लोकेल-स्विच समय](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md) और [TanStack Start रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
-- [React i18n: प्रोवाइडर मॉडल कैसे काम करता है और इसकी लागत क्या है](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/frameworks/react.md)
+- [i18n लाइब्रेरी बेंचमार्क: बंडल आकार, रिसाव और लोकेल-स्विच समय](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md)
+- [TanStack Start रिपोर्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md)
 - [react-i18next बनाम react-intl बनाम Intlayer, फीचर दर फीचर](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/react-i18next_vs_react-intl_vs_intlayer.md)
 - [next-i18next बनाम next-intl बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/next-i18next_vs_next-intl_vs_intlayer.md)
 - [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
@@ -574,4 +574,6 @@ export const CartSummary: FC<{ count: number }> = ({ count }) => {
 - [प्रति-घटक बनाम केंद्रीकृत i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md)
 - [बिल्ड समय पर बंडल अनुकूलन कैसे काम करता है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
 - [Vite + React ऐप में i18n सेट अप करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md)
-- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_vue_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_svelte_i18n_library.md) और [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_solid_i18n_library.md) के लिए समान गाइड
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_solid_i18n_library.md)

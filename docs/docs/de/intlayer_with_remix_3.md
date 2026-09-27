@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Remix 3 i18n - Vollständige Anleitung zur Übersetzung Ihrer App"
-description: "Vergessen Sie i18next. Der Leitfaden 2026 zur Erstellung einer mehrsprachigen (i18n) Remix 3-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Leistung."
+description: "Intlayer in Remix 3 einrichten: Locale-Erkennung in der Router-Middleware, übersetzte Route-Handler und Views sowie lokalisierte URLs."
 keywords:
   - Internationalisierung
   - Dokumentation
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Übersetzen Sie Ihre Remix 3-Website mit Intlayer | Internationalisierung (i18n)
+# Übersetzen Sie Ihre Remix 3-Website mit Intlayer
 
 Dieser Leitfaden zeigt, wie Sie **Intlayer** für eine nahtlose Internationalisierung in **Remix 3**-Anwendungen integrieren, einschließlich sprachsensitiver Routenführung, typsicherer Inhaltsdeklarationen, serverseitig gerenderter JSX-Komponenten und plattformübergreifender Unterstützung für Node.js, Bun, Deno und Cloudflare Workers.
 

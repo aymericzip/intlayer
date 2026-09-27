@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname 函数文档 | vue-intlayer
-description: 了解如何使用 vue-intlayer 包中的 usePathname 函数
+description: "在 Vue 中使用 usePathname，以 computed ref 的形式获取去掉语言段的当前路径，用于支持语言的导航。"
 keywords:
   - usePathname
   - pathname
@@ -106,5 +106,5 @@ const pathname = usePathname();
 
 ## 相关内容
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vue-intlayer/useLocale.md) — 当前 locale 及其切换器
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md) — 此 hook 所使用的底层实用函数
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vue-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md)

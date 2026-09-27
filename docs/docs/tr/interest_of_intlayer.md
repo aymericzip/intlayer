@@ -2,7 +2,7 @@
 createdAt: 2024-08-14
 updatedAt: 2026-05-31
 priority: 8
-title: Intlayer'ın Önemi
+title: "Neden Intlayer? Diğer i18n kütüphanelerine göre avantajları"
 description: Projelerinizde Intlayer kullanmanın yararlarını ve avantajlarını keşfedin. Intlayer'ın diğer framework'ler arasında neden öne çıktığını anlayın.
 keywords:
   - Yararlar
@@ -221,6 +221,10 @@ Bu yaklaşım şunları yapmanızı sağlar:
 
 6. **Yükleme performansını optimize edin**
    - Bir bileşen lazy-load yüklenirse, ilgili içeriği de aynı anda yüklenecektir
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## Intlayer'ın Ek Özellikleri
 

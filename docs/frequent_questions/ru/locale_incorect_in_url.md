@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Неверная локаль, полученная из URL
-description: Узнайте, как исправить неверную локаль, полученную из URL.
+description: "Исправьте неверную локаль из URL в Next.js, например «about» вместо «en», используя структуру папок [locale], которую ожидает Intlayer."
 keywords:
   - локаль
   - url

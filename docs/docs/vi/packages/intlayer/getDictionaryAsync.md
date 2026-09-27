@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu Hàm getDictionaryAsync | intlayer
-description: Xem cách sử dụng hàm getDictionaryAsync cho package intlayer
+description: "Dùng getDictionaryAsync để tải một locale của từ điển và đọc nội dung đã được diễn giải, không kèm ngôn ngữ khác."
 keywords:
   - getDictionaryAsync
   - dictionary
@@ -130,9 +130,9 @@ Một plain loader map được duyệt dọc theo cùng một chuỗi dự phò
 
 ## Các Hàm Liên Quan
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayerAsync.md): Hàm mà các ứng dụng gọi; build plugins viết lại nó thành `getDictionaryAsync`.
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getDictionary.md): Đối tác đồng bộ lấy một từ điển đầy đủ.
-- [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md): Các bộ sưu tập và biến thể, cũng như các bản đồ loader mà chúng tạo ra.
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getDictionary.md)
+- [Dynamic dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/index.md)
 
 ## TypeScript
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "next-i18next vs next-intl vs Intlayer：2026 年对比"
-description: "Next.js 应该选择哪个 i18n 库？从包体积、TypeScript 类型安全、Server Components、路由和开发体验等方面对比 next-i18next、next-intl 和 Intlayer。"
+description: "Next.js 该选哪个 i18n 库？从包体积、TypeScript、Server Components、路由和开发体验对比 next-i18next、next-intl 和 Intlayer。"
 keywords:
   - next-intl
   - next-i18next
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-i18next VS next-intl VS intlayer | Next.js 国际化 (i18n)
+# next-i18next VS next-intl VS intlayer
 
 ![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -80,6 +80,10 @@ author: aymericzip
 Next.js 为你内置了国际化路由支持（例如区域段）。但该功能本身并不进行翻译。你仍然需要一个库来向用户呈现本地化内容。
 
 市面上有许多 i18n 库，但在 Next.js 领域，当前有三个正在获得关注：next-i18next、next-intl 和 Intlayer。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 架构与可扩展性
 

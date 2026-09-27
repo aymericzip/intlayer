@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 문서 번역
+title: "intlayer doc translate: 마크다운 문서 번역"
 description: AI 번역 서비스를 사용하여 문서 파일을 자동으로 번역하는 방법을 알아보세요.
 keywords:
   - 번역

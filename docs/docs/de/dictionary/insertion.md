@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Einfügung
-description: Erfahren Sie, wie Sie Einfügeplatzhalter in Ihren Inhalten deklarieren und verwenden. Diese Dokumentation führt Sie durch die Schritte, um Werte dynamisch innerhalb vordefinierter Inhaltsstrukturen einzufügen.
+title: "Insertion: Variablen in übersetzten Inhalten"
+description: "Fügen Sie mit dem insert()-Knoten von Intlayer und {{Platzhaltern}} dynamische Werte in übersetzte Texte ein, typisiert aus Ihrer Deklaration."
 keywords:
   - Einfügung
   - Dynamischer Inhalt

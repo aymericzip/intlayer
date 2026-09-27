@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-12
-updatedAt: 2026-09-19
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer कैसे काम करता है
+title: "Intlayer कैसे काम करता है: आर्किटेक्चर का अवलोकन"
 description: जानें कि Intlayer आंतरिक रूप से कैसे काम करता है। समझें कि Intlayer को शक्तिशाली बनाने वाली संरचना और घटक क्या हैं।
 keywords:
   - Intlayer

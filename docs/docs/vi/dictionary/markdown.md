@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: Markdown
-description: Tìm hiểu cách khai báo và sử dụng nội dung Markdown trong trang web đa ngôn ngữ của bạn với Intlayer. Làm theo các bước trong tài liệu trực tuyến này để tích hợp Markdown một cách liền mạch vào dự án của bạn.
+title: "Nội dung Markdown trong Intlayer"
+description: "Khai báo Markdown đã dịch trong Intlayer bằng md() hoặc file .content.md, rồi render bằng component của bạn trong mọi framework."
 keywords:
   - Markdown
   - Quốc tế hóa

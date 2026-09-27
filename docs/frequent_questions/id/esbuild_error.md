@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Kesalahan ESBuild
-description: Pelajari cara memperbaiki kesalahan ESBuild.
+title: "Perbaiki error ESBuild dengan Intlayer"
+description: "Perbaiki error ESBuild saat build Intlayer, biasanya karena plugin bundler untuk framework Anda tidak ada atau salah dikonfigurasi."
 keywords:
   - esbuild
   - error

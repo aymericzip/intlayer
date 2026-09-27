@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: الترحيل من react-i18next إلى Intlayer
-description: تعرّف على كيفية ترحيل تطبيق React الخاص بك من react-i18next إلى Intlayer باستخدام محول التوافق.
+title: "@intlayer/react-i18next: محوّل توافق لـ react-i18next"
+description: "احتفظ بشيفرة react-i18next وقدّمها عبر Intlayer: ثبّت @intlayer/react-i18next، واضبط أسماء بديلة للاستيرادات، واكتشف ما يغيّره المحوّل داخليًا."
 keywords:
   - react-i18next
   - i18next
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# الترحيل من react-i18next إلى Intlayer
+# @intlayer/react-i18next: محوّل توافق لـ react-i18next
 
 للحصول على برنامج تعليمي مفصل وكامل خطوة بخطوة، يرجى مراجعة [دليل الترحيل الكامل من react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_react-i18next_to_intlayer.md).
 
@@ -57,3 +57,7 @@ export default defineConfig({
 - **الجمع والسياق:** يتعامل مع جمع i18next المبني على اللاحقات (`key_one` و `key_other`) باستخدام `Intl.PluralRules` الأصلي ولواحق السياق (`key_male`).
 - **مكوّن `<Trans>`:** معاد تنفيذه لدعم prop `components`، صيغ الكائن والمصفوفة، والعلامات المرقمة `<1>...</1>` المعيّنة مباشرة إلى عقد React الخاصة بك.
 - **نموذج `i18n`:** يحل المفاتيح مباشرة من Intlayer دون جلب ملفات JSON كبيرة، مما يؤدي إلى أحجام bundle أصغر بشكل كبير.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)

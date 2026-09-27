@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi getDictionary | intlayer
-description: Lihat cara menggunakan fungsi getDictionary untuk paket intlayer
+description: "Gunakan getDictionary untuk menginterpretasi objek kamus yang Anda berikan sendiri dan mendapatkan kontennya untuk suatu locale dengan semua plugin konten."
 keywords:
   - getDictionary
   - dictionary
@@ -124,9 +124,9 @@ const allItems = getDictionary(blogPostGroup, { locale: "fr" });
 
 ## Fungsi Terkait
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayer.md): Interpretasi yang sama, tetapi kamus dicari berdasarkan kunci dalam registry yang dihasilkan.
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getDictionaryAsync.md): Rekan untuk peta loader per-locale.
-- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useDictionary.md): Setara dengan React hook, membaca locale dari provider.
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getDictionaryAsync.md)
+- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useDictionary.md)
 
 ## TypeScript
 

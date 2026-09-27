@@ -288,9 +288,9 @@ totalOpenings(5); // اللغة العربية → "5 وظائف شاغرة"
 
 ## مراجع إضافية
 
-- [المحتوى الجمعي في Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md): العقدة `plural` المستندة إلى CLDR وجدول فئاتها.
-- [المحتوى القائم على select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/select.md): مكافئ ICU `select` ومتى تستخدم `enu` أو `cond`.
-- [عناصر التضمين النائبة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md): استيفاء `{{name}}` والاكتشاف التلقائي.
-- [مقارنة أداء مكتبات i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md): حجم الحزم وتكاليف وقت التشغيل بين المكتبات.
-- [مقارنة react-i18next و react-intl و Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/react-i18next_vs_react-intl_vs_intlayer.md): تحليل موسع لنماذج الرسائل الثلاثة.
-- [ما هي التدويل (i18n)؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/what_is_internationalization.md): أصل المصطلح، والفرق بين التدويل والتعريب، والرؤية الأوسع لإدارة المحتوى متعدد اللغات.
+- [المحتوى الجمعي في Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plurial.md)
+- [المحتوى القائم على select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/select.md)
+- [عناصر التضمين النائبة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)
+- [مقارنة أداء مكتبات i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/index.md)
+- [مقارنة react-i18next و react-intl و Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/react-i18next_vs_react-intl_vs_intlayer.md)
+- [ما هي التدويل (i18n)؟](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/what_is_internationalization.md)

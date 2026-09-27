@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Analog i18n - Повний посібник з перекладу вашого застосунку"
-description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Analog. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
+description: "Налаштування Intlayer в Analog: типізований контент за компонентами, визначення та зміна локалі, локалізовані маршрути для Angular з Vite."
 keywords:
   - Інтернаціоналізація
   - Документація
@@ -27,7 +27,7 @@ history:
 author: aymericzip
 ---
 
-# Перекладіть свій додаток Analog (Angular) за допомогою Intlayer | Інтернаціоналізація (i18n)
+# Перекладіть свій додаток Analog (Angular) за допомогою Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Код" value="code">

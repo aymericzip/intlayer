@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-09-20
+updatedAt: 2026-09-27
 priority: 8
-title: 自动填充
-description: 了解如何在 Intlayer 中使用自动填充功能，根据预定义模式自动填充内容。按照本说明文档高效实现自动填充功能。
+title: "Auto Fill：自动翻译缺失的内容"
+description: "使用 Intlayer 的 auto fill 从源语言生成缺失的翻译，并写入正确的内容文件。"
 keywords:
   - 自动填充
   - 内容自动化

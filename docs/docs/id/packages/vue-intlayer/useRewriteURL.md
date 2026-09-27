@@ -2,7 +2,7 @@
 updatedAt: 2025-08-23
 priority: 5
 createdAt: 2025-08-23
-title: Composable useRewriteURL
+title: "Composable useRewriteURL | vue-intlayer"
 description: Composable khusus Vue untuk mengelola penulisan ulang URL yang dilokalkan di Intlayer.
 keywords:
   - useRewriteURL

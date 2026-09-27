@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
-title: "Was ist Internationalisierung (i18n)? Bedeutung, Definition und Herausforderungen"
+title: "Was ist Internationalisierung (i18n)? Bedeutung und Herausforderungen"
 description: "Was bedeutet i18n? Erfahren Sie, was Internationalisierung ist, warum sie mit i18n abgekürzt wird, wie sie sich von der Lokalisierung (l10n) unterscheidet und welche Herausforderungen die Umsetzung mit sich bringt."
 keywords:
   - i18n bedeutung
@@ -182,11 +182,11 @@ Es ist wichtig, das richtige Tool für Ihre Bedürfnisse auszuwählen und Ihre I
 
 Wenn Sie die passende i18n-Bibliothek für Ihren Stack suchen, lesen Sie die folgenden Leitfäden:
 
-- React: [Wie man eine i18n-Bibliothek für React auswählt](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_react_i18n_library.md)
-- Vue: [Wie man eine i18n-Bibliothek für Vue auswählt](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_vue_i18n_library.md)
-- Svelte: [Wie man eine i18n-Bibliothek für Svelte auswählt](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_svelte_i18n_library.md)
-- Solid: [Wie man eine i18n-Bibliothek für Solid auswählt](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_solid_i18n_library.md)
-- Next.js: [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Wie man eine i18n-Bibliothek für React auswählt](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_react_i18n_library.md)
+- [Wie man eine i18n-Bibliothek für Vue auswählt](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_vue_i18n_library.md)
+- [Wie man eine i18n-Bibliothek für Svelte auswählt](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_svelte_i18n_library.md)
+- [Wie man eine i18n-Bibliothek für Solid auswählt](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/how_to_pick_solid_i18n_library.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## Fazit
 

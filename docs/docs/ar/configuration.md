@@ -2,7 +2,7 @@
 createdAt: 2024-08-13
 updatedAt: 2026-08-22
 priority: 8
-title: الإعدادات (Configuration)
+title: "إعدادات Intlayer (intlayer.config.ts)"
 description: تعرف على كيفية إعداد Intlayer لتطبيقك. افهم الإعدادات والخيارات المختلفة المتاحة لتخصيص Intlayer وفقًا لاحتياجاتك.
 keywords:
   - الإعدادات

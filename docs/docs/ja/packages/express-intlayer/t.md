@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
 title: t 関数ドキュメント | express-intlayer
-description: express-intlayer パッケージの t 関数の使い方を見る
+description: "express-intlayer の t 関数で、リクエストごとに検出されたロケールに応じて Express でローカライズされたレスポンスを返します。"
 keywords:
   - t
   - 翻訳

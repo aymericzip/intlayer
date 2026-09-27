@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 从 URL 获取的语言环境不正确
-description: 了解如何修复从 URL 获取的语言环境不正确的问题。
+description: "修复 Next.js 中从 URL 读取到错误语言的问题（例如得到「about」而不是「en」），使用 Intlayer 预期的 [locale] 目录结构。"
 keywords:
   - locale
   - url

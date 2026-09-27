@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Di Chuyển Từ Svelte I18n Sang Intlayer"
 description: "Tìm hiểu cách di chuyển ứng dụng Svelte của bạn từ svelte-i18n sang Intlayer bằng bộ điều hợp tương thích."
@@ -46,3 +46,7 @@ Bên dưới:
 - **Cú pháp ICU:** Được xử lý đầy đủ bởi resolver ICU được chia sẻ (phân tích tương đương `intl-messageformat`).
 - **Formatter:** Các lời gọi `$date`, `$time`, `$number` chuyển hướng an toàn đến các formatter gốc core của Intlayer.
 - **Phân tích Babel/SWC:** Bộ phân tích Intlayer đọc các người gọi store Svelte (`$_`) bên trong các file `.svelte` nguồn của bạn trước khi biên dịch để tự động xây dựng các chunk từ điển liên quan.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)

@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: Tài liệu Hook useDictionary | next-intlayer
-description: Xem cách sử dụng hook useDictionary cho gói next-intlayer
+description: "Dùng useDictionary trong Next.js để diễn giải đối tượng từ điển do bạn tự khai báo, với bản dịch cho locale hiện tại."
 keywords:
   - useDictionary
   - dictionary

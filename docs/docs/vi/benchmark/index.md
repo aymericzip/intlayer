@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
-title: Điểm chuẩn các thư viện i18n
+title: "Benchmark thư viện i18n: bundle và hiệu năng"
 description: Tìm hiểu cách Intlayer so sánh với các thư viện i18n khác về hiệu năng và kích thước bundle bundle.
 keywords:
   - benchmark
@@ -40,3 +40,7 @@ Báo cáo chi tiết và tài liệu kỹ thuật cho từng framework nằm bê
 - [**Vue Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
 - [**Solid Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md)
 - [**Svelte Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)

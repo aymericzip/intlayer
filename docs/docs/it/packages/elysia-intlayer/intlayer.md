@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-09-27
 priority: 5
 title: Documentazione del plugin intlayer per Elysia | elysia-intlayer
-description: Scopri come utilizzare il plugin intlayer del pacchetto elysia-intlayer
+description: "Il plugin intlayer per Elysia rileva la locale dell'utente e inserisce le funzioni di traduzione nel contesto di ogni route."
 keywords:
   - intlayer
   - elysia

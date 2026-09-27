@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Di Chuyển Từ Lingui Sang Intlayer"
 description: "Tìm hiểu cách di chuyển ứng dụng của bạn từ Lingui sang Intlayer bằng bộ điều hợp tương thích."
@@ -43,3 +43,7 @@ Bên dưới:
 - **Macro:** Chúng biên dịch chính xác như trước đây, đảm bảo không có sự gián đoạn trong cú pháp nguồn của bạn.
 - **Dịch thuật tại runtime:** `i18n._()` được đặt bí danh sử dụng các từ điển Intlayer. Cả ID được đặt tên rõ ràng và ID được băm đều được ánh xạ đầy đủ bằng cách sử dụng các plugin đồng bộ `.po` của Intlayer để tổng hợp và loại bỏ các key một cách an toàn.
 - **Khả năng ICU:** Hỗ trợ số nhiều, lựa chọn và các biến thể ICU vẫn mạnh mẽ nhờ trình phân tích ICU thống nhất của Intlayer, đảm bảo đầu ra hiển thị giống nhau.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)

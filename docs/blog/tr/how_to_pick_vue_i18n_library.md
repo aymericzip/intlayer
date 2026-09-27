@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "2026'da Doğru Vue i18n Kütüphanesi Nasıl Seçilir"
-description: Vue ve Nuxt uluslararasılaştırması için bir karar rehberi. vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide ve Intlayer'ı karşılaştırmadan önce yanıtlanması gereken sorular ve her seçimin bundle boyutu, typing ve SSR payload açısından maliyeti.
+description: "Vue ve Nuxt i18n için karar rehberi: vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide ve Intlayer'ı karşılaştırmadan önceki sorular."
 keywords:
   - vue i18n
   - vue uluslararasılaştırma
@@ -24,8 +24,6 @@ author: aymericzip
 "Vue i18n" hem genel bir terim hem de neredeyse herkesin yüklediği kütüphanenin adıdır. Bu durum aynı anda hem kullanışlı hem de yanıltıcıdır: `vue-i18n` iyi bir varsayılandır, ancak tek seçenek değildir ve seçimi yönlendirmesi gereken sorular (SSR var mı yok mu, kaç sayfa var, çevirileri kim yazıyor) `npm install` öncesinde nadiren sorulur.
 
 Bu rehber önce bu soruları sorar, ardından sade Vite + Vue ve Nuxt için yanıtları uygun kütüphanelerle eşleştirir.
-
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## İçindekiler
 
@@ -87,6 +85,8 @@ Grafik, sayfa başına yaklaşık 30 KB metin içeren, 1 ila 10 dile çevrilmiş
 
 Kütüphane boyutları [Vue benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md) çalışmasından alınmıştır: 10 sayfalık, 10 dilli bir uygulamada, bundling, tree-shaking ve minification sonrasında boş bir bileşendeki plugin artı composable. İçerik ayrı olarak ölçülür.
 
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Kütüphane      | İçerik modeli                                                     | Tip güvenliği                   | Mesaj formatı                       | Route başına bölme      | Kütüphane boyutu                                    |
 | :------------- | :---------------------------------------------------------------- | :------------------------------ | :---------------------------------- | :---------------------- | :-------------------------------------------------- |
 | `vue-i18n`     | Dil başına merkezi kataloglar, isteğe bağlı SFC `<i18n>` blokları | 2/5 — Schema generic ile opt-in | Kendine ait (pipe)                  | Hayır                   | ~24.3 kB                                            |
@@ -110,7 +110,7 @@ Composition modunda (`legacy: false`) `vue-i18n`, runtime-only build göndermek 
 </Accordion>
 <Accordion header="Dil bazlı routing, sitemap ve hreflang içeren Nuxt">
 
-`@nuxtjs/i18n` size routing stratejisini, `hreflang` etiketlerini ve dil tespitini kod yazmadan sağlar; bu bile tek başına az sayfalı içerik siteleri için onu haklı çıkarır. Sınırı dil başına katalog yapısıdır: on civarı sayfayı geçtikten sonra SSR payload her route'un metnini taşır. Sizin durumunuz buysa, `vue-i18n`'i route bazlı mesajlarla manuel olarak bağlayın veya scoped içeriğe geçin. [Nuxt i18n yazısı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/list_i18n_technologies/frameworks/nuxt.md) önce routing stratejisi seçimini ele alır.
+`@nuxtjs/i18n` size routing stratejisini, `hreflang` etiketlerini ve dil tespitini kod yazmadan sağlar; bu bile tek başına az sayfalı içerik siteleri için onu haklı çıkarır. Sınırı dil başına katalog yapısıdır: on civarı sayfayı geçtikten sonra SSR payload her route'un metnini taşır. Sizin durumunuz buysa, `vue-i18n`'i route bazlı mesajlarla manuel olarak bağlayın veya scoped içeriğe geçin. [Nuxt i18n yazısı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md) önce routing stratejisi seçimini ele alır.
 
 </Accordion>
 <Accordion header="Çeviriler bir TMS'den veya ICU teslim eden bir ajanstan geliyor">
@@ -439,11 +439,14 @@ Dolaylı olarak. Tarayıcı botları routing, `hreflang`, `<html lang>` ve metni
 ## Daha fazlası
 
 - [Vue i18n benchmark: bundle boyutu, sızıntı ve dil değiştirme süreleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/vue.md)
-- [Vue i18n: vue-i18n nasıl çalışır ve nerede zorlar](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/list_i18n_technologies/frameworks/vue.md) ve [Nuxt i18n yazısı](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/list_i18n_technologies/frameworks/nuxt.md)
-- [vue-i18n ve Intlayer karşılaştırması, özellik özellik](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md) ve [vue-i18n ve Intlayer benchmark karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n ve Intlayer karşılaştırması, özellik özellik](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md)
+- [vue-i18n ve Intlayer benchmark karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer.md)
 - [vue-i18n artık eskidi mi?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/is_vue-i18n_outdated.md)
 - [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 - [Compiler ve deklaratif i18n karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
 - [Bileşen bazlı ve merkezi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md)
-- [Vite + Vue uygulamasında i18n kurulumu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+vue.md) ve [Nuxt uygulamasında i18n kurulumu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md)
-- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_react_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_svelte_i18n_library.md) ve [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_solid_i18n_library.md) için aynı rehber
+- [Vite + Vue uygulamasında i18n kurulumu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+vue.md)
+- [Nuxt uygulamasında i18n kurulumu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nuxt.md)
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_react_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_solid_i18n_library.md)

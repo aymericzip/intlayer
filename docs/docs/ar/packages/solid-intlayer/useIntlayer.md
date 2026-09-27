@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-06
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق hook useIntlayer | solid-intlayer
-description: اطلع على كيفية استخدام الـ hook useIntlayer لحزمة solid-intlayer
+description: "استخدم useIntlayer في Solid لقراءة المحتوى المترجم لقاموس عبر مفتاحه، كقيم تفاعلية تتحدّث عند تغيّر اللغة."
 keywords:
   - useIntlayer
   - القاموس

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname Fonksiyon Dokümantasyonu | vue-intlayer
-description: vue-intlayer paketinden usePathname fonksiyonunu nasıl kullanacağınızı öğrenin
+description: "Vue'da usePathname ile locale segmenti olmadan geçerli yolu computed ref olarak alın, locale'e duyarlı gezinme için kullanın."
 keywords:
   - usePathname
   - pathname
@@ -106,5 +106,5 @@ const pathname = usePathname();
 
 ## İlgili
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vue-intlayer/useLocale.md) — mevcut locale + locale değiştirici
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPathWithoutLocale.md) — bu hook tarafından kullanılan temel yardımcı program
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vue-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPathWithoutLocale.md)

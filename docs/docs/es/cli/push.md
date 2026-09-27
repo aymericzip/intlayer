@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Empujar Diccionarios
-description: Aprende cómo empujar tus diccionarios al editor y CMS de Intlayer.
+title: "intlayer push: subir diccionarios al CMS"
+description: "Sube tus diccionarios locales de Intlayer al editor visual y al CMS para que traductores y gestores de contenido puedan editarlos."
 keywords:
   - Empujar
   - Diccionarios

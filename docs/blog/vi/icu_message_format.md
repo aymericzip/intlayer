@@ -284,9 +284,9 @@ Với các dự án đang sở hữu sẵn chuỗi ICU thực tế, [bộ điề
 
 ## Tài liệu tham khảo thêm
 
-- [Nội dung số nhiều trong Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md): node `plural` dựa trên CLDR và bảng danh mục.
-- [Nội dung dựa trên select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/select.md): tính năng tương đương ICU `select` và cách dùng `enu` hoặc `cond`.
-- [Trình giữ chỗ chèn giá trị](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md): nội suy `{{name}}` và tự động nhận diện.
-- [So sánh hiệu năng thư viện i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md): dung lượng bundle và chi phí thực thi runtime.
-- [react-i18next so với react-intl và Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/react-i18next_vs_react-intl_vs_intlayer.md): phân tích sâu về ba mô hình xử lý thông điệp.
-- [Quốc tế hóa (i18n) là gì?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/what_is_internationalization.md): nguồn gốc thuật ngữ i18n, sự khác biệt với l10n và phạm vi rộng lớn hơn ngoài việc định dạng thông điệp.
+- [Nội dung số nhiều trong Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plurial.md)
+- [Nội dung dựa trên select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/select.md)
+- [Trình giữ chỗ chèn giá trị](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md)
+- [So sánh hiệu năng thư viện i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
+- [react-i18next so với react-intl và Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Quốc tế hóa (i18n) là gì?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/what_is_internationalization.md)

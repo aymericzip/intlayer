@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Datei
-description: Erfahren Sie, wie Sie externe Dateien mit der Funktion `file` in Ihr Inhaltsverzeichnis einbetten. Diese Dokumentation erklärt, wie Intlayer Dateien dynamisch verknüpft und verwaltet.
+title: "Dateiinhalte: externe Dateien einbetten"
+description: "Betten Sie externe Dateien wie Markdown oder Text mit der file()-Funktion in Ihre Intlayer-Wörterbücher ein, synchron mit der Quelldatei."
 keywords:
   - Datei
   - Internationalisierung

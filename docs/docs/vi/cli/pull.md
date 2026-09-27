@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Kéo Từ Điển
-description: Tìm hiểu cách kéo từ điển từ trình chỉnh sửa Intlayer và CMS.
+title: "intlayer pull: kéo từ điển từ CMS"
+description: "Tải về dự án các từ điển đã sửa trong trình chỉnh sửa trực quan hoặc Intlayer CMS, đưa thay đổi từ xa vào mã nguồn."
 keywords:
   - Kéo
   - Từ điển

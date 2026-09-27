@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "Lingui ile Next.js 16 i18n: App Router Kurulum Kılavuzu"
 description: "Next.js 16 App Router'da Lingui kurulumu: Server Components, SWC makroları, proxy yönlendirme, generateMetadata, hreflang, sitemap ve robots.txt, benchmark verileriyle."
@@ -43,9 +43,21 @@ Bu kılavuz, Lingui'yi bir **Next.js 16 App Router** projesinde şu özelliklerl
 - `generateStaticParams` ile her yerel ayarın **statik olarak render edilmesi**.
 - **Eksiksiz çok dilli SEO**: çevrilmiş `generateMetadata`, canonical, `x-default` ile `hreflang`, Open Graph yerel ayarları, JSON-LD, `sitemap.ts`, `robots.ts` ve yerelleştirilmiş 404 sayfaları.
 
-> Başka bir kütüphane mi arıyorsunuz? [next-intl kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-intl.md), [next-i18next kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-i18next.md) veya [Next.js + Intlayer kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md) göz atın.
+> Başka bir kütüphane mi arıyorsunuz?
 
-> TanStack Start mı kullanıyorsunuz? [TanStack Start + Lingui kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_lingui.md) bakın. Kütüphaneleri karşılaştırmak için [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md) ve [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) yazılarını okuyun.
+- [next-intl kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-intl.md)
+- [next-i18next kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-i18next.md)
+- [Next.js + Intlayer kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
+
+> TanStack Start mı kullanıyorsunuz?
+
+- [TanStack Start + Lingui kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_lingui.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## Benchmark Next.js'te Lingui Hakkında Ne Söylüyor?
 
@@ -94,7 +106,11 @@ Lingui'nin, bir Next.js App Router projesinin genellikle ihtiyaç duyduğu özel
 
 > Çalışma zamanı boyutları [Next.js benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/nextjs.md) testinden alınmıştır. Ayrıntılı bir inceleme için [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md) yazısını okuyun.
 
-> Diğer Next.js rehberleri: [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-intl.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-i18next.md) ve [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md).
+> Diğer Next.js rehberleri:
+
+- [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-intl.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-i18next.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_16.md)
 
 ## Uygulamanız Gereken İyi Pratikler
 
@@ -107,7 +123,9 @@ Lingui'nin, bir Next.js App Router projesinin genellikle ihtiyaç duyduğu özel
 - Dil değiştirici (locale switcher) için **gerçek bağlantılar (links) kullanın**, böylece arama motoru botları her dili keşfedebilir.
 - **CI ortamında `lingui extract` çalıştırın**, böylece yeni bir mesaj asla çevrilmeden yayına alınmaz.
 
-> [Uluslararasılaşma ve SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md) kılavuzumuza, [hreflang kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md) ve [Next.js çok dilli SEO karşılaştırmasına](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/nextjs-multilingual-seo-comparison.md) göz atın.
+- [Uluslararasılaşma ve SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md)
+- [hreflang kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md)
+- [Next.js çok dilli SEO karşılaştırmasına](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/nextjs-multilingual-seo-comparison.md)
 
 ## Next.js Uygulamasında Lingui Kurulumu İçin Adım Adım Kılavuz
 

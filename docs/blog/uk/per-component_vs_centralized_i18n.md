@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
-title: "Per-Component проти централізованого i18n: новий підхід з Intlayer"
+title: "i18n за компонентами чи централізовано в React"
 description: "Детальний огляд стратегій інтернаціоналізації в React: порівняння централізованого, per-key і per-component підходів та презентація Intlayer."
 keywords:
   - i18n
@@ -98,6 +98,10 @@ extension Localization on String {
 - Далі, коли бібліотека широко прийнята, змінити екосистему на інші патерни стає складно.
 - Використання централізованого підходу також спрощує роботу в Translation Management Systems, таких як Crowdin, Phrase або Localized.
 - Логіка підходу per-component складніша за централізований і вимагає додаткового часу на розробку, особливо коли потрібно вирішувати задачі на кшталт визначення місця розташування контенту.
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
 
 ### Добре, але чому б просто не дотримуватися централізованого підходу?
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "使用 next-intl 实现 Next.js 16 i18n：App Router 配置指南"
 description: "在 Next.js 16 App Router 应用中逐步配置 next-intl：语言路由、按页面加载消息、服务端与客户端组件，以及 SEO 元数据。"
@@ -32,9 +32,13 @@ author: aymericzip
 
 **next-intl** 是一个专为 Next.js App Router 设计的流行国际化（i18n）库。它提供了一种无缝构建多语言 Next.js 应用的方法，具备出色的 TypeScript 支持和内置优化。
 
-> 如果你愿意，也可以参考 [next-i18next 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-i18next.md)，或者直接使用 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_next-intl.md)。
+> 如果你愿意，也可以参考 [next-i18next 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18n_using_next-i18next.md)，或者直接使用 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)。
 
 > 查看 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md) 中的比较。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 基准测试对 Next.js 上的 next-intl 有何结论
 

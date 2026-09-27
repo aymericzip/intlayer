@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getEnumeration फ़ंक्शन दस्तावेज़ीकरण | intlayer
-description: intlayer पैकेज के लिए getEnumeration फ़ंक्शन का उपयोग कैसे करें देखें
+description: "getEnumeration (उपनाम enu) से एन्यूमरेशन ऑब्जेक्ट की शर्तों के आधार पर किसी संख्या से मेल खाता कंटेंट चुनें।"
 keywords:
   - getEnumeration
   - अनुवाद

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Documentación de la función usePathname | vue-intlayer
-description: Aprenda cómo usar la función usePathname del paquete vue-intlayer
+description: "Usa usePathname en Vue para leer la ruta actual sin el segmento de locale, como computed ref para una navegación localizada."
 keywords:
   - usePathname
   - pathname
@@ -106,5 +106,5 @@ const pathname = usePathname();
 
 ## Relacionado
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vue-intlayer/useLocale.md) — locale actual + selector de locale
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getPathWithoutLocale.md) — la utilidad subyacente que usa este composable
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vue-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getPathWithoutLocale.md)

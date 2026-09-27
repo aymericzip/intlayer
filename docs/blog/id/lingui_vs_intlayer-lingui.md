@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui vs @intlayer/lingui: Makro Sama, Runtime Berbeda"
-description: "Apa yang berubah ketika aplikasi React mempertahankan makro Lingui tetapi menyajikannya melalui adaptor kompatibilitas @intlayer/lingui. Ukuran komponen, hidrasi, kebocoran, dan JavaScript per halaman diukur pada kode TanStack Start yang sama, termasuk area di mana adaptor tertinggal."
+description: "Aplikasi React tetap memakai makro Lingui yang dilayani adaptor @intlayer/lingui. Ukuran komponen, hidrasi, kebocoran, dan JavaScript per halaman diukur."
 keywords:
   - Lingui
   - "@intlayer/lingui"
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui VS @intlayer/lingui | Makro Sama, Runtime Berbeda
+# Lingui VS @intlayer/lingui: Makro Sama, Runtime Berbeda
 
 `@intlayer/lingui` adalah adaptor kompatibilitas (compat adapter) untuk `@lingui/core` dan `@lingui/react`. Pemanggilan `` t`...` ``, `<Trans>`, `useLingui()`, dan `i18n._()` Anda tetap sama persis; makro terus terkompilasi seperti biasa; yang berubah adalah sumber pesan pada saat runtime. Alih-alih satu katalog terkompilasi per bahasa, setiap lokasi pemanggilan terikat pada kamus Intlayer yang dikompilasi khusus untuknya.
 
@@ -289,12 +289,16 @@ export default defineConfig({
 
 ## Perbandingan terkait
 
-- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md) (perbandingan kedua pustaka pada benchmark yang sama)
-- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer-next-intl.md) (seri perbandingan adaptor)
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer-i18next.md) (seri perbandingan adaptor)
-- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer-vue-i18n.md) (seri perbandingan adaptor)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer-next-intl.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18next_vs_intlayer-i18next.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer-vue-i18n.md)
 - [Panduan adaptor kompatibilitas: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/lingui.md)
 - [Pendekatan berbasis kompilator vs i18n deklaratif](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/compiler_vs_declarative_i18n.md)
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Kesimpulan
 

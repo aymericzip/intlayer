@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: 삽입
-description: 콘텐츠에서 삽입 플레이스홀더를 선언하고 사용하는 방법을 배웁니다. 이 문서는 미리 정의된 콘텐츠 구조 내에 값을 동적으로 삽입하는 단계를 안내합니다.
+title: "삽입: 번역 콘텐츠의 변수"
+description: "Intlayer의 insert() 노드와 {{플레이스홀더}}로 번역된 문자열에 동적 값을 삽입합니다. 콘텐츠 선언에서 타입이 지정됩니다."
 keywords:
   - 삽입
   - 동적 콘텐츠

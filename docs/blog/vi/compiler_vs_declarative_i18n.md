@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-24
-updatedAt: 2025-11-24
+updatedAt: 2026-09-27
 priority: 8
 title: Trình Biên Dịch so với i18n Khai Báo
 description: Khám phá các đánh đổi kiến trúc giữa quốc tế hóa dựa trên trình biên dịch "ma thuật" và quản lý nội dung khai báo rõ ràng.
@@ -65,6 +65,10 @@ Và thế là i18n dựa trên trình biên dịch ra đời.
 > - angular-i18n (Phương pháp gốc của Angular, ahead-of-time, gộp các file XLIFF trực tiếp vào template trong quá trình build)
 > - Tolgee (Kết hợp mã khai báo với một SDK trong ngữ cảnh để chỉnh sửa "click-to-translate" trực tiếp trong giao diện người dùng)
 > - Intlayer (Phương pháp theo từng component, sử dụng các file khai báo nội dung cho phép tree-shaking gốc và kiểm tra TypeScript)
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Trình Biên Dịch Intlayer
 

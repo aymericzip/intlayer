@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-31
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Vanilla JS i18n - Guide complet pour traduire votre application"
-description: "Oubliez i18next. Le guide 2026 pour créer une application Vanilla JS multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
+description: "Configurez Intlayer en JavaScript pur, sans framework : traduisez une page HTML statique, changez de locale et gardez un contenu typé."
 keywords:
   - Internationalisation
   - Documentation
@@ -28,7 +28,7 @@ history:
 author: aymericzip
 ---
 
-# Traduisez votre site web Vanilla JS avec Intlayer | Internationalisation (i18n)
+# Traduisez votre site web Vanilla JS avec Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Code" value="code">

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
-title: "什么是国际化（i18n）？含义、定义与挑战"
+title: "什么是国际化（i18n）？含义与挑战"
 description: "i18n 是什么意思？了解什么是国际化、为什么缩写为 i18n、它与本地化（l10n）有何不同，以及实施过程中常见的挑战。"
 keywords:
   - i18n 的含义
@@ -183,11 +183,11 @@ author: aymericzip
 
 如果你正在为自己的技术栈寻找合适的 i18n 库，请参阅以下指南：
 
-- React: [如何选择 React i18n 库](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_react_i18n_library.md)
-- Vue: [如何选择 Vue i18n 库](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_vue_i18n_library.md)
-- Svelte: [如何选择 Svelte i18n 库](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_svelte_i18n_library.md)
-- Solid: [如何选择 Solid i18n 库](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_solid_i18n_library.md)
-- Next.js: [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
+- [如何选择 React i18n 库](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_react_i18n_library.md)
+- [如何选择 Vue i18n 库](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_vue_i18n_library.md)
+- [如何选择 Svelte i18n 库](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_svelte_i18n_library.md)
+- [如何选择 Solid i18n 库](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_solid_i18n_library.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## 结论
 

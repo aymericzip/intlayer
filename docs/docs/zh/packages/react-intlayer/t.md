@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: t 函数文档 | react-intlayer
-description: 查看如何使用 react-intlayer 包中的 t 函数
+description: "使用 react-intlayer 的 t 函数，直接在 React 组件中声明翻译，无需单独的内容文件。"
 keywords:
   - t
   - 翻译

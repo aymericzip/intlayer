@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Elysia i18n - Полное руководство по переводу вашего приложения"
-description: "Больше не i18next. Руководство 2026 года по созданию многоязычного (i18n) приложения Elysia. Переводите с помощью AI-агентов и оптимизируйте размер пакета, SEO и производительность."
+description: "Настройка Intlayer в Elysia: определение локали для каждого запроса через плагин, перевод ответов API и типизированный контент на Bun."
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Переведите свой backend-сайт Elysia с помощью Intlayer | Internationalization (i18n)
+# Переведите свой backend-сайт Elysia с помощью Intlayer
 
 `elysia-intlayer` — это мощный плагин интернационализации (i18n) для приложений Elysia, разработанный для того, чтобы сделать ваши backend-сервисы доступными во всём мире, предоставляя локализованные ответы на основе предпочтений клиента.
 
@@ -269,9 +269,9 @@ curl -H "Accept-Language: es" http://localhost:3000/
 
 `elysia-intlayer` полностью совместим с:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/index.md) для приложений React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/index.md) для приложений Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/index.md) для приложений Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/index.md)
 
 Он также работает без проблем с любым решением интернационализации в различных окружениях, включая браузеры и API запросы.
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-21
+updatedAt: 2026-09-27
 priority: 6
-title: MCP 서버 문서
-description: MCP 서버의 기능과 설정을 탐색하여 서버 관리 및 운영을 최적화하세요.
+title: "AI 어시스턴트를 위한 Intlayer MCP 서버"
+description: "Intlayer MCP 서버를 Cursor, VS Code, Claude Desktop에 연결해 AI 어시스턴트가 문서를 읽고 Intlayer 설정을 도울 수 있게 하세요."
 keywords:
   - MCP 서버
   - 서버 관리

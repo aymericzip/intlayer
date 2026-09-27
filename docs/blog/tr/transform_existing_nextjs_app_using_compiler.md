@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 8
-title: "Mevcut Bir Next.js Uygulamasını Sonradan Çok Dilli (i18n) Yapma Rehberi (2026)"
-description: "Mevcut bir Next.js uygulamasını kapsamlı bir yeniden yapılandırma olmadan sonradan çok dilli (i18n) yapma rehberi (2026). Intlayer ile otomatik içerik çıkarma, yapay zeka çevirisi ve yönlendirme."
+title: "Mevcut bir Next.js uygulamasını çok dilli yapmak"
+description: "Mevcut bir Next.js uygulamasına yeniden yazmadan i18n ekleyin: sabit metinleri otomatik çıkarın, yapay zekayla çevirin ve yerelleştirilmiş yönlendirmeyi kurun."
 keywords:
   - Next.js i18n
   - Uluslararasılaştırma

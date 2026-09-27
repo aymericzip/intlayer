@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Міграція з react-i18next на Intlayer"
-description: "Дізнайтесь, як мігрувати свій React додаток з react-i18next на Intlayer за допомогою адаптера сумісності."
+title: "@intlayer/react-i18next: адаптер сумісності для react-i18next"
+description: "Збережіть код на react-i18next і обслуговуйте його через Intlayer: встановіть @intlayer/react-i18next, налаштуйте аліаси імпортів і дізнайтеся, що адаптер змінює під капотом."
 keywords:
   - react-i18next
   - i18next
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Міграція з react-i18next на Intlayer
+# @intlayer/react-i18next: адаптер сумісності для react-i18next
 
 Для повного та детального покрокового посібника дивіться наш повний [Посібник міграції з react-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/migration_from_react-i18next_to_intlayer.md).
 
@@ -57,3 +57,7 @@ export default defineConfig({
 - **Множини & Контекст:** Обробляє pluralization на основі суфіксів в i18next (`key_one`, `key_other`) з використанням нативного `Intl.PluralRules` та суфіксів контексту (`key_male`).
 - **`<Trans>` Компонент:** Перереалізований для підтримки пропса `components`, форм об'єкта та масиву, а також нумерованих тегів `<1>...</1>` з прямим відображенням на ваші React-вузли.
 - **`i18n` екземпляр:** Розв'язує ключі безпосередньо з Intlayer без завантаження великих JSON-файлів, що призводить до значно менших розмірів bundle.
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-29
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer CMS | Externalize your content into the Intlayer CMS
+title: "Intlayer CMS: Externalize Your Multilingual Content"
 description: Externalize your content into the Intlayer CMS to delegate the management of your content to your team.
 keywords:
   - CMS

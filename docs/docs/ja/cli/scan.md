@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 5
-title: ウェブサイトのスキャン
+title: "intlayer scan：サイトの i18n と SEO を監査"
 description: Intlayer CLIのscanコマンドを使用して、任意のウェブサイトのページサイズを測定し、i18n/SEOの健全性を監査する方法について学びます。
 keywords:
   - スキャン

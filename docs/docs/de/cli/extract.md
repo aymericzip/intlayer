@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Strings extrahieren
+title: "intlayer extract: Texte aus Komponenten extrahieren"
 description: Erfahren Sie, wie Sie Strings aus Ihren Komponenten in eine .content-Datei in der Nähe der Komponente extrahieren.
 keywords:
   - Extrahieren

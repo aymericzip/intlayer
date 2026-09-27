@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-27
 priority: 8
 title: "Định dạng ngày tháng và số theo từng ngôn ngữ bằng Intl"
-description: Bạn nhiều khả năng không cần đến thư viện định dạng bên ngoài. Cách Intl xử lý ngày tháng, số, tiền tệ và danh sách theo locale, chi phí bộ nhớ đệm và lỗi múi giờ trên production.
+description: "Bạn có cần thư viện định dạng? Cách Intl định dạng ngày, số, tiền tệ và danh sách theo locale, chi phí bộ nhớ đệm và lỗi múi giờ chỉ xảy ra trên production."
 keywords:
   - định dạng ngày theo locale
   - Intl.DateTimeFormat

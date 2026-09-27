@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: Documentation de la fonction t | adonis-intlayer
-description: Découvrez comment utiliser la fonction t pour le package adonis-intlayer
+description: "Utilisez la fonction t d'adonis-intlayer pour renvoyer des réponses localisées dans AdonisJS, selon la locale détectée pour chaque requête."
 keywords:
   - t
   - traduction

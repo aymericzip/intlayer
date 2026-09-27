@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 8
-title: Enumeracja
-description: Odkryj, jak deklarować i używać enumeracji na swojej wielojęzycznej stronie internetowej. Postępuj zgodnie z krokami w tej dokumentacji online, aby skonfigurować swój projekt w kilka minut.
+title: "Enumeracja: komunikaty zależne od liczby"
+description: "Używaj enumeracji Intlayer, aby pokazywać różne treści w zależności od liczby lub zakresu, z węzłem enu() i warunkami jak '<-1' czy '>5'."
 keywords:
   - Enumeracja
   - Internacjonalizacja

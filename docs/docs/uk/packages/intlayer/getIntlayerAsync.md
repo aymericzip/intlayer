@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Документація функції getIntlayerAsync | intlayer
-description: Дізнайтеся, як використовувати функцію getIntlayerAsync з пакета intlayer
+description: "Використовуйте getIntlayerAsync, щоб завантажити й прочитати контент словника лише для однієї локалі, не включаючи інші мови в бандл."
 keywords:
   - getIntlayerAsync
   - dictionary
@@ -106,9 +106,9 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## Пов'язані функції
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayer.md): Синхронний еквівалент, який читає об'єднаний словник.
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getDictionaryAsync.md): Низькорівнева функція, яку переписують плагіни збірки.
-- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocale.md): Визначає локаль вхідного запиту.
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getDictionaryAsync.md)
+- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocale.md)
 
 ## TypeScript
 

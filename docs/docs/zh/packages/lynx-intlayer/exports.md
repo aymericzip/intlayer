@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
-title: lynx-intlayer Package Documentation
-description: Lynx support for Intlayer, providing polyfills for locale support.
+title: "lynx-intlayer 包文档"
+description: "lynx-intlayer 包将 Intlayer 集成到 Lynx 应用中，提供移动端语言支持所需的 polyfill 和辅助函数。"
 keywords:
   - lynx-intlayer
   - lynx

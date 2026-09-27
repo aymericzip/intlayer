@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: Czy vue-i18n jest przestarzały w 2026 roku?
 description: vue-i18n był standardem dla ekosystemu Vue i Nuxt przez dekadę. Jednak w naszych testach okazał się najcięższym runtime i18n w sieci. Wyjaśniamy dlaczego.
@@ -68,6 +68,10 @@ Ostatnie 12 miesięcy:
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Sprawdzona biblioteka gwarantuje przewidywalność. Jednak nowoczesne technologie opierają się na modyfikacjach AST w trakcie budowania, czyszczeniu nieużywanego kodu i automatycznym tłumaczeniu przez AI. Rozwiązanie zakorzenione wyłącznie w runtime nie wykorzystuje łatwo tych możliwości.
+
+> Aby zrozumieć, skąd wzięły się te biblioteki, przeczytaj historię i18n w JavaScript.
+
+- [Historia i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/history_of_i18n.md)
 
 ## Pomiary w Vite + Vue
 

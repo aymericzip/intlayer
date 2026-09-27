@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "الترحيل من @nuxtjs/i18n إلى Intlayer | التدويل (i18n)"
-description: "تعرّف على كيفية ترحيل تطبيق Nuxt الخاص بك من @nuxtjs/i18n إلى Intlayer — خطوة بخطوة، دون كسر الكود الموجود. استخدم محول التوافق @intlayer/vue-i18n للانتقال بدون انقطاع."
+title: "الانتقال من @nuxtjs/i18n إلى Intlayer"
+description: "انقل تطبيق Nuxt من @nuxtjs/i18n إلى Intlayer خطوة بخطوة، بدءًا بمحوّل @intlayer/vue-i18n حتى لا يتعطل شيء."
 keywords:
   - "@nuxtjs/i18n"
   - vue-i18n
@@ -63,6 +63,10 @@ Intlayer أيضاً هو الحل ذو **التطوير الأكثر نشاطا�
 
 </Accordion>
 </AccordionGroup>
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## استراتيجيات الترحيل
 
@@ -293,9 +297,9 @@ export default config;
 
 ## اذهب أبعد
 
-- **محرر مرئي** — إدارة الترجمات بصرياً في متصفحك: [محرر Intlayer المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
-- **CMS** — خارج الخدمة وإدارة المحتوى بعداً: [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
-- **VS Code Extension** — الحصول على الإكمال التلقائي واكتشاف أخطاء الترجمة في الوقت الفعلي: [ملحق Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
-- **مرجع CLI** — قائمة كاملة بأوامر CLI: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
-- **Intlayer مع Nuxt** — دليل الإعداد الكامل لـ Nuxt: [intlayer_with_nuxt.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md)
-- **Intlayer مع Vue** — دليل الإعداد الكامل لـ Vue: [intlayer_with_vite+vue.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md)
+- [محرر Intlayer المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [ملحق Intlayer VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
+- [Intlayer مع Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nuxt.md)
+- [Intlayer مع Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+vue.md)

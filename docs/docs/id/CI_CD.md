@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-08-13
+updatedAt: 2026-09-27
 priority: 8
-title: Integrasi CI/CD
+title: "Integrasi CI/CD Intlayer untuk terjemahan"
 description: Pelajari cara mengintegrasikan Intlayer ke dalam pipeline CI/CD Anda untuk manajemen konten dan deployment otomatis.
 keywords:
   - CI/CD

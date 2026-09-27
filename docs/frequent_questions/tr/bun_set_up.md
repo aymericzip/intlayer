@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Bun kullanırken modül bulunamadı hatası alıyorum
-description: Bun kullanırken oluşan hatayı düzeltin.
+description: 'Intlayer''ı Bun ile kullanırken çıkan "Cannot find package" hatasını düzeltin; Bun''ın require() kapsamını sınırlamasından kaynaklanır, çözüm yapılandırmasıyla.'
 keywords:
   - bun
   - modül bulunamadı

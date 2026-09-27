@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-05-10
-updatedAt: 2026-05-10
+updatedAt: 2026-09-27
 priority: 6
-title: Sync PO plugin
+title: "Sync PO Plugin: Gettext Files with Intlayer"
 description: Synchronise Intlayer dictionaries with Gettext PO files. Keep your existing i18n while using Intlayer to manage, translate, and test your messages.
 keywords:
   - Intlayer

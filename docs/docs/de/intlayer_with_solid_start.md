@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Solid Start i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
-description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) SolidStart-App. Server-gerendertes Locale-Routing, hreflang, Sitemap und KI-gestützte Übersetzung."
+description: "Intlayer in SolidStart einrichten: serverseitig gerendertes Locale-Routing, reaktive übersetzte Inhalte, hreflang und mehrsprachige Sitemap."
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Übersetzen Sie Ihre SolidStart-Website mit Intlayer | Internationalisierung (i18n)
+# Übersetzen Sie Ihre SolidStart-Website mit Intlayer
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "next-i18next로 Next.js 16 i18n 구현하기: App Router 설정 가이드"
 description: "Next.js 16 App Router 앱에 next-i18next와 i18next를 단계별로 설정하기: 네임스페이스, 로케일 라우팅, 서버 및 클라이언트 컴포넌트, SEO 메타데이터."
@@ -44,6 +44,10 @@ author: aymericzip
 > 대안으로 [next-intl 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18n_using_next-intl.md)를 참조하거나, 직접 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_16.md)를 사용할 수 있습니다.
 
 > [next-i18next vs next-intl vs Intlayer 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)를 확인하세요.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## 벤치마크로 본 Next.js의 next-i18next
 

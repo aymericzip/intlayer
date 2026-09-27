@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "AdonisJS i18n - Полное руководство по переводу вашего приложения"
-description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения AdonisJS. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
+description: "Настройка Intlayer в AdonisJS: определение локали для каждого запроса через middleware, перевод ответов API и представлений, типизированный контент."
 keywords:
   - Интернационализация
   - Документация
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Переведите ваш бэкенд на AdonisJS с помощью Intlayer | Интернационализация (i18n)
+# Переведите ваш бэкенд на AdonisJS с помощью Intlayer
 
 `adonis-intlayer`, это мощный пакет интернационализации (i18n) для приложений AdonisJS, разработанный для того, чтобы сделать ваши бэкенд-сервисы доступными во всем мире, предоставляя локализованные ответы на основе предпочтений клиента.
 
@@ -247,9 +247,9 @@ export default class ExampleController {
 
 `adonis-intlayer` полностью совместим с:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/index.md) для приложений React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/index.md) для приложений Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/index.md) для приложений Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/index.md)
 
 Он также беспрепятственно работает с любым решением для интернационализации в различных средах, включая браузеры и API-запросы. Вы можете настроить промежуточное ПО для обнаружения локали через заголовки или куки:
 

@@ -3,7 +3,7 @@ createdAt: 2025-09-07
 updatedAt: 2025-09-07
 priority: 5
 title: getMultilingualUrls Fonksiyonu Dokümantasyonu | intlayer
-description: intlayer paketinde getMultilingualUrls fonksiyonunun nasıl kullanılacağını görün
+description: "getMultilingualUrls ile desteklenen her locale için bir URL'nin yerelleştirilmiş sürümünü oluşturun; hreflang etiketleri ve sitemap'ler için."
 keywords:
   - getMultilingualUrls
   - çeviri

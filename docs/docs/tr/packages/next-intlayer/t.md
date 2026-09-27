@@ -3,7 +3,7 @@ createdAt: 2025-09-07
 updatedAt: 2025-09-07
 priority: 5
 title: t Fonksiyonu Dokümantasyonu | next-intlayer
-description: next-intlayer paketi için t fonksiyonunun nasıl kullanılacağını görün
+description: "next-intlayer'ın t fonksiyonuyla çevirileri ayrı bir içerik dosyası olmadan doğrudan Next.js bileşenlerinizde tanımlayın."
 keywords:
   - t
   - çeviri

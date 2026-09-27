@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: क्या मैं URL पथ का अनुवाद कर सकता हूँ?
-description: जानें कि URL पथ का अनुवाद कैसे करें।
+description: "हाँ: Intlayer URL पाथ का अनुवाद कर सकता है, जैसे /about को /hi/hamare-bare-mein, प्रति लोकेल कॉन्फ़िगर किए URL रीराइट से।"
 keywords:
   - array
   - content

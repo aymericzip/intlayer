@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: Plik z Treścią
-description: Dowiedz się, jak dostosować rozszerzenia dla plików deklaracji treści. Postępuj zgodnie z tą dokumentacją, aby efektywnie wdrażać warunki w swoim projekcie.
+title: "Pliki deklaracji treści (.content.ts)"
+description: "Deklaruj wielojęzyczne treści w plikach .content obok komponentów: obsługiwane formaty, rozszerzenia plików i sposób, w jaki Intlayer je wykrywa."
 keywords:
   - Plik z Treścią
   - Dokumentacja

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-07-30
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: Nội dung dựa trên lựa chọn (Select)
-description: Tìm hiểu cách sử dụng nội dung dựa trên lựa chọn (select) trong Intlayer để hiển thị động nội dung dựa trên giá trị chuỗi tùy ý. Theo dõi tài liệu này để triển khai hiệu quả nội dung giống như switch trong dự án của bạn.
+title: "Nội dung theo lựa chọn trong Intlayer"
+description: "Chọn nội dung theo một giá trị chuỗi bất kỳ với node select của Intlayer, tương tự switch cho trạng thái, vai trò hoặc biến thể."
 keywords:
   - Nội dung dựa trên lựa chọn
   - Select Content

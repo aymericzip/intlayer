@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: getLocalizedPath 函数文档 | intlayer
-description: 查看如何在 intlayer 包中使用 getLocalizedPath 函数
+description: "使用 getLocalizedPath 将内部路径转换为本地化形式，应用你的重写规则和语言前缀。"
 keywords:
   - getLocalizedPath
   - 翻译
@@ -161,5 +161,5 @@ getLocalizedPath("/about");
 
 ## 相关函数
 
-- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getCanonicalPath.md): 将本地化路径解析回其内部规范路径。
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md): 生成一个完全本地化的 URL（包括协议、主机和语言前缀）。
+- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getCanonicalPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)

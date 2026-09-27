@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: توثيق دالة getPathWithoutLocale | intlayer
-description: تعرف على كيفية استخدام دالة getPathWithoutLocale لحزمة intlayer
+description: "استخدم getPathWithoutLocale لإزالة جزء اللغة من عنوان URL أو مسار، للعناوين المطلقة والمسارات النسبية."
 keywords:
   - getPathWithoutLocale
   - الترجمة

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-18
-updatedAt: 2025-11-06
+updatedAt: 2026-09-27
 priority: 8
-title: Giải pháp thay thế nền tảng L10n
-description: Tìm nền tảng L10n thay thế tốt nhất cho nhu cầu của bạn
+title: "Giải pháp mã nguồn mở thay thế Crowdin cho bản địa hóa"
+description: "So sánh Crowdin với Intlayer, hệ thống quản lý bản dịch mã nguồn mở: quy trình làm việc, tích hợp cho lập trình viên, dịch bằng AI và giá."
 keywords:
   - L10n
   - TMS
@@ -25,19 +25,19 @@ author: aymericzip
 
 <TOC/>
 
-# Hệ thống quản lý bản dịch
+## Hệ thống quản lý bản dịch
 
 A Translation Management System (TMS) là một nền tảng phần mềm được thiết kế để tự động hóa và đơn giản hóa quy trình dịch và bản địa hóa (L10n). Theo truyền thống, một TMS hoạt động như một trung tâm tập trung nơi nội dung được tải lên, tổ chức và phân công cho các dịch giả. Nó quản lý quy trình làm việc, lưu trữ bộ nhớ bản dịch (để tránh dịch lại cùng một câu nhiều lần), và xử lý việc chuyển giao các tệp đã dịch trở lại cho các nhà phát triển hoặc quản lý nội dung.
 
 Về bản chất, TMS về lịch sử là cầu nối giữa mã kỹ thuật (nơi chứa strings) và các chuyên gia ngôn ngữ (những người hiểu văn hóa).
 
-# Crowdin
+## Crowdin
 
 Crowdin là một "lão làng" trong lĩnh vực này. Được thành lập năm 2009, nó xuất hiện vào thời điểm thách thức chính của bản địa hóa là vấn đề kết nối. Sứ mệnh của nó rất rõ ràng: kết nối copywriter, dịch giả và chủ dự án với nhau một cách hiệu quả.
 
 Trong hơn một thập kỷ, Crowdin đã là tiêu chuẩn ngành trong quản lý bản địa hóa. Nó giải quyết vấn đề phân mảnh bằng cách cho phép các nhóm tải lên các tệp `.po`, `.xml` hoặc `.yaml` và để các dịch giả làm việc trên chúng trong giao diện đám mây. Nó xây dựng danh tiếng dựa trên việc tự động hóa quy trình làm việc một cách vững chắc, cho phép các công ty mở rộng từ một ngôn ngữ lên mười ngôn ngữ mà không bị ngập trong các bảng tính.
 
-# Intlayer
+## Intlayer
 
 Intlayer được biết đến chủ yếu như một giải pháp i18n, nhưng nó cũng tích hợp một CMS. Khác với Crowdin, vốn chỉ giới hạn ở việc đóng vai trò như một lớp bọc quanh thiết lập i18n hiện có của bạn, Intlayer kiểm soát toàn bộ stack, từ lớp bundling đến phân phối nội dung từ xa, dẫn đến luồng nội dung mượt mà và hiệu quả hơn.
 
@@ -61,7 +61,7 @@ Do đó, Intlayer không chỉ tự định vị là một TMS, mà là một **
 
 Với Intlayer, bạn tạo bản dịch với chi phí inference của chính bạn. Bạn không bị ràng buộc vào mô hình giá của một nền tảng; bạn chọn nhà cung cấp (OpenAI, Anthropic, Mistral, v.v.), bạn chọn mô hình, và bạn dịch thông qua CI (Continuous Integration), CLI, hoặc trực tiếp qua CMS tích hợp. Điều này chuyển giá trị từ việc truy cập dịch giả sang quản lý ngữ cảnh.
 
-# So sánh song song
+## So sánh song song
 
 | Feature             | Crowdin (Legacy TMS)                                 | Intlayer (AI-Native)                                  |
 | :------------------ | :--------------------------------------------------- | :---------------------------------------------------- |

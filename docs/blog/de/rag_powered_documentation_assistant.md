@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-27
 priority: 8
-title: Aufbau eines RAG-basierten Dokumentationsassistenten (Chunking, Embeddings und Suche)
-description: Aufbau eines RAG-basierten Dokumentationsassistenten (Chunking, Embeddings und Suche)
+title: "Einen RAG-Dokumentationsassistenten bauen"
+description: "Wie wir einen KI-Assistenten für unsere Doku gebaut haben: Markdown-Chunking, Embeddings, Vektorsuche und Prompts, mit den Kompromissen, auf die wir stießen."
 keywords:
   - RAG
   - Dokumentation

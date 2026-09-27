@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-08-13
+updatedAt: 2026-09-27
 priority: 8
-title: Integración CI/CD
+title: "Integración CI/CD de Intlayer para traducciones"
 description: Aprende cómo integrar Intlayer en tu pipeline CI/CD para la gestión y despliegue automatizado de contenido.
 keywords:
   - CI/CD

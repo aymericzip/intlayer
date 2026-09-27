@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Documentação do Middleware intlayer para Express | express-intlayer
-description: Veja como usar o middleware intlayer do pacote express-intlayer
+description: "O middleware intlayer para Express detecta o locale do usuário e expõe t e getIntlayer via res.locals nos seus handlers."
 keywords:
   - intlayer
   - express

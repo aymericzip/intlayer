@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "2026年に最適なReact i18nライブラリを選ぶ方法"
-description: Reactの国際化（i18n）に関する意思決定ガイド。react-i18next、react-intl、Lingui、use-intl、Paraglide、Intlayerを比較する前に答えるべき質問と、バンドルサイズ、型安全性、メンテナンスコストにおける各選択肢のトレードオフを解説します。
+description: "React の i18n を選ぶための判断ガイド。react-i18next、react-intl、Lingui、use-intl、Paraglide、Intlayer を比較する前に答えるべき問い。"
 keywords:
   - react i18n
   - react 国際化
@@ -25,8 +25,6 @@ author: aymericzip
 Reactには標準のi18nプリミティブが用意されていません。プロジェクトの初期段階でどのライブラリを選択するかによって、翻訳がどのように保存され、どのようにバンドルへ組み込まれ、今後数年間にわたってどれだけの作業負荷が開発者に残り続けるかが決まります。多くのチームは知名度だけでライブラリを選び、翻訳キーが2,000個に達した段階でそのトレードオフに気づくことになります。
 
 本ガイドでは逆のアプローチを取ります。まずプロジェクトに関するいくつかの質問に答え、その回答に合ったライブラリをマッピングしていきます。本記事はプレーンなReact（Vite、React Router、TanStack Start）に焦点を当てています。Next.jsには独自の制約があり、それについては[Next.jsの比較記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)で解説しています。
-
-![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目次
 
@@ -97,6 +95,8 @@ SSRおよびServer Componentsを考慮して設計されています。サーバ
 
 ライブラリのサイズは[TanStack Startベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)に基づいています（空のコンポーネントにおけるプロバイダーとフック、バンドル・ツリーシェイキング・Minify後、10ページ・10ロケール）。コンテンツのサイズは別途測定されています。
 
+![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | ライブラリ              | 世代（Wave）       | コンテンツモデル                                 | 型安全性                                | メッセージフォーマット        | ライブラリサイズ                                 |
 | :---------------------- | :----------------- | :----------------------------------------------- | :-------------------------------------- | :---------------------------- | :----------------------------------------------- |
 | `react-i18next`         | ランタイム         | 中央JSON、名前空間                               | 2/5 — オプトイン（`CustomTypeOptions`） | i18next（サフィックス複数形） | 約18.4 kB                                        |
@@ -147,7 +147,7 @@ SSRおよびServer Componentsを考慮して設計されています。サーバ
 </Accordion>
 <Accordion header="将来的にNext.js App Routerへ移行する可能性がある">
 
-Reactのコンテキストはサーバーとクライアントの境界を越えることができません。クライアントフックのみに依存するライブラリ（`react-i18next`、`react-intl`）は、RSCを採用する段階で並行して動作するサーバーAPIが必要になります。`use-intl`（`next-intl`として）やIntlayer（`next-intlayer`として）はすでにその分割に対応しています。標準パターンを決定する前に、[Next.js i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/list_i18n_technologies/frameworks/nextjs.md)を確認してください。
+Reactのコンテキストはサーバーとクライアントの境界を越えることができません。クライアントフックのみに依存するライブラリ（`react-i18next`、`react-intl`）は、RSCを採用する段階で並行して動作するサーバーAPIが必要になります。`use-intl`（`next-intl`として）やIntlayer（`next-intlayer`として）はすでにその分割に対応しています。標準パターンを決定する前に、[Next.js i18nの記事](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)を確認してください。
 
 </Accordion>
 </AccordionGroup>
@@ -559,8 +559,8 @@ AIエージェントは依然としてi18nに苦労しています（ロケー�
 
 ## さらに詳しく知るには
 
-- [i18nライブラリ ベンチマーク: バンドルサイズ、リーク、ロケール切り替え時間](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)および[TanStack Startレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
-- [React i18n: プロバイダーモデルの仕組みとコスト](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/list_i18n_technologies/frameworks/react.md)
+- [i18nライブラリ ベンチマーク: バンドルサイズ、リーク、ロケール切り替え時間](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/index.md)
+- [TanStack Startレポート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)
 - [react-i18next vs react-intl vs Intlayerの機能別徹底比較](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/react-i18next_vs_react-intl_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/next-i18next_vs_next-intl_vs_intlayer.md)
 - [JavaScript i18nの歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
@@ -568,4 +568,9 @@ AIエージェントは依然としてi18nに苦労しています（ロケー�
 - [コンポーネント単位 vs 中央集約型 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/per-component_vs_centralized_i18n.md)
 - [ビルド時におけるバンドル最適化の仕組み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/bundle_optimization.md)
 - [Vite + Reactアプリでのi18nセットアップ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react.md)
-- 各フレームワーク向けガイド: [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_vue_i18n_library.md)、[Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_svelte_i18n_library.md)、[Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_solid_i18n_library.md)
+
+各フレームワーク向けガイド:
+
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/how_to_pick_solid_i18n_library.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "SvelteKit i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) SvelteKit 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在 SvelteKit 中配置 Intlayer：通过 hooks 实现语言路由，在 load 函数和组件中使用翻译内容，hreflang 与站点地图。"
 keywords:
   - 国际化
   - 文档
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译您的 SvelteKit 网站 | 国际化 (i18n)
+# 使用 Intlayer 翻译您的 SvelteKit 网站
 
 <Tabs defaultTab="code">
   <Tab label="代码" value="code">
@@ -774,8 +774,8 @@ bun run build # 或 bun run dev
 
 ### 深入了解
 
-- **可视化编辑器**：集成[Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)，以便直接从用户界面编辑翻译内容。
-- **CMS**：使用[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)实现内容管理的外部化。
+- [Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
 
 ## 常见问题
 

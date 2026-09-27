@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-08-22
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer Analytics | Inhalte nachverfolgen und A/B-Tests durchführen
+title: "Intlayer Analytics: Content-Exposition und A/B-Tests"
 description: Erfahren Sie, wie @intlayer/analytics Seiten-/Gebietsschema-Aufrufe und die Anzeige von Inhalten nachverfolgt und wie Sie damit A/B-Tests für Ihre Intlayer-Inhalte durchführen können.
 keywords:
   - Analytics

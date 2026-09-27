@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "Vite + React i18n - Guia completo para traduzir seu aplicativo"
-description: "Sem mais i18next. O guia 2026 para criar uma aplicação Vite + React multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
+description: "Configure o Intlayer em um app Vite e React: conteúdo tipado por componente, seletor de idioma, rotas localizadas e bundles por locale."
 keywords:
   - Internacionalização
   - Documentação
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Traduza seu site Vite e React usando Intlayer | Internacionalização (i18n)
+# Traduza seu site Vite e React usando Intlayer
 
 ## Índice
 

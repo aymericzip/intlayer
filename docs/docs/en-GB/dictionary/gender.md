@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: Gender-Based Content
-description: Learn how to use gender-based content in Intlayer to dynamically display content based on gender. Follow this documentation to implement gender-specific content efficiently in your project.
+title: "Gender-Based Content in Intlayer"
+description: "Adapt messages to the reader's gender with Intlayer's gender() node: male, female and fallback variants declared in one place."
 keywords:
   - Gender-Based Content
   - Dynamic Rendering

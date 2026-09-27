@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: useRewriteURL フックのドキュメント
-description: IntlayerでローカライズされたURLのリライトを管理するSvelte専用のフック。
+title: "useRewriteURL フックのドキュメント | svelte-intlayer"
+description: "Svelte の useRewriteURL で、設定の URL リライトに従ってブラウザの URL をローカライズされた形に書き換えます。"
 keywords:
   - useRewriteURL
   - svelte-intlayer

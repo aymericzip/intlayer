@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
-title: مقارنة مكتبات i18n
+title: "اختبار أداء مكتبات i18n: الحزمة والأداء"
 description: تعرف على كيفية مقارنة Intlayer بمكتبات i18n الأخرى من حيث الأداء وحجم الحزمة.
 keywords:
   - benchmark
@@ -40,3 +40,7 @@ Benchmark Bloom هي مجموعة لقياس الأداء تقيس التأثي�
 - [**Vue Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
 - [**Solid Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md)
 - [**Svelte Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)

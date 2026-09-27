@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-06
 priority: 5
 title: Інструкція по використанню хуку useIntlayer | next-intlayer
-description: Дізнайтеся, як використовувати хук useIntlayer для пакета next-intlayer
+description: "Використовуйте useIntlayer у Next.js, щоб читати локалізований контент словника за ключем у Client і Server Components."
 keywords:
   - useIntlayer
   - словник

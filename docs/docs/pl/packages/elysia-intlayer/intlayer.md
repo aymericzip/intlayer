@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja wtyczki intlayer dla Elysia | elysia-intlayer
-description: Zobacz, jak używać wtyczki intlayer z pakietu elysia-intlayer
+description: "Plugin intlayer dla Elysia wykrywa locale użytkownika i wstrzykuje funkcje tłumaczenia do kontekstu trasy każdego żądania."
 keywords:
   - intlayer
   - elysia

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: وثائق دالة validatePrefix | intlayer
-description: اطلع على كيفية استخدام دالة validatePrefix لحزمة intlayer
+description: "استخدم validatePrefix للتحقق مما إذا كان جزء من URL بادئة لغة صالحة وفق إعدادات Intlayer."
 keywords:
   - validatePrefix
   - ترجمة

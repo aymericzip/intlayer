@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-10
+updatedAt: 2026-09-27
 priority: 8
 title: "JavaScript i18n Tarihi: 2011'den 2026'ya"
-description: "2011'den 2026'ya frontend uluslararasılaştırmasının gelişimini keşfedin. React, Vue, Next.js, Angular, Svelte ve Solid ekosistemlerindeki sürüm tarihleri, mimari zorluklar ve temel yenilikler."
+description: "Frontend i18n'in 2011'den 2026'ya evrimi: React, Vue, Next.js, Angular, Svelte ve Solid'deki sürüm tarihleri, mimari sorunlar ve önemli yenilikler."
 keywords:
   - i18n tarihi
   - JavaScript uluslararasılaştırma
@@ -49,8 +49,6 @@ Bu soru, JavaScript i18n ekosistemini on yılı aşkın bir süre boyunca şekil
 Çözümler köklü biçimde dönüştü: küresel JavaScript nesneleri ve `t('anahtar')` çağrılarından çerçeveye özgü kütüphanelere, derleme zamanı metin çıkarımına, TypeScript ile üretilen katı türlere, Server Components mimarisine, tree-shaking'e ve nihayetinde çevirilerin doğrudan build aşamasında optimize JavaScript koduna dönüştürüldüğü derleyici tabanlı yaklaşımlara ulaştık.
 
 Bu makale, 2011'den 2026'ya uzanan bu süreci ele almaktadır: her araç neslinin çözmeye çalıştığı sorunlar, nelerin işe yaradığı, nelerin yetersiz kaldığı ve modern frontend mimarilerinin günümüz i18n çözümlerini nasıl etkilediği.
-
-![JavaScript Uluslararasılaştırma Kütüphaneleri Ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## İçindekiler
 
@@ -143,6 +141,8 @@ Sözlükler, onları kullanan bileşenlerden uzakta merkezi JSON dosyalarında t
 ## Çerçeveler Dönemi: Ekosistemlere Göre Gelişim
 
 2016 ile 2026 yılları arasında frontend mimarisi kökten değişti. TypeScript endüstri standardına dönüştü, bileşen yapıları olgunlaştı, Webpack, Vite ve Turbopack gibi paketleyiciler kod bölmeyi yaygınlaştırdı, React Server Components render işlemlerini yeniden sunucuya yönlendirdi ve derleyiciler uygulama kodunu doğrudan analiz etmeye başladı.
+
+![JavaScript Uluslararasılaştırma Kütüphaneleri Ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 Aşağıdaki sekmeler, farklı ekosistemlerin bu gereksinimlere nasıl yanıt verdiğini özetlemektedir. Bu ortamlar genelinde `react-intlayer` ve ilgili diğer sürümler (`next-intlayer`, `vue-intlayer`, `angular-intlayer`, `svelte-intlayer` ve `solid-intlayer`), her bir çatının çalışma zamanına özel yüksek performanslı çözümler sunmaktadır.
 

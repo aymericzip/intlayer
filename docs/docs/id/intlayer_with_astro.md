@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 10
 title: "Astro i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Astro multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di Astro: rute terlokalisasi, halaman .astro dan island terjemahan, tag hreflang, dan sitemap multibahasa."
 keywords:
   - internasionalisasi
   - dokumentasi
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan Situs Astro Anda dengan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan Situs Astro Anda dengan Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Kode" value="code">
@@ -496,12 +496,12 @@ export const GET: APIRoute = ({ site }) => {
 
 Lanjutkan membangun aplikasi Anda menggunakan framework pilihan Anda.
 
-- Intlayer + React: [Intlayer dengan React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_react.md)
-- Intlayer + Vue: [Intlayer dengan Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_vue.md)
-- Intlayer + Svelte: [Intlayer dengan Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_svelte.md)
-- Intlayer + Solid: [Intlayer dengan Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_solid.md)
-- Intlayer + Preact: [Intlayer dengan Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_preact.md)
-- Intlayer + Lit: [Intlayer dengan Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_lit.md)
+- [Intlayer dengan React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_react.md)
+- [Intlayer dengan Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_vue.md)
+- [Intlayer dengan Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_svelte.md)
+- [Intlayer dengan Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_solid.md)
+- [Intlayer dengan Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_preact.md)
+- [Intlayer dengan Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="Ekstrak konten komponen Anda" isOptional={true}>

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Pull Dictionaries
-description: Learn how to pull dictionaries from the Intlayer editor and CMS.
+title: "intlayer pull: Pull Dictionaries from the CMS"
+description: "Download the dictionaries edited in the Intlayer visual editor or CMS into your project, so remote content changes land in your codebase."
 keywords:
   - Pull
   - Dictionaries

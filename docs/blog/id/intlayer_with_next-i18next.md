@@ -53,6 +53,10 @@ Sementara Intlayer menyediakan solusi i18n mandiri yang sangat baik (lihat [pand
 
 Panduan ini menunjukkan cara memanfaatkan sistem deklarasi konten unggulan Intlayer sambil mempertahankan kompatibilitas dengan next-i18next.
 
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
+
 ## Panduan Langkah demi Langkah untuk Mengatur Intlayer dengan next-i18next
 
 <Steps>

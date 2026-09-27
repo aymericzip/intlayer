@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: Is i18next Outdated in 2026?
 description: i18next powers millions of websites, but its 2011 runtime architecture is showing its age. A look at bundle bloat, tree-shaking limits, and stalled innovation.
@@ -74,6 +74,10 @@ Activity across the trailing twelve months:
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 A small library can be complete and stable. But i18n tooling didn't freeze: modern bundlers now eliminate unreferenced copy at build time, LLMs handle translations instantly in CI, and editors rely on dedicated Language Servers (LSP) and AI agents. Because i18next relies on an open runtime plugin model, compilers cannot inspect it, leaving it stuck in place.
+
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/history_of_i18n.md)
 
 ## Measuring the Bundle Cost
 

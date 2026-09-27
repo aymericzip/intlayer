@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: Pemeta Locale
-description: Temukan bagaimana Pemeta Locale bekerja. Lihat langkah-langkah yang digunakan oleh Pemeta Locale dalam aplikasi Anda. Lihat apa fungsi dari berbagai paket yang berbeda.
+title: "Locale Mapper: localeMap, localeFlatMap, localeRecord"
+description: "Ubah data locale dengan localeMap, localeFlatMap, dan localeRecord untuk membuat rute, parameter statis, dan objek per locale."
 keywords:
   - Pemeta Locale
   - Memulai

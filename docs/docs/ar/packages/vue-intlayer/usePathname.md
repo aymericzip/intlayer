@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق دالة usePathname | vue-intlayer
-description: تعرف على كيفية استخدام دالة usePathname من حزمة vue-intlayer
+description: "استخدم usePathname في Vue لقراءة المسار الحالي دون جزء اللغة كـ computed ref للتنقل حسب اللغة."
 keywords:
   - usePathname
   - pathname
@@ -106,5 +106,5 @@ const pathname = usePathname();
 
 ## مواضيع ذات صلة
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vue-intlayer/useLocale.md) — الـ locale الحالي + مبدّل الـ locale
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPathWithoutLocale.md) — الأداة الأساسية المُستخدمة داخل هذا الـ composable
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vue-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPathWithoutLocale.md)

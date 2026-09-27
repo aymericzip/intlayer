@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Observar Diccionarios
+title: "intlayer watch: reconstruir diccionarios al cambiar"
 description: Aprende cómo observar cambios en tus archivos de declaración de contenido y construir diccionarios automáticamente.
 keywords:
   - Observar

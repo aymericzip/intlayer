@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu Hook useLocale | react-intlayer
-description: Xem cách sử dụng hook useLocale cho gói react-intlayer
+description: "Dùng useLocale trong React để đọc locale hiện tại, mặc định và khả dụng, và đổi ngôn ngữ từ bất kỳ component nào."
 keywords:
   - useLocale
   - dictionary

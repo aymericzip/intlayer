@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Renderizado Estático vs Dinámico con i18n en Next.js
-description: Aprende a usar renderizado estático vs dinámico con i18n en Next.js.
+description: "Por qué los helpers de next-intl vuelven dinámicas las rutas i18n de Next.js y cómo mantener tus páginas localizadas con renderizado estático."
 keywords:
   - estático
   - dinámico

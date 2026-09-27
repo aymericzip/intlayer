@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: Hàm getCanonicalPath. Tài liệu | intlayer
-description: Xem cách sử dụng hàm getCanonicalPath cho package intlayer
+description: "Dùng getCanonicalPath để ánh xạ đường dẫn bản địa hóa như /gioi-thieu về route nội bộ như /about để định tuyến."
 keywords:
   - getCanonicalPath
   - translation
@@ -121,5 +121,5 @@ getCanonicalPath("/contactez-nous", Locales.FRENCH, manualRules);
 
 ## Hàm liên quan
 
-- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedPath.md): Chuyển một canonical path thành đường dẫn đã được bản địa hóa tương ứng.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md): Tạo một URL hoàn toàn bản địa hóa (bao gồm protocol, host, và tiền tố locale).
+- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md)

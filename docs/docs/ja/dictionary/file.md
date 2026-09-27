@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: ファイル
-description: file 関数を使用して外部ファイルをコンテンツ辞書に埋め込む方法を学びます。このドキュメントでは、Intlayerがファイルコンテンツを動的にリンクおよび管理する方法を説明します。
+title: "ファイルコンテンツ：外部ファイルを埋め込む"
+description: "file() 関数で Markdown やテキストなどの外部ファイルを Intlayer の辞書に埋め込み、元ファイルと同期させます。"
 keywords:
   - ファイル
   - 国際化

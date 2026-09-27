@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Construire des Dictionnaires
+title: "intlayer build : construire les dictionnaires"
 description: Apprenez à construire vos dictionnaires Intlayer à partir des fichiers de déclaration de contenu.
 keywords:
   - Construire

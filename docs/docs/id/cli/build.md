@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Bangun Kamus
+title: "intlayer build: build kamus"
 description: Pelajari cara membangun kamus Intlayer Anda dari file deklarasi konten.
 keywords:
   - Bangun

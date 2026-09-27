@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Solid i18n - Guia completo para traduzir seu aplicativo"
-description: "Sem mais i18next. O guia 2026 para criar uma aplicação Vite + Solid multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
+description: "Configure o Intlayer em um app Vite e Solid: conteúdo traduzido reativo, seletor de idioma, rotas localizadas e dicionários tipados."
 keywords:
   - Internacionalização
   - Documentação
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Traduza seu Vite and Solid com Intlayer | Internacionalização (i18n)
+# Traduza seu Vite and Solid com Intlayer
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">

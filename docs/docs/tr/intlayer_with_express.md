@@ -3,7 +3,7 @@ createdAt: 2025-09-07
 updatedAt: 2026-05-31
 priority: 9
 title: "Express i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Express uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Express'te Intlayer kurulumu: middleware ile her istekte locale algılama, API yanıtlarını ve hata mesajlarını çevirme, uçtan uca tip güvenliği."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer ile Express backend çevirin | Uluslararasılaştırma (i18n)
+# Intlayer ile Express backend çevirin
 
 `express-intlayer`, Express uygulamaları için güçlü bir uluslararasılaştırma (i18n) ara yazılımıdır ve istemcinin tercihlerine göre yerelleştirilmiş yanıtlar sağlayarak arka uç hizmetlerinizi küresel olarak erişilebilir hale getirmek için tasarlanmıştır.
 
@@ -207,9 +207,9 @@ app.listen(3000, () => console.log(`Port 3000'de dinleniyor`));
 
 `express-intlayer` tamamen uyumludur:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md) React uygulamaları için
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md) Next.js uygulamaları için
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md) Vite uygulamaları için
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vite-intlayer/index.md)
 
 Ayrıca, tarayıcılar ve API istekleri dahil olmak üzere çeşitli ortamlarda herhangi bir uluslararasılaştırma çözümüyle sorunsuz çalışır. Yerel ayarı başlık veya çerezler aracılığıyla algılamak için ara yazılımı özelleştirebilirsiniz:
 

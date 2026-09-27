@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + Svelte i18n - Guía completa para traducir tu aplicación"
-description: "Sin más i18next. La guía 2026 para crear una aplicación Astro + Svelte multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
+description: "Configura Intlayer en Astro con islas Svelte: componentes traducidos, rutas localizadas y hreflang, con contenido tipado por componente."
 keywords:
   - internacionalización
   - documentación
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Traducir tu sitio Astro + Svelte con Intlayer | Internacionalización (i18n)
+# Traducir tu sitio Astro + Svelte con Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Código" value="code">

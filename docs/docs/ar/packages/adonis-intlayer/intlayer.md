@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق وسيط intlayer لـ AdonisJS | adonis-intlayer
-description: تعرف على كيفية استخدام وسيط intlayer لحزمة adonis-intlayer
+description: "يكتشف وسيط intlayer لـ AdonisJS لغة المستخدم ويوفّر دوال الترجمة عبر سياق الطلب."
 keywords:
   - intlayer
   - adonisjs

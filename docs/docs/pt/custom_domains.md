@@ -2,7 +2,7 @@
 createdAt: 2026-04-02
 updatedAt: 2026-04-02
 priority: 8
-title: Domínios personalizados
+title: "Domínios personalizados: um domínio por locale"
 description: Aprenda como configurar o roteamento de locale baseado em domínio no Intlayer para servir diferentes locales a partir de hostnames dedicados.
 keywords:
   - Domínios personalizados

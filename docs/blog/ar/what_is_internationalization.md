@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
-title: "ما هو التدويل (i18n)؟ المعنى والتعريف والتحديات"
+title: "ما هو التدويل (i18n)؟ المعنى والتحديات"
 description: "ماذا يعني i18n؟ تعرّف على التدويل، ولماذا يُختصر إلى i18n، وكيف يختلف عن التوطين (l10n)، والتحديات الشائعة عند تطبيقه."
 keywords:
   - معنى i18n
@@ -183,11 +183,11 @@ author: aymericzip
 
 إذا كنت تبحث عن مكتبة i18n المناسبة لمجموعة تقنياتك، فراجع الأدلة التالية:
 
-- React: [كيفية اختيار مكتبة i18n لـ React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_react_i18n_library.md)
-- Vue: [كيفية اختيار مكتبة i18n لـ Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_vue_i18n_library.md)
-- Svelte: [كيفية اختيار مكتبة i18n لـ Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_svelte_i18n_library.md)
-- Solid: [كيفية اختيار مكتبة i18n لـ Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_solid_i18n_library.md)
-- Next.js: [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md)
+- [كيفية اختيار مكتبة i18n لـ React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_react_i18n_library.md)
+- [كيفية اختيار مكتبة i18n لـ Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_vue_i18n_library.md)
+- [كيفية اختيار مكتبة i18n لـ Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_svelte_i18n_library.md)
+- [كيفية اختيار مكتبة i18n لـ Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_solid_i18n_library.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## الخاتمة
 

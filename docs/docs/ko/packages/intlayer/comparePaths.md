@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: comparePaths 함수 문서 | intlayer
-description: intlayer 패키지의 comparePaths 함수 사용법 알아보기
+description: "comparePaths로 두 URL이 같은 페이지를 가리키는지 확인합니다. 로케일, 호스트, 쿼리 문자열, 해시, 끝 슬래시는 무시합니다."
 keywords:
   - comparePaths
   - normalizePath
@@ -145,9 +145,9 @@ normalizePath("https://example.com/ru/path"); // "/path"
 
 ## 관련 함수
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPathWithoutLocale.md): URL 또는 경로에서 로케일 세그먼트를 제거합니다.
-- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPrefix.md): 주어진 로케일에 대한 URL 접두사를 결정합니다.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md): 특정 로케일에 대한 현지화된 URL을 생성합니다.
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPathWithoutLocale.md)
+- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPrefix.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)
 
 ## TypeScript
 

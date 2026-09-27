@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-11-06
+updatedAt: 2026-09-27
 priority: 8
 title: Intlayer and next-i18next
 description: Integrate Intlayer with next-i18next for a comprehensive Next.js internationalization solution
@@ -65,6 +65,10 @@ This guide explains how to leverage Intlayer as an **adapter for i18next**, allo
 - Keep existing i18next plugins and workflows.
 - Automate your JSON translations in CLI or CI/CD pipelines.
 - Test, sync, and manage translations more effectively.
+
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/history_of_i18n.md)
 
 ## Step-by-Step Guide to Set Up Intlayer with next-i18next
 

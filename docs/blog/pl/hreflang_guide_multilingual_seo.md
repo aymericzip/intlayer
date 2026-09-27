@@ -290,8 +290,8 @@ Wyprowadź zestaw z jednej listy locale, wyrenderuj go po stronie serwera, utrzy
 
 ### Idąc dalej
 
-- [SEO i Internationalization](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/internationalization_and_SEO.md) — szerszy obraz wielojęzycznego SEO
-- [SEO i i18n w Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/nextjs-multilingual-seo-comparison.md) — `next-intl` vs `next-i18next` vs Intlayer
+- [SEO i Internationalization](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/internationalization_and_SEO.md)
+- [SEO i i18n w Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/nextjs-multilingual-seo-comparison.md)
 - [Poradnik Next.js 16 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md)
 - [Przewodnik i18n TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_tanstack.md)
 - [Niestandardowe domeny dla poszczególnych lokalizacji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/custom_domains.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Bisakah saya menggunakan array sebagai deklarasi konten?
-description: Pelajari cara menggunakan array sebagai deklarasi konten.
+description: "Ya: array bisa menjadi deklarasi konten di Intlayer. Cara mendeklarasikannya, menerjemahkan setiap item, dan membacanya di komponen."
 keywords:
   - array
   - konten

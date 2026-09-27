@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu gói lynx-intlayer
-description: Hỗ trợ Intlayer cho Lynx, cung cấp các polyfill để hỗ trợ locale.
+description: "Gói lynx-intlayer tích hợp Intlayer vào ứng dụng Lynx, cung cấp polyfill và helper cần thiết để hỗ trợ locale trên di động."
 keywords:
   - lynx-intlayer
   - lynx

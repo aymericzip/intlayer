@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: الترحيل من i18next إلى Intlayer
-description: تعرّف على كيفية ترحيل تطبيق Vanilla JS/TS الخاص بك من i18next إلى Intlayer باستخدام محول التوافق.
+title: "@intlayer/i18next: محوّل توافق لـ i18next"
+description: "احتفظ بشيفرة i18next وقدّمها عبر Intlayer: ثبّت @intlayer/i18next، واضبط أسماء بديلة للاستيرادات، واكتشف ما يغيّره المحوّل داخليًا."
 keywords:
   - i18next
   - vanilla
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# الترحيل من i18next إلى Intlayer
+# @intlayer/i18next: محوّل توافق لـ i18next
 
 للحصول على برنامج تعليمي مفصل خطوة بخطوة، يرجى مراجعة [دليل الترحيل الكامل من i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_i18next_to_intlayer.md).
 
@@ -58,3 +58,7 @@ export default defineConfig({
 - **الاستيفاء:** دعم أصلي لاستبدالات `{{name}}` و `$t(key)` متداخلة بشكل متكرر.
 - **Context والجمع:** يحدد ويحل صيغ اللاحقة مثل `key_male` و `key_one`/`key_other` تقييمًا ضد `Intl.PluralRules` المعياري.
 - **إرجاع الكائنات:** يستخرج وضع `returnObjects: true` الأشجار بأمان من قواميس Intlayer.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)

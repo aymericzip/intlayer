@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-06
+updatedAt: 2026-09-27
 priority: 5
 title: Документація хука useIntlayer | solid-intlayer
-description: Дізнайтеся, як використовувати хук useIntlayer з пакету solid-intlayer
+description: "Використовуйте useIntlayer у Solid, щоб читати локалізований контент словника за ключем у вигляді реактивних значень, що стежать за локаллю."
 keywords:
   - useIntlayer
   - словник

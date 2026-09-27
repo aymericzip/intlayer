@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer CMS | 将您的内容外部化到 Intlayer CMS
+title: "Intlayer CMS：外部化你的多语言内容"
 description: 将您的内容外部化到 Intlayer CMS，以将内容管理委托给您的团队。
 keywords:
   - CMS

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
-title: مقدمة
+title: "ابدأ مع Intlayer: i18n لأي إطار عمل"
 description: اكتشف كيف يعمل Intlayer. تعرف على الخطوات التي يستخدمها Intlayer في تطبيقك. اكتشف ما تفعله الحزم المختلفة.
 keywords:
   - مقدمة
@@ -211,8 +211,8 @@ export const MyComponent: FC = () => {
 - **[Intlayer مع AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_adonisjs.md)**
 - **[Intlayer مع Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_elysia.md)**
 - **[Intlayer مع Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_storybook.md)**
-- **[Intlayer مع next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_next-intl.md)**
-- **[Intlayer مع next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_next-i18next.md)**
+- **[Intlayer مع next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_next-intl.md)**
+- **[Intlayer مع next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/intlayer_with_next-i18next.md)**
 
 يتضمن كل دليل للتكامل أفضل الممارسات لاستخدام ميزات Intlayer، مثل **الرندرة من جانب الخادم (SSR)**، أو **التوجيه الديناميكي (Dynamic Routing)**، أو **الرندرة من جانب العميل (Client-Side Rendering)**، لتتمكن من الحفاظ على تطبيق سريع وصديق لمحركات البحث (SEO) وقابل للتوسع بدرجة كبيرة.
 

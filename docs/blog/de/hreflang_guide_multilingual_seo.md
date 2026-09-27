@@ -288,8 +288,8 @@ Leiten Sie den Satz von einer einzigen Locale-Liste ab, rendern Sie ihn serverse
 
 ### Weiter geht es
 
-- [SEO und Internationalisierung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/internationalization_and_SEO.md) — das umfassendere mehrsprachige SEO-Bild
-- [SEO und i18n in Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/nextjs-multilingual-seo-comparison.md) — `next-intl` vs `next-i18next` vs Intlayer
+- [SEO und Internationalisierung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/internationalization_and_SEO.md)
+- [SEO und i18n in Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/nextjs-multilingual-seo-comparison.md)
 - [Next.js 16 i18n Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_16.md)
 - [TanStack Start i18n-Anleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_tanstack.md)
 - [Benutzerdefinierte Domains pro Locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/custom_domains.md)

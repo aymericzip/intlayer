@@ -53,6 +53,10 @@ author: aymericzip
 
 يوضح هذا الدليل كيفية الاستفادة من نظام إعلان المحتوى المتفوق في Intlayer مع الحفاظ على التوافق مع next-i18next.
 
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
+
 ## دليل خطوة بخطوة لإعداد Intlayer مع next-i18next
 
 <Steps>

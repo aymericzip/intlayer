@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Conteúdo Condicional
-description: Descubra como usar conteúdo condicional no Intlayer para exibir dinamicamente conteúdo baseado em condições específicas. Siga esta documentação para implementar condições de forma eficiente no seu projeto.
+title: "Conteúdo condicional no Intlayer"
+description: "Exiba conteúdo diferente conforme uma condição booleana com o nó cond() do Intlayer, declarado uma vez e resolvido na renderização."
 keywords:
   - Conteúdo Condicional
   - Renderização dinâmica

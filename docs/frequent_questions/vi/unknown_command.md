@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Lệnh không xác định
-description: Tìm hiểu cách khắc phục lỗi lệnh không xác định.
+title: 'Sửa lỗi "unknown command" của Intlayer'
+description: 'Sửa lỗi "unknown command" của CLI Intlayer: kiểm tra tên lệnh, phiên bản CLI và cách bạn gọi file thực thi.'
 keywords:
   - không xác định
   - lệnh

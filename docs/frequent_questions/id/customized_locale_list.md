@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Bagaimana cara menyesuaikan daftar locale?
-description: Pelajari cara menyesuaikan daftar locale.
+description: "Sesuaikan daftar locale yang didukung Intlayer di intlayer.config.ts, termasuk varian regional dan locale default."
 keywords:
   - locales
   - daftar

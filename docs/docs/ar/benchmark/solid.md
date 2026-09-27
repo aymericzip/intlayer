@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: أفضل حل i18n لـ Solid في عام 2026 - تقرير قياسي
 description: قارن بين مكتبات تدويل Solid (i18n) مثل solid-primitives وsolid-i18next وTolgee وIntlayer. تقرير أداء مفصل حول حجم الحزمة والتسرب والتفاعل.
@@ -69,6 +69,10 @@ style="border:none;"
 في الممارسة العملية، بالنسبة للتطبيقات الأقل تحسينًا، يمكن أن ينتهي الأمر بصفحة مدولة لتكون أثقل بعدة مرات من النسخة بدون i18n.
 
 التأثير الآخر هو على تجربة المطور (DX): كيفية التصريح عن المحتوى، والأنواع، وتنظيم فضاء الأسماء، والتحميل الديناميكي، والتفاعل عند تغيير اللغة.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## TL;DR
 

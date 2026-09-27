@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Documentação do pacote lynx-intlayer
-description: Suporte do Lynx para o Intlayer, fornecendo polyfills para suporte a locale.
+description: "O pacote lynx-intlayer integra o Intlayer a apps Lynx, com os polyfills e helpers necessários para o suporte a locales no mobile."
 keywords:
   - lynx-intlayer
   - lynx

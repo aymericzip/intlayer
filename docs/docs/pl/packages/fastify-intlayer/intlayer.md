@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja wtyczki intlayer dla Fastify | fastify-intlayer
-description: Zobacz, jak używać wtyczki intlayer dla pakietu fastify-intlayer
+description: "Plugin intlayer dla Fastify wykrywa locale użytkownika i dodaje do każdego żądania funkcje tłumaczenia Intlayer."
 keywords:
   - intlayer
   - fastify

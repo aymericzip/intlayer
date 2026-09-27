@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 9
 title: "Hono i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Hono uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Hono'da Intlayer kurulumu: middleware ile her istekte locale algılama, API yanıtlarını çevirme; Node, Bun veya edge runtime'larda çalışır."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer kullanarak Hono arka uç web sitenizi çevirin | Uluslararasılaştırma (i18n)
+# Intlayer kullanarak Hono arka uç web sitenizi çevirin
 
 `hono-intlayer`, Hono uygulamaları için güçlü bir uluslararasılaştırma (i18n) ara yazılımıdır. İstemcinin tercihlerine göre yerelleştirilmiş yanıtlar sağlayarak arka uç hizmetlerinizi küresel olarak erişilebilir kılmak için tasarlanmıştır.
 
@@ -226,9 +226,9 @@ export default app;
 
 `hono-intlayer` şunlarla tam uyumludur:
 
-- React uygulamaları için [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/index.md)
-- Next.js uygulamaları için [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/index.md)
-- Vite uygulamaları için [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/index.md)
 
 Ayrıca, tarayıcılar ve API istekleri dahil olmak üzere çeşitli ortamlardaki herhangi bir uluslararasılaştırma çözümüyle sorunsuz bir şekilde çalışır. Ara yazılımı başlıklar veya çerezler aracılığıyla yerel ayarı algılayacak şekilde özelleştirebilirsiniz:
 

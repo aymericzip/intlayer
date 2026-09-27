@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-21
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Init Infra
-description: Pelajari cara menggunakan perintah init infra Intlayer CLI untuk menginstal aplikasi desktop atau melakukan self-host Intlayer CMS dengan Docker (wadah all-in-one atau tumpukan Docker Compose).
+title: "intlayer init infra: self-host Intlayer CMS"
+description: "Pasang aplikasi desktop Intlayer atau self-host Intlayer CMS dengan Docker, sebagai container all-in-one atau stack Docker Compose."
 keywords:
   - CLI
   - Infrastruktur
@@ -158,6 +158,6 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 
 ## Terkait
 
-- [Panduan self-hosting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md) - Arsitektur, langkah awal, dan batasan setiap mode
-- [Inisialisasi Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/init.md) - Perintah induk `init` dan daftar periksa interaktifnya
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) - Penjelasan fungsi dasbor yang baru saja Anda pasang
+- [Panduan self-hosting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md)
+- [Inisialisasi Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/init.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)

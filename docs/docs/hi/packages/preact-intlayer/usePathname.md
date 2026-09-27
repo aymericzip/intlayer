@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname हुक दस्तावेज़ीकरण | preact-intlayer
-description: जानें कि preact-intlayer पैकेज के लिए usePathname हुक का उपयोग कैसे करें
+description: "Preact में usePathname से लोकेल सेगमेंट के बिना मौजूदा पाथ पढ़ें, लोकेल-जागरूक नेविगेशन और सक्रिय लिंक के लिए।"
 keywords:
   - usePathname
   - pathname
@@ -114,5 +114,5 @@ export default Sidebar;
 
 ## संबंधित (Related)
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/preact-intlayer/exports.md) — वर्तमान locale + locale स्विचर
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getPathWithoutLocale.md) — इस हुक द्वारा उपयोग की जाने वाली मुख्य उपयोगिता (utility)
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/preact-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getPathWithoutLocale.md)

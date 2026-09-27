@@ -284,9 +284,9 @@ Pour les projets existants contenant déjà des chaînes ICU, [l'adaptateur de c
 
 ## Pour aller plus loin
 
-- [Contenu pluriel dans Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/plurial.md) : le nœud `plural` adossé à CLDR et sa table de catégories.
-- [Contenu basé sur select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/select.md) : l'équivalent d'ICU `select` et les cas d'usage de `enu` ou `cond`.
-- [Espaces réservés d'insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/insertion.md) : interpolation `{{name}}` et détection automatique.
-- [Benchmark des bibliothèques i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/index.md) : taille de bundle et coût d'exécution des solutions analysées ci-dessus.
-- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/react-i18next_vs_react-intl_vs_intlayer.md) : comparaison détaillée des trois modèles de gestion des messages.
-- [Qu'est-ce que l'internationalisation ?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/what_is_internationalization.md) : origine du terme i18n, différences avec l10n et périmètre global au-delà du formatage de messages.
+- [Contenu pluriel dans Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/plurial.md)
+- [Contenu basé sur select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/select.md)
+- [Espaces réservés d'insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/insertion.md)
+- [Benchmark des bibliothèques i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/benchmark/index.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Qu'est-ce que l'internationalisation ?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/what_is_internationalization.md)

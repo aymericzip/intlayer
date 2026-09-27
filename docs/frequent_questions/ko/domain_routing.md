@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 도메인 기반 라우팅 구성 방법
-description: 도메인 기반 라우팅 구성 방법을 알아보세요.
+description: "Intlayer의 도메인 기반 라우팅으로 로케일마다 별도 도메인에서 제공하세요. intlayer.config.ts에서 설정하며 리디렉션도 자동으로 처리됩니다."
 keywords:
   - 도메인
   - 라우팅

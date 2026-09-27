@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Extraer Diccionarios
-description: Aprende cómo extraer diccionarios desde el editor y CMS de Intlayer.
+title: "intlayer pull: descargar diccionarios del CMS"
+description: "Descarga en tu proyecto los diccionarios editados en el editor visual o el CMS de Intlayer, para llevar los cambios remotos a tu código."
 keywords:
   - Extraer
   - Diccionarios

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: क्या 2026 में i18next पुराना हो चुका है?
 description: i18next लाखों वेबसाइट्स को सपोर्ट करता है, लेकिन इसका 2011 का रनटाइम आर्किटेक्चर अब पुराना लगने लगा है। बंडल साइज, ट्री-शेकिंग की सीमाएं और विकास की सुस्ती का विश्लेषण।
@@ -74,6 +74,10 @@ author: aymericzip
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 एक स्थापित लाइब्रेरी स्थिरता देती है। लेकिन i18n टूल्स का परिदृश्य बदल चुका है: मॉडर्न बंडलर्स बिल्ड के दौरान अप्रयुक्त कंटेंट हटाते हैं, एलएलएम सीधे सीआई में ट्रांसलेट करते हैं, और एडिटर्स लैंग्वेज सर्वर (LSP) और एआई एजेंट्स पर निर्भर हैं। केवल रनटाइम पर आधारित आर्किटेक्चर इन प्रगतियों को आसानी से नहीं अपना सकता।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 
 ## बंडल साइज प्रभाव का परीक्षण
 

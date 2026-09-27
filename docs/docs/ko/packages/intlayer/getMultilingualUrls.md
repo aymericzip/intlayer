@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getMultilingualUrls 함수 문서 | intlayer
-description: intlayer 패키지의 getMultilingualUrls 함수 사용법을 확인하세요
+description: "getMultilingualUrls로 지원하는 모든 로케일의 현지화된 URL을 생성해 hreflang 태그와 사이트맵에 사용합니다."
 keywords:
   - getMultilingualUrls
   - 번역

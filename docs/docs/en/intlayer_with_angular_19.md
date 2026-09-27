@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Angular 19 i18n - Complete guide to translate your app"
-description: "No more i18next. The 2026 guide to building a multilingual (i18n) Angular 19 app. Translate with AI agents and optimize bundle size, SEO and performances."
+description: "Set up Intlayer in Angular 19 with the Angular CLI: typed content next to components, runtime locale switching and localized routing."
 keywords:
   - Internationalization
   - Documentation
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Translate your Angular 19 (Webpack) website using Intlayer | Internationalization (i18n)
+# Translate your Angular 19 (Webpack) website using Intlayer
 
 ## Table of Contents
 

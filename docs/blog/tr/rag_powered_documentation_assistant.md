@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-27
 priority: 8
-title: RAG Güçlendirmeli Dokümantasyon Asistanı Oluşturma (Chunking, Embeddings ve Arama)
-description: RAG Güçlendirmeli Dokümantasyon Asistanı Oluşturma (Chunking, Embeddings ve Arama)
+title: "RAG tabanlı bir dokümantasyon asistanı geliştirmek"
+description: "Dokümantasyonumuz için yapay zeka asistanını nasıl geliştirdik: markdown parçalama, embedding'ler, vektör arama ve prompt'lar, karşılaştığımız ödünleşimlerle birlikte."
 keywords:
   - RAG
   - Dokümantasyon

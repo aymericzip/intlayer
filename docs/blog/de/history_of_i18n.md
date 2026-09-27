@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-09
+updatedAt: 2026-09-27
 priority: 8
 title: "Die Geschichte der JavaScript-i18n: Von 2011 bis 2026"
-description: "Erfahren Sie mehr über die Evolution der Frontend-Internationalisierung von 2011 bis 2026. Release-Daten, Architekturprobleme und Innovationen in React, Vue, Next.js, Angular, Svelte und Solid."
+description: "Wie sich Frontend-i18n von 2011 bis 2026 entwickelt hat: Release-Daten, Architekturprobleme und zentrale Innovationen in React, Vue, Next.js, Angular, Svelte und Solid."
 keywords:
   - i18n Geschichte
   - JavaScript Internationalisierung
@@ -49,8 +49,6 @@ Diese Frage prägte die Entwicklung von JavaScript-i18n über mehr als ein Jahrz
 Die Lösungen haben sich grundlegend gewandelt: von globalen JavaScript-Objekten und einfachen `t('key')`-Aufrufen über frameworkspezifische Bibliotheken, Typensicherheit mit TypeScript, Server Components und Tree-Shaking bis hin zu modernen Compiler-Ansätzen, die Übersetzungen direkt während des Builds in optimierten Code überführen.
 
 Dieser Artikel beleuchtet diese Entwicklung von 2011 bis 2026: welche Probleme die einzelnen Werkzeuge lösen wollten, was funktionierte, wo Grenzen lagen und wie moderne Frontend-Architekturen die i18n von heute bestimmen.
-
-![JavaScript Internationalisierungs-Ökosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Inhaltsverzeichnis
 
@@ -143,6 +141,8 @@ Zentralisierte JSON-Dateien lagen weit entfernt von den Komponenten, die sie ver
 ## Die Framework-Ära: Entwicklung über Ökosysteme hinweg
 
 Zwischen 2016 und 2026 wandelte sich die Frontend-Entwicklung grundlegend. TypeScript wurde zum Branchenstandard, Komponentenmodelle reiften aus, Bundler wie Webpack, Vite und Turbopack etablierten granulares Code-Splitting, React Server Components verlagerten Render-Logik zurück auf den Server, und Compiler begannen, Anwendungscode direkt zu analysieren.
+
+![JavaScript Internationalisierungs-Ökosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 Die folgenden Tabs zeigen, wie die einzelnen Ökosysteme auf diese Herausforderungen reagierten. In diesen Umgebungen bieten `react-intlayer` und seine Pendants (`next-intlayer`, `vue-intlayer`, `angular-intlayer`, `svelte-intlayer` und `solid-intlayer`) leistungsfähige Implementierungen, die auf die jeweilige Laufzeitumgebung zugeschnitten sind.
 

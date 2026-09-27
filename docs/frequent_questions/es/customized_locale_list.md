@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: ¿Cómo personalizar la lista de locales?
-description: Aprende cómo personalizar la lista de locales.
+description: "Personaliza la lista de locales que admite Intlayer en intlayer.config.ts, incluidas las variantes regionales y la locale por defecto."
 keywords:
   - locales
   - lista

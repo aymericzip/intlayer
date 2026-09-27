@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Lit i18n - あなたのアプリを翻訳する完全ガイド"
-description: "i18nextはもう不要。2026年に多言語（i18n）Vite + Litアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+description: "Vite と Lit のアプリに Intlayer を導入：リアクティブなコントローラーによる翻訳済み Web コンポーネント、言語切り替え、型付きコンテンツ。"
 keywords:
   - 国際化
   - ドキュメント
@@ -28,7 +28,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayerを使用してViteとLitのウェブサイトを翻訳する | 国際化 (i18n)
+# Intlayerを使用してViteとLitのウェブサイトを翻訳する
 
 <Tabs defaultTab="code">
   <Tab label="コード" value="code">

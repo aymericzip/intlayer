@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Di Chuyển Từ next-i18next Sang Intlayer"
-description: "Tìm hiểu cách di chuyển ứng dụng Next.js của bạn từ next-i18next sang Intlayer bằng bộ điều hợp tương thích."
+title: "@intlayer/next-i18next: bộ chuyển đổi tương thích cho next-i18next"
+description: "Giữ nguyên mã next-i18next và phục vụ bằng Intlayer: cài @intlayer/next-i18next, đặt alias cho các import và xem bộ chuyển đổi thay đổi gì bên dưới."
 keywords:
   - next-i18next
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Di Chuyển Từ next-i18next Sang Intlayer
+# @intlayer/next-i18next: bộ chuyển đổi tương thích cho next-i18next
 
 Để có hướng dẫn từng bước đầy đủ và chi tiết, vui lòng xem [Hướng Dẫn Di Chuyển next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/migration_from_next-i18next_to_intlayer.md) đầy đủ của chúng tôi.
 
@@ -56,3 +56,7 @@ Bên dưới:
 
 - **`serverSideTranslations` & `appWithTranslation`:** Chúng hiện hoạt động như các wrapper cho các bộ tải nội bộ của Intlayer, bỏ qua việc chèn JSON tĩnh lớn.
 - **Hook phía client:** Ủy thác ngay lập tức cho `@intlayer/react-i18next`, giữ lại tất cả các tính năng định dạng, số nhiều và namespace lồng nhau.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)

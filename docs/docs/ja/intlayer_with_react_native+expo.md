@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
-title: "Expo + React Native i18n - あなたのアプリを翻訳する完全ガイド"
-description: "i18nextはもう不要。2026年に多言語（i18n）Expo + React Nativeアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+title: "Expo + React Native の i18n：翻訳の完全ガイド"
+description: "Expo と React Native に Intlayer を導入：コンポーネント単位の型付きコンテンツ、端末ロケールの検出、言語切り替え、Metro によるバンドル。"
 keywords:
   - 国際化
   - ドキュメント
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# ExpoとReact Nativeアプリを翻訳する | 国際化（i18n）
+# ExpoとReact Nativeアプリを翻訳する
 
 <Tabs defaultTab="code">
   <Tab label="コード" value="code">
@@ -494,9 +494,9 @@ Intlayer の開発体験を向上させるために、公式の **Intlayer VS Co
 
 ## さらに進む
 
-- **ビジュアルエディター**：翻訳を視覚的に管理するために、[Intlayer ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) を使用してください。
-- **CMS 統合**: 辞書コンテンツを外部化し、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) から取得することも可能です。
-- **CLI コマンド**: 翻訳の**抽出**や**欠落キーの確認**などのタスクには、[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md) を活用してください。
+- [Intlayer ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
 
 **Intlayer** を通じて、完全な i18n 機能を備えた **React Native** アプリの開発をお楽しみください！
 

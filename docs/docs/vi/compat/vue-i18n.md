@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Di Chuyển Từ Vue I18n Sang Intlayer"
-description: "Tìm hiểu cách di chuyển ứng dụng Vue của bạn từ vue-i18n sang Intlayer bằng bộ điều hợp tương thích."
+title: "@intlayer/vue-i18n: bộ chuyển đổi tương thích cho vue-i18n"
+description: "Giữ nguyên mã vue-i18n và phục vụ bằng Intlayer: cài @intlayer/vue-i18n, đặt alias cho các import và xem bộ chuyển đổi thay đổi gì bên dưới."
 keywords:
   - vue-i18n
   - vue
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Di Chuyển Từ Vue I18n Sang Intlayer
+# @intlayer/vue-i18n: bộ chuyển đổi tương thích cho vue-i18n
 
 Nếu ứng dụng Vue của bạn hiện đang sử dụng `vue-i18n`, bạn có thể di chuyển sang Intlayer mà không cần viết lại các component hoặc dịch các hook. Intlayer cung cấp một bộ điều hợp tương thích phản chiếu hoàn hảo API của `vue-i18n` trong khi tận dụng các tính năng mạnh mẽ của Intlayer bên dưới.
 
@@ -57,3 +57,7 @@ export default defineConfig({
 - **Directive:** Directive `v-t` được đăng ký và hoạt động bình thường.
 
 Ứng dụng của bạn tiếp tục hiển thị chính xác như trước, nhưng nội dung được cung cấp bởi các từ điển Intlayer của bạn, mang lại cho bạn type safety, tối ưu hóa bundle tốt hơn và tích hợp CMS liền mạch.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)

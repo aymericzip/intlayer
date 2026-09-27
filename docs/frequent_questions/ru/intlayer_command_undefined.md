@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Команда Intlayer не определена
-description: Узнайте, как исправить ошибку "intlayer command undefined".
+description: "Исправьте ошибку «intlayer: command not found»: установите CLI, запускайте его через пакетный менеджер и проверьте PATH."
 keywords:
   - intlayer
   - команда

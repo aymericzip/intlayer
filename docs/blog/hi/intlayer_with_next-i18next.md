@@ -53,6 +53,10 @@ author: aymericzip
 
 यह गाइड आपको दिखाता है कि कैसे Intlayer की श्रेष्ठ सामग्री घोषणा प्रणाली का लाभ उठाते हुए next-i18next के साथ संगतता बनाए रखी जाए।
 
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
+
 ## next-i18next के साथ Intlayer सेटअप करने के लिए चरण-दर-चरण गाइड
 
 <Steps>

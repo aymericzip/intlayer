@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
 title: t-Funktionsdokumentation | hono-intlayer
-description: Sehen Sie, wie Sie die t-Funktion für das hono-intlayer-Paket verwenden
+description: "Nutzen Sie die t-Funktion von hono-intlayer, um in Hono lokalisierte Antworten zurückzugeben, basierend auf der pro Request erkannten Locale."
 keywords:
   - t
   - Übersetzung

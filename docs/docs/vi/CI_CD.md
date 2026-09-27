@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-08-13
+updatedAt: 2026-09-27
 priority: 8
-title: Tích hợp CI/CD
+title: "Tích hợp CI/CD của Intlayer cho bản dịch"
 description: Tìm hiểu cách tích hợp Intlayer vào pipeline CI/CD của bạn để quản lý và triển khai nội dung tự động.
 keywords:
   - CI/CD

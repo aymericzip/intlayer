@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-28
-updatedAt: 2025-09-28
+updatedAt: 2026-09-27
 priority: 8
-title: Next.js에서의 SEO와 i18n
+title: "Next.js의 SEO와 i18n: hreflang, 메타데이터, 사이트맵"
 description: next-intl, next-i18next, Intlayer를 사용하여 Next.js 앱에서 다국어 SEO를 설정하는 방법을 배우세요.
 keywords:
   - Intlayer
@@ -358,3 +358,7 @@ getMultilingualUrls와 같은 내장 도우미를 제공하여 hreflang, 사이�
 Next.js를 위해 처음부터 설계되었기 때문에 설정 문제를 디버깅하는 데 시간을 덜 쓰고 실제 배포에 더 많은 시간을 할애할 수 있습니다.
 
 단순히 번역하는 것을 넘어서 다국어 SEO를 원활하게 확장하는 것이 목표라면, Intlayer가 가장 깔끔하고 미래 지향적인 설정을 제공합니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: i18next è obsoleto nel 2026?
 description: i18next alimenta milioni di siti web, ma la sua architettura a runtime del 2011 mostra i segni del tempo. Un'analisi su bundle bloat, limiti di tree-shaking e innovazione ferma.
@@ -74,6 +74,10 @@ Attività negli ultimi 12 mesi:
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Una libreria snella può essere solida e affidabile. Ma gli strumenti di i18n progrediscono costantemente: i bundler odierni eliminano i testi inutilizzati durante il build, gli LLM traducono direttamente in CI e gli editor si affidano a server di linguaggio (LSP) e agenti IA. L'architettura puramente a runtime di i18next limita queste possibilità.
+
+> Per capire da dove vengono queste librerie, leggi la storia dell'i18n in JavaScript.
+
+- [La storia dell'i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/history_of_i18n.md)
 
 ## Misurazione del costo sul bundle
 

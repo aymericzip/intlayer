@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: Documentation de la fonction getPathWithoutLocale | intlayer
-description: Découvrez comment utiliser la fonction getPathWithoutLocale pour le package intlayer
+description: "Utilisez getPathWithoutLocale pour retirer le segment de locale d'une URL ou d'un chemin, pour les URL absolues comme pour les chemins relatifs."
 keywords:
   - getPathWithoutLocale
   - traduction

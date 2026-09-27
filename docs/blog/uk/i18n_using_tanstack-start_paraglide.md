@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n для TanStack Start за допомогою Paraglide JS: Посібник з налаштування 2026"
 description: "Перекладіть ваш застосунок TanStack Start за допомогою Paraglide JS: стратегія URL, переписування роутера, middleware для SSR, hreflang, sitemap і robots.txt, а також реальні дані бенчмарків."
@@ -43,9 +43,17 @@ Paraglide - це підхід до i18n, який використовуєтьс
 
 Цей посібник охоплює налаштування всіх трьох компонентів, а потім розглядає все, що Paraglide залишає на ваш розсуд: `lang` та `dir`, перемикач мов, перекладені метадані, `canonical`, `hreflang` з `x-default`, Open Graph, JSON-LD, sitemap, `robots.txt`, пререндеринг та локалізовані сторінки 404.
 
-> Шукаєте інший стек? Перегляньте [посібник з TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_use-intl.md), [посібник з TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_lingui.md) або [посібник з TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md).
+> Шукаєте інший стек?
+
+- [посібник з TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_use-intl.md)
+- [посібник з TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_lingui.md)
+- [посібник з TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md)
 
 > Порівнюєте два підходи на основі компілятора? Читайте [чи є Intlayer легшим за Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/is_intlayer_lighter_than_paraglide.md).
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
 
 ## Що каже бенчмарк про Paraglide на TanStack Start
 
@@ -95,7 +103,11 @@ Paraglide - це підхід до i18n, який використовуєтьс
 
 > Дані про розмір runtime та витоки взяті з [бенчмарка TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md). Витік вимірюється на найкращій конфігурації для кожної бібліотеки.
 
-> Інші посібники для TanStack Start: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_lingui.md), [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_use-intl.md) та [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md).
+> Інші посібники для TanStack Start:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_lingui.md)
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_tanstack-start_use-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_tanstack.md)
 
 ## Практики, яких варто дотримуватися
 
@@ -108,7 +120,8 @@ Paraglide - це підхід до i18n, який використовуєтьс
 - **Генеруйте багатомовні sitemap та robots.txt** і виконуйте пререндеринг для кожної локалі.
 - **Використовуйте справжні посилання для перемикача мов**, щоб пошукові роботи могли знаходити всі мовні версії.
 
-> Дивіться наш посібник про [інтернаціоналізацію та SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/internationalization_and_SEO.md) та [посібник з hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/hreflang_guide_multilingual_seo.md).
+- [інтернаціоналізацію та SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/internationalization_and_SEO.md)
+- [посібник з hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/hreflang_guide_multilingual_seo.md)
 
 ## Покроковий посібник з налаштування Paraglide JS у застосунку TanStack Start
 

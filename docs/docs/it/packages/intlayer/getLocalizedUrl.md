@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: Documentazione della funzione getLocalizedUrl | intlayer
-description: Scopri come utilizzare la funzione getLocalizedUrl per il pacchetto intlayer
+description: "Usa getLocalizedUrl per aggiungere il prefisso di locale a un URL relativo o assoluto, secondo la modalità di routing e la locale predefinita."
 keywords:
   - getLocalizedUrl
   - traduzione

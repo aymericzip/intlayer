@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Surveiller les dictionnaires
+title: "intlayer watch : reconstruire les dictionnaires"
 description: Apprenez à surveiller les modifications dans vos fichiers de déclaration de contenu et à construire automatiquement les dictionnaires.
 keywords:
   - Surveiller

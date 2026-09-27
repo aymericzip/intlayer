@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Como personalizar a lista de idiomas?
-description: Aprenda como personalizar a lista de idiomas.
+description: "Personalize a lista de locales suportados pelo Intlayer no intlayer.config.ts, incluindo variantes regionais e o locale padrão."
 keywords:
   - idiomas
   - lista

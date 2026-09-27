@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Puis-je utiliser un tableau comme déclaration de contenu ?
-description: Apprenez comment utiliser un tableau comme déclaration de contenu.
+description: "Oui : un tableau peut être une déclaration de contenu dans Intlayer. Comment le déclarer, traduire chaque élément et le lire dans vos composants."
 keywords:
   - tableau
   - contenu

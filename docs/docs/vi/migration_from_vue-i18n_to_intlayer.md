@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "Di chuyển từ vue-i18n sang Intlayer | Quốc tế hóa (i18n)"
-description: "Tìm hiểu cách di chuyển ứng dụng Vue hoặc Nuxt của bạn từ vue-i18n sang Intlayer — từng bước, mà không làm hỏng mã hiện có của bạn. Sử dụng adapter tương thích @intlayer/vue-i18n cho quá trình chuyển đổi không gián đoạn."
+title: "Chuyển từ vue-i18n sang Intlayer"
+description: "Chuyển ứng dụng Vue hoặc Nuxt từ vue-i18n sang Intlayer từng bước, bắt đầu với adapter @intlayer/vue-i18n để không làm hỏng gì."
 keywords:
   - vue-i18n
   - intlayer
@@ -62,6 +62,10 @@ Hơn chỉ là một giải pháp i18n, Intlayer cung cấp **[visual editor](ht
 
 </Accordion>
 </AccordionGroup>
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Chiến lược di chuyển
 
@@ -324,9 +328,9 @@ Thêm thư mục được tạo bởi Intlayer vào `.gitignore` của bạn:
 
 ## Đi Sâu Hơn
 
-- **Visual Editor** — Quản lý bản dịch một cách trực quan trong trình duyệt của bạn: [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
-- **CMS** — Quản lý nội dung từ xa: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
-- **VS Code Extension** — Nhận khuyến nghị tự động hoàn thành mã và phát hiện lỗi dịch theo thời gian thực: [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
-- **CLI Reference** — Danh sách đầy đủ các lệnh CLI: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
-- **Intlayer with Vue** — Hướng dẫn thiết lập hoàn chỉnh cho Vue: [intlayer_with_vite+vue.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md)
-- **Intlayer with Nuxt** — Hướng dẫn thiết lập hoàn chỉnh cho Nuxt: [intlayer_with_nuxt.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md)
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+- [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
+- [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md)
+- [Intlayer with Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Zarządzanie konfiguracją
-description: Dowiedz się, jak pobrać i przesłać swoją konfigurację Intlayer do CMS.
+title: "intlayer configuration: pobieranie i wysyłanie konfiguracji"
+description: "Wyświetl rozwiązaną konfigurację za pomocą CLI Intlayer i wyślij ją do Intlayer CMS, aby panel i projekt pozostały zsynchronizowane."
 keywords:
   - Konfiguracja
   - Config

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja funkcji getTranslation | intlayer
-description: Zobacz, jak używać funkcji getTranslation w pakiecie intlayer
+description: "Użyj getTranslation (alias t), aby wybrać treść danego locale z mapy tłumaczeń z powrotem do domyślnego locale."
 keywords:
   - getTranslation
   - tłumaczenie

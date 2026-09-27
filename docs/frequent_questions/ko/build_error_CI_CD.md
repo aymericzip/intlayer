@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: CI/CD에서 빌드 오류
-description: CI/CD 환경에서 발생하는 빌드 오류를 해결하는 방법을 알아보세요.
+title: "CI/CD에서 Intlayer 빌드 오류 해결"
+description: "CI/CD에서만 발생하는 Server Components 렌더링 오류를 빌드 단계에서 Intlayer 사전이 생성되도록 하여 해결합니다."
 keywords:
   - 빌드
   - 오류

@@ -2,7 +2,7 @@
 createdAt: 2024-08-13
 updatedAt: 2026-08-22
 priority: 8
-title: Yapılandırma (Configuration)
+title: "Intlayer yapılandırması (intlayer.config.ts)"
 description: Uygulamanız için Intlayer'ı nasıl yapılandıracağınızı öğrenin. Intlayer'ı ihtiyaçlarınıza göre özelleştirmek için çeşitli ayarları ve seçenekleri anlayın.
 keywords:
   - Yapılandırma

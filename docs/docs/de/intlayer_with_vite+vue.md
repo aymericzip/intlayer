@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Vue i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
-description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Vite + Vue-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
+description: "Intlayer in einer Vite- und Vue-App einrichten: typisierte Inhalte pro Komponente mit Composables, Sprachumschalter und lokalisierte Routen."
 keywords:
   - Internationalisierung
   - Dokumentation
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Übersetzen Sie Ihre Vite- und Vue-Website mit Intlayer | Internationalization (i18n)
+# Übersetzen Sie Ihre Vite- und Vue-Website mit Intlayer
 
 ## Inhaltsverzeichnis
 

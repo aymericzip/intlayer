@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: ESBuild 错误
-description: 了解如何修复 ESBuild 错误。
+title: "修复 Intlayer 中的 ESBuild 错误"
+description: "修复 Intlayer 构建过程中的 ESBuild 错误，通常是因为框架的打包插件缺失或配置不正确。"
 keywords:
   - esbuild
   - 错误

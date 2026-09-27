@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Traduire un document
+title: "intlayer doc translate : traduire des docs Markdown"
 description: Apprenez à traduire automatiquement des fichiers de documentation en utilisant des services de traduction IA.
 keywords:
   - Traduire

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: Czy next-intl jest przestarzały w 2026 roku?
 description: next-intl stał się domyślnym wyborem dla Next.js App Router. Mimo to nadal obciąża bundle narzutem w runtime i wymaga ręcznego dzielenia na namespace'y.
@@ -70,6 +70,10 @@ Podsumowanie minionego roku:
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 Stabilna biblioteka bywa wystarczająca. Jednak standardy i18n uległy zmianie: kompilatory eliminują nieodwoływane tłumaczenia na etapie budowania, LLM-y wspierają translację w CI, a programiści korzystają z serwerów językowych (LSP) i asystentów AI. Biblioteka skupiona wyłącznie na czasie wykonywania nie czerpie z tych korzyści.
+
+> Aby zrozumieć, skąd wzięły się te biblioteki, przeczytaj historię i18n w JavaScript.
+
+- [Historia i18n w JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/history_of_i18n.md)
 
 ## Wydajność w Next.js 16 App Router
 

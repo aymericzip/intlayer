@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: エディターコマンド
-description: Intlayerのエディターコマンドの使い方を学びます。
+title: "intlayer editor：ビジュアルエディターのコマンド"
+description: "CLI から Intlayer ビジュアルエディターを起動・設定し、実行中のアプリケーション上でコンテンツをその場で編集します。"
 keywords:
   - エディター
   - ビジュアルエディター

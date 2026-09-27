@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getTranslation 函数文档 | intlayer
-description: 查看如何使用 intlayer 包中的 getTranslation 函数
+description: "使用 getTranslation（别名 t）从翻译映射中选择某个语言的内容，找不到时回退到默认语言。"
 keywords:
   - getTranslation
   - 翻译

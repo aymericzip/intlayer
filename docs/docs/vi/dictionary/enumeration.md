@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 8
-title: Liệt kê
-description: Tìm hiểu cách khai báo và sử dụng các phép liệt kê trong trang web đa ngôn ngữ của bạn. Làm theo các bước trong tài liệu trực tuyến này để thiết lập dự án của bạn trong vài phút.
+title: "Enumeration: thông điệp theo số lượng"
+description: "Dùng enumeration của Intlayer để hiển thị nội dung khác nhau theo một số hoặc khoảng, với node enu() và điều kiện như '<-1' hoặc '>5'."
 keywords:
   - Liệt kê
   - Quốc tế hóa

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
-title: "컴포넌트별 vs 중앙집중식 i18n: Intlayer를 통한 새로운 접근"
+title: "React에서 컴포넌트별 i18n과 중앙 집중식 i18n"
 description: React에서의 국제화 전략을 심층적으로 탐구하며 중앙집중식, 키별, 컴포넌트별 접근법을 비교하고 Intlayer를 소개합니다.
 keywords:
   - i18n
@@ -97,6 +97,10 @@ extension Localization on String {
 - 한 번 라이브러리가 널리 채택되면 에코시스템을 다른 패턴으로 전환하기가 어려워집니다.
 - 중앙집중식 접근 방식은 Crowdin, Phrase 또는 Localized와 같은 번역 관리 시스템(Translation Management Systems)에서도 작업을 더 수월하게 만듭니다.
 - 컴포넌트별 접근 방식의 로직은 중앙집중식 방식보다 더 복잡하고 개발에 추가 시간이 필요합니다. 특히 콘텐츠가 어디에 위치하는지 식별하는 문제를 해결해야 할 때 그렇습니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ### 알겠지만, 중앙집중식 접근 방식을 고수하면 안 되는 이유는 무엇인가요?
 

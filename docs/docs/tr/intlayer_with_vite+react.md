@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "Vite + React i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Vite + React uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Vite ve React uygulamasında Intlayer kurulumu: bileşen başına tipli içerik, dil seçici, yerelleştirilmiş rotalar ve locale başına bundle'lar."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer ile Vite ve React sitenizi çevirin | Uluslararasılaştırma (i18n)
+# Intlayer ile Vite ve React sitenizi çevirin
 
 ## İçindekiler
 

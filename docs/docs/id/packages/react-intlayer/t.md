@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi t | react-intlayer
-description: Lihat cara menggunakan fungsi t untuk paket react-intlayer
+description: "Gunakan fungsi t dari react-intlayer untuk mendeklarasikan terjemahan langsung di komponen React, tanpa file konten terpisah."
 keywords:
   - t
   - terjemahan

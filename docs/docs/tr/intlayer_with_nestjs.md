@@ -3,7 +3,7 @@ createdAt: 2025-09-09
 updatedAt: 2026-05-31
 priority: 9
 title: "NestJS i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) NestJS uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "NestJS'te Intlayer kurulumu: her istekte locale algılama, controller yanıtlarını ve doğrulama mesajlarını çevirme, tip güvenliği."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -30,7 +30,7 @@ history:
     changes: "İlk doküman"
 ---
 
-# Intlayer Kullanarak Nest Backend Web Sitenizi Çevirme | Uluslararasılaştırma (i18n)
+# Intlayer Kullanarak Nest Backend Web Sitenizi Çevirme
 
 `express-intlayer`, Express uygulamaları için güçlü bir uluslararasılaştırma (i18n) middleware'idir. İstemcinin tercihlerine dayalı olarak yerelleştirilmiş yanıtlar sağlayarak backend hizmetlerinizi küresel olarak erişilebilir hale getirmek için tasarlanmıştır. NestJS, Express üzerine inşa edildiğinden, `express-intlayer`'ı NestJS uygulamalarınıza sorunsuzca entegre edebilir ve çok dilli içeriği etkili bir şekilde yönetebilirsiniz.
 
@@ -195,9 +195,9 @@ export class AppService {
 
 `express-intlayer` tamamen uyumludur:
 
-- React uygulamaları için [`react-intlayer`](/doc/packages/react-intlayer)
-- Next.js uygulamaları için [`next-intlayer`](/doc/packages/next-intlayer)
-- Vite uygulamaları için [`vite-intlayer`](/doc/packages/vite-intlayer)
+- [`react-intlayer`](/doc/packages/react-intlayer)
+- [`next-intlayer`](/doc/packages/next-intlayer)
+- [`vite-intlayer`](/doc/packages/vite-intlayer)
 
 Ayrıca tarayıcılar ve API istekleri dahil çeşitli ortamlarda herhangi bir uluslararasılaştırma çözümüyle sorunsuz çalışır. Middleware'i başlık veya çerezler aracılığıyla yerel ayarları algılayacak şekilde özelleştirebilirsiniz:
 

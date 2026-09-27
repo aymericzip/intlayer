@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
-title: Giới thiệu
+title: "Bắt đầu với Intlayer: i18n cho mọi framework"
 description: Khám phá cách Intlayer hoạt động. Xem các bước mà Intlayer sử dụng trong ứng dụng của bạn. Khám phá những gì các gói khác nhau thực hiện.
 keywords:
   - Giới thiệu
@@ -211,8 +211,8 @@ Chúng tôi đã xây dựng Intlayer với tính linh hoạt cao, cung cấp kh
 - **[Intlayer với AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_adonisjs.md)**
 - **[Intlayer với Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_elysia.md)**
 - **[Intlayer với Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_storybook.md)**
-- **[Intlayer với next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_next-intl.md)**
-- **[Intlayer với next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_next-i18next.md)**
+- **[Intlayer với next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_next-intl.md)**
+- **[Intlayer với next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/intlayer_with_next-i18next.md)**
 
 Mỗi hướng dẫn tích hợp bao gồm các phương pháp hay nhất để sử dụng các tính năng của Intlayer, chẳng hạn như **kết xuất phía máy chủ (SSR)**, **định tuyến động** hoặc **kết xuất phía máy khách**, để bạn có thể duy trì một ứng dụng nhanh, thân thiện với SEO và có khả năng mở rộng cao.
 

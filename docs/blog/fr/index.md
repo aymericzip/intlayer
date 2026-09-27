@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
-title: Blog
-description: Découvrez tous les sujets liés à Intlayer, l’internationalisation et autres
+title: "Rechercher dans le blog Intlayer"
+description: "Recherchez parmi tous les articles du blog Intlayer sur l'internationalisation, la localisation, les bibliothèques i18n, le SEO et les workflows de traduction."
 keywords:
   - Intlayer
   - Internationalisation

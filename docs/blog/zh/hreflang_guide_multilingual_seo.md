@@ -288,8 +288,8 @@ const sitemap = generateSitemap(
 
 ### 深入了解
 
-- [SEO 和国际化](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md) — 更广泛的多语言 SEO 图景
-- [Next.js 中的 SEO 和 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/nextjs-multilingual-seo-comparison.md) — `next-intl` vs `next-i18next` vs Intlayer
+- [SEO 和国际化](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md)
+- [Next.js 中的 SEO 和 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/nextjs-multilingual-seo-comparison.md)
 - [Next.js 16 i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)
 - [TanStack Start i18n 指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_tanstack.md)
 - [每个区域的自定义域名](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/custom_domains.md)

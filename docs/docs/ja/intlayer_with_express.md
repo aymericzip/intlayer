@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Express i18n - あなたのアプリを翻訳する完全ガイド"
-description: "i18nextはもう不要。2026年に多言語（i18n）Expressアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+description: "Express に Intlayer を導入：ミドルウェアでリクエストごとにロケールを検出し、API レスポンスとエラーメッセージを翻訳、エンドツーエンドで型付け。"
 keywords:
   - 国際化
   - ドキュメンテーション
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# IntlayerでExpress backendを翻訳する | 国際化（i18n）
+# IntlayerでExpress backendを翻訳する
 
 `express-intlayer` は、Expressアプリケーション向けの強力な国際化 (i18n) ミドルウェアであり、クライアントの好みに基づいてローカライズされたレスポンスを提供することで、バックエンドサービスをグローバルに利用可能にします。
 
@@ -210,9 +210,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer` は以下と完全に互換性があります:
 
-- Reactアプリケーション向けの [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md)
-- Next.jsアプリケーション向けの [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md)
-- Viteアプリケーション向けの [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md)
   さまざまな環境（ブラウザやAPIリクエストを含む）で、あらゆる国際化ソリューションとシームレスに連携します。ミドルウェアをカスタマイズして、ヘッダーやクッキーからロケールを検出することも可能です：
 
 また、ブラウザや API リクエストなど、様々な環境における国際化ソリューションとシームレスに連携します。ヘッダーやクッキーを通じてロケールを検出するようにミドルウェアをカスタマイズできます:

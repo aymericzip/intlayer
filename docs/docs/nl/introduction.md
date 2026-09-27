@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
 title: Introductie
 description: Ontdek hoe Intlayer werkt. Bekijk de stappen die Intlayer in uw applicatie gebruikt. Ontdek wat de verschillende pakketten doen.
@@ -211,8 +211,8 @@ We hebben Intlayer gebouwd met flexibiliteit in gedachten, en bieden een naadloz
 - **[Intlayer met AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_adonisjs.md)**
 - **[Intlayer met Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_elysia.md)**
 - **[Intlayer met Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_storybook.md)**
-- **[Intlayer met next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_next-intl.md)**
-- **[Intlayer met next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_next-i18next.md)**
+- **[Intlayer met next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/nl/intlayer_with_next-intl.md)**
+- **[Intlayer met next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/nl/intlayer_with_next-i18next.md)**
 
 Elke integratiegids bevat best practices voor het gebruik van de functies van Intlayer, zoals **server-side rendering (SSR)**, **dynamische routering** of **client-side rendering**, zodat u een snelle, SEO-vriendelijke en zeer schaalbare applicatie kunt behouden.
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "TanStack Start + Solid i18n - Complete guide to translate your app"
-description: "No more i18next. The 2026 guide to building a multilingual (i18n) TanStack Start + Solid app. Translate with AI agents and optimise bundle size, SEO and performances."
+title: "TanStack Start + Solid i18n: Complete Translation Guide"
+description: "Set up Intlayer in TanStack Start with Solid: locale route params, reactive translated content, localised head metadata and hreflang."
 keywords:
   - Internationalisation
   - Documentation
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# Translate your Tanstack Start website with Solid.js using Intlayer | Internationalisation (i18n)
+# Translate your Tanstack Start website with Solid.js using Intlayer
 
 ## Table of Contents
 

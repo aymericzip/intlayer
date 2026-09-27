@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "从 Svelte I18n 迁移到 Intlayer"
 description: "了解如何使用兼容适配器将您的 Svelte 应用程序从 svelte-i18n 迁移到 Intlayer。"
@@ -46,3 +46,7 @@ Svelte-i18n 依赖于大量使用的 store（`$_`、`$t`、`$format` 等）和 I
 - **ICU 语法：** 由共享 ICU 解析器（等效于 `intl-messageformat` 解析）完全处理。
 - **格式化器：** `$date`、`$time`、`$number` 调用安全地重定向到 Intlayer 的原生核心格式化器。
 - **Babel/SWC 分析：** Intlayer 分析器在编译之前读取您的 `.svelte` 源文件中的 Svelte store 调用者（`$_`），以自动构建相关字典 chunk。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)

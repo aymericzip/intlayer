@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Analog i18n - Guía completa para traducir tu aplicación"
-description: "Sin más i18next. La guía 2026 para crear una aplicación Analog multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
+description: "Configura Intlayer en Analog: contenido tipado por componente, detección y cambio de locale, y rutas localizadas para Angular con Vite."
 keywords:
   - Internacionalización
   - Documentación
@@ -27,7 +27,7 @@ history:
 author: aymericzip
 ---
 
-# Traduce tu aplicación Analog (Angular) con Intlayer | Internacionalización (i18n)
+# Traduce tu aplicación Analog (Angular) con Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Código" value="code">

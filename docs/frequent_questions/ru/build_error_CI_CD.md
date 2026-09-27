@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Ошибка сборки в CI/CD
-description: Узнайте, как исправить ошибки сборки, возникающие в средах CI/CD.
+title: "Как исправить ошибки сборки Intlayer в CI/CD"
+description: "Исправьте ошибки рендеринга Server Components, которые возникают только в CI/CD, убедившись, что словари Intlayer собираются на этапе сборки."
 keywords:
   - сборка
   - ошибка

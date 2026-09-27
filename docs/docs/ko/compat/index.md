@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Intlayer Compat Adapters"
+title: "기존 i18n 라이브러리를 위한 Intlayer 호환 어댑터"
 description: "compat adapter를 사용하여 기존 i18n 솔루션을 Intlayer로 마이그레이션하세요."
 keywords:
   - compat
@@ -31,6 +31,10 @@ author: aymericzip
 compat adapter를 사용할 때, 애플리케이션의 import를 다시 작성하거나 번역 hook 및 component 사용 방법을 변경할 필요가 없습니다. 대신 Intlayer의 bundler plugin이 기존 import를 자동으로 Intlayer compat package로 별칭 지정합니다.
 
 예를 들어, 개발자가 `import { useTranslation } from 'react-i18next'`를 `import { useTranslation } from '@intlayer/react-i18next'`로 대체하면(bundler plugin을 통해 자동으로 수행됨), 앱은 Intlayer 사전에서 제공되는 번역과 함께 계속 작동합니다. 키도 Intlayer 사전에 대해 타입이 지정됩니다!
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## 사용 가능한 Compat Adapters
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "2026년 올바른 React i18n 라이브러리를 선택하는 방법"
-description: React 국제화를 위한 결정 가이드. react-i18next, react-intl, Lingui, use-intl, Paraglide, Intlayer를 비교하기 전에 답해야 할 질문들과 각 선택이 번들 크기, 타입 정의 및 유지보수에 미치는 영향을 알아봅니다.
+description: "React i18n 선택 가이드: react-i18next, react-intl, Lingui, use-intl, Paraglide, Intlayer를 비교하기 전에 답해야 할 질문들."
 keywords:
   - react i18n
   - react internationalization
@@ -25,8 +25,6 @@ author: aymericzip
 React는 기본 i18n 프리미티브를 제공하지 않습니다. 첫날 선택한 라이브러리가 번역 저장 방식, 번들 포함 방식, 향후 수년간 개발자가 직접 감당해야 할 작업의 양을 결정합니다. 대부분의 팀은 인기도를 기준으로 선택했다가, 키가 2,000개에 도달했을 때 비로소 트레이드오프를 깨닫게 됩니다.
 
 이 가이드는 반대로 접근합니다. 먼저 프로젝트에 대한 몇 가지 질문에 답한 다음, 해당 답변에 맞는 라이브러리를 매핑합니다. 이 글은 순수 React(Vite, React Router, TanStack Start)에 초점을 맞춥니다. Next.js는 고유한 제약 사항이 있으며, 이는 [Next.js 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)에서 다룹니다.
-
-![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 목차
 
@@ -97,6 +95,8 @@ SSR 및 Server Components를 중심으로 설계되었습니다. 서버에서 �
 
 라이브러리 크기는 [TanStack Start 벤치마크](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)를 기준으로 합니다. 빈 컴포넌트에서 provider와 hook을 번들링, 트리 쉐이킹, minification을 거친 후 측정한 수치이며(10개 페이지, 10개 로케일), 콘텐츠 크기는 별도로 측정되었습니다.
 
+![React i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | 라이브러리              | 세대         | 콘텐츠 모델                            | 타입 안전성                        | 메시지 포맷                   | 라이브러리 크기                                   |
 | :---------------------- | :----------- | :------------------------------------- | :--------------------------------- | :---------------------------- | :------------------------------------------------ |
 | `react-i18next`         | Runtime      | 중앙 JSON, 네임스페이스                | 2/5 — 옵트인 (`CustomTypeOptions`) | i18next (접미사 복수형)       | ~18.4 kB                                          |
@@ -147,7 +147,7 @@ SSR 및 Server Components를 중심으로 설계되었습니다. 서버에서 �
 </Accordion>
 <Accordion header="향후 Next.js App Router로 이전할 가능성이 있는 경우">
 
-React context는 서버와 클라이언트 경계를 넘지 못합니다. 클라이언트 hook에만 의존하는 라이브러리(`react-i18next`, `react-intl`)는 RSC를 도입하는 순간 별도의 서버 API가 필요하게 됩니다. `use-intl`(`next-intl`로 제공)과 Intlayer(`next-intlayer`로 제공)는 이미 이러한 분리를 지원합니다. 패턴을 표준화하기 전에 [Next.js i18n 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/list_i18n_technologies/frameworks/nextjs.md)를 읽어보세요.
+React context는 서버와 클라이언트 경계를 넘지 못합니다. 클라이언트 hook에만 의존하는 라이브러리(`react-i18next`, `react-intl`)는 RSC를 도입하는 순간 별도의 서버 API가 필요하게 됩니다. `use-intl`(`next-intl`로 제공)과 Intlayer(`next-intlayer`로 제공)는 이미 이러한 분리를 지원합니다. 패턴을 표준화하기 전에 [Next.js i18n 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)를 읽어보세요.
 
 </Accordion>
 </AccordionGroup>
@@ -565,8 +565,8 @@ AI 에이전트는 여전히 i18n 작업에서 실수를 범합니다. 로케일
 
 ## 더 알아보기
 
-- [i18n 라이브러리 벤치마크: 번들 크기, 누수 및 로케일 전환 타이밍](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md) 및 [TanStack Start 리포트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
-- [React i18n: provider 모델의 작동 방식과 비용](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/list_i18n_technologies/frameworks/react.md)
+- [i18n 라이브러리 벤치마크: 번들 크기, 누수 및 로케일 전환 타이밍](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
+- [TanStack Start 리포트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
 - [기능별 비교: react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/react-i18next_vs_react-intl_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer 비교](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-i18next_vs_next-intl_vs_intlayer.md)
 - [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
@@ -574,4 +574,6 @@ AI 에이전트는 여전히 i18n 작업에서 실수를 범합니다. 로케일
 - [컴포넌트별 vs 중앙집중식 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/per-component_vs_centralized_i18n.md)
 - [빌드 타임 번들 최적화 작동 원리](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
 - [Vite + React 앱에서 i18n 설정하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react.md)
-- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_vue_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_svelte_i18n_library.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_solid_i18n_library.md)를 위한 가이드
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/how_to_pick_solid_i18n_library.md)

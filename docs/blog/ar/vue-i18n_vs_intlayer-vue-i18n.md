@@ -3,7 +3,7 @@ createdAt: 2026-09-13
 updatedAt: 2026-09-22
 priority: 8
 title: "vue-i18n مقابل @intlayer/vue-i18n: نفس الواجهة البرمجية، حزمة مختلفة"
-description: ما الذي يتغير عندما تحتفظ تطبيقات Vue 3 باستدعاءات vue-i18n الخاصة بها لكنها تخدمها من خلال محول التوافق @intlayer/vue-i18n. JavaScript لكل صفحة، حجم وقت التشغيل، حجم المكون والتسرب المقاس على نفس كود Vite + Vue، بالإضافة إلى ما يحتفظ به المحول وما يتجاهله وما لا يمكنه استبداله.
+description: "تطبيق Vue 3 يحتفظ باستدعاءات vue-i18n التي يخدمها محوّل @intlayer/vue-i18n. قياس JavaScript لكل صفحة وحجم وقت التشغيل والمكوّنات والتسرّب."
 keywords:
   - vue-i18n
   - "@intlayer/vue-i18n"
@@ -24,13 +24,11 @@ slugs:
 author: aymericzip
 ---
 
-# vue-i18n مقابل @intlayer/vue-i18n | نفس الواجهة البرمجية، حزمة مختلفة
-
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+# vue-i18n مقابل @intlayer/vue-i18n: نفس الواجهة البرمجية، حزمة مختلفة
 
 `@intlayer/vue-i18n` هو محول توافقي: يعرّض واجهة برمجية (API) من `vue-i18n` (`createI18n`، `useI18n`، `t()`، `d()`، `n()`، `$t`، `v-t`، `i18n.global.locale`...) ويقدمها من القواميس المترجمة بواسطة Intlayer. ملفات `.vue` الخاصة بك لا تتغير. ما يرتبط به `t("footer.github")` هو ما يتغير.
 
-تقيس هذه المقالة هذا التبديل على نفس تطبيق Vite + Vue 3، تم بناؤه مرة واحدة باستخدام `vue-i18n` ومرة أخرى باستخدام المحول. تأتي الأرقام من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). لمقارنة `vue-i18n` و Intlayer كمكتبات، اقرأ [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md) و[vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer_benchmark.md). هذا يتعلق بما يغيره المحول عندما تحتفظ بمكوناتك كما هي.
+تقيس هذه المقالة هذا التبديل على نفس تطبيق Vite + Vue 3، تم بناؤه مرة واحدة باستخدام `vue-i18n` ومرة أخرى باستخدام المحول. تأتي الأرقام من [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). لمقارنة `vue-i18n` و Intlayer كمكتبات، اقرأ [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md) و[vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md). هذا يتعلق بما يغيره المحول عندما تحتفظ بمكوناتك كما هي.
 
 <TOC/>
 
@@ -359,6 +357,8 @@ export const i18n = createI18n({ locale: "en" });
 
 ## المقارنات ذات الصلة
 
+![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 نفس سلسلة المحولات:
 
 - [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-intl_vs_intlayer-next-intl.md)
@@ -367,18 +367,25 @@ export const i18n = createI18n({ locale: "en" });
 
 مقارنة المكتبات جنبًا إلى جنب:
 
-- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md), features and DX
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/vue-i18n_vs_intlayer.md)
 - [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/is_vue-i18n_outdated.md)
 - [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/how_to_pick_vue_i18n_library.md)
 
 وثائق مرجعية:
 
-- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md) and [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md)
+- [Compat adapter: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/vue-i18n.md)
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compat/nuxtjs-i18n.md)
 - [دليل الترحيل: من vue-i18n إلى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/migration_from_vue-i18n_to_intlayer.md)
 - [تقرير قياس أداء Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/vue.md)
-- [تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md) و [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
-- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) و [الترجمة بالذكاء الاصطناعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)
+- [تحسين الحزمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/bundle_optimization.md)
+- [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
+- [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [الترجمة بالذكاء الاصطناعي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md)
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## الخلاصة
 

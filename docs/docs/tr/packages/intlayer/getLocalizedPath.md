@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: getLocalizedPath Fonksiyon Dokümantasyonu | intlayer
-description: intlayer paketi için getLocalizedPath fonksiyonunun nasıl kullanılacağını görün
+description: "getLocalizedPath ile dahili bir yolu, yeniden yazma kurallarınızı ve locale önekini uygulayarak yerelleştirilmiş hâline dönüştürün."
 keywords:
   - getLocalizedPath
   - çeviri
@@ -162,5 +162,5 @@ getLocalizedPath("/about");
 
 ## İlgili Fonksiyonlar
 
-- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getCanonicalPath.md): Yerelleştirilmiş bir yolu dahili kanonik yoluna çözer.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md): Tam yerelleştirilmiş bir URL oluşturur (protokol, host ve dil öneki dahil).
+- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getCanonicalPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)

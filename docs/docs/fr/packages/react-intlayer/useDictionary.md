@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Documentation du Hook useDictionary | react-intlayer
-description: Découvrez comment utiliser le hook useDictionary pour le package react-intlayer
+description: "Utilisez useDictionary dans React pour interpréter un objet dictionnaire que vous déclarez vous-même, avec traductions, énumérations et plus résolus."
 keywords:
   - useDictionary
   - dictionary

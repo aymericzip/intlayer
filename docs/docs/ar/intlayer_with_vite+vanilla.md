@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
-title: "تدويل Vite + Vanilla JS - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Vite + Vanilla JS متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+title: "i18n في Vite + Vanilla JS: دليل الترجمة الكامل"
+description: "إعداد Intlayer في تطبيق Vite دون إطار عمل: ترجم DOM، وبدّل اللغة، واحتفظ بمحتوى مُنمَّط في ملفات .content."
 keywords:
   - التدويل
   - التوثيق
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# ترجم موقع الويب الخاص بك باستخدام Vite و Vanilla JS باستخدام Intlayer | التدويل (i18n)
+# ترجم موقع الويب الخاص بك باستخدام Vite و Vanilla JS باستخدام Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="كود" value="code">

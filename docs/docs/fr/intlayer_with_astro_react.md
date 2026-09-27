@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + React i18n - Guide complet pour traduire votre application"
-description: "Oubliez i18next. Le guide 2026 pour créer une application Astro + React multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
+description: "Configurez Intlayer dans Astro avec des îlots React : composants traduits, routes localisées et hreflang, avec du contenu typé par composant."
 keywords:
   - Internationalisation
   - Documentation
@@ -35,7 +35,7 @@ history:
 author: aymericzip
 ---
 
-# Traduire votre site Astro + React avec Intlayer | Internationalisation (i18n)
+# Traduire votre site Astro + React avec Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Code" value="code">

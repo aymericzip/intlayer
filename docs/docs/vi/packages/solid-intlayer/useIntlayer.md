@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-06
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu Hook useIntlayer | solid-intlayer
-description: Xem cách sử dụng hook useIntlayer cho package solid-intlayer
+description: "Dùng useIntlayer trong Solid để đọc nội dung bản địa hóa của từ điển theo key, dưới dạng giá trị phản ứng thay đổi theo locale."
 keywords:
   - useIntlayer
   - từ điển

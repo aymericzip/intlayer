@@ -280,9 +280,9 @@ Dla projektów zawierających już ciągi ICU, [adapter zgodności react-intl](h
 
 ## Więcej informacji
 
-- [Liczba mnoga w Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md): węzeł `plural` oparty na CLDR oraz tabela kategorii.
-- [Zawartość warunkowa select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/select.md): odpowiednik ICU `select` oraz zastosowanie `enu` i `cond`.
-- [Wstawianie zmiennych](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md): interpolacja `{{name}}` oraz jej automatyczne wykrywanie.
-- [Benchmark bibliotek i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md): porównanie wielkości paczek i wydajności w czasie działania.
-- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/react-i18next_vs_react-intl_vs_intlayer.md): szczegółowe porównanie trzech modeli obsługi komunikatów.
-- [Czym jest internacjonalizacja?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/what_is_internationalization.md): pochodzenie terminu i18n, różnice względem l10n oraz szeroki kontekst poza samym formatowaniem komunikatów.
+- [Liczba mnoga w Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plurial.md)
+- [Zawartość warunkowa select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/select.md)
+- [Wstawianie zmiennych](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md)
+- [Benchmark bibliotek i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/index.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Czym jest internacjonalizacja?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/what_is_internationalization.md)

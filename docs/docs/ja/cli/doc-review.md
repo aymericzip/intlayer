@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: ドキュメントのレビュー
+title: "intlayer doc review：翻訳済みドキュメントのレビュー"
 description: 異なるロケール間での品質、一貫性、完全性を確認するためのドキュメントファイルのレビュー方法を学びます。
 keywords:
   - レビュー

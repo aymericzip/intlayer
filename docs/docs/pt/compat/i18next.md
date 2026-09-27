@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrar do i18next para Intlayer"
-description: "Aprenda como migrar sua aplicação Vanilla JS/TS do i18next para Intlayer usando o adaptador de compatibilidade."
+title: "@intlayer/i18next: adaptador de compatibilidade para i18next"
+description: "Mantenha seu código i18next e sirva-o com o Intlayer: instale @intlayer/i18next, crie aliases para os imports e veja o que o adaptador muda internamente."
 keywords:
   - i18next
   - vanilla
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# Migrar de i18next para Intlayer
+# @intlayer/i18next: adaptador de compatibilidade para i18next
 
 Para um tutorial passo a passo detalhado, consulte nosso [i18next Migration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/migration_from_i18next_to_intlayer.md) completo.
 
@@ -58,3 +58,7 @@ Nos bastidores:
 - **Interpolação:** Suporte nativo para substituições `{{name}}` e aninhamento `$t(key)` recursivamente.
 - **Contexto e plurais:** Identifica e resolve formatos de sufixo como `key_male` e `key_one`/`key_other` avaliando contra `Intl.PluralRules` padrão.
 - **Retorno de objetos:** O modo `returnObjects: true` extrai com segurança árvores de dicionários do Intlayer.
+
+> Para entender de onde vêm essas bibliotecas, leia a história do i18n em JavaScript.
+
+- [A história do i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/history_of_i18n.md)

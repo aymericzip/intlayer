@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: Funktionsabruf
-description: Entdecken Sie, wie Sie Funktionsabrufe in Ihrer mehrsprachigen Website deklarieren und verwenden. Folgen Sie den Schritten in dieser Online-Dokumentation, um Ihr Projekt in wenigen Minuten einzurichten.
+title: "Function Fetching: Inhalte aus Funktionen laden"
+description: "Deklarieren Sie Intlayer-Inhalte aus synchronen oder asynchronen Funktionen, etwa um Übersetzungen beim Build von einer API zu holen."
 keywords:
   - Funktionsabruf
   - Internationalisierung

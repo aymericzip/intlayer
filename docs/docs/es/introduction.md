@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
-title: Introducción
+title: "Empieza con Intlayer: i18n para cualquier framework"
 description: Descubre cómo funciona Intlayer. Conoce los pasos que utiliza Intlayer en tu aplicación. Descubre qué hacen los diferentes paquetes.
 keywords:
   - Introducción
@@ -209,8 +209,8 @@ Hemos creado Intlayer pensando en la flexibilidad, ofreciendo una integración p
 - **[Intlayer con AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_adonisjs.md)**
 - **[Intlayer con Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_elysia.md)**
 - **[Intlayer con Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_storybook.md)**
-- **[Intlayer con next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_next-intl.md)**
-- **[Intlayer con next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_next-i18next.md)**
+- **[Intlayer con next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/intlayer_with_next-intl.md)**
+- **[Intlayer con next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/intlayer_with_next-i18next.md)**
 
 Cada guía de integración incluye las mejores prácticas para utilizar las características de Intlayer, como el **renderizado del lado del servidor**, el **enrutamiento dinámico** o el **renderizado del lado del cliente**, de modo que puedas mantener una aplicación rápida, optimizada para SEO y altamente escalable.
 

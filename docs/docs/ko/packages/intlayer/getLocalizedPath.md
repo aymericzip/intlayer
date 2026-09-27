@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: getLocalizedPath 함수 문서 | intlayer
-description: intlayer 패키지의 getLocalizedPath 함수 사용법 보기
+description: "getLocalizedPath로 내부 경로를 현지화된 형태로 바꿉니다. 재작성 규칙과 로케일 접두사를 적용합니다."
 keywords:
   - getLocalizedPath
   - 번역
@@ -161,5 +161,5 @@ getLocalizedPath("/about");
 
 ## 관련 함수
 
-- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getCanonicalPath.md): 로컬라이즈된 경로를 내부 정규 경로로 되돌립니다.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md): 프로토콜, 호스트, 로케일 접두사를 포함한 완전한 로컬라이즈된 URL을 생성합니다.
+- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getCanonicalPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)

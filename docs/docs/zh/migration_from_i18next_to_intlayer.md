@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "从 i18next 迁移到 Intlayer | 国际化 (i18n)"
-description: "了解如何逐步将你的 JavaScript/TypeScript 应用从 i18next 迁移到 Intlayer，无需破坏现有代码。使用 @intlayer/i18next 兼容适配器实现零中断转换。"
+title: "从 i18next 迁移到 Intlayer"
+description: "逐步将 JavaScript 或 TypeScript 应用从 i18next 迁移到 Intlayer，先使用 @intlayer/i18next 适配器，确保不破坏现有代码。"
 keywords:
   - i18next
   - intlayer
@@ -61,6 +61,10 @@ Intlayer 也是 i18n 生态系统中**开发最活跃的**解决方案——问�
 
 </Accordion>
 </AccordionGroup>
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 迁移策略
 
@@ -297,7 +301,7 @@ Intlayer 使用模块增强来为您的翻译键提供完整的 TypeScript intel
 
 ## 深入了解
 
-- **Visual Editor** — 在浏览器中直观管理翻译: [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
-- **CMS** — 外部化和远程管理内容: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
-- **VS Code Extension** — 获得自动完成和实时翻译错误检测: [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
-- **CLI Reference** — CLI 命令完整列表: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+- [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)

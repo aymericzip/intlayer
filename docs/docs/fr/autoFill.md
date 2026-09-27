@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-09-20
+updatedAt: 2026-09-27
 priority: 8
-title: Remplissage automatique
-description: Apprenez à utiliser la fonctionnalité de remplissage automatique dans Intlayer pour remplir automatiquement le contenu en fonction de modèles prédéfinis. Suivez cette documentation pour implémenter efficacement les fonctionnalités de remplissage automatique dans votre projet.
+title: "Auto Fill : traduire automatiquement le contenu manquant"
+description: "Utilisez l'auto fill d'Intlayer pour générer les traductions manquantes depuis votre locale source et les écrire dans les bons fichiers de contenu."
 keywords:
   - Remplissage automatique
   - Automatisation du contenu

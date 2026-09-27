@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-09-20
+updatedAt: 2026-09-27
 priority: 8
-title: Compilazione Automatica
-description: Scopri come utilizzare la funzionalità di compilazione automatica in Intlayer per popolare automaticamente i contenuti basati su modelli predefiniti. Segui questa documentazione per implementare efficacemente le funzionalità di compilazione automatica nel tuo progetto.
+title: "Auto Fill: tradurre automaticamente i contenuti mancanti"
+description: "Usa l'auto fill di Intlayer per generare le traduzioni mancanti dalla locale di origine e scriverle nei file di contenuto giusti."
 keywords:
   - Compilazione Automatica
   - Automazione dei Contenuti

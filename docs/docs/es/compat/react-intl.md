@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Migrar de React Intl a Intlayer"
 description: "Aprende cómo migrar tu aplicación React desde react-intl a Intlayer usando el adaptador de compatibilidad."
@@ -54,3 +54,7 @@ Bajo el capó:
 - **ICU MessageFormat:** Intlayer utiliza el resolvedor `resolveMessage(..., 'icu')` que soporta completamente pluralización ICU, selección, formateo de fechas/números y etiquetas de texto rico nativamente.
 - **Llamadores de método y JSX:** `intl.formatMessage({ id: 'a.b' })` y `<FormattedMessage id="a.b">` son identificados por los plugins del compilador de Intlayer (`@intlayer/babel` / `@intlayer/swc`), convirtiendo claves con puntos planos para que el primer segmento se resuelva correctamente a la clave del diccionario de Intlayer.
 - **Formateadores:** `<FormattedNumber>`, `<FormattedDate>`, etc., se puenten a los `core/formatters` nativos usando `Intl`.
+
+> Para entender de dónde vienen estas bibliotecas, lee la historia del i18n en JavaScript.
+
+- [La historia del i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md)

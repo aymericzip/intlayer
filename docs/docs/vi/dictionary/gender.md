@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: Nội dung dựa trên giới tính
-description: Tìm hiểu cách sử dụng nội dung dựa trên giới tính trong Intlayer để hiển thị nội dung một cách động dựa trên giới tính. Theo dõi tài liệu này để triển khai nội dung theo giới tính một cách hiệu quả trong dự án của bạn.
+title: "Nội dung theo giới tính trong Intlayer"
+description: "Điều chỉnh thông điệp theo giới tính người đọc với node gender() của Intlayer: biến thể nam, nữ và mặc định khai báo cùng một chỗ."
 keywords:
   - Nội dung dựa trên giới tính
   - Hiển thị động

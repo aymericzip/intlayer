@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: useLocale हुक दस्तावेज़ | react-intlayer
-description: react-intlayer पैकेज के लिए useLocale हुक का उपयोग कैसे करें देखें
+description: "React में useLocale से मौजूदा, डिफ़ॉल्ट और उपलब्ध लोकेल पढ़ें और किसी भी कंपोनेंट से भाषा बदलें।"
 keywords:
   - useLocale
   - शब्दकोश

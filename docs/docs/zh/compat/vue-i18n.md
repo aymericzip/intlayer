@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "从 Vue I18n 迁移到 Intlayer"
-description: "了解如何使用兼容适配器将您的 Vue 应用程序从 vue-i18n 迁移到 Intlayer。"
+title: "@intlayer/vue-i18n：vue-i18n 兼容适配器"
+description: "保留 vue-i18n 代码，改由 Intlayer 提供内容：安装 @intlayer/vue-i18n，为导入设置别名，并了解适配器在底层做了哪些改变。"
 keywords:
   - vue-i18n
   - vue
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# 从 Vue I18n 迁移到 Intlayer
+# @intlayer/vue-i18n：vue-i18n 兼容适配器
 
 如果您的 Vue 应用程序当前使用 `vue-i18n`，您可以迁移到 Intlayer，而无需重写组件或翻译 hook。Intlayer 提供了一个兼容适配器，完美地镜像 `vue-i18n` 的 API，同时在底层利用 Intlayer 的强大功能。
 
@@ -57,3 +57,7 @@ export default defineConfig({
 - **指令：** `v-t` 指令已注册并正常运行。
 
 您的应用程序继续与之前完全相同地渲染，但内容由您的 Intlayer 字典提供支持，为您带来类型安全、更好的 bundle 优化和无缝的 CMS 集成。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)

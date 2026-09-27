@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 8
-title: "Como tornar multilíngue (i18n) uma aplicação Vite e React existente a posteriori (Guia i18n 2026)"
-description: "O guia de 2026 para tornar uma aplicação Vite e React existente multilíngue (i18n) sem refatorações exaustivas. Conheça a extração automática, tradução com IA e bundles otimizados com Intlayer."
+title: "Tornar multilíngue um app Vite + React existente"
+description: "Adicione i18n a um app Vite e React existente sem reescrevê-lo: extraia textos fixos automaticamente, traduza com IA e mantenha os bundles pequenos."
 keywords:
   - Vite i18n
   - React i18n

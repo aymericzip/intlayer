@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Comando Intlayer indefinido
-description: Aprenda como corrigir o erro de comando intlayer indefinido.
+description: "Corrija o erro «intlayer: command not found»: instale a CLI, execute-a pelo seu gerenciador de pacotes e verifique o PATH."
 keywords:
   - intlayer
   - comando

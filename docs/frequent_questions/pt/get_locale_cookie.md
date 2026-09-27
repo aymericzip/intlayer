@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Como recuperar a localidade dos cookies / cabeçalhos?
-description: Aprenda como recuperar a localidade dos cookies / cabeçalhos.
+description: "Leia o locale atual dos cookies ou dos cabeçalhos da requisição com o Intlayer, no servidor ou em um middleware, para exibir o idioma certo."
 keywords:
   - cookie
   - cabeçalhos

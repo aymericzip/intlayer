@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-08
+updatedAt: 2026-09-27
 priority: 10
 title: "تدويل Next.js 16 - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Next.js 16 متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في Next.js 16 App Router: توجيه اللغات عبر proxy، وServer وClient Components، وبيانات وصفية مترجمة، وخريطة موقع، وصفحات ثابتة."
 keywords:
   - التدويل
   - الوثائق
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# ترجمة موقع Next.js 16 الخاص بك باستخدام Intlayer | التدويل (i18n)
+# ترجمة موقع Next.js 16 الخاص بك باستخدام Intlayer
 
 <Tabs defaultTab="video">
   <Tab label="فيديو" value="video">

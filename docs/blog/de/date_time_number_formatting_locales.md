@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-27
 priority: 8
 title: "Datums- und Zahlenformatierung nach Locale mit Intl"
-description: Sie brauchen wahrscheinlich keine externe Formatierungsbibliothek. Wie Intl Daten, Zahlen, Währungen und Listen nach Locale handhabt, Caching-Aufwand und Hydration-Bugs in Produktion.
+description: "Brauchen Sie eine Formatierungsbibliothek? Wie Intl Datumsangaben, Zahlen, Währungen und Listen pro Locale formatiert, die Caching-Kosten und ein Zeitzonen-Bug nur in Produktion."
 keywords:
   - datum nach locale formatieren
   - Intl.DateTimeFormat

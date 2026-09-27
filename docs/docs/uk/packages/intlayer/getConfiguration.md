@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-25
+updatedAt: 2026-09-27
 priority: 5
 title: Документація функції getConfiguration | intlayer
-description: Дізнайтесь, як використовувати функцію getConfiguration для пакета intlayer
+description: "Використовуйте getConfiguration, щоб прочитати підсумкову конфігурацію Intlayer, зокрема локалі та маршрутизацію, на клієнті чи сервері."
 keywords:
   - getConfiguration
   - переклад

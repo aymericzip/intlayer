@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Можно ли использовать Intlayer с Next.js без `[locale]` в пути страницы?
+title: "Intlayer в Next.js без [locale] в пути"
 description: Узнайте, как использовать Intlayer с Next.js без `[locale]` в пути страницы.
 keywords:
   - locale

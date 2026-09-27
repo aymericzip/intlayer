@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-24
-updatedAt: 2025-11-24
+updatedAt: 2026-09-27
 priority: 8
 title: Derleyici Tabanlı ve Deklaratif i18n Karşılaştırması
 description: '"Sihirli" derleyici tabanlı uluslararasılaştırma ile açık deklaratif içerik yönetimi arasındaki mimari ödünleşimleri keşfetmek.'
@@ -65,6 +65,10 @@ Böylece, Derleyici tabanlı i18n doğdu.
 > - angular-i18n (Angular'ın yerel, derleme sırasında XLIFF dosyalarını doğrudan şablonlara birleştiren önceden derleme yaklaşımı)
 > - Tolgee (Bildirimsel kodu, kullanıcı arayüzünde doğrudan "tıklayarak çeviri" düzenlemesi için bağlam içi bir SDK ile birleştirir)
 > - Intlayer (Bileşen başına yaklaşım, yerel tree-shaking ve TypeScript doğrulamasını mümkün kılan içerik bildirim dosyalarını kullanır)
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## Intlayer Derleyicisi
 

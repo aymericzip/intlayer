@@ -14,9 +14,9 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
-description: Documentation for the useLocale hook in the next-intlayer package
+description: "Next.js में useLocale से मौजूदा लोकेल पढ़ें और भाषा बदलें, स्थानीयकृत रूट अपने आप अपडेट होता है।"
 createdAt: 2024-08-11
-updatedAt: 2026-01-26
+updatedAt: 2026-09-27
 priority: 5
 title: useLocale हुक दस्तावेज़ | next-intlayer
 history:

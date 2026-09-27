@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
 title: t फ़ंक्शन दस्तावेज़ीकरण | hono-intlayer
-description: देखें कि hono-intlayer पैकेज के लिए t फ़ंक्शन का उपयोग कैसे करें
+description: "hono-intlayer के t फ़ंक्शन से Hono में हर रिक्वेस्ट के लिए पहचाने गए लोकेल के अनुसार स्थानीयकृत रिस्पॉन्स लौटाएँ।"
 keywords:
   - t
   - अनुवाद

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Yapılandırmayı Yönet
-description: Intlayer yapılandırmanızı CMS'ye nasıl alıp göndereceğinizi öğrenin.
+title: "intlayer configuration: yapılandırmayı alın ve gönderin"
+description: "Intlayer CLI ile çözümlenmiş yapılandırmanızı görüntüleyin ve Intlayer CMS'e gönderin; panel ile projeniz senkron kalsın."
 keywords:
   - Yapılandırma
   - Konfigürasyon

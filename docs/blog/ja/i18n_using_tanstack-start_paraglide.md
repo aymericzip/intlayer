@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "Paraglide JS を使用した TanStack Start の i18n：2026年セットアップガイド"
 description: "Paraglide JS を使用して TanStack Start アプリを多言語化：URL 戦略、ルーターリライト、SSR ミドルウェア、hreflang、サイトマップ、robots.txt、さらに実際のベンチマークデータ。"
@@ -43,9 +43,17 @@ Paraglide は、公式の TanStack Router のサンプルで使用されてい�
 
 本ガイドでは、これら3つの要素をすべて設定し、さらに Paraglide 単体では対応していない項目（`lang` と `dir`、言語切替スイッチャー、翻訳されたメタデータ、`canonical`、`x-default` 付き `hreflang`、Open Graph、JSON-LD、サイトマップ、`robots.txt`、事前レンダリング、ローカライズされた 404 ページ）についても網羅して解説します。
 
-> 他のスタックをお探しですか？ [TanStack Start + use-intl ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_tanstack-start_use-intl.md)、[TanStack Start + Lingui ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_tanstack-start_lingui.md)、または [TanStack Start + Intlayer ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)をご覧ください。
+> 他のスタックをお探しですか？
+
+- [TanStack Start + use-intl ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_tanstack-start_use-intl.md)
+- [TanStack Start + Lingui ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_tanstack-start_lingui.md)
+- [TanStack Start + Intlayer ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)
 
 > 2つのコンパイラベースのアプローチを比較したいですか？ [Intlayer は Paraglide より軽量か？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/is_intlayer_lighter_than_paraglide.md)をお読みください。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## TanStack Start における Paraglide のベンチマーク結果
 
@@ -95,7 +103,11 @@ TanStack Start でよく使用される他のライブラリとの Paraglide JS 
 
 > ランタイムサイズと漏洩率の数値は [TanStack Start ベンチマーク](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/benchmark/tanstack.md)に基づいています。漏洩率は各ライブラリの最適構成で測定されています。
 
-> 他の TanStack Start ガイド：[Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_tanstack-start_lingui.md)、[use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_tanstack-start_use-intl.md)、および [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)。
+> 他の TanStack Start ガイド：
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_tanstack-start_lingui.md)
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/i18n_using_tanstack-start_use-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_tanstack.md)
 
 ## 推奨される実践プラクティス
 
@@ -108,7 +120,8 @@ TanStack Start でよく使用される他のライブラリとの Paraglide JS 
 - **多言語サイトマップと robots.txt を生成**し、すべてのロケールを事前レンダリングします。
 - クローラーがすべての言語を発見できるように、**言語スイッチャーには本物のリンクを使用**します。
 
-> [国際化と SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/internationalization_and_SEO.md) ガイドおよび [hreflang ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/hreflang_guide_multilingual_seo.md)をご覧ください。
+- [国際化と SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/internationalization_and_SEO.md)
+- [hreflang ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/hreflang_guide_multilingual_seo.md)
 
 ## TanStack Start アプリケーションで Paraglide JS をセットアップするステップバイステップガイド
 

@@ -2,7 +2,7 @@
 createdAt: 2025-08-23
 updatedAt: 2026-07-08
 priority: 8
-title: نظام إدارة المحتوى Intlayer | إخراج محتواك إلى نظام إدارة المحتوى Intlayer
+title: "Intlayer CMS: أخرج محتواك متعدد اللغات"
 description: إخراج محتواك إلى نظام إدارة المحتوى Intlayer لتفويض إدارة المحتوى إلى فريقك.
 keywords:
   - نظام إدارة المحتوى

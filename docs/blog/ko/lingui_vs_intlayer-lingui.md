@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui vs @intlayer/lingui: 동일한 매크로, 다른 런타임"
-description: "React 앱이 Lingui 매크로를 유지한 채 @intlayer/lingui 호환 어댑터를 통해 제공할 때 일어나는 변화. 컴포넌트 크기, 하이드레이션, 누수율 및 페이지당 JavaScript 용량을 동일한 TanStack Start 코드베이스에서 측정하고, 어댑터가 불리한 부분까지 함께 분석합니다."
+description: "React 앱이 Lingui 매크로를 유지한 채 @intlayer/lingui 어댑터로 제공됩니다. 컴포넌트 크기, 하이드레이션, 누출, 페이지별 JavaScript를 측정했습니다."
 keywords:
   - Lingui
   - "@intlayer/lingui"
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui VS @intlayer/lingui | 동일한 매크로, 다른 런타임
+# Lingui VS @intlayer/lingui: 동일한 매크로, 다른 런타임
 
 `@intlayer/lingui`는 `@lingui/core` 및 `@lingui/react`를 위한 호환 어댑터입니다. 기존의 `` t`...` ``, `<Trans>`, `useLingui()`, `i18n._()` 호출은 그대로 유지되며, 매크로 역시 정상 컴파일됩니다. 변화하는 것은 런타임에 메시지를 가져오는 경로입니다. 언어별 단일 통합 카탈로그 대신, 각 호출 위치는 해당 위치만을 위해 컴파일된 Intlayer 딕셔너리에 바인딩됩니다.
 
@@ -289,12 +289,16 @@ export default defineConfig({
 
 ## 관련 비교 자료
 
-- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md) (동일 벤치마크 기반의 두 라이브러리 직접 비교)
-- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer-next-intl.md) (호환 어댑터 비교 시리즈)
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer-i18next.md) (호환 어댑터 비교 시리즈)
-- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer-vue-i18n.md) (호환 어댑터 비교 시리즈)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/lingui_vs_intlayer.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer-next-intl.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer-i18next.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/vue-i18n_vs_intlayer-vue-i18n.md)
 - [호환 어댑터 레퍼런스: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compat/lingui.md)
 - [컴파일러 기반 vs 선언형 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/compiler_vs_declarative_i18n.md)
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## 결론
 

@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: useLocale Hook 文档 | react-intlayer
-description: 查看如何使用 react-intlayer 包中的 useLocale hook
+description: "在 React 中使用 useLocale 读取当前、默认和可用的语言，并在任意组件中切换语言。"
 keywords:
   - useLocale
   - 字典

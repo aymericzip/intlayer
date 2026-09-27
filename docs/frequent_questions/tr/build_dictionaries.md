@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 4
 title: Sözlükler nasıl oluşturulur?
-description: Sözlüklerin nasıl oluşturulacağını öğrenin.
+description: "Intlayer'ın sözlükleri ne zaman otomatik derlediği, CLI ile manuel derlemenin nasıl başlatılacağı ve üretilen dosyaların nereye yazıldığı."
 keywords:
   - oluştur
   - sözlük

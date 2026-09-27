@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: Чи застарів vue-i18n у 2026 році?
 description: vue-i18n був стандартом для застосунків Vue та Nuxt ціле десятиліття. Проте в наших бенчмарках він виявився найважчим runtime i18n у вебі. Пояснюємо причини.
@@ -68,6 +68,10 @@ author: aymericzip
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Зріла бібліотека забезпечує передбачуваність. Проте сучасні фронтенд-рішення застосовують AST-трансформації на етапі збірки, очищення мертвого коду та автоматизацію за допомогою ШІ. Системі, орієнтованій виключно на виконання у браузері, складно переймати ці переваги.
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
 
 ## Тестування продуктивності у Vite + Vue
 

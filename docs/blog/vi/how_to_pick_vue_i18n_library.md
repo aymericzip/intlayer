@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "Cách chọn đúng thư viện Vue i18n năm 2026"
-description: Hướng dẫn ra quyết định cho việc quốc tế hóa (i18n) Vue và Nuxt. Những câu hỏi cần trả lời trước khi so sánh vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide và Intlayer, cùng chi phí của từng lựa chọn về bundle size, typing và SSR payload.
+description: "Hướng dẫn chọn i18n cho Vue và Nuxt: những câu hỏi trước khi so sánh vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide và Intlayer."
 keywords:
   - vue i18n
   - vue internationalization
@@ -24,8 +24,6 @@ author: aymericzip
 "Vue i18n" vừa là một thuật ngữ chung vừa là tên của thư viện mà hầu như ai cũng cài đặt. Điều đó vừa tiện lợi vừa dễ gây hiểu lầm: `vue-i18n` là một lựa chọn mặc định tốt, nhưng không phải là lựa chọn duy nhất, và những câu hỏi định hình quyết định (có dùng SSR hay không, bao nhiêu trang, ai là người viết bản dịch) hiếm khi được đặt ra trước khi chạy `npm install`.
 
 Hướng dẫn này sẽ đặt ra những câu hỏi đó trước, sau đó ánh xạ các câu trả lời tới những thư viện phù hợp, cho cả Vite + Vue thuần lẫn Nuxt.
-
-![Hệ sinh thái thư viện Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Mục lục
 
@@ -87,6 +85,8 @@ Bài [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/
 
 Kích thước thư viện được lấy từ bài [benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md): plugin cộng với composable trong một component rỗng, sau khi bundling, tree-shaking và minification, trên một ứng dụng 10 trang, 10 locale. Nội dung được đo lường riêng biệt.
 
+![Hệ sinh thái thư viện Vue i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Thư viện       | Mô hình nội dung                                           | An toàn kiểu                     | Định dạng message                   | Phân tách theo route   | Kích thước thư viện                                |
 | :------------- | :--------------------------------------------------------- | :------------------------------- | :---------------------------------- | :--------------------- | :------------------------------------------------- |
 | `vue-i18n`     | Catalog tập trung theo locale, tùy chọn SFC `<i18n>` block | 2/5 — Opt-in qua schema generic  | Riêng (pipe plural)                 | Không                  | ~24.3 kB                                           |
@@ -110,7 +110,7 @@ Kích thước thư viện gần như bằng 0 của Paraglide đạt được n
 </Accordion>
 <Accordion header="Nuxt với định tuyến locale, sitemap và hreflang">
 
-`@nuxtjs/i18n` cung cấp chiến lược định tuyến, các thẻ `hreflang` và tự động phát hiện locale mà không cần viết thêm code, và chỉ riêng điều đó đã đủ để chọn nó cho các trang nội dung có vài trang. Giới hạn của nó nằm ở catalog theo từng locale: khi vượt quá khoảng mười trang, SSR payload sẽ phải gánh toàn bộ nội dung của mọi route. Nếu đó là trường hợp của bạn, hãy tự cấu hình thủ công `vue-i18n` với message theo từng route, hoặc chuyển sang mô hình nội dung scoped. Bài viết [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/list_i18n_technologies/frameworks/nuxt.md) sẽ hướng dẫn bạn lựa chọn chiến lược định tuyến trước tiên.
+`@nuxtjs/i18n` cung cấp chiến lược định tuyến, các thẻ `hreflang` và tự động phát hiện locale mà không cần viết thêm code, và chỉ riêng điều đó đã đủ để chọn nó cho các trang nội dung có vài trang. Giới hạn của nó nằm ở catalog theo từng locale: khi vượt quá khoảng mười trang, SSR payload sẽ phải gánh toàn bộ nội dung của mọi route. Nếu đó là trường hợp của bạn, hãy tự cấu hình thủ công `vue-i18n` với message theo từng route, hoặc chuyển sang mô hình nội dung scoped. Bài viết [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md) sẽ hướng dẫn bạn lựa chọn chiến lược định tuyến trước tiên.
 
 </Accordion>
 <Accordion header="Bản dịch đến từ TMS hoặc agency bàn giao định dạng ICU">
@@ -433,11 +433,17 @@ Chỉ khi bundle size, SSR payload, type được sinh tự động hoặc kiể
 ## Tìm hiểu thêm
 
 - [Benchmark Vue i18n: bundle size, độ rò rỉ và thời gian chuyển đổi locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/vue.md)
-- [Vue i18n: cách vue-i18n hoạt động và những điểm bất cập](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/list_i18n_technologies/frameworks/vue.md) và [bài viết về Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/list_i18n_technologies/frameworks/nuxt.md)
-- [vue-i18n so với Intlayer, từng tính năng chi tiết](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md) và [benchmark vue-i18n so với Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n so với Intlayer, từng tính năng chi tiết](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md)
+- [benchmark vue-i18n so với Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer.md)
 - [vue-i18n có lỗi thời không?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/is_vue-i18n_outdated.md)
 - [Lịch sử của JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 - [So sánh i18n compiler và declarative](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
 - [i18n theo từng component so với tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md)
-- [Cài đặt i18n trong ứng dụng Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md) và trong [ứng dụng Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md)
-- Cùng hướng dẫn cho [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_react_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_svelte_i18n_library.md) và [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_solid_i18n_library.md)
+- [Cài đặt i18n trong ứng dụng Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+vue.md)
+- [ứng dụng Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nuxt.md)
+
+Cùng hướng dẫn cho
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_react_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_solid_i18n_library.md)

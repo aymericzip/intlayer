@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Puxar Dicionários
-description: Aprenda como puxar dicionários do editor Intlayer e CMS.
+title: "intlayer pull: baixar dicionários do CMS"
+description: "Baixe para o projeto os dicionários editados no editor visual ou no CMS do Intlayer, levando as alterações remotas para o seu código."
 keywords:
   - Puxar
   - Dicionários

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
-title: usePathname Function Documentation | svelte-intlayer
-description: svelte-intlayer पैकेज के लिए usePathname फ़ंक्शन का उपयोग करना सीखें
+title: "usePathname फ़ंक्शन दस्तावेज़ | svelte-intlayer"
+description: "Svelte में usePathname से लोकेल सेगमेंट के बिना मौजूदा पाथ readable store के रूप में पाएँ, लोकेल-जागरूक नेविगेशन के लिए।"
 keywords:
   - usePathname
   - pathname
@@ -100,5 +100,5 @@ import { usePathname } from "svelte-intlayer";
 
 ## संबंधित (Related)
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/svelte-intlayer/useLocale.md) — वर्तमान locale + locale स्विचर
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getPathWithoutLocale.md) — इस हुक द्वारा उपयोग की जाने वाली अंतर्निहित उपयोगिता
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/svelte-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getPathWithoutLocale.md)

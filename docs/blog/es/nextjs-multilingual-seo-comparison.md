@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-28
-updatedAt: 2025-09-28
+updatedAt: 2026-09-27
 priority: 8
-title: SEO e i18n en Next.js
+title: "SEO e i18n en Next.js: hreflang, metadatos y sitemap"
 description: Aprende a configurar SEO multilingüe en tu aplicación Next.js usando next-intl, next-i18next e Intlayer.
 keywords:
   - Intlayer
@@ -359,3 +359,7 @@ Los metadatos permanecen centralizados en lugar de dispersarse en archivos JSON 
 Está diseñado para Next.js desde cero, por lo que dedicas menos tiempo a depurar la configuración y más tiempo a lanzar.
 
 Si tu objetivo no es solo traducir, sino escalar el SEO multilingüe sin fricciones, Intlayer te ofrece la configuración más limpia y preparada para el futuro.
+
+> Para entender de dónde vienen estas bibliotecas, lee la historia del i18n en JavaScript.
+
+- [La historia del i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md)

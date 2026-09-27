@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 8
-title: Bedeutung von Intlayer
+title: "Warum Intlayer? Vorteile gegenüber anderen i18n-Bibliotheken"
 description: Entdecken Sie die Vorteile und Vorzüge der Verwendung von Intlayer in Ihren Projekten. Verstehen Sie, warum Intlayer sich von anderen Frameworks abhebt.
 keywords:
   - Vorteile
@@ -221,6 +221,10 @@ Dieser Ansatz ermöglicht es Ihnen:
 
 6. **Die Ladeleistung zu optimieren**
    - Wenn eine Komponente per Lazy-Loading geladen wird, werden die zugehörigen Inhalte gleichzeitig geladen
+
+> Um zu verstehen, woher diese Bibliotheken kommen, lesen Sie die Geschichte von i18n in JavaScript.
+
+- [Die Geschichte von i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/history_of_i18n.md)
 
 ## Zusätzliche Funktionen von Intlayer
 

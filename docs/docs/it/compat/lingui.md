@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Migrare da Lingui a Intlayer"
 description: "Scopri come migrare la tua applicazione da Lingui a Intlayer utilizzando l'adattatore di compatibilità."
@@ -43,3 +43,7 @@ Sotto il cofano:
 - **Macro:** Si compilano esattamente come prima, garantendo nessuna interruzione nella sintassi del tuo codice sorgente.
 - **Traduzione runtime:** L'alias `i18n._()` utilizza i dizionari di Intlayer. Sia gli ID esplicitamente denominati che gli ID con hash sono completamente mappati utilizzando i plugin di sincronizzazione `.po` di Intlayer per aggregare e rimuovere le chiavi in modo sicuro.
 - **Funzionalità ICU:** Il supporto per pluralizzazione, selezione e varianti ICU rimane robusto grazie al parser ICU unificato di Intlayer, garantendo output di rendering identici.
+
+> Per capire da dove vengono queste librerie, leggi la storia dell'i18n in JavaScript.
+
+- [La storia dell'i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/history_of_i18n.md)

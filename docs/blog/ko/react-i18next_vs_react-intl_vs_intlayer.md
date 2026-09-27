@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: React 앱의 국제화(i18n)를 위해 react-i18next를 next-intl 및 Intlayer와 통합하기
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# react-Intl VS react-i18next VS intlayer | React 국제화 (i18n)
+# react-Intl VS react-i18next VS intlayer
 
 이 가이드는 **React**를 위한 세 가지 검증된 i18n 옵션인 **react-intl** (FormatJS), **react-i18next** (i18next), 그리고 **Intlayer**를 비교합니다.
 우리는 **순수 React** 애플리케이션(예: Vite, CRA, SPA)에 중점을 둡니다. Next.js를 사용 중이라면, 전용 Next.js 비교를 참고하세요.
@@ -43,6 +43,10 @@ author: aymericzip
 - **react-intl** - ICU 우선, 표준에 맞는 포맷팅(날짜/숫자/복수형)과 성숙한 API를 제공. 카탈로그는 일반적으로 중앙 집중식이며, 키 안전성과 빌드 시 검증은 주로 사용자가 책임집니다.
 - **react-i18next** - 매우 인기 있고 유연함; 네임스페이스, 탐지기, 다양한 플러그인(ICU, 백엔드 등)을 지원. 강력하지만 프로젝트가 커질수록 설정이 복잡해질 수 있습니다.
 - **Intlayer** - React용 컴포넌트 중심 콘텐츠 모델, **엄격한 TS 타입 지정**, **빌드 시 검사**, **트리 쉐이킹**, 그리고 **비주얼 에디터/CMS** 및 **AI 지원 번역**을 포함. React Router, Vite, CRA 등과 호환됩니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## 기능 매트릭스 (React 중심)
 
@@ -153,10 +157,19 @@ TanStack Start에서 표준 React 구현을 측정한 [Benchmark Bloom](https://
 
 ## 추가 자료 및 벤치마크
 
-- 벤치마크 보고서: [i18n 벤치마크 개요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/solid.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)
 - [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/i18next_vs_intlayer-i18next.md)
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/next-intl_vs_intlayer.md)
-- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md) 및 [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+- [번들 최적화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/bundle_optimization.md)
+- [Intlayer 컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
+
+벤치마크 보고서:
+
+- [i18n 벤치마크 개요](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/index.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/tanstack.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/nextjs.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/vue.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/solid.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/benchmark/svelte.md)
 
 ## GitHub STARs
 

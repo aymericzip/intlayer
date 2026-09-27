@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Bản Đóng Gói Độc Lập (Standalone Bundle)
-description: Tìm hiểu cách tạo một bản đóng gói JavaScript độc lập cho nội dung ứng dụng.
+title: "intlayer standalone: Intlayer cho mọi trang"
+description: "Tạo một bundle JavaScript duy nhất gồm Intlayer và các gói cần thiết, dùng cho trang không có trình quản lý gói hay bundler."
 keywords:
   - Standalone
   - Bundle

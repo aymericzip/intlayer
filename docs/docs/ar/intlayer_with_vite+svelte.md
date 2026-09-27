@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "تدويل Vite + Svelte - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Vite + Svelte متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في تطبيق Vite وSvelte: محتوى مترجم عبر stores، ومبدّل لغة، ومسارات مترجمة، وقواميس مُنمَّطة."
 keywords:
   - التدويل
   - التوثيق
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# ترجمة موقعك الإلكتروني باستخدام Vite و Svelte عبر Intlayer | التدويل (i18n)
+# ترجمة موقعك الإلكتروني باستخدام Vite و Svelte عبر Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="كود" value="code">

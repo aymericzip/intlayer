@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-21
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Init Infra
-description: Intlayer CLI の init infra コマンドを使用して、デスクトップアプリをインストールするか、Docker（オールインワンコンテナまたはDocker Composeスタック）でIntlayer CMSをセルフホストする方法を学びます。
+title: "intlayer init infra：Intlayer CMS をセルフホスト"
+description: "Intlayer デスクトップアプリをインストールするか、Docker（オールインワンコンテナまたは Docker Compose）で Intlayer CMS をセルフホストします。"
 keywords:
   - CLI
   - インフラストラクチャ
@@ -158,6 +158,6 @@ INTLAYER_COMPOSE_DIR=./cms npx intlayer init infra --mode compose
 
 ## 関連リンク
 
-- [セルフホスティングガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md) - 各モードのアーキテクチャ、初回のセットアップ手順、制限事項
-- [Intlayer の初期化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/init.md) - 親となる `init` コマンドと対話型チェックリスト
-- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) - インストールしたダッシュボードの機能
+- [セルフホスティングガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/self_hosting.md)
+- [Intlayer の初期化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/init.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)

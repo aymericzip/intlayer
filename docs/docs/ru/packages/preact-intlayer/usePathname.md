@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Документация хука usePathname | preact-intlayer
-description: Узнайте, как использовать хук usePathname в пакете preact-intlayer
+description: "Используйте usePathname в Preact, чтобы получить текущий путь без сегмента локали для локализованной навигации и активных ссылок."
 keywords:
   - usePathname
   - pathname
@@ -114,5 +114,5 @@ export default Sidebar;
 
 ## Связанные материалы
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/preact-intlayer/exports.md) — текущая локаль + переключатель локали
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getPathWithoutLocale.md) — базовая утилита, используемая этим хуком
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/preact-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getPathWithoutLocale.md)

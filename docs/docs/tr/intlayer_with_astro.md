@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 10
 title: "Astro i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Astro uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Astro'da Intlayer kurulumu: yerelleştirilmiş rotalar, çevrilmiş .astro sayfaları ve adalar, hreflang etiketleri ve çok dilli sitemap."
 keywords:
   - uluslararasılaştırma
   - dokümantasyon
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# Astro Sitenizi Intlayer ile Çevirin | Uluslararasılaştırma (i18n)
+# Astro Sitenizi Intlayer ile Çevirin
 
 <Tabs defaultTab="code">
   <Tab label="Kod" value="code">
@@ -496,12 +496,12 @@ export const GET: APIRoute = ({ site }) => {
 
 Seçtiğiniz framework'ü kullanarak uygulamanızı oluşturmaya devam edin.
 
-- Intlayer + React: [React ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_react.md)
-- Intlayer + Vue: [Vue ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_vue.md)
-- Intlayer + Svelte: [Svelte ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_svelte.md)
-- Intlayer + Solid: [Solid ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_solid.md)
-- Intlayer + Preact: [Preact ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_preact.md)
-- Intlayer + Lit: [Lit ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_lit.md)
+- [React ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_react.md)
+- [Vue ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_vue.md)
+- [Svelte ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_svelte.md)
+- [Solid ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_solid.md)
+- [Preact ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_preact.md)
+- [Lit ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_astro_lit.md)
 </Step>
 
 <Step number={15} title="Bağımlılıkları Yükleyin">

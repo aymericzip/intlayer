@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Помилка збірки в CI/CD
-description: Дізнайтеся, як виправити помилки збірки, що виникають у середовищах CI/CD.
+title: "Як виправити помилки збирання Intlayer у CI/CD"
+description: "Виправте помилки рендерингу Server Components, що виникають лише в CI/CD, переконавшись, що словники Intlayer збираються під час збирання."
 keywords:
   - build
   - error

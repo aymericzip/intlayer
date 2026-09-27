@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "تدويل Angular 19 - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Angular 19 متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في Angular 19 مع Angular CLI: محتوى مُنمَّط بجانب المكوّنات، وتبديل اللغة أثناء التشغيل، وتوجيه مترجم."
 keywords:
   - تدويل
   - وثائق
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# ترجمة موقع Angular 19 (Webpack) الخاص بك باستخدام Intlayer | التدويل (i18n)
+# ترجمة موقع Angular 19 (Webpack) الخاص بك باستخدام Intlayer
 
 ## جدول المحتويات
 

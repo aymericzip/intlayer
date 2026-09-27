@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "next-intl'den Intlayer'a Geçiş Yapın"
-description: "Uyumluluk adaptörünü kullanarak Next.js uygulamanızı next-intl'den Intlayer'a nasıl geçireceğinizi öğrenin."
+title: "@intlayer/next-intl: next-intl için uyumluluk adaptörü"
+description: "next-intl kodunuzu koruyun ve Intlayer ile sunun: @intlayer/next-intl paketini kurun, import'lar için alias tanımlayın ve adaptörün arka planda neyi değiştirdiğini görün."
 keywords:
   - next-intl
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# next-intl'den Intlayer'a Geçiş Yapın
+# @intlayer/next-intl: next-intl için uyumluluk adaptörü
 
 Kapsamlı ve ayrıntılı adım adım eğitim için lütfen tam [next-intl Göç Kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/migration_from_next-intl_to_intlayer.md) bakın.
 
@@ -58,3 +58,7 @@ Arka Planda:
 - **`useTranslations()` & `getTranslations()`:** Bare scope çağrıları ilk anahtar segmentini doğru sözlük tanımlayıcısı olarak ayıklar. İç içe ad alanları zarif bir şekilde sözlük yolları ve ön eklerine bölünür.
 - **Zengin Biçimlendirme:** Hem `t.rich()` hem de `t.markup()` tamamen doğal olarak uygulanmakta, HTML benzeri düğümleri render edilen React chunks'lerine dönüştürmektedir.
 - **`useFormatter`:** `relativeTime`, `list`, `dateTimeRange` ve yapılandırmadan adlı biçimler, core yerel `Intl` formatter'larına köprü atılmaktadır.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)

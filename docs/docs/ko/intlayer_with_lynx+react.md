@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 3
 title: "Lynx + React i18n - 앱을 번역하는 완전 가이드"
-description: "i18next는 이제 그만. 2026년 다국어 (i18n) Lynx + React 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
+description: "Lynx와 React 모바일 앱에 Intlayer 설정: 컴포넌트별 타입 콘텐츠, 기기 로케일 감지, 언어 전환기."
 keywords:
   - 국제화
   - 문서
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer로 Lynx and React mobile app 번역하기 | 국제화(i18n)
+# Intlayer로 Lynx and React mobile app 번역하기
 
 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-lynx-template)을 GitHub에서 확인하세요.
 
@@ -481,8 +481,8 @@ Intlayer와 함께 개발 경험을 향상시키려면 공식 **Intlayer VS Code
 
 ## 더 알아보기
 
-- **시각적 편집기**: [Intlayer 시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 사용하여 번역을 시각적으로 관리하세요.
-- **CMS 통합**: 사전 콘텐츠를 외부화하고 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)에서 가져올 수도 있습니다.
-- **CLI 명령어**: **번역 추출** 또는 **누락된 키 확인**과 같은 작업을 위한 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 탐색하세요.
+- [Intlayer 시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
 
 ---

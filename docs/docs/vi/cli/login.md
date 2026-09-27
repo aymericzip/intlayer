@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - Đăng nhập
+title: "intlayer login: đăng nhập vào CMS"
 description: Tìm hiểu cách sử dụng lệnh login của Intlayer CLI để xác thực với Intlayer CMS và lấy thông tin truy cập.
 keywords:
   - CLI
@@ -238,8 +238,8 @@ Sau khi hoàn tất đăng nhập:
 1. Thêm thông tin xác thực vào file `.env` của bạn
 2. Cấu hình file `intlayer.config.*` của bạn với thông tin xác thực
 3. Sử dụng các lệnh CLI để quản lý các từ điển của bạn:
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/push.md) - Đẩy từ điển lên CMS
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/pull.md) - Kéo từ điển từ CMS
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/pull.md)
 
 ## Xem thêm
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Đánh Giá Tài Liệu
+title: "intlayer doc review: rà soát tài liệu đã dịch"
 description: Tìm hiểu cách đánh giá các tệp tài liệu về chất lượng, tính nhất quán và độ đầy đủ trên các ngôn ngữ khác nhau.
 keywords:
   - Đánh Giá

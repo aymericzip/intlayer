@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-01-11
-updatedAt: 2026-01-11
+updatedAt: 2026-09-27
 priority: 4
-title: "`vite-env-only` i Intlayer – fałszywy pozytyw: odmowa importu `node:fs`"
+title: "vite-env-only: fałszywy błąd node:fs z Intlayer"
 description: Dlaczego vite-env-only zgłasza odmowę importu `node:fs` przy Intlayer + React-Router + Vite i co z tym zrobić.
 keywords:
   - intlayer

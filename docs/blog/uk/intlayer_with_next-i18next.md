@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-11-06
+updatedAt: 2026-09-27
 priority: 8
 title: Intlayer та next-i18next
 description: Інтегруйте Intlayer з next-i18next для комплексного рішення інтернаціоналізації в Next.js
@@ -65,6 +65,10 @@ Intlayer пропонує широкий набір **розширених мо�
 - Зберігайте наявні плагіни та робочі процеси i18next.
 - Автоматизуйте переклади JSON через CLI або CI/CD конвеєри.
 - Тестуйте, синхронізуйте та керуйте перекладами ефективніше.
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
 
 ## Покроковий посібник із налаштування Intlayer з next-i18next
 

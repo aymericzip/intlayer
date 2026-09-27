@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Plugin intlayer untuk Elysia | elysia-intlayer
-description: Lihat cara menggunakan plugin intlayer dari paket elysia-intlayer
+description: "Plugin intlayer untuk Elysia mendeteksi locale pengguna dan menyisipkan fungsi terjemahan ke konteks rute setiap request."
 keywords:
   - intlayer
   - elysia

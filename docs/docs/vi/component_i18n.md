@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-09-30
+updatedAt: 2026-09-27
 priority: 8
-title: Tạo một component đa ngôn ngữ (thư viện i18n) trong React và Next.js
+title: "Biến component React hoặc Next.js thành đa ngôn ngữ"
 description: Tìm hiểu cách khai báo và lấy nội dung bản địa hóa để xây dựng một component React hoặc Next.js đa ngôn ngữ với Intlayer.
 keywords:
   - i18n

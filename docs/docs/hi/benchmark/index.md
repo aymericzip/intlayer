@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
-title: i18n लाइब्रेरी बेंचमार्क
+title: "i18n लाइब्रेरी बेंचमार्क: बंडल और परफ़ॉर्मेंस"
 description: जानें कि परफॉरमेंस और बंडल आकार के मामले में Intlayer अन्य i18n लाइब्रेरीज़ की तुलना में कैसा है।
 keywords:
   - benchmark
@@ -40,3 +40,7 @@ Benchmark Bloom एक परफॉरमेंस बेंचमार्क�
 - [**Vue Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
 - [**Solid Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md)
 - [**Svelte Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)

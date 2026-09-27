@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 5
-title: 扫描网站
+title: "intlayer scan：审查网站的 i18n 与 SEO"
 description: 了解如何使用 Intlayer CLI scan 命令测量页面大小并审计任何网站的 i18n/SEO 健康状况。
 keywords:
   - 扫描

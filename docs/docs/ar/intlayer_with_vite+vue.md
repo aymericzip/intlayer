@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "تدويل Vite + Vue - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Vite + Vue متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في تطبيق Vite وVue: محتوى مُنمَّط لكل مكوّن عبر composables، ومبدّل لغة، ومسارات مترجمة."
 keywords:
   - التدويل
   - التوثيق
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# ترجمة موقع Vite و Vue الخاص بك باستخدام Intlayer | Internationalization (i18n)
+# ترجمة موقع Vite و Vue الخاص بك باستخدام Intlayer
 
 ## جدول المحتويات
 

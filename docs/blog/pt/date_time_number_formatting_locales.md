@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-02
+updatedAt: 2026-09-27
 priority: 8
 title: "Formatando datas e números por idioma com Intl"
-description: Você provavelmente não precisa de uma biblioteca externa de formatação. Como o Intl lida com datas, números, moedas e listas por localidade, o custo de cache e o bug de timezone em produção.
+description: "Você precisa de uma biblioteca de formatação? Como o Intl formata datas, números, moedas e listas por locale, seu custo de cache e um bug de fuso horário só em produção."
 keywords:
   - formatar data por localidade
   - Intl.DateTimeFormat

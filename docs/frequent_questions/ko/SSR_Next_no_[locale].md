@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: 페이지 경로에 `[locale]` 없이 Next.js에서 Intlayer를 사용할 수 있나요?
+title: "경로에 [locale] 없이 Next.js에서 Intlayer 사용하기"
 description: 페이지 경로에 `[locale]` 없이 Next.js에서 Intlayer를 사용하는 방법을 알아보세요.
 keywords:
   - locale

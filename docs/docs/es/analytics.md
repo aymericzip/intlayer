@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-07-08
-updatedAt: 2026-08-22
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer Analytics | Seguimiento de la exposición del contenido y pruebas A/B
+title: "Intlayer Analytics: exposición de contenido y tests A/B"
 description: Descubre cómo @intlayer/analytics rastrea las vistas de páginas/configuraciones regionales y la exposición del contenido, y cómo usarlo para ejecutar pruebas A/B en tu contenido de Intlayer.
 keywords:
   - Analítica

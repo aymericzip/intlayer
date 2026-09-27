@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-02-09
-updatedAt: 2026-03-03
+updatedAt: 2026-09-27
 priority: 6
-title: Agent Skills
-description: जानें कि Intlayer Agent Skills का उपयोग करके अपने AI एजेंट की आपके प्रोजेक्ट की समझ कैसे बेहतर करें, जिसमें मेटाडेटा, साइटमैप और सर्वर क्रियाओं के लिए व्यापक सेटअप गाइड शामिल हैं।
+title: "AI कोडिंग एजेंट के लिए Intlayer Agent Skills"
+description: "अपने AI कोडिंग एजेंट को Intlayer skills दें: कंटेंट, मेटाडेटा, साइटमैप और server actions के लिए सेटअप गाइड।"
 keywords:
   - Intlayer
   - Agent Skills

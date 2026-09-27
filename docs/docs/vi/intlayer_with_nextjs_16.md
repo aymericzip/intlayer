@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-08
+updatedAt: 2026-09-27
 priority: 10
 title: "Next.js 16 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Next.js 16 đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong Next.js 16 App Router: định tuyến locale qua proxy, Server và Client Components, metadata bản địa hóa, sitemap và trang tĩnh."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web Next.js 16 của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web Next.js 16 của bạn bằng Intlayer
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">

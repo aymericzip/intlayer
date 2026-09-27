@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n TanStack Start dengan Lingui: Panduan Pengaturan Lengkap 2026"
 description: "Terjemahkan aplikasi TanStack Start Anda dengan Lingui: makro, katalog PO, SSR, perutean lokal, hreflang, sitemap dan robots.txt, serta data benchmark ukuran bundle nyata."
@@ -42,9 +42,23 @@ TanStack Start tidak menyertakan lapisan i18n bawaan, jadi panduan ini menghubun
 - **Satu katalog per lokal, dimuat sesuai kebutuhan (on demand)**, dan satu instance `I18n` per render sehingga permintaan SSR bersamaan tidak pernah berbagi lokal yang sama.
 - **SEO multibahasa lengkap**: `<title>` dan deskripsi yang diterjemahkan, URL kanonikal, `hreflang` dengan `x-default`, lokal Open Graph, JSON-LD, sitemap, `robots.txt`, pre-rendering, dan halaman 404 yang terlokalisasi.
 
-> Mencari stack lain? Lihat [panduan TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_use-intl.md), [panduan TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_paraglide.md), atau [panduan TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md).
+> Mencari stack lain?
 
-> Menggunakan Next.js? Lihat [panduan Next.js + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_nextjs_lingui.md). Membandingkan library? Baca [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md).
+- [panduan TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_use-intl.md)
+- [panduan TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_paraglide.md)
+- [panduan TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)
+
+> Menggunakan Next.js?
+
+- [panduan Next.js + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_nextjs_lingui.md)
+
+> Membandingkan library?
+
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/lingui_vs_intlayer.md)
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Apa yang dikatakan benchmark tentang Lingui di TanStack Start
 
@@ -92,7 +106,11 @@ Perbandingan Lingui dengan library lain yang biasa digunakan di TanStack Start:
 
 > Angka ukuran runtime dan kebocoran berasal dari [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md). Kebocoran diukur pada pengaturan terbaik dari setiap library.
 
-> Panduan TanStack Start lainnya: [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_use-intl.md), [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_paraglide.md), dan [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md).
+> Panduan TanStack Start lainnya:
+
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_use-intl.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)
 
 ## Praktik terbaik yang harus Anda ikuti
 
@@ -106,7 +124,8 @@ Perbandingan Lingui dengan library lain yang biasa digunakan di TanStack Start:
 - **Buat sitemap multibahasa dan robots.txt**, dan lakukan pre-render untuk setiap lokal.
 - **Gunakan tautan nyata untuk pengalih lokal**, sehingga perayap (crawlers) dapat menemukan setiap bahasa.
 
-> Lihat panduan kami tentang [internasionalisasi dan SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/internationalization_and_SEO.md) dan [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md).
+- [internasionalisasi dan SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/internationalization_and_SEO.md)
+- [panduan hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/hreflang_guide_multilingual_seo.md)
 
 ## Panduan Langkah demi Langkah untuk Menyiapkan Lingui dalam Aplikasi TanStack Start
 

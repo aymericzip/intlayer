@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: محولات التوافق في Intlayer
+title: "محوّلات التوافق من Intlayer لمكتبات i18n"
 description: ارحل حل i18n الحالي الخاص بك إلى Intlayer دون احتكاك باستخدام محولات التوافق.
 keywords:
   - توافق
@@ -31,6 +31,10 @@ author: aymericzip
 عند استخدام محول توافق، لا تحتاج إلى إعادة كتابة واردات التطبيق الخاص بك أو تغيير طريقة استخدام خطافات الترجمة والمكونات الخاصة بك. بدلاً من ذلك، تقوم مكوّنات bundler في Intlayer تلقائياً بإنشاء اسم مستعار للواردات الحالية الخاصة بك إلى حزم التوافق في Intlayer.
 
 على سبيل المثال، يستبدل المطور `import { useTranslation } from 'react-i18next'` بـ `import { useTranslation } from '@intlayer/react-i18next'` (يتم ذلك تلقائياً عبر مكوّن bundler)، والتطبيق يستمر في العمل مع الترجمات التي يتم تقديمها الآن من قواميس Intlayer. يتم أيضاً كتابة المفاتيح ضد قواميس Intlayer الخاصة بك!
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## محولات التوافق المتاحة
 

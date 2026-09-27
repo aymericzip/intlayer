@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-01-29
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Middleware Hono intlayer | hono-intlayer
-description: Lihat cara menggunakan middleware intlayer untuk paket hono-intlayer
+description: "Middleware intlayer untuk Hono mendeteksi locale pengguna dan menambahkan fungsi terjemahan Intlayer ke konteks request."
 keywords:
   - intlayer
   - hono

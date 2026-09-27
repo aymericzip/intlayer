@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Kesalahan Build di CI/CD
-description: Pelajari cara memperbaiki kesalahan build yang terjadi di lingkungan CI/CD.
+title: "Perbaiki error build Intlayer di CI/CD"
+description: "Perbaiki error render Server Components yang hanya muncul di CI/CD dengan memastikan kamus Intlayer di-build saat proses build."
 keywords:
   - build
   - error

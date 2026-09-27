@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Svelte I18n에서 Intlayer로 마이그레이션"
 description: "compat adapter를 사용하여 Svelte 애플리케이션을 svelte-i18n에서 Intlayer로 마이그레이션하는 방법을 알아보세요."
@@ -46,3 +46,7 @@ Svelte-i18n은 heavily used stores (`$_`, `$t`, `$format`, 등)와 ICU MessageFo
 - **ICU Syntax:** shared ICU resolver (`intl-messageformat` equivalent parsing)에 의해 완벽하게 처리됩니다.
 - **Formatters:** `$date`, `$time`, `$number` 호출은 Intlayer의 native core formatters로 안전하게 리다이렉트됩니다.
 - **Babel/SWC Analysis:** Intlayer analyzer는 compilation 전에 `.svelte` 소스 파일 내부의 Svelte store callers (`$_`)를 읽어 관련 dictionary chunks를 자동으로 빌드합니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)

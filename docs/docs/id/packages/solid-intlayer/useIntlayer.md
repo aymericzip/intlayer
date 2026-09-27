@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-06
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Hook useIntlayer | solid-intlayer
-description: Lihat cara menggunakan hook useIntlayer untuk paket solid-intlayer
+description: "Gunakan useIntlayer di Solid untuk membaca konten terlokalisasi dari kamus berdasarkan key, sebagai nilai reaktif yang mengikuti locale."
 keywords:
   - useIntlayer
   - kamus

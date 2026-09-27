@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-28
-updatedAt: 2025-09-28
+updatedAt: 2026-09-27
 priority: 8
-title: تحسين محركات البحث والتدويل في Next.js
+title: "تحسين محركات البحث وi18n في Next.js: hreflang والبيانات الوصفية وخريطة الموقع"
 description: تعلّم كيفية إعداد تحسين محركات البحث متعدد اللغات في تطبيق Next.js الخاص بك باستخدام next-intl و next-i18next و Intlayer.
 keywords:
   - Intlayer
@@ -360,3 +360,7 @@ export default robots;
 تم تصميمه خصيصًا لـ Next.js من الأساس، بحيث تقضي وقتًا أقل في تصحيح إعدادات التكوين ووقتًا أكثر في إطلاق المشاريع.
 
 إذا كان هدفك ليس فقط الترجمة ولكن توسيع تحسين محركات البحث متعدد اللغات بدون تعقيدات، فإن Intlayer يمنحك الإعداد الأنظف والأكثر استدامة للمستقبل.
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)

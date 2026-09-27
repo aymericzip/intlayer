@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 5
 title: t Fonksiyonu Dokümantasyonu | react-intlayer
-description: react-intlayer paketi için t fonksiyonunun nasıl kullanılacağını görün
+description: "react-intlayer'ın t fonksiyonuyla çevirileri ayrı bir içerik dosyası olmadan doğrudan React bileşenlerinizde tanımlayın."
 keywords:
   - t
   - çeviri

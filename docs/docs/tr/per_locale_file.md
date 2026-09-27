@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayer'da `Yerel Ayar Başına` İçerik Bildirimi
+title: "Locale başına içerik bildirim dosyaları"
 description: Intlayer'da yerel ayar başına içerik bildiriminin nasıl yapılacağını keşfedin. Farklı formatları ve kullanım durumlarını anlamak için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma

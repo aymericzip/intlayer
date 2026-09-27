@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Stringleri çıkarma
+title: "intlayer extract: bileşenlerden metin çıkarın"
 description: Bileşenlerinizden stringleri bileşene yakın bir .content dosyasına nasıl çıkaracağınızı öğrenin.
 keywords:
   - Çıkarma

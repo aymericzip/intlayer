@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "AdonisJS i18n - Guía completa para traducir tu aplicación"
-description: "Sin más i18next. La guía 2026 para crear una aplicación AdonisJS multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
+description: "Configura Intlayer en AdonisJS: detección de la locale por petición con middleware, traducción de respuestas API y vistas, y contenido tipado."
 keywords:
   - Internacionalización
   - Documentación
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Traduce tu backend de AdonisJS usando Intlayer | Internacionalización (i18n)
+# Traduce tu backend de AdonisJS usando Intlayer
 
 `adonis-intlayer` es un potente paquete de internacionalización (i18n) para aplicaciones AdonisJS, diseñado para hacer que tus servicios de backend sean accesibles globalmente proporcionando respuestas localizadas basadas en las preferencias del cliente.
 
@@ -244,9 +244,9 @@ export default class ExampleController {
 
 `adonis-intlayer` es totalmente compatible con:
 
-- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md) para aplicaciones React
-- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/index.md) para aplicaciones Next.js
-- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/index.md) para aplicaciones Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/index.md)
 
 También funciona a la perfección con cualquier solución de internacionalización en diversos entornos, incluidos navegadores y solicitudes de API. Puedes personalizar el middleware para detectar el idioma a través de encabezados o cookies:
 

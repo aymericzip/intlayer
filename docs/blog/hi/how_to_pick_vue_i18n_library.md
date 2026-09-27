@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "2026 में सही Vue i18n लाइब्रेरी कैसे चुनें"
-description: Vue और Nuxt internationalization के लिए एक निर्णय गाइड। vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide और Intlayer की तुलना करने से पहले किन सवालों के जवाब देने चाहिए, और बंडल साइज़, टाइपिंग और SSR पेलोड में प्रत्येक विकल्प की क्या लागत आती है।
+description: "Vue और Nuxt i18n चुनने की गाइड: vue-i18n, @nuxtjs/i18n, fluent-vue, Paraglide और Intlayer की तुलना से पहले के सवाल।"
 keywords:
   - vue i18n
   - vue internationalization
@@ -24,8 +24,6 @@ author: aymericzip
 "Vue i18n" एक सामान्य शब्द भी है और उस लाइब्रेरी का नाम भी जिसे लगभग हर कोई इंस्टॉल करता है। यह सुविधाजनक भी है और साथ ही भ्रामक भी: `vue-i18n` एक अच्छा डिफ़ॉल्ट है, लेकिन यह एकमात्र विकल्प नहीं है, और जो प्रश्न इस चुनाव को निर्धारित करने चाहिए (SSR है या नहीं, कितने पेज हैं, ट्रांसलेशन कौन लिखता है) वे शायद ही कभी `npm install` से पहले पूछे जाते हैं।
 
 यह गाइड पहले उन सवालों को पूछती है, फिर उन उत्तरों को उपयुक्त लाइब्रेरीज़ के साथ मैप करती है, प्लेन Vite + Vue और Nuxt दोनों के लिए।
-
-![Vue i18n लाइब्रेरी इकोसिस्टम](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## विषय सूची
 
@@ -87,6 +85,8 @@ Paraglide प्रति मैसेज एक फंक्शन जेनर
 
 लाइब्रेरी साइज़ [Vue बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md) से हैं: 10-पेज, 10-लोकेल ऐप पर बंडलिंग, ट्री-शेकिंग और मिनिफिकेशन के बाद एक खाली कंपोनेंट में प्लगइन और कंपोज़ेबल। कंटेंट को अलग से मापा जाता है।
 
+![Vue i18n लाइब्रेरी इकोसिस्टम](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | लाइब्रेरी      | कंटेंट मॉडल                                               | टाइप सुरक्षा                              | मैसेज फॉर्मेट                       | प्रति-रूट स्प्लिटिंग     | लाइब्रेरी साइज़                                  |
 | :------------- | :-------------------------------------------------------- | :---------------------------------------- | :---------------------------------- | :----------------------- | :----------------------------------------------- |
 | `vue-i18n`     | प्रति लोकेल सेंट्रल कैटलॉग, वैकल्पिक SFC `<i18n>` ब्लॉक्स | 2/5 — स्कीमा जेनेरिक के माध्यम से ऑप्ट-इन | स्वयं का (पाइप प्लूरल)              | नहीं                     | ~24.3 kB                                         |
@@ -110,7 +110,7 @@ Composition मोड (`legacy: false`) में `vue-i18n`, `@intlify/unplugin
 </Accordion>
 <Accordion header="लोकेल रूटिंग, साइटमैप और hreflang के साथ Nuxt">
 
-`@nuxtjs/i18n` आपको बिना किसी कोड के रूटिंग रणनीति, `hreflang` टैग्स और लोकेल डिटेक्शन प्रदान करता है, और केवल यही कुछ पेजों वाली कंटेंट साइटों के लिए इसे उचित ठहराता है। इसकी सीमा प्रति-लोकेल कैटलॉग है: लगभग दस पेजों के बाद SSR पेलोड हर रूट की कॉपी ले जाता है। यदि आपका मामला ऐसा है, तो या तो प्रति-रूट मैसेजेस के साथ `vue-i18n` को मैन्युअली वायर करें, या स्कोप्ड कंटेंट पर जाएँ। [Nuxt i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/frameworks/nuxt.md) पहले रूटिंग रणनीति के चुनाव के बारे में बताती है।
+`@nuxtjs/i18n` आपको बिना किसी कोड के रूटिंग रणनीति, `hreflang` टैग्स और लोकेल डिटेक्शन प्रदान करता है, और केवल यही कुछ पेजों वाली कंटेंट साइटों के लिए इसे उचित ठहराता है। इसकी सीमा प्रति-लोकेल कैटलॉग है: लगभग दस पेजों के बाद SSR पेलोड हर रूट की कॉपी ले जाता है। यदि आपका मामला ऐसा है, तो या तो प्रति-रूट मैसेजेस के साथ `vue-i18n` को मैन्युअली वायर करें, या स्कोप्ड कंटेंट पर जाएँ। [Nuxt i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md) पहले रूटिंग रणनीति के चुनाव के बारे में बताती है।
 
 </Accordion>
 <Accordion header="ट्रांसलेशन किसी TMS या ICU डिलीवर करने वाली एजेंसी से आते हैं">
@@ -433,11 +433,17 @@ const { title, items } = useIntlayer("cart-summary");
 ## आगे पढ़ें
 
 - [Vue i18n बेंचमार्क: बंडल साइज़, लीकेज और लोकेल-स्विच टाइमिंग्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/vue.md)
-- [Vue i18n: vue-i18n कैसे काम करता है और कहाँ समस्या आती है](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/frameworks/vue.md) और [Nuxt i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/frameworks/nuxt.md)
-- [vue-i18n बनाम Intlayer, फीचर दर फीचर](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md) और [vue-i18n बनाम Intlayer बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer_benchmark.md)
+- [vue-i18n बनाम Intlayer, फीचर दर फीचर](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md)
+- [vue-i18n बनाम Intlayer बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/vue-i18n_vs_intlayer.md)
 - [क्या vue-i18n पुराना हो चुका है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/is_vue-i18n_outdated.md)
 - [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 - [कंपाइलर बनाम डिक्लेरेटिव i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
 - [प्रति-कंपोनेंट बनाम केंद्रीकृत i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md)
-- [Vite + Vue ऐप में i18n सेट अप करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+vue.md) और एक [Nuxt ऐप में](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md)
-- यही गाइड [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_react_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_svelte_i18n_library.md) और [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_solid_i18n_library.md) के लिए
+- [Vite + Vue ऐप में i18n सेट अप करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+vue.md)
+- [Nuxt ऐप में](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nuxt.md)
+
+यही गाइड
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_react_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_solid_i18n_library.md)

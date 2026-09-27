@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja funkcji usePathname | svelte-intlayer
-description: Dowiedz się, jak korzystać z funkcji usePathname w pakiecie svelte-intlayer
+description: "Użyj usePathname w Svelte, aby odczytać bieżącą ścieżkę bez segmentu locale jako readable store do zlokalizowanej nawigacji."
 keywords:
   - usePathname
   - pathname
@@ -100,5 +100,5 @@ import { usePathname } from "svelte-intlayer";
 
 ## Zobacz również
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/svelte-intlayer/useLocale.md) — bieżące locale + przełącznik locale
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md) — bazowe narzędzie używane przez ten hook
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/svelte-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md)

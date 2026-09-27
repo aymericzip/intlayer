@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm getDictionary | intlayer
-description: Xem cách sử dụng hàm getDictionary cho package intlayer
+description: "Dùng getDictionary để diễn giải một đối tượng từ điển do bạn truyền vào và lấy nội dung cho một locale, áp dụng mọi plugin nội dung."
 keywords:
   - getDictionary
   - dictionary
@@ -124,9 +124,9 @@ const allItems = getDictionary(blogPostGroup, { locale: "fr" });
 
 ## Các Hàm Liên Quan
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md): Cách diễn giải tương tự, nhưng từ điển được tìm kiếm theo khóa trong registry được tạo ra.
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getDictionaryAsync.md): Đối tác cho các bản đồ loader theo từng ngôn ngữ.
-- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useDictionary.md): Hook React tương đương, đọc ngôn ngữ từ provider.
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getDictionaryAsync.md)
+- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useDictionary.md)
 
 ## TypeScript
 

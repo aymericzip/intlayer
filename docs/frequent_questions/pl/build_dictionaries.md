@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Jak budować słowniki?
-description: Dowiedz się, jak budować słowniki.
+description: "Kiedy Intlayer buduje słowniki automatycznie, jak uruchomić build ręcznie przez CLI i gdzie zapisywane są wygenerowane pliki."
 keywords:
   - build
   - dictionaries

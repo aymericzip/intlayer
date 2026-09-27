@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrer de react-i18next / i18next à Intlayer | Internationalisation (i18n)"
-description: "Découvrez comment migrer votre application React ou Next.js de react-i18next ou i18next à Intlayer — étape par étape, sans casser votre code existant. Utilisez les adaptateurs de compatibilité @intlayer/react-i18next et @intlayer/i18next pour une transition en douceur."
+title: "Migrer de react-i18next vers Intlayer"
+description: "Migrez une app React ou Next.js de react-i18next vers Intlayer pas à pas, en commençant par les adaptateurs de compatibilité pour ne rien casser."
 keywords:
   - react-i18next
   - i18next
@@ -63,6 +63,10 @@ Plus qu'une simple solution i18n, Intlayer fournit un **[éditeur visuel](https:
 
 </Accordion>
 </AccordionGroup>
+
+> Pour comprendre d'où viennent ces bibliothèques, lisez l'histoire de l'i18n en JavaScript.
+
+- [L'histoire de l'i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/history_of_i18n.md)
 
 ## Stratégies de migration
 
@@ -347,9 +351,9 @@ Ajoutez le répertoire généré par Intlayer à votre `.gitignore` :
 
 ## Aller plus loin
 
-- **Éditeur visuel** — Gérez les traductions visuellement dans votre navigateur : [Éditeur visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)
-- **CMS** — Externalisez et gérez le contenu à distance : [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
-- **Extension VS Code** — Obtenez l'autocomplétion et la détection d'erreurs de traduction en temps réel : [Extension VS Code Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md)
-- **Référence CLI** — Liste complète des commandes CLI : [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)
-- **Intlayer avec React** — Guide d'installation complet pour React : [intlayer_with_vite+react.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+react.md)
-- **Intlayer avec Next.js** — Guide d'installation complet pour Next.js : [intlayer_with_nextjs_16.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_16.md)
+- [Éditeur visuel Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
+- [Extension VS Code Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)
+- [Intlayer avec React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+react.md)
+- [Intlayer avec Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_16.md)

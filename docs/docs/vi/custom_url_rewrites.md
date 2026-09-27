@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-09-27
 priority: 8
-title: Viết lại URL Tùy chỉnh
+title: "Viết lại URL tùy chỉnh: đường dẫn bản địa hóa"
 description: Tìm hiểu cách cấu hình và sử dụng viết lại URL tùy chỉnh trong Intlayer để định nghĩa các đường dẫn theo locale.
 keywords:
   - Viết lại URL Tùy chỉnh

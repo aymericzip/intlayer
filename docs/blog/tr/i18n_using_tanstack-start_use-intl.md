@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "use-intl ile TanStack Start i18n: Kapsamlı 2026 Kurulum Rehberi"
 description: "TanStack Start uygulamanızı use-intl ile yerelleştirin: dil yönlendirmesi, tipli mesajlar, SSR, hreflang, site haritası ve robots.txt, ayrıca gerçek paket boyutu kıyaslama verileri."
@@ -41,9 +41,17 @@ TanStack Start yerleşik bir i18n katmanı içermez. Yönlendirme (routing), dil
 - Metin uyuşmazlığı olmadan **sunucu taraflı işleme (SSR) ve hidrasyon**.
 - **Eksiksiz çok dilli SEO**: çevrilmiş `<title>` ve açıklama, standart (canonical) URL, `x-default` içeren `hreflang` alternatifleri, Open Graph dilleri, JSON-LD, `xhtml:link` alternatifli site haritası, `robots.txt` ve her dilin önceden işlenmesi (pre-rendering).
 
-> Farklı bir teknoloji yığını mı arıyorsunuz? [TanStack Start + Paraglide rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_paraglide.md), [TanStack Start + Lingui rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_lingui.md) veya [TanStack Start + Intlayer rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md) sayfalarına göz atabilirsiniz.
+> Farklı bir teknoloji yığını mı arıyorsunuz?
+
+- [TanStack Start + Paraglide rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_paraglide.md)
+- [TanStack Start + Lingui rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_lingui.md)
+- [TanStack Start + Intlayer rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md)
 
 > Bunun yerine Next.js mi kullanıyorsunuz? [next-intl rehberi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_next-intl.md) sayfasına bakın.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## TanStack Start Üzerinde use-intl Kıyaslama (Benchmark) Sonuçları
 
@@ -91,7 +99,11 @@ TanStack Start yerleşik bir i18n katmanı içermez. Yönlendirme (routing), dil
 
 > Çalışma zamanı boyutu ve sızıntı değerleri [TanStack Start kıyaslama testinden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) alınmıştır. Sızıntı, her kütüphanenin en iyi yapılandırmasında ölçülmüştür.
 
-> Diğer TanStack Start rehberleri: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_lingui.md), [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_paraglide.md) ve [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md).
+> Diğer TanStack Start rehberleri:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_lingui.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_tanstack.md)
 
 ## Uygulamanız Gereken En İyi Pratikler
 
@@ -105,7 +117,8 @@ TanStack Start yerleşik bir i18n katmanı içermez. Yönlendirme (routing), dil
 - Arama motoru botlarının her dili keşfedebilmesi için dil değiştirici için `<select>` yerine **gerçek bağlantılar (linkler) kullanın**.
 - Eksik bir anahtarın derleme zamanında hata vermesi için **mesajlarınızı tiplendirin**.
 
-> [Uluslararasılaştırma ve SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md) rehberimize ve [hreflang rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md) göz atın.
+- [Uluslararasılaştırma ve SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/internationalization_and_SEO.md)
+- [hreflang rehberine](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/hreflang_guide_multilingual_seo.md)
 
 ## TanStack Start Uygulamasında use-intl Kurulumu İçin Adım Adım Rehber
 

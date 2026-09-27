@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Inserimento
-description: Scopri come dichiarare e utilizzare segnaposto di inserimento nel tuo contenuto. Questa documentazione ti guida attraverso i passaggi per inserire dinamicamente valori all'interno di strutture di contenuto predefinite.
+title: "Inserimento: variabili nei contenuti tradotti"
+description: "Inserisci valori dinamici nei testi tradotti con il nodo insert() di Intlayer e i {{placeholder}}, tipizzati dalla dichiarazione dei contenuti."
 keywords:
   - Inserimento
   - Contenuto Dinamico

@@ -3,7 +3,7 @@ createdAt: 2025-09-07
 updatedAt: 2025-09-07
 priority: 5
 title: useIntlayer Hook Dokümantasyonu | react-intlayer
-description: react-intlayer paketi için useIntlayer hook'unun nasıl kullanılacağını görün
+description: "React'te useIntlayer ile bir sözlüğün yerelleştirilmiş içeriğini anahtarla okuyun; tipler içerik bildirim dosyalarınızdan gelir."
 keywords:
   - useIntlayer
   - sözlük

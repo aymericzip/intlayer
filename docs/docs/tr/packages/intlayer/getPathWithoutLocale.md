@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 5
 title: getPathWithoutLocale Fonksiyonu Dokümantasyonu | intlayer
-description: intlayer paketinde getPathWithoutLocale fonksiyonunun nasıl kullanılacağını görün
+description: "getPathWithoutLocale ile bir URL'den veya yoldan locale segmentini kaldırın; mutlak URL'ler ve göreli yollar için çalışır."
 keywords:
   - getPathWithoutLocale
   - çeviri

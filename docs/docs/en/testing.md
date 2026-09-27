@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-01
-updatedAt: 2025-10-05
+updatedAt: 2026-09-27
 priority: 8
-title: Testing your content
-description: Discover how to test your content with Intlayer.
+title: "Testing Your Translations with Intlayer"
+description: "Test your Intlayer content: detect missing translations, validate dictionaries in CI and render components per locale in unit tests."
 keywords:
   - Testing
   - Intlayer

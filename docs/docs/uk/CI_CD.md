@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-08-13
+updatedAt: 2026-09-27
 priority: 8
-title: "Інтеграція CI/CD"
+title: "Інтеграція Intlayer з CI/CD для перекладів"
 description: "Дізнайтеся, як інтегрувати Intlayer у ваш CI/CD конвеєр для автоматизованого керування контентом та розгортання."
 keywords:
   - CI/CD

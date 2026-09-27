@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "从 react-i18next 迁移到 Intlayer"
-description: "了解如何使用兼容适配器将您的 React 应用程序从 react-i18next 迁移到 Intlayer。"
+title: "@intlayer/react-i18next：react-i18next 兼容适配器"
+description: "保留 react-i18next 代码，改由 Intlayer 提供内容：安装 @intlayer/react-i18next，为导入设置别名，并了解适配器在底层做了哪些改变。"
 keywords:
   - react-i18next
   - i18next
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# 从 react-i18next 迁移到 Intlayer
+# @intlayer/react-i18next：react-i18next 兼容适配器
 
 有关完整详细的分步教程，请参阅我们完整的 [react-i18next 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_react-i18next_to_intlayer.md)。
 
@@ -57,3 +57,7 @@ export default defineConfig({
 - **复数与上下文：** 使用原生 `Intl.PluralRules` 和上下文后缀（`key_male`）处理 i18next 基于后缀的复数化（`key_one`、`key_other`）。
 - **`<Trans>` 组件：** 重新实现以支持 `components` prop、对象和数组形式，以及编号标签 `<1>...</1>` 直接映射到您的 React 节点。
 - **`i18n` 实例：** 直接从 Intlayer 解析键值，无需获取大型 JSON 文件，从而显著降低 bundle 体积。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Estrai stringhe
+title: "intlayer extract: estrarre testi dai componenti"
 description: Scopri come estrarre le stringhe dai tuoi componenti in un file .content vicino al componente.
 keywords:
   - Estrazione

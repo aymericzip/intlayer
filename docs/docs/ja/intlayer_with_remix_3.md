@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Remix 3 i18n - アプリを多言語化するための完全ガイド"
-description: "もう i18next は不要です。2026 年版、多言語 (i18n) Remix 3 アプリ構築ガイド。AI エージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+description: "Remix 3 に Intlayer を導入：ルーターミドルウェアでのロケール検出、翻訳済みのルートハンドラーとビュー、ローカライズされた URL。"
 keywords:
   - 国際化
   - ドキュメント
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer を使用して Remix 3 Web サイトを翻訳する | 国際化 (i18n)
+# Intlayer を使用して Remix 3 Web サイトを翻訳する
 
 このガイドでは、**Remix 3** アプリケーションにおいて **Intlayer** を統合し、ロケール対応ルーティング、型安全なコンテンツ宣言、サーバーレンダリング対応の JSX コンポーネント、ならびに Node.js、Bun、Deno、Cloudflare Workers にわたるクロスランタイムサポートを備えたシームレスな国際化を実現する方法を解説します。
 

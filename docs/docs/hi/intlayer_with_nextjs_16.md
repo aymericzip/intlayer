@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-08
+updatedAt: 2026-09-27
 priority: 10
 title: "Next.js 16 i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की जरूरत नहीं। 2026 में Next.js 16 ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
+description: "Next.js 16 App Router में Intlayer सेट करें: proxy से लोकेल रूटिंग, Server और Client Components, स्थानीयकृत मेटाडेटा, साइटमैप और स्टैटिक पेज।"
 keywords:
   - अंतरराष्ट्रीयकरण
   - दस्तावेज़ीकरण
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer का उपयोग करके अपनी Next.js 16 वेबसाइट का अनुवाद करें | अंतरराष्ट्रीयकरण (i18n)
+# Intlayer का उपयोग करके अपनी Next.js 16 वेबसाइट का अनुवाद करें
 
 <Tabs defaultTab="video">
   <Tab label="वीडियो" value="video">

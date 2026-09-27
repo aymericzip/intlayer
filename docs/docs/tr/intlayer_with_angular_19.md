@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Angular 19 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Angular 19 uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Angular CLI kullanan Angular 19'da Intlayer kurulumu: bileşenlerin yanında tipli içerik, çalışma anında locale değişimi ve yerelleştirilmiş yönlendirme."
 keywords:
   - Uluslararasılaştırma
   - Belgeler
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer kullanarak Angular 19 (Webpack) web sitenizi çevirin | Uluslararasılaştırma (i18n)
+# Intlayer kullanarak Angular 19 (Webpack) web sitenizi çevirin
 
 ## İçindekiler
 

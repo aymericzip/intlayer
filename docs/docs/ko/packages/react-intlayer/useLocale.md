@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: useLocale 훅 문서 | react-intlayer
-description: react-intlayer 패키지의 useLocale 훅 사용법을 확인하세요
+description: "React의 useLocale로 현재, 기본, 사용 가능한 로케일을 읽고 어떤 컴포넌트에서든 언어를 전환합니다."
 keywords:
   - useLocale
   - dictionary

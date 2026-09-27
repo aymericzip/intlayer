@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Push Dizionari
-description: Scopri come inviare i tuoi dizionari all'editor e CMS di Intlayer.
+title: "intlayer push: inviare i dizionari al CMS"
+description: "Carica i dizionari locali di Intlayer nell'editor visuale e nel CMS, così traduttori e content manager possono modificarli."
 keywords:
   - Push
   - Dizionari

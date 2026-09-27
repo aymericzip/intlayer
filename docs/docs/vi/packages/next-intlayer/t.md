@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: Tài liệu hàm t | next-intlayer
-description: Xem cách sử dụng hàm t cho gói next-intlayer
+description: "Dùng hàm t của next-intlayer để khai báo bản dịch trực tiếp trong component Next.js, không cần file nội dung riêng."
 keywords:
   - t
   - dịch thuật

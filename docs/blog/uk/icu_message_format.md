@@ -287,9 +287,9 @@ totalOpenings(5); // Українська локаль → "5 вакансій"
 
 ## Корисні матеріали
 
-- [Контент множини в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md): вузол `plural` на базі CLDR та таблиця категорій.
-- [Контент на основі select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/select.md): еквівалент ICU `select` та випадки використання `enu` або `cond`.
-- [Заповнювачі для вставки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md): інтерполяція `{{name}}` та автоматичне виявлення змінних.
-- [Бенчмарк бібліотек i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md): розмір бандла та продуктивність у часі виконання.
-- [react-i18next проти react-intl проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/react-i18next_vs_react-intl_vs_intlayer.md): детальне порівняння трьох моделей повідомлень.
-- [Що таке інтернаціоналізація (i18n)?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/what_is_internationalization.md): походження терміна i18n, відмінності від l10n та широкий огляд за межами форматування повідомлень.
+- [Контент множини в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plurial.md)
+- [Контент на основі select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/select.md)
+- [Заповнювачі для вставки](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md)
+- [Бенчмарк бібліотек i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md)
+- [react-i18next проти react-intl проти Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Що таке інтернаціоналізація (i18n)?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/what_is_internationalization.md)

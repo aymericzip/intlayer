@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Svelte I18n से Intlayer में माइग्रेट करें"
 description: "compat adapter का उपयोग करके अपने Svelte एप्लिकेशन को svelte-i18n से Intlayer में माइग्रेट करना सीखें।"
@@ -46,3 +46,7 @@ Svelte-i18n भारी उपयोग किए जाने वाले sto
 - **ICU Syntax:** पूरी तरह shared ICU resolver (`intl-messageformat` समतुल्य parsing) द्वारा संभाला जाता है।
 - **Formatters:** `$date`, `$time`, `$number` कॉल Intlayer के native core formatters को सुरक्षित रूप से रीडायरेक्ट करते हैं।
 - **Babel/SWC Analysis:** Intlayer analyzer आपकी `.svelte` source files में Svelte store callers (`$_`) को compilation से पहले पढ़ता है ताकि स्वचालित रूप से प्रासंगिक dictionary chunks बनाए जा सकें।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)

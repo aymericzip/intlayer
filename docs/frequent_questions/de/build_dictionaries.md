@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Wie baut man Wörterbücher?
-description: Lernen Sie, wie man Wörterbücher erstellt.
+description: "Wann Intlayer Wörterbücher automatisch baut, wie Sie einen Build manuell mit der CLI starten und wohin die generierten Dateien geschrieben werden."
 keywords:
   - bauen
   - wörterbücher

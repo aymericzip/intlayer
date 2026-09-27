@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-16
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: CLI - تسجيل الدخول
+title: "intlayer login: تسجيل الدخول إلى CMS"
 description: تعلم كيفية استخدام أمر login في Intlayer CLI للمصادقة مع نظام إدارة المحتوى Intlayer والحصول على بيانات الاعتماد.
 keywords:
   - CLI
@@ -234,9 +234,9 @@ bun x intlayer login --verbose
 1. أضف بيانات الاعتماد إلى ملف `.env` الخاص بك
 2. قم بتكوين ملف `intlayer.config.*` باستخدام بيانات الاعتماد
 3. استخدم أوامر CLI لإدارة القواميس الخاصة بك:
-   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/push.md) - ادفع القواميس إلى الـ CMS
-   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/pull.md) - اسحب القواميس من الـ CMS
-   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md) - املأ الترجمات المفقودة
+   - [`npx intlayer push`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/push.md)
+   - [`npx intlayer pull`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/pull.md)
+   - [`npx intlayer fill`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/fill.md)
 
 ## راجع أيضًا
 

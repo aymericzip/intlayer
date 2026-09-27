@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 4
 title: Çerezlerden / başlıklardan locale nasıl alınır?
-description: Çerezlerden / başlıklardan locale nasıl alınır, öğrenin.
+description: "Intlayer ile geçerli locale'i çerezlerden veya istek başlıklarından okuyun; sunucuda ya da middleware'de doğru dili render edin."
 keywords:
   - çerez
   - başlık

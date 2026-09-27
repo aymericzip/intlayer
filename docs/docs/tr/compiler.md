@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-08
+updatedAt: 2026-09-27
 priority: 8
 title: Intlayer Compiler | i18n için Otomatik İçerik Çıkarımı
-description: Uluslararasılaştırma sürecinizi Intlayer Compiler ile otomatikleştirin. İçeriği bileşenlerinizden doğrudan çıkararak Vite, Next.js ve daha fazlasında daha hızlı ve verimli i18n sağlayın.
+description: "Intlayer derleyicisiyle bileşenlerinizden içeriği otomatik çıkarın; Vite, Next.js ve daha fazlasında i18n'i hızlandırın."
 keywords:
   - Intlayer
   - Compiler
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer Compiler | i18n için Otomatik İçerik Çıkarımı
+# Intlayer Compiler: i18n için Otomatik İçerik Çıkarımı
 
 ## Intlayer Compiler Nedir?
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Svelte i18n - Complete guide to translate your app"
-description: "No more i18next. The 2026 guide to building a multilingual (i18n) Vite + Svelte app. Translate with AI agents and optimise bundle size, SEO and performances."
+description: "Set up Intlayer in a Vite and Svelte app: translated content through stores, a locale switcher, localised routes and typed dictionaries."
 keywords:
   - Internationalisation
   - Documentation
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Translate your Vite and Svelte website using Intlayer | Internationalisation (i18n)
+# Translate your Vite and Svelte website using Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Code" value="code">

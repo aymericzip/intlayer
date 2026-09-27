@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 5
-title: Blog
-description: Intlayer, uluslararasılaştırma ve diğer konularla ilgili tüm konuları keşfedin
+title: "Intlayer blogunda ara"
+description: "Uluslararasılaştırma, yerelleştirme, i18n kütüphaneleri, SEO ve çeviri iş akışları hakkındaki tüm Intlayer blog yazılarında arama yapın."
 keywords:
   - Intlayer
   - Internationalization

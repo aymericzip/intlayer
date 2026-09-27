@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
 title: Giải pháp i18n tốt nhất cho Vue năm 2026 - Báo cáo Benchmark
 description: So sánh các thư viện quốc tế hóa (i18n) Vue như vue-i18n, fluent-vue, Tolgee và Intlayer. Báo cáo hiệu suất chi tiết về kích thước bundle, rò rỉ và tính phản ứng.
@@ -69,6 +69,10 @@ Khi ứng dụng của bạn phát triển, vấn đề đó có thể nhanh ch�
 Trong thực tế, đối với các triển khai ít được tối ưu hóa nhất, một trang quốc tế hóa có thể nặng hơn gấp nhiều lần so với phiên bản không có i18n.
 
 Tác động khác là đối với trải nghiệm nhà phát triển (DX): cách bạn khai báo nội dung, kiểu (types), tổ chức namespace, tải động và tính phản ứng khi thay đổi ngôn ngữ.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## TL;DR
 

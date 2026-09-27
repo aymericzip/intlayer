@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getPathWithoutLocale 函数文档 | intlayer
-description: 查看如何使用 intlayer 包中的 getPathWithoutLocale 函数
+description: "使用 getPathWithoutLocale 从 URL 或路径中移除语言段，同时支持绝对 URL 和相对路径。"
 keywords:
   - getPathWithoutLocale
   - 翻译

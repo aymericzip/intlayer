@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Gérer la Configuration
-description: Apprenez à récupérer et pousser votre configuration Intlayer vers le CMS.
+title: "intlayer configuration : lire et pousser la config"
+description: "Utilisez la CLI Intlayer pour afficher votre configuration résolue et la pousser vers le CMS Intlayer, afin que le dashboard et votre projet restent synchronisés."
 keywords:
   - Configuration
   - Config

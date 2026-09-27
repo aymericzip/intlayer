@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 4
-title: 翻訳生成時のClaude Codeのトークン消費を抑える方法
-description: Claude Codeでの翻訳がトークンを浪費する理由、Intlayerが代わりに実行する処理（翻訳済みキーの除外、JSONのチャンク化、Markdownのブロック単位翻訳）、およびclaude setup-tokenでClaudeのサブスクリプションを再利用する方法。
+title: "翻訳時の Claude Code のトークン消費を抑える"
+description: "Claude Code での翻訳がトークンを大量に消費する理由、Intlayer の代わりのアプローチ、Claude のサブスクリプションを翻訳に再利用する方法。"
 keywords:
   - claude code
   - tokens

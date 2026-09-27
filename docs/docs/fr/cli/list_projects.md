@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
-title: Lister les projets Intlayer
+title: "intlayer projects list : trouver les projets Intlayer"
 description: Apprenez comment lister tous les projets Intlayer dans un répertoire ou un dépôt git.
 keywords:
   - Liste

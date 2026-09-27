@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 사전 가져오기
-description: Intlayer 에디터와 CMS에서 사전을 가져오는 방법을 알아보세요.
+title: "intlayer pull: CMS에서 사전 가져오기"
+description: "Intlayer 비주얼 에디터나 CMS에서 편집한 사전을 프로젝트로 내려받아 원격 변경 사항을 코드에 반영합니다."
 keywords:
   - 가져오기
   - 사전

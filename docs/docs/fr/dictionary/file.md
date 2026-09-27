@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Fichier
-description: Apprenez comment intégrer des fichiers externes dans votre dictionnaire de contenu en utilisant la fonction `file`. Cette documentation explique comment Intlayer lie et gère dynamiquement le contenu des fichiers.
+title: "Contenu fichier : intégrer des fichiers externes"
+description: "Intégrez des fichiers externes comme du markdown ou du texte dans vos dictionnaires Intlayer avec la fonction file(), synchronisés avec le fichier source."
 keywords:
   - Fichier
   - Internationalisation

@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: Хук useRewriteURL
-description: Специфичный для Solid хук для управления локализованными перезаписями URL в Intlayer.
+title: "Хук useRewriteURL | solid-intlayer"
+description: "Используйте useRewriteURL в SolidJS, чтобы переписать URL браузера в локализованный вид согласно правилам перезаписи URL в конфигурации."
 keywords:
   - useRewriteURL
   - solid-intlayer

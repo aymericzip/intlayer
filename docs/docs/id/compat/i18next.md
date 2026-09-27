@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Migrasi dari i18next ke Intlayer"
-description: "Pelajari cara migrasi aplikasi Vanilla JS/TS Anda dari i18next ke Intlayer menggunakan adapter kompatibilitas."
+title: "@intlayer/i18next: adaptor kompatibilitas untuk i18next"
+description: "Pertahankan kode i18next Anda dan sajikan lewat Intlayer: pasang @intlayer/i18next, buat alias untuk import, dan lihat apa yang diubah adaptor di balik layar."
 keywords:
   - i18next
   - vanilla
@@ -23,7 +23,7 @@ history:
 author: aymericzip
 ---
 
-# Migrasi dari i18next ke Intlayer
+# @intlayer/i18next: adaptor kompatibilitas untuk i18next
 
 Untuk tutorial langkah demi langkah yang terperinci, silakan lihat [Panduan Migrasi i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_i18next_to_intlayer.md) lengkap kami.
 
@@ -58,3 +58,7 @@ Di balik layar:
 - **Interpolasi:** Dukungan native untuk penggantian `{{name}}` dan nesting `$t(key)` secara rekursif.
 - **Konteks & Plural:** Mengidentifikasi dan menyelesaikan format sufiks seperti `key_male` dan `key_one`/`key_other` yang dievaluasi terhadap `Intl.PluralRules` standar.
 - **Mengembalikan objek:** Mode `returnObjects: true` dengan aman mengekstrak tree dari kamus Intlayer.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Kiểm tra phiên bản CLI
-description: Tìm hiểu cách kiểm tra phiên bản Intlayer CLI đã được cài đặt.
+title: "intlayer version: kiểm tra CLI đã cài"
+description: "Kiểm tra phiên bản CLI Intlayer và các gói đã cài trong dự án, hữu ích khi gỡ lỗi do lệch phiên bản."
 keywords:
   - Phiên bản
   - CLI

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "NGX-Translate'den Intlayer'a Geçiş Yapın"
 description: "Uyumluluk adaptörünü kullanarak Angular uygulamanızı ngx-translate'den Intlayer'a nasıl geçireceğinizi öğrenin."
@@ -44,3 +44,7 @@ Arka Planda:
 - **Hizmetler:** `TranslateService`, `getIntlayer` ve locale observable'ı sarmalamakta, tamamen aynı yöntemleri sağlamaktadır.
 - **Pipe'lar & Direktifler:** Intlayer sözlüklerine karşı doğrudan çözüm için yeniden uygulanmıştır.
 - **Yükleyiciler:** `TranslateHttpLoader` kurulumları uyarı saplamalarına dönüştürülür, çünkü Intlayer doğası gereği çevirilerinizi build zamanında (veya standart dinamik importlar aracılığıyla) çözer ve bundle'lar, HTTP yükleyicilerine olan ihtiyacı tamamen ortadan kaldırır.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)

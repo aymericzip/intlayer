@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 4
-title: Cách giới hạn mức tiêu thụ token của Claude Code khi tạo bản dịch
-description: Tại sao dịch thuật bằng Claude Code gây lãng phí token, những gì Intlayer thực hiện thay thế (lọc các khóa đã dịch, chia nhỏ JSON, dịch markdown theo từng khối) và cách tái sử dụng gói đăng ký Claude với claude setup-token.
+title: "Giới hạn token Claude Code khi dịch"
+description: "Vì sao dịch bằng Claude Code tốn nhiều token, Intlayer làm gì thay thế và cách dùng lại gói Claude của bạn để dịch."
 keywords:
   - claude code
   - tokens

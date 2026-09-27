@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname 函数文档 | svelte-intlayer
-description: 了解如何使用 svelte-intlayer 包中的 usePathname 函数
+description: "在 Svelte 中使用 usePathname，以只读 store 的形式获取去掉语言段的当前路径，用于支持语言的导航。"
 keywords:
   - usePathname
   - pathname
@@ -100,5 +100,5 @@ import { usePathname } from "svelte-intlayer";
 
 ## 相关阅读
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/svelte-intlayer/useLocale.md) — 当前 locale + locale 切换器
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md) — 该 hook 所使用的底层实用程序
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/svelte-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md)

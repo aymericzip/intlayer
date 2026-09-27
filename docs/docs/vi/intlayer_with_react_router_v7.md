@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "React Router v7 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng React Router v7 đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong React Router v7: phân đoạn route bản địa hóa, loader và component đã dịch, hreflang và sitemap đa ngôn ngữ."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -40,7 +40,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web React Router v7 của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web React Router v7 của bạn bằng Intlayer
 
 Hướng dẫn này trình bày cách tích hợp **Intlayer** để thực hiện quốc tế hóa liền mạch trong các dự án React Router v7 với định tuyến nhận biết locale, hỗ trợ TypeScript và các thực hành phát triển hiện đại.
 

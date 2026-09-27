@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق دالة getIntlayerAsync | intlayer
-description: انظر كيفية استخدام دالة getIntlayerAsync لحزمة intlayer
+description: "استخدم getIntlayerAsync لتحميل محتوى قاموس وقراءته للغة واحدة فقط، دون تضمين اللغات الأخرى في الحزمة."
 keywords:
   - getIntlayerAsync
   - dictionary
@@ -106,9 +106,9 @@ const { title } = await getIntlayerAsync("app", "fr"); // "Bonjour"
 
 ## الوظائف ذات الصلة
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayer.md): المكافئ المتزامن الذي يقرأ القاموس المدمج.
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getDictionaryAsync.md): الدالة منخفضة المستوى التي تعيد كتابتها إضافات البناء إلى هذا الاستدعاء.
-- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocale.md): يكتشف لغة الطلب الوارد.
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getDictionaryAsync.md)
+- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocale.md)
 
 ## TypeScript
 

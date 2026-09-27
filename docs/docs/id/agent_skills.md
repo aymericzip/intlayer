@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-02-09
-updatedAt: 2026-03-03
+updatedAt: 2026-09-27
 priority: 6
-title: Agent Skills
-description: Pelajari cara menggunakan Intlayer Agent Skills untuk meningkatkan pemahaman agen AI Anda terhadap proyek Anda, termasuk panduan pengaturan komprehensif untuk Metadata, Sitemaps, dan Server Actions.
+title: "Intlayer Agent Skills untuk agen coding AI"
+description: "Berikan skill Intlayer kepada agen coding AI Anda: panduan pengaturan untuk konten, metadata, sitemap, dan server actions."
 keywords:
   - Intlayer
   - Agent Skills

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: مراجعة المستند
+title: "intlayer doc review: مراجعة التوثيق المترجم"
 description: تعلّم كيفية مراجعة ملفات التوثيق من حيث الجودة، الاتساق، والكمال عبر اللغات المختلفة.
 keywords:
   - مراجعة

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-21
+updatedAt: 2026-09-27
 priority: 6
-title: MCPサーバー ドキュメント
-description: MCPサーバーの機能とセットアップを探り、サーバー管理と運用を最適化します。
+title: "AI アシスタント向け Intlayer MCP サーバー"
+description: "Intlayer MCP サーバーを Cursor、VS Code、Claude Desktop に接続し、AI アシスタントがドキュメントを読んで Intlayer のセットアップを手伝えるようにします。"
 keywords:
   - MCPサーバー
   - サーバー管理

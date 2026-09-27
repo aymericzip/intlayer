@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 8
-title: Fonksiyon Getirme
-description: Çok dilli web sitenizde fonksiyon getirmeyi nasıl bildireceğinizi ve kullanacağınızı keşfedin. Bu çevrimiçi dokümantasyonun adımlarını takip ederek projenizi birkaç dakikada kurun.
+title: "Function fetching: fonksiyonlardan içerik yükleyin"
+description: "Intlayer içeriğini senkron veya asenkron fonksiyonlardan tanımlayın; örneğin derleme sırasında bir API'den çeviri çekin."
 keywords:
   - Fonksiyon Getirme
   - Uluslararasılaştırma

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Doküman İncelemesi
+title: "intlayer doc review: çevrilmiş dokümanları inceleyin"
 description: Farklı yerellerdeki dokümantasyon dosyalarını kalite, tutarlılık ve tamlık açısından nasıl inceleyeceğinizi öğrenin.
 keywords:
   - İnceleme

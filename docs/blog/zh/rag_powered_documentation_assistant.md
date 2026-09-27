@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-27
 priority: 8
-title: 构建一个基于RAG的文档助手（分块、嵌入和搜索）
-description: 构建一个基于RAG的文档助手（分块、嵌入和搜索）
+title: "构建基于 RAG 的文档助手"
+description: "我们如何为文档构建 AI 助手：Markdown 分块、生成向量嵌入、向量搜索与提示词设计，以及遇到的取舍。"
 keywords:
   - RAG
   - 文档

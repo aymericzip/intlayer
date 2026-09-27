@@ -53,6 +53,10 @@ author: aymericzip
 
 В этом руководстве показано, как использовать превосходную систему декларации контента Intlayer, сохраняя при этом совместимость с next-i18next.
 
+> Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
+
+- [История i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)
+
 ## Пошаговое руководство по настройке Intlayer с next-i18next
 
 <Steps>

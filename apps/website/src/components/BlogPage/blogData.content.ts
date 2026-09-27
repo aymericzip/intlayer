@@ -367,13 +367,6 @@ const blogDataContent: Dictionary = {
           ),
           frameworks: ['vue'],
         },
-        'vue-i18n-vs-intlayer-benchmark': {
-          title: 'vue-i18n vs Intlayer benchmark',
-          default: getBlogMetadata(
-            './blog/en/vue-i18n_vs_intlayer_benchmark.md'
-          ),
-          frameworks: ['vue'],
-        },
         'is-next-intl-outdated': {
           title: t({
             en: 'Is next-intl outdated?',

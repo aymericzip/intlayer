@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n no Next.js 16 com next-intl: guia de configuração do App Router"
 description: "Configure o next-intl passo a passo em um app Next.js 16 com App Router: roteamento por locale, carregamento de mensagens por página, componentes de servidor e cliente, e metadados de SEO."
@@ -32,9 +32,13 @@ author: aymericzip
 
 **next-intl** é uma biblioteca popular de internacionalização (i18n) projetada especificamente para o Next.js App Router. Ela oferece uma forma integrada de construir aplicações Next.js multilíngues com excelente suporte a TypeScript e otimizações embutidas.
 
-> Se preferir, você também pode consultar o [guia do next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/i18n_using_next-i18next.md), ou usar diretamente o [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_next-intl.md).
+> Se preferir, você também pode consultar o [guia do next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/i18n_using_next-i18next.md), ou usar diretamente o [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_16.md).
 
 > Veja a comparação em [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/next-i18next_vs_next-intl_vs_intlayer.md).
+
+> Para entender de onde vêm essas bibliotecas, leia a história do i18n em JavaScript.
+
+- [A história do i18n em JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/history_of_i18n.md)
 
 ## O que o benchmark diz sobre next-intl no Next.js
 

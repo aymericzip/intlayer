@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
-title: 2026년 TanStack Start를 위한 최고의 i18n 솔루션 - 벤치마크 리포트
+title: "TanStack Start를 위한 최고의 i18n: 2026 벤치마크"
 description: react-i18next, use-intl, Intlayer와 같은 TanStack Start 국제화 라이브러리를 비교합니다. 번들 크기, 누수, 반응성에 관한 상세 성능 리포트.
 keywords:
   - benchmark
@@ -69,6 +69,10 @@ history:
 실제로 최적화가 가장 덜 된 구현의 경우, 국제화된 페이지가 i18n이 없는 버전보다 몇 배나 무거워질 수 있습니다.
 
 또 다른 영향은 개발자 경험(DX)입니다: 콘텐츠 선언 방식, 타입, 네임스페이스 구성, 동적 로딩, 로케일 변경 시의 반응성 등이 포함됩니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## TL;DR
 

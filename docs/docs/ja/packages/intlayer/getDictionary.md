@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: getDictionary 関数ドキュメント | intlayer
-description: intlayer パッケージの getDictionary 関数の使用方法を参照してください
+description: "getDictionary で自分で渡した辞書オブジェクトを解釈し、すべてのコンテンツプラグインを適用してロケールに応じたコンテンツを取得します。"
 keywords:
   - getDictionary
   - dictionary
@@ -124,9 +124,9 @@ const allItems = getDictionary(blogPostGroup, { locale: "fr" });
 
 ## 関連する関数
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md): 同じ解釈ですが、生成されたレジストリ内でキーで辞書を検索します。
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getDictionaryAsync.md): ロケール別ローダーマップの対応物。
-- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useDictionary.md): React フックの同等物で、プロバイダーからロケールを読み取ります。
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getDictionaryAsync.md)
+- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useDictionary.md)
 
 ## TypeScript
 

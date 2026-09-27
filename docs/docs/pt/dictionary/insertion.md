@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Inserção
-description: Aprenda como declarar e usar espaços reservados de inserção no seu conteúdo. Esta documentação orienta você pelos passos para inserir valores dinamicamente dentro de estruturas de conteúdo predefinidas.
+title: "Inserção: variáveis no conteúdo traduzido"
+description: "Insira valores dinâmicos em textos traduzidos com o nó insert() do Intlayer e {{placeholders}}, tipados a partir da sua declaração de conteúdo."
 keywords:
   - Inserção
   - Conteúdo Dinâmico

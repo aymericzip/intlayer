@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-10
+updatedAt: 2026-09-27
 priority: 6
-title: Server LSP Intlayer
+title: "Language server Intlayer (LSP) untuk IDE Anda"
 description: Pelajari bagaimana language server Intlayer menghadirkan Go-to-Definition, pencarian referensi, pratinjau saat hover, autocomplete kunci, dan diagnostik ke IDE dan agen AI Anda.
 keywords:
   - LSP

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Paket lynx-intlayer
-description: Dukungan Lynx untuk Intlayer, menyediakan polyfill untuk dukungan locale.
+description: "Paket lynx-intlayer mengintegrasikan Intlayer ke aplikasi Lynx, dengan polyfill dan helper yang dibutuhkan untuk dukungan locale di mobile."
 keywords:
   - lynx-intlayer
   - lynx

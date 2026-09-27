@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Preact i18n - あなたのアプリを翻訳する完全ガイド"
-description: "i18nextはもう不要。2026年に多言語（i18n）Vite + Preactアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+description: "Vite と Preact のアプリに Intlayer を導入：コンポーネント単位の型付きコンテンツ、言語切り替え、ローカライズされたルート、小さなバンドル。"
 keywords:
   - 国際化
   - ドキュメント
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# IntlayerでVite and Preactを翻訳する | 国際化（i18n）
+# IntlayerでVite and Preactを翻訳する
 
 ## 目次
 

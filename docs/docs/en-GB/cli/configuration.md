@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Manage Configuration
-description: Learn how to get and push your Intlayer configuration to the CMS.
+title: "intlayer configuration: Get and Push Config"
+description: "Use the Intlayer CLI to print your resolved configuration and push it to the Intlayer CMS, so the dashboard and your project stay in sync."
 keywords:
   - Configuration
   - Config

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Fungsi getCanonicalPath | intlayer
-description: Pelajari cara menggunakan fungsi getCanonicalPath untuk paket intlayer
+description: "Gunakan getCanonicalPath untuk memetakan path terlokalisasi seperti /tentang kembali ke rute internal seperti /about untuk routing."
 keywords:
   - getCanonicalPath
   - terjemahan
@@ -121,5 +121,5 @@ getCanonicalPath("/contactez-nous", Locales.FRENCH, manualRules);
 
 ## Fungsi Terkait
 
-- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedPath.md): Menyelesaikan path kanonis menjadi padanan lokalnya.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md): Menghasilkan URL yang sepenuhnya dilokalkan (termasuk protokol, host, dan prefix locale).
+- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md)

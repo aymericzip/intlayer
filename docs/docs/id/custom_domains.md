@@ -2,7 +2,7 @@
 createdAt: 2026-04-02
 updatedAt: 2026-06-23
 priority: 8
-title: Domain Kustom
+title: "Domain kustom: satu domain per locale"
 description: Pelajari cara mengonfigurasi perutean lokal berbasis domain di Intlayer untuk menyajikan berbagai lokal dari nama host khusus.
 keywords:
   - Domain Kustom

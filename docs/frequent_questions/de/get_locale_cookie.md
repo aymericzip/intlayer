@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Wie man die Locale aus Cookies / Headern ausliest
-description: Lernen Sie, wie man die Locale aus Cookies / Headern ausliest.
+description: "Lesen Sie die aktuelle Locale mit Intlayer aus Cookies oder Request-Headern, auf dem Server oder in einer Middleware, um die richtige Sprache zu rendern."
 keywords:
   - cookie
   - header

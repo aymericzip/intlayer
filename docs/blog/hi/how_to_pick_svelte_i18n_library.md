@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "2026 में सही Svelte i18n लाइब्रेरी कैसे चुनें"
-description: Svelte और SvelteKit अंतर्राष्ट्रीयकरण के लिए एक निर्णय मार्गदर्शिका। svelte-i18n, Paraglide, typesafe-i18n, wuchale और Intlayer की तुलना करने से पहले किन सवालों के जवाब देने चाहिए, और प्रत्येक विकल्प बंडल आकार, टाइपिंग और SSR सुरक्षा के मामले में क्या लागत लेता है।
+description: "Svelte और SvelteKit i18n चुनने की गाइड: svelte-i18n, Paraglide, typesafe-i18n, wuchale और Intlayer की तुलना से पहले के सवाल।"
 keywords:
   - svelte i18n
   - sveltekit i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Svelte i18n के लिए कुछ भी इन-बिल्ट प्रदान नहीं करता है। कोई `$t` नहीं, कोई locale primitive नहीं, कोई message format नहीं। प्रत्येक विकल्प एक third-party चयन है, और Svelte ecosystem वह जगह है जहाँ compile-time i18n सबसे आगे निकल गया है, इसलिए उम्मीदवार React या Vue की तुलना में एक-दूसरे से अधिक भिन्न हैं।
 
 यह गाइड उन सवालों की सूची देती है जिनका उत्तर पहले दिया जाना चाहिए, फिर उन उत्तरों को `svelte-i18n`, Paraglide, `typesafe-i18n`, `wuchale` और Intlayer से मैप करती है, Vite + Svelte और SvelteKit दोनों के लिए।
-
-![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## विषय सूची
 
@@ -88,6 +86,8 @@ Paraglide प्रत्येक संदेश को एक exported functi
 
 लाइब्रेरी के आकार [Svelte benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/svelte.md) से हैं: 10-पेज, 10-locale ऐप पर बंडलिंग, tree-shaking और minification के बाद एक खाली घटक में store प्लस accessor। सामग्री को अलग से मापा जाता है।
 
+![Svelte i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | लाइब्रेरी       | संदेश कहाँ रहते हैं                    | Locale state                                 | टाइप सुरक्षा             | Message format                | Per-route splitting      | लाइब्रेरी का आकार                               |
 | :-------------- | :------------------------------------- | :------------------------------------------- | :----------------------- | :---------------------------- | :----------------------- | :---------------------------------------------- |
 | `svelte-i18n`   | प्रति locale JSON कैटलॉग               | Module-level Svelte store                    | 2/5 — Manual union       | ICU                           | No                       | ~16.6 kB                                        |
@@ -111,7 +111,7 @@ Paraglide का शून्य के करीब लाइब्रेरी
 </Accordion>
 <Accordion header="Locale routing और SSR के साथ SvelteKit">
 
-साझा करने की समस्या इसे तय करती है। `svelte-i18n` SvelteKit पर काम करता है लेकिन प्रति-अनुरोध वायरिंग (`hooks.server.ts`, `locals`, `load`, फिर `setContext`) आपको लिखनी होती है और इसे सूक्ष्मता से गलत करना आसान है। Paraglide एक SvelteKit एकीकरण शिप करता है जो रूटिंग को संभालता है और प्रति कॉल locale पढ़ता है, जो singleton से बचता है। Intlayer `load` डेटा से locale को context में सेट करता है। [SvelteKit i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/frameworks/sveltekit.md) `[[lang]]` बनाम `reroute` विकल्प की व्याख्या करती है, जिसे आपको लाइब्रेरी चुनने से पहले चुनना चाहिए।
+साझा करने की समस्या इसे तय करती है। `svelte-i18n` SvelteKit पर काम करता है लेकिन प्रति-अनुरोध वायरिंग (`hooks.server.ts`, `locals`, `load`, फिर `setContext`) आपको लिखनी होती है और इसे सूक्ष्मता से गलत करना आसान है। Paraglide एक SvelteKit एकीकरण शिप करता है जो रूटिंग को संभालता है और प्रति कॉल locale पढ़ता है, जो singleton से बचता है। Intlayer `load` डेटा से locale को context में सेट करता है। [SvelteKit i18n पोस्ट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_svelte_kit.md) `[[lang]]` बनाम `reroute` विकल्प की व्याख्या करती है, जिसे आपको लाइब्रेरी चुनने से पहले चुनना चाहिए।
 
 </Accordion>
 <Accordion header="अनुवाद TMS या ICU डिलीवर करने वाली एजेंसी से आते हैं">
@@ -439,11 +439,16 @@ Vite + Svelte पर, हाँ, बेंचमार्क इसकी पु
 ## आगे पढ़ना
 
 - [Svelte i18n बेंचमार्क: बंडल आकार, लीकेज और लोकेल-स्विच समय](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/svelte.md)
-- [Svelte i18n: स्टोर्स, रून्स और मॉड्यूल-स्तरीय जाल](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/frameworks/svelte.md) और [SvelteKit i18n: रूटिंग, SSR और साझा स्थिति](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/list_i18n_technologies/frameworks/sveltekit.md)
 - [ड्रॉप-इन `svelte-i18n` कम्पैट एडेप्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compat/svelte-i18n.md)
 - [जावास्क्रिप्ट i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)
 - [कंपाइलर बनाम घोषणात्मक i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md)
 - [प्रति-घटक बनाम केंद्रीकृत i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/per-component_vs_centralized_i18n.md)
 - [बिल्ड समय पर बंडल अनुकूलन कैसे काम करता है](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/bundle_optimization.md)
-- [Vite + Svelte ऐप में i18n सेट करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+svelte.md) और [SvelteKit ऐप में](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_svelte_kit.md)
-- यही गाइड [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_react_i18n_library.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_vue_i18n_library.md) और [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_solid_i18n_library.md) के लिए
+- [Vite + Svelte ऐप में i18n सेट करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+svelte.md)
+- [SvelteKit ऐप में](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_svelte_kit.md)
+
+यही गाइड
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_vue_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/how_to_pick_solid_i18n_library.md)

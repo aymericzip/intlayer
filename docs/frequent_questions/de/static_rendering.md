@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Statisches vs. dynamisches Rendering mit i18n in Next.js
-description: Erfahren Sie, wie Sie statisches vs. dynamisches Rendering mit i18n in Next.js verwenden.
+description: "Warum next-intl-Helfer i18n-Routen in Next.js dynamisch machen und wie Sie lokalisierte Seiten statisch gerendert halten."
 keywords:
   - statisch
   - dynamisch

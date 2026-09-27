@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Preencher Dicionários
-description: Aprenda como preencher, auditar e traduzir seus dicionários usando IA.
+title: "intlayer fill: traduzir dicionários com IA"
+description: "Complete as traduções que faltam, audite as existentes e traduza seus dicionários do Intlayer com IA pela CLI, localmente ou em CI."
 keywords:
   - Preencher
   - Auditar

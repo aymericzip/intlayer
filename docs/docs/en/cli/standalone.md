@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Standalone Bundle
-description: Learn how to create a standalone bundle of the application content.
+title: "intlayer standalone: Bundle Intlayer for Any Page"
+description: "Build a single JavaScript bundle of Intlayer and the packages you need, to use it in pages without a package manager or bundler."
 keywords:
   - Standalone
   - Bundle

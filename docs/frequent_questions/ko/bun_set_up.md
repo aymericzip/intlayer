@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: bun 사용 시 모듈을 찾을 수 없다는 오류가 발생합니다
-description: bun 사용 시 발생하는 오류 수정 방법.
+description: "Bun에서 Intlayer 사용 시 발생하는 'Cannot find package' 오류를 해결합니다. Bun이 require() 범위를 제한하기 때문이며, 해결 설정을 소개합니다."
 keywords:
   - bun
   - 모듈을 찾을 수 없음

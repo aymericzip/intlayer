@@ -284,9 +284,9 @@ ICU अवधारणाओं के साथ मैपिंग सीधी
 
 ## आगे पढ़ें
 
-- [Intlayer में बहुवचन सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md): CLDR-समर्थित `plural` नोड और इसकी श्रेणी तालिका।
-- [Select-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/select.md): ICU `select` का समकक्ष, और कब `enu` या `cond` का उपयोग करें।
-- [इंसर्शन प्लेसहोल्डर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md): `{{name}}` इंटरपोलेशन और स्वचालित पहचान।
-- [i18n लाइब्रेरी बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md): ऊपर सूचीबद्ध लाइब्रेरीज़ में बंडल आकार और रनटाइम लागत।
-- [react-i18next बनाम react-intl बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/react-i18next_vs_react-intl_vs_intlayer.md): तीन संदेश मॉडलों की विस्तृत तुलना।
-- [अंतर्राष्ट्रीयकरण (i18n) क्या है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/what_is_internationalization.md): शब्द i18n कहाँ से आया, यह l10n से कैसे भिन्न है, और इसका व्यापक दायरा।
+- [Intlayer में बहुवचन सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plurial.md)
+- [Select-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/select.md)
+- [इंसर्शन प्लेसहोल्डर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)
+- [i18n लाइब्रेरी बेंचमार्क](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/index.md)
+- [react-i18next बनाम react-intl बनाम Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/react-i18next_vs_react-intl_vs_intlayer.md)
+- [अंतर्राष्ट्रीयकरण (i18n) क्या है?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/what_is_internationalization.md)

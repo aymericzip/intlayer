@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-09-20
+updatedAt: 2026-09-27
 priority: 8
-title: 자동 채우기
-description: Intlayer에서 자동 채우기 기능을 사용하여 미리 정의된 패턴에 따라 콘텐츠를 자동으로 채우는 방법을 알아보세요. 이 문서를 따라 프로젝트에서 자동 채우기 기능을 효율적으로 구현할 수 있습니다.
+title: "Auto Fill: 누락된 콘텐츠를 자동 번역"
+description: "Intlayer의 auto fill로 소스 로케일에서 누락된 번역을 생성하고 올바른 콘텐츠 파일에 기록합니다."
 keywords:
   - 자동 채우기
   - 콘텐츠 자동화

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-06
+updatedAt: 2026-09-27
 priority: 5
 title: useIntlayer 훅 문서 | solid-intlayer
-description: solid-intlayer 패키지에서 useIntlayer 훅을 사용하는 방법을 확인하세요
+description: "Solid의 useIntlayer로 사전의 현지화된 콘텐츠를 키로 읽습니다. 로케일 변경에 따라 갱신되는 반응형 값을 반환합니다."
 keywords:
   - useIntlayer
   - 사전

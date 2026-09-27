@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
-title: ब्लॉग
-description: सभी विषय के साथ Intlayer, अंतर्राष्ट्रीयकरण और अन्य के साथ हैं
+title: "Intlayer ब्लॉग में खोजें"
+description: "अंतर्राष्ट्रीयकरण, स्थानीयकरण, i18n लाइब्रेरी, SEO और अनुवाद वर्कफ़्लो पर Intlayer ब्लॉग के सभी लेख खोजें।"
 keywords:
   - Intlayer
   - अंतर्राष्ट्रीयकरण

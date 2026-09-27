@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: Documentazione della funzione t | react-intlayer
-description: Scopri come utilizzare la funzione t per il pacchetto react-intlayer
+description: "Usa la funzione t di react-intlayer per dichiarare le traduzioni direttamente nei componenti React, senza un file di contenuto separato."
 keywords:
   - t
   - traduzione

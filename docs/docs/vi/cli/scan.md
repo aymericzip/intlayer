@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-11
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 5
-title: Quét trang web
+title: "intlayer scan: kiểm tra i18n và SEO của website"
 description: Tìm hiểu cách sử dụng lệnh scan của Intlayer CLI để đo lường kích thước trang và kiểm toán sức khỏe i18n/SEO của bất kỳ trang web nào.
 keywords:
   - Quét

@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2026-05-31
 priority: 9
 title: "AdonisJS i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) AdonisJS uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "AdonisJS'te Intlayer kurulumu: middleware ile her istekte locale algılama, API yanıtlarını ve görünümleri çevirme, tipli içerik."
 keywords:
   - Uluslararasılaştırma
   - Belgeler
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer kullanarak AdonisJS backend web sitenizi çevirin | Uluslararasılaştırma (i18n)
+# Intlayer kullanarak AdonisJS backend web sitenizi çevirin
 
 `adonis-intlayer`, AdonisJS uygulamaları için tasarlanmış güçlü bir uluslararasılaştırma (i18n) paketidir. Müşterinin tercihlerine göre yerelleştirilmiş yanıtlar sunarak backend hizmetlerinizi küresel olarak erişilebilir hale getirmek için tasarlanmıştır.
 
@@ -248,9 +248,9 @@ export default class ExampleController {
 
 `adonis-intlayer` şunlarla tam uyumludur:
 
-- React uygulamaları için [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/index.md)
-- Next.js uygulamaları için [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/index.md)
-- Vite uygulamaları için [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/index.md)
 
 Ayrıca tarayıcılar ve API istekleri dahil olmak üzere çeşitli ortamlardaki tüm uluslararasılaştırma çözümleriyle sorunsuz çalışır. Middleware'i başlıklar veya çerezler aracılığıyla yereli algılayacak şekilde özelleştirebilirsiniz:
 

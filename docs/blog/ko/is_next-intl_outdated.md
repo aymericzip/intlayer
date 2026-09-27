@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: 2026년에도 next-intl을 계속 써야 할까요?
 description: next-intl은 Next.js App Router의 표준으로 자리잡았습니다. 하지만 런타임 번들 오버헤드와 수동 네임스페이스 관리라는 부담은 여전히 남아 있습니다.
@@ -70,6 +70,10 @@ Crowdin의 공식 파트너이기 때문에, CLI 자체에 무료 로컬 AI 번�
 [![Star History Chart](https://api.star-history.com/chart?repos=amannn%2Fnext-intl%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#amannn/next-intl&aymericzip/intlayer)
 
 성숙한 라이브러리는 안정감을 줍니다. 하지만 i18n 환경은 달라졌습니다. 빌드 시 미사용 텍스트를 걸러내고, CI에서 LLM이 번역을 수행하며, 에디터는 Language Server (LSP) 및 AI 어시스턴트와 밀접하게 연동됩니다. 런타임 처리에 갇힌 아키텍처는 이러한 진보를 온전히 누리기 어렵습니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)
 
 ## Next.js 16 App Router 성능 측정
 

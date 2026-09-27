@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Angular 22 i18n - Guida completa per tradurre la tua applicazione"
-description: "Niente più i18next. La guida 2026 per creare un'applicazione Angular 22 multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
+description: "Configura Intlayer in Angular 22 con Vite: contenuti tipizzati accanto ai componenti, cambio di locale senza una build per lingua, e SEO."
 keywords:
   - Internazionalizzazione
   - Documentazione
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Traduci il tuo sito Angular 22 (Vite) utilizzando Intlayer | Internazionalizzazione (i18n)
+# Traduci il tuo sito Angular 22 (Vite) utilizzando Intlayer
 
 ## Sommario
 

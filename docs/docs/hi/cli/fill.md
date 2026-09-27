@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: शब्दकोश भरें
-description: AI का उपयोग करके अपने शब्दकोशों को कैसे भरें, ऑडिट करें, और अनुवाद करें, यह जानें।
+title: "intlayer fill: AI से डिक्शनरी का अनुवाद"
+description: "CLI से, लोकल या CI में, छूटे अनुवाद भरें, मौजूदा की जाँच करें और अपनी Intlayer डिक्शनरी का AI से अनुवाद करें।"
 keywords:
   - भरें
   - ऑडिट

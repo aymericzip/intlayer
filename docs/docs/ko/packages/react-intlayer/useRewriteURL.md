@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: useRewriteURL 훅 문서
-description: Intlayer에서 지역화된 URL 재작성(localized URL rewrites)을 관리하기 위한 React 전용 훅.
+title: "useRewriteURL 훅 문서 | react-intlayer"
+description: "React의 useRewriteURL로 설정의 URL 재작성 규칙에 따라 브라우저 URL을 현지화된 버전으로 바꿉니다."
 keywords:
   - useRewriteURL
   - react-intlayer

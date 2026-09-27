@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Wörterbücher pushen
-description: Erfahren Sie, wie Sie Ihre Wörterbücher in den Intlayer-Editor und das CMS pushen.
+title: "intlayer push: Wörterbücher ins CMS pushen"
+description: "Laden Sie Ihre lokalen Intlayer-Wörterbücher in den visuellen Editor und das CMS hoch, damit Übersetzer und Content-Manager sie bearbeiten können."
 keywords:
   - Push
   - Wörterbücher

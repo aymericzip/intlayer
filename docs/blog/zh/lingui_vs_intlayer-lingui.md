@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui vs @intlayer/lingui：相同宏，不同运行时"
-description: "当 React 应用程序保留其 Lingui 宏但通过 @intlayer/lingui 兼容适配器提供服务时会发生什么变化。在相同的 TanStack Start 代码上测量的组件大小、水合、泄漏和每页 JavaScript，包括适配器处于劣势的方面。"
+description: "React 应用保留 Lingui 宏，由 @intlayer/lingui 适配器提供内容。测量组件大小、水合、内容泄漏和每页 JavaScript。"
 keywords:
   - Lingui
   - "@intlayer/lingui"
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui VS @intlayer/lingui | 相同宏，不同运行时
+# Lingui VS @intlayer/lingui：相同宏，不同运行时
 
 `@intlayer/lingui` 是针对 `@lingui/core` 和 `@lingui/react` 的兼容适配器。你的 `` t`...` ``、`<Trans>`、`useLingui()` 和 `i18n._()` 调用保持完全不变；宏继续正常编译；改变的是运行时消息的来源。每个调用点不再依赖每个语言环境一个编译好的全局目录，而是绑定到专门为其编译的 Intlayer 字典。
 
@@ -289,12 +289,16 @@ export default defineConfig({
 
 ## 相关对比文章
 
-- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)（库级别深度对比，相同基准测试）
-- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer-next-intl.md)（同系列适配器测评）
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer-i18next.md)（同系列适配器测评）
-- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer-vue-i18n.md)（同系列适配器测评）
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer-next-intl.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer-i18next.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer-vue-i18n.md)
 - [兼容适配器参考：Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/lingui.md)
 - [编译器型 vs 声明式 i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/compiler_vs_declarative_i18n.md)
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 总结
 

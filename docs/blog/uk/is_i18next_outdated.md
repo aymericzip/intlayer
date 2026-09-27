@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: Чи застарів i18next у 2026 році?
 description: i18next використовується на мільйонах сайтів, але його runtime-архітектура 2011 року показує свій вік. Аналіз розміру бандла, обмежень tree-shaking та сповільнення інновацій.
@@ -74,6 +74,10 @@ author: aymericzip
 [![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fi18next%2Ci18next%2Freact-i18next%2Ci18next%2Fnext-i18next%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#i18next/i18next&i18next/react-i18next&i18next/next-i18next&aymericzip/intlayer)
 
 Невелика бібліотека може бути стабільною. Але засоби i18n змінюються: сучасні збирачі видаляють непотрібний контент під час збірки, нейромережі перекладають безпосередньо в CI, а редактори підключають Language Server (LSP) та ШІ-агентів. Модель i18next, побудована виключно на runtime, не дозволяє легко впроваджувати ці рішення.
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
 
 ## Вимірювання впливу на бандл
 

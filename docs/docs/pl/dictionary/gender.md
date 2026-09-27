@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: Treści oparte na płci
-description: Dowiedz się, jak używać treści opartych na płci w Intlayer, aby dynamicznie wyświetlać zawartość w zależności od płci. Postępuj zgodnie z tą dokumentacją, aby efektywnie wdrożyć treści specyficzne dla płci w swoim projekcie.
+title: "Treść zależna od płci w Intlayer"
+description: "Dopasuj komunikaty do płci czytelnika za pomocą węzła gender() w Intlayer: wariant męski, żeński i domyślny w jednym miejscu."
 keywords:
   - Treści oparte na płci
   - Dynamiczne renderowanie

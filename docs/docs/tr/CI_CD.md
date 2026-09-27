@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 8
-title: CI/CD Entegrasyonu
+title: "Çeviriler için Intlayer CI/CD entegrasyonu"
 description: Otomatik içerik yönetimi ve dağıtım için Intlayer'ı CI/CD hattınıza nasıl entegre edeceğinizi öğrenin.
 keywords:
   - CI/CD

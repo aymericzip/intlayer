@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Intlayer Komutunu Hata Ayıkla
-description: Intlayer CLI sorunlarını nasıl hata ayıklayacağınızı ve çözeceğinizi öğrenin.
+title: "Intlayer CLI'da hata ayıklama"
+description: "Intlayer CLI sorunlarını giderin: kurulu sürümü kontrol edin, ayrıntılı logları açın ve yaygın komut ve yapılandırma hatalarını düzeltin."
 keywords:
   - Hata Ayıklama
   - Sorun Giderme

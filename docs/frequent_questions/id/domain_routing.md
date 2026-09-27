@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Cara mengonfigurasi routing berbasis domain?
-description: Pelajari cara mengonfigurasi routing berbasis domain.
+description: "Sajikan setiap locale dari domainnya sendiri dengan routing berbasis domain Intlayer, dikonfigurasi di intlayer.config.ts dengan redirect otomatis."
 keywords:
   - domain
   - routing

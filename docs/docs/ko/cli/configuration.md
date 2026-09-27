@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 구성 관리
-description: Intlayer 구성을 CMS에 가져오고 푸시하는 방법을 알아보세요.
+title: "intlayer configuration: 설정 조회와 푸시"
+description: "Intlayer CLI로 해석된 설정을 출력하고 Intlayer CMS에 푸시하여 대시보드와 프로젝트를 동기화합니다."
 keywords:
   - 구성
   - 설정

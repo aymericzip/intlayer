@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: useIntlayer Hook 文档 | react-intlayer
-description: 查看如何在 react-intlayer 包中使用 useIntlayer 钩子
+description: "在 React 中使用 useIntlayer 按键读取字典的本地化内容，类型来自你的内容声明文件。"
 keywords:
   - useIntlayer
   - 字典

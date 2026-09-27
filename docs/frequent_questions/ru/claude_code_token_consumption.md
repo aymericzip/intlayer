@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 4
-title: Как ограничить расход токенов Claude Code при генерации переводов
-description: Почему перевод с помощью Claude Code сжигает токены, что делает Intlayer вместо этого (фильтрует переведенные ключи, делит JSON на блоки, переводит markdown по блокам) и как повторно использовать подписку Claude с помощью claude setup-token.
+title: "Как сократить расход токенов Claude Code при переводе"
+description: "Почему перевод через Claude Code расходует много токенов, что Intlayer делает вместо этого и как использовать подписку Claude для переводов."
 keywords:
   - claude code
   - токены

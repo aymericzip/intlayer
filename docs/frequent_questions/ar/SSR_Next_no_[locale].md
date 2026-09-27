@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: هل من الممكن استخدام Intlayer مع Next.js بدون `[locale]` في مسار الصفحة؟
+title: "استخدام Intlayer في Next.js دون [locale] في المسار"
 description: تعلّم كيفية استخدام Intlayer مع Next.js بدون `[locale]` في مسار الصفحة.
 keywords:
   - locale

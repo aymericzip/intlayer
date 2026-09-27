@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: Posso traduzir o caminho do URL?
-description: Aprenda como traduzir o caminho do URL.
+description: "Sim: o Intlayer pode traduzir caminhos de URL, como /about para /pt/sobre, com reescritas de URL configuradas por locale."
 keywords:
   - array
   - conteúdo

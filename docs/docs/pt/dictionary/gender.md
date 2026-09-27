@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: Conteúdo Baseado em Gênero
-description: Aprenda como usar conteúdo baseado em gênero no Intlayer para exibir conteúdo dinamicamente com base no gênero. Siga esta documentação para implementar conteúdo específico por gênero de forma eficiente em seu projeto.
+title: "Conteúdo por gênero no Intlayer"
+description: "Adapte as mensagens ao gênero do leitor com o nó gender() do Intlayer: variantes masculina, feminina e padrão declaradas em um só lugar."
 keywords:
   - Conteúdo Baseado em Gênero
   - Renderização Dinâmica

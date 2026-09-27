@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-08
+updatedAt: 2026-09-27
 priority: 9
 title: "تدويل Next.js 15 - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Next.js 15 متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في Next.js 15 App Router: وسيط التوجيه، وparams غير متزامنة، وServer وClient Components، وبيانات وصفية وخريطة موقع مترجمة."
 keywords:
   - التدويل
   - الوثائق
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# ترجمة موقع Next.js 15 الخاص بك باستخدام Intlayer | Internationalization (i18n)
+# ترجمة موقع Next.js 15 الخاص بك باستخدام Intlayer
 
 ## جدول المحتويات
 

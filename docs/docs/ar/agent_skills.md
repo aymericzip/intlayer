@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-02-09
-updatedAt: 2026-03-03
+updatedAt: 2026-09-27
 priority: 6
-title: Agent Skills
-description: تعرّف على كيفية استخدام Intlayer Agent Skills لتحسين فهم وكيل الذكاء الاصطناعي لمشروعك، بما في ذلك أدلة الإعداد الشاملة لبيانات التعريف (Metadata)، وخرائط المواقع (Sitemaps)، وإجراءات الخادم (Server Actions).
+title: "مهارات Intlayer لوكلاء البرمجة بالذكاء الاصطناعي"
+description: "امنح وكيل البرمجة بالذكاء الاصطناعي مهارات Intlayer: أدلة إعداد للمحتوى والبيانات الوصفية وخرائط الموقع وserver actions."
 keywords:
   - Intlayer
   - Agent Skills

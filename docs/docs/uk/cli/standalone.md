@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Автономна збірка (Standalone Bundle)
-description: Дізнайтеся, як створити автономну JavaScript-збірку для контенту застосунку.
+title: "intlayer standalone: Intlayer для будь-якої сторінки"
+description: "Зберіть єдиний JavaScript-бандл Intlayer і потрібних пакетів для сторінок без пакетного менеджера та збирача."
 keywords:
   - Standalone
   - Збірка

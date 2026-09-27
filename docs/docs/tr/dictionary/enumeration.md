@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 8
-title: Numaralandırma
-description: Çok dilli web sitenizde numaralandırmaları nasıl bildireceğinizi ve kullanacağınızı keşfedin. Bu çevrimiçi dokümantasyonun adımlarını takip ederek projenizi birkaç dakikada kurun.
+title: "Numaralandırma: miktara göre mesajlar"
+description: "Intlayer numaralandırmalarıyla bir sayıya veya aralığa göre farklı içerik gösterin; enu() düğümü ve '<-1' ya da '>5' gibi koşullarla."
 keywords:
   - Numaralandırma
   - Uluslararasılaştırma

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "SvelteKit i18n - Повний посібник з перекладу вашого застосунку"
-description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку SvelteKit. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
+description: "Налаштування Intlayer у SvelteKit: маршрутизація за локалями через hooks, перекладений контент у функціях load і компонентах, hreflang і sitemap."
 keywords:
   - Інтернаціоналізація (i18n)
   - Документація
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Перекладіть свій сайт на SvelteKit із Intlayer | Інтернаціоналізація (i18n)
+# Перекладіть свій сайт на SvelteKit із Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Код" value="code">
@@ -769,8 +769,8 @@ bun run build # Or bun run dev
 
 ### Далі
 
-- **Visual Editor**: Інтегруйте [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), щоб редагувати переклади безпосередньо з UI.
-- **CMS**: Виносьте керування вмістом назовні, використовуючи [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
 
 ## Часто задавані запитання
 

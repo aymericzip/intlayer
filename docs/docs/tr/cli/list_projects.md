@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
-title: Intlayer Projelerini Listele
+title: "intlayer projects list: Intlayer projelerini bulun"
 description: Bir dizinde veya git deposunda bulunan tüm Intlayer projelerinin nasıl listeleneceğini öğrenin.
 keywords:
   - Liste

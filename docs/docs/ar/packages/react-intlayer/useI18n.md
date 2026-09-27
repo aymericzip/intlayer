@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: توثيق خطاف useI18n | react-intlayer
-description: تعلّم كيفية استخدام خطاف useI18n في حزمة react-intlayer
+description: "استخدم useI18n في React للحصول على دالة ترجمة مرتبطة بقاموس، وهي مفيدة عند الانتقال من مكتبات قائمة على المفاتيح."
 keywords:
   - useI18n
   - i18n

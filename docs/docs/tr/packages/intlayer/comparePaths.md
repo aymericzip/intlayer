@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: comparePaths Fonksiyonu Dokümantasyonu | intlayer
-description: intlayer paketi için comparePaths fonksiyonunun nasıl kullanılacağını görün
+description: "comparePaths ile iki URL'nin aynı sayfayı gösterip göstermediğini kontrol edin; locale, host, query string, hash ve sondaki eğik çizgi yok sayılır."
 keywords:
   - comparePaths
   - normalizePath
@@ -145,9 +145,9 @@ normalizePath("https://example.com/ru/path"); // "/path"
 
 ## İlgili Fonksiyonlar
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPathWithoutLocale.md): Bir URL'den veya yoldan locale segmentini kaldırır.
-- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPrefix.md): Verilen bir locale için URL önekini belirler.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md): Belirli bir locale için yerelleştirilmiş bir URL oluşturur.
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPathWithoutLocale.md)
+- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPrefix.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)
 
 ## TypeScript
 

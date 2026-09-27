@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: URLパスを翻訳できますか？
-description: URLパスを翻訳する方法を学びます。
+description: "はい、Intlayer では /about を /ja/about-us のように URL パスを翻訳できます。ロケールごとに URL リライトを設定します。"
 keywords:
   - 配列
   - コンテンツ

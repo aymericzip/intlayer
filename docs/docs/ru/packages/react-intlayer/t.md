@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Документация функции t | react-intlayer
-description: Узнайте, как использовать функцию t в пакете react-intlayer
+description: "Используйте функцию t из react-intlayer, чтобы объявлять переводы прямо в компонентах React без отдельного файла контента."
 keywords:
   - t
   - перевод

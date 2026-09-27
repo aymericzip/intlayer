@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n в Next.js 16 с Lingui: руководство по настройке App Router"
 description: "Настройка Lingui в App Router Next.js 16: Server Components, SWC-макросы, маршрутизация через proxy, generateMetadata, hreflang, sitemap и robots.txt, а также данные бенчмарков."
@@ -43,9 +43,24 @@ author: aymericzip
 - **Статический рендеринг** всех локалей с помощью `generateStaticParams`.
 - **Полное многоязычное SEO**: переведенные `generateMetadata`, canonical, `hreflang` с `x-default`, локали Open Graph, JSON-LD, `sitemap.ts`, `robots.ts` и локализованные страницы 404.
 
-> Ищете другую библиотеку? Ознакомьтесь с [руководством по next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-intl.md), [руководством по next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-i18next.md) или [руководством по Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md).
+> Ищете другую библиотеку?
 
-> Используете TanStack Start? Смотрите [руководство по TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_tanstack-start_lingui.md). Сравниваете библиотеки? Читайте [Lingui против Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/lingui_vs_intlayer.md) и [next-i18next против next-intl против Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
+- [руководством по next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-intl.md)
+- [руководством по next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-i18next.md)
+- [руководством по Next.js + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md)
+
+> Используете TanStack Start?
+
+- [руководство по TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_tanstack-start_lingui.md)
+
+> Сравниваете библиотеки?
+
+- [Lingui против Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/lingui_vs_intlayer.md)
+- [next-i18next против next-intl против Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
+
+> Чтобы понять, откуда взялись эти библиотеки, прочитайте историю i18n в JavaScript.
+
+- [История i18n в JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/history_of_i18n.md)
 
 ## Что говорит бенчмарк о Lingui в Next.js
 
@@ -94,7 +109,11 @@ author: aymericzip
 
 > Размеры рантайма взяты из [бенчмарка Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/nextjs.md). Для подробного анализа читайте [Lingui против Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/lingui_vs_intlayer.md).
 
-> Другие руководства по Next.js: [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-intl.md), [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-i18next.md) и [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md).
+> Другие руководства по Next.js:
+
+- [next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-intl.md)
+- [next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/i18n_using_next-i18next.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_16.md)
 
 ## Рекомендуемые практики
 
@@ -107,7 +126,9 @@ author: aymericzip
 - **Используйте настоящие ссылки для переключателя языков**, чтобы поисковые роботы могли обнаружить все языковые версии.
 - **Запускайте `lingui extract` в CI**, чтобы ни одно новое сообщение не попало в продакшн непереведенным.
 
-> Ознакомьтесь с нашим руководством по [интернационализации и SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/internationalization_and_SEO.md), [руководством по hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/hreflang_guide_multilingual_seo.md) и [сравнением многоязычного SEO в Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/nextjs-multilingual-seo-comparison.md).
+- [интернационализации и SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/internationalization_and_SEO.md)
+- [руководством по hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/hreflang_guide_multilingual_seo.md)
+- [сравнением многоязычного SEO в Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/nextjs-multilingual-seo-comparison.md)
 
 ## Пошаговое руководство по настройке Lingui в приложении Next.js
 

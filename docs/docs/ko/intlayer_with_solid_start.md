@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-06
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Solid Start i18n - 앱 번역을 위한 완벽한 가이드"
-description: "더 이상 i18next는 필요하지 않습니다. 2026년 다국어(i18n) SolidStart 앱 구축 가이드입니다. 서버 렌더링 로케일 라우팅, hreflang, 사이트맵 및 AI 지원 번역."
+description: "SolidStart에 Intlayer 설정: 서버 렌더링 로케일 라우팅, 반응형 번역 콘텐츠, hreflang, 다국어 사이트맵."
 keywords:
   - Internationalization
   - Documentation
@@ -26,7 +26,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer를 사용하여 SolidStart 웹사이트 번역하기 | 국제화 (i18n)
+# Intlayer를 사용하여 SolidStart 웹사이트 번역하기
 
 <Tabs defaultTab="video">
   <Tab label="비디오" value="video">

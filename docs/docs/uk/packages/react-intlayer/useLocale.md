@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Хук useLocale, документація | react-intlayer
-description: Дивіться, як використовувати хук useLocale для пакета react-intlayer
+description: "Використовуйте useLocale у React, щоб отримати поточну, стандартну й доступні локалі та змінити мову з будь-якого компонента."
 keywords:
   - useLocale
   - dictionary

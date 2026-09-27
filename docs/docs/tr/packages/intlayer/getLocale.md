@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: getLocale Fonksiyon Dokümantasyonu | intlayer
-description: intlayer paketi için getLocale fonksiyonunun nasıl kullanılacağını görün
+description: "getLocale ile URL veya yol gibi bir dizgeden locale'i algılayın, bulunamazsa varsayılan locale'e dönün."
 keywords:
   - getLocale
   - çeviri

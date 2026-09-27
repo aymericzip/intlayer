@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Витягнення рядків
+title: "intlayer extract: витягування рядків із компонентів"
 description: Дізнайтеся, як витягувати рядки з ваших компонентів у файл .content поруч із компонентом.
 keywords:
   - Витягнення

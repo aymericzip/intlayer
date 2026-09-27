@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname Hook प्रलेखन | angular-intlayer
-description: देखें कि angular-intlayer पैकेज के लिए usePathname hook का उपयोग कैसे करें
+description: "Angular में usePathname से लोकेल सेगमेंट के बिना मौजूदा पाथ signal के रूप में पाएँ, लोकेल-जागरूक नेविगेशन के लिए।"
 keywords:
   - usePathname
   - pathname
@@ -116,5 +116,5 @@ export class SidebarComponent {
 
 ## संबंधित
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/angular-intlayer/exports.md) — वर्तमान स्थानीयता + स्थानीयता स्विचर
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getPathWithoutLocale.md) — इस हुक द्वारा उपयोग की जाने वाली अंतर्निहित उपयोगिता
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/angular-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getPathWithoutLocale.md)

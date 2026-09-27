@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-01-11
-updatedAt: 2026-01-11
+updatedAt: 2026-09-27
 priority: 4
-title: `vite-env-only` & Intlayer – false positive `node:fs` denied error
+title: "vite-env-only: False node:fs Error with Intlayer"
 description: Why vite-env-only reports a denied `node:fs` import with Intlayer + React-Router + Vite and what to do.
 keywords:
   - intlayer
@@ -16,7 +16,7 @@ keywords:
 slugs:
   - frequent-questions
   - vite-env-only-node-fs-false-positive
-author: aymericzip 
+author: aymericzip
 ---
 
 # vite-env-only denies `node:fs` with Intlayer

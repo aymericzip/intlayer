@@ -2,8 +2,8 @@
 createdAt: 2026-06-12
 updatedAt: 2026-08-04
 priority: 8
-title: Variants
-description: Use the variant metadata field in Intlayer content files to declare named or structured content alternatives — A/B tests, seasonal banners, feature-flagged copy, CMS records, user-specific content — and switch between them at runtime without code changes.
+title: "Variants: A/B Tests and Alternative Content"
+description: "Declare named content alternatives with Intlayer variants for A/B tests, seasonal banners, feature flags or user-specific copy."
 keywords:
   - Variants
   - A/B Testing

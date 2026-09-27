@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Revisar Documento
+title: "intlayer doc review: revisar docs traducidas"
 description: Aprende cómo revisar archivos de documentación para calidad, consistencia y completitud en diferentes locales.
 keywords:
   - Revisión

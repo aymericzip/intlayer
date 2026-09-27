@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
-title: "Что такое интернационализация (i18n)? Значение, определение и проблемы"
+title: "Что такое интернационализация (i18n)? Значение и проблемы"
 description: "Что означает i18n? Узнайте, что такое интернационализация, почему её сокращают до i18n, чем она отличается от локализации (l10n) и с какими трудностями сталкиваются при её внедрении."
 keywords:
   - значение i18n
@@ -182,11 +182,11 @@ author: aymericzip
 
 Если вы ищете подходящую i18n-библиотеку для своего стека, ознакомьтесь со следующими руководствами:
 
-- React: [Как выбрать i18n-библиотеку для React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/how_to_pick_react_i18n_library.md)
-- Vue: [Как выбрать i18n-библиотеку для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/how_to_pick_vue_i18n_library.md)
-- Svelte: [Как выбрать i18n-библиотеку для Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/how_to_pick_svelte_i18n_library.md)
-- Solid: [Как выбрать i18n-библиотеку для Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/how_to_pick_solid_i18n_library.md)
-- Next.js: [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
+- [Как выбрать i18n-библиотеку для React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/how_to_pick_react_i18n_library.md)
+- [Как выбрать i18n-библиотеку для Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/how_to_pick_vue_i18n_library.md)
+- [Как выбрать i18n-библиотеку для Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/how_to_pick_svelte_i18n_library.md)
+- [Как выбрать i18n-библиотеку для Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/how_to_pick_solid_i18n_library.md)
+- [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md)
 
 ## Заключение
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Comment configurer le routage basé sur le domaine ?
-description: Apprenez à configurer le routage basé sur le domaine.
+description: "Servez chaque locale depuis son propre domaine avec le routage par domaine d'Intlayer, configuré dans intlayer.config.ts avec les redirections gérées pour vous."
 keywords:
   - domaine
   - routage

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: useLocale フックのドキュメント | solid-intlayer
-description: solid-intlayer パッケージの useLocale フックの使い方
+description: "Solid の useLocale で現在・デフォルト・利用可能なロケールを取得し、どのコンポーネントからでもロケールを切り替えます。"
 keywords:
   - useLocale
   - locale

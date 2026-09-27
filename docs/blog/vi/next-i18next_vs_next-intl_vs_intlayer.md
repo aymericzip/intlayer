@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "next-i18next vs next-intl vs Intlayer: So sánh 2026"
-description: "Nên chọn thư viện i18n nào cho Next.js? So sánh next-i18next, next-intl và Intlayer về kích thước bundle, an toàn kiểu TypeScript, Server Components, định tuyến và trải nghiệm lập trình."
+description: "Nên chọn thư viện i18n nào cho Next.js? So sánh next-i18next, next-intl và Intlayer về bundle, TypeScript, Server Components, định tuyến và DX."
 keywords:
   - next-intl
   - next-i18next
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# next-i18next VS next-intl VS intlayer | Quốc tế hóa Next.js (i18n)
+# next-i18next VS next-intl VS intlayer: Quốc tế hóa Next.js (i18n)
 
 ![next-i18next VS next-intl VS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18next-next-intl-intlayer.webp?raw=true)
 
@@ -80,6 +80,10 @@ Chúng tôi tập trung vào **Next.js 13+ App Router** (với **React Server Co
 Next.js cung cấp hỗ trợ tích hợp cho routing quốc tế hóa (ví dụ: các đoạn locale). Nhưng tính năng đó không tự động thực hiện việc dịch thuật. Bạn vẫn cần một thư viện để hiển thị nội dung đã được bản địa hóa cho người dùng.
 
 Có nhiều thư viện i18n tồn tại, nhưng trong thế giới Next.js hiện nay, có ba thư viện đang được ưa chuộng: next-i18next, next-intl và Intlayer.
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Kiến trúc & khả năng mở rộng
 

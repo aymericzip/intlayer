@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: ロケールリストをカスタマイズする方法は？
-description: ロケールリストのカスタマイズ方法を学びます。
+description: "intlayer.config.ts で Intlayer が対応するロケールの一覧をカスタマイズ。地域バリアントやデフォルトロケールも設定できます。"
 keywords:
   - ロケール
   - リスト

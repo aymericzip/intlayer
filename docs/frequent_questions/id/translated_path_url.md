@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: Bisakah saya menerjemahkan jalur URL?
-description: Pelajari cara menerjemahkan jalur URL.
+description: "Ya: Intlayer bisa menerjemahkan path URL, seperti /about menjadi /id/tentang, dengan penulisan ulang URL yang dikonfigurasi per locale."
 keywords:
   - array
   - content

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-05-04
-updatedAt: 2026-05-04
+updatedAt: 2026-09-27
 priority: 8
-title: Plural
-description: Discover how to declare and use locale-aware plural content (CLDR-based) in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
+title: "Plural Content: CLDR Plural Rules"
+description: "Declare locale-aware plurals in Intlayer with CLDR categories (zero, one, two, few, many, other) resolved from a count at runtime."
 keywords:
   - Plural
   - Pluralisation

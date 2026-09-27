@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: getLocale फ़ंक्शन दस्तावेज़ | intlayer
-description: देखें कि intlayer पैकेज के लिए getLocale फ़ंक्शन का उपयोग कैसे करें
+description: "getLocale से URL या पाथ जैसी स्ट्रिंग से लोकेल पहचानें, न मिलने पर डिफ़ॉल्ट लोकेल पर लौटें।"
 keywords:
   - getLocale
   - अनुवाद

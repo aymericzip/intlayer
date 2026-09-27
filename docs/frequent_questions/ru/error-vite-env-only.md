@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-01-11
-updatedAt: 2026-01-11
+updatedAt: 2026-09-27
 priority: 4
-title: `vite-env-only` & Intlayer – ложноположительная ошибка отказа `node:fs`
+title: "vite-env-only: ложная ошибка node:fs с Intlayer"
 description: Почему vite-env-only сообщает об отклонённом импорте `node:fs` с Intlayer + React-Router + Vite и что с этим делать.
 keywords:
   - intlayer
@@ -16,7 +16,7 @@ keywords:
 slugs:
   - frequent-questions
   - vite-env-only-node-fs-false-positive
-author: aymericzip 
+author: aymericzip
 ---
 
 # vite-env-only отклоняет `node:fs` в Intlayer

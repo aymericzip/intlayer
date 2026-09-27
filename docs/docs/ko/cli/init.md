@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: Intlayer 초기화
-description: 프로젝트에서 Intlayer를 초기화하는 방법을 알아봅니다.
+title: "intlayer init: 프로젝트에 Intlayer 설정"
+description: "intlayer init으로 기존 프로젝트에 Intlayer를 추가하세요. 프레임워크를 감지하고 패키지를 설치하며 설정 파일을 작성합니다."
 keywords:
   - 초기화
   - CLI

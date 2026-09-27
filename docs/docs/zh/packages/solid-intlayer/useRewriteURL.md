@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: useRewriteURL 钩子 文档
-description: 用于 Intlayer 的 Solid 专用钩子，用于管理本地化 URL 重写。
+title: "useRewriteURL 钩子 文档 | solid-intlayer"
+description: "在 SolidJS 中使用 useRewriteURL，按照配置中的 URL 重写规则将浏览器 URL 改写为本地化版本。"
 keywords:
   - useRewriteURL
   - solid-intlayer

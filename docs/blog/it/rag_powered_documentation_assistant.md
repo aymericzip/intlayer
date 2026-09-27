@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2025-09-10
+updatedAt: 2026-09-27
 priority: 8
-title: Costruire un Assistente alla Documentazione Potenziato da RAG (Chunking, Embeddings e Ricerca)
-description: Costruire un Assistente alla Documentazione Potenziato da RAG (Chunking, Embeddings e Ricerca)
+title: "Creare un assistente di documentazione RAG"
+description: "Come abbiamo costruito un assistente IA per la nostra documentazione: chunking del markdown, embedding, ricerca vettoriale e prompt, con i compromessi incontrati."
 keywords:
   - RAG
   - Documentazione

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: File di Contenuto
-description: Scopri come personalizzare le estensioni per i tuoi file di dichiarazione dei contenuti. Segui questa documentazione per implementare condizioni in modo efficiente nel tuo progetto.
+title: "File di dichiarazione dei contenuti (.content.ts)"
+description: "Dichiara i contenuti multilingue in file .content accanto ai componenti: formati supportati, estensioni e come Intlayer li individua."
 keywords:
   - File di Contenuto
   - Documentazione

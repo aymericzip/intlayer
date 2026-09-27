@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentacja funkcji usePathname | vue-intlayer
-description: Dowiedz się, jak korzystać z funkcji usePathname z pakietu vue-intlayer
+description: "Użyj usePathname we Vue, aby odczytać bieżącą ścieżkę bez segmentu locale jako computed ref do zlokalizowanej nawigacji."
 keywords:
   - usePathname
   - pathname
@@ -106,5 +106,5 @@ const pathname = usePathname();
 
 ## Powiązane
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vue-intlayer/useLocale.md) — obecny locale + przełącznik locale
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md) — użyteczność bazowa (utility) wykorzystywana przez ten hook
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/vue-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getPathWithoutLocale.md)

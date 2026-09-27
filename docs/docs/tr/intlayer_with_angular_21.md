@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Angular 22 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Angular 22 uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Vite kullanan Angular 22'de Intlayer kurulumu: bileşenlerin yanında tipli içerik, dil başına ayrı derleme olmadan locale değişimi ve SEO."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Angular 22 (Vite) web sitenizi Intlayer kullanarak çevirin | Uluslararasılaştırma (i18n)
+# Angular 22 (Vite) web sitenizi Intlayer kullanarak çevirin
 
 ## İçindekiler
 

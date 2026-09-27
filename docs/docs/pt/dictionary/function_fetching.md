@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: Busca por Função
-description: Descubra como declarar e usar busca por função em seu site multilíngue. Siga os passos nesta documentação online para configurar seu projeto em poucos minutos.
+title: "Function fetching: carregar conteúdo de funções"
+description: "Declare conteúdo do Intlayer a partir de funções síncronas ou assíncronas, por exemplo para buscar traduções de uma API no build."
 keywords:
   - Busca por Função
   - Internacionalização

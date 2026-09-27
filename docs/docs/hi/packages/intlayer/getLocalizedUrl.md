@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getLocalizedUrl फ़ंक्शन प्रलेखन | intlayer
-description: intlayer पैकेज के लिए getLocalizedUrl फ़ंक्शन का उपयोग कैसे करें देखें
+description: "getLocalizedUrl से सापेक्ष या पूर्ण URL में लोकेल प्रीफ़िक्स जोड़ें, अपने रूटिंग मोड और डिफ़ॉल्ट लोकेल के अनुसार।"
 keywords:
   - getLocalizedUrl
   - अनुवाद

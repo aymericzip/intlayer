@@ -2,7 +2,7 @@
 createdAt: 2025-08-23
 updatedAt: 2025-10-29
 priority: 8
-title: Intlayer 与 vue-i18n
+title: "用 Intlayer 自动化 vue-i18n 的 JSON 翻译"
 description: 将 Intlayer 与 vue-i18n 集成，实现全面的 Vue.js 国际化解决方案
 keywords:
   - vue-i18n
@@ -53,6 +53,10 @@ author: aymericzip
 **为此，Intlayer 可以作为 vue-i18n 的适配器来实现，帮助你在 CLI 或 CI/CD 流水线中自动化 JSON 翻译，测试翻译等。**
 
 本指南将向您展示如何利用 Intlayer 优越的内容声明系统，同时保持与 vue-i18n 的兼容性。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## Vue-i18n 与 Intlayer 的分步设置指南
 

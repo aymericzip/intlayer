@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2026-06-21
+updatedAt: 2026-09-27
 priority: 6
-title: JSON Senkronizasyon Eklentisi
-description: Intlayer sözlüklerini üçüncü taraf i18n JSON dosyalarıyla (i18next, next-intl, react-intl, vue-i18n ve daha fazlası) senkronize edin. Mevcut i18n yapınızı koruyarak Intlayer ile mesajlarınızı yönetin, çevirin ve test edin.
+title: "Sync JSON eklentisi: i18n JSON dosyalarınızı koruyun"
+description: "Intlayer sözlüklerini i18next, next-intl, react-intl veya vue-i18n JSON dosyalarıyla senkronize edin; Intlayer ile yönetin, çevirin ve test edin."
 keywords:
   - Intlayer
   - JSON Senkronizasyonu

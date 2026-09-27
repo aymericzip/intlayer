@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Verschachtelung des Wörterbuchs
-description: Erfahren Sie, wie Sie die Inhaltsverschachtelung in Intlayer nutzen können, um Ihre mehrsprachigen Inhalte effizient wiederzuverwenden und zu strukturieren. Folgen Sie dieser Dokumentation, um die Verschachtelung nahtlos in Ihr Projekt zu integrieren.
+title: "Nesting: Inhalte zwischen Wörterbüchern teilen"
+description: "Verweisen Sie mit dem nest()-Knoten von Intlayer von einem Wörterbuch auf ein anderes, um gemeinsame Inhalte ohne doppelte Übersetzungen zu nutzen."
 keywords:
   - Nesting
   - Inhaltswiederverwendung

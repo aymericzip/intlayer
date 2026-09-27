@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: Auto-hosting di Intlayer
-description: "Esegui Intlayer sulla tua infrastruttura: come app desktop, singolo container Docker all-in-one o stack scalabile Docker Compose. Nessun account Intlayer Cloud richiesto."
+title: "Self-hosting di Intlayer con Docker"
+description: "Esegui Intlayer sulla tua infrastruttura: app desktop, container Docker all-in-one o stack Docker Compose, senza account cloud."
 keywords:
   - Auto-hosting
   - Docker

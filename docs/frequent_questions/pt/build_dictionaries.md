@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Como construir dicionários?
-description: Aprenda como construir dicionários.
+description: "Quando o Intlayer constrói os dicionários automaticamente, como disparar um build manual com a CLI e onde os arquivos gerados são gravados."
 keywords:
   - construir
   - dicionários

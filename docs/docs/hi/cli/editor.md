@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: एडिटर कमांड्स
-description: Intlayer एडिटर कमांड्स का उपयोग कैसे करें, जानें।
+title: "intlayer editor: विज़ुअल एडिटर कमांड"
+description: "CLI से Intlayer विज़ुअल एडिटर शुरू और कॉन्फ़िगर करें, ताकि चल रहे ऐप पर ही कंटेंट को संदर्भ में बदल सकें।"
 keywords:
   - एडिटर
   - विज़ुअल एडिटर

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 4
-title: CI/CD'de Derleme Hatası
-description: CI/CD ortamlarında oluşan derleme hatalarını nasıl düzelteceğinizi öğrenin.
+title: "CI/CD'de Intlayer derleme hatalarını düzeltin"
+description: "Yalnızca CI/CD'de görülen Server Components render hatalarını, Intlayer sözlüklerinin derleme sırasında oluşturulmasını sağlayarak düzeltin."
 keywords:
   - derleme
   - hata

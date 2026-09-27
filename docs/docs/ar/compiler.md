@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-08
+updatedAt: 2026-09-27
 priority: 8
 title: مترجم Intlayer | استخراج المحتوى الآلي للتدويل
-description: قم بأتمتة عملية التدويل الخاصة بك باستخدام مترجم Intlayer. استخرج المحتوى مباشرة من مكوناتك لتحقيق تدويل أسرع وأكثر كفاءة في Vite و Next.js والمزيد.
+description: "استخرج المحتوى من مكوّناتك تلقائيًا باستخدام مترجم Intlayer البرمجي لتنفيذ i18n أسرع في Vite وNext.js وغيرها."
 keywords:
   - Intlayer
   - مترجم
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# مترجم Intlayer | استخراج المحتوى الآلي للتدويل
+# مترجم Intlayer: استخراج المحتوى الآلي للتدويل
 
 ## ما هو مترجم Intlayer؟
 

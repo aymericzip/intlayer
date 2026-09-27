@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-16
-updatedAt: 2025-11-16
+updatedAt: 2026-09-27
 priority: 5
 title: Documentação da Função getPrefix | intlayer
-description: Veja como usar a função getPrefix para o pacote intlayer
+description: "Use getPrefix para obter o prefixo de URL de um locale conforme seu modo de roteamento, em três formatos prontos para links e rotas."
 keywords:
   - getPrefix
   - prefixo
@@ -170,8 +170,8 @@ console.log(`Locale atual: ${localePrefix}`);
 
 ## Funções Relacionadas
 
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getLocalizedUrl.md): Gera uma URL localizada para um locale específico
-- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getMultilingualUrls.md): Gera URLs para todos os locales configurados
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getLocalizedUrl.md)
+- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getMultilingualUrls.md)
 
 ## TypeScript
 

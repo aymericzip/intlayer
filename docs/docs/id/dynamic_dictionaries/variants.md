@@ -2,8 +2,8 @@
 createdAt: 2026-06-12
 updatedAt: 2026-08-04
 priority: 8
-title: Varian
-description: Gunakan field metadata variant di file konten Intlayer untuk mendeklarasikan alternatif konten bernama atau terstruktur — pengujian A/B, banner musiman, teks ber-feature flag, record CMS, konten khusus pengguna — dan beralih di antaranya saat runtime tanpa perubahan kode.
+title: "Varian: uji A/B dan konten alternatif"
+description: "Deklarasikan alternatif konten bernama dengan varian Intlayer untuk uji A/B, banner musiman, feature flag, atau teks khusus pengguna."
 keywords:
   - Varian
   - Pengujian A/B

@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-09-27
 priority: 8
-title: Từ điển động
+title: "Từ điển động: collection và biến thể"
 description: Tổng quan về các tính năng từ điển động của Intlayer — bộ sưu tập và biến thể — để xây dựng nội dung i18n linh hoạt, được điều khiển trong thời gian chạy.
 keywords:
   - Từ điển động

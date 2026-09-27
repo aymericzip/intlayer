@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: Obtención de Funciones
-description: Descubre cómo declarar y usar la obtención de funciones en tu sitio web multilingüe. Sigue los pasos en esta documentación en línea para configurar tu proyecto en pocos minutos.
+title: "Function fetching: cargar contenido desde funciones"
+description: "Declara contenido de Intlayer desde funciones síncronas o asíncronas, por ejemplo para obtener traducciones de una API durante el build."
 keywords:
   - Obtención de Funciones
   - Internacionalización

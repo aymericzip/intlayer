@@ -286,9 +286,9 @@ totalOpenings(5); // Русская локаль → "5 вакансий"
 
 ## Дополнительные материалы
 
-- [Множественные формы в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plurial.md): узел `plural` на базе CLDR и таблица категорий.
-- [Контент на основе select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/select.md): аналог ICU `select` и применение `enu` или `cond`.
-- [Вставки и заполнители](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md): интерполяция `{{name}}` и автоматическое распознавание.
-- [Бенчмарк библиотек i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md): размер бандла и накладные расходы при выполнении.
-- [react-i18next против react-intl против Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/react-i18next_vs_react-intl_vs_intlayer.md): подробное сравнение трех моделей сообщений.
-- [Что такое интернационализация?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/what_is_internationalization.md): происхождение термина i18n, отличия от l10n и архитектурный контекст.
+- [Множественные формы в Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plurial.md)
+- [Контент на основе select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/select.md)
+- [Вставки и заполнители](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md)
+- [Бенчмарк библиотек i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/benchmark/index.md)
+- [react-i18next против react-intl против Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Что такое интернационализация?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/what_is_internationalization.md)

@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Polecenia Live Sync
-description: Dowiedz się, jak używać Live Sync do odzwierciedlania zmian treści CMS w czasie rzeczywistym.
+title: "intlayer live: synchronizacja treści CMS w runtime"
+description: "Użyj Live Sync w Intlayer, aby wprowadzać zmiany z CMS do działającej aplikacji bez przebudowy i ponownego wdrożenia."
 keywords:
   - Live Sync
   - CMS

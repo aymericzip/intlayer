@@ -2,7 +2,7 @@
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
 priority: 8
-title: How to automate your react-i18next JSON translations using Intlayer
+title: "Automate react-i18next JSON Translations with Intlayer"
 description: Automate your JSON translations with Intlayer and react-i18next for enhanced internationalisation in React applications.
 keywords:
   - react-i18next
@@ -60,6 +60,10 @@ This guide explains how to leverage Intlayer as an **adapter for react-i18next**
 - Keep existing react-i18next plugins and workflows.
 - Automate your JSON translations in CLI or CI/CD pipelines.
 - Test, sync, and manage translations more effectively.
+
+> To understand where these libraries come from, read the history of JavaScript i18n.
+
+- [The history of JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/history_of_i18n.md)
 
 ## Table of Contents
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "SvelteKit i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi SvelteKit multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di SvelteKit: routing locale dengan hooks, konten terjemahan di fungsi load dan komponen, hreflang, dan sitemap."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs web SvelteKit Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web SvelteKit Anda menggunakan Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Kode" value="code">
@@ -768,8 +768,8 @@ Disarankan untuk mengabaikan file-file yang dihasilkan oleh Intlayer.
 
 ### Melangkah Lebih Jauh
 
-- **Editor Visual**: Integrasikan [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) untuk mengedit terjemahan langsung dari UI.
-- **CMS**: Eksternalisasi manajemen konten Anda menggunakan [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
 
 ## Pertanyaan yang Sering Diajukan
 

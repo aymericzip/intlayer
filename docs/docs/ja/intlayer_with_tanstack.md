@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "TanStack Start i18n - あなたのアプリを翻訳する完全ガイド"
-description: "i18nextはもう不要。2026年に多言語（i18n）TanStack Startアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+description: "TanStack Start に Intlayer を導入：ルートのロケールパラメーター、SSR 対応の翻訳コンテンツ、ローカライズされた head メタデータ、hreflang とサイトマップ。"
 keywords:
   - 国際化
   - ドキュメント
@@ -55,7 +55,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayerを使用してTanStack Startウェブサイトを翻訳する | 国際化（i18n）
+# Intlayerを使用してTanStack Startウェブサイトを翻訳する
 
 ## 目次
 

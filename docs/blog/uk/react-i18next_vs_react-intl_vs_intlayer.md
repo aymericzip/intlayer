@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-01-02
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: react-i18next vs react-intl vs Intlayer
 description: Інтеграція react-i18next з next-intl та Intlayer для інтернаціоналізації (i18n) React-додатка
@@ -19,7 +19,7 @@ slugs:
 author: aymericzip
 ---
 
-# react-Intl VS react-i18next VS intlayer | Інтернаціоналізація React (i18n)
+# react-Intl VS react-i18next VS intlayer
 
 Цей посібник порівнює три визнані варіанти i18n для **React**: **react-intl** (FormatJS), **react-i18next** (i18next) та **Intlayer**.
 Ми зосереджені на **plain React** додатках (наприклад, Vite, CRA, SPA). Якщо ви використовуєте Next.js, див. наше окреме порівняння для Next.js.
@@ -43,6 +43,10 @@ author: aymericzip
 - **react-intl** - орієнтований на ICU, форматування, узгоджене зі стандартами (дати/числа/множини), зі зрілим API. Каталоги зазвичай централізовані; безпека ключів і перевірки на етапі збірки в основному на вас.
 - **react-i18next** - надзвичайно популярний і гнучкий; namespaces, detectors і багато плагінів (ICU, backends). Потужний, але конфігурація може розростатися зі збільшенням проєкту.
 - **Intlayer** - модель контенту, орієнтована на компоненти для React, зі **строгим типізуванням TS**, **перевірками на етапі збірки**, **tree-shaking**, а також **Visual Editor/CMS** і **AI‑асистованими перекладами**. Працює з React Router, Vite, CRA тощо.
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
 
 ## Матриця функцій (фокус на React)
 
@@ -153,10 +157,19 @@ author: aymericzip
 
 ## Додаткові матеріали та бенчмарки
 
-- Звіти бенчмарків: [Огляд i18n-бенчмарків](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md), [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md), [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md), [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/solid.md) та [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/svelte.md)
 - [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18next_vs_intlayer-i18next.md)
 - [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/next-intl_vs_intlayer.md)
-- [Оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md) та [компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
+- [Оптимізація бандла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/bundle_optimization.md)
+- [компілятор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md)
+
+Звіти бенчмарків:
+
+- [Огляд i18n-бенчмарків](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/index.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/tanstack.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/nextjs.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/vue.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/solid.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/benchmark/svelte.md)
 
 ## Зірки GitHub
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + Lit i18n - 앱을 번역하는 완전 가이드"
-description: "i18next는 이제 그만. 2026년 다국어 (i18n) Astro + Lit 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
+description: "Lit 아일랜드를 사용하는 Astro에 Intlayer 설정: 번역된 웹 컴포넌트, 현지화된 라우트와 hreflang, 컴포넌트별 타입 콘텐츠."
 keywords:
   - 국제화
   - 문서
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer를 사용하여 Astro + Lit 사이트 번역하기 | 국제화 (i18n)
+# Intlayer를 사용하여 Astro + Lit 사이트 번역하기
 
 <Tabs defaultTab="code">
   <Tab label="코드" value="code">

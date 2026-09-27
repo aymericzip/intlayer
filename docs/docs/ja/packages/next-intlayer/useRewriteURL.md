@@ -2,7 +2,7 @@
 updatedAt: 2025-08-23
 priority: 5
 createdAt: 2025-08-23
-title: useRewriteURL フックのドキュメント
+title: "useRewriteURL フックのドキュメント | next-intlayer"
 description: IntlayerでのローカライズされたURL書き換えを管理する、Next.js専用フック。
 keywords:
   - useRewriteURL

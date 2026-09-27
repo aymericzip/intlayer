@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 3
 title: "Lynx + React i18n - Полное руководство по переводу вашего приложения"
-description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения Lynx + React. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
+description: "Настройка Intlayer в мобильном приложении Lynx и React: типизированный контент по компонентам, определение языка устройства и переключатель языка."
 keywords:
   - интернационализация
   - документация
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Переведите ваш Lynx and React mobile app с Intlayer | Интернационализация (i18n)
+# Переведите ваш Lynx and React mobile app с Intlayer
 
 Смотрите [шаблон приложения](https://github.com/aymericzip/intlayer-lynx-template) на GitHub.
 
@@ -482,8 +482,8 @@ Intlayer генерирует определения типов в скрыто�
 
 ## Узнайте больше
 
-- **Визуальный редактор**: Используйте [визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) для визуального управления переводами.
-- **Интеграция с CMS**: Вы также можете вынести и получить содержимое вашего словаря из [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-- **CLI команды**: Изучите [CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md) для выполнения задач, таких как **извлечение переводов** или **проверка отсутствующих ключей**.
+- [визуальный редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md)
+- [CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md)
 
 ---

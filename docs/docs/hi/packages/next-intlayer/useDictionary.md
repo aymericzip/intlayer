@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: useDictionary हुक दस्तावेज़ | next-intlayer
-description: next-intlayer पैकेज के लिए useDictionary हुक का उपयोग कैसे करें देखें
+description: "Next.js में useDictionary से अपना घोषित डिक्शनरी ऑब्जेक्ट व्याख्यायित करें, मौजूदा लोकेल के अनुवादों के साथ।"
 keywords:
   - useDictionary
   - शब्दकोश

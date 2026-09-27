@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: توثيق دالة getLocaleName | intlayer
-description: تعرف على كيفية استخدام دالة getLocaleName لحزمة intlayer
+description: 'استخدم getLocaleName للحصول على اسم لغة بلغة أخرى، مثل "French" أو "français"، لتسمية خيارات مبدّل اللغة.'
 keywords:
   - getLocaleName
   - الترجمة

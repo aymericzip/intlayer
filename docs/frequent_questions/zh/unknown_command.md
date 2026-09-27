@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: 未知命令
-description: 了解如何修复未知命令错误。
+title: "修复 Intlayer 的「unknown command」错误"
+description: "修复 Intlayer CLI 的「unknown command」错误：检查命令名称、CLI 版本以及调用可执行文件的方式。"
 keywords:
   - 未知
   - 命令

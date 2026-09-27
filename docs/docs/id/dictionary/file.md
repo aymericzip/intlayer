@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: File
-description: Pelajari cara menyematkan file eksternal ke dalam kamus konten Anda menggunakan fungsi `file`. Dokumentasi ini menjelaskan bagaimana Intlayer menghubungkan dan mengelola konten file secara dinamis.
+title: "Konten file: sematkan file eksternal"
+description: "Sematkan file eksternal seperti markdown atau teks ke kamus Intlayer dengan fungsi file(), tetap sinkron dengan file sumber."
 keywords:
   - File
   - Internasionalisasi

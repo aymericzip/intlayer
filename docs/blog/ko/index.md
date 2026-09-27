@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
-title: 블로그
-description: Intlayer, 국제화, 기타 관련된 모든 주제를 알아보세요
+title: "Intlayer 블로그 검색"
+description: "국제화, 현지화, i18n 라이브러리, SEO, 번역 워크플로에 관한 Intlayer 블로그의 모든 글을 검색하세요."
 keywords:
   - Intlayer
   - 국제화

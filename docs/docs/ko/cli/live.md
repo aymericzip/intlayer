@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: 라이브 싱크 명령어
-description: 런타임에 CMS 콘텐츠 변경 사항을 반영하기 위해 라이브 싱크를 사용하는 방법을 알아보세요.
+title: "intlayer live: 런타임에 CMS 콘텐츠 동기화"
+description: "Intlayer Live Sync로 CMS에서 변경한 내용을 재빌드나 재배포 없이 실행 중인 애플리케이션에 반영합니다."
 keywords:
   - 라이브 싱크
   - CMS

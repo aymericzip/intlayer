@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-05-04
-updatedAt: 2026-05-04
+updatedAt: 2026-09-27
 priority: 8
-title: 複数形
-description: 多言語ウェブサイトで、ロケールに応じた複数形コンテンツ（CLDRベース）を宣言して使用する方法をご紹介します。このオンラインドキュメントの手順に従って、数分でプロジェクトをセットアップしましょう。
+title: "複数形コンテンツ：CLDR の複数形ルール"
+description: "Intlayer でロケールに応じた複数形を CLDR カテゴリー（zero、one、two、few、many、other）で宣言し、数値から解決します。"
 keywords:
   - 複数形
   - 複数化

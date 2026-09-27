@@ -284,9 +284,9 @@ Jika Anda beralih dari basis kode yang sudah memuat string ICU asli, [adapter ko
 
 ## Pelajari Lebih Lanjut
 
-- [Konten Bentuk Jamak di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plurial.md): node `plural` berbasis CLDR dan tabel kategorinya.
-- [Konten Berbasis Select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/select.md): padanan `select` ICU dan kapan sebaiknya menggunakan `enu` atau `cond`.
-- [Placeholder Penyisipan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md): interpolasi `{{name}}` dan deteksi otomatis.
-- [Tolok Ukur Pustaka i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md): ukuran bundel dan performa runtime pada pustaka populer.
-- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/react-i18next_vs_react-intl_vs_intlayer.md): perbandingan menyeluruh dari tiga model pesan.
-- [Apa itu Internasionalisasi (i18n)?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/what_is_internationalization.md): asal-usul istilah i18n, perbedaannya dengan l10n, serta cakupan luasnya di luar pemformatan pesan.
+- [Konten Bentuk Jamak di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plurial.md)
+- [Konten Berbasis Select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/select.md)
+- [Placeholder Penyisipan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md)
+- [Tolok Ukur Pustaka i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/react-i18next_vs_react-intl_vs_intlayer.md)
+- [Apa itu Internasionalisasi (i18n)?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/what_is_internationalization.md)

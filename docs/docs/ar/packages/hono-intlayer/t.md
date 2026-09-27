@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق دالة t | hono-intlayer
-description: تعرف على كيفية استخدام دالة t لحزمة hono-intlayer
+description: "استخدم الدالة t من hono-intlayer لإرجاع استجابات مترجمة في Hono حسب اللغة المكتشفة لكل طلب."
 keywords:
   - t
   - ترجمة

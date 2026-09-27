@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "2026'da Doğru React i18n Kütüphanesini Seçme Rehberi"
-description: React uluslararasılaştırması için karar rehberi. react-i18next, react-intl, Lingui, use-intl, Paraglide ve Intlayer'ı karşılaştırmadan önce yanıtlanması gereken sorular ve her seçeneğin bundle boyutu, typing ve bakım maliyetleri.
+description: "React i18n için karar rehberi: react-i18next, react-intl, Lingui, use-intl, Paraglide ve Intlayer'ı karşılaştırmadan önce yanıtlanması gereken sorular."
 keywords:
   - react i18n
   - react internationalization
@@ -25,8 +25,6 @@ author: aymericzip
 React yerleşik bir i18n primitive'i sunmaz. İlk gün seçtiğiniz kütüphane, çevirilerin nasıl saklanacağını, bundle'a nasıl ulaşacağını ve önümüzdeki birkaç yıl boyunca iş yükünün ne kadarının size kalacağını belirler. Çoğu ekip popülariteye göre seçim yapar, ardından 2.000 anahtara ulaştığında trade-off'ları keşfeder.
 
 Bu rehber tersi bir yaklaşım izler: önce projeniz hakkında birkaç soruyu yanıtlayın, ardından bu yanıtları uygun kütüphanelerle eşleştirin. Bu rehber düz React (Vite, React Router, TanStack Start) projelerine odaklanır. Next.js'in kendine has kısıtlamaları vardır ve bunlar [Next.js karşılaştırması](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) yazısında ele alınmıştır.
-
-![React i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## İçindekiler
 
@@ -97,6 +95,8 @@ Bu bir kütüphane özelliği değil, bir disiplin özelliğidir. `react-i18next
 
 Kütüphane boyutları [TanStack Start benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md) çalışmasından alınmıştır: boş bir bileşende provider artı hook, bundling, tree-shaking ve minification sonrası, 10 sayfa ve 10 locale. İçerik ayrıca ölçülür.
 
+![React i18n kütüphane ekosistemi](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Kütüphane               | Dalga        | İçerik modeli                                 | Tip güvenliği                      | Mesaj formatı                 | Kütüphane boyutu                                    |
 | :---------------------- | :----------- | :-------------------------------------------- | :--------------------------------- | :---------------------------- | :-------------------------------------------------- |
 | `react-i18next`         | Runtime      | Merkezi JSON, namespace'ler                   | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (suffix çoğullar)     | ~18.4 kB                                            |
@@ -147,7 +147,7 @@ Bu durumda, içeri aktarılacak bir TMS bulunmadığından merkezi bir JSON art�
 </Accordion>
 <Accordion header="Daha sonra Next.js App Router'a geçebilirsiniz">
 
-React context, sunucu/istemci sınırını geçemez. Yalnızca istemci hook'u üzerine kurulu kütüphaneler (`react-i18next`, `react-intl`), RSC'yi benimsediğiniz gün paralel bir sunucu API'sine ihtiyaç duyacaktır. `use-intl` (`next-intl` olarak) ve Intlayer (`next-intlayer` olarak) bu ayrıma zaten sahiptir. Bir deseni standartlaştırmadan önce [Next.js i18n yazısını](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/list_i18n_technologies/frameworks/nextjs.md) okuyun.
+React context, sunucu/istemci sınırını geçemez. Yalnızca istemci hook'u üzerine kurulu kütüphaneler (`react-i18next`, `react-intl`), RSC'yi benimsediğiniz gün paralel bir sunucu API'sine ihtiyaç duyacaktır. `use-intl` (`next-intl` olarak) ve Intlayer (`next-intlayer` olarak) bu ayrıma zaten sahiptir. Bir deseni standartlaştırmadan önce [Next.js i18n yazısını](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md) okuyun.
 
 </Accordion>
 </AccordionGroup>
@@ -565,8 +565,8 @@ Dolaylı olarak. Crawler'ların gördüğü şey; yönlendirme, `hreflang`, `<ht
 
 ## Daha fazlası
 
-- [i18n kütüphane benchmark'ı: bundle boyutu, sızıntı ve locale geçiş süreleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md) ve [TanStack Start raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
-- [React i18n: provider modeli nasıl çalışır ve maliyeti nedir](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/list_i18n_technologies/frameworks/react.md)
+- [i18n kütüphane benchmark'ı: bundle boyutu, sızıntı ve locale geçiş süreleri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/index.md)
+- [TanStack Start raporu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/benchmark/tanstack.md)
 - [Özellik özellik: react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/react-i18next_vs_react-intl_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md)
 - [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
@@ -574,4 +574,9 @@ Dolaylı olarak. Crawler'ların gördüğü şey; yönlendirme, `hreflang`, `<ht
 - [Bileşen bazlı vs merkezi i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/per-component_vs_centralized_i18n.md)
 - [Build zamanında bundle optimizasyonu nasıl çalışır](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/bundle_optimization.md)
 - [Vite + React uygulamasında i18n kurulumu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react.md)
-- Aynı rehber: [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_vue_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_svelte_i18n_library.md) ve [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_solid_i18n_library.md)
+
+Aynı rehber:
+
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/how_to_pick_solid_i18n_library.md)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "React Intl से Intlayer में माइग्रेट करें"
 description: "सीखें कि कैसे compat adapter का उपयोग करके अपने React एप्लिकेशन को react-intl से Intlayer में माइग्रेट करें।"
@@ -54,3 +54,7 @@ bundler plugin `react-intl` को `@intlayer/react-intl` में alias कर
 - **ICU MessageFormat:** Intlayer `resolveMessage(..., 'icu')` resolver का उपयोग करता है जो ICU pluralization, selection, date/number formatting, और rich text tags को नेटिवली पूरी तरह support करता है।
 - **Method & JSX callers:** `intl.formatMessage({ id: 'a.b' })` और `<FormattedMessage id="a.b">` को Intlayer compiler plugins (`@intlayer/babel` / `@intlayer/swc`) द्वारा identify किया जाता है, flat dotted keys को convert करके ताकि पहला segment सही तरीके से Intlayer dictionary key को resolve करे।
 - **Formatters:** `<FormattedNumber>`, `<FormattedDate>`, आदि `Intl` का उपयोग करके native `core/formatters` में bridge करते हैं।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)

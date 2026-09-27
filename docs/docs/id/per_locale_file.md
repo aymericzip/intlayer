@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Deklarasi Konten `Per-Locale` di Intlayer
+title: "File deklarasi konten per locale"
 description: Temukan cara mendeklarasikan konten per locale di Intlayer. Ikuti dokumentasi untuk memahami berbagai format dan kasus penggunaan.
 keywords:
   - Internasionalisasi

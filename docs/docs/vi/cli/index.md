@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
-title: CLI - Tất cả các lệnh CLI của Intlayer cho trang web đa ngôn ngữ của bạn
+title: "CLI Intlayer: mọi lệnh cho ứng dụng đa ngôn ngữ"
 description: Tìm hiểu cách sử dụng Intlayer CLI để quản lý trang web đa ngôn ngữ của bạn. Làm theo các bước trong tài liệu trực tuyến này để thiết lập dự án của bạn trong vài phút.
 keywords:
   - CLI
@@ -137,19 +137,19 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình khác nhau:
 
 ### Các lệnh cốt lõi
 
-- **[Xây dựng từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/build.md)** - Xây dựng từ điển của bạn từ các tệp khai báo nội dung
-- **[Theo dõi từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/watch.md)** - Theo dõi các thay đổi và tự động xây dựng lại từ điển
-- **[Tạo gói đóng gói độc lập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/standalone.md)** - Tạo một bản đóng gói JavaScript độc lập chứa Intlayer và các gói được chỉ định
-- **[Kiểm tra phiên bản CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/version.md)** - Kiểm tra phiên bản Intlayer CLI đã cài đặt
-- **[Liệt kê dự án](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/list_projects.md)** - Liệt kê tất cả các dự án Intlayer trong một thư mục hoặc kho lưu trữ git
+- [Xây dựng từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/build.md)
+- [Theo dõi từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/watch.md)
+- [Tạo gói đóng gói độc lập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/standalone.md)
+- [Kiểm tra phiên bản CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/version.md)
+- [Liệt kê dự án](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/list_projects.md)
 
 ### Quản lý từ điển
 
-- **[Đẩy từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/push.md)** - Đẩy các từ điển lên Trình chỉnh sửa Intlayer và CMS
-- **[Kéo từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/pull.md)** - Kéo các từ điển từ Trình chỉnh sửa Intlayer và CMS
-- **[Điền từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md)** - Điền, kiểm tra và dịch các từ điển bằng AI
-- **[Kiểm tra bản dịch còn thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/test.md)** - Kiểm tra và xác định các bản dịch còn thiếu
-- **[Liệt kê tệp khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/list.md)** - Liệt kê tất cả các tệp khai báo nội dung trong dự án của bạn
+- [Đẩy từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/push.md)
+- [Kéo từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/pull.md)
+- [Điền từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/fill.md)
+- [Kiểm tra bản dịch còn thiếu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/test.md)
+- [Liệt kê tệp khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/list.md)
 
 ### Quản lý thành phần
 
@@ -157,20 +157,20 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình khác nhau:
 
 ### Cấu hình
 
-- **[Khởi tạo Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/init.md)** - Thiết lập Intlayer trong dự án của bạn với cấu hình tự động
-- **[Thiết lập cơ sở hạ tầng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/infra.md)** - Cài đặt ứng dụng máy tính để bàn hoặc tự lưu trữ CMS với Docker (tất cả trong một hoặc Compose)
-- **[Nâng cấp các gói Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/upgrade.md)** - Liệt kê các gói Intlayer trong mỗi `package.json` và nâng cấp chúng lên phiên bản mới nhất
-- **[Quản lý cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/configuration.md)** - Nhận cấu hình Intlayer của bạn và đẩy lên CMS
+- [Khởi tạo Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/init.md)
+- [Thiết lập cơ sở hạ tầng](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/infra.md)
+- [Nâng cấp các gói Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/upgrade.md)
+- [Quản lý cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/configuration.md)
 
 ### Quản lý tài liệu
 
-- **[Dịch tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/doc-translate.md)** - Tự động dịch các tệp tài liệu bằng AI
-- **[Đánh giá tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/doc-review.md)** - Đánh giá tệp tài liệu để đảm bảo chất lượng và tính nhất quán
+- [Dịch tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/doc-translate.md)
+- [Đánh giá tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/doc-review.md)
 
 ### Trình chỉnh sửa và Đồng bộ trực tiếp (Live Sync)
 
-- **[Các lệnh trình chỉnh sửa](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/editor.md)** - Sử dụng các lệnh của Trình chỉnh sửa Intlayer
-- **[Các lệnh đồng bộ trực tiếp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/live.md)** - Sử dụng Live Sync để áp dụng các thay đổi nội dung từ CMS trong thời gian thực
+- [Các lệnh trình chỉnh sửa](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/editor.md)
+- [Các lệnh đồng bộ trực tiếp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/live.md)
 
 ### Kiểm toán & Chẩn đoán
 
@@ -178,8 +178,8 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình khác nhau:
 
 ### Công cụ dành cho nhà phát triển
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/sdk.md)** - Sử dụng Intlayer CLI SDK trong mã của riêng bạn
-- **[Lệnh gỡ lỗi Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/debug.md)** - Gỡ lỗi và giải quyết các vấn đề với Intlayer CLI
+- [CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/sdk.md)
+- [Lệnh gỡ lỗi Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/debug.md)
 
 ## Sử dụng các lệnh Intlayer trong tệp `package.json` của bạn
 

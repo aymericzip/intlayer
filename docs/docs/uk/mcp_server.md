@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-21
+updatedAt: 2026-09-27
 priority: 6
-title: Документація MCP Server
-description: Дослідіть функції та налаштування MCP Server, щоб оптимізувати управління сервером і операції.
+title: "MCP-сервер Intlayer для ШІ-асистентів"
+description: "Підключіть MCP-сервер Intlayer до Cursor, VS Code або Claude Desktop, щоб ШІ-асистент читав документацію та допомагав налаштувати Intlayer."
 keywords:
   - MCP Server
   - Управління сервером

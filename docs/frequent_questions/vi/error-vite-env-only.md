@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-01-11
-updatedAt: 2026-01-11
+updatedAt: 2026-09-27
 priority: 4
-title: `vite-env-only` & Intlayer – lỗi từ chối `node:fs` dương tính giả
+title: "vite-env-only: lỗi node:fs giả với Intlayer"
 description: Tại sao vite-env-only báo một import `node:fs` bị từ chối khi dùng Intlayer + React-Router + Vite và phải làm gì.
 keywords:
   - intlayer
@@ -16,7 +16,7 @@ keywords:
 slugs:
   - frequent-questions
   - vite-env-only-node-fs-false-positive
-author: aymericzip 
+author: aymericzip
 ---
 
 # vite-env-only từ chối `node:fs` với Intlayer

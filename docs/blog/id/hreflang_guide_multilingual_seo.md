@@ -288,8 +288,8 @@ Turunkan set dari daftar locale tunggal, render server-side, jaga canonical self
 
 ### Melangkah lebih jauh
 
-- [SEO dan Internasionalisasi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/internationalization_and_SEO.md) — gambaran SEO multibahasa yang lebih luas
-- [SEO dan i18n di Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/nextjs-multilingual-seo-comparison.md) — `next-intl` vs `next-i18next` vs Intlayer
+- [SEO dan Internasionalisasi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/internationalization_and_SEO.md)
+- [SEO dan i18n di Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/nextjs-multilingual-seo-comparison.md)
 - [Panduan i18n Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)
 - [Panduan i18n TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)
 - [Custom domains per locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/custom_domains.md)

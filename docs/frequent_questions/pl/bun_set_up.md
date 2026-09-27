@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Otrzymuję błąd "module not found" podczas używania bun
-description: Napraw błąd podczas używania bun.
+description: "Napraw błąd „Cannot find package” przy używaniu Intlayer z Bun, spowodowany ograniczeniem zakresu require() w Bun, za pomocą odpowiedniej konfiguracji."
 keywords:
   - bun
   - module not found

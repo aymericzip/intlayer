@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-05-10
-updatedAt: 2026-05-10
+updatedAt: 2026-09-27
 priority: 6
-title: Sync PO प्लगइन
+title: "Sync PO प्लगइन: Intlayer के साथ Gettext फ़ाइलें"
 description: Intlayer शब्दकोशों को Gettext PO फ़ाइलों के साथ सिंक करें। अपने संदेशों को प्रबंधित करने, अनुवाद करने और परीक्षण करने के लिए Intlayer का उपयोग करते हुए अपने मौजूदा i18n को बनाए रखें।
 keywords:
   - Intlayer

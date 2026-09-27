@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: وثائق حزمة lynx-intlayer
-description: دعم Lynx لـ Intlayer، يوفر polyfills لدعم locale.
+description: "تدمج الحزمة lynx-intlayer مكتبة Intlayer في تطبيقات Lynx، مع الـ polyfills والأدوات المساعدة اللازمة لدعم اللغات على الجوّال."
 keywords:
   - lynx-intlayer
   - lynx

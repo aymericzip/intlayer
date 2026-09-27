@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Angular 22 i18n - あなたのアプリを翻訳する完全ガイド"
-description: "i18nextはもう不要。2026年に多言語（i18n）Angular 21アプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
+description: "Vite を使う Angular 22 に Intlayer を導入：コンポーネント隣の型付きコンテンツ、言語ごとのビルド不要なロケール切り替え、SEO。"
 keywords:
   - 国際化
   - ドキュメント
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayerを使用してAngular 21（Vite）Webサイトを翻訳する | 国際化（i18n）
+# Intlayerを使用してAngular 21（Vite）Webサイトを翻訳する
 
 ## 目次
 

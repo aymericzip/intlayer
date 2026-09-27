@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Falsche Locale aus URL abgerufen
-description: Erfahren Sie, wie Sie die falsche Locale, die aus der URL abgerufen wird, beheben können.
+description: "Beheben Sie eine falsche Locale aus der URL in Next.js, etwa „about“ statt „en“, mit der von Intlayer erwarteten [locale]-Ordnerstruktur."
 keywords:
   - locale
   - url

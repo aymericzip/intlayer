@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Документация хука usePathname | angular-intlayer
-description: Узнайте, как использовать хук usePathname в пакете angular-intlayer
+description: "Используйте usePathname в Angular, чтобы получить текущий путь без сегмента локали как signal для локализованной навигации."
 keywords:
   - usePathname
   - pathname
@@ -116,5 +116,5 @@ export class SidebarComponent {
 
 ## Связанные ресурсы
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/angular-intlayer/exports.md) — текущая локаль + переключатель локали
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getPathWithoutLocale.md) — базовая утилита, используемая этим хуком
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/angular-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getPathWithoutLocale.md)

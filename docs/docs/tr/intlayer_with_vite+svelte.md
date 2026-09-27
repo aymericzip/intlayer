@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Svelte i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Vite + Svelte uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Vite ve Svelte uygulamasında Intlayer kurulumu: store'lar üzerinden çevrilmiş içerik, dil seçici, yerelleştirilmiş rotalar ve tipli sözlükler."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer kullanarak Vite ve Svelte web sitenizi çevirin | Uluslararasılaştırma (i18n)
+# Intlayer kullanarak Vite ve Svelte web sitenizi çevirin
 
 <Tabs defaultTab="code">
   <Tab label="Kod" value="code">

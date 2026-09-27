@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: bunを使用するとモジュールが見つからないエラーが発生する
-description: bun使用時のエラーを修正する方法。
+description: "Bun で Intlayer を使うときの「Cannot find package」エラーを修正。Bun の require() のスコープが原因で、解決する設定を紹介します。"
 keywords:
   - bun
   - モジュールが見つからない

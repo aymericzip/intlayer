@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
-title: 博客
-description: 了解所有与 Intlayer、国际化和其他相关的主题
+title: "搜索 Intlayer 博客"
+description: "搜索 Intlayer 博客中关于国际化、本地化、i18n 库、SEO 和翻译工作流的所有文章。"
 keywords:
   - Intlayer
   - 国际化

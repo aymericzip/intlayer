@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getLocaleLang 함수 문서 | intlayer
-description: intlayer 패키지의 getLocaleLang 함수 사용법 안내
+description: "getLocaleLang으로 en-US 같은 로케일 문자열에서 언어 코드를 추출합니다. 국가 코드 유무와 관계없이 동작합니다."
 keywords:
   - getLocaleLang
   - 번역

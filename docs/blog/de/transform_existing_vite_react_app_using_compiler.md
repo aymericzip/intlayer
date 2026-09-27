@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 8
-title: "So machen Sie eine bestehende Vite- und React-Anwendung nachträglich mehrsprachig (i18n-Leitfaden 2026)"
-description: "Der Leitfaden für 2026, um eine bestehende Vite- und React-App nachträglich mehrsprachig (i18n) zu machen. Automatische Extraktion, KI-Übersetzung und optimierte Bundles mit Intlayer."
+title: "Eine bestehende Vite + React-App mehrsprachig machen"
+description: "i18n in eine bestehende Vite- und React-App bringen, ohne sie umzuschreiben: fest codierte Texte automatisch extrahieren, mit KI übersetzen und Bundles klein halten."
 keywords:
   - Vite i18n
   - React i18n

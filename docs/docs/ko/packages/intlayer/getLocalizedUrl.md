@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getLocalizedUrl 함수 문서 | intlayer
-description: intlayer 패키지의 getLocalizedUrl 함수 사용법 안내
+description: "getLocalizedUrl로 상대 또는 절대 URL에 로케일 접두사를 붙입니다. 라우팅 모드와 기본 로케일 설정을 따릅니다."
 keywords:
   - getLocalizedUrl
   - 번역

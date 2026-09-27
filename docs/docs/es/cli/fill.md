@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Rellenar Diccionarios
-description: Aprende cómo rellenar, auditar y traducir tus diccionarios usando IA.
+title: "intlayer fill: traducir diccionarios con IA"
+description: "Completa las traducciones que faltan, audita las existentes y traduce tus diccionarios de Intlayer con IA desde la CLI, en local o en CI."
 keywords:
   - Rellenar
   - Auditar

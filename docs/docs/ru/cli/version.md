@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Проверка версии CLI
-description: Узнайте, как проверить установленную версию Intlayer CLI.
+title: "intlayer version: проверка установленного CLI"
+description: "Проверьте, какая версия CLI Intlayer и его пакетов установлена в проекте, это помогает при ошибках несовпадения версий."
 keywords:
   - Версия
   - CLI

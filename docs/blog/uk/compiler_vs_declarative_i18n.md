@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-24
-updatedAt: 2025-11-24
+updatedAt: 2026-09-27
 priority: 8
 title: Компіляторне i18n vs декларативне i18n
 description: Вивчення архітектурних компромісів між «магічним» компіляторним підходом до інтернаціоналізації та явним декларативним управлінням контентом.
@@ -65,6 +65,10 @@ author: aymericzip
 > - angular-i18n (Рідний підхід Angular з попередньою компіляцією (ahead-of-time), який зливає файли XLIFF безпосередньо в шаблони під час збірки)
 > - Tolgee (Поєднує декларативний код з in-context SDK для редагування "click-to-translate" безпосередньо в UI)
 > - Intlayer (Підхід на рівні компонентів, із файлами декларацій контенту, які дозволяють нативний tree-shaking і валідацію TypeScript)
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
 
 ## Компілятор Intlayer
 

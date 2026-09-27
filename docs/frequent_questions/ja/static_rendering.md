@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Next.jsにおけるi18nの静的レンダリングと動的レンダリングの比較
-description: Next.jsでのi18nを用いた静的レンダリングと動的レンダリングの使い方を学びます。
+description: "next-intl のヘルパーが Next.js の i18n ルートを動的にしてしまう理由と、ローカライズされたページを静的レンダリングのまま保つ方法。"
 keywords:
   - 静的
   - 動的

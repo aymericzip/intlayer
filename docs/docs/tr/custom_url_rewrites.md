@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-09-27
 priority: 8
-title: Özel URL Yeniden Yazımları
+title: "Özel URL yeniden yazma: yerelleştirilmiş yollar"
 description: Intlayer'da yerel-dil özgü yollar tanımlamak için özel URL yeniden yazımlarının nasıl yapılandırılacağını ve kullanılacağını öğrenin.
 keywords:
   - Özel URL Yeniden Yazımları

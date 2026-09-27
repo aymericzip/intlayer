@@ -2,8 +2,8 @@
 createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 8
-title: Translation
-description: Discover how to declare and use translation in your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
+title: "Translation Content: The t() Function"
+description: "Declare translations per locale with Intlayer's t() function, with type checking that flags missing locales at build time."
 keywords:
   - Translation
   - Internationalisation

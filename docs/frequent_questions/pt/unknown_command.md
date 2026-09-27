@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: Comando desconhecido
-description: Saiba como corrigir o erro de comando desconhecido.
+title: "Corrigir o erro «unknown command» do Intlayer"
+description: "Corrija o erro «unknown command» da CLI do Intlayer: verifique o nome do comando, a versão da CLI e como você chama o binário."
 keywords:
   - desconhecido
   - comando

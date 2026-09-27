@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Tôi nhận được lỗi liên quan đến các gói con @intlayer/*
-description: Sửa lỗi liên quan đến các gói con @intlayer/*.
+description: "Sửa lỗi do lệch phiên bản giữa các gói con @intlayer/*: đưa mọi gói Intlayer về cùng phiên bản và xóa bộ nhớ đệm."
 keywords:
   - @intlayer/*
   - các gói con

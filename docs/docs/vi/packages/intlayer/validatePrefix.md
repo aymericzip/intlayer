@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: Tài liệu hàm validatePrefix | intlayer
-description: Xem cách sử dụng hàm validatePrefix cho gói intlayer
+description: "Dùng validatePrefix để kiểm tra một phân đoạn URL có phải tiền tố locale hợp lệ theo cấu hình Intlayer hay không."
 keywords:
   - validatePrefix
   - dịch

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "تدويل Vite + Solid - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Vite + Solid متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في تطبيق Vite وSolid: محتوى مترجم تفاعلي، ومبدّل لغة، ومسارات مترجمة، وقواميس مُنمَّطة."
 keywords:
   - التدويل
   - التوثيق
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# ترجم Vite and Solid باستخدام Intlayer | التدويل (i18n)
+# ترجم Vite and Solid باستخدام Intlayer
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">

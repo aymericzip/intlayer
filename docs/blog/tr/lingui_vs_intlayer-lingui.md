@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui vs @intlayer/lingui: Aynı Makrolar, Farklı Çalışma Zamanı"
-description: "Bir React uygulaması Lingui makrolarını korurken bunları @intlayer/lingui uyumluluk adaptörü aracılığıyla sunduğunda ne değişir? Bileşen boyutu, hidrasyon, sızıntı ve sayfa başına JavaScript miktarı aynı TanStack Start kodunda ölçüldü; adaptörün geride kaldığı noktalar dahil."
+description: "Bir React uygulaması Lingui makrolarını korur, @intlayer/lingui adaptörüyle sunulur. Bileşen boyutu, hydration, sızıntı ve sayfa başına JavaScript ölçüldü."
 keywords:
   - Lingui
   - "@intlayer/lingui"
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui VS @intlayer/lingui | Aynı Makrolar, Farklı Çalışma Zamanı
+# Lingui VS @intlayer/lingui: Aynı Makrolar, Farklı Çalışma Zamanı
 
 `@intlayer/lingui`, `@lingui/core` ve `@lingui/react` için bir uyumluluk adaptörüdür (compat adapter). `` t`...` ``, `<Trans>`, `useLingui()` ve `i18n._()` çağrılarınız tamamen aynı kalır; makrolar normal şekilde derlenmeye devam eder; değişen tek şey, çalışma zamanında (runtime) mesajların nereden geldiğidir. Dil başına tek bir derlenmiş katalog yerine, her çağrı noktası özel olarak kendisi için derlenmiş bir Intlayer sözlüğüne bağlanır.
 
@@ -289,12 +289,16 @@ export default defineConfig({
 
 ## İlgili karşılaştırmalar
 
-- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md) (aynı benchmark üzerinde doğrudan kütüphane karşılaştırması)
-- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer-next-intl.md) (adaptör serisi karşılaştırması)
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer-i18next.md) (adaptör serisi karşılaştırması)
-- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer-vue-i18n.md) (adaptör serisi karşılaştırması)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/lingui_vs_intlayer.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-intl_vs_intlayer-next-intl.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/i18next_vs_intlayer-i18next.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/vue-i18n_vs_intlayer-vue-i18n.md)
 - [Uyumluluk adaptörü kılavuzu: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compat/lingui.md)
 - [Derleyici tabanlı vs bildirimsel i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md)
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)
 
 ## Sonuç
 

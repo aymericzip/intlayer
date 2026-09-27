@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-24
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
-title: Blog
-description: Temukan semua topik terkait Intlayer, internasionalisasi, dan lainnya
+title: "Cari di blog Intlayer"
+description: "Cari semua artikel blog Intlayer tentang internasionalisasi, lokalisasi, library i18n, SEO, dan alur kerja terjemahan."
 keywords:
   - Intlayer
   - Internasionalisasi

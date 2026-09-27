@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Intlayer command undefined
-description: Learn how to fix the intlayer command undefined error.
+description: "Fix the 'intlayer: command not found' error: install the CLI, run it through your package manager and check your PATH."
 keywords:
   - intlayer
   - command

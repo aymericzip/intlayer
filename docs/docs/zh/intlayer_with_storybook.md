@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 6
 title: "Storybook i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Storybook 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在 Storybook 中配置 Intlayer：多语言故事装饰器和语言切换，使用与应用相同的类型化内容。"
 keywords:
   - 国际化
   - 文档

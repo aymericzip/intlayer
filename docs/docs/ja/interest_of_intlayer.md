@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 8
-title: Intlayerの重要性
+title: "なぜ Intlayer？他の i18n ライブラリとの違い"
 description: プロジェクトでIntlayerを使用するメリットと利点をご紹介します。他のフレームワークの中でIntlayerが選ばれる理由を理解しましょう。
 keywords:
   - メリット
@@ -220,6 +220,10 @@ export const ComponentExample = () => {
 
 6. **読み込みパフォーマンスの最適化**
    - コンポーネントが遅延読み込み（lazy-loaded）される場合、関連するコンテンツも同時に読み込まれます
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## Intlayerの追加機能
 

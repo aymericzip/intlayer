@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 8
-title: Markdown
-description: Learn how to declare and use Markdown content in your multilingual website with Intlayer. Follow the steps in this online documentation to integrate Markdown seamlessly into your project.
+title: "Markdown Content in Intlayer"
+description: "Declare translated Markdown in Intlayer with md() or .content.md files, and render it with your own components in any framework."
 keywords:
   - Markdown
   - Internationalisation

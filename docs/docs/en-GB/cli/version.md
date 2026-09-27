@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Check CLI Version
-description: Learn how to check the installed Intlayer CLI version.
+title: "intlayer version: Check the Installed CLI"
+description: "Check which version of the Intlayer CLI and its packages is installed in your project, useful when debugging version mismatch errors."
 keywords:
   - Version
   - CLI

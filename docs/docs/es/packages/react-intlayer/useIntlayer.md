@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: Documentación del Hook useIntlayer | react-intlayer
-description: Vea cómo usar el hook useIntlayer para el paquete react-intlayer
+description: "Usa useIntlayer en React para leer el contenido localizado de un diccionario por su clave, tipado desde tus archivos de declaración de contenido."
 keywords:
   - useIntlayer
   - diccionario

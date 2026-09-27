@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: موجه اللغة
-description: اكتشف كيف يعمل موجه اللغة. شاهد الخطوات التي يستخدمها موجه اللغة في تطبيقك. تعرف على ما تفعله الحزم المختلفة.
+title: "Locale Mapper: localeMap وlocaleFlatMap وlocaleRecord"
+description: "حوّل بيانات اللغات باستخدام localeMap وlocaleFlatMap وlocaleRecord لتوليد المسارات والمعاملات الثابتة والكائنات لكل لغة."
 keywords:
   - موجه اللغة
   - البدء

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-29
-updatedAt: 2026-01-29
+updatedAt: 2026-09-27
 priority: 5
 title: Documentação do Middleware Hono intlayer | hono-intlayer
-description: Veja como usar o middleware intlayer para o pacote hono-intlayer
+description: "O middleware intlayer para Hono detecta o locale do usuário e adiciona as funções de tradução do Intlayer ao contexto da requisição."
 keywords:
   - intlayer
   - hono

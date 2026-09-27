@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "NGX-Translate에서 Intlayer로 마이그레이션"
 description: "compat adapter를 사용하여 Angular 애플리케이션을 ngx-translate에서 Intlayer로 마이그레이션하는 방법을 알아보세요."
@@ -44,3 +44,7 @@ npx intlayer init --interactive
 - **Services:** `TranslateService`는 `getIntlayer`와 locale observable을 래핑하여 정확히 동일한 methods를 제공합니다.
 - **Pipes & Directives:** Intlayer dictionaries에 대해 직접 resolve되도록 다시 구현됩니다.
 - **Loaders:** `TranslateHttpLoader` setups은 warning stubs로 변환됩니다. 왜냐하면 Intlayer는 본래적으로 build time에 dictionaries를 resolve하고 bundle합니다 (또는 표준 dynamic imports를 통해), HTTP loaders의 필요성을 완전히 제거합니다.
+
+> 이러한 라이브러리가 어디에서 왔는지 이해하려면 JavaScript i18n의 역사를 읽어보세요.
+
+- [JavaScript i18n의 역사](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ko/history_of_i18n.md)

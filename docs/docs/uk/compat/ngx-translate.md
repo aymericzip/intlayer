@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
 title: "Міграція з NGX-Translate на Intlayer"
 description: "Дізнайтеся, як перенести вашу Angular-застосунок з ngx-translate на Intlayer за допомогою адаптера сумісності."
@@ -44,3 +44,7 @@ npx intlayer init --interactive
 - **Services:** `TranslateService` обгортає `getIntlayer` та locale observable, забезпечуючи точно такі ж методи.
 - **Pipes & Directives:** Переімплементовані для прямого розв'язання проти словників Intlayer.
 - **Loaders:** Конфігурації `TranslateHttpLoader` перетворюються на заглушки попередження, тому що Intlayer за своєю суттю розв'язує та пакує ваші словники під час збірки (або через стандартні динамічні імпорти), повністю усуваючи необхідність у HTTP loaders.
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)

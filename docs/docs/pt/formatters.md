@@ -2,8 +2,8 @@
 createdAt: 2024-08-13
 updatedAt: 2025-08-20
 priority: 8
-title: Formatadores
-description: Utilitários de formatação sensíveis à localidade baseados em Intl para números, percentagens, moeda, datas, tempo relativo, unidades e notação compacta. Inclui um helper Intl em cache.
+title: "Formatters: números, datas e moedas por locale"
+description: "Formate números, porcentagens, moedas, datas, tempo relativo e unidades conforme o locale com os helpers Intl em cache do Intlayer."
 keywords:
   - Formatadores
   - Intl

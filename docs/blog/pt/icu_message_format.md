@@ -284,9 +284,9 @@ Para bases de código que já contam com strings ICU, o [adaptador de compatibil
 
 ## Próximos passos
 
-- [Conteúdo com plural no Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/plurial.md): o nó `plural` integrado ao CLDR e sua tabela de categorias.
-- [Conteúdo baseado em select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/select.md): o correspondente ao `select` do ICU e quando utilizar `enu` ou `cond`.
-- [Placeholders de inserção](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/insertion.md): interpolação com `{{name}}` e detecção automática.
-- [Benchmark de bibliotecas de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md): comparação de tamanho de pacote e performance de execução.
-- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/react-i18next_vs_react-intl_vs_intlayer.md): uma comparação completa entre os três modelos de mensagens.
-- [O que é internacionalização?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/what_is_internationalization.md): a origem do termo i18n, suas distinções em relação a l10n e a visão ampla além da formatação de mensagens.
+- [Conteúdo com plural no Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/plurial.md)
+- [Conteúdo baseado em select](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/select.md)
+- [Placeholders de inserção](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/insertion.md)
+- [Benchmark de bibliotecas de i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/benchmark/index.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/react-i18next_vs_react-intl_vs_intlayer.md)
+- [O que é internacionalização?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pt/what_is_internationalization.md)

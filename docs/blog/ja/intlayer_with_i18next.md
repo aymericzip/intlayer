@@ -2,7 +2,7 @@
 createdAt: 2024-12-24
 updatedAt: 2025-11-01
 priority: 8
-title: Intlayerを使ってi18nextのJSON翻訳を自動化する方法
+title: "Intlayer で i18next の JSON 翻訳を自動化する"
 description: Intlayerとi18nextを使ってJavaScriptアプリケーションの国際化を強化するためにJSON翻訳を自動化する方法。
 keywords:
   - Intlayer
@@ -57,6 +57,10 @@ Intlayerは優れた単独のi18nソリューションを提供します（[Next
 **そのために、Intlayerはi18nextのアダプターとして実装でき、CLIやCI/CDパイプラインでのJSON翻訳の自動化、翻訳のテストなどを支援します。**
 
 このガイドでは、i18nextとの互換性を維持しながら、Intlayerの優れたコンテンツ宣言システムを活用する方法を示します。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## 目次
 

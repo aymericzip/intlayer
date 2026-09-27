@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Posso usare un array come dichiarazione di contenuto?
-description: Scopri come usare un array come dichiarazione di contenuto.
+description: "Sì: un array può essere una dichiarazione di contenuto in Intlayer. Come dichiararlo, tradurre ogni elemento e leggerlo dai componenti."
 keywords:
   - array
   - contenuto

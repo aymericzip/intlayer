@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
 title: "Express i18n - 앱을 번역하는 완전 가이드"
-description: "i18next는 이제 그만. 2026년 다국어 (i18n) Express 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
+description: "Express에 Intlayer 설정: 미들웨어로 요청마다 로케일을 감지하고, API 응답과 오류 메시지를 번역하며, 엔드투엔드 타입을 보장합니다."
 keywords:
   - 국제화
   - 문서
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer로 Express backend 번역하기 | 국제화(i18n)
+# Intlayer로 Express backend 번역하기
 
 `express-intlayer`는 Express 애플리케이션을 위한 강력한 국제화(i18n) 미들웨어로, 클라이언트의 선호도에 따라 로컬화된 응답을 제공하여 백엔드 서비스를 전 세계적으로 접근 가능하게 만듭니다.
 
@@ -211,9 +211,9 @@ app.listen(3000, () => console.log(`Listening on port 3000`));
 
 `express-intlayer`는 다음과 완벽하게 호환됩니다:
 
-- React 애플리케이션용 [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/index.md)
-- Next.js 애플리케이션용 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/index.md)
-- Vite 애플리케이션용 [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/index.md)
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/index.md)
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/index.md)
   다양한 환경(브라우저 및 API 요청 포함)에서 모든 국제화 솔루션과 원활하게 작동합니다. 미들웨어를 사용자 정의하여 헤더나 쿠키를 통해 로케일을 감지할 수 있습니다:
 
 또한 브라우저 및 API 요청을 포함한 다양한 환경에서 모든 국제화 솔루션과 seamlessly 작동합니다. 헤더 또는 쿠키를 통해 locale을 감지하도록 middleware를 사용자 지정할 수 있습니다:

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "TanStack Start i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) TanStack Start uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "TanStack Start'ta Intlayer kurulumu: rotalarda locale parametresi, SSR uyumlu çevrilmiş içerik, yerelleştirilmiş head metadata, hreflang ve sitemap."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -51,7 +51,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer ile Tanstack Start sitenizi çevirin | Uluslararasılaştırma (i18n)
+# Intlayer ile Tanstack Start sitenizi çevirin
 
 ## İçindekiler
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-13
-updatedAt: 2026-09-13
+updatedAt: 2026-09-27
 priority: 8
 title: "Lingui vs @intlayer/lingui: Cùng Macro, Khác Runtime"
-description: "Điều gì thay đổi khi một ứng dụng React giữ nguyên các macro Lingui nhưng phân phối chúng qua adapter tương thích @intlayer/lingui. Kích thước component, hydration, rò rỉ và lượng JavaScript trên mỗi trang được đo lường trên cùng một mã nguồn TanStack Start, bao gồm cả những điểm adapter còn hạn chế."
+description: "Ứng dụng React giữ nguyên macro Lingui, được phục vụ qua adapter @intlayer/lingui. Đo kích thước component, hydration, rò rỉ và JavaScript mỗi trang."
 keywords:
   - Lingui
   - "@intlayer/lingui"
@@ -24,7 +24,7 @@ slugs:
 author: aymericzip
 ---
 
-# Lingui VS @intlayer/lingui | Cùng Macro, Khác Runtime
+# Lingui VS @intlayer/lingui: Cùng Macro, Khác Runtime
 
 `@intlayer/lingui` là adapter tương thích (compat adapter) dành cho `@lingui/core` và `@lingui/react`. Các lệnh gọi `` t`...` ``, `<Trans>`, `useLingui()` và `i18n._()` của bạn được giữ nguyên hoàn toàn; các macro tiếp tục biên dịch bình thường; điểm thay đổi duy nhất là nguồn gốc của các thông điệp khi ứng dụng chạy (runtime). Thay vì một tệp catalog biên dịch duy nhất cho mỗi ngôn ngữ, mỗi vị trí gọi lệnh được liên kết trực tiếp với một từ điển Intlayer được biên dịch riêng cho nó.
 
@@ -289,12 +289,16 @@ Plugin `lingui()` bao gói `vite-intlayer` (theo dõi nội dung, biên dịch t
 
 ## Các bài viết so sánh liên quan
 
-- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md) (so sánh trực tiếp hai thư viện trên cùng benchmark)
-- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer-next-intl.md) (thuộc chuỗi so sánh adapter tương thích)
-- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer-i18next.md) (thuộc chuỗi so sánh adapter tương thích)
-- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer-vue-i18n.md) (thuộc chuỗi so sánh adapter tương thích)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/lingui_vs_intlayer.md)
+- [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-intl_vs_intlayer-next-intl.md)
+- [i18next vs @intlayer/i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/i18next_vs_intlayer-i18next.md)
+- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/vue-i18n_vs_intlayer-vue-i18n.md)
 - [Tài liệu adapter tương thích: Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compat/lingui.md)
 - [So sánh i18n dạng biên dịch vs dạng khai báo](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md)
+
+> Để hiểu các thư viện này đến từ đâu, hãy đọc lịch sử i18n trong JavaScript.
+
+- [Lịch sử i18n trong JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
 
 ## Kết luận
 

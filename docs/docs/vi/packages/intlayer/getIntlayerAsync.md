@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
-title: getIntlayerAsync Function Documentation | intlayer
-description: See how to use the getIntlayerAsync function for intlayer package
+title: "Tài liệu hàm getIntlayerAsync | intlayer"
+description: "Dùng getIntlayerAsync để tải và đọc nội dung từ điển chỉ cho một locale, không đóng gói các ngôn ngữ khác."
 keywords:
   - getIntlayerAsync
   - dictionary
@@ -106,9 +106,9 @@ Cả hai chấp nhận các đối số giống nhau và trả về nội dung g
 
 ## Các Hàm Liên Quan
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md): Tương đương đồng bộ đọc từ điển đã hợp nhất.
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getDictionaryAsync.md): Hàm cấp thấp hơn mà các build plugins viết lại cuộc gọi này thành.
-- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocale.md): Phát hiện locale của một yêu cầu đến.
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getDictionaryAsync.md)
+- [`getLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocale.md)
 
 ## TypeScript
 

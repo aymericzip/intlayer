@@ -2,8 +2,8 @@
 createdAt: 2025-03-01
 updatedAt: 2025-09-20
 priority: 8
-title: اختبار المحتوى الخاص بك
-description: اكتشف كيفية اختبار المحتوى الخاص بك باستخدام Intlayer.
+title: "اختبار ترجماتك باستخدام Intlayer"
+description: "اختبر محتوى Intlayer: اكتشف الترجمات الناقصة، وتحقّق من القواميس في CI، واعرض المكوّنات لكل لغة في اختبارات الوحدة."
 keywords:
   - اختبار
   - Intlayer

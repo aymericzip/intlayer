@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-16
-updatedAt: 2025-11-16
+updatedAt: 2026-09-27
 priority: 5
 title: getPrefix 함수 문서 | intlayer
-description: intlayer 패키지의 getPrefix 함수 사용법을 확인하세요
+description: "getPrefix로 라우팅 모드에 따른 로케일의 URL 접두사를 링크와 라우트에 바로 쓸 수 있는 세 가지 형식으로 가져옵니다."
 keywords:
   - getPrefix
   - prefix
@@ -171,8 +171,8 @@ console.log(`현재 로케일: ${localePrefix}`);
 
 ## 관련 함수
 
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md): 특정 로케일에 대한 현지화된 URL 생성
-- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getMultilingualUrls.md): 구성된 모든 로케일에 대한 URL 생성
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)
+- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getMultilingualUrls.md)
 
 ## TypeScript
 

@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: getEnumeration Function Documentation | intlayer
-description: See how to use the getEnumeration function for intlayer package
+description: "Use getEnumeration (alias enu) to pick the content matching a quantity from an enumeration object, based on its conditions."
 keywords:
   - getEnumeration
   - translation

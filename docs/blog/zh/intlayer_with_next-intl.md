@@ -2,7 +2,7 @@
 createdAt: 2025-01-02
 updatedAt: 2025-10-29
 priority: 8
-title: 如何使用 Intlayer 自动化您的 next-intl JSON 翻译
+title: "用 Intlayer 自动化 next-intl 的 JSON 翻译"
 description: 使用 Intlayer 和 next-intl 自动化您的 JSON 翻译，提升 Next.js 应用的国际化体验。
 keywords:
   - Intlayer
@@ -30,7 +30,7 @@ author: aymericzip
 
 <iframe title="如何使用 Intlayer 自动化您的 next-intl JSON 翻译" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-# 目录
+## 目录
 
 <TOC/>
 
@@ -51,6 +51,10 @@ author: aymericzip
 **为此，Intlayer 可以作为 next-intl 的适配器来实现，帮助您在 CLI 或 CI/CD 流水线中自动化 JSON 翻译、测试翻译等功能。**
 
 本指南将向您展示如何利用 Intlayer 优越的内容声明系统，同时保持与 next-intl 的兼容性。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 目录
 

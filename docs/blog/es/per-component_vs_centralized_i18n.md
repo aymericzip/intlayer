@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
-title: "i18n por componente vs. centralizado: Un nuevo enfoque con Intlayer"
+title: "i18n por componente o centralizada en React"
 description: Un análisis profundo de las estrategias de internacionalización en React, comparando enfoques centralizados, por clave y por componente, e introduciendo Intlayer.
 keywords:
   - i18n
@@ -98,6 +98,10 @@ Pero de entre todas esas soluciones, está claro que el enfoque más popular es 
 - Luego, una vez que una librería se adopta ampliamente, se vuelve difícil mover el ecosistema a otros patrones.
 - Usar un enfoque centralizado también facilita las cosas en Sistemas de Gestión de Traducciones como Crowdin, Phrase o Localized.
 - La lógica detrás de un enfoque por componente es más compleja que la de uno centralizado y requiere más tiempo para desarrollarse, especialmente cuando hay que resolver problemas como identificar dónde está ubicado el contenido.
+
+> Para entender de dónde vienen estas bibliotecas, lee la historia del i18n en JavaScript.
+
+- [La historia del i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md)
 
 ### Ok, ¿pero por qué no optar simplemente por un enfoque centralizado?
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Построение словарей
+title: "intlayer build: сборка словарей"
 description: Узнайте, как создавать словари Intlayer из файлов декларации контента.
 keywords:
   - Построение

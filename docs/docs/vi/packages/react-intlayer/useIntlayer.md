@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: Tài liệu Hook useIntlayer | react-intlayer
-description: Xem cách sử dụng hook useIntlayer cho gói react-intlayer
+description: "Dùng useIntlayer trong React để đọc nội dung bản địa hóa của từ điển theo key, có kiểu từ file khai báo nội dung."
 keywords:
   - useIntlayer
   - dictionary

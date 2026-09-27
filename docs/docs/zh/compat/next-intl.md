@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "从 next-intl 迁移到 Intlayer"
-description: "了解如何使用兼容适配器将您的 Next.js 应用程序从 next-intl 迁移到 Intlayer。"
+title: "@intlayer/next-intl：next-intl 兼容适配器"
+description: "保留 next-intl 代码，改由 Intlayer 提供内容：安装 @intlayer/next-intl，为导入设置别名，并了解适配器在底层做了哪些改变。"
 keywords:
   - next-intl
   - nextjs
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# 从 next-intl 迁移到 Intlayer
+# @intlayer/next-intl：next-intl 兼容适配器
 
 有关完整详细的分步教程，请参阅我们完整的 [next-intl 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_next-intl_to_intlayer.md)。
 
@@ -58,3 +58,7 @@ bundler 包装器替换了翻译，但**保留 `next-intl/navigation` 功能完�
 - **`useTranslations()` 和 `getTranslations()`：** 裸作用域调用将第一个键段提取为正确的字典标识符。嵌套命名空间优雅地拆分为字典路径和前缀。
 - **富文本格式化：** `t.rich()` 和 `t.markup()` 都经过完整的原生实现，将类 HTML 节点转换为渲染的 React chunk。
 - **`useFormatter`：** `relativeTime`、`list`、`dateTimeRange` 和配置中的命名格式桥接到核心原生 `Intl` 格式化器。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)

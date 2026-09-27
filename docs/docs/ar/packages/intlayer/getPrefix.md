@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-11-16
-updatedAt: 2025-11-16
+updatedAt: 2026-09-27
 priority: 5
 title: توثيق دالة getPrefix | intlayer
-description: تعرف على كيفية استخدام دالة getPrefix لحزمة intlayer
+description: "استخدم getPrefix للحصول على بادئة URL للغة وفق وضع التوجيه، بثلاث صيغ جاهزة للروابط والمسارات."
 keywords:
   - getPrefix
   - prefix
@@ -170,8 +170,8 @@ console.log(`Current locale: ${localePrefix}`);
 
 ## الدوال المرتبطة
 
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md): ينشئ عنوان URL محلي للغة معينة
-- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getMultilingualUrls.md): ينشئ عناوين URL لجميع اللغات المكونة
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md)
+- [`getMultilingualUrls`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getMultilingualUrls.md)
 
 ## TypeScript
 

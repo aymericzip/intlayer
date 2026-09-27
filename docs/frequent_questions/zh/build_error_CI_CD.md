@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: CI/CD 中的构建错误
-description: 了解如何修复在 CI/CD 环境中发生的构建错误。
+title: "修复 CI/CD 中的 Intlayer 构建错误"
+description: "修复只在 CI/CD 中出现的 Server Components 渲染错误，确保 Intlayer 字典在构建阶段生成。"
 keywords:
   - 构建
   - 错误

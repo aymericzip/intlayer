@@ -2,8 +2,8 @@
 createdAt: 2025-09-07
 updatedAt: 2026-05-31
 priority: 3
-title: "Create React App i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Create React App uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+title: "Create React App i18n: eksiksiz çeviri rehberi"
+description: "Create React App projesinde Intlayer kurulumu: bileşenlerin yanında tipli içerik, dil seçici ve locale başına yüklenen çeviriler."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer ile Create React App çevirin | Uluslararasılaştırma (i18n)
+# Intlayer ile Create React App çevirin
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-react-cra-template?file=intlayer.config.ts"

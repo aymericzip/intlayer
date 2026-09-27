@@ -3,7 +3,7 @@ createdAt: 2025-09-09
 updatedAt: 2026-05-31
 priority: 9
 title: "تدويل NestJS - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق NestJS متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في NestJS: اكتشاف اللغة لكل طلب، وترجمة استجابات وحدات التحكم ورسائل التحقق، مع أنواع آمنة."
 keywords:
   - التدويل
   - الوثائق
@@ -30,7 +30,7 @@ history:
     changes: "الوثيقة الأولية"
 ---
 
-# ترجم Nest backend باستخدام Intlayer | التدويل (i18n)
+# ترجم Nest backend باستخدام Intlayer
 
 `express-intlayer` هو وسيط قوي للتدويل (i18n) لتطبيقات Express، مصمم لجعل خدمات الخلفية الخاصة بك متاحة عالميًا من خلال تقديم استجابات محلية بناءً على تفضيلات العميل. نظرًا لأن NestJS مبني على Express، يمكنك دمج `express-intlayer` بسلاسة في تطبيقات NestJS الخاصة بك للتعامل مع المحتوى متعدد اللغات بفعالية.
 
@@ -196,9 +196,9 @@ export class AppService {
 
 `express-intlayer` متوافق تمامًا مع:
 
-- [`react-intlayer`](/doc/packages/react-intlayer) لتطبيقات React
-- [`next-intlayer`](/doc/packages/next-intlayer) لتطبيقات Next.js
-- [`vite-intlayer`](/doc/packages/vite-intlayer) لتطبيقات Vite
+- [`react-intlayer`](/doc/packages/react-intlayer)
+- [`next-intlayer`](/doc/packages/next-intlayer)
+- [`vite-intlayer`](/doc/packages/vite-intlayer)
 
 كما يعمل بسلاسة مع أي حل للتدويل عبر بيئات مختلفة، بما في ذلك المتصفحات وطلبات API. يمكنك تخصيص الوسيط لاكتشاف اللغة من خلال الرؤوس أو ملفات تعريف الارتباط:
 

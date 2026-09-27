@@ -3,7 +3,7 @@ createdAt: 2026-09-13
 updatedAt: 2026-09-22
 priority: 8
 title: "vue-i18n vs @intlayer/vue-i18n: API yang Sama, Bundle Berbeda"
-description: Apa yang berubah ketika aplikasi Vue 3 menyimpan panggilan vue-i18n-nya tetapi melayaninya melalui adapter kompatibilitas @intlayer/vue-i18n. JavaScript per halaman, ukuran runtime, ukuran komponen dan kebocoran diukur pada kode Vite + Vue yang sama, ditambah apa yang adapter simpan, abaikan dan tidak dapat gantikan.
+description: "Aplikasi Vue 3 tetap memakai panggilan vue-i18n yang dilayani adaptor @intlayer/vue-i18n. JavaScript per halaman, ukuran runtime dan komponen, serta kebocoran diukur."
 keywords:
   - vue-i18n
   - "@intlayer/vue-i18n"
@@ -24,13 +24,11 @@ slugs:
 author: aymericzip
 ---
 
-# vue-i18n VERSUS @intlayer/vue-i18n | API yang Sama, Bundle Berbeda
-
-![Ekosistem library i18n Vue](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+# vue-i18n VERSUS @intlayer/vue-i18n: API yang Sama, Bundle Berbeda
 
 `@intlayer/vue-i18n` adalah adapter kompatibilitas: ini mengekspos API `vue-i18n` (`createI18n`, `useI18n`, `t()`, `d()`, `n()`, `$t`, `v-t`, `i18n.global.locale`...) dan melayaninya dari kamus yang dikompilasi oleh Intlayer. File `.vue` Anda tidak berubah. Apa yang terikat pada `t("footer.github")` yang berubah.
 
-Artikel ini mengukur pertukaran tersebut pada aplikasi Vite + Vue 3 yang sama, dibangun sekali dengan `vue-i18n` dan sekali dengan adapter. Angka-angka tersebut berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Untuk perbandingan `vue-i18n` dan Intlayer sebagai library, baca [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md) dan [benchmark vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer_benchmark.md). Yang ini tentang apa yang berubah adapter ketika Anda mempertahankan komponen seperti apa adanya.
+Artikel ini mengukur pertukaran tersebut pada aplikasi Vite + Vue 3 yang sama, dibangun sekali dengan `vue-i18n` dan sekali dengan adapter. Angka-angka tersebut berasal dari [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom). Untuk perbandingan `vue-i18n` dan Intlayer sebagai library, baca [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md) dan [benchmark vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md). Yang ini tentang apa yang berubah adapter ketika Anda mempertahankan komponen seperti apa adanya.
 
 <TOC/>
 
@@ -359,6 +357,8 @@ Ya. Setiap komponen dapat beralih dari `useI18n()` ke `useIntlayer("footer")` de
 
 ## Perbandingan terkait
 
+![Ekosistem library i18n Vue](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 Seri adaptor yang sama:
 
 - [next-intl vs @intlayer/next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-intl_vs_intlayer-next-intl.md)
@@ -367,18 +367,25 @@ Seri adaptor yang sama:
 
 Pustaka yang dibandingkan secara langsung:
 
-- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md), fitur dan DX
-- [benchmark vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer_benchmark.md), pengujian yang sama secara lengkap
+- [vue-i18n vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/vue-i18n_vs_intlayer.md)
 - [Apakah vue-i18n sudah usang?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/is_vue-i18n_outdated.md)
 - [Cara memilih library i18n Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_vue_i18n_library.md)
 
 Dokumentasi referensi:
 
-- [Adapter kompatibilitas: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md) dan [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md)
+- [Adapter kompatibilitas: vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/vue-i18n.md)
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compat/nuxtjs-i18n.md)
 - [Panduan migrasi: vue-i18n ke Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/migration_from_vue-i18n_to_intlayer.md)
 - [Laporan benchmark Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/vue.md)
-- [Optimalisasi bundel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md) dan [kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
-- [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md), [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) dan [terjemahan AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md)
+- [Optimalisasi bundel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
+- [kompiler Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
+- [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)
+- [terjemahan AI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md)
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ## Kesimpulan
 

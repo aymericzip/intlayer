@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: "intlayer Express मिडलवेयर दस्तावेज़ | express-intlayer"
-description: "express-intlayer पैकेज के लिए intlayer मिडलवेयर का उपयोग कैसे करें।"
+description: "Express के लिए intlayer मिडलवेयर उपयोगकर्ता का लोकेल पहचानता है और हैंडलर में res.locals से t और getIntlayer देता है।"
 keywords:
   - intlayer
   - express

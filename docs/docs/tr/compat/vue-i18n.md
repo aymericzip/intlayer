@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Vue I18n'den Intlayer'a Geçiş Yapın"
-description: "Uyumluluk adaptörünü kullanarak Vue uygulamanızı vue-i18n'den Intlayer'a nasıl geçireceğinizi öğrenin."
+title: "@intlayer/vue-i18n: vue-i18n için uyumluluk adaptörü"
+description: "vue-i18n kodunuzu koruyun ve Intlayer ile sunun: @intlayer/vue-i18n paketini kurun, import'lar için alias tanımlayın ve adaptörün arka planda neyi değiştirdiğini görün."
 keywords:
   - vue-i18n
   - vue
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Vue I18n'den Intlayer'a Geçiş Yapın
+# @intlayer/vue-i18n: vue-i18n için uyumluluk adaptörü
 
 Vue uygulamanız şu anda `vue-i18n` kullanıyorsa, bileşenlerinizi yeniden yazmadan ve çeviri hook'larını çevirme olmadan Intlayer'a geçebilirsiniz. Intlayer, Intlayer'ın güçlü özelliklerini arka planda kullanmakta olan `vue-i18n`'in API'sini mükemmel şekilde yansıtan bir uyumluluk adaptörü sağlar.
 
@@ -57,3 +57,7 @@ export default defineConfig({
 - **Direktifler:** `v-t` direktifi kaydedilir ve normal şekilde çalışır.
 
 Uygulamanız, içerik Intlayer sözlükleri tarafından desteklendiği için, yazılı kontrol güvenliği, daha iyi bundle optimizasyonu ve sorunsuz CMS entegrasyonu sayesinde tam olarak eskisi gibi render edilmeye devam eder.
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)

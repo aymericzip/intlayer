@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-12
-updatedAt: 2026-08-13
+updatedAt: 2026-09-27
 priority: 6
 title: Plugin ESLint | Regras de lint para o Intlayer
-description: Detecte strings codificadas diretamente, chamadas dinâmicas que o compilador do Intlayer não consegue otimizar e conteúdo de dicionário não utilizado com eslint-plugin-intlayer. Compatível com ESLint e oxlint, no React, Vue, Svelte, Angular e Astro.
+description: "Encontre textos fixos, chamadas dinâmicas que o compilador do Intlayer não consegue otimizar e conteúdo não usado com o eslint-plugin-intlayer, para ESLint e oxlint."
 keywords:
   - Intlayer
   - ESLint

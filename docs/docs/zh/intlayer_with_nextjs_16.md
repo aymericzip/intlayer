@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-09-08
+updatedAt: 2026-09-27
 priority: 10
 title: "Next.js 16 i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Next.js 16 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+description: "在 Next.js 16 App Router 中配置 Intlayer：通过代理实现语言路由、Server 与 Client Components、本地化元数据、站点地图和静态页面。"
 keywords:
   - 国际化
   - 文档
@@ -34,7 +34,7 @@ history:
 author: aymericzip
 ---
 
-# 使用 Intlayer 翻译您的 Next.js 16 网站 | 国际化 (i18n)
+# 使用 Intlayer 翻译您的 Next.js 16 网站
 
 <Tabs defaultTab="video">
   <Tab label="视频" value="video">

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: 2026年においてvue-i18nは時代遅れなのか？
 description: vue-i18nは10年以上にわたりVueとNuxtの標準として親しまれてきました。しかしベンチマークではWebで最も重いi18nランタイムという結果に。その理由を紐解きます。
@@ -68,6 +68,10 @@ Language Server（LSP）、AI向けMCPサーバー、CLIを通じた自動翻訳
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 歴史あるライブラリには安定性の利点があります。しかし近年の開発手法は、ビルド時のAST解析、デッドコード除去、AIによる自動化を前提としています。クライアント上での実行に依存するアーキテクチャでは、こうした進化を取り入れるのが難しくなります。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)
 
 ## Vite + Vueでの性能測定
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: getCanonicalPath 함수 문서 | intlayer
-description: intlayer 패키지에서 getCanonicalPath 함수를 사용하는 방법을 확인하세요
+description: "getCanonicalPath로 /a-propos 같은 현지화된 경로를 라우팅을 위해 /about 같은 내부 라우트로 되돌립니다."
 keywords:
   - getCanonicalPath
   - 번역
@@ -121,5 +121,5 @@ getCanonicalPath("/contactez-nous", Locales.FRENCH, manualRules);
 
 ## 관련 함수
 
-- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedPath.md): 정규화된 경로(canonical path)를 해당 로케일의 등가 경로로 변환합니다.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md): 프로토콜, 호스트 및 로케일 접두사를 포함한 완전한 로컬라이즈된 URL을 생성합니다.
+- [`getLocalizedPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)

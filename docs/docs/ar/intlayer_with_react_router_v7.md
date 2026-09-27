@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 10
 title: "تدويل React Router v7 - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق React Router v7 متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في React Router v7: أجزاء مسارات مترجمة، وloaders ومكوّنات مترجمة، وhreflang، وخريطة موقع متعددة اللغات."
 keywords:
   - التدويل
   - التوثيق
@@ -40,7 +40,7 @@ history:
 author: aymericzip
 ---
 
-# ترجم React Router v7 باستخدام Intlayer | التدويل (i18n)
+# ترجم React Router v7 باستخدام Intlayer
 
 يوضح هذا الدليل كيفية دمج **Intlayer** لتحقيق التدويل السلس في مشاريع React Router v7 مع توجيه يدعم اللغة المحلية، ودعم TypeScript، وممارسات تطوير حديثة.
 

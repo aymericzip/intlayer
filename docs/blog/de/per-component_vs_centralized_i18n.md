@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
-title: "Per-Komponente vs. Zentralisiertes i18n: Ein neuer Ansatz mit Intlayer"
+title: "i18n pro Komponente oder zentral in React"
 description: Eine eingehende Analyse der Internationalisierungsstrategien in React, die zentralisierte, per-key- und per-component-Ansätze vergleicht und Intlayer vorstellt.
 keywords:
   - i18n
@@ -97,6 +97,10 @@ Trotz dieser Ansätze ist klar, dass der zentralisierte Ansatz der populärste i
 - Sobald eine Bibliothek einmal weit verbreitet ist, wird es schwierig, das Ökosystem auf andere Muster umzustellen.
 - Ein zentralisierter Ansatz erleichtert zudem die Arbeit mit Translation Management Systems wie Crowdin, Phrase oder Localized.
 - Die Logik hinter einem per-Komponente-Ansatz ist komplexer als die eines zentralisierten Ansatzes und erfordert mehr Entwicklungszeit, insbesondere wenn Probleme wie die Identifikation, wo sich der Inhalt befindet, gelöst werden müssen.
+
+> Um zu verstehen, woher diese Bibliotheken kommen, lesen Sie die Geschichte von i18n in JavaScript.
+
+- [Die Geschichte von i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/history_of_i18n.md)
 
 ### Ok, aber warum nicht einfach beim zentralisierten Ansatz bleiben?
 

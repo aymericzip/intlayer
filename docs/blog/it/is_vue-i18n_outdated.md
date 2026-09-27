@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-02
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: vue-i18n è obsoleto nel 2026?
 description: vue-i18n è stato lo standard per Vue e Nuxt per oltre un decennio. Tuttavia, nei nostri benchmark si è dimostrato il runtime i18n più pesante del web. Scopri i dettagli.
@@ -68,6 +68,10 @@ Attività negli ultimi 12 mesi:
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 Una libreria matura assicura affidabilità. Tuttavia le architetture odierne impiegano trasformazioni AST al build, eliminazione di codice morto e automazione con IA. Un'impostazione incentrata unicamente sul runtime fa fatica ad adottare questi paradigmi.
+
+> Per capire da dove vengono queste librerie, leggi la storia dell'i18n in JavaScript.
+
+- [La storia dell'i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/it/history_of_i18n.md)
 
 ## Misurazione delle performance con Vite + Vue
 

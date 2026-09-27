@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 사전 빌드 방법
-description: 사전 빌드 방법을 알아보세요.
+description: "Intlayer가 사전을 자동으로 빌드하는 시점, CLI로 수동 빌드하는 방법, 생성된 파일이 저장되는 위치를 알아보세요."
 keywords:
   - 빌드
   - 사전

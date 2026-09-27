@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-09-27
 priority: 5
-title: Gỡ lỗi lệnh Intlayer
-description: Tìm hiểu cách gỡ lỗi và khắc phục sự cố CLI của Intlayer.
+title: "Gỡ lỗi CLI Intlayer"
+description: "Khắc phục sự cố CLI Intlayer: kiểm tra phiên bản đã cài, bật log chi tiết và sửa các lỗi lệnh và cấu hình thường gặp."
 keywords:
   - Gỡ lỗi
   - Khắc phục sự cố

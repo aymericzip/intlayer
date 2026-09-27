@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "react-i18next से Intlayer में माइग्रेट करें"
-description: "Compat adapter का उपयोग करके अपने React एप्लिकेशन को react-i18next से Intlayer में माइग्रेट करना सीखें।"
+title: "@intlayer/react-i18next: react-i18next के लिए संगतता एडैप्टर"
+description: "अपना react-i18next कोड बनाए रखें और उसे Intlayer से चलाएँ: @intlayer/react-i18next इंस्टॉल करें, imports के लिए alias सेट करें, और देखें कि एडैप्टर अंदर क्या बदलता है।"
 keywords:
   - react-i18next
   - i18next
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# react-i18next से Intlayer में माइग्रेट करें
+# @intlayer/react-i18next: react-i18next के लिए संगतता एडैप्टर
 
 एक संपूर्ण और विस्तृत चरण-दर-चरण ट्यूटोरियल के लिए, कृपया हमारी पूर्ण [react-i18next माइग्रेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/migration_from_react-i18next_to_intlayer.md) देखें।
 
@@ -57,3 +57,7 @@ export default defineConfig({
 - **Plurals & Context:** i18next के suffix-based pluralization (`key_one`, `key_other`) को native `Intl.PluralRules` और context suffixes (`key_male`) का उपयोग करके हैंडल करता है।
 - **`<Trans>` Component:** `components` prop, object और array forms, और numbered tags `<1>...</1>` को support करने के लिए फिर से implement किया गया है जो सीधे आपके React nodes को map करते हैं।
 - **`i18n` instance:** Intlayer से keys को सीधे resolve करता है बिना बड़ी JSON files को fetch किए, जिससे significantly lower bundle sizes प्राप्त होते हैं।
+
+> ये लाइब्रेरी कहाँ से आईं, यह समझने के लिए JavaScript i18n का इतिहास पढ़ें।
+
+- [JavaScript i18n का इतिहास](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/history_of_i18n.md)

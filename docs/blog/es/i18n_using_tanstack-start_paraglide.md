@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "i18n en TanStack Start con Paraglide JS: Guía de configuración 2026"
 description: "Traduce tu aplicación TanStack Start con Paraglide JS: estrategia de URL, reescritura del router, middleware SSR, hreflang, sitemap y robots.txt, además de datos reales de benchmark."
@@ -43,9 +43,17 @@ Paraglide es el enfoque de i18n utilizado en los ejemplos oficiales de TanStack 
 
 Esta guía configura estos tres componentes y luego cubre todo lo que Paraglide deja en tus manos: `lang` y `dir`, selector de idioma, metadatos traducidos, `canonical`, `hreflang` con `x-default`, Open Graph, JSON-LD, sitemap, `robots.txt`, prerenderizado y páginas 404 localizadas.
 
-> ¿Buscas otro stack? Consulta la [guía de TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/i18n_using_tanstack-start_use-intl.md), la [guía de TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/i18n_using_tanstack-start_lingui.md) o la [guía de TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack.md).
+> ¿Buscas otro stack?
+
+- [guía de TanStack Start + use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/i18n_using_tanstack-start_use-intl.md)
+- [guía de TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/i18n_using_tanstack-start_lingui.md)
+- [guía de TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack.md)
 
 > ¿Comparando los dos enfoques basados en compilador? Lee [¿es Intlayer más ligero que Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/is_intlayer_lighter_than_paraglide.md).
+
+> Para entender de dónde vienen estas bibliotecas, lee la historia del i18n en JavaScript.
+
+- [La historia del i18n en JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/history_of_i18n.md)
 
 ## Lo que dice el benchmark sobre Paraglide en TanStack Start
 
@@ -95,7 +103,11 @@ Cómo se compara Paraglide JS con las otras bibliotecas comúnmente utilizadas e
 
 > Las cifras de tamaño de runtime y fuga provienen del [benchmark de TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/benchmark/tanstack.md). La fuga se mide en la mejor configuración de cada biblioteca.
 
-> Otras guías de TanStack Start: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/i18n_using_tanstack-start_lingui.md), [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/i18n_using_tanstack-start_use-intl.md) e [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack.md).
+> Otras guías de TanStack Start:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/i18n_using_tanstack-start_lingui.md)
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/i18n_using_tanstack-start_use-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_tanstack.md)
 
 ## Prácticas recomendadas
 
@@ -108,7 +120,8 @@ Cómo se compara Paraglide JS con las otras bibliotecas comúnmente utilizadas e
 - **Genera un sitemap multilingüe y robots.txt**, y prerenderiza cada locale.
 - **Usa enlaces reales para el selector de idioma**, para que los rastreadores descubran todos los idiomas.
 
-> Consulta nuestra guía sobre [internacionalización y SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/internationalization_and_SEO.md) y la [guía de hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/hreflang_guide_multilingual_seo.md).
+- [internacionalización y SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/internationalization_and_SEO.md)
+- [guía de hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/hreflang_guide_multilingual_seo.md)
 
 ## Guía paso a paso para configurar Paraglide JS en una aplicación TanStack Start
 

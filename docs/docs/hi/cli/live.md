@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: लाइव सिंक कमांड्स
-description: रनटाइम पर CMS कंटेंट परिवर्तनों को प्रतिबिंबित करने के लिए लाइव सिंक का उपयोग कैसे करें, जानें।
+title: "intlayer live: रनटाइम पर CMS कंटेंट सिंक"
+description: "Intlayer Live Sync से CMS में किए बदलाव बिना दोबारा बिल्ड या डिप्लॉय किए चल रहे ऐप में लागू करें।"
 keywords:
   - लाइव सिंक
   - CMS

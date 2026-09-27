@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-13
-updatedAt: 2026-06-13
+updatedAt: 2026-09-27
 priority: 7
-title: "Vue I18nからIntlayerへの移行"
-description: "compatアダプタを使用してVueアプリケーションをvue-i18nからIntlayerに移行する方法を学びます。"
+title: "@intlayer/vue-i18n：vue-i18n 互換アダプター"
+description: "vue-i18n のコードはそのままで Intlayer から配信：@intlayer/vue-i18n をインストールし、インポートにエイリアスを設定して、アダプターが内部で何を変えるかを確認します。"
 keywords:
   - vue-i18n
   - vue
@@ -21,7 +21,7 @@ history:
 author: aymericzip
 ---
 
-# Vue I18n から Intlayer への移行
+# @intlayer/vue-i18n：vue-i18n 互換アダプター
 
 Vue アプリケーションが現在 `vue-i18n` を使用している場合、コンポーネントを書き直したり、フックを翻訳したりすることなく、Intlayer に移行できます。Intlayer は `vue-i18n` の API を完全に反映する互換性アダプターを提供しながら、Intlayer の強力な機能を内部で活用しています。
 
@@ -57,3 +57,7 @@ export default defineConfig({
 - **ディレクティブ：** `v-t` ディレクティブが登録され、正常に機能します。
 
 アプリケーションは以前と全く同じようにレンダリングされ続けますが、コンテンツは Intlayer ディクショナリによって駆動されるため、型安全性、より優れたバンドル最適化、シームレスな CMS 統合を得られます。
+
+> これらのライブラリがどのように生まれたのかを知るには、JavaScript i18n の歴史をご覧ください。
+
+- [JavaScript i18n の歴史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ja/history_of_i18n.md)

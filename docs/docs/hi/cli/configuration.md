@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: कॉन्फ़िगरेशन प्रबंधित करें
-description: जानें कि अपनी Intlayer कॉन्फ़िगरेशन को CMS में कैसे प्राप्त और पुश करें।
+title: "intlayer configuration: कॉन्फ़िग पढ़ें और भेजें"
+description: "Intlayer CLI से अपना रिज़ॉल्व हुआ कॉन्फ़िगरेशन देखें और Intlayer CMS पर भेजें, ताकि डैशबोर्ड और प्रोजेक्ट सिंक रहें।"
 keywords:
   - कॉन्फ़िगरेशन
   - कॉन्फ़िग

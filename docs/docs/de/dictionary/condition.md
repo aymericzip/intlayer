@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 8
-title: Bedingte Inhalte
-description: Erfahren Sie, wie Sie bedingte Inhalte in Intlayer nutzen können, um Inhalte dynamisch basierend auf bestimmten Bedingungen anzuzeigen. Folgen Sie dieser Dokumentation, um Bedingungen effizient in Ihr Projekt zu integrieren.
+title: "Bedingte Inhalte in Intlayer"
+description: "Zeigen Sie mit dem cond()-Knoten von Intlayer je nach boolescher Bedingung unterschiedliche Inhalte, einmal deklariert und beim Rendern aufgelöst."
 keywords:
   - Bedingte Inhalte
   - Dynamische Darstellung

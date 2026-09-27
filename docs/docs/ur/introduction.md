@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
 title: تعارف
 description: دریافت کریں کہ Intlayer کیسے کام کرتا ہے۔ وہ اقدامات دیکھیں جو Intlayer آپ کی ایپلیکیشن میں استعمال کرتا ہے۔ جانیں कि مختلف پیکجز کیا کرتے ہیں۔
@@ -211,8 +211,8 @@ Intlayer جدید ویب ڈیولپمنٹ کی ضروریات کو پورا کر
 - **[AdonisJS کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_adonisjs.md)**
 - **[Elysia کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_elysia.md)**
 - **[Storybook کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_storybook.md)**
-- **[next-intl کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_next-intl.md)**
-- **[next-i18next کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_with_next-i18next.md)**
+- **[next-intl کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ur/intlayer_with_next-intl.md)**
+- **[next-i18next کے ساتھ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ur/intlayer_with_next-i18next.md)**
 
 ہر انضمام گائیڈ میں Intlayer کی خصوصیات کو استعمال کرنے کے بہترین طریقے (best practices) شامل ہیں، جیسے **سرور سائیڈ رینڈرنگ (SSR)**، **ڈائنامک روٹنگ**، یا **کلائنٹ سائیڈ رینڈرنگ**، تاکہ آپ ایک تیز، SEO-دوست اور انتہائی قابل توسیع ایپلیکیشن کو برقرار رکھ سکیں۔
 

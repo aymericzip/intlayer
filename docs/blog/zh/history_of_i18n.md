@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-10
+updatedAt: 2026-09-27
 priority: 8
 title: "JavaScript 国际化 (i18n) 发展史：从 2011 到 2026 年"
-description: "深入了解 2011 至 2026 年前端国际化的演进历程。探究 React、Vue、Next.js、Angular、Svelte 与 Solid 生态中的发布节点、架构痛点及关键创新。"
+description: "2011 至 2026 年前端 i18n 的演变：React、Vue、Next.js、Angular、Svelte 和 Solid 的发布时间、架构问题与关键创新。"
 keywords:
   - i18n 发展史
   - JavaScript 国际化
@@ -49,8 +49,6 @@ author: aymericzip
 解决思路经历了多次跨越：从全局变量与 `t('key')` 查表，到面向特定框架的生态库、编译期文本提取、基于 TypeScript 的强类型推导、Server Components 服务端渲染、Tree-shaking 剪枝，再到如今在构建阶段直接将内容转换为优化代码的编译型方案。
 
 本文梳理了 2011 至 2026 年间的技术变迁：剖析每一代工具所试图攻克的问题、各自的得失，以及前端整体架构演进对当今国际化实现的深远影响。
-
-![JavaScript 国际化库生态演进](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## 目录
 
@@ -143,6 +141,8 @@ Jan Mühlemann 为快速成长的 React 社区带来了 `i18next` 适配，早�
 ## 框架时代：各生态的独立演化
 
 2016 至 2026 年间，前端基础架构发生了质的飞跃。TypeScript 成为开发标配，组件化开发深入人心，Webpack、Vite 与 Turbopack 普及了精细化代码拆分，React Server Components 重塑了服务端与客户端的边界，编译器技术更开始直接介入应用源码分析。
+
+![JavaScript 国际化库生态演进](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 下方展示了主流框架生态如何应对国际化挑战的演进脉络。在这些生态中，`react-intlayer` 及其同系方案（`next-intlayer`、`vue-intlayer`、`angular-intlayer`、`svelte-intlayer` 和 `solid-intlayer`）分别针对各自运行时的特性进行了针对性优化。
 

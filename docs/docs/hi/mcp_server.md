@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2026-08-21
+updatedAt: 2026-09-27
 priority: 6
-title: MCP सर्वर दस्तावेज़ीकरण
-description: अपने सर्वर प्रबंधन और संचालन को अनुकूलित करने के लिए MCP सर्वर की विशेषताओं और सेटअप का अन्वेषण करें।
+title: "AI असिस्टेंट के लिए Intlayer MCP सर्वर"
+description: "Intlayer MCP सर्वर को Cursor, VS Code या Claude Desktop से जोड़ें, ताकि आपका AI असिस्टेंट डॉक्स पढ़े और Intlayer सेटअप में मदद करे।"
 keywords:
   - MCP सर्वर
   - सर्वर प्रबंधन

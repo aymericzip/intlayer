@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: 我可以使用数组作为内容声明吗？
-description: 了解如何使用数组作为内容声明。
+description: "可以：在 Intlayer 中数组可以作为内容声明。介绍如何声明、翻译每一项，以及在组件中读取。"
 keywords:
   - 数组
   - 内容

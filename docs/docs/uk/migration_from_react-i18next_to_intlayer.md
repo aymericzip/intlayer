@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-05
-updatedAt: 2026-06-05
+updatedAt: 2026-09-27
 priority: 7
-title: "Міграція з react-i18next / i18next на Intlayer | Internationalization (i18n)"
-description: "Дізнайтеся, як перенести вашу React або Next.js додаток з react-i18next або i18next на Intlayer — покроково, без порушення вашого існуючого коду. Використовуйте адаптери сумісності @intlayer/react-i18next та @intlayer/i18next для безперебійного переходу."
+title: "Міграція з react-i18next на Intlayer"
+description: "Покроково перенесіть застосунок React чи Next.js з react-i18next на Intlayer, почавши з адаптерів сумісності, щоб нічого не зламати."
 keywords:
   - react-i18next
   - i18next
@@ -63,6 +63,10 @@ Intlayer також є рішенням з **найактивнішим розв
 
 </Accordion>
 </AccordionGroup>
+
+> Щоб зрозуміти, звідки взялися ці бібліотеки, прочитайте історію i18n у JavaScript.
+
+- [Історія i18n у JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/history_of_i18n.md)
 
 ## Стратегії міграції
 
@@ -347,9 +351,9 @@ Intlayer використовує модульне розширення для �
 
 ## Йди далі
 
-- **Visual Editor** — Керуйте перекладами візуально у вашому браузері: [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
-- **CMS** — Екстерналізуйте та керуйте контентом віддалено: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
-- **VS Code Extension** — Отримуйте автозаповнення та виявлення помилок перекладу в реальному часі: [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
-- **CLI Reference** — Повний список команд CLI: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
-- **Intlayer with React** — Повний посібник налаштування для React: [intlayer_with_vite+react.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)
-- **Intlayer with Next.js** — Повний посібник налаштування для Next.js: [intlayer_with_nextjs_16.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)
+- [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md)
+- [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md)
+- [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)
+- [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react.md)
+- [Intlayer with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_16.md)

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-09-30
+updatedAt: 2026-09-27
 priority: 8
-title: Make a component multilingual (i18n library) in React and Next.js
+title: "Make a React or Next.js Component Multilingual"
 description: Learn how to declare and retrieve localized content to build a multilingual React or Next.js component with Intlayer.
 keywords:
   - i18n

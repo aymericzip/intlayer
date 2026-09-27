@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 3
 title: "Lynx + React i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
-description: "अब i18next की जरूरत नहीं। 2026 में Lynx + React ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
+description: "Lynx और React मोबाइल ऐप में Intlayer सेट करें: प्रति कंपोनेंट टाइप्ड कंटेंट, डिवाइस भाषा पहचान और भाषा स्विचर।"
 keywords:
   - अंतर्राष्ट्रीयकरण
   - दस्तावेज़ीकरण
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer के साथ अपना Lynx and React mobile app अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
+# Intlayer के साथ अपना Lynx and React mobile app अनुवाद करें
 
 [एप्लीकेशन टेम्पलेट](https://github.com/aymericzip/intlayer-lynx-template) पर देखें।
 
@@ -485,8 +485,8 @@ Intlayer के साथ अपने विकास अनुभव को �
 
 ## आगे बढ़ें
 
-- **विज़ुअल एडिटर**: अनुवादों को विज़ुअली प्रबंधित करने के लिए [Intlayer विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) का उपयोग करें।
-- **CMS एकीकरण**: आप अपने शब्दकोश सामग्री को [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) से बाहरीकरण और प्राप्त भी कर सकते हैं।
-- **CLI कमांड्स**: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) का अन्वेषण करें जैसे **अनुवाद निकालना** या **लापता कुंजियों की जाँच करना।**
+- [Intlayer विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)
 
 ---

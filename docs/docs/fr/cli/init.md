@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 5
-title: Initialiser Intlayer
-description: Apprenez à initialiser Intlayer dans votre projet.
+title: "intlayer init : installer Intlayer dans votre projet"
+description: "Lancez intlayer init pour ajouter Intlayer à un projet existant : la commande détecte votre framework, installe les paquets et écrit la configuration."
 keywords:
   - Initialiser
   - CLI

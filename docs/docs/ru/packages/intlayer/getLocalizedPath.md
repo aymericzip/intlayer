@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: Документация функции getLocalizedPath | intlayer
-description: Узнайте, как использовать функцию getLocalizedPath из пакета intlayer
+description: "Используйте getLocalizedPath, чтобы превратить внутренний путь в локализованный, применяя правила перезаписи и префикс локали."
 keywords:
   - getLocalizedPath
   - перевод
@@ -161,5 +161,5 @@ getLocalizedPath("/about");
 
 ## Связанные функции
 
-- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getCanonicalPath.md): Преобразует локализованный путь обратно во внутренний канонический путь.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md): Генерирует полностью локализованный URL (включая протокол, хост и префикс локали).
+- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getCanonicalPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/intlayer/getLocalizedUrl.md)

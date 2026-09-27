@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-09-27
 priority: 4
-title: ESBuild Hatası
-description: ESBuild hatalarını nasıl düzelteceğinizi öğrenin.
+title: "Intlayer ile ESBuild hatalarını düzeltin"
+description: "Intlayer derlemesi sırasındaki ESBuild hatalarını düzeltin; genellikle framework'ünüz için eksik veya yanlış yapılandırılmış bir bundler eklentisinden kaynaklanır."
 keywords:
   - esbuild
   - hata

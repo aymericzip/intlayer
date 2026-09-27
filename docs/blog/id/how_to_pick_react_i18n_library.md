@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "Cara Memilih Library React i18n yang Tepat di Tahun 2026"
-description: Panduan keputusan untuk internasionalisasi React. Pertanyaan apa yang perlu dijawab sebelum membandingkan react-i18next, react-intl, Lingui, use-intl, Paraglide, dan Intlayer, serta apa dampak setiap pilihan terhadap ukuran bundle, typing, dan pemeliharaan.
+description: "Panduan memilih i18n untuk React: pertanyaan yang perlu dijawab sebelum membandingkan react-i18next, react-intl, Lingui, use-intl, Paraglide, dan Intlayer."
 keywords:
   - react i18n
   - internasionalisasi react
@@ -25,8 +25,6 @@ author: aymericzip
 React tidak menyediakan primitif i18n bawaan. Library yang Anda pilih sejak hari pertama menentukan bagaimana terjemahan disimpan, bagaimana terjemahan masuk ke dalam bundle, dan seberapa banyak pekerjaan yang harus Anda tangani sendiri selama beberapa tahun ke depan. Sebagian besar tim memilih berdasarkan popularitas, lalu baru menyadari konsekuensi dan komprominya saat sudah mencapai 2.000 kunci.
 
 Panduan ini mengambil pendekatan sebaliknya: jawab beberapa pertanyaan tentang proyek Anda terlebih dahulu, lalu petakan jawabannya ke library yang paling cocok. Panduan ini berfokus pada React murni (Vite, React Router, TanStack Start). Next.js memiliki batasan dan karakteristik tersendiri, yang dibahas dalam [perbandingan Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
-
-![Ekosistem library React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Daftar Isi
 
@@ -97,6 +95,8 @@ Jika jawaban Anda untuk pertanyaan 3 adalah "banyak locale, banyak halaman", per
 
 Ukuran library diambil dari [benchmark TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md): provider ditambah hook dalam komponen kosong, setelah bundling, tree-shaking, dan minifikasi, 10 halaman dan 10 locale. Konten diukur secara terpisah.
 
+![Ekosistem library React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Library                 | Gelombang    | Model konten                           | Keamanan tipe                      | Format pesan                  | Ukuran library                                           |
 | :---------------------- | :----------- | :------------------------------------- | :--------------------------------- | :---------------------------- | :------------------------------------------------------- |
 | `react-i18next`         | Runtime      | JSON terpusat, namespace               | 2/5 — Opt-in (`CustomTypeOptions`) | i18next (suffix plurals)      | ~18.4 kB                                                 |
@@ -147,7 +147,7 @@ Maka JSON terpusat tidak lagi menjadi keharusan, karena tidak ada TMS eksternal 
 </Accordion>
 <Accordion header="Anda mungkin akan beralih ke Next.js App Router nanti">
 
-React context tidak dapat melintasi batasan server/client. Library yang dibangun hanya berdasarkan hook klien (`react-i18next`, `react-intl`) akan memerlukan API server paralel saat Anda mengadopsi RSC. `use-intl` (sebagai `next-intl`) dan Intlayer (sebagai `next-intlayer`) sudah memiliki pemisahan tersebut. Baca artikel [i18n Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/list_i18n_technologies/frameworks/nextjs.md) sebelum membakukan suatu pola arsitektur.
+React context tidak dapat melintasi batasan server/client. Library yang dibangun hanya berdasarkan hook klien (`react-i18next`, `react-intl`) akan memerlukan API server paralel saat Anda mengadopsi RSC. `use-intl` (sebagai `next-intl`) dan Intlayer (sebagai `next-intlayer`) sudah memiliki pemisahan tersebut. Baca artikel [i18n Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md) sebelum membakukan suatu pola arsitektur.
 
 </Accordion>
 </AccordionGroup>
@@ -565,8 +565,8 @@ Secara tidak langsung. Apa yang dilihat oleh web crawler ditentukan oleh routing
 
 ## Langkah selanjutnya
 
-- [Benchmark library i18n: ukuran bundle, kebocoran, dan waktu peralihan locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md) dan [laporan TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
-- [React i18n: cara kerja model provider dan dampaknya](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/list_i18n_technologies/frameworks/react.md)
+- [Benchmark library i18n: ukuran bundle, kebocoran, dan waktu peralihan locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/index.md)
+- [laporan TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/benchmark/tanstack.md)
 - [react-i18next vs react-intl vs Intlayer, fitur demi fitur](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/react-i18next_vs_react-intl_vs_intlayer.md)
 - [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md)
 - [Sejarah JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
@@ -574,4 +574,9 @@ Secara tidak langsung. Apa yang dilihat oleh web crawler ditentukan oleh routing
 - [i18n per komponen vs terpusat](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/per-component_vs_centralized_i18n.md)
 - [Cara kerja optimasi bundle pada waktu build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/bundle_optimization.md)
 - [Menyiapkan i18n dalam aplikasi Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md)
-- Panduan yang sama untuk [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_vue_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_svelte_i18n_library.md), dan [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_solid_i18n_library.md)
+
+Panduan yang sama untuk
+
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/how_to_pick_solid_i18n_library.md)

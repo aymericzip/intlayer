@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 3
 title: "تدويل Lynx + React - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Lynx + React متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في تطبيق جوّال بـ Lynx وReact: محتوى مُنمَّط لكل مكوّن، واكتشاف لغة الجهاز، ومبدّل لغة."
 keywords:
   - التدويل
   - ت Documentation
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# ترجم Lynx and React mobile app باستخدام Intlayer | التدويل (i18n)
+# ترجم Lynx and React mobile app باستخدام Intlayer
 
 انظر [قالب التطبيق](https://github.com/aymericzip/intlayer-lynx-template) على GitHub.
 
@@ -479,8 +479,8 @@ export const LocaleSwitcher: FC = () => {
 
 ## المزيد من الاستكشاف
 
-- **المحرر المرئي**: استخدم [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) لإدارة الترجمات بشكل مرئي.
-- **تكامل CMS**: يمكنك أيضًا استخراج محتوى قاموسك وجلبه من [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-- **أوامر CLI**: استكشف [CLI الخاص بـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للمهام مثل **استخراج الترجمات** أو **التحقق من المفاتيح المفقودة**.
+- [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)
+- [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)
+- [CLI الخاص بـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
 
 ---

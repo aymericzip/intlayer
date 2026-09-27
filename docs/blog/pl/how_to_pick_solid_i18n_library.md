@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "Jak wybrać odpowiednią bibliotekę i18n dla Solid w 2026 roku"
-description: Przewodnik decyzyjny dotyczący internacjonalizacji w SolidJS i SolidStart. Na jakie pytania odpowiedzieć przed porównaniem @solid-primitives/i18n, solid-i18next, Paraglide, Lingui oraz Intlayer, i co każdy wybór kosztuje pod względem reaktywności, bundle size oraz typowania.
+description: "Przewodnik wyboru i18n dla SolidJS i SolidStart: pytania przed porównaniem @solid-primitives/i18n, solid-i18next, Paraglide, Lingui i Intlayer."
 keywords:
   - solidjs i18n
   - solid start i18n
@@ -25,8 +25,6 @@ author: aymericzip
 Model reaktywności Solid zmienia to, co biblioteka i18n musi robić. Komponenty uruchamiają się tylko raz, więc tłumaczenie zapisane w `const` na etapie setupu jest zamrożonym ciągiem znaków (frozen string), a biblioteka, która zwraca zwykłe stringi zamiast akcesorów (accessors), wygeneruje stronę zmieniającą język wszędzie z wyjątkiem trzech komponentów, w których ktoś tak zrobił. Wybór biblioteki dla Solid to częściowo kwestia API, a częściowo tego, która z nich utrudnia popełnienie tego błędu.
 
 Ten przewodnik przedstawia pytania, na które należy odpowiedzieć w pierwszej kolejności, a następnie odnosi je do `@solid-primitives/i18n`, `solid-i18next`, Paraglide, `@lingui/solid` oraz Intlayer, zarówno dla konfiguracji Vite + Solid, jak i SolidStart.
-
-![Ekosystem bibliotek i18n dla Solid](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Spis treści
 
@@ -88,6 +86,8 @@ Jeśli Twoją odpowiedzią na pytanie 4 było "wiele stron", potraktuj tę sekcj
 
 Rozmiary bibliotek pochodzą z [benchmarku Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/solid.md): provider plus akcesor w pustym komponencie, po bundlowaniu, tree-shakingu i minifikacji, dla aplikacji z 10 stronami i 10 locales. Content mierzony jest osobno.
 
+![Ekosystem bibliotek i18n dla Solid](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Biblioteka               | Model contentu                                 | Reaktywność przy zmianie locale                    | Bezpieczeństwo typów                   | Scoping i lazy loading      | Rozmiar biblioteki                                   |
 | :----------------------- | :--------------------------------------------- | :------------------------------------------------- | :------------------------------------- | :-------------------------- | :--------------------------------------------------- |
 | `@solid-primitives/i18n` | Płaski słownik pod Twoją kontrolą              | Signal, akcesory zwracane przez translator         | 3/5 — Wnioskowane z obiektu źródłowego | Brak wbudowanego            | ~0.6 kB                                              |
@@ -116,7 +116,7 @@ Rozmiar biblioteki Paraglide bliski zeru wynika z jej konstrukcji: runtime jest 
 </Accordion>
 <Accordion header="SolidStart z trasami z prefiksem locale i SSR">
 
-Locale musi pochodzić z adresu URL na serwerze, aby obie strony były zgodne; wykrywanie go na kliencie następuje zbyt późno. `@solid-primitives/i18n` oraz `solid-i18next` pozostawiają obsługę trasy `[[locale]]`, `matchFilters`, przekierowania i tagi w `entry-server.tsx` Tobie. Paraglide posiada plugin Vite obsługujący routing. Intlayer dostarcza middleware oraz helpery tras. Niezależnie od wyboru, umieść `<html lang>` i `hreflang` w `entry-server.tsx`; `@solidjs/meta` działa na kliencie dopiero po hydratacji w SolidStart v2. Artykuł o [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/list_i18n_technologies/frameworks/solid.md) opisuje tę konfigurację krok po kroku.
+Locale musi pochodzić z adresu URL na serwerze, aby obie strony były zgodne; wykrywanie go na kliencie następuje zbyt późno. `@solid-primitives/i18n` oraz `solid-i18next` pozostawiają obsługę trasy `[[locale]]`, `matchFilters`, przekierowania i tagi w `entry-server.tsx` Tobie. Paraglide posiada plugin Vite obsługujący routing. Intlayer dostarcza middleware oraz helpery tras. Niezależnie od wyboru, umieść `<html lang>` i `hreflang` w `entry-server.tsx`; `@solidjs/meta` działa na kliencie dopiero po hydratacji w SolidStart v2. Artykuł o [Solid i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_solid_start.md) opisuje tę konfigurację krok po kroku.
 
 </Accordion>
 <Accordion header="Zmiana locale musi być natychmiastowa i precyzyjna (fine-grained)">
@@ -443,11 +443,17 @@ Pośrednio. Crawlery zwracają uwagę na routing, `hreflang`, `<html lang>` oraz
 ## Dowiedz się więcej
 
 - [Benchmark Solid i18n: bundle size, wycieki danych i czasy przełączania locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/benchmark/solid.md)
-- [Solid i18n: dlaczego tłumaczenia zamrażają się przy zmianie locale](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/list_i18n_technologies/frameworks/solid.md)
-- [Adapter kompatybilności i18next (drop-in)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/i18next.md) oraz [przewodnik migracji z i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_i18next_to_intlayer.md)
+- [Adapter kompatybilności i18next (drop-in)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compat/i18next.md)
+- [przewodnik migracji z i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/migration_from_i18next_to_intlayer.md)
 - [Historia JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/history_of_i18n.md)
 - [Compiler vs declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/compiler_vs_declarative_i18n.md)
 - [Per-component vs centralized i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/per-component_vs_centralized_i18n.md)
 - [Jak działa optymalizacja paczki (bundle optimization) na etapie budowania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md)
-- [Konfiguracja i18n w aplikacji Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+solid.md) oraz w [aplikacji SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_solid_start.md)
-- Ten sam przewodnik dla [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_react_i18n_library.md), [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_vue_i18n_library.md) oraz [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_svelte_i18n_library.md)
+- [Konfiguracja i18n w aplikacji Vite + Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+solid.md)
+- [aplikacji SolidStart](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_solid_start.md)
+
+Ten sam przewodnik dla
+
+- [React](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_react_i18n_library.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/how_to_pick_svelte_i18n_library.md)

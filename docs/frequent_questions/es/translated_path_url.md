@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: ¿Puedo traducir la ruta de la URL?
-description: Aprende cómo traducir la ruta de la URL.
+description: "Sí: Intlayer puede traducir las rutas de URL, como /about a /es/acerca-de, con reescrituras de URL configuradas por locale."
 keywords:
   - array
   - contenido

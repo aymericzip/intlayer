@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-24
-updatedAt: 2025-11-24
+updatedAt: 2026-09-27
 priority: 8
 title: المترجم مقابل التدوين التصريحي للتدويل
 description: استكشاف التنازلات المعمارية بين التدويل "السحري" المعتمد على المترجم وإدارة المحتوى التصريحية الصريحة.
@@ -65,6 +65,10 @@ author: aymericzip
 > - angular-i18n (النهج الأصلي لـ Angular المسبق للوقت الذي يدمج ملفات XLIFF مباشرة في القوالب أثناء البناء)
 > - Tolgee (يجمع بين الكود التصريحي وSDK ضمن السياق لتحرير "انقر للترجمة" مباشرة في واجهة المستخدم)
 > - Intlayer (نهج لكل مكون، يستخدم ملفات إعلانات المحتوى التي تمكّن من tree-shaking أصلي والتحقق من TypeScript)
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## مترجم Intlayer
 

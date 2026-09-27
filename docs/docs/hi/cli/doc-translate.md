@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: दस्तावेज़ अनुवाद करें
+title: "intlayer doc translate: Markdown डॉक्स का अनुवाद"
 description: AI अनुवाद सेवाओं का उपयोग करके दस्तावेज़ फ़ाइलों को स्वचालित रूप से अनुवाद करना सीखें।
 keywords:
   - अनुवाद

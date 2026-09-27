@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-09-27
 priority: 5
 title: Liệt kê các tệp khai báo nội dung
-description: Tìm hiểu cách liệt kê tất cả các tệp khai báo nội dung trong dự án của bạn.
+description: "Liệt kê mọi file khai báo nội dung trong dự án bằng CLI Intlayer để biết từ điển của bạn được khai báo ở đâu."
 keywords:
   - Liệt kê
   - Khai báo nội dung

@@ -145,9 +145,9 @@ normalizePath("https://example.com/ru/path"); // "/path"
 
 ## 相關函式
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/packages/intlayer/getPathWithoutLocale.md): 從 URL 或路徑中刪除語言設定區段。
-- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/packages/intlayer/getPrefix.md): 取得給定語言設定的 URL 前綴。
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/packages/intlayer/getLocalizedUrl.md): 為特定語言設定生成本地化 URL。
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/packages/intlayer/getPathWithoutLocale.md)
+- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/packages/intlayer/getPrefix.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/packages/intlayer/getLocalizedUrl.md)
 
 ## TypeScript
 

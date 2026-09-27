@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Standalone Bundle
-description: Узнайте, как создать автономную JavaScript-сборку контента приложения.
+title: "intlayer standalone: Intlayer для любой страницы"
+description: "Соберите единый JavaScript-бандл Intlayer и нужных пакетов для страниц без пакетного менеджера и сборщика."
 keywords:
   - Standalone
   - Bundle

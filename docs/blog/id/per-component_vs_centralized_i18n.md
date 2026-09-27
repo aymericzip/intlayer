@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-10
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
-title: "Per-Komponen vs. i18n Terpusat: Pendekatan Baru dengan Intlayer"
+title: "i18n per komponen vs terpusat di React"
 description: Tinjauan mendalam tentang strategi internasionalisasi di React, membandingkan pendekatan terpusat, per-key, dan per-komponen, serta memperkenalkan Intlayer.
 keywords:
   - i18n
@@ -98,6 +98,10 @@ Tetapi dari semua solusi tersebut, jelas bahwa pendekatan terpusat adalah yang p
 - Kemudian, setelah sebuah library banyak diadopsi, menjadi sulit menggeser ekosistem ke pola lain.
 - Menggunakan pendekatan terpusat juga mempermudah penggunaan Translation Management Systems seperti Crowdin, Phrase, atau Localized.
 - Logika di balik pendekatan per-komponen lebih kompleks daripada yang terpusat dan membutuhkan waktu pengembangan ekstra, terutama saat Anda harus memecahkan masalah seperti mengidentifikasi di mana konten berada.
+
+> Untuk memahami asal-usul pustaka-pustaka ini, baca sejarah i18n di JavaScript.
+
+- [Sejarah i18n di JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/history_of_i18n.md)
 
 ### Oke, tapi kenapa tidak tetap berpegang pada pendekatan Terpusat?
 

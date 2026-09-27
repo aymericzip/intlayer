@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-16
-updatedAt: 2026-09-16
+updatedAt: 2026-09-27
 priority: 8
 title: "Cách chọn đúng thư viện React i18n năm 2026"
-description: Hướng dẫn ra quyết định cho việc quốc tế hóa (i18n) React. Những câu hỏi cần trả lời trước khi so sánh react-i18next, react-intl, Lingui, use-intl, Paraglide và Intlayer, cùng chi phí của từng lựa chọn về bundle size, typing và bảo trì.
+description: "Hướng dẫn chọn i18n cho React: những câu hỏi cần trả lời trước khi so sánh react-i18next, react-intl, Lingui, use-intl, Paraglide và Intlayer."
 keywords:
   - react i18n
   - react internationalization
@@ -25,8 +25,6 @@ author: aymericzip
 React không đi kèm primitive i18n nào. Thư viện bạn chọn ngay từ ngày đầu tiên sẽ quyết định cách các bản dịch được lưu trữ, cách chúng được nạp vào bundle, và bạn sẽ phải tự xử lý bao nhiêu công việc trong vài năm tiếp theo. Hầu hết các đội ngũ lựa chọn dựa trên mức độ phổ biến, rồi sau đó mới nhận ra sự đánh đổi khi ứng dụng chạm mốc 2.000 key.
 
 Hướng dẫn này tiếp cận theo hướng ngược lại: hãy trả lời vài câu hỏi về dự án của bạn trước, sau đó đối chiếu các câu trả lời với những thư viện phù hợp. Hướng dẫn tập trung vào React thuần (Vite, React Router, TanStack Start). Next.js có những ràng buộc riêng, được đề cập trong [bài so sánh Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
-
-![Hệ sinh thái thư viện React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
 
 ## Mục lục
 
@@ -97,6 +95,8 @@ Nếu câu trả lời của bạn cho câu hỏi 3 là "nhiều locale, nhiều
 
 Kích thước thư viện được lấy từ [bài benchmark trên TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md): provider kèm hook trong một component trống, sau khi bundling, tree-shaking và minification, với 10 trang và 10 locale. Nội dung được đo lường riêng biệt.
 
+![Hệ sinh thái thư viện React i18n](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+
 | Thư viện                | Làn sóng        | Mô hình nội dung                               | An toàn kiểu                         | Định dạng message             | Kích thước thư viện                                |
 | :---------------------- | :-------------- | :--------------------------------------------- | :----------------------------------- | :---------------------------- | :------------------------------------------------- |
 | `react-i18next`         | Runtime         | JSON tập trung, namespace                      | 2/5 — Tùy chọn (`CustomTypeOptions`) | i18next (hậu tố số nhiều)     | ~18.4 kB                                           |
@@ -147,7 +147,7 @@ Khi đó, một file JSON tập trung không còn là yêu cầu bắt buộc, v
 </Accordion>
 <Accordion header="Bạn có thể chuyển sang Next.js App Router sau này">
 
-React Context không thể vượt qua ranh giới giữa server và client. Các thư viện chỉ xây dựng dựa trên client hook (`react-i18next`, `react-intl`) sẽ cần một API server song song ngay khi bạn áp dụng RSC. `use-intl` (dưới dạng `next-intl`) và Intlayer (dưới dạng `next-intlayer`) đã có sẵn sự phân chia đó. Hãy đọc [bài viết về Next.js i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/list_i18n_technologies/frameworks/nextjs.md) trước khi chuẩn hóa một mô hình.
+React Context không thể vượt qua ranh giới giữa server và client. Các thư viện chỉ xây dựng dựa trên client hook (`react-i18next`, `react-intl`) sẽ cần một API server song song ngay khi bạn áp dụng RSC. `use-intl` (dưới dạng `next-intl`) và Intlayer (dưới dạng `next-intlayer`) đã có sẵn sự phân chia đó. Hãy đọc [bài viết về Next.js i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md) trước khi chuẩn hóa một mô hình.
 
 </Accordion>
 </AccordionGroup>
@@ -565,8 +565,8 @@ Một phần. Các thư viện dựa trên key chia sẻ cấu trúc đủ tươ
 
 ## Đọc thêm
 
-- [Benchmark các thư viện i18n: kích thước bundle, rò rỉ và thời gian chuyển đổi locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md) và [báo cáo TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
-- [React i18n: mô hình provider hoạt động như thế nào và chi phí ra sao](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/list_i18n_technologies/frameworks/react.md)
+- [Benchmark các thư viện i18n: kích thước bundle, rò rỉ và thời gian chuyển đổi locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/index.md)
+- [báo cáo TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/benchmark/tanstack.md)
 - [react-i18next so với react-intl so với Intlayer, so sánh từng tính năng](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/react-i18next_vs_react-intl_vs_intlayer.md)
 - [next-i18next so với next-intl so với Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md)
 - [Lịch sử của JavaScript i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/history_of_i18n.md)
@@ -574,4 +574,9 @@ Một phần. Các thư viện dựa trên key chia sẻ cấu trúc đủ tươ
 - [i18n theo từng component so với tập trung](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/per-component_vs_centralized_i18n.md)
 - [Cách tối ưu hóa bundle hoạt động trong thời gian build](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/bundle_optimization.md)
 - [Thiết lập i18n trong ứng dụng Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react.md)
-- Hướng dẫn tương tự cho [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_vue_i18n_library.md), [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_svelte_i18n_library.md) và [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_solid_i18n_library.md)
+
+Hướng dẫn tương tự cho
+
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_vue_i18n_library.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_svelte_i18n_library.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/how_to_pick_solid_i18n_library.md)

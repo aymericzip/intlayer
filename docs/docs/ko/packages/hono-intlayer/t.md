@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-02
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 5
 title: t 함수 문서 | hono-intlayer
-description: hono-intlayer 패키지의 t 함수 사용법 알아보기
+description: "hono-intlayer의 t 함수로 요청마다 감지된 로케일에 따라 Hono에서 현지화된 응답을 반환합니다."
 keywords:
   - t
   - 번역

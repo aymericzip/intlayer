@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "تدويل Astro + Vue - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Astro + Vue متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+description: "إعداد Intlayer في Astro مع جزر Vue: مكوّنات مترجمة، ومسارات مترجمة وhreflang، ومحتوى مُنمَّط لكل مكوّن."
 keywords:
   - التدويل
   - توثيق
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# ترجمة موقع Astro + Vue الخاص بك باستخدام Intlayer | التدويل (i18n)
+# ترجمة موقع Astro + Vue الخاص بك باستخدام Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="كود" value="code">

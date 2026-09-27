@@ -3,7 +3,7 @@ createdAt: 2025-12-30
 updatedAt: 2026-05-31
 priority: 9
 title: "Fastify i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Fastify uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Fastify'da Intlayer kurulumu: eklentiyle her istekte locale algılama, API yanıtlarını ve hata mesajlarını çevirme, uçtan uca tip güvenliği."
 keywords:
   - Uluslararasılaştırma
   - Belgeler
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer Kullanarak Fastify Backend Web Sitenizi Çevirin | Uluslararasılaştırma (i18n)
+# Intlayer Kullanarak Fastify Backend Web Sitenizi Çevirin
 
 `fastify-intlayer`, Fastify uygulamaları için güçlü bir uluslararasılaştırma (i18n) eklentisidir ve istemcinin tercihlerine göre yerelleştirilmiş yanıtlar sağlayarak backend hizmetlerinizi küresel olarak erişilebilir kılmak için tasarlanmıştır.
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Terjemahkan Dokumen
+title: "intlayer doc translate: terjemahkan dokumentasi Markdown"
 description: Pelajari cara menerjemahkan file dokumentasi secara otomatis menggunakan layanan terjemahan AI.
 keywords:
   - Terjemahkan

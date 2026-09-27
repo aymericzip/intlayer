@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-09-20
+updatedAt: 2026-09-27
 priority: 9
 title: "Vite + Lit i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Vite + Lit uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+description: "Vite ve Lit uygulamasında Intlayer kurulumu: reaktif controller ile çevrilmiş web bileşenleri, dil seçici ve tipli içerik."
 keywords:
   - Uluslararasılaştırma
   - Belgeler
@@ -28,7 +28,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer kullanarak Vite ve Lit web sitenizi çevirin | Uluslararasılaştırma (i18n)
+# Intlayer kullanarak Vite ve Lit web sitenizi çevirin
 
 <Tabs defaultTab="code">
   <Tab label="Kod" value="code">

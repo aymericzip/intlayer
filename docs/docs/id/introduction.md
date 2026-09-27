@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
-title: Pengenalan
+title: "Mulai dengan Intlayer: i18n untuk framework apa pun"
 description: Temukan bagaimana Intlayer bekerja. Lihat langkah-langkah yang digunakan oleh Intlayer di aplikasi Anda. Temukan apa yang dilakukan oleh berbagai paket yang ada.
 keywords:
   - Pengenalan
@@ -211,8 +211,8 @@ Kami membangun Intlayer dengan mempertimbangkan fleksibilitas, menawarkan integr
 - **[Intlayer dengan AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_adonisjs.md)**
 - **[Intlayer dengan Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_elysia.md)**
 - **[Intlayer dengan Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_storybook.md)**
-- **[Intlayer dengan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_next-intl.md)**
-- **[Intlayer dengan next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_next-i18next.md)**
+- **[Intlayer dengan next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/intlayer_with_next-intl.md)**
+- **[Intlayer dengan next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/intlayer_with_next-i18next.md)**
 
 Setiap panduan integrasi mencakup praktik terbaik untuk menggunakan fitur Intlayer, seperti **perenderan sisi server (SSR)**, **perutean dinamis**, atau **perenderan sisi klien**, sehingga Anda dapat mempertahankan aplikasi yang cepat, ramah SEO, dan sangat skalabel.
 

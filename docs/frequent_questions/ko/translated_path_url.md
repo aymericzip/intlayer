@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: URL 경로를 번역할 수 있나요?
-description: URL 경로를 번역하는 방법을 알아보세요.
+description: "네, Intlayer는 /about을 /ko/about-us처럼 URL 경로를 번역할 수 있습니다. 로케일별로 URL 재작성을 설정하세요."
 keywords:
   - 배열
   - 콘텐츠

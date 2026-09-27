@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-09-06
+updatedAt: 2026-09-27
 priority: 10
 title: Úvod
 description: Zjistěte, jak Intlayer funguje. Podívejte se na kroky, které Intlayer ve vaší aplikaci používá. Objevte, co dělají různé balíčky.
@@ -211,8 +211,8 @@ Vybudovali jsme Intlayer s ohledem na flexibilitu a nabízíme bezproblémovou i
 - **[Intlayer s AdonisJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_with_adonisjs.md)**
 - **[Intlayer s Elysia](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_with_elysia.md)**
 - **[Intlayer s Storybook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_with_storybook.md)**
-- **[Intlayer s next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_with_next-intl.md)**
-- **[Intlayer s next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_with_next-i18next.md)**
+- **[Intlayer s next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/cs/intlayer_with_next-intl.md)**
+- **[Intlayer s next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/cs/intlayer_with_next-i18next.md)**
 
 Každý průvodce integrací obsahuje osvědčené postupy pro využívání funkcí Intlayer, jako je **vykreslování na straně serveru (SSR)**, **dynamické směrování** nebo **vykreslování na straně klienta**, abyste mohli udržovat rychlou, vysoce škálovatelnou aplikaci přátelskou pro SEO.
 

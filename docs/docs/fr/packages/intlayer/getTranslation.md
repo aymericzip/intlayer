@@ -3,7 +3,7 @@ createdAt: 2024-08-11
 updatedAt: 2025-06-29
 priority: 5
 title: Documentation de la fonction getTranslation | intlayer
-description: Découvrez comment utiliser la fonction getTranslation pour le package intlayer
+description: "Utilisez getTranslation (alias t) pour choisir le contenu d'une locale dans un objet de traductions, avec repli sur la locale par défaut."
 keywords:
   - getTranslation
   - traduction

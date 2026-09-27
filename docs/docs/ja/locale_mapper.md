@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: ロケールマッパー
-description: ロケールマッパーの動作方法を解説します。アプリケーションでロケールマッパーが使用する手順を確認しましょう。各パッケージの役割も説明します。
+title: "Locale Mapper：localeMap、localeFlatMap、localeRecord"
+description: "localeMap、localeFlatMap、localeRecord でロケールデータを変換し、ルート、静的パラメーター、ロケールごとのオブジェクトを生成します。"
 keywords:
   - ロケールマッパー
   - はじめに

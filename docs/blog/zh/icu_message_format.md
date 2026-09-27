@@ -283,9 +283,9 @@ totalOpenings(5); // 中文语言环境 → "5 个职位空缺"
 
 ## 延伸阅读
 
-- [Intlayer 中的复数内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plurial.md)：基于 CLDR 的 `plural` 节点及复数类别表。
-- [基于 select 的条件内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/select.md)：ICU `select` 的对应功能，以及何时选用 `enu` 或 `cond`。
-- [插值占位符](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)：`{{name}}` 插值语法与自动变量检测。
-- [主流 i18n 库基准性能评测](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)：各方案在打包体积与运行时代价方面的详细对比。
-- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/react-i18next_vs_react-intl_vs_intlayer.md)：三套消息机制方案的深度横向评测。
-- [什么是国际化（i18n）？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/what_is_internationalization.md)：i18n 的概念起源、与 l10n 的本质区别，以及超越消息格式化范畴的全局视野。
+- [Intlayer 中的复数内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plurial.md)
+- [基于 select 的条件内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/select.md)
+- [插值占位符](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)
+- [主流 i18n 库基准性能评测](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
+- [react-i18next vs react-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/react-i18next_vs_react-intl_vs_intlayer.md)
+- [什么是国际化（i18n）？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/what_is_internationalization.md)

@@ -3,7 +3,7 @@ createdAt: 2025-08-23
 updatedAt: 2025-08-23
 priority: 5
 title: Документація хука useDictionary | next-intlayer
-description: Дізнайтеся, як використовувати хук useDictionary з пакету next-intlayer
+description: "Використовуйте useDictionary у Next.js, щоб обробити оголошений вами об'єкт словника з перекладами для поточної локалі."
 keywords:
   - useDictionary
   - словник

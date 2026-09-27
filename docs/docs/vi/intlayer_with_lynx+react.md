@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2026-05-31
+updatedAt: 2026-09-27
 priority: 3
 title: "Lynx + React i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Lynx + React đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+description: "Thiết lập Intlayer trong ứng dụng di động Lynx và React: nội dung có kiểu theo component, nhận diện ngôn ngữ thiết bị và bộ chuyển ngôn ngữ."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -30,7 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web ứng dụng di động Lynx và React của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web ứng dụng di động Lynx và React của bạn bằng Intlayer
 
 Xem [Application Template](https://github.com/aymericzip/intlayer-lynx-template) trên GitHub.
 
@@ -470,8 +470,8 @@ Tiện ích mở rộng này cung cấp:
 
 ## Đi xa hơn
 
-- **Trình chỉnh sửa trực quan**: Sử dụng [Trình chỉnh sửa trực quan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) để quản lý bản dịch một cách trực quan.
-- **Tích hợp CMS**: Bạn cũng có thể ngoại vi hóa và lấy nội dung từ điển của mình từ một [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
-- **Lệnh CLI**: Khám phá [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) cho các tác vụ như **trích xuất bản dịch** hoặc **kiểm tra các khóa bị thiếu**.
+- [Trình chỉnh sửa trực quan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md)
+- [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)
+- [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
 
 ---

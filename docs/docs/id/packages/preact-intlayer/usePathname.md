@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Hook usePathname | preact-intlayer
-description: Lihat bagaimana cara menggunakan hook usePathname pada paket preact-intlayer
+description: "Gunakan usePathname di Preact untuk membaca path saat ini tanpa segmen locale, untuk navigasi berbasis locale dan tautan aktif."
 keywords:
   - usePathname
   - pathname
@@ -114,5 +114,5 @@ export default Sidebar;
 
 ## Terkait
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/preact-intlayer/exports.md) — locale saat ini + pengubah locale
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getPathWithoutLocale.md) — utilitas dasar yang digunakan oleh hook ini
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/preact-intlayer/exports.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getPathWithoutLocale.md)

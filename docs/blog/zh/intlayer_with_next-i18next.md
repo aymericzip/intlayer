@@ -53,6 +53,10 @@ author: aymericzip
 
 本指南将展示如何利用 Intlayer 优越的内容声明系统，同时保持与 next-i18next 的兼容性。
 
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
+
 ## 使用 next-i18next 设置 Intlayer 的分步指南
 
 <Steps>

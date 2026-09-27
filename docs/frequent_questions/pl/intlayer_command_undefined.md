@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Komenda Intlayer niezdefiniowana
-description: Dowiedz się, jak naprawić błąd niezdefiniowanej komendy intlayer.
+description: "Napraw błąd „intlayer: command not found”: zainstaluj CLI, uruchamiaj je przez menedżer pakietów i sprawdź PATH."
 keywords:
   - intlayer
   - komenda

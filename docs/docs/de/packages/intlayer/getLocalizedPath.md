@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-22
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 5
 title: getLocalizedPath Funktionsdokumentation | intlayer
-description: Anleitung zur Verwendung der Funktion getLocalizedPath im intlayer-Paket
+description: "Nutzen Sie getLocalizedPath, um einen internen Pfad in seine lokalisierte Form zu bringen, mit Ihren Rewrite-Regeln und dem Locale-Präfix."
 keywords:
   - getLocalizedPath
   - Übersetzung
@@ -161,5 +161,5 @@ getLocalizedPath("/about");
 
 ## Verwandte Funktionen
 
-- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getCanonicalPath.md): Löst einen lokalisierten Pfad zurück auf seinen internen kanonischen Pfad.
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getLocalizedUrl.md): Erzeugt eine vollständig lokalisierte URL (inkl. Protokoll, Host und Locale-Präfix).
+- [`getCanonicalPath`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getCanonicalPath.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getLocalizedUrl.md)

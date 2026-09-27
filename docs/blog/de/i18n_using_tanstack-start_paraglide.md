@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "TanStack Start i18n mit Paraglide JS: Setup-Leitfaden 2026"
 description: "Übersetzen Sie Ihre TanStack Start-App mit Paraglide JS: URL-Strategie, Router-Rewrite, SSR-Middleware, hreflang, Sitemap und robots.txt sowie echte Benchmark-Daten."
@@ -43,9 +43,17 @@ Paraglide ist der i18n-Ansatz, der in den offiziellen TanStack Router-Beispielen
 
 Dieser Leitfaden richtet alle drei Komponenten ein und deckt anschließend alles ab, was Paraglide Ihnen überlässt: `lang` und `dir`, Sprachwechsler, übersetzte Metadaten, `canonical`, `hreflang` mit `x-default`, Open Graph, JSON-LD, Sitemap, `robots.txt`, Pre-Rendering und lokalisierte 404-Seiten.
 
-> Suchen Sie nach einem anderen Stack? Schauen Sie sich den [TanStack Start + use-intl-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18n_using_tanstack-start_use-intl.md), den [TanStack Start + Lingui-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18n_using_tanstack-start_lingui.md) oder den [TanStack Start + Intlayer-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_tanstack.md) an.
+> Suchen Sie nach einem anderen Stack?
+
+- [TanStack Start + use-intl-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18n_using_tanstack-start_use-intl.md)
+- [TanStack Start + Lingui-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18n_using_tanstack-start_lingui.md)
+- [TanStack Start + Intlayer-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_tanstack.md)
 
 > Sie möchten die beiden compilerbasierten Ansätze vergleichen? Lesen Sie [Ist Intlayer schlanker als Paraglide?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/is_intlayer_lighter_than_paraglide.md).
+
+> Um zu verstehen, woher diese Bibliotheken kommen, lesen Sie die Geschichte von i18n in JavaScript.
+
+- [Die Geschichte von i18n in JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/history_of_i18n.md)
 
 ## Was der Benchmark über Paraglide auf TanStack Start aussagt
 
@@ -95,7 +103,11 @@ Wie sich Paraglide JS im Vergleich zu anderen häufig auf TanStack Start verwend
 
 > Die Zahlen zu Runtime-Größe und Leak stammen aus dem [TanStack Start Benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/benchmark/tanstack.md). Der Leak wird anhand des besten Setups der jeweiligen Bibliothek gemessen.
 
-> Weitere TanStack Start-Leitfäden: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18n_using_tanstack-start_lingui.md), [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18n_using_tanstack-start_use-intl.md) und [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_tanstack.md).
+> Weitere TanStack Start-Leitfäden:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18n_using_tanstack-start_lingui.md)
+- [use-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/i18n_using_tanstack-start_use-intl.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_tanstack.md)
 
 ## Praktiken, die Sie befolgen sollten
 
@@ -108,7 +120,8 @@ Wie sich Paraglide JS im Vergleich zu anderen häufig auf TanStack Start verwend
 - **Generieren Sie eine mehrsprachige Sitemap und robots.txt** und rendern Sie jedes Gebietsschema vorab (Pre-Rendering).
 - **Verwenden Sie echte Links für den Sprachwechsler**, damit Crawler jede Sprache entdecken können.
 
-> Siehe auch unseren Leitfaden zu [Internationalisierung und SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/internationalization_and_SEO.md) und den [hreflang-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/hreflang_guide_multilingual_seo.md).
+- [Internationalisierung und SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/internationalization_and_SEO.md)
+- [hreflang-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/hreflang_guide_multilingual_seo.md)
 
 ## Schritt-für-Schritt-Anleitung zur Einrichtung von Paraglide JS in einer TanStack Start-Anwendung
 

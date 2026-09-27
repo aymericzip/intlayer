@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-09-27
 priority: 5
-title: Перелік проєктів Intlayer
+title: "intlayer projects list: пошук проєктів Intlayer"
 description: Дізнайтеся, як перелічити всі проєкти Intlayer у директорії або git-репозиторії.
 keywords:
   - Список

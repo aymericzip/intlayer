@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
 title: Documentación de la función getDictionary | intlayer
-description: Consulta cómo usar la función getDictionary para el paquete intlayer
+description: "Usa getDictionary para interpretar un objeto diccionario que tú pasas y obtener su contenido para una locale, aplicando todos los plugins de contenido."
 keywords:
   - getDictionary
   - dictionary
@@ -124,9 +124,9 @@ const allItems = getDictionary(blogPostGroup, { locale: "fr" });
 
 ## Funciones Relacionadas
 
-- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getIntlayer.md): Misma interpretación, pero el diccionario se busca por clave en el registro generado.
-- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getDictionaryAsync.md): Contraparte para mapas de cargadores por locale.
-- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useDictionary.md): El equivalente del hook de React, leyendo el locale del proveedor.
+- [`getIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getIntlayer.md)
+- [`getDictionaryAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getDictionaryAsync.md)
+- [`useDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useDictionary.md)
 
 ## TypeScript
 

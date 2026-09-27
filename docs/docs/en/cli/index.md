@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-23
+updatedAt: 2026-09-27
 priority: 8
-title: CLI - All Intlayer CLI commands for your multilingual website
+title: "Intlayer CLI: All Commands for Multilingual Apps"
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
   - CLI
@@ -137,19 +137,19 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 ### Core Commands
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/build.md)** - Build your dictionaries from content declaration files
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/watch.md)** - Watch for changes and automatically build dictionaries
-- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/standalone.md)** - Create a standalone JavaScript bundle containing Intlayer and specified packages
-- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/version.md)** - Check the installed Intlayer CLI version
-- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/list_projects.md)** - List all Intlayer projects in a directory or git repository
+- [Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/build.md)
+- [Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/watch.md)
+- [Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/standalone.md)
+- [Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/version.md)
+- [List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/list_projects.md)
 
 ### Dictionary Management
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/push.md)** - Push dictionaries to the Intlayer editor and CMS
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/pull.md)** - Pull dictionaries from the Intlayer editor and CMS
-- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/fill.md)** - Fill, audit, and translate dictionaries using AI
-- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/test.md)** - Test and identify missing translations
-- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/list.md)** - List all content declaration files in your project
+- [Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/push.md)
+- [Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/pull.md)
+- [Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/fill.md)
+- [Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/test.md)
+- [List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/list.md)
 
 ### Component Management
 
@@ -157,20 +157,20 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 ### Configuration
 
-- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/init.md)** - Set up Intlayer in your project with automatic configuration
-- **[Set Up Infrastructure](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/infra.md)** - Install the desktop app or self-host the CMS with Docker (all-in-one or Compose)
-- **[Upgrade Intlayer Packages](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/upgrade.md)** - List the Intlayer packages of every `package.json` and upgrade them to the latest version
-- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/configuration.md)** - Get and push your Intlayer configuration to the CMS
+- [Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/init.md)
+- [Set Up Infrastructure](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/infra.md)
+- [Upgrade Intlayer Packages](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/upgrade.md)
+- [Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/configuration.md)
 
 ### Documentation Management
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/doc-translate.md)** - Automatically translate documentation files using AI
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/doc-review.md)** - Review documentation files for quality and consistency
+- [Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/doc-translate.md)
+- [Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/doc-review.md)
 
 ### Editor & Live Sync
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/editor.md)** - Use the Intlayer editor commands
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md)** - Use Live Sync to reflect CMS content changes at runtime
+- [Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/editor.md)
+- [Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md)
 
 ### Auditing & Diagnostics
 
@@ -178,8 +178,8 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 ### Development Tools
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/sdk.md)** - Use the Intlayer CLI SDK in your own code
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/debug.md)** - Debug and troubleshoot Intlayer CLI issues
+- [CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/sdk.md)
+- [Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/debug.md)
 
 ## Use intlayer commands in your `package.json`
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-01-22
+updatedAt: 2026-09-27
 priority: 4
 title: URL yolunu çevirebilir miyim?
-description: URL yolunun nasıl çevrileceğini öğrenin.
+description: "Evet: Intlayer, locale başına yapılandırılan URL yeniden yazma ile /about'u /tr/hakkimizda gibi URL yollarına çevirebilir."
 keywords:
   - dizi
   - içerik

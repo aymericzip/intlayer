@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-07-30
-updatedAt: 2026-07-30
+updatedAt: 2026-09-27
 priority: 8
-title: Treść Oparta na Wyborze (Select)
-description: Dowiedz się, jak używać treści opartej na wyborze w Intlayer do dynamicznego renderowania treści na podstawie dowolnej wartości znakowej (string). Postępuj zgodnie z tą dokumentacją, aby efektywnie zaimplementować zawartość typu switch w swoim projekcie.
+title: "Treść oparta na wyborze w Intlayer"
+description: "Wybieraj treść na podstawie dowolnej wartości tekstowej za pomocą węzła select w Intlayer, odpowiednika switch dla statusów, ról czy wariantów."
 keywords:
   - Treść Oparta na Wyborze
   - Select Content

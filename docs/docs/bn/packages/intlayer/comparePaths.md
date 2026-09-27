@@ -145,9 +145,9 @@ normalizePath("https://example.com/ru/path"); // "/path"
 
 ## সম্পর্কিত ফাংশন
 
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/packages/intlayer/getPathWithoutLocale.md): একটি URL বা পাথ থেকে লোকেল সেগমেন্ট মুছে ফেলে।
-- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/packages/intlayer/getPrefix.md): একটি প্রদত্ত লোকেলের জন্য URL প্রিফিক্স নির্ধারণ করে।
-- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/packages/intlayer/getLocalizedUrl.md): একটি নির্দিষ্ট লোকেলের জন্য স্থানীয়কৃত (localized) URL তৈরি করে।
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/packages/intlayer/getPathWithoutLocale.md)
+- [`getPrefix`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/packages/intlayer/getPrefix.md)
+- [`getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/packages/intlayer/getLocalizedUrl.md)
 
 ## TypeScript
 

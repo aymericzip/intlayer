@@ -3,7 +3,7 @@ createdAt: 2025-06-18
 updatedAt: 2026-05-31
 priority: 9
 title: "Nuxt i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Nuxt multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+description: "Siapkan Intlayer di Nuxt: konten bertipe per komponen, routing dan deteksi locale, meta tag SEO terlokalisasi, dan sitemap multibahasa."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs web Nuxt dan Vue Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web Nuxt dan Vue Anda menggunakan Intlayer
 
 ## Daftar Isi
 

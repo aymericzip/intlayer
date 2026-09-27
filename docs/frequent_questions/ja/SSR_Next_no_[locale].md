@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
-title: ページパスに `[locale]` を含めずに Next.js で Intlayer を使用することは可能ですか？
+title: "パスに [locale] を含めずに Next.js で Intlayer を使う"
 description: ページパスに `[locale]` を含めずに Next.js で Intlayer を使用する方法を学びます。
 keywords:
   - ロケール

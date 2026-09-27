@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "使用 next-i18next 实现 Next.js 16 i18n：App Router 配置指南"
 description: "在 Next.js 16 App Router 应用中逐步配置 next-i18next 和 i18next：命名空间、语言路由、服务端与客户端组件，以及 SEO 元数据。"
@@ -44,6 +44,10 @@ author: aymericzip
 > 作为替代方案，您也可以参考 [next-intl 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/i18n_using_next-intl.md)，或直接使用 [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_16.md)。
 
 > 查看 [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md) 中的比较。
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
 
 ## 基准测试对 Next.js 上 next-i18next 的结论
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Astro + Lit i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
-description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Astro + Lit. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
+description: "Konfiguracja Intlayer w Astro z wyspami Lit: przetłumaczone web components, zlokalizowane trasy i hreflang, typowana treść per komponent."
 keywords:
   - międzynarodowość
   - dokumentacja
@@ -33,7 +33,7 @@ history:
 author: aymericzip
 ---
 
-# Przetłumacz swoją witrynę Astro + Lit za pomocą Intlayer | Międzynarodowość (i18n)
+# Przetłumacz swoją witrynę Astro + Lit za pomocą Intlayer
 
 <Tabs defaultTab="code">
   <Tab label="Kod" value="code">

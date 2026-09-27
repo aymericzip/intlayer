@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-06
+updatedAt: 2026-09-27
 priority: 5
 title: Documentazione dell'hook useIntlayer | solid-intlayer
-description: Scopri come usare l'hook useIntlayer per il pacchetto solid-intlayer
+description: "Usa useIntlayer in Solid per leggere il contenuto localizzato di un dizionario tramite chiave, come valori reattivi che seguono la locale."
 keywords:
   - useIntlayer
   - dizionario

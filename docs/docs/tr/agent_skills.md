@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-02-09
-updatedAt: 2026-03-03
+updatedAt: 2026-09-27
 priority: 6
-title: Agent Skills
-description: Intlayer Agent Skills'i kullanarak, Metadata, Sitemap ve Server Action'lar için kapsamlı kurulum kılavuzları da dahil olmak üzere AI ajanınızın projenizi anlamasını nasıl geliştireceğinizi öğrenin.
+title: "Yapay zeka kodlama ajanları için Intlayer Agent Skills"
+description: "Yapay zeka kodlama ajanınıza Intlayer yetenekleri verin: içerik, metadata, sitemap ve server actions için kurulum rehberleri."
 keywords:
   - Intlayer
   - Agent Skills

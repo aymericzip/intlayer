@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Керування конфігурацією
-description: Дізнайтеся, як отримувати та завантажувати вашу конфігурацію Intlayer у CMS.
+title: "intlayer configuration: отримання та надсилання конфігурації"
+description: "Виведіть підсумкову конфігурацію через CLI Intlayer і надішліть її в Intlayer CMS, щоб панель і проєкт залишалися синхронізованими."
 keywords:
   - Конфігурація
   - Налаштування

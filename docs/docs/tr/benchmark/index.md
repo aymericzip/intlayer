@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 8
-title: i18n Kütüphaneleri Karşılaştırması (Benchmark)
+title: "i18n kütüphaneleri benchmark'ı: bundle ve performans"
 description: Intlayer'ın performans ve bundle boyutu açısından diğer i18n kütüphaneleriyle nasıl karşılaştırıldığını öğrenin.
 keywords:
   - benchmark
@@ -40,3 +40,7 @@ Her çatı için ayrıntılı raporlar ve teknik belgeleri aşağıda bulabilirs
 - [**Vue Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
 - [**Solid Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md)
 - [**Svelte Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
+
+> Bu kütüphanelerin nereden geldiğini anlamak için JavaScript i18n tarihini okuyun.
+
+- [JavaScript i18n tarihi](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/history_of_i18n.md)

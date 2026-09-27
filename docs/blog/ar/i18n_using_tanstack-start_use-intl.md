@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-09-26
-updatedAt: 2026-09-26
+updatedAt: 2026-09-27
 priority: 9
 title: "تدويل TanStack Start مع use-intl: دليل الإعداد الشامل لعام 2026"
 description: "ترجم تطبيق TanStack Start الخاص بك باستخدام use-intl: التوجيه بحسب اللغة، الرسائل المكتوبة بأنواع TypeScript، العرض على الخادم SSR، و hreflang وخريطة الموقع sitemap و robots.txt، مع بيانات مقارنة حجم الحزمة الحقيقية."
@@ -41,9 +41,17 @@ author: aymericzip
 - **العرض على الخادم (SSR) والترطيب (Hydration)** دون أي تباين في النصوص.
 - **تحسين شامل لمحركات البحث متعدد اللغات**: وسوم `<title>` ووصف مترجمة، والرابط الأساسي (canonical URL)، وبدائل `hreflang` مع `x-default`، ولغات Open Graph، وبيانات JSON-LD المنظمة، وخريطة موقع مع بدائل `xhtml:link`، وملف `robots.txt`، والعرض المسبق لكل لغة.
 
-> هل تبحث عن حزمة تقنية أخرى؟ راجع [دليل TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_paraglide.md)، أو [دليل TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_lingui.md)، أو [دليل TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md).
+> هل تبحث عن حزمة تقنية أخرى؟
+
+- [دليل TanStack Start + Paraglide](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_paraglide.md)
+- [دليل TanStack Start + Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_lingui.md)
+- [دليل TanStack Start + Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md)
 
 > هل تستخدم Next.js بدلاً من ذلك؟ راجع [دليل next-intl](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_next-intl.md).
+
+> لفهم أصل هذه المكتبات، اقرأ تاريخ i18n في JavaScript.
+
+- [تاريخ i18n في JavaScript](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/history_of_i18n.md)
 
 ## ماذا تقول المقارنة المعيارية (Benchmark) عن use-intl على TanStack Start
 
@@ -91,7 +99,11 @@ author: aymericzip
 
 > أرقام حجم بيئة التشغيل ونسبة التسريب مأخوذة من [الاختبار المعياري لـ TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/benchmark/tanstack.md). تم قياس التسريب بناءً على أفضل إعداد لكل مكتبة.
 
-> أدلة TanStack Start الأخرى: [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_lingui.md)، و[Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_paraglide.md)، و[Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md).
+> أدلة TanStack Start الأخرى:
+
+- [Lingui](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_lingui.md)
+- [Paraglide JS](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/i18n_using_tanstack-start_paraglide.md)
+- [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_tanstack.md)
 
 ## أفضل الممارسات التي ينبغي اتباعها
 
@@ -105,7 +117,8 @@ author: aymericzip
 - **استخدام روابط حقيقية لمبدل اللغة**، وليس عنصر `<select>`، حتى تتمكن برامج الزحف من اكتشاف جميع اللغات.
 - **تحديد أنواع رسائلك بواسطة TypeScript** بحيث يفشل أي مفتاح مفقود في وقت الترجمة البرمجية (compile time).
 
-> راجع دليلنا حول [التدويل وتحسين محركات البحث (SEO)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/internationalization_and_SEO.md) و[دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md).
+- [التدويل وتحسين محركات البحث (SEO)](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/internationalization_and_SEO.md)
+- [دليل hreflang](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/hreflang_guide_multilingual_seo.md)
 
 ## دليل خطوة بخطوة لإعداد use-intl في تطبيق TanStack Start
 

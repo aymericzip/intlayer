@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: Locale Mapper
-description: Discover how Locale Mapper works. See the steps used by Locale Mapper in your application. See what does the different packages do.
+title: "Locale Mapper: localeMap, localeFlatMap, localeRecord"
+description: "Transform locale data with localeMap, localeFlatMap and localeRecord to build routes, static params and per-locale records."
 keywords:
   - Locale Mapper
   - Get started

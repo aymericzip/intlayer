@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Budowanie słowników
+title: "intlayer build: budowanie słowników"
 description: Dowiedz się, jak budować swoje słowniki Intlayer z plików deklaracji treści.
 keywords:
   - Budowanie

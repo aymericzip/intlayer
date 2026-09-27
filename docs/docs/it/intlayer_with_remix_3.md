@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-09-09
-updatedAt: 2026-09-21
+updatedAt: 2026-09-27
 priority: 9
 title: "Remix 3 i18n - Guida completa per tradurre la tua applicazione"
-description: "Dimentica i18next. La guida 2026 per creare un'applicazione Remix 3 multilingue (i18n). Traduci con agenti IA e ottimizza le dimensioni del bundle, la SEO e le prestazioni."
+description: "Configura Intlayer in Remix 3: rilevamento della locale nel middleware del router, handler e viste tradotti, URL localizzati."
 keywords:
   - Internazionalizzazione
   - Documentazione
@@ -29,7 +29,7 @@ history:
 author: aymericzip
 ---
 
-# Traduci il tuo sito web Remix 3 usando Intlayer | Internazionalizzazione (i18n)
+# Traduci il tuo sito web Remix 3 usando Intlayer
 
 Questa guida illustra come integrare **Intlayer** per un'internazionalizzazione fluida nelle applicazioni **Remix 3** con routing basato sulla lingua, dichiarazioni di contenuti con sicurezza dei tipi, componenti JSX renderizzati lato server e supporto multi-runtime su Node.js, Bun, Deno e Cloudflare Workers.
 

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-09-27
 priority: 5
 title: validatePrefix फ़ंक्शन दस्तावेज़ | intlayer
-description: देखें कि intlayer पैकेज के लिए validatePrefix फ़ंक्शन का उपयोग कैसे करें
+description: "validatePrefix से जाँचें कि कोई URL सेगमेंट Intlayer कॉन्फ़िगरेशन के अनुसार मान्य लोकेल प्रीफ़िक्स है या नहीं।"
 keywords:
   - validatePrefix
   - अनुवाद

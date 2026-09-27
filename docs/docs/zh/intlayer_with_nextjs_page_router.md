@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-12-07
-updatedAt: 2026-08-30
+updatedAt: 2026-09-27
 priority: 9
-title: "Next.js Page Router i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Next.js Page Router 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+title: "Next.js Pages Router i18n：完整翻译指南"
+description: "在 Next.js Pages Router 中配置 Intlayer：使用 getStaticPaths 的本地化路由、翻译后的页面和组件、hreflang 与站点地图。"
 keywords:
   - 国际化
   - 文档
@@ -32,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# 使用Intlayer翻译您的Next.js and Page Router | 国际化(i18n)
+# 使用Intlayer翻译您的Next.js and Page Router
 
 <Tabs defaultTab="code">
   <Tab label="代码" value="code">

@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-06-22
-updatedAt: 2026-06-22
+updatedAt: 2026-09-27
 priority: 5
 title: usePathname Hook 文档 | next-intlayer
-description: 了解如何使用 next-intlayer 包中的 usePathname 钩子
+description: "在 Next.js 中使用 usePathname 获取去掉语言段的当前路径，用于支持语言的导航和激活链接。"
 keywords:
   - usePathname
   - pathname
@@ -133,5 +133,5 @@ export default Sidebar;
 
 ## 相关文档
 
-- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useLocale.md) — 当前语言环境 + 语言环境切换器（也暴露了 `pathWithoutLocale`）
-- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md) — 该钩子使用的底层实用程序
+- [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useLocale.md)
+- [`getPathWithoutLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md)

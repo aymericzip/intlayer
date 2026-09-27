@@ -2,350 +2,355 @@
 createdAt: 2024-08-11
 updatedAt: 2026-09-22
 priority: 8
-title: vue-i18n 与 Intlayer 对比
-description: 比较 vue-i18n 与 Intlayer 在 Vue/Nuxt 应用中的国际化 (i18n) 方案
+title: "vue-i18n vs Intlayer: 2026 基准测试与对比"
+description: "在同一个 Vite + Vue 3 应用中测量 vue-i18n 与 Intlayer：库体积、每页 JavaScript、内容泄漏、组件大小与响应性。"
 keywords:
   - vue-i18n
   - Intlayer
-  - 国际化
+  - Internationalization
   - i18n
-  - 博客
+  - Benchmark
+  - Bundle size
+  - Blog
   - Vue
   - Nuxt
+  - Vite
   - JavaScript
+  - 国际化
+  - 博客
 slugs:
   - blog
   - vue-i18n-vs-intlayer
 author: aymericzip
 ---
 
-# vue-i18n VS Intlayer | Vue 国际化 (i18n)
+# vue-i18n VS Intlayer
 
-![Vue i18n library ecosystem](https://github.com/aymericzip/intlayer/blob/main/docs/assets/cloud_i18n_logo.webp?raw=true)
+`vue-i18n` 是 Vue 的参考 i18n 库。Intlayer 是一个基于编译器、按组件作用域划分内容的替代方案，并提供 Vue 集成（`vue-intlayer`）。本文关注的是应用构建完成后，每个库各自的成本。
 
-本指南比较了两个流行的 **Vue 3**（及 **Nuxt**）国际化选项：**vue-i18n** 和 **Intlayer**。
-我们聚焦于现代 Vue 工具链（Vite，Composition API），并评估：
-
-1. **架构与内容组织**
-2. **TypeScript 与安全性**
-3. **缺失翻译处理**
-4. **路由与 URL 策略**
-5. **性能与加载行为**
-6. **开发者体验 (DX)、工具链与维护**
-7. **SEO 与大型项目的可扩展性**
+数据来自 [Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom)，这是一个开源套件，它用每个库构建同一个应用程序，并记录浏览器实际下载和执行的内容。
 
 <TOC/>
 
-> **简而言之**：两者都能实现 Vue 应用的本地化。如果你需要**组件范围的内容**、**严格的 TypeScript 类型**、**构建时缺失键检查**、**支持 Tree-shaking 的字典**，以及**内置的路由/SEO 辅助工具**，再加上**可视化编辑器和 AI 翻译**，那么 **Intlayer** 是更完整、更现代的选择。
+> **tl;dr**：在同一个 Vite + Vue 3 应用上，`vue-i18n` 每页交付 **134.9 KB** 的 gzip 压缩 JavaScript，而无 i18n 的应用为 **41.3 KB**。Intlayer 交付 **57.1 KB**。仅 `vue-i18n` 的运行时就重达 **24.3 KB gzip**（是 Intlayer 3.9 KB 的 6 倍），每个页面携带 **90% 的其他页面字符串**，而单独编译的组件会拖入 **196 KB**，因为它绑定到全局消息树。`@intlayer/vue-i18n` 适配器保留了 `vue-i18n` 的 API，测得每页 **47.0 KB**。
 
-## 高层定位
+## 简而言之
 
-- **vue-i18n** - Vue 的事实标准国际化库。支持灵活的消息格式（ICU 风格）、单文件组件（SFC）中的 `<i18n>` 块用于本地消息，并拥有庞大的生态系统。安全性和大规模维护主要依赖开发者自身。
-- **Intlayer** - 面向组件的内容模型，适用于 Vue/Vite/Nuxt，具备**严格的 TypeScript 类型检查**、**构建时校验**、**摇树优化**、**路由和 SEO 辅助工具**，可选的**可视化编辑器/CMS**，以及**AI 辅助翻译**。
+- **vue-i18n** - Vue 2 / Vue 3 事实上的 i18n 库，也是 `@nuxtjs/i18n` 的核心。ICU 风格的消息、SFC `<i18n>` 块、`v-t` 指令、`d()` / `n()` 格式化器、庞大的生态系统。消息在 `createI18n()` 时注册到全局实例上；按语言的懒加载是手动的 `setLocaleMessage()` 模式，按路由拆分需要你自己构建。
+- **Intlayer** - 以组件为中心的内容模型。`.content.ts` 字典与其服务的组件放在一起，构建时编译器（`vite-intlayer`）按组件、按语言进行 tree-shaking 和懒加载，从你的内容生成严格的 TypeScript 类型，缺失的翻译在构建时报错。附带路由 / SEO 辅助工具、可视化编辑器 / CMS 以及 AI 辅助翻译。
 
-## 构建时的性能成本
+| 库                    | GitHub Stars                                                                                                                                                                   | 总提交数                                                                                                                                                                           | 最后提交                                                                                                                                            | 首个版本      | NPM 版本                                                                                                    | NPM 下载量                                                                                                             |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `aymericzip/intlayer` | [![GitHub Repo stars](https://img.shields.io/github/stars/aymericzip/intlayer?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/aymericzip/intlayer/stargazers) | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/aymericzip/intlayer?style=for-the-badge&label=commits)](https://github.com/aymericzip/intlayer/commits) | [![Last Commit](https://img.shields.io/github/last-commit/aymericzip/intlayer?style=for-the-badge)](https://github.com/aymericzip/intlayer/commits) | 2024 年 4 月  | [![npm](https://img.shields.io/npm/v/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer) | [![npm downloads](https://img.shields.io/npm/dm/intlayer?style=for-the-badge)](https://www.npmjs.com/package/intlayer) |
+| `intlify/vue-i18n`    | [![GitHub Repo stars](https://img.shields.io/github/stars/intlify/vue-i18n?style=for-the-badge&label=%E2%AD%90%20stars)](https://github.com/intlify/vue-i18n/stargazers)       | [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/intlify/vue-i18n?style=for-the-badge&label=commits)](https://github.com/intlify/vue-i18n/commits)       | [![Last Commit](https://img.shields.io/github/last-commit/intlify/vue-i18n?style=for-the-badge)](https://github.com/intlify/vue-i18n/commits)       | 2016 年 12 月 | [![npm](https://img.shields.io/npm/v/vue-i18n?style=for-the-badge)](https://www.npmjs.com/package/vue-i18n) | [![npm downloads](https://img.shields.io/npm/dm/vue-i18n?style=for-the-badge)](https://www.npmjs.com/package/vue-i18n) |
 
-在查看功能特性表之前，先来看实测数据。[Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) 使用每个库构建相同的 Vite + Vue 3 应用（10 个页面，10 种语言），并记录浏览器下载的数据：
+> 徽章会自动更新。快照会随时间变化。
 
-<I18nBenchmark framework="vite-vue" packages="vue-i18n,intlayer" vertical/>
+## 功能逐项对比
 
-| Setup                | Lib size (gz) | Page JS avg (gz) | Page leak | Component avg (gz) |
-| -------------------- | ------------: | ---------------: | --------: | -----------------: |
-| **base** (no i18n)   |        0.0 KB |          41.3 KB |         - |             1.1 KB |
-| `vue-i18n`           |       24.3 KB |         134.9 KB |     90.0% |           196.0 KB |
-| `@intlayer/vue-i18n` |        7.9 KB |          47.0 KB |      0.0% |             8.4 KB |
-| **`vue-intlayer`**   |    **3.9 KB** |      **57.1 KB** |  **0.0%** |         **7.7 KB** |
+| 功能                                          | `vue-intlayer` (Intlayer)                            | `vue-i18n`                                                |
+| --------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------- |
+| **翻译靠近组件**                              | ✅ 是，`.content.ts` 与每个组件放在一起              | ✅ 通过 SFC `<i18n>` 块（可选）；全局目录是常见的配置     |
+| **TypeScript 集成**                           | ✅ 从内容自动生成严格类型                            | ✅ 类型良好；严格的键安全需要为 schema 定义类型并保持纪律 |
+| **缺失翻译检测**                              | ✅ TypeScript 错误 + 构建时错误/警告                 | ⚠️ 运行时回退 + 控制台警告                                |
+| **富内容（组件 / Markdown）**                 | ✅ 直接支持                                          | ⚠️ `<i18n-t>` 组件插值；Markdown 需外部插件               |
+| **ICU 支持**                                  | ⚠️ 进行中                                            | ✅ 是                                                     |
+| **格式化（日期、数字、货币）**                | ✅ 基于 Intl 的格式化器                              | ✅ `d()` / `n()` 配合 `datetimeFormats` / `numberFormats` |
+| **本地化路由**                                | ✅ Vue Router / Nuxt 辅助工具，`getMultilingualUrls` | ⚠️ 非核心（`@nuxtjs/i18n` 或自定义路由配置）              |
+| **SEO 辅助工具（hreflang、sitemap、robots）** | ✅ 内置辅助工具                                      | ❌ 非核心                                                 |
+| **Tree-shaking（只交付使用的内容）**          | ✅ 按组件、按语言，由编译器自动完成                  | ⚠️ 手动：拆分目录，按路由调用 `setLocaleMessage()`        |
+| **懒加载**                                    | ✅ `importMode: 'dynamic'`（一行配置）               | ✅ 手动 `import()` + `setLocaleMessage()`                 |
+| **清除未使用的内容**                          | ✅ 无用字典在构建时被移除                            | ❌ 未内置                                                 |
+| **测试缺失翻译（CLI / CI）**                  | ✅ `npx intlayer content test`                       | ⚠️ 第三方（`vue-i18n-extract`）                           |
+| **AI 翻译**                                   | ✅ 内置，使用你自己的提供商密钥                      | ❌ 否                                                     |
+| **可视化编辑器 / CMS**                        | ✅ 免费可视化编辑器 + 可选 CMS                       | ❌ 否（外部本地化平台）                                   |
+| **MCP 服务器与 Agent Skills**                 | ✅ 是                                                | ❌ 否                                                     |
+| **生态系统 / 社区**                           | ⚠️ 较小但增长迅速                                    | ✅ 在 Vue 生态中庞大且成熟                                |
 
-仅 `vue-i18n` 的运行时体积就是 Intlayer 的 **6 倍**，每个页面携带了 **90% 属于其他页面的字符串**，而且单独编译的组件会拖入 **196 KB**，因为 `useI18n()` 将其绑定到了全局消息树。包含响应性和页面加载时间的完整测试，请参阅 [vue-i18n 与 Intlayer 基准测试](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer_benchmark.md)。
+## 基准测试
+
+### 测量了什么
+
+[Benchmark Bloom](https://github.com/intlayer-org/benchmark-bloom) 套件用每个库构建**同一个 Vite + Vue 3 应用程序**：**10 个页面**（home、about、blog、careers、contact、FAQ、pricing、products、settings、team）、**10 种语言**（`en`、`fr`、`es`、`de`、`it`、`pt`、`zh`、`ja`、`ko`、`ru`）、相同的组件和相同的内容。页面在 `en` 和 `fr` 下测量。
+
+两个库都在 **static** 配置下测试，这是大多数 Vue 项目实际交付的方式：对 `vue-i18n`，导入每种语言的 JSON 并传给 `createI18n({ messages })`；对 Intlayer，使用默认的 `importMode: 'static'`。在该模式下 Intlayer 也会打包所有语言，但编译器仍然**按组件**限定内容范围，所以一个页面只携带它所渲染组件的字典。
+
+对每个构建，套件记录：
+
+- **Lib size**：只导入 i18n 库的空组件的 gzip 体积。运行时的固定成本。
+- **Page JS**：每页下载的 gzip JavaScript，对所有页面和语言取平均。
+- **Locale leak %**：下载的 JS 中，属于用户**未**查看语言的翻译字符串所占比例（以 `en` 和 `fr` 做指纹，因此 50% 意味着“另一种被测语言完整存在”；打包 10 种语言时，实际浪费更高）。
+- **Page leak %**：下载的 JS 中，属于用户**不在**的页面的翻译字符串所占比例。
+- **Component avg**：每个组件单独编译时的平均 gzip 体积。显示单个组件拖入了多少 i18n 运行时和目录。
+- **E2E reactivity**：从选择新语言到 DOM 中 `html[lang]` 更新之间的实际耗时（Playwright，5 次迭代）。
+- **Page load**：`PerformanceNavigationTiming.duration`。
+
+> 下方数字来自 **2026-09-12** 的运行，使用 `vue-i18n` 11.4.0 和 `intlayer` 9.5.0 / 9.5.1。测试应用故意做得很小（每种语言几十个字符串），因此泄漏百分比描述的是一种**模式**：它们随你的内容增长，而运行时成本保持固定。
+
+### Vite + Vue 3 上的结果
+
+选择你关心的指标和库：
+
+<I18nBenchmark framework="vite-vue" packages="vue-i18n,@intlayer/vue-i18n,intlayer" vertical/>
+
+| 库                            | 策略   | Lib size (gz) | Lib size (min) | Page JS 平均 (gz) | Locale leak | Page leak | Component 平均 (gz) | E2E 响应速度 | Page load |
+| ----------------------------- | ------ | ------------: | -------------: | ----------------: | ----------: | --------: | ------------------: | -----------: | --------: |
+| **base**（无 i18n）           | -      |        0.0 KB |         0.0 KB |           41.3 KB |        0.0% |         - |              1.1 KB |       1.8 ms |   10.8 ms |
+| `vue-i18n`                    | static |       24.3 KB |        83.2 KB |          134.9 KB |       50.0% |     90.0% |            196.0 KB |       2.8 ms |   13.6 ms |
+| **`vue-intlayer`**            | static |    **3.9 KB** |    **11.1 KB** |       **57.1 KB** |       56.8% |  **0.0%** |          **7.7 KB** |   **4.5 ms** |   13.8 ms |
+| `@intlayer/vue-i18n` (compat) | static |        7.9 KB |        23.2 KB |           47.0 KB |       15.0% |      0.0% |              8.4 KB |       1.5 ms |    9.3 ms |
+
+> 基础应用的 page-leak 列留空：没有 i18n 库时，指纹识别会捕获共享 chunk 中硬编码的字符串，该数字没有意义。
+
+**如何解读**
+
+- **运行时成本。** `vue-i18n` 是整个基准测试中最重的运行时之一：只导入它的空组件就要 **24.3 KB gzip / 83.2 KB 压缩后**。`vue-intlayer` 只要 3.9 KB gzip。无论你有多少字符串，这个差距在每个页面上都要付出。
+- **每页 JavaScript。** 无 i18n 的应用重 41.3 KB。`vue-i18n` 让它增至三倍多，达到 **134.9 KB**；Intlayer 落在 **57.1 KB**，+15.8 KB，其中大部分是打包的十种语言（见下一点）。
+- **泄漏。** 使用 `createI18n({ messages: { en, fr, ... } })` 时，每个页面都交付所有语言和所有页面的字符串：**50% 的语言泄漏**（在两种指纹语言上）和 **90% 的页面泄漏**。Intlayer 的 `static` 模式也打包所有语言（因此语言泄漏数字相当），但**页面泄漏为 0%**：一个页面只拉取它渲染的组件的字典。切换到 `importMode: 'dynamic'` 还能消除语言泄漏；该配置不在本次 Vue 运行范围内。
+- **组件体积是架构差异的体现。** 调用 `useI18n()` 的组件平均编译为 **196 KB**，因为 `t()` 绑定到持有所有语言所有消息的全局实例。同一个组件使用 `useIntlayer()` 编译为 **7.7 KB**：它只触及自己的字典。
+- **响应速度**对两者都不是问题（2-5 ms）。一旦消息在内存中，Vue 的响应式系统让语言切换非常廉价。
+- **`@intlayer/vue-i18n`**，即插即用的适配器，保留了 `vue-i18n` 的 API，测得**每页 47.0 KB**、**每组件 8.4 KB**，应用代码未做改动。
+
+> 作为参考，同一次运行测得 `fluent-vue` 每页 171.8 KB、运行时 29.7 KB、每组件 217 KB。
 
 <ClickToOpenIframe
-src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
-width="100%"
-height="600px"
-style="border:none;"
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
 />
 
-> 完整表格请参阅 [Vue 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)。
+> 包含所有库和所有策略的完整表格，请参见 [Vue 基准测试报告](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)。
 
-## 并列功能对比（Vue 重点）
+## 差距从何而来？全局实例 vs 编译后的字典
 
-| 功能                                         | **Intlayer**                                                           | **vue-i18n**                                             |
-| -------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------- |
-| **组件附近的翻译**                           | ✅ 是，内容与组件共置（例如，`MyComp.content.ts`）                     | ✅ 是，通过 SFC `<i18n>` 块（可选）                      |
-| **TypeScript 集成**                          | ✅ 高级，自动生成 **严格** 类型和键自动补全                            | ✅ 良好的类型定义；**严格的键安全性需要额外的设置/规范** |
-| **缺失翻译检测**                             | ✅ **构建时** 警告/错误和 TS 显示                                      | ⚠️ 运行时回退/警告                                       |
-| **丰富内容（组件/Markdown）**                | ✅ 直接支持丰富节点和Markdown内容文件                                  | ⚠️ 有限支持（组件通过`<i18n-t>`，Markdown通过外部插件）  |
-| **AI驱动的翻译**                             | ✅ 内置使用您自己的AI提供商密钥的工作流程                              | ❌ 未内置                                                |
-| **可视化编辑器 / CMS**                       | ✅ 免费的可视化编辑器和可选的CMS                                       | ❌ 未内置（使用外部平台）                                |
-| **本地化路由**                               | ✅ 为 Vue Router/Nuxt 提供生成本地化路径、URL 和 `hreflang` 的辅助工具 | ⚠️ 非核心功能（使用 Nuxt i18n 或自定义 Vue Router 配置） |
-| **动态路由生成**                             | ✅ 支持                                                                | ❌ 不提供（由 Nuxt i18n 提供）                           |
-| **复数化与格式化**                           | ✅ 枚举模式；基于 Intl 的格式化工具                                    | ✅ ICU 风格消息；Intl 格式化工具                         |
-| **内容格式**                                 | ✅ `.ts`、`.js`、`.json`、`.md`、`.txt`（YAML 进行中）                 | ✅ `.json`、`.js`（加上 SFC `<i18n>` 块）                |
-| **ICU 支持**                                 | ⚠️ 进行中                                                              | ✅ 支持                                                  |
-| **SEO 辅助工具（站点地图、robots、元数据）** | ✅ 内置辅助工具（框架无关）                                            | ❌ 非核心功能（Nuxt i18n/社区提供）                      |
-| **SSR/SSG**                                  | ✅ 支持 Vue SSR 和 Nuxt；不阻塞静态渲染                                | ✅ 支持 Vue SSR/Nuxt                                     |
-| **Tree-shaking（仅打包使用的内容）**         | ✅ 构建时按组件进行                                                    | ⚠️ 部分支持；需要手动代码拆分/异步消息                   |
-| **懒加载**                                   | ✅ 按语言/词典级别                                                     | ✅ 支持异步语言消息                                      |
-| **清理未使用内容**                           | ✅ 是（构建时）                                                        | ❌ 非内置功能                                            |
-| **大型项目可维护性**                         | ✅ 鼓励模块化、设计系统友好的结构                                      | ✅ 可行，但需要严格的文件/命名空间管理                   |
-| **生态系统 / 社区**                          | ⚠️ 较小但增长迅速                                                      | ✅ Vue 生态系统中庞大且成熟                              |
-
-## 深度比较
-
-<AccordionGroup>
-<Accordion header="1) 架构与可扩展性">
-
-- **vue-i18n**：常见的设置是为每个语言环境使用**集中式目录**（可选地拆分为文件/命名空间）。SFC `<i18n>` 块允许局部消息，但随着项目增长，团队通常会回归使用共享目录。 请参阅[组件级与集中式 i18n 对比](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/per-component_vs_centralized_i18n.md)。
-- **Intlayer**：提倡将**每个组件的字典**存储在其对应组件旁边。这减少了跨团队冲突，保持内容可发现性，并自然限制了漂移/未使用的键。
-
-**重要原因：** 在大型 Vue 应用或设计系统中，**模块化内容**比单体目录更易于扩展。
-
-</Accordion>
-<Accordion header="2) TypeScript 与安全性">
-
-- **vue-i18n**：良好的 TS 支持；**严格键类型**通常需要自定义模式/泛型和谨慎的约定。
-- **Intlayer**：从您的内容中**生成严格类型**，提供**IDE 自动补全**和针对拼写错误/缺失键的**编译时错误**。
-
-**重要性说明：** 强类型可以在**运行前**捕获问题。
-
-</Accordion>
-<Accordion header="3) 缺失翻译的处理">
-
-- **vue-i18n**：**运行时**警告/回退（例如，回退到默认语言或键）。 请参阅[检测缺失翻译](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/detecting_missing_translations.md)。
-- **Intlayer**：通过**构建时**检测，针对不同语言和键发出警告/错误。
-
-**重要性说明：** 构建时强制执行确保生产环境界面干净且一致。
-
-</Accordion>
-<Accordion header="4) 路由与 URL 策略 (Vue Router/Nuxt)">
-
-- **两者**都支持本地化路由。 请参阅 [hreflang 指南](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/hreflang_guide_multilingual_seo.md)。
-- **Intlayer** 提供辅助工具来 **生成本地化路径**，**管理语言前缀**，并为 SEO 生成 **`<link rel="alternate" hreflang>`** 标签。在 Nuxt 中，它补充了框架的路由功能。
-
-**重要性：** 减少自定义粘合层，实现跨语言环境的 **更清晰的 SEO**。
-
-</Accordion>
-<Accordion header="5) 性能与加载行为">
-
-- **vue-i18n**：支持异步加载语言消息；避免过度打包需要你自行管理（需谨慎拆分目录）。 上述基准测试提供了具体数据：每页 134.9 KB 对比 57.1 KB。
-- **Intlayer**：在构建时进行 **Tree-shaking**，并按字典/语言进行 **懒加载**。未使用的内容不会被打包。
-
-**重要性：** 更小的包体积和更快的多语言 Vue 应用启动速度。
-
-</Accordion>
-<Accordion header="6) 开发者体验与工具生态">
-
-- **vue-i18n**：成熟的文档和社区；您通常会依赖**外部本地化平台**来进行编辑工作流程。
-- **Intlayer**：提供免费的**可视化编辑器**，可选的**CMS**（支持 Git 或外部化），一个**VSCode 扩展**，**CLI/CI** 工具，以及使用您自己的提供商密钥的**AI 辅助翻译**。、**MCP 服务器**
-
-**重要原因：** 降低运维成本，缩短开发与内容的循环时间。
-
-</Accordion>
-<Accordion header="7) SEO、SSR 与 SSG">
-
-- **两者**均支持 Vue SSR 和 Nuxt。 请参阅[国际化与 SEO](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/internationalization_and_SEO.md)。
-- **Intlayer**：增加了**SEO 辅助工具**（站点地图/元数据/`hreflang`），与框架无关，并且能很好地配合 Vue/Nuxt 构建。
-
-**重要原因：** 实现国际化 SEO，无需定制复杂配置。
-
-</Accordion>
-</AccordionGroup>
-
-## 为什么选择 Intlayer？（问题与方法）
-
-![Centralized catalogs versus per-component dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/assets/project_stucture_18n_vs_intlayer.png?raw=true)
-
-大多数 i18n 方案（包括 **vue-i18n**）都从**集中式目录**开始：
-
-<Tabs defaultTab="per-locale" group="catalog">
-<Tab label="每种语言一个文件" value="per-locale">
+`vue-i18n` 是一个运行时。`createI18n()` 构建一个全局实例，为每种语言持有一棵消息树；`useI18n()` 把每个组件绑定到它；`t("footer.github")` 在渲染时查找键。正是这一点使 SFC `<i18n>` 块、`v-t` 和运行时消息加载成为可能，也正是因此每个组件的依赖图都包含整棵树：
 
 ```bash
 .
 ├── locales
 │   ├── en.json
-│   ├── es.json
-│   └── fr.json
+│   ├── fr.json
+│   └── ...                        # 每种语言一个文件，包含所有页面
 └── src
+    ├── i18n.ts                    # createI18n({ messages: { en, fr, ... } })
+    ├── main.ts
     └── components
-        └── MyComponent.vue
+        └── Footer.vue             # const { t } = useI18n(); t("footer.github")
 ```
 
-</Tab>
-<Tab label="每种语言一个文件夹" value="per-folder">
+优化意味着**你**把 `en.json` 拆成按路由的文件，**你**在路由守卫中调用 `setLocaleMessage()`，并且**你**在组件移动时维护路由到文件的映射。运行时无法替你做这些，因为它不知道组件会请求哪些键。
+
+Intlayer 把这些知识移到构建阶段。内容在组件旁声明，`vite-intlayer` 解析哪个组件导入哪个字典：
 
 ```bash
 .
-├── locales
-│   ├── en
-│   │  ├── footer.json
-│   │  └── navbar.json
-│   ├── fr
-│   │  ├── footer.json
-│   │  └── navbar.json
-│   └── es
-│      ├── footer.json
-│      └── navbar.json
+├── intlayer.config.ts
 └── src
+    ├── main.ts                    # createApp(App).use(intlayer)
     └── components
-        └── MyComponent.vue
+        └── Footer
+            ├── Footer.vue         # useIntlayer("footer")
+            └── Footer.content.ts
 ```
 
-</Tab>
-</Tabs>
+编译器按字典、按语言精确输出该组件需要的 JSON，并丢弃没有任何导入的字典。按路由的作用域是按组件作用域的自然结果，而不是一项任务。
 
-该文件夹不断膨胀，每种语言中的每个功能都有一个命名空间：
+> 若还想丢弃未使用的语言，在 `intlayer.config.ts` 中设置 `dictionary.importMode: 'dynamic'`。参见 [bundle 优化文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)。
 
-```txt
-locales
-├── EN
-│   ├── blog.json
-│   ├── about.json
-│   ├── auth.json
-│   ├── blog.json
-│   ├── cart.json
-│   ├── categories.json
-│   ├── contact.json
-│   ├── dashboard.json
-│   ├── errors.json
-│   ├── faq.json
-│   ├── footer.json
-│   ├── form.json
-│   ├── home.json
-│   ├── language.json
-│   ├── navbar.json
-│   ├── ... 65 files
-│   └── validation.json
-└── ES
+## 开发体验
+
+### 设置
+
+**vue-i18n**
+
+```ts fileName="src/i18n.ts"
+import { createI18n } from "vue-i18n";
+import en from "../locales/en.json";
+import fr from "../locales/fr.json";
+
+export const i18n = createI18n({
+  legacy: false,
+  locale: "en",
+  fallbackLocale: "en",
+  messages: { en, fr },
+});
 ```
 
-随着应用程序的增长，这通常会减慢开发速度：
+```ts fileName="src/main.ts"
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import { i18n } from "./i18n";
 
-1. **对于新组件**，你需要创建/编辑远程目录，连接命名空间，并进行翻译（通常通过从 AI 工具手动复制粘贴）。
-2. **在更改组件时**，你需要寻找共享的键，进行翻译，保持各语言版本同步，删除无用键，并对齐 JSON 结构。
-
-**Intlayer** 将内容限定在**每个组件范围内**，并将其**保存在代码旁边**，就像我们已经对 CSS、故事、测试和文档所做的那样：
-
-```bash
-.
-└── components
-    └── MyComponent
-        ├── MyComponent.content.ts
-        └── MyComponent.vue
+createApp(App).use(router).use(i18n).mount("#app");
 ```
 
-<Tabs defaultTab="intlayer" group="techno">
-<Tab label="vue-i18n" value="vue-i18n">
+**Intlayer**
 
-```json fileName="./locales/en.json"
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [intlayer(), vue()],
+});
+```
+
+```ts fileName="src/main.ts"
+import { createApp } from "vue";
+import { intlayer } from "vue-intlayer";
+import App from "./App.vue";
+import router from "./router";
+
+createApp(App).use(intlayer).use(router).mount("#app");
+```
+
+### 组件
+
+**vue-i18n**
+
+```json fileName="locales/en.json"
 {
-  "componentExample": {
-    "greeting": "Hello World"
+  "counter": {
+    "label": "Counter",
+    "increment": "Increment"
   }
 }
 ```
 
-```vue fileName="./components/MyComponent.vue"
+```vue fileName="src/components/Counter.vue"
 <script setup lang="ts">
+import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-const { t } = useI18n();
+const { t, n } = useI18n();
+const count = ref(0);
 </script>
 
 <template>
-  <span>{{ t("componentExample.greeting") }}</span>
+  <div>
+    <p>{{ n(count) }}</p>
+    <button :aria-label="t('counter.label')" @click="count++">
+      {{ t("counter.increment") }}
+    </button>
+  </div>
 </template>
 ```
 
-每个语言文件都必须手动编辑，且键只是普通字符串：拼写错误在生产环境中会直接渲染为 `componentExample.greting`。
+在你自己为消息 schema 定义类型之前，`t('counter.label')` 只是一个字符串；拼写错误会直接渲染出键名。
 
-</Tab>
-<Tab label="Intlayer" value="intlayer">
+**Intlayer**
 
-```ts fileName="./components/MyComponent/myComponent.content.ts"
+```ts fileName="src/components/Counter/Counter.content.ts"
 import { t, type Dictionary } from "intlayer";
 
-const componentExampleContent = {
-  key: "component-example",
+const counterContent = {
+  key: "counter",
   content: {
-    greeting: t({
-      en: "Hello World",
-      fr: "Bonjour le monde",
-      es: "Hola Mundo",
-    }),
+    label: t({ en: "Counter", fr: "Compteur" }),
+    increment: t({ en: "Increment", fr: "Incrémenter" }),
   },
 } satisfies Dictionary;
 
-export default componentExampleContent;
+export default counterContent;
 ```
 
-```vue fileName="./components/MyComponent/MyComponent.vue"
+```vue fileName="src/components/Counter/Counter.vue"
 <script setup lang="ts">
-import { useIntlayer } from "vue-intlayer"; // Vue integration
+import { ref } from "vue";
+import { useIntlayer } from "vue-intlayer";
+import { useNumber } from "vue-intlayer/format";
 
-const { greeting } = useIntlayer("component-example");
+const { label, increment } = useIntlayer("counter");
+const number = useNumber();
+const count = ref(0);
 </script>
 
 <template>
-  <span>{{ greeting }}</span>
+  <div>
+    <p>{{ number.value(count) }}</p>
+    <button :aria-label="label" @click="count++">
+      {{ increment }}
+    </button>
+  </div>
 </template>
 ```
 
-所有语言都位于组件旁边的一个类型化文件中。
+`label` 和 `increment` 是有类型的；拼写错误是 TypeScript 错误，缺失的法语值是构建错误。
 
-</Tab>
-</Tabs>
+### 按语言懒加载
 
-这种方法：
+**vue-i18n**
 
-- **加快开发速度**（声明一次；IDE/AI 自动补全）。
-- **清理代码库**（1 个组件 = 1 个字典）。
-- **简化复制/迁移**（复制组件及其内容一起复制）。
-- **避免死键**（未使用的组件不导入内容）。
-- **优化加载**（懒加载组件携带其内容）。
+```ts fileName="src/i18n.ts"
+import { nextTick } from "vue";
+import { createI18n } from "vue-i18n";
 
-## Intlayer 的额外功能（与 Vue 相关）
+export const i18n = createI18n({
+  legacy: false,
+  locale: "en",
+  fallbackLocale: "en",
+});
 
-- **跨框架支持**：支持 Vue、Nuxt、Vite、React、Express 等。
-- **基于 JavaScript 的内容管理**：在代码中声明，灵活度高。
-- **每个语言环境的声明文件**：为所有语言环境预设内容，工具自动生成其余部分。
-- **类型安全环境**：强大的 TypeScript 配置，支持自动补全。
-- **简化内容获取**：单一钩子/组合函数获取字典的所有内容。
-- **有序的代码库**：一个组件对应一个字典，存放在同一文件夹。
-- **增强的路由功能**：为 **Vue Router/Nuxt** 提供本地化路径和元数据的辅助工具。
-- **Markdown 支持**：按语言环境导入远程/本地 Markdown；将 frontmatter 暴露给代码。
-- **免费可视化编辑器和可选 CMS**：无需付费本地化平台即可创作；支持 Git 友好的同步。
-- **可摇树内容**：仅打包使用的内容；支持懒加载。
-- **静态渲染友好**：不阻塞静态站点生成（SSG）。
-- **AI驱动的翻译**：使用您自己的AI提供商/API密钥，支持翻译成231种语言。
-- **MCP服务器和VSCode扩展**：在您的IDE中自动化i18n工作流和内容创作。
-- **互操作性**：在需要时与**vue-i18n**、**react-i18next**和**react-intl**桥接。
+export const loadLocaleMessages = async (locale: string) => {
+  const messages = await import(`../locales/${locale}.json`);
+  i18n.global.setLocaleMessage(locale, messages.default);
+  await nextTick();
+  i18n.global.locale.value = locale;
+};
+```
+
+然后在路由守卫中调用 `loadLocaleMessages()`，如果想要按页面的作用域，还得自己按路由拆分 `locales/{locale}.json`。
+
+**Intlayer**
+
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  // ...
+  dictionary: {
+    importMode: "dynamic",
+  },
+};
+```
+
+## 保留 vue-i18n 的 API，获得 Intlayer 的输出
+
+`@intlayer/vue-i18n` 是一个即插即用的适配器：`useI18n()`、`t()`、`d()`、`n()`、`{name}` 和 `{0}` 插值、管道复数（`"car | cars"`）、`v-t` 和 `i18n.global.locale` 都继续工作，但由 `vite-intlayer` 编译的 Intlayer 字典提供服务。
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import vueI18nVitePlugin from "@intlayer/vue-i18n/plugin";
+
+export default defineConfig({
+  plugins: [vue(), vueI18nVitePlugin()],
+});
+```
+
+在基准测试中，同一应用的 compat 构建每页从 **134.9 KB 降到 47.0 KB**，每组件从 **196 KB 降到 8.4 KB**，组件未做改动。通过 JSON 同步插件，你现有的 `locales/{locale}.json` 可以继续作为事实来源。
+
+参见 [vue-i18n 迁移指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md)和[兼容性文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md)。Nuxt 用户可通过 [`@nuxtjs/i18n` 兼容性](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)走同样的路径。
 
 ## 何时选择哪一个？
 
-<AccordionGroup>
-<Accordion header="选择 vue-i18n">
-
-如果您想要 **标准的 Vue 方案**，习惯于自己管理语言目录和命名空间，且应用属于 **中小型规模**（或者您已经在重度依赖 Nuxt i18n）。SFC `<i18n>` 块和运行时 `setLocaleMessage()` 是 Intlayer 刻意不予保留的功能。
-
-</Accordion>
-<Accordion header="选择 Intlayer">
-
-如果您看重 **组件作用域内容**、**严格的 TypeScript**、**构建期安全保证**、**Tree-shaking** 以及开箱即用的路由、SEO 和编辑器工具，特别是对于 **大型模块化 Vue/Nuxt 代码库** 和设计系统。请从 [Intlayer 与 Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+vue.md) 或 [与 Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nuxt.md) 开始。
-
-</Accordion>
-<Accordion header="选择 @intlayer/vue-i18n">
-
-如果您当前在使用 `vue-i18n`，希望无需修改 `.vue` 文件即可获得包体积优化。[兼容适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) 保留了 `createI18n`、`useI18n`、`t()`、`d()`、`n()`、`$t` 和 `v-t`，并从编译后的字典提供服务。详细数据见 [vue-i18n 与 @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer-vue-i18n.md)。
-
-</Accordion>
-</AccordionGroup>
-
-## 与 vue-i18n 的互操作性
-
-`intlayer` 还可以帮助管理您的 `vue-i18n` 命名空间。
-
-使用 `intlayer`，您可以按照喜爱的 i18n 库格式声明内容，intlayer 将在您选择的位置生成命名空间（例如：`/messages/{{locale}}/{{namespace}}.json`）。 请参阅 [vue-i18n 兼容性文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md) 以及 [Nuxt i18n 适配器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)。
+- **选择 vue-i18n**，如果你想要标准的 Vue 方式、依赖 ICU 消息或 SFC `<i18n>` 块、已经在使用 `@nuxtjs/i18n`，或者翻译平台期望集中式 JSON。如果 bundle 体积很重要，请预留时间来拆分目录并按路由懒加载。
+- **选择 Intlayer**，如果你想要**按组件作用域的内容**、**严格的 TypeScript**、**构建时的缺失键错误**、**零成本的 tree-shaking 和懒加载**，以及内置的编辑工具（可视化编辑器、CMS、AI 翻译、MCP 服务器）。对大型模块化 Vue / Nuxt 代码库和设计系统尤其适用。
+- **选择 `@intlayer/vue-i18n`**，如果你已经在用 `vue-i18n`，想在不重写的情况下获得 bundle 收益。
 
 ## 常见问题解答
 
@@ -383,28 +388,46 @@ const { greeting } = useIntlayer("component-example");
 
 </FAQ>
 
-## GitHub Stars
+## 相关对比
 
-GitHub stars 是项目受欢迎程度、社区信任度和长期相关性的强有力指标。虽然不是技术质量的直接衡量标准，但它们反映了有多少开发者认为该项目有用、关注其进展，以及可能会采用它。对于估计项目的价值，stars 有助于在各种方案之间进行性能对比，并提供生态系统增长的见解。
+- [next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/next-intl_vs_intlayer.md)
+- [i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/i18next_vs_intlayer.md)
+- [Lingui vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/lingui_vs_intlayer.md)
+- [vue-i18n 过时了吗？](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_vue-i18n_outdated.md)
+
+参考文档：
+
+- [兼容适配器：vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/vue-i18n.md)
+- [Nuxt i18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compat/nuxtjs-i18n.md)
+- [迁移指南：从 vue-i18n 到 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md)
+- [Bundle 优化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md)
+- [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
+
+基准测试报告：
+
+- [i18n 基准测试概览](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/index.md)
+- [Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md)
+- [TanStack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md)
+- [Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
+- [Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/solid.md)
+- [Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/svelte.md)
+
+> 想了解这些库的由来，请阅读 JavaScript i18n 的发展史。
+
+- [JavaScript i18n 的发展史](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/history_of_i18n.md)
+
+## GitHub Star
+
+GitHub star 是项目受欢迎程度、社区信任度和长期相关性的有力指标。虽然不是技术质量的直接衡量，但它反映了有多少开发者认为该项目有用、关注其进展并可能采用它。
 
 [![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
 
 ## 结论
 
-**vue-i18n** 和 **Intlayer** 都能很好地本地化 Vue 应用。区别在于你需要自己构建多少内容，才能实现一个健壮且可扩展的方案：
+`vue-i18n` 成熟、灵活，并与 Vue 深度集成。基准测试展示了其运行时优先的设计在 Vite 构建上的代价：**24 KB gzip 的运行时**，一个无 i18n 时仅 41 KB 的应用**每页 134.9 KB**，每个页面上 **90% 是其他页面的内容**，以及每个都达到 **196 KB** 的组件，因为它们挂在全局消息树上。
 
-- 使用 **Intlayer**，**模块化内容**、**严格的 TS**、**构建时安全性**、**摇树优化的包**以及**路由/SEO/编辑器工具**均为**开箱即用**。
-- 如果您的团队优先考虑在多语言、组件驱动的 Vue/Nuxt 应用中的**可维护性和速度**，Intlayer 提供了目前**最完整**的体验。
+Intlayer 把工作移进编译器。按组件的字典和无用内容清除是构建产物，而不是约定。在同一应用上：**3.9 KB 运行时**、**每页 57.1 KB**、**0% 页面泄漏**、组件**小 25 倍**。如果重写不在考虑之列，`@intlayer/vue-i18n` 可以在不改动组件的情况下走完大部分路程。
 
-## 延伸阅读
+所有原始数据、测试应用和脚本都在 [Benchmark Bloom 仓库](https://github.com/intlayer-org/benchmark-bloom)中。自己跑一遍吧。
 
-- [vue-i18n vs Intlayer benchmark](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer_benchmark.md), the measured run behind the table above
-- [vue-i18n vs @intlayer/vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/vue-i18n_vs_intlayer-vue-i18n.md), the adapter on the same app
-- [Is vue-i18n outdated?](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/is_vue-i18n_outdated.md)
-- [How to pick a Vue i18n library](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/how_to_pick_vue_i18n_library.md)
-- [Using Intlayer with vue-i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/intlayer_with_vue-i18n.md)
-- [Vue benchmark report](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/vue.md)
-- [Migration guide: vue-i18n to Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/migration_from_vue-i18n_to_intlayer.md)
-- [Bundle optimization](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/bundle_optimization.md) and [the Intlayer compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
-
-Refer to ['Why Intlayer?' doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md) for more details.
+更多细节请参阅[“为什么选择 Intlayer？”文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。

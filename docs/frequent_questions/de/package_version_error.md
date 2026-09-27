@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-09-27
 priority: 4
 title: Ich erhalte einen Fehler im Zusammenhang mit Sub-Paketen `@intlayer/*`
-description: Fehlerbehebung im Zusammenhang mit Sub-Paketen `@intlayer/*`.
+description: "Beheben Sie Fehler durch unterschiedliche Versionen der @intlayer/*-Unterpakete: alle Intlayer-Pakete auf dieselbe Version bringen und Cache leeren."
 keywords:
   - @intlayer/*
   - Sub-Pakete

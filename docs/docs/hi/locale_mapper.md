@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-07-27
-updatedAt: 2025-07-27
+updatedAt: 2026-09-27
 priority: 8
-title: लोकल मैपर
-description: जानें कि लोकल मैपर कैसे काम करता है। अपने एप्लिकेशन में लोकल मैपर द्वारा उपयोग किए गए चरण देखें। जानें कि विभिन्न पैकेज क्या करते हैं।
+title: "Locale Mapper: localeMap, localeFlatMap, localeRecord"
+description: "localeMap, localeFlatMap और localeRecord से लोकेल डेटा बदलें, ताकि रूट, स्टैटिक पैरामीटर और प्रति लोकेल ऑब्जेक्ट बनें।"
 keywords:
   - लोकल मैपर
   - शुरू करें

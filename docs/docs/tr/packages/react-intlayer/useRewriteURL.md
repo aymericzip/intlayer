@@ -1,9 +1,9 @@
 ---
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 5
 createdAt: 2025-08-23
-title: useRewriteURL Hook Dokümantasyonu
-description: Intlayer'da yerelleştirilmiş URL yeniden yazımlarını yönetmek için React'e özgü hook.
+title: "useRewriteURL Hook Dokümantasyonu | react-intlayer"
+description: "React'te useRewriteURL ile tarayıcı URL'sini yapılandırmanızdaki URL yeniden yazma kurallarına göre yerelleştirilmiş sürümüne çevirin."
 keywords:
   - useRewriteURL
   - react-intlayer

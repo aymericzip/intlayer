@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-01-30
-updatedAt: 2026-01-30
+updatedAt: 2026-09-27
 priority: 5
 title: Dokumentasi Middleware intlayer AdonisJS | adonis-intlayer
-description: Lihat cara menggunakan middleware intlayer untuk paket adonis-intlayer
+description: "Middleware intlayer untuk AdonisJS mendeteksi locale pengguna dan menyediakan fungsi terjemahan melalui konteks request."
 keywords:
   - intlayer
   - adonisjs

@@ -1,9 +1,9 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-09-27
 priority: 8
-title: Lấy Dữ Liệu Hàm
-description: Tìm hiểu cách khai báo và sử dụng lấy dữ liệu hàm trong trang web đa ngôn ngữ của bạn. Làm theo các bước trong tài liệu trực tuyến này để thiết lập dự án của bạn trong vài phút.
+title: "Function fetching: tải nội dung từ hàm"
+description: "Khai báo nội dung Intlayer từ hàm đồng bộ hoặc bất đồng bộ, ví dụ để lấy bản dịch từ API khi build."
 keywords:
   - Lấy Dữ Liệu Hàm
   - Quốc tế hóa

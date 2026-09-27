@@ -1,9 +1,9 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-09-12
+updatedAt: 2026-09-27
 priority: 5
-title: Riempire Dizionari
-description: Impara come riempire, controllare e tradurre i tuoi dizionari usando l'AI.
+title: "intlayer fill: tradurre i dizionari con l'IA"
+description: "Completa le traduzioni mancanti, verifica quelle esistenti e traduci i dizionari di Intlayer con l'IA dalla CLI, in locale o in CI."
 keywords:
   - Riempire
   - Controllare

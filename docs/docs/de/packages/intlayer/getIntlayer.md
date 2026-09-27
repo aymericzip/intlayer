@@ -1,9 +1,9 @@
 ---
 createdAt: 2026-08-23
-updatedAt: 2026-08-23
+updatedAt: 2026-09-27
 priority: 5
-title: getIntlayer Function Documentation | intlayer
-description: Siehe, wie du die getIntlayer-Funktion für das intlayer-Paket verwendest
+title: "getIntlayer-Funktionsdokumentation | intlayer"
+description: "Nutzen Sie getIntlayer, um Wörterbuchinhalte für eine Locale überall zu lesen, das frameworkunabhängige Gegenstück zum useIntlayer-Hook."
 keywords:
   - getIntlayer
   - dictionary
@@ -164,9 +164,9 @@ Beim Anfordern eines Schlüssels, der kein generiertes Wörterbuch hat, protokol
 
 ## Verwandte Funktionen
 
-- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayerAsync.md): Asynchrones Äquivalent, das einen einzelnen Locale-Chunk lädt.
-- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getDictionary.md): Interpretiert ein Wörterbuch-Objekt, das Sie selbst übergeben, anstatt eines, das nach Schlüssel nachgeschlagen wird.
-- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useIntlayer.md): Das React-Hook-Äquivalent, das das Locale vom Provider liest.
+- [`getIntlayerAsync`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getIntlayerAsync.md)
+- [`getDictionary`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/intlayer/getDictionary.md)
+- [`useIntlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useIntlayer.md)
 
 ## TypeScript
 
