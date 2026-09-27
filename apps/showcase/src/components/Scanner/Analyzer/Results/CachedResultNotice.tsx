@@ -1,4 +1,5 @@
 import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { relativeTime } from 'intlayer';
 import { History, RotateCw } from 'lucide-react';
 import type { FC } from 'react';
@@ -41,8 +42,12 @@ export const CachedResultNotice: FC<CachedResultNoticeProps> = ({
   });
 
   return (
-    <div
-      className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-lg border border-neutral/30 border-dashed px-3 py-2 text-left text-muted-foreground text-sm"
+    <Container
+      className="mt-3 flex-row flex-wrap items-center justify-between gap-2 border-dashed text-left text-neutral text-sm"
+      border
+      borderColor="neutral"
+      background="none"
+      padding="md"
       title={cacheDescription.value}
     >
       <span className="flex items-center gap-2">
@@ -60,6 +65,6 @@ export const CachedResultNotice: FC<CachedResultNoticeProps> = ({
       >
         {rerun}
       </Button>
-    </div>
+    </Container>
   );
 };

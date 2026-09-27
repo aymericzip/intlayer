@@ -3,7 +3,6 @@ import { FileText, Globe, Languages, Link as LinkIcon } from 'lucide-react';
 import type { FC, HTMLProps, ReactNode } from 'react';
 import { memo } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '~/components/Link/Link';
 import { FieldItem } from './FieldItem';
 import type { AuditDataList, MergedData } from './types';
 
@@ -57,11 +56,7 @@ export const createCompOverwrite = () => ({
 export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
   ({ data, url, isLoading }) => {
     const compOverwrite = createCompOverwrite();
-    const {
-      fields,
-      fieldsDescription,
-      url: urlText,
-    } = useIntlayer('analyzer-results');
+    const { fields, fieldsDescription } = useIntlayer('analyzer-results');
 
     const fieldsList: FieldItemData[] = [
       {
@@ -134,9 +129,6 @@ export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
 
     return (
       <div className="flex flex-col gap-2 pt-2 text-left text-sm">
-        <Link to={url} label={urlText?.label?.value} color="text">
-          {url}
-        </Link>
         <div className="mt-3 grid grid-cols-1 xs:grid-cols-2 gap-x-4 gap-y-2 border-neutral border-t border-dotted pt-2 sm:grid-cols-3">
           {fieldsList.map((item) => (
             <FieldItem

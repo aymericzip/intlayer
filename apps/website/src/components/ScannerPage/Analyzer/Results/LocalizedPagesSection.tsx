@@ -1,4 +1,5 @@
 import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import {
   getLocalizedPages,
   isBaseLocalePage,
@@ -83,10 +84,16 @@ export const LocalizedPagesSection: FC<LocalizedPagesSectionProps> = ({
       </strong>
 
       {isBasePage && (
-        <p className="flex items-start gap-2 rounded-lg border border-warning/40 bg-warning/5 px-3 py-2 text-foreground/80">
+        <Container
+          className="flex-row items-start gap-2 bg-warning/5 text-foreground/80"
+          border
+          borderColor="warning"
+          background="none"
+          padding="md"
+        >
           <Info size={16} className="mt-0.5 shrink-0 text-warning" />
-          {basePageNote}
-        </p>
+          <p>{basePageNote}</p>
+        </Container>
       )}
 
       <span className="text-muted-foreground text-xs">{description}</span>

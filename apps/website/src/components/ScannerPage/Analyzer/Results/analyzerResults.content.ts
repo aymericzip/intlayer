@@ -4,28 +4,6 @@ import { type Dictionary, enu, md, t } from 'intlayer';
 const analyzerResultsContent = {
   key: 'analyzer-results',
   content: {
-    url: {
-      label: t({
-        en: 'Go to URL',
-        'en-GB': 'Go to URL',
-        fr: "Aller à l'URL",
-        es: 'Ir a la URL',
-        de: 'Zur URL gehen',
-        ja: 'URLに移動',
-        zh: '转到URL',
-        ru: 'Перейти к URL',
-        ko: 'URL로 이동',
-        it: "Vai all'URL",
-        pt: 'Ir para o URL',
-        hi: 'यूआरएल पर जाएं',
-        tr: "URL'ye git",
-        pl: 'Przejdź do URL',
-        id: 'Pergi ke URL',
-        vi: 'Đi đến URL',
-        ar: 'اذهب إلى الرابط',
-        uk: 'Перейти до URL',
-      }),
-    },
     score: {
       title: t({
         en: 'Score',
